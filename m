@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7146E91C59B
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 20:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81A7791C62B
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2024 20:57:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02ECC231C;
-	Fri, 28 Jun 2024 20:24:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02ECC231C
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD419227D;
+	Fri, 28 Jun 2024 20:57:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD419227D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719599077;
-	bh=PSU3tdTo76FLPP7xiWLKc41rwOiwu52i+9dzvpqpwII=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=RwgIYy85NqXPIIS9WRf6m/JWzGoRTACnz0r4Pc2tAyQhZjme1Lgjddk3rXnxfgpcP
-	 tePXNN2qtx5rw654qEdAhvUmvg4zy25LfNoZ8icECStH47tUK0gzTnCFCeTevWqwrZ
-	 +4YJ7ABaOSP5LO/i/QMWtfbX9Cy3TNkFJaPIidxw=
+	s=default; t=1719601031;
+	bh=nbZ4B4IuGzfJbPVBIOmAq3RdE0TDLUZCXRFXhHZu+Og=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=DrgCbvKc5VGEyYbQ8XZHuqRk5PjWFtCaQKsfAW4VhAqIjH9p/nZ3QjVQHA2juvNaH
+	 9v3ui/139CpZLNm8RygXc/ryMsMuELRxCUOcJ+sPgjl9y7BRVTud/DoxJdeQ3h8lcP
+	 6P8MQwctk4mk13UF3K62Ta/yHS5/f0B7nfnao7sM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D56DF805B2; Fri, 28 Jun 2024 20:24:05 +0200 (CEST)
+	id 21D1DF8059F; Fri, 28 Jun 2024 20:56:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59004F8049C;
-	Fri, 28 Jun 2024 20:24:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AFB5F80589;
+	Fri, 28 Jun 2024 20:56:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99F36F80423; Fri, 28 Jun 2024 20:23:59 +0200 (CEST)
+	id 3DBF3F80423; Fri, 28 Jun 2024 20:56:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,64 +35,54 @@ X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A62E5F8013D
-	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 20:23:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A62E5F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6057CF800E4
+	for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2024 20:56:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6057CF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZdyI0W+n
+ header.s=k20201202 header.b=gJshG7sA
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 52FDCCE4250;
-	Fri, 28 Jun 2024 18:23:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72894C116B1;
-	Fri, 28 Jun 2024 18:23:37 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 46B67CE4292;
+	Fri, 28 Jun 2024 18:56:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C38C32786;
+	Fri, 28 Jun 2024 18:56:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719599023;
-	bh=PSU3tdTo76FLPP7xiWLKc41rwOiwu52i+9dzvpqpwII=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=ZdyI0W+nmqUJCWipPdNf4cmBtY+rypYDwx+itWdMspkZMxFXGqTXLiqwqj+P/L2HW
-	 ayxR9qnJXpys3ydRLPfokVQx98MOeqM03nKa/ytsBexikuA9liqDpHV1OfVVALU+tE
-	 f7Fj4nqi4PEUTPns+yPNM8egQuCOh0Ovv/wpOD+UZ/8SlcGE22Ghaiomf6798XikSx
-	 0fgHRjbt7tZT77y95s6ou8xunrmc2rYTHBH4XJGA+fSkOoEi4YpexqWOIht15+aPX7
-	 D00T9WThNkC2oKuTUBzvB83od0XpV7aqlLaIS7DCv64svIp/Io9uTUPLn1flWW5vhe
-	 Y1c3dtBmP4QfA==
-From: Mark Brown <broonie@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "J.M.B. Downing" <jonathan.downing@nautel.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Arnd Bergmann <arnd@arndb.de>, Yangtao Li <frank.li@vivo.com>,
- Li Zetao <lizetao1@huawei.com>, Chancel Liu <chancel.liu@nxp.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Corentin Labbe <clabbe@baylibre.com>,
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-sound@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-mtd@lists.infradead.org,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-In-Reply-To: <20240627150046.258795-1-piotr.wojtaszczyk@timesys.com>
-References: <20240627150046.258795-1-piotr.wojtaszczyk@timesys.com>
-Subject: Re: (subset) [Patch v5 00/12] Add audio support for LPC32XX CPUs
-Message-Id: <171959901719.141669.17001815513243855671.b4-ty@kernel.org>
-Date: Fri, 28 Jun 2024 19:23:37 +0100
+	s=k20201202; t=1719600967;
+	bh=nbZ4B4IuGzfJbPVBIOmAq3RdE0TDLUZCXRFXhHZu+Og=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=gJshG7sAzkli8Ku4dDLbq7WqEPiAmGjfjwS28P42WdkkeNjV0Dv68mtlkPn0X5+lb
+	 gEZ02GOVBsAKsO5kxHT/coAxwFlaZw2cLlsD/ov7y3OTYuEydLxB+JDNuh2cbapWRF
+	 1cyXqblStMzwyVWxPEGmXln/zF4/nqXdjdare73iQaMZ7e3jiQMaH0jYHUEoE/zg7I
+	 D4F3LwVxJ3UW9AAJMSqJxdOiMxwu8m8ACWjkGD9T4Tt307HkAUuqI5WNfQBLZNBPio
+	 DUKs9kBsfNRZqvCfYv8kNxjk3fyxYmUFQJpBY2c8b4JdOKuT7rVL/++GMctkEX+ahY
+	 4znbyfQH/3NXA==
+Date: Fri, 28 Jun 2024 19:55:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Fabrice Gasnier
+ <fabrice.gasnier@foss.st.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, Lars-Peter Clausen
+ <lars@metafoo.de>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] dt-bindings: iio: stm32: dfsdm: fix dtbs warnings on
+ dfsdm audio port
+Message-ID: <20240628195558.121de053@jic23-huawei>
+In-Reply-To: <171952014620.474983.15354726969773132715.robh@kernel.org>
+References: <20240618115912.706912-1-olivier.moysan@foss.st.com>
+	<171952014620.474983.15354726969773132715.robh@kernel.org>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: X4QAIZP7GXWRCWOJV6XW2GONGASE7Q2C
-X-Message-ID-Hash: X4QAIZP7GXWRCWOJV6XW2GONGASE7Q2C
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: JEBJ4A4XPRFWV4KANBOVZOOK3RBQBX5H
+X-Message-ID-Hash: JEBJ4A4XPRFWV4KANBOVZOOK3RBQBX5H
+X-MailFrom: jic23@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X4QAIZP7GXWRCWOJV6XW2GONGASE7Q2C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JEBJ4A4XPRFWV4KANBOVZOOK3RBQBX5H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,55 +103,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 27 Jun 2024 17:00:18 +0200, Piotr Wojtaszczyk wrote:
-> This pach set is to bring back audio to machines with a LPC32XX CPU.
-> The legacy LPC32XX SoC used to have audio spport in linux 2.6.27.
-> The support was dropped due to lack of interest from mainaeners.
+On Thu, 27 Jun 2024 14:29:08 -0600
+"Rob Herring (Arm)" <robh@kernel.org> wrote:
+
+> On Tue, 18 Jun 2024 13:59:12 +0200, Olivier Moysan wrote:
+> > Fix warnings on DFSDM dtbs check
+> > Unevaluated properties are not allowed ('dfsdm-dai' was unexpected)
+> > 'port' does not match any of the regexes: 'pinctrl-[0-9]+'
+> > 
+> > Fixes: 11183ac07a74 ("dt-bindings: stm32: convert dfsdm to json-schema")
+> > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> > ---
+> >  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml       | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> >   
 > 
-> Piotr Wojtaszczyk (12):
->   dt-bindings: dma: pl08x: Add dma-cells description
->   dt-bindings: dma: Add lpc32xx DMA mux binding
->   ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT binding
->   ARM: dts: lpc32xx: Use simple-mfd for clock control block
->   ARM: dts: lpc32xx: Add missing dma properties
->   ARM: dts: lpc32xx: Add missing i2s properties
->   clk: lpc32xx: initialize regmap using parent syscon
->   dmaengine: Add dma router for pl08x in LPC32XX SoC
->   ARM: lpc32xx: Remove pl08x platform data in favor for device tree
->   mtd: rawnand: lpx32xx: Request DMA channels using DT entries
->   ASoC: fsl: Add i2s and pcm drivers for LPC32xx CPUs
->   i2x: pnx: Fix potential deadlock warning from del_timer_sync() call in
->     isr
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 > 
-> [...]
 
-Applied to
+Applied  to the togreg branch of iio.git and pushed out as testing for
+all the normal reasons.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[03/12] ASoC: dt-bindings: lpc32xx: Add lpc32xx i2s DT binding
-        commit: 752fea92d9b3e4255a2f75e7efa6fe148562ccbf
-[11/12] ASoC: fsl: Add i2s and pcm drivers for LPC32xx CPUs
-        commit: 0959de657a10cc40b2cc41cff9169ab0e0fd4456
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+J

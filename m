@@ -2,98 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC0B91DAA2
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 10:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BECD591DCF2
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 12:45:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F22B2317;
-	Mon,  1 Jul 2024 10:55:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F22B2317
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5CB122A9;
+	Mon,  1 Jul 2024 12:45:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5CB122A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719824128;
-	bh=lDEozFRfTCwEKXHhCwMeLrpdH7bHbFFnfjg0uB9M5Ok=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jRZDLojZWcz1pnZj9c/D/ausJhfAHHP5Y9PRKHyhAQ4ascRc5AQJKqAeHqq0GTOCV
-	 E9cBouoA2MIL4iurC+UK4H5BFFUiPJyeiEAVcDW7GGnMvWJLJTO75bcSi8j8K2a7oa
-	 41YPlJDKJHn+TFF0/xPitExBcCqmg3F/RMBqxE28=
+	s=default; t=1719830735;
+	bh=UpSxcVPntx3n4vMZc8ID9H1olcCZrFJBh6e8CLNr8Mw=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=d3e77Zk1CccEZMsKSzI0Q2nj0IJ6JB9yXCqq4dSRitPmzyu4Ki8+dNo62u3sSvOVs
+	 /WU8Up1oHTpsoHgSHZ9IJ+/9zB0Qn6/2gQMpc6K2y1cUnLREUVyXeSNr4IGnW6QedH
+	 NsS7Ug89zZnrnx4Rdc/WN6sej+2O3R7FIrJ/lXls=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37044F805AD; Mon,  1 Jul 2024 10:54:56 +0200 (CEST)
+	id 2FA27F805A9; Mon,  1 Jul 2024 12:45:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1096F8028B;
-	Mon,  1 Jul 2024 10:54:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28A21F805B1;
+	Mon,  1 Jul 2024 12:45:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC624F8028B; Mon,  1 Jul 2024 10:50:34 +0200 (CEST)
+	id 4C5F8F804D6; Mon,  1 Jul 2024 12:44:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 87C9BF8013D
-	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 10:50:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87C9BF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6034F800E4
+	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 12:44:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6034F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fl9+zN2X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1719823828; x=1751359828;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=lDEozFRfTCwEKXHhCwMeLrpdH7bHbFFnfjg0uB9M5Ok=;
-  b=fl9+zN2XN3TWFnvWZ0ErTYfY09JfYTp2+pSIz6naDLrbSnxshJ00BhEo
-   G8I2Ci93C68yqlnGGqsQavFsg05WubKGHA2spUOCfqf39UxIU5zFLAJns
-   tat9i6SJZyzhn+//4qijsYDLP8E5iHaY+kV/OD4zEFPBn7m1jY9+/5FA2
-   4euxT8hUKToDMdwUSFC0WHzGANROjGIUJTL1q2YTH5hhvsZU66cknRV+E
-   E/J0K0WTx6cGoL0kb3CLjs41BOGN5MIPVZoBRSJYm+KIZwqDNprnc4gkR
-   iGd7XVOrTUaunPVIIyxof6uwsOaWVIoyrH8ZUt2i2fqrRmS2+/+d4Dg4K
-   A==;
-X-CSE-ConnectionGUID: gyt9264LThezIh0W9JIDPw==
-X-CSE-MsgGUID: HXcIP06YSz2Wj4R4rOLklA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11119"; a="16770392"
-X-IronPort-AV: E=Sophos;i="6.09,175,1716274800";
-   d="scan'208";a="16770392"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2024 01:50:22 -0700
-X-CSE-ConnectionGUID: 83ZZ+qo/Qj2W8cdVYxPECA==
-X-CSE-MsgGUID: hQYQXUYaQSWbavLwd0gThA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,175,1716274800";
-   d="scan'208";a="45445134"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
- ([10.94.0.53])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2024 01:50:19 -0700
-Message-ID: <326792b9-e706-4ab0-a1e8-cc48943e357d@linux.intel.com>
-Date: Mon, 1 Jul 2024 10:50:02 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=S6BoX666
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4614mX4v015862;
+	Mon, 1 Jul 2024 05:44:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=/wiHC4oaRURJNsaa
+	FyjCYv+VT+J39EVgcOXEImnRR80=; b=S6BoX666plhomGfCM+GfiN0XGolBVTF9
+	agH0/Pi2/NzUs45k//iiXPLfQNTitja7I6tVVOQ7XhzbKPsngWfm6EkpILH97Shs
+	XhG8DTGxsbViO6XNNu/dV3kYSbU9JLQYPcqG7geJekxmQHIXzM+yNsjNK+931Ux1
+	L6aWKRm6lVzlFl//W5hkEsloFIBmUr6462s7jh4Qv+IJ2dqm60xS5HKLnW14/NuX
+	rUpS8QZAKODDJcv7xmGBw6/8ombqDlzbG2v5bu19ufFYW9p1CTsshZNdFrmIATjK
+	y9OU8dZ3Lo72/1SMw5wsGlNkqLLN18JVaQdBApk6C3REh96WgfliMw==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 402epjabpk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 01 Jul 2024 05:44:46 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 1 Jul 2024
+ 11:44:44 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Mon, 1 Jul 2024 11:44:44 +0100
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 92958820244;
+	Mon,  1 Jul 2024 10:44:44 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
+Subject: [PATCH 0/3] ASoC: cs35l56: Remove obsolete and redundant code
+Date: Mon, 1 Jul 2024 11:44:41 +0100
+Message-ID: <20240701104444.172556-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] ALSA: pcm: add support for 128kHz sample rate
-To: Jerome Brunet <jbrunet@baylibre.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Jaroslav Kysela <perex@perex.cz>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20240628122429.2018059-1-jbrunet@baylibre.com>
- <20240628122429.2018059-2-jbrunet@baylibre.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20240628122429.2018059-2-jbrunet@baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: FPSVESHKI23YCI77MUIWZRU6GCSNMF67
-X-Message-ID-Hash: FPSVESHKI23YCI77MUIWZRU6GCSNMF67
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: bOUPjYsMgHFBb0XazBy7dUpeROiiir_0
+X-Proofpoint-ORIG-GUID: bOUPjYsMgHFBb0XazBy7dUpeROiiir_0
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: U62AXWDTZSDUNXQB5EJS7JL7RYQOADMA
+X-Message-ID-Hash: U62AXWDTZSDUNXQB5EJS7JL7RYQOADMA
+X-MailFrom: prvs=4912873e61=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FPSVESHKI23YCI77MUIWZRU6GCSNMF67/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U62AXWDTZSDUNXQB5EJS7JL7RYQOADMA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,25 +107,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 6/28/2024 2:23 PM, Jerome Brunet wrote:
-> The usual sample rate possible on an SPDIF link are
-> 32k, 44.1k, 48k, 88.2k, 96k, 172.4k and 192k.
-> 
-> With higher bandwidth variant, such as eARC, and the introduction of 8
-> channels mode, the spdif frame rate may be multiplied by 4. This happens
-> when the interface use an IEC958_SUBFRAME format.
-> 
-> The spdif 8 channel mode rate list is:
-> 128k, 176.4k, 192k, 352.8k, 384k, 705.4k and 768k.
-> 
-> All are already supported by ASLA expect for the 128kHz one.
-> Add support for it but do not insert it the SNDRV_PCM_RATE_8000_192000
-> macro. Doing so would silently add 128k support to a lot of HW which
-> probably do not support it.
-> 
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
+These commits remove various code that is either no longer needed,
+or is redundant.
 
- From what I remember the recommendation is to not add new rates, but 
-use SNDRV_PCM_RATE_KNOT for all rates not included already.
+Richard Fitzgerald (3):
+  ASoC: cs35l56: Revert support for dual-ownership of ASP registers
+  ASoC: cs35l56: Remove support for A1 silicon
+  ASoC: cs35l56: Remove redundant clearing of clk_stop_mode1
+
+ include/sound/cs35l56.h           |  11 +-
+ sound/soc/codecs/cs35l56-sdw.c    |  75 -----------
+ sound/soc/codecs/cs35l56-shared.c | 122 ++++--------------
+ sound/soc/codecs/cs35l56.c        | 205 ++----------------------------
+ sound/soc/codecs/cs35l56.h        |   2 -
+ 5 files changed, 45 insertions(+), 370 deletions(-)
+
+-- 
+2.39.2
 

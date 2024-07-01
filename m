@@ -2,128 +2,166 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2DE791E1C3
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 16:01:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF1891E1CF
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 16:04:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF4C72353;
-	Mon,  1 Jul 2024 16:01:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF4C72353
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C5EC2356;
+	Mon,  1 Jul 2024 16:04:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C5EC2356
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719842474;
-	bh=3reg4i/O4YiAE5aKRVANGYOBm/8AOHKu8/Lh8yOWM1w=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1719842666;
+	bh=w+fq7hAZICwQ8ms4QU9zqAnifRtgEhMdLeDYpMFOr0A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mqVy3OnlVb28rI2gbwsNRl5CxzzyHVr6b6+3cVsAduTqeLyZb9F/Pdj5fGt8Nql3Y
-	 loAcmt0GSdKg7LrfpOYq5KL6oPYm5qTHLjR3MCOn7TO7BkxE96ex822N7sEAuqUdWX
-	 P8SoR1O2VFALuSxl5R3Pq8AB9MTfQ32gqmxkjUtQ=
+	b=JmiXeZssC/5++PEsR8m3a7IJI0nQuCb/OshTnfe/K1+nxo948XwXS+gizI1umvhRA
+	 bdirD5uELMeyNPQQsV5NuDuweGWzq7kB96qxxc/01VQq7ZBekRJ2G286jhozxXqY9c
+	 4uqWcPGU9AmkYPokDcSLqQt2SMe43GZmof9U2gFA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AC8DF805AC; Mon,  1 Jul 2024 16:00:43 +0200 (CEST)
+	id 4EC09F8059F; Mon,  1 Jul 2024 16:03:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A206F80588;
-	Mon,  1 Jul 2024 16:00:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79394F80578;
+	Mon,  1 Jul 2024 16:03:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7739DF8028B; Mon,  1 Jul 2024 16:00:37 +0200 (CEST)
+	id D65B2F8028B; Mon,  1 Jul 2024 16:03:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 339EFF8003A
-	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 16:00:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 339EFF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 55331F8003A
+	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 16:03:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55331F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=r+sBtxYi
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 461E0EUt074153;
-	Mon, 1 Jul 2024 09:00:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1719842414;
-	bh=jjxKQjXPGDBo7KD1g9SLb7Db/+v0i0QFj/MuvZQRvGE=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=r+sBtxYiyUPBmKIZZ+6Li8yXVLl8t//deqhOz+TkK1RE0sVS9TD9AEtgfU1DTkwy5
-	 g4hJ5tWBXY3HHX2Mq59rXbviXtUpxwne2CBnsjsi3deohEZ5Luq27mtf7wWxWbw0PC
-	 Yrc8Drq7UJboRayPxaXqR0D/54nuCIt8GT/e1doU=
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 461E0ETD003409
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 1 Jul 2024 09:00:14 -0500
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 1
- Jul 2024 09:00:13 -0500
-Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
- DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
- 15.01.2507.023; Mon, 1 Jul 2024 09:00:13 -0500
-From: "Ding, Shenghao" <shenghao-ding@ti.com>
-To: Mark Brown <broonie@kernel.org>
-CC: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-        "perex@perex.cz"
-	<perex@perex.cz>,
-        "pierre-louis.bossart@linux.intel.com"
-	<pierre-louis.bossart@linux.intel.com>,
-        "13916275206@139.com"
-	<13916275206@139.com>,
-        "zhourui@huaqin.com" <zhourui@huaqin.com>,
-        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "Salazar, Ivan"
-	<i-salazar@ti.com>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "Chadha, Jasjot Singh" <j-chadha@ti.com>,
-        "liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
-        "Yue, Jaden"
-	<jaden-yue@ti.com>,
-        "yung-chuan.liao@linux.intel.com"
-	<yung-chuan.liao@linux.intel.com>,
-        "Rao, Dipa" <dipa@ti.com>, "yuhsuan@google.com" <yuhsuan@google.com>,
-        "Lo, Henry" <henry.lo@ti.com>, "tiwai@suse.de" <tiwai@suse.de>,
-        "Xu, Baojun" <baojun.xu@ti.com>, "soyer@irl.hu" <soyer@irl.hu>,
-        "Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
-        "judyhsiao@google.com" <judyhsiao@google.com>,
-        "Navada Kanyana, Mukund"
-	<navada@ti.com>,
-        "cujomalainey@google.com" <cujomalainey@google.com>,
-        "Kutty,
- Aanya" <aanya@ti.com>,
-        "Mahmud, Nayeem" <nayeem.mahmud@ti.com>,
-        "savyasanchi.shukla@netradyne.com" <savyasanchi.shukla@netradyne.com>,
-        "flaviopr@microsoft.com" <flaviopr@microsoft.com>,
-        "Ji, Jesse"
-	<jesse-ji@ti.com>,
-        "darren.ye@mediatek.com" <darren.ye@mediatek.com>
-Subject: RE: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: Add name_prefix as the
- prefix name of DSP firmwares and calibrated data files
-Thread-Topic: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: Add name_prefix as the
- prefix name of DSP firmwares and calibrated data files
-Thread-Index: AQHaygy3zqcBdt6oi0KleesuzWGEKLHiIqwA///EuhA=
-Date: Mon, 1 Jul 2024 14:00:13 +0000
-Message-ID: <664b818a177f4403bd60c3d4cd0bf4d1@ti.com>
-References: <20240629101112.628-1-shenghao-ding@ti.com>
- <8245d8e7-3ff0-4f05-9f99-666e9693603f@sirena.org.uk>
-In-Reply-To: <8245d8e7-3ff0-4f05-9f99-666e9693603f@sirena.org.uk>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.85.14.163]
-x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-Message-ID-Hash: 24UETEX3MWZTPNUM2LCZFXBQZRIBPCJT
-X-Message-ID-Hash: 24UETEX3MWZTPNUM2LCZFXBQZRIBPCJT
-X-MailFrom: shenghao-ding@ti.com
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=nxwP+Q9n;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=LurVQOTi;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=ub/6WAXL;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=yOZG147l
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C87BC219AE;
+	Mon,  1 Jul 2024 14:03:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1719842619;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=40Z2bpgm5kijfu/PKJMA05su7yleimcmmr2QFL4+IbM=;
+	b=nxwP+Q9nLHejCyTv8hmik6ylkRFgJqBt1oszlyYZrG+GWi0jfOJ2Lk2A4xdluxtxZgv3zL
+	SfUsurk9gD4r9rRCH5bcLg1uKlh8R4k8bDzOU9W7LESetfTzRodezuRGf8Hsu3vHOLR9/2
+	SjzHHvKVp1lKzkgXWymCh2UB2egxMMs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1719842619;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=40Z2bpgm5kijfu/PKJMA05su7yleimcmmr2QFL4+IbM=;
+	b=LurVQOTiQEBIZYfVO1Yo0uiasq5uqX8GhFmWPh8OB+7gDjkCg2lNzjsB/qeGeJfG4PKEbh
+	FaOeFslRPkQVARDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ub/6WAXL";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=yOZG147l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1719842618;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=40Z2bpgm5kijfu/PKJMA05su7yleimcmmr2QFL4+IbM=;
+	b=ub/6WAXLNxFJWS8zhP7rSpSzcSnd0r1nyEJLVZUKMP2vf7ypH3P006LIpgIFEgYGgP0NBU
+	ECEVdgv0OiIOG1ErE/A3AA5Z0XesgDk9jtM7Py7aAR2gDMvTFW7uCMZ7dojj6vD96OhUTC
+	QXi4m89fuYKN3v9mK7BtNo9QQyzSUX8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1719842618;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=40Z2bpgm5kijfu/PKJMA05su7yleimcmmr2QFL4+IbM=;
+	b=yOZG147lLhEJDc2w6yhhoxL5Wv+TCNV1IiquuW5olXtA7QOhdrJIrn7v4wF33235NqAckX
+	2oV5BRQCdlhgIzBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83E1F13800;
+	Mon,  1 Jul 2024 14:03:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rGz9Hjq3gmZOZwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 01 Jul 2024 14:03:38 +0000
+Date: Mon, 01 Jul 2024 16:04:06 +0200
+Message-ID: <875xtp43ah.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: kernel test robot <lkp@intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	oe-kbuild-all@lists.linux.dev,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] ALSA: pcm: add support for 128kHz sample rate
+In-Reply-To: <1j1q4ej50k.fsf@starbuckisacylon.baylibre.com>
+References: <20240628122429.2018059-2-jbrunet@baylibre.com>
+	<202406300718.iL828kaG-lkp@intel.com>
+	<1j1q4ej50k.fsf@starbuckisacylon.baylibre.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[intel.com,kernel.org,gmail.com,suse.com,perex.cz,lists.linux.dev,alsa-project.org,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[git-scm.com:url,intel.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C87BC219AE
+Message-ID-Hash: 7I6M2NU5XHKIWJI2ZTYOJMGS65REPWCW
+X-Message-ID-Hash: 7I6M2NU5XHKIWJI2ZTYOJMGS65REPWCW
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -135,7 +173,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/24UETEX3MWZTPNUM2LCZFXBQZRIBPCJT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7I6M2NU5XHKIWJI2ZTYOJMGS65REPWCW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,51 +182,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Brown
-Thanks for your comment.
+On Sun, 30 Jun 2024 08:53:15 +0200,
+Jerome Brunet wrote:
+> 
+> On Sun 30 Jun 2024 at 07:29, kernel test robot <lkp@intel.com> wrote:
+> 
+> > Hi Jerome,
+> >
+> > kernel test robot noticed the following build errors:
+> >
+> > [auto build test ERROR on tiwai-sound/for-next]
+> > [also build test ERROR on tiwai-sound/for-linus broonie-sound/for-next linus/master v6.10-rc5 next-20240628]
+> > [If your patch is applied to the wrong git tree, kindly drop us a note.
+> > And when submitting patch, we suggest to use '--base' as documented in
+> > https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> >
+> > url:    https://github.com/intel-lab-lkp/linux/commits/Jerome-Brunet/ALSA-pcm-add-support-for-128kHz-sample-rate/20240629-201915
+> > base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+> > patch link:    https://lore.kernel.org/r/20240628122429.2018059-2-jbrunet%40baylibre.com
+> > patch subject: [PATCH 1/3] ALSA: pcm: add support for 128kHz sample rate
+> > config: i386-buildonly-randconfig-004-20240630
+> > compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
+> > reproduce (this is a W=1 build):
+> >
+> > If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> > the same patch/commit), kindly add following tags
+> > | Reported-by: kernel test robot <lkp@intel.com>
+> > | Closes: https://lore.kernel.org/oe-kbuild-all/202406300718.iL828kaG-lkp@intel.com/
+> >
+> > All errors (new ones prefixed by >>):
+> >
+> >>> sound/usb/caiaq/audio.c:179:2: error: #error "Change this table"
+> >     #error "Change this table"
+> >      ^~~~~
+> >
+> >
+> > vim +179 sound/usb/caiaq/audio.c
+> >
+> > 523f1dce37434a sound/usb/caiaq/caiaq-audio.c Daniel Mack 2007-03-26  176  
+> > 523f1dce37434a sound/usb/caiaq/caiaq-audio.c Daniel Mack 2007-03-26  177  /* this should probably go upstream */
+> > 523f1dce37434a sound/usb/caiaq/caiaq-audio.c Daniel Mack 2007-03-26  178  #if SNDRV_PCM_RATE_5512 != 1 << 0 || SNDRV_PCM_RATE_192000 != 1 << 12
+> > 523f1dce37434a sound/usb/caiaq/caiaq-audio.c Daniel Mack 2007-03-26 @179  #error "Change this table"
+> > 523f1dce37434a sound/usb/caiaq/caiaq-audio.c Daniel Mack 2007-03-26  180  #endif
+> > 523f1dce37434a sound/usb/caiaq/caiaq-audio.c Daniel Mack 2007-03-26  181  
+> 
+> This file is not in mainline or
+> https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+> branch ...
 
-> -----Original Message-----
-> From: Mark Brown <broonie@kernel.org>
-> Sent: Monday, July 1, 2024 8:23 PM
-> To: Ding, Shenghao <shenghao-ding@ti.com>
-> Cc: andriy.shevchenko@linux.intel.com; lgirdwood@gmail.com;
-> perex@perex.cz; pierre-louis.bossart@linux.intel.com;
-> 13916275206@139.com; zhourui@huaqin.com; alsa-devel@alsa-project.org;
-> Salazar, Ivan <i-salazar@ti.com>; linux-kernel@vger.kernel.org; Chadha,
-> Jasjot Singh <j-chadha@ti.com>; liam.r.girdwood@intel.com; Yue, Jaden
-> <jaden-yue@ti.com>; yung-chuan.liao@linux.intel.com; Rao, Dipa
-> <dipa@ti.com>; yuhsuan@google.com; Lo, Henry <henry.lo@ti.com>;
-> tiwai@suse.de; Xu, Baojun <baojun.xu@ti.com>; soyer@irl.hu;
-> Baojun.Xu@fpt.com; judyhsiao@google.com; Navada Kanyana, Mukund
-> <navada@ti.com>; cujomalainey@google.com; Kutty, Aanya
-> <aanya@ti.com>; Mahmud, Nayeem <nayeem.mahmud@ti.com>;
-> savyasanchi.shukla@netradyne.com; flaviopr@microsoft.com; Ji, Jesse
-> <jesse-ji@ti.com>; darren.ye@mediatek.com
-> Subject: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: Add name_prefix as the
-> prefix name of DSP firmwares and calibrated data files
->=20
-> On Sat, Jun 29, 2024 at 06:11:10PM +0800, Shenghao Ding wrote:
->=20
-> >  	tas_priv->fw_state =3D TASDEVICE_RCA_FW_OK;
-> > -	scnprintf(tas_priv->coef_binaryname, 64, "%s_coef.bin",
-> > -		tas_priv->dev_name);
-> > +	if (tas_priv->name_prefix)
-> > +		scnprintf(tas_priv->rca_binaryname, 64, "%s-%s_coef.bin",
-> > +			tas_priv->name_prefix, tas_priv->dev_name);
-> > +	else
-> > +		scnprintf(tas_priv->coef_binaryname, 64, "%s_coef.bin",
-> > +			tas_priv->dev_name);
->=20
-> I'll apply this but I do wonder if it's worth falling back to trying to l=
-oad the
-> unprefixed name if we fail to load the prefixed one.
-If fail to load dsp firmware, the driver won't load unprefixed name firmwar=
-e,=20
-but switch tas2563/tas2781 to bypass-dsp mode automatically.
-In this mode, smartamp become simple amp.
-These day, I met a case from one of my customers, they put 2 pieces of tas2=
-563,=20
-and 2 pieces of tas2781 in the same i2c bus. In order to identify tas2563 a=
-nd=20
-tas2781, I think name_prefix is a good solution for this case.
-Looking forward to your comment. Thanks.
+It's sound/usb/caiaq/audio.c.
+
+
+Takashi

@@ -2,118 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15E2891D511
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 02:16:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44E8891D52E
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 02:18:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF6102342;
-	Mon,  1 Jul 2024 02:16:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6102342
+	by alsa0.perex.cz (Postfix) with ESMTPS id B470D2356;
+	Mon,  1 Jul 2024 02:18:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B470D2356
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719792976;
-	bh=+MxkO4vVdthV7j6mFV/7SPcQj12oitKeXtcQAI267PY=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ZC1UXCFHg0T1DqgWOmqY1r54+Q7biesFXoPpSxP1dEMO3KpAZK7rrPX9S4JSotH6g
-	 SfSHxEdb5J7+hxyDX4JabH4npZ0+5BVCklMZGyesutvUiQCENP2PtB3XkWgfHrg/Si
-	 or3vVOYtst8Uu35+BXdGFny7v1adk9kgvpjQ/9fg=
+	s=default; t=1719793113;
+	bh=VSZj8vRMujLB5UOFE2+NyN8F5a9YuB+XhvEijdmZaUA=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nQejvczaq+lw+xOPDAq/lOeWxd6D190g4rQoEf+Clv2UjfqXCyhTZyBbQfp7I0Fvl
+	 AD6h2p+eCIbtlS80oIu+sPeO7N0NzwARH7vLjMq1RAWeyYnIcYijYnKl76JBpw2M0g
+	 zqAQDUhStGMuMuxYIgs49fSvXUQOoWtQ4rZo45aI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44B78F8028B; Mon,  1 Jul 2024 02:15:45 +0200 (CEST)
+	id 43939F8059F; Mon,  1 Jul 2024 02:18:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C935F805AE;
-	Mon,  1 Jul 2024 02:15:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A7E1F8013D;
+	Mon,  1 Jul 2024 02:18:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 637E8F8028B; Mon,  1 Jul 2024 02:10:00 +0200 (CEST)
+	id 09716F8045D; Mon,  1 Jul 2024 02:12:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H4,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from fout2-smtp.messagingengine.com (fout2-smtp.messagingengine.com
- [103.168.172.145])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 42B64F8013D
-	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 02:07:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42B64F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 06E82F800E4
+	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 02:12:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06E82F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm2 header.b=grVIlFxS;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=Pn6icnKi
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailfout.nyi.internal (Postfix) with ESMTP id 052AF1380256;
-	Sun, 30 Jun 2024 20:07:16 -0400 (EDT)
-Received: from imap44 ([10.202.2.94])
-  by compute3.internal (MEProxy); Sun, 30 Jun 2024 20:07:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1719792436; x=
-	1719878836; bh=+MxkO4vVdthV7j6mFV/7SPcQj12oitKeXtcQAI267PY=; b=g
-	rVIlFxS4PQCQ4iOMByp7mvKQIK6SvLZr8FbJ5WtIRdcI89pnLbBgpkedStEkcXNs
-	2+v08hMklAt1PfQMBuwiY5dhFdNA3eXOcixSXM/2OjdceMT5b3Eqy8Efsju+hMb3
-	VnJFY5SaGONlORw5xUgFoCOHYeSbLCLUi/PG55B9f5ErF0O2qc7dREkUrowgtWEN
-	Oe2OsgzmsQDHjkAPh1CY6r1FmDIOxFsnePftaiRctrZbWCpnU4wVPSJ6FyDzE+qL
-	nb3D7BQkY9oZXQ7E8+vvADAIZJykpn+hg2GPksO5XcQdrwQY61iBFekQlndRZiOr
-	gXjjJYkyoAjlxcx1BzrBA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1719792436; x=1719878836; bh=+MxkO4vVdthV7j6mFV/7SPcQj12o
-	itKeXtcQAI267PY=; b=Pn6icnKiVdJp+jnc+p1CA6TQ9yGKYIL/vrzCiHevEk2I
-	7NxQk2GW9LDfZLAEHCZHeciWNUdJJ28Tfvp4meIAv1td2mZc9wL7j0ii9jEp7a3S
-	LSCNTZy/Fxm31+FPOH6FTYHFDSw6OaCsncaPeyFYyfagqAg5somO8NZtRfhkRxib
-	BRrr3Jkl5sq1T6lkljMGaoHlR+mgXfFoUGFF7mbOIzpHeioy9RU6xiJe7MnIozt7
-	TiB88F71FSxsx4hn8Tad8VJTp+bi9076FHhzoXBDT86YixvzCQI2qIKKrCstr+w5
-	PB8CREZQTAoK79kOv2kcg8oEB8njtWbn6/giaAW/Vg==
-X-ME-Sender: <xms:MvOBZl9TA9fomzzsplZyl57RB8u_dcle9C0PGYAjauLXWJYakFiLGA>
-    <xme:MvOBZpv12w6TM1VB3y_McIA5x2SuEg-Vs7Gka8eKlZFURWUvpd1beuFu5wZsJ6_IG
-    Djo7s3AidrQEgd05rA>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgeeftddruddvgddvlecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefofgggkfgjfhffhffvvefutgesthdtredtreertdenucfhrhhomhepfdfvrghk
-    rghshhhiucfurghkrghmohhtohdfuceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthh
-    hirdhjpheqnecuggftrfgrthhtvghrnheptdfhvefhtdehleffvdetteffieelfedttefg
-    keeuleetfeevjefhgeevffffudfhnecuffhomhgrihhnpehgihhthhhusgdrtghomhenuc
-    evlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghk
-    rghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:MvOBZjAtlb7vd5sKnTrde27poRqOQf9q-8wAFsp1Y92uujOaiL1hgA>
-    <xmx:MvOBZpfJQLmgk-mfcB4X1ebx0gfa0tPuM52jkt_PUk9XzyimqBDKZw>
-    <xmx:MvOBZqNDKxsUXXlC7_0WpyptxTocfsRnh-nA6J0GwUrOs3Bzve53OQ>
-    <xmx:MvOBZrnaWqUtMbKF-7858Hi3w9HtsKsWL9SYyzaQExue18mnLGPoQQ>
-    <xmx:M_OBZnoVx-ndTbERbN-xEh3UdR7xwxZjsiNkGlY6sdb52m0r_R25l_db>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id 99CAA36A0074; Sun, 30 Jun 2024 20:07:14 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.11.0-alpha0-538-g1508afaa2-fm-20240616.001-g1508afaa
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ZUUxROcL
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0AA816108D;
+	Mon,  1 Jul 2024 00:12:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1D3C2BD10;
+	Mon,  1 Jul 2024 00:12:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1719792732;
+	bh=VSZj8vRMujLB5UOFE2+NyN8F5a9YuB+XhvEijdmZaUA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZUUxROcLlUabgTprCn6rXEdHV8l5OIwL8OsV0kXyeyGsbMiWshwwi9w7HJ7dT0xoN
+	 hxmK+EilVS6/Mca8ltbhu8/7igeCDL/K4+//Q+HUl3Vn1jeAhCMJuMeNv1SB+R04nq
+	 9kAv4Nszxuh//Z+VPcO+1abQrXrYSrsuZyOZ0TVm2qRPD5NjlaMN6Iu5Si8t0lZzwX
+	 fyCPXX7eiRwuozZWHr0EOGwk40DDfKl6FuWxPEnxLAj13c0fG3lEv8DwbZ+S+eW464
+	 o2prpmwTfPA7w/GP8AeyT4FtcMWxi1U2rN5LVExgFA2TtqUFws9BpN6fiala03YfVP
+	 RBeeFdWdnmAuA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Simon Trimmer <simont@opensource.cirrus.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>,
+	david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.9 01/20] ALSA: hda: cs35l56: Fix lifecycle of codec
+ pointer
+Date: Sun, 30 Jun 2024 20:11:06 -0400
+Message-ID: <20240701001209.2920293-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Message-Id: <e0ed11c2-a4bf-40ec-95ad-fa61d95987c7@app.fastmail.com>
-In-Reply-To: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
-References: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
-Date: Mon, 01 Jul 2024 09:06:43 +0900
-From: "Takashi Sakamoto" <o-takashi@sakamocchi.jp>
-To: "Asahi Lina" <lina@asahilina.net>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org
-Cc: "Takashi Iwai" <tiwai@suse.com>, "Jaroslav Kysela" <perex@perex.cz>
-Subject: Re: Handling complex matrix mixers in ALSA
-Content-Type: text/plain
-Message-ID-Hash: OS4TR6S6D4UAX2FOE7J2YJIDPSC3LKGI
-X-Message-ID-Hash: OS4TR6S6D4UAX2FOE7J2YJIDPSC3LKGI
-X-MailFrom: o-takashi@sakamocchi.jp
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.9.7
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: FHUH3U7FLKU5B6TH7WFVN72F4ALV7R2L
+X-Message-ID-Hash: FHUH3U7FLKU5B6TH7WFVN72F4ALV7R2L
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OS4TR6S6D4UAX2FOE7J2YJIDPSC3LKGI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FHUH3U7FLKU5B6TH7WFVN72F4ALV7R2L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,54 +104,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+From: Simon Trimmer <simont@opensource.cirrus.com>
 
-I'm a maintainer of both ALSA firewire stack and Linux firewire subsystem. As
-long as I know, there is neither consensus nor specific userspace API/structure
-to the issue , therefore each developer selects each way within current
-implementation of ALSA control core and userspace interface.
+[ Upstream commit d339131bf02d4ed918415574082caf5e8af6e664 ]
 
-On Mon, Jul 1, 2024, at 01:04, Asahi Lina wrote:
-> The problem is that the device has a 66x34 matrix mixer, with up to 2048
-> cross points enabled at once. Exposing each cross point as an ALSA mixer
-> control (similar to how mixer_scarlett2.c does it) would mean 2244
-> controls just for the mixer... which seems like a bit too much.
->
-> On top of that there is also VU meter feedback for all the
-> inputs/outputs, as well as general fader controls for each output and
-> global output configs and status. I'm not sure about the VU meters, but
-> everything else sounds like it would map fine to normal mixer controls.
->
-> Is there some recommended way to expose this kind of matrix mixer
-> interface to userspace? I think for something like this you pretty much
-> have to rely on device-specific tools to make the UX manageable, so
-> maybe hwdep... but at least exposing everything as an ALSA control would
-> have the advantage of supporting save/restore with something like
-> alsactl. So I don't really know what's the way to go here.
+The codec should be cleared when the amp driver is unbound and when
+resuming it should be tested to prevent loading firmware into the device
+and ALSA in a partially configured system state.
 
-In my opinion, expose of such many control elements would not be necessarily
-convenient to users, especially to who eager to use GUI for such matrix mixer.
-Additionally, initialization for all of configurable elements in device would sometimes
-require conditional operation somehow (e.g. dependency on sampling rate or
-any mode of digital interfaces).
+Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20240531112716.25323-1-simont@opensource.cirrus.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/pci/hda/cs35l56_hda.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-If you have no need to share one of the USB endpoints for any configurable
-elemenets between kernel/userspace, it is a simple way to implement such
-confuguration application as userspace application, as you did with Python 3 and
-libusb.
+diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
+index 11b0570ff56d4..0923e2589f5f7 100644
+--- a/sound/pci/hda/cs35l56_hda.c
++++ b/sound/pci/hda/cs35l56_hda.c
+@@ -735,6 +735,8 @@ static void cs35l56_hda_unbind(struct device *dev, struct device *master, void *
+ 	if (comps[cs35l56->index].dev == dev)
+ 		memset(&comps[cs35l56->index], 0, sizeof(*comps));
+ 
++	cs35l56->codec = NULL;
++
+ 	dev_dbg(cs35l56->base.dev, "Unbound\n");
+ }
+ 
+@@ -840,6 +842,9 @@ static int cs35l56_hda_system_resume(struct device *dev)
+ 
+ 	cs35l56->suspended = false;
+ 
++	if (!cs35l56->codec)
++		return 0;
++
+ 	ret = cs35l56_is_fw_reload_needed(&cs35l56->base);
+ 	dev_dbg(cs35l56->base.dev, "fw_reload_needed: %d\n", ret);
+ 	if (ret > 0) {
+-- 
+2.43.0
 
-Anyway, if you eager to change ALSA control core and its interface to userspace
-for the purpose, we go for more discussion about it. We share the same interest.
-
-
-P.S. for devices supported by drivers in ALSA firewire stack, I write some service
-programs in userspace to utilize ALSA control "user-defined control element set".
-You can find the implementation of protocol to configure RME Fireface
-400/800/UCX/808 in it, as well as any DICE-based models:
-
-* https://github.com/alsa-project/snd-firewire-ctl-services/
-
-
-Regards
-
-Takashi Sakamoto

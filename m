@@ -2,75 +2,159 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09BC591D641
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 04:47:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F7A091D81A
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2024 08:33:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5648822AF;
-	Mon,  1 Jul 2024 04:47:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5648822AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A9DD227D;
+	Mon,  1 Jul 2024 08:33:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A9DD227D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719802036;
-	bh=T+3QnOE1arN4m86oKGlpqiNveo+rq531LTN9zwAwCYc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1719815625;
+	bh=vwcflbuSSFSwLf/CpDhlvWISNUTd9C1LejWrrepemnI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m9dAH3TYSbGHRfZ+PzjeESZftdEHcjuOwedY0Uev2N8ph6nrzC818zZuAyMCdnF6H
-	 t041XscProHi8K4LMsM8xfxyrsfFVc0Z8PLnyP15qvIkW24c7/JICPKE4a4CxlshKE
-	 70DaQNc8Y5IYptb8zJwBeQo6biFCTKPLy86QM9kY=
+	b=sSKVVAsSU6JFNa6kbe599DeoZDlcrWoY8Htb71FhmsQjgmpJNWCpRgVvc87D/FFaJ
+	 2N9N4YlJEVB4o+p6Gj+TyRKrkwXlSQAmFVQlbsM4V5ZsEKbCP45KItrHeJ4EqLnRl8
+	 gRB5nqd+CNH5lfUVBmHCjYESiYQZeBmOncWxMfC8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8302F805AE; Mon,  1 Jul 2024 04:46:44 +0200 (CEST)
+	id E0A5AF805A8; Mon,  1 Jul 2024 08:33:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26556F805AF;
-	Mon,  1 Jul 2024 04:46:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33458F805AE;
+	Mon,  1 Jul 2024 08:33:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20154F8042F; Mon,  1 Jul 2024 04:46:01 +0200 (CEST)
+	id 235DFF8028B; Mon,  1 Jul 2024 08:29:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from m.b4.vu (m.b4.vu [203.16.231.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 66489F80238
-	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 04:45:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66489F80238
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27238F800E4
+	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 08:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27238F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=b4.vu header.i=@b4.vu header.a=rsa-sha256 header.s=m1
- header.b=Mam3VS2P
-Received: by m.b4.vu (Postfix, from userid 1000)
-	id F0BFF60076C6; Mon,  1 Jul 2024 12:15:41 +0930 (ACST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 m.b4.vu F0BFF60076C6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=b4.vu; s=m1;
-	t=1719801941; bh=XPGvHpTa6O0lJhx0PEo3ZlDgLpN7Ol9w+Fc3Zy2w1mc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mam3VS2Pq9+neyJXeKQiIF7TP611434uXKT2cZwZ6oAKFWPjLCyNEvItuRXpxdN2t
-	 13s3RgXDmDdn8d5HhllTlKru770jbLWZG6jE7JO6ZVcggsyJ/sVWF8xMactv+ovuDF
-	 cgmGgf/m4D+lp1Sgxrx+X42LInWo/KVvZe+bV1twgI4gJCzUAhyuq8kY7yO5pxPECU
-	 g4LwF74+3HunndMqALrLoJ93Ox6Ht2HUXynufouhLWjdAs2zjWMtJqvTpM6Xl/vsM0
-	 U/g7JcfeR0qSiHMx6aAuhM8JE2aw7qo65rpvc8BNxxwQB5RsfauQ8292OC7AxAZDTj
-	 bc9fAhsETPKFw==
-Date: Mon, 1 Jul 2024 12:15:41 +0930
-From: "Geoffrey D. Bennett" <g@b4.vu>
-To: Asahi Lina <lina@asahilina.net>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: Handling complex matrix mixers in ALSA
-Message-ID: <ZoIYVVB+zDP78Apd@m.b4.vu>
-References: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=SSF42LBv
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a725a918edaso362532366b.3
+        for <alsa-devel@alsa-project.org>;
+ Sun, 30 Jun 2024 23:29:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1719815379; x=1720420179;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=8KI73HaIZKPtA6tUNhbdnUVOjQwMiDbmpvyBy7MyR40=;
+        b=SSF42LBvzHxgDvS7PvL7TzO8toJJIBzQAgc225BtnlPKYeOI/b5eMHXBFoYCNQKaHG
+         C42VFg1kdv97SpvJ8ZlMiccxEu0XLHOQfja/Pia45wQyAScYRY68hjUY2xBCG9FECecU
+         wCeWOIOjiQBM+3uhdhnTvSkAe5BUepem9cNGWnRYYGXawPywTT7yYWdU6woDGq261hC/
+         pylmkwiWKJ7th2pUzXNSY5z4lg2KFKhvPvUyrQosWxTLoywud0jCXvrZdgKYG655ehLt
+         AtyOLLweHC40aaYfi2MBrF6k7I42jx6qmW8/zfH+zFbvzD4m2N014dLA+pk5LKrYOq4e
+         nnqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719815379; x=1720420179;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8KI73HaIZKPtA6tUNhbdnUVOjQwMiDbmpvyBy7MyR40=;
+        b=jrZgMCct8MipAEjUCAgvm15sETAydWaPNF/T5XzpNhst1t0JfBKzkBMoHOJXUxJE/r
+         MqkuphCw3zkhOt5o+Bc0w6L9ogwk7uCAVDiHtOMYC5cvkNTLdgCv2l23zhl6p45hWx+4
+         +SqcrYSHxTQDlUcan9q19ET8SxQyjQNhas4cQX8NATBFU8h84KipZMrw2BhoIdKq6ZeJ
+         TU+qpRRuTGvnTq9iwkhVID15SxeU+GfErftyJTU3pVs+gnb+4ZLPs8o3BmQp5+wJHki+
+         D/uHed2mb8LedWKG1bi0AGap1EG0XK5uIuapkWI2phCHw3JyTmRXw/F9mpNTGnAsjh/d
+         SA1g==
+X-Gm-Message-State: AOJu0Yxgfroob8k0VmpfMtTRlFKxt3O5+yQ/LrgqjdTGt0/OpwN5qyOY
+	+JX2vgkBGiTkfjGJBgBVaJibsKz3BQrCnadOdiGesqjMUk7k6pAObt299T2xYMg=
+X-Google-Smtp-Source: 
+ AGHT+IHwGKsRVShXGsslXlNb+wdgx+/t7H8J1mjqUgapp5brp8WyE93jr5C/X9AvXUda+6ZxZmDH0A==
+X-Received: by 2002:a17:906:6a0d:b0:a6f:af8e:b75d with SMTP id
+ a640c23a62f3a-a751446749bmr422138566b.8.1719815379548;
+        Sun, 30 Jun 2024 23:29:39 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.137])
+        by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a72aaf603d6sm300841266b.62.2024.06.30.23.29.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 30 Jun 2024 23:29:39 -0700 (PDT)
+Message-ID: <bc254432-47da-49b6-ab5c-cec731273e28@linaro.org>
+Date: Mon, 1 Jul 2024 08:29:36 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
-Message-ID-Hash: XKYKH6MJS3GVKAEIMESLR5EAQFUJOOV6
-X-Message-ID-Hash: XKYKH6MJS3GVKAEIMESLR5EAQFUJOOV6
-X-MailFrom: g@b4.vu
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] ASoC: codecs: lpass-rx-macro: Simplify with
+ cleanup.h
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: 
+ <20240628-b4-qcom-audio-lpass-codec-cleanups-v2-0-e9741143e485@linaro.org>
+ <20240628-b4-qcom-audio-lpass-codec-cleanups-v2-1-e9741143e485@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: 
+ <20240628-b4-qcom-audio-lpass-codec-cleanups-v2-1-e9741143e485@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: WDP5B3FWMBCZCUIQPSACOOZKLGWV7LBY
+X-Message-ID-Hash: WDP5B3FWMBCZCUIQPSACOOZKLGWV7LBY
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -82,7 +166,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XKYKH6MJS3GVKAEIMESLR5EAQFUJOOV6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WDP5B3FWMBCZCUIQPSACOOZKLGWV7LBY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -91,79 +175,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Lina,
-
-On Mon, Jul 01, 2024 at 01:04:41AM +0900, Asahi Lina wrote:
-> Hi,
+On 28/06/2024 12:10, Krzysztof Kozlowski wrote:
+> Allocate the default register values array with scoped/cleanup.h to
+> reduce number of error paths and make code a bit simpler.
 > 
-> I'm reverse engineering and implementing support for the RME Digiface
-> USB, which is an ADAT interface with a non-class-compliant interface
-> (probably similar to other RME interfaces like the MADIface, but I don't
-> have any others to test). The basic audio streaming works fine with an
-> entry in quirks-table.h and a format quirk to set the system sample rate
-> in quirks.c. Now I need to figure out how to implement the mixer controls.
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> Currently I have the snd-usb-audio driver claiming only interface #0
-> (streaming) and I use a Python script to control the mixer/settings
-> directly with libusb (control transfers and interface #1). This works
-> fine and there's some prior art for this in the firewire world (for
-> example, snd-dice doesn't do any mixer control stuff and you have to use
-> ffado-mixer to control everything from userspace) but I assume it's not
-> really the best way to go?
-
-I'm the developer of the Scarlett2 driver. Doing as much as possible
-through ALSA mixer controls has worked well in my experience; as you
-say, being able to do save/restore with alsactl is useful.
-
-> The problem is that the device has a 66x34 matrix mixer, with up to 2048
-> cross points enabled at once. Exposing each cross point as an ALSA mixer
-> control (similar to how mixer_scarlett2.c does it) would mean 2244
-> controls just for the mixer... which seems like a bit too much.
-
-Note that mixer controls may have more than one value. So I think you
-could have 66 controls with 34 values or 34 controls with 66 values or
-1 control with 2244 values.
-
-> On top of that there is also VU meter feedback for all the
-> inputs/outputs, as well as general fader controls for each output and
-> global output configs and status. I'm not sure about the VU meters, but
-> everything else sounds like it would map fine to normal mixer controls.
-
-I handle the VU meter feedback in the Scarlett2 driver with a
-read-only volatile control that contains multiple values (see
-scarlett2_meter_ctl).
-
-Regards,
-Geoffrey.
-
-> Is there some recommended way to expose this kind of matrix mixer
-> interface to userspace? I think for something like this you pretty much
-> have to rely on device-specific tools to make the UX manageable, so
-> maybe hwdep... but at least exposing everything as an ALSA control would
-> have the advantage of supporting save/restore with something like
-> alsactl. So I don't really know what's the way to go here.
+> ---
 > 
-> System settings/general status/output faders go via control transfers,
-> while interface #1 has an interrupt IN endpoint (streaming state
-> feedback, not very useful) and two bulk endpoints (matrix mixer control
-> out, VU meter data in). There's another pair of bulk endpoints in
-> interface #2 which I'm guessing are for firmware updates (I haven't
-> looked at that part). So in principle it's not crazy to expose all the
-> system controls/output faders as mixer controls in ALSA and leave
-> interface #1 entirely unclaimed so a userspace program can directly
-> configure the matrix mixer and access VU meter levels. There is a global
-> mixer enable bit (controlled via ctl transfer), so if that is exposed as
-> an ALSA control and disabled by default the interface will operate as a
-> 1:1 in/out interface without needing any custom userspace to configure
-> the mixer.
+> Not adding Dmitry's Rb tag, because of major change devm->cleanup.h.
+> ---
+>  sound/soc/codecs/lpass-rx-macro.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
 > 
-> There's one other quirky thing: it also needs a way to set the sample
-> rate as a mixer control, because you need to be able to configure the
-> rate even when the PCM device is not open (since that affects
-> stand-alone mixer operation). I imagine the right logic here would be to
-> have a selector control for the system sample rate, and automatically
-> change it and lock it when the PCM is opened with a given rate?
-> 
-> Any thoughts welcome ^^
-> 
-> ~~ Lina
+> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+> index d47c49c90de3..4cf030760d74 100644
+> --- a/sound/soc/codecs/lpass-rx-macro.c
+> +++ b/sound/soc/codecs/lpass-rx-macro.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0-only
+>  // Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
+>  
+> +#include <linux/cleanup.h>
+>  #include <linux/module.h>
+>  #include <linux/init.h>
+>  #include <linux/io.h>
+> @@ -3764,7 +3765,6 @@ static const struct snd_soc_component_driver rx_macro_component_drv = {
+>  
+>  static int rx_macro_probe(struct platform_device *pdev)
+>  {
+> -	struct reg_default *reg_defaults;
+>  	struct device *dev = &pdev->dev;
+>  	kernel_ulong_t flags;
+>  	struct rx_macro *rx;
+> @@ -3809,6 +3809,8 @@ static int rx_macro_probe(struct platform_device *pdev)
+>  		goto err;
+
+I got now LKP report about build warning on clang (which I did not build
+with).
+
+note: jump bypasses initialization of variable with __attribute__((cleanup))
+
+This needs new version.
+
+Best regards,
+Krzysztof
+

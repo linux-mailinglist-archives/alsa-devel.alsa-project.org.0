@@ -2,122 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0402792BEBA
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:48:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC69E92BEBD
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:49:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 450A7DF8;
-	Tue,  9 Jul 2024 17:48:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 450A7DF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 873CBB6A;
+	Tue,  9 Jul 2024 17:49:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 873CBB6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720540120;
-	bh=5Gt/4k9mgPZdpTsbKXZnxv3TFYkof3L2QcKkHduCoH0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cmeUu8FUN+KhSOG+GEHXYvzMjs1tvsh/1a6nkROsNzb+4EyNdo6Ceip7PmAkQ8Lci
-	 oh7ymcDM9vkJOWFm+NBalkU5PPy4j0fg6FtN1pZCETkCBIRZO6YauuS34ljSgJSY2V
-	 QBme2WnAy9Oxm6nvw5cFtLnfPWYPis3bek6yLV+Y=
+	s=default; t=1720540156;
+	bh=g77ovSQ6miv4V8Y2/KK0rlQf539EJlRxT4BkAGWRZ3Q=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GbpkGoifRpAvmENfanlcutfoqffws2/isX+KsusUhuDu0XfV4QsQXJk8wW3esDnqh
+	 /iMGuZ7fKGbzPokQBSvdfWJeTE3xVG9e0T99qzcvYkxwdzKXhY/MC4WG1/lh0b8sgM
+	 wuHxoBsg2gOCahqqJ/PSlrVxT98UDa5t/vAAlYOE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5ED1DF805F5; Tue,  9 Jul 2024 17:47:39 +0200 (CEST)
+	id 2AEBDF80508; Tue,  9 Jul 2024 17:47:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B64A4F805F4;
-	Tue,  9 Jul 2024 17:47:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C3A9F8064F;
+	Tue,  9 Jul 2024 17:47:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90774F8042F; Mon,  1 Jul 2024 22:59:18 +0200 (CEST)
+	id AFF5FF8025E; Tue,  2 Jul 2024 04:47:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail.kaechele.ca (mail.kaechele.ca
+ [IPv6:2607:5300:60:7a38::25:1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC16AF8003A
-	for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2024 22:55:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC16AF8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76427F8013D
+	for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2024 04:47:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76427F8013D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=PT+JvSuF
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ec3f875e68so38618861fa.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 01 Jul 2024 13:55:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719867341; x=1720472141;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0fwJUmViPq6GaQ0BxwJByTYGz7zx3jNDcizMNQWq45E=;
-        b=PT+JvSuFOjpB5E0YxESuCyUZhF023NjMNex1HZ31446cPP9cv/im46ozCQlZfHb406
-         rA80GqwRyaVoxDNVPqxMKjfPvkEr6NRyo4f6UR3XELE7s/hvwdFEFhcmBk0ss1sApZe5
-         sRyS9EbsBxY0W6or4yosI01WBposbiIFMsHQ9Z5hINOZY3LKIQVWQHdwFcQ9cQlJhaLC
-         /2Afpojd4G/lbeOdSa4CDG0lNnG0k1ruoYVF3U/o9bT/2Rf+cc5gVZuKywzvZw9Tq+oy
-         5kt6LjE4++N+CUKx3i8Cy1qp/UjaXpgHoD5adXsp55uEg7mtDAD1pdOFB8/bCuHsPxf5
-         6S9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719867341; x=1720472141;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0fwJUmViPq6GaQ0BxwJByTYGz7zx3jNDcizMNQWq45E=;
-        b=BNEp58mvLJNyRP/XP96yANGp6ck8mn11MwK+CKmZGB/G2+Lkcfl+2b4oUJHPI0SDYW
-         s54A4izkFh9g55UJ39q13VCqmOMuD6UOOGoKRdN0kaXJKMYE/7tBv2g0bBPn2InitaIT
-         ZXa1dHCO0I1gIvriwdU/Esd8AcwR0sIXCclfh942tDyhJZuyhE8RYVsysWJCMtpM90lo
-         L4bxtK2235rhW/64eJ6YmZd5FztHL3nkTmrOsXf6EjGA1CoZJfqEVqyprcC1ZGVEcIGJ
-         7K85/BUWirJNUwlKIB0Km3EEo4guemC8Zu3KR1ObzhAgeRYcTLxcfD70QvUonGyE7p8R
-         WmNA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV6N+mVaz1gUN9LXL3yz/DQ2+fRQNHyKgf/TfFOaCCSPGfscoNdo9kyDwhDNNTG1Ccm4VV8UIF8XAm196tcBpE/Oi6d/MOkIlrr4PY=
-X-Gm-Message-State: AOJu0YzG1196xU3ky9JZcMfm8C3DMVLo1RtHuauku3Egeq7GEI3e6zzr
-	BneqIgaTB97mD5tBEvxYruuL9IN6UnnVxKMg+g5sDimscDXJDwpI
-X-Google-Smtp-Source: 
- AGHT+IFjmSYiJajwe0sxeFBUimrBjfc+BpFZ4m4LK5Ufh4BWXjwVQt7BXsByZg3/Ov5iDy2xodDlkw==
-X-Received: by 2002:a2e:a989:0:b0:2ec:54ec:1741 with SMTP id
- 38308e7fff4ca-2ee5e36d166mr55902221fa.18.1719867341165;
-        Mon, 01 Jul 2024 13:55:41 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:4b00:c010:c300:105d:dc14:8157:17])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4256af5b626sm166345865e9.15.2024.07.01.13.55.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jul 2024 13:55:40 -0700 (PDT)
-From: MadEnvel <envelsavinds@gmail.com>
-To: tiwai@suse.com,
-	rf@opensource.cirrus.com
-Cc: david.rhodes@cirrus.com,
+	dkim=pass (1024-bit key,
+ unprotected) header.d=kaechele.ca header.i=@kaechele.ca header.a=rsa-sha256
+ header.s=201907 header.b=D0JldWqW
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 84207C005F;
+	Mon,  1 Jul 2024 22:49:14 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaechele.ca; s=201907;
+	t=1719888560; h=from:subject:date:message-id:to:mime-version:
+	 content-transfer-encoding; bh=luv03lpnws4T7wkh4T7ewdycKUTmRCEz59nTd46EVRI=;
+	b=D0JldWqWJh68EQ5jMmZSdriteHRCmoABj65ZDptpX933WkfmYnswH4ZioQCFjYKr0dQnPl
+	0833ponbKUYzCUJtwGrCt3Pape/3AMCTmlK+7X0wBRT7ddRPaNHYIldBxdAV/hvvzi9TiW
+	heOvfA3QMeNKxR/PMADgirnCJGZspys=
+From: Felix Kaechele <felix@kaechele.ca>
+To: Daniel Beer <daniel.beer@igorinstitute.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
-	MadEnvel <envelsavinds@gmail.com>
-Subject: [PATCH 1/1] Fix swapped left and right channels for Lenovo ThinBook
- 13x Gen4 sound
-Date: Mon,  1 Jul 2024 21:55:16 +0100
-Message-ID: <20240701205516.22662-2-envelsavinds@gmail.com>
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: tas5805m: demystify DSP volume control coefficients
+Date: Mon,  1 Jul 2024 22:46:54 -0400
+Message-ID: <20240702024709.626009-1-felix@kaechele.ca>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240701205516.22662-1-envelsavinds@gmail.com>
-References: <20240701205516.22662-1-envelsavinds@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: envelsavinds@gmail.com
+X-Last-TLS-Session-Version: TLSv1.3
+X-MailFrom: felix@kaechele.ca
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: E7R7G65S65GZRNFDQYQEUR243TPMVSIV
-X-Message-ID-Hash: E7R7G65S65GZRNFDQYQEUR243TPMVSIV
-X-Mailman-Approved-At: Tue, 09 Jul 2024 15:45:54 +0000
+Message-ID-Hash: 6RNLO4DQ6F5WJQB5JRTONEM5P47WXICT
+X-Message-ID-Hash: 6RNLO4DQ6F5WJQB5JRTONEM5P47WXICT
+X-Mailman-Approved-At: Tue, 09 Jul 2024 15:46:03 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E7R7G65S65GZRNFDQYQEUR243TPMVSIV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6RNLO4DQ6F5WJQB5JRTONEM5P47WXICT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,26 +90,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Signed-off-by: MadEnvel <envelsavinds@gmail.com>
----
- sound/pci/hda/cs35l41_hda_property.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The original manufacturer sample driver code uses direct DSP register
+writes to control digital volume on this amplifier without further
+context as to why it's not using the documented DIG_VOL_CTRL register.
+A thread in the manufacturer's forums [1] suggests this might have been
+done to work around volume ramping being used when controlling the volume
+through the DIG_VOL_CTRL register. When volume is controlled through
+this register, reading and/or writing any register is blocked until the
+volume ramping has concluded and the setpoint is reached.
 
-diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
-index 51998d1c72ff..80c816922f78 100644
---- a/sound/pci/hda/cs35l41_hda_property.c
-+++ b/sound/pci/hda/cs35l41_hda_property.c
-@@ -128,8 +128,8 @@ static const struct cs35l41_config cs35l41_config_table[] = {
- 	{ "17AA38B5", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
- 	{ "17AA38B6", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
- 	{ "17AA38B7", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, 1, -1, 0, 0, 0 },
--	{ "17AA38C7", 4, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, CS35L41_LEFT, CS35L41_RIGHT }, 0, 2, -1, 1000, 4500, 24 },
--	{ "17AA38C8", 4, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, CS35L41_LEFT, CS35L41_RIGHT }, 0, 2, -1, 1000, 4500, 24 },
-+	{ "17AA38C7", 4, INTERNAL, { CS35L41_RIGHT, CS35L41_LEFT, CS35L41_RIGHT, CS35L41_LEFT }, 0, 2, -1, 1000, 4500, 24 },
-+	{ "17AA38C8", 4, INTERNAL, { CS35L41_RIGHT, CS35L41_LEFT, CS35L41_RIGHT, CS35L41_LEFT }, 0, 2, -1, 1000, 4500, 24 },
- 	{ "17AA38F9", 2, EXTERNAL, { CS35L41_RIGHT, CS35L41_LEFT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
- 	{ "17AA38FA", 2, EXTERNAL, { CS35L41_RIGHT, CS35L41_LEFT, 0, 0 }, 0, 2, -1, 0, 0, 0 },
- 	{}
+Additionally, the sample code uses a lookup table to map decibel values
+to 9.23 formatted coefficients. For posterity, add references to where
+this is documented and why a lookup table may be used.
+
+Signed-off-by: Felix Kaechele <felix@kaechele.ca>
+
+[1]: https://e2e.ti.com/support/audio-group/audio/f/audio-forum/1165952/tas5805m-linux-driver-for-tas58xx-family
+---
+ sound/soc/codecs/tas5805m.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/tas5805m.c b/sound/soc/codecs/tas5805m.c
+index 3b53eba38a0b..59536c8b8e38 100644
+--- a/sound/soc/codecs/tas5805m.c
++++ b/sound/soc/codecs/tas5805m.c
+@@ -67,6 +67,14 @@ static const uint8_t dsp_cfg_preboot[] = {
+ 	0x00, 0x00, 0x7f, 0x00, 0x03, 0x02,
+ };
+ 
++/*
++ * Lookup table for DSP volume coefficients.
++ * The formula uses floating point math, so a lookup table is used
++ * instead of computing values on the fly.
++ * Formula: round(10^(volume in dB/20)*2^23)
++ * The 9.23 format used here is documented in
++ *   SLAA894 - "General Tuning Guide for TAS58xx Family"
++ */
+ static const uint32_t tas5805m_volume[] = {
+ 	0x0000001B, /*   0, -110dB */ 0x0000001E, /*   1, -109dB */
+ 	0x00000021, /*   2, -108dB */ 0x00000025, /*   3, -107dB */
+@@ -196,9 +204,13 @@ static void tas5805m_refresh(struct tas5805m_priv *tas5805m)
+ 	regmap_write(rm, REG_BOOK, 0x8c);
+ 	regmap_write(rm, REG_PAGE, 0x2a);
+ 
+-	/* Refresh volume. The actual volume control documented in the
+-	 * datasheet doesn't seem to work correctly. This is a pair of
+-	 * DSP registers which are *not* documented in the datasheet.
++	/* Refresh volume. This writes the volume coefficients from
++	 * the lookup table directly into the DSP registers.
++	 * Digital volume control on this chip involves ramping which
++	 * blocks register reads and writes until the desired setpoint
++	 * is reached.
++	 * The DSP memory maps are documented in
++	 *   SLOA263A - "TAS5805M, TAS5806M and TAS5806MD Process Flows"
+ 	 */
+ 	set_dsp_scale(rm, 0x24, tas5805m->vol[0]);
+ 	set_dsp_scale(rm, 0x28, tas5805m->vol[1]);
+
+base-commit: 9fa5527b19b21848dfb09928ee66af1aac4a5700
 -- 
 2.45.2
 

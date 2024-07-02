@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD53D9246F2
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2024 20:05:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BBFE924916
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2024 22:22:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D59E11926;
-	Tue,  2 Jul 2024 20:05:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D59E11926
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCAC91665;
+	Tue,  2 Jul 2024 22:22:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCAC91665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719943510;
-	bh=Er855fFtE0tkTlrfhmXtCi5qQalirVV6oBWt2PpMAcU=;
+	s=default; t=1719951745;
+	bh=kWqtMEy8NiJo/fu7ZdT4UQqXiPF3djtgdRsFAOR4Afw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qhKMB/ao+YEz+qi23uGRjTlZa8a54YwvSvfGazTidd1BEsQlZ5BzaGdFV/aPFCj51
-	 bwuV7Vm6BVNaaUJ037ZlnHAN1OOoqhKSVOSPEiiGIXhX+1O2DZeJaoyYwEbQlN1fQa
-	 JaOfjwfcYFkM82kxViKnKEtcRY0dTFBf71/jZq9g=
+	b=raDZhVyS2xYwTGGC1PdmkNrlSmOTuZNW6K4wtVL19Dq63ylooe9lFJMUZ0yUaW+9p
+	 y9zcOqChA0BmCm8uyP0DyhGxApugGvByANPxksWEedNqQxic4MagP3sIqqVY1ZaJtQ
+	 YZo4Ebt44t1GYYLjRan4ntSoUKbWxe0GkLfI8JBI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1A48F805D7; Tue,  2 Jul 2024 20:04:18 +0200 (CEST)
+	id EA14DF805B2; Tue,  2 Jul 2024 22:21:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 360EBF805C2;
-	Tue,  2 Jul 2024 20:04:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66866F80301;
+	Tue,  2 Jul 2024 22:21:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DCF82F80272; Tue,  2 Jul 2024 20:03:27 +0200 (CEST)
+	id E77CCF8025E; Tue,  2 Jul 2024 22:21:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -38,44 +38,49 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E6334F800FA
-	for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2024 20:03:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6334F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1398F800FE
+	for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2024 22:21:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1398F800FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qSBsnTtv
+ header.s=k20201202 header.b=WxJ3aaQY
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8D25A61F3F;
-	Tue,  2 Jul 2024 18:03:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C287C4AF07;
-	Tue,  2 Jul 2024 18:03:21 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 061B861F7B;
+	Tue,  2 Jul 2024 20:21:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3729DC116B1;
+	Tue,  2 Jul 2024 20:21:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719943402;
-	bh=Er855fFtE0tkTlrfhmXtCi5qQalirVV6oBWt2PpMAcU=;
+	s=k20201202; t=1719951699;
+	bh=kWqtMEy8NiJo/fu7ZdT4UQqXiPF3djtgdRsFAOR4Afw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=qSBsnTtv333Tg5/uNsOrIT8MBev3AQVNEGGM7Kfk7qXhandVtK+zgy5oWN/zz0cMn
-	 AKjOn2xJrkow1BcvWdm0q7YXxEQZclaGrlw8UvLNbYNvJZyzOJ6MzcdbdBzaPvo0i0
-	 VI64DGTw7ccbUG2lxgwnPLqiWvsIinNLRF9z7EuqVJwMwk89RxK18UTEUm5n/VrTJ6
-	 DjUmqM1wuqVpN9fYl1eMFOIKJKZqEPxI/pPP0B8HS2ePcbneeaXeCynK3pDqXXigmr
-	 AU617yqWTTqi6AfUd79xrw/tZB1boPoB3cMBgRR568j4I5y5ZjPEIjKNTagkuVdgtn
-	 wpKdDNQy5etGA==
+	b=WxJ3aaQYCW2CjCLULVLN3y/0y1IH09ffW3+est+9t4CZRMV+EfMZvWc8wlYtz4JuV
+	 hYh4NgAXuQ1U42MSr1yLcMSp30HZjb3Bn/UAR0o0Tx8CBWLNRRYB5cKisCgg4o0T1q
+	 nM1lbb3XXo/6e0nEc9kS/6fxg/gHGaD78D/VFuwiQD6xSlfb50nd/KdprE9PGBXPyl
+	 pXr0LmLwyTENAGWhF7KdLOoIaLyIOD6AbXne7aNsqGEybvFWwxiwCXv+lv3CH1r5cg
+	 1rP9nZBkevXAHt/yZTanoskdLWZkfi8+bdLYizda6kG+Gaeky1C227ERqEv9YIAENp
+	 H5xof790cPFtg==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-In-Reply-To: <20240702110809.16836-1-rf@opensource.cirrus.com>
-References: <20240702110809.16836-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] firmware: cs_dsp: Don't allow writes to read-only
- controls
-Message-Id: <171994340097.996226.8732396451392780066.b4-ty@kernel.org>
-Date: Tue, 02 Jul 2024 19:03:20 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, John Hsu <KCHSU0@nuvoton.com>,
+ Maxim Kochetkov <fido_max@inbox.ru>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20240701211631.92384-1-fido_max@inbox.ru>
+References: <20240701211631.92384-1-fido_max@inbox.ru>
+Subject: Re: [PATCH v3 0/2] Add master clock handling for nau8824
+Message-Id: <171995169693.1021506.3631768688604058732.b4-ty@kernel.org>
+Date: Tue, 02 Jul 2024 21:21:36 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: A353YJEI5APZ4QEAY4K55WUFUKYVSR6U
-X-Message-ID-Hash: A353YJEI5APZ4QEAY4K55WUFUKYVSR6U
+Message-ID-Hash: 6RXTVHLEQAGUQWFBD5O7RWWOSJOOWXY7
+X-Message-ID-Hash: 6RXTVHLEQAGUQWFBD5O7RWWOSJOOWXY7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A353YJEI5APZ4QEAY4K55WUFUKYVSR6U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6RXTVHLEQAGUQWFBD5O7RWWOSJOOWXY7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,16 +102,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 02 Jul 2024 12:08:09 +0100, Richard Fitzgerald wrote:
-> Add a check to cs_dsp_coeff_write_ctrl() to abort if the control
-> is not writeable.
+On Tue, 02 Jul 2024 00:16:20 +0300, Maxim Kochetkov wrote:
+> nau8824 has external MCLK pin. So add enable/disable external clock
+> management.
 > 
-> The cs_dsp code originated as an ASoC driver (wm_adsp) where all
-> controls were exported as ALSA controls. It relied on ALSA to
-> enforce the read-only permission. Now that the code has been
-> separated from ALSA/ASoC it must perform its own permission check.
 > 
-> [...]
 
 Applied to
 
@@ -114,8 +114,10 @@ Applied to
 
 Thanks!
 
-[1/1] firmware: cs_dsp: Don't allow writes to read-only controls
-      commit: 62412a9357b16a4e39dc582deb2e2a682b92524c
+[1/2] ASoC: dt-bindings: nau8824: Add master clock handling
+      commit: fcad7177eb7854ce244ce863c82583d8a6ce5952
+[2/2] ASoC: codecs: nau8824: Add master clock handling
+      commit: 1d3724c92dc20584f76033347384b8c1536480af
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

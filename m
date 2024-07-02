@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 078A6923C75
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2024 13:32:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 259B3923C77
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2024 13:32:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF6D6211D;
-	Tue,  2 Jul 2024 13:32:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6D6211D
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBC1D22CC;
+	Tue,  2 Jul 2024 13:32:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBC1D22CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719919949;
-	bh=8VjB7u2o1X6Fkf4ljzLQulZ+iIR1INcOkKXgXFjoEP4=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=IFF/5VRmyqMNiw+vPn9TgXHX1dRTZPhlUS1mxmnbB8sEQvEMshdMmJvOetTSigpNC
-	 g0bnjE16qcj9pGJBuqU14iqrGb4xboF4Fva8cgExp+HKXwNuacYESNRXaMI4eJTg/a
-	 GCmw7DxYm289LGMDj4QDUj2LKAte71TZbofRCZ1A=
+	s=default; t=1719919962;
+	bh=ZEBaVU6KtOqS65U4pWx3ZRaX/O4ExxXq3npKnwdQAtE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Ba8bSNjwmjWrl1PfEKJwK62LQd14QZpOw+o1f7vKTDVEZ3YaQf+rRbLFWd57TG7Pw
+	 UVGml2PT0EHFRq7XWxCauPe4WwdR4ASZjljK9Pnun+2xxUoR5ejzM9HefVI4UNMzI3
+	 JgVStxDL+5FXz52W/bp1tfcoNFi9+yo0AF6c3lw8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 167FBF80508; Tue,  2 Jul 2024 13:31:58 +0200 (CEST)
+	id 5A19EF805C8; Tue,  2 Jul 2024 13:32:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FEECF80272;
-	Tue,  2 Jul 2024 13:31:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D079DF805D7;
+	Tue,  2 Jul 2024 13:31:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C698BF80272; Tue,  2 Jul 2024 13:30:15 +0200 (CEST)
+	id 8B796F8025E; Tue,  2 Jul 2024 13:30:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 03CA1F8013D
-	for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2024 13:30:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03CA1F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id BECEEF800FA
+	for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2024 13:30:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BECEEF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MsFQzMwg
+ header.s=k20201202 header.b=DTtgxuOa
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id DD6D5CE1A68;
+	by sin.source.kernel.org (Postfix) with ESMTP id 48E66CE1DD2;
+	Tue,  2 Jul 2024 11:30:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA95C2BD10;
 	Tue,  2 Jul 2024 11:30:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE852C116B1;
-	Tue,  2 Jul 2024 11:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719919804;
-	bh=8VjB7u2o1X6Fkf4ljzLQulZ+iIR1INcOkKXgXFjoEP4=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=MsFQzMwgt8Dy9o13LHIHXMusSsQkTEC1XvOsyAP6RSb/rBFCn8lrmAFmMHdqrHed3
-	 ycKjB0ZCtwaURxZt321m9Qsmp3TUFeIDgWWm3LQDC9+JuhpTv7n/t/mjmIE9G/D1q/
-	 fQ0GVgEZDbHasKgk0wsfFOiC7KZ4S1eCPF9R01JuwvkdCIjh38zxlRCzIDK7ygCrlz
-	 8F4eYxJ0gGcAmZc6DUoiUx0WWFMYpaNmuS17q/VsUcdUXnWwu1uffIdQNOxmg3NUmp
-	 DeZeJcuwRuMJIB/kEUbSuFoD3UfGBOoeFQwKElhjX5DT7pUCjfKZYAIdotTAD1aVBW
-	 cll11JNGiBC9Q==
+	s=k20201202; t=1719919806;
+	bh=ZEBaVU6KtOqS65U4pWx3ZRaX/O4ExxXq3npKnwdQAtE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=DTtgxuOanW2fBW/ZV+zeYbRpGLfSG6m7KVdHV788+OXLEZIkpODkqa1H/yKDiEpUW
+	 MLExm6b1b2PESzTM3udHlJ1STxLrYN+LNYaZFhwlnOJoWilrsRWCJ7/KBnzOqgPWls
+	 k5FPANYDqv5dp8aTEKrJxiPew2Z7k5vtzL1Q/yc8K6wxOjAaEZK6X0vZzoRf2vwdC2
+	 vdgNyZkb/OEATiz3JJqRWcXXR9bfTgv+qpfrqUuinBkFktrRrgR194IGxw5z5MdN20
+	 58cINbsQuDUv3XDuNUPrA1+/YumETbMmbCf8EH6BXjbVsnlQ289OF+6+8GDy1/InRC
+	 mHexAq0PmuUjg==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20240628095831.207942-1-krzysztof.kozlowski@linaro.org>
-References: <20240628095831.207942-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/2] ASoC: codecs: lpass-rx-macro: Fix using NULL
- pointer in probe() dev_err
-Message-Id: <171991980162.18111.8940228821828803310.b4-ty@kernel.org>
-Date: Tue, 02 Jul 2024 12:30:01 +0100
+To: "J.M.B. Downing" <jonathan.downing@nautel.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Nathan Chancellor <nathan@kernel.org>
+Cc: Vladimir Zapolskiy <vz@mleia.com>, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, linux-sound@vger.kernel.org,
+ patches@lists.linux.dev
+In-Reply-To: 
+ <20240701-lpc32xx-asoc-fix-include-for-field_prep-v1-1-0c5d7f71921b@kernel.org>
+References: 
+ <20240701-lpc32xx-asoc-fix-include-for-field_prep-v1-1-0c5d7f71921b@kernel.org>
+Subject: Re: [PATCH] ASoC: fsl: lpc3xxx-i2s: Include bitfield.h for
+ FIELD_PREP
+Message-Id: <171991980440.18111.17479068162057597635.b4-ty@kernel.org>
+Date: Tue, 02 Jul 2024 12:30:04 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: 4CPDYU5SXRHSHFU6NEF5EY3BUJ4UQMBW
-X-Message-ID-Hash: 4CPDYU5SXRHSHFU6NEF5EY3BUJ4UQMBW
+Message-ID-Hash: SLN4YKE2ZCRQYW7PEAUZ2WHLRV7Y4KFU
+X-Message-ID-Hash: SLN4YKE2ZCRQYW7PEAUZ2WHLRV7Y4KFU
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4CPDYU5SXRHSHFU6NEF5EY3BUJ4UQMBW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SLN4YKE2ZCRQYW7PEAUZ2WHLRV7Y4KFU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,12 +101,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 28 Jun 2024 11:58:30 +0200, Krzysztof Kozlowski wrote:
-> The 'rx->dev' is assigned closer to the end of the probe() function, so
-> the dev_err() must not use it - it is still NULL at this point.  Instead
-> there is already a local 'dev' variable.
+On Mon, 01 Jul 2024 11:26:38 -0700, Nathan Chancellor wrote:
+> bitfield.h is not explicitly included but it is required for FIELD_PREP
+> to be expanded by the preprocessor. If it is not implicitly included,
+> there will be a compiler error (as seen with ARCH=hexagon allmodconfig):
 > 
+>   sound/soc/fsl/lpc3xxx-i2s.c:169:10: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+>     169 |                 tmp |= LPC3XXX_I2S_WW8 | LPC3XXX_I2S_WS_HP(LPC3XXX_I2S_WW8_HP);
+>         |                        ^
+>   sound/soc/fsl/lpc3xxx-i2s.h:42:30: note: expanded from macro 'LPC3XXX_I2S_WW8'
+>      42 | #define LPC3XXX_I2S_WW8      FIELD_PREP(0x3, 0) /* Word width is 8bit */
+>         |                              ^
+>   sound/soc/fsl/lpc3xxx-i2s.c:205:34: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+>     205 |                              LPC3XXX_I2S_DMA1_TX_EN | LPC3XXX_I2S_DMA0_TX_DEPTH(4));
+>         |                                                       ^
+>   sound/soc/fsl/lpc3xxx-i2s.h:65:38: note: expanded from macro 'LPC3XXX_I2S_DMA0_TX_DEPTH'
+>      65 | #define LPC3XXX_I2S_DMA0_TX_DEPTH(s) FIELD_PREP(0xF0000, s) /* Set the DMA1 TX Request level */
+>         |                                      ^
+>   sound/soc/fsl/lpc3xxx-i2s.c:210:34: error: call to undeclared function 'FIELD_PREP'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+>     210 |                              LPC3XXX_I2S_DMA0_RX_EN | LPC3XXX_I2S_DMA1_RX_DEPTH(4));
+>         |                                                       ^
+>   sound/soc/fsl/lpc3xxx-i2s.h:70:38: note: expanded from macro 'LPC3XXX_I2S_DMA1_RX_DEPTH'
+>      70 | #define LPC3XXX_I2S_DMA1_RX_DEPTH(s) FIELD_PREP(0x700, s) /* Set the DMA1 RX Request level */
+>         |                                      ^
 > 
+> [...]
 
 Applied to
 
@@ -113,10 +133,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: codecs: lpass-rx-macro: Fix using NULL pointer in probe() dev_err
-      commit: 2e068fe01ecbf677d414d4c1b02eea1636dd614c
-[2/2] ASoC: codecs: lpass-wsa-macro: Fix using NULL pointer in probe() dev_err
-      commit: 765d3a2aa195882e231835f5d9ac4d99affc8c07
+[1/1] ASoC: fsl: lpc3xxx-i2s: Include bitfield.h for FIELD_PREP
+      commit: f1afb360b6f1f49e943ac85b26d4224ec67d22d3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

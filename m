@@ -2,87 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E8639246F9
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2024 20:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD53D9246F2
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2024 20:05:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F82D1944;
-	Tue,  2 Jul 2024 20:05:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F82D1944
+	by alsa0.perex.cz (Postfix) with ESMTPS id D59E11926;
+	Tue,  2 Jul 2024 20:05:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D59E11926
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719943548;
-	bh=1PTZ3uQgLKGQChj25rDAqkSCJmHzdA4sq5F+oAYqs4I=;
+	s=default; t=1719943510;
+	bh=Er855fFtE0tkTlrfhmXtCi5qQalirVV6oBWt2PpMAcU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KiZkg2QQwJYJPPAcA2kltIm62fCiDAPGtqCLvtmC3MW0nSSTYuCnkbxh0I7MGHmpJ
-	 BBdnBv4C5Pn6jMEDfd/4hWECRzT5jnHl9Sn3ncoYtxjBVC5cPUC4D2c08scG3kk/Pc
-	 6rEYjcwzoYpcAz4Rz/RIJCSEJU6KY0BzWNtpaTCw=
+	b=qhKMB/ao+YEz+qi23uGRjTlZa8a54YwvSvfGazTidd1BEsQlZ5BzaGdFV/aPFCj51
+	 bwuV7Vm6BVNaaUJ037ZlnHAN1OOoqhKSVOSPEiiGIXhX+1O2DZeJaoyYwEbQlN1fQa
+	 JaOfjwfcYFkM82kxViKnKEtcRY0dTFBf71/jZq9g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABFF7F805AF; Tue,  2 Jul 2024 20:05:17 +0200 (CEST)
+	id E1A48F805D7; Tue,  2 Jul 2024 20:04:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3890F805B1;
-	Tue,  2 Jul 2024 20:05:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 360EBF805C2;
+	Tue,  2 Jul 2024 20:04:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44DF5F8025E; Tue,  2 Jul 2024 20:03:31 +0200 (CEST)
+	id DCF82F80272; Tue,  2 Jul 2024 20:03:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A8602F8013D
-	for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2024 20:03:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8602F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id E6334F800FA
+	for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2024 20:03:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6334F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hDW/sPSj
+ header.s=k20201202 header.b=qSBsnTtv
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 7D46FCE1C9A;
+	by dfw.source.kernel.org (Postfix) with ESMTP id 8D25A61F3F;
+	Tue,  2 Jul 2024 18:03:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C287C4AF07;
 	Tue,  2 Jul 2024 18:03:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EFD5C4AF0C;
-	Tue,  2 Jul 2024 18:03:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1719943400;
-	bh=1PTZ3uQgLKGQChj25rDAqkSCJmHzdA4sq5F+oAYqs4I=;
+	s=k20201202; t=1719943402;
+	bh=Er855fFtE0tkTlrfhmXtCi5qQalirVV6oBWt2PpMAcU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=hDW/sPSj3h9jL8Kqc/SGeHmG7EvO/537Jie5OQ1hK7jsU0foy6ZK+y+hdhYn3EmLY
-	 0TNhVNo+fTLbLYQcFJGD/BCz4/fwCil5Qe+2z+FMBUhNJj9Ih+2fUOAscAzXnNaOeG
-	 tn8IDzbb0205hCfEqIIalNz2dEGDvoXvpIZVySK4qpOVMfRIzuwKPWvdjhp0F6buBO
-	 0mHqPGeUxfC1KbEP1G8HhhwKidkXeyRko+fpoab6x6s32w9h/uLvCkB3kP8pO7UpPT
-	 ZziXOWTUF0bPcPz0LTD8bFOjaPdbqg+S5wrnkkAkQlmw9OS5lJMe8tU3J0HDuKzL/Y
-	 NPMVyKHUfl8UQ==
+	b=qSBsnTtv333Tg5/uNsOrIT8MBev3AQVNEGGM7Kfk7qXhandVtK+zgy5oWN/zz0cMn
+	 AKjOn2xJrkow1BcvWdm0q7YXxEQZclaGrlw8UvLNbYNvJZyzOJ6MzcdbdBzaPvo0i0
+	 VI64DGTw7ccbUG2lxgwnPLqiWvsIinNLRF9z7EuqVJwMwk89RxK18UTEUm5n/VrTJ6
+	 DjUmqM1wuqVpN9fYl1eMFOIKJKZqEPxI/pPP0B8HS2ePcbneeaXeCynK3pDqXXigmr
+	 AU617yqWTTqi6AfUd79xrw/tZB1boPoB3cMBgRR568j4I5y5ZjPEIjKNTagkuVdgtn
+	 wpKdDNQy5etGA==
 From: Mark Brown <broonie@kernel.org>
-To: Banajit Goswami <bgoswami@quicinc.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, srinivas.kandagatla@linaro.org
-Cc: linux-arm-msm@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Manikantan R <quic_manrav@quicinc.com>
-In-Reply-To: <20240626-port-map-v2-0-6cc1c5608cdd@linaro.org>
-References: <20240626-port-map-v2-0-6cc1c5608cdd@linaro.org>
-Subject: Re: (subset) [PATCH v2 0/6] ASoC: codecs: wsa88xx: add support for
- static port mapping.
-Message-Id: <171994339579.996226.3049749876359199381.b4-ty@kernel.org>
-Date: Tue, 02 Jul 2024 19:03:15 +0100
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+In-Reply-To: <20240702110809.16836-1-rf@opensource.cirrus.com>
+References: <20240702110809.16836-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] firmware: cs_dsp: Don't allow writes to read-only
+ controls
+Message-Id: <171994340097.996226.8732396451392780066.b4-ty@kernel.org>
+Date: Tue, 02 Jul 2024 19:03:20 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: UFMZZ7TVIR57VEBJWFEZC2EORLC73LPE
-X-Message-ID-Hash: UFMZZ7TVIR57VEBJWFEZC2EORLC73LPE
+Message-ID-Hash: A353YJEI5APZ4QEAY4K55WUFUKYVSR6U
+X-Message-ID-Hash: A353YJEI5APZ4QEAY4K55WUFUKYVSR6U
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UFMZZ7TVIR57VEBJWFEZC2EORLC73LPE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A353YJEI5APZ4QEAY4K55WUFUKYVSR6U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,17 +97,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 27 Jun 2024 15:44:37 +0100, srinivas.kandagatla@linaro.org wrote:
-> Existing way of allocating soundwire master ports on Qualcommm platforms is
-> dynamic, and in linear order starting from 1 to MAX_PORTS.
-> This will work as long as soundwire device ports are 1:1 mapped
-> linearly. However on most Qcom SoCs like SM8550, SM8650, x1e80100, these
-> are NOT mapped in that order.
+On Tue, 02 Jul 2024 12:08:09 +0100, Richard Fitzgerald wrote:
+> Add a check to cs_dsp_coeff_write_ctrl() to abort if the control
+> is not writeable.
 > 
-> The result of this is that only one speaker among the pair of speakers
-> is always silent, With recent changes for WSA codec to support codec
-> versions and along with these patches we are able to get all speakers
-> working on these SoCs.
+> The cs_dsp code originated as an ASoC driver (wm_adsp) where all
+> controls were exported as ALSA controls. It relied on ALSA to
+> enforce the read-only permission. Now that the code has been
+> separated from ALSA/ASoC it must perform its own permission check.
 > 
 > [...]
 
@@ -124,14 +114,8 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: dt-bindings: wsa883x: Document port mapping property
-      commit: 49beb4d2e85634ec1e1c82d76461d9552676045d
-[2/6] ASoC: codecs: wsa883x: parse port-mapping information
-      commit: 1cf3295bd108abbd7f128071ae9775fd18394ca9
-[3/6] ASoC: dt-bindings: wsa8840: Document port mapping property
-      commit: d47abee9fede21b19d5227061c5a8761ec1659fb
-[4/6] ASoC: codecs: wsa884x: parse port-mapping information
-      commit: e1bc5c324bcca3acdbe817ccbf9aa7992d89479d
+[1/1] firmware: cs_dsp: Don't allow writes to read-only controls
+      commit: 62412a9357b16a4e39dc582deb2e2a682b92524c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

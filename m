@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 417F3926593
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 18:08:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E40926598
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 18:08:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EFB8F55;
-	Wed,  3 Jul 2024 18:08:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EFB8F55
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77645F53;
+	Wed,  3 Jul 2024 18:08:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77645F53
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720022907;
-	bh=vGBgKgThKEOOMUQE4cQceXHTN+Jsd39QAS6liFi72lc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=q5oJO48Ugm72cAaWZPJMih1Vu9EqW7FdnIiaqy9iKLhfcQPQ4AYveXYKya0s7BBbX
-	 WN6g9OMbPLgEWKliZVxKY4DSzHhLChNS7LzjuW8uwfiHVIb3L6no9M7xq4D+Bv48gF
-	 A+I8JgmxJqKrjWm4VqBMVaNIa6RQUEs/jh09xRbw=
+	s=default; t=1720022935;
+	bh=uKJH5a0+6vkjwBTaDOSOxhl4qQyveqQZPb1wba4xWXQ=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=R9aIGc5JGiUU4oQkPKg9RLWG2lHdE1CfMpyIfmVSbza1Zq+F29yLORQYr8op05LK/
+	 wbmBic3L527lQYRrZHl2NRuyEGjQKFEUjrCBXL2nPvh5kUKB2CUoXBEixzlIlH6Z/O
+	 wW6jYgfRyTBpiuZDCXhOZ24N+Q7dxUk1PCWGZWaA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9371FF805AC; Wed,  3 Jul 2024 18:07:55 +0200 (CEST)
+	id D6CB4F805AE; Wed,  3 Jul 2024 18:08:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E11E5F805AE;
-	Wed,  3 Jul 2024 18:07:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B2D1F80589;
+	Wed,  3 Jul 2024 18:08:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BFD35F8025E; Wed,  3 Jul 2024 18:07:50 +0200 (CEST)
+	id 580C4F8025E; Wed,  3 Jul 2024 18:08:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,64 +36,63 @@ Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 107E4F8013D
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 18:07:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 107E4F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id BA06BF8014C
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 18:08:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA06BF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=Xei1gnv7
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ header.s=selector1 header.b=JttkfYrF
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
 	by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 463BtECH010334;
-	Wed, 3 Jul 2024 18:07:39 +0200
+ 463FZQDU007347;
+	Wed, 3 Jul 2024 18:08:24 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=selector1; bh=Me6trctAmZvX75ayrGKW+4
-	epqRLkuMtA5psJFuIzhaI=; b=Xei1gnv7/U/NSZdwYbMym19LnAsVlBWtq1WKnT
-	QPhyy6rvuUweCQaftZbv1GZZBlOcv1sBlX4rbi4xlnSWuFPcNtcGBdM5Ut+u48lx
-	1/zBGB/gy6EtRUFLZrX/Lqzw3aX4cq9ZA20bGMUS/1JHsCB1UCMRJB8BYeLrRp4N
-	TFSOfonkkqmNE5/G2DYQ6pj+GigAXUrPeD9ewAU4s4jbxiZw+4oVVRKJQNP5u/mp
-	VcBsnAQK8mAPYG069lEr5QH8XFsFi2wjKGVJ76n2pmo4TYGWm20fO9O50G7ouctV
-	hHI0TBc9aLhBXDiQO8YkdU0e1gMuh9YPWXFaEkS+AebzDuZQ==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=selector1; bh=
+	Tv/R5KXfBaoQyssH47WsyM3KwW77pZ8ZcYwk4SeudZg=; b=JttkfYrF1XP9U7HI
+	W7tIBo7IKtMzzaE88D5B11uJ/Uh6rUiwrBqEOeRcgMGqVNZi0zQp09xwU1OqJeBD
+	9M4J8SudnYuZM82FzmSQbTsQUXGppzYiEp3pZp2X7bULM8tbTqssEpY4BcaZ2VVY
+	VwWJ/Dt2KVKLOLkQVFlSF7K8ATP0pDFOm2DcXXDGecq4QrUrsDryVqHYe2t3ppGR
+	/rMNHXSQjOvCVSyVKGDzOQzCn8zREVLH5g9ECoaf3TAPjpCH901ADmQN7gEo5h3m
+	tCENzykHL9J5wL7DSlmHNKPPTcf6T6AQ3k/pkwzNU7mazGAaDvL17djyGvG7VLoO
+	GoC7+g==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4027d5hq25-1
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40295dhfja-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 03 Jul 2024 18:07:38 +0200 (MEST)
+	Wed, 03 Jul 2024 18:08:23 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 94BC940046;
-	Wed,  3 Jul 2024 18:07:27 +0200 (CEST)
+	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 001D240049;
+	Wed,  3 Jul 2024 18:08:19 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DC7882291A5;
-	Wed,  3 Jul 2024 18:06:25 +0200 (CEST)
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 994412291B0;
+	Wed,  3 Jul 2024 18:07:30 +0200 (CEST)
 Received: from localhost (10.252.27.110) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Jul
- 2024 18:06:25 +0200
+ 2024 18:07:30 +0200
 From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Olivier Moysan
-	<olivier.moysan@foss.st.com>,
+To: Olivier Moysan <olivier.moysan@foss.st.com>,
         Arnaud Pouliquen
 	<arnaud.pouliquen@foss.st.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
         Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Nuno Sa
-	<nuno.sa@analog.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown
-	<broonie@kernel.org>,
+        Alexandre Torgue
+	<alexandre.torgue@foss.st.com>,
         Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+CC: <alsa-devel@alsa-project.org>, <linux-iio@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
         <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v3 0/8] iio: adc: dfsdm: add scaling support
-Date: Wed, 3 Jul 2024 18:05:25 +0200
-Message-ID: <20240703160535.2277871-1-olivier.moysan@foss.st.com>
+        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 4/8] dt-bindings: iio: dfsdm: move to backend framework
+Date: Wed, 3 Jul 2024 18:05:29 +0200
+Message-ID: <20240703160535.2277871-5-olivier.moysan@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240703160535.2277871-1-olivier.moysan@foss.st.com>
+References: <20240703160535.2277871-1-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -102,8 +102,8 @@ X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-07-03_11,2024-07-03_01,2024-05-17_01
-Message-ID-Hash: XLGIEULHXO6P43KX2EUMPAS3VWBKGCKC
-X-Message-ID-Hash: XLGIEULHXO6P43KX2EUMPAS3VWBKGCKC
+Message-ID-Hash: CWR6YJLCPPRQDIOWN3UGAT3EEYHUHNWM
+X-Message-ID-Hash: CWR6YJLCPPRQDIOWN3UGAT3EEYHUHNWM
 X-MailFrom: prvs=79149e812f=olivier.moysan@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -116,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XLGIEULHXO6P43KX2EUMPAS3VWBKGCKC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CWR6YJLCPPRQDIOWN3UGAT3EEYHUHNWM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,78 +125,276 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The aim of this serie is to add scaling support to STM32 DFSDM
-peripheral in the analog context.
+Change the DFSDM binding to use the new IIO backend framework,
+along with the adoption of IIO generic channels.
+This binding change allows to add scaling support to the DFSDM.
 
-The DFSDM currently operates as a consumer of IIO channels
-provided by a generic SD modulator. As previously discussed in RFC [1],
-this topology is not suitable for implementing scaling.
+Keep the legacy binding as deprecated for backward compatibility.
 
-This series brings the integration of the DFSDM driver with the new 
-IIO backend framework [2], enabling the DFSDM IIO device to offer 
-scaling feature based on reference voltage data obtained from the
-IIO SD modulator backend. This generic SD modulator backend takes the
-place of the former SD modulator, used with legacy implementation.
+The io-backends property is supported only in generic IIO channel
+binding.
 
-The DFSDM driver has been updated to adopt the generic ADC channel
-binding [3]. The reasons for this include:
-- Reducing the use of proprietary properties
-- Simplifying the coexistence of legacy and new backend bindings
-- Prepare the support of the MDF peripheral on STM32MP25 SoC
+- Channel description with the generic binding (Audio and Analog):
 
-Backward compatibility is maintained through legacy support.
+  Properties superseded by generic properties:
+    st,adc-channels: becomes "reg" property in channel node
+    st,adc-channel-names: becomes "label" property in channel node
+  Properties moved to channel child node:
+    st,adc-channel-types: becomes st,adc-channel-type
+    st,adc-channel-clk-src, st,adc-alt-channel
 
-This series extends the backend framework with the following APIs:
-- iio_backend_read_raw:
-	This API is intented to retrieve channel attributes from the
-	backend. It is based on IIO framework read_raw API.
-- iio_backend_read_scale / iio_backend_read_offset
-	Dedicated APIs to read scale and offset channel values.
-- iio_backend_disable / iio_backend_enable:
-	backend enable/disable to be used for PM management
-- devm_iio_backend_fwnode_get
-	Intended for parsing DT subnodes to allow generic channel binding
-	support, as generic channel DT nodes are not populated as devices.
+- Analog binding:
 
-[1]: https://lore.kernel.org/lkml/20200204101008.11411-1-olivier.moysan@st.com/
-[2]: https://lore.kernel.org/all/20240206-iio-backend-v9-0-df66d159c000@analog.com/
-[3]: devicetree/bindings/iio/adc/adc.yaml
+  DFSDM filter channel is configured as an IIO backend consumer.
+  Add io-backends property in channel child nodes.
 
-Changes in v2:
-- Update enable/disable backend API
-- Rename devm_iio_backend_subnode_get(), as devm_iio_backend_fwnode_get()
-- Update iio_backend_read_raw() prototype to fully match IIO framework
-  read_raw callback prototype.
-- Change st,adc-channel-type property name and type in DFSDM binding
-- Remove sd-backend and rename ads1201 compatibles in SD binding
+  DFSDM is no more configured as a channel consumer from SD modulator.
+  Use of io-channels in DFSDM node is deprecated.
 
-Changes in v3:
-- Add iio_backend_read_scale and iio_backend_read_offset
-- Remove sd-backend compatible. Adapt existing sd modulator driver and
-  binding to support backend topology.
-- Misc corrections in DFSDM binding & minor changes in DFSDM driver
+- Audio binding:
 
-Olivier Moysan (8):
-  iio: add read scale and offset services to iio backend framework
-  iio: add enable and disable services to iio backend framework
-  iio: add child nodes support in iio backend framework
-  dt-bindings: iio: dfsdm: move to backend framework
-  dt-bindings: iio: add backend support to sd modulator
-  iio: adc: stm32-dfsdm: adopt generic channels bindings
-  iio: add iio backend support to sd modulator
-  iio: adc: stm32-dfsdm: add scaling support to dfsdm
+  DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
+  No change compare to legacy.
 
- .../iio/adc/sigma-delta-modulator.yaml        |  24 +-
- .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 153 ++++++++-
- drivers/iio/adc/Kconfig                       |   2 +
- drivers/iio/adc/sd_adc_modulator.c            |  92 +++++-
- drivers/iio/adc/stm32-dfsdm-adc.c             | 298 +++++++++++++++---
- drivers/iio/industrialio-backend.c            | 111 ++++++-
- include/linux/iio/backend.h                   |  11 +-
- 7 files changed, 626 insertions(+), 65 deletions(-)
+Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 153 +++++++++++++++++-
+ 1 file changed, 147 insertions(+), 6 deletions(-)
 
-
-base-commit: 529d2e1900642eba6df28307e26e19793e227546
+diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+index 2722edab1d9a..5a5bc8b96402 100644
+--- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+@@ -102,9 +102,11 @@ patternProperties:
+         items:
+           minimum: 0
+           maximum: 7
++        deprecated: true
+ 
+       st,adc-channel-names:
+         description: List of single-ended channel names.
++        deprecated: true
+ 
+       st,filter-order:
+         description: |
+@@ -118,6 +120,12 @@ patternProperties:
+       "#io-channel-cells":
+         const: 1
+ 
++      '#address-cells':
++        const: 1
++
++      '#size-cells':
++        const: 0
++
+       st,adc-channel-types:
+         description: |
+           Single-ended channel input type.
+@@ -128,6 +136,7 @@ patternProperties:
+         items:
+           enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+         $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++        deprecated: true
+ 
+       st,adc-channel-clk-src:
+         description: |
+@@ -139,6 +148,7 @@ patternProperties:
+         items:
+           enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+         $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++        deprecated: true
+ 
+       st,adc-alt-channel:
+         description:
+@@ -147,6 +157,7 @@ patternProperties:
+           If not set, channel n is connected to SPI input n.
+           If set, channel n is connected to SPI input n + 1.
+         type: boolean
++        deprecated: true
+ 
+       st,filter0-sync:
+         description:
+@@ -165,11 +176,60 @@ patternProperties:
+       - compatible
+       - reg
+       - interrupts
+-      - st,adc-channels
+-      - st,adc-channel-names
+       - st,filter-order
+       - "#io-channel-cells"
+ 
++    patternProperties:
++      "^channel@([0-7])$":
++        type: object
++        $ref: adc.yaml
++        unevaluatedProperties: false
++        description: Represents the external channels which are connected to the DFSDM.
++
++        properties:
++          reg:
++            maxItems: 1
++
++          label:
++            description:
++              Unique name to identify which channel this is.
++
++          st,adc-channel-type:
++            description: |
++              Single-ended channel input type.
++              - "SPI_R": SPI with data on rising edge (default)
++              - "SPI_F": SPI with data on falling edge
++              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
++              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
++            $ref: /schemas/types.yaml#/definitions/string
++            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
++
++          st,adc-channel-clk-src:
++            description: |
++              Conversion clock source.
++              - "CLKIN": external SPI clock (CLKIN x)
++              - "CLKOUT": internal SPI clock (CLKOUT) (default)
++              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
++              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
++            $ref: /schemas/types.yaml#/definitions/string
++            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
++
++          st,adc-alt-channel:
++            description:
++              Must be defined if two sigma delta modulators are
++              connected on same SPI input.
++              If not set, channel n is connected to SPI input n.
++              If set, channel n is connected to SPI input n + 1.
++            type: boolean
++
++          io-backends:
++            description:
++              Used to pipe external sigma delta modulator or internal ADC backend to DFSDM channel.
++            maxItems: 1
++
++        required:
++          - reg
++
+     allOf:
+       - if:
+           properties:
+@@ -199,9 +259,19 @@ patternProperties:
+               description:
+                 From common IIO binding. Used to pipe external sigma delta
+                 modulator or internal ADC output to DFSDM channel.
++              deprecated: true
+ 
+-          required:
+-            - io-channels
++          if:
++            required:
++              - st,adc-channels
++          then:
++            required:
++              - io-channels
++
++          patternProperties:
++            "^channel@([0-9])$":
++              required:
++                - io-backends
+ 
+       - if:
+           properties:
+@@ -298,7 +368,77 @@ examples:
+       #address-cells = <1>;
+       #size-cells = <0>;
+ 
++      // Example 1: Audio use case with generic binding
+       dfsdm0: filter@0 {
++        compatible = "st,stm32-dfsdm-dmic";
++        reg = <0>;
++        interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
++        dmas = <&dmamux1 101 0x400 0x01>;
++        dma-names = "rx";
++        #io-channel-cells = <1>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++        st,filter-order = <5>;
++
++        channel@1 {
++          reg = <1>;
++          label = "dmic0";
++          st,adc-channel-type = "SPI_R";
++          st,adc-channel-clk-src = "CLKOUT";
++          st,adc-alt-channel;
++        };
++
++        asoc_pdm0: dfsdm-dai {
++          compatible = "st,stm32h7-dfsdm-dai";
++          #sound-dai-cells = <0>;
++          io-channels = <&dfsdm0 0>;
++        };
++      };
++
++      // Example 1: Analog use case with generic binding
++      dfsdm1: filter@1 {
++        compatible = "st,stm32-dfsdm-adc";
++        reg = <1>;
++        interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
++        dmas = <&dmamux1 102 0x400 0x01>;
++        dma-names = "rx";
++        st,filter-order = <1>;
++        #io-channel-cells = <1>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        channel@2 {
++          reg = <2>;
++          label = "in2";
++          st,adc-channel-type = "SPI_F";
++          st,adc-channel-clk-src = "CLKOUT";
++          st,adc-alt-channel;
++          io-backends = <&sd_adc2>;
++        };
++
++        channel@3 {
++          reg = <3>;
++          label = "in3";
++          st,adc-channel-type = "SPI_R";
++          st,adc-channel-clk-src = "CLKOUT";
++          io-backends = <&sd_adc3>;
++        };
++      };
++    };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    dfsdm_2: dfsdm@4400d000 {
++      compatible = "st,stm32mp1-dfsdm";
++      reg = <0x4400d000 0x800>;
++      clocks = <&rcc DFSDM_K>, <&rcc ADFSDM_K>;
++      clock-names = "dfsdm", "audio";
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      // Example 3: Audio use case with legacy binding
++      dfsdm0_2: filter@0 {
+         compatible = "st,stm32-dfsdm-dmic";
+         reg = <0>;
+         interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
+@@ -311,14 +451,15 @@ examples:
+         st,adc-channel-clk-src = "CLKOUT";
+         st,filter-order = <5>;
+ 
+-        asoc_pdm0: dfsdm-dai {
++        asoc_pdm0_2: dfsdm-dai {
+           compatible = "st,stm32h7-dfsdm-dai";
+           #sound-dai-cells = <0>;
+           io-channels = <&dfsdm0 0>;
+         };
+       };
+ 
+-      dfsdm_pdm1: filter@1 {
++      // Example 3: Analog use case with legacy binding
++      dfsdm1_2: filter@1 {
+         compatible = "st,stm32-dfsdm-adc";
+         reg = <1>;
+         interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
 -- 
 2.25.1
 

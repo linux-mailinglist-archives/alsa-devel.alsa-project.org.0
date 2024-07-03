@@ -2,117 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 209C5925755
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 11:51:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB08925779
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 11:56:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31A9B162A;
-	Wed,  3 Jul 2024 11:51:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31A9B162A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2DE01605;
+	Wed,  3 Jul 2024 11:55:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2DE01605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720000284;
-	bh=DJpEKaO0GRS1/3x/TYtrZypLe7tnIvtbnFwzw/W3d3o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Vb0cBXnJJIHN5FOvNJmfM2KhD5qw91dpP19aQFy5eP4rcnqJQumBFL5SkOgFdrhD+
-	 FX9IKMEkVd1IQUJFhOXsYT0Sf6BywclpFdSiwErV66HUlnz/wPXVdVA2kn9Y0H1uGi
-	 EUhrysF8MEoxlKgbRn8tzeWo8tY3M7jFty2VXUOU=
+	s=default; t=1720000564;
+	bh=MH4RcLU2Ew8c5WvQKy9K80s3b4in5J9rOvq2ovT09vk=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Zg0uOeHqQx9ZE0LnTbit4rmlQrj6K16e5Yjm75VbedcRa1Q+ZZK++TVlmJdBum7iQ
+	 kIdu/wZx0FD7tLI9zk+Cb6Ybd7Axak3wVEf2QdThd8Lq5biweljHrNENCSVYxoXNW/
+	 H7MOK7xxaG1mrDt78/wKt0mLkKZV04YedK/IOxxI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 966A6F805B0; Wed,  3 Jul 2024 11:50:52 +0200 (CEST)
+	id A78ACF805BD; Wed,  3 Jul 2024 11:55:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3422F805AE;
-	Wed,  3 Jul 2024 11:50:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FAACF8014C;
+	Wed,  3 Jul 2024 11:55:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A727F8025E; Wed,  3 Jul 2024 11:50:46 +0200 (CEST)
+	id E7E5CF80301; Wed,  3 Jul 2024 11:55:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E927AF8013D
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 11:50:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E927AF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 01866F8013D
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 11:55:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01866F8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ncl4xNTZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1720000235; x=1751536235;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=DJpEKaO0GRS1/3x/TYtrZypLe7tnIvtbnFwzw/W3d3o=;
-  b=ncl4xNTZLMb4VHWQocwEXl9S1S+W6SNMgEl/VkC5yQwNcz+Q2xw0eBD5
-   Y0MATGVuYckNCCfvbIloKrQRKiZWZp8P+BxiSINY8UGUbaAMWm9vZmbY4
-   XFPQtyz/qQNloXqTXObZBEuZbkcIvauUH3NWTkA0n8RuOe79Nf/YvWXyt
-   0RkUdMkvgza0EUyLyZ8IE4EfGKSj4jbwnr5tN7A2oblZbx5Oi+Ev4qPaF
-   CshKpEfvXmZhrRcVgjB/NXOijevfFQc1vWI7Wc9DqAR5KO4IkQB4S0hv8
-   Op+GV2hGlckIDAxjeH/vj5RRtxsAjhy9rASun5n4VSZ5sUFlVeu3zjD8O
-   w==;
-X-CSE-ConnectionGUID: +gLt/TPSSeWURnygP/pfDQ==
-X-CSE-MsgGUID: FAvYx0FpQligK1mJ2xLIfw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11121"; a="17353932"
-X-IronPort-AV: E=Sophos;i="6.09,181,1716274800";
-   d="scan'208";a="17353932"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2024 02:50:31 -0700
-X-CSE-ConnectionGUID: HisMjqEsSnu1KvOGzxeF/Q==
-X-CSE-MsgGUID: o6LxAqoWSDaNPEVrfSuhqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,181,1716274800";
-   d="scan'208";a="83754897"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.246.242])
- ([10.245.246.242])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2024 02:50:25 -0700
-Message-ID: <ab734271-58ee-4981-926c-9b57f36b8ac6@linux.intel.com>
-Date: Wed, 3 Jul 2024 11:50:21 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=lTnWTbo9
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4636JLf5030004;
+	Wed, 3 Jul 2024 04:55:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=7oWiVqhXfjhbUu+v
+	MkJ6zhF4ivh4BhAtnUWD0CW582M=; b=lTnWTbo9wC0ILLcN2CesPxbgZ9AUsx5v
+	cRMpPTtvD7vrdpbMF2+LqC130r+xuDHQn9CD10g5ON9sMLsEcF5unaH2bUoMpt7R
+	JC+5W1jvLOiryqj+DvKdeVkGUBCq112CIxwhZ4Zy8Hux61OLG6R+J35akgq29KLm
+	4iKwebyPxZklLgRAh+IgmUIGLnl+d37PGZ1C+rzo2KgmxkYp96le7cL13gu4aLMJ
+	WwRx4sAOm/Lf9iw1O5Zc2szV/T/jpeEwTA7BGMy/o3pSPzKPTzoPSMvjUVEpITyu
+	gGoTVW4Sh6tRglCnvv7AmYvcbGz2/laEIH6ICtkAsFCsX++DhjNXMg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 402fnxcq1b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 03 Jul 2024 04:55:20 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 3 Jul 2024
+ 10:55:18 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Wed, 3 Jul 2024 10:55:18 +0100
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id E92AD820244;
+	Wed,  3 Jul 2024 09:55:17 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
+Subject: [PATCH 0/2] ASoC: cs35l56: Set correct upper volume limit
+Date: Wed, 3 Jul 2024 10:55:15 +0100
+Message-ID: <20240703095517.208077-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
-To: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Wesley Cheng
- <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
- corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, tiwai@suse.com,
- robh@kernel.org, gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
- alsa-devel@alsa-project.org
-References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
- <20240610235808.22173-33-quic_wcheng@quicinc.com>
- <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
- <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
- <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
- <096d59a0-5e18-092c-c9ae-d98130226f06@quicinc.com>
- <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
- <eb6370ea-47a0-3659-3c10-cb7f95e3e520@quicinc.com>
- <510468c7-b181-48d0-bf2d-3e478b2f2aca@linux.intel.com>
- <c7a95157-1b71-1489-3657-8fe67f9acb4e@quicinc.com>
- <90463a4e-c2e7-4b59-9a79-23533b4acd1e@linux.intel.com>
- <fd8f1eb0-4b21-4697-8175-a61bc3858852@quicinc.com>
- <f982842a-1804-420b-a539-a609ecf8fb8a@linux.intel.com>
- <3c358604-6926-4f90-8fc8-8139c68c3418@quicinc.com>
- <70bf10a7-7f87-4fd1-bd44-1733d3b2b15e@linux.intel.com>
- <b1fcef2a-2af9-4985-ae00-f348ca5df3f1@linux.intel.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <b1fcef2a-2af9-4985-ae00-f348ca5df3f1@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IL2YGDDPHUUFEA6UJIRJL4OZASHKTT2P
-X-Message-ID-Hash: IL2YGDDPHUUFEA6UJIRJL4OZASHKTT2P
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain
+X-Proofpoint-GUID: bVRau-DgwfoTpCBdeRbG4rn1oi8FBUrq
+X-Proofpoint-ORIG-GUID: bVRau-DgwfoTpCBdeRbG4rn1oi8FBUrq
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: U7FICNOQDDI5N6YMGCNA42PQQFEHMJVW
+X-Message-ID-Hash: U7FICNOQDDI5N6YMGCNA42PQQFEHMJVW
+X-MailFrom: prvs=4914b47104=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IL2YGDDPHUUFEA6UJIRJL4OZASHKTT2P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7FICNOQDDI5N6YMGCNA42PQQFEHMJVW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,178 +107,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+These two commits set the upper limit of the Speaker Volume control
+to +12dB instead of +100dB.
 
+This should have been a simple 1-line change to the #define in the
+header file, but only the HDA cs35l56 driver is using this define.
+The ASoC cs35l56 driver was using hardcoded numbers instead of the
+header defines.
 
+So the first commit changes the ASoC driver to use the #defined
+constants. The second commit corrects the value of the constant.
 
->>>>>> There are really multiple layers to deal with
->>>>>>
->>>>>> a) is the controller able to support the offload path? IIRC this is
->>>>>> embedded in an obscure XHCI property, it would make sense to
->>>>>> expose it
->>>>>> as a control, or component string, of the USB card.
->>>>> If a component string/tag is desired, I already have some way of
->>>>> doing that.  I can add it to the USB card.
->>>>>
->>>>>> b) is there a companion card capable of dealing with the offload
->>>>>> path?
->>>>>> Since the presence of this card may depend on driver probe, there
->>>>>> should
->>>>>> be a control on the USB card. userspace could detect changes to this
->>>>>> control and detect if that path is or is no longer enabled.
->>>>> So currently, the "USB Offload Playback Capable Card" kcontrol (on
->>>>> the USB card) will determine if there is an offload path.  However,
->>>>> this differs than what Amadeusz is suggesting, in that he wants a
->>>>> single kcontrol created for EACH USB card identified (per USB audio
->>>>> device), and a simple enable/disable control to determine if the
->>>>> offload path is enabled for that card/pcm stream.
->>>>>
->>>>> It would be a simpler approach for the userspace, and if the card
->>>>> that handles the offload card isn't present, then these
->>>>> enable/disable control will be set to "disabled," and even if users
->>>>> attempt to set the control, it won't go through.
->>>> Not following. Are you suggesting userspace would modify the
->>>> enable/disable status?
->>>
->>> Yes, this is the suggestion.  One writeable kcontrol on the USB SND
->>> audio device that will control if that USB audio device is going to
->>> be offloaded.  If the kcontrol reads back "enabled" (or 1) then
->>> userspace knows that the offload path is active.  Else, if it reads
->>> "disabled" (or 0) after the attempt to set the kcontrol, then the
->>> offload path was unsuccessfully enabled, ie maybe due to no available
->>> offload streams.
->>
->> It's a bit over-engineered IMHO.
->>
->> My alternate suggestion is a read-only control reporting that offload is
->> possible. Then userspace attempts to open a PCM device on the ASoC card,
->> any failures due to resources would be handled at that point.
->>
->>>> I would just have a read-only control that reports what the hardware
->>>> can
->>>> do and which other card can deal with offload. It's up to userspace to
->>>> select the offloaded PCM device or not.
->>>>
->>> That is what I have implemented in the previous patch series.  One
->>> USB SND kcontrol within each USB audio device, which points to the
->>> ASoC platform card that supports offloading:
->>>
->>> "USB Offload Playback Capable Card" --> returns the card index to the
->>> ASoC platform card
->>>
->>> >From there the offloading control is all within the ASoC platform
->>> card.  This is opposite to what Amaduesz suggested in that, the
->>> offload control of which USB device to offload should be within USB
->>> SND (not ASoC)
->>
->> It's very hard to follow, I don't understand what userspace needs to
->> 'control' - in the modify sense. What userspace needs is a place to read
->> from, and then select the PCM device and follow usual ALSA configuration
->> with hw_params.
->>
-> 
-> From what I've seen I assumed that goal is to allow Offloading of
-> specific stream from USB card. Otherwise I would say controls are not
-> needed at all, as more user friendly solution is Offloading streams in
-> order they are used as long as resources are available.
+Richard Fitzgerald (2):
+  ASoC: cs35l56: Use header defines for Speaker Volume control
+    definition
+  ASoC: cs35l56: Limit Speaker Volume to +12dB maximum
 
-That's not great in terms of audio routing, you'd really want more rules
-or controlled behavior where the order in which devices are used does
-not matter.
+ include/sound/cs35l56.h    | 2 +-
+ sound/soc/codecs/cs35l56.c | 6 +++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
->>>>>> c) which PCM device is actually offloaded? This could be plural
->>>>>> for some
->>>>>> implementations. The mapping between PCM devices exposed by the USB
->>>>>> card, and those exposed by the companion card, should be known to
->>>>>> userspace. I am not sure how this would be done though, a variable
->>>>>> number of controls is a sure way to confuse userspace.
->>>>> Expanding on Amadeusz's suggestion, my idea is to have an
->>>>> enable/disable kcontrol per USB stream.  For example, one USB card
->>>>> could have multiple PCM devices (USB streams).  So we would have
->>>>> something like:
->>>>>
->>>>> PCM Offload Playback Enable Stream#0  enable/disable
->>>>>
->>>>> PCM Offload Playback Enable Stream#1  enable/disable
->>>>>
->>>>> ....
->>>> are those read-only or not?
->>>
->>> No, writable and readable.
->>
->> The writable part introduces a complicated error handling, e.g. what
->> happens if you have an offloaded stream and then this control is changed
->> with amixer while streaming?
->>
-> 
-> -EBUSY? and keep old value
+-- 
+2.39.2
 
-That would require a stop, fw_free, close, reopening of the
-non-offloaded device and restart. Best to avoid interrupting streams, if
-there are no resources that should be detected with an early fail during
-open/hw_params. Once the stream is flowing, it should not be interrupted
-- unless the USB device is removed of course.
-
->>>>> So we'd know which USB card and PCM device is selected for USB
->>>>> SND.  However, I see what you're getting at in case there are
->>>>> multiple supported streams, because userspace needs to know which
->>>>> ASoC card/pcm combination corresponds to which USB device/combination.
->>>> I don't understand how this would help map the two parts? There's
->>>> got to
->>>> be an additional mapping...
->>> It won't help with the mapping.  That is something which we'd need to
->>> add, suggestion below.
->>>>> What do you think about having a USB card kcontrol to display the
->>>>> mapped ASoC card and PCM indexes?
->>>>>
->>>>> PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0,
->>>>> PCM device#1)
->>>>>
->>>>> To summarize, if we did this, I'd plan to remove all the kcontrols
->>>>> in ASoC card, and have the following in the USB card for an USB
->>>>> audio device that supports one USB stream:
->>>>>
->>>>> PCM Offload Playback Enable Stream#0  enable/disable
->>>>>
->>>>> PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0,
->>>>> PCM device#1)
->>>> ... which is suggested here.
->>>>
->>>> Assuming these are read-only controls, we would need to know which PCM
->>>> device on the USB card can be optimized with the use of which PCM
->>>> device
->>>> on the ASoC card. That means a set of three values. You would also want
->>>> a number of streams to make the guesswork on controls less painful.
->>>
->>> OK, so now to just figuring out something that both you and Amadeusz
->>> can agree on before I put time implementing it.  So I've implemented
->>> the "enable/disable" path that Amadeusz suggested, which is
->>> highlighted in my previous response, for evaluation purposes.  The
->>> overall question is which layer should control the devices that will
->>> be offloaded.  In my submissions up until now, the control was given
->>> to the ASoC platform card to determine which USB device to offload. 
->>> Amadeusz mentioned that it might be beneficial to move the control to
->>> the USB SND devices, because what if the offloading is NOT backed by
->>> ASoC. (highlighted in [1])  However, IMO the current implementation
->>> assumes there is ASoC involved, which should mean that there is some
->>> platform "card" that is backing the offload path.  Please let me know
->>> if my understanding is incorrect, @Amadeusz.
->>
->> I still fundamentally don't get why userspace would try and modify any
->> controls, this makes the flows more complicated IMHO since you also have
->> the PCM open/hw_params stages.
->> I really think it'd be more than enough if the USB card exposed
->> read-only values showing that offload is possible and which card/device
->> to map to. Then userspace uses the ASoC PCM device and errors are
->> handled at that level.
-> 
-> I tend to agree, less values to change, less chance something breaks.
-> However I think that there should be some way to disable Offload in case
-> something doesn't work properly. (It doesn't have to be control, one can
-> go with module parameter or sysfs toggle or something.)
-
-Agree with this, a 'static' configuration to disable offload would be
-just fine. Module parameter is fine.
-
-A control to read if offload is possible and what the mapping is would
-be good. From there on, userspace may open the offloaded PCM and deal
-with all events (hw_params not supported, xruns, removal, etc).

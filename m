@@ -2,91 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02AEB9258CD
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 12:36:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4359258D0
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 12:37:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35D671930;
-	Wed,  3 Jul 2024 12:36:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35D671930
+	by alsa0.perex.cz (Postfix) with ESMTPS id B93C31914;
+	Wed,  3 Jul 2024 12:36:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B93C31914
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720002995;
-	bh=cOn7ju16wjK6pDolLwYz3MYYA0UeyCHv7oicnzceFGM=;
+	s=default; t=1720003028;
+	bh=H6MHDzn4DJjvMx+UU3AarlEqCOFCm2kvbOhK8C4skwc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dTT7F8N8z53YNQouRQqYy3G3F64GjS2rSkbz6YUHqBUQ3GOlhycd3R+Gi+sSea/sO
-	 Fh2PPy063Svul7d5qTJRIzpO+tq6GuCMV1uQbws7SrUkfLAOTUZIADCWqMzDi0slZW
-	 HXCyFOL4d/FKpb6Ac3QY2w2U9QuE6CfrT1V4fEVw=
+	b=kTI7/NeV7tUWXjPDZQL3WViy91uIknTW2GjFB+YWNl9gVIX9vclQZK8rlVrypyCbk
+	 Uu2FL+zfuAFMUbYZ0p9hcb/uPA/5ypM223MK0Vjig0KqEsTgriD8Kt4IzAc7+2/+6e
+	 Gjx0L63ADw1C0aaGV/Uls5PTkUgFc0+8KT6ZyNlU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C40BF805E2; Wed,  3 Jul 2024 12:35:51 +0200 (CEST)
+	id 3DB02F8061C; Wed,  3 Jul 2024 12:36:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28CC7F805BD;
-	Wed,  3 Jul 2024 12:35:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD192F8060B;
+	Wed,  3 Jul 2024 12:36:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96970F8025E; Wed,  3 Jul 2024 12:28:18 +0200 (CEST)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
+	id 93F34F8014C; Wed,  3 Jul 2024 12:28:41 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4CE14F800F8
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 12:18:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CE14F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1F56EF80301
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 12:18:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F56EF80301
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ObK6E5ix
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a75131ce948so493560766b.2
+ header.s=google header.b=nrXrx4f+
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a7252bfe773so545889466b.1
         for <alsa-devel@alsa-project.org>;
- Wed, 03 Jul 2024 03:18:06 -0700 (PDT)
+ Wed, 03 Jul 2024 03:18:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1720001778; x=1720606578;
+        d=linaro.org; s=google; t=1720001779; x=1720606579;
  darn=alsa-project.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Q1gM5YfJ5m/5Sqzk9+V5O7T+yd7cVFhUsmikU//os+Y=;
-        b=ObK6E5ix5+ux8HUQSow7oLyIAOG1/xwPJmBeqoRMNNJ3ZA5GIAe82u+WL1BPDAggZk
-         UQJF847DFBvZlVPX1Xp+jOzTJBIYKsISnSF+VIavUww8tIuWu3LRH5WkIV/vmZzEN51K
-         pjA0J4w/e3p2LVXY1htp6S4P2QFCEa6JYPaj6B/oPKig9aFpjIk+3r5KPl33J1MCCT7H
-         7rsmPhSNxfJcYpC7bEdR7Xie2TN1Cz1zPW+uxQNGIlWRxLeKYCxXJshHd1b99HNYS3gd
-         3Sa7AxZAOF2PaPNFhm28QS7bbLCvnbyDCl41O5XIcYSOZqsG00svu+tlCt3nP3fLBkFC
-         Gp5w==
+        bh=4h10YGfrwPkkGVTEjCw3qirW9g6luYJ5Y1/Sh0BpRyU=;
+        b=nrXrx4f+mvlISO+bWo1AA9ZmS9Pi0Qps+4Qj+mi4gh8QHNCdH3LeXVO48KHYEwcJsH
+         VvqGpIqbSwyxgklHTWSaQEKqn0HuMeumW+eB5s4sfaOh8U5oIClZ3Tim/SEhdw676lTK
+         9SNiNptT0ri4gj3OWd3lws4Y8LA4bmvA0xB7ufJBkfNO5NBcXuclW+3hBgfL6bg2XvXu
+         VF3y3+7gmrvnz50YYTeuE7ujy4yFgLPmxJpqyOreL0bPw11H72F8MBZVDipcaI4eBd32
+         zR5sYqzJC5L2eSxdV4gxZFr4lS42pK1vqOtWiQSrmvdJokd9HocBHN10Y9aUNeil/BqR
+         sNFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720001778; x=1720606578;
+        d=1e100.net; s=20230601; t=1720001779; x=1720606579;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Q1gM5YfJ5m/5Sqzk9+V5O7T+yd7cVFhUsmikU//os+Y=;
-        b=sSLsdN9ggfqlCmqYseAN24QICH1VNME3TJdiRmc0u7INgrGh7HbYYImamkFu7QkX81
-         SzkZB7MsMOoNsRIblIudg1gboe4+JAhv11/J+lEK0hgRSbzP3vc5d/YDl/O6Hcfk+y2T
-         iB7kFHZ3+BrInAtriYran91AjPjXkK3JtuDzwaPS4J3Vi81SWt9sgyqcHwDSxe65Yd+U
-         /23pOaTS8O51vexfFQGWnk3iU9OmMPFRkA2DO5yLsumPc+pLDEZjEYPklnbSasn86nbf
-         yY9wWMFD+bulih6AjsSRwe9TFUYujttscVfjFxzokGSUGC7YN27p8hT+cuuW1qs7zkmU
-         tdgw==
-X-Gm-Message-State: AOJu0YxKY6XU5tYjBwixZrRD808gcMGVQLtqNQlrOH+T26chUo0UYyhG
-	2x72/lkzu2Hrmjv+5L6ykpEbo6ABeoCs/CF9UY4QwwPCM0nle0/7/8+lrqTkAOs=
+        bh=4h10YGfrwPkkGVTEjCw3qirW9g6luYJ5Y1/Sh0BpRyU=;
+        b=gbL+cXMWAG3P0vl0RjJ+3c5+r3uLAWRIdkBDscuemERFXnCJtemPcybBk3xN8dvRjF
+         BqBjzKi5ktpOoFA15qKuSpH+SzfheyraZCBUzJQ7Is3N4AqQCcApApFbLDU+nMDpYPbG
+         TUe7djLAooencdxCSt7wuobNyL9Neo/VRtEzS7ew1WNMICBx0ClxpEOZ5CkwEIi/meWs
+         xh8k0cyiTqJZCvUgw9dYROjL0zj2S1SsL5D2dJqrLy2KySwkxaip9+1Fiv4abm3arnOp
+         8finGYV6NaCtVT9YcIQecwSgtQuVY0CfAfZSUiAdZ7jMkv1wsounkD0epMVGB4emzHmL
+         j/Tw==
+X-Gm-Message-State: AOJu0YxhGar2zuj2c48twdt8zcUmeHgJa2dIYnFoC4+rbQG/YhqpDVTD
+	YrDGKgR82SnActDa9IhJOijzaH09ZoAdIYTtWY9HtxqeFpLnoXEflgyPTf4IFvg=
 X-Google-Smtp-Source: 
- AGHT+IHu4HDX7PNB+RrIZabjL3r10C6WAGWLrBJ/SniR7QXeM4+uEi1nx8/QXXKaEFa8XSm0LDA0qQ==
-X-Received: by 2002:a17:906:3716:b0:a6f:1dbb:d38b with SMTP id
- a640c23a62f3a-a75144309f6mr639801266b.28.1720001778032;
-        Wed, 03 Jul 2024 03:16:18 -0700 (PDT)
+ AGHT+IE2lrUjD2pD2f+fZKLRkMjumm7fxaU+U4uTiEAcTuke1jkfQkdtKdbpoN9AyTeSI5vhJJyf4A==
+X-Received: by 2002:a17:907:7e85:b0:a72:9d25:8ad3 with SMTP id
+ a640c23a62f3a-a75142d84cfmr1002976966b.9.1720001779364;
+        Wed, 03 Jul 2024 03:16:19 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.137])
         by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a72ab06565csm494291466b.103.2024.07.03.03.16.16
+ a640c23a62f3a-a72ab06565csm494291466b.103.2024.07.03.03.16.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jul 2024 03:16:17 -0700 (PDT)
+        Wed, 03 Jul 2024 03:16:18 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 03 Jul 2024 12:15:57 +0200
-Subject: [PATCH 5/9] soundwire: intel: simplify with cleanup.h
+Date: Wed, 03 Jul 2024 12:15:58 +0200
+Subject: [PATCH 6/9] soundwire: intel_ace2x: simplify return path in
+ hw_params
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240703-soundwire-cleanup-h-v1-5-24fa0dbb948f@linaro.org>
+Message-Id: <20240703-soundwire-cleanup-h-v1-6-24fa0dbb948f@linaro.org>
 References: <20240703-soundwire-cleanup-h-v1-0-24fa0dbb948f@linaro.org>
 In-Reply-To: <20240703-soundwire-cleanup-h-v1-0-24fa0dbb948f@linaro.org>
 To: Vinod Koul <vkoul@kernel.org>,
@@ -96,25 +102,25 @@ To: Vinod Koul <vkoul@kernel.org>,
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2107;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1648;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=cOn7ju16wjK6pDolLwYz3MYYA0UeyCHv7oicnzceFGM=;
- b=kA0DAAoBwTdm5oaLg9cByyZiAGaFJOWjVZRJlaE4+7o8j3BoA3vRf5jfJurtUc9fTi9oPNE2H
- 4kCMwQAAQoAHRYhBN3SYig9ERsjO264qME3ZuaGi4PXBQJmhSTlAAoJEME3ZuaGi4PX+Q8P/1QR
- pWn/0I9oFGlPVBDkeUK+8ZgI+HK4gDCXUcmphuWo3fkkIISCmpdjU1CMhUIoxw0XJS0WCo4+cA7
- ftUEG6AjbJ1lt7tN+UQcgof4l1hADQ2wXlaW0CzC8Bw19MC61jGS1yJvIAGAboAYgKrQSfrsnFc
- XY3r4AyZc3gHF7uJIm4yqrXikozsOMttAHUoafi6f6feaTFi1a0A2ISoyT+AW+RHUfyweB1E6fg
- QDE2hu6HhT9ON7UzbcQgoVQkCjj1CdNOZOwBYVS6wrb/B7ORkgj3dB+WI5FnMnJM9iwLkK5QDZj
- LoFJzQ07N5Gi1i73wARhjBRw2b/4Oo1Mi2LL0m5N4rb4IbZtyCUfNALfhRIyu72agXKYAqzR6zI
- 7Idc0TQZAN69ijTjxaYsaRFJs2SRoN7Z0p2hTMzk5Jr+vw0KpfS4eXaT81AJPXRx9gv8wXIBEfj
- Xe9LKrsmjmOV6ZgOu8O9RJK21kVII6uvktYyW4vkAVEA8conI6TgWIQKXI3TxTPAUmmhV8QO2d5
- OR255h+cU3rPAb1DtzI9iXXLTncjldmjDZyoPxA32JNyQS6fBUrEZxTt9PVlb88DKKYDBS+4Iw5
- u1hdypdpA5Dqlp6VHr/Lz/y9QpgZMEKfnflUiIGuux0zBtnOfNXP6/9gCRRGyYnAAXfDJZqL7rh
- omplR
+ bh=H6MHDzn4DJjvMx+UU3AarlEqCOFCm2kvbOhK8C4skwc=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmhSTmLDnJUL3FsGDF5drvgu3fqPTzR9Y/ZiOGC
+ mlwnnfvADqJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZoUk5gAKCRDBN2bmhouD
+ 16qGD/0RTy0gf025ZbhLA1kN/XXZ3PlVTWyAloNPGC57y/esZhOXT/qt53fssZ7KSpHzpKNERDt
+ flw0qiIrQwaGh0tIfMFkQAgPOUX0IK+QcVX5Da4Wu2rHui3mest/vCtHs+v9GuY+ey4bGENm6Up
+ wqF/fkwK7tNmYNBrWsNkDdSmpfLak2VaFfRqwcdS4NCcUPbDtPXin5ijO1ezNwPT7oEg6PkVnaW
+ f87mCHd0QPF93MOCsUl8U9Df39Wloe9QZ9pn5Qh3a8IxJX9nxxcrP/dnBkXQIpbEnMwOII2doic
+ nGobn0vQq2v1+Tte0V5hS7paQolA2IsyHfUwblLJ1yb/tn9rrbCWB9Rq9ImCTx4IKaI9FVqGJ9a
+ dAcZaW+8Jd/xeFwQMRsnwVu+PsJPMpjrTC+4vx3/kBvqMK+e6RAK1aY+r0aoYBBUa2Y5MuwgBLa
+ RR6JGDAO1eFUay9tABD0VU6VeHb2lT6izYKhi1FZSHW6IRa1W07dDTNQQtQZG2Wws9ATEcvliuP
+ X+8G5QzMhXHdSUh6n53+4ZJ7xH7hHjvCv6rwtGcyAzueVoTDbNPk+COndQwODT8MomTTLf8zNva
+ hIoHT6MEounK8Z+iGtLxmFv6ed3+RmrX0Ewuwvo315qpZIX2EpIsorjuZBuzuM/nSU8QDc+HsnT
+ PWxuBI7PWu2MliA==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Message-ID-Hash: IZLQSJM6WKJPLNMAYN2KO7U7HZQBHYVC
-X-Message-ID-Hash: IZLQSJM6WKJPLNMAYN2KO7U7HZQBHYVC
+Message-ID-Hash: ZFZGWJJ7THHH4EIV3HVCTUOLWTIT5ZSP
+X-Message-ID-Hash: ZFZGWJJ7THHH4EIV3HVCTUOLWTIT5ZSP
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -127,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IZLQSJM6WKJPLNMAYN2KO7U7HZQBHYVC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZFZGWJJ7THHH4EIV3HVCTUOLWTIT5ZSP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,72 +142,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Allocate the memory with scoped/cleanup.h to reduce error handling and
-make the code a bit simpler.
+Remove unused error path (label+goto) to make the code a bit simpler.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/soundwire/intel.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/soundwire/intel_ace2x.c | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index b4449095b423..421da0f86fad 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -6,6 +6,7 @@
-  */
+diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
+index 4f78b7f99e44..f0008ff84ab4 100644
+--- a/drivers/soundwire/intel_ace2x.c
++++ b/drivers/soundwire/intel_ace2x.c
+@@ -325,11 +325,8 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
+ 		dir = SDW_DATA_DIR_TX;
  
- #include <linux/acpi.h>
-+#include <linux/cleanup.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/io.h>
-@@ -73,12 +74,11 @@ static int intel_reg_show(struct seq_file *s_file, void *data)
- 	struct sdw_intel *sdw = s_file->private;
- 	void __iomem *s = sdw->link_res->shim;
- 	void __iomem *a = sdw->link_res->alh;
--	char *buf;
- 	ssize_t ret;
- 	int i, j;
- 	unsigned int links, reg;
+ 	pdi = sdw_cdns_alloc_pdi(cdns, &cdns->pcm, ch, dir, dai->id);
+-
+-	if (!pdi) {
+-		ret = -EINVAL;
+-		goto error;
+-	}
++	if (!pdi)
++		return -EINVAL;
  
--	buf = kzalloc(RD_BUF, GFP_KERNEL);
-+	char *buf __free(kfree) = kzalloc(RD_BUF, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
+ 	/* use same definitions for alh_id as previous generations */
+ 	pdi->intel_alh_id = (sdw->instance * 16) + pdi->num + 3;
+@@ -350,7 +347,7 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
+ 				  sdw->instance,
+ 				  pdi->intel_alh_id);
+ 	if (ret)
+-		goto error;
++		return ret;
  
-@@ -129,7 +129,6 @@ static int intel_reg_show(struct seq_file *s_file, void *data)
- 		ret += intel_sprintf(a, true, buf, ret, SDW_ALH_STRMZCFG(i));
- 
- 	seq_printf(s_file, "%s", buf);
--	kfree(buf);
- 
- 	return 0;
- }
-@@ -727,7 +726,6 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
- 	struct sdw_cdns_dai_runtime *dai_runtime;
- 	struct sdw_cdns_pdi *pdi;
- 	struct sdw_stream_config sconfig;
--	struct sdw_port_config *pconfig;
- 	int ch, dir;
- 	int ret;
- 
-@@ -771,7 +769,8 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
- 	sconfig.bps = snd_pcm_format_width(params_format(params));
+ 	sconfig.direction = dir;
+ 	sconfig.ch_count = ch;
+@@ -361,10 +358,8 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
  
  	/* Port configuration */
--	pconfig = kzalloc(sizeof(*pconfig), GFP_KERNEL);
-+	struct sdw_port_config *pconfig __free(kfree) = kzalloc(sizeof(*pconfig),
-+								GFP_KERNEL);
- 	if (!pconfig)
- 		return -ENOMEM;
+ 	pconfig = kzalloc(sizeof(*pconfig), GFP_KERNEL);
+-	if (!pconfig) {
+-		ret =  -ENOMEM;
+-		goto error;
+-	}
++	if (!pconfig)
++		return -ENOMEM;
  
-@@ -783,8 +782,6 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
- 	if (ret)
+ 	pconfig->num = pdi->num;
+ 	pconfig->ch_mask = (1 << ch) - 1;
+@@ -375,7 +370,7 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
  		dev_err(cdns->dev, "add master to stream failed:%d\n", ret);
  
--	kfree(pconfig);
--
+ 	kfree(pconfig);
+-error:
++
  	return ret;
  }
  

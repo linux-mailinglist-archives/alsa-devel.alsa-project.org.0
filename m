@@ -2,113 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43A16925572
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 10:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC6E19255E0
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 10:50:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA2D1EBE;
-	Wed,  3 Jul 2024 10:34:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA2D1EBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BCB1EAB;
+	Wed,  3 Jul 2024 10:50:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BCB1EAB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719995659;
-	bh=Jm93qYQgbl0FMRbmqpJUQ22vd/e4flRf03TyEJU75ks=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1719996622;
+	bh=3dltHtCt2kO8qiiW2Npq9piciE3gykOkQi65SIBblgk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IlHJxs9ITaKp4PbLVh6Hhi5am5cPYPvntz4SMrmL5ouVysMjmyv6ivsc/SDWJSOj+
-	 kPD/yPn/mLdiJ4k1Y7ze5TlE9KDobPljOuaTC+49Gz87PUZU+GSUfKathj4IU1sAP6
-	 wqH68g0bNp22Uuw5yZ72AuCL/pNaO9SUUWpwlQ1k=
+	b=AsNT0riqKFNqBkopftEAyne0941U51itZpsy2vsWqshak+nizTRrlTQkG7BYGuw7e
+	 27EXHFOcInLBlrPUr4VHQgq5//n5iAw2n8bpO63supFNY3YHIZ0kXmwJiu53e89bF3
+	 q+gMIG0JZkjIeMaeginekC6wZimO/uePKjQJr7pE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86ED0F8014C; Wed,  3 Jul 2024 10:33:48 +0200 (CEST)
+	id 75E6BF804FC; Wed,  3 Jul 2024 10:50:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57F1DF8025E;
-	Wed,  3 Jul 2024 10:33:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77DD3F805AD;
+	Wed,  3 Jul 2024 10:50:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6E18F8025E; Wed,  3 Jul 2024 10:30:36 +0200 (CEST)
+	id 21CEAF8025E; Wed,  3 Jul 2024 10:49:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 60045F8013D
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 10:28:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60045F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0165BF800FE
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 10:49:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0165BF800FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=4CV489sG
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4637YLfS001949;
-	Wed, 3 Jul 2024 10:28:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=selector1; bh=
-	6Rh2LslZMMANq25IkC1tGRBe0DiLGeoOd/wRbMxgBrk=; b=4CV489sGvTWQM9NP
-	ZGgolq1vdNLKVVshdskB5IXydpfRbKETXV88CbllItmX5f0ifEJR/zx19JQrq6Yi
-	s3rZdz49gs+Dof5XEN2fEu4L2i8kWcfzITe3HYviDq1Aiy2SFOHGfLV4uv1LstTK
-	4QuFw41HQJFQ2x9uN+K391Rwj5YiD7PcLJwVxG7cQtttCj3CfGyAdLTCy8IX3HZg
-	XVjO1P1epRuXMBU7zZSs0vbjq+fCTDoxHL0PIdwUeaAzdouj1McP5cLALgONdbR9
-	RI8Z6zRolov9PiKk/f65Zq6rGabaSeZbUbEuoiFLmCJMxK7L2Us9CUUXECcRwNME
-	R7x+KA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 402w7j524p-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 03 Jul 2024 10:28:57 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8FEF540048;
-	Wed,  3 Jul 2024 10:28:52 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AC62A215BFA;
-	Wed,  3 Jul 2024 10:28:02 +0200 (CEST)
-Received: from [10.252.27.110] (10.252.27.110) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 3 Jul
- 2024 10:28:01 +0200
-Message-ID: <da75ec86-a701-45cc-b573-fde79bcfc104@foss.st.com>
-Date: Wed, 3 Jul 2024 10:28:01 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=LBb9oO/c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1719996580; x=1751532580;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=3dltHtCt2kO8qiiW2Npq9piciE3gykOkQi65SIBblgk=;
+  b=LBb9oO/cvMDGf5os1h7lSPLBMwk1+iC7gYeM0hxPrA0JXUG6VVw/T+ct
+   HoT+9DItMcGCrORJUyhnQsBCuq4OARVIXwNtmuYJuS8IlrQFTZ+p3/hfr
+   jU0iqtefsRaoBP7Azl0PlgWwxjpwgl/UDbIfuzNQLBJO+k6q2r4867iHo
+   PtClMWQXmkumsNJHOFNUFsz4ArPd2QN1DDEPXTQqxXrfmLrSn/0IK28f/
+   C7fh0ANYAN4ob4nL1u5xjM1w5xO2L4VGB6f1zVq1hwQNNctIB26oVN/9s
+   x8jZtnnyVLHJTxd0AAYjhlK2kqLo6U3DcmpbB3IB4a+PazJz8UVdhHxrB
+   g==;
+X-CSE-ConnectionGUID: WXwZCcZhSHiPzrps/0reaw==
+X-CSE-MsgGUID: ScNlZKbATWGvigwjM302vA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11121"; a="17166463"
+X-IronPort-AV: E=Sophos;i="6.09,181,1716274800";
+   d="scan'208";a="17166463"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2024 01:49:27 -0700
+X-CSE-ConnectionGUID: hspAsi3VQOKExlrUFYcLFw==
+X-CSE-MsgGUID: 2ivefynxTxGERJHTPJ/Mqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,181,1716274800";
+   d="scan'208";a="50501023"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.246.242])
+ ([10.245.246.242])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2024 01:49:21 -0700
+Message-ID: <70bf10a7-7f87-4fd1-bd44-1733d3b2b15e@linux.intel.com>
+Date: Wed, 3 Jul 2024 10:49:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] dt-bindings: iio: dfsdm: move to backend framework
-To: Rob Herring <robh@kernel.org>
-CC: <fabrice.gasnier@foss.st.com>,
-        Arnaud Pouliquen
-	<arnaud.pouliquen@foss.st.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        Lars-Peter Clausen <lars@metafoo.de>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        <alsa-devel@alsa-project.org>, <linux-iio@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20240625150717.1038212-1-olivier.moysan@foss.st.com>
- <20240625150717.1038212-5-olivier.moysan@foss.st.com>
- <20240628213517.GA225013-robh@kernel.org>
+Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
+To: Wesley Cheng <quic_wcheng@quicinc.com>,
+ =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
+ corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
+ Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, tiwai@suse.com,
+ robh@kernel.org, gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
+ <20240610235808.22173-33-quic_wcheng@quicinc.com>
+ <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
+ <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
+ <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
+ <096d59a0-5e18-092c-c9ae-d98130226f06@quicinc.com>
+ <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
+ <eb6370ea-47a0-3659-3c10-cb7f95e3e520@quicinc.com>
+ <510468c7-b181-48d0-bf2d-3e478b2f2aca@linux.intel.com>
+ <c7a95157-1b71-1489-3657-8fe67f9acb4e@quicinc.com>
+ <90463a4e-c2e7-4b59-9a79-23533b4acd1e@linux.intel.com>
+ <fd8f1eb0-4b21-4697-8175-a61bc3858852@quicinc.com>
+ <f982842a-1804-420b-a539-a609ecf8fb8a@linux.intel.com>
+ <3c358604-6926-4f90-8fc8-8139c68c3418@quicinc.com>
 Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20240628213517.GA225013-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.252.27.110]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-07-03_04,2024-07-02_02,2024-05-17_01
-Message-ID-Hash: EEBSDYWLCRBNSM3EQPL7EI74GBDT4NLJ
-X-Message-ID-Hash: EEBSDYWLCRBNSM3EQPL7EI74GBDT4NLJ
-X-MailFrom: prvs=79149e812f=olivier.moysan@foss.st.com
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <3c358604-6926-4f90-8fc8-8139c68c3418@quicinc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VANCYW4MNDD4C2LJTJM32N5LSFCKKPYD
+X-Message-ID-Hash: VANCYW4MNDD4C2LJTJM32N5LSFCKKPYD
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EEBSDYWLCRBNSM3EQPL7EI74GBDT4NLJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VANCYW4MNDD4C2LJTJM32N5LSFCKKPYD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,240 +131,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Rob,
 
-On 6/28/24 23:35, Rob Herring wrote:
-> On Tue, Jun 25, 2024 at 05:07:12PM +0200, Olivier Moysan wrote:
->> Change the DFSDM binding to use the new IIO backend framework,
->> along with the adoption of IIO generic channels.
->> This binding change allows to add scaling support to the DFSDM.
+
+>>>> There are really multiple layers to deal with
+>>>>
+>>>> a) is the controller able to support the offload path? IIRC this is
+>>>> embedded in an obscure XHCI property, it would make sense to expose it
+>>>> as a control, or component string, of the USB card.
+>>> If a component string/tag is desired, I already have some way of doing that.  I can add it to the USB card.
+>>>
+>>>> b) is there a companion card capable of dealing with the offload path?
+>>>> Since the presence of this card may depend on driver probe, there should
+>>>> be a control on the USB card. userspace could detect changes to this
+>>>> control and detect if that path is or is no longer enabled.
+>>> So currently, the "USB Offload Playback Capable Card" kcontrol (on the USB card) will determine if there is an offload path.  However, this differs than what Amadeusz is suggesting, in that he wants a single kcontrol created for EACH USB card identified (per USB audio device), and a simple enable/disable control to determine if the offload path is enabled for that card/pcm stream.
+>>>
+>>> It would be a simpler approach for the userspace, and if the card that handles the offload card isn't present, then these enable/disable control will be set to "disabled," and even if users attempt to set the control, it won't go through.
+>> Not following. Are you suggesting userspace would modify the
+>> enable/disable status?
+> 
+> Yes, this is the suggestion.  One writeable kcontrol on the USB SND audio device that will control if that USB audio device is going to be offloaded.  If the kcontrol reads back "enabled" (or 1) then userspace knows that the offload path is active.  Else, if it reads "disabled" (or 0) after the attempt to set the kcontrol, then the offload path was unsuccessfully enabled, ie maybe due to no available offload streams.
+
+It's a bit over-engineered IMHO.
+
+My alternate suggestion is a read-only control reporting that offload is
+possible. Then userspace attempts to open a PCM device on the ASoC card,
+any failures due to resources would be handled at that point.
+
+>> I would just have a read-only control that reports what the hardware can
+>> do and which other card can deal with offload. It's up to userspace to
+>> select the offloaded PCM device or not.
 >>
->> Keep the legacy binding as deprecated for backward compatibility.
+> That is what I have implemented in the previous patch series.  One USB SND kcontrol within each USB audio device, which points to the ASoC platform card that supports offloading:
+> 
+> "USB Offload Playback Capable Card" --> returns the card index to the ASoC platform card
+> 
+>>From there the offloading control is all within the ASoC platform card.  This is opposite to what Amaduesz suggested in that, the offload control of which USB device to offload should be within USB SND (not ASoC)
+
+It's very hard to follow, I don't understand what userspace needs to
+'control' - in the modify sense. What userspace needs is a place to read
+from, and then select the PCM device and follow usual ALSA configuration
+with hw_params.
+
+>>>> c) which PCM device is actually offloaded? This could be plural for some
+>>>> implementations. The mapping between PCM devices exposed by the USB
+>>>> card, and those exposed by the companion card, should be known to
+>>>> userspace. I am not sure how this would be done though, a variable
+>>>> number of controls is a sure way to confuse userspace.
+>>> Expanding on Amadeusz's suggestion, my idea is to have an enable/disable kcontrol per USB stream.  For example, one USB card could have multiple PCM devices (USB streams).  So we would have something like:
+>>>
+>>> PCM Offload Playback Enable Stream#0  enable/disable
+>>>
+>>> PCM Offload Playback Enable Stream#1  enable/disable
+>>>
+>>> ....
+>> are those read-only or not?
+> 
+> No, writable and readable.
+
+The writable part introduces a complicated error handling, e.g. what
+happens if you have an offloaded stream and then this control is changed
+with amixer while streaming?
+
+>>> So we'd know which USB card and PCM device is selected for USB SND.  However, I see what you're getting at in case there are multiple supported streams, because userspace needs to know which ASoC card/pcm combination corresponds to which USB device/combination.
+>> I don't understand how this would help map the two parts? There's got to
+>> be an additional mapping...
+> It won't help with the mapping.  That is something which we'd need to add, suggestion below.
+>>> What do you think about having a USB card kcontrol to display the mapped ASoC card and PCM indexes?
+>>>
+>>> PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0, PCM device#1)
+>>>
+>>> To summarize, if we did this, I'd plan to remove all the kcontrols in ASoC card, and have the following in the USB card for an USB audio device that supports one USB stream:
+>>>
+>>> PCM Offload Playback Enable Stream#0  enable/disable
+>>>
+>>> PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0, PCM device#1)
+>> ... which is suggested here.
 >>
->> The io-backends property is supported only in generic IIO channel
->> binding.
->>
->> - Channel description with the generic binding (Audio and Analog):
->>
->>    Properties superseded by generic properties:
->>      st,adc-channels: becomes "reg" property in channel node
->>      st,adc-channel-names: becomes "label" property in channel node
->>    Properties moved to channel child node:
->>      st,adc-channel-types: becomes st,adc-channel-type
->>      st,adc-channel-clk-src, st,adc-alt-channel
->>
->> - Analog binding:
->>
->>    DFSDM filter channel is configured as an IIO backend consumer.
->>    Add io-backends property in channel child nodes.
->>
->>    DFSDM is no more configured as a channel consumer from SD modulator.
->>    Use of io-channels in DFSDM node is deprecated.
->>
->> - Audio binding:
->>
->>    DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->>    No change compare to legacy.
->>
->> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->> ---
->>   .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 157 +++++++++++++++++-
->>   1 file changed, 151 insertions(+), 6 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> index c1b1324fa132..1802120b16b0 100644
->> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
->> @@ -102,9 +102,11 @@ patternProperties:
->>           items:
->>             minimum: 0
->>             maximum: 7
->> +        deprecated: true
->>   
->>         st,adc-channel-names:
->>           description: List of single-ended channel names.
->> +        deprecated: true
->>   
->>         st,filter-order:
->>           description: |
->> @@ -118,6 +120,12 @@ patternProperties:
->>         "#io-channel-cells":
->>           const: 1
->>   
->> +      '#address-cells':
->> +        const: 1
->> +
->> +      '#size-cells':
->> +        const: 0
->> +
->>         st,adc-channel-types:
->>           description: |
->>             Single-ended channel input type.
->> @@ -128,6 +136,7 @@ patternProperties:
->>           items:
->>             enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +        deprecated: true
->>   
->>         st,adc-channel-clk-src:
->>           description: |
->> @@ -139,6 +148,7 @@ patternProperties:
->>           items:
->>             enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->>           $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> +        deprecated: true
->>   
->>         st,adc-alt-channel:
->>           description:
->> @@ -147,6 +157,7 @@ patternProperties:
->>             If not set, channel n is connected to SPI input n.
->>             If set, channel n is connected to SPI input n + 1.
->>           type: boolean
->> +        deprecated: true
->>   
->>         st,filter0-sync:
->>           description:
->> @@ -165,11 +176,64 @@ patternProperties:
->>         - compatible
->>         - reg
->>         - interrupts
->> -      - st,adc-channels
->> -      - st,adc-channel-names
->>         - st,filter-order
->>         - "#io-channel-cells"
->>   
->> +    patternProperties:
->> +      "^channel@([0-9]|1[0-9])$":
+>> Assuming these are read-only controls, we would need to know which PCM
+>> device on the USB card can be optimized with the use of which PCM device
+>> on the ASoC card. That means a set of three values. You would also want
+>> a number of streams to make the guesswork on controls less painful.
 > 
-> Unit-addresses are normally hex. And according to reg below, the max
-> value is 8.
-> 
+> OK, so now to just figuring out something that both you and Amadeusz can agree on before I put time implementing it.  So I've implemented the "enable/disable" path that Amadeusz suggested, which is highlighted in my previous response, for evaluation purposes.  The overall question is which layer should control the devices that will be offloaded.  In my submissions up until now, the control was given to the ASoC platform card to determine which USB device to offload.  Amadeusz mentioned that it might be beneficial to move the control to the USB SND devices, because what if the offloading is NOT backed by ASoC. (highlighted in [1])  However, IMO the current implementation assumes there is ASoC involved, which should mean that there is some platform "card" that is backing the offload path.  Please let me know if my understanding is incorrect, @Amadeusz. 
 
-Right. The maximum number of serial interfaces is 8.
-So, the pattern can be reduced to "^channel@([0-7])$":
-
->> +        type: object
->> +        $ref: adc.yaml
->> +        description: Represents the external channels which are connected to the DFSDM.
->> +
->> +        properties:
->> +          reg:
->> +            items:
->> +              minimum: 0
->> +              maximum: 8
-> 
-> More than 1 reg entry valid? Either way, you need maxItems. Or you can
-> just drop 'items'
-> 
-
-Added "maxItems: 1" and dropped items.
-
->> +
->> +          label:
->> +            description:
->> +              Unique name to identify which channel this is.
->> +
->> +          st,adc-channel-type:
->> +            description: |
->> +              Single-ended channel input type.
->> +              - "SPI_R": SPI with data on rising edge (default)
->> +              - "SPI_F": SPI with data on falling edge
->> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
->> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
->> +            items:
-> 
-> 'items' is for arrays, but...
-> 
-
-Removed items
-
->> +              enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->> +            $ref: /schemas/types.yaml#/definitions/string
-> 
-> not an array.
-> 
->> +
->> +          st,adc-channel-clk-src:
->> +            description: |
->> +              Conversion clock source.
->> +              - "CLKIN": external SPI clock (CLKIN x)
->> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
->> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
->> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
->> +            items:
-> 
-> ditto
-> 
-
-Done
-
->> +              enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->> +            $ref: /schemas/types.yaml#/definitions/string
->> +
->> +          st,adc-alt-channel:
->> +            description:
->> +              Must be defined if two sigma delta modulators are
->> +              connected on same SPI input.
->> +              If not set, channel n is connected to SPI input n.
->> +              If set, channel n is connected to SPI input n + 1.
->> +            type: boolean
->> +
->> +          io-backends:
->> +            description:
->> +              Used to pipe external sigma delta modulator or internal ADC backend to DFSDM channel.
-> 
-> How many entries (maxItems)?
-> 
->> +
->> +        required:
->> +          - reg
->> +
->> +        additionalProperties: false
-> 
-> Put this next to the $ref for the node. And switch to
-> unevaluatedProperties and drop 'label' from here.
-> 
-
-Done
-
->> +
->>       allOf:
->>         - if:
->>             properties:
->> @@ -199,9 +263,19 @@ patternProperties:
->>                 description:
->>                   From common IIO binding. Used to pipe external sigma delta
->>                   modulator or internal ADC output to DFSDM channel.
->> +              deprecated: true
->>   
->> -          required:
->> -            - io-channels
->> +          if:
->> +            required:
->> +              - st,adc-channels
->> +          then:
->> +            required:
->> +              - io-channels
->> +
->> +          patternProperties:
->> +            "^channel@([0-9]|1[0-9])$":
->> +              required:
->> +                - io-backends
-> 
-> Don't think this is needed here. If channel node is present, the
-> io-backends should always be required, right? Then this can go under the
-> node schema.
-> 
-
-The io-backends property is required only when we use st,stm32-dfsdm-adc 
-compatible. In other words, when we are in an analog use case. In this 
-case the channel is a consumer of a backend (typically a sd modulator)
-In an audio use case (compatible st,stm32-dfsdm-dmic) the backend is not 
-required.
-
-BRs
-Olivier
-
-> Rob
-> 
-> 
+I still fundamentally don't get why userspace would try and modify any
+controls, this makes the flows more complicated IMHO since you also have
+the PCM open/hw_params stages.
+I really think it'd be more than enough if the USB card exposed
+read-only values showing that offload is possible and which card/device
+to map to. Then userspace uses the ASoC PCM device and errors are
+handled at that level.

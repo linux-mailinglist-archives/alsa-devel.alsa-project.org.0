@@ -2,107 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60513925630
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 11:13:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC78B92563B
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2024 11:16:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9EAC15FB;
-	Wed,  3 Jul 2024 11:13:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9EAC15FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 746C8162D;
+	Wed,  3 Jul 2024 11:16:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 746C8162D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1719998016;
-	bh=fZjR28pBAkt6eSylkI8DEksfa2ZuVwFoI2Oxi5vkpOg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1719998188;
+	bh=b0Ks2Ke6NHTc4lwe39WA97RrPkDs5pSotWBmLU26ivo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Oe+K77wEOrhijdQmpnQXCW8pF8ahZHhn2ynFTLDDxSOa3p/t/ZXTXX2vEWEGN5n7y
-	 8lG69UQTgxTra6CV29CnwTHQdo6MEDcZuvAYTBYDLNI2+T5Q7+52OMqhlOKdVgsw/V
-	 RMdBAp1+QwP0CZRB+VmAMMTz3DvioY3K/MoJaRg4=
+	b=eM9LJQ+dnzsUwbV9jGbDgJrrFaDnhjo38pnR1sjex/t34K4l15jo9UlsIJnk4lzrI
+	 5X/Qu9KH65OuuZrOXYAcP69QflHSGibIxtSQKIlPn2O0lEoV7fbakAAwHLUSUIdoIk
+	 a80q3/n1ocPR87dVKS4MhijJabzzsr+63YQ3tDt0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47059F805B2; Wed,  3 Jul 2024 11:13:04 +0200 (CEST)
+	id 0282BF805B4; Wed,  3 Jul 2024 11:15:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D855DF805A0;
-	Wed,  3 Jul 2024 11:13:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35571F805AF;
+	Wed,  3 Jul 2024 11:15:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6328F8025E; Wed,  3 Jul 2024 11:12:58 +0200 (CEST)
+	id 1F427F80272; Wed,  3 Jul 2024 11:13:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [IPv6:2607:f8b0:4864:20::135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3960AF800FE
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 11:12:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3960AF800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id D51B4F800FE
+	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 11:13:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D51B4F800FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=HKN9Zg3Y
-Received: by mail-il1-x135.google.com with SMTP id
- e9e14a558f8ab-3811d62a668so5855735ab.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 03 Jul 2024 02:12:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719997970; x=1720602770;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1jI0rslYrv6mUgs3l1hovuzLhd9gfH1CvVqaU89w3P0=;
-        b=HKN9Zg3YdQaecqRsLKjTsVRZBAlSxCI3sfJTIv2qpkZ6Ghtwyfx4sZZNIT+IaWSfsC
-         9spE2+JiJkfBAm3oiYokNf+CXXuS72UOLo1utJWI94lUz8l81tOVFIQ0+dBL2UFCN+fj
-         0RSpkGcNsLOx5mYh4lwvlLQR6wAj/teTthNqmk+O+Kfx4fdoZzQdBKkIF5d9yNLjFUbz
-         L2a1VoMGcq9WKq1c4XuGO5QDIOUAuBonIRvVWLWEYzNB9cN2McY/Vyjj7TMo7mLd8b6n
-         x7rL7ytHVus30DSb+xPq06uJ+CnavglPPjiNyF5eLTUDEeep9wKnsRNg9OvM6SIaDz2q
-         2GdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719997970; x=1720602770;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1jI0rslYrv6mUgs3l1hovuzLhd9gfH1CvVqaU89w3P0=;
-        b=B7CJAVk+aGevpNWIHqdt5tzRY/rVgAFnTuMzQHrXBguKRPLmHhCdM5Mm1MEcf9EXu6
-         9DbV2cCdVLIi2xq+G77qRWwHEqpppbP1RHz4xqN6R1aohvjpItRr5s7D89VB45EjnI4H
-         MkHkQrTq8gxQ+yD7ot48k6562B3enhLegM1ujSfLvc7hlnJD9he0rDMzTbwxQSFzffyX
-         1fzaee+8+JKWlL/3nVUP5g54VTib5TTrgV14JC7quwr1txkNGFOuM4BXLr3ajRpB1wj+
-         uJSL0zbXKwvlV2g+yeu5kA9ZJZ0O06Q49Q5BBIT2PoQ05h7zZ34zpYzlyrZORvKfZGiD
-         mi+g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWc3oDnQNJ0zCbSeRKv8v36MMHaXR/jY2MUxWnWWX9C/Ec6yoEkUjHwsZtFo/AqfGqvq5fN+/d6N8PiJedAEWuW40W8W9MVQU0NhNE=
-X-Gm-Message-State: AOJu0Yy8NKN3Ys09lloHy6F+7/tVJsymKCLFUEyfmTSx50eFctv2QbqC
-	FOi9blxW94lmJWuIQcDBD9sPnlKNDMnoeQP6HM8PyfDIuA3dI7k+cFSD6t4vvtf51vtyQBqPeLd
-	zSgKmYZ+e3MLlR3PkQ7vHRGVGwz0=
-X-Google-Smtp-Source: 
- AGHT+IG1ehcAilYAWAvfE7/9RzOn+5jnvezYCw9DkZlXjjrBfIA432A0Ksubc/kan0xqgCTbvKnpweLKFvy1Sc7lLho=
-X-Received: by 2002:a05:6e02:1c2c:b0:374:b0d8:6c4 with SMTP id
- e9e14a558f8ab-37cd0afefdfmr127007475ab.3.1719997969760; Wed, 03 Jul 2024
- 02:12:49 -0700 (PDT)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=CR1QjAao
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1719998032; x=1751534032;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=b0Ks2Ke6NHTc4lwe39WA97RrPkDs5pSotWBmLU26ivo=;
+  b=CR1QjAaoG2zmlOGER4yXJspjpWlkZGGBebDvMbuKr8i6UnFF58lqUdEP
+   fRHKaSqaROjg/JE+Gd0ktWjRhz1c8lYsP8eObgRyqPvOl+O1Nz7t6F2bH
+   fMrXjUGN/WzE9EWKvaULdcch66K41dtO0estupKIP8b9cKIO6u0l6ztZD
+   YES56mJpeb1hyOGssm2WqmC6dNBshkh+3vixL02FaUzPwRy+fPVY0NoTo
+   Jn3rqSbV8LBOMPyb2RvLQsIr1p02mTyMzHbsDVCc2Rw3zRcxuDh0h/wlf
+   N6+nGd3sE3ZzA7A+5C21SsIcElEFYExHEW0YU4+8wBGpu32pJxZFan4qI
+   g==;
+X-CSE-ConnectionGUID: Ihs8K6NPRPSMaBot7fPpkw==
+X-CSE-MsgGUID: Nk74rTQISKOHsOLDdHf16g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11121"; a="20981451"
+X-IronPort-AV: E=Sophos;i="6.09,181,1716274800";
+   d="scan'208";a="20981451"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2024 02:13:33 -0700
+X-CSE-ConnectionGUID: njoHw9wSSFOLCqZa155++A==
+X-CSE-MsgGUID: GqzTB32oQgaSsCOv3//1SA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,181,1716274800";
+   d="scan'208";a="46851624"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.8.107])
+ ([10.94.8.107])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2024 02:13:27 -0700
+Message-ID: <b1fcef2a-2af9-4985-ae00-f348ca5df3f1@linux.intel.com>
+Date: Wed, 3 Jul 2024 11:13:24 +0200
 MIME-Version: 1.0
-References: <20240628094354.780720-1-chancel.liu@nxp.com>
-In-Reply-To: <20240628094354.780720-1-chancel.liu@nxp.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 3 Jul 2024 17:12:38 +0800
-Message-ID: 
- <CAA+D8APvL_wo_L62M-LD88B9EZ6Sg89jtJrCkt4vuCuH3q9p4A@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_xcvr: Improve suspend/resume flow in
- fsl_xcvr_trigger()
-To: Chancel Liu <chancel.liu@nxp.com>
-Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: LOXCSO2NU66YVQT4WP5FXKWSLAGTJQGN
-X-Message-ID-Hash: LOXCSO2NU66YVQT4WP5FXKWSLAGTJQGN
-X-MailFrom: shengjiu.wang@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v23 32/32] ASoC: doc: Add documentation for SOC USB
+Content-Language: en-US
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
+ corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
+ Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, tiwai@suse.com,
+ robh@kernel.org, gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: <20240610235808.22173-1-quic_wcheng@quicinc.com>
+ <20240610235808.22173-33-quic_wcheng@quicinc.com>
+ <5be51e1f-70c9-4bbc-96fa-1e50e441bd35@linux.intel.com>
+ <408d9e8e-0f40-7e66-54be-2f8d2c0783a3@quicinc.com>
+ <ca1e1063-e1bd-4e03-a7cd-91985e9954e9@linux.intel.com>
+ <096d59a0-5e18-092c-c9ae-d98130226f06@quicinc.com>
+ <368d9019-2c96-468e-b472-7e1127f76213@linux.intel.com>
+ <eb6370ea-47a0-3659-3c10-cb7f95e3e520@quicinc.com>
+ <510468c7-b181-48d0-bf2d-3e478b2f2aca@linux.intel.com>
+ <c7a95157-1b71-1489-3657-8fe67f9acb4e@quicinc.com>
+ <90463a4e-c2e7-4b59-9a79-23533b4acd1e@linux.intel.com>
+ <fd8f1eb0-4b21-4697-8175-a61bc3858852@quicinc.com>
+ <f982842a-1804-420b-a539-a609ecf8fb8a@linux.intel.com>
+ <3c358604-6926-4f90-8fc8-8139c68c3418@quicinc.com>
+ <70bf10a7-7f87-4fd1-bd44-1733d3b2b15e@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <70bf10a7-7f87-4fd1-bd44-1733d3b2b15e@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: FPZNSZUC4LOO6TQTVWJCIXWLNOEBB3DO
+X-Message-ID-Hash: FPZNSZUC4LOO6TQTVWJCIXWLNOEBB3DO
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LOXCSO2NU66YVQT4WP5FXKWSLAGTJQGN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FPZNSZUC4LOO6TQTVWJCIXWLNOEBB3DO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,131 +131,111 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jun 28, 2024 at 5:44=E2=80=AFPM Chancel Liu <chancel.liu@nxp.com> w=
-rote:
->
-> In the current flow all interrupts are disabled in runtime suspend
-> phase. However interrupts enablement only exists in fsl_xcvr_prepare().
-> After resume fsl_xcvr_prepare() may not be called so it will cause all
-> interrupts still disabled even if resume from suspend. Interrupts
-> should be explictily enabled after resume.
->
-> Also, DPATH reset setting only exists in fsl_xcvr_prepare(). After
-> resume from suspend DPATH should be reset otherwise there'll be channel
-> swap issue.
->
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+On 7/3/2024 10:49 AM, Pierre-Louis Bossart wrote:
+> 
+> 
+>>>>> There are really multiple layers to deal with
+>>>>>
+>>>>> a) is the controller able to support the offload path? IIRC this is
+>>>>> embedded in an obscure XHCI property, it would make sense to expose it
+>>>>> as a control, or component string, of the USB card.
+>>>> If a component string/tag is desired, I already have some way of doing that.  I can add it to the USB card.
+>>>>
+>>>>> b) is there a companion card capable of dealing with the offload path?
+>>>>> Since the presence of this card may depend on driver probe, there should
+>>>>> be a control on the USB card. userspace could detect changes to this
+>>>>> control and detect if that path is or is no longer enabled.
+>>>> So currently, the "USB Offload Playback Capable Card" kcontrol (on the USB card) will determine if there is an offload path.  However, this differs than what Amadeusz is suggesting, in that he wants a single kcontrol created for EACH USB card identified (per USB audio device), and a simple enable/disable control to determine if the offload path is enabled for that card/pcm stream.
+>>>>
+>>>> It would be a simpler approach for the userspace, and if the card that handles the offload card isn't present, then these enable/disable control will be set to "disabled," and even if users attempt to set the control, it won't go through.
+>>> Not following. Are you suggesting userspace would modify the
+>>> enable/disable status?
+>>
+>> Yes, this is the suggestion.  One writeable kcontrol on the USB SND audio device that will control if that USB audio device is going to be offloaded.  If the kcontrol reads back "enabled" (or 1) then userspace knows that the offload path is active.  Else, if it reads "disabled" (or 0) after the attempt to set the kcontrol, then the offload path was unsuccessfully enabled, ie maybe due to no available offload streams.
+> 
+> It's a bit over-engineered IMHO.
+> 
+> My alternate suggestion is a read-only control reporting that offload is
+> possible. Then userspace attempts to open a PCM device on the ASoC card,
+> any failures due to resources would be handled at that point.
+> 
+>>> I would just have a read-only control that reports what the hardware can
+>>> do and which other card can deal with offload. It's up to userspace to
+>>> select the offloaded PCM device or not.
+>>>
+>> That is what I have implemented in the previous patch series.  One USB SND kcontrol within each USB audio device, which points to the ASoC platform card that supports offloading:
+>>
+>> "USB Offload Playback Capable Card" --> returns the card index to the ASoC platform card
+>>
+>> >From there the offloading control is all within the ASoC platform card.  This is opposite to what Amaduesz suggested in that, the offload control of which USB device to offload should be within USB SND (not ASoC)
+> 
+> It's very hard to follow, I don't understand what userspace needs to
+> 'control' - in the modify sense. What userspace needs is a place to read
+> from, and then select the PCM device and follow usual ALSA configuration
+> with hw_params.
+> 
 
-Acked-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+ From what I've seen I assumed that goal is to allow Offloading of 
+specific stream from USB card. Otherwise I would say controls are not 
+needed at all, as more user friendly solution is Offloading streams in 
+order they are used as long as resources are available.
 
-Best regards
-Shengjiu Wang
-> ---
->  sound/soc/fsl/fsl_xcvr.c | 43 +++++++++++++++++++++-------------------
->  1 file changed, 23 insertions(+), 20 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-> index 337da46a2f90..bf9a4e90978e 100644
-> --- a/sound/soc/fsl/fsl_xcvr.c
-> +++ b/sound/soc/fsl/fsl_xcvr.c
-> @@ -529,16 +529,6 @@ static int fsl_xcvr_prepare(struct snd_pcm_substream=
- *substream,
->                 break;
->         }
->
-> -       ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
-> -                                FSL_XCVR_IRQ_EARC_ALL, FSL_XCVR_IRQ_EARC=
-_ALL);
-> -       if (ret < 0) {
-> -               dev_err(dai->dev, "Error while setting IER0: %d\n", ret);
-> -               return ret;
-> -       }
-> -
-> -       /* set DPATH RESET */
-> -       m_ctl |=3D FSL_XCVR_EXT_CTRL_DPTH_RESET(tx);
-> -       v_ctl |=3D FSL_XCVR_EXT_CTRL_DPTH_RESET(tx);
->         ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTRL, m_ctl=
-, v_ctl);
->         if (ret < 0) {
->                 dev_err(dai->dev, "Error while setting EXT_CTRL: %d\n", r=
-et);
-> @@ -679,6 +669,15 @@ static int fsl_xcvr_trigger(struct snd_pcm_substream=
- *substream, int cmd,
->         case SNDRV_PCM_TRIGGER_START:
->         case SNDRV_PCM_TRIGGER_RESUME:
->         case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +               /* set DPATH RESET */
-> +               ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTR=
-L,
-> +                                        FSL_XCVR_EXT_CTRL_DPTH_RESET(tx)=
-,
-> +                                        FSL_XCVR_EXT_CTRL_DPTH_RESET(tx)=
-);
-> +               if (ret < 0) {
-> +                       dev_err(dai->dev, "Failed to set DPATH RESET: %d\=
-n", ret);
-> +                       return ret;
-> +               }
-> +
->                 if (tx) {
->                         switch (xcvr->mode) {
->                         case FSL_XCVR_MODE_EARC:
-> @@ -711,6 +710,13 @@ static int fsl_xcvr_trigger(struct snd_pcm_substream=
- *substream, int cmd,
->                         return ret;
->                 }
->
-> +               ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER=
-0,
-> +                                        FSL_XCVR_IRQ_EARC_ALL, FSL_XCVR_=
-IRQ_EARC_ALL);
-> +               if (ret < 0) {
-> +                       dev_err(dai->dev, "Error while setting IER0: %d\n=
-", ret);
-> +                       return ret;
-> +               }
-> +
->                 /* clear DPATH RESET */
->                 ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTR=
-L,
->                                          FSL_XCVR_EXT_CTRL_DPTH_RESET(tx)=
-,
-> @@ -733,6 +739,13 @@ static int fsl_xcvr_trigger(struct snd_pcm_substream=
- *substream, int cmd,
->                         return ret;
->                 }
->
-> +               ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER=
-0,
-> +                                        FSL_XCVR_IRQ_EARC_ALL, 0);
-> +               if (ret < 0) {
-> +                       dev_err(dai->dev, "Failed to clear IER0: %d\n", r=
-et);
-> +                       return ret;
-> +               }
-> +
->                 if (tx) {
->                         switch (xcvr->mode) {
->                         case FSL_XCVR_MODE_SPDIF:
-> @@ -1411,16 +1424,6 @@ static int fsl_xcvr_runtime_suspend(struct device =
-*dev)
->         struct fsl_xcvr *xcvr =3D dev_get_drvdata(dev);
->         int ret;
->
-> -       /*
-> -        * Clear interrupts, when streams starts or resumes after
-> -        * suspend, interrupts are enabled in prepare(), so no need
-> -        * to enable interrupts in resume().
-> -        */
-> -       ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
-> -                                FSL_XCVR_IRQ_EARC_ALL, 0);
-> -       if (ret < 0)
-> -               dev_err(dev, "Failed to clear IER0: %d\n", ret);
-> -
->         if (!xcvr->soc_data->spdif_only) {
->                 /* Assert M0+ reset */
->                 ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTR=
-L,
-> --
-> 2.43.0
->
+>>>>> c) which PCM device is actually offloaded? This could be plural for some
+>>>>> implementations. The mapping between PCM devices exposed by the USB
+>>>>> card, and those exposed by the companion card, should be known to
+>>>>> userspace. I am not sure how this would be done though, a variable
+>>>>> number of controls is a sure way to confuse userspace.
+>>>> Expanding on Amadeusz's suggestion, my idea is to have an enable/disable kcontrol per USB stream.  For example, one USB card could have multiple PCM devices (USB streams).  So we would have something like:
+>>>>
+>>>> PCM Offload Playback Enable Stream#0  enable/disable
+>>>>
+>>>> PCM Offload Playback Enable Stream#1  enable/disable
+>>>>
+>>>> ....
+>>> are those read-only or not?
+>>
+>> No, writable and readable.
+> 
+> The writable part introduces a complicated error handling, e.g. what
+> happens if you have an offloaded stream and then this control is changed
+> with amixer while streaming?
+> 
+
+-EBUSY? and keep old value
+
+>>>> So we'd know which USB card and PCM device is selected for USB SND.  However, I see what you're getting at in case there are multiple supported streams, because userspace needs to know which ASoC card/pcm combination corresponds to which USB device/combination.
+>>> I don't understand how this would help map the two parts? There's got to
+>>> be an additional mapping...
+>> It won't help with the mapping.  That is something which we'd need to add, suggestion below.
+>>>> What do you think about having a USB card kcontrol to display the mapped ASoC card and PCM indexes?
+>>>>
+>>>> PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0, PCM device#1)
+>>>>
+>>>> To summarize, if we did this, I'd plan to remove all the kcontrols in ASoC card, and have the following in the USB card for an USB audio device that supports one USB stream:
+>>>>
+>>>> PCM Offload Playback Enable Stream#0  enable/disable
+>>>>
+>>>> PCM Offload Playback Enable Stream Mapping#0  0, 1 (ASoC card#0, PCM device#1)
+>>> ... which is suggested here.
+>>>
+>>> Assuming these are read-only controls, we would need to know which PCM
+>>> device on the USB card can be optimized with the use of which PCM device
+>>> on the ASoC card. That means a set of three values. You would also want
+>>> a number of streams to make the guesswork on controls less painful.
+>>
+>> OK, so now to just figuring out something that both you and Amadeusz can agree on before I put time implementing it.  So I've implemented the "enable/disable" path that Amadeusz suggested, which is highlighted in my previous response, for evaluation purposes.  The overall question is which layer should control the devices that will be offloaded.  In my submissions up until now, the control was given to the ASoC platform card to determine which USB device to offload.  Amadeusz mentioned that it might be beneficial to move the control to the USB SND devices, because what if the offloading is NOT backed by ASoC. (highlighted in [1])  However, IMO the current implementation assumes there is ASoC involved, which should mean that there is some platform "card" that is backing the offload path.  Please let me know if my understanding is incorrect, @Amadeusz.
+> 
+> I still fundamentally don't get why userspace would try and modify any
+> controls, this makes the flows more complicated IMHO since you also have
+> the PCM open/hw_params stages.
+> I really think it'd be more than enough if the USB card exposed
+> read-only values showing that offload is possible and which card/device
+> to map to. Then userspace uses the ASoC PCM device and errors are
+> handled at that level.
+
+I tend to agree, less values to change, less chance something breaks. 
+However I think that there should be some way to disable Offload in case 
+something doesn't work properly. (It doesn't have to be control, one can 
+go with module parameter or sysfs toggle or something.)
+
+

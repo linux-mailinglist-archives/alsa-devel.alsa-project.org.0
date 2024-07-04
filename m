@@ -2,84 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C98927979
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 17:04:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06272927AA2
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 17:57:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D2B414F2;
-	Thu,  4 Jul 2024 17:03:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D2B414F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CC691549;
+	Thu,  4 Jul 2024 17:57:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CC691549
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720105444;
-	bh=sqDTlozgNMJSM0AHPdm7EUAIVn2oDHK0DdTYht4ikvI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Y1rMd7yfP32AEjZjc66BkDumFCgcvJRGrOulR0HaIOLilCW+df9XSfu60cQm/1+6D
-	 z2645vvoCGLQbS+2s+OCjiAFSxPHWxz7YL+/3VSbDz+DwcZ40TlQ+eNpyCqk7YgXJJ
-	 KHDiBrhKp/tkOOyXzALmUJ2s0a10Zx8M1vnbzZ/Y=
+	s=default; t=1720108669;
+	bh=sBoMD9MZcO/eEa6Y0GofDYQ2HWRU2LzOiLiKm9wzPJ4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=bpyneh/h5HzZa4NzWlvPzx9yq36f+hxWnyw0iXk7wML8x16BqHceQ5q9cx4MUTsa5
+	 sH0INYMkgk0feAPVMS1oMk3s52oeZFJz9jWmUbSY68nkHfx/b3FXsnDZfkYnQxx/i+
+	 UVo5FjlJbIsBBYwl047jc10vn42TmuQlA5gCF93A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B230F805B0; Thu,  4 Jul 2024 17:03:32 +0200 (CEST)
+	id E471EF805AC; Thu,  4 Jul 2024 17:57:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1DBBF805A0;
-	Thu,  4 Jul 2024 17:03:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 422C3F805A1;
+	Thu,  4 Jul 2024 17:57:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1453BF8025E; Thu,  4 Jul 2024 17:02:11 +0200 (CEST)
+	id A6D52F8025E; Thu,  4 Jul 2024 17:57:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5DFE7F800FA
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 17:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DFE7F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3864AF800F8
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 17:56:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3864AF800F8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mSjmkrk6
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 9D1F5CE3817;
-	Thu,  4 Jul 2024 15:01:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81FA2C3277B;
-	Thu,  4 Jul 2024 15:01:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720105315;
-	bh=sqDTlozgNMJSM0AHPdm7EUAIVn2oDHK0DdTYht4ikvI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=mSjmkrk69vAiaxLyBPnptZ+Mxbi5naIja3zHNiCL6rBjv41RSqo2XFj64EHc6yQ2t
-	 0w+e/ryR7TrUfc27azlfQ0gJWNUZ8nVrQNJgKRmFUxJkpm6lU6jmoRQbysNLY0xuS8
-	 nCyDPG33sow9PQgK2M1N7wndKf85bjhhrd/JV/LsWPPJjNSYQpAuVih8imr8Sr01hB
-	 s84kUqvpAnsD9bojjf62QJ11Ohn6g9UW1XediS5G45SIRhR8fNYh2mzwQDjibNJZqB
-	 zeB/yWd2YtgaF6nhfA4wO1/MAiGuaQS4QyOFnYa/AoIqCarcgS03Qdk9PxXvL8ZSZd
-	 mTmHJ52GiIkRw==
-From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20240704085944.371450-1-pierre-louis.bossart@linux.intel.com>
-References: <20240704085944.371450-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: Use single token list for
- the copiers
-Message-Id: <172010531424.64240.8468418054807775164.b4-ty@kernel.org>
-Date: Thu, 04 Jul 2024 16:01:54 +0100
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=XGoZaxhk
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 464BNjGm007786;
+	Thu, 4 Jul 2024 17:56:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=selector1; bh=ibw80CV7lP34NHZuwWXqpZ
+	j47HpMI7ZCa8Fr+wu/PcA=; b=XGoZaxhkEsY8QHgtBzEDNtOUTlCYOK7HfWg92N
+	b7/VdYCIEr3Hx7erdPZBvzasz7Sa+RiRFl+q6PovlDdCtNWAqlcr5W+s8mznBj7R
+	Hj4yjpeFxKReTQq5dEiFAKx4LQIr2IAQtifeWKC7miJCy/QMHOG42clDel0bAlpU
+	T5UecT3hFHuIGYudiO+b/x48mIH63IBCOkprT0abOw5aJ/Vw+ET2fxlSdAM+EHpC
+	B1j76efepq2AgHfOe2tQBZvRQuXOeUVxdh4aYHUSi9EA736o8ce5dmUN7RnOcspS
+	LsID4ULKluepH/AWaWNQvCgYr51rShz/O3+WjmdY4x1Cy1gA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 402w7jbg21-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 04 Jul 2024 17:56:57 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 3ECA140044;
+	Thu,  4 Jul 2024 17:56:47 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 63DB82291CC;
+	Thu,  4 Jul 2024 17:55:44 +0200 (CEST)
+Received: from localhost (10.48.86.132) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 4 Jul
+ 2024 17:55:44 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+        Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Olivier Moysan <olivier.moysan@foss.st.com>,
+        Arnaud Pouliquen
+	<arnaud.pouliquen@foss.st.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Nuno Sa
+	<nuno.sa@analog.com>, Liam Girdwood <lgirdwood@gmail.com>,
+        Mark Brown
+	<broonie@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH v4 0/8] iio: adc: dfsdm: add scaling support
+Date: Thu, 4 Jul 2024 17:53:28 +0200
+Message-ID: <20240704155338.2387858-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: OBBUECAYATL3TJSULZN5XU2CMWYYCSC2
-X-Message-ID-Hash: OBBUECAYATL3TJSULZN5XU2CMWYYCSC2
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.48.86.132]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-04_10,2024-07-03_01,2024-05-17_01
+Message-ID-Hash: LK4WWMUGOJBUFW3MQYD3E3W7P4OY25UN
+X-Message-ID-Hash: LK4WWMUGOJBUFW3MQYD3E3W7P4OY25UN
+X-MailFrom: prvs=7915accfb9=olivier.moysan@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBBUECAYATL3TJSULZN5XU2CMWYYCSC2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LK4WWMUGOJBUFW3MQYD3E3W7P4OY25UN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,42 +123,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 04 Jul 2024 10:59:44 +0200, Pierre-Louis Bossart wrote:
-> There is no need to keep separate token list for dai and 'common' copier
-> token list when the 'common' list is actually the aif list, the
-> SOF_COPIER_DEEP_BUFFER_TOKENS are not applicable for buffers.
-> 
-> We could have separate lists for all types but it is probably simpler to
-> just use a single list for all types of copiers. Function specific tokens
-> will be only parsed by function specific code anyways.
-> 
-> [...]
+The aim of this serie is to add scaling support to STM32 DFSDM
+peripheral in the analog context.
 
-Applied to
+The DFSDM currently operates as a consumer of IIO channels
+provided by a generic SD modulator. As previously discussed in RFC [1],
+this topology is not suitable for implementing scaling.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+This series brings the integration of the DFSDM driver with the new 
+IIO backend framework [2], enabling the DFSDM IIO device to offer 
+scaling feature based on reference voltage data obtained from the
+IIO SD modulator backend. This generic SD modulator backend takes the
+place of the former SD modulator, used with legacy implementation.
 
-Thanks!
+The DFSDM driver has been updated to adopt the generic ADC channel
+binding [3]. The reasons for this include:
+- Reducing the use of proprietary properties
+- Simplifying the coexistence of legacy and new backend bindings
+- Prepare the support of the MDF peripheral on STM32MP25 SoC
 
-[1/1] ASoC: SOF: ipc4-topology: Use single token list for the copiers
-      commit: 6558e8737af2067763e115ce3759372cd068b897
+Backward compatibility is maintained through legacy support.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+This series extends the backend framework with the following APIs:
+- iio_backend_read_raw:
+	This API is intented to retrieve channel attributes from the
+	backend. It is based on IIO framework read_raw API.
+- iio_backend_read_scale / iio_backend_read_offset
+	Dedicated APIs to read scale and offset channel values.
+- iio_backend_disable / iio_backend_enable:
+	backend enable/disable to be used for PM management
+- devm_iio_backend_fwnode_get
+	Intended for parsing DT subnodes to allow generic channel binding
+	support, as generic channel DT nodes are not populated as devices.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+[1]: https://lore.kernel.org/lkml/20200204101008.11411-1-olivier.moysan@st.com/
+[2]: https://lore.kernel.org/all/20240206-iio-backend-v9-0-df66d159c000@analog.com/
+[3]: devicetree/bindings/iio/adc/adc.yaml
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Changes in v2:
+- Update enable/disable backend API
+- Rename devm_iio_backend_subnode_get(), as devm_iio_backend_fwnode_get()
+- Update iio_backend_read_raw() prototype to fully match IIO framework
+  read_raw callback prototype.
+- Change st,adc-channel-type property name and type in DFSDM binding
+- Remove sd-backend and rename ads1201 compatibles in SD binding
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Changes in v3:
+- Add iio_backend_read_scale and iio_backend_read_offset
+- Remove sd-backend compatible. Adapt existing sd modulator driver and
+  binding to support backend topology.
+- Misc corrections in DFSDM binding & minor changes in DFSDM driver
 
-Thanks,
-Mark
+Changes in v4:
+- Remove allOf and rework examples in SD modulator binding
+- Wrap lines to 80 characters in IIO code
+
+Olivier Moysan (8):
+  iio: add read scale and offset services to iio backend framework
+  iio: add enable and disable services to iio backend framework
+  iio: add child nodes support in iio backend framework
+  dt-bindings: iio: dfsdm: move to backend framework
+  dt-bindings: iio: add backend support to sd modulator
+  iio: adc: stm32-dfsdm: adopt generic channels bindings
+  iio: add iio backend support to sd modulator
+  iio: adc: stm32-dfsdm: add scaling support to dfsdm
+
+ .../iio/adc/sigma-delta-modulator.yaml        |  23 +-
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 153 ++++++++-
+ drivers/iio/adc/Kconfig                       |   2 +
+ drivers/iio/adc/sd_adc_modulator.c            |  92 +++++-
+ drivers/iio/adc/stm32-dfsdm-adc.c             | 298 +++++++++++++++---
+ drivers/iio/industrialio-backend.c            | 116 ++++++-
+ include/linux/iio/backend.h                   |  14 +-
+ 7 files changed, 633 insertions(+), 65 deletions(-)
+
+
+base-commit: 529d2e1900642eba6df28307e26e19793e227546
+-- 
+2.25.1
 

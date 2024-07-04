@@ -2,99 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B977592775B
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 15:43:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C98927979
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 17:04:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83C6B14DD;
-	Thu,  4 Jul 2024 15:43:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83C6B14DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D2B414F2;
+	Thu,  4 Jul 2024 17:03:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D2B414F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720100614;
-	bh=OdKFGAEGDljVRH3KqT5PQmpzNTGROAowpEkKAVKVxtU=;
-	h=From:To:CC:References:In-Reply-To:Subject:Date:List-Id:
+	s=default; t=1720105444;
+	bh=sqDTlozgNMJSM0AHPdm7EUAIVn2oDHK0DdTYht4ikvI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SE69MX5hU9kOFmwVnx6Z8i6LVji7+uY9nBBgX1QCVbpegoGZ9Urdmsw3tfNHjHWpQ
-	 YhElJadRpBq5J6vbL/ubvGYTBGRumuqdQMcD0E5Me6jHggC2AudhiN1AO7MlB2JEN7
-	 yC8/7EqMijYSXsEEA8xT6XxgmOPet7ORl7VMiHDA=
+	b=Y1rMd7yfP32AEjZjc66BkDumFCgcvJRGrOulR0HaIOLilCW+df9XSfu60cQm/1+6D
+	 z2645vvoCGLQbS+2s+OCjiAFSxPHWxz7YL+/3VSbDz+DwcZ40TlQ+eNpyCqk7YgXJJ
+	 KHDiBrhKp/tkOOyXzALmUJ2s0a10Zx8M1vnbzZ/Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6412F805AE; Thu,  4 Jul 2024 15:43:01 +0200 (CEST)
+	id 3B230F805B0; Thu,  4 Jul 2024 17:03:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 920D8F800FA;
-	Thu,  4 Jul 2024 15:42:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1DBBF805A0;
+	Thu,  4 Jul 2024 17:03:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DA92F8025E; Thu,  4 Jul 2024 15:35:01 +0200 (CEST)
+	id 1453BF8025E; Thu,  4 Jul 2024 17:02:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58C6BF800FE
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 15:34:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58C6BF800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5DFE7F800FA
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 17:02:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DFE7F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=nC+5PKRE
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 46470QHK029807;
-	Thu, 4 Jul 2024 08:34:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=TVTfZbwazCO3Mwpj4WnL9Blm/V6O7FXH8ucyLUfzWc4=; b=
-	nC+5PKREDPp9O2Q7U6nSOaD9u2OBl9CAQkC99/rvv6A9KVodR06J+AZbzBz8G9Uv
-	KaapRZnVNtF6t40kKGEUQkuqI8pdVWNxoPfSNfMc0HqgQ0C4wzRlSZD0J1xi6Oce
-	qqCI1BbK9FYRxK+WPj+AuxdJX7f4MJOaJMkpO2WXi/r85jgeSiaEW0gLKWmahA0R
-	NrHfJFFspZ3F1DxxnGHN/nikZnYbgEk6hOosVDRlt+qWwzEV+nImUYMri/t54V84
-	4ClTT9p3jwtoE18ialf6aFdo43R8uhEulMkzkCHzDa4Pt16MzdbgOEfN7swEP/Ue
-	KYIFj88G8RIdH7KPe7PdXw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 405jg38ee7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 04 Jul 2024 08:34:40 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 4 Jul 2024
- 14:34:39 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Thu, 4 Jul 2024 14:34:39 +0100
-Received: from LONNCK4V044 (LONNCK4V044.ad.cirrus.com [198.90.188.46])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 0D634820244;
-	Thu,  4 Jul 2024 13:34:39 +0000 (UTC)
-From: "Stefan Binding (Opensource)" <sbinding@opensource.cirrus.com>
-To: 'MadEnvel' <envelsavinds@gmail.com>, <tiwai@suse.com>,
-        <rf@opensource.cirrus.com>
-CC: <david.rhodes@cirrus.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>
-References: <20240701205516.22662-1-envelsavinds@gmail.com>
- <20240701205516.22662-2-envelsavinds@gmail.com>
-In-Reply-To: <20240701205516.22662-2-envelsavinds@gmail.com>
-Subject: RE: [PATCH 1/1] Fix swapped left and right channels for Lenovo
- ThinBook 13x Gen4 sound
-Date: Thu, 4 Jul 2024 14:34:38 +0100
-Message-ID: <002401dace16$eb3da8e0$c1b8faa0$@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=mSjmkrk6
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 9D1F5CE3817;
+	Thu,  4 Jul 2024 15:01:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81FA2C3277B;
+	Thu,  4 Jul 2024 15:01:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720105315;
+	bh=sqDTlozgNMJSM0AHPdm7EUAIVn2oDHK0DdTYht4ikvI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=mSjmkrk69vAiaxLyBPnptZ+Mxbi5naIja3zHNiCL6rBjv41RSqo2XFj64EHc6yQ2t
+	 0w+e/ryR7TrUfc27azlfQ0gJWNUZ8nVrQNJgKRmFUxJkpm6lU6jmoRQbysNLY0xuS8
+	 nCyDPG33sow9PQgK2M1N7wndKf85bjhhrd/JV/LsWPPJjNSYQpAuVih8imr8Sr01hB
+	 s84kUqvpAnsD9bojjf62QJ11Ohn6g9UW1XediS5G45SIRhR8fNYh2mzwQDjibNJZqB
+	 zeB/yWd2YtgaF6nhfA4wO1/MAiGuaQS4QyOFnYa/AoIqCarcgS03Qdk9PxXvL8ZSZd
+	 mTmHJ52GiIkRw==
+From: Mark Brown <broonie@kernel.org>
+To: linux-sound@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20240704085944.371450-1-pierre-louis.bossart@linux.intel.com>
+References: <20240704085944.371450-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: Use single token list for
+ the copiers
+Message-Id: <172010531424.64240.8468418054807775164.b4-ty@kernel.org>
+Date: Thu, 04 Jul 2024 16:01:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQIuj9Y3bJtyj9LLTFo3xGbMpswyqQNDJZtcsST062A=
-X-Proofpoint-ORIG-GUID: 3C53tXebnmRlVSUqnJ94TTpXigPUd6qK
-X-Proofpoint-GUID: 3C53tXebnmRlVSUqnJ94TTpXigPUd6qK
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: VKVTGRYG5UIGS3QWTB3EOU6B2Y4YRDYK
-X-Message-ID-Hash: VKVTGRYG5UIGS3QWTB3EOU6B2Y4YRDYK
-X-MailFrom: prvs=491571888b=sbinding@opensource.cirrus.com
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: OBBUECAYATL3TJSULZN5XU2CMWYYCSC2
+X-Message-ID-Hash: OBBUECAYATL3TJSULZN5XU2CMWYYCSC2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VKVTGRYG5UIGS3QWTB3EOU6B2Y4YRDYK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBBUECAYATL3TJSULZN5XU2CMWYYCSC2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,50 +100,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Reviewed-by: Stefan Binding <sbinding@opensource.cirrus.com>
-
-> -----Original Message-----
-> From: MadEnvel <envelsavinds@gmail.com>
-> Sent: Monday, July 1, 2024 9:55 PM
-> To: tiwai@suse.com; rf@opensource.cirrus.com
-> Cc: david.rhodes@cirrus.com; alsa-devel@alsa-project.org;
-> patches@opensource.cirrus.com; MadEnvel <envelsavinds@gmail.com>
-> Subject: [PATCH 1/1] Fix swapped left and right channels for Lenovo
-ThinBook
-> 13x Gen4 sound
+On Thu, 04 Jul 2024 10:59:44 +0200, Pierre-Louis Bossart wrote:
+> There is no need to keep separate token list for dai and 'common' copier
+> token list when the 'common' list is actually the aif list, the
+> SOF_COPIER_DEEP_BUFFER_TOKENS are not applicable for buffers.
 > 
-> Signed-off-by: MadEnvel <envelsavinds@gmail.com>
-> ---
->  sound/pci/hda/cs35l41_hda_property.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> We could have separate lists for all types but it is probably simpler to
+> just use a single list for all types of copiers. Function specific tokens
+> will be only parsed by function specific code anyways.
 > 
-> diff --git a/sound/pci/hda/cs35l41_hda_property.c
-> b/sound/pci/hda/cs35l41_hda_property.c
-> index 51998d1c72ff..80c816922f78 100644
-> --- a/sound/pci/hda/cs35l41_hda_property.c
-> +++ b/sound/pci/hda/cs35l41_hda_property.c
-> @@ -128,8 +128,8 @@ static const struct cs35l41_config
-> cs35l41_config_table[] = {
->  	{ "17AA38B5", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 },
-> 0, 1, -1, 0, 0, 0 },
->  	{ "17AA38B6", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 },
-> 0, 1, -1, 0, 0, 0 },
->  	{ "17AA38B7", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 },
-> 0, 1, -1, 0, 0, 0 },
-> -	{ "17AA38C7", 4, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT,
-> CS35L41_LEFT, CS35L41_RIGHT }, 0, 2, -1, 1000, 4500, 24 },
-> -	{ "17AA38C8", 4, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT,
-> CS35L41_LEFT, CS35L41_RIGHT }, 0, 2, -1, 1000, 4500, 24 },
-> +	{ "17AA38C7", 4, INTERNAL, { CS35L41_RIGHT, CS35L41_LEFT,
-> CS35L41_RIGHT, CS35L41_LEFT }, 0, 2, -1, 1000, 4500, 24 },
-> +	{ "17AA38C8", 4, INTERNAL, { CS35L41_RIGHT, CS35L41_LEFT,
-> CS35L41_RIGHT, CS35L41_LEFT }, 0, 2, -1, 1000, 4500, 24 },
->  	{ "17AA38F9", 2, EXTERNAL, { CS35L41_RIGHT, CS35L41_LEFT, 0, 0 },
-> 0, 2, -1, 0, 0, 0 },
->  	{ "17AA38FA", 2, EXTERNAL, { CS35L41_RIGHT, CS35L41_LEFT, 0, 0 },
-> 0, 2, -1, 0, 0, 0 },
->  	{}
-> --
-> 2.45.2
+> [...]
 
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: SOF: ipc4-topology: Use single token list for the copiers
+      commit: 6558e8737af2067763e115ce3759372cd068b897
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

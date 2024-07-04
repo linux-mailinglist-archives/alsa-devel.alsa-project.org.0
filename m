@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF2A927BD4
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 19:20:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5BE0927C5E
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 19:41:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C77D514E8;
-	Thu,  4 Jul 2024 19:20:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C77D514E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20287F54;
+	Thu,  4 Jul 2024 19:41:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20287F54
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720113654;
-	bh=y1eAcALUBJtOcY/yRjb+HRjFX6xnxr1k9+LVlC7sRV8=;
+	s=default; t=1720114907;
+	bh=AZVCVtzXgu3SguLD0qkz/t/YJ3VfflMJ9hh3F4VHkkA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m+sUsBlXNEjt9ZnYQZ2jL3b8Tng/z5JjPZ7QGfNjv/4V65JLxyR87fIhSg0wKkGFw
-	 eqmI+F69vgOl2BNHf7hA0nykbQ/51d5R1FP5VB4vV02Vwec5gpsTx6Umj5cWOs1irl
-	 spGscT/saXALD3dPll5W+aLi/p5Gq1Ky54t5idAM=
+	b=B1L1uTlzZ+aod7V+5RdWNvd+q7fAGWJ8PWtvQw+NJhWaTT4tkHo4lrh1nl+OnqgM9
+	 Eg8xLbD9rp/9/KPyEY2t/VW8Exaei1nU4cF0LLDvhOh+6E4Cu5IRPTBhWNae6UjjCM
+	 jmRlZ/t1fqXhYWja9AMZ2IyasIatHDvWBiRB7W5s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE4E3F805B3; Thu,  4 Jul 2024 19:20:12 +0200 (CEST)
+	id 9940DF805AB; Thu,  4 Jul 2024 19:41:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EACBF805D7;
-	Thu,  4 Jul 2024 19:20:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C970F80272;
+	Thu,  4 Jul 2024 19:41:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 672B2F8025E; Thu,  4 Jul 2024 19:19:21 +0200 (CEST)
+	id 6511EF8025E; Thu,  4 Jul 2024 19:41:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,48 +35,54 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0053BF800FA
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 19:19:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0053BF800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E747F800FA
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 19:40:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E747F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=NWm+2O5t
+ header.s=k20201202 header.b=gj/sDUNT
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9C1E2627F2;
-	Thu,  4 Jul 2024 17:19:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1DEC32781;
-	Thu,  4 Jul 2024 17:19:02 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 33B61624DC;
+	Thu,  4 Jul 2024 17:40:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A332C3277B;
+	Thu,  4 Jul 2024 17:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720113543;
-	bh=y1eAcALUBJtOcY/yRjb+HRjFX6xnxr1k9+LVlC7sRV8=;
+	s=k20201202; t=1720114855;
+	bh=AZVCVtzXgu3SguLD0qkz/t/YJ3VfflMJ9hh3F4VHkkA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=NWm+2O5tpmSwLbY5UOhSgVDcz415Se9L5pCVje9uQwZyioO39y3rWLkbbQdc0+/DZ
-	 5IgK5tyum6yRNy320ETN/sqON2ubCzv65AOuq1KFmzRjk07Rj7QrrZ1NuNHXvEm+Ot
-	 /wU4G+aH84/NlwAKU/QKglX7nyt+kRu0qGSy7IjPX8Qs14ge0gBmPJuRmSbAPVqkjy
-	 FSaScg4sSk9q1+aM0oE2786dTsleVMsMZvXqr1YB4wh7desxUyCngyBuEAE5I7Da+f
-	 IbCJSTZlgxJ8Tb2DKNUr8Hb4/buHZNqcxA6HBbUo+scP8aOecd3wnVhrHpvKsU70+6
-	 lqajMp1vz+Y7w==
+	b=gj/sDUNTsiqudX819V3D7fzCcQq6GFZeGHkdxwNN/+IYva3NtVxymYeIuMWGxpAgq
+	 2uSkEK73vA+ysoZxio3tMR9XhPeTVlLg3DBS04ejRssG/G04aiifIo9E+ur6Z7vt5t
+	 Wh0IZJWe2dYQsSdoyzbpQ9LCV5LdFqoykQVtzGcglNge0XlCFVaQLLS6mufk7jHqj8
+	 8JpzxpbS4gkwWreK3QVoxTS4WzG59MQf+b2Qwgme1j3KjNa5PdFyosPaZI1uLnoJ8u
+	 RvvD/nZpZEjwXW6x1gnot7e9aiMs5AnnTCIPTOA1Cenety6pS0vWNQT1jVS9JXK6Ur
+	 a2vwh/28SmaaA==
 From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20240704090106.371497-1-pierre-louis.bossart@linux.intel.com>
-References: <20240704090106.371497-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda-pcm: Limit the maximum number of
- periods by MAX_BDL_ENTRIES
-Message-Id: <172011354202.90743.11488058235913274313.b4-ty@kernel.org>
-Date: Thu, 04 Jul 2024 18:19:02 +0100
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+ pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+ zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
+ linux-kernel@vger.kernel.org, j-chadha@ti.com, liam.r.girdwood@intel.com,
+ jaden-yue@ti.com, yung-chuan.liao@linux.intel.com, dipa@ti.com,
+ yuhsuan@google.com, henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com,
+ soyer@irl.hu, Baojun.Xu@fpt.com, judyhsiao@google.com, navada@ti.com,
+ cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
+ savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com, jesse-ji@ti.com,
+ darren.ye@mediatek.com
+In-Reply-To: <20240704094939.1824-1-shenghao-ding@ti.com>
+References: <20240704094939.1824-1-shenghao-ding@ti.com>
+Subject: Re: [PATCH v1] ASoc: tas2781: Set "Speaker Force Firmware Load" as
+ the common kcontrol for both tas27871 and tas2563
+Message-Id: <172011485009.96119.17388266064091597967.b4-ty@kernel.org>
+Date: Thu, 04 Jul 2024 18:40:50 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: JQQKGYNNR6IUXK2WSITJ2K5FVXGXKTSF
-X-Message-ID-Hash: JQQKGYNNR6IUXK2WSITJ2K5FVXGXKTSF
+Message-ID-Hash: FCRV7QCLWYKIL5Y3Q2FGE5JRLFO6H5VS
+X-Message-ID-Hash: FCRV7QCLWYKIL5Y3Q2FGE5JRLFO6H5VS
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQQKGYNNR6IUXK2WSITJ2K5FVXGXKTSF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCRV7QCLWYKIL5Y3Q2FGE5JRLFO6H5VS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,10 +104,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 04 Jul 2024 11:01:06 +0200, Pierre-Louis Bossart wrote:
-> The HDaudio specification Section 3.6.2 limits the number of BDL entries to 256.
-> 
-> Make sure we don't allow more periods than this normative value.
+On Thu, 04 Jul 2024 17:49:37 +0800, Shenghao Ding wrote:
+> Set "Speaker Force Firmware Load" as the common kcontrol
+> for both tas27871 and tas2563 and move it into newly-created
+> tasdevice_snd_controls, and keep the digital gain and analog
+> gain in tas2781_snd_controls.
 > 
 > 
 
@@ -111,8 +118,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda-pcm: Limit the maximum number of periods by MAX_BDL_ENTRIES
-      commit: 82bb8db96610b558920b8c57cd250ec90567d79b
+[1/1] ASoc: tas2781: Set "Speaker Force Firmware Load" as the common kcontrol for both tas27871 and tas2563
+      commit: cabf0b0cff07bc8d6e80ab6a8f8a127a2708147b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB896927BD3
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 19:20:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CF2A927BD4
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 19:20:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34903E7D;
-	Thu,  4 Jul 2024 19:20:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34903E7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C77D514E8;
+	Thu,  4 Jul 2024 19:20:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C77D514E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720113643;
-	bh=QsRR+QkcQnz+CcB5BiL0FhB+Lkjx7vr/PorGDV4G7Fs=;
+	s=default; t=1720113654;
+	bh=y1eAcALUBJtOcY/yRjb+HRjFX6xnxr1k9+LVlC7sRV8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kAO1oCsyck3GZtMcN3/Ig3aUSQmpVCmdL+bJQRD2vw7lLvw/SIBLTUecIhIgABVlj
-	 V4L05joBe1yKnLSAT/cJJK92KEL/QCXTyAjydexSe/sWwPCtrBcq8E10J5EWIKsXwO
-	 9ItnS1m5VTZZ21p7io8Sagdlea7knRGhvZaeedgM=
+	b=m+sUsBlXNEjt9ZnYQZ2jL3b8Tng/z5JjPZ7QGfNjv/4V65JLxyR87fIhSg0wKkGFw
+	 eqmI+F69vgOl2BNHf7hA0nykbQ/51d5R1FP5VB4vV02Vwec5gpsTx6Umj5cWOs1irl
+	 spGscT/saXALD3dPll5W+aLi/p5Gq1Ky54t5idAM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4DF3F805B1; Thu,  4 Jul 2024 19:20:11 +0200 (CEST)
+	id DE4E3F805B3; Thu,  4 Jul 2024 19:20:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F2B1F805A0;
-	Thu,  4 Jul 2024 19:20:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EACBF805D7;
+	Thu,  4 Jul 2024 19:20:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 371C4F80272; Thu,  4 Jul 2024 19:19:18 +0200 (CEST)
+	id 672B2F8025E; Thu,  4 Jul 2024 19:19:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4C556F800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0053BF800FA
 	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 19:19:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C556F800FE
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0053BF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Pggm54G+
+ header.s=k20201202 header.b=NWm+2O5t
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 1D8C660347;
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9C1E2627F2;
+	Thu,  4 Jul 2024 17:19:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1DEC32781;
 	Thu,  4 Jul 2024 17:19:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916F1C3277B;
-	Thu,  4 Jul 2024 17:19:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720113541;
-	bh=QsRR+QkcQnz+CcB5BiL0FhB+Lkjx7vr/PorGDV4G7Fs=;
+	s=k20201202; t=1720113543;
+	bh=y1eAcALUBJtOcY/yRjb+HRjFX6xnxr1k9+LVlC7sRV8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Pggm54G+30JWgXgOmjWhEMkylZ85ZrQ2guzoMflYeiVWSyioQytE9QbI8F2p8zksv
-	 cF7hrVZIG6ksUCchvtggjv+pyaQu2aKJkF3Nn7Qfv3wbjgNRMac6mAOwLQPzA59N5Z
-	 hKhbpej1rFD0Uf7YRvuwHXSHfeKcah76xWUzzU7e6GTvHQ1hFJ9xt8V546LKR9pMB1
-	 UBiT9UI6tKDimcmOlZKiwfJMdfKNjYtTHqljYa+HdoGPGGhVs7Z/xXyuICPy021uiz
-	 102Kiub4IhBGNT2OtvijwNt14Jqu6lPAv64vFxMsysBMyAWAeWV1+wckfjqEwd7vDv
-	 oygMBssMoMXPA==
+	b=NWm+2O5tpmSwLbY5UOhSgVDcz415Se9L5pCVje9uQwZyioO39y3rWLkbbQdc0+/DZ
+	 5IgK5tyum6yRNy320ETN/sqON2ubCzv65AOuq1KFmzRjk07Rj7QrrZ1NuNHXvEm+Ot
+	 /wU4G+aH84/NlwAKU/QKglX7nyt+kRu0qGSy7IjPX8Qs14ge0gBmPJuRmSbAPVqkjy
+	 FSaScg4sSk9q1+aM0oE2786dTsleVMsMZvXqr1YB4wh7desxUyCngyBuEAE5I7Da+f
+	 IbCJSTZlgxJ8Tb2DKNUr8Hb4/buHZNqcxA6HBbUo+scP8aOecd3wnVhrHpvKsU70+6
+	 lqajMp1vz+Y7w==
 From: Mark Brown <broonie@kernel.org>
 To: linux-sound@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20240704085708.371414-1-pierre-louis.bossart@linux.intel.com>
-References: <20240704085708.371414-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda: fix null deref on system
- suspend entry
-Message-Id: <172011354031.90743.5979596814986431326.b4-ty@kernel.org>
-Date: Thu, 04 Jul 2024 18:19:00 +0100
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20240704090106.371497-1-pierre-louis.bossart@linux.intel.com>
+References: <20240704090106.371497-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: hda-pcm: Limit the maximum number of
+ periods by MAX_BDL_ENTRIES
+Message-Id: <172011354202.90743.11488058235913274313.b4-ty@kernel.org>
+Date: Thu, 04 Jul 2024 18:19:02 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: ZOTXWKFNFTAOIWCEFMKVHIFLE463NSZJ
-X-Message-ID-Hash: ZOTXWKFNFTAOIWCEFMKVHIFLE463NSZJ
+Message-ID-Hash: JQQKGYNNR6IUXK2WSITJ2K5FVXGXKTSF
+X-Message-ID-Hash: JQQKGYNNR6IUXK2WSITJ2K5FVXGXKTSF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZOTXWKFNFTAOIWCEFMKVHIFLE463NSZJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQQKGYNNR6IUXK2WSITJ2K5FVXGXKTSF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,17 +98,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 04 Jul 2024 10:57:08 +0200, Pierre-Louis Bossart wrote:
-> When system enters suspend with an active stream, SOF core
-> calls hw_params_upon_resume(). On Intel platforms with HDA DMA used
-> to manage the link DMA, this leads to call chain of
+On Thu, 04 Jul 2024 11:01:06 +0200, Pierre-Louis Bossart wrote:
+> The HDaudio specification Section 3.6.2 limits the number of BDL entries to 256.
 > 
->    hda_dsp_set_hw_params_upon_resume()
->  -> hda_dsp_dais_suspend()
->  -> hda_dai_suspend()
->  -> hda_ipc4_post_trigger()
+> Make sure we don't allow more periods than this normative value.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -116,8 +111,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: hda: fix null deref on system suspend entry
-      commit: 9065693dcc13f287b9e4991f43aee70cf5538fdd
+[1/1] ASoC: SOF: Intel: hda-pcm: Limit the maximum number of periods by MAX_BDL_ENTRIES
+      commit: 82bb8db96610b558920b8c57cd250ec90567d79b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

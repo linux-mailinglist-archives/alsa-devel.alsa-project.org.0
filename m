@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D6EC927D35
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 20:36:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45F27927D38
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 20:36:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18AD414DC;
-	Thu,  4 Jul 2024 20:36:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18AD414DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5830BB65;
+	Thu,  4 Jul 2024 20:36:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5830BB65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720118190;
-	bh=x3m9D/QtwKRfrkMQATybZBTtL+idcV8O373Ppn4287Y=;
+	s=default; t=1720118209;
+	bh=rCWEKZiJpFDMpQmRBe2oHF+Q4L1xuCzmJqFKI9sBbBU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VZ+6YDAI7/xX1RIJn+meTfosuphFoQOy33RClcyo73ackBf1YGubgvOrn4I9Uxk1V
-	 ZT7+A3o26CdzMoBUbvRe4HLbD763ir6e+9HIoafZCFEu3LffLnFrnz1aTNbX2lz1s+
-	 pflBffXUo5vSGf3axZnB19SJP7K4iVwp8vgziGwg=
+	b=Y4ZYL35je50fLOGsWbN0VnPUxypl4agj+WpDgEBsWg1+GCLcC+LqT0y2bgAn1L4kV
+	 0t+hG3ZcxH0AcVnVIkpb68bBpp4L5A/Ci4yXMu90dRvvNqrSjP5KJuNHi8Yk9Ndm7I
+	 NuJXy4SYqJmyVPar/U3Si+BnjHO4ibEmawOLuGL4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FECBF805B6; Thu,  4 Jul 2024 20:35:58 +0200 (CEST)
+	id 68892F805C8; Thu,  4 Jul 2024 20:36:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17D3EF805AE;
-	Thu,  4 Jul 2024 20:35:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDF5EF805C9;
+	Thu,  4 Jul 2024 20:36:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B3EDF80272; Thu,  4 Jul 2024 20:35:54 +0200 (CEST)
+	id E09CBF8025E; Thu,  4 Jul 2024 20:35:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,52 +35,55 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7A370F800FA
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 20:35:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A370F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id D951AF800F8
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 20:35:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D951AF800F8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Z7O6TYn9
+ header.s=k20201202 header.b=XwkC4aqR
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id EBC25CE385D;
+	by sin.source.kernel.org (Postfix) with ESMTP id 44691CE391F;
+	Thu,  4 Jul 2024 18:35:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEBE4C32781;
 	Thu,  4 Jul 2024 18:35:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D540C3277B;
-	Thu,  4 Jul 2024 18:35:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720118141;
-	bh=x3m9D/QtwKRfrkMQATybZBTtL+idcV8O373Ppn4287Y=;
+	s=k20201202; t=1720118145;
+	bh=rCWEKZiJpFDMpQmRBe2oHF+Q4L1xuCzmJqFKI9sBbBU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Z7O6TYn9rH9U9DNLwoH+7LVOv1bT0wKHvm3jZsMwLwm0xQauZ5yqUfUICRZUaoqlq
-	 uJOlm13ATmnokGbIaQS4Pqr8dQQLEw3sWGMj72OdlQxqk9QeMxj6eqQPbT0438060X
-	 87MlttsNAmfJmWtgzDVyygHVih2fXs8IowOGn9NI+Q7HftzvIQSHZvS8fz8e/MpkyW
-	 QBwuoEHCmbPlSvmhqy5LRSgg8L9iQ25LBZ0zbkOm5XRnxTtdc1RRmCNoXUN0620yJ4
-	 uuGWj3Ebawe/NqmPrN4E+9iWGuywmvsf8voA1gEiNJ2ou78kI3UfLuwmlhaldRCK8Y
-	 yxCgW+NAB73KA==
+	b=XwkC4aqRrEk7dbyVe7FPkDuvLWRj1jidNP+euuAbzP9JjJzLszTewqZzPa+o+jBjC
+	 FfFm5HKXGJqAADRL6npfN59JBc96M4knjbEw55jvee+lnAx4pced+gtLG/Id8VWOlX
+	 UQaKQ5if+3ZNZlp6hHhpWOkCK8IUesi7Y+7OLE0lk5WaxQg3EGu/fmJaNrpwGR5QFa
+	 TiIMvvL5uQCyFdh6L8HSwLkmE8hrqsRtVIJiouy9JLLCww5LkHFuXxaL0ZNkP965RM
+	 mu/JfdeUKlnfOmLtHEJjNcf0T0eHBjGtDD9EamZCPEDDyP3EtBv9EaBAWPirYx85z0
+	 kOEspMLmVOnEA==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: 
- <20240701-b4-qcom-audio-lpass-codec-cleanups-v3-0-6d98d4dd1ef5@linaro.org>
-References: 
- <20240701-b4-qcom-audio-lpass-codec-cleanups-v3-0-6d98d4dd1ef5@linaro.org>
-Subject: Re: [PATCH v3 0/6] ASoC: codecs: lpass-rx-macro: Few code cleanups
-Message-Id: <172011813890.108577.12531319893239383182.b4-ty@kernel.org>
-Date: Thu, 04 Jul 2024 19:35:38 +0100
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Herve Codina <herve.codina@bootlin.com>
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+In-Reply-To: <20240701113038.55144-1-herve.codina@bootlin.com>
+References: <20240701113038.55144-1-herve.codina@bootlin.com>
+Subject: Re: [PATCH v2 00/10] Add support for non-interleaved mode in
+ qmc_audio
+Message-Id: <172011814156.108577.6835000954041673379.b4-ty@kernel.org>
+Date: Thu, 04 Jul 2024 19:35:41 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: E7DWBLBSF2WMDKKSPXO6GAS3CKHSXSJ2
-X-Message-ID-Hash: E7DWBLBSF2WMDKKSPXO6GAS3CKHSXSJ2
+Message-ID-Hash: 2MHTF76BXU3QRCBL5A7NBJM22WT7ZABR
+X-Message-ID-Hash: 2MHTF76BXU3QRCBL5A7NBJM22WT7ZABR
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E7DWBLBSF2WMDKKSPXO6GAS3CKHSXSJ2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2MHTF76BXU3QRCBL5A7NBJM22WT7ZABR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,15 +105,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 01 Jul 2024 09:39:32 +0200, Krzysztof Kozlowski wrote:
-> Changes in v3:
-> - New patch #1 to fix clang jump warning ("ASoC: codecs: lpass-rx-macro: Simplify PDS cleanup with devm")
-> - Link to v2: https://lore.kernel.org/r/20240628-b4-qcom-audio-lpass-codec-cleanups-v2-0-e9741143e485@linaro.org
+On Mon, 01 Jul 2024 13:30:27 +0200, Herve Codina wrote:
+> The qmc_audio driver supports only audio in interleaved mode.
+> Non-interleaved mode can be easily supported using several QMC channel
+> per DAI. In that case, data related to ch0 are sent to (received from)
+> the first QMC channel, data related to ch1 use the next QMC channel and
+> so on up to the last channel.
 > 
-> Changes in v2:
-> - Use cleanup.h instead of devm(), therefore not adding Dmitry's review.
-> - New patch #5.
-> - Link to v1: https://lore.kernel.org/r/20240627-b4-qcom-audio-lpass-codec-cleanups-v1-0-ede31891d238@linaro.org
+> In terms of constraints and settings, the interleaved and
+> non-interleaved modes are slightly different.
 > 
 > [...]
 
@@ -120,18 +123,26 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: codecs: lpass-rx-macro: Simplify PDS cleanup with devm
-      commit: 891168dc4a6c637ca76c64e7bde6917b96b9cd54
-[2/6] ASoC: codecs: lpass-rx-macro: Simplify with cleanup.h
-      commit: ee5e13b2c92324938c2bffc44b36b5a29fc28087
-[3/6] ASoC: codecs: lpass-rx-macro: Keep static regmap_config as const
-      commit: 0c02cacf62fd90bf9f0c6c33e9a4862cfc50aab4
-[4/6] ASoC: dapm: Use unsigned for number of widgets in snd_soc_dapm_new_controls()
-      commit: bf95919fe1917efa8f5da83057ff9fc11130aa55
-[5/6] ASoC: codecs: lpass-rx-macro: Use unsigned for number of widgets
-      commit: c72585d79249fb07ca3e3c91022e312d21f20f40
-[6/6] ASoC: codecs: lpass-wsa-macro: Simplify with cleanup.h
-      commit: 67820eb9f4895791da46df42ff7942dfc1353bb2
+[01/10] ASoC: fsl: fsl_qmc_audio: Check devm_kasprintf() returned value
+        commit: e62599902327d27687693f6e5253a5d56583db58
+[02/10] ASoC: fsl: fsl_qmc_audio: Fix issues detected by checkpatch
+        commit: 86dd725b57a88869acfe15b0405937450d0aef30
+[03/10] ASoC: fsl: fsl_qmc_audio: Split channel buffer and PCM pointer handling
+        commit: 42212b2ce8b1182d536452eee2880d2de7cce059
+[04/10] ASoC: fsl: fsl_qmc_audio: Identify the QMC channel involved in completion routines
+        commit: 5e51a1f9dfd90de6e44cfb5340d48263f9e8f8d8
+[05/10] ASoC: fsl: fsl_qmc_audio: Introduce qmc_audio_pcm_{read,write}_submit()
+        commit: 33a6969fbc653f25d5204b17fb67d5a21e6295e6
+[06/10] ASoC: fsl: fsl_qmc_audio: Introduce qmc_dai_constraints_interleaved()
+        commit: b81cfa66435bdab896b4c24e11d24ec33bdb0601
+[07/10] soc: fsl: cpm1: qmc: Introduce functions to get a channel from a phandle list
+        commit: 37797c605da33445adc112561695f70bfaa11133
+[08/10] soc: fsl: cpm1: qmc: Introduce qmc_chan_count_phandles()
+        commit: af8432b2e41abc0a20bdc01a3b144ea7b2f1ee09
+[09/10] dt-bindings: sound: fsl,qmc-audio: Add support for multiple QMC channels per DAI
+        commit: fb6013168fa94d5863ed6085b24eaeb89102ad74
+[10/10] ASoC: fsl: fsl_qmc_audio: Add support for non-interleaved mode.
+        commit: 188d9cae54388171d28bd632a2561863db4b9f8b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

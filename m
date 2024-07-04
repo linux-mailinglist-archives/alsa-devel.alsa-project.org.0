@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF68927281
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 11:01:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8C7192726B
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 10:59:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E8D81928;
-	Thu,  4 Jul 2024 11:01:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E8D81928
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A2E09F6;
+	Thu,  4 Jul 2024 10:59:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A2E09F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720083686;
-	bh=JIOiMZEDwaqSLxMoTfruo+yYfdbcow0kQHxJBoAbvfw=;
+	s=default; t=1720083587;
+	bh=crewVMHSfJKgeI4smrQVHU61rtSFJP+uy4uxd/EJzag=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Rp/UvQ4YBYHAcgmClNunEtuAZXXpZRPima/Yyor3W1r61jF2KpIn05NGSp+8IMsmb
-	 FBNmxwvXXhm0nIxyOqq/IlOvosDY6kgFA60o5zLZ5chaB2EiSkRI2zSFO0Ly3mPBok
-	 8+RaibtmNgkfCB0iGPCP5lSopKKOmSJpzEtCrjxI=
+	b=b+fkUAchXOc7XPpEcVsa1W/m1LEZjkug9MRR6QzdDmtNjW1iK++eXSygkDZHy9fnL
+	 gVop6vFIB+VwL5yQraaY9E/IGGqFfa7VDCsQ/xZY42tmnYmTkg4XIkBb1ZG74+J80/
+	 K0fMp5aDyxHKhsp4zPkHmOIl8Jpimnno4+mLvLaw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60476F80699; Thu,  4 Jul 2024 10:59:09 +0200 (CEST)
+	id D8F59F805E4; Thu,  4 Jul 2024 10:58:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C33B3F806BC;
-	Thu,  4 Jul 2024 10:59:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57CC3F805D7;
+	Thu,  4 Jul 2024 10:58:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75B23F8025E; Thu,  4 Jul 2024 10:56:46 +0200 (CEST)
+	id A058AF80568; Thu,  4 Jul 2024 10:54:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,43 +35,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4DB3F800FE
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 10:53:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4DB3F800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id DD4CCF8014C
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 10:53:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD4CCF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=i/8EASQL
+ header.s=Intel header.b=QrUuUAb1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1720083231; x=1751619231;
+  t=1720083233; x=1751619233;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=JIOiMZEDwaqSLxMoTfruo+yYfdbcow0kQHxJBoAbvfw=;
-  b=i/8EASQLjKbR6q5MAz3zjf8qQc7J7JmSH6OBCOXiQXj/ZaYFdDB6fbEh
-   7z0XS3B1TaLqRzl6OpJUZkdKRxyMdTez1XarEk+jm8+fAb6n2Ch26V9Zm
-   z9qHqR6KxiIcZvdFkQoKySlCLjCPjY61cc0gdOMaCHG+eLs7CwvCj2J4W
-   1XOIiJUXktAnbgCQ35dNOeKQ4dC5XEoplayvLagwXSSnjg2IR7AwQvwwp
-   RJUP1ec3nI3dMVTFciKDMU+1pvHnK3hRJWi8T27Nl8d/M+SZkOB/RqwK9
-   BiDniFd/opOVIgUZ2eX98VIrEgb/1yl+x1GvBbBIWKgQ7dUbrd4mj6YTs
+  bh=crewVMHSfJKgeI4smrQVHU61rtSFJP+uy4uxd/EJzag=;
+  b=QrUuUAb1OCVeNdMPxEgBZtVKUrEm7uLyl2iCuNyLeNSvLWm7lPuhJlfR
+   PCPyf8N2VtEzbkvZUoGSyxF/uawsraZ8FFUKgArFUSPr2xugeMC6I4AF6
+   wuCI36g+YPljvDShPE0q87Zm6FQMIOw+Xjb3ISUaYmNnnAwsUngDLChFc
+   5HrEbJdTtRYIi2Pv+SSfg7uFLzhx4Sp9it0VdIBdU93XWIVkBGdAqCZPl
+   XgVX2Pf9RR4Z+7VHcs0uf8lE1ltfkWJULqJVL3UKYDlZ3+rt7KAmCie+U
+   So6NqZp4rLK3TrL3HeOqqU5s3tuPQJVDRL5nSw4opMvB0WYL5zrnhW6SL
    Q==;
-X-CSE-ConnectionGUID: gJJLTDULRsqlUIiX5Sefrw==
-X-CSE-MsgGUID: tHyzval9QNCkc5KP4E4y9Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11122"; a="17300586"
+X-CSE-ConnectionGUID: /L1+awxwRDaM2kdyeMOu2w==
+X-CSE-MsgGUID: SsmcNffcSoiGZ/bglB82KQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11122"; a="17300595"
 X-IronPort-AV: E=Sophos;i="6.09,183,1716274800";
-   d="scan'208";a="17300586"
+   d="scan'208";a="17300595"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2024 01:53:47 -0700
-X-CSE-ConnectionGUID: TmaWiE+QRX+F5gABRq3CpA==
-X-CSE-MsgGUID: 7qMwUIm3Toy1JTUgYVEfyA==
+ 04 Jul 2024 01:53:51 -0700
+X-CSE-ConnectionGUID: jpnv+CFOSx6voTmE/0CXyA==
+X-CSE-MsgGUID: mXr4xFI8ShyLO1fuHKR1yQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,183,1716274800";
-   d="scan'208";a="51708490"
+   d="scan'208";a="51708523"
 Received: from bergbenj-mobl1.ger.corp.intel.com (HELO
  pbossart-mobl6.intel.com) ([10.245.246.90])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2024 01:53:43 -0700
+ 04 Jul 2024 01:53:47 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: linux-sound@vger.kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -79,21 +79,23 @@ Cc: alsa-devel@alsa-project.org,
 	broonie@kernel.org,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	linux-pci@vger.kernel.org,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Fred Oh <fred.oh@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: [PATCH v3 1/6] ASoC: Intel: soc-acpi: add PTL match tables
-Date: Thu,  4 Jul 2024 10:53:25 +0200
-Message-ID: <20240704085330.371332-2-pierre-louis.bossart@linux.intel.com>
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH v3 2/6] ASoC: SOF: Intel: add PTL specific power control
+ register
+Date: Thu,  4 Jul 2024 10:53:26 +0200
+Message-ID: <20240704085330.371332-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240704085330.371332-1-pierre-louis.bossart@linux.intel.com>
 References: <20240704085330.371332-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HVDI6VDTSGUU6EKZF2ORTPD2FQILA5R6
-X-Message-ID-Hash: HVDI6VDTSGUU6EKZF2ORTPD2FQILA5R6
+Message-ID-Hash: P746YXKNSUJAOSZIGGINQHSPVXHVR36Z
+X-Message-ID-Hash: P746YXKNSUJAOSZIGGINQHSPVXHVR36Z
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVDI6VDTSGUU6EKZF2ORTPD2FQILA5R6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P746YXKNSUJAOSZIGGINQHSPVXHVR36Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,98 +117,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For now the tables are basic for mockup devices and headset codec support
+From: Fred Oh <fred.oh@linux.intel.com>
 
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+PTL has some differences from MTL/LNL. Need to use different register
+to power up.
+
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/soc-acpi-intel-match.h          |  2 +
- sound/soc/intel/common/Makefile               |  1 +
- .../intel/common/soc-acpi-intel-ptl-match.c   | 41 +++++++++++++++++++
- 3 files changed, 44 insertions(+)
- create mode 100644 sound/soc/intel/common/soc-acpi-intel-ptl-match.c
+ sound/soc/sof/intel/mtl.c | 16 ++++++++++++++--
+ sound/soc/sof/intel/mtl.h |  2 ++
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/soc-acpi-intel-match.h b/include/sound/soc-acpi-intel-match.h
-index 4843b57798f6..daed7123df9d 100644
---- a/include/sound/soc-acpi-intel-match.h
-+++ b/include/sound/soc-acpi-intel-match.h
-@@ -33,6 +33,7 @@ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_lnl_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_machines[];
-+extern struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_machines[];
- 
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_sdw_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_cfl_sdw_machines[];
-@@ -44,6 +45,7 @@ extern struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_sdw_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_lnl_sdw_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_sdw_machines[];
-+extern struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_sdw_machines[];
- 
- /*
-  * generic table used for HDA codec-based platforms, possibly with
-diff --git a/sound/soc/intel/common/Makefile b/sound/soc/intel/common/Makefile
-index 40a74a19c508..91e146e2487d 100644
---- a/sound/soc/intel/common/Makefile
-+++ b/sound/soc/intel/common/Makefile
-@@ -12,6 +12,7 @@ snd-soc-acpi-intel-match-y := soc-acpi-intel-byt-match.o soc-acpi-intel-cht-matc
- 	soc-acpi-intel-rpl-match.o soc-acpi-intel-mtl-match.o \
- 	soc-acpi-intel-arl-match.o \
- 	soc-acpi-intel-lnl-match.o \
-+	soc-acpi-intel-ptl-match.o \
- 	soc-acpi-intel-hda-match.o \
- 	soc-acpi-intel-sdw-mockup-match.o
- 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-ptl-match.c b/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
-new file mode 100644
-index 000000000000..dba45fa7a453
---- /dev/null
-+++ b/sound/soc/intel/common/soc-acpi-intel-ptl-match.c
-@@ -0,0 +1,41 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * soc-acpi-intel-ptl-match.c - tables and support for PTL ACPI enumeration.
-+ *
-+ * Copyright (c) 2024, Intel Corporation.
-+ *
-+ */
+diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
+index 1bf274509ee6..2b9d22ccf345 100644
+--- a/sound/soc/sof/intel/mtl.c
++++ b/sound/soc/sof/intel/mtl.c
+@@ -245,6 +245,18 @@ int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
+ 	u32 cpa;
+ 	u32 pgs;
+ 	int ret;
++	u32 dsppwrctl;
++	u32 dsppwrsts;
++	const struct sof_intel_dsp_desc *chip;
 +
-+#include <sound/soc-acpi.h>
-+#include <sound/soc-acpi-intel-match.h>
-+#include "soc-acpi-intel-sdw-mockup-match.h"
-+
-+struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_machines[] = {
-+	{},
-+};
-+EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_ptl_machines);
-+
-+/* this table is used when there is no I2S codec present */
-+struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_sdw_machines[] = {
-+	/* mockup tests need to be first */
-+	{
-+		.link_mask = GENMASK(3, 0),
-+		.links = sdw_mockup_headset_2amps_mic,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-ptl-rt711-rt1308-rt715.tplg",
-+	},
-+	{
-+		.link_mask = BIT(0) | BIT(1) | BIT(3),
-+		.links = sdw_mockup_headset_1amp_mic,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-ptl-rt711-rt1308-mono-rt715.tplg",
-+	},
-+	{
-+		.link_mask = GENMASK(2, 0),
-+		.links = sdw_mockup_mic_headset_1amp,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-ptl-rt715-rt711-rt1308-mono.tplg",
-+	},
-+	{},
-+};
-+EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_ptl_sdw_machines);
++	chip = get_chip_info(sdev->pdata);
++	if (chip->hw_ip_version > SOF_INTEL_ACE_2_0) {
++		dsppwrctl = PTL_HFPWRCTL2;
++		dsppwrsts = PTL_HFPWRSTS2;
++	} else {
++		dsppwrctl = MTL_HFPWRCTL;
++		dsppwrsts = MTL_HFPWRSTS;
++	}
+ 
+ 	/* Set the DSP subsystem power on */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, MTL_HFDSSCS,
+@@ -264,14 +276,14 @@ int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
+ 	}
+ 
+ 	/* Power up gated-DSP-0 domain in order to access the DSP shim register block. */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, MTL_HFPWRCTL,
++	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, dsppwrctl,
+ 				MTL_HFPWRCTL_WPDSPHPXPG, MTL_HFPWRCTL_WPDSPHPXPG);
+ 
+ 	usleep_range(1000, 1010);
+ 
+ 	/* poll with timeout to check if operation successful */
+ 	pgs = MTL_HFPWRSTS_DSPHPXPGS_MASK;
+-	ret = snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_BAR, MTL_HFPWRSTS, dsphfpwrsts,
++	ret = snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_BAR, dsppwrsts, dsphfpwrsts,
+ 					    (dsphfpwrsts & pgs) == pgs,
+ 					    HDA_DSP_REG_POLL_INTERVAL_US,
+ 					    HDA_DSP_RESET_TIMEOUT_US);
+diff --git a/sound/soc/sof/intel/mtl.h b/sound/soc/sof/intel/mtl.h
+index 7acaa7e724f4..9ab4b21c960e 100644
+--- a/sound/soc/sof/intel/mtl.h
++++ b/sound/soc/sof/intel/mtl.h
+@@ -12,9 +12,11 @@
+ #define MTL_HFDSSCS_CPA_MASK		BIT(24)
+ #define MTL_HFSNDWIE			0x114C
+ #define MTL_HFPWRCTL			0x1D18
++#define PTL_HFPWRCTL2			0x1D20
+ #define MTL_HfPWRCTL_WPIOXPG(x)		BIT((x) + 8)
+ #define MTL_HFPWRCTL_WPDSPHPXPG		BIT(0)
+ #define MTL_HFPWRSTS			0x1D1C
++#define PTL_HFPWRSTS2			0x1D24
+ #define MTL_HFPWRSTS_DSPHPXPGS_MASK	BIT(0)
+ #define MTL_HFINTIPPTR			0x1108
+ #define MTL_IRQ_INTEN_L_HOST_IPC_MASK	BIT(0)
 -- 
 2.43.0
 

@@ -2,83 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2DF0927557
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 13:43:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE71892758A
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 13:54:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF93114DD;
-	Thu,  4 Jul 2024 13:42:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF93114DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB311105F;
+	Thu,  4 Jul 2024 13:54:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB311105F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720093387;
-	bh=stZBtm/0v1LSoKFqjt/ikzo4FA1KZbF+BMeuF8x9aVI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=gfLx8CwxDpNHYnBjNEh7oe2uJS6KJ4MFyapcsx8GiLaTBsBOcMPDicY8T/LiGgZu9
-	 VstuD8ycuTCSUJ7RFt+q8gkzEGg2955FdA6pegK3FlFWEPqBCXKoqVU2je8SkI198X
-	 h66uz6NsCzKp7RrZI5k13YTAtdny+j9ca5mrPYE4=
+	s=default; t=1720094084;
+	bh=dTKC+tb0olG4VJCQydQ53dLPfOfet/UrZUBd+pMbJWY=;
+	h=Subject:From:To:Date:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Dt2m9W+pHD/gG6qvvIBIS1fHuWoW+sDrOu/GMkrbkedyQobhP2HBPVy4WR3wyKqyA
+	 UAdCoL7H9BhZhiJAB5wODZgDu4coII42SHq1QDV+2Tey5waf4/eUT0t7H0FFFwy4xX
+	 oO9kiwumRb6juyKd/7O0PPEV+TAnv2m7fEA5eoQc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6927EF805A9; Thu,  4 Jul 2024 13:42:36 +0200 (CEST)
+	id 83F24F805B0; Thu,  4 Jul 2024 13:54:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6EF8F805AE;
-	Thu,  4 Jul 2024 13:42:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBF4FF805A0;
+	Thu,  4 Jul 2024 13:54:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49739F8025E; Thu,  4 Jul 2024 13:42:30 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F9B1F800F8
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 13:42:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F9B1F800F8
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cVTplohB
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 1ED98CE2DCA;
-	Thu,  4 Jul 2024 11:42:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E444AC3277B;
-	Thu,  4 Jul 2024 11:42:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720093335;
-	bh=stZBtm/0v1LSoKFqjt/ikzo4FA1KZbF+BMeuF8x9aVI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=cVTplohBA6oAWsg490qFGevGJ3yrfvrdaMSIrUYeQjH+DD5JxJpvkdTPwkpYv1apF
-	 qIzCi6xoJIrcQKRsgoM5eysik12FeRTiMjYY2zSNyHAqHSmfsxAFtk+0ycnTEbajb4
-	 zG2/pDGIyvgbmhyyaLRarLJU7iAoak9u3lo1YFYpOAqFYMBclPFQHnM3wsADlWLzJU
-	 HYmpvTKqoE2xZ7f1+aBgoqrY+Dly/xF7c+SfYUeoDol4Nuh0y/F7Gvy2/b/jiCaINQ
-	 +E0YmTbhiLUOSIt8oMR6X/AQIwKZg1ddtCGAGMq06xnSHewRjelGLQBqR0eyroYMwx
-	 Xkca4Fv0xLhOQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Linus Walleij <linus.walleij@linaro.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shenghao Ding <13916275206@139.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20240701-asoc-tas-gpios-v1-0-d69ec5d79939@linaro.org>
-References: <20240701-asoc-tas-gpios-v1-0-d69ec5d79939@linaro.org>
-Subject: Re: (subset) [PATCH 0/4] ASoC: tas*: Fix up GPIO usage
-Message-Id: <172009333244.28053.17496645260509712348.b4-ty@kernel.org>
-Date: Thu, 04 Jul 2024 12:42:12 +0100
-MIME-Version: 1.0
+	id 05E6DF80272; Thu,  4 Jul 2024 13:54:08 +0200 (CEST)
+Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
+ [10.254.200.11])
+	by alsa1.perex.cz (Postfix) with ESMTP id F27A5F800F8
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 13:54:07 +0200 (CEST)
 Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: FCFFUWWSCMQXKBS2SSOR5CX3JCEQWFNP
-X-Message-ID-Hash: FCFFUWWSCMQXKBS2SSOR5CX3JCEQWFNP
-X-MailFrom: broonie@kernel.org
+Subject: Re: [alsa-devel] unsupported variant of snd_hda_intel
+From: hobefaj342@devncie.com
+To: alsa-devel@alsa-project.org
+Date: Thu, 04 Jul 2024 11:54:07 -0000
+Message-ID: <172009404799.20.2114839556176931017@mailman-web.alsa-project.org>
+In-Reply-To: <AANLkTik3nGq22b0t+f3NMn23CK7x5b+hLJpaW9rjhr0Q@mail.gmail.com>
+References: <AANLkTik3nGq22b0t+f3NMn23CK7x5b+hLJpaW9rjhr0Q@mail.gmail.com>
+User-Agent: HyperKitty on https://mailman.alsa-project.org/
+Message-ID-Hash: LPOBJQLH6CXMSB5ZTXM25QWYQBBHNU5Z
+X-Message-ID-Hash: LPOBJQLH6CXMSB5ZTXM25QWYQBBHNU5Z
+X-MailFrom: hobefaj342@devncie.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +55,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCFFUWWSCMQXKBS2SSOR5CX3JCEQWFNP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LPOBJQLH6CXMSB5ZTXM25QWYQBBHNU5Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,43 +64,5 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 01 Jul 2024 09:02:11 +0200, Linus Walleij wrote:
-> The TI TAS drivers use some legacy GPIO code and headers,
-> this series fixes it up.
-> 
-> The TAS2781 is a special case since it adds a handful of
-> lines of deviating code to reconfigure a GPIO line for
-> IRQ mode and then never actually use the IRQ obtained in
-> the code. Is the line used by autonomous hardware? I'm
-> puzzled by this.
-> 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/4] ASoC: tas5086: Convert to GPIO descriptors
-      commit: 3b628e617b21144579bbca806a26737e8485d93a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Make their birthday shine with our sparkling selection of birthday cards! Whether you're celebrating a milestone or simply sending well wishes, our collection has the perfect card to add a touch of joy to their special day. Send a heartfelt message and make their birthday unforgettable!
+Visit To https://sendwishonline.com/en/group-cards/happy-birthday-cards

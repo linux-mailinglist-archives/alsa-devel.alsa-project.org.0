@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45F27927D38
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 20:36:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD415927EF1
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2024 00:13:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5830BB65;
-	Thu,  4 Jul 2024 20:36:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5830BB65
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DF88F55;
+	Fri,  5 Jul 2024 00:13:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DF88F55
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720118209;
-	bh=rCWEKZiJpFDMpQmRBe2oHF+Q4L1xuCzmJqFKI9sBbBU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Y4ZYL35je50fLOGsWbN0VnPUxypl4agj+WpDgEBsWg1+GCLcC+LqT0y2bgAn1L4kV
-	 0t+hG3ZcxH0AcVnVIkpb68bBpp4L5A/Ci4yXMu90dRvvNqrSjP5KJuNHi8Yk9Ndm7I
-	 NuJXy4SYqJmyVPar/U3Si+BnjHO4ibEmawOLuGL4=
+	s=default; t=1720131216;
+	bh=fRVQTvUc2movJkc/FfIHRaMe82Cfoa1Zo1wuNxKRdoA=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=sz715UHqr90DKhmXmLbDBxcCb0P+8OsvxJG5JJUYkxEFDrqZpI7o3eFscJbyz0Rs8
+	 097MWC7K/bACMeA5Ccbz64MCBGGwzDu2klOH4RN7DMbkK6ktVaaqfnLSRAVSRzIInB
+	 dR2RCTo7s8hIQ1ZGTCoRID6ALLrR5OvRpIEb4UQ0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68892F805C8; Thu,  4 Jul 2024 20:36:02 +0200 (CEST)
+	id 22D42F805B4; Fri,  5 Jul 2024 00:13:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDF5EF805C9;
-	Thu,  4 Jul 2024 20:36:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99112F805A0;
+	Fri,  5 Jul 2024 00:13:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E09CBF8025E; Thu,  4 Jul 2024 20:35:56 +0200 (CEST)
+	id 86224F8025E; Fri,  5 Jul 2024 00:12:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D951AF800F8
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 20:35:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D951AF800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3FC9F800FA
+	for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2024 00:12:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3FC9F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XwkC4aqR
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 44691CE391F;
-	Thu,  4 Jul 2024 18:35:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEBE4C32781;
-	Thu,  4 Jul 2024 18:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720118145;
-	bh=rCWEKZiJpFDMpQmRBe2oHF+Q4L1xuCzmJqFKI9sBbBU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=XwkC4aqRrEk7dbyVe7FPkDuvLWRj1jidNP+euuAbzP9JjJzLszTewqZzPa+o+jBjC
-	 FfFm5HKXGJqAADRL6npfN59JBc96M4knjbEw55jvee+lnAx4pced+gtLG/Id8VWOlX
-	 UQaKQ5if+3ZNZlp6hHhpWOkCK8IUesi7Y+7OLE0lk5WaxQg3EGu/fmJaNrpwGR5QFa
-	 TiIMvvL5uQCyFdh6L8HSwLkmE8hrqsRtVIJiouy9JLLCww5LkHFuXxaL0ZNkP965RM
-	 mu/JfdeUKlnfOmLtHEJjNcf0T0eHBjGtDD9EamZCPEDDyP3EtBv9EaBAWPirYx85z0
-	 kOEspMLmVOnEA==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Herve Codina <herve.codina@bootlin.com>
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-In-Reply-To: <20240701113038.55144-1-herve.codina@bootlin.com>
-References: <20240701113038.55144-1-herve.codina@bootlin.com>
-Subject: Re: [PATCH v2 00/10] Add support for non-interleaved mode in
- qmc_audio
-Message-Id: <172011814156.108577.6835000954041673379.b4-ty@kernel.org>
-Date: Thu, 04 Jul 2024 19:35:41 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=YpFHq083
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1720131168; x=1751667168;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=fRVQTvUc2movJkc/FfIHRaMe82Cfoa1Zo1wuNxKRdoA=;
+  b=YpFHq083o1AFDGmFCpNdEJGtU7n4Kzg0pwwHRgtz6WsCELIQDIEDAWs/
+   kjRk2VVlW2WplaCRMbbycJYYp2FsSxs7mPOZNaT38JO3Bob2f40TrlyWp
+   nozGrC8bJ6yR+yh1pW8F61BbC4/fguq4gMermHnBFKez0inlLUbOxjiPN
+   y++P0Ej+Dz84hONkQ85+I+/lnB8BsWuwfAv1o7B2axV/CivFpQ/hE9Mbu
+   VDspa/iq3MbvPEkH02PIRA9c7+OQp+ipH3+gu271OLNxKWrQk0MZ68PFP
+   y1q626UqDvmKbtwaQggq0MQlH6xr3iWMQXZ4n7vkWPxWg62dX42U9aCXe
+   w==;
+X-CSE-ConnectionGUID: yyNfv5aSTQS8IK2O/4Q6Vg==
+X-CSE-MsgGUID: iK13CBQMR3C5Yp94C9t8cg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11123"; a="21184280"
+X-IronPort-AV: E=Sophos;i="6.09,183,1716274800";
+   d="scan'208";a="21184280"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2024 15:12:41 -0700
+X-CSE-ConnectionGUID: MEanRZanS0Obq81ZEqVEQw==
+X-CSE-MsgGUID: Dw+BuX2vTbujoHWrCDJ2tA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,183,1716274800";
+   d="scan'208";a="47349423"
+Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 04 Jul 2024 15:12:41 -0700
+Received: from kbuild by 68891e0c336b with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1sPUgv-000RWa-1p;
+	Thu, 04 Jul 2024 22:12:37 +0000
+Date: Fri, 5 Jul 2024 06:12:03 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [tiwai-sound:for-next 5/6] sound/core/pcm_lib.c:547:9: warning:
+ 'strncpy' output truncated before terminating nul copying 12 bytes from a
+ string of the same length
+Message-ID: <202407050501.o5Z3bibi-lkp@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-d4707
-Message-ID-Hash: 2MHTF76BXU3QRCBL5A7NBJM22WT7ZABR
-X-Message-ID-Hash: 2MHTF76BXU3QRCBL5A7NBJM22WT7ZABR
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Message-ID-Hash: FRRXTBUXMZE5SPK4ILNNGTKUCKI4WDOX
+X-Message-ID-Hash: FRRXTBUXMZE5SPK4ILNNGTKUCKI4WDOX
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2MHTF76BXU3QRCBL5A7NBJM22WT7ZABR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FRRXTBUXMZE5SPK4ILNNGTKUCKI4WDOX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,61 +108,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 01 Jul 2024 13:30:27 +0200, Herve Codina wrote:
-> The qmc_audio driver supports only audio in interleaved mode.
-> Non-interleaved mode can be easily supported using several QMC channel
-> per DAI. In that case, data related to ch0 are sent to (received from)
-> the first QMC channel, data related to ch1 use the next QMC channel and
-> so on up to the last channel.
-> 
-> In terms of constraints and settings, the interleaved and
-> non-interleaved modes are slightly different.
-> 
-> [...]
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+head:   5f9f982dd71b418aeba7a0b37f87312545c06df4
+commit: d712c58c55d9a4b4cc88ec2e1f8cd2e3b82359b5 [5/6] ALSA: pcm: optimize and clarify stream synchronization ID API
+config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20240705/202407050501.o5Z3bibi-lkp@intel.com/config)
+compiler: gcc-13 (Ubuntu 13.2.0-4ubuntu3) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240705/202407050501.o5Z3bibi-lkp@intel.com/reproduce)
 
-Applied to
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202407050501.o5Z3bibi-lkp@intel.com/
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+All warnings (new ones prefixed by >>):
 
-Thanks!
+   In function 'snd_pcm_set_sync_per_card',
+       inlined from 'snd_pcm_lib_ioctl_sync_id' at sound/core/pcm_lib.c:1837:3,
+       inlined from 'snd_pcm_lib_ioctl' at sound/core/pcm_lib.c:1863:10:
+>> sound/core/pcm_lib.c:547:9: warning: 'strncpy' output truncated before terminating nul copying 12 bytes from a string of the same length [-Wstringop-truncation]
+     547 |         strncpy(params->sync + 4, id, len);
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[01/10] ASoC: fsl: fsl_qmc_audio: Check devm_kasprintf() returned value
-        commit: e62599902327d27687693f6e5253a5d56583db58
-[02/10] ASoC: fsl: fsl_qmc_audio: Fix issues detected by checkpatch
-        commit: 86dd725b57a88869acfe15b0405937450d0aef30
-[03/10] ASoC: fsl: fsl_qmc_audio: Split channel buffer and PCM pointer handling
-        commit: 42212b2ce8b1182d536452eee2880d2de7cce059
-[04/10] ASoC: fsl: fsl_qmc_audio: Identify the QMC channel involved in completion routines
-        commit: 5e51a1f9dfd90de6e44cfb5340d48263f9e8f8d8
-[05/10] ASoC: fsl: fsl_qmc_audio: Introduce qmc_audio_pcm_{read,write}_submit()
-        commit: 33a6969fbc653f25d5204b17fb67d5a21e6295e6
-[06/10] ASoC: fsl: fsl_qmc_audio: Introduce qmc_dai_constraints_interleaved()
-        commit: b81cfa66435bdab896b4c24e11d24ec33bdb0601
-[07/10] soc: fsl: cpm1: qmc: Introduce functions to get a channel from a phandle list
-        commit: 37797c605da33445adc112561695f70bfaa11133
-[08/10] soc: fsl: cpm1: qmc: Introduce qmc_chan_count_phandles()
-        commit: af8432b2e41abc0a20bdc01a3b144ea7b2f1ee09
-[09/10] dt-bindings: sound: fsl,qmc-audio: Add support for multiple QMC channels per DAI
-        commit: fb6013168fa94d5863ed6085b24eaeb89102ad74
-[10/10] ASoC: fsl: fsl_qmc_audio: Add support for non-interleaved mode.
-        commit: 188d9cae54388171d28bd632a2561863db4b9f8b
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+vim +/strncpy +547 sound/core/pcm_lib.c
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+   517	
+   518	/**
+   519	 * snd_pcm_set_sync_per_card - set the PCM sync id with card number
+   520	 * @substream: the pcm substream
+   521	 * @params: modified hardware parameters
+   522	 * @id: identifier (max 12 bytes)
+   523	 * @len: identifier length (max 12 bytes)
+   524	 *
+   525	 * Sets the PCM sync identifier for the card with zero padding.
+   526	 *
+   527	 * User space or any user should use this 16-byte identifier for a comparison only
+   528	 * to check if two IDs are similar or different. Special case is the identifier
+   529	 * containing only zeros. Interpretation for this combination is - empty (not set).
+   530	 * The contents of the identifier should not be interpreted in any other way.
+   531	 *
+   532	 * The synchronization ID must be unique per clock source (usually one sound card,
+   533	 * but multiple soundcard may use one PCM word clock source which means that they
+   534	 * are fully synchronized).
+   535	 *
+   536	 * This routine composes this ID using card number in first four bytes and
+   537	 * 12-byte additional ID. When other ID composition is used (e.g. for multiple
+   538	 * sound cards), make sure that the composition does not clash with this
+   539	 * composition scheme.
+   540	 */
+   541	void snd_pcm_set_sync_per_card(struct snd_pcm_substream *substream,
+   542				       struct snd_pcm_hw_params *params,
+   543				       const unsigned char *id, unsigned int len)
+   544	{
+   545		*(__u32 *)params->sync = cpu_to_le32(substream->pcm->card->number);
+   546		len = max(12, len);
+ > 547		strncpy(params->sync + 4, id, len);
+   548		memset(params->sync + 4 + len, 0, 12 - len);
+   549	}
+   550	
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

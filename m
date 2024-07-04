@@ -2,79 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1C0927271
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 11:00:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DFD2927284
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2024 11:01:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CEF1E68;
-	Thu,  4 Jul 2024 11:00:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CEF1E68
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7F571549;
+	Thu,  4 Jul 2024 11:01:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7F571549
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720083614;
-	bh=WbXzrLYbelpWYb+vWRColZJQkfGtkoJg8hCor2oynf8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=O+6R3oJEzJUYcNyzEaH1N515cXwDvAqsHYO5HxPDCuQtI/bYeXisFW9hJUKsWJ5up
-	 e+uiQuFcCYgRhA25CExTh5QBf6XtbojcHIIz+ACEhq8LFPtyFCxw0x4wffX1LGvEzp
-	 2ZYa4YZF+mHc6sh958ZePOe2BFEz5iJEQCsiY560=
+	s=default; t=1720083695;
+	bh=fEfdO6IvXXG4UxA8M+mqsnb2ASqAKMSAndflNff0lyU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tOiJQRINDCBTTVqvJVAUqA3PBYC9Wz9Y1zTqC7aTieBx64Fjg7YknIvOpdeMl9c5F
+	 2QCubFrxdz6rL2unB6Ug9qe7rdHlw3q6kXLm4n/IuAUbPq/MpOKFxw2QyYbbs8BAj0
+	 BJvLnU5DPSvyA252xIaUFafesCIh+MuwMpucErEo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E00B5F8060E; Thu,  4 Jul 2024 10:59:01 +0200 (CEST)
+	id A2950F806D2; Thu,  4 Jul 2024 10:59:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 647E0F80607;
-	Thu,  4 Jul 2024 10:59:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5A5EF806CF;
+	Thu,  4 Jul 2024 10:59:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43B19F80508; Thu,  4 Jul 2024 10:56:00 +0200 (CEST)
+	id 98B34F8025E; Thu,  4 Jul 2024 10:57:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from disco.pogo.org.uk (disco.pogo.org.uk [93.93.128.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 121D3F8014C
-	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 10:55:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 121D3F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B21AF800FE
+	for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2024 10:57:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B21AF800FE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=xwax.org header.i=@xwax.org header.a=rsa-sha256
- header.s=swing header.b=HYF35//5
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xwax.org;
-	s=swing; h=Content-Type:MIME-Version:References:Message-ID:In-Reply-To:
-	Subject:cc:To:From:Date:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description; bh=Mg5N1u3NQwC0syyKbSSGXV2bOG4ZP1SInZ/6+jwqoRE=; b=HYF35
-	//55ipLifYlR5Cr36CmvuBr6m7/FGtH91JJ0Carn1SD9pDdd8ZiVjE/mhKiXehddjTMkN/ol7Z1ZG
-	ADvidtbirlngCNUJaGnOdypeWsxqfaJ8qbSXUpFRWPhQLZTVVE3hc8tzibF0ftLbk0+9P9Tam3EH8
-	o4MWgWbF3RXU=;
-Received: from cpc93786-hari17-2-0-cust786.20-2.cable.virginm.net
- ([82.36.99.19] helo=tamla)
-	by disco.pogo.org.uk with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.97.1 (FreeBSD))
-	(envelope-from <mark@xwax.org>)
-	id 1sPIFo-000000007H5-3d36;
-	Thu, 04 Jul 2024 09:55:48 +0100
-Received: from localhost (tamla.localdomain [local])
-	by tamla.localdomain (OpenSMTPD) with ESMTPA id 715619dd;
-	Thu, 4 Jul 2024 09:55:33 +0100 (BST)
-Date: Thu, 4 Jul 2024 09:55:33 +0100 (BST)
-From: Mark Hills <mark@xwax.org>
-To: Asahi Lina <lina@asahilina.net>
-cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-    Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: Handling complex matrix mixers in ALSA
-In-Reply-To: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
-Message-ID: <5e0a07da-c5d2-1209-0f26-d164f25a31f1@xwax.org>
-References: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ORM3GsRf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1720083455; x=1751619455;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=fEfdO6IvXXG4UxA8M+mqsnb2ASqAKMSAndflNff0lyU=;
+  b=ORM3GsRf2KIcb+nf5a4KnzesLLpku66L6Kl1P6XSh5WmYfc8cALDb1My
+   zKsHgk3esV5AtUPPNM9xlfjDhzVj3j2PLyCTYLTdi3vBb0eliBrXdEqZs
+   1lL5OD9VHKrPQm17kciJMMrFJ7vHSLG5OKa1ok8HF3LngolDz+XUCePP+
+   +k6ns4Suc3W0E5QEO9ocScKZp2NzDQrNbamkQnqYhvWWxkASNeVRU5ECM
+   ItwILtqt0EPZ5H6wF4DPwlBXxKv3kTFB4hw3JJc72qeFoE0P5sA2P9dlI
+   W8hRBPyOLLCae5uo+YS09RDyqAR4Othf+RIUO/7tbGgNm88mkbWPdl9E/
+   g==;
+X-CSE-ConnectionGUID: 9+RTIqLmQBmobM6wkL9JiA==
+X-CSE-MsgGUID: dbSyfbvqR46czHKfskfWmQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11122"; a="34888942"
+X-IronPort-AV: E=Sophos;i="6.09,183,1716274800";
+   d="scan'208";a="34888942"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2024 01:57:30 -0700
+X-CSE-ConnectionGUID: HcfdL6hzS4mXvUc0luNSbQ==
+X-CSE-MsgGUID: HG/6zCzlRrOGJASFIhv47A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,183,1716274800";
+   d="scan'208";a="46604642"
+Received: from bergbenj-mobl1.ger.corp.intel.com (HELO
+ pbossart-mobl6.intel.com) ([10.245.246.90])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2024 01:57:28 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: linux-sound@vger.kernel.org
+Cc: alsa-devel@alsa-project.org,
+	tiwai@suse.de,
+	broonie@kernel.org,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH] ASoC: SOF: Intel: hda: fix null deref on system suspend entry
+Date: Thu,  4 Jul 2024 10:57:08 +0200
+Message-ID: <20240704085708.371414-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Message-ID-Hash: WJRA5S2HSG6HFYS7FLJKI7WZJKH4VXDN
-X-Message-ID-Hash: WJRA5S2HSG6HFYS7FLJKI7WZJKH4VXDN
-X-MailFrom: mark@xwax.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: QUI65K7ENZUB4K43ESIDCT3IQXUQN5LV
+X-Message-ID-Hash: QUI65K7ENZUB4K43ESIDCT3IQXUQN5LV
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -86,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJRA5S2HSG6HFYS7FLJKI7WZJKH4VXDN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QUI65K7ENZUB4K43ESIDCT3IQXUQN5LV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,36 +108,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 1 Jul 2024, Asahi Lina wrote:
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-[...]
-> The problem is that the device has a 66x34 matrix mixer, with up to 2048
-> cross points enabled at once. Exposing each cross point as an ALSA mixer
-> control (similar to how mixer_scarlett2.c does it) would mean 2244
-> controls just for the mixer... which seems like a bit too much.
-> 
-> On top of that there is also VU meter feedback for all the
-> inputs/outputs, as well as general fader controls for each output and
-> global output configs and status. I'm not sure about the VU meters, but
-> everything else sounds like it would map fine to normal mixer controls.
-> 
-> Is there some recommended way to expose this kind of matrix mixer
-> interface to userspace?
+When system enters suspend with an active stream, SOF core
+calls hw_params_upon_resume(). On Intel platforms with HDA DMA used
+to manage the link DMA, this leads to call chain of
 
-I don't know if it's recommended practice, but the echo3g driver may be a 
-prior art as it has a working matrix mixer for the Layla, and the 
-corresponding echomixer in alsa-tools.
+   hda_dsp_set_hw_params_upon_resume()
+ -> hda_dsp_dais_suspend()
+ -> hda_dai_suspend()
+ -> hda_ipc4_post_trigger()
 
-> I think for something like this you pretty much have to rely on 
-> device-specific tools to make the UX manageable
+A bug is hit in hda_dai_suspend() as hda_link_dma_cleanup() is run first,
+which clears hext_stream->link_substream, and then hda_ipc4_post_trigger()
+is called with a NULL snd_pcm_substream pointer.
 
-For a full UX, perhaps. But the concept of a matrix mixer itself is 
-general enough.
+Fixes: 2b009fa0823c ("ASoC: SOF: Intel: hda: Unify DAI drv ops for IPC3 and IPC4")
+Link: https://github.com/thesofproject/linux/issues/5080
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/intel/hda-dai.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Perhaps there could be a UI tool which is self contained with one purpose, 
-to control a 'standard' matrix mixer. It could be invoked alongside 
-alsamixer or other mixer tool, and multiple times if there are multiple 
-matrix mixers on a piece of hardware.
-
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index c61d298ea6b3..1c823f9eea57 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -617,12 +617,6 @@ static int hda_dai_suspend(struct hdac_bus *bus)
+ 			sdai = swidget->private;
+ 			ops = sdai->platform_private;
+ 
+-			ret = hda_link_dma_cleanup(hext_stream->link_substream,
+-						   hext_stream,
+-						   cpu_dai);
+-			if (ret < 0)
+-				return ret;
+-
+ 			/* for consistency with TRIGGER_SUSPEND  */
+ 			if (ops->post_trigger) {
+ 				ret = ops->post_trigger(sdev, cpu_dai,
+@@ -631,6 +625,12 @@ static int hda_dai_suspend(struct hdac_bus *bus)
+ 				if (ret < 0)
+ 					return ret;
+ 			}
++
++			ret = hda_link_dma_cleanup(hext_stream->link_substream,
++						   hext_stream,
++						   cpu_dai);
++			if (ret < 0)
++				return ret;
+ 		}
+ 	}
+ 
 -- 
-Mark
+2.43.0
+

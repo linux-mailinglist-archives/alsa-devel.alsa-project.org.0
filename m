@@ -2,120 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1DAD92BED1
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:52:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CFC492BEE3
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:55:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3277621B5;
-	Tue,  9 Jul 2024 17:52:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3277621B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74DDA84C;
+	Tue,  9 Jul 2024 17:55:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74DDA84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720540366;
-	bh=9Qs5ol2ze5oiR2DbW9m/2gue58457PaRyAxDKiR93+w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=J4PFuAsTdI5vB4LgCsvvFs0sPsoKsqEaxduj4VnSFud8/KYHP4ZX5S0RRxIp5N9pt
-	 nnCz6+w/dob7Skx0LeDUuPy2fOyb/kkGlzwnG7VA1IYpSiC3xAQbWgLuXrO8VWkDEg
-	 QH2ITlHuGHvPxPo7YCJvn2v1qTN/vyhDrjf2D09g=
+	s=default; t=1720540545;
+	bh=GADGVIQ+z375aVHvcKgsktFjykd9IRuivqf+FIBeZBk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=K9Ztw+lkic92zcBs0ITgUUaW98sQ9DSnCOTGEwlb7Jl3nHW3rPg/Mrz2SiHIwkUNU
+	 FZi9oW+AelmjM6VSWEQeF1HX6/qZPkOacsJuobJlKXBDA+iSFNplFW8Or/iSkpB/YM
+	 dbuN5drHg75ULlEXoyWUItmm+7GYuKVNkt82HoMw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AF1DF80BF3; Tue,  9 Jul 2024 17:49:12 +0200 (CEST)
+	id 14AA6F805B4; Tue,  9 Jul 2024 17:55:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF3D1F80804;
-	Tue,  9 Jul 2024 17:49:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39694F80587;
+	Tue,  9 Jul 2024 17:55:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02A45F8025E; Wed,  3 Jul 2024 19:23:36 +0200 (CEST)
+	id 30D53F801F5; Sun,  7 Jul 2024 08:28:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7AF14F800FE
-	for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2024 19:23:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AF14F800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 426C0F800FE
+	for <alsa-devel@alsa-project.org>; Sun,  7 Jul 2024 08:28:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 426C0F800FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=AnlfFGwH
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-6518f8bc182so5754687b3.0
+ header.s=20230601 header.b=K9VtQhUp
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-1fb222a8eaeso21018905ad.3
         for <alsa-devel@alsa-project.org>;
- Wed, 03 Jul 2024 10:23:29 -0700 (PDT)
+ Sat, 06 Jul 2024 23:28:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720027408; x=1720632208;
+        d=gmail.com; s=20230601; t=1720333708; x=1720938508;
  darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ti6v24oTe1MEKhNZLLn/dVPsQr2JQWNo5ls87iglapk=;
-        b=AnlfFGwH8WWr1xvPyhxXj0yOrpMNZTIQX4clfFJCkP37cnzeS+iZi66/a5HTyIzprP
-         gkX0thqOd61nGnckeHQShtqJZ2ZBv2/CO+Dv/N93amJmH+1zAsoN3QSVPgKCtenxkchZ
-         CnwCUF+fhCxllUHPvtb4wqRcernLgAQ5KAUqpITbDzoiOl/YAhVutX5Pq/268kZ4L7Yw
-         Cfg4gvKqhCuxNFozHW0s3AfDUhsq2TGtwe03O0gDCOERGLcWRWiJfBD5gpgLvwkZ/z0X
-         bIcWg4mHIS1d1Xl4QEueSP9TY8eqWlpJOMUO4WPmhGcuJmyAnTly52gMRMG3i9SYS7JL
-         yFKQ==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=l5tNj/A1m7ym+nbplCHex5l79VZ8cqmFsV8y1luHk2U=;
+        b=K9VtQhUpgT82YbHmyet8OkvM+6pZzDZLQOjktrYK6lm0jkG8pafeil3jCbp7qMsZkX
+         DKt/MA99LAI72DGJD8iiXRbyjy5iS2wohtwaFZi6l8BCiAQkWH614YqVzx5mY40HThSP
+         stL2avzikcGES/b+FkloUbsnlaHtx0NbiWezy1QKTEbpmPkn/XUR5xHDpTD0gfw8+gVJ
+         TcZcbmho/vJO00cu+tZu+pVjFtxyct4mg4F8gC8f9/KG9Kc6OIxbVEsFVqAX1UGPLHHm
+         Ebjde2tRpRGPhBB1NAI5hqAMAXClWlDbCZfTTS6TPQwJVM2/H8VQrlwfmUDTz/BC+bvD
+         6rTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720027408; x=1720632208;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1720333708; x=1720938508;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Ti6v24oTe1MEKhNZLLn/dVPsQr2JQWNo5ls87iglapk=;
-        b=tfFcjHHxn/1Bfz+LytLnXh7Z7o/BNeLn2zYeVwMW7IBO4HApQBn7ass+4xX6Fy0HaY
-         LCZtLB1pxVMRoCtQtp/3UIWd6bjPC0TxfsEgLOweKuJRVMDzcxqQ0xftBpBjKwcm6gHB
-         MxFCpxOXcSrRnme1qXJc83qpkeSyUk1MZndg75W60KzDQAuf1JWbQPg62BFjSlu8K4if
-         2pOuhxRK3vXrmbQYa9XONhTETg1HU/CdNjjNGCnp0JvHvfOygI5GxslOmv/VHRXNMxAk
-         InxmyO00DNx5BfUYzSHF3eULr7V2FLDxRbnQfRe2rvBi3Bw1XS2NC5l09k40wz6UK/UC
-         /D7g==
+        bh=l5tNj/A1m7ym+nbplCHex5l79VZ8cqmFsV8y1luHk2U=;
+        b=Tj+6Th68sXJ54ICwf9vYu+c3/nRMTRXTVAGAfbVcJS5B0yMRDvMlip39yq/WE8mrP8
+         xRK2TBiiqFe41bpJXtd7p+WmT6c27t08ukS98Db93/3jE2bJkWYfwrT/X6l81Zr6yR+r
+         ChKGgkwR9bT+xoEwlCWDdEj4kSJ1eFBJ0/8WqGg5lN9VMF6DoRa1M26wBcE7HBkrUrpk
+         n6zYvnsmD7CLmtamHuyW63K+8dNF4a28D/kGOJpQrDcSREcGzsb3kRj1tn8OjNcKaHb+
+         KoSnX9/i0rRw5mdZWGedIsaImlJWegcAwmzRaIkv/1RQWPIhTuVpB6O4n/GBjt84Ossm
+         y2YQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVQqqOF1TiKjnhqsAmPB1rFIjYvVwy7Fgaj57RIKi/+3JngpCp8cJTt+iPX7yJpyUK9xHnS8PZ3RDJXhY2ZIw+NxcxwCDQK26kiTCQ=
-X-Gm-Message-State: AOJu0YybTkhWl7hUvJMAhd5pA+83OTYnxMW6wnPr7qdzCsnRRIzfjAe7
-	694dysnwweKT80I+je5BvNBhCZOXdDfc6T8kYsKJM3BP1t77QLnS+MCAKJG+rmjuBfnZDR5UZ9g
-	BpEYIZEOVYfv7ynjTdw+F3Ho9jjY=
+ AJvYcCXh+mSCpbGYFyaLwa9/WqFgqFpWYoLEHQTgIam24J0NPUKJ6VdonzeOEYbkAG3DcVzQCu8tcyuDrheUL434+Hz87tHz+dHocVos0N0=
+X-Gm-Message-State: AOJu0Yy5QaWIouvFd2VESYhIiJ4gbVHN3DJGvBrH+ksYSLhFYf8PlK81
+	lY5pIaq5rBcAxgSuQHALvcJerEDYsE6Ljh7xNyV/veuUTcs9vk2S
 X-Google-Smtp-Source: 
- AGHT+IFWOydMbN6BlWi7lFEJsFqVYPn/wQrhz+LemE/ooLfbb7YSNlm3inzv1ZHEE/FXcdtbKBxpbSiueYfE+CJjO98=
-X-Received: by 2002:a0d:ebcb:0:b0:61a:e557:6ce1 with SMTP id
- 00721157ae682-651800ecdddmr15155807b3.1.1720027408329; Wed, 03 Jul 2024
- 10:23:28 -0700 (PDT)
+ AGHT+IHKfl1KS8Wj4Ovno8Mf6wy204G8pDN8gTXB3LmtLLIxQphYuCcaRx6DqgeB99rn+/r//tkdLg==
+X-Received: by 2002:a17:902:ce8d:b0:1fb:82f5:6648 with SMTP id
+ d9443c01a7336-1fb82f56afdmr10347935ad.36.1720333708260;
+        Sat, 06 Jul 2024 23:28:28 -0700 (PDT)
+Received: from fedora.one.one.one.one
+ ([2405:201:6013:c9a2:59df:d296:bffe:732c])
+        by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fb1cb298cesm72739165ad.252.2024.07.06.23.28.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 06 Jul 2024 23:28:27 -0700 (PDT)
+From: Animesh Agarwal <animeshagarwal28@gmail.com>
+To: 
+Cc: Animesh Agarwal <animeshagarwal28@gmail.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	patches@opensource.cirrus.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: dt-bindings: cirrus,cs4270: Convert to dtschema
+Date: Sun,  7 Jul 2024 11:56:58 +0530
+Message-ID: <20240707062702.174390-1-animeshagarwal28@gmail.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <20240616203231.43724-1-av2082000@gmail.com>
- <d6cd7441-53f2-4c88-a361-729e3abe81c1@marliere.net>
- <CAPMW_r+sPGF5=+=edLY81X+Cd4bMWKFJw3sDd0mzaZEM9b75BQ@mail.gmail.com>
- <f64523f0-db39-4e3a-85a6-1a3cb07e2d08@marliere.net>
-In-Reply-To: <f64523f0-db39-4e3a-85a6-1a3cb07e2d08@marliere.net>
-From: Amit Vadhavana <av2082000@gmail.com>
-Date: Wed, 3 Jul 2024 22:53:17 +0530
-Message-ID: 
- <CAPMW_rKV1BkBbrhcKNkMvhSatoHRNk58O8m8m8GHCN1Jb2V-8Q@mail.gmail.com>
-Subject: Re: [PATCH v2] slimbus: Fix struct and documentation alignment in
- stream.c
-To: "Ricardo B. Marliere" <ricardo@marliere.net>
-Cc: srinivas.kandagatla@linaro.org, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org, rbmarliere@gmail.com,
- skhan@linuxfoundation.org,
-	linux-kernel-mentees@lists.linuxfoundation.org
-Content-Type: text/plain; charset="UTF-8"
-X-MailFrom: av2082000@gmail.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: animeshagarwal28@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 67IJGHWENALP6RQRVKNJA53KFMSMKXGA
-X-Message-ID-Hash: 67IJGHWENALP6RQRVKNJA53KFMSMKXGA
-X-Mailman-Approved-At: Tue, 09 Jul 2024 15:48:38 +0000
+Message-ID-Hash: ZVRF2SCJIOSFXOKYEALWUIX56VOUDXMG
+X-Message-ID-Hash: ZVRF2SCJIOSFXOKYEALWUIX56VOUDXMG
+X-Mailman-Approved-At: Tue, 09 Jul 2024 15:55:10 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/67IJGHWENALP6RQRVKNJA53KFMSMKXGA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZVRF2SCJIOSFXOKYEALWUIX56VOUDXMG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,44 +132,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 20 Jun 2024 at 18:00, Ricardo B. Marliere <ricardo@marliere.net> wrote:
->
-> Hi Amit,
->
-> On 19 Jun 24 23:28, Amit Vadhavana wrote:
-> > Hi Ricardo,
-> >
-> > I have rebuilt it again, and there are no any warnings or errors.
->
-> Thanks for checking, FWIW:
->
-> Reviewed-by: Ricardo B. Marliere <ricardo@marliere.net>
->
-> BTW, I received this message plus another two empty ones. Please check
-> your settings. Also, make sure not to top-post [1].
->
-> Best regards,
-> -       Ricardo.
->
->
-> [1] https://en.wikipedia.org/wiki/Posting_style#Top-posting
->
->
->
-> >
-> > Thanks
-> > Amit v
+Convert the Cirrus Logic CS4270 audio CODEC bindings to DT schema. Add
+missing va-supply, vd-supply and vlc-supply properties, because they
+are already being used in the DTS and the driver for this device.
 
-Hi Srinivas,
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
+Signed-off-by: Animesh Agarwal <animeshagarwal28@gmail.com>
+---
+ .../bindings/sound/cirrus,cs4270.yaml         | 53 +++++++++++++++++++
+ .../devicetree/bindings/sound/cs4270.txt      | 21 --------
+ 2 files changed, 53 insertions(+), 21 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/cs4270.txt
 
-I hope you are well. I am following up on a patch I submitted on 19
-Jun regarding a kernel document and Ricardo reviewed the patch.
-I understand you have a busy schedule, but if you could find some time
-to review the patch, I would greatly appreciate it.
-Your feedback would be invaluable in helping to improve the quality of
-this contribution.
-If there are any changes needed or additional steps I should take,
-please let me know.
+diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml
+new file mode 100644
+index 000000000000..824d799ee5ff
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml
+@@ -0,0 +1,53 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/cirrus,cs4270.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cirrus Logic CS4270 audio CODEC
++
++maintainers:
++  - patches@opensource.cirrus.com
++
++description:
++  The CS4270 is a stereo audio codec. The driver for this device currently only
++  supports I2C.
++
++properties:
++  compatible:
++    const: cirrus,cs4270
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      This pin will be deasserted before communication to the codec starts.
++    maxItems: 1
++
++  va-supply:
++    description: Voltage regulator phandle for the VA supply.
++
++  vd-supply:
++    description: Voltage regulator phandle for the VD supply.
++
++  vlc-supply:
++    description: Voltage regulator phandle for the VLC supply.
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      codec: cs4270@48 {
++          compatible = "cirrus,cs4270";
++          reg = <0x48>;
++      };
++    };
+diff --git a/Documentation/devicetree/bindings/sound/cs4270.txt b/Documentation/devicetree/bindings/sound/cs4270.txt
+deleted file mode 100644
+index c33770ec4c3c..000000000000
+--- a/Documentation/devicetree/bindings/sound/cs4270.txt
++++ /dev/null
+@@ -1,21 +0,0 @@
+-CS4270 audio CODEC
+-
+-The driver for this device currently only supports I2C.
+-
+-Required properties:
+-
+-  - compatible : "cirrus,cs4270"
+-
+-  - reg : the I2C address of the device for I2C
+-
+-Optional properties:
+-
+-  - reset-gpios : a GPIO spec for the reset pin. If specified, it will be
+-		  deasserted before communication to the codec starts.
+-
+-Example:
+-
+-codec: cs4270@48 {
+-	compatible = "cirrus,cs4270";
+-	reg = <0x48>;
+-};
+-- 
+2.45.2
 
-Thanks
-Amit V

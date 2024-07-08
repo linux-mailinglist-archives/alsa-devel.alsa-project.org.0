@@ -2,89 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BDD792A7E3
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2024 19:09:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D85EE92A8E5
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2024 20:20:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF5E282B;
-	Mon,  8 Jul 2024 19:09:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF5E282B
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE0EA868;
+	Mon,  8 Jul 2024 20:20:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE0EA868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720458556;
-	bh=Y3aHN1NmCiICEtufO9VLeJIX/a8wyoqvGJdPF9we2rQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1720462850;
+	bh=QOFBs3lyd5kSuHcIUTuqmRKn5lA/nl/6CEtMFJTqhtc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R1bhNjUb5fbZY3iZNl/ZcRRXshkgw7Uj1QImZBFyBH6RCBoC3KUeYR7NlQiTURYOp
-	 Ej017cQYlckC3RQX2HBcIjlV7Ee8M+5SGpsYP2GCEVigqgq3WW8PEupNUEnp/m7Myh
-	 xEWrwHlSHbS7W7VdNe8OoEgVAlEduc/G8iXE0MlA=
+	b=SIse/Uhm69nVg5NxiQf6gWEyaKGRFvA9hSM0edn/gnT4KsutW80Rs+t1QWWgc4fuM
+	 8Gzk9QHdBCtkY4Cie6ttzFnQP5ZZ3v3Yz7VUDTHhUjrV8sCJQppKKl2vAfvMDjiPK/
+	 6D1rDRwgDzgU7UrFdkaoncl6Rmbq1ozmTqKjuW7Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49FE8F80508; Mon,  8 Jul 2024 19:08:46 +0200 (CEST)
+	id F41EFF801F5; Mon,  8 Jul 2024 20:20:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80C0EF80508;
-	Mon,  8 Jul 2024 19:08:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C18BF805AE;
+	Mon,  8 Jul 2024 20:20:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51B69F801F5; Mon,  8 Jul 2024 19:08:40 +0200 (CEST)
+	id 3911EF801F5; Mon,  8 Jul 2024 20:20:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E2E3F800FA
-	for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2024 19:08:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E2E3F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC00FF8013D
+	for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2024 20:20:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC00FF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KJ3EEjpJ
+ header.s=k20201202 header.b=nd5HyoRZ
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8C0DF60EAA;
-	Mon,  8 Jul 2024 17:08:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC899C32786;
-	Mon,  8 Jul 2024 17:08:27 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 2973FCE0ECE;
+	Mon,  8 Jul 2024 18:20:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7267FC116B1;
+	Mon,  8 Jul 2024 18:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720458508;
-	bh=Y3aHN1NmCiICEtufO9VLeJIX/a8wyoqvGJdPF9we2rQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KJ3EEjpJQ7KhLsBB1ZzRBnG2cF+rHHd/CNFLUWehzYoGgnDC/ydRyoxwpMMWB1c1U
-	 d64dEgd9+rJ4fqSar4OYyvZ32TIKvoD5U/fbKVq3cMwGBBDvsoniJFYljs1jg+0nO3
-	 XgDypjRFCNXY8AhYMNn4ve/nAwpdAntsO7XBecmWAis7kJk+RsS3o8+/FTdxZvf+Ih
-	 ITY4Mw0Fy0ljYlYqQW9N/6BZqHJrTAHlK3kcuCCPucieJtpTCMYafNhb4bD//+NU7K
-	 heUPMFFOcvGY2pub23LOyPaH810AZW66VSp3NXkOvDr5STkoOvtri9old3uQlbY79X
-	 6yQ+qdHhjo9eg==
-Date: Mon, 8 Jul 2024 11:08:26 -0600
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Cc: fabrice.gasnier@foss.st.com,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/8] dt-bindings: iio: dfsdm: move to backend framework
-Message-ID: <20240708170826.GA3381590-robh@kernel.org>
-References: <20240704155338.2387858-1-olivier.moysan@foss.st.com>
- <20240704155338.2387858-5-olivier.moysan@foss.st.com>
+	s=k20201202; t=1720462802;
+	bh=QOFBs3lyd5kSuHcIUTuqmRKn5lA/nl/6CEtMFJTqhtc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=nd5HyoRZ+1/kD1ldDYLBg+Olhz35hv8qT9ebD+RTFRANdyUkbH9VMmaUzOHWaJWs6
+	 n4WD7AksMoznOpTSs5aov6yh2bPVYMFkfabXXNsZ8drFPI1v7n6SO59UpuEM1BN4EL
+	 DeSTOcORPfPfSI+BWEcJTClSxyAoyMHQiUFlMqXZdZ/wQ9ouVBKYKQm33zC3hZ48D6
+	 gV49G4gP0SBQ2EiVM1E7V+mrJ7avvJ82oDRJT1SRxRHIqcumXg1JGNRE1ByUvkIFGe
+	 e7zANNhZ89mL3Jd790X3aF6GC9Z4UCRwZdz+nvoZxWjZlhbZd+JF8PI66ftHN9Oigb
+	 Z15bp8bt8DwWw==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+In-Reply-To: <20240708144855.385332-1-rf@opensource.cirrus.com>
+References: <20240708144855.385332-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] firmware: cs_dsp: Use strnlen() on name fields in V1
+ wmfw files
+Message-Id: <172046280115.106387.10683882240697864309.b4-ty@kernel.org>
+Date: Mon, 08 Jul 2024 19:20:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240704155338.2387858-5-olivier.moysan@foss.st.com>
-Message-ID-Hash: EBW7RE7DQRCZJIUW5YNAEY4MJCRJ2YZY
-X-Message-ID-Hash: EBW7RE7DQRCZJIUW5YNAEY4MJCRJ2YZY
-X-MailFrom: robh@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: GQM5EJQQCZ5OZOCDIQ6NK37LGKOV6OOS
+X-Message-ID-Hash: GQM5EJQQCZ5OZOCDIQ6NK37LGKOV6OOS
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EBW7RE7DQRCZJIUW5YNAEY4MJCRJ2YZY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GQM5EJQQCZ5OZOCDIQ6NK37LGKOV6OOS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,292 +96,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jul 04, 2024 at 05:53:32PM +0200, Olivier Moysan wrote:
-> Change the DFSDM binding to use the new IIO backend framework,
-> along with the adoption of IIO generic channels.
-> This binding change allows to add scaling support to the DFSDM.
+On Mon, 08 Jul 2024 15:48:55 +0100, Richard Fitzgerald wrote:
+> Use strnlen() instead of strlen() on the algorithm and coefficient name
+> string arrays in V1 wmfw files.
 > 
-> Keep the legacy binding as deprecated for backward compatibility.
+> In V1 wmfw files the name is a NUL-terminated string in a fixed-size
+> array. cs_dsp should protect against overrunning the array if the NUL
+> terminator is missing.
 > 
-> The io-backends property is supported only in generic IIO channel
-> binding.
-> 
-> - Channel description with the generic binding (Audio and Analog):
-> 
->   Properties superseded by generic properties:
->     st,adc-channels: becomes "reg" property in channel node
->     st,adc-channel-names: becomes "label" property in channel node
->   Properties moved to channel child node:
->     st,adc-channel-types: becomes st,adc-channel-type
->     st,adc-channel-clk-src, st,adc-alt-channel
-> 
-> - Analog binding:
-> 
->   DFSDM filter channel is configured as an IIO backend consumer.
->   Add io-backends property in channel child nodes.
-> 
->   DFSDM is no more configured as a channel consumer from SD modulator.
->   Use of io-channels in DFSDM node is deprecated.
-> 
-> - Audio binding:
-> 
->   DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
->   No change compare to legacy.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
->  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 153 +++++++++++++++++-
->  1 file changed, 147 insertions(+), 6 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> index 2722edab1d9a..5a5bc8b96402 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> @@ -102,9 +102,11 @@ patternProperties:
->          items:
->            minimum: 0
->            maximum: 7
-> +        deprecated: true
->  
->        st,adc-channel-names:
->          description: List of single-ended channel names.
-> +        deprecated: true
->  
->        st,filter-order:
->          description: |
-> @@ -118,6 +120,12 @@ patternProperties:
->        "#io-channel-cells":
->          const: 1
->  
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
->        st,adc-channel-types:
->          description: |
->            Single-ended channel input type.
-> @@ -128,6 +136,7 @@ patternProperties:
->          items:
->            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
->          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +        deprecated: true
->  
->        st,adc-channel-clk-src:
->          description: |
-> @@ -139,6 +148,7 @@ patternProperties:
->          items:
->            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
->          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +        deprecated: true
->  
->        st,adc-alt-channel:
->          description:
-> @@ -147,6 +157,7 @@ patternProperties:
->            If not set, channel n is connected to SPI input n.
->            If set, channel n is connected to SPI input n + 1.
->          type: boolean
-> +        deprecated: true
->  
->        st,filter0-sync:
->          description:
-> @@ -165,11 +176,60 @@ patternProperties:
->        - compatible
->        - reg
->        - interrupts
-> -      - st,adc-channels
-> -      - st,adc-channel-names
->        - st,filter-order
->        - "#io-channel-cells"
->  
-> +    patternProperties:
-> +      "^channel@([0-7])$":
-> +        type: object
-> +        $ref: adc.yaml
-> +        unevaluatedProperties: false
-> +        description: Represents the external channels which are connected to the DFSDM.
-> +
-> +        properties:
-> +          reg:
-> +            maxItems: 1
+> [...]
 
-Instead:
+Applied to
 
-maximum: 7
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> +
-> +          label:
-> +            description:
-> +              Unique name to identify which channel this is.
-> +
-> +          st,adc-channel-type:
-> +            description: |
-> +              Single-ended channel input type.
-> +              - "SPI_R": SPI with data on rising edge (default)
-> +              - "SPI_F": SPI with data on falling edge
-> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
-> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
-> +            $ref: /schemas/types.yaml#/definitions/string
-> +            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
-> +
-> +          st,adc-channel-clk-src:
-> +            description: |
-> +              Conversion clock source.
-> +              - "CLKIN": external SPI clock (CLKIN x)
-> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
-> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
-> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
-> +            $ref: /schemas/types.yaml#/definitions/string
-> +            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
-> +
-> +          st,adc-alt-channel:
-> +            description:
-> +              Must be defined if two sigma delta modulators are
-> +              connected on same SPI input.
-> +              If not set, channel n is connected to SPI input n.
-> +              If set, channel n is connected to SPI input n + 1.
-> +            type: boolean
-> +
-> +          io-backends:
-> +            description:
-> +              Used to pipe external sigma delta modulator or internal ADC backend to DFSDM channel.
-> +            maxItems: 1
-> +
-> +        required:
-> +          - reg
-> +
->      allOf:
->        - if:
->            properties:
-> @@ -199,9 +259,19 @@ patternProperties:
->                description:
->                  From common IIO binding. Used to pipe external sigma delta
->                  modulator or internal ADC output to DFSDM channel.
-> +              deprecated: true
->  
-> -          required:
-> -            - io-channels
-> +          if:
-> +            required:
-> +              - st,adc-channels
-> +          then:
-> +            required:
-> +              - io-channels
-> +
-> +          patternProperties:
-> +            "^channel@([0-9])$":
+Thanks!
 
-Is it 8 or 10 channels?
+[1/1] firmware: cs_dsp: Use strnlen() on name fields in V1 wmfw files
+      commit: 680e126ec0400f6daecf0510c5bb97a55779ff03
 
-> +              required:
-> +                - io-backends
->  
->        - if:
->            properties:
-> @@ -298,7 +368,77 @@ examples:
->        #address-cells = <1>;
->        #size-cells = <0>;
->  
-> +      // Example 1: Audio use case with generic binding
->        dfsdm0: filter@0 {
-> +        compatible = "st,stm32-dfsdm-dmic";
-> +        reg = <0>;
-> +        interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dmamux1 101 0x400 0x01>;
-> +        dma-names = "rx";
-> +        #io-channel-cells = <1>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        st,filter-order = <5>;
-> +
-> +        channel@1 {
-> +          reg = <1>;
-> +          label = "dmic0";
-> +          st,adc-channel-type = "SPI_R";
-> +          st,adc-channel-clk-src = "CLKOUT";
-> +          st,adc-alt-channel;
-> +        };
-> +
-> +        asoc_pdm0: dfsdm-dai {
-> +          compatible = "st,stm32h7-dfsdm-dai";
-> +          #sound-dai-cells = <0>;
-> +          io-channels = <&dfsdm0 0>;
-> +        };
-> +      };
-> +
-> +      // Example 1: Analog use case with generic binding
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-2nd example 1?
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> +      dfsdm1: filter@1 {
-> +        compatible = "st,stm32-dfsdm-adc";
-> +        reg = <1>;
-> +        interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dmamux1 102 0x400 0x01>;
-> +        dma-names = "rx";
-> +        st,filter-order = <1>;
-> +        #io-channel-cells = <1>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        channel@2 {
-> +          reg = <2>;
-> +          label = "in2";
-> +          st,adc-channel-type = "SPI_F";
-> +          st,adc-channel-clk-src = "CLKOUT";
-> +          st,adc-alt-channel;
-> +          io-backends = <&sd_adc2>;
-> +        };
-> +
-> +        channel@3 {
-> +          reg = <3>;
-> +          label = "in3";
-> +          st,adc-channel-type = "SPI_R";
-> +          st,adc-channel-clk-src = "CLKOUT";
-> +          io-backends = <&sd_adc3>;
-> +        };
-> +      };
-> +    };
-> +
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    dfsdm_2: dfsdm@4400d000 {
-> +      compatible = "st,stm32mp1-dfsdm";
-> +      reg = <0x4400d000 0x800>;
-> +      clocks = <&rcc DFSDM_K>, <&rcc ADFSDM_K>;
-> +      clock-names = "dfsdm", "audio";
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      // Example 3: Audio use case with legacy binding
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-I don't think it is worthwhile to show how to use the deprecated 
-binding.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> +      dfsdm0_2: filter@0 {
->          compatible = "st,stm32-dfsdm-dmic";
->          reg = <0>;
->          interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-> @@ -311,14 +451,15 @@ examples:
->          st,adc-channel-clk-src = "CLKOUT";
->          st,filter-order = <5>;
->  
-> -        asoc_pdm0: dfsdm-dai {
-> +        asoc_pdm0_2: dfsdm-dai {
->            compatible = "st,stm32h7-dfsdm-dai";
->            #sound-dai-cells = <0>;
->            io-channels = <&dfsdm0 0>;
->          };
->        };
->  
-> -      dfsdm_pdm1: filter@1 {
-> +      // Example 3: Analog use case with legacy binding
-> +      dfsdm1_2: filter@1 {
->          compatible = "st,stm32-dfsdm-adc";
->          reg = <1>;
->          interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-> -- 
-> 2.25.1
-> 
+Thanks,
+Mark
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33ABC92A917
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2024 20:42:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2140692A928
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2024 20:47:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7559851;
-	Mon,  8 Jul 2024 20:42:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7559851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C628850;
+	Mon,  8 Jul 2024 20:46:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C628850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720464160;
-	bh=EPeB6wGaB/dRA3PbaYa9YWoh7S0zr/souiiy+0Vy2Ck=;
+	s=default; t=1720464414;
+	bh=ksmP6oDEO07D5RKdVCFp88+im2tVce4XbdHSop2FIrE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qytJCEkvSH/DPNkkbCIuVdxaFkDx/fAmwp0rF/4aJEgnhXDhCxXr+iGtaJzwcyepb
-	 XYIrMGFKq2ODJ880gCAxlW/3LIjQBILT5vPMLIM5IvEKDFbzXm8IPUKRe/egTm42A/
-	 y9h3yacM8zQFcQXtv2uq55AiQG9IVTbJr7xzVRts=
+	b=hOF9SetGmKTe5J964aRHDTezQ3qS1Lb4fRJ62v/2EQrL5+JlzyqaDljkHbnpv9BqU
+	 yshgAd0MhTD/Y4gPizo1v192XBrS7pYjJXqhSZXLO9uruYg55BDAMgM+sx4RDd6e60
+	 n1vGx85I9gQvdEvlph0LoF1qi2h9IMvpSL67T7WA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2BF2F805B3; Mon,  8 Jul 2024 20:42:08 +0200 (CEST)
+	id D9600F805AC; Mon,  8 Jul 2024 20:46:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4CAAF805AE;
-	Mon,  8 Jul 2024 20:42:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CFCDF805AB;
+	Mon,  8 Jul 2024 20:46:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4C12F801F5; Mon,  8 Jul 2024 20:42:03 +0200 (CEST)
+	id F13D6F801F5; Mon,  8 Jul 2024 20:46:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,18 +37,18 @@ Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 993FCF8013D
-	for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2024 20:41:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3E38F800FA
+	for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2024 20:46:16 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 51BD236212;
-	Mon,  8 Jul 2024 20:41:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 51BD236212
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C1E074BAF;
+	Mon,  8 Jul 2024 20:46:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C1E074BAF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1720464113; bh=9Jk3AZcN9vtz5oWq0UonJSAhd6WyqV5nQ+QDGcQS5v4=;
+	t=1720464374; bh=Q6bMXMPKjYSGU+fu03Lo5vqNOMKpOX3Qq7Z2PQxkaFo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ep6ruPy66/aPo7X2UGmLRTiZtD2szOPaIpWXQPd/0WrEzMRcQIcTVwqrodU9vYzDj
-	 XFA4KOejs1Nk7fbwj1uFvgRC5UA1V5RYCLM6xePAsHwOzgU/FZG8kq7c+TxzW2KE5/
-	 45foVsT0DD955iziUTux8G6k5mCsIYfZ1ftRwqtE=
+	b=VQJ6jTLT4a7CyvhoUQH3Z2R1icRtEsjUl4oQhlq+4cNRCLP8mbvzcmNqzyeIkxwes
+	 Jlag1asJBfPm/BpKWkd4N+8gzZuqIm68FrcKEsJY7xS28TkRXkzzfbV7gsYlAI+54I
+	 oTQ3bx0ItdSR3rIjnQzKVKaiOoPbk1m0ayxzR/O8=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
@@ -56,21 +56,19 @@ Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(No client certificate requested)
 	(Authenticated sender: perex)
 	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon,  8 Jul 2024 20:41:48 +0200 (CEST)
-Message-ID: <dc15cc4e-3308-4537-a7a4-232970a6ab8f@perex.cz>
-Date: Mon, 8 Jul 2024 20:41:47 +0200
+	Mon,  8 Jul 2024 20:46:09 +0200 (CEST)
+Message-ID: <ee6bf198-29c8-4bc2-85b8-de39e8a4bf3b@perex.cz>
+Date: Mon, 8 Jul 2024 20:46:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH alsa-ucm-conf v2 2/2] sof-soundwire: Add support for
- cs42l43/cs35l56 bridge configuration
+Subject: Re: [PATCH alsa-ucm-conf v3 1/2] sof-soundwire: Add missing match for
+ cs42l43 speakers
 To: Charles Keepax <ckeepax@opensource.cirrus.com>
 Cc: pierre-louis.bossart@linux.intel.com, bard.liao@intel.com,
  patches@opensource.cirrus.com, alsa-devel@alsa-project.org
-References: <20240624153719.1053093-1-ckeepax@opensource.cirrus.com>
- <20240624153719.1053093-2-ckeepax@opensource.cirrus.com>
- <Zn1xDAXt8F7+/wX6@opensource.cirrus.com>
-From: Jaroslav Kysela <perex@perex.cz>
+References: <20240708115919.2506891-1-ckeepax@opensource.cirrus.com>
 Content-Language: en-US
+From: Jaroslav Kysela <perex@perex.cz>
 Autocrypt: addr=perex@perex.cz; keydata=
  xsFNBFvNeCsBEACUu2ZgwoGXmVFGukNPWjA68/7eMWI7AvNHpekSGv3z42Iy4DGZabs2Jtvk
  ZeWulJmMOh9ktP9rVWYKL9H54gH5LSdxjYYTQpSCPzM37nisJaksC8XCwD4yTDR+VFCtB5z/
@@ -114,11 +112,11 @@ Autocrypt: addr=perex@perex.cz; keydata=
  k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
  m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
  WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: <Zn1xDAXt8F7+/wX6@opensource.cirrus.com>
+In-Reply-To: <20240708115919.2506891-1-ckeepax@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: QNK334L5T6XGPOPHIQ4RQIF7UGR6A6Y3
-X-Message-ID-Hash: QNK334L5T6XGPOPHIQ4RQIF7UGR6A6Y3
+Message-ID-Hash: SO6ZVDO53BDQMH4MB5JGDAL3OYA7ANZR
+X-Message-ID-Hash: SO6ZVDO53BDQMH4MB5JGDAL3OYA7ANZR
 X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -131,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNK334L5T6XGPOPHIQ4RQIF7UGR6A6Y3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SO6ZVDO53BDQMH4MB5JGDAL3OYA7ANZR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,54 +138,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 27. 06. 24 16:02, Charles Keepax wrote:
-> On Mon, Jun 24, 2024 at 04:37:19PM +0100, Charles Keepax wrote:
->> The cs42l43 has both a SPI master and an I2S interface, in some
->> configurations 2 cs35l56 amplifiers are connected to these to provide
->> bass speakers whilst the cs42l43's internal speaker drivers are used for
->> the tweeters. Add UCM configuration for this type of system.
->>
->> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
->> ---
->>
->> Changes since v1:
->>   - Update control names to just "Speaker Switch/Volume"
->>
->> Thanks,
->> Charles
->>
->>   ucm2/sof-soundwire/cs35l56-bridge.conf | 61 ++++++++++++++++++++++++++
->>   ucm2/sof-soundwire/sof-soundwire.conf  |  2 +-
->>   2 files changed, 62 insertions(+), 1 deletion(-)
->>   create mode 100644 ucm2/sof-soundwire/cs35l56-bridge.conf
->>
->> diff --git a/ucm2/sof-soundwire/cs35l56-bridge.conf b/ucm2/sof-soundwire/cs35l56-bridge.conf
->> new file mode 100644
->> index 0000000..dcf5e5c
->> --- /dev/null
->> +++ b/ucm2/sof-soundwire/cs35l56-bridge.conf
->> @@ -0,0 +1,61 @@
->> +# Use case Configuration for sof-soundwire card
->> +
->> +LibraryConfig.remap.Config {
->> +	ctl.default.map {
->> +		"name='Speaker Switch'" {
->> +			"name='AMPL Speaker Switch'".vindex.0 0
->> +			"name='AMPR Speaker Switch'".vindex.1 0
->> +		}
->> +		"name='Speaker Volume'" {
->> +			"name='AMPL Speaker Volume'".vindex.0 0
->> +			"name='AMPR Speaker Volume'".vindex.1 0
->> +		}
->> +	}
+On 08. 07. 24 13:59, Charles Keepax wrote:
+> The cs42l43 reports as cs42l43-spk in the speaker case, the regex in
+> sof-soundwire needs updated to recognise that.
 > 
-> Turns out there is an issue here. The machine driver already
-> creates a PIN_SWITCH control called Speaker Switch, so creating
-> these controls will fail. How would you feel about renaming them
-> back to something less generic?
+> Fixes: 035d9206cffd ("sof-soundwire: Add basic support for cs42l43's speaker")
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-It's not ideal, but acceptable. The non-existent ASoC naming scheme is really 
-pain.
+Applied. Thank you.
 
 				Jaroslav
 

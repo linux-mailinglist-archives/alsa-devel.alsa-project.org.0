@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A3A992A5A1
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2024 17:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ABB092A7B0
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2024 18:57:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75543844;
-	Mon,  8 Jul 2024 17:29:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75543844
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2732846;
+	Mon,  8 Jul 2024 18:57:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2732846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720452571;
-	bh=fGNrG710KVQF9G4461uY3S5esz47alZUo9ZD7VmRx1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1720457862;
+	bh=PCa8npqHnUycecA44yDRVAfSZz/Tb4vjGe8JijsOnOE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cMWHtOqinuUiEZs8im2G2jX+XZaNlsI865lzwKvCwysz47yzvrl7yS2cn7rq3bD+p
-	 Nn7Mk0OHgG2eKjLJtqP3rXSuCvNCW3A6d/88LDV56vDRM4bfvIbYzV2G82Yh23iNl6
-	 P2TKnGlwvFMQkjONnwTPzofzzAq2cr0EXyVT5OBU=
+	b=jFvMNv1nG4PPanyv9typddNzphzgd1PSYUcqyaDxCGVTLpEIiBanR7+7s4w0R8KRI
+	 yqiFCIlYWDXzKaNC5KH1muqS1w4xarYbHbwCF6TBK35cgE/fHu1f63KUeRaOnhPBYG
+	 DvKW3p8dPPghwQESImMntGWRIDKWVzBat1DqJkEs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F371CF805A8; Mon,  8 Jul 2024 17:29:09 +0200 (CEST)
+	id CAC0DF805B4; Mon,  8 Jul 2024 18:57:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86853F80588;
-	Mon,  8 Jul 2024 17:29:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 678ADF8019B;
+	Mon,  8 Jul 2024 18:57:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 27531F801F5; Mon,  8 Jul 2024 17:29:04 +0200 (CEST)
+	id 1E91CF801F5; Mon,  8 Jul 2024 18:57:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,53 +33,52 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2929BF80074
-	for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2024 17:28:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2929BF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id B538CF80074
+	for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2024 18:56:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B538CF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=NHv8q685
+ header.s=k20201202 header.b=SnHGlxpY
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id BD2A460E2C;
-	Mon,  8 Jul 2024 15:28:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40F53C116B1;
-	Mon,  8 Jul 2024 15:28:53 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 4F57DCE0E27;
+	Mon,  8 Jul 2024 16:56:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA8DC116B1;
+	Mon,  8 Jul 2024 16:56:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720452534;
-	bh=fGNrG710KVQF9G4461uY3S5esz47alZUo9ZD7VmRx1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NHv8q685WKRhC5W483Xt1LsJAVW37UKg5XgU+g+ePd2Bx2J1Te3H8iDDICzUZc1W7
-	 +F1SWzeEJz2P476mWOb2gbe6Vz+cWIimerXuNIHLa4pruFSHrVerasWHCdpfroA6/H
-	 CCWUhWHQs2ULCcLFeY/0GINwCuhv3LR2tYQDhGuso4TfQkC+4tr2GLDCGy3J/ow3Z9
-	 wisn11YY63nAZJzG4mCVkcPMd4lLOxffTZeGRHN00ReLYTCCBXUIIoLtFdoUr4wOF7
-	 b0rbrfL50qADd83cMXVeW5ByM4YvK6gIWGjbfiqU5rEwbAT99g1KFXDUT1st93Qc9l
-	 /7d5EeBQoSagQ==
-Date: Mon, 8 Jul 2024 16:28:50 +0100
+	s=k20201202; t=1720457811;
+	bh=PCa8npqHnUycecA44yDRVAfSZz/Tb4vjGe8JijsOnOE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=SnHGlxpYtJAMCJb2Mc3uz23Aj1k/oCplSoxg9sQQu6Xj3E7TDjH3hIuJPa/5yGJSr
+	 ciiLoxdUu0r0CEESsCO40md/UqWZO4CUTd5/Chmr4GvYUtoOhbA1OQ0XZPcN2BKkPw
+	 R7w6RZSEd7G926ka3nsy1n7mU9pD4xOGHgEyYhXYYNWORwbAGigbvW8g8eMSIe5XhI
+	 3DK6d84LLd4ZvNISXHDWoNixDkLVxt/3CeF+OXdM8pybihmpTB02vB1aI2vHj3ObeS
+	 IR0/RgnsuN8yvtQQrMevtLmjFeQ7/rSVL9e8dRliq6udtq1FLxBa5HqmaiI/vjGgqT
+	 Pwyo+wkV06IsA==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH] firmware: cs_dsp: Use strnlen() on name fields in V1
- wmfw files
-Message-ID: <cee81a44-f51c-4abf-81a1-36c40eff452d@sirena.org.uk>
-References: <20240708144855.385332-1-rf@opensource.cirrus.com>
- <de44f274-4e02-4c66-b784-41031e99c33e@opensource.cirrus.com>
- <91fc7cb3-6a00-4b3b-abed-a3a41b191912@sirena.org.uk>
- <27d74268-53ff-4248-8d3d-71948ffcf68b@opensource.cirrus.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org
+In-Reply-To: <20240703-asoc-cleanup-h-v1-0-71219dfd0aef@linaro.org>
+References: <20240703-asoc-cleanup-h-v1-0-71219dfd0aef@linaro.org>
+Subject: Re: [PATCH 00/11] ASoC: Simplify code with cleanup.h
+Message-Id: <172045780936.93798.11339150703981455652.b4-ty@kernel.org>
+Date: Mon, 08 Jul 2024 17:56:49 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/a5qg2alAm4FAP1y"
-Content-Disposition: inline
-In-Reply-To: <27d74268-53ff-4248-8d3d-71948ffcf68b@opensource.cirrus.com>
-X-Cookie: Many are cold, but few are frozen.
-Message-ID-Hash: GB6UYOZMDZ46UPLZSR52P23NYTIYGWRJ
-X-Message-ID-Hash: GB6UYOZMDZ46UPLZSR52P23NYTIYGWRJ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14-dev-d4707
+Message-ID-Hash: Q4MFB3U62SCAX7TXMNCH7XRGJIHKUZIS
+X-Message-ID-Hash: Q4MFB3U62SCAX7TXMNCH7XRGJIHKUZIS
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GB6UYOZMDZ46UPLZSR52P23NYTIYGWRJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q4MFB3U62SCAX7TXMNCH7XRGJIHKUZIS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,36 +100,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 03 Jul 2024 14:10:54 +0200, Krzysztof Kozlowski wrote:
+> Allocate the memory with scoped/cleanup.h to reduce error handling
+> (simpler error paths) and make the code a bit smaller.
+> 
+> Best regards,
+> Krzysztof
+> 
 
---/a5qg2alAm4FAP1y
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Mon, Jul 08, 2024 at 04:22:46PM +0100, Richard Fitzgerald wrote:
-> On 08/07/2024 16:05, Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > git seemed to be able to figure out the context for 6.10 (I apply
-> > everything with am -3).
+Thanks!
 
-> Oh, I read this just after I'd sent a V2. You can ignore my V2 if you've
-> got it to apply (it's the same patch but with a couple of conflicting
-> lines dropped from the context)
+[01/11] ASoC: codecs: audio-iio-aux: Simplify audio_iio_aux_add_dapms() with cleanup.h
+        commit: 408e49381750ca22fc584a37636f5035d2cd4c25
+[02/11] ASoC: codecs: audio-iio-aux: Simplify audio_iio_aux_probe() with cleanup.h
+        commit: f9cbfb66127bfc2a47dece3dfcdab2b79ab06c50
+[03/11] ASoC: codecs: wcd9335: Simplify with cleanup.h
+        commit: 6344ab5d0826640799e0c054ed4c0846b3f87ccb
+[04/11] ASoC: codecs: wcd934x: Simplify with cleanup.h
+        commit: 56d426f5525d1ad919e20663ad01a58238652df7
+[05/11] ASoC: simple-card-utils: Simplify with cleanup.h
+        commit: 6440e7b2a058c50a05ebcc58f35693c50522fc1a
+[06/11] ASoC: audio-graph-card: Use cleanup.h instead of devm_kfree()
+        commit: 5725c16af2678d334de0bcb85b42cfa50b32e04c
+[07/11] ASoC: audio-graph-card2: Use cleanup.h instead of devm_kfree()
+        commit: b39f7713ece62b2b0a3cfad7a75a0eb0ab71aa4e
+[08/11] ASoC: simple-card: Use cleanup.h instead of devm_kfree()
+        commit: 7d996c8a5fea700e816379e57f4983e2611519a0
+[09/11] ASoC: ops: Simplify with cleanup.h
+        commit: 1a7b846818210cbdf8994bfee1340c09342a5b3b
+[10/11] ASoC: dapm: Simplify dapm_cnew_widget() with cleanup.h
+        commit: 5b3cc85673bcc7bb961a3a6fa229cbc4fe0441ac
+[11/11] ASoC: dapm: Simplify snd_soc_dai_link_event_pre_pmu() with cleanup.h
+        commit: 522133d4401010d936b0588a5a975c2c965cb88e
 
-Yeah, no worries - git seemed to cope fine.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---/a5qg2alAm4FAP1y
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmaMBbEACgkQJNaLcl1U
-h9C0Fwf+I/ECA8qGlN2zBdk7W5C2CSGXpLEvJ/bHyB1CiL23NmykqK7pDqisuk/3
-cbofSsQr66D2Zff8N4iJXtPawyHDuWPeDnY7PfuZp2Pz9pbYwJe3Y2N3s9qadS3V
-tRSW2SpYUMCXkDplwj/YjGPtRnVE3EiI3xC2tQYvOrla94hDMLzFj7HmDZ9axU8R
-Lqy6v9y1c7LTeKRuhKM/qU9VVBWq9PNTy/qYyxWFfgpg5syff1XZeLihnVn7knEc
-xkS+oit7Ft+hPLx6i0hJzVrBmr8TnUUZRXwmbNyVySUt280vTcItEoNWAcr0pXP6
-6iK7TB/5jqIx9vGmE3zlTp93equmag==
-=VA25
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---/a5qg2alAm4FAP1y--
+Thanks,
+Mark
+

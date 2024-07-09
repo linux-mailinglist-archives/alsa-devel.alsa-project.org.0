@@ -2,128 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CFC492BEE3
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:55:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E17B592BEE6
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:56:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74DDA84C;
-	Tue,  9 Jul 2024 17:55:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74DDA84C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E318832;
+	Tue,  9 Jul 2024 17:55:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E318832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720540545;
-	bh=GADGVIQ+z375aVHvcKgsktFjykd9IRuivqf+FIBeZBk=;
+	s=default; t=1720540566;
+	bh=gG7VPVdC1NgmfJ9wBm/I1DUwm9R5dW8xyB+Gsar80dg=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=K9Ztw+lkic92zcBs0ITgUUaW98sQ9DSnCOTGEwlb7Jl3nHW3rPg/Mrz2SiHIwkUNU
-	 FZi9oW+AelmjM6VSWEQeF1HX6/qZPkOacsJuobJlKXBDA+iSFNplFW8Or/iSkpB/YM
-	 dbuN5drHg75ULlEXoyWUItmm+7GYuKVNkt82HoMw=
+	b=phiX/Kv/YHDHEHC/SNZAneQko9fRk7mC2z6zxAmgi9EM6EU08O3g07pJK49u86LOC
+	 PoOtoz2501mFuEqS81ayL0/jY+2+Fln/37pzRGSdScHmiQ3S+IeZJO9cY2DTs3yFvw
+	 EipB5wEphxq2isGDqVBmVZVcUxtWOKPls+Qbv/3A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14AA6F805B4; Tue,  9 Jul 2024 17:55:13 +0200 (CEST)
+	id 834B0F805C8; Tue,  9 Jul 2024 17:55:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39694F80587;
-	Tue,  9 Jul 2024 17:55:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA363F805AC;
+	Tue,  9 Jul 2024 17:55:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30D53F801F5; Sun,  7 Jul 2024 08:28:45 +0200 (CEST)
+	id 8ECB3F801F5; Tue,  9 Jul 2024 05:12:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 426C0F800FE
-	for <alsa-devel@alsa-project.org>; Sun,  7 Jul 2024 08:28:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 426C0F800FE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=K9VtQhUp
-Received: by mail-pl1-x62c.google.com with SMTP id
- d9443c01a7336-1fb222a8eaeso21018905ad.3
-        for <alsa-devel@alsa-project.org>;
- Sat, 06 Jul 2024 23:28:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720333708; x=1720938508;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=l5tNj/A1m7ym+nbplCHex5l79VZ8cqmFsV8y1luHk2U=;
-        b=K9VtQhUpgT82YbHmyet8OkvM+6pZzDZLQOjktrYK6lm0jkG8pafeil3jCbp7qMsZkX
-         DKt/MA99LAI72DGJD8iiXRbyjy5iS2wohtwaFZi6l8BCiAQkWH614YqVzx5mY40HThSP
-         stL2avzikcGES/b+FkloUbsnlaHtx0NbiWezy1QKTEbpmPkn/XUR5xHDpTD0gfw8+gVJ
-         TcZcbmho/vJO00cu+tZu+pVjFtxyct4mg4F8gC8f9/KG9Kc6OIxbVEsFVqAX1UGPLHHm
-         Ebjde2tRpRGPhBB1NAI5hqAMAXClWlDbCZfTTS6TPQwJVM2/H8VQrlwfmUDTz/BC+bvD
-         6rTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720333708; x=1720938508;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=l5tNj/A1m7ym+nbplCHex5l79VZ8cqmFsV8y1luHk2U=;
-        b=Tj+6Th68sXJ54ICwf9vYu+c3/nRMTRXTVAGAfbVcJS5B0yMRDvMlip39yq/WE8mrP8
-         xRK2TBiiqFe41bpJXtd7p+WmT6c27t08ukS98Db93/3jE2bJkWYfwrT/X6l81Zr6yR+r
-         ChKGgkwR9bT+xoEwlCWDdEj4kSJ1eFBJ0/8WqGg5lN9VMF6DoRa1M26wBcE7HBkrUrpk
-         n6zYvnsmD7CLmtamHuyW63K+8dNF4a28D/kGOJpQrDcSREcGzsb3kRj1tn8OjNcKaHb+
-         KoSnX9/i0rRw5mdZWGedIsaImlJWegcAwmzRaIkv/1RQWPIhTuVpB6O4n/GBjt84Ossm
-         y2YQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXh+mSCpbGYFyaLwa9/WqFgqFpWYoLEHQTgIam24J0NPUKJ6VdonzeOEYbkAG3DcVzQCu8tcyuDrheUL434+Hz87tHz+dHocVos0N0=
-X-Gm-Message-State: AOJu0Yy5QaWIouvFd2VESYhIiJ4gbVHN3DJGvBrH+ksYSLhFYf8PlK81
-	lY5pIaq5rBcAxgSuQHALvcJerEDYsE6Ljh7xNyV/veuUTcs9vk2S
-X-Google-Smtp-Source: 
- AGHT+IHKfl1KS8Wj4Ovno8Mf6wy204G8pDN8gTXB3LmtLLIxQphYuCcaRx6DqgeB99rn+/r//tkdLg==
-X-Received: by 2002:a17:902:ce8d:b0:1fb:82f5:6648 with SMTP id
- d9443c01a7336-1fb82f56afdmr10347935ad.36.1720333708260;
-        Sat, 06 Jul 2024 23:28:28 -0700 (PDT)
-Received: from fedora.one.one.one.one
- ([2405:201:6013:c9a2:59df:d296:bffe:732c])
-        by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-1fb1cb298cesm72739165ad.252.2024.07.06.23.28.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 06 Jul 2024 23:28:27 -0700 (PDT)
-From: Animesh Agarwal <animeshagarwal28@gmail.com>
-To: 
-Cc: Animesh Agarwal <animeshagarwal28@gmail.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	patches@opensource.cirrus.com,
-	alsa-devel@alsa-project.org,
+	by alsa1.perex.cz (Postfix) with ESMTPS id ED9C2F800FE
+	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 05:12:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED9C2F800FE
+Received: from localhost (unknown [124.16.138.129])
+	by APP-01 (Coremail) with SMTP id qwCowADnx0ydqoxmqBVcAg--.237S2;
+	Tue, 09 Jul 2024 11:12:29 +0800 (CST)
+From: Chen Ni <nichen@iscas.ac.cn>
+To: cezary.rojewski@intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	ckeepax@opensource.cirrus.com
+Cc: alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: dt-bindings: cirrus,cs4270: Convert to dtschema
-Date: Sun,  7 Jul 2024 11:56:58 +0530
-Message-ID: <20240707062702.174390-1-animeshagarwal28@gmail.com>
-X-Mailer: git-send-email 2.45.2
+	linux-kernel@vger.kernel.org,
+	Chen Ni <nichen@iscas.ac.cn>
+Subject: [PATCH] ASoC: Intel: sof_sdw: Convert comma to semicolon
+Date: Tue,  9 Jul 2024 11:09:21 +0800
+Message-Id: <20240709030921.585740-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: animeshagarwal28@gmail.com
+X-CM-TRANSID: qwCowADnx0ydqoxmqBVcAg--.237S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4UZF15Zr4rKw4DKF4UArb_yoW3KrbEy3
+	Z3Ga4kuryUXr4Ivr15J3yavF4qgFZ2vF1UW3Z0gr4qyr9rJrWfX3Z3Jrs3urn5XrW8uFy2
+	yFykZw4qv3y0qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb38FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY02Avz4vE14v_Gr4l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+	AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
+	evJa73UjIFyTuYvjfUYdgADUUUU
+X-Originating-IP: [124.16.138.129]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
+X-MailFrom: nichen@iscas.ac.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZVRF2SCJIOSFXOKYEALWUIX56VOUDXMG
-X-Message-ID-Hash: ZVRF2SCJIOSFXOKYEALWUIX56VOUDXMG
-X-Mailman-Approved-At: Tue, 09 Jul 2024 15:55:10 +0000
+Message-ID-Hash: KEH6GKS6AFQ6YDAAUAZ5AL75ZM56UNIA
+X-Message-ID-Hash: KEH6GKS6AFQ6YDAAUAZ5AL75ZM56UNIA
+X-Mailman-Approved-At: Tue, 09 Jul 2024 15:55:35 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZVRF2SCJIOSFXOKYEALWUIX56VOUDXMG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KEH6GKS6AFQ6YDAAUAZ5AL75ZM56UNIA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,105 +106,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the Cirrus Logic CS4270 audio CODEC bindings to DT schema. Add
-missing va-supply, vd-supply and vlc-supply properties, because they
-are already being used in the DTS and the driver for this device.
+Replace a comma between expression statements by a semicolon.
 
-Cc: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Animesh Agarwal <animeshagarwal28@gmail.com>
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 ---
- .../bindings/sound/cirrus,cs4270.yaml         | 53 +++++++++++++++++++
- .../devicetree/bindings/sound/cs4270.txt      | 21 --------
- 2 files changed, 53 insertions(+), 21 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/cs4270.txt
+ sound/soc/intel/boards/sof_sdw.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml
-new file mode 100644
-index 000000000000..824d799ee5ff
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/cirrus,cs4270.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/cirrus,cs4270.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cirrus Logic CS4270 audio CODEC
-+
-+maintainers:
-+  - patches@opensource.cirrus.com
-+
-+description:
-+  The CS4270 is a stereo audio codec. The driver for this device currently only
-+  supports I2C.
-+
-+properties:
-+  compatible:
-+    const: cirrus,cs4270
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      This pin will be deasserted before communication to the codec starts.
-+    maxItems: 1
-+
-+  va-supply:
-+    description: Voltage regulator phandle for the VA supply.
-+
-+  vd-supply:
-+    description: Voltage regulator phandle for the VD supply.
-+
-+  vlc-supply:
-+    description: Voltage regulator phandle for the VLC supply.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      codec: cs4270@48 {
-+          compatible = "cirrus,cs4270";
-+          reg = <0x48>;
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/cs4270.txt b/Documentation/devicetree/bindings/sound/cs4270.txt
-deleted file mode 100644
-index c33770ec4c3c..000000000000
---- a/Documentation/devicetree/bindings/sound/cs4270.txt
-+++ /dev/null
-@@ -1,21 +0,0 @@
--CS4270 audio CODEC
--
--The driver for this device currently only supports I2C.
--
--Required properties:
--
--  - compatible : "cirrus,cs4270"
--
--  - reg : the I2C address of the device for I2C
--
--Optional properties:
--
--  - reset-gpios : a GPIO spec for the reset pin. If specified, it will be
--		  deasserted before communication to the codec starts.
--
--Example:
--
--codec: cs4270@48 {
--	compatible = "cirrus,cs4270";
--	reg = <0x48>;
--};
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index e94849b84a6b..e5feaef669d1 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -2136,9 +2136,9 @@ static int mc_probe(struct platform_device *pdev)
+ 
+ 	card = &ctx->card;
+ 	card->dev = &pdev->dev;
+-	card->name = "soundwire",
+-	card->owner = THIS_MODULE,
+-	card->late_probe = sof_sdw_card_late_probe,
++	card->name = "soundwire";
++	card->owner = THIS_MODULE;
++	card->late_probe = sof_sdw_card_late_probe;
+ 
+ 	snd_soc_card_set_drvdata(card, ctx);
+ 
 -- 
-2.45.2
+2.25.1
 

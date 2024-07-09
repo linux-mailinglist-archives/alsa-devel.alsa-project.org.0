@@ -2,87 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20F9692BFC3
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 18:25:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A7892BFBE
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 18:25:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 956CCF51;
-	Tue,  9 Jul 2024 18:25:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 956CCF51
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7974514EA;
+	Tue,  9 Jul 2024 18:24:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7974514EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720542338;
-	bh=nLWJVFLnUTBOHp+Zg4qjHCWvREOSbRepbVtkv3TIICw=;
+	s=default; t=1720542307;
+	bh=rtGfYyPv/TFTrfs/KMmT/Q2pM7aCZAl9TO8yktmJtZ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jBVp0q6EkO/wfKjva/pVzWOkGwDqLTAnxBfJq3FySvC95nlu2PrKEJHxjham29QPC
-	 mPzWKb2JujQZxPBbf6yoVg0xVB+zKl9UeNx34Yacc7r74eCyUrP2snb7C+Xayoo9PV
-	 WJ/JX7SnINwZ6wXzggEWNNHCJ1AvHdWT4MB/29iU=
+	b=EE+QkI2g4OJ6mm83RDoOlbK+e4z855jtTLiDPUD3Ui2gKnudmP/VS2uA7kUoJbCa7
+	 n0Yz5xtYsJYX5FI3Scew8wcQYzYYz8N18AN5Q7oEID1W/zKchZoz0m1lLkR6qPJPc4
+	 71DkzEZ95KYW7+2CjgJM6bo7OMzN5q5lbFi8/i64=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F73AF80610; Tue,  9 Jul 2024 18:24:36 +0200 (CEST)
+	id 786DFF805CB; Tue,  9 Jul 2024 18:24:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F5DFF805FB;
-	Tue,  9 Jul 2024 18:24:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DB3AF80568;
+	Tue,  9 Jul 2024 18:24:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75F93F801F5; Tue,  9 Jul 2024 18:23:01 +0200 (CEST)
+	id F0FE6F8020D; Tue,  9 Jul 2024 18:22:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A32EF8013D
-	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 18:22:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A32EF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6E57F80074
+	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 18:22:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6E57F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=M1OFwLGx
+ header.s=k20201202 header.b=C52uuu7/
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 96D41CE12BF;
-	Tue,  9 Jul 2024 16:22:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5D6C3277B;
-	Tue,  9 Jul 2024 16:22:42 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9CB3E61469;
+	Tue,  9 Jul 2024 16:22:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120B0C32782;
+	Tue,  9 Jul 2024 16:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720542164;
-	bh=nLWJVFLnUTBOHp+Zg4qjHCWvREOSbRepbVtkv3TIICw=;
+	s=k20201202; t=1720542168;
+	bh=rtGfYyPv/TFTrfs/KMmT/Q2pM7aCZAl9TO8yktmJtZ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=M1OFwLGxMAzzV/6ZGoh5RZBnxVDQFldZoBihdDhUegOCI90U6YmrcWU0vx2hbilOC
-	 XT1Byr/QE2xHhYGinY7yiqjd3iSrDds2rWzdZQWCDbsfw3TTe7ud2voCi3FcJ5paml
-	 5QPsKaivw18c+jDPni/qKta0CaxxxMUEIQaLkWdMZR6cMC8PABAQZJOLwWuAXFeQ1c
-	 HtiIaVGOFba6otwqBC1beST1LsGYn6a5I7UlJqR1KAdkDl8P4MekMewXDOlWSKSSW2
-	 ZOEaiOMfo9oRNcRHXDTD5/yfSWx1glUoffHh+vWfBstqKC3SQGiZFxwWuaW4voL4v/
-	 SSbZhv85NSZXQ==
+	b=C52uuu7/gu6vB/2V9qxeEHi8/0P8Zz90WHVLeOIRYPKM0HHLDhEyPYlfG3ycrix3+
+	 UgsJovhF7MA7thQTU6iV/RCQ5tWEZoaA/rWJgPAKoQrelEuh5b6/bz18IVvjWEFFit
+	 XEiqsgS2yy+Yyk1GE6qj7xzuosjrnT7GFC2pkfX5FJfoWtL7fOfrDNzOglK4o+1SXa
+	 DJMjyEhUYsl70P5XAjbBLLL55n/0527PrJvHth7cxWBFnTNhaZJf61yQ6Fmax0ZoqV
+	 11rB4T21UhhpdV7WczY3ipVCHMab19F+noFvO30lePEYlwjKJ+zCjXUKFP4uwOiAUP
+	 ddeKdbmcHcMhQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Thomas GENTY <tomlohave@gmail.com>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: Jai Luthra <j-luthra@ti.com>,
+	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	cezary.rojewski@intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
+	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	alban.boye@protonmail.com,
-	kuninori.morimoto.gx@renesas.com,
 	alsa-devel@alsa-project.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 08/33] bytcr_rt5640 : inverse jack detect for
- Archos 101 cesium
-Date: Tue,  9 Jul 2024 12:21:34 -0400
-Message-ID: <20240709162224.31148-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 10/33] ASoC: ti: davinci-mcasp: Set min period
+ size using FIFO config
+Date: Tue,  9 Jul 2024 12:21:36 -0400
+Message-ID: <20240709162224.31148-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240709162224.31148-1-sashal@kernel.org>
 References: <20240709162224.31148-1-sashal@kernel.org>
@@ -91,8 +83,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.38
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SKR5R2B3222ETUGQ5IECYHGYLT2W6W5L
-X-Message-ID-Hash: SKR5R2B3222ETUGQ5IECYHGYLT2W6W5L
+Message-ID-Hash: 3M4CG6EOIB3M7TXIZLYENMHFEHTLJVTQ
+X-Message-ID-Hash: 3M4CG6EOIB3M7TXIZLYENMHFEHTLJVTQ
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SKR5R2B3222ETUGQ5IECYHGYLT2W6W5L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3M4CG6EOIB3M7TXIZLYENMHFEHTLJVTQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,46 +106,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Thomas GENTY <tomlohave@gmail.com>
+From: Jai Luthra <j-luthra@ti.com>
 
-[ Upstream commit e3209a1827646daaab744aa6a5767b1f57fb5385 ]
+[ Upstream commit c5dcf8ab10606e76c1d8a0ec77f27d84a392e874 ]
 
-When headphones are plugged in, they appear absent; when they are removed,
-they appear present.
-Add a specific entry in bytcr_rt5640 for this device
+The minimum period size was enforced to 64 as older devices integrating
+McASP with EDMA used an internal FIFO of 64 samples.
 
-Signed-off-by: Thomas GENTY <tomlohave@gmail.com>
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20240608170251.99936-1-tomlohave@gmail.com
+With UDMA based platforms this internal McASP FIFO is optional, as the
+DMA engine internally does some buffering which is already accounted for
+when registering the platform. So we should read the actual FIFO
+configuration (txnumevt/rxnumevt) instead of hardcoding frames.min to
+64.
+
+Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Signed-off-by: Jai Luthra <j-luthra@ti.com>
+Link: https://lore.kernel.org/r/20240611-asoc_next-v3-2-fcfd84b12164@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/soc/ti/davinci-mcasp.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 651408c6f399d..5b8b21ade9cfe 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -610,6 +610,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ARCHOS"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ARCHOS 101 CESIUM"),
-+		},
-+		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
-+					BYT_RT5640_JD_NOT_INV |
-+					BYT_RT5640_DIFF_MIC |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ARCHOS"),
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index a5c2cca38d01a..8c8b2a2f6f862 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -1474,10 +1474,11 @@ static int davinci_mcasp_hw_rule_min_periodsize(
+ {
+ 	struct snd_interval *period_size = hw_param_interval(params,
+ 						SNDRV_PCM_HW_PARAM_PERIOD_SIZE);
++	u8 numevt = *((u8 *)rule->private);
+ 	struct snd_interval frames;
+ 
+ 	snd_interval_any(&frames);
+-	frames.min = 64;
++	frames.min = numevt;
+ 	frames.integer = 1;
+ 
+ 	return snd_interval_refine(period_size, &frames);
+@@ -1492,6 +1493,7 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 	u32 max_channels = 0;
+ 	int i, dir, ret;
+ 	int tdm_slots = mcasp->tdm_slots;
++	u8 *numevt;
+ 
+ 	/* Do not allow more then one stream per direction */
+ 	if (mcasp->substreams[substream->stream])
+@@ -1591,9 +1593,12 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 			return ret;
+ 	}
+ 
++	numevt = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) ?
++			 &mcasp->txnumevt :
++			 &mcasp->rxnumevt;
+ 	snd_pcm_hw_rule_add(substream->runtime, 0,
+ 			    SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
+-			    davinci_mcasp_hw_rule_min_periodsize, NULL,
++			    davinci_mcasp_hw_rule_min_periodsize, numevt,
+ 			    SNDRV_PCM_HW_PARAM_PERIOD_SIZE, -1);
+ 
+ 	return 0;
 -- 
 2.43.0
 

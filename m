@@ -2,115 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABD5B92BEE8
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:56:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E83192BD7F
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 16:53:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BC9B21A3;
-	Tue,  9 Jul 2024 17:56:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BC9B21A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05308868;
+	Tue,  9 Jul 2024 16:53:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05308868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720540578;
-	bh=4VYXG575vsuFDE0Ck5ILOQlfJw9aWWwTdAVO/JE5lyU=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1720536821;
+	bh=MR706r9bLwg1kUgwL9MzfqWo4JfFZnbjwXcQ31JA2kc=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JNlJIe4XlTneMsTfKQ3VCIViR/pEJiuLSmG/8aPw+/l9IZ8Q/xBFkV3HNRl8PBGtP
-	 OBOqX7ZeNoiUgzapW2yNfJRFXMWw9JU7NY31NY06+hU3+7eUO/vurrA1hm2SXC9E5G
-	 /J0XpYwfYKkmZ0XhKpIniHUzqyhTpPMG86M8sLQ0=
+	b=YJ2KwsbZDJ6mxpFJr1CImruAx51M+sVMlgSbM0ZfiO6KDTAlqmnMGkOkO6k+uhQsg
+	 ZeI5FVy4cgUIx4PwNbXR/y5vkmK1SWwa6r+Z3VILLqa4PGouSdNOVySl/ZNj5TGAbF
+	 4zB6ZweC3P60p3+S+n62mhCPuQckPsRV+sxru7Rw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D243AF805EF; Tue,  9 Jul 2024 17:55:40 +0200 (CEST)
+	id 6433DF80074; Tue,  9 Jul 2024 16:53:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03C5CF805C8;
-	Tue,  9 Jul 2024 17:55:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB586F80074;
+	Tue,  9 Jul 2024 16:53:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 947EDF801F5; Tue,  9 Jul 2024 10:08:02 +0200 (CEST)
+	id 07221F80508; Tue,  9 Jul 2024 16:52:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 579A9F8013D
-	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 10:07:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 579A9F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 250D0F8019B
+	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 16:52:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 250D0F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Z++TkLKJ
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a77e392f59fso310931066b.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 09 Jul 2024 01:07:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720512473; x=1721117273;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=qmvRV2ggoxO09rhHj4T5aXUjNwfGnDRzwVuCRGax5ME=;
-        b=Z++TkLKJkK3dCb0ha+wwc5KaORKUb+WxMmRK48vdrBs0Mnfh005OSc4v6xbgB+Z5TS
-         NS/42QDN5zaCdCVlYfQh2muUoMBNNZeTxzKYdbyXbRmjOvsdB1cCS3PgUrcgidnu86xw
-         jZMHWga6vlRKLNIUt4LNWHlqYXq+l7VVH3sY0X5+U1JuTqEwaPthCQHMZl9YXQ8cKeY0
-         aE3Ak7ajaIZ6JT6LgoU+Qiiyf+pp3DzcjueKauwpSdtcU7B9eSJ4Xe6iD15MIKFDMHAv
-         c19FH3J3JjdjYk0vdJbNfMumzz+W48BCh+Ywq1vDPWaG0gWph4EFjSv1km9QE4afOdN4
-         BeIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720512473; x=1721117273;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qmvRV2ggoxO09rhHj4T5aXUjNwfGnDRzwVuCRGax5ME=;
-        b=blk/wbifEr65Mfr2As50fiCDz/92ZHXMWkf3iDRUzsLQT3juI4OUd6HeEuRfAt7hpI
-         EmSqkZHsGZcRJIq6zrNfMoW+mXpEsyn1PToUUUFUqtLE/r9m0YAqVw3HnDGmBZTzfK7Q
-         BQsT0QER/8KDGp20QUDseAGimWFcbzNwbfWmH6iXX7bZT0gkAUucr6YtR4HyXWmtllx9
-         df8Hp2KJvZIfABNhX42qGMFNmjq+Nq85rXtz/te/5qBBMIS7IdzP310PpzyVXSRs2c+3
-         q16Si+mGujPrB/kigYywkc+/0/xyPrt7WKZz9bKtBwI8Cap315ocIw9UzDo+w3qB7WSS
-         a0VA==
-X-Gm-Message-State: AOJu0YzyTGGT7i86WhzsRtx5bs41gXuYEaxkYlxgD647jiWwoa/vcBCm
-	OLpyQawOi8uF4OrTyelWj2kGOwoTsA/qnkjOHVDAe0iAkBEuz4bU
-X-Google-Smtp-Source: 
- AGHT+IF4ro5yi6hn4qhy/Hzry6x2EesR4+h/zoLPK0I4aOo++8fbyoFmy06calfDx50VXZzeXoS6bg==
-X-Received: by 2002:a17:906:6810:b0:a77:e337:b1c with SMTP id
- a640c23a62f3a-a780b68a26cmr95664366b.15.1720512472483;
-        Tue, 09 Jul 2024 01:07:52 -0700 (PDT)
-Received: from localhost.localdomain ([109.207.121.231])
-        by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a780a86f62bsm56795766b.199.2024.07.09.01.07.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jul 2024 01:07:51 -0700 (PDT)
-From: Nazar Bilinskyi <nbilinskyi@gmail.com>
-To: tiwai@suse.com
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nazar Bilinskyi <nbilinskyi@gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Enable Mute LED on HP 250 G7
-Date: Tue,  9 Jul 2024 11:05:46 +0300
-Message-ID: <20240709080546.18344-1-nbilinskyi@gmail.com>
-X-Mailer: git-send-email 2.45.2
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=P6XIFkDF
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4699TeIa016166;
+	Tue, 9 Jul 2024 09:51:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=2astjUORRu3bICmB
+	shlYDX/v1GBiyMqqTFXMnbBfoLo=; b=P6XIFkDFH5YqHQW3oJ6LlSWPeIa+k5l+
+	dl0CqOjzDSO2prXWV0thmc9F3vv/GS9vLLdrexxnRIjEKpRU7+gJV9/OvN44R0Ta
+	+ZZNORdt8RTS+Mnh9bUoZWbMGtBSunB2rggcVm1Bj7+Fw1xLXdltIhAG7fJG6NUu
+	3qaymwh4I23xsm6DDO1GEeK/3iHJnGWitsn5Hl1NhlUf+n8S1ZXzLFZbMkwAqG91
+	KzFkRGf9mvW3HoTgDzGU3ezT3BRRinkrHQRob2KvxL3hd7VKdDu7GO792sdBByD7
+	oxoWme4Q7ywHhU85u2T8F93gK1GWLqiCHMprB30l168dzbzDmAvlYQ==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4073axtqje-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 09 Jul 2024 09:51:59 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 9 Jul 2024
+ 15:51:57 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Tue, 9 Jul 2024 15:51:57 +0100
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id E3BC1820244;
+	Tue,  9 Jul 2024 14:51:56 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
+Subject: [PATCH 0/4] firmware: cs_dsp: Some small coding improvements
+Date: Tue, 9 Jul 2024 15:51:52 +0100
+Message-ID: <20240709145156.268074-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MailFrom: nbilinskyi@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: oKq_uKdNqpJY3E0sieEU2OuMNcQGERy2
+X-Proofpoint-GUID: oKq_uKdNqpJY3E0sieEU2OuMNcQGERy2
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: F3NM53EAAAHGPTZXC46QL77UI24T4TS3
+X-Message-ID-Hash: F3NM53EAAAHGPTZXC46QL77UI24T4TS3
+X-MailFrom: prvs=4920b5cb13=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: B46VJJFQGPEJHOX4QJIFHKRQH6EUGYAY
-X-Message-ID-Hash: B46VJJFQGPEJHOX4QJIFHKRQH6EUGYAY
-X-Mailman-Approved-At: Tue, 09 Jul 2024 15:55:35 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B46VJJFQGPEJHOX4QJIFHKRQH6EUGYAY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F3NM53EAAAHGPTZXC46QL77UI24T4TS3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,26 +107,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-HP 250 G7 has a mute LED that can be made to work using quirk
-ALC269_FIXUP_HP_LINE1_MIC1_LED. Enable already existing quirk.
+Commit series that makes some small improvements to code and the
+kernel log messages.
 
-Signed-off-by: Nazar Bilinskyi <nbilinskyi@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+Richard Fitzgerald (4):
+  firmware: cs_dsp: Don't allocate temporary buffer for info text
+  firmware: cs_dsp: Make wmfw and bin filename arguments const char *
+  firmware: cs_dsp: Merge wmfw format log message into INFO message
+  firmware: cs_dsp: Rename fw_ver to wmfw_ver
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 811e82474..57eb67f05 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -10053,6 +10053,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x83b9, "HP Spectre x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
- 	SND_PCI_QUIRK(0x103c, 0x841c, "HP Pavilion 15-CK0xx", ALC269_FIXUP_HP_MUTE_LED_MIC3),
- 	SND_PCI_QUIRK(0x103c, 0x8497, "HP Envy x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
-+	SND_PCI_QUIRK(0x103c, 0x84a6, "HP 250 G7 Notebook PC", ALC269_FIXUP_HP_LINE1_MIC1_LED),
- 	SND_PCI_QUIRK(0x103c, 0x84ae, "HP 15-db0403ng", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
- 	SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_OMEN),
- 	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+ drivers/firmware/cirrus/cs_dsp.c       | 64 +++++++++-----------------
+ include/linux/firmware/cirrus/cs_dsp.h | 10 ++--
+ sound/soc/codecs/wm_adsp.c             |  2 +-
+ 3 files changed, 27 insertions(+), 49 deletions(-)
+
 -- 
-2.45.2
+2.39.2
 

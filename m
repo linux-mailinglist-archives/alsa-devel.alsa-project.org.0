@@ -2,90 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCB6A92BFC1
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 18:25:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9F8C92BFCC
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 18:26:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25CA214E3;
-	Tue,  9 Jul 2024 18:25:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25CA214E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB0BA1605;
+	Tue,  9 Jul 2024 18:25:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB0BA1605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720542324;
-	bh=EkfH03gMd1QxWZGFiDRmkKUiWinBbLFG7E0MUORO4s0=;
+	s=default; t=1720542367;
+	bh=8oT57BKV7X17i5eAy7BuCjT16TKuGxfGKjmjCHWzGY4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jJOFhciHgEHn1EPBx5iUmTwGLxCu3VpQewns/sYuXyEXN2TWULVPC+6edwsCGREVu
-	 vUT4J8xP36XSnlAF0iX525UmOzYa010iIeIzyDRelsNonOTQ+btuEkh8Ha+GzOazIp
-	 psO63o05o5jqY7A3n1jt5mpgkhl546gc6jZMdI/4=
+	b=MlIAX0DucZN8XZzrDllpLUH8yump7SYcMMT5u4/0zuD/B8FbzsacJaKogt76XeSfO
+	 PM6xYIvXdD5dtsRXgaPe5Cjk7IlMXEEtlNOBJf2NaKiQQTf6fMIFYZQgWKlmckQfTA
+	 MZBynAeIZa5L7AVn8tEbztxdqoNYP70Ki41ULcAE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19F0FF805BF; Tue,  9 Jul 2024 18:24:33 +0200 (CEST)
+	id BD18FF80684; Tue,  9 Jul 2024 18:24:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D8FDF805E3;
-	Tue,  9 Jul 2024 18:24:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FF14F8060B;
+	Tue,  9 Jul 2024 18:24:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91AC0F801F5; Tue,  9 Jul 2024 18:22:54 +0200 (CEST)
+	id 10AEDF804FC; Tue,  9 Jul 2024 18:24:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B8EFF8013D
-	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 18:22:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B8EFF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62124F8019B
+	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 18:24:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62124F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cYW7kALo
+ header.s=k20201202 header.b=q+XjzjiU
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 58E9C614D8;
-	Tue,  9 Jul 2024 16:22:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1BCC4AF07;
-	Tue,  9 Jul 2024 16:22:48 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 427A6CE1291;
+	Tue,  9 Jul 2024 16:24:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EC5BC32782;
+	Tue,  9 Jul 2024 16:24:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720542170;
-	bh=EkfH03gMd1QxWZGFiDRmkKUiWinBbLFG7E0MUORO4s0=;
+	s=k20201202; t=1720542255;
+	bh=8oT57BKV7X17i5eAy7BuCjT16TKuGxfGKjmjCHWzGY4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cYW7kALo8zwJPYuSKzPqaHuioV2O2OdfPf+g087tivaAdkT2mZNR0jcMOwduKhJIA
-	 v3P4qOzDTFu1ZDfE6Te/2l9K6KWqRUehRFt3WEikQHw8nzQX8c4m06dCnGCaiMmWUh
-	 oxM9v6qVTQCmLXiItSL9PrZ7y+vtOL61jOMCtZym0f/07QA/qDmovg1+jrCY+EoseB
-	 aME4NUcQ9aaPC5BFWwPWaFSmUdp/BH+hBd8l69PxD69weaPK4yRBCuGcIqqMD+W5i6
-	 t7tH6xahiXXKnkuNPH7jDrb1QCNjt1H3QSuBqG+RaI754JknGwuMyXFkBTsfBu18lI
-	 Ud8O90ArRMozQ==
+	b=q+XjzjiU6gnzM5svprSnbkZ/5iPPcTcr1WED24Y0iTIsoIkn9zlnxplbf9xEdmfIJ
+	 vFIs/t4Gk29IhQXO1A/dM3TSKFdw/7E6wj+tBJ8GJDoL3r9dyUYy7+7ytegpzJl1pY
+	 /j2qvhrhJm4+gp0r9SUQahuBaRN+GowfXTaMOpjXdnOxK/stx4yWmbXy//qKUS5MAg
+	 gUJTOJ14ECjH7lFB5Aw46wJC7FXxTXrIGemRCG43hX24ZkqsjQRJ0X7BJcPMbalSID
+	 INvhGbxJvAZdspyONTCw6Ri0ly8Lkili/4Hn4bUfiBZlrnw4rcHPJ3k0DrvotgQ6qa
+	 2niKEqq7fcXtA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Primoz Fiser <primoz.fiser@norik.com>,
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+Cc: Thomas GENTY <tomlohave@gmail.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	jarkko.nikula@bitmer.com,
-	lgirdwood@gmail.com,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	kuninori.morimoto.gx@renesas.com,
+	alban.boye@protonmail.com,
 	alsa-devel@alsa-project.org,
-	linux-omap@vger.kernel.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 11/33] ASoC: ti: omap-hdmi: Fix too long driver
- name
-Date: Tue,  9 Jul 2024 12:21:37 -0400
-Message-ID: <20240709162224.31148-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 06/27] bytcr_rt5640 : inverse jack detect for
+ Archos 101 cesium
+Date: Tue,  9 Jul 2024 12:23:20 -0400
+Message-ID: <20240709162401.31946-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240709162224.31148-1-sashal@kernel.org>
-References: <20240709162224.31148-1-sashal@kernel.org>
+In-Reply-To: <20240709162401.31946-1-sashal@kernel.org>
+References: <20240709162401.31946-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.38
+X-stable-base: Linux 6.1.97
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6EH43Y7PUWCT6VLA7MULFRLMYKUACSPS
-X-Message-ID-Hash: 6EH43Y7PUWCT6VLA7MULFRLMYKUACSPS
+Message-ID-Hash: 76VNGNWVZZXSATO2K6CUOHL4QPATQVA2
+X-Message-ID-Hash: 76VNGNWVZZXSATO2K6CUOHL4QPATQVA2
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6EH43Y7PUWCT6VLA7MULFRLMYKUACSPS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76VNGNWVZZXSATO2K6CUOHL4QPATQVA2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,41 +114,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Primoz Fiser <primoz.fiser@norik.com>
+From: Thomas GENTY <tomlohave@gmail.com>
 
-[ Upstream commit 524d3f126362b6033e92cbe107ae2158d7fbff94 ]
+[ Upstream commit e3209a1827646daaab744aa6a5767b1f57fb5385 ]
 
-Set driver name to "HDMI". This simplifies the code and gets rid of
-the following error messages:
+When headphones are plugged in, they appear absent; when they are removed,
+they appear present.
+Add a specific entry in bytcr_rt5640 for this device
 
-  ASoC: driver name too long 'HDMI 58040000.encoder' -> 'HDMI_58040000_e'
-
-Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
-Acked-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
-Link: https://lore.kernel.org/r/20240610125847.773394-1-primoz.fiser@norik.com
+Signed-off-by: Thomas GENTY <tomlohave@gmail.com>
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20240608170251.99936-1-tomlohave@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/ti/omap-hdmi.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ sound/soc/intel/boards/bytcr_rt5640.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
-index a3663ab065ac2..0a731b21e5a58 100644
---- a/sound/soc/ti/omap-hdmi.c
-+++ b/sound/soc/ti/omap-hdmi.c
-@@ -354,11 +354,7 @@ static int omap_hdmi_audio_probe(struct platform_device *pdev)
- 	if (!card)
- 		return -ENOMEM;
- 
--	card->name = devm_kasprintf(dev, GFP_KERNEL,
--				    "HDMI %s", dev_name(ad->dssdev));
--	if (!card->name)
--		return -ENOMEM;
--
-+	card->name = "HDMI";
- 	card->owner = THIS_MODULE;
- 	card->dai_link =
- 		devm_kzalloc(dev, sizeof(*(card->dai_link)), GFP_KERNEL);
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index d6ef8e850412b..ff879e173d51d 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -610,6 +610,17 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 					BYT_RT5640_SSP0_AIF1 |
+ 					BYT_RT5640_MCLK_EN),
+ 	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ARCHOS"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ARCHOS 101 CESIUM"),
++		},
++		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
++					BYT_RT5640_JD_NOT_INV |
++					BYT_RT5640_DIFF_MIC |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
++	},
+ 	{
+ 		.matches = {
+ 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ARCHOS"),
 -- 
 2.43.0
 

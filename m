@@ -2,95 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AF4A92BE86
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 17:35:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E53892BFB1
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2024 18:23:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7AFADFA;
-	Tue,  9 Jul 2024 17:34:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7AFADFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67D611060;
+	Tue,  9 Jul 2024 18:23:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67D611060
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720539308;
-	bh=FvWdonThAmJ/q75JTUddBwM9tvlSfcVWOIEazl2kr/I=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1720542237;
+	bh=Xs7KqgNnRre63IGaFjAAQd7xd6ANQBVKXDlQIX5cul8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pqH2XReiS9tWCcsQbsXO+Z7IjalndpXybbOaEGRyhiACaES8zSSJ65it4lEaP9rLk
-	 WJJQWG+MO4MyaU2RFWfTRAkwBqudQ9akPn2XFirtd0lodzmpMflM5W5tnb+pBuGL8s
-	 DTs55ZtcTMGfWoI09MSX9ylu0NO87Kie4o3ajXMo=
+	b=r8PdasKrNyjGQ15ac35eBCU0tTOoWCh+Hj8i/l9Y2aHRgAWzM/cxjhqyPFcRoQhst
+	 ugBd/KCDn7nN+AicXjPhiJHSHKt5zdjAtRYQQIIcTJaHmDj8eQCiCG1VF6WgB/KyIw
+	 WzPBj7lr93dCdsBRyxpYiU4/sMqK6gndbC734wvg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACD0DF805B2; Tue,  9 Jul 2024 17:34:37 +0200 (CEST)
+	id 523EFF801F5; Tue,  9 Jul 2024 18:23:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C95C0F8058C;
-	Tue,  9 Jul 2024 17:34:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44F25F805AA;
+	Tue,  9 Jul 2024 18:23:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 800F0F801F5; Tue,  9 Jul 2024 17:34:26 +0200 (CEST)
+	id A2E9DF80568; Tue,  9 Jul 2024 18:21:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE shortcircuit=no autolearn=unavailable autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2A3E7F8013D
-	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 17:34:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A3E7F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60682F80074
+	for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2024 18:20:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60682F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=IV16cnaW
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4699T296013261;
-	Tue, 9 Jul 2024 10:34:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=6Xe73+JU2eVQQ8xYXG
-	t1Vn3w9CgNx65jHpc54wpvgKw=; b=IV16cnaWsSggxGT2sPvUjQSCnusIo7kGAe
-	KmPur7U0780Xmq1vgMGMC8W2fQCWRqSkkoEd54VxA9lkyMUtw8FeyRSv5S9IEcEV
-	P7OXD2QnC6dl3a05WFjyQXBvtdvWddhNxwlpl2L9cnQKN2Lo0yPUV2ByaCmMdLbn
-	x8rkDgGD2SAGRdzo1UUUODr47n4+2PZSkFJ/GV49ILMvOXtQcFX3YdkDNXKQ630e
-	TGW2/QLE8Psbfm9qnOJEcomZX3ceWuFNJh0IgNKaDlPnBScQGn0Rh2VEyJ7jYeT6
-	rsAVzzH7K99CkuLyF59fCrj7YbIM9K/IUJ/48xjB873dc1C+8/XA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4072bjaumh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 09 Jul 2024 10:34:16 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 9 Jul 2024
- 16:33:57 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Tue, 9 Jul 2024 16:33:57 +0100
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 644CE820244;
-	Tue,  9 Jul 2024 15:33:57 +0000 (UTC)
-Date: Tue, 9 Jul 2024 16:33:56 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-CC: <broonie@kernel.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
-        <linux-sound@vger.kernel.org>
-Subject: Re: [PATCH 3/4] firmware: cs_dsp: Merge wmfw format log message into
- INFO message
-Message-ID: <Zo1YZHiE6WK3d8rm@opensource.cirrus.com>
-References: <20240709145156.268074-1-rf@opensource.cirrus.com>
- <20240709145156.268074-4-rf@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=d5tTULeu
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 3A8B2614BF;
+	Tue,  9 Jul 2024 16:20:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14026C32786;
+	Tue,  9 Jul 2024 16:20:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720542028;
+	bh=Xs7KqgNnRre63IGaFjAAQd7xd6ANQBVKXDlQIX5cul8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=d5tTULeuhc8DySIX492MCnFOEFBe74HI0D3wrgNkkvsypnbjGBHtzV+wzZmnX/w5i
+	 RxXVdEvJqIZT5ponaZKNs7kdd1vYb+HCwpQesPgvlwTo7/FlRa+srP3hUj6N5PQyNM
+	 J2XGz7x6+mXVXfc4ne7FJxb/PXroviOoS6eo4ENpuq1YOp7as15gatCbQlRxwJmD6z
+	 PRQA4tMIUgt3FgVKvAS3o/yUsXkj7H92R1peEy2iLsuYf6IItDRK8uaPPvHXTb3Bqp
+	 m8Dqa/d0yVdXUvy93oVk6svbB9Q111FRqYy3ifiWFbHFExjlCXyrhA2AU+C8n+6ZHg
+	 vY/XwcI+P5S/g==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+	Jason Montleon <jmontleo@redhat.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	pierre-louis.bossart@linux.intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	justinstitt@google.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.9 08/40] ASoC: Intel: avs: Fix route override
+Date: Tue,  9 Jul 2024 12:18:48 -0400
+Message-ID: <20240709162007.30160-8-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240709162007.30160-1-sashal@kernel.org>
+References: <20240709162007.30160-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240709145156.268074-4-rf@opensource.cirrus.com>
-X-Proofpoint-ORIG-GUID: hRAaVAlz16HcPybssSt-C_PeHfg3_Xgs
-X-Proofpoint-GUID: hRAaVAlz16HcPybssSt-C_PeHfg3_Xgs
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: AW344QXGG6ZGP4P2JMTHGJSKBNFDELNF
-X-Message-ID-Hash: AW344QXGG6ZGP4P2JMTHGJSKBNFDELNF
-X-MailFrom: prvs=4920ac58a6=ckeepax@opensource.cirrus.com
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.9.8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VTHDLL2KUCWPGAURGDUD7JVSMQUELBYN
+X-Message-ID-Hash: VTHDLL2KUCWPGAURGDUD7JVSMQUELBYN
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AW344QXGG6ZGP4P2JMTHGJSKBNFDELNF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VTHDLL2KUCWPGAURGDUD7JVSMQUELBYN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,43 +115,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 09, 2024 at 03:51:55PM +0100, Richard Fitzgerald wrote:
-> Log the WMFW file format version with the INFO_TEST message.
-> 
-> The behaviour of firmware controls depends on the WMFW format version,
-> so this is useful information to log for debugging. But there's no
-> need to use a separate log line just for this value.
-> 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> ---
->  drivers/firmware/cirrus/cs_dsp.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/firmware/cirrus/cs_dsp.c b/drivers/firmware/cirrus/cs_dsp.c
-> index 1bc2e0b6d40b..141a6c9d6737 100644
-> --- a/drivers/firmware/cirrus/cs_dsp.c
-> +++ b/drivers/firmware/cirrus/cs_dsp.c
-> @@ -1502,7 +1502,6 @@ static int cs_dsp_load(struct cs_dsp *dsp, const struct firmware *firmware,
->  		goto out_fw;
->  	}
->  
-> -	cs_dsp_info(dsp, "Firmware version: %d\n", header->ver);
->  	dsp->fw_ver = header->ver;
->  
->  	if (header->core != dsp->type) {
-> @@ -1552,7 +1551,7 @@ static int cs_dsp_load(struct cs_dsp *dsp, const struct firmware *firmware,
->  		case WMFW_INFO_TEXT:
->  		case WMFW_NAME_TEXT:
->  			region_name = "Info/Name";
-> -			cs_dsp_info(dsp, "%s: %.*s\n", file,
-> +			cs_dsp_info(dsp, "%s (rev %d): %.*s\n", file, dsp->fw_ver,
->  				    min(le32_to_cpu(region->len), 100), region->data);
+From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-Are we sure on this one? I don't think a WMFW is required to
-include an INFO/NAME block so it is now possible for this to not
-get printed. Granted I have not seen one that doesn't include
-at least one of these blocks but it isn't required. I think I
-would lean towards keening the separate print personally.
+[ Upstream commit fd660b1bd015e5aa9a558ee04088f2431010548d ]
 
-Thanks,
-Charles
+Instead of overriding existing memory strings that may be too short,
+just allocate needed memory and point the route at it.
+
+Reported-by: Jason Montleon <jmontleo@redhat.com>
+Link: https://github.com/thesofproject/avs-topology-xml/issues/22#issuecomment-2127892605
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Link: https://lore.kernel.org/r/20240603102818.36165-3-amadeuszx.slawinski@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/intel/avs/topology.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/intel/avs/topology.c b/sound/soc/intel/avs/topology.c
+index 42b42903ae9de..691d16ce95a0f 100644
+--- a/sound/soc/intel/avs/topology.c
++++ b/sound/soc/intel/avs/topology.c
+@@ -1545,8 +1545,8 @@ static int avs_route_load(struct snd_soc_component *comp, int index,
+ {
+ 	struct snd_soc_acpi_mach *mach = dev_get_platdata(comp->card->dev);
+ 	size_t len = SNDRV_CTL_ELEM_ID_NAME_MAXLEN;
+-	char buf[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+ 	int ssp_port, tdm_slot;
++	char *buf;
+ 
+ 	/* See parse_link_formatted_string() for dynamic naming when(s). */
+ 	if (!avs_mach_singular_ssp(mach))
+@@ -1557,13 +1557,24 @@ static int avs_route_load(struct snd_soc_component *comp, int index,
+ 		return 0;
+ 	tdm_slot = avs_mach_ssp_tdm(mach, ssp_port);
+ 
++	buf = devm_kzalloc(comp->card->dev, len, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
+ 	avs_ssp_sprint(buf, len, route->source, ssp_port, tdm_slot);
+-	strscpy((char *)route->source, buf, len);
++	route->source = buf;
++
++	buf = devm_kzalloc(comp->card->dev, len, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
+ 	avs_ssp_sprint(buf, len, route->sink, ssp_port, tdm_slot);
+-	strscpy((char *)route->sink, buf, len);
++	route->sink = buf;
++
+ 	if (route->control) {
++		buf = devm_kzalloc(comp->card->dev, len, GFP_KERNEL);
++		if (!buf)
++			return -ENOMEM;
+ 		avs_ssp_sprint(buf, len, route->control, ssp_port, tdm_slot);
+-		strscpy((char *)route->control, buf, len);
++		route->control = buf;
+ 	}
+ 
+ 	return 0;
+-- 
+2.43.0
+

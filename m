@@ -2,93 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE36692D173
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2024 14:20:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 485FB92D1A2
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2024 14:31:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3031614F;
-	Wed, 10 Jul 2024 14:20:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3031614F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 555B382A;
+	Wed, 10 Jul 2024 14:31:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 555B382A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720614052;
-	bh=WkU9BfW3pAExft9EM42LNfPQ5lLYTbNJeLEt6/5L3U4=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1720614683;
+	bh=Ty/jMZEzrJPaGaO+ljAa2VN2lH5jfuLfI0l0KW2KEi0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IUWmCyAHynZuse77x5qAYmtgMtvKAd+f+CoevkGUhmrrPKMBgfWv0cPn74rBG7CLb
-	 2UZE9IuL+uaxAhYj65g9eov28zViE7CzHD1BtPnTQAm9GydJBve/bOItb2WWaRE8BR
-	 Otw9CgFSAkEnn7BmJsDpOESf/phA4ngerUHQ9HxE=
+	b=kLOTYM37ZjB0hHfd9jQqg0KdttKraczmml385C45clrtxf6eE40wnNauGozyo174g
+	 cWBBqhrogs3VVCLPBEsCk6gXJi4Oh78t+SzXyhD0No4gLdfalAU9fdb6U77O9KVnFA
+	 f6P3rctV+R3Br6XSiZdSdhgXf37ZdeRKg9ZL8e0Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71C13F805B6; Wed, 10 Jul 2024 14:20:20 +0200 (CEST)
+	id C292EF805A9; Wed, 10 Jul 2024 14:30:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1DFBF8020D;
-	Wed, 10 Jul 2024 14:20:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 783A6F805AF;
+	Wed, 10 Jul 2024 14:30:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8BFBCF801F5; Wed, 10 Jul 2024 14:20:14 +0200 (CEST)
+	id 9EAE9F801F5; Wed, 10 Jul 2024 14:30:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2A012F8013D
-	for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2024 14:20:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A012F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8487DF8013D
+	for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2024 14:30:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8487DF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=keWugzRq
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 46AAoWrX023331;
-	Wed, 10 Jul 2024 07:20:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=/9T282nrPufNecAfzI
-	OmDR/SirUSNMBN8IkI2jQajq8=; b=keWugzRqABpcqvjLfRq0KquBRyyQLj+Abe
-	Q0bM+uZQbRXyDOcdE2dnnqo8S/fyVnibU84GgqiGFaW6DGTFQvtYLBTxmkFZkmlR
-	W3FPjDhFplTu69eUqEBBIQujK6eiszOQ+trdmwr8HRw/JRYSYKp93sDZSrQh5GjP
-	Yw+ZoA0f2kgG/RT/tNMAVTMx2on7+WqT699yhG5apNdnlSE/wYRyAeR5q7LAYB6t
-	tOHwcpGUPk8SpOK6MHXbxTqB/ppTzB/Jm4sckhuY5ujpL+ebGuQuReMO8cqgtTCH
-	82udK33OI3MBV0YfR9yavc0Ac1FLva9vRGJG1S4VT2fQow96Loxw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 409b72rpku-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 10 Jul 2024 07:20:06 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 10 Jul
- 2024 13:20:04 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Wed, 10 Jul 2024 13:20:04 +0100
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 47152820244;
-	Wed, 10 Jul 2024 12:20:04 +0000 (UTC)
-Date: Wed, 10 Jul 2024 13:20:03 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-CC: <broonie@kernel.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>,
-        <linux-sound@vger.kernel.org>
-Subject: Re: [PATCH v2 0/4] firmware: cs_dsp: Some small coding improvements
-Message-ID: <Zo58c0J11bbAiEdO@opensource.cirrus.com>
-References: <20240710103640.78197-1-rf@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=RlyZ1Umo
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id F30E1CE1169;
+	Wed, 10 Jul 2024 12:30:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0148FC32782;
+	Wed, 10 Jul 2024 12:30:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720614633;
+	bh=Ty/jMZEzrJPaGaO+ljAa2VN2lH5jfuLfI0l0KW2KEi0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RlyZ1UmoLiJKtORUGcPp1loR3iRPoJGcTToZDD6EQ3W9IO1b4jYYLwscez/wYwrxz
+	 Q8SR7IdKUcUdArfJTq7bAzPFpzKodKlCWjXEcfqYI3hgIfu69g5CaoRBeAkUFR0sjW
+	 tTwC9XBjBjuEF1339vBUMLr7PkOnW2rKEoBw6qOaaYwLjh8UMSEyg4ZxfpGcB97iLq
+	 D7QvZmr70vKD54Vetjs9xBIsctl0grm/YL5vYp2k4STwFjydwXaFKvWftbACcm7+kc
+	 LCYmtjGLIv1lOPNc5gYXbfpsWgFFC2v506y8prMQ6PZTN/75OH3nI1ywpVG6VlcTwm
+	 MaEM3YStGm2tA==
+Message-ID: <398f11ce-f3ac-495c-a0ef-f1201efcd799@kernel.org>
+Date: Wed, 10 Jul 2024 14:30:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20240710103640.78197-1-rf@opensource.cirrus.com>
-X-Proofpoint-ORIG-GUID: EU7ANkoBC7lrXUyDenlwZoXswcwZ2qGS
-X-Proofpoint-GUID: EU7ANkoBC7lrXUyDenlwZoXswcwZ2qGS
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: M3JHHVRSPGFNE3D5UZGYXFQZ74U7FWHM
-X-Message-ID-Hash: M3JHHVRSPGFNE3D5UZGYXFQZ74U7FWHM
-X-MailFrom: prvs=49211d85ea=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: qcom,msm8916-wcd-digital-codec:
+ convert to dtschema
+To: Rayyan Ansari <rayyan.ansari@linaro.org>, devicetree@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@quicinc.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <20240710113833.39859-1-rayyan.ansari@linaro.org>
+ <20240710113833.39859-2-rayyan.ansari@linaro.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240710113833.39859-2-rayyan.ansari@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: NPO3NNY5NMSBD5E5Y62JLYGUZLSNK5SY
+X-Message-ID-Hash: NPO3NNY5NMSBD5E5Y62JLYGUZLSNK5SY
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +137,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M3JHHVRSPGFNE3D5UZGYXFQZ74U7FWHM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NPO3NNY5NMSBD5E5Y62JLYGUZLSNK5SY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,13 +146,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Jul 10, 2024 at 11:36:36AM +0100, Richard Fitzgerald wrote:
-> Commit series that makes some small improvements to code and the
-> kernel log messages.
+On 10/07/2024 13:36, Rayyan Ansari wrote:
+> Convert the Qualcomm MSM8916 WCD Digital Audio Codec bindings from text
+> to yaml dt schema format.
+> Make bindings complete by adding #sound-dai-cells.
 > 
+> Signed-off-by: Rayyan Ansari <rayyan.ansari@linaro.org>
 > ---
+> v1 -> v2: removed unneeded minItems, added ref to dai-common.yaml
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Thanks,
-Charles
+Best regards,
+Krzysztof
+

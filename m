@@ -2,129 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FAFF92CED6
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2024 12:06:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1EA792CF60
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2024 12:38:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D792950;
-	Wed, 10 Jul 2024 12:06:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D792950
+	by alsa0.perex.cz (Postfix) with ESMTPS id B813886F;
+	Wed, 10 Jul 2024 12:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B813886F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720605995;
-	bh=WseIQlHNbc9vSw3sBMfgBfqjHy6gFXtvzDiFsRdb6UU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Cvm0qz4QUMMq6HKKhScKJfaewhcCGpQ8nvW7t0O/x8l4YWgEvV3+Ebi+Vyb0YOa9k
-	 MP5FnmdP322NGtVwJqaltRSBcVlrDFOXt1QkjfaPJduY4esZJxnioAq9BXCFUXlQvJ
-	 fuZl7kY/s4q3kyLn9ZFKUa0DX+On4e/Fg1m0anXg=
+	s=default; t=1720607922;
+	bh=mHqoaOo6vsNTWza139+cMFxxRor+QUsYLvnzvaHB6dw=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=L1mOKh8PwyY/sr4/rsI4OHbTd3ghZxkKMz6YQDDIU+vBx9uZXFrTN+puFGMJEAP9r
+	 nCJhfEGgU/AK++IQE83YXn9rYCMszJ/aJO2ZoeMgJgVUZ4FYHvLItPjfZEHxnUusKg
+	 EX4+a20NQYkLHF+6hhgcFeHRc2PxKoBN5UnqX470=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8938F805B1; Wed, 10 Jul 2024 12:06:03 +0200 (CEST)
+	id 54FFEF80568; Wed, 10 Jul 2024 12:38:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28C16F8059F;
-	Wed, 10 Jul 2024 12:06:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D549EF805A0;
+	Wed, 10 Jul 2024 12:38:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4DE52F801F5; Wed, 10 Jul 2024 12:05:57 +0200 (CEST)
+	id 0BC74F80508; Wed, 10 Jul 2024 12:36:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5252EF8013D
-	for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2024 12:05:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5252EF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id C5A55F8013D
+	for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2024 12:36:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5A55F8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gd9NeJ1V
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 43109CE14A1;
-	Wed, 10 Jul 2024 10:05:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77500C32781;
-	Wed, 10 Jul 2024 10:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720605943;
-	bh=WseIQlHNbc9vSw3sBMfgBfqjHy6gFXtvzDiFsRdb6UU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gd9NeJ1V8k2X2ErFaBqjxrs1lWzmpOMEmGj4OGnUb798XkWJkGVfW+cjY4nwWRbho
-	 65xLW6a/oTNMr7r4myUf+8WFzaqsILWACha5IgUkQXlnun2KE1GP0iyb7KT1euw0Se
-	 gktb5a420rzV0f7m67yxu5FV/2q5ZIasf6AatUMV2Q8Od8dLP9Z2ab0GGRGswwKUoN
-	 OUsp4Ap4F2nxjHpt1253tVyoWfxGN/b8lmwqHXWw2sFJB7NPBHfDK5wk1aY+E2GY1H
-	 khI48SDN1HqqpOp+QyTDQyy2qd3Cb+r7sbg5r92JrkGX9HyKjv8dfK/Yqhi0TnEUpQ
-	 gHhzTK7vqDywg==
-Message-ID: <55dd9b13-3430-4455-bd67-1575b5ab3f98@kernel.org>
-Date: Wed, 10 Jul 2024 12:05:38 +0200
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Ig25FVnK
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 46A4s4Gm006601;
+	Wed, 10 Jul 2024 05:36:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=031IosrvEc4DNF6O
+	PahvA9Nf6RargcvRdAHSyE4m7aE=; b=Ig25FVnKbYjrpbif4gv0NYTbcg4+tbPC
+	U6YSBKYRcIyFK/BRu3Mb7Xf/tBPHyYF3D6uVF7LpDedy+p2xYFqy6gboaCwxqrn2
+	rArgdpRiIZf565aL8YRbkTcNZTbyjdsrSfZeBxSMMgkbEu5YVwQ0u6WP2pMa+Asw
+	WdN+dfsejKMtCh8yPVSR1zDMcyHswaTKUlIxdeO4QhD0a8yyW9mPYxg1oIGEMjJK
+	CL4Jf1vvr2en4L8y+6Ls81anTp7xjY8k0Pmkg6UHI30N3VzcjiidGfkvkD5OZTH8
+	9lRtnEh3iwQY0GP5ljHtWGI480UHBhv+Cr/ZS+buLvsgqbVZNc9C2g==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 409c9a8h0p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 10 Jul 2024 05:36:42 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 10 Jul
+ 2024 11:36:40 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Wed, 10 Jul 2024 11:36:40 +0100
+Received: from ediswws06.ad.cirrus.com (ediswws06.ad.cirrus.com
+ [198.90.208.18])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 5C36A820244;
+	Wed, 10 Jul 2024 10:36:40 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
+Subject: [PATCH v2 0/4] firmware: cs_dsp: Some small coding improvements
+Date: Wed, 10 Jul 2024 11:36:36 +0100
+Message-ID: <20240710103640.78197-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: dt-bindings: cirrus,cs4270: Convert to dtschema
-To: Animesh Agarwal <animeshagarwal28@gmail.com>
-Cc: Daniel Baluta <daniel.baluta@nxp.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20240709184231.125207-1-animeshagarwal28@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240709184231.125207-1-animeshagarwal28@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: D7CE4PH77OAQGNDS77M7AQGLVBKSNK3E
-X-Message-ID-Hash: D7CE4PH77OAQGNDS77M7AQGLVBKSNK3E
-X-MailFrom: krzk@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 1I28NVJP8x8VC6P58Xs8YtvxDg7l40wl
+X-Proofpoint-GUID: 1I28NVJP8x8VC6P58Xs8YtvxDg7l40wl
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: NJIBCO3WP7JBSMNLX7GPLT6A5PUVUWU6
+X-Message-ID-Hash: NJIBCO3WP7JBSMNLX7GPLT6A5PUVUWU6
+X-MailFrom: prvs=4921fba11f=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D7CE4PH77OAQGNDS77M7AQGLVBKSNK3E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJIBCO3WP7JBSMNLX7GPLT6A5PUVUWU6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,17 +107,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 09/07/2024 20:42, Animesh Agarwal wrote:
-> Convert the Cirrus Logic CS4270 audio CODEC bindings to DT schema. Add
-> missing va-supply, vd-supply and vlc-supply properties, because they
-> are already being used in the DTS and the driver for this device.
-> 
-> Cc: Daniel Baluta <daniel.baluta@nxp.com>
-> Signed-off-by: Animesh Agarwal <animeshagarwal28@gmail.com>
-> 
+Commit series that makes some small improvements to code and the
+kernel log messages.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+Changes since V1:
+- Replaced commit #3 with one that keeps the wmfw format version
+  message on its own line instead of merging it into the INFO text
+  message.
+- Commit #4 rebased onto the new #3
 
-Best regards,
-Krzysztof
+Richard Fitzgerald (4):
+  firmware: cs_dsp: Don't allocate temporary buffer for info text
+  firmware: cs_dsp: Make wmfw and bin filename arguments const char *
+  firmware: cs_dsp: Clarify wmfw format version log message
+  firmware: cs_dsp: Rename fw_ver to wmfw_ver
+
+ drivers/firmware/cirrus/cs_dsp.c       | 68 +++++++++-----------------
+ include/linux/firmware/cirrus/cs_dsp.h | 10 ++--
+ sound/soc/codecs/wm_adsp.c             |  2 +-
+ 3 files changed, 29 insertions(+), 51 deletions(-)
+
+-- 
+2.39.2
 

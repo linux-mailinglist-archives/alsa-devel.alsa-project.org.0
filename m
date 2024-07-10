@@ -2,102 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD54292CB52
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2024 08:49:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BF3392CD09
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2024 10:30:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB84D85D;
-	Wed, 10 Jul 2024 08:48:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB84D85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91666832;
+	Wed, 10 Jul 2024 10:30:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91666832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720594143;
-	bh=m6D72MD2uqSvIf5D87kdboFzBBuO8uCqstFbCLqnZhI=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jxTVILbJ/8z/h8GaJ9i4BMUs2EE4daR+Za9ZYmDCW233E1ERcRnuN0Rj6BZbNZA07
-	 pVIXnZpn6o3w22Oad4CnWflaUxRO7rKAJA4kW6V54wFVWrT95Px49P6yIApaFz9s3q
-	 R8gwnZ2ridGsVg3UkmbigVoHBejKVE/PnaLdDpEc=
+	s=default; t=1720600243;
+	bh=fvB2g0Xiz+QuOEyjJz2Jei/hZ/zPhy+LZkMMMFz6D6U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=CSCXvdlqA+IYAZQaheJpd5VwPCLD6gAkOU2aS6/BKNIBTcdKgUUp/jNMw4JE9bPtX
+	 ZqlM+vi3ZSipCFLeXbPaLPGNAH+O8S3/7kXEBL+smy4VLcqGhB2Rt9Ut3DiOX8h316
+	 kdvIySiSKn4MpMSPfo89sce0CSTnuTESttV7iJpg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 166FBF805AF; Wed, 10 Jul 2024 08:48:31 +0200 (CEST)
+	id 13827F805B2; Wed, 10 Jul 2024 10:30:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 600F5F8020D;
-	Wed, 10 Jul 2024 08:48:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A30FF805AE;
+	Wed, 10 Jul 2024 10:30:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 934E4F801F5; Wed, 10 Jul 2024 08:43:41 +0200 (CEST)
+	id 9BE54F801F5; Wed, 10 Jul 2024 10:26:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B37EDF80074
-	for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2024 08:42:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B37EDF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id DEC61F800FA
+	for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2024 10:26:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEC61F800FA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=PW1ZXttK
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 46A6grlO000475;
-	Wed, 10 Jul 2024 01:42:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1720593773;
-	bh=s6Xq/gZhM9iqgWbjUVyMYpxd26jZixkFzpaDATyv3tI=;
-	h=From:To:CC:Subject:Date;
-	b=PW1ZXttKKn2AzNFGWGZMeS4bVNrtM2SmPX35rb0yhh+YXW4Gso+C5QQ/VxPGaxoi6
-	 K1aPLqZWJTmOBx9RVccIHjw6XwhQZhINWsQWpuLAUbbntx2DtKwAP57DuOP46PWYHk
-	 FQx/zDlZAVpE/g+RA4daqmOum3jHaS9N+wjk+LFs=
-Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 46A6grOl011823
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 10 Jul 2024 01:42:53 -0500
-Received: from DLEE109.ent.ti.com (157.170.170.41) by DLEE103.ent.ti.com
- (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 10
- Jul 2024 01:42:52 -0500
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Wed, 10 Jul 2024 01:42:52 -0500
-Received: from LT5CG31242FY.dhcp.ti.com (lt5cg31242fy.dhcp.ti.com
- [10.85.14.67])
-	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 46A6ggvX106623;
-	Wed, 10 Jul 2024 01:42:43 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <zhourui@huaqin.com>,
-        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
-        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
-        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
-        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
- <yuhsuan@google.com>,
-        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
- <soyer@irl.hu>,
-        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
-        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
-        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
-        <jesse-ji@ti.com>, <darren.ye@mediatek.com>,
-        Shenghao Ding
-	<shenghao-ding@ti.com>
-Subject: [PATCH v2] ASoc: tas2781: Add new Kontrol to set tas2563 digital
- Volume
-Date: Wed, 10 Jul 2024 14:42:37 +0800
-Message-ID: <20240710064238.1480-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Cslxb1Mi
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 297A8619EE;
+	Wed, 10 Jul 2024 08:26:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AC9C32786;
+	Wed, 10 Jul 2024 08:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720599960;
+	bh=fvB2g0Xiz+QuOEyjJz2Jei/hZ/zPhy+LZkMMMFz6D6U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Cslxb1MiQ0wVZ3OJrJ2gefb4pb+I0KCz1MOLyTf1TGKk1WAux/905mxPolVTgsMXb
+	 rQecD0l7dDKDib+wKzTxVoAazgQmKZYa/zVjS6Z6+xH5YgNthm9B5I0cCtpVaXk8HU
+	 i1/Zz09xnFoXa3bdC4GkMVlM+EL6pFz7Vx3zdRmqK6+5mp1P8t0LU5VCo7P/XD+L9E
+	 mx4HDYP+/xKCqkCpX3WQuTm6cRSH6BbgycJDKt4OgXnT49jK52Efq7bB9UjUxWl8Qp
+	 K7gzn8TpDp5lJYvAUJecQWbQBxnl69ecOlm0HbrYfLN7klIfAPtt/Oi//UJ1/bN2Cq
+	 Yhnl7yTpZDTLg==
+Message-ID: <9f1d3c63-8b1c-43a8-b002-5399a81e704d@kernel.org>
+Date: Wed, 10 Jul 2024 10:25:53 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: O7HXFGCL3JBLJYCCSYUNW66QITAGVOLH
-X-Message-ID-Hash: O7HXFGCL3JBLJYCCSYUNW66QITAGVOLH
-X-MailFrom: shenghao-ding@ti.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: qcom,msm8916-wcd-digital-codec:
+ convert to dtschema
+To: Rayyan Ansari <rayyan.ansari@linaro.org>, devicetree@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@quicinc.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <20240709152808.155405-1-rayyan.ansari@linaro.org>
+ <20240709152808.155405-2-rayyan.ansari@linaro.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240709152808.155405-2-rayyan.ansari@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: GXNF6KMOBN5TEEPSXKVRQP4GVOYQIHXT
+X-Message-ID-Hash: GXNF6KMOBN5TEEPSXKVRQP4GVOYQIHXT
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +137,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O7HXFGCL3JBLJYCCSYUNW66QITAGVOLH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GXNF6KMOBN5TEEPSXKVRQP4GVOYQIHXT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,477 +146,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Requriment from customer to add new kcontrol to set tas2563 digital
-Volume
+On 09/07/2024 17:24, Rayyan Ansari wrote:
+> Convert the Qualcomm MSM8916 WCD Digital Audio Codec bindings from text
+> to yaml dt schema format.
+> Make bindings complete by adding #sound-dai-cells.
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
----
-v2:
- - Volume controls should end in Volume
- - Write this as a switch statement for extension
- - Correct return value of tas2563_digital_gain_put
- - Submit tas2563 digital Volume as an independant patch
----
- include/sound/tas2781-tlv.h    | 262 ++++++++++++++++++++++++++++++++-
- include/sound/tas2781.h        |   1 +
- sound/soc/codecs/tas2781-i2c.c | 129 ++++++++++++++--
- 3 files changed, 382 insertions(+), 10 deletions(-)
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,msm8916-wcd-digital-codec
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    minItems: 2
 
-diff --git a/include/sound/tas2781-tlv.h b/include/sound/tas2781-tlv.h
-index 1dc59005d241..99c41bfc7827 100644
---- a/include/sound/tas2781-tlv.h
-+++ b/include/sound/tas2781-tlv.h
-@@ -2,7 +2,7 @@
- //
- // ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
- //
--// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
-+// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
- // https://www.ti.com
- //
- // The TAS2781 driver implements a flexible and configurable
-@@ -17,5 +17,265 @@
- 
- static const __maybe_unused DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
- static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
-+static const DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
- 
-+/* pow(10, db/20) * pow(2,30) */
-+static const unsigned char tas2563_dvc_table[][4] = {
-+	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
-+	{ 0X00, 0X00, 0X03, 0XBC }, /* -121.0db */
-+	{ 0X00, 0X00, 0X03, 0XF5 }, /* -120.5db */
-+	{ 0X00, 0X00, 0X04, 0X31 }, /* -120.0db */
-+	{ 0X00, 0X00, 0X04, 0X71 }, /* -119.5db */
-+	{ 0X00, 0X00, 0X04, 0XB4 }, /* -119.0db */
-+	{ 0X00, 0X00, 0X04, 0XFC }, /* -118.5db */
-+	{ 0X00, 0X00, 0X05, 0X47 }, /* -118.0db */
-+	{ 0X00, 0X00, 0X05, 0X97 }, /* -117.5db */
-+	{ 0X00, 0X00, 0X05, 0XEC }, /* -117.0db */
-+	{ 0X00, 0X00, 0X06, 0X46 }, /* -116.5db */
-+	{ 0X00, 0X00, 0X06, 0XA5 }, /* -116.0db */
-+	{ 0X00, 0X00, 0X07, 0X0A }, /* -115.5db */
-+	{ 0X00, 0X00, 0X07, 0X75 }, /* -115.0db */
-+	{ 0X00, 0X00, 0X07, 0XE6 }, /* -114.5db */
-+	{ 0X00, 0X00, 0X08, 0X5E }, /* -114.0db */
-+	{ 0X00, 0X00, 0X08, 0XDD }, /* -113.5db */
-+	{ 0X00, 0X00, 0X09, 0X63 }, /* -113.0db */
-+	{ 0X00, 0X00, 0X09, 0XF2 }, /* -112.5db */
-+	{ 0X00, 0X00, 0X0A, 0X89 }, /* -112.0db */
-+	{ 0X00, 0X00, 0X0B, 0X28 }, /* -111.5db */
-+	{ 0X00, 0X00, 0X0B, 0XD2 }, /* -111.0db */
-+	{ 0X00, 0X00, 0X0C, 0X85 }, /* -110.5db */
-+	{ 0X00, 0X00, 0X0D, 0X43 }, /* -110.0db */
-+	{ 0X00, 0X00, 0X0E, 0X0C }, /* -109.5db */
-+	{ 0X00, 0X00, 0X0E, 0XE1 }, /* -109.0db */
-+	{ 0X00, 0X00, 0X0F, 0XC3 }, /* -108.5db */
-+	{ 0X00, 0X00, 0X10, 0XB2 }, /* -108.0db */
-+	{ 0X00, 0X00, 0X11, 0XAF }, /* -107.5db */
-+	{ 0X00, 0X00, 0X12, 0XBC }, /* -107.0db */
-+	{ 0X00, 0X00, 0X13, 0XD8 }, /* -106.5db */
-+	{ 0X00, 0X00, 0X15, 0X05 }, /* -106.0db */
-+	{ 0X00, 0X00, 0X16, 0X44 }, /* -105.5db */
-+	{ 0X00, 0X00, 0X17, 0X96 }, /* -105.0db */
-+	{ 0X00, 0X00, 0X18, 0XFB }, /* -104.5db */
-+	{ 0X00, 0X00, 0X1A, 0X76 }, /* -104.0db */
-+	{ 0X00, 0X00, 0X1C, 0X08 }, /* -103.5db */
-+	{ 0X00, 0X00, 0X1D, 0XB1 }, /* -103.0db */
-+	{ 0X00, 0X00, 0X1F, 0X73 }, /* -102.5db */
-+	{ 0X00, 0X00, 0X21, 0X51 }, /* -102.0db */
-+	{ 0X00, 0X00, 0X23, 0X4A }, /* -101.5db */
-+	{ 0X00, 0X00, 0X25, 0X61 }, /* -101.0db */
-+	{ 0X00, 0X00, 0X27, 0X98 }, /* -100.5db */
-+	{ 0X00, 0X00, 0X29, 0XF1 }, /* -100.0db */
-+	{ 0X00, 0X00, 0X2C, 0X6D }, /* -99.5db */
-+	{ 0X00, 0X00, 0X2F, 0X0F }, /* -99.0db */
-+	{ 0X00, 0X00, 0X31, 0XD9 }, /* -98.5db */
-+	{ 0X00, 0X00, 0X34, 0XCD }, /* -98.0db */
-+	{ 0X00, 0X00, 0X37, 0XEE }, /* -97.5db */
-+	{ 0X00, 0X00, 0X3B, 0X3F }, /* -97.0db */
-+	{ 0X00, 0X00, 0X3E, 0XC1 }, /* -96.5db */
-+	{ 0X00, 0X00, 0X42, 0X79 }, /* -96.0db */
-+	{ 0X00, 0X00, 0X46, 0X6A }, /* -95.5db */
-+	{ 0X00, 0X00, 0X4A, 0X96 }, /* -95.0db */
-+	{ 0X00, 0X00, 0X4F, 0X01 }, /* -94.5db */
-+	{ 0X00, 0X00, 0X53, 0XAF }, /* -94.0db */
-+	{ 0X00, 0X00, 0X58, 0XA5 }, /* -93.5db */
-+	{ 0X00, 0X00, 0X5D, 0XE6 }, /* -93.0db */
-+	{ 0X00, 0X00, 0X63, 0X76 }, /* -92.5db */
-+	{ 0X00, 0X00, 0X69, 0X5B }, /* -92.0db */
-+	{ 0X00, 0X00, 0X6F, 0X99 }, /* -91.5db */
-+	{ 0X00, 0X00, 0X76, 0X36 }, /* -91.0db */
-+	{ 0X00, 0X00, 0X7D, 0X37 }, /* -90.5db */
-+	{ 0X00, 0X00, 0X84, 0XA2 }, /* -90.0db */
-+	{ 0X00, 0X00, 0X8C, 0X7E }, /* -89.5db */
-+	{ 0X00, 0X00, 0X94, 0XD1 }, /* -89.0db */
-+	{ 0X00, 0X00, 0X9D, 0XA3 }, /* -88.5db */
-+	{ 0X00, 0X00, 0XA6, 0XFA }, /* -88.0db */
-+	{ 0X00, 0X00, 0XB0, 0XDF }, /* -87.5db */
-+	{ 0X00, 0X00, 0XBB, 0X5A }, /* -87.0db */
-+	{ 0X00, 0X00, 0XC6, 0X74 }, /* -86.5db */
-+	{ 0X00, 0X00, 0XD2, 0X36 }, /* -86.0db */
-+	{ 0X00, 0X00, 0XDE, 0XAB }, /* -85.5db */
-+	{ 0X00, 0X00, 0XEB, 0XDC }, /* -85.0db */
-+	{ 0X00, 0X00, 0XF9, 0XD6 }, /* -84.5db */
-+	{ 0X00, 0X01, 0X08, 0XA4 }, /* -84.0db */
-+	{ 0X00, 0X01, 0X18, 0X52 }, /* -83.5db */
-+	{ 0X00, 0X01, 0X28, 0XEF }, /* -83.0db */
-+	{ 0X00, 0X01, 0X3A, 0X87 }, /* -82.5db */
-+	{ 0X00, 0X01, 0X4D, 0X2A }, /* -82.0db */
-+	{ 0X00, 0X01, 0X60, 0XE8 }, /* -81.5db */
-+	{ 0X00, 0X01, 0X75, 0XD1 }, /* -81.0db */
-+	{ 0X00, 0X01, 0X8B, 0XF7 }, /* -80.5db */
-+	{ 0X00, 0X01, 0XA3, 0X6E }, /* -80.0db */
-+	{ 0X00, 0X01, 0XBC, 0X48 }, /* -79.5db */
-+	{ 0X00, 0X01, 0XD6, 0X9B }, /* -79.0db */
-+	{ 0X00, 0X01, 0XF2, 0X7E }, /* -78.5db */
-+	{ 0X00, 0X02, 0X10, 0X08 }, /* -78.0db */
-+	{ 0X00, 0X02, 0X2F, 0X51 }, /* -77.5db */
-+	{ 0X00, 0X02, 0X50, 0X76 }, /* -77.0db */
-+	{ 0X00, 0X02, 0X73, 0X91 }, /* -76.5db */
-+	{ 0X00, 0X02, 0X98, 0XC0 }, /* -76.0db */
-+	{ 0X00, 0X02, 0XC0, 0X24 }, /* -75.5db */
-+	{ 0X00, 0X02, 0XE9, 0XDD }, /* -75.0db */
-+	{ 0X00, 0X03, 0X16, 0X0F }, /* -74.5db */
-+	{ 0X00, 0X03, 0X44, 0XDF }, /* -74.0db */
-+	{ 0X00, 0X03, 0X76, 0X76 }, /* -73.5db */
-+	{ 0X00, 0X03, 0XAA, 0XFC }, /* -73.0db */
-+	{ 0X00, 0X03, 0XE2, 0XA0 }, /* -72.5db */
-+	{ 0X00, 0X04, 0X1D, 0X8F }, /* -72.0db */
-+	{ 0X00, 0X04, 0X5B, 0XFD }, /* -71.5db */
-+	{ 0X00, 0X04, 0X9E, 0X1D }, /* -71.0db */
-+	{ 0X00, 0X04, 0XE4, 0X29 }, /* -70.5db */
-+	{ 0X00, 0X05, 0X2E, 0X5A }, /* -70.0db */
-+	{ 0X00, 0X05, 0X7C, 0XF2 }, /* -69.5db */
-+	{ 0X00, 0X05, 0XD0, 0X31 }, /* -69.0db */
-+	{ 0X00, 0X06, 0X28, 0X60 }, /* -68.5db */
-+	{ 0X00, 0X06, 0X85, 0XC8 }, /* -68.0db */
-+	{ 0X00, 0X06, 0XE8, 0XB9 }, /* -67.5db */
-+	{ 0X00, 0X07, 0X51, 0X86 }, /* -67.0db */
-+	{ 0X00, 0X07, 0XC0, 0X8A }, /* -66.5db */
-+	{ 0X00, 0X08, 0X36, 0X21 }, /* -66.0db */
-+	{ 0X00, 0X08, 0XB2, 0XB0 }, /* -65.5db */
-+	{ 0X00, 0X09, 0X36, 0XA1 }, /* -65.0db */
-+	{ 0X00, 0X09, 0XC2, 0X63 }, /* -64.5db */
-+	{ 0X00, 0X0A, 0X56, 0X6D }, /* -64.0db */
-+	{ 0X00, 0X0A, 0XF3, 0X3C }, /* -63.5db */
-+	{ 0X00, 0X0B, 0X99, 0X56 }, /* -63.0db */
-+	{ 0X00, 0X0C, 0X49, 0X48 }, /* -62.5db */
-+	{ 0X00, 0X0D, 0X03, 0XA7 }, /* -62.0db */
-+	{ 0X00, 0X0D, 0XC9, 0X11 }, /* -61.5db */
-+	{ 0X00, 0X0E, 0X9A, 0X2D }, /* -61.0db */
-+	{ 0X00, 0X0F, 0X77, 0XAD }, /* -60.5db */
-+	{ 0X00, 0X10, 0X62, 0X4D }, /* -60.0db */
-+	{ 0X00, 0X11, 0X5A, 0XD5 }, /* -59.5db */
-+	{ 0X00, 0X12, 0X62, 0X16 }, /* -59.0db */
-+	{ 0X00, 0X13, 0X78, 0XF0 }, /* -58.5db */
-+	{ 0X00, 0X14, 0XA0, 0X50 }, /* -58.0db */
-+	{ 0X00, 0X15, 0XD9, 0X31 }, /* -57.5db */
-+	{ 0X00, 0X17, 0X24, 0X9C }, /* -57.0db */
-+	{ 0X00, 0X18, 0X83, 0XAA }, /* -56.5db */
-+	{ 0X00, 0X19, 0XF7, 0X86 }, /* -56.0db */
-+	{ 0X00, 0X1B, 0X81, 0X6A }, /* -55.5db */
-+	{ 0X00, 0X1D, 0X22, 0XA4 }, /* -55.0db */
-+	{ 0X00, 0X1E, 0XDC, 0X98 }, /* -54.5db */
-+	{ 0X00, 0X20, 0XB0, 0XBC }, /* -54.0db */
-+	{ 0X00, 0X22, 0XA0, 0X9D }, /* -53.5db */
-+	{ 0X00, 0X24, 0XAD, 0XE0 }, /* -53.0db */
-+	{ 0X00, 0X26, 0XDA, 0X43 }, /* -52.5db */
-+	{ 0X00, 0X29, 0X27, 0X9D }, /* -52.0db */
-+	{ 0X00, 0X2B, 0X97, 0XE3 }, /* -51.5db */
-+	{ 0X00, 0X2E, 0X2D, 0X27 }, /* -51.0db */
-+	{ 0X00, 0X30, 0XE9, 0X9A }, /* -50.5db */
-+	{ 0X00, 0X33, 0XCF, 0X8D }, /* -50.0db */
-+	{ 0X00, 0X36, 0XE1, 0X78 }, /* -49.5db */
-+	{ 0X00, 0X3A, 0X21, 0XF3 }, /* -49.0db */
-+	{ 0X00, 0X3D, 0X93, 0XC3 }, /* -48.5db */
-+	{ 0X00, 0X41, 0X39, 0XD3 }, /* -48.0db */
-+	{ 0X00, 0X45, 0X17, 0X3B }, /* -47.5db */
-+	{ 0X00, 0X49, 0X2F, 0X44 }, /* -47.0db */
-+	{ 0X00, 0X4D, 0X85, 0X66 }, /* -46.5db */
-+	{ 0X00, 0X52, 0X1D, 0X50 }, /* -46.0db */
-+	{ 0X00, 0X56, 0XFA, 0XE8 }, /* -45.5db */
-+	{ 0X00, 0X5C, 0X22, 0X4E }, /* -45.0db */
-+	{ 0X00, 0X61, 0X97, 0XE1 }, /* -44.5db */
-+	{ 0X00, 0X67, 0X60, 0X44 }, /* -44.0db */
-+	{ 0X00, 0X6D, 0X80, 0X60 }, /* -43.5db */
-+	{ 0X00, 0X73, 0XFD, 0X65 }, /* -43.0db */
-+	{ 0X00, 0X7A, 0XDC, 0XD7 }, /* -42.5db */
-+	{ 0X00, 0X82, 0X24, 0X8A }, /* -42.0db */
-+	{ 0X00, 0X89, 0XDA, 0XAB }, /* -41.5db */
-+	{ 0X00, 0X92, 0X05, 0XC6 }, /* -41.0db */
-+	{ 0X00, 0X9A, 0XAC, 0XC8 }, /* -40.5db */
-+	{ 0X00, 0XA3, 0XD7, 0X0A }, /* -40.0db */
-+	{ 0X00, 0XAD, 0X8C, 0X52 }, /* -39.5db */
-+	{ 0X00, 0XB7, 0XD4, 0XDD }, /* -39.0db */
-+	{ 0X00, 0XC2, 0XB9, 0X65 }, /* -38.5db */
-+	{ 0X00, 0XCE, 0X43, 0X28 }, /* -38.0db */
-+	{ 0X00, 0XDA, 0X7B, 0XF1 }, /* -37.5db */
-+	{ 0X00, 0XE7, 0X6E, 0X1E }, /* -37.0db */
-+	{ 0X00, 0XF5, 0X24, 0XAC }, /* -36.5db */
-+	{ 0X01, 0X03, 0XAB, 0X3D }, /* -36.0db */
-+	{ 0X01, 0X13, 0X0E, 0X24 }, /* -35.5db */
-+	{ 0X01, 0X23, 0X5A, 0X71 }, /* -35.0db */
-+	{ 0X01, 0X34, 0X9D, 0XF8 }, /* -34.5db */
-+	{ 0X01, 0X46, 0XE7, 0X5D }, /* -34.0db */
-+	{ 0X01, 0X5A, 0X46, 0X27 }, /* -33.5db */
-+	{ 0X01, 0X6E, 0XCA, 0XC5 }, /* -33.0db */
-+	{ 0X01, 0X84, 0X86, 0X9F }, /* -32.5db */
-+	{ 0X01, 0X9B, 0X8C, 0X27 }, /* -32.0db */
-+	{ 0X01, 0XB3, 0XEE, 0XE5 }, /* -31.5db */
-+	{ 0X01, 0XCD, 0XC3, 0X8C }, /* -31.0db */
-+	{ 0X01, 0XE9, 0X20, 0X05 }, /* -30.5db */
-+	{ 0X02, 0X06, 0X1B, 0X89 }, /* -30.0db */
-+	{ 0X02, 0X24, 0XCE, 0XB0 }, /* -29.5db */
-+	{ 0X02, 0X45, 0X53, 0X85 }, /* -29.0db */
-+	{ 0X02, 0X67, 0XC5, 0XA2 }, /* -28.5db */
-+	{ 0X02, 0X8C, 0X42, 0X3F }, /* -28.0db */
-+	{ 0X02, 0XB2, 0XE8, 0X55 }, /* -27.5db */
-+	{ 0X02, 0XDB, 0XD8, 0XAD }, /* -27.0db */
-+	{ 0X03, 0X07, 0X36, 0X05 }, /* -26.5db */
-+	{ 0X03, 0X35, 0X25, 0X29 }, /* -26.0db */
-+	{ 0X03, 0X65, 0XCD, 0X13 }, /* -25.5db */
-+	{ 0X03, 0X99, 0X57, 0X0C }, /* -25.0db */
-+	{ 0X03, 0XCF, 0XEE, 0XCF }, /* -24.5db */
-+	{ 0X04, 0X09, 0XC2, 0XB0 }, /* -24.0db */
-+	{ 0X04, 0X47, 0X03, 0XC1 }, /* -23.5db */
-+	{ 0X04, 0X87, 0XE5, 0XFB }, /* -23.0db */
-+	{ 0X04, 0XCC, 0XA0, 0X6D }, /* -22.5db */
-+	{ 0X05, 0X15, 0X6D, 0X68 }, /* -22.0db */
-+	{ 0X05, 0X62, 0X8A, 0XB3 }, /* -21.5db */
-+	{ 0X05, 0XB4, 0X39, 0XBC }, /* -21.0db */
-+	{ 0X06, 0X0A, 0XBF, 0XD4 }, /* -20.5db */
-+	{ 0X06, 0X66, 0X66, 0X66 }, /* -20.0db */
-+	{ 0X06, 0XC7, 0X7B, 0X36 }, /* -19.5db */
-+	{ 0X07, 0X2E, 0X50, 0XA6 }, /* -19.0db */
-+	{ 0X07, 0X9B, 0X3D, 0XF6 }, /* -18.5db */
-+	{ 0X08, 0X0E, 0X9F, 0X96 }, /* -18.0db */
-+	{ 0X08, 0X88, 0XD7, 0X6D }, /* -17.5db */
-+	{ 0X09, 0X0A, 0X4D, 0X2F }, /* -17.0db */
-+	{ 0X09, 0X93, 0X6E, 0XB8 }, /* -16.5db */
-+	{ 0X0A, 0X24, 0XB0, 0X62 }, /* -16.0db */
-+	{ 0X0A, 0XBE, 0X8D, 0X70 }, /* -15.5db */
-+	{ 0X0B, 0X61, 0X88, 0X71 }, /* -15.0db */
-+	{ 0X0C, 0X0E, 0X2B, 0XB0 }, /* -14.5db */
-+	{ 0X0C, 0XC5, 0X09, 0XAB }, /* -14.0db */
-+	{ 0X0D, 0X86, 0XBD, 0X8D }, /* -13.5db */
-+	{ 0X0E, 0X53, 0XEB, 0XB3 }, /* -13.0db */
-+	{ 0X0F, 0X2D, 0X42, 0X38 }, /* -12.5db */
-+	{ 0X10, 0X13, 0X79, 0X87 }, /* -12.0db */
-+	{ 0X11, 0X07, 0X54, 0XF9 }, /* -11.5db */
-+	{ 0X12, 0X09, 0XA3, 0X7A }, /* -11.0db */
-+	{ 0X13, 0X1B, 0X40, 0X39 }, /* -10.5db */
-+	{ 0X14, 0X3D, 0X13, 0X62 }, /* -10.0db */
-+	{ 0X15, 0X70, 0X12, 0XE1 }, /* -9.5db */
-+	{ 0X16, 0XB5, 0X43, 0X37 }, /* -9.0db */
-+	{ 0X18, 0X0D, 0XB8, 0X54 }, /* -8.5db */
-+	{ 0X19, 0X7A, 0X96, 0X7F }, /* -8.0db */
-+	{ 0X1A, 0XFD, 0X13, 0X54 }, /* -7.5db */
-+	{ 0X1C, 0X96, 0X76, 0XC6 }, /* -7.0db */
-+	{ 0X1E, 0X48, 0X1C, 0X37 }, /* -6.5db */
-+	{ 0X20, 0X13, 0X73, 0X9E }, /* -6.0db */
-+	{ 0X21, 0XFA, 0X02, 0XBF }, /* -5.5db */
-+	{ 0X23, 0XFD, 0X66, 0X78 }, /* -5.0db */
-+	{ 0X26, 0X1F, 0X54, 0X1C }, /* -4.5db */
-+	{ 0X28, 0X61, 0X9A, 0XE9 }, /* -4.0db */
-+	{ 0X2A, 0XC6, 0X25, 0X91 }, /* -3.5db */
-+	{ 0X2D, 0X4E, 0XFB, 0XD5 }, /* -3.0db */
-+	{ 0X2F, 0XFE, 0X44, 0X48 }, /* -2.5db */
-+	{ 0X32, 0XD6, 0X46, 0X17 }, /* -2.0db */
-+	{ 0X35, 0XD9, 0X6B, 0X02 }, /* -1.5db */
-+	{ 0X39, 0X0A, 0X41, 0X5F }, /* -1.0db */
-+	{ 0X3C, 0X6B, 0X7E, 0X4F }, /* -0.5db */
-+	{ 0X40, 0X00, 0X00, 0X00 }, /* 0.0db */
-+	{ 0X43, 0XCA, 0XD0, 0X22 }, /* 0.5db */
-+	{ 0X47, 0XCF, 0X26, 0X7D }, /* 1.0db */
-+	{ 0X4C, 0X10, 0X6B, 0XA5 }, /* 1.5db */
-+	{ 0X50, 0X92, 0X3B, 0XE3 }, /* 2.0db */
-+	{ 0X55, 0X58, 0X6A, 0X46 }, /* 2.5db */
-+	{ 0X5A, 0X67, 0X03, 0XDF }, /* 3.0db */
-+	{ 0X5F, 0XC2, 0X53, 0X32 }, /* 3.5db */
-+	{ 0X65, 0X6E, 0XE3, 0XDB }, /* 4.0db */
-+	{ 0X6B, 0X71, 0X86, 0X68 }, /* 4.5db */
-+	{ 0X71, 0XCF, 0X54, 0X71 }, /* 5.0db */
-+	{ 0X78, 0X8D, 0XB4, 0XE9 }, /* 5.5db */
-+	{ 0XFF, 0XFF, 0XFF, 0XFF }, /* 6.0db */
-+};
- #endif
-diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
-index a43ad6dcb7c7..18161d02a96f 100644
---- a/include/sound/tas2781.h
-+++ b/include/sound/tas2781.h
-@@ -50,6 +50,7 @@
- #define TASDEVICE_I2CChecksum		TASDEVICE_REG(0x0, 0x0, 0x7E)
- 
- /* Volume control */
-+#define TAS2563_DVC_LVL			TASDEVICE_REG(0x00, 0x02, 0x0C)
- #define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1A)
- #define TAS2781_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
- #define TAS2781_AMP_LEVEL_MASK		GENMASK(5, 1)
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index d5d95ae57c73..e79d613745b4 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -31,6 +31,7 @@
- #include <sound/tas2781.h>
- #include <sound/tlv.h>
- #include <sound/tas2781-tlv.h>
-+#include <asm/unaligned.h>
- 
- static const struct i2c_device_id tasdevice_id[] = {
- 	{ "tas2563", TAS2563 },
-@@ -140,6 +141,101 @@ static int tasdev_force_fwload_put(struct snd_kcontrol *kcontrol,
- 	return change;
- }
- 
-+static int tas2563_digital_gain_get(
-+	struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
-+	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(codec);
-+	unsigned int l = 0, r = mc->max;
-+	unsigned int target, ar_mid, mid, ar_l, ar_r;
-+	unsigned int reg = mc->reg;
-+	unsigned char data[4];
-+	int ret;
-+
-+	mutex_lock(&tas_dev->codec_lock);
-+	/* Read the primary device */
-+	ret =  tasdevice_dev_bulk_read(tas_dev, 0, reg, data, 4);
-+	if (ret) {
-+		dev_err(tas_dev->dev, "%s, get AMP vol error\n", __func__);
-+		goto out;
-+	}
-+
-+	target = get_unaligned_be32(&data[0]);
-+
-+	while (r > 1 + l) {
-+		mid = (l + r) / 2;
-+		ar_mid = get_unaligned_be32(tas2563_dvc_table[mid]);
-+		if (target < ar_mid)
-+			r = mid;
-+		else
-+			l = mid;
-+	}
-+
-+	ar_l = get_unaligned_be32(tas2563_dvc_table[l]);
-+	ar_r = get_unaligned_be32(tas2563_dvc_table[r]);
-+
-+	/* find out the member same as or closer to the current volume */
-+	ucontrol->value.integer.value[0] =
-+		abs(target - ar_l) <= abs(target - ar_r) ? l : r;
-+out:
-+	mutex_unlock(&tas_dev->codec_lock);
-+	return 0;
-+}
-+
-+static int tas2563_digital_gain_put(
-+	struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct snd_soc_component *codec = snd_soc_kcontrol_component(kcontrol);
-+	struct tasdevice_priv *tas_dev = snd_soc_component_get_drvdata(codec);
-+	int vol = ucontrol->value.integer.value[0];
-+	int status = 0, max = mc->max, rc = 1;
-+	int i, ret;
-+	unsigned int reg = mc->reg;
-+	unsigned int volrd, volwr;
-+	unsigned char data[4];
-+
-+	vol = clamp(vol, 0, max);
-+	mutex_lock(&tas_dev->codec_lock);
-+	/* Read the primary device */
-+	ret =  tasdevice_dev_bulk_read(tas_dev, 0, reg, data, 4);
-+	if (ret) {
-+		dev_err(tas_dev->dev, "%s, get AMP vol error\n", __func__);
-+		rc = -1;
-+		goto out;
-+	}
-+
-+	volrd = get_unaligned_be32(&data[0]);
-+	volwr = get_unaligned_be32(tas2563_dvc_table[vol]);
-+
-+	if (volrd == volwr) {
-+		rc = 0;
-+		goto out;
-+	}
-+
-+	for (i = 0; i < tas_dev->ndev; i++) {
-+		ret = tasdevice_dev_bulk_write(tas_dev, i, reg,
-+			(unsigned char *)tas2563_dvc_table[vol], 4);
-+		if (ret) {
-+			dev_err(tas_dev->dev,
-+				"%s, set digital vol error in dev %d\n",
-+				__func__, i);
-+			status |= BIT(i);
-+		}
-+	}
-+
-+	if (status)
-+		rc = -1;
-+out:
-+	mutex_unlock(&tas_dev->codec_lock);
-+	return rc;
-+}
-+
- static const struct snd_kcontrol_new tasdevice_snd_controls[] = {
- 	SOC_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
- 		tasdev_force_fwload_get, tasdev_force_fwload_put),
-@@ -154,6 +250,13 @@ static const struct snd_kcontrol_new tas2781_snd_controls[] = {
- 		tas2781_digital_putvol, dvc_tlv),
- };
- 
-+static const struct snd_kcontrol_new tas2563_snd_controls[] = {
-+	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Volume", TAS2563_DVC_LVL, 0,
-+		0, ARRAY_SIZE(tas2563_dvc_table) - 1, 0,
-+		tas2563_digital_gain_get, tas2563_digital_gain_put,
-+		tas2563_dvc_tlv),
-+};
-+
- static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
- 		struct snd_ctl_elem_value *ucontrol)
- {
-@@ -593,17 +696,25 @@ static struct snd_soc_dai_driver tasdevice_dai_driver[] = {
- static int tasdevice_codec_probe(struct snd_soc_component *codec)
- {
- 	struct tasdevice_priv *tas_priv = snd_soc_component_get_drvdata(codec);
-+	struct snd_kcontrol_new *p;
-+	unsigned int size;
- 	int rc;
- 
--	if (tas_priv->chip_id == TAS2781) {
--		rc = snd_soc_add_component_controls(codec,
--			tas2781_snd_controls,
--			ARRAY_SIZE(tas2781_snd_controls));
--		if (rc < 0) {
--			dev_err(tas_priv->dev, "%s: Add control err rc = %d",
--				__func__, rc);
--			return rc;
--		}
-+	switch (tas_priv->chip_id) {
-+	case TAS2781:
-+		p = (struct snd_kcontrol_new *)tas2781_snd_controls;
-+		size = ARRAY_SIZE(tas2781_snd_controls);
-+		break;
-+	default:
-+		p = (struct snd_kcontrol_new *)tas2563_snd_controls;
-+		size = ARRAY_SIZE(tas2563_snd_controls);
-+	}
-+
-+	rc = snd_soc_add_component_controls(codec, p, size);
-+	if (rc < 0) {
-+		dev_err(tas_priv->dev, "%s: Add control err rc = %d",
-+			__func__, rc);
-+		return rc;
- 	}
- 
- 	tas_priv->name_prefix = codec->name_prefix;
--- 
-2.34.1
+You can drop minItems if they equal max.
+
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: ahbix-clk
+> +      - const: mclk
+> +
+> +  '#sound-dai-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - '#sound-dai-cells'
+> +
+
+You need here allOf: with $ref to dai-common.yaml.
+
+> +additionalProperties: false
+
+... and this then becomes:
+unevaluatedProperties: false
+
+
+Best regards,
+Krzysztof
 

@@ -2,110 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 346E992F11B
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2024 23:26:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B3D92F11C
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2024 23:27:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFB87851;
-	Thu, 11 Jul 2024 23:26:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFB87851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D050A4A;
+	Thu, 11 Jul 2024 23:27:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D050A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720733211;
-	bh=3E0gw8xZNZBcKBZ5ftCmrShsMbwKFLPy3qBKIy5L2qw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1720733242;
+	bh=PqmkKClzKA9/SBnHkaebvSMhSF4dVf6/yT6uauqZ1ac=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HD2jBmzDBFGSj9Mvl2CTQPXzVepu9prlltLrtkQUrc9WZD+87kbao3J0+s1facX7p
-	 aL7NGyTF9tQXk+4IHmS3XL6yquDVFavlkMYTxw4xDsIAgotBqsDBa2xWTRGR6vN7M2
-	 f+nDJpEKrSohp2HNhLJFIH0unyh0Fne4kmnPHbig=
+	b=WfnYrc7rX5ruOdIPnoozWPoNEFcLaP/JcGFaQf/gqGo2GIns97PEPyqb5Fidq1hnm
+	 SobvC8gqehVfINCmCNrmJqXM5hHiidxm4bZePaf5zgEDuI1U3v1rgOKPIc9WKwbQU2
+	 lxHZ1bZxd5ll2JVDXNrOhfSxt/dlHNNv8vRJbnCo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B55F5F805AC; Thu, 11 Jul 2024 23:26:31 +0200 (CEST)
+	id A4EE8F80588; Thu, 11 Jul 2024 23:27:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3173F805AA;
-	Thu, 11 Jul 2024 23:26:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78055F805B2;
+	Thu, 11 Jul 2024 23:27:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0272DF801F5; Thu, 11 Jul 2024 23:10:59 +0200 (CEST)
+	id 1F449F801F5; Thu, 11 Jul 2024 23:17:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,TIME_LIMIT_EXCEEDED shortcircuit=no
-	autolearn=unavailable version=3.4.6
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F2F21F8013D
-	for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2024 23:05:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2F21F8013D
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-6325b04c275so13866657b3.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 11 Jul 2024 14:05:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720731947; x=1721336747;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=k86+4SfRSUfiHslr+mDimkcGpY1JjNeuf0o8H3HX8vw=;
-        b=snTwL7kEkajZtJISbdqa+wy7Q2Sz6lR9/dLyd9rvOTgsh8u4RHH984wroCqZf9Mv3P
-         G7ouHV6BJc7pQuOBWlIFTd/1hENe3WLuuPlSHBH9Ug6NTHvjdaEqwz1jbzmTqR2X2s8K
-         pHsygEyTXVR5SlvupIWGgzLj9Bh2NH840+P+HF9UPzNANgniw3itCxaKmGYpsMEadGY5
-         2z7IoMArlWzMdkR8ex7OgxT5g8/ZaMtSwCObTNIXrdT4opLLZoYQ3INjTJTUYbvdOuNH
-         Y9L6uJ1IxednKec/w3B8x41T1Hk4oYCJPMTY1xLsoEu81rE04gwZyxPrv9tSpQ6LmYtV
-         VdwA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVN9O4r0LIwg29phjcXhtSMzDiH8jIYHrKV4b2h0UrW7bXZUBVPkvFyamLKBdapUVqXpl6as3lNjC4gfOTA505pzCVUjWL7C3tYyZQ=
-X-Gm-Message-State: AOJu0Yx4I/wlRU3ZhUmmb/dSIxpMb5Eqwz2hWoutFRtuEDABHgTAitHw
-	dFcv9jxhnWHRN+baayrA8TlAL9DbuJRXV8NKvRJKpK4szyB/ZGtwdX7Ny2cc
-X-Google-Smtp-Source: 
- AGHT+IH88rpbrH/2cd384ry/SnrzKFCMhYOdXJaj5TQ2AwdmtOjIHdImg4Ykujmchh31WfK5HJ9J5w==
-X-Received: by 2002:a05:690c:f09:b0:61b:349c:817 with SMTP id
- 00721157ae682-658eed5d6dcmr116964917b3.12.1720731946919;
-        Thu, 11 Jul 2024 14:05:46 -0700 (PDT)
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com.
- [209.85.219.177])
-        by smtp.gmail.com with ESMTPSA id
- 00721157ae682-65bc38ea2b1sm7225917b3.2.2024.07.11.14.05.46
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jul 2024 14:05:46 -0700 (PDT)
-Received: by mail-yb1-f177.google.com with SMTP id
- 3f1490d57ef6-e03a63ec15eso1290814276.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 11 Jul 2024 14:05:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXJp9xeqsaWDYXF06C/D4ggWs+uZ3tZyGH6EGK4dVMWS0ilhOj7yRcj4qTqZ+hIvVUmevYlPSFspRQqT300aaipQtR258QqDwg5Rjs=
-X-Received: by 2002:a5b:d1:0:b0:e03:aa99:66d2 with SMTP id
- 3f1490d57ef6-e041b078519mr10915431276.33.1720731946075;
- Thu, 11 Jul 2024 14:05:46 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19D62F800FA
+	for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2024 23:14:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19D62F800FA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=OwaEH00l
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 252ED60DBC;
+	Thu, 11 Jul 2024 21:14:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6926C116B1;
+	Thu, 11 Jul 2024 21:14:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720732473;
+	bh=PqmkKClzKA9/SBnHkaebvSMhSF4dVf6/yT6uauqZ1ac=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OwaEH00lPYizGDKn3Lj426vXvs6iS3F3txCwEPg5beVfkBvD61hOq1JKCd1ngTNsN
+	 XWu+VztjQPRqlkgQeFN1wOnBvlwvq6LNriLsQmFIBKKvTo9rc+SkAGBTl9ZXEFzKFG
+	 7MXRi+f1EA1TxV67rs7xvM0CgJwVJD6lZO5rDvfd69tV8avxM05k+5n7ach+cUVUti
+	 E6rVlxpW4vjtGQpmS0vgoBxdkDZ6zN+DcBHP2yR2+MiAeQkK5MxarHPOtl7UDG2cCy
+	 W/Zht9tvzw6GoSsEmIBur7LTi0ZYritzCsDbO2Ps3nZYdp5YY3PfWZ+GbF9hOLM89F
+	 U9q+Xi8IwMJdg==
+Date: Thu, 11 Jul 2024 15:14:32 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Animesh Agarwal <animeshagarwal28@gmail.com>
+Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
+	patches@opensource.cirrus.com, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	alsa-devel@alsa-project.org, David Rhodes <david.rhodes@cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org,
+	Daniel Baluta <daniel.baluta@nxp.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: cirrus,cs42xx8: Convert to dtschema
+Message-ID: <172073247178.3021175.15222505507624018342.robh@kernel.org>
+References: <20240710072756.99765-1-animeshagarwal28@gmail.com>
 MIME-Version: 1.0
-References: <20240711132001.2792-1-baojun.xu@ti.com>
-In-Reply-To: <20240711132001.2792-1-baojun.xu@ti.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 11 Jul 2024 23:05:33 +0200
-X-Gmail-Original-Message-ID: 
- <CAMuHMdUw+KEGuAOWApfiLJF6b1M8pkoX+u+Q2dEVMqjV0_K34g@mail.gmail.com>
-Message-ID: 
- <CAMuHMdUw+KEGuAOWApfiLJF6b1M8pkoX+u+Q2dEVMqjV0_K34g@mail.gmail.com>
-Subject: Re: [PATCH v9] ALSA: hda/tas2781: Add tas2781 hda SPI driver
-To: Baojun Xu <baojun.xu@ti.com>
-Cc: tiwai@suse.de, robh+dt@kernel.org, andriy.shevchenko@linux.intel.com,
-	lgirdwood@gmail.com, perex@perex.cz, pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com, shenghao-ding@ti.com, navada@ti.com, 13916275206@139.com,
-	v-hampiholi@ti.com, v-po@ti.com, niranjan.hy@ti.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	liam.r.girdwood@intel.com, yung-chuan.liao@linux.intel.com,
-	broonie@kernel.org, soyer@irl.hu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 5YMIL3MUWXWLL5AZMBWB5RWEDW7M7Y5E
-X-Message-ID-Hash: 5YMIL3MUWXWLL5AZMBWB5RWEDW7M7Y5E
-X-MailFrom: geert.uytterhoeven@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240710072756.99765-1-animeshagarwal28@gmail.com>
+Message-ID-Hash: T47AUZLL4QYT5EANDIFBQJQ7UOBG4EPX
+X-Message-ID-Hash: T47AUZLL4QYT5EANDIFBQJQ7UOBG4EPX
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5YMIL3MUWXWLL5AZMBWB5RWEDW7M7Y5E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T47AUZLL4QYT5EANDIFBQJQ7UOBG4EPX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,75 +101,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Baojun,
 
-On Thu, Jul 11, 2024 at 3:22=E2=80=AFPM Baojun Xu <baojun.xu@ti.com> wrote:
-> This patch was used to add TAS2781 devices on SPI support in sound/pci/hd=
-a.
-> It use ACPI node descript about parameters of TAS2781 on SPI, it like:
->     Scope (_SB.PC00.SPI0)
->     {
->         Device (GSPK)
->         {
->             Name (_HID, "TXNW2781")  // _HID: Hardware ID
->             Method (_CRS, 0, NotSerialized)
->             {
->                 Name (RBUF, ResourceTemplate ()
->                 {
->                     SpiSerialBusV2 (...)
->                     SpiSerialBusV2 (...)
->                 }
->             }
->         }
->     }
->
-> And in platform/x86/serial-multi-instantiate.c, those spi devices will be
-> added into system as a single SPI device, so TAS2781 SPI driver will
-> probe twice for every single SPI device. And driver will also parser
-> mono DSP firmware binary and RCA binary for itself.
-> The code support Realtek as the primary codec.
->
-> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
-> --- /dev/null
-> +++ b/sound/pci/hda/tas2781_hda_spi.c
+On Wed, 10 Jul 2024 12:57:52 +0530, Animesh Agarwal wrote:
+> Convert the Cirrus Logic CS42448/CS42888 audio CODEC bindings to DT
+> schema format. Set power supply properties to required only for CS42888.
+> 
+> Cc: Daniel Baluta <daniel.baluta@nxp.com>
+> Signed-off-by: Animesh Agarwal <animeshagarwal28@gmail.com>
+> ---
+>  .../bindings/sound/cirrus,cs42xx8.yaml        | 81 +++++++++++++++++++
+>  .../devicetree/bindings/sound/cs42xx8.txt     | 34 --------
+>  2 files changed, 81 insertions(+), 34 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs42xx8.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/cs42xx8.txt
+> 
 
-Thanks for your patch!
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-> +/* fixed m68k compiling issue: mapping table can save code field */
-> +static const struct blktyp_devidx_map ppc3_tas2781_mapping_table[] =3D {
-
-> +/* fixed m68k compiling issue: mapping table can save code field */
-> +static unsigned char map_dev_idx(struct tasdevice_fw *tas_fmw,
-> +       struct tasdev_blk *block)
-
-> +/* Block parser function. */
-> +static int fw_parse_block_data_kernel(struct tasdevice_fw *tas_fmw,
-> +       struct tasdev_blk *block, const struct firmware *fmw, int offset)
-> +{
-
-> +       /*
-> +        * Fixed m68k compiling issue:
-> +        * 1. mapping table can save code field.
-> +        * 2. storing the dev_idx as a member of block can reduce unneces=
-sary
-> +        *    time and system resource comsumption of dev_idx mapping eve=
-ry
-> +        *    time the block data writing to the dsp.
-> +        */
-
-Do we really need more copies of this?
-See sound/soc/codecs/tas2781-fmwlib.c.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds

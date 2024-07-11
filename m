@@ -2,83 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791A592DDDB
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2024 03:19:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5407E92EB0C
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2024 16:51:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C20183E;
-	Thu, 11 Jul 2024 03:19:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C20183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A74986F;
+	Thu, 11 Jul 2024 16:50:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A74986F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720660771;
-	bh=4adTuxbDi35JH0mF6nibIf+rZaUnp1ZHEwRyH+5+8PI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=bFJC+6JiyqLgm3Qpnho0fPlM9mowzh9KREeD805IbfVpOUpQuqpj71l8kADUhjja3
-	 7I0Ikw33WwX5spczOklNNyIxQBs5wweryl4IyH4NfvrK71DXBdfTRXSTmNqqgj/KUf
-	 UWt1l1l8GLfwXq3QMz3f9SXwtL0W2+NetOjNyFEw=
+	s=default; t=1720709465;
+	bh=jIm0gbSdlluRGwzaIYKo6qKZk7oEjv4Q+rIwTgym9d4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=q6RHIID0z611wXnY6cKH/c1vZoxq9lpX+ssXac7l6CgwHDNQWD5O29DiasYMqImzd
+	 UnYS/P3r5PzG7jw8AgXbLhumcJjmq+OhjR3VcBNtmhJZ5q1tP5o9ekXFq4cwvWmmBi
+	 S5Wsak8jipWnp91K2zmxjMC9MXfVXvnB1nGFa8ik=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B2A8F805AD; Thu, 11 Jul 2024 03:19:00 +0200 (CEST)
+	id 4E8EAF804FC; Thu, 11 Jul 2024 16:50:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2EE2F805AD;
-	Thu, 11 Jul 2024 03:18:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D028BF805AE;
+	Thu, 11 Jul 2024 16:50:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 947A8F8020D; Thu, 11 Jul 2024 03:12:38 +0200 (CEST)
+	id 88A12F801F5; Thu, 11 Jul 2024 16:47:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DA5CAF800FE
-	for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2024 03:10:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA5CAF800FE
+	by alsa1.perex.cz (Postfix) with ESMTPS id CD749F8013D
+	for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2024 16:47:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD749F8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=CnITX3Ag
+ header.s=k20201202 header.b=OO0Uw3Cd
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id B47C761A81;
-	Thu, 11 Jul 2024 01:10:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F76C4AF07;
-	Thu, 11 Jul 2024 01:10:42 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id C6582CE12C7;
+	Thu, 11 Jul 2024 14:47:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C250C116B1;
+	Thu, 11 Jul 2024 14:47:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1720660245;
-	bh=4adTuxbDi35JH0mF6nibIf+rZaUnp1ZHEwRyH+5+8PI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=CnITX3AgLGKOxCjH5CBLtEW5HAngIKzDD9FF+XtS46V2CsusfOu98wN2mxuDbg87U
-	 RCDyDUcGDG+Du0JpTyAo4VgKe/DDEAe/lSMRQ4c0+U13DSCwuHkLVWQo2xMthg3ObN
-	 uf0lmxAAnoFM1j8IYOHa3desJnc35uWDFzPwbTYXVx6G6gl7GcUkuJh+sgNQaypWE0
-	 rhF1vDWEoumZGnP/jOufzNTdQqa/akzJSTyAHtNI1a2SLx7ecw5z1yH+mtHz2q0zyi
-	 ZTg2K1wnyZc14smU0qqpXKO1VLJZoDJTPkhWDjshaod3t8LjmWXjiaOHAh8n8PjY6/
-	 /CywQyV+yxlTg==
+	s=k20201202; t=1720709222;
+	bh=jIm0gbSdlluRGwzaIYKo6qKZk7oEjv4Q+rIwTgym9d4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OO0Uw3Cd5g7suSLJd06nXuSQmZ6GHhegSq0TVorsu4PzJZywx1BgftIySRE3kfghX
+	 Ky8x4rIuH6d6vhL0OMuFmNa/v690EcRz0MrK38oNuqsR254CHQR5NdSLLSd9bmcpYX
+	 JVjO5cY0UmuCfm9ZBdymXg95aYryDhfAf4lL8cScrPporvHGKjMuSup9dQahExJD4t
+	 rpyUGJTGaiN4FBuH+DFUahKIo4k1h8wPa5AvyaU6dSSWgeAJXWJRGJv/laYju0015T
+	 xFWb2Txr4IjPdGzahOPJ2ycy0zY128rKu/qZYz33IllsXlRbfTo55id/sH2bgngZFj
+	 i4StsIGZhS3hg==
+Message-ID: <b612cf49c9449f240cfb709d876b7d0c.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, Rayyan Ansari <rayyan.ansari@linaro.org>
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@quicinc.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
- Rob Herring <robh@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20240710113833.39859-1-rayyan.ansari@linaro.org>
-References: <20240710113833.39859-1-rayyan.ansari@linaro.org>
-Subject: Re: [PATCH v2 0/2] ASoC: dt-bindings: convert qcom sound bindings
- to yaml
-Message-Id: <172066024227.393700.11903720765661169490.b4-ty@kernel.org>
-Date: Thu, 11 Jul 2024 02:10:42 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14-dev-0bd45
-Message-ID-Hash: K4ROTXYCQ2WGSJXPAZCKYQAGQBC54AZS
-X-Message-ID-Hash: K4ROTXYCQ2WGSJXPAZCKYQAGQBC54AZS
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.10-rc7
+Date: Thu, 11 Jul 2024 15:46:50 +0100
+Message-ID-Hash: SO5AVXWPUK67XPHAMLYUIGMHDMYIKMS3
+X-Message-ID-Hash: SO5AVXWPUK67XPHAMLYUIGMHDMYIKMS3
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K4ROTXYCQ2WGSJXPAZCKYQAGQBC54AZS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SO5AVXWPUK67XPHAMLYUIGMHDMYIKMS3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,45 +88,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 10 Jul 2024 12:36:05 +0100, Rayyan Ansari wrote:
-> These patches convert the remaining plain text bindings for Qualcomm
-> sound drivers to dt schema, so device trees can be validated against
-> them.
-> 
-> v1: https://lore.kernel.org/all/20240709152808.155405-1-rayyan.ansari@linaro.org/
-> 
-> Thanks,
-> Rayyan
-> 
-> [...]
+The following changes since commit 68f97fe330e01450ace63da0ce5cab676fc97f9a:
 
-Applied to
+  ASoC: rt5645: fix issue of random interrupt from push-button (2024-06-26 16:34:48 +0100)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.10-rc7
 
-[1/2] ASoC: dt-bindings: qcom,msm8916-wcd-digital-codec: convert to dtschema
-      commit: 054ac9c97c7d9eb55f471fc6f019b654d17332a7
-[2/2] ASoC: dt-bindings: qcom,apq8096-sndcard: use dtschema
-      commit: 3cbda25e2db28b4352c73d4167f0dab10049ea54
+for you to fetch changes up to 680e126ec0400f6daecf0510c5bb97a55779ff03:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  firmware: cs_dsp: Use strnlen() on name fields in V1 wmfw files (2024-07-08 15:55:11 +0100)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.10
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+A few fairly small fixes for ASoC, there's a relatively large set of
+hardening changes for the cs_dsp firmware file parsing and a couple of
+other small device specific fixes.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Bard Liao (1):
+      ASoC: rt711-sdw: add missing readable registers
 
-Thanks,
-Mark
+Kai Vehmanen (1):
+      ASoC: SOF: Intel: hda: fix null deref on system suspend entry
 
+Peter Ujfalusi (1):
+      ASoC: SOF: Intel: hda-pcm: Limit the maximum number of periods by MAX_BDL_ENTRIES
+
+Richard Fitzgerald (5):
+      firmware: cs_dsp: Fix overflow checking of wmfw header
+      firmware: cs_dsp: Return error if block header overflows file
+      firmware: cs_dsp: Validate payload length before processing block
+      firmware: cs_dsp: Prevent buffer overrun when processing V2 alg headers
+      firmware: cs_dsp: Use strnlen() on name fields in V1 wmfw files
+
+ drivers/firmware/cirrus/cs_dsp.c | 227 ++++++++++++++++++++++++++++-----------
+ sound/soc/codecs/rt711-sdw.c     |   2 +
+ sound/soc/sof/intel/hda-dai.c    |  12 +--
+ sound/soc/sof/intel/hda-pcm.c    |   6 ++
+ 4 files changed, 176 insertions(+), 71 deletions(-)

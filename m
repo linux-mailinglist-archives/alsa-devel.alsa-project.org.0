@@ -2,113 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5CB292FA70
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2024 14:44:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B22DA92FC5E
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2024 16:19:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EA5B857;
-	Fri, 12 Jul 2024 14:44:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EA5B857
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7B79B60;
+	Fri, 12 Jul 2024 16:18:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7B79B60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720788252;
-	bh=VFfujqGL4wmufeMpy4TXsgO2rW52SRPoW3j+ev/iI60=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SYVOoQViQrYxLM4SQLq17WaI9C1srJM8cMI7PhKNiBCaBYtdBYM4I96EU2q3lmhTa
-	 P0sZgh5LVomcZvWXAHZcLEz1i6ff0NwDMf41tbnrvGAfdcuzRGwWxNHJPXWbdlUxRj
-	 uSBfTDw+AjreABYp0PPA1aqIeNorzpo2V+oqW4WA=
+	s=default; t=1720793949;
+	bh=ow9AJ//jVwfGZhSB8AYloU9hYnkv2FQyvwvJeG3Nqb8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ec4aeu0nOe7D7+S9zePmECMjpBF7LkEMrcHKj04Jyc3C7RhZkmLkP2btSYLiIGXtK
+	 EIuaGcnbD2bKBIulYYYDSXnMhwjb+Xg6fx5FwZwtRDg8QTwxurOx6oTuM5ChriN+WY
+	 KxnO/4xv9Ew8g2eVBJlYCunR2dF2MrrlzSuUtla0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5570F805AF; Fri, 12 Jul 2024 14:43:39 +0200 (CEST)
+	id 93A32F805A0; Fri, 12 Jul 2024 16:18:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEA05F805AD;
-	Fri, 12 Jul 2024 14:43:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D99AF805AD;
+	Fri, 12 Jul 2024 16:18:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2CAFF800FA; Fri, 12 Jul 2024 14:32:24 +0200 (CEST)
+	id 0E7EBF80074; Fri, 12 Jul 2024 16:13:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	URIBL_BLOCKED shortcircuit=no autolearn=unavailable autolearn_force=no
-	version=3.4.6
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8CB42F800FA
-	for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2024 14:27:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CB42F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id F28D4F800FE
+	for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2024 16:08:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F28D4F800FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=ellerman.id.au header.i=@ellerman.id.au
- header.a=rsa-sha256 header.s=201909 header.b=V5PMfiYd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
-	s=201909; t=1720787233;
-	bh=4Vofh3nmGXbIRlscqKm0va6vapnmleNLgiTWfYE/btk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=V5PMfiYdHjm+q2zhG//PSDhbZxYuVaB/yWMCbKSb7YOZfB+YWffV8XUiFqmdJ+g+g
-	 /c6au7q5mVyEiJqj/pof4+FidWHw+Du77hF2RZBUglRFE//ThOFJQoTQqe6IUDIms0
-	 EJtVxRE/YpKncLPLY3tEkgutqHapFx9r3ZbshogxWBeGW6TCDCrXR4R0Buv6MKHije
-	 KTpMYbXdOCztwkqQk6lsuRJIWQqLg3eSog71GgUac4/5NigrRoqMUh20HyBAIopkIP
-	 3nRohakxnY0DT2cFAWUh7IiAjkavAFL6SZk+7SHz47UD7rpIBs0rGhqqwLOIEu+Cdo
-	 m8oeN6kVZK6ZA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4WL9p73qQHz4x1V;
-	Fri, 12 Jul 2024 22:27:11 +1000 (AEST)
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: LEROY Christophe <christophe.leroy2@cs-soprasteria.com>, Mark Brown
- <broonie@kernel.org>, Herve Codina <herve.codina@bootlin.com>, Arnd
- Bergmann <arnd@arndb.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Qiang Zhao <qiang.zhao@nxp.com>, Shengjiu Wang
- <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam
- <festevam@gmail.com>, Nicolin
- Chen <nicoleotsuka@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, Christophe Leroy <christophe.leroy@csgroup.eu>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 07/10] soc: fsl: cpm1: qmc: Introduce functions to
- get a channel from a phandle list
-In-Reply-To: <9423930f-8cb8-4b31-927f-a93b1006fb18@cs-soprasteria.com>
-References: <20240701113038.55144-1-herve.codina@bootlin.com>
- <20240701113038.55144-8-herve.codina@bootlin.com>
- <a8c44188-d5d8-445d-9d64-bbfce6b1b628@sirena.org.uk>
- <87a5ixkghq.fsf@mail.lhotse>
- <9423930f-8cb8-4b31-927f-a93b1006fb18@cs-soprasteria.com>
-Date: Fri, 12 Jul 2024 22:27:11 +1000
-Message-ID: <87v81a4wyo.fsf@mail.lhotse>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=qwhnwjHe
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 7897761298;
+	Fri, 12 Jul 2024 14:08:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5964C4AF0B;
+	Fri, 12 Jul 2024 14:08:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1720793318;
+	bh=ow9AJ//jVwfGZhSB8AYloU9hYnkv2FQyvwvJeG3Nqb8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qwhnwjHe/bs9hFRqPBA5OcGzX/+Ph3eCc2+KHYf3Ln0cdqVHqUh0Uj4z+OkdzJepN
+	 pelVzaV+IbazGfsjf89t67zvzw2n0CyAP2eL2IQ2HBCB803pjx2xqYgtl41w70fxkd
+	 pykJ9PL+oAVz5aOxXpew8ycct/bo2+Zm3pmDOEHtnGlhgv4NaxDOSqsczCOhV6z2SK
+	 2r3iDRg8Lxr0tABGbLmqXv9Y/HKshe0otW1PUhLruxFqwRBF9fsAH+1hruxT/06xZi
+	 td24v/o1hl7FJDSH/Y3UdsObYXGqm3tlUrkq7+AfouLAcTKo4HhFas1N0RbLbzxZ1r
+	 nlgZ2SKiERTKA==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+	(envelope-from <johan+linaro@kernel.org>)
+	id 1sSGwv-000000006KB-2TJT;
+	Fri, 12 Jul 2024 16:08:38 +0200
+From: Johan Hovold <johan+linaro@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan+linaro@kernel.org>
+Subject: [PATCH v3 0/3] soundwire: bus: suppress probe deferral errors
+Date: Fri, 12 Jul 2024 16:07:58 +0200
+Message-ID: <20240712140801.24267-1-johan+linaro@kernel.org>
+X-Mailer: git-send-email 2.44.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: QGJHU7XZ2IXXD23Z35QTL6BAMKWVLSBW
-X-Message-ID-Hash: QGJHU7XZ2IXXD23Z35QTL6BAMKWVLSBW
-X-MailFrom: mpe@ellerman.id.au
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: USSIMRRLZXDDSBP5AYXTDFR766SI7SB4
+X-Message-ID-Hash: USSIMRRLZXDDSBP5AYXTDFR766SI7SB4
+X-MailFrom: johan+linaro@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QGJHU7XZ2IXXD23Z35QTL6BAMKWVLSBW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/USSIMRRLZXDDSBP5AYXTDFR766SI7SB4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,51 +98,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-LEROY Christophe <christophe.leroy2@cs-soprasteria.com> writes:
-> Le 04/07/2024 =C3=A0 05:01, Michael Ellerman a =C3=A9crit=C2=A0:
->> Mark Brown <broonie@kernel.org> writes:
->>> On Mon, Jul 01, 2024 at 01:30:34PM +0200, Herve Codina wrote:
->>>> qmc_chan_get_byphandle() and the resource managed version retrieve a
->>>> channel from a simple phandle.
->>>>
->>>> Extend the API and introduce qmc_chan_get_byphandles_index() and the
->>>> resource managed version in order to retrieve a channel from a phandle
->>>> list using the provided index to identify the phandle in the list.
->>>
->>> These two PowerPC patches seem trivial enough and have got no response,
->>> unless someone objects I'll go ahead and apply them.
->>=20
->> Ack.
->>=20
->> MAINTAINERS says:
->>=20
->> FREESCALE QUICC ENGINE LIBRARY
->> M:      Qiang Zhao <qiang.zhao@nxp.com>
->> L:      linuxppc-dev@lists.ozlabs.org
->> S:      Maintained
->> F:      drivers/soc/fsl/qe/
->> F:      include/soc/fsl/qe/
->>=20
->> But I see no email from that address since January 2021:
->>=20
->>    https://lore.kernel.org/all/?q=3Df%3Aqiang.zhao%40nxp.com
->>=20
->> And actually drivers/soc/fsl was marked orphan in April, maybe this
->> should be also.
->>=20
->> Or does Herve want to take over maintaining it?
->
-> We had some discussion about that in April, see=20
-> https://lore.kernel.org/linuxppc-dev/20240219153016.ntltc76bphwrv6hn@skbu=
-f/T/#mf6d4a5eef79e8eae7ae0456a2794c01e630a6756
->
-> Herv=C3=A9 has some of our hardware for a limited period of time because =
-he=20
-> is doing some implementation for us, but he won't keep that hardware on=20
-> the long run.
->
-> I will send a patch to take over maintaining drivers/soc/fsl/
+The soundwire bus code is incorrectly logging probe deferrals as errors.
 
-Thanks.
+This series addresses that, cleans up the soundwire bus logging and
+drops the unused soudwire driver name field.
 
-cheers
+Vinod, I booted linux-next yesterday and realised that these bogus error
+messages are still spamming the logs when booting x1e80100 and making it
+harder to see the valid warnings (which there were too many of). Would
+be nice to have this fixed in 6.11:
+
+[   18.815950] wsa884x-codec sdw:4:0:0217:0204:00:0: Probe of wsa884x-codec failed: -517
+[   18.825093] wsa884x-codec sdw:1:0:0217:0204:00:0: Probe of wsa884x-codec failed: -517
+[   18.832335] wsa884x-codec sdw:4:0:0217:0204:00:1: Probe of wsa884x-codec failed: -517
+[   18.840870] wsa884x-codec sdw:1:0:0217:0204:00:1: Probe of wsa884x-codec failed: -517
+[   18.848463] wsa884x-codec sdw:1:0:0217:0204:00:0: Probe of wsa884x-codec failed: -517
+
+Johan
+
+
+Changes in v3
+ - amend the update status error message with "at probe" to make it more
+   descriptive (it's already unique)
+ - drop the patch dropping a probe debug message
+
+Changes in v2
+ - drop probe error message completely
+ - drop soundwire driver name field
+ - cleanup probe warning messages
+ - drop probe debug message
+
+Johan Hovold (3):
+  soundwire: bus: suppress probe deferral errors
+  soundwire: bus: drop unused driver name field
+  soundwire: bus: clean up probe warnings
+
+ drivers/soundwire/bus_type.c  | 19 ++++---------------
+ include/linux/soundwire/sdw.h |  2 --
+ 2 files changed, 4 insertions(+), 17 deletions(-)
+
+-- 
+2.44.2
+

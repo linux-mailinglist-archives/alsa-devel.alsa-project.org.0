@@ -2,85 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DB3692F86B
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2024 11:54:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD3F92FA11
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2024 14:19:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A4AFE65;
-	Fri, 12 Jul 2024 11:54:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A4AFE65
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACFB6B60;
+	Fri, 12 Jul 2024 14:19:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACFB6B60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720778053;
-	bh=Z+kgDXh4aC9aHWHAcpb3b6Gr9Wjsz/MqCuSyeK6hwAY=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=oAJcVMtj6b5rVBFOrrVzzE/qdqdKlnS/MNycuV6Tzmpyr0Gs2vnlgmTMX+KlIpzdJ
-	 JlLwxTSyMTEocRoLBlfKVtit21EZBBpXCGyTDt6NAxJDBYNQBs8Mv0N+rWJEkuaix2
-	 ZOC1fRNXHuVERbb+n/wENV0RKc9FgyjisDhgsBoU=
+	s=default; t=1720786790;
+	bh=qvowtk4oPBtXidGGSdnwGV7eiZrna+QT1iCqD7O6B0M=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=b0jfVzjgEA4twRnC6+huubii5p99KJC0JVfQv8E/XB+KgYBOJahruKEESmcIvIwxG
+	 gwh/ZcaDRAg1iz1Df/BirnM03mH2CAZnflpuK+SA1btpsoWLBhWOGOHlB7YBkb+SUv
+	 zwMhrFA+XvJYV5y7ZQrmd77Z11ovEuAJ57RAvHu4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED259F805B1; Fri, 12 Jul 2024 11:53:41 +0200 (CEST)
+	id BCBECF80589; Fri, 12 Jul 2024 14:19:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A42E6F800FA;
-	Fri, 12 Jul 2024 11:53:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D815BF805AD;
+	Fri, 12 Jul 2024 14:19:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A77BF801F5; Fri, 12 Jul 2024 11:48:39 +0200 (CEST)
+	id F15ECF801F5; Fri, 12 Jul 2024 13:13:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail.marcansoft.com (marcansoft.com [212.63.210.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 29143F800FA
-	for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2024 11:48:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29143F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9FF03F80074
+	for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2024 13:12:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FF03F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=asahilina.net header.i=@asahilina.net
- header.a=rsa-sha256 header.s=default header.b=xM1QBoLM
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: lina@asahilina.net)
-	by mail.marcansoft.com (Postfix) with ESMTPSA id 2B15E4347F;
-	Fri, 12 Jul 2024 09:48:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=asahilina.net;
-	s=default; t=1720777696;
-	bh=DBxWamB7thDTQssSsI2lahjfw8GY8wFwjut5upkIp08=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=xM1QBoLMmGWfbA+EmeVL/Gqjr1kLcHs7IJI34N+OsjapvFeAXsbPk5RyaLPn2u1j6
-	 0ubengXUxMUq76p4DdSU8Ts72S1mU0SFJi05QTvGCO40qV/rBlcvrc0fKUfOvVmhGq
-	 mNZOSh/hgS0N5Sco/4P4aREiibHQOdu3UUhzllgwF5ZwG3p5+1bRsr2932DyZJfxQa
-	 g3SHYPle+2r5frnz9YEM0iZlP8eh1yuoccanOCUxEXDqV2tdNx+O8r1qeSYCjqm3DM
-	 Rm18qe3i6giAE8+WjtiAYlJvkEtQF3tnUtOnpfZyrm8HOIPjGxOp8jdmaj57z8iLbK
-	 cS3QS5BOIylHQ==
-Message-ID: <ccba37b8-0b92-43a9-83f3-297d96183855@asahilina.net>
-Date: Fri, 12 Jul 2024 18:48:09 +0900
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=y6IFX1UR
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-427a0efdb9bso2610505e9.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 12 Jul 2024 04:12:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1720782744; x=1721387544;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0ws/WN5VtvB/NY3hvXh8JUFotsmoTKoVR7TJMcWsTJ8=;
+        b=y6IFX1URBLeROl8wxXHGPsSrTkXe4oxhtvrh2tcUSTkdIIsOnIpx2gJeDOcRv6XfYo
+         CbKkmkHjEq71YAIZ95ZCRKM4y4X8qiSA4PHtu7QZwaIjLPsOTVARD6nuMLF4Es3XJV3S
+         3fYKQMonalb9XIn+dMJPAi6tHAAvZMWH8YqfJKrVo2r31/BqdHPMw3AnwoH7EYW8Zlvc
+         Lr+f7nZcanclvoijBSIx3AC84l4pq+D124A6y5WPABNNym9XwAwTs/QvwouuFlJICPmS
+         l6//c6K1ryIRFT27XKUNhvrG2wubciiyYbst9cAdnh79eAIH5sC+25m9/Z1fyUvsScom
+         4KCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720782744; x=1721387544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0ws/WN5VtvB/NY3hvXh8JUFotsmoTKoVR7TJMcWsTJ8=;
+        b=rvq/vd9kDsKjg8upy7MYpkDA2pMJfCMCwJP54aBdaBNwOcGyJAsjd0dV93R1/Z4+EH
+         P8PWCOXeGwhVs6xhOOYK/N06Nw+iiwjIrB8SAfewUME0zesq9JKFBJ13bFOqfUc5oG42
+         fjwdP4gieHhTMyY8S6M5mJBOndKmz89j0OBlQ+X5j1QvcQdrGyy+fq8wX8bdC0TzcjuN
+         ATKfm2saGZ6FXlRjHwrtvhMuH+4V++gLxKkmDHkThHCtwC3rLC8ZBFCiQmxLKXcgs7g9
+         tiRuDDyLT1JqVjjK3r1gXhUF/LfCOlJwac/ti8F1qRI3CHrwRFLJpYt4HDuagrZREGrk
+         lPaA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWlsIw78+OJfxqHzBKRiX5JesCeAiYSFZOWDsG78JA1HHwiIeBKYa1Mcuh5DFuUzTFSuprlLjwO/Ii+P4VXbdk5QOBoq4i3ms/vxno=
+X-Gm-Message-State: AOJu0YzMfltXDT8pC/JqMfGEKGzHlzchZsLDtSB9zlRfjLooVbe3OHmP
+	yU4V+ytbl8BOaPuoZBD7gLl8wI491Q65aogeVeEf8L5Ovw64+aqXS1VWfXAGa70=
+X-Google-Smtp-Source: 
+ AGHT+IE+I8xL6C1YjfC9f2FLcxUf4RylJkfgRfsuuQ/1dYXYmMPyg15Xeq2cyJNJBVSZKhgvE/+93Q==
+X-Received: by 2002:a05:600c:48a7:b0:425:7bbf:fd07 with SMTP id
+ 5b1f17b1804b1-426707cea0bmr73062785e9.5.1720782744106;
+        Fri, 12 Jul 2024 04:12:24 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.219.137])
+        by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4279f2babdfsm20106705e9.36.2024.07.12.04.12.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jul 2024 04:12:23 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jean Delvare <jdelvare@suse.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	alsa-devel@alsa-project.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH] ASoC: codecs: wsa884x: Implement temperature reading and
+ hwmon
+Date: Fri, 12 Jul 2024 13:12:06 +0200
+Message-ID: <20240712111206.72534-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Handling complex matrix mixers in ALSA
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
- "Geoffrey D. Bennett" <g@b4.vu>
-References: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
- <8734ot42oo.wl-tiwai@suse.de> <20240702004611.GA1029857@workstation.local>
-Content-Language: en-US
-From: Asahi Lina <lina@asahilina.net>
-In-Reply-To: <20240702004611.GA1029857@workstation.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2UK5HSBBNQLC56BTJHSJBQCW2SUZXP5V
-X-Message-ID-Hash: 2UK5HSBBNQLC56BTJHSJBQCW2SUZXP5V
-X-MailFrom: lina@asahilina.net
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: QAOPNSEURBWRHX4VTLRR4XJASU33FNU5
+X-Message-ID-Hash: QAOPNSEURBWRHX4VTLRR4XJASU33FNU5
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UK5HSBBNQLC56BTJHSJBQCW2SUZXP5V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QAOPNSEURBWRHX4VTLRR4XJASU33FNU5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,143 +131,292 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 7/2/24 9:46 AM, Takashi Sakamoto wrote:
-> On Mon, Jul 01, 2024 at 04:17:11PM +0200, Takashi Iwai wrote:
->> As Geoffrey already suggested, the matrix size can be reduced since
->> each kcontrol element can be an array, so the number of controls can
->> be either column or row size of the matrix, which is well manageable.
->  
-> Additionally, a snd_kcontrol structure can provide multiple control
-> elements by its 'count' member. I call it 'control element set'. It can
-> reduce allocation in kernel space. If the hardware in this case provides
-> software interface to access to all source coefficients to one
-> destination at once, it is suitable in the case.
-The hardware interface is basically a command stream of "set" commands
-for each individual mixer node, so there is no particular
-dimension/grouping that is more optimal. You can send up to 64~128
-arbitrary updates per 512-byte USB bulk packet (depending on whether you
-have to allocate nodes or just update existing nodes).
+Read temperature of the speaker and expose it via hwmon interface, which
+will be later used during calibration of speaker protection algorithms.
 
-Due to the max 2048 active node limitation, the driver is going to have
-to process/diff bulk updates anyway regardless of the way we group them
-(I will have to scan the new values, first update any zero values to
-free up nodes, then update nonzero values, and bail with an error before
-sending the update to the hardware if we run out of nodes). Hopefully
-this will never happen in real-life scenarios, but it does mean that
-some matrix mixer configurations are "illegal" and will be refused by
-the driver, due to hardware limitations.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ sound/soc/codecs/wsa884x.c | 197 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 197 insertions(+)
 
-> For example, assuming the matrix mixer has 34 destination and 66
-> sources, they can be expressed by 34 control elements with 66 array
-> elements. A single snd_kcontrol structure can provide them, as long as
-> they have the same nature. The control elements are identified by index
-> value.
+diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
+index 7b19df9c1728..5f4acd66f942 100644
+--- a/sound/soc/codecs/wsa884x.c
++++ b/sound/soc/codecs/wsa884x.c
+@@ -5,11 +5,14 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/hwmon.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+@@ -301,8 +304,28 @@
+ #define WSA884X_PA_FSM_MSK1		(WSA884X_DIG_CTRL0_BASE + 0x3b)
+ #define WSA884X_PA_FSM_BYP_CTL		(WSA884X_DIG_CTRL0_BASE + 0x3c)
+ #define WSA884X_PA_FSM_BYP0		(WSA884X_DIG_CTRL0_BASE + 0x3d)
++#define WSA884X_PA_FSM_BYP0_DC_CAL_EN_MASK		0x01
++#define WSA884X_PA_FSM_BYP0_DC_CAL_EN_SHIFT		0
++#define WSA884X_PA_FSM_BYP0_CLK_WD_EN_MASK		0x02
++#define WSA884X_PA_FSM_BYP0_CLK_WD_EN_SHIFT		1
++#define WSA884X_PA_FSM_BYP0_BG_EN_MASK			0x04
++#define WSA884X_PA_FSM_BYP0_BG_EN_SHIFT			2
++#define WSA884X_PA_FSM_BYP0_BOOST_EN_MASK		0x08
++#define WSA884X_PA_FSM_BYP0_BOOST_EN_SHIFT		3
++#define WSA884X_PA_FSM_BYP0_PA_EN_MASK			0x10
++#define WSA884X_PA_FSM_BYP0_PA_EN_SHIFT			4
++#define WSA884X_PA_FSM_BYP0_D_UNMUTE_MASK		0x20
++#define WSA884X_PA_FSM_BYP0_D_UNMUTE_SHIFT		5
++#define WSA884X_PA_FSM_BYP0_SPKR_PROT_EN_MASK		0x40
++#define WSA884X_PA_FSM_BYP0_SPKR_PROT_EN_SHIFT		6
++#define WSA884X_PA_FSM_BYP0_TSADC_EN_MASK		0x80
++#define WSA884X_PA_FSM_BYP0_TSADC_EN_SHIFT		7
+ #define WSA884X_PA_FSM_BYP1		(WSA884X_DIG_CTRL0_BASE + 0x3e)
+ #define WSA884X_TADC_VALUE_CTL		(WSA884X_DIG_CTRL0_BASE + 0x50)
++#define WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK	0x01
++#define WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_SHIFT	0
++#define WSA884X_TADC_VALUE_CTL_VBAT_VALUE_RD_EN_MASK	0x02
++#define WSA884X_TADC_VALUE_CTL_VBAT_VALUE_RD_EN_SHIFT	1
+ #define WSA884X_TEMP_DETECT_CTL		(WSA884X_DIG_CTRL0_BASE + 0x51)
+ #define WSA884X_TEMP_DIN_MSB		(WSA884X_DIG_CTRL0_BASE + 0x52)
+ #define WSA884X_TEMP_DIN_LSB		(WSA884X_DIG_CTRL0_BASE + 0x53)
+@@ -691,6 +714,17 @@
+ 		SNDRV_PCM_FMTBIT_S24_LE |\
+ 		SNDRV_PCM_FMTBIT_S24_3LE | SNDRV_PCM_FMTBIT_S32_LE)
+ 
++/* Two-point trimming for temperature calibration */
++#define WSA884X_T1_TEMP			-10L
++#define WSA884X_T2_TEMP			150L
++
++/*
++ * Device will report senseless data in many cases, so discard any measurements
++ * outside of valid range.
++ */
++#define WSA884X_LOW_TEMP_THRESHOLD	5
++#define WSA884X_HIGH_TEMP_THRESHOLD	45
++
+ struct wsa884x_priv {
+ 	struct regmap *regmap;
+ 	struct device *dev;
+@@ -706,6 +740,13 @@ struct wsa884x_priv {
+ 	int active_ports;
+ 	int dev_mode;
+ 	bool hw_init;
++	/*
++	 * Protects temperature reading code (related to speaker protection) and
++	 * fields: temperature and pa_on.
++	 */
++	struct mutex sp_lock;
++	unsigned int temperature;
++	bool pa_on;
+ };
+ 
+ enum {
+@@ -1650,6 +1691,10 @@ static int wsa884x_spkr_event(struct snd_soc_dapm_widget *w,
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
++		mutex_lock(&wsa884x->sp_lock);
++		wsa884x->pa_on = true;
++		mutex_unlock(&wsa884x->sp_lock);
++
+ 		wsa884x_spkr_post_pmu(component, wsa884x);
+ 
+ 		snd_soc_component_write_field(component, WSA884X_PDM_WD_CTL,
+@@ -1661,6 +1706,10 @@ static int wsa884x_spkr_event(struct snd_soc_dapm_widget *w,
+ 		snd_soc_component_write_field(component, WSA884X_PDM_WD_CTL,
+ 					      WSA884X_PDM_WD_CTL_PDM_WD_EN_MASK,
+ 					      0x0);
++
++		mutex_lock(&wsa884x->sp_lock);
++		wsa884x->pa_on = false;
++		mutex_unlock(&wsa884x->sp_lock);
+ 		break;
+ 	}
+ 
+@@ -1800,6 +1849,144 @@ static struct snd_soc_dai_driver wsa884x_dais[] = {
+ 	},
+ };
+ 
++static int wsa884x_get_temp(struct wsa884x_priv *wsa884x, long *temp)
++{
++	unsigned int d1_msb = 0, d1_lsb = 0, d2_msb = 0, d2_lsb = 0;
++	unsigned int dmeas_msb = 0, dmeas_lsb = 0;
++	int d1, d2, dmeas;
++	unsigned int mask;
++	long val;
++	int ret;
++
++	guard(mutex)(&wsa884x->sp_lock);
++
++	if (wsa884x->pa_on) {
++		/*
++		 * Reading temperature is possible only when Power Amplifier is
++		 * off. Report last cached data.
++		 */
++		*temp = wsa884x->temperature;
++		return 0;
++	}
++
++	ret = pm_runtime_resume_and_get(wsa884x->dev);
++	if (ret < 0)
++		return ret;
++
++	mask = WSA884X_PA_FSM_BYP0_DC_CAL_EN_MASK |
++	       WSA884X_PA_FSM_BYP0_CLK_WD_EN_MASK |
++	       WSA884X_PA_FSM_BYP0_BG_EN_MASK |
++	       WSA884X_PA_FSM_BYP0_D_UNMUTE_MASK |
++	       WSA884X_PA_FSM_BYP0_SPKR_PROT_EN_MASK |
++	       WSA884X_PA_FSM_BYP0_TSADC_EN_MASK;
++	/*
++	 * Here and further do not care about read or update failures.
++	 * For example, before turning on Power Amplifier for the first
++	 * time, reading WSA884X_TEMP_DIN_MSB will always return 0.
++	 * Instead, check if returned value is within reasonable
++	 * thresholds.
++	 */
++	regmap_update_bits(wsa884x->regmap, WSA884X_PA_FSM_BYP0, mask, mask);
++
++	regmap_update_bits(wsa884x->regmap, WSA884X_TADC_VALUE_CTL,
++			   WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK,
++			   FIELD_PREP(WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK, 0x0));
++
++	regmap_read(wsa884x->regmap, WSA884X_TEMP_DIN_MSB, &dmeas_msb);
++	regmap_read(wsa884x->regmap, WSA884X_TEMP_DIN_LSB, &dmeas_lsb);
++
++	regmap_update_bits(wsa884x->regmap, WSA884X_TADC_VALUE_CTL,
++			   WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK,
++			   FIELD_PREP(WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK, 0x1));
++
++	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_1, &d1_msb);
++	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_2, &d1_lsb);
++	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_3, &d2_msb);
++	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_4, &d2_lsb);
++
++	regmap_update_bits(wsa884x->regmap, WSA884X_PA_FSM_BYP0, mask, 0x0);
++
++	dmeas = (((dmeas_msb & 0xff) << 0x8) | (dmeas_lsb & 0xff)) >> 0x6;
++	d1 = (((d1_msb & 0xff) << 0x8) | (d1_lsb & 0xff)) >> 0x6;
++	d2 = (((d2_msb & 0xff) << 0x8) | (d2_lsb & 0xff)) >> 0x6;
++
++	if (d1 == d2) {
++		/* Incorrect data in OTP? */
++		ret = -EINVAL;
++		goto out;
++	}
++
++	val = WSA884X_T1_TEMP + (((dmeas - d1) * (WSA884X_T2_TEMP - WSA884X_T1_TEMP))/(d2 - d1));
++
++	dev_dbg(wsa884x->dev, "Measured temp %ld (dmeas=%d, d1=%d, d2=%d)\n",
++		val, dmeas, d1, d2);
++
++	if ((val > WSA884X_LOW_TEMP_THRESHOLD) &&
++	    (val < WSA884X_HIGH_TEMP_THRESHOLD)) {
++		wsa884x->temperature = val;
++		*temp = val;
++		ret = 0;
++	} else {
++		ret = -EAGAIN;
++	}
++
++out:
++	pm_runtime_mark_last_busy(wsa884x->dev);
++	pm_runtime_put_autosuspend(wsa884x->dev);
++
++	return ret;
++}
++
++static umode_t wsa884x_hwmon_is_visible(const void *data,
++					enum hwmon_sensor_types type, u32 attr,
++					int channel)
++{
++	if (type != hwmon_temp)
++		return 0;
++
++	switch (attr) {
++	case hwmon_temp_input:
++		return 0444;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int wsa884x_hwmon_read(struct device *dev,
++			      enum hwmon_sensor_types type,
++			      u32 attr, int channel, long *temp)
++{
++	int ret;
++
++	switch (attr) {
++	case hwmon_temp_input:
++		ret = wsa884x_get_temp(dev_get_drvdata(dev), temp);
++		break;
++	default:
++		ret = -EOPNOTSUPP;
++		break;
++	}
++
++	return ret;
++}
++
++static const struct hwmon_channel_info *const wsa884x_hwmon_info[] = {
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
++	NULL
++};
++
++static const struct hwmon_ops wsa884x_hwmon_ops = {
++	.is_visible	= wsa884x_hwmon_is_visible,
++	.read		= wsa884x_hwmon_read,
++};
++
++static const struct hwmon_chip_info wsa884x_hwmon_chip_info = {
++	.ops	= &wsa884x_hwmon_ops,
++	.info	= wsa884x_hwmon_info,
++};
++
+ static void wsa884x_reset_powerdown(void *data)
+ {
+ 	struct wsa884x_priv *wsa884x = data;
+@@ -1849,6 +2036,7 @@ static int wsa884x_probe(struct sdw_slave *pdev,
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct wsa884x_priv *wsa884x;
++	struct device *hwmon;
+ 	unsigned int i;
+ 	int ret;
+ 
+@@ -1856,6 +2044,8 @@ static int wsa884x_probe(struct sdw_slave *pdev,
+ 	if (!wsa884x)
+ 		return -ENOMEM;
+ 
++	mutex_init(&wsa884x->sp_lock);
++
+ 	for (i = 0; i < WSA884X_SUPPLIES_NUM; i++)
+ 		wsa884x->supplies[i].supply = wsa884x_supply_name[i];
+ 
+@@ -1913,6 +2103,13 @@ static int wsa884x_probe(struct sdw_slave *pdev,
+ 	regcache_cache_only(wsa884x->regmap, true);
+ 	wsa884x->hw_init = true;
+ 
++	hwmon = devm_hwmon_device_register_with_info(dev, "wsa884x", wsa884x,
++						     &wsa884x_hwmon_chip_info,
++						     NULL);
++	if (IS_ERR(hwmon))
++		return dev_err_probe(dev, PTR_ERR(hwmon),
++				     "Failed to register hwmon sensor\n");
++
+ 	pm_runtime_set_autosuspend_delay(dev, 3000);
+ 	pm_runtime_use_autosuspend(dev);
+ 	pm_runtime_mark_last_busy(dev);
+-- 
+2.43.0
 
-It took me a while to understand what you meant here, but I think I get
-it: Using a single snd_kcontrol for the entire mixer, with 34 indexed
-elements each taking 66 array values, right?
-
-How do these kinds of controls show up in alsamixer and other userspace
-mixer tools? Are they usable at all, or just with low-level access via
-amixer/alsactl?
-
-> Once I talked with Philippe Bekaert about the issue, then we found another
-> issue about the way to distinguish both each control elements and the array
-> members. The usage of ALSA control interface heavily relies on the name of
-> control elements, while a single snd_kcontrol structure provides one name
-> and all of the controls provided by it have the same name. We've
-> investigated to use TLV (Type-Length-Array) function of ALSA control core
-> to provide channel information about the sources and destinations, but no
-> further work yet[1].
-
-Yeah, that's another issue... these interfaces have fairly homogeneous
-channels for the mixer, so it's not a big deal, but if we want to settle
-on any particular standard for matrix mixers we're going to need some
-way to inform userspace of what the numbered sources/destinations mean...
-
-> I think it better to have another care that in this case we have restriction
-> for the size of array; e.g. 128 array elements for integer (long) type of
-> value. The restriction is not the matter in your case.
-
-A related device (the MADIface USB, that I don't own but I can probably
-support with some traces from someone who does) has, if I'm
-understanding the manual correctly, up to a 192x128 mixer mode (128
-hardware inputs + 64 playback inputs per output mix), so that would
-exceed the maximum number of array elements. I could split each output
-submix control into multiple array controls per input group to keep the
-count under 128 for each, but that starts getting a bit weird and
-arbitrary I think...
-
-> 
->> The VU meter can be provided as volatile read-only controls, too.
->>
->> So from the API-wise POV, it'll be a most straightforward
->> implementation.
-> 
-> As a side note, the design of software interface for recent hardware
-> requires floating point values for this kind of data, while it is not
-> supported in ALSA control core and its userspace interface.
-
-I don't know how the VU meter data works yet, but there's another issue
-here with the mixer controls. This device uses a 1-bit scale selector
-and a 14-bit value, basically a trivial floating point format with a
-1-bit exponent. There is also a sign bit (can invert the phase of any
-mixer node).
-
-Effectively I have a linear gain between -0x10000 and 0x10000 where
-0x8000 is 0dB and -0x8000 is 0dB(inverted), but for values outside of
-the -0x3fff..0x3fff range, it loses 3 bits of LSB precision.
-
-The inversion isn't really representable in a single control, right? So
-I'd have to have a whole separate boolean matrix control set for the
-sign bits, I think?
-
-And then I need to figure out how to scale the values... if I use the
-full range of 0..0x10000 then I can use DECLARE_TLV_DB_LINEAR to declare
-how it maps to dB, and then I guess I would just have to truncate the
-values sent to the hardware (when in the coarse range) but always keep
-track of the control value in the driver, so userspace doesn't get
-confused with "impossible" values? Of course that would be "lying" about
-the hardware precision, since 8 possible values would map to the same
-hardware volume at higher scales...
-
->From reading the alsa-lib code, I think I need to use TLV_DB_GAIN_MUTE
-as the min gain and then that turns it into a linear control where 0 = mute?
-
-I'm also a bit worried about being able to accurately represent
-+0dB/unity (for bit-perfect passthrough), since ALSA uses 1/100th of a
-dB as scale for the TLVs (I think?). x2 gain is +6.02(...) dB, but that
-isn't enough significant digits to precisely map 0x8000 to 0dB:
-
->>> hex(int(0x10000 * (10**(-6.02 / 20))))
-'0x8002'
->>> hex(int(0x10000 * (10**(-6.03 / 20))))
-'0x7fdc'
-
-So userspace that tries to use the TLV scale data to set "0dB" using the
-simple API is unlikely to actually get precisely 0dB.
-
-(This is also a problem for the output fader controls unrelated to the
-matrix mixer, since they use the exact same scale encoding with inversion)
-
-Maybe the driver should just use an arbitrary log dB TLV scale for the
-controls and internally map to the hardware values? That means doing the
-conversions internally and lying about precision at the lower end but at
-least it would avoid rounding error when setting a gain to 0dB...
-
-> 
->> OTOH, if you need more efficiency (e.g. the control access is way too
->> much overhead), it can be implemented freely via a hwdep device and
->> your own ioctls or mmaps, too.  But this is literally h/w dependent,
->> and the API becomes too specific, no other way than using own tool, as
->> a drawback.
-> 
-> [1] https://github.com/PhilippeBekaert/snd-hdspe/issues/13
-
-There's one more thing I'd like to ask. Would it be useful for me to
-submit just the streaming part of the device support upstream first
-(which would work with the userspace app for config) and then worry
-about designing the mixer control interface later? Or should it all be
-done in one submission?
-
-~~ Lina

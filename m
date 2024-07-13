@@ -2,127 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8B81930314
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2024 03:41:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0100493031C
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2024 03:52:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02D74950;
-	Sat, 13 Jul 2024 03:41:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02D74950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33BB5DFA;
+	Sat, 13 Jul 2024 03:52:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33BB5DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720834884;
-	bh=yxytFmDwG/sNMTq4aBNwkg9PqivKLL4mz7tWsPj24zs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MZ9RIFrUlDvoRc1Gueuw9dfUCLzecz7j2y8c/O566cujR/Nmg9hvCZjxvFoWvssyQ
-	 fd1Vk4cvY4OD6xoipEWEnZu7MXkt22JzWBy6cu/IO9VSKZZcduOssPyUovS1eKODs9
-	 EZon3OK7qrjfm9q2XysHPGq91Hc72A/Lwqvk07Qo=
+	s=default; t=1720835579;
+	bh=tUHBoPpfwV9ww3Rg+vE6njqj2/QAGGdRe8bvcD3tA/E=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=F8RTqj5PS12QcVdlxbsTc9S1fW1tXFZpiwTuOA12lvfW1zEFT4+bXQpYUk0Nh62eB
+	 SDyJ9BG0zccTc9DIrbBDHZi0BiO+ZMvgSX4pmC2pwmMO+26JJ1+2cpw6Ddx+s5mGOy
+	 a9RUShpT+K1rGeDIEX2CT36CBvC97N0G0Vdechco=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8345AF8019B; Sat, 13 Jul 2024 03:41:02 +0200 (CEST)
+	id 45FF0F80589; Sat, 13 Jul 2024 03:52:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE6FDF805B2;
-	Sat, 13 Jul 2024 03:41:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3ABCF805AF;
+	Sat, 13 Jul 2024 03:52:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF40AF801F5; Sat, 13 Jul 2024 03:36:04 +0200 (CEST)
+	id 7F4EDF801F5; Sat, 13 Jul 2024 03:52:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from fout4-smtp.messagingengine.com (fout4-smtp.messagingengine.com
- [103.168.172.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A71B8F8013D
-	for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2024 03:35:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A71B8F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B23EF800FE
+	for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2024 03:52:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B23EF800FE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm2 header.b=k2Fvaq1x;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=PK/YyL6c
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-	by mailfout.nyi.internal (Postfix) with ESMTP id 0C16D1381E73;
-	Fri, 12 Jul 2024 21:35:51 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute4.internal (MEProxy); Fri, 12 Jul 2024 21:35:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1720834551; x=
-	1720920951; bh=22TDJyuRrKv8m5jGh39KDAxMi55uSQw1RcgMrw/wKfs=; b=k
-	2Fvaq1x3McBDu+o1DLMirrrSCRbQRWeR/9rhJ9nXeVnTGkBKeUcviE8wtAnbuBB0
-	fmUrFIiBP5l+hUUsvH2NMXfTlIybI3aM7upSyh1LNULZ/kOXrSILWyp6DfvYexNt
-	NBVj6gI9foUkJuptmpr0sVsRoRAsEoWh2wxasbtF3bayPZ1TJDFtXyBW1UFsActD
-	yzhCCoFsg2v5woM+LIKHJFGNjlStwp8eJDYt+TRMBY12szpWg/oINleU+0IkvV25
-	phtu042YVeQ7TPuiHa6UqKvz6CbfTEiRvBR0W8V1cnDuczBqpxvjzFgTLRKdsHxX
-	8RKSk7YyLmTTZxDgYwnzg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1720834551; x=1720920951; bh=22TDJyuRrKv8m5jGh39KDAxMi55u
-	SQw1RcgMrw/wKfs=; b=PK/YyL6cJoWHCVmqovL3aUs9U8czwPz8EK2IlsMz1+7J
-	jS3RYR7eRPGEWVmmlR2zcNmvwXWKioTE+rwdDnXiISMPbDShSEH1wQCU8tOD6Mg7
-	yspW4BEQha0IVwlDEXUC8rqPknOUo3lWk2EZcwxnt4G3unDFoUYVdjNiFIV8wzfR
-	xHJiuwn8NKoORKfw0Vbjq/NTTRjkndWtEwMBPK3/TcffeXFap/v8XMNLqJd5DxhX
-	j4mQEdSjX6KKTE56bKh10K+zUtckwUQaSAo/vk7obWs2CAO090cpdg1WYfYcGsY7
-	Otfv5byBJm7qaL18Y5Z8aqzxNx4/4xy9WKvikk2NuQ==
-X-ME-Sender: <xms:9NmRZnY7Q90EGJ9RwEs28jeD_YRV0jRbl0usQCG13UBnoGL3LCiMGg>
-    <xme:9NmRZmZxygkgS7cTX0RaFrWXQr33WuD30TwUWUUgAteRv9mHomVxUsvYXpCVF5g9z
-    ndzG3Nm3uyoAH2wNcI>
-X-ME-Received: 
- <xmr:9NmRZp9EfAKmsZ3KBBZWkezbV_dWzu6EwmfMUmV8UTpEfLbBP3h1vDXBQEjIBfYT9zgga-Pg0VFD-XIIFg0qLCbHNB0cpRgI7OM2>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgeeftddrfeejgdeglecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
-    hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
-    hpqeenucggtffrrghtthgvrhhnpeegueeivdevjeekiedvgfevtefgvefgtdelgfffheei
-    veehiedthedthfejudfhleenucffohhmrghinhepghhithhhuhgsrdgtohhmpdhgihhtlh
-    grsgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
-    ohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:9NmRZtp9Bx7fKP69RlnuUCXNZOrR6AOlhuj8LKdWrjUtmy-odlyXCg>
-    <xmx:9NmRZio2ftHf8yfzK1T5B8-hAMZqZ2uS1aFkCFeUJjLJtkSwdA1k6A>
-    <xmx:9NmRZjRoBXO_hpIQnQvEnKnRzV3c7_99PKtlV_Mm31OSDeYkdZ-EwQ>
-    <xmx:9NmRZqqneW-bE6v-ytnM0Tbb2uOI8t2KxnncbwuPBylObK6hvfeJJg>
-    <xmx:99mRZjdqbpE-m-NdEEkULREAeprJUUiyKatHc9XiW0Y-NPsJph4n8-mW>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 12 Jul 2024 21:35:46 -0400 (EDT)
-Date: Sat, 13 Jul 2024 10:35:44 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Asahi Lina <lina@asahilina.net>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
-	"Geoffrey D. Bennett" <g@b4.vu>
-Subject: Re: Handling complex matrix mixers in ALSA
-Message-ID: <20240713013544.GB107956@workstation.local>
-Mail-Followup-To: Asahi Lina <lina@asahilina.net>,
-	Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
-	"Geoffrey D. Bennett" <g@b4.vu>
-References: <48beda37-1795-4d48-987d-1e2582cb3a18@asahilina.net>
- <8734ot42oo.wl-tiwai@suse.de>
- <20240702004611.GA1029857@workstation.local>
- <ccba37b8-0b92-43a9-83f3-297d96183855@asahilina.net>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=Bjw85pRI
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 46D1q1Hx048968;
+	Fri, 12 Jul 2024 20:52:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1720835521;
+	bh=XCsCoUbllZWzfU40ldOwwVYbrbFWnPwTlY//EdX4WEE=;
+	h=From:To:CC:Subject:Date;
+	b=Bjw85pRIyyk0Ylb77/9m16gYMU59GtJoN+XE9xJ/VFpasvBAQrsZbkn955a3aJBZ8
+	 cYxILH80jwWjoIvS1+F11J+z3sHPngzl42lxONrFceFG83RZE0O9vkR1UNWvxMiVj0
+	 jMs5YnkHiIxAqEhbKAcL7VVFXMZZ4i2TvAZ1oMHs=
+Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 46D1q03n012395
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 12 Jul 2024 20:52:01 -0500
+Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 12
+ Jul 2024 20:52:00 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Fri, 12 Jul 2024 20:52:00 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.245])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 46D1pnOr126053;
+	Fri, 12 Jul 2024 20:51:50 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13916275206@139.com>, <zhourui@huaqin.com>,
+        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
+        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
+        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
+        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
+ <yuhsuan@google.com>,
+        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
+ <soyer@irl.hu>,
+        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
+        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
+        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
+        <jesse-ji@ti.com>, <darren.ye@mediatek.com>,
+        Shenghao Ding
+	<shenghao-ding@ti.com>
+Subject: [PATCH v1 1/2] ASoc: tas2781: Add TAS2563 into the Header
+Date: Sat, 13 Jul 2024 09:51:41 +0800
+Message-ID: <20240713015145.314-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ccba37b8-0b92-43a9-83f3-297d96183855@asahilina.net>
-Message-ID-Hash: D326NGK5OSCO5PIMI6NABWQLF6ZTEZYW
-X-Message-ID-Hash: D326NGK5OSCO5PIMI6NABWQLF6ZTEZYW
-X-MailFrom: o-takashi@sakamocchi.jp
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: OYEJP5MRCXWJPU7DXVGSDHICPOUYHPHT
+X-Message-ID-Hash: OYEJP5MRCXWJPU7DXVGSDHICPOUYHPHT
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -134,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D326NGK5OSCO5PIMI6NABWQLF6ZTEZYW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OYEJP5MRCXWJPU7DXVGSDHICPOUYHPHT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,112 +116,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jul 12, 2024 at 06:48:09PM +0900, Asahi Lina wrote:
-> > For example, assuming the matrix mixer has 34 destination and 66
-> > sources, they can be expressed by 34 control elements with 66 array
-> > elements. A single snd_kcontrol structure can provide them, as long as
-> > they have the same nature. The control elements are identified by index
-> > value.
-> 
-> It took me a while to understand what you meant here, but I think I get
-> it: Using a single snd_kcontrol for the entire mixer, with 34 indexed
-> elements each taking 66 array values, right?
+Add TAS2563 into the Header in case of misunderstanding.
 
-This is rough example for the above idea.
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-```
-static int info_cb(struct snd_kcontrol *kctl, struct snd_ctl_elem_info *einfo)
-{
-    einfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-    einfo->count = 66;                  // up to 128 for integer value array.
-    einfo->value.integer.min = 0;       // note long type, varies between
-                                        // ILP32/LP64 data models.
-    einfo->value.integer.max = 256;     // ditto.
-    einfo->value.integer.step = 1;      // ditto.
+---
+v1:
+ - Add TAS2563 into the Header
+ - Add channel no into the log for error debug
+---
+ sound/soc/codecs/tas2781-comlib.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-    return 0;
-}
+diff --git a/sound/soc/codecs/tas2781-comlib.c b/sound/soc/codecs/tas2781-comlib.c
+index 1fbf4560f5cc..58abbc098a91 100644
+--- a/sound/soc/codecs/tas2781-comlib.c
++++ b/sound/soc/codecs/tas2781-comlib.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ //
+-// TAS2781 Common functions for HDA and ASoC Audio drivers
++// TAS2563/TAS2781 Common functions for HDA and ASoC Audio drivers
+ //
+ // Copyright 2023 - 2024 Texas Instruments, Inc.
+ //
+@@ -64,8 +64,8 @@ static int tasdevice_change_chn_book(struct tasdevice_priv *tas_priv,
+ 			 */
+ 			ret = regmap_write(map, TASDEVICE_PAGE_SELECT, 0);
+ 			if (ret < 0) {
+-				dev_err(tas_priv->dev, "%s, E=%d\n",
+-					__func__, ret);
++				dev_err(tas_priv->dev, "%s, E=%d channel:%d\n",
++					__func__, ret, chn);
+ 				goto out;
+ 			}
+ 		}
+-- 
+2.34.1
 
-static int get_cb(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *uval)
-{
-    unsigned int index = snd_ctl_get_ioff(kctl, &info->id);
-
-    // Any operation according to the index of control elements in the set.
-
-    return 0;
-}
-
-static int put_cb(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *uval)
-{
-    unsigned int offset = snd_ctl_get_ioff(kctl, &info->id);
-
-    // Any operation according to the index of control elements in the set.
-
-    return 0;
-}
-
-int add_control_elements(struct my_data *my_data)
-{
-    // Emulate AK4396.
-    // 20 * log10(x/255) (dB)
-    // Here, x is written value.
-    //
-    // Some examples in:
-    // https://github.com/alsa-project/alsa-lib/blob/master/test/user-ctl-element-set.c.
-    static const SNDRV_CTL_TLVD_DECLARE_DB_LINEAR(range_tlv, -4813, 0);
-    
-    static const struct snd_kcontrol_new template = {
-        . iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-        .device = 10,
-        .subdevice = 20,
-        .name = "multiplexer",
-        .index = 0,
-        // I guess any operation on ARC USB does not control the hardware directly unlike RC and
-        // ARC, thus SNDRV_CTL_ELEM_ACCESS_VOLATILE is not required.
-        .access = SNDRV_CTL_ELEM_ACCESS_READWRITE | SNDRV_CTL_ELEM_ACCESS_TLV_READ,
-        .count = 34,        // The total number of control elements in the set.
-        .info = info_cb,
-        .get = get_cb,
-        .put = pub_cb,
-        .tlv.p = &range_tlv,
-    };
-    
-    struct snd_kcontrol *kctl = snd_ctl_new1(&template, my_data);
-    err = snd_ctl_add(my_data->card, kctl);
-    ...
-}
-```
-
-> How do these kinds of controls show up in alsamixer and other userspace
-> mixer tools? Are they usable at all, or just with low-level access via
-> amixer/alsactl?
-
-These control elements can be enumerated and operated as usual, just
-have the sequential value in index (and numid) field in element
-identifier.
-
-```
-$ amixer -c 0 controls
-...
-numid=16,iface=MIXER,name='multiplexer',device=10,subdevice=20
-numid=17,iface=MIXER,name='multiplexer',index=1,device=10,subdevice=20
-numid=18,iface=MIXER,name='multiplexer',index=2,device=10,subdevice=20
-numid=19,iface=MIXER,name='multiplexer',index=3,device=10,subdevice=20
-numid=20,iface=MIXER,name='multiplexer',index=4,device=10,subdevice=20
-numid=21,iface=MIXER,name='multiplexer',index=5,device=10,subdevice=20
-numid=22,iface=MIXER,name='multiplexer',index=6,device=10,subdevice=20
-numid=23,iface=MIXER,name='multiplexer',index=7,device=10,subdevice=20
-numid=24,iface=MIXER,name='multiplexer',index=8,device=10,subdevice=20
-numid=25,iface=MIXER,name='multiplexer',index=9,device=10,subdevice=20
-...
-```
-
-Of cource, these is no integrations in any type of alsa-lib mixer API
-abstractions. I use Quasmixer in quastools project to operate them.
-
-* https://gitlab.com/sebholt/qastools
-
-
-Regards
-
-Takashi Sakamoto

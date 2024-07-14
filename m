@@ -2,97 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE11930982
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2024 12:09:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CF50930992
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2024 12:38:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79A49E0F;
-	Sun, 14 Jul 2024 12:09:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79A49E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C23FDFA;
+	Sun, 14 Jul 2024 12:38:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C23FDFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720951759;
-	bh=LoQ1NV0AS/TBbcmI8ui4ganNiMDBc39jVgfhte1N7+E=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	s=default; t=1720953499;
+	bh=UcuDJs+XlgVYl+OTxAAxOqbM9vj+nn7D7kyPOTjhZCo=;
+	h=Date:Subject:From:To:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=PAIjdSQGInuiT3PHLnoML3IS+iNNHv3kMeAN5KsYJ+TFnj36dFEhDUpU5gHRokubs
-	 vr55sd0wOTKAb1MC0h050fG70C12az/np0OxISnfgh7bUnrxPSjzHKfgRKYX0c5MLx
-	 WSzk96fxgEEoLd+yr4KH6iLdrRPpjRiaQ4g3m8bU=
+	b=U5y3R5I8QQiKsvhYbM3sA5xAYz7x5W/20MUSk9wCsMONkMa2il+ls/JNGZlegADMW
+	 GVntdRxugC1HZBbrB2EM9cZrnM9ekTx4bErwfHVmYCCFWhIEDbQCO9GmxaoNdlosFj
+	 Ebz0W38bAHvu6MKimPAJFH769uVd1R46yvG7gajA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 175DEF805AF; Sun, 14 Jul 2024 12:08:47 +0200 (CEST)
+	id BD769F8058C; Sun, 14 Jul 2024 12:37:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6393F805B0;
-	Sun, 14 Jul 2024 12:08:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58E1DF804FC;
+	Sun, 14 Jul 2024 12:37:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09173F8026D; Sun, 14 Jul 2024 12:02:19 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
+	id 14AF4F8026D; Sun, 14 Jul 2024 12:26:53 +0200 (CEST)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 333C2F8013D
-	for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2024 12:02:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 333C2F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 199BDF800FA
+	for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2024 12:21:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 199BDF800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=nY+N2iSj
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-52ea5765e75so4042540e87.0
+ header.s=google header.b=XBBgIFis
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-367818349a0so1933301f8f.1
         for <alsa-devel@alsa-project.org>;
- Sun, 14 Jul 2024 03:02:08 -0700 (PDT)
+ Sun, 14 Jul 2024 03:21:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1720951328; x=1721556128;
+        d=linaro.org; s=google; t=1720952492; x=1721557292;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :references:to:from:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CYgeQV2LhMyh4iRG/9jc8OV5gHewFcWWgn9rMk1HTHg=;
-        b=nY+N2iSjX5kzy4cWvNW3wIrdDDcXZwOn7XYoTXeA7+VHhH/1j6ich2K65BbEfhDz3q
-         8QR8P9pGc/RGV27dik0qk+JQ1L9p+jSPYo6Kzo/FOzq/j6FsWI9+6jqtar2uMcjZsUAn
-         FcTE1rGC50q6M/N4K6JxGn5x4FRhpJwivGC0J7Jx+iCPb6M5S8zruUdCaPDmFdT3LNws
-         aRuzJjj/fpZwLvQ6mcpzFd3Wg2ES7hEdB5GePw6nBnCKK8OF3gzl5OciT+UQ28lIv1VK
-         1O1e34RhhSnyFjS0ptfKNSZAOky6+oEQP7g4K0SNgSf5syA4q+mCaFBwLIuESklkrY5z
-         1nog==
+        bh=5z/03b2vX7NcAXJ+dFsF5PuyQGEdW6/zBENfqYSkXws=;
+        b=XBBgIFisY5tMcpzLyICbnu+PDOhDV2Dk12gFH2/MA6I+G/MrAPy/EEu1stxu48WnTX
+         XaDfOUZNFYriGDN6sJbwij7tnu13+gQqv5IwASoCnIxMycCkrguMS9R9cPr+UoWaiPdR
+         HQaTeuwTg30ilDmqWrZjjZlyIkaTcBm0pC7tP1qRXSyyT3dW743zJx0IGP0u0OH9ReJ3
+         yVKEt/E4JG0KuI6BZMtqCnPnRfTEMlOstSdPb/efqvNie+Lum2LeZuN3w/TLFifl7YWc
+         nWbWjAfUkYQDr387ZdvHcTkg7nSBevK95xoZYYfdOsxklR24T5hUfSS+tBgisa0Gsy9r
+         8d8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720951328; x=1721556128;
+        d=1e100.net; s=20230601; t=1720952492; x=1721557292;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :references:to:from:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CYgeQV2LhMyh4iRG/9jc8OV5gHewFcWWgn9rMk1HTHg=;
-        b=d1FUD5OU2VTmfkZh3KFpkf1lbRk3ZgmEQAHgr9lsRjRF7m7LZQs2A8vpr/N2Za8V2H
-         uFBmj0530Qo5BYZjZpSlUkx7vQZuBi/lbdJm1/IK4BLNMd6O/s6QOUjC3vICpVWD4SE8
-         VhqQByPobx8JR6vkFvojSSXl8cZcW4jAy2V6Pj4Qe/CbYW8zlgIhDL4CKvhGV895Xamt
-         PZxCSlwdQRqjs81jcqymsvzJVYCZ5wFZVqlWoWDp3Ym9a4Ud1WjT3uh4vMK1fsH9krlk
-         nu488uRLOwYzi7gknoeaMKSWoxAO2/G18FdCEJfPEDTQSnfvwOP5QHfnHp1ADlrh+qkI
-         e3dQ==
+        bh=5z/03b2vX7NcAXJ+dFsF5PuyQGEdW6/zBENfqYSkXws=;
+        b=ZKTTzI+2OleHgPWf6gXg74MoYIo5KrWx78kaOi8P5M8lpFHf1iIEl5DoA037EGmWMq
+         wJspoE6+JnwzJmHeanQKx9WzIf8uwmldeenS120AfZM80fQj66RhLlwbyXlRJo4yKVyU
+         HuX8OufcX8GwiMJWp6r220ahn/fC6nVxpyfRpjtJzam8E07SSlrcdcGSyJMFMMIi1yeU
+         +l1kbv1BybKXplDYOYJ9iYHo1LHsWs9j6kLCo3uU9L/MtKt/KNPm0sThZc7OFIl/3YU9
+         DgdLzzqQViWggzkNnt/1NHd0b5SyViBIZNz84yx1BwW1gEoDxs6a6jhZ4/OkyhwyGiQV
+         ufEQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVYaMTUievqpUoo2NwJsz+4+ITuaq+hWPttsQAwhKar6fMu4omZ1Jdh432l4b5NBypOG+guj1onlA2DVfWvUPdHbcv+TLJJ1OV5aeA=
-X-Gm-Message-State: AOJu0YyZ/mFrLg4oxywtmHb51YuDEXXfnfSJdpqjWhd6XVXwwXEEsNLY
-	m9U5TqA0fnuUowFRgONnl+TQ4qo/sI/+UwJ7trmCTTo0K17mSHhqjF6kOUW0MWU=
+ AJvYcCW4VGllupu9DkURQY7ojRgfZzqZJW+8iZ76r2INXRcz8i3L+Eh1NL41+PwBzcel+xSQSancAaTdwaRcEkFsZYBJlWu7RQ0q1ESS6L8=
+X-Gm-Message-State: AOJu0YxEyHeUgv+kj/HaRKpWFE0V1M2GTMDbvyP3fW/M8m06FWDCgOlI
+	FbuIWeXpvJdlpLnPdj0q+J5i3liQJjYcH+L14jZtjHzhI3HB6dc3DEf0nr6KRg5Xm4ViHgcA7Ii
+	K
 X-Google-Smtp-Source: 
- AGHT+IE5kwo/7XpsPKWzwLfc0V7K6RUtxJa57vwpzUyE+Htdkgo+yctfMTkbVdX91AHSYnyjzWsYbw==
-X-Received: by 2002:a05:6512:3d21:b0:52c:ddc0:7a03 with SMTP id
- 2adb3069b0e04-52eb99d1feamr11639972e87.55.1720951327580;
-        Sun, 14 Jul 2024 03:02:07 -0700 (PDT)
+ AGHT+IGm6o+vwGijyHYqejsnlf6YGOgobKUZq1j+ksyWC2JQFBR4pON627dYIWnOuAYV5DQ6aApepg==
+X-Received: by 2002:a05:6000:110f:b0:361:bcc5:2e26 with SMTP id
+ ffacd0b85a97d-367cea7382cmr11068764f8f.19.1720952491982;
+        Sun, 14 Jul 2024 03:21:31 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.137])
         by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52ed252d759sm430106e87.128.2024.07.14.03.02.05
+ ffacd0b85a97d-3680dafb939sm3485997f8f.89.2024.07.14.03.21.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Jul 2024 03:02:06 -0700 (PDT)
-Message-ID: <fd09fa44-1795-43a1-ba8d-ca2ba8f71d07@linaro.org>
-Date: Sun, 14 Jul 2024 12:02:03 +0200
+        Sun, 14 Jul 2024 03:21:31 -0700 (PDT)
+Message-ID: <36840696-772b-4e57-a672-ec5210ebeb64@linaro.org>
+Date: Sun, 14 Jul 2024 12:21:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] ASoC: codecs: wsa884x: Implement temperature reading
  and hwmon
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -101,7 +98,7 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-arm-msm@vger.kernel.org, linux-hwmon@vger.kernel.org
 References: <20240713095635.23201-1-krzysztof.kozlowski@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ <fd09fa44-1795-43a1-ba8d-ca2ba8f71d07@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -147,11 +144,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240713095635.23201-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <fd09fa44-1795-43a1-ba8d-ca2ba8f71d07@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: D7JJX3IMAYRL35T5MU2CGVNSP2HAQCJQ
-X-Message-ID-Hash: D7JJX3IMAYRL35T5MU2CGVNSP2HAQCJQ
+Message-ID-Hash: N6YFV5TEI3MCSRVOXBIP6GHB2TJN6MHC
+X-Message-ID-Hash: N6YFV5TEI3MCSRVOXBIP6GHB2TJN6MHC
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -164,7 +161,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D7JJX3IMAYRL35T5MU2CGVNSP2HAQCJQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N6YFV5TEI3MCSRVOXBIP6GHB2TJN6MHC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,40 +170,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 13/07/2024 11:56, Krzysztof Kozlowski wrote:
-> Read temperature of the speaker and expose it via hwmon interface, which
-> will be later used during calibration of speaker protection algorithms.
+On 14/07/2024 12:02, Krzysztof Kozlowski wrote:
+> On 13/07/2024 11:56, Krzysztof Kozlowski wrote:
+>> Read temperature of the speaker and expose it via hwmon interface, which
+>> will be later used during calibration of speaker protection algorithms.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>
+>> ---
+>>
+>> Changes in v2:
+>> 1. Add missing dependency on HWMON for y!=m builds (kernel test robot
+>>    report: undefined reference to
+>>    `devm_hwmon_device_register_with_info').
+>> ---
+>>  sound/soc/codecs/Kconfig   |   1 +
+>>  sound/soc/codecs/wsa884x.c | 197 +++++++++++++++++++++++++++++++++++++
+>>  2 files changed, 198 insertions(+)
+>>
+>> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+>> index 97bb69c9848d..09a0b209bc2f 100644
+>> --- a/sound/soc/codecs/Kconfig
+>> +++ b/sound/soc/codecs/Kconfig
+>> @@ -2447,6 +2447,7 @@ config SND_SOC_WSA883X
+>>  config SND_SOC_WSA884X
+>>  	tristate "WSA884X Codec"
+>>  	depends on SOUNDWIRE
+>> +	depends on HWMON || !HWMON
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Eh, now I got build report that hwmon does not have stubs for !HWMON (by
+> design or missing?), so this still has compile failures.
 > 
-> ---
-> 
-> Changes in v2:
-> 1. Add missing dependency on HWMON for y!=m builds (kernel test robot
->    report: undefined reference to
->    `devm_hwmon_device_register_with_info').
-> ---
->  sound/soc/codecs/Kconfig   |   1 +
->  sound/soc/codecs/wsa884x.c | 197 +++++++++++++++++++++++++++++++++++++
->  2 files changed, 198 insertions(+)
-> 
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index 97bb69c9848d..09a0b209bc2f 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -2447,6 +2447,7 @@ config SND_SOC_WSA883X
->  config SND_SOC_WSA884X
->  	tristate "WSA884X Codec"
->  	depends on SOUNDWIRE
-> +	depends on HWMON || !HWMON
+> I think we should have (devm_)hwmon_device_register_with_info() stubs
+> for drivers not depending on hwmon, so I will propose a patch for that.
+> If that approach is accepted, no changes should be needed in this
+> wsa884x v2 patchset.
 
-Eh, now I got build report that hwmon does not have stubs for !HWMON (by
-design or missing?), so this still has compile failures.
-
-I think we should have (devm_)hwmon_device_register_with_info() stubs
-for drivers not depending on hwmon, so I will propose a patch for that.
-If that approach is accepted, no changes should be needed in this
-wsa884x v2 patchset.
+Answering to myself: I see now that lack of !HWMON stubs for providers
+is rather by design and drivers use IS_REACHABLE. I'll send a v3 of this
+patch.
 
 Best regards,
 Krzysztof

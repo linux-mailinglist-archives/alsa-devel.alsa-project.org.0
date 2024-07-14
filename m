@@ -2,114 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EF8E9304D7
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2024 12:00:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AE11930982
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2024 12:09:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47FC1DF6;
-	Sat, 13 Jul 2024 12:00:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47FC1DF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79A49E0F;
+	Sun, 14 Jul 2024 12:09:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79A49E0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1720864820;
-	bh=4LUoIZD2bqOQ9FMrdozx7Sb01W4WeTnNCquj66eoiwg=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Zz6FvUG9zVTxNW0gOi50ZIWFiwNYYT3M7v67WoGJJUxoIMIFOcXOIe/TEdFQYNlJu
-	 IX6EjIoEaQXdBzMoFpok8G9Y4o1VdFsRk5EUJO9sX9OvZVi/3ZZr8ugYg9lf0LU2ZX
-	 Oo/zk0T1pPx3LBLw9fjOhUIB1ZQC+lchDj/yTYVE=
+	s=default; t=1720951759;
+	bh=LoQ1NV0AS/TBbcmI8ui4ganNiMDBc39jVgfhte1N7+E=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=PAIjdSQGInuiT3PHLnoML3IS+iNNHv3kMeAN5KsYJ+TFnj36dFEhDUpU5gHRokubs
+	 vr55sd0wOTKAb1MC0h050fG70C12az/np0OxISnfgh7bUnrxPSjzHKfgRKYX0c5MLx
+	 WSzk96fxgEEoLd+yr4KH6iLdrRPpjRiaQ4g3m8bU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FC67F805B0; Sat, 13 Jul 2024 11:59:48 +0200 (CEST)
+	id 175DEF805AF; Sun, 14 Jul 2024 12:08:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B7B4F805AF;
-	Sat, 13 Jul 2024 11:59:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6393F805B0;
+	Sun, 14 Jul 2024 12:08:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0FD1F801F5; Sat, 13 Jul 2024 11:56:52 +0200 (CEST)
+	id 09173F8026D; Sun, 14 Jul 2024 12:02:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 733BFF8013D
-	for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2024 11:56:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 733BFF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 333C2F8013D
+	for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2024 12:02:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 333C2F8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=DzESVaxW
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-426717a2d12so16534185e9.0
+ header.s=google header.b=nY+N2iSj
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-52ea5765e75so4042540e87.0
         for <alsa-devel@alsa-project.org>;
- Sat, 13 Jul 2024 02:56:39 -0700 (PDT)
+ Sun, 14 Jul 2024 03:02:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1720864599; x=1721469399;
+        d=linaro.org; s=google; t=1720951328; x=1721556128;
  darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=lunD1jtXUpUDh/B42v7PNILRWCB+xXP6OzCxOL3Idi8=;
-        b=DzESVaxWvZHnB/kx8Nl3FFGDdV/kkl7+RfZ7/rOesd625JhgAkLQoVzzFRGJKu2cCy
-         BOnf71zfP2VnLWVcdb+f4mvWQgrwUn8nPXtdRrjMud9QmoXKwBrxDa9/1AtJLOsnTqvt
-         mxWs/mXnD8l2GPvEnThYXRASveySUAPPhmx4H9MI62cXth5bPZV4N2ytH3bYQnfcDRYJ
-         rtjhJsKska+KVpA9LdGGNxZLBAcRrwgVgS4zMKFJ6iqZLYeYHHX+iNDS/JgdM7XUMKWE
-         Whjza6h4ttx3c4x0Xt1JBrHRrz5jlCYe5UGN+U1aRu/x1VQjpdorzSv1pL2Ggpc4mIuD
-         AF1g==
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CYgeQV2LhMyh4iRG/9jc8OV5gHewFcWWgn9rMk1HTHg=;
+        b=nY+N2iSjX5kzy4cWvNW3wIrdDDcXZwOn7XYoTXeA7+VHhH/1j6ich2K65BbEfhDz3q
+         8QR8P9pGc/RGV27dik0qk+JQ1L9p+jSPYo6Kzo/FOzq/j6FsWI9+6jqtar2uMcjZsUAn
+         FcTE1rGC50q6M/N4K6JxGn5x4FRhpJwivGC0J7Jx+iCPb6M5S8zruUdCaPDmFdT3LNws
+         aRuzJjj/fpZwLvQ6mcpzFd3Wg2ES7hEdB5GePw6nBnCKK8OF3gzl5OciT+UQ28lIv1VK
+         1O1e34RhhSnyFjS0ptfKNSZAOky6+oEQP7g4K0SNgSf5syA4q+mCaFBwLIuESklkrY5z
+         1nog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720864599; x=1721469399;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lunD1jtXUpUDh/B42v7PNILRWCB+xXP6OzCxOL3Idi8=;
-        b=AjQmiIqm0mi9wMXbOJo9ohAoIcjx6eRPtkjs86wFUZ97cz2Fl0zo/K/pKQveyhVndV
-         bwRGB3ns2zCcgk5wztJHvVe9FP8a+2mRhoVjft9GdWZ80tE1L5J0Yz4nTFilTtG/i3Al
-         vLlYehbgYp7tMT/zo0lERI2BT2qC6b0tzgi+A7QYPtlwfM8JIJZbD14zxSY5VYd4e9iu
-         w9J++neiIAjGD8GEflzbNgNhib/N1+iVMjgjsP3Ye0STO6WEHDMltxtYDalVtQuSv2RU
-         Pi+8wFzEaT96u1MFZVbkCrqyp4XMnZgZYMwIY8KaPktGVuL2L42leLnqvfmUYS75/XBJ
-         eAxA==
+        d=1e100.net; s=20230601; t=1720951328; x=1721556128;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CYgeQV2LhMyh4iRG/9jc8OV5gHewFcWWgn9rMk1HTHg=;
+        b=d1FUD5OU2VTmfkZh3KFpkf1lbRk3ZgmEQAHgr9lsRjRF7m7LZQs2A8vpr/N2Za8V2H
+         uFBmj0530Qo5BYZjZpSlUkx7vQZuBi/lbdJm1/IK4BLNMd6O/s6QOUjC3vICpVWD4SE8
+         VhqQByPobx8JR6vkFvojSSXl8cZcW4jAy2V6Pj4Qe/CbYW8zlgIhDL4CKvhGV895Xamt
+         PZxCSlwdQRqjs81jcqymsvzJVYCZ5wFZVqlWoWDp3Ym9a4Ud1WjT3uh4vMK1fsH9krlk
+         nu488uRLOwYzi7gknoeaMKSWoxAO2/G18FdCEJfPEDTQSnfvwOP5QHfnHp1ADlrh+qkI
+         e3dQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEoYqjhyFUeKg9lqJ7BJY1TdkO3fZhRYqAatKVgiFNHqAPTQQV3wLH3w6pbsmVqI/ehDzgM3J2xL9N1Mn0RTRZWSXDnQ1uZ2gW9G0=
-X-Gm-Message-State: AOJu0Yz1XDk4LRGv7Y3IUzBRmKmlkVkydDtiJy0rNKbREhRQXwXVZ1Oy
-	9Cgpp1ZwYTl91xBq/kuwpzSp+DEZ5gcA5meJNAiHwXnvNeCwGbj3/S6UoTYwkLw=
+ AJvYcCVYaMTUievqpUoo2NwJsz+4+ITuaq+hWPttsQAwhKar6fMu4omZ1Jdh432l4b5NBypOG+guj1onlA2DVfWvUPdHbcv+TLJJ1OV5aeA=
+X-Gm-Message-State: AOJu0YyZ/mFrLg4oxywtmHb51YuDEXXfnfSJdpqjWhd6XVXwwXEEsNLY
+	m9U5TqA0fnuUowFRgONnl+TQ4qo/sI/+UwJ7trmCTTo0K17mSHhqjF6kOUW0MWU=
 X-Google-Smtp-Source: 
- AGHT+IGWOe5Y6BuPPbzoKA2BFouCV6ObjC9SDNC1hzVVGYciWsMSvuicRw1jkiuBLeMvVVAJ3PlYYg==
-X-Received: by 2002:a05:600c:4793:b0:426:67f9:a7d8 with SMTP id
- 5b1f17b1804b1-4279dae2aedmr47392315e9.9.1720864598770;
-        Sat, 13 Jul 2024 02:56:38 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.219.137])
+ AGHT+IE5kwo/7XpsPKWzwLfc0V7K6RUtxJa57vwpzUyE+Htdkgo+yctfMTkbVdX91AHSYnyjzWsYbw==
+X-Received: by 2002:a05:6512:3d21:b0:52c:ddc0:7a03 with SMTP id
+ 2adb3069b0e04-52eb99d1feamr11639972e87.55.1720951327580;
+        Sun, 14 Jul 2024 03:02:07 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.137])
         by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3680dab3c2dsm1003638f8f.1.2024.07.13.02.56.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jul 2024 02:56:38 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Jean Delvare <jdelvare@suse.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-hwmon@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v2] ASoC: codecs: wsa884x: Implement temperature reading and
- hwmon
-Date: Sat, 13 Jul 2024 11:56:35 +0200
-Message-ID: <20240713095635.23201-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
+ 2adb3069b0e04-52ed252d759sm430106e87.128.2024.07.14.03.02.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 14 Jul 2024 03:02:06 -0700 (PDT)
+Message-ID: <fd09fa44-1795-43a1-ba8d-ca2ba8f71d07@linaro.org>
+Date: Sun, 14 Jul 2024 12:02:03 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4H2KC6VH7OHRWJSU5KZ47QV6JRUEZ735
-X-Message-ID-Hash: 4H2KC6VH7OHRWJSU5KZ47QV6JRUEZ735
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ASoC: codecs: wsa884x: Implement temperature reading
+ and hwmon
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-hwmon@vger.kernel.org
+References: <20240713095635.23201-1-krzysztof.kozlowski@linaro.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240713095635.23201-1-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: D7JJX3IMAYRL35T5MU2CGVNSP2HAQCJQ
+X-Message-ID-Hash: D7JJX3IMAYRL35T5MU2CGVNSP2HAQCJQ
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4H2KC6VH7OHRWJSU5KZ47QV6JRUEZ735/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D7JJX3IMAYRL35T5MU2CGVNSP2HAQCJQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,312 +173,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Read temperature of the speaker and expose it via hwmon interface, which
-will be later used during calibration of speaker protection algorithms.
+On 13/07/2024 11:56, Krzysztof Kozlowski wrote:
+> Read temperature of the speaker and expose it via hwmon interface, which
+> will be later used during calibration of speaker protection algorithms.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Changes in v2:
+> 1. Add missing dependency on HWMON for y!=m builds (kernel test robot
+>    report: undefined reference to
+>    `devm_hwmon_device_register_with_info').
+> ---
+>  sound/soc/codecs/Kconfig   |   1 +
+>  sound/soc/codecs/wsa884x.c | 197 +++++++++++++++++++++++++++++++++++++
+>  2 files changed, 198 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+> index 97bb69c9848d..09a0b209bc2f 100644
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -2447,6 +2447,7 @@ config SND_SOC_WSA883X
+>  config SND_SOC_WSA884X
+>  	tristate "WSA884X Codec"
+>  	depends on SOUNDWIRE
+> +	depends on HWMON || !HWMON
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Eh, now I got build report that hwmon does not have stubs for !HWMON (by
+design or missing?), so this still has compile failures.
 
----
+I think we should have (devm_)hwmon_device_register_with_info() stubs
+for drivers not depending on hwmon, so I will propose a patch for that.
+If that approach is accepted, no changes should be needed in this
+wsa884x v2 patchset.
 
-Changes in v2:
-1. Add missing dependency on HWMON for y!=m builds (kernel test robot
-   report: undefined reference to
-   `devm_hwmon_device_register_with_info').
----
- sound/soc/codecs/Kconfig   |   1 +
- sound/soc/codecs/wsa884x.c | 197 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 198 insertions(+)
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 97bb69c9848d..09a0b209bc2f 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -2447,6 +2447,7 @@ config SND_SOC_WSA883X
- config SND_SOC_WSA884X
- 	tristate "WSA884X Codec"
- 	depends on SOUNDWIRE
-+	depends on HWMON || !HWMON
- 	select REGMAP_SOUNDWIRE
- 	help
- 	  This enables support for Qualcomm WSA8840/WSA8845/WSA8845H Class-D
-diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
-index 7b19df9c1728..5f4acd66f942 100644
---- a/sound/soc/codecs/wsa884x.c
-+++ b/sound/soc/codecs/wsa884x.c
-@@ -5,11 +5,14 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/hwmon.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-@@ -301,8 +304,28 @@
- #define WSA884X_PA_FSM_MSK1		(WSA884X_DIG_CTRL0_BASE + 0x3b)
- #define WSA884X_PA_FSM_BYP_CTL		(WSA884X_DIG_CTRL0_BASE + 0x3c)
- #define WSA884X_PA_FSM_BYP0		(WSA884X_DIG_CTRL0_BASE + 0x3d)
-+#define WSA884X_PA_FSM_BYP0_DC_CAL_EN_MASK		0x01
-+#define WSA884X_PA_FSM_BYP0_DC_CAL_EN_SHIFT		0
-+#define WSA884X_PA_FSM_BYP0_CLK_WD_EN_MASK		0x02
-+#define WSA884X_PA_FSM_BYP0_CLK_WD_EN_SHIFT		1
-+#define WSA884X_PA_FSM_BYP0_BG_EN_MASK			0x04
-+#define WSA884X_PA_FSM_BYP0_BG_EN_SHIFT			2
-+#define WSA884X_PA_FSM_BYP0_BOOST_EN_MASK		0x08
-+#define WSA884X_PA_FSM_BYP0_BOOST_EN_SHIFT		3
-+#define WSA884X_PA_FSM_BYP0_PA_EN_MASK			0x10
-+#define WSA884X_PA_FSM_BYP0_PA_EN_SHIFT			4
-+#define WSA884X_PA_FSM_BYP0_D_UNMUTE_MASK		0x20
-+#define WSA884X_PA_FSM_BYP0_D_UNMUTE_SHIFT		5
-+#define WSA884X_PA_FSM_BYP0_SPKR_PROT_EN_MASK		0x40
-+#define WSA884X_PA_FSM_BYP0_SPKR_PROT_EN_SHIFT		6
-+#define WSA884X_PA_FSM_BYP0_TSADC_EN_MASK		0x80
-+#define WSA884X_PA_FSM_BYP0_TSADC_EN_SHIFT		7
- #define WSA884X_PA_FSM_BYP1		(WSA884X_DIG_CTRL0_BASE + 0x3e)
- #define WSA884X_TADC_VALUE_CTL		(WSA884X_DIG_CTRL0_BASE + 0x50)
-+#define WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK	0x01
-+#define WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_SHIFT	0
-+#define WSA884X_TADC_VALUE_CTL_VBAT_VALUE_RD_EN_MASK	0x02
-+#define WSA884X_TADC_VALUE_CTL_VBAT_VALUE_RD_EN_SHIFT	1
- #define WSA884X_TEMP_DETECT_CTL		(WSA884X_DIG_CTRL0_BASE + 0x51)
- #define WSA884X_TEMP_DIN_MSB		(WSA884X_DIG_CTRL0_BASE + 0x52)
- #define WSA884X_TEMP_DIN_LSB		(WSA884X_DIG_CTRL0_BASE + 0x53)
-@@ -691,6 +714,17 @@
- 		SNDRV_PCM_FMTBIT_S24_LE |\
- 		SNDRV_PCM_FMTBIT_S24_3LE | SNDRV_PCM_FMTBIT_S32_LE)
- 
-+/* Two-point trimming for temperature calibration */
-+#define WSA884X_T1_TEMP			-10L
-+#define WSA884X_T2_TEMP			150L
-+
-+/*
-+ * Device will report senseless data in many cases, so discard any measurements
-+ * outside of valid range.
-+ */
-+#define WSA884X_LOW_TEMP_THRESHOLD	5
-+#define WSA884X_HIGH_TEMP_THRESHOLD	45
-+
- struct wsa884x_priv {
- 	struct regmap *regmap;
- 	struct device *dev;
-@@ -706,6 +740,13 @@ struct wsa884x_priv {
- 	int active_ports;
- 	int dev_mode;
- 	bool hw_init;
-+	/*
-+	 * Protects temperature reading code (related to speaker protection) and
-+	 * fields: temperature and pa_on.
-+	 */
-+	struct mutex sp_lock;
-+	unsigned int temperature;
-+	bool pa_on;
- };
- 
- enum {
-@@ -1650,6 +1691,10 @@ static int wsa884x_spkr_event(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
-+		mutex_lock(&wsa884x->sp_lock);
-+		wsa884x->pa_on = true;
-+		mutex_unlock(&wsa884x->sp_lock);
-+
- 		wsa884x_spkr_post_pmu(component, wsa884x);
- 
- 		snd_soc_component_write_field(component, WSA884X_PDM_WD_CTL,
-@@ -1661,6 +1706,10 @@ static int wsa884x_spkr_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_component_write_field(component, WSA884X_PDM_WD_CTL,
- 					      WSA884X_PDM_WD_CTL_PDM_WD_EN_MASK,
- 					      0x0);
-+
-+		mutex_lock(&wsa884x->sp_lock);
-+		wsa884x->pa_on = false;
-+		mutex_unlock(&wsa884x->sp_lock);
- 		break;
- 	}
- 
-@@ -1800,6 +1849,144 @@ static struct snd_soc_dai_driver wsa884x_dais[] = {
- 	},
- };
- 
-+static int wsa884x_get_temp(struct wsa884x_priv *wsa884x, long *temp)
-+{
-+	unsigned int d1_msb = 0, d1_lsb = 0, d2_msb = 0, d2_lsb = 0;
-+	unsigned int dmeas_msb = 0, dmeas_lsb = 0;
-+	int d1, d2, dmeas;
-+	unsigned int mask;
-+	long val;
-+	int ret;
-+
-+	guard(mutex)(&wsa884x->sp_lock);
-+
-+	if (wsa884x->pa_on) {
-+		/*
-+		 * Reading temperature is possible only when Power Amplifier is
-+		 * off. Report last cached data.
-+		 */
-+		*temp = wsa884x->temperature;
-+		return 0;
-+	}
-+
-+	ret = pm_runtime_resume_and_get(wsa884x->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	mask = WSA884X_PA_FSM_BYP0_DC_CAL_EN_MASK |
-+	       WSA884X_PA_FSM_BYP0_CLK_WD_EN_MASK |
-+	       WSA884X_PA_FSM_BYP0_BG_EN_MASK |
-+	       WSA884X_PA_FSM_BYP0_D_UNMUTE_MASK |
-+	       WSA884X_PA_FSM_BYP0_SPKR_PROT_EN_MASK |
-+	       WSA884X_PA_FSM_BYP0_TSADC_EN_MASK;
-+	/*
-+	 * Here and further do not care about read or update failures.
-+	 * For example, before turning on Power Amplifier for the first
-+	 * time, reading WSA884X_TEMP_DIN_MSB will always return 0.
-+	 * Instead, check if returned value is within reasonable
-+	 * thresholds.
-+	 */
-+	regmap_update_bits(wsa884x->regmap, WSA884X_PA_FSM_BYP0, mask, mask);
-+
-+	regmap_update_bits(wsa884x->regmap, WSA884X_TADC_VALUE_CTL,
-+			   WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK,
-+			   FIELD_PREP(WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK, 0x0));
-+
-+	regmap_read(wsa884x->regmap, WSA884X_TEMP_DIN_MSB, &dmeas_msb);
-+	regmap_read(wsa884x->regmap, WSA884X_TEMP_DIN_LSB, &dmeas_lsb);
-+
-+	regmap_update_bits(wsa884x->regmap, WSA884X_TADC_VALUE_CTL,
-+			   WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK,
-+			   FIELD_PREP(WSA884X_TADC_VALUE_CTL_TEMP_VALUE_RD_EN_MASK, 0x1));
-+
-+	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_1, &d1_msb);
-+	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_2, &d1_lsb);
-+	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_3, &d2_msb);
-+	regmap_read(wsa884x->regmap, WSA884X_OTP_REG_4, &d2_lsb);
-+
-+	regmap_update_bits(wsa884x->regmap, WSA884X_PA_FSM_BYP0, mask, 0x0);
-+
-+	dmeas = (((dmeas_msb & 0xff) << 0x8) | (dmeas_lsb & 0xff)) >> 0x6;
-+	d1 = (((d1_msb & 0xff) << 0x8) | (d1_lsb & 0xff)) >> 0x6;
-+	d2 = (((d2_msb & 0xff) << 0x8) | (d2_lsb & 0xff)) >> 0x6;
-+
-+	if (d1 == d2) {
-+		/* Incorrect data in OTP? */
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	val = WSA884X_T1_TEMP + (((dmeas - d1) * (WSA884X_T2_TEMP - WSA884X_T1_TEMP))/(d2 - d1));
-+
-+	dev_dbg(wsa884x->dev, "Measured temp %ld (dmeas=%d, d1=%d, d2=%d)\n",
-+		val, dmeas, d1, d2);
-+
-+	if ((val > WSA884X_LOW_TEMP_THRESHOLD) &&
-+	    (val < WSA884X_HIGH_TEMP_THRESHOLD)) {
-+		wsa884x->temperature = val;
-+		*temp = val;
-+		ret = 0;
-+	} else {
-+		ret = -EAGAIN;
-+	}
-+
-+out:
-+	pm_runtime_mark_last_busy(wsa884x->dev);
-+	pm_runtime_put_autosuspend(wsa884x->dev);
-+
-+	return ret;
-+}
-+
-+static umode_t wsa884x_hwmon_is_visible(const void *data,
-+					enum hwmon_sensor_types type, u32 attr,
-+					int channel)
-+{
-+	if (type != hwmon_temp)
-+		return 0;
-+
-+	switch (attr) {
-+	case hwmon_temp_input:
-+		return 0444;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int wsa884x_hwmon_read(struct device *dev,
-+			      enum hwmon_sensor_types type,
-+			      u32 attr, int channel, long *temp)
-+{
-+	int ret;
-+
-+	switch (attr) {
-+	case hwmon_temp_input:
-+		ret = wsa884x_get_temp(dev_get_drvdata(dev), temp);
-+		break;
-+	default:
-+		ret = -EOPNOTSUPP;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct hwmon_channel_info *const wsa884x_hwmon_info[] = {
-+	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
-+	NULL
-+};
-+
-+static const struct hwmon_ops wsa884x_hwmon_ops = {
-+	.is_visible	= wsa884x_hwmon_is_visible,
-+	.read		= wsa884x_hwmon_read,
-+};
-+
-+static const struct hwmon_chip_info wsa884x_hwmon_chip_info = {
-+	.ops	= &wsa884x_hwmon_ops,
-+	.info	= wsa884x_hwmon_info,
-+};
-+
- static void wsa884x_reset_powerdown(void *data)
- {
- 	struct wsa884x_priv *wsa884x = data;
-@@ -1849,6 +2036,7 @@ static int wsa884x_probe(struct sdw_slave *pdev,
- {
- 	struct device *dev = &pdev->dev;
- 	struct wsa884x_priv *wsa884x;
-+	struct device *hwmon;
- 	unsigned int i;
- 	int ret;
- 
-@@ -1856,6 +2044,8 @@ static int wsa884x_probe(struct sdw_slave *pdev,
- 	if (!wsa884x)
- 		return -ENOMEM;
- 
-+	mutex_init(&wsa884x->sp_lock);
-+
- 	for (i = 0; i < WSA884X_SUPPLIES_NUM; i++)
- 		wsa884x->supplies[i].supply = wsa884x_supply_name[i];
- 
-@@ -1913,6 +2103,13 @@ static int wsa884x_probe(struct sdw_slave *pdev,
- 	regcache_cache_only(wsa884x->regmap, true);
- 	wsa884x->hw_init = true;
- 
-+	hwmon = devm_hwmon_device_register_with_info(dev, "wsa884x", wsa884x,
-+						     &wsa884x_hwmon_chip_info,
-+						     NULL);
-+	if (IS_ERR(hwmon))
-+		return dev_err_probe(dev, PTR_ERR(hwmon),
-+				     "Failed to register hwmon sensor\n");
-+
- 	pm_runtime_set_autosuspend_delay(dev, 3000);
- 	pm_runtime_use_autosuspend(dev);
- 	pm_runtime_mark_last_busy(dev);
--- 
-2.43.0
+Best regards,
+Krzysztof
 

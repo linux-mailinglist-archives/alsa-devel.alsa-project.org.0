@@ -2,156 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35338931727
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2024 16:47:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC99931A35
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2024 20:19:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 654BBE9A;
-	Mon, 15 Jul 2024 16:47:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 654BBE9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7A8DA4B;
+	Mon, 15 Jul 2024 20:19:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7A8DA4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721054877;
-	bh=zfCTt8lghb3H9yst7G8J2NfWklQVuGOiALT3b4/j2PI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1721067595;
+	bh=pLUCLcj5O7Hs2oy5g+ASmTVqngMsfK+KdVlmFvVar5w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qCIgjMM7JFYbJMexoRzdDP/yNJQ1+ANpuoHvQVyRWXI579+Aa4l5pR312iSH61/R2
-	 e5LMmbrbHaBdlyvl0NeaIU4mhZBWKmG5Ck7diQX9SYL3ZY+4VewoS+8uZdWiQJ7eFG
-	 XE+PVIqf4SnD0zfL6z+O8+2ULjpj4SnvAiDXVsnA=
+	b=Xt8FMXhDVI2Tmv/0fualLEbln22Fm4KEuMAgkrbxkLryRIl2H+iP2wBkoJioxJvix
+	 2Y9dmfnl7QwHx3JAtbINmHHtj53bXXK9+Rgy6Ioi6xm4Bnu26s128yJsU2BwDBHJdp
+	 vM3n6Lew8BNnV7IqGQ2P7LHiN6sq1TS/mYb/ZkSU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7F4AF805AD; Mon, 15 Jul 2024 16:47:35 +0200 (CEST)
+	id B0B7DF80528; Mon, 15 Jul 2024 20:19:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E2ABF80587;
-	Mon, 15 Jul 2024 16:47:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C16A0F805AD;
+	Mon, 15 Jul 2024 20:19:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 780D0F8026D; Mon, 15 Jul 2024 16:47:28 +0200 (CEST)
+	id B86E2F8007E; Mon, 15 Jul 2024 20:15:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6289DF800C1
-	for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2024 16:47:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6289DF800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id DC6F3F8007E
+	for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2024 20:12:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC6F3F8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=WYon193H;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ElJJ5NBV;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=vUoM+TPU;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=TjIiicax
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F333F1F824;
-	Mon, 15 Jul 2024 14:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721054836;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VMYHsb4JPaXBMphRvBiDbt57eaYUECrky+PkBFYHyFQ=;
-	b=WYon193Hz/F1GTiT9iOByyGZn71duKA/7AbiJ7QXGbTAA5vkiU1tj0M5ZOnCAN8jjXN5Yx
-	umxWg0fnaNZiMooCSY6o3dgqH27UpZTO/9FNSQ11HkAkji3Qum7Yp/yjBNRv13+z1j006/
-	8NG0aQ7HF2LyULxZD5bs2xHfFVwvb5M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721054836;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VMYHsb4JPaXBMphRvBiDbt57eaYUECrky+PkBFYHyFQ=;
-	b=ElJJ5NBVt9KmsC/Noco+jK2o4vm+hvENU5IPECCSms6IiCY6i0oMreoiLvbC3PcPCQUwnM
-	lHk7/+xEY+Ya4vCg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vUoM+TPU;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=TjIiicax
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721054835;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VMYHsb4JPaXBMphRvBiDbt57eaYUECrky+PkBFYHyFQ=;
-	b=vUoM+TPUA/1yJMe5QQ2PUfOIRz1Xdd3FLlxnG334c0IYiDIAcv7zcbK7oeHQgTKNjbYUEg
-	w/WCEUN08L4SQYibdJL5J/Qdu+f/SvMBk8595YxSfNJ8OQBNVfWx8pNyFW99lp9gRe5zbp
-	GxicCOgxfXGICnFvuqAbrGCAcVrYs1M=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721054835;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VMYHsb4JPaXBMphRvBiDbt57eaYUECrky+PkBFYHyFQ=;
-	b=TjIiicaxKBZRTH+X6R1vOs2N36QJ7JFefjlF9JVSzWKEUTj3SrBUawBUmTb+CXRFpcJZ+A
-	Wu3R6Wk+F1Q7uECw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D6CA51395F;
-	Mon, 15 Jul 2024 14:47:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YzXZM3I2lWZDbwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 15 Jul 2024 14:47:14 +0000
-Date: Mon, 15 Jul 2024 16:47:48 +0200
-Message-ID: <87plrevhij.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC updates for v6.11
-In-Reply-To: <aff174bfa9bc48c5a6fe0de9cc508249.broonie@kernel.org>
-References: <aff174bfa9bc48c5a6fe0de9cc508249.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: F333F1F824
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [0.49 / 50.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spamd-Bar: /
-Message-ID-Hash: Y3I2STUMYNV6WBMQKZYNKS3AOGOFW7FI
-X-Message-ID-Hash: Y3I2STUMYNV6WBMQKZYNKS3AOGOFW7FI
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Yiv7Ul2N
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 4D3FE60BA2;
+	Mon, 15 Jul 2024 18:12:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E91CC32782;
+	Mon, 15 Jul 2024 18:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1721067143;
+	bh=pLUCLcj5O7Hs2oy5g+ASmTVqngMsfK+KdVlmFvVar5w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Yiv7Ul2NS27UxVMf3NjfnzW9ZuxOHjXrHc+tH+VF6XZTqCPEp5pTCGzlRzA/RqL5f
+	 NdP6ljzkUmrqWhPjfC0uFEAskBuGLzDW84quwIJLDsHjn0cepStiIEBhB/fEo0ofSc
+	 f5Xy3ocpbDkDGr/1VNsWJadJuVCfEe9JPyNFh57tVlg5qUzO7DDEdghkquDaOXG7NH
+	 PXD5wgH7NfsoYbccRpFJmy/RMzmsej+HzfQuQJWXvduhuBMJAa8PV/xy0roPkkHvax
+	 co2QcNLePB5CDJwd4s7PIUwt+rP7PjFMzIw9l/gJrbGj2Iv7XdaKEv/r7/rRxwfKaf
+	 7SVGjW4wtFWyQ==
+Date: Mon, 15 Jul 2024 19:12:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+	zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
+	linux-kernel@vger.kernel.org, j-chadha@ti.com,
+	liam.r.girdwood@intel.com, jaden-yue@ti.com,
+	yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
+	henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, soyer@irl.hu,
+	Baojun.Xu@fpt.com, judyhsiao@google.com, navada@ti.com,
+	cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
+	savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com,
+	jesse-ji@ti.com, darren.ye@mediatek.com
+Subject: Re: [PATCH v1 1/2] ASoc: tas2781: Add TAS2563 into the Header
+Message-ID: <124ded12-330c-4a4a-814e-2dbf1b9b7ca3@sirena.org.uk>
+References: <20240713015145.314-1-shenghao-ding@ti.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="34Rj9qeN6Q5B9sxB"
+Content-Disposition: inline
+In-Reply-To: <20240713015145.314-1-shenghao-ding@ti.com>
+X-Cookie: You'll be sorry...
+Message-ID-Hash: 5UM2PLIKHZ3OBQO43PYULLCTG37C2QQA
+X-Message-ID-Hash: 5UM2PLIKHZ3OBQO43PYULLCTG37C2QQA
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y3I2STUMYNV6WBMQKZYNKS3AOGOFW7FI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5UM2PLIKHZ3OBQO43PYULLCTG37C2QQA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,41 +105,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 15 Jul 2024 16:14:20 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 680e126ec0400f6daecf0510c5bb97a55779ff03:
-> 
->   firmware: cs_dsp: Use strnlen() on name fields in V1 wmfw files (2024-07-08 15:55:11 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.11
-> 
-> for you to fetch changes up to c51cba4755609ad97ba97713210c16f043c73224:
-> 
->   Fix the unbalanced pm_runtime_enable in wcd937x-sdw (2024-07-12 17:38:18 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Updates for for v6.11
-> 
-> There are a lot of changes in here, though the big bulk of things is
-> cleanups and simplifications of various kinds which are internally
-> rather than externally visible.  A good chunk of those are DT schema
-> conversions, but there's also a lot of changes in the code.
-> 
-> Highlights:
-> 
->  - Syncing of features between simple-audio-card and the two
->    audio-graph cards so there is no reason to stick with an older
->    driver.
->  - Support for specifying the order of operations for components within
->    cards to allow quirking for unusual systems.
->  - New support for Asahi Kasei AK4619, Cirrus Logic CS530x, Everest
->    Semiconductors ES8311, NXP i.MX95 and LPC32xx, Qualcomm LPASS v2.5
->    and WCD937x, Realtek RT1318 and RT1320 and Texas Instruments PCM5242.
 
-Pulled now.  Thanks.
+--34Rj9qeN6Q5B9sxB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Sat, Jul 13, 2024 at 09:51:41AM +0800, Shenghao Ding wrote:
+> Add TAS2563 into the Header in case of misunderstanding.
 
-Takashi
+> @@ -64,8 +64,8 @@ static int tasdevice_change_chn_book(struct tasdevice_priv *tas_priv,
+>  			 */
+>  			ret = regmap_write(map, TASDEVICE_PAGE_SELECT, 0);
+>  			if (ret < 0) {
+> -				dev_err(tas_priv->dev, "%s, E=%d\n",
+> -					__func__, ret);
+> +				dev_err(tas_priv->dev, "%s, E=%d channel:%d\n",
+> +					__func__, ret, chn);
+>  				goto out;
+>  			}
+
+This is reasonable enough but doesn't match the changelog.
+
+--34Rj9qeN6Q5B9sxB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmaVZnwACgkQJNaLcl1U
+h9BeIggAgkYmHKZJ49Lm54AHQh4wEMi2FvlO+BiEd6YTMNcbNq2Zt3R5dCtbIoGE
+xSSbxV9/T6WbVdoTjPyXTRIlfZrhJ8VKtdD/+PoiXRtnJv1APcIfs/fDIxRkjxOV
+xBRCFrtzW66gIosKXGo2Z+BQ5t+JGzq5XBU3cNynqbSteNHnLSgAjNGaelvJX0wA
+/+mS8Cz4/9BBMhsokGT+goQhjPkqmxZ+ByK9LeDpplYjitJm/Xj1JvuUBeHmnf+V
+GiuZGsZf1867dV6dOkNiL3DKtUp6rMZJuiQSkRgCoL8NOSOZ80uPJ7GMKYRAw2RK
+7FOjSzQuaAJBuLBtT3Mfm0BHHzvOYw==
+=DS+E
+-----END PGP SIGNATURE-----
+
+--34Rj9qeN6Q5B9sxB--

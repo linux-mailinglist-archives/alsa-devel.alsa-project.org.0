@@ -2,234 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AEA4933A00
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 11:36:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E58CB933A02
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 11:36:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90C47AE8;
-	Wed, 17 Jul 2024 11:36:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90C47AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5526A1F1;
+	Wed, 17 Jul 2024 11:36:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5526A1F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721208980;
-	bh=sZoqRXetGTDJcFa32dEQS5bIWtE2/f8XZ2WfWKnQTnc=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=V7PdqNfzmzuQc1ID5LctC/kqXpENvNihA11NY4Jn6jGbIynfzQ/+Kz0PHB1UDpTgJ
-	 tCYIttGreGjvZrsYTO2MylwyCzaK83s1cMfRJrhHZMLbIoxEbvDmG4spexG6hDY8E/
-	 EZbQa8K/UlotpoAPELJ94E11GFHFzWkEHkUg8Vs8=
+	s=default; t=1721209001;
+	bh=A4sasep0wgFY/nol468aE8wUMXdmRa4J6+Hyubp4gQc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gAB4g+4MT2ViBu8NBuiznkAKNdmtAFgVed0ji14nUyhGwNX5L5DLU9D/ysvnVTBOA
+	 hSJ6QKr103f/9qHJdkBlZFxk3BWAjQTnSVR3qS/HD82S87HHV6b+1cYMNYXdWpfAtm
+	 npEbDGXNCpBi03M9Dz1EMRM+DjAtDmM+JRxBvU1I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EAC82F806AD; Wed, 17 Jul 2024 11:34:30 +0200 (CEST)
+	id B9EB4F805EF; Wed, 17 Jul 2024 11:35:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 876E7F806A9;
-	Wed, 17 Jul 2024 11:34:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B39A7F805FA;
+	Wed, 17 Jul 2024 11:35:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BF6AF801F5; Fri, 12 Jul 2024 10:00:05 +0200 (CEST)
+	id 92023F8026D; Tue, 16 Jul 2024 04:57:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2613::600])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5A588F800FE
-	for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2024 09:59:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A588F800FE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cs-soprasteria.com header.i=@cs-soprasteria.com
- header.a=rsa-sha256 header.s=selector1 header.b=0ttg/nx2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rbox0yNQiI6+rJyThackTfh0cMfZXYZWvX3fujejHtDwYSApLTWyQT1Kf+6LQf51+9dFhoflzz82kwc+r9A+y4Z07Ikej8X36Cpbof/8h6tUAaM060xrH+Bfti+f7a79A6KkWPMouU4GwFxqJe0r5ssNBoKyNEZiwT1NP5k2JFCgUQEToeCFzHQcObyEojVSIk16ieARPg84+k6kDT/itnTYXzePhMNDYjP5sKQmuYYtr127KMW/F2rmBxUpjNtPtHQ/LIIq/8dsDh191ObsYl6P/GKOvJascE5TF7Clv0EZbQwH7oJLIdOZku2Ca+rwdek1N0Z8+sD+Sk/e3G4MaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sZoqRXetGTDJcFa32dEQS5bIWtE2/f8XZ2WfWKnQTnc=;
- b=Cdx4j37z/gkKnFF7EFOqrCm9GrMtyGEismtvBA61QXlBc14poacH8Ir/zpyr5HlhSS4Yle6s55qWTZPNp0VxzUfU0CNXHjVmoeAArBb8w5gfOqjtoa/+i+D5pf27ziW/V5oEFAGLau/QySiEWNcWBE9Hpo571pqPI4qRJAx2acs5Obyjo7BIIm7Md/Pfl/e242eha8WaTWP1DJaKHSVaw+9+z2Nu9d3MT+gk3pKjeOxTraGf40+91+881pKv+wD3e0G3/hsC+cPMPKS8xgPslicbhDaRY/V+SNVeILgeC3EkOa8U+y36NZ05x9UMpmuKMUxul2pU7HiHi+izNGEpQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cs-soprasteria.com; dmarc=pass action=none
- header.from=cs-soprasteria.com; dkim=pass header.d=cs-soprasteria.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs-soprasteria.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sZoqRXetGTDJcFa32dEQS5bIWtE2/f8XZ2WfWKnQTnc=;
- b=0ttg/nx2RB2AZWVFz38eAyDIZjZ38RYk+xlybAB72BzD5BJs1HQOTAkP6ofoMnXVvjUibLvj69A8w5mgy88oMPuizIlEMbSsqnVeCc/KzNJRHGT212BWVeFplxGmHH5A+Im2uEm0WBsZjQO4NwUi6GbOq3OplKX+Q5G3WjuBBBtGl+e/YqF5KpQMteIFi/+0liwmP1XTwO5twfI9owu2jtUYm0gFr3P7Pmnke7z8h4r5ULPquaG5YHwOfz0HdSFHrHrb02Ny6Dlx+2JAwr01LZpSvZwYxnsUBuR5R5IlufIeNthK4icWED3lVNGBjYzO8FfQNz9YgNgdo+qrz6A15w==
-Received: from AM0PR07MB4962.eurprd07.prod.outlook.com (2603:10a6:208:f3::19)
- by DU0PR07MB8417.eurprd07.prod.outlook.com (2603:10a6:10:351::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.19; Fri, 12 Jul
- 2024 07:59:44 +0000
-Received: from AM0PR07MB4962.eurprd07.prod.outlook.com
- ([fe80::6724:2919:9cbb:2bb2]) by AM0PR07MB4962.eurprd07.prod.outlook.com
- ([fe80::6724:2919:9cbb:2bb2%7]) with mapi id 15.20.7784.005; Fri, 12 Jul 2024
- 07:59:43 +0000
-From: LEROY Christophe <christophe.leroy2@cs-soprasteria.com>
-To: Michael Ellerman <mpe@ellerman.id.au>, Mark Brown <broonie@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Qiang Zhao <qiang.zhao@nxp.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, Nicolin
- Chen <nicoleotsuka@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, Christophe Leroy <christophe.leroy@csgroup.eu>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, Thomas Petazzoni
-	<thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 07/10] soc: fsl: cpm1: qmc: Introduce functions to get
- a channel from a phandle list
-Thread-Topic: [PATCH v2 07/10] soc: fsl: cpm1: qmc: Introduce functions to get
- a channel from a phandle list
-Thread-Index: AQHay6pNvsbN6VJe70a8MonTZyE2rLHlgUWAgABkS4CADOYDgA==
-Date: Fri, 12 Jul 2024 07:59:43 +0000
-Message-ID: <9423930f-8cb8-4b31-927f-a93b1006fb18@cs-soprasteria.com>
-References: <20240701113038.55144-1-herve.codina@bootlin.com>
- <20240701113038.55144-8-herve.codina@bootlin.com>
- <a8c44188-d5d8-445d-9d64-bbfce6b1b628@sirena.org.uk>
- <87a5ixkghq.fsf@mail.lhotse>
-In-Reply-To: <87a5ixkghq.fsf@mail.lhotse>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla Thunderbird
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cs-soprasteria.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM0PR07MB4962:EE_|DU0PR07MB8417:EE_
-x-ms-office365-filtering-correlation-id: 1dbade5b-1b94-4fef-11ce-08dca2489726
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: 
- BCL:0;ARA:13230040|7416014|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info: 
- =?utf-8?B?OFdZMDM4MVF2ZE9QdTQrYzFvMkhzT2ZJWURiT1laQkc3S3pJL3lJcEFxNkpl?=
- =?utf-8?B?TG9KYUp2OXdyWW9mb29xUWc2MDBSUk0xeDJFZDFuLzAwb0NoSk5OeVQ4QnpI?=
- =?utf-8?B?RjdWQ3F0eDQ1SkxIbFZrQUU5a0xDQVVlNlNURDE2ek9lRnVUQUMyZHIzdFpY?=
- =?utf-8?B?dnRuV25IZkpHc2Y3eVpSdFBnTElwSHhUUjEwOUdSRFJBNkFUWjJQY3EvTk9E?=
- =?utf-8?B?ODIyZlVuY00vVFhCVEpOaElzaFpCNjdJcURNdllFcVUrbTBGZHo2VVlaeXIy?=
- =?utf-8?B?enlNY2VDMC8yOVU4UXZ2QXUwSnBKNVlNRkI4TnZUUFo1SjNkc0RTNGV3WWIy?=
- =?utf-8?B?SitPdzZNZjZHdytscVVPWFhobjYyc2owTlZZUEt2TGFKYjNnTXJtM215T1ps?=
- =?utf-8?B?T2JWK1BqTjlrNTZ3T3FaVk5UUGo1MDZtUXhwRCtxTGUzWkd6cXNJZ1ZRc1pR?=
- =?utf-8?B?bzBBSE96U2NxWTUxYWlsQWFqZ0MyVUdzbVJST1hnSkQ5U0FJSTNvejZjV0pi?=
- =?utf-8?B?eFd5MjFNZGMyaS93S0RQa2ovR0QzMnlGbkYvUDA2V2ZZZEcvRWVnV1liUVB4?=
- =?utf-8?B?aVo0MzFkSFIxNi8zVWJ3T2x3OVhJcW1Da0dtMlkxVWhnNDlaR1hJVCtzd29G?=
- =?utf-8?B?Z21PNzRNMXZibGtZRENjNWd3TjZqd0dmMmx0TlNhV0JUTExJbmV6T0tKMjls?=
- =?utf-8?B?dzhWeTVEVlZudzRlZHJkQ25mVzEzOWg1cy8xeXMvajlkcXVkZGZOY2toZGhE?=
- =?utf-8?B?Z1gvNDZJZEpNaGEwM2d6NzA3d1Mzc01wbmRSZUoyYzdodEdmM0hpenY3M25F?=
- =?utf-8?B?eVZaRkhsRmFVOTZ0aGM1d1RWY2o0ellsak9SQ1hPV2FpeGo0V1EyRzVnNGx2?=
- =?utf-8?B?REs1UUgvbW10dm5BalNYSEVOODVYWFVTYjJqU0FNelVMaTQ0WHJ5Ymx2bks4?=
- =?utf-8?B?TGttNkdEbnBjUFAxUE9kSEIxSmtqWisrcDY2dGtUY2VNN0VqYWxtTDlEZWsr?=
- =?utf-8?B?MndqdVBFZTVCbkVVYjgrUzdKbGZ5WmY1SzRwa2JPcVI4b0pFMUoxMjNyUGFT?=
- =?utf-8?B?NHRRR2pGODJjUDgzUDZ1YTROeWNUZ0lONGI0cUdURGh4RXlRbWd4SkZCSVZs?=
- =?utf-8?B?Ny90TmZSRm1qZ0tUSmlLUkQ0LzdBck5tb3E0eDhsUmhJYlY3QndaYWZnVmM2?=
- =?utf-8?B?dWdMS0RXd20vMzdhZjE5VDFyVkNnTW4wenlWWXVobFpnSTRFeVcwR2xlUkRQ?=
- =?utf-8?B?MUVHekgxSDBNazdNRW14OFlobTRsalBDSDlWTU9IUlYrQVVrelhjdmNHTlc2?=
- =?utf-8?B?cGRMcGMxYmVvYUVKSVlTZEp3UHdxZy9jY3U2Rnl0SlJwWEZWM2NGNzAwMHlO?=
- =?utf-8?B?eVhGb3RzZWxjSDRNd1FYTThuMy9PQ25HMzNBNTNOR2NYMU0zRzlZclhiNWRR?=
- =?utf-8?B?ckgxMExoVTRNY3pVRzY3ZkVFV3U1Q3c3cjZHQm1mTWw4c0ZZZS9WeTIvY0Vh?=
- =?utf-8?B?UVdZSDJyVlY2WU9yQ0tCL2QwSXRKRFAwbnR1MndVS3FBNmFpYVZxWCtWM05G?=
- =?utf-8?B?aFRyemhqR0xrK3hMTWRaUUtma01BVkNDbkVqa3pjZU9UdmRhcFc0WUFmeE1q?=
- =?utf-8?B?aVJsSnIxeFpxNTByUVFIUUsrQ09FRmJtRmp3UkNFQURubFF2UTA2UmFXQ2JR?=
- =?utf-8?B?eHJjY3ZGZ3IwVmV4NmpqS01IcjZDNWNURmcyMXZHNUE4WmFLcXdIR1NtVVAy?=
- =?utf-8?B?R2RzVk82UDBvOEZWZm05bStRQVJOK3JaOUJ1ZlFnZmZKa29wT0t0d2ZjZW1B?=
- =?utf-8?Q?2Wzpb7xBvCPiQTSSJqjb7bE9UfzTidk8SD40w=3D?=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR07MB4962.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?cERadG9rNVN1NG5TaCtYbFU5WEUrdUplWitmK0FTSFdtZGRuYXVXSHpHR2lI?=
- =?utf-8?B?ZEIrTHdKdzJ2a25YV243dXZVeHdmRUJRU1VnbGw3eUVzc3EyUmxJV3JkVnFy?=
- =?utf-8?B?Ly9LQ1p4Y3ZONzBjaTZ0cjhtYldlVE4zdG01REs3UDlMUU9FWENEOEsrNkF3?=
- =?utf-8?B?ZGgyT2tYRDBaUFZRZlF1UldsRm1qSENLK2NkNjlXVlU5UGU2ZDRBWHNDdDY4?=
- =?utf-8?B?ZnBhRHlvVmR1d05nUmJ6T3Z1MjZVUFp1V0xyQkdoSWRrQ0tiZCtwY2JWcy9L?=
- =?utf-8?B?MkcxNTltZVNCcm4rZUhOT3dDUnNqai80R2RrS0h5aHhOQ3VRbGc5d2lZQU9X?=
- =?utf-8?B?VVhoM29qRGN4NWxCQWhqcTlSVXh2K1FwUUprMWxtTXJwS0dnditjYkNidkR4?=
- =?utf-8?B?bStUa01YRnAra0N1WGpwZ3ZwVGs2UGxQQmhjT3RMRHMweHVVNG41d3l3dzBo?=
- =?utf-8?B?VVBKVW5JdllUQ0NRMkFmamo0eWtvU0t4ZVFpZlM4M0FwV2J6cW5Td2RGaWNl?=
- =?utf-8?B?ZUZoMkZaemFlaGFMN3U4ODZLZHVEQ21PTEtqL2l2RktvdDgyeWVzWmtEcU8r?=
- =?utf-8?B?d3FybXkwVGh1eFZ5OXdUYjRacTM4eUU0elVFNEFEVXBHemxoL2VjT29YaVZI?=
- =?utf-8?B?cHBDQThDZVZvZmdKQUNOS1dWT1B4OXZEanFaZ0JlVXlkbllIcHVpVmNENjlI?=
- =?utf-8?B?VFNONFo1aVBRTkpVeGxSNXdQU080ZXNYZjh1T1JuSGgwYlZZbHloM1JwRHNz?=
- =?utf-8?B?Z0lKL2FISFQzQkRoVitOQUVJU3o4c0ZLNGU4RlpXeXBhOFBWSWY4VXA0b054?=
- =?utf-8?B?dUtiTnllQmxXdVNZcHZLbmMraUQyR0FEL2FaNVVBeEhGcmxMMU15R1pYN29P?=
- =?utf-8?B?anhGZlhUb00wODlaUzlFTnlZNkRSdWRWcjc3dDFsNlFZMHdPaW9tT3NPOVFF?=
- =?utf-8?B?RzNDM3YyVHVKcGhockdJbi80SzcxVjBTakNXcDUxQytHeEhzRnM3Y1AwSjJn?=
- =?utf-8?B?SW5sMURud3dyQVNaTDZuZjNFMWppNkovQkcrK0I5MHU2VWJJMi9NSnh2ZmxZ?=
- =?utf-8?B?UVQwTmFBbVZLSUhlSVNVSUNHYUFOWEN5QmZmT2dVQk85S0syeUFMNmdiQ2hz?=
- =?utf-8?B?eTNOYXY1WWxKK2JES0E4ZWtZbk5uQVJUQmMwajducUtCTFBTbUhIRURXeGd6?=
- =?utf-8?B?M014cVRUVUNPZkwvdm9rQ0pYVWc2QUpXbklNRmhyOGZ0RmNZU2o4T2kvYWVZ?=
- =?utf-8?B?ZUVjU1p2dnJuYnFQZ0ZOYkVORlNCMmRWc3g0bzVDWDI3TTVWd05qczZpcC9t?=
- =?utf-8?B?N1hnUUZzOXJ2cDJyMnpUV3FXQjdlcnM1bzVabzAwaFo1MENub0tOalFJbS9x?=
- =?utf-8?B?Z2d0c1UwaGlHM2pYZFNlY1JTc1RxUStNVWFuMkVnSjJlTFdkN3M3YzFQMlNI?=
- =?utf-8?B?ZGdyQUZaTFpWd2FWenR0bFhVYmNPVFlHRlhHRHNURGZxZmJDYzM4Nmk5OEU5?=
- =?utf-8?B?TmlaZk56Rm9NYkQrSUkwSEFMMFJldFEvVVE5djFCMjBkRG54Z0Uvank4YWk5?=
- =?utf-8?B?SEIxaUJGTUtpdVFkUnNYbVBOYk1EdVZDeWF1YldJaDY1ZnJ2NHRoUlh2T0JL?=
- =?utf-8?B?NURGcnIxbnVTdWI5WkRtSHpXbGViM0w1NjJ1V2UySm1HM25hK2s0dmJEdENY?=
- =?utf-8?B?ZmdXNU1KZzVSQVJJWDgzYzFoUHZaaVRmWVBjcS9PV25XSXhTcmxmWHN3QklD?=
- =?utf-8?B?S2tMQjhDRG1KRmtRU2ZHREpyUWRIYUtzOVBsVVZzOTdRaCsrZFZiQlVlbUJk?=
- =?utf-8?B?UVdveVVKaGROZzVzdFJXelRhVEFkV0ErMmxlallkaTNpRnlCeTdPQ0ZUWUxE?=
- =?utf-8?B?SWxZT1Mramx4K0JLc05MU3k2NUpNcmVMNFJQdU0zTkRCTng2VWpEaTB2QlV0?=
- =?utf-8?B?bDNHYnYwL1Q2UnZFMmZlRDdOK0FDSEdHZzRQV0JxUlhRbDBlZi95QmhXVjNC?=
- =?utf-8?B?R2g4QXZWN1l5a3BNQ3RnLzlKeWJrUkZwMTNlRTJOWVQ1VS9yS2h0Vzk1dVp4?=
- =?utf-8?B?OVBwMXZoaTVkMVNoYXlMOUd2QndRdWQwQklUekk0OWpuclhFeGhBbXF4L2pP?=
- =?utf-8?B?ZW1RZHltREtLRWkvR1NDbW9uNi9PWkpkM0I3ZlgxV0VVZ01NU0tNZ20zaVZ0?=
- =?utf-8?B?cHc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <7C67D9FDF9F7D840A9ACBA50C319D5B7@eurprd07.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9025AF8007E
+	for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2024 04:55:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9025AF8007E
+Received: from localhost (unknown [124.16.138.129])
+	by APP-05 (Coremail) with SMTP id zQCowADX37cv4ZVm2umMAw--.46434S2;
+	Tue, 16 Jul 2024 10:55:43 +0800 (CST)
+From: Chen Ni <nichen@iscas.ac.cn>
+To: david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	pierre-louis.bossart@linux.intel.com,
+	sbinding@opensource.cirrus.com
+Cc: alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen Ni <nichen@iscas.ac.cn>
+Subject: [PATCH] ASoC: cs42l42: Convert comma to semicolon
+Date: Tue, 16 Jul 2024 10:53:07 +0800
+Message-Id: <20240716025307.400156-1-nichen@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-OriginatorOrg: cs-soprasteria.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR07MB4962.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 1dbade5b-1b94-4fef-11ce-08dca2489726
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jul 2024 07:59:43.6907
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8b87af7d-8647-4dc7-8df4-5f69a2011bb5
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- kAveYCrtHa7JZbKQzVPrzKNCx6AbP+PkObvVlfPwiyu5oGqWEYJGe03xwfWDqc9fTSJpJrUQGHKTJ9Qf4qXHLxxBBqEbk8B5Z8Si84JZbCiEk43xIIjSs+yaPZsNy1qg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR07MB8417
-X-MS-Exchange-CrossPremises-AuthAs: Internal
-X-MS-Exchange-CrossPremises-AuthMechanism: 04
-X-MS-Exchange-CrossPremises-AuthSource: 
- AM0PR07MB4962.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossPremises-TransportTrafficType: Email
-X-MS-Exchange-CrossPremises-SCL: 1
-X-MS-Exchange-CrossPremises-messagesource: StoreDriver
-X-MS-Exchange-CrossPremises-BCC: 
-X-MS-Exchange-CrossPremises-originalclientipaddress: 93.17.236.2
-X-MS-Exchange-CrossPremises-transporttraffictype: Email
-X-MS-Exchange-CrossPremises-antispam-scancontext: 
- DIR:Originating;SFV:NSPM;SKIP:0;
-X-MS-Exchange-CrossPremises-processed-by-journaling: Journal Agent
-X-OrganizationHeadersPreserved: DU0PR07MB8417.eurprd07.prod.outlook.com
-X-MailFrom: christophe.leroy2@cs-soprasteria.com
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowADX37cv4ZVm2umMAw--.46434S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Jw4UZF15Wry8AF4rXF4UCFg_yoW8JF1fpa
+	1q9a95Z3yfJw47Z3sYyr1DW3W8GFWjka17Ary7Ga90ywnIqF9YqF1xAFsrJF9xJFyjkFZx
+	XFyaqr45Crn0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbZ2-5UUUUU==
+X-Originating-IP: [124.16.138.129]
+X-CM-SenderInfo: xqlfxv3q6l2u1dvotugofq/
+X-MailFrom: nichen@iscas.ac.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 7GMBAJOPXHJHTZABWDCPDT2P67OYA4PY
-X-Message-ID-Hash: 7GMBAJOPXHJHTZABWDCPDT2P67OYA4PY
-X-Mailman-Approved-At: Wed, 17 Jul 2024 09:34:17 +0000
+Message-ID-Hash: 4XUM7F3A7BMAHVYLWDCYKDI7AUZVNPAQ
+X-Message-ID-Hash: 4XUM7F3A7BMAHVYLWDCYKDI7AUZVNPAQ
+X-Mailman-Approved-At: Wed, 17 Jul 2024 09:35:11 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7GMBAJOPXHJHTZABWDCPDT2P67OYA4PY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4XUM7F3A7BMAHVYLWDCYKDI7AUZVNPAQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -238,31 +103,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQoNCkxlIDA0LzA3LzIwMjQgw6AgMDU6MDEsIE1pY2hhZWwgRWxsZXJtYW4gYSDDqWNyaXTCoDoN
-Cj4gTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPiB3cml0ZXM6DQo+PiBPbiBNb24sIEp1
-bCAwMSwgMjAyNCBhdCAwMTozMDozNFBNICswMjAwLCBIZXJ2ZSBDb2RpbmEgd3JvdGU6DQo+Pj4g
-cW1jX2NoYW5fZ2V0X2J5cGhhbmRsZSgpIGFuZCB0aGUgcmVzb3VyY2UgbWFuYWdlZCB2ZXJzaW9u
-IHJldHJpZXZlIGENCj4+PiBjaGFubmVsIGZyb20gYSBzaW1wbGUgcGhhbmRsZS4NCj4+Pg0KPj4+
-IEV4dGVuZCB0aGUgQVBJIGFuZCBpbnRyb2R1Y2UgcW1jX2NoYW5fZ2V0X2J5cGhhbmRsZXNfaW5k
-ZXgoKSBhbmQgdGhlDQo+Pj4gcmVzb3VyY2UgbWFuYWdlZCB2ZXJzaW9uIGluIG9yZGVyIHRvIHJl
-dHJpZXZlIGEgY2hhbm5lbCBmcm9tIGEgcGhhbmRsZQ0KPj4+IGxpc3QgdXNpbmcgdGhlIHByb3Zp
-ZGVkIGluZGV4IHRvIGlkZW50aWZ5IHRoZSBwaGFuZGxlIGluIHRoZSBsaXN0Lg0KPj4NCj4+IFRo
-ZXNlIHR3byBQb3dlclBDIHBhdGNoZXMgc2VlbSB0cml2aWFsIGVub3VnaCBhbmQgaGF2ZSBnb3Qg
-bm8gcmVzcG9uc2UsDQo+PiB1bmxlc3Mgc29tZW9uZSBvYmplY3RzIEknbGwgZ28gYWhlYWQgYW5k
-IGFwcGx5IHRoZW0uDQo+IA0KPiBBY2suDQo+IA0KPiBNQUlOVEFJTkVSUyBzYXlzOg0KPiANCj4g
-RlJFRVNDQUxFIFFVSUNDIEVOR0lORSBMSUJSQVJZDQo+IE06ICAgICAgUWlhbmcgWmhhbyA8cWlh
-bmcuemhhb0BueHAuY29tPg0KPiBMOiAgICAgIGxpbnV4cHBjLWRldkBsaXN0cy5vemxhYnMub3Jn
-DQo+IFM6ICAgICAgTWFpbnRhaW5lZA0KPiBGOiAgICAgIGRyaXZlcnMvc29jL2ZzbC9xZS8NCj4g
-RjogICAgICBpbmNsdWRlL3NvYy9mc2wvcWUvDQo+IA0KPiBCdXQgSSBzZWUgbm8gZW1haWwgZnJv
-bSB0aGF0IGFkZHJlc3Mgc2luY2UgSmFudWFyeSAyMDIxOg0KPiANCj4gICAgaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvYWxsLz9xPWYlM0FxaWFuZy56aGFvJTQwbnhwLmNvbQ0KPiANCj4gQW5kIGFj
-dHVhbGx5IGRyaXZlcnMvc29jL2ZzbCB3YXMgbWFya2VkIG9ycGhhbiBpbiBBcHJpbCwgbWF5YmUg
-dGhpcw0KPiBzaG91bGQgYmUgYWxzby4NCj4gDQo+IE9yIGRvZXMgSGVydmUgd2FudCB0byB0YWtl
-IG92ZXIgbWFpbnRhaW5pbmcgaXQ/DQoNCldlIGhhZCBzb21lIGRpc2N1c3Npb24gYWJvdXQgdGhh
-dCBpbiBBcHJpbCwgc2VlIA0KaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXhwcGMtZGV2LzIw
-MjQwMjE5MTUzMDE2Lm50bHRjNzZicGh3cnY2aG5Ac2tidWYvVC8jbWY2ZDRhNWVlZjc5ZThlYWU3
-YWUwNDU2YTI3OTRjMDFlNjMwYTY3NTYNCg0KSGVydsOpIGhhcyBzb21lIG9mIG91ciBoYXJkd2Fy
-ZSBmb3IgYSBsaW1pdGVkIHBlcmlvZCBvZiB0aW1lIGJlY2F1c2UgaGUgDQppcyBkb2luZyBzb21l
-IGltcGxlbWVudGF0aW9uIGZvciB1cywgYnV0IGhlIHdvbid0IGtlZXAgdGhhdCBoYXJkd2FyZSBv
-biANCnRoZSBsb25nIHJ1bi4NCg0KSSB3aWxsIHNlbmQgYSBwYXRjaCB0byB0YWtlIG92ZXIgbWFp
-bnRhaW5pbmcgZHJpdmVycy9zb2MvZnNsLw0KDQpDaHJpc3RvcGhlDQo=
+Replace a comma between expression statements by a semicolon.
+
+Fixes: 90f6a2a20bd2 ("ASoC: cs42l42: Add SoundWire support")
+Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+---
+ sound/soc/codecs/cs42l42-sdw.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/sound/soc/codecs/cs42l42-sdw.c b/sound/soc/codecs/cs42l42-sdw.c
+index 94a66a325303..29891c1f6bec 100644
+--- a/sound/soc/codecs/cs42l42-sdw.c
++++ b/sound/soc/codecs/cs42l42-sdw.c
+@@ -323,15 +323,15 @@ static int cs42l42_sdw_read_prop(struct sdw_slave *peripheral)
+ 	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+ 
+ 	/* DP1 - capture */
+-	ports[0].num = CS42L42_SDW_CAPTURE_PORT,
+-	ports[0].type = SDW_DPN_FULL,
+-	ports[0].ch_prep_timeout = 10,
++	ports[0].num = CS42L42_SDW_CAPTURE_PORT;
++	ports[0].type = SDW_DPN_FULL;
++	ports[0].ch_prep_timeout = 10;
+ 	prop->src_dpn_prop = &ports[0];
+ 
+ 	/* DP2 - playback */
+-	ports[1].num = CS42L42_SDW_PLAYBACK_PORT,
+-	ports[1].type = SDW_DPN_FULL,
+-	ports[1].ch_prep_timeout = 10,
++	ports[1].num = CS42L42_SDW_PLAYBACK_PORT;
++	ports[1].type = SDW_DPN_FULL;
++	ports[1].ch_prep_timeout = 10;
+ 	prop->sink_dpn_prop = &ports[1];
+ 
+ 	return 0;
+-- 
+2.25.1
+

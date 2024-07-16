@@ -2,98 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B297932223
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2024 10:44:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05182932228
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2024 10:45:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50C65857;
-	Tue, 16 Jul 2024 10:44:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50C65857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32B67847;
+	Tue, 16 Jul 2024 10:45:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B67847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721119450;
-	bh=+cb+A396TX01g/+krPAkegLsduwSJBAoVPNUU5Z37no=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=S4IJc1AqZAQynuzGE3koBrlkKPzRnpb3jgHUG+6d3shDIwpjm298MjbMQBnWzrGlm
-	 CLnQl0rxp03lQ3rn3TNWHyE4PRhTCdA5IFYu94iZHw36/xx26V60R3l+2M+0kIdsYG
-	 3Da6Y1J3LV79oAJoAOCvw0ETiTpMvICHy+ZyUbUM=
+	s=default; t=1721119516;
+	bh=JsYVBSqNJXb2eN7XVFd49oK43QNpzg06jT/gd82/Sek=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Y7Nr2AJeXKaOp7CwDVMmfwxCnSOd3ZzGmuzcBj3pDHJe1CO/GxoV7eH4g4wq4vQI5
+	 Hk/FaNqQlM+V37CYHJhaF6shihVEU6DY7Z3ZWBCGXOqCBo8tZXjGwB3Ahbw6Gq/tpE
+	 BLIwYVIhaMQVpdv4WCKLF/i9Tb/l0+oPmoWpma3Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF216F805B5; Tue, 16 Jul 2024 10:43:38 +0200 (CEST)
+	id 28C85F80528; Tue, 16 Jul 2024 10:44:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BC8DF805A1;
-	Tue, 16 Jul 2024 10:43:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52293F805AF;
+	Tue, 16 Jul 2024 10:44:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1BAAF8026D; Tue, 16 Jul 2024 10:39:58 +0200 (CEST)
+	id 89586F8026D; Tue, 16 Jul 2024 10:40:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 982A4F800C1
-	for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2024 10:39:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 982A4F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 94C20F8007E
+	for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2024 10:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94C20F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Gq2vRck/
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 46G4hlA9004722;
-	Tue, 16 Jul 2024 03:39:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=ITk2kB8sB5irsmZZA3IWAt7qcuvh9CDhBEbjd9TVeBs=; b=
-	Gq2vRck/Wc9wYqV7eTMmO+E3SpDVljLtpleVSPMImSgY/I4HhEASKihLW6QwD+Nd
-	ai2OI5iikP0hq+P/pZhfPZeXSVdiZsd4hX0wJb5oJqtuBEWkZgbOBQhDF51yuHSD
-	38F8jxO8C9qhjXkV98aoqcvc4A6/jeg7ODvo1Lnrf43li7FU7Ve0/Pn/JuV6+p/v
-	QgqU7V+zuOg6Y3fZxlKCcc4FBUIRHgPz7sJYCWTv78J/HAQpwN5eUyN3ZhCgveRb
-	4LlEo4Jw33TFDt+R0yjeRT0y/u/E3v+j6sGJut4o0lRd2gCRtiJL65VAhL8sjfoI
-	5K0iptwj7xZ0F900KuvvGQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 40bp0jjrcp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 16 Jul 2024 03:39:49 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 16 Jul
- 2024 09:39:47 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Tue, 16 Jul 2024 09:39:47 +0100
-Received: from [198.90.208.18] (ediswws06.ad.cirrus.com [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 4258D820244;
-	Tue, 16 Jul 2024 08:39:47 +0000 (UTC)
-Message-ID: <f551bffd-43f1-4162-9eaa-aac64ab227d0@opensource.cirrus.com>
-Date: Tue, 16 Jul 2024 09:39:47 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IkE1h69Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1721119235; x=1752655235;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=JsYVBSqNJXb2eN7XVFd49oK43QNpzg06jT/gd82/Sek=;
+  b=IkE1h69ZuHv/8zR9dMxufmOsXBmZc5JuNTLPV7X3IeIqH5r8MIvMD+FO
+   U+312xt7KkKz1CcYBfTeUWT9GNyP4ufhttvfE8kkxRhoBrei8hBsXJHO8
+   96RDmF4Bt5PAbSuxgsBMBhkaqZ6intXY1U+yx9oFrf1e59Qpcok86XNsk
+   dtoW8Nxwf0xr84JPlqyEPDbe3krg7gIPXRKsLPZgwAK9vjI+UfdaHqcrs
+   7IetBC18s1r7stHjUqVc2cQWb4K4PHW9xJD4xpPtr5axZJXLEq38KqQ4v
+   YJNCmB+Yh856MJyKaL/pZvVANfaefRB4VvI4vvkKjPVXeC/cKKdOAKVdu
+   Q==;
+X-CSE-ConnectionGUID: ujl2kTB/Tji5n44JXLmx+Q==
+X-CSE-MsgGUID: F63FURjQRCCr65hwsJBawg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11134"; a="18490425"
+X-IronPort-AV: E=Sophos;i="6.09,211,1716274800";
+   d="scan'208";a="18490425"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2024 01:40:29 -0700
+X-CSE-ConnectionGUID: qbor9/xXTym7nDwLh98bBA==
+X-CSE-MsgGUID: q6BdUxXVQWqBwYorVa1H1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,211,1716274800";
+   d="scan'208";a="49682065"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO
+ pbossart-mobl6.intel.com) ([10.245.246.211])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2024 01:40:26 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: linux-sound@vger.kernel.org
+Cc: alsa-devel@alsa-project.org,
+	tiwai@suse.de,
+	broonie@kernel.org,
+	Curtis Malainey <cujomalainey@chromium.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH] ASoC: Intel: Fix RT5650 SSP lookup
+Date: Tue, 16 Jul 2024 10:40:12 +0200
+Message-ID: <20240716084012.299257-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: cs42l42: Convert comma to semicolon
-To: Chen Ni <nichen@iscas.ac.cn>, <david.rhodes@cirrus.com>,
-        <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
-        <tiwai@suse.com>, <pierre-louis.bossart@linux.intel.com>,
-        <sbinding@opensource.cirrus.com>
-CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20240716025307.400156-1-nichen@iscas.ac.cn>
-Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20240716025307.400156-1-nichen@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: OGq9hTF291lQclwBhHxKYphq6Eq1Plre
-X-Proofpoint-ORIG-GUID: OGq9hTF291lQclwBhHxKYphq6Eq1Plre
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: ZIBIQANNO6UWJZTGOFQH3TPOBFW722R7
-X-Message-ID-Hash: ZIBIQANNO6UWJZTGOFQH3TPOBFW722R7
-X-MailFrom: prvs=49271bd683=rf@opensource.cirrus.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: DP64IHPLIFCFTXL6VCBLBHIUA4XEMLCM
+X-Message-ID-Hash: DP64IHPLIFCFTXL6VCBLBHIUA4XEMLCM
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZIBIQANNO6UWJZTGOFQH3TPOBFW722R7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DP64IHPLIFCFTXL6VCBLBHIUA4XEMLCM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,39 +109,141 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 16/07/2024 03:53, Chen Ni wrote:
-> Replace a comma between expression statements by a semicolon.
-> 
-> Fixes: 90f6a2a20bd2 ("ASoC: cs42l42: Add SoundWire support")
-> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
-> ---
->   sound/soc/codecs/cs42l42-sdw.c | 12 ++++++------
->   1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/cs42l42-sdw.c b/sound/soc/codecs/cs42l42-sdw.c
-> index 94a66a325303..29891c1f6bec 100644
-> --- a/sound/soc/codecs/cs42l42-sdw.c
-> +++ b/sound/soc/codecs/cs42l42-sdw.c
-> @@ -323,15 +323,15 @@ static int cs42l42_sdw_read_prop(struct sdw_slave *peripheral)
->   	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
->   
->   	/* DP1 - capture */
-> -	ports[0].num = CS42L42_SDW_CAPTURE_PORT,
-> -	ports[0].type = SDW_DPN_FULL,
-> -	ports[0].ch_prep_timeout = 10,
-> +	ports[0].num = CS42L42_SDW_CAPTURE_PORT;
-> +	ports[0].type = SDW_DPN_FULL;
-> +	ports[0].ch_prep_timeout = 10;
->   	prop->src_dpn_prop = &ports[0];
->   
->   	/* DP2 - playback */
-> -	ports[1].num = CS42L42_SDW_PLAYBACK_PORT,
-> -	ports[1].type = SDW_DPN_FULL,
-> -	ports[1].ch_prep_timeout = 10,
-> +	ports[1].num = CS42L42_SDW_PLAYBACK_PORT;
-> +	ports[1].type = SDW_DPN_FULL;
-> +	ports[1].ch_prep_timeout = 10;
->   	prop->sink_dpn_prop = &ports[1];
->   
->   	return 0;
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+From: Curtis Malainey <cujomalainey@chromium.org>
+
+Commit 8efcd4864652 ("ASoC: Intel: sof_rt5682: use common module for
+sof_card_private initialization") migrated the pin assignment in the
+context struct up to soc-acpi-intel-ssp-common.c. This uses a lookup
+table to see if a device has a amp/codec before assigning the pin. The
+issue here arises when combination parts that serve both (with 2 ports)
+are used.
+
+sysfs: cannot create duplicate filename '/devices/pci0000:00/0000:00:1f.3/adl_rt5682_def/SSP0-Codec'
+CPU: 1 PID: 2079 Comm: udevd Tainted: G     U             6.6.36-03391-g744739e00023 #1 3be1a2880a0970f65545a957db7d08ef4b3e2c0d
+Hardware name: Google Anraggar/Anraggar, BIOS Google_Anraggar.15217.552.0 05/07/2024
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x69/0xa0
+ sysfs_warn_dup+0x5b/0x70
+ sysfs_create_dir_ns+0xb0/0x100
+ kobject_add_internal+0x133/0x3c0
+ kobject_add+0x66/0xb0
+ ? device_add+0x65/0x780
+ device_add+0x164/0x780
+ snd_soc_add_pcm_runtimes+0x2fa/0x800
+ snd_soc_bind_card+0x35e/0xc20
+ devm_snd_soc_register_card+0x48/0x90
+ platform_probe+0x7b/0xb0
+ really_probe+0xf7/0x2a0
+ ...
+kobject: kobject_add_internal failed for SSP0-Codec with -EEXIST, don't try to register things with the same name in the same directory.
+
+The issue is that the ALC5650 was only defined in the codec table and
+not the amp table which left the pin unassigned but the dai link was
+still created by the machine driver.
+
+Also patch the suffix filename code for the topology to prevent double
+suffix names as a result of this change.
+
+Fixes: 8efcd4864652 ("ASoC: Intel: sof_rt5682: use common module for sof_card_private initialization")
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ .../intel/common/soc-acpi-intel-ssp-common.c  |  9 ++++
+ sound/soc/sof/intel/hda.c                     | 49 ++++++++++---------
+ 2 files changed, 34 insertions(+), 24 deletions(-)
+
+diff --git a/sound/soc/intel/common/soc-acpi-intel-ssp-common.c b/sound/soc/intel/common/soc-acpi-intel-ssp-common.c
+index 75d0b931d895..de7a3f7f47f1 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-ssp-common.c
++++ b/sound/soc/intel/common/soc-acpi-intel-ssp-common.c
+@@ -64,6 +64,15 @@ static const struct codec_map amps[] = {
+ 	CODEC_MAP_ENTRY("RT1015P", "rt1015", RT1015P_ACPI_HID, CODEC_RT1015P),
+ 	CODEC_MAP_ENTRY("RT1019P", "rt1019", RT1019P_ACPI_HID, CODEC_RT1019P),
+ 	CODEC_MAP_ENTRY("RT1308", "rt1308", RT1308_ACPI_HID, CODEC_RT1308),
++
++	/*
++	 * Monolithic components
++	 *
++	 * Only put components that can serve as both the amp and the codec below this line.
++	 * This will ensure that if the part is used just as a codec and there is an amp as well
++	 * then the amp will be selected properly.
++	 */
++	CODEC_MAP_ENTRY("RT5650", "rt5650", RT5650_ACPI_HID, CODEC_RT5650),
+ };
+ 
+ enum snd_soc_acpi_intel_codec
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index daf364f773dd..5a40b8fbbbd3 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -1307,9 +1307,10 @@ struct snd_soc_acpi_mach *hda_machine_select(struct snd_sof_dev *sdev)
+ 	const struct sof_dev_desc *desc = sof_pdata->desc;
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	struct snd_soc_acpi_mach *mach = NULL;
+-	enum snd_soc_acpi_intel_codec codec_type;
++	enum snd_soc_acpi_intel_codec codec_type, amp_type;
+ 	const char *tplg_filename;
+ 	const char *tplg_suffix;
++	bool amp_name_valid;
+ 
+ 	/* Try I2S or DMIC if it is supported */
+ 	if (interface_mask & (BIT(SOF_DAI_INTEL_SSP) | BIT(SOF_DAI_INTEL_DMIC)))
+@@ -1413,30 +1414,30 @@ struct snd_soc_acpi_mach *hda_machine_select(struct snd_sof_dev *sdev)
+ 			}
+ 		}
+ 
+-		codec_type = snd_soc_acpi_intel_detect_amp_type(sdev->dev);
+-
+-		if (tplg_fixup &&
+-		    mach->tplg_quirk_mask & SND_SOC_ACPI_TPLG_INTEL_AMP_NAME &&
+-		    codec_type != CODEC_NONE) {
+-			tplg_suffix = snd_soc_acpi_intel_get_amp_tplg_suffix(codec_type);
+-			if (!tplg_suffix) {
+-				dev_err(sdev->dev, "no tplg suffix found, amp %d\n",
+-					codec_type);
+-				return NULL;
+-			}
+-
+-			tplg_filename = devm_kasprintf(sdev->dev, GFP_KERNEL,
+-						       "%s-%s",
+-						       sof_pdata->tplg_filename,
+-						       tplg_suffix);
+-			if (!tplg_filename)
+-				return NULL;
+-
+-			sof_pdata->tplg_filename = tplg_filename;
+-			add_extension = true;
+-		}
+-
++		amp_type = snd_soc_acpi_intel_detect_amp_type(sdev->dev);
+ 		codec_type = snd_soc_acpi_intel_detect_codec_type(sdev->dev);
++		amp_name_valid = amp_type != CODEC_NONE && amp_type != codec_type;
++
++		if (tplg_fixup && amp_name_valid &&
++		    mach->tplg_quirk_mask & SND_SOC_ACPI_TPLG_INTEL_AMP_NAME) {
++			tplg_suffix = snd_soc_acpi_intel_get_amp_tplg_suffix(amp_type);
++			if (!tplg_suffix) {
++				dev_err(sdev->dev, "no tplg suffix found, amp %d\n",
++					amp_type);
++				return NULL;
++			}
++
++			tplg_filename = devm_kasprintf(sdev->dev, GFP_KERNEL,
++						       "%s-%s",
++						       sof_pdata->tplg_filename,
++						       tplg_suffix);
++			if (!tplg_filename)
++				return NULL;
++
++			sof_pdata->tplg_filename = tplg_filename;
++			add_extension = true;
++		}
++
+ 
+ 		if (tplg_fixup &&
+ 		    mach->tplg_quirk_mask & SND_SOC_ACPI_TPLG_INTEL_CODEC_NAME &&
+-- 
+2.43.0
+

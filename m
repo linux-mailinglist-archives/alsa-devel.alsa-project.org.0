@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECA01933A12
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 11:37:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A88933A13
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 11:38:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74560EBE;
-	Wed, 17 Jul 2024 11:37:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74560EBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31BF0EBE;
+	Wed, 17 Jul 2024 11:37:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31BF0EBE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721209069;
+	s=default; t=1721209084;
 	bh=IwiMKjEwvVSJ5IWaPDpoKynG7VWz5j2VPRipkRNYig0=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=bNyXN7OGl0PnLrrBR9Ktd3oLUBzNMez5NApEtKT/SpFugZtMsXxi+mjulo2IYlY1n
-	 O5ns2zVwQXJC5ItKdz2Dg1eBSjQUfo7e6Qi1NTaLkX96yHVRC5/ojDJTcKh+WcT9NM
-	 jp9jtHdhZ5pBkG6TmbthqFHIJNjBmcnmx2JPGCG8=
+	b=J+7EVV1MUgJBftJoOTsDQYky4zKQ/ZKzwA/mb+IjPqdXTo55NhdAiwj6zVROpNPRs
+	 R8nVvGiVWSzahe7GFkhRPGV6tfzCYAc5zLh55CjzylftvTTfOtHwTDTGxCwGpBzw26
+	 sdQ5SVkyzhacs5lFO36zpWRQKjdE/AmkP7/+kln4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 455EDF806DE; Wed, 17 Jul 2024 11:35:26 +0200 (CEST)
+	id 359B2F8071D; Wed, 17 Jul 2024 11:35:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05533F806F0;
-	Wed, 17 Jul 2024 11:35:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9816AF80588;
+	Wed, 17 Jul 2024 11:35:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E66D4F8026D; Wed, 17 Jul 2024 11:17:56 +0200 (CEST)
+	id ADB91F8026D; Wed, 17 Jul 2024 11:20:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,24 +32,24 @@ X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L3,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B114F8007E
-	for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2024 11:17:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B114F8007E
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	by alsa1.perex.cz (Postfix) with ESMTP id 66A09F8007E
+	for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2024 11:20:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66A09F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=qTPyI98p
+ header.s=s110527 header.b=blmVA2wk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
 	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=Qjyea
-	kzBF2BWOZaDoB0LRL0/M0/RkHgMvm4NPWSnyiA=; b=qTPyI98pD+ewUQtAbkijt
-	GvTJyaypJgXDkN6NVwiRnom2NvDvnHiViUem57KfBruJx8qebdEHTVMfbb+nKrYq
-	qzBQpQI/0NfWqu/x7DDhGMsOl87Wo1ObhVW1P12ZIahXH/7m4JRH56Hs4/RSJcmK
-	8IboobWNearK1W4sqR6vP0=
+	kzBF2BWOZaDoB0LRL0/M0/RkHgMvm4NPWSnyiA=; b=blmVA2wkoJmyMXmtUgW8F
+	JpytMMQ6oK51RGjN7Pupu2WUOgD4i/zgP0FNf+QhsX6vz7zxHiqzOn4tscA30Jxp
+	uylG7VThIt+zPcr1t6X8P7yHkEej1nv0WpFDyXMLsDUtcEcXCZcFRiCYS88DJNSq
+	YyhaUsESHq49T/Ge2gWjE8=
 Received: from localhost.localdomain (unknown [111.48.69.245])
-	by gzga-smtp-mta-g2-5 (Coremail) with SMTP id
- _____wD3PzoqjJdmqjNPAw--.34682S2;
-	Wed, 17 Jul 2024 17:17:32 +0800 (CST)
+	by gzga-smtp-mta-g2-3 (Coremail) with SMTP id
+ _____wD3P1W5jJdm3DZbDA--.32086S2;
+	Wed, 17 Jul 2024 17:19:54 +0800 (CST)
 From: wangdicheng <wangdich9700@163.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -60,33 +60,33 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	wangdicheng <wangdicheng@kylinos.cn>
 Subject: [PATCH] ALSA: usb-audio: Fix microphone sound on HD webcam.
-Date: Wed, 17 Jul 2024 17:17:28 +0800
-Message-Id: <20240717091728.11188-1-wangdich9700@163.com>
+Date: Wed, 17 Jul 2024 17:19:51 +0800
+Message-Id: <20240717091951.11344-1-wangdich9700@163.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3PzoqjJdmqjNPAw--.34682S2
+X-CM-TRANSID: _____wD3P1W5jJdm3DZbDA--.32086S2
 X-Coremail-Antispam: 1Uf129KBjvJXoWxXw43JFy5tFyrCF45Xw13urg_yoWrCFyxpr
 	1Iya97JryDJr17Xr4kGayUu34rXw4Iyws8Ca4qkwna9ryft34rta42y39rAayakrWrC342
 	qryjy3yqg3y5Gw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYKZXUUUUU=
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYxRDUUUUU=
 X-Originating-IP: [111.48.69.245]
-X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbiNRQfT2V4IpLIMQACsn
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbiJQwfT2VOCP76-AABsj
 X-MailFrom: wangdich9700@163.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: AZGGMN7UH5JK6W4GFFGP46NNPBSBRYXT
-X-Message-ID-Hash: AZGGMN7UH5JK6W4GFFGP46NNPBSBRYXT
+Message-ID-Hash: 3MTTXZ7IXUVNRL5MR6MUHT34AAJFEF2H
+X-Message-ID-Hash: 3MTTXZ7IXUVNRL5MR6MUHT34AAJFEF2H
 X-Mailman-Approved-At: Wed, 17 Jul 2024 09:35:11 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AZGGMN7UH5JK6W4GFFGP46NNPBSBRYXT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3MTTXZ7IXUVNRL5MR6MUHT34AAJFEF2H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

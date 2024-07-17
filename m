@@ -2,104 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDA68933D13
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 14:38:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAAAC933F3C
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 17:06:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07AFA857;
-	Wed, 17 Jul 2024 14:38:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07AFA857
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7FD7E64;
+	Wed, 17 Jul 2024 17:06:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7FD7E64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721219929;
-	bh=4ICfKJXxsSRQ/sPCmW5uCAAgzvEwln8qzmxDLijW5Mg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1721228774;
+	bh=KeDoAzW8i/Y3i7936SAkuWjEJbGb5eMjfD7AyUyRwaw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gwE77tUh55Voz/UizK7EgovCnMV+qyoxQf9Pig8qX6jzQIZZeqTQB94o7vy/nkdmf
-	 hsyoa06/sfx3bSwTNxVE9vLWtfnhTZyNfodzFtObq60ujBFRdL0QsFTRUGlMYa4vL9
-	 bHrlaRmW3DKSLC7vAKbyPwOthK5ZGAcmXhc1/2+E=
+	b=AP9zpgkYxxIJMeySv6VQc7Zy8IFdAkeKenGEe3yeNjxA1gJhkmoB6R8gCVpaHxGzQ
+	 i7+5Iw37EpFw/ELx5irrVK3tE0FJkO+uNQQyOThKhKITh9UkOMhwkwxPLsUYYSnYRK
+	 tWbOBRgg/8LSJfMmZNrzLC7KMDS/O5oefphStzg0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7420F8059F; Wed, 17 Jul 2024 14:38:08 +0200 (CEST)
+	id 34D91F805AB; Wed, 17 Jul 2024 17:05:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86696F805AD;
-	Wed, 17 Jul 2024 14:38:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BAAAF805AD;
+	Wed, 17 Jul 2024 17:05:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B215FF8026D; Wed, 17 Jul 2024 14:36:36 +0200 (CEST)
+	id 1C2DCF8013D; Wed, 17 Jul 2024 16:53:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,
-	TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_PASS,TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
 	autolearn=unavailable version=3.4.6
-Received: from smtp51.i.mail.ru (smtp51.i.mail.ru [95.163.41.87])
+Received: from fhigh4-smtp.messagingengine.com
+ (fhigh4-smtp.messagingengine.com [103.168.172.155])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C8FB1F8013D
-	for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2024 14:31:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8FB1F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id C1F8EF8013D
+	for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2024 16:46:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1F8EF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=list.ru header.i=@list.ru header.a=rsa-sha256
- header.s=mail4 header.b=LY9WBEoj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=list.ru;
-	s=mail4; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References
-	:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:To:Cc:
-	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
-	List-Archive:X-Cloud-Ids:Disposition-Notification-To;
-	bh=3DxAhlNjeJkBHbjvrPN7I9Vnx4htlrPauqcKJWhSFRs=; t=1721219472; x=1721309472;
-	b=LY9WBEojUGrSdi9ZhV3TBEOQYL67CX6UhHFJ+rA2FmM8emwhRrA3BPzrahOV3rG/0bdMIPshP9P
-	Oxnm5ArJkghfS1DysyzEjUJGQgUcCDuZILUUrhWUKYZokZtw3oIngScqXJPic84a7f5Bz+Rv6b0rp
-	8Ch25VohCwNpjw0N/VH05+s4dungSdJ68V0R5YXtLX+1UAvTqFfxgbpGFJq4EIk0X7J/u+cB8oerM
-	C/7eB32RWoUauqbPrcOu/G+61LLBrqStAGTw2J4OF3U3QuFK5fERmsyjuwC4ldjfQDYaZKRJ9mbol
-	W0Og8nQeEv6DUwrwej42+wrZ76idqEqd0gnw==;
-Received: by smtp51.i.mail.ru with esmtpa (envelope-from
- <steshenko_sergei@list.ru>)
-	id 1sU3oK-00000009SGj-0LOJ; Wed, 17 Jul 2024 15:31:09 +0300
-Message-ID: <748e1318-bc21-4280-9d1b-efd661403cdc@list.ru>
-Date: Wed, 17 Jul 2024 15:31:04 +0300
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm2 header.b=IbOnACKM;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=aKP6NZ6d
+Received: from compute8.internal (compute8.nyi.internal [10.202.2.227])
+	by mailfhigh.nyi.internal (Postfix) with ESMTP id 8E7EA1140104;
+	Wed, 17 Jul 2024 10:46:55 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute8.internal (MEProxy); Wed, 17 Jul 2024 10:46:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1721227615; x=
+	1721314015; bh=+pZLwcB7gksypKkwJE3+v8wQrFaE800JDIYphZSBSZc=; b=I
+	bOnACKMfLvaQqDiNEosPsP9tYlgeQ8SQLiayt9EAh3XFxtzUMPqUlnuwybvXJFK7
+	lQgiMHIIdmTEKd5P2WgbuCkzgt2m2YBmQ8Gjpd4iyM6kjz54RJMsyOlCp3jS/WGN
+	77+lr7+SGFSKDlbTLqx35rbpl4/+GMr9ih/OgRAh+5BL+HEutVfja3dCbeyTnCdu
+	BpzGuVW5VynUY26m77TNfEQKW/a0JdQ2a7kUmpoH4Y8DXfvkZ6zt6wJz4By3hnhA
+	WyqnFAVUYJCtMehlMFoonjyjdJHVHEPcXQvxvoduIgs/75a881KGq9dHLvy+vwc0
+	ZQ9JjTlj5kyKWQ/nUc7ug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1721227615; x=1721314015; bh=+pZLwcB7gksypKkwJE3+v8wQrFaE
+	800JDIYphZSBSZc=; b=aKP6NZ6dCsDrN3q611VymOYRqkF1Jl8DEDgcjyHXMbgv
+	5rysWDWq0fmNXwabdZblOy9WfgdEX53D+HijOKDviEsWxm9f1tjTQYNUaKDAm3Tm
+	W9GC56TU9I2bMfLwwVxz587AvmV1EAEUhzMA0D2O3ONS87GClQNpVparbKwc+tPg
+	8raEdF+hUIr40AS+jY11tYaqFj6yLHvPcBEqPegouSREMeUfMZocNB5+q2bSmrAR
+	hN8U01pfzUMNqO6upiOn7GubO5Q8mqQfSY7+q8RKMQMnf+EP2PHpPS0N5lJmMq5n
+	S02giDERDZsM3LGxC/fneDSC01f5chCLg6j0IeZh/A==
+X-ME-Sender: <xms:XdmXZmEZXyVz07_0tVWtQ7OmDqouv1YhkSYIiC7Ss-JoTSQL5rZ-MA>
+    <xme:XdmXZnUQrSUZ2DrpASue3hZkeyr8qrlYcum24L6KMghG_vliByWqqTrB2mq6-3-9q
+    kGH4mgxmp36eCAQ7J8>
+X-ME-Received: 
+ <xmr:XdmXZgJ4tSBKx5Q3dh7nCHN_lNofBPE-14esdiJhRIP1IcSfpYdWGey5HySnb_nkKaZYi5TJUI_EQnW45PwiwekAKpkviL3wgIRy>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgeeftddrgeeigdejtdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkfhggtggujgesthdtre
+    dttddtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
+    shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhephfelfeegve
+    elheekteefleejgefflefhtdejveevfeejgeeggeduudeiudehuefhnecuffhomhgrihhn
+    pehrmhgvqdgruhguihhordguvgdpghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuih
+    iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgr
+    mhhotggthhhirdhjph
+X-ME-Proxy: <xmx:XdmXZgFR0ZlH5ocs3dot08jt-3EeezYcAhfXkmpdqzB80lXFAgo0yg>
+    <xmx:XdmXZsUnFlTyTv8PWOdet8Db4cbOpupmMvwUnHvTbihB1SzdYmB-lg>
+    <xmx:XdmXZjOJrLWPbnuT1zZkio5Y3ShD7ALnyPTEXC-0NpHbN_NEhc7oQg>
+    <xmx:XdmXZj3OW4Vnp-ba2J0iPBcEJJz_ddXul78dVNvGwFfklznfi7DLrg>
+    <xmx:X9mXZvGhfzLbzxP1MviTF63G065GQhgxw4Z5VJSU-bl0XRJOMM8puhfk>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 17 Jul 2024 10:46:51 -0400 (EDT)
+Date: Wed, 17 Jul 2024 23:46:49 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: "edmund.raile" <edmund.raile@proton.me>
+Cc: stable@vger.kernel.org, alsa-devel@alsa-project.org,
+	regressions@lists.linux.dev, tiwai@suse.de, clemens@ladisch.de,
+	linux-sound@vger.kernel.org
+Subject: Re: [REGRESSION] ALSA: firewire-lib: snd_pcm_period_elapsed deadlock
+ with Fireface 800
+Message-ID: <20240717144649.GA317903@workstation.local>
+Mail-Followup-To: "edmund.raile" <edmund.raile@proton.me>,
+	stable@vger.kernel.org, alsa-devel@alsa-project.org,
+	regressions@lists.linux.dev, tiwai@suse.de, clemens@ladisch.de,
+	linux-sound@vger.kernel.org
+References: <kwryofzdmjvzkuw6j3clftsxmoolynljztxqwg76hzeo4simnl@jn3eo7pe642q>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Alsa-user] Help on specifying 'chmap' in asound.conf
-To: Takashi Iwai <tiwai@suse.de>, Xinhui Zhou <zxinhui2001@gmail.com>
-Cc: alsa-user@lists.sourceforge.net, alsa-devel@alsa-project.org,
- tiwai@suse.com, perex@perex.cz
-References: <mailman.0.1673946668.16556.alsa-user@lists.sourceforge.net>
- <0c99f6e0-c2f8-bc30-be10-314708382345@sc-riebe.de>
- <c21f506a-255e-5885-7dde-f9716187536e@sc-riebe.de>
- <CABsjGHLPYa26noDK3LDR_9EDxjXRZ9E5cEDAAyYnCEiuCPYWTg@mail.gmail.com>
- <87le21z5wp.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Sergei Steshenko <steshenko_sergei@list.ru>
-In-Reply-To: <87le21z5wp.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Authentication-Results: smtp51.i.mail.ru;
- auth=pass smtp.auth=steshenko_sergei@list.ru
- smtp.mailfrom=steshenko_sergei@list.ru
-X-Mailru-Src: smtp
-X-7564579A: 646B95376F6C166E
-X-77F55803: 
- 4F1203BC0FB41BD9C20EA97715EAF8CF261DE58FDD52B03C7DD4FE1047A23CA7182A05F53808504080500E088DC586155D1BE6A8D71B10A531734AF64BDA05284C8CC3C3F0886F6F7A43E2483F2A4E25
-X-7FA49CB5: 
- FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7059B0D8AC717918AEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637FA81DCE0280C9CC68F08D7030A58E5AD1A62830130A00468AEEEE3FBA3A834EE7353EFBB55337566F63B4C43CA7D47ADB697AEFFFA519DBEAEE1F6711B20F49D2E42793D2EED1D438EEF46B7454FC60B9742502CCDD46D0D249797B4B1AC1449F6B57BC7E64490618DEB871D839B73339E8FC8737B5C2249A5DF9383870C0FEDCC7F00164DA146DAFE8445B8C89999729449624AB7ADAF37F6B57BC7E64490611E7FA7ABCAF51C921661749BA6B97735AD76BF5943A59ECC8941B15DA834481F9449624AB7ADAF37BA3038C0950A5D3613377AFFFEAFD269176DF2183F8FC7C0CD26667FDE013BC17B076A6E789B0E97A8DF7F3B2552694AD5FFEEA1DED7F25D49FD398EE364050F140C956E756FBB7A098B145E00970258B3661434B16C20ACC84D3B47A649675FE827F84554CEF5019E625A9149C048EE9ECD01F8117BC8BEE2021AF6380DFAD18AA50765F790063735872C767BF85DA227C277FBC8AE2E8BB662CFBDBA8F60F475ECD9A6C639B01B4E70A05D1297E1BBCB5012B2E24CD356
-X-C1DE0DAB: 
- 0D63561A33F958A50E1CE74811C411D05002B1117B3ED696BADB49C34807B88072305013E4AE841E823CB91A9FED034534781492E4B8EEAD69BF13FED57427F1BDAD6C7F3747799A
-X-C8649E89: 
- 1C3962B70DF3F0ADBF74143AD284FC7177DD89D51EBB7742DC8270968E61249B1004E42C50DC4CA955A7F0CF078B5EC49A30900B95165D3441661D6226BE8C31D12F510BA39133A6E7158B2147084D2C16D817278BA6CABCEEDB1D4924A66B9B1D7E09C32AA3244CDCE3F5188A343A27E70D6F05539DA95A3D2630EBA4228D73EA455F16B58544A2339EE7E191543B94A5AE236DF995FB5979C9CD2E3F02A782212F6D535BB50B1AC4D96C1575A2E6E243082AE146A756F3
-X-D57D3AED: 
- 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2bioja4l/EuHNSk5kjekK48Ujtg==
-X-Mailru-Sender: 
- 08FC42C9FB184A05FBED555004DFF6EABAA124E8CF139807B951B70A5BD4BD8E11A27135B226F626CAD474F3A20BCBC279247B9C4B206ECDFB559BB5D741EB967D00CE147F79BDAC6F53C80213D1719C67EA787935ED9F1B
-X-Mras: Ok
-Message-ID-Hash: IPUBKJSR3HE4TSKEIA2GABKH6RSXOPLU
-X-Message-ID-Hash: IPUBKJSR3HE4TSKEIA2GABKH6RSXOPLU
-X-MailFrom: steshenko_sergei@list.ru
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <kwryofzdmjvzkuw6j3clftsxmoolynljztxqwg76hzeo4simnl@jn3eo7pe642q>
+Message-ID-Hash: HYUZCMDYIXR5377JP3NS67FRONNNRAEJ
+X-Message-ID-Hash: HYUZCMDYIXR5377JP3NS67FRONNNRAEJ
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IPUBKJSR3HE4TSKEIA2GABKH6RSXOPLU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HYUZCMDYIXR5377JP3NS67FRONNNRAEJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,60 +140,167 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For that matter, which ALSA source files do the parsing ? From my 
-old/distant memories, ALSA is silent about mistakes made by user when 
-the user provides various configuration files. So, there must be a way 
-to resolve the issue of silent ignoring of user mistakes.
+Hi,
 
-A possible temporary solution would be to "trace" (e.g. by inserting 
-diagnostic print statements) parsing of provided by user configuration 
-files, and to implement this one has to know where to insert the 
-diagnostic print statements, and that's why I'm asking the question.
+Thanks for the regression report, and I'm sorry for your inconvenience.
 
---Sergei.
+On Tue, Jul 16, 2024 at 02:51:24PM +0000, edmund.raile wrote:
+> On kernels since 5.14.0, ALSA playback to the FireWire RME Fireface 800
+> audio interface results in a deadlock involving snd_pcm_period_elapsed(),
+> freezing the system.
+> 
+> On kernels 5.0.0 to 5.13.19 the interface works just fine, as it does with
+> the RME driver.
+> 
+> Distributions tested:
+> Ubuntu
+> Manjaro
+> Arch
+> Fedora
+> 
+> FireWire chipsets tested:
+> LSI FW643
+> TI XIO2213B
+> 
+> Platforms tested:
+> Intel i5 4570 on AsRock H97 Pro4
+> Intel i5 12600K on MSI MS-7D25
+> 
+> The behavior was also observed on the RME forum:
+> https://forum.rme-audio.de/viewtopic.php?pid=190472#p190472
+> 
+> Shortened traces of 6.10.0-rc7 (Arch linux-mainline):
+> 
+> RIP: 0010:tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./arch/x86/include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-non-atomic.h:142 kernel/softirq.c:851) 
+>  <NMI>
+> ? watchdog_hardlockup_check.cold (kernel/watchdog.c:200) 
+> ? __perf_event_overflow (kernel/events/core.c:9737 (discriminator 2)) 
+> ? handle_pmi_common (arch/x86/events/intel/core.c:3061 (discriminator 1)) 
+> ? intel_pmu_handle_irq (./arch/x86/include/asm/paravirt.h:192 arch/x86/events/intel/core.c:2428 arch/x86/events/intel/core.c:3127) 
+> ? perf_event_nmi_handler (arch/x86/events/core.c:1744 arch/x86/events/core.c:1730) 
+> ? nmi_handle (arch/x86/kernel/nmi.c:151) 
+> ? default_do_nmi (arch/x86/kernel/nmi.c:352 (discriminator 61)) 
+> ? exc_nmi (arch/x86/kernel/nmi.c:546) 
+> ? end_repeat_nmi (arch/x86/entry/entry_64.S:1408) 
+> ? tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./arch/x86/include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-non-atomic.h:142 kernel/softirq.c:851) 
+> ? tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./arch/x86/include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-non-atomic.h:142 kernel/softirq.c:851) 
+> ? tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./arch/x86/include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-non-atomic.h:142 kernel/softirq.c:851) 
+>  </NMI>
+>  <TASK>
+> ohci_flush_iso_completions (./include/linux/interrupt.h:740 drivers/firewire/ohci.c:3530) firewire_ohci
+> amdtp_domain_stream_pcm_pointer (sound/firewire/amdtp-stream.c:1858) snd_firewire_lib
+> snd_pcm_update_hw_ptr0 (sound/core/pcm_lib.c:304) snd_pcm
+> snd_pcm_status64 (sound/core/pcm_native.c:1034) snd_pcm
+> snd_pcm_status_user64 (./include/linux/uaccess.h:191 sound/core/pcm_native.c:1096) snd_pcm
+> snd_pcm_ioctl (sound/core/pcm_native.c:3401 (discriminator 1)) snd_pcm
+> __x64_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:907 fs/ioctl.c:893 fs/ioctl.c:893) 
+> do_syscall_64 (arch/x86/entry/common.c:52 (discriminator 1) arch/x86/entry/common.c:83 (discriminator 1)) 
+> ? snd_pcm_status_user64 (sound/core/pcm_native.c:1096 (discriminator 1)) snd_pcm
+> ? futex_wake (kernel/futex/waitwake.c:173) 
+> ? do_futex (kernel/futex/syscalls.c:107 (discriminator 1)) 
+> ? __x64_sys_futex (kernel/futex/syscalls.c:179 kernel/futex/syscalls.c:160 kernel/futex/syscalls.c:160) 
+> ? syscall_exit_to_user_mode (kernel/entry/common.c:221) 
+> ? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/common.c:98) 
+> ? do_futex (kernel/futex/syscalls.c:107 (discriminator 1)) 
+> ? __x64_sys_futex (kernel/futex/syscalls.c:179 kernel/futex/syscalls.c:160 kernel/futex/syscalls.c:160) 
+> ? syscall_exit_to_user_mode (kernel/entry/common.c:221) 
+> ? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/common.c:98) 
+> ? syscall_exit_to_user_mode (kernel/entry/common.c:221) 
+> ? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/common.c:98) 
+> ? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/common.c:98) 
+> ? __irq_exit_rcu (kernel/softirq.c:620 (discriminator 1) kernel/softirq.c:639 (discriminator 1)) 
+> entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130) 
+> 
+> RIP: 0010:native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 (discriminator 3)) 
+>  <NMI>
+> ? watchdog_hardlockup_check.cold (kernel/watchdog.c:200) 
+> ? __perf_event_overflow (kernel/events/core.c:9737 (discriminator 2)) 
+> ? handle_pmi_common (arch/x86/events/intel/core.c:3061 (discriminator 1)) 
+> ? intel_pmu_handle_irq (./arch/x86/include/asm/paravirt.h:192 arch/x86/events/intel/core.c:2428 arch/x86/events/intel/core.c:3127) 
+> ? perf_event_nmi_handler (arch/x86/events/core.c:1744 arch/x86/events/core.c:1730) 
+> ? nmi_handle (arch/x86/kernel/nmi.c:151) 
+> ? default_do_nmi (arch/x86/kernel/nmi.c:352 (discriminator 61)) 
+> ? exc_nmi (arch/x86/kernel/nmi.c:546) 
+> ? end_repeat_nmi (arch/x86/entry/entry_64.S:1408) 
+> ? native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 (discriminator 3)) 
+> ? native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 (discriminator 3)) 
+> ? native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 (discriminator 3)) 
+>  </NMI>
+>  <IRQ>
+> _raw_spin_lock_irqsave (./arch/x86/include/asm/paravirt.h:584 ./arch/x86/include/asm/qspinlock.h:51 ./include/asm-generic/qspinlock.h:114 ./include/linux/spinlock.h:187 ./include/linux/spinlock_api_smp.h:111 kernel/locking/spinlock.c:162) 
+> snd_pcm_period_elapsed (sound/core/pcm_lib.c:1905) snd_pcm
+> process_rx_packets (sound/firewire/amdtp-stream.c:1164) snd_firewire_lib
+> irq_target_callback (sound/firewire/amdtp-stream.c:1549) snd_firewire_lib
+> handle_it_packet (drivers/firewire/ohci.c:2786 drivers/firewire/ohci.c:2974) firewire_ohci
+> context_tasklet (drivers/firewire/ohci.c:1127) firewire_ohci
+> tasklet_action_common.isra.0 (kernel/softirq.c:789) 
+> handle_softirqs (kernel/softirq.c:554) 
+> __irq_exit_rcu (kernel/softirq.c:589 kernel/softirq.c:428 kernel/softirq.c:637) 
+> common_interrupt (arch/x86/kernel/irq.c:278 (discriminator 35)) 
+>  </IRQ>
+>  <TASK>
+> asm_common_interrupt (./arch/x86/include/asm/idtentry.h:693) 
+> 
+> It can be induced by direct ALSA playback to the device:
+> mpv --audio-device=alsa/sysdefault:CARD=Fireface800 Spor-Ignition.flac
+> Time to occurrence ranges from two seconds to 30 minutes.
+> 
+> Loading the CPU appears to increase the likelihood:
+> stress --cpu $(nproc)
+> So does switching between applications via workspaces (only tested Xfce).
+> 
+> The regression has been traced to these two commits:
+> 7ba5ca32fe6e8d2e153fb5602997336517b34743
+> b5b519965c4c364ae65c49fe9f11d222dd70a9c2
+> 
+> I am currently testing a simple patch, in essence reverting both commits.
+> Behaves well so far (stable), will likely send it in tomorrow.
+> 
+> #regzbot introduced: 7ba5ca32fe6e
 
-On 7/16/24 18:57, Takashi Iwai wrote:
-> On Tue, 16 Jul 2024 08:09:21 +0200,
-> Xinhui Zhou wrote:
->> Dear all,
->>
->>     I am having a question regarding how to specify 'champ' for a
->> plugin.  I do not see any examples of this. I tried many ways to
->> specify but failed.
->>
->>    As indicated by the link below,   I can specify the MAP as a string
->> array.   Can someone provide one example on how exactly this    [chmap
->> MAP]  can be specified?
->>
->> "
->> pcm.name {
->>          type cras
->>      [chmap MAP]     # Provide channel maps; MAP is a string array
->> }
->> "
->> https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html
->>
->>
->> I can something like these, but none of these work for me.
->>
->> chmap LFE
->> chmap "LFE"
->> chmap FR,FL,LFE
->> champ "FR,FL,LFE"
-> You need to define a composite array, e.g. pass like
->      chmap [ "FL,FR" ]
-> instead.
->
-> For multiple configurations, you can put more items such as
->      chmap [ "FC" "FL,FR" "FL,FR,FC,LFE" ]
->
->
-> HTH,
->
-> Takashi
->
->
-> _______________________________________________
-> Alsa-user mailing list
-> Alsa-user@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/alsa-user
+As long as reading the call trace, the issue is indeed deadlock between
+the process and softIRQ (tasklet) contexts against the group lock for ALSA
+PCM substream and the tasklet for OHCI 1394 IT context.
+
+A. In the process context
+    * (lock A) Acquiring spin_lock by snd_pcm_stream_lock_irq() in
+               snd_pcm_status64()
+    * (lock B) Then attempt to enter tasklet
+
+B. In the softIRQ context
+    * (lock B) Enter tasklet
+    * (lock A) Attempt to acquire spin_lock by snd_pcm_stream_lock_irqsave() in
+               snd_pcm_period_elapsed()
+
+It is the same issue as you reported in test branch for bh workqueue[1].
+
+I think the users rarely face the issue when working with either PipeWire
+or PulseAudio, since these processes run with no period wakeup mode of
+runtime for PCM substream (thus with less hardIRQ).
+
+Anyway, it is one of solutions to revert both a commit b5b519965c4c ("ALSA:
+firewire-lib: obsolete workqueue for period update") and a commit
+7ba5ca32fe6e ("ALSA: firewire-lib: operate for period elapse event in
+process context"). The returned workqueue is responsible for lock A, thus:
+
+A. In the process context
+    * (lock A) Acquiring spin_lock by snd_pcm_stream_lock_irq() in
+               snd_pcm_status64()
+    * (lock B) Then attempt to enter tasklet
+
+B. In the softIRQ context
+    * (lock B) Enter tasklet
+    * schedule workqueue
+
+C. another process context (workqueue)
+    * (lock A) Attempt to acquire spin_lock by snd_pcm_stream_lock_irqsave()
+               in snd_pcm_period_elapsed()
+
+The deadlock would not occur.
+
+[1] https://github.com/allenpais/for-6.9-bh-conversions/issues/1
+
+
+Regards
+
+Takashi Sakamoto

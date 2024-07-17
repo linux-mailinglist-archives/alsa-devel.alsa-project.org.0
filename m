@@ -2,88 +2,173 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225A8933A11
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 11:37:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2629493392D
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 10:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C134AE8E;
-	Wed, 17 Jul 2024 11:37:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C134AE8E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A7A0826;
+	Wed, 17 Jul 2024 10:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A7A0826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721209055;
-	bh=0IzSqzjHm9x5m187QXF1kulFH3ei6LhKoz2o7u+RAwQ=;
-	h=Date:To:From:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=duntEn+BKuA2y26ID52kUoIv+0RKZdE0wdpxbtyc3eYiyoAV9VMrNuz6izr/ZDrgf
-	 5abHRw3NE07FZpqsoZmUJ4vc01xyy9HU17KQhjr49P+RmwtljigDKlW0NpeqocJ0lB
-	 xup1Y6HWR2OABL+S0Pyyn6+bQT87DqKGOuuC4xJY=
+	s=default; t=1721205509;
+	bh=rU8hrnUMFC5mTjGXwT69mTGZCmwGdQmcdTJONifb6RA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=YbDLwzwGx5lh/h4fZaIstvK7isUON6rY7SHNT8Rb4OR3nIYvuZlEtD2/Q76Sy9FCP
+	 CWj2z7dtN5TF6Na/RRmkv5FXjMFih26UYSZqVxKTFiES60KEe5x1bz6W+YNrfAUErK
+	 67T09flHbgidKBZL3ap/Uo/Eary0alOZhrUn/euI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12AE5F806D5; Wed, 17 Jul 2024 11:35:22 +0200 (CEST)
+	id 9BA6BF805BF; Wed, 17 Jul 2024 10:38:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B559F806D1;
-	Wed, 17 Jul 2024 11:35:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08179F804FC;
+	Wed, 17 Jul 2024 10:38:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D5F7F8026D; Tue, 16 Jul 2024 16:51:43 +0200 (CEST)
+	id 56F3AF8026D; Wed, 17 Jul 2024 10:36:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch
- [185.70.43.166])
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DC353F801C0
-	for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2024 16:51:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC353F801C0
+	by alsa1.perex.cz (Postfix) with ESMTPS id D54CCF8007E
+	for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2024 10:36:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D54CCF8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256
- header.s=protonmail header.b=nYjZo258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1721141491; x=1721400691;
-	bh=0IzSqzjHm9x5m187QXF1kulFH3ei6LhKoz2o7u+RAwQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=nYjZo258xx8plk+L8sIJ7RmHHIqEeQkd7MyGPeqSCvVcAFI/pSe2lJ0O2TbHHQwQz
-	 AGQOVMBokP3KKUVBFF0xBK3QE2NO9t8bq6cecYiSoL0EeQwJXHTumaSMtlJOuaLBPT
-	 c8Oc9EXifS73a6rEUzH2suZrAHav3ZjSctZZJR5bPEmRNxiPAYAccj3qsuhm/cWub7
-	 3lB4tb8GQI7xVv0+f2AK6dR/mArBeyxpQ48dF2U2v7c3Wj5RsIamUUqjqT63aULstP
-	 dgFuueNl+GNY5/jSJf+0keXBIiaguPx5VEsdGO7hdoPBmnjHXpg7dzvT5iP3hsS2hT
-	 XHULwPgMw7ZyQ==
-Date: Tue, 16 Jul 2024 14:51:24 +0000
-To: stable@vger.kernel.org, alsa-devel@alsa-project.org
-From: "edmund.raile" <edmund.raile@proton.me>
-Cc: regressions@lists.linux.dev, o-takashi@sakamocchi.jp, tiwai@suse.de,
- clemens@ladisch.de, linux-sound@vger.kernel.org
-Subject: [REGRESSION] ALSA: firewire-lib: snd_pcm_period_elapsed deadlock with
- Fireface 800
-Message-ID: <kwryofzdmjvzkuw6j3clftsxmoolynljztxqwg76hzeo4simnl@jn3eo7pe642q>
-Feedback-ID: 45198251:user:proton
-X-Pm-Message-ID: 7a57af81588e3f78a241bcd640e29c0bac2516e8
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: edmund.raile@proton.me
-X-Mailman-Rule-Hits: nonmember-moderation
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=boTGgg0K;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=aSgdXuRK;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=boTGgg0K;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=aSgdXuRK
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9829221B85;
+	Wed, 17 Jul 2024 08:36:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1721205378;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WKgkHUOShYpcIArnsFP6wIH0whExRvHJmj2Dadz/tkA=;
+	b=boTGgg0KSt6MO5Fa6epB7oYdSqc5p5DEanPLyaVB8xtpPnXnpllmronLtStuWEuyS7CbpD
+	kz6xYCAhms+JRk1dgXenuRW6a0geeGiIyPn8reV9rgmz/m71DqDXJiUDbguflafDVVovi+
+	RzwcH0YJvYCasQIX4LYEJ657P9BbGKM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1721205378;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WKgkHUOShYpcIArnsFP6wIH0whExRvHJmj2Dadz/tkA=;
+	b=aSgdXuRKdDmVT4ll2RhzQWpJ6yLKzDewOOGjdw19mqhhGpH5CNh60/1Z0VupI16+1Syy8h
+	5k66ejFhhBmPaSBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=boTGgg0K;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=aSgdXuRK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1721205378;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WKgkHUOShYpcIArnsFP6wIH0whExRvHJmj2Dadz/tkA=;
+	b=boTGgg0KSt6MO5Fa6epB7oYdSqc5p5DEanPLyaVB8xtpPnXnpllmronLtStuWEuyS7CbpD
+	kz6xYCAhms+JRk1dgXenuRW6a0geeGiIyPn8reV9rgmz/m71DqDXJiUDbguflafDVVovi+
+	RzwcH0YJvYCasQIX4LYEJ657P9BbGKM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1721205378;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WKgkHUOShYpcIArnsFP6wIH0whExRvHJmj2Dadz/tkA=;
+	b=aSgdXuRKdDmVT4ll2RhzQWpJ6yLKzDewOOGjdw19mqhhGpH5CNh60/1Z0VupI16+1Syy8h
+	5k66ejFhhBmPaSBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 512691368F;
+	Wed, 17 Jul 2024 08:36:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id CMyOEoKCl2acFQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 17 Jul 2024 08:36:18 +0000
+Date: Wed, 17 Jul 2024 10:36:51 +0200
+Message-ID: <87zfqgxvmk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: wangdicheng <wangdich9700@163.com>
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	wangdicheng <wangdicheng@kylinos.cn>
+Subject: Re: [PATCH] ALSA: usb-audio: Fix microphone sound on HD webcam.
+In-Reply-To: <20240717075149.6915-1-wangdich9700@163.com>
+References: <20240717075149.6915-1-wangdich9700@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[163.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,perex.cz,suse.com,vger.kernel.org,alsa-project.org,lists.infradead.org,kylinos.cn];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 9829221B85
+Message-ID-Hash: WW6TGGHPP2YOYSJGUECDUOILEG3TUG4M
+X-Message-ID-Hash: WW6TGGHPP2YOYSJGUECDUOILEG3TUG4M
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XWMJSDMIOVGD55LGUXR3TGFUUEURNXKO
-X-Message-ID-Hash: XWMJSDMIOVGD55LGUXR3TGFUUEURNXKO
-X-Mailman-Approved-At: Wed, 17 Jul 2024 09:35:11 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XWMJSDMIOVGD55LGUXR3TGFUUEURNXKO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WW6TGGHPP2YOYSJGUECDUOILEG3TUG4M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,152 +177,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On kernels since 5.14.0, ALSA playback to the FireWire RME Fireface 800
-audio interface results in a deadlock involving snd_pcm_period_elapsed(),
-freezing the system.
+On Wed, 17 Jul 2024 09:51:49 +0200,
+wangdicheng wrote:
+> 
+> From: wangdicheng <wangdicheng@kylinos.cn>
+> 
+> I own an external usb Webcam, HD webcam, which had low mic volume and
+> inconsistent sound quality. Video works as expected.
+> 
+> (snip)
+> [   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
+> [   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
+> [   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+> [   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
+> [   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
+> [   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
+> [   96.092610][ 2] [ T3680] usb 5-2.2: Warning! Unlikely big volume range (=4096), cval->res is probably wrong.
+> [   96.102436][ 2] [ T3680] usb 5-2.2: [5] FU [Mic Capture Volume] ch = 1, val = 0/4096/1
+> 
+> Set up quirk cval->res to 16 for 256 levels,
+> Set GET_SAMPLE_RATE quirk flag to stop trying to get the sample rate.
+> Confirmed that happened anyway later due to the backoff mechanism,
+> After 3 failures.
+> 
+> All audio stream on device interfaces share the same values,
+> apart from wMaxPacketSize and tSamFreq :
+> 
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       4
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+> 
+> Interface Descriptor:
+>   bLength                 9
+>   bDescriptorType         4
+>   bInterfaceNumber        3
+>   bAlternateSetting       4
+>   bNumEndpoints           1
+>   bInterfaceClass         1 Audio
+>   bInterfaceSubClass      2 Streaming
+>   bInterfaceProtocol      0
+>   iInterface              0
+>   AudioStreaming Interface Descriptor:
+>     bLength                 7
+>     bDescriptorType        36
+>     bDescriptorSubtype      1 (AS_GENERAL)
+>     bTerminalLink           3
+>     bDelay                  1 frames
+>     wFormatTag         0x0001 PCM
+>   AudioStreaming Interface Descriptor:
+>     bLength                11
+>     bDescriptorType        36
+>     bDescriptorSubtype      2 (FORMAT_TYPE)
+>     bFormatType             1 (FORMAT_TYPE_I)
+>     bNrChannels             1
+>     bSubframeSize           2
+>     bBitResolution         16
+>     bSamFreqType            1 Discrete
+>     tSamFreq[ 0]        48000
+>   Endpoint Descriptor:
+>     bLength                 9
+>     bDescriptorType         5
+>     bEndpointAddress     0x86  EP 6 IN
+>     bmAttributes            5
+>       Transfer Type            Isochronous
+>       Synch Type               Asynchronous
+>       Usage Type               Data
+>     wMaxPacketSize     0x0064  1x 100 bytes
+>     bInterval               4
+>     bRefresh                0
+>     bSynchAddress           0
+>     AudioStreaming Endpoint Descriptor:
+>       bLength                 7
+>       bDescriptorType        37
+>       bDescriptorSubtype      1 (EP_GENERAL)
+>       bmAttributes         0x01
+>         Sampling Frequency
+>       bLockDelayUnits         0 Undefined
+>       wLockDelay         0x0000
+> (snip)
+> 
+> Testing patch provides consistent good sound recording quality and volume range.
+> 
+> (snip)
+> [   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
+> [   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
+> [   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+> [   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
+> [   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
+> [   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
+> [   96.110630][ 3] [ T3680] usbcore: registered new interface driver snd-usb-audio
+> [   96.114329][ 7] [ T3677] usb 5-2.2: Found UVC 1.00 device HD webcam (1bcf:2281)
+> [   96.167555][ 7] [ T3677] usbcore: registered new interface driver uvcvideo
+> 
+> Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
 
-On kernels 5.0.0 to 5.13.19 the interface works just fine, as it does with
-the RME driver.
+The patch can't be applied cleanly to the latest tree, as the table
+has been sorted.  Could you rebase and resubmit?  Also a nitpicking:
 
-Distributions tested:
-Ubuntu
-Manjaro
-Arch
-Fedora
+> --- a/sound/usb/quirks.c
+> +++ b/sound/usb/quirks.c
+> @@ -2179,6 +2179,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+>  		   QUIRK_FLAG_FIXED_RATE),
+>  	DEVICE_FLG(0x1bcf, 0x2283, /* NexiGo N930AF FHD Webcam */
+>  		   QUIRK_FLAG_GET_SAMPLE_RATE),
+> +	DEVICE_FLG(0x1bcf, 0x2281, /* FHD Webcam */
+> +			QUIRK_FLAG_GET_SAMPLE_RATE),
 
-FireWire chipsets tested:
-LSI FW643
-TI XIO2213B
+Please try to align the space.
 
-Platforms tested:
-Intel i5 4570 on AsRock H97 Pro4
-Intel i5 12600K on MSI MS-7D25
 
-The behavior was also observed on the RME forum:
-https://forum.rme-audio.de/viewtopic.php?pid=3D190472#p190472
+thanks,
 
-Shortened traces of 6.10.0-rc7 (Arch linux-mainline):
-
-RIP: 0010:tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./a=
-rch/x86/include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-=
-non-atomic.h:142 kernel/softirq.c:851)=20
- <NMI>
-? watchdog_hardlockup_check.cold (kernel/watchdog.c:200)=20
-? __perf_event_overflow (kernel/events/core.c:9737 (discriminator 2))=20
-? handle_pmi_common (arch/x86/events/intel/core.c:3061 (discriminator 1))=
-=20
-? intel_pmu_handle_irq (./arch/x86/include/asm/paravirt.h:192 arch/x86/even=
-ts/intel/core.c:2428 arch/x86/events/intel/core.c:3127)=20
-? perf_event_nmi_handler (arch/x86/events/core.c:1744 arch/x86/events/core.=
-c:1730)=20
-? nmi_handle (arch/x86/kernel/nmi.c:151)=20
-? default_do_nmi (arch/x86/kernel/nmi.c:352 (discriminator 61))=20
-? exc_nmi (arch/x86/kernel/nmi.c:546)=20
-? end_repeat_nmi (arch/x86/entry/entry_64.S:1408)=20
-? tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./arch/x86/=
-include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-non-atom=
-ic.h:142 kernel/softirq.c:851)=20
-? tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./arch/x86/=
-include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-non-atom=
-ic.h:142 kernel/softirq.c:851)=20
-? tasklet_unlock_spin_wait (./arch/x86/include/asm/bitops.h:206 ./arch/x86/=
-include/asm/bitops.h:238 ./include/asm-generic/bitops/instrumented-non-atom=
-ic.h:142 kernel/softirq.c:851)=20
- </NMI>
- <TASK>
-ohci_flush_iso_completions (./include/linux/interrupt.h:740 drivers/firewir=
-e/ohci.c:3530) firewire_ohci
-amdtp_domain_stream_pcm_pointer (sound/firewire/amdtp-stream.c:1858) snd_fi=
-rewire_lib
-snd_pcm_update_hw_ptr0 (sound/core/pcm_lib.c:304) snd_pcm
-snd_pcm_status64 (sound/core/pcm_native.c:1034) snd_pcm
-snd_pcm_status_user64 (./include/linux/uaccess.h:191 sound/core/pcm_native.=
-c:1096) snd_pcm
-snd_pcm_ioctl (sound/core/pcm_native.c:3401 (discriminator 1)) snd_pcm
-__x64_sys_ioctl (fs/ioctl.c:51 fs/ioctl.c:907 fs/ioctl.c:893 fs/ioctl.c:893=
-)=20
-do_syscall_64 (arch/x86/entry/common.c:52 (discriminator 1) arch/x86/entry/=
-common.c:83 (discriminator 1))=20
-? snd_pcm_status_user64 (sound/core/pcm_native.c:1096 (discriminator 1)) sn=
-d_pcm
-? futex_wake (kernel/futex/waitwake.c:173)=20
-? do_futex (kernel/futex/syscalls.c:107 (discriminator 1))=20
-? __x64_sys_futex (kernel/futex/syscalls.c:179 kernel/futex/syscalls.c:160 =
-kernel/futex/syscalls.c:160)=20
-? syscall_exit_to_user_mode (kernel/entry/common.c:221)=20
-? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/com=
-mon.c:98)=20
-? do_futex (kernel/futex/syscalls.c:107 (discriminator 1))=20
-? __x64_sys_futex (kernel/futex/syscalls.c:179 kernel/futex/syscalls.c:160 =
-kernel/futex/syscalls.c:160)=20
-? syscall_exit_to_user_mode (kernel/entry/common.c:221)=20
-? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/com=
-mon.c:98)=20
-? syscall_exit_to_user_mode (kernel/entry/common.c:221)=20
-? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/com=
-mon.c:98)=20
-? do_syscall_64 (./arch/x86/include/asm/cpufeature.h:178 arch/x86/entry/com=
-mon.c:98)=20
-? __irq_exit_rcu (kernel/softirq.c:620 (discriminator 1) kernel/softirq.c:6=
-39 (discriminator 1))=20
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)=20
-
-RIP: 0010:native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 =
-(discriminator 3))=20
- <NMI>
-? watchdog_hardlockup_check.cold (kernel/watchdog.c:200)=20
-? __perf_event_overflow (kernel/events/core.c:9737 (discriminator 2))=20
-? handle_pmi_common (arch/x86/events/intel/core.c:3061 (discriminator 1))=
-=20
-? intel_pmu_handle_irq (./arch/x86/include/asm/paravirt.h:192 arch/x86/even=
-ts/intel/core.c:2428 arch/x86/events/intel/core.c:3127)=20
-? perf_event_nmi_handler (arch/x86/events/core.c:1744 arch/x86/events/core.=
-c:1730)=20
-? nmi_handle (arch/x86/kernel/nmi.c:151)=20
-? default_do_nmi (arch/x86/kernel/nmi.c:352 (discriminator 61))=20
-? exc_nmi (arch/x86/kernel/nmi.c:546)=20
-? end_repeat_nmi (arch/x86/entry/entry_64.S:1408)=20
-? native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 (discrim=
-inator 3))=20
-? native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 (discrim=
-inator 3))=20
-? native_queued_spin_lock_slowpath (kernel/locking/qspinlock.c:380 (discrim=
-inator 3))=20
- </NMI>
- <IRQ>
-_raw_spin_lock_irqsave (./arch/x86/include/asm/paravirt.h:584 ./arch/x86/in=
-clude/asm/qspinlock.h:51 ./include/asm-generic/qspinlock.h:114 ./include/li=
-nux/spinlock.h:187 ./include/linux/spinlock_api_smp.h:111 kernel/locking/sp=
-inlock.c:162)=20
-snd_pcm_period_elapsed (sound/core/pcm_lib.c:1905) snd_pcm
-process_rx_packets (sound/firewire/amdtp-stream.c:1164) snd_firewire_lib
-irq_target_callback (sound/firewire/amdtp-stream.c:1549) snd_firewire_lib
-handle_it_packet (drivers/firewire/ohci.c:2786 drivers/firewire/ohci.c:2974=
-) firewire_ohci
-context_tasklet (drivers/firewire/ohci.c:1127) firewire_ohci
-tasklet_action_common.isra.0 (kernel/softirq.c:789)=20
-handle_softirqs (kernel/softirq.c:554)=20
-__irq_exit_rcu (kernel/softirq.c:589 kernel/softirq.c:428 kernel/softirq.c:=
-637)=20
-common_interrupt (arch/x86/kernel/irq.c:278 (discriminator 35))=20
- </IRQ>
- <TASK>
-asm_common_interrupt (./arch/x86/include/asm/idtentry.h:693)=20
-
-It can be induced by direct ALSA playback to the device:
-mpv --audio-device=3Dalsa/sysdefault:CARD=3DFireface800 Spor-Ignition.flac
-Time to occurrence ranges from two seconds to 30 minutes.
-
-Loading the CPU appears to increase the likelihood:
-stress --cpu $(nproc)
-So does switching between applications via workspaces (only tested Xfce).
-
-The regression has been traced to these two commits:
-7ba5ca32fe6e8d2e153fb5602997336517b34743
-b5b519965c4c364ae65c49fe9f11d222dd70a9c2
-
-I am currently testing a simple patch, in essence reverting both commits.
-Behaves well so far (stable), will likely send it in tomorrow.
-
-#regzbot introduced: 7ba5ca32fe6e
-
+Takashi

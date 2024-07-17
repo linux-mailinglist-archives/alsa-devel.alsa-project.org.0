@@ -2,175 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1913933946
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 10:41:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA01933A12
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2024 11:37:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A864184D;
-	Wed, 17 Jul 2024 10:41:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A864184D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74560EBE;
+	Wed, 17 Jul 2024 11:37:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74560EBE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721205674;
-	bh=opPt7tqdT8LfI+IabmLzugjEK+EwOUpc8JG+FLZUkAs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=KyMWzxNRkIqry2/CkbnJX9TEed8hw5VMV1UGag3+rNVJ5Za18/0lmjincsrSXYWRb
-	 xqwP5ZPigoVDUH6GPdfQkXzfxd+mqzBu+A/LbrAFVgnnvOunq7LbyIaIP4EzsbPYco
-	 BgmuaXldIYh6fkn1WffgVPV/lqyuNAZvmEw14kr4=
+	s=default; t=1721209069;
+	bh=IwiMKjEwvVSJ5IWaPDpoKynG7VWz5j2VPRipkRNYig0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=bNyXN7OGl0PnLrrBR9Ktd3oLUBzNMez5NApEtKT/SpFugZtMsXxi+mjulo2IYlY1n
+	 O5ns2zVwQXJC5ItKdz2Dg1eBSjQUfo7e6Qi1NTaLkX96yHVRC5/ojDJTcKh+WcT9NM
+	 jp9jtHdhZ5pBkG6TmbthqFHIJNjBmcnmx2JPGCG8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B11EFF80589; Wed, 17 Jul 2024 10:40:41 +0200 (CEST)
+	id 455EDF806DE; Wed, 17 Jul 2024 11:35:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37D44F805AD;
-	Wed, 17 Jul 2024 10:40:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05533F806F0;
+	Wed, 17 Jul 2024 11:35:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACB4BF8026D; Wed, 17 Jul 2024 10:40:10 +0200 (CEST)
+	id E66D4F8026D; Wed, 17 Jul 2024 11:17:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86850F8007E
-	for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2024 10:39:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86850F8007E
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L3,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B114F8007E
+	for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2024 11:17:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B114F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=pxa78rQj;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=GWmGvZw7;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=pxa78rQj;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=GWmGvZw7
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 606CE21B48;
-	Wed, 17 Jul 2024 08:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721205583;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWd77CskmZAw29o1fnPllLrLsoYpfLesmhhj3Kakj/E=;
-	b=pxa78rQj+nX9KXEEB6YNzJPZuY1dvGoDwIBF3G4/JXiUYv3/EqHWprGj7JV8APvb3v8a+c
-	9btJdgY2D6i0VYZGmPK37UsKZk7wGcPrpvj4zUIkfthoYWDvbKTX1IAj6w/AWRu+/wJbVe
-	MHReJvZ0GjowdiimMEzzKVB7Halp5LA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721205583;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWd77CskmZAw29o1fnPllLrLsoYpfLesmhhj3Kakj/E=;
-	b=GWmGvZw7pLd9+mfqz7ssyUO63zC7WhKK80q6aRwea4Xpg3tVO0tWTQj8K+bQJSxvFlAXX4
-	aK5Me0k/Pt1Y0CAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pxa78rQj;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GWmGvZw7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721205583;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWd77CskmZAw29o1fnPllLrLsoYpfLesmhhj3Kakj/E=;
-	b=pxa78rQj+nX9KXEEB6YNzJPZuY1dvGoDwIBF3G4/JXiUYv3/EqHWprGj7JV8APvb3v8a+c
-	9btJdgY2D6i0VYZGmPK37UsKZk7wGcPrpvj4zUIkfthoYWDvbKTX1IAj6w/AWRu+/wJbVe
-	MHReJvZ0GjowdiimMEzzKVB7Halp5LA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721205583;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aWd77CskmZAw29o1fnPllLrLsoYpfLesmhhj3Kakj/E=;
-	b=GWmGvZw7pLd9+mfqz7ssyUO63zC7WhKK80q6aRwea4Xpg3tVO0tWTQj8K+bQJSxvFlAXX4
-	aK5Me0k/Pt1Y0CAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 218FA1368F;
-	Wed, 17 Jul 2024 08:39:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id KdLbBk+Dl2a2FgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 17 Jul 2024 08:39:43 +0000
-Date: Wed, 17 Jul 2024 10:40:15 +0200
-Message-ID: <87y160xvgw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Cc: lars@metafoo.de,
-	perex@perex.cz,
-	tiwai@suse.com,
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=qTPyI98p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=Qjyea
+	kzBF2BWOZaDoB0LRL0/M0/RkHgMvm4NPWSnyiA=; b=qTPyI98pD+ewUQtAbkijt
+	GvTJyaypJgXDkN6NVwiRnom2NvDvnHiViUem57KfBruJx8qebdEHTVMfbb+nKrYq
+	qzBQpQI/0NfWqu/x7DDhGMsOl87Wo1ObhVW1P12ZIahXH/7m4JRH56Hs4/RSJcmK
+	8IboobWNearK1W4sqR6vP0=
+Received: from localhost.localdomain (unknown [111.48.69.245])
+	by gzga-smtp-mta-g2-5 (Coremail) with SMTP id
+ _____wD3PzoqjJdmqjNPAw--.34682S2;
+	Wed, 17 Jul 2024 17:17:32 +0800 (CST)
+From: wangdicheng <wangdich9700@163.com>
+To: lgirdwood@gmail.com,
 	broonie@kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
-	shengjiu.wang@gmail.com
-Subject: Re: [PATCH] ALSA: pcm_dmaengine: Don't synchronize DMA channel when
- DMA is paused
-In-Reply-To: <1721198693-27636-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1721198693-27636-1-git-send-email-shengjiu.wang@nxp.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[metafoo.de,perex.cz,suse.com,kernel.org,vger.kernel.org,alsa-project.org,gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 606CE21B48
-Message-ID-Hash: 6XT6KFUH7LCJTR2EQ437WDGJUPDPVUNF
-X-Message-ID-Hash: 6XT6KFUH7LCJTR2EQ437WDGJUPDPVUNF
-X-MailFrom: tiwai@suse.de
+	linux-arm-kernel@lists.infradead.org,
+	wangdicheng <wangdicheng@kylinos.cn>
+Subject: [PATCH] ALSA: usb-audio: Fix microphone sound on HD webcam.
+Date: Wed, 17 Jul 2024 17:17:28 +0800
+Message-Id: <20240717091728.11188-1-wangdich9700@163.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD3PzoqjJdmqjNPAw--.34682S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw43JFy5tFyrCF45Xw13urg_yoWrCFyxpr
+	1Iya97JryDJr17Xr4kGayUu34rXw4Iyws8Ca4qkwna9ryft34rta42y39rAayakrWrC342
+	qryjy3yqg3y5Gw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYKZXUUUUU=
+X-Originating-IP: [111.48.69.245]
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbiNRQfT2V4IpLIMQACsn
+X-MailFrom: wangdich9700@163.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: AZGGMN7UH5JK6W4GFFGP46NNPBSBRYXT
+X-Message-ID-Hash: AZGGMN7UH5JK6W4GFFGP46NNPBSBRYXT
+X-Mailman-Approved-At: Wed, 17 Jul 2024 09:35:11 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6XT6KFUH7LCJTR2EQ437WDGJUPDPVUNF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AZGGMN7UH5JK6W4GFFGP46NNPBSBRYXT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,18 +95,137 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 17 Jul 2024 08:44:53 +0200,
-Shengjiu Wang wrote:
-> 
-> When suspended, the DMA channel may enter PAUSE state if dmaengine_pause()
-> is supported by DMA.
-> At this state, dmaengine_synchronize() should not be called, otherwise
-> the DMA channel can't be resumed successfully.
-> 
-> Fixes: e8343410ddf0 ("ALSA: dmaengine: Synchronize dma channel after drop()")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+From: wangdicheng <wangdicheng@kylinos.cn>
 
-Thanks, applied now.
+I own an external usb Webcam, HD webcam, which had low mic volume and
+inconsistent sound quality. Video works as expected.
 
+(snip)
+[   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
+[   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
+[   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
+[   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
+[   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
+[   96.092610][ 2] [ T3680] usb 5-2.2: Warning! Unlikely big volume range (=4096), cval->res is probably wrong.
+[   96.102436][ 2] [ T3680] usb 5-2.2: [5] FU [Mic Capture Volume] ch = 1, val = 0/4096/1
 
-Takashi
+Set up quirk cval->res to 16 for 256 levels,
+Set GET_SAMPLE_RATE quirk flag to stop trying to get the sample rate.
+Confirmed that happened anyway later due to the backoff mechanism,
+After 3 failures.
+
+All audio stream on device interfaces share the same values,
+apart from wMaxPacketSize and tSamFreq :
+
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        3
+      bAlternateSetting       4
+      bNumEndpoints           1
+      bInterfaceClass         1 Audio
+
+Interface Descriptor:
+  bLength                 9
+  bDescriptorType         4
+  bInterfaceNumber        3
+  bAlternateSetting       4
+  bNumEndpoints           1
+  bInterfaceClass         1 Audio
+  bInterfaceSubClass      2 Streaming
+  bInterfaceProtocol      0
+  iInterface              0
+  AudioStreaming Interface Descriptor:
+    bLength                 7
+    bDescriptorType        36
+    bDescriptorSubtype      1 (AS_GENERAL)
+    bTerminalLink           3
+    bDelay                  1 frames
+    wFormatTag         0x0001 PCM
+  AudioStreaming Interface Descriptor:
+    bLength                11
+    bDescriptorType        36
+    bDescriptorSubtype      2 (FORMAT_TYPE)
+    bFormatType             1 (FORMAT_TYPE_I)
+    bNrChannels             1
+    bSubframeSize           2
+    bBitResolution         16
+    bSamFreqType            1 Discrete
+    tSamFreq[ 0]        48000
+  Endpoint Descriptor:
+    bLength                 9
+    bDescriptorType         5
+    bEndpointAddress     0x86  EP 6 IN
+    bmAttributes            5
+      Transfer Type            Isochronous
+      Synch Type               Asynchronous
+      Usage Type               Data
+    wMaxPacketSize     0x0064  1x 100 bytes
+    bInterval               4
+    bRefresh                0
+    bSynchAddress           0
+    AudioStreaming Endpoint Descriptor:
+      bLength                 7
+      bDescriptorType        37
+      bDescriptorSubtype      1 (EP_GENERAL)
+      bmAttributes         0x01
+        Sampling Frequency
+      bLockDelayUnits         0 Undefined
+      wLockDelay         0x0000
+(snip)
+
+Testing patch provides consistent good sound recording quality and volume range.
+
+(snip)
+[   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
+[   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
+[   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
+[   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
+[   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
+[   96.110630][ 3] [ T3680] usbcore: registered new interface driver snd-usb-audio
+[   96.114329][ 7] [ T3677] usb 5-2.2: Found UVC 1.00 device HD webcam (1bcf:2281)
+[   96.167555][ 7] [ T3677] usbcore: registered new interface driver uvcvideo
+
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+---
+V1 -> V2: align the space
+---
+ sound/usb/mixer.c  | 7 +++++++
+ sound/usb/quirks.c | 2 ++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 409fc1164694..d1bdb0b93bda 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1211,6 +1211,13 @@ static void volume_control_quirks(struct usb_mixer_elem_info *cval,
+ 			cval->res = 16;
+ 		}
+ 		break;
++	case USB_ID(0x1bcf, 0x2281): /* HD Webcam */
++		if (!strcmp(kctl->id.name, "Mic Capture Volume")) {
++			usb_audio_info(chip,
++				"set resolution quirk: cval->res = 16\n");
++			cval->res = 16;
++		}
++		break;
+ 	}
+ }
+ 
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 4e64842245e1..7cd13e4fda4f 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2179,6 +2179,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_FIXED_RATE),
+ 	DEVICE_FLG(0x1bcf, 0x2283, /* NexiGo N930AF FHD Webcam */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
++	DEVICE_FLG(0x1bcf, 0x2281, /* HD Webcam */
++		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 
+ 	/* Vendor matches */
+ 	VENDOR_FLG(0x045e, /* MS Lifecam */
+-- 
+2.25.1
+

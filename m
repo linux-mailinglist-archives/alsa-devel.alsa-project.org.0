@@ -2,54 +2,46 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82579934746
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jul 2024 06:51:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE8B93474A
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jul 2024 06:55:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA4DBDF9;
-	Thu, 18 Jul 2024 06:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA4DBDF9
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC035E72;
+	Thu, 18 Jul 2024 06:55:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC035E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721278295;
-	bh=snkwxh91XN8cT8Ox34MX+66GuL1gsE6SYT8nuWc/eXo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=QsFruK19myeCGDns2KFFKhVkdXNiTJoBkNxITIIyFPk3a7L6YlyOgzXCjPcfumPsp
-	 gwAc8ensa/Lqnv1ZgoL6IJscntm6DYe3+pkUWRecnUdXZ8uETf6aVOyHf7N35fFNHc
-	 orlgqY3HARlfNdX/cS4x1gaB41M+NaqU9oy/LBCo=
+	s=default; t=1721278542;
+	bh=bIukJ+kgusr4eFJzCUy8XUr5vqNM6T7KWsQyAJWtl44=;
+	h=Subject:From:To:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iE8kkUTPhANbvw30OtI9e9p3/v620v2IaOw2T2fuYZ9JBjPyh26u+MD72qYe4EJom
+	 0dXK0+5qK5udm0i0l7lXgaWx/I/P/a0jzrG3LnVcX3whAkgeIzGf3WdBrn2e/5RV4l
+	 lEFgv4HSHIjmNUaSyLimrygCqDcn4XcdG+0qgLUw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F582F800FA; Thu, 18 Jul 2024 06:51:14 +0200 (CEST)
+	id 880B0F80587; Thu, 18 Jul 2024 06:55:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7572BF800FA;
-	Thu, 18 Jul 2024 06:51:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C057AF805A0;
+	Thu, 18 Jul 2024 06:55:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 45835F8026D; Thu, 18 Jul 2024 06:48:02 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B051F8007E
-	for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2024 06:45:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B051F8007E
+	id 16608F80508; Thu, 18 Jul 2024 06:52:36 +0200 (CEST)
+Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
+ [10.254.200.11])
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AB21F8007E
+	for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2024 06:52:36 +0200 (CEST)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1721277918697913408-webhooks-bot@alsa-project.org>
-References: <1721277918697913408-webhooks-bot@alsa-project.org>
 Subject: Inconsistent order of channels on C-Media 7.1 channel device
-Message-Id: <20240718044802.45835F8026D@alsa1.perex.cz>
-Date: Thu, 18 Jul 2024 06:48:02 +0200 (CEST)
-Message-ID-Hash: TRGB5ZXDYZCMAYUZEN6JWS3JK4GTPDE4
-X-Message-ID-Hash: TRGB5ZXDYZCMAYUZEN6JWS3JK4GTPDE4
-X-MailFrom: github@alsa-project.org
+From: victor@allumeenergy.com.au
+To: alsa-devel@alsa-project.org
+Date: Thu, 18 Jul 2024 04:52:36 -0000
+Message-ID: 
+ <172127835604.6185.4671370925729472425@mailman-web.alsa-project.org>
+User-Agent: HyperKitty on https://mailman.alsa-project.org/
+Message-ID-Hash: UFSZOETYKLOBOOYNKXVVUTY46BTLSF63
+X-Message-ID-Hash: UFSZOETYKLOBOOYNKXVVUTY46BTLSF63
+X-MailFrom: victor@allumeenergy.com.au
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +53,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TRGB5ZXDYZCMAYUZEN6JWS3JK4GTPDE4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QY4IQMJ6WQAFIUR4M3S6CNKMHHJREONZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,8 +61,6 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-
-alsa-project/alsa-lib issue #402 was opened from victorallume:
 
 I have a USB sound device (Startech ICUSBAUDIO7D, which comes up as `ID 0d8c:0102 C-Media Electronics, Inc. CM106 Like Sound Device` through lsusb) which I'm trying to program the output of for 8 channels. The python code (outputs a 50Hz sine wave) I'm using is below (each channel gets a different amplitude so I can identify them with an oscilloscope).
 
@@ -108,6 +98,3 @@ if __name__ == '__main__':
 
 alsa-info output is attached
 [alsa-info.txt](https://github.com/user-attachments/files/16277691/alsa-info.txt)
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/402
-Repository URL: https://github.com/alsa-project/alsa-lib

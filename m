@@ -2,92 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C263D938F85
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 15:00:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D25A8938F87
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 15:00:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EF51E7F;
-	Mon, 22 Jul 2024 14:59:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EF51E7F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 916087F4;
+	Mon, 22 Jul 2024 15:00:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 916087F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721653209;
-	bh=ZegcCl/GlPv/utyNLL6/bM9sMNKAtaNRsXaLmtQ5CHQ=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1721653230;
+	bh=xO1ybirnwHc/5PYbnp8br6AI3nTAS/ZKlIeSt8WCIZk=;
+	h=Date:To:From:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=BKqhJdSvpFGPKJv+8mUYJXDIPucd/8n4n+yMPAUKJl8viO6O+3bn09yIfjWE4TVVe
-	 IBB0kj65L/aX0jyr7IOaTg6g0GfwHcY4MONnplNzXBRZh3s+hvH85bmlusXHxEv9o2
-	 kKbBRDnnw8AK8nKAMApsBSwn4XOPWb4q7e/eDww4=
+	b=kx+J8/x015AeH3r+gfHUNfFsjrMObN/3200yoVHA3S8p/1yPr9VjBWM3H5yoYLg0F
+	 AKvp7hLSjrKbwWlDVs1+n4mVzCJhhwinO8Ev606tk/VOxHUmaUnA99UqqXKNV06VvU
+	 I9vNZDr/1QlLTbMi8on1tz12xHWB461h0kLV2khA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EB71F805D5; Mon, 22 Jul 2024 14:59:28 +0200 (CEST)
+	id B6804F80600; Mon, 22 Jul 2024 14:59:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AC90F805C9;
-	Mon, 22 Jul 2024 14:59:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 489DFF805FC;
+	Mon, 22 Jul 2024 14:59:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDF0DF8026D; Thu, 18 Jul 2024 08:08:17 +0200 (CEST)
+	id 616D5F8026D; Thu, 18 Jul 2024 13:57:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L3,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D650F800C1
-	for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2024 08:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D650F800C1
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch
+ [185.70.43.166])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6721F8007E
+	for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2024 13:57:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6721F8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=c6QbtYWm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=FSp2v
-	95tkSIfbt1VFh0n0vhdmzySiMpH/D6OFSlbU5M=; b=c6QbtYWmrEULUyCcd6bfg
-	1Cr+y3kancLBPaDq6S/4YJ5TWmMd++4S0uLWnQoSOiWvYBNwnNbk2d4tfTQ/Nf9a
-	CoGgWq1IOgfi8qMmt/ohQZ7dtGcMp8wKoDxDF4xB/VoiVnTHYcAugpzTaJ8UeRL6
-	GjiMszuQS/LwdAzi0FpWXE=
-Received: from localhost.localdomain (unknown [111.48.69.245])
-	by gzga-smtp-mta-g2-5 (Coremail) with SMTP id
- _____wD3vzY+sZhmlum7Aw--.54868S2;
-	Thu, 18 Jul 2024 14:07:59 +0800 (CST)
-From: wangdicheng <wangdich9700@163.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org,
-	wangdicheng <wangdich9700@163.com>,
-	wangdicheng <wangdicheng@kylinos.cn>
-Subject: [PATCH v2] ALSA: usb-audio: Fix microphone sound on HD webcam.
-Date: Thu, 18 Jul 2024 14:07:56 +0800
-Message-Id: <20240718060756.15322-1-wangdich9700@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256
+ header.s=protonmail header.b=YoDfyPfB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1721303818; x=1721563018;
+	bh=0IgroBuJlaGzNroVwV8aEok8gKxHNerwJQw2E/oX80E=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=YoDfyPfBqD0sUU5Uk00Xy4E8TgUjWcOGrjWalEaYZHesMTsEKxvUqKrJGUbwUcQjd
+	 pKLEvLtS0853RsSakHwHkT8hbyAZ7yzjz2i8s83h+j2OS5wLQxJH+uUzuOLHGwWRiR
+	 TQY2Fmor4Qq9zY7nRYlIX4SNhT4nliVD+BO+B1Y5GwoYyv6WVq3jO7D5KrX+BbIPhz
+	 Wi1gOxrVyfVpktqpyEU6j9nb2HEw1OBS3CZzDvB7O4+RPNlxH3mUZJFRs35hWYKpwk
+	 HTzKPPBXMomh1AdApZybDZt6Yho3721FT+Zxnuf3QFr+q/lS8wKyC7UzdT4ErVGk5p
+	 rI4brd9Udt+UQ==
+Date: Thu, 18 Jul 2024 11:56:54 +0000
+To: o-takashi@sakamocchi.jp, clemens@ladisch.de
+From: Edmund Raile <edmund.raile@proton.me>
+Cc: tiwai@suse.com, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Edmund Raile <edmund.raile@proton.me>
+Subject: [PATCH] ALSA: firewire-lib: restore process context workqueue to
+ prevent deadlock
+Message-ID: <20240718115637.12816-1-edmund.raile@proton.me>
+Feedback-ID: 45198251:user:proton
+X-Pm-Message-ID: 5f36b356ef27217606fffea2ecf7f96514ee86eb
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3vzY+sZhmlum7Aw--.54868S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXw43JFy5tFyrCF45Xw13urg_yoWrCFW3pr
-	1Iya97Jryktr17Xr48CayUu3yrXws2y398Ca4qkwna9ryfK34rta47t3yDAayakrWrC34j
-	qryjy3yqg3y5Gw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piGYLkUUUUU=
-X-Originating-IP: [111.48.69.245]
-X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbiRwQgT2V4KWD5UgAAsT
-X-MailFrom: wangdich9700@163.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: edmund.raile@proton.me
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UXWWQPJKZQ32L3BJF3CQJVZGDIPW62ON
-X-Message-ID-Hash: UXWWQPJKZQ32L3BJF3CQJVZGDIPW62ON
-X-Mailman-Approved-At: Mon, 22 Jul 2024 12:59:24 +0000
+Message-ID-Hash: TVSFEFOE74PAXGUI4RJD4SQEBWNWMJ35
+X-Message-ID-Hash: TVSFEFOE74PAXGUI4RJD4SQEBWNWMJ35
+X-Mailman-Approved-At: Mon, 22 Jul 2024 12:59:25 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UXWWQPJKZQ32L3BJF3CQJVZGDIPW62ON/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TVSFEFOE74PAXGUI4RJD4SQEBWNWMJ35/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,135 +92,188 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-I own an external usb Webcam, HD webcam, which had low mic volume and
-inconsistent sound quality. Video works as expected.
+Commit b5b519965c4c ("ALSA: firewire-lib: operate for period elapse event
+in process context") removed the process context workqueue from
+amdtp_domain_stream_pcm_pointer() and update_pcm_pointers() to remove
+its overhead.
 
-(snip)
-[   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
-[   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
-[   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
-[   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
-[   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
-[   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
-[   96.092610][ 2] [ T3680] usb 5-2.2: Warning! Unlikely big volume range (=4096), cval->res is probably wrong.
-[   96.102436][ 2] [ T3680] usb 5-2.2: [5] FU [Mic Capture Volume] ch = 1, val = 0/4096/1
+With RME Fireface 800, this lead to a regression since Kernels 5.14.0,
+causing a deadlock with eventual system freeze under ALSA operation:
 
-Set up quirk cval->res to 16 for 256 levels,
-Set GET_SAMPLE_RATE quirk flag to stop trying to get the sample rate.
-Confirmed that happened anyway later due to the backoff mechanism,
-After 3 failures.
+? tasklet_unlock_spin_wait
+ </NMI>
+ <TASK>
+ohci_flush_iso_completions firewire_ohci
+amdtp_domain_stream_pcm_pointer snd_firewire_lib
+snd_pcm_update_hw_ptr0 snd_pcm
+snd_pcm_status64 snd_pcm
 
-All audio stream on device interfaces share the same values,
-apart from wMaxPacketSize and tSamFreq :
+? native_queued_spin_lock_slowpath
+ </NMI>
+ <IRQ>
+_raw_spin_lock_irqsave
+snd_pcm_period_elapsed snd_pcm
+process_rx_packets snd_firewire_lib
+irq_target_callback snd_firewire_lib
+handle_it_packet firewire_ohci
+context_tasklet firewire_ohci
 
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        3
-      bAlternateSetting       4
-      bNumEndpoints           1
-      bInterfaceClass         1 Audio
+Restore the work queue to prevent deadlock between ALSA substream
+process context spin_lock of snd_pcm_stream_lock_irq() in snd_pcm_status64(=
+)
+and OHCI 1394 IT softIRQ context spin_lock of snd_pcm_stream_lock_irqsave()
+in snd_pcm_period_elapsed().
 
-Interface Descriptor:
-  bLength                 9
-  bDescriptorType         4
-  bInterfaceNumber        3
-  bAlternateSetting       4
-  bNumEndpoints           1
-  bInterfaceClass         1 Audio
-  bInterfaceSubClass      2 Streaming
-  bInterfaceProtocol      0
-  iInterface              0
-  AudioStreaming Interface Descriptor:
-    bLength                 7
-    bDescriptorType        36
-    bDescriptorSubtype      1 (AS_GENERAL)
-    bTerminalLink           3
-    bDelay                  1 frames
-    wFormatTag         0x0001 PCM
-  AudioStreaming Interface Descriptor:
-    bLength                11
-    bDescriptorType        36
-    bDescriptorSubtype      2 (FORMAT_TYPE)
-    bFormatType             1 (FORMAT_TYPE_I)
-    bNrChannels             1
-    bSubframeSize           2
-    bBitResolution         16
-    bSamFreqType            1 Discrete
-    tSamFreq[ 0]        48000
-  Endpoint Descriptor:
-    bLength                 9
-    bDescriptorType         5
-    bEndpointAddress     0x86  EP 6 IN
-    bmAttributes            5
-      Transfer Type            Isochronous
-      Synch Type               Asynchronous
-      Usage Type               Data
-    wMaxPacketSize     0x0064  1x 100 bytes
-    bInterval               4
-    bRefresh                0
-    bSynchAddress           0
-    AudioStreaming Endpoint Descriptor:
-      bLength                 7
-      bDescriptorType        37
-      bDescriptorSubtype      1 (EP_GENERAL)
-      bmAttributes         0x01
-        Sampling Frequency
-      bLockDelayUnits         0 Undefined
-      wLockDelay         0x0000
-(snip)
+to reproduce the issue:
+direct ALSA playback to the device:
+  mpv --audio-device=3Dalsa/sysdefault:CARD=3DFireface800 Spor-Ignition.fla=
+c
+Time to occurrence: 2s to 30m
+Likelihood increased by:
+  - high CPU load
+    stress --cpu $(nproc)
+  - switching between applications via workspaces
+    tested with i915 in Xfce
+PulsaAudio / PipeWire conceal the issue as they run PCM substream
+without period wakeup mode, issuing less hardIRQs.
 
-Testing patch provides consistent good sound recording quality and volume range.
-
-(snip)
-[   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
-[   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
-[   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
-[   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
-[   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
-[   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
-[   96.110630][ 3] [ T3680] usbcore: registered new interface driver snd-usb-audio
-[   96.114329][ 7] [ T3677] usb 5-2.2: Found UVC 1.00 device HD webcam (1bcf:2281)
-[   96.167555][ 7] [ T3677] usbcore: registered new interface driver uvcvideo
-
-Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+Closes: https://lore.kernel.org/regressions/kwryofzdmjvzkuw6j3clftsxmoolynl=
+jztxqwg76hzeo4simnl@jn3eo7pe642q/T/#u
+Fixes: 7ba5ca32fe6e ("ALSA: firewire-lib: operate for period elapse event i=
+n process context")
+Signed-off-by: Edmund Raile <edmund.raile@proton.me>
 ---
-V1 -> V2: align the space,Update code to v6.8-rc3,and make modifications based on it
----
- sound/usb/mixer.c  | 7 +++++++
- sound/usb/quirks.c | 2 ++
- 2 files changed, 9 insertions(+)
+This is the follow-up patch to the 5.14.0 regression I reported:
+https://lore.kernel.org/regressions/kwryofzdmjvzkuw6j3clftsxmoolynljztxqwg7=
+6hzeo4simnl@jn3eo7pe642q/T/#u
+("[REGRESSION] ALSA: firewire-lib: snd_pcm_period_elapsed deadlock with Fir=
+eface 800")
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 409fc1164694..d1bdb0b93bda 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1211,6 +1211,13 @@ static void volume_control_quirks(struct usb_mixer_elem_info *cval,
- 			cval->res = 16;
- 		}
- 		break;
-+	case USB_ID(0x1bcf, 0x2281): /* HD Webcam */
-+		if (!strcmp(kctl->id.name, "Mic Capture Volume")) {
-+			usb_audio_info(chip,
-+				"set resolution quirk: cval->res = 16\n");
-+			cval->res = 16;
-+		}
-+		break;
- 	}
+Takashi Sakamoto explained the issue in his response to the regression:
+A. In the process context
+    * (lock A) Acquiring spin_lock by snd_pcm_stream_lock_irq() in
+               snd_pcm_status64()
+    * (lock B) Then attempt to enter tasklet
+
+B. In the softIRQ context
+    * (lock B) Enter tasklet
+    * (lock A) Attempt to acquire spin_lock by snd_pcm_stream_lock_irqsave(=
+) in
+               snd_pcm_period_elapsed()
+
+This leads me to believe this isn't just an issue limited to the RME Firefa=
+ce
+
+driver (snd_fireface), though I can not test the other devices.
+ sound/firewire/amdtp-stream.c | 32 +++++++++++++++++++++-----------
+ sound/firewire/amdtp-stream.h |  1 +
+ 2 files changed, 22 insertions(+), 11 deletions(-)
+
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index d35d0a420ee0..77b99a2117f4 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -77,6 +77,8 @@
+ // overrun. Actual device can skip more, then this module stops the packet=
+ streaming.
+ #define IR_JUMBO_PAYLOAD_MAX_SKIP_CYCLES=095
+=20
++static void pcm_period_work(struct work_struct *work);
++
+ /**
+  * amdtp_stream_init - initialize an AMDTP stream structure
+  * @s: the AMDTP stream to initialize
+@@ -105,6 +107,7 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw=
+_unit *unit,
+ =09s->flags =3D flags;
+ =09s->context =3D ERR_PTR(-1);
+ =09mutex_init(&s->mutex);
++=09INIT_WORK(&s->period_work, pcm_period_work);
+ =09s->packet_index =3D 0;
+=20
+ =09init_waitqueue_head(&s->ready_wait);
+@@ -347,6 +350,7 @@ EXPORT_SYMBOL(amdtp_stream_get_max_payload);
+  */
+ void amdtp_stream_pcm_prepare(struct amdtp_stream *s)
+ {
++=09cancel_work_sync(&s->period_work);
+ =09s->pcm_buffer_pointer =3D 0;
+ =09s->pcm_period_pointer =3D 0;
  }
- 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 09712e61c606..f222532d4d43 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2185,6 +2185,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_ALIGN_TRANSFER),
- 	DEVICE_FLG(0x534d, 0x2109, /* MacroSilicon MS2109 */
- 		   QUIRK_FLAG_ALIGN_TRANSFER),
-+	DEVICE_FLG(0x1bcf, 0x2281, /* HD Webcam */
-+		   QUIRK_FLAG_GET_SAMPLE_RATE),
- 
- 	/* Vendor matches */
- 	VENDOR_FLG(0x045e, /* MS Lifecam */
--- 
-2.25.1
+@@ -611,19 +615,21 @@ static void update_pcm_pointers(struct amdtp_stream *=
+s,
+ =09=09// The program in user process should periodically check the status =
+of intermediate
+ =09=09// buffer associated to PCM substream to process PCM frames in the b=
+uffer, instead
+ =09=09// of receiving notification of period elapsed by poll wait.
+-=09=09if (!pcm->runtime->no_period_wakeup) {
+-=09=09=09if (in_softirq()) {
+-=09=09=09=09// In software IRQ context for 1394 OHCI.
+-=09=09=09=09snd_pcm_period_elapsed(pcm);
+-=09=09=09} else {
+-=09=09=09=09// In process context of ALSA PCM application under acquired l=
+ock of
+-=09=09=09=09// PCM substream.
+-=09=09=09=09snd_pcm_period_elapsed_under_stream_lock(pcm);
+-=09=09=09}
+-=09=09}
++=09=09if (!pcm->runtime->no_period_wakeup)
++=09=09=09queue_work(system_highpri_wq, &s->period_work);
+ =09}
+ }
+=20
++static void pcm_period_work(struct work_struct *work)
++{
++=09struct amdtp_stream *s =3D container_of(work, struct amdtp_stream,
++=09=09=09=09=09      period_work);
++=09struct snd_pcm_substream *pcm =3D READ_ONCE(s->pcm);
++=09
++=09if (pcm)
++=09=09snd_pcm_period_elapsed(pcm);
++}
++
+ static int queue_packet(struct amdtp_stream *s, struct fw_iso_packet *para=
+ms,
+ =09=09=09bool sched_irq)
+ {
+@@ -1854,7 +1860,10 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct=
+ amdtp_domain *d,
+ =09if (irq_target && amdtp_stream_running(irq_target)) {
+ =09=09// In software IRQ context, the call causes dead-lock to disable the=
+ tasklet
+ =09=09// synchronously.
+-=09=09if (!in_softirq())
++=09=09// workqueue serves to prevent deadlock between process context spin=
+lock
++=09=09// of snd_pcm_stream_lock_irq() in snd_pcm_status64() and softIRQ sp=
+inlock
++=09=09// of snd_pcm_stream_lock_irqsave() in snd_pcm_period_elapsed()
++=09=09if ((!in_softirq()) && (current_work() !=3D &s->period_work))
+ =09=09=09fw_iso_context_flush_completions(irq_target->context);
+ =09}
+=20
+@@ -1910,6 +1919,7 @@ static void amdtp_stream_stop(struct amdtp_stream *s)
+ =09=09return;
+ =09}
+=20
++=09cancel_work_sync(&s->period_work);
+ =09fw_iso_context_stop(s->context);
+ =09fw_iso_context_destroy(s->context);
+ =09s->context =3D ERR_PTR(-1);
+diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
+index a1ed2e80f91a..775db3fc4959 100644
+--- a/sound/firewire/amdtp-stream.h
++++ b/sound/firewire/amdtp-stream.h
+@@ -191,6 +191,7 @@ struct amdtp_stream {
+=20
+ =09/* For a PCM substream processing. */
+ =09struct snd_pcm_substream *pcm;
++=09struct work_struct period_work;
+ =09snd_pcm_uframes_t pcm_buffer_pointer;
+ =09unsigned int pcm_period_pointer;
+ =09unsigned int pcm_frame_multiplier;
+--=20
+2.45.2
+
 

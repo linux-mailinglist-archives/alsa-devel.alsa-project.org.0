@@ -2,145 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A549374A3
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2024 10:01:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4E1193764F
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2024 12:01:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 053BAE82;
-	Fri, 19 Jul 2024 10:01:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 053BAE82
+	by alsa0.perex.cz (Postfix) with ESMTPS id B641CE9D;
+	Fri, 19 Jul 2024 12:01:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B641CE9D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721376090;
-	bh=v9/0vbm+9xHzYX4WGmZ8UM4iT9l5sSskUwKn4FkjE2c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tKCya4R7bj+eM5MRDSMuGiWkbp0EzC4TeTUZ5bX80mFjlZqtftcfoGk/3W6ynI7o6
-	 9CwZNYJ5OduY650GISI9Zi7mnS2MNtRwvDuaK8HXNmlRAx+EO0PrX09kjZniTIn90G
-	 b7pbA9LkJ4xoo0WfglQ9LjAd1vS4zmqNZgWOGdmk=
+	s=default; t=1721383287;
+	bh=DgihQwGyJLD9i+lGfE827avXH+goKNy4YF325JpjvjI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hCy1kvjR/riIaemuobue9129pJ//iAH2ofDop1mtku/PAJq55Gosk+cuT6VYtK3hx
+	 u/n1+jV0ThigFbRaTXMIUiBIjDy+l0gQR7BasFUFaWWEA4/yv+6XwJ/F234U/5flxw
+	 QUHtiXf6AUSJ9DzuTF7N+SmbXBPosvfort4poE00=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED090F805AA; Fri, 19 Jul 2024 10:01:07 +0200 (CEST)
+	id 3C826F805B4; Fri, 19 Jul 2024 12:00:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B091F805AE;
-	Fri, 19 Jul 2024 10:01:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B15D8F805AE;
+	Fri, 19 Jul 2024 12:00:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D754F804FC; Fri, 19 Jul 2024 09:48:35 +0200 (CEST)
+	id 19C3DF804FC; Fri, 19 Jul 2024 11:57:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1854EF8007E
-	for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2024 09:47:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1854EF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A009F8013D
+	for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2024 11:56:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A009F8013D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=KVfutfg6;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=A2Ql2yPf;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=KVfutfg6;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=A2Ql2yPf
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 26BBA21B1B;
-	Fri, 19 Jul 2024 07:47:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721375247;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wlCu6jKq2cJKf9rlzPvO/GG/OYPip1T18Fqi7rECkbU=;
-	b=KVfutfg6gKzQ9LeSqaSwF/rYeJ//tnfA0RqucTxxLNdXuVO0ISqAtjGX2OcfFCIgp8NBRY
-	AZPEvE+Kl52z9h8GNKFKi/QGBFlTsLkqib3C9nJsOrwBVYbpiP25VMDhM/N6pdm1Fww5Nn
-	rmrEvf8GfUJNoFRJW5p0/ANMsVTkgKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721375247;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wlCu6jKq2cJKf9rlzPvO/GG/OYPip1T18Fqi7rECkbU=;
-	b=A2Ql2yPfOid4IgdrP2MhjLC4WXdPYKhb6z2sCygsaCuvnJdy2r4t7lvTyO/5IsoFCuyyv9
-	WfWJjdW9+XYhEECg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721375247;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wlCu6jKq2cJKf9rlzPvO/GG/OYPip1T18Fqi7rECkbU=;
-	b=KVfutfg6gKzQ9LeSqaSwF/rYeJ//tnfA0RqucTxxLNdXuVO0ISqAtjGX2OcfFCIgp8NBRY
-	AZPEvE+Kl52z9h8GNKFKi/QGBFlTsLkqib3C9nJsOrwBVYbpiP25VMDhM/N6pdm1Fww5Nn
-	rmrEvf8GfUJNoFRJW5p0/ANMsVTkgKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721375247;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wlCu6jKq2cJKf9rlzPvO/GG/OYPip1T18Fqi7rECkbU=;
-	b=A2Ql2yPfOid4IgdrP2MhjLC4WXdPYKhb6z2sCygsaCuvnJdy2r4t7lvTyO/5IsoFCuyyv9
-	WfWJjdW9+XYhEECg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F1074136F7;
-	Fri, 19 Jul 2024 07:47:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id SgFHOQ4ammZ1KgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 19 Jul 2024 07:47:26 +0000
-Date: Fri, 19 Jul 2024 09:48:00 +0200
-Message-ID: <87r0bpu8jz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=vD0SqM/4
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id DBE48600BF;
+	Fri, 19 Jul 2024 09:56:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323D2C32782;
+	Fri, 19 Jul 2024 09:56:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1721383006;
+	bh=DgihQwGyJLD9i+lGfE827avXH+goKNy4YF325JpjvjI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=vD0SqM/4Xd9sD0P+xZAVGFqZQrLirpXTV1WG2ruOoIok6P2hDCOjYFWu8+CQ5wO7D
+	 hFVbkuihW/ba6wPha+6tpdipbPq+6X4sr8LJdGGFM4s52BTNk0I38hrBxNjEw18AQJ
+	 ROOLPNp/+I33EsM4RzSyaISBQdAf+l07SYK8rTI71RUaySXx03aTmCv4HKISav93Qz
+	 xY1m3VXBt2J9vicO31k/dzCgq9o2yWhdbPHBtBvgRPH6vlAt/BaColNfJWc8gCvUYO
+	 S0KxiWJcD+CpE5kBiqeMLHPnjvZpxzLywZpse7qoTh/JrrNZZ4520KeVS3o52WAn2p
+	 wiuky2sbd0BfQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Gergo Koteles <soyer@irl.hu>,
 	Mark Brown <broonie@kernel.org>,
-	Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [RFC 00/xx] ALSA: ALSA: add snd_stream_is_playback/capture()
-In-Reply-To: <87zfqel1g7.wl-kuninori.morimoto.gx@renesas.com>
-References: <87zfqel1g7.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-Message-ID-Hash: BKEQMYO5TA6DJQPO6DHXWVRWX63HPVVV
-X-Message-ID-Hash: BKEQMYO5TA6DJQPO6DHXWVRWX63HPVVV
-X-MailFrom: tiwai@suse.de
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sound: hda: tas2781: mark const variables as __maybe_unused
+Date: Fri, 19 Jul 2024 11:56:34 +0200
+Message-Id: <20240719095640.3741247-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: MIKGE6PQSSQF344ALDQXHU7BUNJLS3HH
+X-Message-ID-Hash: MIKGE6PQSSQF344ALDQXHU7BUNJLS3HH
+X-MailFrom: arnd@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -152,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BKEQMYO5TA6DJQPO6DHXWVRWX63HPVVV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MIKGE6PQSSQF344ALDQXHU7BUNJLS3HH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,40 +100,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 19 Jul 2024 01:34:01 +0200,
-Kuninori Morimoto wrote:
-> 
-> 
-> Hi Iwai-san, Mark
-> 
-> Current many drivers are using below code to know its direction.
-> 
-> 	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-> 
-> I think it should be handled by function. But is it acceptable idea ?
+From: Arnd Bergmann <arnd@arndb.de>
 
-Is the conversion just for readability / consistency reason?
-Or would it bring other benefit like code safety?
-Honestly speaking, I see no big advantage of conversion, if it's only
-about the readability.
+An earlier patch changed the DECLARE_TLV_DB_SCALE declaration, but
+now there are additional static const variables that cause
+the same build warnings:
 
-> Because it will be too many patch-set, I want to know it was acceptable
-> idea or not before posting patch-bomb.
+In file included from sound/pci/hda/tas2781_hda_i2c.c:23:
+include/sound/tas2781-tlv.h:23:28: error: 'tas2563_dvc_table' defined but not used [-Werror=unused-const-variable=]
+   23 | static const unsigned char tas2563_dvc_table[][4] = {
+      |                            ^~~~~~~~~~~~~~~~~
+In file included from include/sound/tlv.h:10,
+                 from sound/pci/hda/tas2781_hda_i2c.c:22:
+include/sound/tas2781-tlv.h:20:35: error: 'tas2563_dvc_tlv' defined but not used [-Werror=unused-const-variable=]
+   20 | static const DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
+      |                                   ^~~~~~~~~~~~~~~
 
-A generic macro like Amadeusz suggested would be an interesting idea,
-and that can be seen as a cleanup.  But the straightforward conversion
-for the mass, I don't know whether it's worth...
+Mark them all as unused as well.
 
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ include/sound/tas2781-tlv.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-thanks,
+diff --git a/include/sound/tas2781-tlv.h b/include/sound/tas2781-tlv.h
+index 99c41bfc7827..00fd4d449ff3 100644
+--- a/include/sound/tas2781-tlv.h
++++ b/include/sound/tas2781-tlv.h
+@@ -16,11 +16,11 @@
+ #define __TAS2781_TLV_H__
+ 
+ static const __maybe_unused DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
+-static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
+-static const DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
++static const __maybe_unused DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
++static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
+ 
+ /* pow(10, db/20) * pow(2,30) */
+-static const unsigned char tas2563_dvc_table[][4] = {
++static const __maybe_unused unsigned char tas2563_dvc_table[][4] = {
+ 	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
+ 	{ 0X00, 0X00, 0X03, 0XBC }, /* -121.0db */
+ 	{ 0X00, 0X00, 0X03, 0XF5 }, /* -120.5db */
+-- 
+2.39.2
 
-Takashi
-
-> 
-> I will post main patch, and sample driver patches.
-> 
-> Thank you for your help !!
-> 
-> Best regards
-> ---
-> Kuninori Morimoto

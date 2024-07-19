@@ -2,154 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B135E9378E5
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2024 16:06:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 283BF937A9E
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2024 18:17:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD7C3E76;
-	Fri, 19 Jul 2024 16:06:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD7C3E76
+	by alsa0.perex.cz (Postfix) with ESMTPS id C680BE72;
+	Fri, 19 Jul 2024 18:17:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C680BE72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721397974;
-	bh=4n2ooGJZvBn5tbK4qkLZ/UCzladiicUSER+5K/p4Cb0=;
+	s=default; t=1721405846;
+	bh=N9ikjv8nlCsUDD+kFGy+dOFLLsoIRaRFd/BqgpCx/Es=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OFE+/dot3VEztbLtnArJzBRYAUMw7aS7UWCoVMltUJfohzhvxo0ZdL1a9kIwA4lcv
-	 no8w/Xy2iwjiwf9u09AUCza7jnV3zEveAszls1hbirtQ6QnqB3G/5qv9ppjIC1rA+6
-	 juPlmOVHY721UArJ0EFti7CYvsf/r6LW7ANV5yI0=
+	b=Z0zdK5fRFbxj4zZpneQzjahcqjhJlWSNGN8xXgYrjl9dCnt4G/PKZ01XxdunpY/WB
+	 cg/6QvE9iYTSSXaUbpNvADkhLJ1hrYCB1U18+OzZx8mZI0ucbdfKdjRP/hcixxQBpo
+	 VOYXDjPoeqMvNIQ3oM/boNhX1a1TJVaUIJRW0+PU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D998F805BE; Fri, 19 Jul 2024 16:05:43 +0200 (CEST)
+	id 842C2F805D3; Fri, 19 Jul 2024 18:16:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3748F80518;
-	Fri, 19 Jul 2024 16:05:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEA73F805D7;
+	Fri, 19 Jul 2024 18:16:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DEB1F8013D; Fri, 19 Jul 2024 15:57:01 +0200 (CEST)
+	id EDC9AF80508; Fri, 19 Jul 2024 18:10:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2E92EF8013D
-	for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2024 15:52:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E92EF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 17143F800FA
+	for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2024 18:06:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17143F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Zr71O+Hn;
+ header.s=susede2_rsa header.b=GuksSN/A;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UvhPRg3v;
+ header.s=susede2_ed25519 header.b=G2PTHp0o;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=Zr71O+Hn;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=GuksSN/A;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UvhPRg3v
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ header.s=susede2_ed25519 header.b=G2PTHp0o
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BAEF71F7B0;
-	Fri, 19 Jul 2024 13:52:55 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AE93921195;
+	Fri, 19 Jul 2024 16:06:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1721397175;
+	t=1721405194;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SNaP2pC2cpA0gMhQ2FQt5XGmmAF1/jlO2fh02lWF4vU=;
-	b=Zr71O+HnB+XI5t5o1dAQ5Bbx9sMY0qj6C2iIkC4UVfltaY407kwbes0FSWNUfLQN+/lS+C
-	2wsKD4zi2JDCQXp6O35rt/m9h+PQ6e+17c9ApKwQ1TU7jeWOo+KZbjCFoAYQ693gcjPnlS
-	Zu7mW5dy4qc0I0Y1EM/0Nl3Nrr8HtJA=
+	bh=/H93cFyUfCuxRcjvdGlgdf3FPdOykcZU4faiSSn7exo=;
+	b=GuksSN/ACzX0MAc+q7DDgh4n7vrgV6r4nS5ZUeTrebX35YmNk+DYXpRwoxxQkN5ooLoA6e
+	33Cksqku0uApBfqKc21pkOuEDjlHWp95jqM6VUT3USnZrZeMdmOUYmz1cNY7XBmp8HDSu6
+	A/pD1sex72m8pgfCgHDmW8jKW0rSV8M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721397175;
+	s=susede2_ed25519; t=1721405194;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SNaP2pC2cpA0gMhQ2FQt5XGmmAF1/jlO2fh02lWF4vU=;
-	b=UvhPRg3vFPDPkX5XMd3st34MUa0lxmFsxxFY3qhzvq4jDMYuI/aBPsOmFZcbR59T+WNbwu
-	bY57fVwagYV6q9CQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
+	bh=/H93cFyUfCuxRcjvdGlgdf3FPdOykcZU4faiSSn7exo=;
+	b=G2PTHp0oBcqKdtUqL5TT2fDZ/xdZr5KVu0X0hon/WQZ9cTBB1Vbotnbx1p67CPCXPdywju
+	gc+uuoH+//z5xbBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="GuksSN/A";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=G2PTHp0o
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1721397175;
+	t=1721405194;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SNaP2pC2cpA0gMhQ2FQt5XGmmAF1/jlO2fh02lWF4vU=;
-	b=Zr71O+HnB+XI5t5o1dAQ5Bbx9sMY0qj6C2iIkC4UVfltaY407kwbes0FSWNUfLQN+/lS+C
-	2wsKD4zi2JDCQXp6O35rt/m9h+PQ6e+17c9ApKwQ1TU7jeWOo+KZbjCFoAYQ693gcjPnlS
-	Zu7mW5dy4qc0I0Y1EM/0Nl3Nrr8HtJA=
+	bh=/H93cFyUfCuxRcjvdGlgdf3FPdOykcZU4faiSSn7exo=;
+	b=GuksSN/ACzX0MAc+q7DDgh4n7vrgV6r4nS5ZUeTrebX35YmNk+DYXpRwoxxQkN5ooLoA6e
+	33Cksqku0uApBfqKc21pkOuEDjlHWp95jqM6VUT3USnZrZeMdmOUYmz1cNY7XBmp8HDSu6
+	A/pD1sex72m8pgfCgHDmW8jKW0rSV8M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721397175;
+	s=susede2_ed25519; t=1721405194;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SNaP2pC2cpA0gMhQ2FQt5XGmmAF1/jlO2fh02lWF4vU=;
-	b=UvhPRg3vFPDPkX5XMd3st34MUa0lxmFsxxFY3qhzvq4jDMYuI/aBPsOmFZcbR59T+WNbwu
-	bY57fVwagYV6q9CQ==
+	bh=/H93cFyUfCuxRcjvdGlgdf3FPdOykcZU4faiSSn7exo=;
+	b=G2PTHp0oBcqKdtUqL5TT2fDZ/xdZr5KVu0X0hon/WQZ9cTBB1Vbotnbx1p67CPCXPdywju
+	gc+uuoH+//z5xbBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 883901396E;
-	Fri, 19 Jul 2024 13:52:55 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 68BF013808;
+	Fri, 19 Jul 2024 16:06:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id eu6wH7dvmmZLGAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 19 Jul 2024 13:52:55 +0000
-Date: Fri, 19 Jul 2024 15:53:28 +0200
-Message-ID: <87o76tsd2f.wl-tiwai@suse.de>
+	id pS5fGAqPmmYdEgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 19 Jul 2024 16:06:34 +0000
+Date: Fri, 19 Jul 2024 18:07:07 +0200
+Message-ID: <875xt1s6vo.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Sergei Steshenko <steshenko_sergei@list.ru>
-Cc: Xinhui Zhou <zxinhui2001@gmail.com>,
-	alsa-user@lists.sourceforge.net,
-	alsa-devel@alsa-project.org,
+To: wangdicheng <wangdich9700@163.com>
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
 	tiwai@suse.com,
-	perex@perex.cz
-Subject: Re: [Alsa-user] Help on specifying 'chmap' in asound.conf
-In-Reply-To: <748e1318-bc21-4280-9d1b-efd661403cdc@list.ru>
-References: <mailman.0.1673946668.16556.alsa-user@lists.sourceforge.net>
-	<0c99f6e0-c2f8-bc30-be10-314708382345@sc-riebe.de>
-	<c21f506a-255e-5885-7dde-f9716187536e@sc-riebe.de>
-	<CABsjGHLPYa26noDK3LDR_9EDxjXRZ9E5cEDAAyYnCEiuCPYWTg@mail.gmail.com>
-	<87le21z5wp.wl-tiwai@suse.de>
-	<748e1318-bc21-4280-9d1b-efd661403cdc@list.ru>
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	wangdicheng <wangdicheng@kylinos.cn>
+Subject: Re: [PATCH v3] ALSA: usb-audio: Fix microphone sound on HD webcam.
+In-Reply-To: <20240719020906.8078-1-wangdich9700@163.com>
+References: <20240719020906.8078-1-wangdich9700@163.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-0.31 / 50.00];
 	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[list.ru];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,list.ru];
+	MX_GOOD(-0.01)[];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,lists.sourceforge.net,alsa-project.org,suse.com,perex.cz];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-Message-ID-Hash: UE3SSSSUCCYN6LEQQPYVNUXIZU5WMCPZ
-X-Message-ID-Hash: UE3SSSSUCCYN6LEQQPYVNUXIZU5WMCPZ
+	FREEMAIL_TO(0.00)[163.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,perex.cz,suse.com,vger.kernel.org,alsa-project.org,lists.infradead.org,kylinos.cn];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Rspamd-Queue-Id: AE93921195
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Bar: /
+Message-ID-Hash: 77CSZAM6WUPSAKHD7F7TW3NWG7BZBVVI
+X-Message-ID-Hash: 77CSZAM6WUPSAKHD7F7TW3NWG7BZBVVI
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -162,7 +171,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UE3SSSSUCCYN6LEQQPYVNUXIZU5WMCPZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/77CSZAM6WUPSAKHD7F7TW3NWG7BZBVVI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,79 +180,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 17 Jul 2024 14:31:04 +0200,
-Sergei Steshenko wrote:
+On Fri, 19 Jul 2024 04:09:06 +0200,
+wangdicheng wrote:
 > 
-> For that matter, which ALSA source files do the parsing ? From my
-> old/distant memories, ALSA is silent about mistakes made by user when
-> the user provides various configuration files. So, there must be a way
-> to resolve the issue of silent ignoring of user mistakes.
+> From: wangdicheng <wangdicheng@kylinos.cn>
+> 
+> I own an external usb Webcam, HD webcam, which had low mic volume and
+> inconsistent sound quality. Video works as expected.
+> 
+> (snip)
+> [   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
+> [   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
+> [   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+> [   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
+> [   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
+> [   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
+> [   96.092610][ 2] [ T3680] usb 5-2.2: Warning! Unlikely big volume range (=4096), cval->res is probably wrong.
+> [   96.102436][ 2] [ T3680] usb 5-2.2: [5] FU [Mic Capture Volume] ch = 1, val = 0/4096/1
+> 
+> Set up quirk cval->res to 16 for 256 levels,
+> Set GET_SAMPLE_RATE quirk flag to stop trying to get the sample rate.
+> Confirmed that happened anyway later due to the backoff mechanism,
+> After 3 failures.
+> 
+> All audio stream on device interfaces share the same values,
+> apart from wMaxPacketSize and tSamFreq :
+> 
+>       bLength                 9
+>       bDescriptorType         4
+>       bInterfaceNumber        3
+>       bAlternateSetting       4
+>       bNumEndpoints           1
+>       bInterfaceClass         1 Audio
+> 
+> Interface Descriptor:
+>   bLength                 9
+>   bDescriptorType         4
+>   bInterfaceNumber        3
+>   bAlternateSetting       4
+>   bNumEndpoints           1
+>   bInterfaceClass         1 Audio
+>   bInterfaceSubClass      2 Streaming
+>   bInterfaceProtocol      0
+>   iInterface              0
+>   AudioStreaming Interface Descriptor:
+>     bLength                 7
+>     bDescriptorType        36
+>     bDescriptorSubtype      1 (AS_GENERAL)
+>     bTerminalLink           3
+>     bDelay                  1 frames
+>     wFormatTag         0x0001 PCM
+>   AudioStreaming Interface Descriptor:
+>     bLength                11
+>     bDescriptorType        36
+>     bDescriptorSubtype      2 (FORMAT_TYPE)
+>     bFormatType             1 (FORMAT_TYPE_I)
+>     bNrChannels             1
+>     bSubframeSize           2
+>     bBitResolution         16
+>     bSamFreqType            1 Discrete
+>     tSamFreq[ 0]        48000
+>   Endpoint Descriptor:
+>     bLength                 9
+>     bDescriptorType         5
+>     bEndpointAddress     0x86  EP 6 IN
+>     bmAttributes            5
+>       Transfer Type            Isochronous
+>       Synch Type               Asynchronous
+>       Usage Type               Data
+>     wMaxPacketSize     0x0064  1x 100 bytes
+>     bInterval               4
+>     bRefresh                0
+>     bSynchAddress           0
+>     AudioStreaming Endpoint Descriptor:
+>       bLength                 7
+>       bDescriptorType        37
+>       bDescriptorSubtype      1 (EP_GENERAL)
+>       bmAttributes         0x01
+>         Sampling Frequency
+>       bLockDelayUnits         0 Undefined
+>       wLockDelay         0x0000
+> (snip)
+> 
+> Testing patch provides consistent good sound recording quality and volume range.
+> 
+> (snip)
+> [   95.473820][ 1] [   T73] usb 5-2.2: new high-speed USB device number 7 using xhci_hcd
+> [   95.773974][ 1] [   T73] usb 5-2.2: New USB device found, idVendor=1bcf, idProduct=2281, bcdDevice= 0.05
+> [   95.783445][ 1] [   T73] usb 5-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+> [   95.791872][ 1] [   T73] usb 5-2.2: Product: HD webcam
+> [   95.797001][ 1] [   T73] usb 5-2.2: Manufacturer: Sunplus IT Co
+> [   95.802996][ 1] [   T73] usb 5-2.2: SerialNumber: 20200513
+> [   96.110630][ 3] [ T3680] usbcore: registered new interface driver snd-usb-audio
+> [   96.114329][ 7] [ T3677] usb 5-2.2: Found UVC 1.00 device HD webcam (1bcf:2281)
+> [   96.167555][ 7] [ T3677] usbcore: registered new interface driver uvcvideo
+> 
+> Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+> ---
+> v2 -> v3: make the mail address of Signed-off-by  consistent with the From address
+> V1 -> V2: align the space,Update code to v6.8-rc3,and make modifications based on it
 
-The parsing of a config is performed at each PCM plugin code.  In
-particular case for chmap, pcm_hw.c, pcm_null.c and pcm_route.c call
-_snd_pcm_parse_config_chmaps() helper and deal with the parsed data.
-
-And, in most cases, alsa-lib rather complains (even verbosely) if
-something goes wrong in the config file.  But the interpretation of
-each config leaf is done in each PCM plugin code, and some might just
-ignore the errors.  But that's not a general case.
-
-> A possible temporary solution would be to "trace" (e.g. by inserting
-> diagnostic print statements) parsing of provided by user configuration
-> files, and to implement this one has to know where to insert the
-> diagnostic print statements, and that's why I'm asking the question.
-
-I understand that debugging the config stuff is sometimes messy,
-yeah.  Some more verbose debug output would be helpful, indeed.
+Thanks, applied now.
 
 
 Takashi
-
-> 
-> --Sergei.
-> 
-> On 7/16/24 18:57, Takashi Iwai wrote:
-> > On Tue, 16 Jul 2024 08:09:21 +0200,
-> > Xinhui Zhou wrote:
-> >> Dear all,
-> >> 
-> >>     I am having a question regarding how to specify 'champ' for a
-> >> plugin.  I do not see any examples of this. I tried many ways to
-> >> specify but failed.
-> >> 
-> >>    As indicated by the link below,   I can specify the MAP as a string
-> >> array.   Can someone provide one example on how exactly this    [chmap
-> >> MAP]  can be specified?
-> >> 
-> >> "
-> >> pcm.name {
-> >>          type cras
-> >>      [chmap MAP]     # Provide channel maps; MAP is a string array
-> >> }
-> >> "
-> >> https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html
-> >> 
-> >> 
-> >> I can something like these, but none of these work for me.
-> >> 
-> >> chmap LFE
-> >> chmap "LFE"
-> >> chmap FR,FL,LFE
-> >> champ "FR,FL,LFE"
-> > You need to define a composite array, e.g. pass like
-> >      chmap [ "FL,FR" ]
-> > instead.
-> > 
-> > For multiple configurations, you can put more items such as
-> >      chmap [ "FC" "FL,FR" "FL,FR,FC,LFE" ]
-> > 
-> > 
-> > HTH,
-> > 
-> > Takashi
-> > 
-> > 
-> > _______________________________________________
-> > Alsa-user mailing list
-> > Alsa-user@lists.sourceforge.net
-> > https://lists.sourceforge.net/lists/listinfo/alsa-user

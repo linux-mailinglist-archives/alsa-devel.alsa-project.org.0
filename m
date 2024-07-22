@@ -2,83 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD583938DB5
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 12:53:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC3D938EB5
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 14:01:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C89DE7F;
-	Mon, 22 Jul 2024 12:53:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C89DE7F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30596E97;
+	Mon, 22 Jul 2024 14:01:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30596E97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721645618;
-	bh=d/phvPCFH5b62HPy+3QDiw3vQq0Av/LO7MFoVObg1OY=;
+	s=default; t=1721649681;
+	bh=/H5dtfxa+Nw4zsSc6z5aDmVUmIULoNGWM3agejyxotY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ce5rqQpzXahOvUR31nADQKQfll0qnNuj5TaJnTjAqj+Dl+tbGNJxB16XFAUMkn8jU
-	 TnNX5DgfLNpi28n8HpY1/buWRNQkUoPljuG8aPx3KQOcHeSP2g7LujrCju+v2v1h4U
-	 Cd8e2zBOGlE+oY4GK5AmgxhxRfV70n0ls12I97xc=
+	b=EA7/kvbQg2kKhZQYN/h1kDwJ9NBsI5d1QO66HYb0iOvyN0+va5h+ts0e8fhefJHmH
+	 j4rJ/u5uQu/hFuYYeJ4HWVAdFeQFG/5q120XBuCUhgIffEi600vCpKu7v3Q7Zzwx+/
+	 qVIn51HB4LmfOrzU6hmtSsoShk4v1srLymG32ZKY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25405F805A9; Mon, 22 Jul 2024 12:53:05 +0200 (CEST)
+	id 0833FF8007E; Mon, 22 Jul 2024 14:00:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C8F4F800C9;
-	Mon, 22 Jul 2024 12:53:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C151F8019B;
+	Mon, 22 Jul 2024 14:00:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B552F801F5; Mon, 22 Jul 2024 12:52:59 +0200 (CEST)
+	id 1304FF801F5; Mon, 22 Jul 2024 14:00:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 20991F800C9
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 12:52:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20991F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id D715EF8013D
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 14:00:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D715EF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IJ+ZojLF
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 95A7A609E9;
-	Mon, 22 Jul 2024 10:52:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8916BC116B1;
-	Mon, 22 Jul 2024 10:52:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1721645569;
-	bh=d/phvPCFH5b62HPy+3QDiw3vQq0Av/LO7MFoVObg1OY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IJ+ZojLFM9Wj7orCKE8k7kcHLxHlKDc0UmBL6mlLiI1+nGrswWaYt4dlLn2NCnrF1
-	 8OWQtO4pdoDt8x9Ula19MWuGDi/VhCmFklM4ceq/cybFABERPEEIYpPj/RfbmFsXPd
-	 4mQNMffonA2NgGqzo2ejWetGC7SncY23MDq8cVuCXHU/nhpTq+AGgwmxabJxqmKEHw
-	 PflzdO28df1xUtHspYtlb21s2IvsCv2MKcSyh1TCpRze0tJKnYY38ISnTpcduFPYWh
-	 v/S1eRd4mXnsTHHU/CoQpK6r6JbcK9Wc9zUZ74A7bHNInugUMYhUV8EJGD/qtZfmuN
-	 FiwFIZhe7GTMw==
-Date: Mon, 22 Jul 2024 11:52:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Audu <jau@free.fr>
-Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=nEgoNX4w
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2ef2cce8c08so12500701fa.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 22 Jul 2024 05:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1721649629; x=1722254429;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=trXo2Kud/+4CHx1yH0TBjLSkOLQ44ny84aia5JfqCsM=;
+        b=nEgoNX4wzvIeixuyLRWcd7hSyHcfJM51GQfnmWTJg6hQ6liJvpGLNbE57WYTlMAw6A
+         2HDD8IWUKEyb3yk2MUr2c9VB1VckPeT6R7Z1eGEDWiOeZvXUmjVEpwz1hJcA6zGa8rPp
+         BNUOfscdXr3RcEXJV7ltVRVB46r+b5sKxgcaEgBb1EJfTxVBTJJI6cA9wWKojXkYYQTE
+         bhXv1vfr/CadN42aJ4cB7pyTjPeBcGIz1TxiuOh6duBgdQS1bJ9igToHI1w6RcXS3g1U
+         Lj5uVf0c6MoBe+J5+ML6mpQR4fhww0gLE/K3xiRUMSa1SctzwCnZVcQil5RLbT8jF00q
+         3U3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1721649629; x=1722254429;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=trXo2Kud/+4CHx1yH0TBjLSkOLQ44ny84aia5JfqCsM=;
+        b=JRgxzBTE9Yu/QhdofL91oV4eFsR2RXT7mpKCsqktqktCWfTNbFSmkLknTmQBcSCRvE
+         5lvbsPVInYRSOUZQufMBim7i17Lx51mnUqY948vdk8T5d6FE9WTz13DDiNrLQca8AgJC
+         4Q9Avw6gcd/aEc5wgldaZ1MzNIt2frm+D6GTJe7Eb3dh7N33d4CAQGyrNzotPNxa5G5+
+         GmozHbYuGfQ2EtKzgkxIGAJhKk6DTDHGMpwaI/AwRi21KQNsCtswZpv7O5jc7VovslwQ
+         G6lNGcZM2TLHwGQPpplLo/AzupiZtFxV3TmPO1/OMLVEDhYGgZ1PIVr2j7UdWiPi90wa
+         NiBw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVY8gcQon7QP0bxM9GKlA1RCfpeGUukYe8SrwscDRt6WsF8/hgNAIllQu5PjankLBqDppXqn/AGda5ZwzOq9JagT/CdwzZZPI9IbQs=
+X-Gm-Message-State: AOJu0YzO4hZsJityLmGwq/T5WBZcBc/38GGvc6eP1+BmV+WyVqc4hsBe
+	sPU7yb6vKjfBSTnAXFQKxxq/OpSoq87NN76LNAh30sgfcvrNjwS7h4zsquXnfFE=
+X-Google-Smtp-Source: 
+ AGHT+IHfpRkiwCwyjhMtcbqX/KMogZuiuVRMVA2GKfuTw4dL3YtZnf0Zu/Vpy6wLwRiUYsUM8T5TnQ==
+X-Received: by 2002:a2e:9f57:0:b0:2ef:2006:bfb1 with SMTP id
+ 38308e7fff4ca-2ef2006c9e1mr40429441fa.15.1721649629135;
+        Mon, 22 Jul 2024 05:00:29 -0700 (PDT)
+Received: from eriador.lumag.spb.ru
+ (dzdbxzyyyyyyyyyyybrhy-3.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+        by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-2ef2eae89ecsm4705601fa.68.2024.07.22.05.00.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jul 2024 05:00:28 -0700 (PDT)
+Date: Mon, 22 Jul 2024 15:00:27 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Adam Skladowski <a39.skl@gmail.com>
+Cc: phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-arm-msm@vger.kernel.org,
 	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: sti: add missing probe entry for player and reader
-Message-ID: <d85590f2-88b3-4bc2-b7b8-9f96a5d5bb17@sirena.org.uk>
-References: <20240721-sti-audio-fix-v1-1-a8b1ecf61cb4@free.fr>
+ devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Vladimir Lypak <vladimir.lypak@gmail.com>
+Subject: Re: [PATCH 1/4] ASoC: qcom: apq8016_sbc.c: Add Quinary support
+Message-ID: <jx26jgbw2appm4yvcz45lisa2nr3uf7r4lvdd3i2eazl5nwjar@mk2xug4zhb7h>
+References: <20240722095147.3372-1-a39.skl@gmail.com>
+ <20240722095147.3372-2-a39.skl@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uwcgTLsscWO31/aR"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240721-sti-audio-fix-v1-1-a8b1ecf61cb4@free.fr>
-X-Cookie: Everything you know is wrong!
-Message-ID-Hash: H6OFAAXBMKUU4YXWNE6H3S3LQHQFFLVZ
-X-Message-ID-Hash: H6OFAAXBMKUU4YXWNE6H3S3LQHQFFLVZ
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20240722095147.3372-2-a39.skl@gmail.com>
+Message-ID-Hash: QT53YKQDZ3IB243XZ5KGGLYFLFMVTNVD
+X-Message-ID-Hash: QT53YKQDZ3IB243XZ5KGGLYFLFMVTNVD
+X-MailFrom: dmitry.baryshkov@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H6OFAAXBMKUU4YXWNE6H3S3LQHQFFLVZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QT53YKQDZ3IB243XZ5KGGLYFLFMVTNVD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,58 +133,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
---uwcgTLsscWO31/aR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Jul 21, 2024 at 05:40:02PM +0200, Jerome Audu wrote:
-> Restores the audio functionality that was broken
-> since Linux version 6.6.y by adding the missing probe
-> functions for the player and reader components.
->=20
-> Fixes: 9f625f5e6cf9 ("ASoC: sti: merge DAI call back functions into ops")
-> Signed-off-by: Jerome Audu <jau@free.fr>
+On Mon, Jul 22, 2024 at 11:51:05AM GMT, Adam Skladowski wrote:
+> From: Vladimir Lypak <vladimir.lypak@gmail.com>
+> 
+> Add support for configuring Quinary Mi2S interface
+> it will be used on MSM8953 and MSM8976 platform.
+> 
+> Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
+> [Adam: Split from MSM8953 support patch,add msg]
+> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 > ---
-> Specifically, the probe function in `sound/soc/sti/sti_uniperif.c:415` is=
- being replaced by another probe function located at `sound/soc/sti/sti_uni=
-perif.c:453`, which should instead be derived from the player and reader co=
-mponents. My patch correctly reinserts the missing probe entries, restoring=
- the intended functionality.
+>  sound/soc/qcom/apq8016_sbc.c | 16 +++++++++++++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
+> index 3023cf180a75..8971f4f5d339 100644
+> --- a/sound/soc/qcom/apq8016_sbc.c
+> +++ b/sound/soc/qcom/apq8016_sbc.c
+> @@ -320,6 +330,10 @@ static int apq8016_sbc_platform_probe(struct platform_device *pdev)
+>  	if (IS_ERR(data->spkr_iomux))
+>  		return PTR_ERR(data->spkr_iomux);
+>  
+> +	data->quin_iomux = devm_platform_ioremap_resource_byname(pdev, "quin-iomux");
 
-This should be in the changelog, your actual changelog doesn't describe
-the actual change at all.
+This should probably handle -ENOENT (or -ENODEV?) case and set the
+pointer to NULL.
 
-> The patch modifies the following files:
-> - `sound/soc/sti/sti_uniperif.c`: Changes the visibility of `sti_uniperip=
-h_dai_probe` to non-static.
-> - `sound/soc/sti/uniperif.h`: Adds the declaration of `sti_uniperiph_dai_=
-probe`.
-> - `sound/soc/sti/uniperif_player.c`: Adds `probe` function to `uni_player=
-_dai_ops`.
-> - `sound/soc/sti/uniperif_reader.c`: Adds `probe` function to `uni_reader=
-_dai_ops`.
->=20
-> This ensures the correct `probe` functions are utilized, thus fixing the =
-audio regression.=20
+> +	if (IS_ERR(data->quin_iomux))
+> +		return PTR_ERR(data->quin_iomux);
+> +
+>  	snd_soc_card_set_drvdata(card, data);
+>  
+>  	add_ops(card);
+> -- 
+> 2.45.2
+> 
 
-This detail isn't really needed, it just describes the content of the
-patch.
-
---uwcgTLsscWO31/aR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmaeOfsACgkQJNaLcl1U
-h9C03Qf/QXpJLlhj+1SJvQdYxrSRwLJKrcGsmk/kgcE+JjBKDzZe2iW2nK6+fJgr
-sxQtN1ytBBbvvsB2ZYRamU85xpsVdhQ6a10U110NYztC5JJ3HS/XPSuhVjVZk5zs
-rH+k1mzi/Zu/hmo6Jbdhf+73wPXF3uW7s+0/Ov3Fm6agDoIzd6xwcTe6BcW044ak
-o9c7ObJcKl0G2mdUQZ0RVbrQ/6eME01yqhUJoxPR6ArZ/HBMdKrmLO3lg5vSxzmq
-zFxCZJvYa9I/Rug4s67JptLVW86TCQRGzO0gbFWDPfD0t71SjBBDYNTGLyEmvA1p
-/Dgv9Is1wL6SjvhG17XKQ75DuGlZfg==
-=o3Ai
------END PGP SIGNATURE-----
-
---uwcgTLsscWO31/aR--
+-- 
+With best wishes
+Dmitry

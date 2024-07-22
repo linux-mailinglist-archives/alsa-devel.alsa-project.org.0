@@ -2,92 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB9E4938F9E
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 15:03:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A461B938FA0
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 15:04:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E32B14DF;
-	Mon, 22 Jul 2024 15:03:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E32B14DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 516F414E3;
+	Mon, 22 Jul 2024 15:04:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 516F414E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721653439;
-	bh=ElxwyvAYRep8iP0erjBmNwM65GYITd2Altmm3t3OTiA=;
+	s=default; t=1721653453;
+	bh=EFy7tExuqG9na7Q+Y80CJaISj3tjIZbe4+zf3f1TTaQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=F07mwvSLcFsMTb/wrsJ1Gc+T2A+iMtpeKvuIRo9cs2bBug1BJzHC9T18e3DdKrgZH
-	 ld+RB/sXuSbRZdDt1HHPPAALLLPA3E+1hllby8h3VjWuRgraezZh+dRDpFQ3yTJCWX
-	 BIY2P1jD5ZJcNqVskrfIO8vgNy4qqaUxui07d9gs=
+	b=PPF8PEiy3k1hgnj1Cxy6bxqVou0h+aQoSpygI43IYfFKIbnEcVWVdDUxcmW0QZwrC
+	 VhJ0bJ74Bkc37drIBxeN0gByTScCsuo9E0CBoR91LcAqY5gb6G9rdxO3T0Ix/+3Cms
+	 EwJbnJh8TKu5r0M4fKhP4SBl2Hh+Z0zQmcFfwdaw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 617A8F80768; Mon, 22 Jul 2024 15:01:04 +0200 (CEST)
+	id 263D4F8083F; Mon, 22 Jul 2024 15:01:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAC53F80730;
-	Mon, 22 Jul 2024 15:01:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62500F8080C;
+	Mon, 22 Jul 2024 15:01:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D885FF8019B; Mon, 22 Jul 2024 11:52:25 +0200 (CEST)
+	id 9B5A2F8058C; Mon, 22 Jul 2024 11:52:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [IPv6:2a00:1450:4864:20::12c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93920F8019B
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 11:52:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93920F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 75B9EF8007E
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 11:52:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75B9EF8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Wlsnz2v/
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-52efe4c7c16so1752239e87.0
+ header.s=20230601 header.b=hTkpwgWe
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-52efd855adbso1983374e87.2
         for <alsa-devel@alsa-project.org>;
- Mon, 22 Jul 2024 02:52:16 -0700 (PDT)
+ Mon, 22 Jul 2024 02:52:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1721641936; x=1722246736;
+        d=gmail.com; s=20230601; t=1721641938; x=1722246738;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c4l/632voSz6mCh2TqLV6xqS8GDhLDgECY3Nfdz+lQQ=;
-        b=Wlsnz2v/zdywbJIDBzRMsVGr5sEN+fxUQnh5xHuDgXSzF+tI3opE+Gsv45v2MREPaW
-         DOYCn6KKTOUimbnrmfPbJhotp9L0z4Gqrs5qqwYJbMjckrC0IYiFiJSrjGts7D3LmNCp
-         BK2PgLUPGWDN2guu2Mkw1HgxFCUIIi8V/DYbxvOEAyrhN707a9pbPyEaOJQPRwhZXt/e
-         vYg34tmDFJzRNfpYbg+13yxU/vnXp4VEkSV4EmevGJcXcz1m7tM0Xvv2QGjKRpEGmpaZ
-         ztZTl7WVkFJTlGUYx1yk0x6JAFezNBuKZbZrmzFQjQwGrRzyPgSPd06pA40YKOJxLusl
-         F43Q==
+        bh=GF6xFxPj/ytlezNbhhUqMrRGdstZMHpzQeT2XWw6wjY=;
+        b=hTkpwgWeDCag1p5fFusFZHqpJ5+YNF3/+MVlhwwAT3vflkEcatuqJtWpFMjUWFP2RM
+         y391mtSqVUo17i5v4JrI3ASkQvFPoErzVurH+LVe/Pb/FBwTod5+CWJ2e0K+CC9eSYSK
+         dmZlibfirE1UIH+VqiJI8OwVGvkIdGaWetvGpkSDSkf0b/11kwxxXNwjD9FuYhwRTDg8
+         BJM35Nln3u0Ul4E64McHUW4QTPaX37QtgM0YsISVxMLOY3DJRcJdjKx1VbTgZPy4G5Ke
+         Rdlx8NOKwOT2npb2XX1Ha9w/oIeds2LKEzfsyKAI7tV7+B1HO+QVJgObVS+DVwyrZQau
+         OESw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721641936; x=1722246736;
+        d=1e100.net; s=20230601; t=1721641938; x=1722246738;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=c4l/632voSz6mCh2TqLV6xqS8GDhLDgECY3Nfdz+lQQ=;
-        b=ROwMthqL4HIQSxHBSvf96Q7IWk474KeBg3g8r6noD21bSZGclq4B9L7XvwWRaHL+ll
-         eNO8A9ReU9tH+lbapRYsVcoXymzEX3yVSAUoGbqHnmHxSnCJkiBVZ2AP/D+IMkdg17dV
-         FLd772dMTMHLl7r4ryYxe8+0je8DhuqkludkmwE6Z+u0I5P55Z4bmXGn/Jf+79KpZsKj
-         tYaO2eQpkzdNBelFHZv9idO2l9U04KSfQhq//0FtM0/DQP94XaAiLE2zYel9kNcdB/0V
-         x/p+7jhV9PyyfByLkKkMlX1RjjhxNSpflkcr1hLqLAuZp7baNW/TsNGslHTHMsdfCmhn
-         umSA==
+        bh=GF6xFxPj/ytlezNbhhUqMrRGdstZMHpzQeT2XWw6wjY=;
+        b=Lx2l1xSxqSFw4C89U1B3Q5q1i1r0k5LtpTn3vzXAYDz1w+la2GbE3UbRBLbkG8nJHz
+         +CLzDnAxti1p6C/j2LmLWNyCqycI9tLkG7f3HK7cYLHhYT1+gCL1jHcmQio2hpdND+s6
+         iymA5uiN+RPMqSfG9VY/kxyXPY22qYC6H0DEvu4pG19xF+JmM0V6rKDdX63+AkVA65/p
+         WYFt1BaiYE8ATZqb1mT2EOkWAaAywOilC7gWppUDRoP2TPqFOwzpKtVSHD91EzI7BhDf
+         Irtr6kVPHgM+gr4Ic+AM/DXEbkXL/R0lGBKxAwzVgifX4UW8gX3yf1NY9FyV4trFInPg
+         dx4A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUR7Dc+nmvQrxGKgWXW3n1TNsZZr9HIJc3hXZNjTRu22OMQl5IWvhc3dYqosiRlaFug4kKFXaX29WSN8jT/aPwPxKsfIOlPUz/iIQ0=
-X-Gm-Message-State: AOJu0Yzu7rK5xCz7tADfFwxLAcebFNCHhof9c09dXiYbHAIroLu2T5EW
-	NVr//TDTR8tZ9enyZ383hHC4cvw+SfR4GQb9pvQpTxauQ0lER62R
+ AJvYcCUCbOY/I04BGkHQ2WFte4dQvaYndz8oYljEZbhECa1zKmD6ssPOhmn11dwadTJhthTC5K2ERmORosq+jBMydHkqVAFlZTLjn2HdgiA=
+X-Gm-Message-State: AOJu0YzRhA8wap4CT/4V8DSc7bG7/2IZmtmZ2FGOEmy4sm1KjClIdWwb
+	/DwWm2y4KQbZ9ecZB77Y2GR3MwOaTOc4MioCMv9n0nVImOTlXL0/
 X-Google-Smtp-Source: 
- AGHT+IEkUCQN4xvNexHQBngyKo1Jr+lRR08xYuntYXjmUoolBteeZ3Gzo1t7dPmmD02D9Nfl7fIeHw==
-X-Received: by 2002:a05:6512:1289:b0:52c:80f6:d384 with SMTP id
- 2adb3069b0e04-52ef8d85836mr4304130e87.3.1721641935595;
-        Mon, 22 Jul 2024 02:52:15 -0700 (PDT)
+ AGHT+IGMjXFxraEsXHIkxYNkndbJxB9/sBbeVo4mr3BgdM9QyhZYaPDjmM+IUr8WAtpuoBhZAJ6eTg==
+X-Received: by 2002:a05:6512:1327:b0:52b:bf8e:ffea with SMTP id
+ 2adb3069b0e04-52efb7bf318mr4451648e87.40.1721641938089;
+        Mon, 22 Jul 2024 02:52:18 -0700 (PDT)
 Received: from localhost.localdomain (byy214.neoplus.adsl.tpnet.pl.
  [83.30.44.214])
         by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-52fc226cdccsm91552e87.164.2024.07.22.02.52.13
+ 2adb3069b0e04-52fc226cdccsm91552e87.164.2024.07.22.02.52.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jul 2024 02:52:15 -0700 (PDT)
+        Mon, 22 Jul 2024 02:52:17 -0700 (PDT)
 From: Adam Skladowski <a39.skl@gmail.com>
 To: 
 Cc: phone-devel@vger.kernel.org,
@@ -108,9 +109,9 @@ Cc: phone-devel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vladimir Lypak <vladimir.lypak@gmail.com>
-Subject: [PATCH 1/4] ASoC: qcom: apq8016_sbc.c: Add Quinary support
-Date: Mon, 22 Jul 2024 11:51:05 +0200
-Message-ID: <20240722095147.3372-2-a39.skl@gmail.com>
+Subject: [PATCH 2/4] ASoC: msm8916-wcd-analog: add cajon and cajon v2 support
+Date: Mon, 22 Jul 2024 11:51:06 +0200
+Message-ID: <20240722095147.3372-3-a39.skl@gmail.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20240722095147.3372-1-a39.skl@gmail.com>
 References: <20240722095147.3372-1-a39.skl@gmail.com>
@@ -122,15 +123,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: MBD3PFZMHYSLYIE3TI7QTLTHC6ZEU7UL
-X-Message-ID-Hash: MBD3PFZMHYSLYIE3TI7QTLTHC6ZEU7UL
-X-Mailman-Approved-At: Mon, 22 Jul 2024 13:00:56 +0000
+Message-ID-Hash: QPEZSAYH7RUA4TJDCCQG655TBZR2RHTU
+X-Message-ID-Hash: QPEZSAYH7RUA4TJDCCQG655TBZR2RHTU
+X-Mailman-Approved-At: Mon, 22 Jul 2024 13:00:57 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MBD3PFZMHYSLYIE3TI7QTLTHC6ZEU7UL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QPEZSAYH7RUA4TJDCCQG655TBZR2RHTU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,69 +142,117 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Vladimir Lypak <vladimir.lypak@gmail.com>
 
-Add support for configuring Quinary Mi2S interface
-it will be used on MSM8953 and MSM8976 platform.
+Add regs overrides for Cajon(PM8952) and Cajon v2(PM8953) codecs.
 
 Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
-[Adam: Split from MSM8953 support patch,add msg]
+[Adam: Add Cajon support,add msg]
+Co-developed-by: Adam Skladowski <a39.skl@gmail.com>
 Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 ---
- sound/soc/qcom/apq8016_sbc.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ sound/soc/codecs/msm8916-wcd-analog.c | 63 +++++++++++++++++++++++++--
+ 1 file changed, 60 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index 3023cf180a75..8971f4f5d339 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -20,12 +20,13 @@
- #include "common.h"
- #include "qdsp6/q6afe.h"
+diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
+index 9ca381812975..daf65f5d4e99 100644
+--- a/sound/soc/codecs/msm8916-wcd-analog.c
++++ b/sound/soc/codecs/msm8916-wcd-analog.c
+@@ -250,6 +250,7 @@
+ 		SPKR_DRV_CAL_EN | SPKR_DRV_SETTLE_EN | \
+ 		SPKR_DRV_FW_EN | SPKR_DRV_BOOST_SET | \
+ 		SPKR_DRV_CMFB_SET | SPKR_DRV_GAIN_SET)
++#define CDC_A_SPKR_ANA_BIAS_SET		(0xf1B3)
+ #define CDC_A_SPKR_OCP_CTL		(0xf1B4)
+ #define CDC_A_SPKR_PWRSTG_CTL		(0xf1B5)
+ #define SPKR_PWRSTG_CTL_DAC_EN_MASK	BIT(0)
+@@ -264,12 +265,15 @@
  
--#define MI2S_COUNT  (MI2S_QUATERNARY + 1)
-+#define MI2S_COUNT  (MI2S_QUINARY + 1)
+ #define CDC_A_SPKR_DRV_DBG		(0xf1B7)
+ #define CDC_A_CURRENT_LIMIT		(0xf1C0)
++#define CDC_A_BYPASS_MODE		(0xf1C2)
+ #define CDC_A_BOOST_EN_CTL		(0xf1C3)
+ #define CDC_A_SLOPE_COMP_IP_ZERO	(0xf1C4)
+ #define CDC_A_SEC_ACCESS		(0xf1D0)
+ #define CDC_A_PERPH_RESET_CTL3		(0xf1DA)
+ #define CDC_A_PERPH_RESET_CTL4		(0xf1DB)
  
- struct apq8016_sbc_data {
- 	struct snd_soc_card card;
- 	void __iomem *mic_iomux;
- 	void __iomem *spkr_iomux;
-+	void __iomem *quin_iomux;
- 	struct snd_soc_jack jack;
- 	bool jack_setup;
- 	int mi2s_clk_count[MI2S_COUNT];
-@@ -86,6 +87,12 @@ static int apq8016_dai_init(struct snd_soc_pcm_runtime *rtd, int mi2s)
- 			SPKR_CTL_TLMM_DATA1_EN | SPKR_CTL_TLMM_WS_OUT_SEL_SEC |
- 			SPKR_CTL_TLMM_WS_EN_SEL_SEC, pdata->spkr_iomux);
- 		break;
-+	case MI2S_QUINARY:
-+		/* Configure Quinary MI2S */
-+		if (!pdata->quin_iomux)
-+			return -ENOENT;
-+		writel(readl(pdata->quin_iomux) | 0x01, pdata->quin_iomux);
-+		break;
- 	case MI2S_TERTIARY:
- 		writel(readl(pdata->mic_iomux) | MIC_CTRL_TER_WS_SLAVE_SEL |
- 			MIC_CTRL_TLMM_SCLK_EN,
-@@ -177,6 +184,9 @@ static int qdsp6_dai_get_lpass_id(struct snd_soc_dai *cpu_dai)
- 	case QUATERNARY_MI2S_RX:
- 	case QUATERNARY_MI2S_TX:
- 		return MI2S_QUATERNARY;
-+	case QUINARY_MI2S_RX:
-+	case QUINARY_MI2S_TX:
-+		return MI2S_QUINARY;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -320,6 +330,10 @@ static int apq8016_sbc_platform_probe(struct platform_device *pdev)
- 	if (IS_ERR(data->spkr_iomux))
- 		return PTR_ERR(data->spkr_iomux);
- 
-+	data->quin_iomux = devm_platform_ioremap_resource_byname(pdev, "quin-iomux");
-+	if (IS_ERR(data->quin_iomux))
-+		return PTR_ERR(data->quin_iomux);
++#define CDC_A_RX_EAR_STATUS		(0xf1A1)
 +
- 	snd_soc_card_set_drvdata(card, data);
+ #define MSM8916_WCD_ANALOG_RATES (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |\
+ 			SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_48000)
+ #define MSM8916_WCD_ANALOG_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
+@@ -715,6 +719,50 @@ static const struct reg_default wcd_reg_defaults_2_0[] = {
+ 	{CDC_A_MASTER_BIAS_CTL, 0x30},
+ };
  
- 	add_ops(card);
++static const struct reg_default wcd_reg_defaults_cajon[] = {
++	{CDC_A_RX_COM_OCP_CTL, 0xD1},
++	{CDC_A_RX_COM_OCP_COUNT, 0xFF},
++	{CDC_D_SEC_ACCESS, 0xA5},
++	{CDC_D_PERPH_RESET_CTL3, 0x0F},
++	{CDC_A_TX_1_2_OPAMP_BIAS, 0x4C},
++	{CDC_A_NCP_FBCTRL, 0xA8},
++	{CDC_A_NCP_VCTRL, 0xA4},
++	{CDC_A_SPKR_DRV_CTL, 0x69},
++	{CDC_A_SPKR_DRV_DBG, 0x01},
++	{CDC_A_SEC_ACCESS, 0xA5},
++	{CDC_A_PERPH_RESET_CTL3, 0x0F},
++	{CDC_A_CURRENT_LIMIT, 0x82},
++	{CDC_A_SPKR_ANA_BIAS_SET, 0x41},
++	{CDC_A_SPKR_DAC_CTL, 0x03},
++	{CDC_A_SPKR_OCP_CTL, 0xE1},
++	{CDC_A_RX_HPH_BIAS_PA, 0xFA},
++	{CDC_A_MASTER_BIAS_CTL, 0x30},
++	{CDC_A_MICB_1_INT_RBIAS, 0x00},
++};
++
++static const struct reg_default wcd_reg_defaults_cajon_2_0[] = {
++	{CDC_A_RX_COM_OCP_CTL, 0xD1},
++	{CDC_A_RX_COM_OCP_COUNT, 0xFF},
++	{CDC_D_SEC_ACCESS, 0xA5},
++	{CDC_D_PERPH_RESET_CTL3, 0x0F},
++	{CDC_A_TX_1_2_OPAMP_BIAS, 0x4C},
++	{CDC_A_NCP_FBCTRL, 0xA8},
++	{CDC_A_NCP_VCTRL, 0xA4},
++	{CDC_A_SPKR_DRV_CTL, 0x69},
++	{CDC_A_SPKR_DRV_DBG, 0x01},
++	{CDC_A_SEC_ACCESS, 0xA5},
++	{CDC_A_PERPH_RESET_CTL3, 0x0F},
++	{CDC_A_CURRENT_LIMIT, 0xA2},
++	{CDC_A_BYPASS_MODE, 0x18},
++	{CDC_A_SPKR_ANA_BIAS_SET, 0x41},
++	{CDC_A_SPKR_DAC_CTL, 0x03},
++	{CDC_A_SPKR_OCP_CTL, 0xE1},
++	{CDC_A_RX_HPH_BIAS_PA, 0xFA},
++	{CDC_A_RX_EAR_STATUS, 0x10},
++	{CDC_A_MASTER_BIAS_CTL, 0x30},
++	{CDC_A_MICB_1_INT_RBIAS, 0x00},
++};
++
+ static int pm8916_wcd_analog_probe(struct snd_soc_component *component)
+ {
+ 	struct pm8916_wcd_analog_priv *priv = dev_get_drvdata(component->dev);
+@@ -738,9 +786,18 @@ static int pm8916_wcd_analog_probe(struct snd_soc_component *component)
+ 	snd_soc_component_write(component, CDC_D_PERPH_RESET_CTL4, 0x01);
+ 	snd_soc_component_write(component, CDC_A_PERPH_RESET_CTL4, 0x01);
+ 
+-	for (reg = 0; reg < ARRAY_SIZE(wcd_reg_defaults_2_0); reg++)
+-		snd_soc_component_write(component, wcd_reg_defaults_2_0[reg].reg,
+-			      wcd_reg_defaults_2_0[reg].def);
++	if (priv->codec_version == 4)
++		for (reg = 0; reg < ARRAY_SIZE(wcd_reg_defaults_cajon_2_0); reg++)
++			snd_soc_component_write(component, wcd_reg_defaults_cajon_2_0[reg].reg,
++					wcd_reg_defaults_cajon_2_0[reg].def);
++	else if (priv->codec_version == 3)
++		for (reg = 0; reg < ARRAY_SIZE(wcd_reg_defaults_cajon); reg++)
++			snd_soc_component_write(component, wcd_reg_defaults_cajon[reg].reg,
++					wcd_reg_defaults_cajon[reg].def);
++	else
++		for (reg = 0; reg < ARRAY_SIZE(wcd_reg_defaults_2_0); reg++)
++			snd_soc_component_write(component, wcd_reg_defaults_2_0[reg].reg,
++					wcd_reg_defaults_2_0[reg].def);
+ 
+ 	priv->component = component;
+ 
 -- 
 2.45.2
 

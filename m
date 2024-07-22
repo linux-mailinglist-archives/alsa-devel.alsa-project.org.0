@@ -2,153 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BD1A938F48
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 14:47:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA8BE939093
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 16:22:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67B89E9D;
-	Mon, 22 Jul 2024 14:47:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67B89E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73F8EE80;
+	Mon, 22 Jul 2024 16:22:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73F8EE80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721652436;
-	bh=kuaQwPMati7m35nPk4I2tMuXSmbSKoGY0kQGQdeFVQI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1721658140;
+	bh=BZ9zVGteGyw7KM+ePl27FW6gWSzQRxLfIhCKf+ZtPuM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aU7Fnb+pwlKUgj3l8EmcBwuB6Bk9EYgF3+9zPO1KbARIEpF4DMNBVyf2V8L7w5IlD
-	 votycwLJym5Og63c54tFwkXs/HIljiSI+tMWT0NQmjUDClNwwYyfkF4DsPvGjvO0ys
-	 AxWekhKVTcHlhQZE6KjKxhm0mVxAMtuRjMjCQ8ng=
+	b=fMWSrwxTDQ5j7X2pLdSWDuX7qcc75to19Eq+ZchFOq38UkS669izjvO3CM70RLOA6
+	 GbYwz2bSx7nqc6Z6CMQRf+NV3lLtCKgcWdyD/hqQhzX4ZUqIsTYShoGgM9AaRYtDcW
+	 BPBKkMH2OTHTNAolElmzizwOS9K9Jhiq5ceN8Tto=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2907F805AF; Mon, 22 Jul 2024 14:46:44 +0200 (CEST)
+	id 63DC5F80580; Mon, 22 Jul 2024 16:21:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55236F805AA;
-	Mon, 22 Jul 2024 14:46:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45F30F805B0;
+	Mon, 22 Jul 2024 16:21:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 541CCF801F5; Mon, 22 Jul 2024 14:45:24 +0200 (CEST)
+	id 0B9F9F801F5; Mon, 22 Jul 2024 16:12:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D742F800C9
-	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 14:45:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D742F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id E9B4BF8007E
+	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 16:07:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9B4BF8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=YodbXtWz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eFIUdsPP;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=RvDrWgVF;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=dbSQVP1h
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id ED9B71FB6C;
-	Mon, 22 Jul 2024 12:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721652316;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/etjPssqXa/0nw7ISXY16x5fVisX+gbyQ66tS2GbOII=;
-	b=YodbXtWzJ5c4pOmbh5tCX6X2dDtenyzhOKfQUplqCUGguYKyH5cQ+C8L8S6W+RPVnWiSnY
-	DSJ/EnExuKjSgjPgu+SGYzGU9HEw/XtmGOeRBqKb/oSDN2pwNKk7TSAhU/PKbSAxpqEvck
-	d+LPoSS2I4QXxqID1zYv5c5/zTuYVyc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721652316;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/etjPssqXa/0nw7ISXY16x5fVisX+gbyQ66tS2GbOII=;
-	b=eFIUdsPPcw+ndDmv4DHB2OdlNwr7lFtvkkBrBT32Zze3SxYZvI76S1kQcE927AGG8p7VYJ
-	kd7J8ytnWbn2h8Aw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1721652315;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/etjPssqXa/0nw7ISXY16x5fVisX+gbyQ66tS2GbOII=;
-	b=RvDrWgVFhs3Oro3DEfs0oWo0WDYCDCS8v5NdVytwCRyLEhAnmSa7rLStJ+EL9f6IkZYsq5
-	fCI7wqzB73zbXHPXd/0DAU2UpNKdvme553lBFpbZB+6ZVSYLSSML+ttbWjKjz63kg+etxH
-	394TXTRhUJPubY4TSuKf7OUDF+tb1iM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721652315;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/etjPssqXa/0nw7ISXY16x5fVisX+gbyQ66tS2GbOII=;
-	b=dbSQVP1hau4I5q9Iw6a45CFR7odqRqiVJWA32I5Ue5l6ewG/IhMt3rB1Oyf3j56Rb8hU1o
-	JR6H6OuQyy3O3OCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B01BD13A2D;
-	Mon, 22 Jul 2024 12:45:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id C7bFKVtUnmY1KgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 22 Jul 2024 12:45:15 +0000
-Date: Mon, 22 Jul 2024 14:45:49 +0200
-Message-ID: <871q3lppc2.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: wangdicheng <wangdich9700@163.com>
-Cc: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org,
-	wangdicheng <wangdicheng@kylinos.cn>
-Subject: Re: [PATCH v3] ALSA: usb-audio: Add a quirk for Sonix HD USB Camera
-In-Reply-To: <20240722084822.31620-1-wangdich9700@163.com>
-References: <20240722084822.31620-1-wangdich9700@163.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.10 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[163.com];
-	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,perex.cz,suse.com,vger.kernel.org,alsa-project.org,lists.infradead.org,kylinos.cn];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-Message-ID-Hash: 7TPELJD2QGZDCHII7UY5CMJTGC3TIIZK
-X-Message-ID-Hash: 7TPELJD2QGZDCHII7UY5CMJTGC3TIIZK
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=WQkJX4vF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1721657230; x=1753193230;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=BZ9zVGteGyw7KM+ePl27FW6gWSzQRxLfIhCKf+ZtPuM=;
+  b=WQkJX4vFLkEnPY2Cdkcicv9cZaBkkI5KovDwyhpbeB+LOwlwk2U2JxQk
+   1ghOMaxMZMeSTrdsa/6Xm6ON6dWt8Pt8ssCpfMEC4BwSkJq5xCmQ9bUwm
+   1LmFlhIVXtwqgt3OwjPlYzJscOFJm4+CAkb4GvtiGLQc9Lhf7VDX0BJ5s
+   gs3jNMq+JmKNc0nur/BZfUE98IhJP7hePPKKwB28YPhLz5lcJEQjXNksO
+   QMXQJE6qiTAgW8whuntPsDnpbfKezZ++BNtQxsoBRWRSLaP+I+RibKqzO
+   lXbKM7PJkk3W+eA7xaE+x3H5js410/Hiveg+ZRO8fll4TAaTePKr3FunA
+   w==;
+X-CSE-ConnectionGUID: Lpan1Ls5RmaB1yxbz0sPOg==
+X-CSE-MsgGUID: Smlqi5nmQ06m0f4PFcsnhA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11141"; a="19042529"
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800";
+   d="scan'208";a="19042529"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2024 07:07:03 -0700
+X-CSE-ConnectionGUID: sIn4xKfaSBu87WaP9FFVog==
+X-CSE-MsgGUID: AZpDnaaHRrqUDj+rsfTi8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,228,1716274800";
+   d="scan'208";a="52630203"
+Received: from ettammin-desk.ger.corp.intel.com (HELO [10.245.246.242])
+ ([10.245.246.242])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2024 07:07:01 -0700
+Message-ID: <c7572302-7d78-4e72-a470-57f2aa0c8537@linux.intel.com>
+Date: Mon, 22 Jul 2024 16:06:58 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [bug report] ASoC: Intel: cht_bsw_rt5645: Set card.components
+ string
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+ Hans de Goede <hdegoede@redhat.com>
+Cc: alsa-devel@alsa-project.org,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+References: <918944d2-3d00-465e-a9d1-5d57fc966113@stanley.mountain>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <918944d2-3d00-465e-a9d1-5d57fc966113@stanley.mountain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 5XRMRDPKUEM7BP7LXSLH2RK7FJ4QETUH
+X-Message-ID-Hash: 5XRMRDPKUEM7BP7LXSLH2RK7FJ4QETUH
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -160,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TPELJD2QGZDCHII7UY5CMJTGC3TIIZK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5XRMRDPKUEM7BP7LXSLH2RK7FJ4QETUH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -169,31 +113,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 22 Jul 2024 10:48:22 +0200,
-wangdicheng wrote:
-> 
-> From: wangdicheng <wangdicheng@kylinos.cn>
-> 
-> Sonix HD USB Camera does not support reading the sample rate which leads
-> to many lines of "cannot get freq at ep 0x84".
-> This patch adds the USB ID to quirks.c and avoids those error messages.
-> 
-> (snip)
-> [1.789698] usb 3-3: new high-speed USB device number 2 using xhci_hcd
-> [1.984121] usb 3-3: New USB device found, idVendor=0c45, idProduct=6340, bcdDevice= 0.00
-> [1.984124] usb 3-3: New USB device strings: Mfr=2, Product=1, SerialNumber=0
-> [1.984127] usb 3-3: Product: USB 2.0 Camera
-> [1.984128] usb 3-3: Manufacturer: Sonix Technology Co., Ltd.
-> [5.440957] usb 3-3: 3:1: cannot get freq at ep 0x84
-> [12.130679] usb 3-3: 3:1: cannot get freq at ep 0x84
-> [12.175065] usb 3-3: 3:1: cannot get freq at ep 0x84
-> 
-> Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
-> ---
-> v2 -> v3: Update the insertion order of ID 0c45
-> v1 -> v2: Arrange the ID in order
-
-Thanks, applied now.
+Thanks Dan for the report.
 
 
-Takashi
+> Commit f87b4402163b ("ASoC: Intel: cht_bsw_rt5645: Set
+> card.components string") from Nov 26, 2023 (linux-next), leads to the
+> following Smatch static checker warning:
+> 
+> 	sound/soc/intel/boards/cht_bsw_rt5645.c:587 snd_cht_mc_probe()
+> 	error: we previously assumed 'adev' could be null (see line 581)
+> 
+> sound/soc/intel/boards/cht_bsw_rt5645.c
+>     570         /* set correct codec name */
+>     571         for (i = 0; i < ARRAY_SIZE(cht_dailink); i++)
+>     572                 if (cht_dailink[i].codecs->name &&
+>     573                     !strcmp(cht_dailink[i].codecs->name,
+>     574                             "i2c-10EC5645:00")) {
+>     575                         dai_index = i;
+>     576                         break;
+>     577                 }
+>     578 
+>     579         /* fixup codec name based on HID */
+>     580         adev = acpi_dev_get_first_match_dev(mach->id, NULL, -1);
+>     581         if (adev) {
+>                     ^^^^
+> The old code assumes adev can be NULL
+> 
+>     582                 snprintf(cht_rt5645_codec_name, sizeof(cht_rt5645_codec_name),
+>     583                          "i2c-%s", acpi_dev_name(adev));
+>     584                 cht_dailink[dai_index].codecs->name = cht_rt5645_codec_name;
+>     585         }
+>     586         /* acpi_get_first_physical_node() returns a borrowed ref, no need to deref */
+> --> 587         codec_dev = acpi_get_first_physical_node(adev);
+>                                                          ^^^^
+> Unchecked dereference
+
+This looks like a problem in multiple machine drivers sharing similar
+code, if we want to consistently check the output we probably need
+something like https://github.com/thesofproject/linux/pull/5117 ?
+
+

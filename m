@@ -2,61 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B54ED939369
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 19:59:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19DC2939364
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 19:58:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 842E07F4;
-	Mon, 22 Jul 2024 19:59:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 842E07F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37949E7F;
+	Mon, 22 Jul 2024 19:58:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37949E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721671184;
-	bh=Rdz8teq8YEm7WMPCEsxKWl1xx2hRJjoBIcw9Mu4S9PQ=;
+	s=default; t=1721671103;
+	bh=ea1tY4rPSr1ot2NjkYjIBRpcXo1PPYA86DyyleDXpoE=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=Tth9vPXDX29cAx9BU6Bdqff+ynIPIcoZrIOamzNa9qrXVSgZT+4s6q+OBqaTCbWR+
-	 qPkvrnjQIMVNRDHdxoi8BXa/9FHZfsZbDx+Ja6H0r5Xu4y2P6KHamsWP3JWrKNnEh3
-	 sYKUE2L4hkqAAc0X+1WCmAv+YQXV/j2GJxGYALog=
+	b=WGmv1iGrfw2TBiURrccPN+d763xuaI5O4ELvWkSBxhcHU0Tf4IuuzYWlR0fpRV8cO
+	 S587eMDFUXu7RNABbL+YUWR5Pqu71s9YCDFmBDrwbmqEufBce1O9cK59c6Xyeluv8u
+	 pIpSaIB4ECWjkfADgqycO/in8SILUea1ahVKzmi8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFA5AF806DE; Mon, 22 Jul 2024 19:57:18 +0200 (CEST)
+	id 8A321F8061A; Mon, 22 Jul 2024 19:57:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC2D6F806CD;
-	Mon, 22 Jul 2024 19:57:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1DECF8061C;
+	Mon, 22 Jul 2024 19:57:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E57A0F801F5; Mon, 22 Jul 2024 19:54:18 +0200 (CEST)
+	id E1E64F80579; Mon, 22 Jul 2024 19:52:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D2CC5F8026D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7AFF4F8057A
 	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 19:51:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2CC5F8026D
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AFF4F8057A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=vcMdxSa1;
+ header.s=susede2_rsa header.b=0JCOqXbW;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=4vu1PPN6;
+ header.s=susede2_ed25519 header.b=Q0FU7OKu;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=vcMdxSa1;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=0JCOqXbW;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=4vu1PPN6
+ header.s=susede2_ed25519 header.b=Q0FU7OKu
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 521A91FB80;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 71F3421B8C;
 	Mon, 22 Jul 2024 17:51:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -64,20 +63,20 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KO79lRVs4iXZLsVOYYvWqFglcOqdiTSO0gdAEA/POic=;
-	b=vcMdxSa14w50Ou0FEbTEwoyjNnNWVVr/EsZQDyv/3Ob15QyAtk8XZd9tPN68E8eEq4NXZt
-	dd5qrjT9P8+v8nXqSsC9DM//19SPa40kiJr+il7mjINcUpCnt3G8Twg7XQK+NizxfWONJh
-	YYdH7tovSoaa1H36sh4vmpyYF4X+tcA=
+	bh=fzZBoJJV3+a8Fx24p/q7BxF7y0t+V+uFrxnYwEIh5sQ=;
+	b=0JCOqXbWyDyzcpbZWhJ2omhjfAtuquoql6HWOdyGKXj9NPXu/KnK/FtNVMe/XIi2x3fau0
+	XkNtcZNszuloTuO1AkQD0c1oVV2/mFP0a6XD23+j/KuKR2ArMKs8yN9dVOMfzOQCVusoVv
+	6xuvpCCkq0afQ23vNZLWsROHN4W/+Wg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1721670705;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KO79lRVs4iXZLsVOYYvWqFglcOqdiTSO0gdAEA/POic=;
-	b=4vu1PPN6sPrXIPrX4xhKr+vJn4PTGnBSbROUAvSUZRNPBD4shGTEwLb+cC3odENQze0BM5
-	IAokKwS++xuRMVDA==
-Authentication-Results: smtp-out2.suse.de;
+	bh=fzZBoJJV3+a8Fx24p/q7BxF7y0t+V+uFrxnYwEIh5sQ=;
+	b=Q0FU7OKuvZcjEnHMYU3zg+fUOCioG69H5IPUmHPWI+All89rV6eg2kaa3eiKvjr/43phaG
+	C1un+Wyx258sd8AQ==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -85,42 +84,41 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KO79lRVs4iXZLsVOYYvWqFglcOqdiTSO0gdAEA/POic=;
-	b=vcMdxSa14w50Ou0FEbTEwoyjNnNWVVr/EsZQDyv/3Ob15QyAtk8XZd9tPN68E8eEq4NXZt
-	dd5qrjT9P8+v8nXqSsC9DM//19SPa40kiJr+il7mjINcUpCnt3G8Twg7XQK+NizxfWONJh
-	YYdH7tovSoaa1H36sh4vmpyYF4X+tcA=
+	bh=fzZBoJJV3+a8Fx24p/q7BxF7y0t+V+uFrxnYwEIh5sQ=;
+	b=0JCOqXbWyDyzcpbZWhJ2omhjfAtuquoql6HWOdyGKXj9NPXu/KnK/FtNVMe/XIi2x3fau0
+	XkNtcZNszuloTuO1AkQD0c1oVV2/mFP0a6XD23+j/KuKR2ArMKs8yN9dVOMfzOQCVusoVv
+	6xuvpCCkq0afQ23vNZLWsROHN4W/+Wg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1721670705;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KO79lRVs4iXZLsVOYYvWqFglcOqdiTSO0gdAEA/POic=;
-	b=4vu1PPN6sPrXIPrX4xhKr+vJn4PTGnBSbROUAvSUZRNPBD4shGTEwLb+cC3odENQze0BM5
-	IAokKwS++xuRMVDA==
+	bh=fzZBoJJV3+a8Fx24p/q7BxF7y0t+V+uFrxnYwEIh5sQ=;
+	b=Q0FU7OKuvZcjEnHMYU3zg+fUOCioG69H5IPUmHPWI+All89rV6eg2kaa3eiKvjr/43phaG
+	C1un+Wyx258sd8AQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 37EDD1398E;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 58EF0138A7;
 	Mon, 22 Jul 2024 17:51:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YDxSDDGcnmbyBgAAD6G6ig
+	id sANMFDGcnmbyBgAAD6G6ig
 	(envelope-from <tiwai@suse.de>); Mon, 22 Jul 2024 17:51:45 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-utils 04/10] aconnect: Drop superfluous ifdefs
-Date: Mon, 22 Jul 2024 19:52:08 +0200
-Message-ID: <20240722175215.8223-5-tiwai@suse.de>
+Subject: [PATCH alsa-utils 05/10] aseqdump: Drop ifdef for UMP support
+Date: Mon, 22 Jul 2024 19:52:09 +0200
+Message-ID: <20240722175215.8223-6-tiwai@suse.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240722175215.8223-1-tiwai@suse.de>
 References: <20240722175215.8223-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.60 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [0.40 / 50.00];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-0.999];
 	R_MISSING_CHARSET(0.50)[];
@@ -138,8 +136,8 @@ X-Spamd-Result: default: False [-2.60 / 50.00];
 	TO_DN_NONE(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
 	RCVD_TLS_ALL(0.00)[]
-Message-ID-Hash: BOORIXL6QZ4VHDDVNMCD75YQLXPP2TVI
-X-Message-ID-Hash: BOORIXL6QZ4VHDDVNMCD75YQLXPP2TVI
+Message-ID-Hash: E5CVEHH3NFQRHRASA6DM3DECFHGL4LLB
+X-Message-ID-Hash: E5CVEHH3NFQRHRASA6DM3DECFHGL4LLB
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -152,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BOORIXL6QZ4VHDDVNMCD75YQLXPP2TVI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E5CVEHH3NFQRHRASA6DM3DECFHGL4LLB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,149 +159,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Now that the latest alsa-lib 1.2.12 became mandatory, all ugly ifdefs
-can be dropped.
+Now that the latest alsa-lib 1.2.12 is mandatory, drop the ugly
+ifdefs.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- seq/aconnect/aconnect.c | 31 -------------------------------
- 1 file changed, 31 deletions(-)
+ seq/aseqdump/aseqdump.c | 22 +---------------------
+ 1 file changed, 1 insertion(+), 21 deletions(-)
 
-diff --git a/seq/aconnect/aconnect.c b/seq/aconnect/aconnect.c
-index 371165d65323..edd028f0391d 100644
---- a/seq/aconnect/aconnect.c
-+++ b/seq/aconnect/aconnect.c
-@@ -29,12 +29,7 @@
+diff --git a/seq/aseqdump/aseqdump.c b/seq/aseqdump/aseqdump.c
+index 6ac897c0710a..1c968b1cfc05 100644
+--- a/seq/aseqdump/aseqdump.c
++++ b/seq/aseqdump/aseqdump.c
+@@ -29,9 +29,7 @@
+ #include <poll.h>
  #include <alsa/asoundlib.h>
- #include "gettext.h"
+ #include "version.h"
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ #include <alsa/ump_msg.h>
+-#endif
  
--#ifdef SND_SEQ_PORT_CAP_INACTIVE
--#define HANDLE_SHOW_ALL
- static int show_all;
+ enum {
+ 	VIEW_RAW, VIEW_NORMALIZED, VIEW_PERCENT
+@@ -41,11 +39,7 @@ static snd_seq_t *seq;
+ static int port_count;
+ static snd_seq_addr_t *ports;
+ static volatile sig_atomic_t stop = 0;
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ static int ump_version;
 -#else
--#define show_all 0
+-#define ump_version	0
 -#endif
+ static int view_mode = VIEW_RAW;
  
- static void error_handler(const char *file, int line, const char *function, int err, const char *fmt, ...)
- {
-@@ -67,9 +62,7 @@ static void usage(void)
- 	printf(_("   aconnect -i|-o [-options]\n"));
- 	printf(_("     -i,--input          list input (readable) ports\n"));
- 	printf(_("     -o,--output         list output (writable) ports\n"));
--#ifdef HANDLE_SHOW_ALL
- 	printf(_("     -a,--all            show inactive ports, too\n"));
--#endif
- 	printf(_("     -l,--list           list current connections of each port\n"));
- 	printf(_(" * Remove all exported connections\n"));
- 	printf(_("     -x, --removeall\n"));
-@@ -84,15 +77,11 @@ static void usage(void)
- 
- #define perm_ok(cap,bits) (((cap) & (bits)) == (bits))
- 
--#ifdef SND_SEQ_PORT_DIR_INPUT
- static int check_direction(snd_seq_port_info_t *pinfo, int bit)
- {
- 	int dir = snd_seq_port_info_get_direction(pinfo);
- 	return !dir || (dir & bit);
- }
--#else
--#define check_direction(x, y)	1
--#endif
- 
- static int check_permission(snd_seq_port_info_t *pinfo, int perm)
- {
-@@ -174,20 +163,16 @@ static void do_search_port(snd_seq_t *seq, int perm, action_func_t do_action)
- 		/* reset query info */
- 		snd_seq_port_info_set_client(pinfo, snd_seq_client_info_get_client(cinfo));
- 		snd_seq_port_info_set_port(pinfo, -1);
--#ifdef HANDLE_SHOW_ALL
- 		if (show_all)
- 			snd_seq_port_info_set_capability(pinfo, SND_SEQ_PORT_CAP_INACTIVE);
--#endif
- 		count = 0;
- 		while (snd_seq_query_next_port(seq, pinfo) >= 0) {
- 			if (check_permission(pinfo, perm)) {
- 				do_action(seq, cinfo, pinfo, count);
- 				count++;
- 			}
--#ifdef HANDLE_SHOW_ALL
- 			if (show_all)
- 				snd_seq_port_info_set_capability(pinfo, SND_SEQ_PORT_CAP_INACTIVE);
--#endif
- 		}
+ /* prints an error message to stderr, and dies */
+@@ -368,7 +362,6 @@ static void dump_event(const snd_seq_event_t *ev)
  	}
  }
-@@ -205,7 +190,6 @@ static void print_port(snd_seq_t *seq ATTRIBUTE_UNUSED,
- 		       snd_seq_client_info_get_name(cinfo),
- 		       (snd_seq_client_info_get_type(cinfo) == SND_SEQ_USER_CLIENT ?
- 			_("user") : _("kernel")));
+ 
 -#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
- 		switch (snd_seq_client_info_get_midi_version(cinfo)) {
- 		case SND_SEQ_CLIENT_UMP_MIDI_1_0:
- 			printf(",UMP-MIDI1");
-@@ -214,16 +198,11 @@ static void print_port(snd_seq_t *seq ATTRIBUTE_UNUSED,
- 			printf(",UMP-MIDI2");
- 			break;
- 		}
--#endif
--#ifdef HAVE_SEQ_CLIENT_INFO_GET_CARD
- 		card = snd_seq_client_info_get_card(cinfo);
--#endif
- 		if (card != -1)
- 			printf(",card=%d", card);
- 
--#ifdef HAVE_SEQ_CLIENT_INFO_GET_PID
- 		pid = snd_seq_client_info_get_pid(cinfo);
--#endif
- 		if (pid != -1)
- 			printf(",pid=%d", pid);
- 		printf("]\n");
-@@ -231,10 +210,8 @@ static void print_port(snd_seq_t *seq ATTRIBUTE_UNUSED,
- 	printf("  %3d '%-16s'",
- 	       snd_seq_port_info_get_port(pinfo),
- 	       snd_seq_port_info_get_name(pinfo));
--#ifdef HANDLE_SHOW_ALL
- 	if (snd_seq_port_info_get_capability(pinfo) & SND_SEQ_PORT_CAP_INACTIVE)
- 		printf(" [INACTIVE]");
--#endif
- 	printf("\n");
+ static int group_number(unsigned char c)
+ {
+ 	if (view_mode != VIEW_RAW)
+@@ -986,7 +979,6 @@ static void dump_ump_event(const snd_seq_ump_event_t *ev)
+ 		break;
+ 	}
  }
+-#endif /* HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION */
  
-@@ -299,11 +276,7 @@ enum {
- 	SUBSCRIBE, UNSUBSCRIBE, LIST, REMOVE_ALL
- };
- 
--#ifdef HANDLE_SHOW_ALL
- #define ACONNECT_OPTS "dior:t:elxa"
--#else
--#define ACONNECT_OPTS "dior:t:elx"
+ static void list_ports(void)
+ {
+@@ -1029,10 +1021,8 @@ static void help(const char *argv0)
+ 		"  -N,--normalized-view       show normalized values\n"
+ 		"  -P,--percent-view          show percent values\n"
+ 		"  -R,--raw-view              show raw values (default)\n"
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 		"  -u,--ump=version           set client MIDI version (0=legacy, 1= UMP MIDI 1.0, 2=UMP MIDI2.0)\n"
+ 		"  -r,--raw                   do not convert UMP and legacy events\n"
 -#endif
+ 		"  -p,--port=client:port,...  source port(s)\n",
+ 		argv0);
+ }
+@@ -1049,11 +1039,7 @@ static void sighandler(int sig ATTRIBUTE_UNUSED)
  
- static const struct option long_option[] = {
- 	{"disconnect", 0, NULL, 'd'},
-@@ -314,9 +287,7 @@ static const struct option long_option[] = {
- 	{"exclusive", 0, NULL, 'e'},
- 	{"list", 0, NULL, 'l'},
- 	{"removeall", 0, NULL, 'x'},
--#ifdef HANDLE_SHOW_ALL
- 	{"all", 0, NULL, 'a'},
+ int main(int argc, char *argv[])
+ {
+-	static const char short_options[] = "hVlp:NPR"
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+-		"u:r"
 -#endif
- 	{NULL, 0, NULL, 0},
- };
+-		;
++	static const char short_options[] = "hVlp:NPRu:r";
+ 	static const struct option long_options[] = {
+ 		{"help", 0, NULL, 'h'},
+ 		{"version", 0, NULL, 'V'},
+@@ -1062,10 +1048,8 @@ int main(int argc, char *argv[])
+ 		{"normalized-view", 0, NULL, 'N'},
+ 		{"percent-view", 0, NULL, 'P'},
+ 		{"raw-view", 0, NULL, 'R'},
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 		{"ump", 1, NULL, 'u'},
+ 		{"raw", 0, NULL, 'r'},
+-#endif
+ 		{0}
+ 	};
  
-@@ -370,12 +341,10 @@ int main(int argc, char **argv)
- 		case 'x':
- 			command = REMOVE_ALL;
+@@ -1100,7 +1084,6 @@ int main(int argc, char *argv[])
+ 		case 'N':
+ 			view_mode = VIEW_NORMALIZED;
  			break;
--#ifdef HANDLE_SHOW_ALL
- 		case 'a':
- 			command = LIST;
- 			show_all = 1;
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 		case 'u':
+ 			ump_version = atoi(optarg);
+ 			snd_seq_set_client_midi_version(seq, ump_version);
+@@ -1108,7 +1091,6 @@ int main(int argc, char *argv[])
+ 		case 'r':
+ 			snd_seq_set_client_ump_conversion(seq, 0);
  			break;
 -#endif
  		default:
- 			usage();
- 			exit(1);
+ 			help(argv[0]);
+ 			return 1;
+@@ -1150,7 +1132,6 @@ int main(int argc, char *argv[])
+ 			break;
+ 		for (;;) {
+ 			snd_seq_event_t *event;
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 			snd_seq_ump_event_t *ump_ev;
+ 			if (ump_version > 0) {
+ 				err = snd_seq_ump_event_input(seq, &ump_ev);
+@@ -1160,7 +1141,6 @@ int main(int argc, char *argv[])
+ 					dump_ump_event(ump_ev);
+ 				continue;
+ 			}
+-#endif
+ 
+ 			err = snd_seq_event_input(seq, &event);
+ 			if (err < 0)
 -- 
 2.43.0
 

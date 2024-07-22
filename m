@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1E493935E
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 19:57:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EFDD939367
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2024 19:59:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8533DFA;
-	Mon, 22 Jul 2024 19:57:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8533DFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CCE4B60;
+	Mon, 22 Jul 2024 19:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CCE4B60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721671052;
-	bh=PXWwNdLivNmL3loxTjcdIVhsQSSWJ5vEvlVrMr7Xrcw=;
+	s=default; t=1721671146;
+	bh=56t8ipHb2mfcvnrsWTNKYT6LbSMTf3V6qbfYgIHpwH4=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=mLXbGfOBAVvtIM6Is3JkLVPOlugWQHBhamFczv9iG9FBOISTKu4WZHZzScL2M+q+v
-	 xidyf8uuUEAvDNPiM80R5ghPCXFmgssCrWwbrfBllHplGBBQqsCBH8duhK8wCD9l41
-	 LI4gHRS5u6IlwiDlVQqJ8Eaz1KyTwVTD8fme7AuY=
+	b=hZ3VG6+/qOs43mPSKQKZ4KdXeKV0kY1garjwbqffsPrL6AlN8PLOgJhdDFdoD1c/r
+	 M9shJxgPjNoxfk3Zu+opvU29jeYLQ+isAwefo4M1uL6fdrvx3CP9U8jRjlZYkLjyZk
+	 1jif5w/5GXYbEh/ElSibGIopLPJo4WjHVKINk9t4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 754E0F805AE; Mon, 22 Jul 2024 19:57:01 +0200 (CEST)
+	id E0909F8069A; Mon, 22 Jul 2024 19:57:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5620AF805B0;
-	Mon, 22 Jul 2024 19:57:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68309F8069E;
+	Mon, 22 Jul 2024 19:57:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 366A0F8059F; Mon, 22 Jul 2024 19:52:02 +0200 (CEST)
+	id 4078FF80482; Mon, 22 Jul 2024 19:53:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,121 +37,108 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C5D41F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id C7B7FF801F5
 	for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2024 19:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5D41F8019B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7B7FF801F5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=YXD+h0dr;
+ header.s=susede2_rsa header.b=gRVWrF4H;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ZmZHmXYY;
+ header.s=susede2_ed25519 header.b=QD/7H6FU;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=YXD+h0dr;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=gRVWrF4H;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ZmZHmXYY
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ header.s=susede2_ed25519 header.b=QD/7H6FU
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D921E1FB7F;
-	Mon, 22 Jul 2024 17:51:44 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 072131FB89;
+	Mon, 22 Jul 2024 17:51:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1721670704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1721670705; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qBuSHLceP67P+Iz3lEuhgQRdYv1BwF/lU+d2DtFYWcM=;
-	b=YXD+h0drxm8fqaHdxmdwFnEPYtQZx3y0EsW7GiFj5N+nVkZBtH7PkE3+kAxDldDg6Elhpv
-	daupB9KiVYF6TZT1u+MHTh1IzJfvf8fIXbiHt4Tue+V/VDhhdQKJ8FB0LZkRCpoLzxorfY
-	abX3470uK1ZsovMZJSdkZVz/DldwLnw=
+	bh=Zju2fQFIY4UatI8TrGriXrsh22Awz15vWQE7Xe4XeqE=;
+	b=gRVWrF4H9bLiafr90o5+ZUWYwM5opUUlCOibfVmp7/ZqNrSXY6jB/pMhLjKTJmCbkjb+Y9
+	rUxACfA+xPCO8bZstqwzeYFC0Sp49Y4KBC0SXbiqFldEGWSwtUbUbuZyEfXXgKWD/d9HGS
+	sz0OfGmUFmcEk62WWnCQg3SPHRJGPhw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721670704;
+	s=susede2_ed25519; t=1721670705;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qBuSHLceP67P+Iz3lEuhgQRdYv1BwF/lU+d2DtFYWcM=;
-	b=ZmZHmXYYr0cuq5r2JukwbJF5+x4ujGnSxt8UrrtdwzCZKlPz7Dw4lZ4mqZRF7TuMY15lTD
-	KUcT00GRpgoPMgBQ==
+	bh=Zju2fQFIY4UatI8TrGriXrsh22Awz15vWQE7Xe4XeqE=;
+	b=QD/7H6FU5YmiEt3ODccZQ+YM3xGwgEyhFdZRLrMxLLYwerCts3HPDpZV1UObcC7/42V3Zb
+	+FgLm1lYjoAeIsBw==
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YXD+h0dr;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ZmZHmXYY
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1721670704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1721670705; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qBuSHLceP67P+Iz3lEuhgQRdYv1BwF/lU+d2DtFYWcM=;
-	b=YXD+h0drxm8fqaHdxmdwFnEPYtQZx3y0EsW7GiFj5N+nVkZBtH7PkE3+kAxDldDg6Elhpv
-	daupB9KiVYF6TZT1u+MHTh1IzJfvf8fIXbiHt4Tue+V/VDhhdQKJ8FB0LZkRCpoLzxorfY
-	abX3470uK1ZsovMZJSdkZVz/DldwLnw=
+	bh=Zju2fQFIY4UatI8TrGriXrsh22Awz15vWQE7Xe4XeqE=;
+	b=gRVWrF4H9bLiafr90o5+ZUWYwM5opUUlCOibfVmp7/ZqNrSXY6jB/pMhLjKTJmCbkjb+Y9
+	rUxACfA+xPCO8bZstqwzeYFC0Sp49Y4KBC0SXbiqFldEGWSwtUbUbuZyEfXXgKWD/d9HGS
+	sz0OfGmUFmcEk62WWnCQg3SPHRJGPhw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1721670704;
+	s=susede2_ed25519; t=1721670705;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qBuSHLceP67P+Iz3lEuhgQRdYv1BwF/lU+d2DtFYWcM=;
-	b=ZmZHmXYYr0cuq5r2JukwbJF5+x4ujGnSxt8UrrtdwzCZKlPz7Dw4lZ4mqZRF7TuMY15lTD
-	KUcT00GRpgoPMgBQ==
+	bh=Zju2fQFIY4UatI8TrGriXrsh22Awz15vWQE7Xe4XeqE=;
+	b=QD/7H6FU5YmiEt3ODccZQ+YM3xGwgEyhFdZRLrMxLLYwerCts3HPDpZV1UObcC7/42V3Zb
+	+FgLm1lYjoAeIsBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A9C001398E;
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E101613996;
 	Mon, 22 Jul 2024 17:51:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id CFYzKDCcnmbyBgAAD6G6ig
+	id gPesNTCcnmbyBgAAD6G6ig
 	(envelope-from <tiwai@suse.de>); Mon, 22 Jul 2024 17:51:44 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-utils 01/10] configure: Requires the latest ALSA-lib
- release 1.2.12
-Date: Mon, 22 Jul 2024 19:52:05 +0200
-Message-ID: <20240722175215.8223-2-tiwai@suse.de>
+Subject: [PATCH alsa-utils 02/10] aplaymidi: Drop ifdef for UMP support
+Date: Mon, 22 Jul 2024 19:52:06 +0200
+Message-ID: <20240722175215.8223-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240722175215.8223-1-tiwai@suse.de>
 References: <20240722175215.8223-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [0.19 / 50.00];
+X-Spamd-Result: default: False [-2.60 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_LONG(-1.00)[-0.999];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCPT_COUNT_ONE(0.00)[1];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_NONE(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: D921E1FB7F
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Bar: /
-Message-ID-Hash: AXPIXXPD77ZMIEETW7K3H2LPTNL2PRQQ
-X-Message-ID-Hash: AXPIXXPD77ZMIEETW7K3H2LPTNL2PRQQ
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
+Message-ID-Hash: 3YPU7J2CSOYJ6KGHHAIGNDOI2NJCSPVN
+X-Message-ID-Hash: 3YPU7J2CSOYJ6KGHHAIGNDOI2NJCSPVN
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -164,7 +151,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXPIXXPD77ZMIEETW7K3H2LPTNL2PRQQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3YPU7J2CSOYJ6KGHHAIGNDOI2NJCSPVN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,27 +160,140 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-New features such as MIDI 2.0 should be always enabled for the
-builds.  Update the dependency to alsa-lib 1.2.12.
+Now that the latest alsa-lib 1.2.12 became mandatory, all ugly ifdefs
+can be dropped.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- configure.ac | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ seq/aplaymidi/aplaymidi.c | 24 +-----------------------
+ 1 file changed, 1 insertion(+), 23 deletions(-)
 
-diff --git a/configure.ac b/configure.ac
-index 708380cf31dc..4803fe471c57 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -21,7 +21,7 @@ AC_PROG_SED
- AC_DISABLE_STATIC
- AM_PROG_LIBTOOL
- PKG_PROG_PKG_CONFIG
--AM_PATH_ALSA(1.2.5)
-+AM_PATH_ALSA(1.2.12)
- if test "x$enable_alsatest" = "xyes"; then
- AC_CHECK_FUNC([snd_ctl_elem_add_enumerated],
- 	      , [AC_ERROR([No user enum control support in alsa-lib])])
+diff --git a/seq/aplaymidi/aplaymidi.c b/seq/aplaymidi/aplaymidi.c
+index 66038e278d4a..dd8d07997985 100644
+--- a/seq/aplaymidi/aplaymidi.c
++++ b/seq/aplaymidi/aplaymidi.c
+@@ -30,9 +30,7 @@
+ #include <unistd.h>
+ #include <alsa/asoundlib.h>
+ #include "version.h"
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ #include <alsa/ump_msg.h>
+-#endif
+ 
+ /*
+  * 31.25 kbaud, one start bit, eight data bits, two stop bits.
+@@ -78,9 +76,7 @@ static int file_offset;		/* current offset in input file */
+ static int num_tracks;
+ static struct track *tracks;
+ static int smpte_timing;
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ static int ump_mode;
+-#endif
+ 
+ /* prints an error message to stderr */
+ static void errormsg(const char *msg, ...)
+@@ -685,7 +681,6 @@ static int fill_legacy_event(struct event* event, snd_seq_event_t *ev)
+ 	return 0;
+ }
+ 
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ static unsigned char to_ump_status(unsigned char ev_type)
+ {
+ 	switch (ev_type) {
+@@ -762,13 +757,10 @@ static int fill_ump_event(struct event* event, snd_seq_ump_event_t *ump_ev,
+ 	snd_seq_ev_set_ump_data(ump_ev, &ump, sizeof(ump));
+ 	return 0;
+ }
+-#endif /* HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION */
+ 
+ static void play_midi(void)
+ {
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 	snd_seq_ump_event_t ump_ev;
+-#endif
+ 	snd_seq_event_t ev;
+ 	int i, max_tick, err;
+ 
+@@ -830,7 +822,7 @@ static void play_midi(void)
+ 			if (err < 0)
+ 				continue;
+ 		}
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
++
+ 		if (ump_mode) {
+ 			err = fill_ump_event(event, &ump_ev, &ev);
+ 			if (err < 0)
+@@ -839,7 +831,6 @@ static void play_midi(void)
+ 			check_snd("output event", err);
+ 			continue;
+ 		}
+-#endif
+ 
+ 		/* this blocks when the output pool has been filled */
+ 		err = snd_seq_event_output(seq, &ev);
+@@ -957,9 +948,7 @@ static void usage(const char *argv0)
+ 		"-V, --version               print current version\n"
+ 		"-l, --list                  list all possible output ports\n"
+ 		"-p, --port=client:port,...  set port(s) to play to\n"
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 		"-u, --ump=version           UMP output (only version=1 is supported)\n"
+-#endif
+ 		"-d, --delay=seconds         delay after song ends\n",
+ 		argv0);
+ }
+@@ -969,12 +958,7 @@ static void version(void)
+ 	puts("aplaymidi version " SND_UTIL_VERSION_STR);
+ }
+ 
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ #define OPTIONS	"hVlp:d:u:"
+-#else
+-#define OPTIONS	"hVlp:d:"
+-#endif
+-
+ 
+ int main(int argc, char *argv[])
+ {
+@@ -984,9 +968,7 @@ int main(int argc, char *argv[])
+ 		{"version", 0, NULL, 'V'},
+ 		{"list", 0, NULL, 'l'},
+ 		{"port", 1, NULL, 'p'},
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 		{"ump", 1, NULL, 'u'},
+-#endif
+ 		{"delay", 1, NULL, 'd'},
+ 		{0}
+ 	};
+@@ -1013,7 +995,6 @@ int main(int argc, char *argv[])
+ 		case 'd':
+ 			end_delay = atoi(optarg);
+ 			break;
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 		case 'u':
+ 			if (strcmp(optarg, "1")) {
+ 				errormsg("Only MIDI 1.0 is supported");
+@@ -1021,7 +1002,6 @@ int main(int argc, char *argv[])
+ 			}
+ 			ump_mode = 1;
+ 			break;
+-#endif
+ 		default:
+ 			usage(argv[0]);
+ 			return 1;
+@@ -1029,13 +1009,11 @@ int main(int argc, char *argv[])
+ 	}
+ 
+ 
+-#ifdef HAVE_SEQ_CLIENT_INFO_GET_MIDI_VERSION
+ 	if (ump_mode) {
+ 		int err;
+ 		err = snd_seq_set_client_midi_version(seq, SND_SEQ_CLIENT_UMP_MIDI_1_0);
+ 		check_snd("set midi version", err);
+ 	}
+-#endif
+ 
+ 	if (do_list) {
+ 		list_ports();
 -- 
 2.43.0
 

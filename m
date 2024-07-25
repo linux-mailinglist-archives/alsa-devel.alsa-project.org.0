@@ -2,127 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47C9D93C0C5
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2024 13:27:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB3393C1EC
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2024 14:24:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95DC7EDB;
-	Thu, 25 Jul 2024 13:27:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95DC7EDB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6974E80;
+	Thu, 25 Jul 2024 14:24:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6974E80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721906855;
-	bh=IezU2W8rytHN1+OJjzdCLOScjz5OOSUaMHzxu2FqxSk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	s=default; t=1721910269;
+	bh=FxpBSkox+kGUdr5ySqjw7luWtMsnywJWHOmsE0BGYZ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vKKCwd+HYhRLR7Jgab1GFfPLLdgnBN6Mh+g7GOi4tCf2qkYbok5tvIgmY04UEmIa/
-	 KFO3wHEMApj24kNSaP91mdDn1foI18XDmCi7kT7JFAQ91JKotkNVHcxT+hRVlRA7uG
-	 xcWW0lCt2iPWDUXZN9glrHpW9BOW0KeB8CBoTIE8=
+	b=MjHkyxBUrrOgFYtazMRmXNwRCYqGpWUPLux6XMWYgfy6WJZTQaNKgNP+Sz2AtGCZX
+	 u+OcnafCE9e3RauVnPK9Zn4baP8WJXCMlt2SYmrdDJhGRwO05+F+zED4euQRECx/8Z
+	 NyFMlD0M51tRJUVpXP71pjJndE0xFISdgEZFfbb8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7421DF805D4; Thu, 25 Jul 2024 13:26:55 +0200 (CEST)
+	id A6851F80580; Thu, 25 Jul 2024 14:23:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 137EEF805CB;
-	Thu, 25 Jul 2024 13:26:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FBB4F805B0;
+	Thu, 25 Jul 2024 14:23:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7441F8057A; Thu, 25 Jul 2024 13:24:13 +0200 (CEST)
+	id CCCDCF800AE; Thu, 25 Jul 2024 14:23:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 01CBDF800C9
-	for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2024 13:24:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01CBDF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 30CFBF800AE
+	for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2024 14:23:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30CFBF800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=hXITvWJr
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-367ab76d5e1so329745f8f.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 25 Jul 2024 04:24:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1721906644; x=1722511444;
- darn=alsa-project.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fuc1obU/KvJR69EdA4JL3jyV+SdcVptiD/ClFtmUvzY=;
-        b=hXITvWJr7H0yL4ft36mxE40KMVox3a0t9z5rLysHFHvqGmJoHhcp5aEGXkQN4ibi8P
-         hH03Gb2XrhPigqVtOLAzGCEbDJAEk45+bnZpQ2UYaA5MH5QpGeoUCvnPoZD+yUpqon6W
-         0mJ/ysgHGT4MG9IgQnqQegzYE0zr4GlKPPIlR0z1ALSTV5i0MRyjfLZ6V/GrOJdZ7i8d
-         OYDIFc7MPR/k9Q5Jq8EMqGmT66wVjZO34Odg5sBFK8DGy4AcXApI1fxiLfMa9IXDP6QS
-         qigNzpDc1+dDU4CtiBXhTYEkht/RBVIIc+YIALNEQmgExNxaujZSCeDRSGpsDBZrrtjh
-         D2zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721906644; x=1722511444;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fuc1obU/KvJR69EdA4JL3jyV+SdcVptiD/ClFtmUvzY=;
-        b=W5KfKtLdYoNMMy5Vfu4GLBOLVEQlBgYsLMLeNCn5662lJpb9Y+y03htYqaY0bGWct9
-         zGbmAlFYlU+8ERHrg1pHT0rFjYTLjTIoKlXRQyRHrDm+2Celp6Mqa6O/d7nhPmfQo1fF
-         kp9fLIa9i/3E4nKgt2wq82WXR584I7+QJwqiYVb1vmLoxEK0Dsevj5sZF6YIDWxgbmWW
-         BUoY42GFiZ0ZfR8n6G2Ats1U+M6gD3YIgO+fkSCqlzo+Wr2yeyX/p7u2UEowXQ5uxCGK
-         OCpaB2SMgRTLYlZvXSskePAQDCMTvYlikKt2l/Mt2nahskUVwqdE/ZvcZwITqFlpTKwC
-         9uLQ==
-X-Gm-Message-State: AOJu0YwJn7hHC5x0nIJ0xTAahHbKLM0+Ei+XFrBhHLrHkVrgb51QN07J
-	UndWnuyCujE0b447+szErYozeZpPBR4Xc7fP+JbE3d47gKqm8RS89NkkQf9PWbA=
-X-Google-Smtp-Source: 
- AGHT+IEpQs3fxfrt410fx954ueUVYLvEFG6tI5ahSFyUrB+n2S+LTUldQrepCDb1PHiuZbAbge4L7Q==
-X-Received: by 2002:adf:f64f:0:b0:367:9828:f42d with SMTP id
- ffacd0b85a97d-36b31a4acd9mr1754985f8f.53.1721906643810;
-        Thu, 25 Jul 2024 04:24:03 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.137])
-        by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36b367e072asm1823607f8f.42.2024.07.25.04.24.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jul 2024 04:24:03 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Thu, 25 Jul 2024 13:23:49 +0200
-Subject: [PATCH 7/7] ASoC: codecs: wcd939x: Move max port number defines to
- enum
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=qX2sZWHc
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 311266131B;
+	Thu, 25 Jul 2024 12:23:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9C4C32782;
+	Thu, 25 Jul 2024 12:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1721910221;
+	bh=FxpBSkox+kGUdr5ySqjw7luWtMsnywJWHOmsE0BGYZ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qX2sZWHc94S27MpTxVZc+U5E2xVhnkLF6TjChRWXH9/tHggOMZTVqaHqw94yTUWg+
+	 f63ezr45jUwxp349qcODGFFU4sTAZG0FS44par0jn7zxECLO5pv9aUjkHDza7iNhUh
+	 /KA9iJirdvlw7ME4A3m28V8mnZK59dgDv+o5HQ4WnAZMC812oq/9GckbzvH1kSqHQG
+	 iFF6N9o/2RIpJdgEygI8e15Nh2eZpjoWcVUWdAtPrW6IJYW5CdCe4s5LkrlXtrLMtj
+	 7DmZptFZWMWZv4iMsbNZXVV/04FirzQxqEw9pNxllmAcDvtUEC629dFOHzxRh75Qv+
+	 Xz1L0P/Kjp75g==
+Date: Thu, 25 Jul 2024 07:23:40 -0500
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: fabrice.gasnier@foss.st.com,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 4/9] dt-bindings: iio: dfsdm: move to backend framework
+Message-ID: <20240725122340.GA1360128-robh@kernel.org>
+References: <20240724153639.803263-1-olivier.moysan@foss.st.com>
+ <20240724153639.803263-5-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240725-asoc-wsa88xx-port-arrays-v1-7-80a03f440c72@linaro.org>
-References: <20240725-asoc-wsa88xx-port-arrays-v1-0-80a03f440c72@linaro.org>
-In-Reply-To: <20240725-asoc-wsa88xx-port-arrays-v1-0-80a03f440c72@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1490;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=IezU2W8rytHN1+OJjzdCLOScjz5OOSUaMHzxu2FqxSk=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmojXIk1Qbl0Iz5KBaJYKuj2Qh1UtAtZ0R+L4Iu
- QPHwZbXeJyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZqI1yAAKCRDBN2bmhouD
- 1zGvD/9lV+y+SrlBfQ7yOLDLv7oPdnM38VM/viNyVIT0BCtBO1cQIqak1MpJ+VzgJFg7wxm45xJ
- rzbYHIQXM4rVzd6z3x4i7KjJqs/tW7gB4UyuLT173BKU0ScNuU01SaoIQvzkGJT7Xs8v4M2ht40
- jQR1xGzufBOfFmJwMgiArP58KcGok2mjx2PHdu3WScEqxlbPCPPovxjQwIyutXPNUMx0PaTsDOK
- 33605E8o9Gt4i+E2tTBYCTzJcH5LQjdIFFSySsx8MY6s5vyKbytntCyxaahQZV9Qf8J7dBFX6ug
- RzPLtwP2/LfnGFvngYU64mDvC38Dv4rpl+T7Ufrae4K7Lq4kFkiCa8rRdY3/ActDCYaIVHuG+Hn
- oUS5UvvtETkK0B2oiu1nxWO0U6yR4PWthV+F1KGLANunnSvQio25Pus7sp5PVTHRzbTkC4ngEeG
- tQ6NPBnqrmeOEoQK/v0I0q/FaRAWB3+hGMvUPreQQwKJ0ajNnLDCrQzRXqihzFW0CQf+P6Tpu6D
- RjGbwC/retdTGBnZV03iQKXOAjBuqaGCT6v27jWvCA2d/RT1ven4liULuTqlkWL/lgTFKoTVf7Y
- 9ZTfJ3LezBmVls/gHDRczKT3Djr23nUwoIVomyLCZg6OpBtBUD3FLswFdKVX3V5QNXIV8r2Eukw
- g2PsqiVBMnqYuTA==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Message-ID-Hash: M6MU3OB57QPX6EZUAK6DYM2SIZMYGPNG
-X-Message-ID-Hash: M6MU3OB57QPX6EZUAK6DYM2SIZMYGPNG
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240724153639.803263-5-olivier.moysan@foss.st.com>
+Message-ID-Hash: DWZUWADXSFTNY2IHCVQGWANPLX6GYGWD
+X-Message-ID-Hash: DWZUWADXSFTNY2IHCVQGWANPLX6GYGWD
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -134,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M6MU3OB57QPX6EZUAK6DYM2SIZMYGPNG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWZUWADXSFTNY2IHCVQGWANPLX6GYGWD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,50 +105,182 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Instead of having separate define to indicate number of TX and RX
-Soundwire ports, move it to the enums defining actual port
-indices/values.  This makes it more obvious why such value was chosen as
-number of TX/RX ports.
-Note: the enums start from 1, thus number of ports equals to the last
-vaue in the enum.
+On Wed, Jul 24, 2024 at 05:36:32PM +0200, Olivier Moysan wrote:
+> Change the DFSDM binding to use the new IIO backend framework,
+> along with the adoption of IIO generic channels.
+> This binding change allows to add scaling support to the DFSDM.
+> 
+> Keep the legacy binding as deprecated for backward compatibility.
+> 
+> The io-backends property is supported only in generic IIO channel
+> binding.
+> 
+> - Channel description with the generic binding (Audio and Analog):
+> 
+>   Properties superseded by generic properties:
+>     st,adc-channels: becomes "reg" property in channel node
+>     st,adc-channel-names: becomes "label" property in channel node
+>   Properties moved to channel child node:
+>     st,adc-channel-types: becomes st,adc-channel-type
+>     st,adc-channel-clk-src, st,adc-alt-channel
+> 
+> - Analog binding:
+> 
+>   DFSDM filter channel is configured as an IIO backend consumer.
+>   Add io-backends property in channel child nodes.
+> 
+>   DFSDM is no more configured as a channel consumer from SD modulator.
+>   Use of io-channels in DFSDM node is deprecated.
+> 
+> - Audio binding:
+> 
+>   DFSDM audio DAI is configured as a channel consumer from DFSDM filter.
+>   No change compare to legacy.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
+>  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 124 +++++++++++++++---
+>  1 file changed, 108 insertions(+), 16 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> index 2722edab1d9a..ceadd73504a4 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> @@ -102,9 +102,11 @@ patternProperties:
+>          items:
+>            minimum: 0
+>            maximum: 7
+> +        deprecated: true
+>  
+>        st,adc-channel-names:
+>          description: List of single-ended channel names.
+> +        deprecated: true
+>  
+>        st,filter-order:
+>          description: |
+> @@ -118,6 +120,12 @@ patternProperties:
+>        "#io-channel-cells":
+>          const: 1
+>  
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+>        st,adc-channel-types:
+>          description: |
+>            Single-ended channel input type.
+> @@ -128,6 +136,7 @@ patternProperties:
+>          items:
+>            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+>          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +        deprecated: true
+>  
+>        st,adc-channel-clk-src:
+>          description: |
+> @@ -139,6 +148,7 @@ patternProperties:
+>          items:
+>            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+>          $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +        deprecated: true
+>  
+>        st,adc-alt-channel:
+>          description:
+> @@ -147,6 +157,7 @@ patternProperties:
+>            If not set, channel n is connected to SPI input n.
+>            If set, channel n is connected to SPI input n + 1.
+>          type: boolean
+> +        deprecated: true
+>  
+>        st,filter0-sync:
+>          description:
+> @@ -165,11 +176,60 @@ patternProperties:
+>        - compatible
+>        - reg
+>        - interrupts
+> -      - st,adc-channels
+> -      - st,adc-channel-names
+>        - st,filter-order
+>        - "#io-channel-cells"
+>  
+> +    patternProperties:
+> +      "^channel@([0-7])$":
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- sound/soc/codecs/wcd939x.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Don't need ().
 
-diff --git a/sound/soc/codecs/wcd939x.h b/sound/soc/codecs/wcd939x.h
-index 1571c2120cfc..3204fb10b58d 100644
---- a/sound/soc/codecs/wcd939x.h
-+++ b/sound/soc/codecs/wcd939x.h
-@@ -842,9 +842,6 @@
- #define WCD939X_DSD_HPHR_CFG5				   (0x35a6)
- #define WCD939X_MAX_REGISTER				   (WCD939X_DSD_HPHR_CFG5)
- 
--#define WCD939X_MAX_SWR_PORTS		(6)
--#define WCD939X_MAX_RX_SWR_PORTS	(6)
--#define WCD939X_MAX_TX_SWR_PORTS	(4)
- #define WCD939X_MAX_SWR_CH_IDS		(15)
- 
- struct wcd939x_sdw_ch_info {
-@@ -863,6 +860,7 @@ enum wcd939x_tx_sdw_ports {
- 	WCD939X_ADC_DMIC_1_2_PORT,
- 	WCD939X_DMIC_0_3_MBHC_PORT,
- 	WCD939X_DMIC_3_7_PORT,
-+	WCD939X_MAX_TX_SWR_PORTS = WCD939X_DMIC_3_7_PORT,
- };
- 
- enum wcd939x_tx_sdw_channels {
-@@ -888,6 +886,8 @@ enum wcd939x_rx_sdw_ports {
- 	WCD939X_LO_PORT,
- 	WCD939X_DSD_PORT,
- 	WCD939X_HIFI_PCM_PORT,
-+	WCD939X_MAX_RX_SWR_PORTS = WCD939X_HIFI_PCM_PORT,
-+	WCD939X_MAX_SWR_PORTS = WCD939X_MAX_RX_SWR_PORTS,
- };
- 
- enum wcd939x_rx_sdw_channels {
+> +        type: object
+> +        $ref: adc.yaml
+> +        unevaluatedProperties: false
+> +        description: Represents the external channels which are connected to the DFSDM.
+> +
+> +        properties:
+> +          reg:
+> +            maximum: 7
+> +
+> +          label:
+> +            description:
+> +              Unique name to identify which channel this is.
+> +
+> +          st,adc-channel-type:
+> +            description: |
+> +              Single-ended channel input type.
+> +              - "SPI_R": SPI with data on rising edge (default)
+> +              - "SPI_F": SPI with data on falling edge
+> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
+> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
+> +            $ref: /schemas/types.yaml#/definitions/string
+> +            enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+> +
+> +          st,adc-channel-clk-src:
+> +            description: |
+> +              Conversion clock source.
+> +              - "CLKIN": external SPI clock (CLKIN x)
+> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
+> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
+> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
+> +            $ref: /schemas/types.yaml#/definitions/string
+> +            enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+> +
+> +          st,adc-alt-channel:
+> +            description:
+> +              Must be defined if two sigma delta modulators are
+> +              connected on same SPI input.
+> +              If not set, channel n is connected to SPI input n.
+> +              If set, channel n is connected to SPI input n + 1.
+> +            type: boolean
+> +
+> +          io-backends:
+> +            description:
+> +              Used to pipe external sigma delta modulator or internal ADC backend to DFSDM channel.
+> +            maxItems: 1
+> +
+> +        required:
+> +          - reg
+> +
+>      allOf:
+>        - if:
+>            properties:
+> @@ -199,9 +259,19 @@ patternProperties:
+>                description:
+>                  From common IIO binding. Used to pipe external sigma delta
+>                  modulator or internal ADC output to DFSDM channel.
+> +              deprecated: true
+>  
+> -          required:
+> -            - io-channels
+> +          if:
+> +            required:
+> +              - st,adc-channels
+> +          then:
+> +            required:
+> +              - io-channels
+> +
+> +          patternProperties:
+> +            "^channel@([0-7])$":
 
--- 
-2.43.0
+And here.
 
+With that and the newline fixed,
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>

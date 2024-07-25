@@ -2,121 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327A4942976
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E04FD942977
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:46:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF2BBF50;
-	Wed, 31 Jul 2024 10:45:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF2BBF50
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B30AEC1;
+	Wed, 31 Jul 2024 10:46:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B30AEC1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722415552;
-	bh=LqkjbtqpwsvD6irvMKsUzQm23DdSEtCegougaYPwBb4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=j38pQED8b1qlRoJZ0G/HFf+8+ZpviSs49gBqnI/qwWtR+ejzeDEx/I6Xy3xZwCfwL
-	 pACfSJzrty89a+lwWHCmcMuakXfmOCDHiBrLU2cunMBrgQTCIuI3wkz6XtoSe8tmaU
-	 qdRgltEwsTmSgs2oz0Vc6hyMemJ2h28S/YOsBIRc=
+	s=default; t=1722415573;
+	bh=htIX0gNZEQ2pwJvqGxD+l3IATOPpwVwt2PCD5KSSKn4=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JD1u2QC1wkUAUk3m6xCFmaMCDA6bjZbAlMkFVjAmDCekXvIYTmgjg5NtqRjNPt7sF
+	 zOWPg51leZwWrkg7CqeYhMy/arMa3HculYv9l3oFH1JUD+wcCb+nFd7JNMYq3FA08I
+	 dXI/7DCc9vcnAbFwryJLwPzUS9vLaVLdTusjJE9Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 754EFF805AE; Wed, 31 Jul 2024 10:45:21 +0200 (CEST)
+	id 1FE23F805F3; Wed, 31 Jul 2024 10:45:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C3A3F80448;
-	Wed, 31 Jul 2024 10:45:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 326B7F805E1;
+	Wed, 31 Jul 2024 10:45:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75106F801F5; Tue, 23 Jul 2024 17:39:08 +0200 (CEST)
+	id EB531F80579; Thu, 25 Jul 2024 12:31:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A2715F800C9
-	for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2024 17:39:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2715F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id A17C0F8007E
+	for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2024 12:31:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A17C0F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=CZrgMQa8
-Received: by mail-ot1-x335.google.com with SMTP id
- 46e09a7af769-7044bda722fso3270553a34.2
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=afbY4/GX
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5a10bb7bcd0so971987a12.3
         for <alsa-devel@alsa-project.org>;
- Tue, 23 Jul 2024 08:39:00 -0700 (PDT)
+ Thu, 25 Jul 2024 03:31:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1721749139; x=1722353939;
+        d=gmail.com; s=20230601; t=1721903502; x=1722508302;
  darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jrK0UXWlpbKJ090e0e3tzuMfddfgd69GL57oA2q1Do4=;
-        b=CZrgMQa8cjVzigqkS3qXhwP4GAVz9WULC+MfrPg0W4R+GtwHsgKA2gwpEhFSyKsS90
-         db8GOWhIgrzdAjr7YZ4yiLL908H1v7AjVWLEYlw1C4TKFtor2F+llJR/bzegnbEUZELx
-         xXSwDnt/U6Mz+UPE5wC6Tku47g8a0j5aaor3aVAevyCUQinM9Sp8/hO6AHaxQi/ii+aB
-         pIzcLazwpVDkq6T4dRVOrwedRfSkZ+0mJ5ioYOWcLQ3QX9kazKu/qhnGkBoL0d1qytUe
-         +dBwg5HF8WkjvDZums9xtxF9enzww2KINutt+v+Dh0075Q2jbJBolObIzm1iZL5xZ8ci
-         imvg==
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W+agGw5RSx4JruLXCZ7PbUeM/c19vYS06rQLvWj4eOM=;
+        b=afbY4/GXeOdRpy9Sr3o2PbXwmo52wEMC1E4mV9cjMOJN+GJt94eubKyw/8/qirw2by
+         TNKMUzyVRtNCJJckMucjVK7QgddWQ2yxqBCILlWQ1hYo6tLw0gLKOxnp3IDA90nt6gT0
+         f9fh106DsK6OELHs8C2RZW+/EA8yWvjrjdbQUmmZkt/oGj2s9tw8epLIsc0LH+ucksFL
+         Au1tYPyjz6lhl0H7gPuVejfWvTA9cuMZY0ONkS85ShJWChF/7m2HAuv1QB3EF97tsvZJ
+         I6WLZ/6i0gUrGUH+7ltX8HCUnNbVEd7P3WSKasRif68UAlZsaN9yYiv5adgU5bNcOdbg
+         lleA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721749139; x=1722353939;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jrK0UXWlpbKJ090e0e3tzuMfddfgd69GL57oA2q1Do4=;
-        b=Ex0JbWL1mDRBSfjvAMNq7t+oZr2cn0yXgh30qIMB9NLl6UOX4dtwaUI3qRcjyLLuJh
-         eHfz9OjU/26KpC7aOKlkGJVjOYrlBJTB7Dx4cQGX1j3qAwevsL0BB4x/oIyWhkA0fpqa
-         99+pWe5shfqGvjsBwvknPhy25VGWxkTklMwFcXJjHabeD3cI7zKS1A0tVhqlt2NR4Y4P
-         Nm8XoEKVfJwEhbe1o80oEgcDW5niJtzDg3J6+iqofUTpEHu/FYQIZlPSF3lZtZP+azdo
-         YGcomdqlP4WFOHFKX0KGhO715U4G7YwbSPBDRs6P0H/ImtNLtxSaQzhXEqefrdhH9LRb
-         pmyw==
+        d=1e100.net; s=20230601; t=1721903502; x=1722508302;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=W+agGw5RSx4JruLXCZ7PbUeM/c19vYS06rQLvWj4eOM=;
+        b=iqneVXFcuQ3rQIN8vA7Jch8jAoDQO7LTTHQxI+bqoLsfvhJUgneSs7m03VaFF1ZR7k
+         rtxyaRWGV0W22l3W9ZvqJlQQeSUpyF0v/NRew5klglVNCyJ5se/cepmY8VzC1gTIs1GE
+         Oyz0mTa+KJ5v3GaKYjzthN+ogUrAunmXxHnZCk2EgHTEDsNarvaucmXYib+spBqT2j15
+         Va0dMVIWaAaaTkkNXcoiPwcMz0Ytfm+Ncs+Wen/mE+RPw4KRes5y5QPdXte43QQ0qNq0
+         I5MRVyaHEQQ5SIpB2uHNT+28imeLAWh2FLx7y1J2l09mdLzQx+GnGQ3vn8BJI9POsDMM
+         yf5A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUB4kQ11yrhtJYt46clWBggR+7VxTNYdqHJd4+/r1DSNJtMugL1azbEsyoGmrt8epeP96z49V2NEKstIc/CxOLZXMCeGomQV8huHZw=
-X-Gm-Message-State: AOJu0YwEpKaLADI2bQakn+3LIGeoth2/lyzM1+mlLOLQQVZTqcZgeUwF
-	4WyyJva4FFkvuOpBEA9eG3wffddslQ5v1AI0oTfjwb21azmZfpi/h2H3JnzO8ps=
+ AJvYcCWoNvg8PnEi7i4dnjVb/FlkNqS3cQxsdRUW1bIu+uMOifMwpPmLIC202X38Yyw6jQko5e7E5eT3R1kCTQRBQQ+gA9W4GvrweBlcov4=
+X-Gm-Message-State: AOJu0Ywq2GmQH1Fd3hIOZe/B/F10wlMofuCpxbCHiiZglxDkG3SGxtPf
+	2UiIBqPCGL/QfTLmzcJEH++JTRjh+6kH9/0HCnJdsqo92hNfkcefjNrI7KL3
 X-Google-Smtp-Source: 
- AGHT+IG3gOY3GBGSAIwmggul7hffPHMXaMDevCa/MxXDME5o5zKlku823JsGxkRP8YZNuITVW34JGw==
-X-Received: by 2002:a05:6830:dc3:b0:704:4948:c4b9 with SMTP id
- 46e09a7af769-709234a7813mr200705a34.24.1721749139067;
-        Tue, 23 Jul 2024 08:38:59 -0700 (PDT)
-Received: from localhost ([2603:8080:b800:f700:eca3:bb93:d28d:1005])
+ AGHT+IGAu3zvUQHfsTC/UTH4WJiceuCvU2xMUjNKMn2kBRL9RuFZai32Qp0okX0mkrFdHSC/S11Q/A==
+X-Received: by 2002:a17:907:97d0:b0:a7a:ab1a:2d64 with SMTP id
+ a640c23a62f3a-a7ac506f3a4mr176339666b.58.1721903501593;
+        Thu, 25 Jul 2024 03:31:41 -0700 (PDT)
+Received: from [127.0.1.1] (91-118-163-37.static.upcbusiness.at.
+ [91.118.163.37])
         by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-708f60ee136sm2084491a34.47.2024.07.23.08.38.58
+ a640c23a62f3a-a7acad903f1sm57280766b.152.2024.07.25.03.31.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jul 2024 08:38:58 -0700 (PDT)
-Date: Tue, 23 Jul 2024 10:38:56 -0500
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [bug report] ASoC: Intel: cht_bsw_rt5645: Set card.components
- string
-Message-ID: <7052bf95-3aa2-4dd6-8136-d94833810463@suswa.mountain>
-References: <918944d2-3d00-465e-a9d1-5d57fc966113@stanley.mountain>
- <c7572302-7d78-4e72-a470-57f2aa0c8537@linux.intel.com>
+        Thu, 25 Jul 2024 03:31:41 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Subject: [PATCH 0/2] {ASoC,media}: constify snd_soc_component_driver struct
+Date: Thu, 25 Jul 2024 12:31:38 +0200
+Message-Id: 
+ <20240725-const_snd_soc_component_driver-v1-0-3d7ee08e129b@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c7572302-7d78-4e72-a470-57f2aa0c8537@linux.intel.com>
-X-MailFrom: dan.carpenter@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIopomYC/x3NwQqDMAyA4VeRnC24os7uVUSKttmWg4kkIgPx3
+ Vc8fpf/P8FQCQ1e1QmKBxkJFzzqCtJ35g86ysXgG982T9+5JGx7NM7RJMUk6yaMvMesdKC6JfQ
+ +zKFbQjtAiWyKb/rdg3G6rj8V+brQcAAAAA==
+To: Tim Harvey <tharvey@gateworks.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>
+X-Mailer: b4 0.14-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1721903500; l=1490;
+ i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
+ bh=htIX0gNZEQ2pwJvqGxD+l3IATOPpwVwt2PCD5KSSKn4=;
+ b=vBDKmvKNwCIRMMTYycPXUCa0VMk1znrRDaTVxp1ewj0Yo659ha2gfmiErmmqJzC2lEeS99wV6
+ S0Y8WTWXCEJB+QZG9JPwzy0tFzzO75Pecq8vABwhbjWvw6sKrkIMHfw
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
+X-MailFrom: javier.carrasco.cruz@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UVZKCJLRBAKLS4SY5LILM27ASNHRP4LU
-X-Message-ID-Hash: UVZKCJLRBAKLS4SY5LILM27ASNHRP4LU
-X-Mailman-Approved-At: Wed, 31 Jul 2024 08:42:22 +0000
+Message-ID-Hash: RPGC4BKBH2OMNAJL7XIZGJTVGKZKEAO5
+X-Message-ID-Hash: RPGC4BKBH2OMNAJL7XIZGJTVGKZKEAO5
+X-Mailman-Approved-At: Wed, 31 Jul 2024 08:42:23 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVZKCJLRBAKLS4SY5LILM27ASNHRP4LU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RPGC4BKBH2OMNAJL7XIZGJTVGKZKEAO5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,50 +148,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 22, 2024 at 04:06:58PM +0200, Pierre-Louis Bossart wrote:
-> Thanks Dan for the report.
-> 
-> 
-> > Commit f87b4402163b ("ASoC: Intel: cht_bsw_rt5645: Set
-> > card.components string") from Nov 26, 2023 (linux-next), leads to the
-> > following Smatch static checker warning:
-> > 
-> > 	sound/soc/intel/boards/cht_bsw_rt5645.c:587 snd_cht_mc_probe()
-> > 	error: we previously assumed 'adev' could be null (see line 581)
-> > 
-> > sound/soc/intel/boards/cht_bsw_rt5645.c
-> >     570         /* set correct codec name */
-> >     571         for (i = 0; i < ARRAY_SIZE(cht_dailink); i++)
-> >     572                 if (cht_dailink[i].codecs->name &&
-> >     573                     !strcmp(cht_dailink[i].codecs->name,
-> >     574                             "i2c-10EC5645:00")) {
-> >     575                         dai_index = i;
-> >     576                         break;
-> >     577                 }
-> >     578 
-> >     579         /* fixup codec name based on HID */
-> >     580         adev = acpi_dev_get_first_match_dev(mach->id, NULL, -1);
-> >     581         if (adev) {
-> >                     ^^^^
-> > The old code assumes adev can be NULL
-> > 
-> >     582                 snprintf(cht_rt5645_codec_name, sizeof(cht_rt5645_codec_name),
-> >     583                          "i2c-%s", acpi_dev_name(adev));
-> >     584                 cht_dailink[dai_index].codecs->name = cht_rt5645_codec_name;
-> >     585         }
-> >     586         /* acpi_get_first_physical_node() returns a borrowed ref, no need to deref */
-> > --> 587         codec_dev = acpi_get_first_physical_node(adev);
-> >                                                          ^^^^
-> > Unchecked dereference
-> 
-> This looks like a problem in multiple machine drivers sharing similar
-> code, if we want to consistently check the output we probably need
-> something like https://github.com/thesofproject/linux/pull/5117 ?
-> 
+The `snd_soc_component_driver` struct is never modified after its
+declaration, and its only direct user
+`devm_snd_soc_register_component()` expects a constant value anyway.
 
-These are actually Smatch warnings, not Sparse warnings btw.  (Smatch
-uses Sparse as a parser.  Everyone gets them mixed up).
+Declare `snd_soc_component_driver` as const to move their declarations
+to read-only sections.
 
-regards,
-dan carpenter
+Apart from a single case under media/, the affected drivers are members
+of the ASoC subsystem.
+
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+---
+Javier Carrasco (2):
+      media: i2c: tda1997x: constify snd_soc_component_driver struct
+      ASoC: constify snd_soc_component_driver struct
+
+ drivers/media/i2c/tda1997x.c         | 2 +-
+ sound/soc/au1x/dbdma2.c              | 2 +-
+ sound/soc/au1x/dma.c                 | 2 +-
+ sound/soc/bcm/cygnus-pcm.c           | 2 +-
+ sound/soc/codecs/cpcap.c             | 2 +-
+ sound/soc/codecs/cs43130.c           | 2 +-
+ sound/soc/codecs/pcm186x.c           | 4 ++--
+ sound/soc/codecs/pcm5102a.c          | 2 +-
+ sound/soc/codecs/spdif_receiver.c    | 2 +-
+ sound/soc/codecs/spdif_transmitter.c | 2 +-
+ sound/soc/codecs/sti-sas.c           | 2 +-
+ sound/soc/codecs/tas6424.c           | 2 +-
+ sound/soc/stm/stm32_adfsdm.c         | 2 +-
+ sound/soc/uniphier/evea.c            | 2 +-
+ 14 files changed, 15 insertions(+), 15 deletions(-)
+---
+base-commit: 864b1099d16fc7e332c3ad7823058c65f890486c
+change-id: 20240725-const_snd_soc_component_driver-b9629a95b948
+
+Best regards,
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6C1493D08D
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2024 11:41:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1C7693D244
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2024 13:29:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4B05850;
-	Fri, 26 Jul 2024 11:41:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4B05850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19049BC0;
+	Fri, 26 Jul 2024 13:29:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19049BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721986914;
-	bh=2dQ8DR3KbSOkGw+geV1ypt1Fj8MaAKSU/FQQ1jq2leE=;
+	s=default; t=1721993365;
+	bh=aX4IHTutwEx8iY11bH0fm10oiySfI+34YoXcdz1UTWA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G7u3v46uTuxNdkmu1YcjmPS2dfxtd75ztVG8K0pnHk1FnJQL0/7Fq7eqOUFYsg9jx
-	 Wof/WjpdBvAdBMSTVrF3DWJEKjireAzXNSfBBlYqjZsEXUiPgYcn7hUIGg4B4gip5w
-	 T5Q4P2DeiF4QG+A1hFOT7/ZRQyD9i2Pt8Ozoq+AI=
+	b=CyWwK7X+OEYQFBHpNosGUy00rJI0m8FrBDPleGdDzQYM+Eu9hM3JkKC6nfmMzeDWK
+	 AiX77KCDUnZ61dgTStT/Dns3AyfoI7g9pqsQK05/hOCP3HefsZVZ+FBJgABYabS38v
+	 Q25xIfwSdfoNL/8YnzFxxoOglRtPqkq9OpybpSXg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAEFEF805B5; Fri, 26 Jul 2024 11:41:23 +0200 (CEST)
+	id 4F5A3F805B5; Fri, 26 Jul 2024 13:28:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6A21F805B2;
-	Fri, 26 Jul 2024 11:41:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 412A8F8057A;
+	Fri, 26 Jul 2024 13:28:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1423EF8026D; Fri, 26 Jul 2024 11:40:10 +0200 (CEST)
+	id CF20EF8026D; Fri, 26 Jul 2024 13:28:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,49 +33,49 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A16D6F8007E
-	for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2024 11:39:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A16D6F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B1ECF8013D
+	for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2024 13:27:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B1ECF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=BpERqc+v
+ header.s=Intel header.b=iU6VemZP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1721986797; x=1753522797;
+  t=1721993280; x=1753529280;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=2dQ8DR3KbSOkGw+geV1ypt1Fj8MaAKSU/FQQ1jq2leE=;
-  b=BpERqc+vKI65qUS+wcs1ztyCP8+Ze5UEpVY+CObu6anIcTS+X7ZfPwau
-   WucOqG+hR1Ce+0E0R25PtuJe21ba1TpAcYCUgbdoCBaBw7rgHhdW2qeHc
-   bMnsOyrQEy1dUC+uto3FQJUZAhhzVaipo73/VTrHVzuUnZKQARXwtU2UE
-   a1wGiwQ2tnfiB1Cy7rPBwtD11y9BBluLzjPLCjeDkW6YEfrl92FS1IRi+
-   68exqMyW/j1AtGYRJTh+luNLBrE7XKXBGdRgwlBY80se4+HejxD2tiVre
-   aPajzWQYkv4U9RE5dc7iqnZP9lIOF/bUvpK6cBFKK/FJu0qZIlykSAyQa
+  bh=aX4IHTutwEx8iY11bH0fm10oiySfI+34YoXcdz1UTWA=;
+  b=iU6VemZP+8dTMNlkhdNrxiw9/1FDRFrU/K2+YpYAgj2kNv899IHKVa0x
+   70DamZo3LC1VVgGrhx+npG3jqxV5TnqCiNWFr9MMwrAkjiDU+Hf82Ycf7
+   6fZuPQa3mi0XyLIB1lI/PNzAXo3F81uwpr+qmlR5+ibBcCPZve47Zj7BA
+   4O/nTWvdzg1MLKRj7m8ndLSyVVADTomoqcmQJ9XWzo5B3dbVYsAdst5k5
+   wDAPQqmD0IcUEV42ouREcdntHxII3vfUguXVes0Bd90MN1ixbCvhp3ld7
+   fxQFTtUYFOBfTXdsgl4U8qH17ilXoeY+ieu1COPwQrIyBcSG7xbEhs8kD
    g==;
-X-CSE-ConnectionGUID: /Ko/+TrFQd2udSjKP9aCJQ==
-X-CSE-MsgGUID: 3BU/ilxDRBGQgEzGgC7XRg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11144"; a="23531128"
+X-CSE-ConnectionGUID: /4vOYSfISqucmtsg/rTS7g==
+X-CSE-MsgGUID: T6xmv/Y2SeqwPrY/ugU+RA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11144"; a="19918518"
 X-IronPort-AV: E=Sophos;i="6.09,238,1716274800";
-   d="scan'208";a="23531128"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2024 02:39:52 -0700
-X-CSE-ConnectionGUID: Y3M+epYRQYyXO/bP0le+KA==
-X-CSE-MsgGUID: S7a0bWklSHeFWyP/shpKvg==
+   d="scan'208";a="19918518"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2024 04:27:55 -0700
+X-CSE-ConnectionGUID: ZY4XODahTzS5shFeH1/dWw==
+X-CSE-MsgGUID: UWYmDr6fR32s3nYSoQO9lA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,238,1716274800";
-   d="scan'208";a="53126778"
+   d="scan'208";a="57829189"
 Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 26 Jul 2024 02:39:45 -0700
+  by fmviesa004.fm.intel.com with ESMTP; 26 Jul 2024 04:27:49 -0700
 Received: from kbuild by 68891e0c336b with local (Exim 4.96)
 	(envelope-from <lkp@intel.com>)
-	id 1sXHQM-000owa-39;
-	Fri, 26 Jul 2024 09:39:42 +0000
-Date: Fri, 26 Jul 2024 17:39:05 +0800
+	id 1sXJ6w-000p3w-36;
+	Fri, 26 Jul 2024 11:27:46 +0000
+Date: Fri, 26 Jul 2024 19:27:24 +0800
 From: kernel test robot <lkp@intel.com>
 To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
 	Tim Harvey <tharvey@gateworks.com>,
@@ -102,7 +102,7 @@ Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	Javier Carrasco <javier.carrasco.cruz@gmail.com>
 Subject: Re: [PATCH 2/2] ASoC: constify snd_soc_component_driver struct
-Message-ID: <202407261707.8O24kg8R-lkp@intel.com>
+Message-ID: <202407261907.9WRDvix7-lkp@intel.com>
 References: 
  <20240725-const_snd_soc_component_driver-v1-2-3d7ee08e129b@gmail.com>
 MIME-Version: 1.0
@@ -110,8 +110,8 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: 
  <20240725-const_snd_soc_component_driver-v1-2-3d7ee08e129b@gmail.com>
-Message-ID-Hash: 3FP7WY3EPE4RLRDY7FEE5C7XBM6ICUID
-X-Message-ID-Hash: 3FP7WY3EPE4RLRDY7FEE5C7XBM6ICUID
+Message-ID-Hash: XXTHPKEPCKZ2QFMXPWMAWZ2IOHIBZ45S
+X-Message-ID-Hash: XXTHPKEPCKZ2QFMXPWMAWZ2IOHIBZ45S
 X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -124,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3FP7WY3EPE4RLRDY7FEE5C7XBM6ICUID/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XXTHPKEPCKZ2QFMXPWMAWZ2IOHIBZ45S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,93 +143,222 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Javier-Carrasco/media-i2c
 base:   864b1099d16fc7e332c3ad7823058c65f890486c
 patch link:    https://lore.kernel.org/r/20240725-const_snd_soc_component_driver-v1-2-3d7ee08e129b%40gmail.com
 patch subject: [PATCH 2/2] ASoC: constify snd_soc_component_driver struct
-config: i386-buildonly-randconfig-003-20240726 (https://download.01.org/0day-ci/archive/20240726/202407261707.8O24kg8R-lkp@intel.com/config)
-compiler: gcc-13 (Ubuntu 13.2.0-4ubuntu3) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240726/202407261707.8O24kg8R-lkp@intel.com/reproduce)
+config: i386-randconfig-012-20240726 (https://download.01.org/0day-ci/archive/20240726/202407261907.9WRDvix7-lkp@intel.com/config)
+compiler: gcc-8 (Ubuntu 8.4.0-3ubuntu2) 8.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240726/202407261907.9WRDvix7-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202407261707.8O24kg8R-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202407261907.9WRDvix7-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   sound/soc/codecs/sti-sas.c: In function 'sti_sas_driver_probe':
->> sound/soc/codecs/sti-sas.c:450:37: error: assignment of member 'dapm_widgets' in read-only object
-     450 |         sti_sas_driver.dapm_widgets = drvdata->dev_data->dapm_widgets;
-         |                                     ^
->> sound/soc/codecs/sti-sas.c:451:41: error: assignment of member 'num_dapm_widgets' in read-only object
-     451 |         sti_sas_driver.num_dapm_widgets = drvdata->dev_data->num_dapm_widgets;
-         |                                         ^
->> sound/soc/codecs/sti-sas.c:453:36: error: assignment of member 'dapm_routes' in read-only object
-     453 |         sti_sas_driver.dapm_routes = drvdata->dev_data->dapm_routes;
-         |                                    ^
->> sound/soc/codecs/sti-sas.c:454:40: error: assignment of member 'num_dapm_routes' in read-only object
-     454 |         sti_sas_driver.num_dapm_routes = drvdata->dev_data->num_dapm_routes;
-         |                                        ^
+   sound/soc/codecs/cs43130.c: In function 'cs43130_i2c_probe':
+>> sound/soc/codecs/cs43130.c:2608:42: error: assignment of member 'dapm_widgets' in read-only object
+      soc_component_dev_cs43130.dapm_widgets =
+                                             ^
+>> sound/soc/codecs/cs43130.c:2610:46: error: assignment of member 'num_dapm_widgets' in read-only object
+      soc_component_dev_cs43130.num_dapm_widgets =
+                                                 ^
+>> sound/soc/codecs/cs43130.c:2612:41: error: assignment of member 'dapm_routes' in read-only object
+      soc_component_dev_cs43130.dapm_routes =
+                                            ^
+>> sound/soc/codecs/cs43130.c:2614:45: error: assignment of member 'num_dapm_routes' in read-only object
+      soc_component_dev_cs43130.num_dapm_routes =
+                                                ^
+   sound/soc/codecs/cs43130.c:2619:42: error: assignment of member 'dapm_widgets' in read-only object
+      soc_component_dev_cs43130.dapm_widgets =
+                                             ^
+   sound/soc/codecs/cs43130.c:2621:46: error: assignment of member 'num_dapm_widgets' in read-only object
+      soc_component_dev_cs43130.num_dapm_widgets =
+                                                 ^
+   sound/soc/codecs/cs43130.c:2623:41: error: assignment of member 'dapm_routes' in read-only object
+      soc_component_dev_cs43130.dapm_routes =
+                                            ^
+   sound/soc/codecs/cs43130.c:2625:45: error: assignment of member 'num_dapm_routes' in read-only object
+      soc_component_dev_cs43130.num_dapm_routes =
+                                                ^
 
 
-vim +/dapm_widgets +450 sound/soc/codecs/sti-sas.c
+vim +/dapm_widgets +2608 sound/soc/codecs/cs43130.c
 
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  405  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  406  static int sti_sas_driver_probe(struct platform_device *pdev)
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  407  {
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  408  	struct device_node *pnode = pdev->dev.of_node;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  409  	struct sti_sas_data *drvdata;
-601b9d9c7bd04f Arnaud Pouliquen  2015-07-16  410  	const struct of_device_id *of_id;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  411  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  412  	/* Allocate device structure */
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  413  	drvdata = devm_kzalloc(&pdev->dev, sizeof(struct sti_sas_data),
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  414  			       GFP_KERNEL);
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  415  	if (!drvdata)
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  416  		return -ENOMEM;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  417  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  418  	/* Populate data structure depending on compatibility */
-601b9d9c7bd04f Arnaud Pouliquen  2015-07-16  419  	of_id = of_match_node(sti_sas_dev_match, pnode);
-601b9d9c7bd04f Arnaud Pouliquen  2015-07-16  420  	if (!of_id->data) {
-92591efabc013f Arnaud Pouliquen  2016-10-24  421  		dev_err(&pdev->dev, "data associated to device is missing\n");
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  422  		return -EINVAL;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  423  	}
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  424  
-601b9d9c7bd04f Arnaud Pouliquen  2015-07-16  425  	drvdata->dev_data = (struct sti_sas_dev_data *)of_id->data;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  426  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  427  	/* Initialise device structure */
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  428  	drvdata->dev = &pdev->dev;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  429  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  430  	/* Request the DAC & SPDIF registers memory region */
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  431  	drvdata->dac.virt_regmap = devm_regmap_init(&pdev->dev, NULL, drvdata,
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  432  						    drvdata->dev_data->regmap);
-e27d9ee6e709db Axel Lin          2015-07-13  433  	if (IS_ERR(drvdata->dac.virt_regmap)) {
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  434  		dev_err(&pdev->dev, "audio registers not enabled\n");
-e27d9ee6e709db Axel Lin          2015-07-13  435  		return PTR_ERR(drvdata->dac.virt_regmap);
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  436  	}
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  437  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  438  	/* Request the syscon region */
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  439  	drvdata->dac.regmap =
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  440  		syscon_regmap_lookup_by_phandle(pnode, "st,syscfg");
-e27d9ee6e709db Axel Lin          2015-07-13  441  	if (IS_ERR(drvdata->dac.regmap)) {
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  442  		dev_err(&pdev->dev, "syscon registers not available\n");
-e27d9ee6e709db Axel Lin          2015-07-13  443  		return PTR_ERR(drvdata->dac.regmap);
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  444  	}
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  445  	drvdata->spdif.regmap = drvdata->dac.regmap;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  446  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  447  	sti_sas_dai[STI_SAS_DAI_ANALOG_OUT].ops = drvdata->dev_data->dac_ops;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  448  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  449  	/* Set dapms*/
-049c1bfc30f3a5 Kuninori Morimoto 2018-01-29 @450  	sti_sas_driver.dapm_widgets = drvdata->dev_data->dapm_widgets;
-049c1bfc30f3a5 Kuninori Morimoto 2018-01-29 @451  	sti_sas_driver.num_dapm_widgets = drvdata->dev_data->num_dapm_widgets;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  452  
-049c1bfc30f3a5 Kuninori Morimoto 2018-01-29 @453  	sti_sas_driver.dapm_routes = drvdata->dev_data->dapm_routes;
-049c1bfc30f3a5 Kuninori Morimoto 2018-01-29 @454  	sti_sas_driver.num_dapm_routes = drvdata->dev_data->num_dapm_routes;
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  455  
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  456  	/* Store context */
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  457  	dev_set_drvdata(&pdev->dev, drvdata);
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  458  
-049c1bfc30f3a5 Kuninori Morimoto 2018-01-29  459  	return devm_snd_soc_register_component(&pdev->dev, &sti_sas_driver,
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  460  					sti_sas_dai,
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  461  					ARRAY_SIZE(sti_sas_dai));
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  462  }
-32a726b2e089ec Arnaud Pouliquen  2015-06-22  463  
+8f1e5bf9b4408e Li Xu             2017-08-18  2479  
+4a4043456cb82d Stephen Kitt      2022-03-25  2480  static int cs43130_i2c_probe(struct i2c_client *client)
+8f1e5bf9b4408e Li Xu             2017-08-18  2481  {
+8f1e5bf9b4408e Li Xu             2017-08-18  2482  	struct cs43130_private *cs43130;
+8f1e5bf9b4408e Li Xu             2017-08-18  2483  	int ret;
+8f1e5bf9b4408e Li Xu             2017-08-18  2484  	unsigned int reg;
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2485  	int i, devid;
+8f1e5bf9b4408e Li Xu             2017-08-18  2486  
+8f1e5bf9b4408e Li Xu             2017-08-18  2487  	cs43130 = devm_kzalloc(&client->dev, sizeof(*cs43130), GFP_KERNEL);
+8f1e5bf9b4408e Li Xu             2017-08-18  2488  	if (!cs43130)
+8f1e5bf9b4408e Li Xu             2017-08-18  2489  		return -ENOMEM;
+8f1e5bf9b4408e Li Xu             2017-08-18  2490  
+552206add94dd7 Maciej Strozek    2023-11-17  2491  	cs43130->dev = &client->dev;
+552206add94dd7 Maciej Strozek    2023-11-17  2492  
+8f1e5bf9b4408e Li Xu             2017-08-18  2493  	i2c_set_clientdata(client, cs43130);
+8f1e5bf9b4408e Li Xu             2017-08-18  2494  
+8f1e5bf9b4408e Li Xu             2017-08-18  2495  	cs43130->regmap = devm_regmap_init_i2c(client, &cs43130_regmap);
+8f1e5bf9b4408e Li Xu             2017-08-18  2496  	if (IS_ERR(cs43130->regmap)) {
+8f1e5bf9b4408e Li Xu             2017-08-18  2497  		ret = PTR_ERR(cs43130->regmap);
+8f1e5bf9b4408e Li Xu             2017-08-18  2498  		return ret;
+8f1e5bf9b4408e Li Xu             2017-08-18  2499  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2500  
+ce7944b73e7729 Maciej Strozek    2023-11-17  2501  	if (dev_fwnode(cs43130->dev)) {
+ce7944b73e7729 Maciej Strozek    2023-11-17  2502  		ret = cs43130_handle_device_data(cs43130);
+8f1e5bf9b4408e Li Xu             2017-08-18  2503  		if (ret != 0)
+8f1e5bf9b4408e Li Xu             2017-08-18  2504  			return ret;
+8f1e5bf9b4408e Li Xu             2017-08-18  2505  	}
+ce7944b73e7729 Maciej Strozek    2023-11-17  2506  
+8f1e5bf9b4408e Li Xu             2017-08-18  2507  	for (i = 0; i < ARRAY_SIZE(cs43130->supplies); i++)
+8f1e5bf9b4408e Li Xu             2017-08-18  2508  		cs43130->supplies[i].supply = cs43130_supply_names[i];
+8f1e5bf9b4408e Li Xu             2017-08-18  2509  
+552206add94dd7 Maciej Strozek    2023-11-17  2510  	ret = devm_regulator_bulk_get(cs43130->dev,
+8f1e5bf9b4408e Li Xu             2017-08-18  2511  				      ARRAY_SIZE(cs43130->supplies),
+8f1e5bf9b4408e Li Xu             2017-08-18  2512  				      cs43130->supplies);
+8f1e5bf9b4408e Li Xu             2017-08-18  2513  	if (ret != 0) {
+552206add94dd7 Maciej Strozek    2023-11-17  2514  		dev_err(cs43130->dev, "Failed to request supplies: %d\n", ret);
+8f1e5bf9b4408e Li Xu             2017-08-18  2515  		return ret;
+8f1e5bf9b4408e Li Xu             2017-08-18  2516  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2517  	ret = regulator_bulk_enable(ARRAY_SIZE(cs43130->supplies),
+8f1e5bf9b4408e Li Xu             2017-08-18  2518  				    cs43130->supplies);
+8f1e5bf9b4408e Li Xu             2017-08-18  2519  	if (ret != 0) {
+552206add94dd7 Maciej Strozek    2023-11-17  2520  		dev_err(cs43130->dev, "Failed to enable supplies: %d\n", ret);
+8f1e5bf9b4408e Li Xu             2017-08-18  2521  		return ret;
+8f1e5bf9b4408e Li Xu             2017-08-18  2522  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2523  
+552206add94dd7 Maciej Strozek    2023-11-17  2524  	cs43130->reset_gpio = devm_gpiod_get_optional(cs43130->dev,
+8f1e5bf9b4408e Li Xu             2017-08-18  2525  						      "reset", GPIOD_OUT_LOW);
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2526  	if (IS_ERR(cs43130->reset_gpio)) {
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2527  		ret = PTR_ERR(cs43130->reset_gpio);
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2528  		goto err_supplies;
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2529  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2530  
+8f1e5bf9b4408e Li Xu             2017-08-18  2531  	gpiod_set_value_cansleep(cs43130->reset_gpio, 1);
+8f1e5bf9b4408e Li Xu             2017-08-18  2532  
+8f1e5bf9b4408e Li Xu             2017-08-18  2533  	usleep_range(2000, 2050);
+8f1e5bf9b4408e Li Xu             2017-08-18  2534  
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2535  	devid = cirrus_read_device_id(cs43130->regmap, CS43130_DEVID_AB);
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2536  	if (devid < 0) {
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2537  		ret = devid;
+552206add94dd7 Maciej Strozek    2023-11-17  2538  		dev_err(cs43130->dev, "Failed to read device ID: %d\n", ret);
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2539  		goto err;
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2540  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2541  
+8f1e5bf9b4408e Li Xu             2017-08-18  2542  	switch (devid) {
+8f1e5bf9b4408e Li Xu             2017-08-18  2543  	case CS43130_CHIP_ID:
+8f1e5bf9b4408e Li Xu             2017-08-18  2544  	case CS4399_CHIP_ID:
+8f1e5bf9b4408e Li Xu             2017-08-18  2545  	case CS43131_CHIP_ID:
+8f1e5bf9b4408e Li Xu             2017-08-18  2546  	case CS43198_CHIP_ID:
+8f1e5bf9b4408e Li Xu             2017-08-18  2547  		break;
+8f1e5bf9b4408e Li Xu             2017-08-18  2548  	default:
+552206add94dd7 Maciej Strozek    2023-11-17  2549  		dev_err(cs43130->dev,
+8f1e5bf9b4408e Li Xu             2017-08-18  2550  			"CS43130 Device ID %X. Expected ID %X, %X, %X or %X\n",
+8f1e5bf9b4408e Li Xu             2017-08-18  2551  			devid, CS43130_CHIP_ID, CS4399_CHIP_ID,
+8f1e5bf9b4408e Li Xu             2017-08-18  2552  			CS43131_CHIP_ID, CS43198_CHIP_ID);
+8f1e5bf9b4408e Li Xu             2017-08-18  2553  		ret = -ENODEV;
+8f1e5bf9b4408e Li Xu             2017-08-18  2554  		goto err;
+8f1e5bf9b4408e Li Xu             2017-08-18  2555  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2556  
+8f1e5bf9b4408e Li Xu             2017-08-18  2557  	cs43130->dev_id = devid;
+8f1e5bf9b4408e Li Xu             2017-08-18  2558  	ret = regmap_read(cs43130->regmap, CS43130_REV_ID, &reg);
+8f1e5bf9b4408e Li Xu             2017-08-18  2559  	if (ret < 0) {
+552206add94dd7 Maciej Strozek    2023-11-17  2560  		dev_err(cs43130->dev, "Get Revision ID failed\n");
+8f1e5bf9b4408e Li Xu             2017-08-18  2561  		goto err;
+8f1e5bf9b4408e Li Xu             2017-08-18  2562  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2563  
+552206add94dd7 Maciej Strozek    2023-11-17  2564  	dev_info(cs43130->dev,
+8f1e5bf9b4408e Li Xu             2017-08-18  2565  		 "Cirrus Logic CS43130 (%x), Revision: %02X\n", devid,
+8f1e5bf9b4408e Li Xu             2017-08-18  2566  		 reg & 0xFF);
+8f1e5bf9b4408e Li Xu             2017-08-18  2567  
+8f1e5bf9b4408e Li Xu             2017-08-18  2568  	mutex_init(&cs43130->clk_mutex);
+8f1e5bf9b4408e Li Xu             2017-08-18  2569  
+8f1e5bf9b4408e Li Xu             2017-08-18  2570  	init_completion(&cs43130->xtal_rdy);
+8f1e5bf9b4408e Li Xu             2017-08-18  2571  	init_completion(&cs43130->pll_rdy);
+8f1e5bf9b4408e Li Xu             2017-08-18  2572  	init_completion(&cs43130->hpload_evt);
+8f1e5bf9b4408e Li Xu             2017-08-18  2573  
+fa91703dc2e010 Maciej Strozek    2023-11-23  2574  	if (!client->irq) {
+fa91703dc2e010 Maciej Strozek    2023-11-23  2575  		dev_dbg(cs43130->dev, "IRQ not found, will poll instead\n");
+fa91703dc2e010 Maciej Strozek    2023-11-23  2576  		cs43130->has_irq_line = 0;
+fa91703dc2e010 Maciej Strozek    2023-11-23  2577  	} else {
+552206add94dd7 Maciej Strozek    2023-11-17  2578  		ret = devm_request_threaded_irq(cs43130->dev, client->irq,
+8f1e5bf9b4408e Li Xu             2017-08-18  2579  						NULL, cs43130_irq_thread,
+8f1e5bf9b4408e Li Xu             2017-08-18  2580  						IRQF_ONESHOT | IRQF_TRIGGER_LOW,
+8f1e5bf9b4408e Li Xu             2017-08-18  2581  						"cs43130", cs43130);
+8f1e5bf9b4408e Li Xu             2017-08-18  2582  		if (ret != 0) {
+552206add94dd7 Maciej Strozek    2023-11-17  2583  			dev_err(cs43130->dev, "Failed to request IRQ: %d\n", ret);
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2584  			goto err;
+8f1e5bf9b4408e Li Xu             2017-08-18  2585  		}
+fa91703dc2e010 Maciej Strozek    2023-11-23  2586  		cs43130->has_irq_line = 1;
+fa91703dc2e010 Maciej Strozek    2023-11-23  2587  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2588  
+8f1e5bf9b4408e Li Xu             2017-08-18  2589  	cs43130->mclk_int_src = CS43130_MCLK_SRC_RCO;
+8f1e5bf9b4408e Li Xu             2017-08-18  2590  
+552206add94dd7 Maciej Strozek    2023-11-17  2591  	pm_runtime_set_autosuspend_delay(cs43130->dev, 100);
+552206add94dd7 Maciej Strozek    2023-11-17  2592  	pm_runtime_use_autosuspend(cs43130->dev);
+552206add94dd7 Maciej Strozek    2023-11-17  2593  	pm_runtime_set_active(cs43130->dev);
+552206add94dd7 Maciej Strozek    2023-11-17  2594  	pm_runtime_enable(cs43130->dev);
+8f1e5bf9b4408e Li Xu             2017-08-18  2595  
+8f1e5bf9b4408e Li Xu             2017-08-18  2596  	switch (cs43130->dev_id) {
+8f1e5bf9b4408e Li Xu             2017-08-18  2597  	case CS43130_CHIP_ID:
+8f1e5bf9b4408e Li Xu             2017-08-18  2598  	case CS43131_CHIP_ID:
+8f1e5bf9b4408e Li Xu             2017-08-18  2599  		memcpy(all_hp_widgets, digital_hp_widgets,
+8f1e5bf9b4408e Li Xu             2017-08-18  2600  		       sizeof(digital_hp_widgets));
+8f1e5bf9b4408e Li Xu             2017-08-18  2601  		memcpy(all_hp_widgets + ARRAY_SIZE(digital_hp_widgets),
+8f1e5bf9b4408e Li Xu             2017-08-18  2602  		       analog_hp_widgets, sizeof(analog_hp_widgets));
+8f1e5bf9b4408e Li Xu             2017-08-18  2603  		memcpy(all_hp_routes, digital_hp_routes,
+8f1e5bf9b4408e Li Xu             2017-08-18  2604  		       sizeof(digital_hp_routes));
+8f1e5bf9b4408e Li Xu             2017-08-18  2605  		memcpy(all_hp_routes + ARRAY_SIZE(digital_hp_routes),
+8f1e5bf9b4408e Li Xu             2017-08-18  2606  		       analog_hp_routes, sizeof(analog_hp_routes));
+8f1e5bf9b4408e Li Xu             2017-08-18  2607  
+97b566066ffc2f Kuninori Morimoto 2018-01-29 @2608  		soc_component_dev_cs43130.dapm_widgets =
+8f1e5bf9b4408e Li Xu             2017-08-18  2609  			all_hp_widgets;
+97b566066ffc2f Kuninori Morimoto 2018-01-29 @2610  		soc_component_dev_cs43130.num_dapm_widgets =
+8f1e5bf9b4408e Li Xu             2017-08-18  2611  			ARRAY_SIZE(all_hp_widgets);
+97b566066ffc2f Kuninori Morimoto 2018-01-29 @2612  		soc_component_dev_cs43130.dapm_routes =
+8f1e5bf9b4408e Li Xu             2017-08-18  2613  			all_hp_routes;
+97b566066ffc2f Kuninori Morimoto 2018-01-29 @2614  		soc_component_dev_cs43130.num_dapm_routes =
+8f1e5bf9b4408e Li Xu             2017-08-18  2615  			ARRAY_SIZE(all_hp_routes);
+8f1e5bf9b4408e Li Xu             2017-08-18  2616  		break;
+8f1e5bf9b4408e Li Xu             2017-08-18  2617  	case CS43198_CHIP_ID:
+8f1e5bf9b4408e Li Xu             2017-08-18  2618  	case CS4399_CHIP_ID:
+97b566066ffc2f Kuninori Morimoto 2018-01-29  2619  		soc_component_dev_cs43130.dapm_widgets =
+8f1e5bf9b4408e Li Xu             2017-08-18  2620  			digital_hp_widgets;
+97b566066ffc2f Kuninori Morimoto 2018-01-29  2621  		soc_component_dev_cs43130.num_dapm_widgets =
+8f1e5bf9b4408e Li Xu             2017-08-18  2622  			ARRAY_SIZE(digital_hp_widgets);
+97b566066ffc2f Kuninori Morimoto 2018-01-29  2623  		soc_component_dev_cs43130.dapm_routes =
+8f1e5bf9b4408e Li Xu             2017-08-18  2624  			digital_hp_routes;
+97b566066ffc2f Kuninori Morimoto 2018-01-29  2625  		soc_component_dev_cs43130.num_dapm_routes =
+8f1e5bf9b4408e Li Xu             2017-08-18  2626  			ARRAY_SIZE(digital_hp_routes);
+574ff444b9fcc2 Li Xu             2017-09-05  2627  		break;
+8f1e5bf9b4408e Li Xu             2017-08-18  2628  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2629  
+552206add94dd7 Maciej Strozek    2023-11-17  2630  	ret = devm_snd_soc_register_component(cs43130->dev,
+97b566066ffc2f Kuninori Morimoto 2018-01-29  2631  				     &soc_component_dev_cs43130,
+8f1e5bf9b4408e Li Xu             2017-08-18  2632  				     cs43130_dai, ARRAY_SIZE(cs43130_dai));
+8f1e5bf9b4408e Li Xu             2017-08-18  2633  	if (ret < 0) {
+552206add94dd7 Maciej Strozek    2023-11-17  2634  		dev_err(cs43130->dev,
+97b566066ffc2f Kuninori Morimoto 2018-01-29  2635  			"snd_soc_register_component failed with ret = %d\n", ret);
+8f1e5bf9b4408e Li Xu             2017-08-18  2636  		goto err;
+8f1e5bf9b4408e Li Xu             2017-08-18  2637  	}
+8f1e5bf9b4408e Li Xu             2017-08-18  2638  
+8f1e5bf9b4408e Li Xu             2017-08-18  2639  	regmap_update_bits(cs43130->regmap, CS43130_PAD_INT_CFG,
+8f1e5bf9b4408e Li Xu             2017-08-18  2640  			   CS43130_ASP_3ST_MASK, 0);
+8f1e5bf9b4408e Li Xu             2017-08-18  2641  	regmap_update_bits(cs43130->regmap, CS43130_PAD_INT_CFG,
+8f1e5bf9b4408e Li Xu             2017-08-18  2642  			   CS43130_XSP_3ST_MASK, 0);
+8f1e5bf9b4408e Li Xu             2017-08-18  2643  
+8f1e5bf9b4408e Li Xu             2017-08-18  2644  	return 0;
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2645  
+8f1e5bf9b4408e Li Xu             2017-08-18  2646  err:
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2647  	gpiod_set_value_cansleep(cs43130->reset_gpio, 0);
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2648  err_supplies:
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2649  	regulator_bulk_disable(ARRAY_SIZE(cs43130->supplies),
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2650  			       cs43130->supplies);
+e2bb1077cee4d1 Charles Keepax    2021-05-10  2651  
+8f1e5bf9b4408e Li Xu             2017-08-18  2652  	return ret;
+8f1e5bf9b4408e Li Xu             2017-08-18  2653  }
+8f1e5bf9b4408e Li Xu             2017-08-18  2654  
 
 -- 
 0-DAY CI Kernel Test Service

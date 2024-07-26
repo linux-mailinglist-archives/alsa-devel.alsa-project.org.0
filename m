@@ -2,122 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F6793D396
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2024 14:58:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FEAB93D4D1
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2024 16:11:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE50BE8E;
-	Fri, 26 Jul 2024 14:58:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE50BE8E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6365EE80;
+	Fri, 26 Jul 2024 16:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6365EE80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1721998699;
-	bh=yzOx6oM1nG1syyzmhuVhnMa728h4vx7kNlsuELDiy+4=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LSe+f4+AThleCTzRc1/n2t+VIPquwWBvN/uuz9DSqDPTHbtNqIDK6mP3btDmFJ4Ci
-	 6X5J6i/C/q+npah7wD5E2R+sKf7lxXCNvL+x0JzYr9dC78r2h9RAFBlWn/dM9EhJro
-	 Z9jmyiWrh4++DrNQxRUEXNDECAmHvWbo05x7qhqk=
+	s=default; t=1722003103;
+	bh=YE4hixYCVQKmzPIsA7SgCIYgqoaL2VnDKmtBWegqXfg=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CFffMCO3wYj/PI1y8/nLjAA7GIHLD+J/c42DccUYuci65VSYSxPg8ZGNKRIvsQRCY
+	 i+5NqoS3mIGSuYUH9yRnbJljqp6C2DgLjZ2P9pLpT02v1YNz2RXb+cKiJ8WMOA3KAg
+	 ckobONhp48rwhHIrSIYLQj94FGbqlgLb4Y2WvktM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1588F805B5; Fri, 26 Jul 2024 14:57:47 +0200 (CEST)
+	id 9F266F805AA; Fri, 26 Jul 2024 16:11:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F21FF805B1;
-	Fri, 26 Jul 2024 14:57:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B6D1F805B6;
+	Fri, 26 Jul 2024 16:11:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF686F8026D; Fri, 26 Jul 2024 14:55:37 +0200 (CEST)
+	id 89C4BF8057A; Fri, 26 Jul 2024 16:11:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,MIME_HEADER_CTYPE_ONLY,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail.3ffe.de (0001.3ffe.de [159.69.201.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D07EF800AE
-	for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2024 14:55:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D07EF800AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4930DF800AE
+	for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2024 16:10:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4930DF800AE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=walle.cc header.i=@walle.cc header.a=rsa-sha256
- header.s=mail2022082101 header.b=YZdNMN0d
-Received: from localhost (unknown [213.135.10.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256)
-	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id A8D4D3C3;
-	Fri, 26 Jul 2024 14:55:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2022082101;
-	t=1721998530;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:in-reply-to:in-reply-to:
-	 references:references; bh=yzOx6oM1nG1syyzmhuVhnMa728h4vx7kNlsuELDiy+4=;
-	b=YZdNMN0dE0uA7FnFXFdQTZc+gmQ70zEsvC94v1Q86rzibdNqDnJL5nrE5j8IB/b+AFTBzz
-	Dt4IzhB9GH0pF8coLguAkhMykHFlDxsb7IQC+qSUYMRZcp5e5A77Zwq5byUEB5RusCBMwr
-	7nlQc4/EIUzYkfbtqzGPcbrGikt6KKZioI14gpIIONVciaCFyrxrt33p0iZf5x4gZyx7YU
-	U9OhZkBEgbYpE+W5LeXEPVV77ZZltUaVXsCYdDgDQq2CdX7+I45vXmnPFxI0vBpvf2FPAa
-	fZ6T9AmMoYOvGazPddd7C7Lge7dhToJFuw15hwDu68RIEENxFamVE+FGrITgFg==
-Content-Type: multipart/signed;
- boundary=3ce0a5c807a2ece26c72ec8034eaad1072585a573fd66fa563151480afdc;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 26 Jul 2024 14:55:28 +0200
-Message-Id: <D2ZHJ765LUGP.2KTA46P1BL75X@walle.cc>
-Subject: Re: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Cc: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
- "claudiu.beznea@tuxon.dev" <claudiu.beznea@tuxon.dev>, "Simek, Michal"
- <michal.simek@amd.com>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "patches@opensource.cirrus.com"
- <patches@opensource.cirrus.com>, "linux-sound@vger.kernel.org"
- <linux-sound@vger.kernel.org>, "git (AMD-Xilinx)" <git@amd.com>,
- "amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>, "Conor Dooley"
- <conor.dooley@microchip.com>, "beanhuo@micron.com" <beanhuo@micron.com>
-From: "Michael Walle" <michael@walle.cc>
-To: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>, "Tudor Ambarus"
- <tudor.ambarus@linaro.org>, "broonie@kernel.org" <broonie@kernel.org>,
- "pratyush@kernel.org" <pratyush@kernel.org>, "miquel.raynal@bootlin.com"
- <miquel.raynal@bootlin.com>, "richard@nod.at" <richard@nod.at>,
- "vigneshr@ti.com" <vigneshr@ti.com>, "sbinding@opensource.cirrus.com"
- <sbinding@opensource.cirrus.com>, "lee@kernel.org" <lee@kernel.org>,
- "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
- "david.rhodes@cirrus.com" <david.rhodes@cirrus.com>,
- "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>, "perex@perex.cz"
- <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>
-X-Mailer: aerc 0.16.0
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
- <BN7PR12MB2802BEDFB821A1748185794CDC8AA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <f5a47024-514a-4846-bc16-08cf0f9af912@linaro.org>
- <BN7PR12MB2802BB3DA682D9C13EF7DE08DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <5a6f6764-6779-42b0-b6c6-3f638b85ef78@linaro.org>
- <BN7PR12MB28029EB1A7D09882878499A2DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
- <c3fa1e04-92ed-48ab-a509-98e43abd5cd6@linaro.org>
- <BN7PR12MB2802E87F1A6CD22D904CAEACDC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
- <BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
- <BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
- <BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <c6f209c8-47da-4881-921d-683464b9ddd5@linaro.org>
- <9cdb7f8b-e64f-46f6-94cb-194a25a42ccd@linaro.org>
- <BN7PR12MB28028B63E69134094D50F3E4DC2A2@BN7PR12MB2802.namprd12.prod.outlook.com>
- <IA0PR12MB769944254171C39FF4171B52DCB42@IA0PR12MB7699.namprd12.prod.outlook.com>
-In-Reply-To: <
- <IA0PR12MB769944254171C39FF4171B52DCB42@IA0PR12MB7699.namprd12.prod.outlook.com>
-Message-ID-Hash: RCGTRXKHXWWJ3SOBN7OEJ7LCZQPJXTCQ
-X-Message-ID-Hash: RCGTRXKHXWWJ3SOBN7OEJ7LCZQPJXTCQ
-X-MailFrom: michael@walle.cc
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=tz9zm/nr
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-427b4c621b9so16127155e9.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 26 Jul 2024 07:10:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1722003056; x=1722607856;
+ darn=alsa-project.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=foeasWWJNDhQ/HQ4yEQa5PNHkqWSKIaHaPMG9mfsBz4=;
+        b=tz9zm/nr7u/j8wC39XzaKcOTv/RiwLVhPmwb5lb31/bZEcDVxM6Q9AREgjtImqdZpE
+         ejORpVYTWPavw7IAh8qK8j4u6h5qps8rcsuFoUShgg++N2F4xLCZ4MELYg/f5tQflQru
+         D1JMpC8tQzbq0mlkVZTdsWnoB11sAXm6DeRyW100+VlZ9UOyQ1BEE/XPHwpPw6Tfo7sS
+         tcHY1hBSE47shuHYCwb61o+G1Z6Jp6yquefLrBbhAPzByWd0F0s7u6OhtMx/OuqoSZbu
+         +Ms1+/X7ye2+/wI0lw6jZ9MGRe0xm7eF96lqxb+GsiiXfaTEUfwFG1mtDjAWOQt2ziaJ
+         R2Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722003056; x=1722607856;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=foeasWWJNDhQ/HQ4yEQa5PNHkqWSKIaHaPMG9mfsBz4=;
+        b=Y5BYOfJ+CVaC66QNMJ8MnK0diRf6u995akueSseeogz5QsV4agiL/BeEWO440LVikB
+         Cnkix+eiCbO+X/tAh7YggNzAhZ/2IL63JaZBBO8cDtCtZ+2XBuGErrn+Oe9SLIn/gwyY
+         bRlkaqqh845jMXTo6PYSGoywwV5SnVhdvsP08cBkxxcBytCB6gMc+dz/ojJ9p7HtP9bQ
+         0N7uuE+HupoG6RPBYxvYhk26//h/Ly4m0eXWqhi2uhh4fJrs7+CnJRwiMiFoVDVf7Whv
+         e/A3Pwwwja6Xv/bfmtroxSO9F8Cqa5hcLsuj/9/9IyfZmEM8dsIiMWJLM7JqVHoFy2X8
+         KlBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWw0gIha3e+zIohV7C7vJMVB7gDxhKHV2iU2pq3Fp02hIoOIKdQr0RQ4WwcXZsZ8GpTMVSwaW0bJEpfW5QyMuqVDqmDXUnpvbVFZ3g=
+X-Gm-Message-State: AOJu0Yw3k4o7AuQeqQfY8PgTM8p1vmBlfVY5T9nnsFq9ZrAXukRWHZWp
+	3jXAc77ptDmC1m3c02BtKcQfVHehPBMHTgysSJAWerYxqs6ttDRPu2WlxvKHX68=
+X-Google-Smtp-Source: 
+ AGHT+IG3sp1c9rKGEdCfW+UiBfPYjCoX2jPEb3H4yCS5NXZnPSEYkTnzpC6vqLsOS0B4q9wzpWgk1g==
+X-Received: by 2002:a05:600c:4590:b0:426:6f31:5f5c with SMTP id
+ 5b1f17b1804b1-4280570f82bmr39943175e9.17.1722003055613;
+        Fri, 26 Jul 2024 07:10:55 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.137])
+        by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-427f941352asm120841115e9.41.2024.07.26.07.10.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jul 2024 07:10:54 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 0/6] ASoC: codecs: wcd93xx/wsa88xx: Correct Soundwire ports
+ mask
+Date: Fri, 26 Jul 2024 16:10:40 +0200
+Message-Id: 
+ <20240726-asoc-wcd-wsa-swr-ports-genmask-v1-0-d4d7a8b56f05@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGCuo2YC/x2NywqEMAwAf0VyNuBW8bG/Ih5KTTWIrSTLVhD/3
+ eJpmMvMBUrCpPAtLhD6s3IMWT5lAW61YSHkOTuYyjRVZ1q0Gh0mN2NSi5oEjyg/xYXCbnXDvu1
+ NPfghw0OOHEKez3cwTvf9APRfa3xwAAAA
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
+ Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1318;
+ i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
+ bh=YE4hixYCVQKmzPIsA7SgCIYgqoaL2VnDKmtBWegqXfg=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmo65lV9Gvax58HA4nJOVWc+P2pZ4UebG+2xFoE
+ EFFTphcM7GJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZqOuZQAKCRDBN2bmhouD
+ 18aQD/9jqTriLZNGzTS27m5EsRS6+s02mSwC3shx1DXDLvoNDAw3a7tPUCH16TNnrKhlXaoJhfw
+ JL+dnvFlRiqGh1EnC3HOJUcY07m5RHTRSFm7THjhgQWo1GZG2XvYgqFjvkVV9bOKK5vQHiF+nI/
+ BS+DvwFMNocr/veCSQsUuvKNPlVwdlxkYTh7zwlyvBE60417cWSOR05RfYYYctkp7AWi/h6Ieiw
+ woHS3QR/jNB8xqMG0DFUA0Ckoeu3Z116swyTO7PSMUfE2D9gB0HLSpjm08Jzm/+3lLGAQgaPC+I
+ UdacDO88/fZdMMC1aQb1c0cUjEhlxdaEMosP6Yg/egprTP+MJo4WFCkGdqldyFMfiWAlNUmfqp9
+ 7Nb3qFgQ/gflcncKXAGzaDiosxI64hYYwVmPzyE0ge1+3pb30U1AYk3NXelhdpznWqtzR8vSZvX
+ vvxCa3NfJGHKbDvojkN1aHQH82meYPyHSXHT6+oZqnydzIgr0PcWNfjC/nbM2yIfq5/+FEX4hNZ
+ 2wAw0bBFvrOpIT8K/UeHgw2EjCO8UbQWAhy/aMgA6fkQ0Vuj6HRWt5PXyYsLcMJ1DOaA8Sx3UrI
+ 6r0pSO9YO+k3gZbYwQ6yx6A0MEgvrVbeC9ej09sbT958JvkHwy9ftAmlab7+diNSrPWT/EioYBL
+ kvDVeyddORIUEoQ==
+X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Message-ID-Hash: 7UW564G3MX3IBADHZU67NMG7FWAWDMDL
+X-Message-ID-Hash: 7UW564G3MX3IBADHZU67NMG7FWAWDMDL
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RCGTRXKHXWWJ3SOBN7OEJ7LCZQPJXTCQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7UW564G3MX3IBADHZU67NMG7FWAWDMDL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,42 +149,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---3ce0a5c807a2ece26c72ec8034eaad1072585a573fd66fa563151480afdc
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
 Hi,
 
-> Based on the inputs/suggestions from Tudor, i am planning to add a new=20
-> layer between the SPI-NOR and MTD layers to support stacked and parallel=
-=20
-> configurations. This new layer will be part of the spi-nor and located in=
-=20
-> mtd/spi-nor/
+Incorrect mask of Soundwire ports - one bit too long/big - was passed.
 
-Will AMD submit to maintain this layer? What happens if the
-maintainer will leave AMD? TBH, personally, I don't like to
-maintain such a niche feature.
-I'd really like to see some use cases and performance reports for
-this, like actual boards (and no evaluation boards don't count). Why
-wouldn't someone just use an octal flash?
+Theoretically, too wide mask could cause an out of bounds read in
+sdw_get_slave_dpn_prop() in stream.c, however only in the case of buggy
+driver, e.g. adding incorrect number of ports via
+sdw_stream_add_slave().
 
-And as already mentioned there is also mtdcat, which seems to
-duplicate some features?
+Not adding Cc-stable because I don't think the issue can lead to real
+out-of-bounds read.
 
--michael
+Best regards,
+Krzysztof
 
---3ce0a5c807a2ece26c72ec8034eaad1072585a573fd66fa563151480afdc
-Content-Type: application/pgp-signature; name="signature.asc"
+---
+Krzysztof Kozlowski (6):
+      ASoC: codecs: wcd937x-sdw: Correct Soundwire ports mask
+      ASoC: codecs: wcd938x-sdw: Correct Soundwire ports mask
+      ASoC: codecs: wcd939x-sdw: Correct Soundwire ports mask
+      ASoC: codecs: wsa881x: Correct Soundwire ports mask
+      ASoC: codecs: wsa883x: Correct Soundwire ports mask
+      ASoC: codecs: wsa884x: Correct Soundwire ports mask
 
------BEGIN PGP SIGNATURE-----
+ sound/soc/codecs/wcd937x-sdw.c | 4 ++--
+ sound/soc/codecs/wcd938x-sdw.c | 4 ++--
+ sound/soc/codecs/wcd939x-sdw.c | 4 ++--
+ sound/soc/codecs/wsa881x.c     | 2 +-
+ sound/soc/codecs/wsa883x.c     | 2 +-
+ sound/soc/codecs/wsa884x.c     | 2 +-
+ 6 files changed, 9 insertions(+), 9 deletions(-)
+---
+base-commit: 864b1099d16fc7e332c3ad7823058c65f890486c
+change-id: 20240726-asoc-wcd-wsa-swr-ports-genmask-868239f9682f
 
-iKcEABMJAC8WIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCZqOcwREcbWljaGFlbEB3
-YWxsZS5jYwAKCRASJzzuPgIf+OcUAX9IjhR2BCZQ3HqidzuFStguMrN9iUIuss1D
-/ACvRq7kf2Zbxhm0mck1AjUfrnZR1eABf0SfkJW5GxxyiY5HbWtKSnCVoTuXKQTM
-LqmzqtPHKs+pr9bhbYutKEnQZiOlOyW93g==
-=jfd2
------END PGP SIGNATURE-----
+Best regards,
+-- 
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
---3ce0a5c807a2ece26c72ec8034eaad1072585a573fd66fa563151480afdc--

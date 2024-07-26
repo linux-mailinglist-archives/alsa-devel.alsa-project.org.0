@@ -2,62 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACF2994297D
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:46:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F2D942981
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:47:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04DF21948;
-	Wed, 31 Jul 2024 10:46:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04DF21948
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6B66231B;
+	Wed, 31 Jul 2024 10:47:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6B66231B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722415617;
-	bh=J0UpM5Bj3eNkwzorIQa07O7OnSNlm4+XiTCMxbvKN5Y=;
-	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1722415663;
+	bh=swHYojslKRZrYvYSpfXsgW3+8SF1RW/G017862frP0k=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JVe1nKgDi5+msbZqPTSwz06Tw3MbYfM/v+w1V3jqxn8VL1jnakQTKAVJ3FMRryH1m
-	 394cgvNhifLTlJsEhAHmhX7TX/fZ/vuC67cN6HUG0Z+Xfg9Qt9MJxpnUznU35ymKJ9
-	 PsPl0JPBHtfOdietc1SFRlZaKRwkIlhZCPd+FFpM=
+	b=Tm43u3BdvdBpMSGBjc8G90iuUDeNer4hoc0ixFiQVvzMN6gJAPoA867O3sneuDqr8
+	 WJ2s3aZ4p91Rh7SngTfMbxgpRZofTuKr4BVDQLv/g+IuA1X4M/HFPXgETX/edmH7re
+	 /GSs2ssBxZci7GEU6j54tdGo1o0nJARagIwZxPGo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E868F805B0; Wed, 31 Jul 2024 10:46:07 +0200 (CEST)
+	id 2ADF2F805AC; Wed, 31 Jul 2024 10:47:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3903EF805B4;
-	Wed, 31 Jul 2024 10:46:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F4E9F805B1;
+	Wed, 31 Jul 2024 10:47:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB366F8026D; Thu, 25 Jul 2024 13:32:08 +0200 (CEST)
+	id AF5E4F8026D; Fri, 26 Jul 2024 05:10:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=RDNS_NONE,SPF_HELO_PASS,
-	SPF_PASS shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from legeek.net (unknown
- [IPv6:2a01:e0a:d77:fcd0:ba27:ebff:fe50:cb42])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B74CF8007E
-	for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2024 13:32:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B74CF8007E
-Date: Thu, 25 Jul 2024 11:08:20 +0000
-From: Sylvain BERTRAND <sylvain.bertrand@legeek.net>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH][LINUX][ALSA][USB AUDIO CLASS 1] wrong channel ids for
- surround
-Message-ID: <ZqIyJD8lhd8hFhlC@freedom>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-MailFrom: sylvain.bertrand@legeek.net
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp134-79.sina.com.cn (smtp134-79.sina.com.cn
+ [180.149.134.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 014E4F8013D
+	for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2024 05:10:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 014E4F8013D
+Received: from unknown (HELO zy-virtual-machine.localdomain)([180.158.30.43])
+	by sina.net (10.185.250.29) with ESMTP
+	id 66A3138700005ABC; Fri, 26 Jul 2024 11:10:01 +0800 (CST)
+X-Sender: zhangyi@everest-semi.com
+X-Auth-ID: zhangyi@everest-semi.com
+Authentication-Results: sina.net;
+	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=zhangyi@everest-semi.com
+X-SMAIL-MID: 67593C547E44403DAA068D793FFD423A
+X-SMAIL-UIID: 67593C547E44403DAA068D793FFD423A-20240726-111001
+From: Zhang Yi <zhangyi@everest-semi.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Cc: tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com,
+	yangxiaohua@everest-semi.com,
+	zhuning@everest-semi.com,
+	zhangyi@everest-semi.com
+Subject: [RESEND] ASoC: codecs: ES8326: suspend issue
+Date: Fri, 26 Jul 2024 11:10:02 +0800
+Message-Id: <20240726031002.35055-1-zhangyi@everest-semi.com>
+X-Mailer: git-send-email 2.17.1
+X-MailFrom: zhangyi@everest-semi.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CIU7WSMS4BMIOLYXI5GP4OOWPSGCUT4W
-X-Message-ID-Hash: CIU7WSMS4BMIOLYXI5GP4OOWPSGCUT4W
-X-Mailman-Approved-At: Wed, 31 Jul 2024 08:46:02 +0000
+Message-ID-Hash: KJIFHACCUDKGTS5FXQA3XPNLPU2RENAV
+X-Message-ID-Hash: KJIFHACCUDKGTS5FXQA3XPNLPU2RENAV
+X-Mailman-Approved-At: Wed, 31 Jul 2024 08:47:05 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CIU7WSMS4BMIOLYXI5GP4OOWPSGCUT4W/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KJIFHACCUDKGTS5FXQA3XPNLPU2RENAV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -66,34 +84,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+We find that we need to disable micbias for the codec to enter suspend
+So We modify the trigger conditions for enable_micbias and disable_micbias
 
-In the USB audio class 1 specifications, page 33 (3.7.2.3 Audio Channel Cluster Format):
+Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
+---
+ sound/soc/codecs/es8326.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Surround is spatially defined as [rear], hence left surround should be SNDRV_CHMAP_RL and not SND_CHMAP_SL (Side).
-Same for right surround channel.
-
-Right?
-
-I am not a mailing list subscriber, CC me please.
-
-regards,
-
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+index b246694ebb4f..60877116c0ef 100755
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -805,6 +805,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
+ 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2);
+ 			button_to_report = 0;
+ 		}
++		es8326_disable_micbias(es8326->component);
+ 	}
+ 	mutex_unlock(&es8326->lock);
+ }
+@@ -878,7 +879,6 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 			regmap_write(es8326->regmap, ES8326_INT_SOURCE, 0x00);
+ 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
+ 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x10, 0x00);
+-			es8326_enable_micbias(es8326->component);
+ 			usleep_range(50000, 70000);
+ 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x00);
+ 			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x10, 0x10);
+@@ -897,6 +897,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 			dev_dbg(comp->dev, "button pressed\n");
+ 			regmap_write(es8326->regmap, ES8326_INT_SOURCE,
+ 					(ES8326_INT_SRC_PIN9 | ES8326_INT_SRC_BUTTON));
++			es8326_enable_micbias(es8326->component);
+ 			queue_delayed_work(system_wq, &es8326->button_press_work, 10);
+ 			goto exit;
+ 		}
+@@ -1067,6 +1068,7 @@ static void es8326_init(struct snd_soc_component *component)
+ 
+ 	regmap_write(es8326->regmap, ES8326_ADC_MUTE, 0x0f);
+ 	regmap_write(es8326->regmap, ES8326_CLK_DIV_LRCK, 0xff);
++	es8326_disable_micbias(es8326->component);
+ 
+ 	msleep(200);
+ 	regmap_write(es8326->regmap, ES8326_INT_SOURCE, ES8326_INT_SRC_PIN9);
 -- 
-Sylvain BERTRAND
-
-
---- a/sound/usb/stream.c
-+++ b/sound/usb/stream.c
-@@ -244,8 +244,8 @@ static struct snd_pcm_chmap_elem *convert_chmap(int channels, unsigned int bits,
- 		SNDRV_CHMAP_FR,		/* right front */
- 		SNDRV_CHMAP_FC,		/* center front */
- 		SNDRV_CHMAP_LFE,	/* LFE */
--		SNDRV_CHMAP_SL,		/* left surround */
--		SNDRV_CHMAP_SR,		/* right surround */
-+		SNDRV_CHMAP_RL,		/* left surround */
-+		SNDRV_CHMAP_RR,		/* right surround */
- 		SNDRV_CHMAP_FLC,	/* left of center */
- 		SNDRV_CHMAP_FRC,	/* right of center */
- 		SNDRV_CHMAP_RC,		/* surround */
+2.17.1
 

@@ -2,134 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F77D93E488
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jul 2024 12:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29CC793E76F
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jul 2024 18:09:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B753852;
-	Sun, 28 Jul 2024 12:31:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B753852
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7A21E7D;
+	Sun, 28 Jul 2024 18:09:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7A21E7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722162678;
-	bh=eDWjhLzi6G1agWre6Y7l9EsOG8ksGnVzkj/CACSAyj0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1722182985;
+	bh=xwVtkJUeRlDwxnmbUOFPYWdDGzfaMGXt5evdhgS8qUM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=maD26cT70cZBV4oM/sbVO4vUMVgpns5lw4SA+OVLS8zBrMQDB2x5iIgrfVxdZ3+lj
-	 oKs0wR1nbQR+1wOmLHKv9t0auqWaHmb/mPsBCjtz+YQegaWj2WlSLhEx5H7dtH8uqE
-	 qX00/6kBJXeC0sPyRpD+AwZeV7/G3eorsZbNOu6w=
+	b=Q+MQTRRjpt7vzNAvPEMPOlp+XAzHMI+eijSext8q45wJrAHobiZBSERThgsBLP8kn
+	 n3BAAcQ7Q2YJKv7KxkhTu0uuOO8GGjBNhP4T9hMmzeiCr2b0n6IRb6yFRsujBi2zgk
+	 MCvDhxmeMhQx5TbsbMzx4CeTpPXjE+4ExfkRvoSs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB168F805B0; Sun, 28 Jul 2024 12:30:47 +0200 (CEST)
+	id 90EB9F805B3; Sun, 28 Jul 2024 18:09:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 469C5F805AB;
-	Sun, 28 Jul 2024 12:30:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47723F805AF;
+	Sun, 28 Jul 2024 18:09:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EBDDAF802DB; Sun, 28 Jul 2024 12:30:38 +0200 (CEST)
+	id 4F7D0F802DB; Sun, 28 Jul 2024 18:05:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B89F6F8007E
-	for <alsa-devel@alsa-project.org>; Sun, 28 Jul 2024 12:30:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B89F6F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 99C65F8007E
+	for <alsa-devel@alsa-project.org>; Sun, 28 Jul 2024 18:05:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99C65F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=k/xYx9T7
+ header.s=k20201202 header.b=Y670VLp6
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 6761FCE0948;
-	Sun, 28 Jul 2024 10:30:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C7AC116B1;
-	Sun, 28 Jul 2024 10:30:14 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 0D17ACE01BE;
+	Sun, 28 Jul 2024 16:05:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3184AC116B1;
+	Sun, 28 Jul 2024 16:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722162619;
-	bh=eDWjhLzi6G1agWre6Y7l9EsOG8ksGnVzkj/CACSAyj0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=k/xYx9T7/I2WLfcnu+Qa5RkJFKH7BboES21hXWKrBAIClTAFCPA1Oqyli2VQYQn7h
-	 9yVsmefHU5cfToCSrPRG9wTIeOo3mD93MxzSc9NScVH/PEtZZgsgsei8bcXhXW01PW
-	 WkbOvyR8aNgRuZZXiIZayXSyK08RAWwZd3Si9fGI+0tmLcz3vo4gs2aGf4OuLgFvAu
-	 wVow3KrkyVlKuzd2cKdAlWDieWPy1zSFbfwBxUxOMBlEQNmSk0hZyZxeiBc6ACZn9H
-	 zcJCbeuVv5/ssY8PSXvoooSn0oGM/6RcYMka/BqlBsGWVdVVr+hOSsmAurOZetqJJN
-	 pO04cnEfEZNTA==
-Message-ID: <3d9f76c1-2e14-43dc-b438-5fac94ffc73e@kernel.org>
-Date: Sun, 28 Jul 2024 12:30:12 +0200
+	s=k20201202; t=1722182745;
+	bh=xwVtkJUeRlDwxnmbUOFPYWdDGzfaMGXt5evdhgS8qUM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Y670VLp6k40ie1STd0ROQDNw5dIRi725/eAxCjdnHe5gwRCRKnsQbqTXwpeDSNm3C
+	 9GiUkCB9aihunr4RzFSl8h3KUSDGS8np4j+kiRS+08ogzaLmGjBJd9xZApVHJN9R58
+	 X2QQwtWNVWJkoHCFIuAqq8kb1G1ixWQ7J2xLWvvZd1pgdJ4S0lU+Dt5ZSds8XL7sRB
+	 VUwWFpV0bHETPSLzOZZXUYMGA029gP5Je4nLcjbvDn3KB47JhHx/6rB71/rlxy3Jqz
+	 gLyYwZwvxv6fYOgzYFthebvCxY7xHRkwMCJWzqs15fx8VaQppwPhpTSEZj6annpiMp
+	 dJkwBFvnfNkCA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.10 02/23] ASoC: Intel: sof_sdw: Add quirks for some
+ new Dell laptops
+Date: Sun, 28 Jul 2024 12:04:43 -0400
+Message-ID: <20240728160538.2051879-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240728160538.2051879-1-sashal@kernel.org>
+References: <20240728160538.2051879-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dt-bindings: qcom,apq8016-sbc-sndcard: move to
- separate binding
-To: Stephan Gerhold <stephan@gerhold.net>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Adam Skladowski <a39.skl@gmail.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-References: <20240723083300.35605-1-krzysztof.kozlowski@linaro.org>
- <ZqVXUI37fNB5D0DM@gerhold.net>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <ZqVXUI37fNB5D0DM@gerhold.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UWNFY3I5Z75Q5MCTLJAHC3P5HP557FPH
-X-Message-ID-Hash: UWNFY3I5Z75Q5MCTLJAHC3P5HP557FPH
-X-MailFrom: krzk@kernel.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.10.2
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5Z6LU5ICVCQHCVZF7OIDP32WU5PMTA2Q
+X-Message-ID-Hash: 5Z6LU5ICVCQHCVZF7OIDP32WU5PMTA2Q
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -141,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UWNFY3I5Z75Q5MCTLJAHC3P5HP557FPH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5Z6LU5ICVCQHCVZF7OIDP32WU5PMTA2Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,70 +112,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 27/07/2024 22:23, Stephan Gerhold wrote:
-> On Tue, Jul 23, 2024 at 10:33:00AM +0200, Krzysztof Kozlowski wrote:
->> The APQ8016 SBC and MSM8916 QDSP6 sound cards are a bit different from
->> others: they have additional IO muxing address space and pin control.
->> Move them to separate schema, so the original qcom,sm8250.yaml will be
->> easier to manage.  New schema is going to grow for other platforms
->> having more of IO muxing address spaces.
->>
->> Cc: Adam Skladowski <a39.skl@gmail.com>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->> ---
->> .../sound/qcom,apq8016-sbc-sndcard.yaml       | 205 ++++++++++++++++++
->> .../bindings/sound/qcom,sm8250.yaml           | 137 ------------
->> 2 files changed, 205 insertions(+), 137 deletions(-)
->> create mode 100644 Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.yaml b/Documentation/devicetree/bindings/sound/qcom,apq8016-sbc-sndcard.yaml
->> new file mode 100644
->> index 000000000000..6ad451549036
->> [...]
->> diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
->> index c9076dcd44c1..1d3acdc0c733 100644
->> --- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
->> +++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
->> @@ -27,9 +27,7 @@ properties:
->>               - qcom,sm8650-sndcard
->>           - const: qcom,sm8450-sndcard
->>       - enum:
->> -          - qcom,apq8016-sbc-sndcard
->>           - qcom,apq8096-sndcard
->> -          - qcom,msm8916-qdsp6-sndcard
->>           - qcom,qcm6490-idp-sndcard
->>           - qcom,qcs6490-rb3gen2-sndcard
->>           - qcom,qrb5165-rb5-sndcard
->> @@ -58,18 +56,6 @@ properties:
->>     $ref: /schemas/types.yaml#/definitions/string
->>     description: User visible long sound card name
->>
->> -  pin-switches:
->> -    description: List of widget names for which pin switches should be created.
->> -    $ref: /schemas/types.yaml#/definitions/string-array
->> -
->> -  widgets:
->> -    description: User specified audio sound widgets.
->> -    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
->> -
-> 
-> These two properties are also valid and supported on all newer
-> platforms, please keep them here! There are certain use cases where
-> these are needed independent of the platform, e.g. to control an analog
-> switch or mux connected to speaker or headphone outputs.
-> 
-> I agree that it is cleaner to move the IO muxing to a new schema though.
-> Perhaps we could define something like a shared qcom,sndcard-common.yaml
-> schema to avoid duplication for these generic properties? In the Linux
-> driver, these are handled for all platforms in sound/soc/qcom/common.c.
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-This was added to the common driver code but it does not mean it is
-reasonable binding. I don't understand why for example we even accept
-here aux-devs, instead of putting them into one of DAI links.
+[ Upstream commit 91cdecaba791c74df6da0650e797fe1192cf2700 ]
 
-The pin-switches and widgets could be used, but are they? The only valid
-argument to keep them is that you added them to common driver code.
+Add quirks for some new Dell laptops using Cirrus amplifiers in a bridge
+configuration.
 
-Best regards,
-Krzysztof
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://msgid.link/r/20240527193552.165567-11-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/intel/boards/sof_sdw.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index e41b0d95e0ff7..a878b6b3d1948 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -505,6 +505,22 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)(RT711_JD2),
+ 	},
++	{
++		.callback = sof_sdw_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0CE3")
++		},
++		.driver_data = (void *)(SOF_SIDECAR_AMPS),
++	},
++	{
++		.callback = sof_sdw_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0CE4")
++		},
++		.driver_data = (void *)(SOF_SIDECAR_AMPS),
++	},
+ 	{}
+ };
+ 
+-- 
+2.43.0
 

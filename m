@@ -2,82 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A6593FD6F
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 20:36:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75FE193FD74
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 20:37:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59601A4B;
-	Mon, 29 Jul 2024 20:36:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59601A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D69ECE72;
+	Mon, 29 Jul 2024 20:36:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D69ECE72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722278187;
-	bh=PgElLeI3tFPy/LsURTvcVNpZeWCApAcr+hd4F8EhJ/c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=a5PnGyxomxln8jp3ojqLcRszsbOFAjcqd/UpzNL1pQZdI+eBtQ2QzKcJjCH2qkQrK
-	 +023RabrCSGnoTRmO1mEsyQobnDXUudDzNK4MmukgAsFEF1qXWN+kgCVLy8Yzvoxx2
-	 2zEMT1/1qm1TRWZoNKnmldSHSo08yipt16zqJ+UA=
+	s=default; t=1722278219;
+	bh=8qXgcTEK1sB9juukqwPldLWJ+ngenIcIAxtBMYrrYQQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=eJR/YGxznV6nGmbSaG5o0g9d/syq/gmRgM+KkmUF17FRRWibmZmQTWgOko9qXYQfu
+	 nHU0jqkGvU22TCQZm4X4EqRW0TNKX4i0TsjGbrtKufk3g7gEn8N/oBibxyY5/HNWSB
+	 UZax23LP8y//LXeHZhctXN9Jl08FkRdInu+oqNXQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80CB7F805A9; Mon, 29 Jul 2024 20:35:55 +0200 (CEST)
+	id 2F26CF8007E; Mon, 29 Jul 2024 20:36:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5174F805B1;
-	Mon, 29 Jul 2024 20:35:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D17FF805ED;
+	Mon, 29 Jul 2024 20:36:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E27FF80448; Mon, 29 Jul 2024 19:17:52 +0200 (CEST)
+	id A1CF2F802DB; Mon, 29 Jul 2024 19:36:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp.smtpout.orange.fr (smtp-30.smtpout.orange.fr
+ [80.12.242.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A04EF8026A
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 19:17:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A04EF8026A
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC0C5F80269
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 19:36:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC0C5F80269
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KWRUWMIQ
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8D75761BBE;
-	Mon, 29 Jul 2024 17:17:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E468C32786;
-	Mon, 29 Jul 2024 17:17:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722273465;
-	bh=PgElLeI3tFPy/LsURTvcVNpZeWCApAcr+hd4F8EhJ/c=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=KWRUWMIQdA/RvQwuPlYCs6Dtxi6qaZm+SsgMtmWr9hwxabdg2BhDaq4EMijH4kec9
-	 V8hzV+g/HVG7F/57DtSm8Fl4vBcTuBd7vqtpCkkcBQIcxoDOBiLovpgI1qJeouFh+b
-	 5dXSd8cOxY85kyj39TZ2lN44hOJyOcnOu4derSo0Ed7M0wpYE2Q2pLJ3ih+3lbdM0n
-	 Vd7NvZvH0njAY6a3nvIaIjV82lCgXglUix9iuOXleR3bxbqDPU8gs5la2vl48mM4Jh
-	 gBb9+/Ob/cFZdVOH6yh9uuM3RXdT1YP6CvguuUW8+BzMPH7zeTIlTWclAoQsihafT5
-	 k87n9fNRU9JlQ==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20240725-asoc-wsa88xx-port-arrays-v1-0-80a03f440c72@linaro.org>
-References: <20240725-asoc-wsa88xx-port-arrays-v1-0-80a03f440c72@linaro.org>
-Subject: Re: [PATCH 0/7] ASoC: codecs: wsa88xx and wcd93xx: Soundwire port
- non-functional cleanup
-Message-Id: <172227346318.109775.1944723976181257603.b4-ty@kernel.org>
-Date: Mon, 29 Jul 2024 18:17:43 +0100
+ unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
+ header.s=t20230301 header.b=jtg+bA2v
+Received: from fedora.home ([90.11.132.44])
+	by smtp.orange.fr with ESMTPA
+	id YUI7soyZFhajuYUI8sQhbA; Mon, 29 Jul 2024 19:36:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1722274573;
+	bh=OMMMxQpsZCVMR8l67H2YGQ2dCZFaG5DSz7db9edlKWs=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=jtg+bA2vAlqfi+cTiS2Gf1imYLuSNwgshlLsieACR9yNef8s5TO5dFfcpBYV3EWd2
+	 eXWKd19sIWEbUTZFk/gueaYcPAV1FnnQ94kEU4RlOuML3YLh+cmQDuhjB9eYgNQkQL
+	 S5gKp8Ehpv5ptcdiO849BuW42lximhOiHb5rKYxZaQf9yOZA2fg0yB/2DrZvp2xQWQ
+	 11VORJBZMItKMepoAhxvMETKxQIY7esmqgS8CI9QJUDWfoLKUe9JlwE/iHsTcUQMyG
+	 LxUAtHDlaxiahSCm8ucJVOIEhEkVUIXe1L32c3ex0eFLirLchPk4qACcsd88/oasFk
+	 GyWD2O9b238dA==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Mon, 29 Jul 2024 19:36:13 +0200
+X-ME-IP: 90.11.132.44
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: ckeepax@opensource.cirrus.com,
+	javier.carrasco.cruz@gmail.com,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org
+Subject: [PATCH] ASoC: cs43130: Constify snd_soc_component_driver struct
+Date: Mon, 29 Jul 2024 19:36:05 +0200
+Message-ID: 
+ <1f04bb0366d9640d7ee361dae114ff79e4b381c1.1722274212.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: WFRXSYUHBVULVOACOPUYXCKSVDY3LC4D
-X-Message-ID-Hash: WFRXSYUHBVULVOACOPUYXCKSVDY3LC4D
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 42GURGHGDWQKU2GA5WE74ZUSMQ5MGATE
+X-Message-ID-Hash: 42GURGHGDWQKU2GA5WE74ZUSMQ5MGATE
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WFRXSYUHBVULVOACOPUYXCKSVDY3LC4D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/42GURGHGDWQKU2GA5WE74ZUSMQ5MGATE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,51 +105,186 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 25 Jul 2024 13:23:42 +0200, Krzysztof Kozlowski wrote:
-> Few cleanups to make the code more robust or readable.  No functional
-> impact (compiled objects stay the same).
-> 
-> Best regards,
-> Krzysztof
-> 
+In order to constify `snd_soc_component_driver` struct, duplicate
+`soc_component_dev_cs43130` into a `soc_component_dev_cs43130_digital` and
+`soc_component_dev_cs43130_analog`.
 
-Applied to
+These 2 new structures share the same .dapm_widgets and .dapm_routes
+arrays but differ for .num_dapm_widgets and .num_dapm_routes.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+In the digital case, the last entries are not taken into account.
 
-Thanks!
+Doing so has several advantages:
+  - `snd_soc_component_driver` can be declared as const to move their
+    declarations to read-only sections.
+  - code in the probe is simpler. There is no need to concatenate some
+    arrays to handle the "analog" case
+  - this saves some memory because all_hp_widgets and analog_hp_routes can
+    be removed.
 
-[1/7] ASoC: codecs: wsa881x: Use designator array initializers for Soundwire ports
-      commit: 874d04fe15d12cafa09dd36e8555cea4eb0653f6
-[2/7] ASoC: codecs: wsa883x: Use designator array initializers for Soundwire ports
-      commit: add41ea55060d5e41d62268aa0bda2a27e0f5053
-[3/7] ASoC: codecs: wsa884x: Use designator array initializers for Soundwire ports
-      commit: 125ed86b0d669334dbc567f441d10163ff0c44bc
-[4/7] ASoC: codecs: wcd938x: Drop unused defines and enums
-      commit: 06fa8271273d8181cb8727e63aeec3f87a48d8c7
-[5/7] ASoC: codecs: wcd937x: Move max port number defines to enum
-      commit: 42f3a2caf80910d0c251b2a407d4d220c0d3a79f
-[6/7] ASoC: codecs: wcd938x: Move max port number defines to enum
-      commit: 5e388488f0a1dd6d340f3925e7b371e212ee3cc2
-[7/7] ASoC: codecs: wcd939x: Move max port number defines to enum
-      commit: a9d843e6b231e550f8141f27e930f90ded4edae2
+Before :
+======
+   text	   data	    bss	    dec	    hex	filename
+  53965	   8265	   4512	  66742	  104b6	sound/soc/codecs/cs43130.o
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+After :
+=====
+   text	   data	    bss	    dec	    hex	filename
+  54409	   7881	     64	  62354	   f392	sound/soc/codecs/cs43130.o
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested-only.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+See discussion at [1].
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+[1]: https://lore.kernel.org/all/ZqNawRmAqBRLIoQq@opensource.cirrus.com/
+---
+ sound/soc/codecs/cs43130.c | 73 +++++++++++++++++---------------------
+ 1 file changed, 32 insertions(+), 41 deletions(-)
 
-Thanks,
-Mark
+diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
+index be4037890fdb..cb4ca80f36d2 100644
+--- a/sound/soc/codecs/cs43130.c
++++ b/sound/soc/codecs/cs43130.c
+@@ -1415,7 +1415,7 @@ static const char * const bypass_mux_text[] = {
+ static SOC_ENUM_SINGLE_DECL(bypass_enum, SND_SOC_NOPM, 0, bypass_mux_text);
+ static const struct snd_kcontrol_new bypass_ctrl = SOC_DAPM_ENUM("Switch", bypass_enum);
+ 
+-static const struct snd_soc_dapm_widget digital_hp_widgets[] = {
++static const struct snd_soc_dapm_widget hp_widgets[] = {
+ 	SND_SOC_DAPM_MUX("Bypass Switch", SND_SOC_NOPM, 0, 0, &bypass_ctrl),
+ 	SND_SOC_DAPM_OUTPUT("HPOUTA"),
+ 	SND_SOC_DAPM_OUTPUT("HPOUTB"),
+@@ -1447,19 +1447,16 @@ static const struct snd_soc_dapm_widget digital_hp_widgets[] = {
+ 			   CS43130_PDN_HP_SHIFT, 1, cs43130_dac_event,
+ 			   (SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
+ 			    SND_SOC_DAPM_POST_PMD)),
+-};
+ 
+-static const struct snd_soc_dapm_widget analog_hp_widgets[] = {
++/* Some devices have some extra analog widgets */
++#define NUM_ANALOG_WIDGETS	1
++
+ 	SND_SOC_DAPM_DAC_E("Analog Playback", NULL, CS43130_HP_OUT_CTL_1,
+ 			   CS43130_HP_IN_EN_SHIFT, 0, cs43130_hpin_event,
+ 			   (SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD)),
+ };
+ 
+-static struct snd_soc_dapm_widget all_hp_widgets[
+-			ARRAY_SIZE(digital_hp_widgets) +
+-			ARRAY_SIZE(analog_hp_widgets)];
+-
+-static const struct snd_soc_dapm_route digital_hp_routes[] = {
++static const struct snd_soc_dapm_route hp_routes[] = {
+ 	{"ASPIN PCM", NULL, "ASP PCM Playback"},
+ 	{"ASPIN DoP", NULL, "ASP DoP Playback"},
+ 	{"XSPIN DoP", NULL, "XSP DoP Playback"},
+@@ -1472,15 +1469,12 @@ static const struct snd_soc_dapm_route digital_hp_routes[] = {
+ 	{"Bypass Switch", "Internal", "HiFi DAC"},
+ 	{"HPOUTA", NULL, "Bypass Switch"},
+ 	{"HPOUTB", NULL, "Bypass Switch"},
+-};
+ 
+-static const struct snd_soc_dapm_route analog_hp_routes[] = {
++/* Some devices have some extra analog routes */
++#define NUM_ANALOG_ROUTES	1
+ 	{"Bypass Switch", "Alternative", "Analog Playback"},
+ };
+ 
+-static struct snd_soc_dapm_route all_hp_routes[
+-			ARRAY_SIZE(digital_hp_routes) +
+-			ARRAY_SIZE(analog_hp_routes)];
+ 
+ static const unsigned int cs43130_asp_src_rates[] = {
+ 	32000, 44100, 48000, 88200, 96000, 176400, 192000, 352800, 384000
+@@ -2398,7 +2392,23 @@ static int cs43130_probe(struct snd_soc_component *component)
+ 	return 0;
+ }
+ 
+-static struct snd_soc_component_driver soc_component_dev_cs43130 = {
++static const struct snd_soc_component_driver soc_component_dev_cs43130_digital = {
++	.probe			= cs43130_probe,
++	.controls		= cs43130_snd_controls,
++	.num_controls		= ARRAY_SIZE(cs43130_snd_controls),
++	.set_sysclk		= cs43130_component_set_sysclk,
++	.set_pll		= cs43130_set_pll,
++	.idle_bias_on		= 1,
++	.use_pmdown_time	= 1,
++	.endianness		= 1,
++	/* Don't take into account the ending analog widgets and routes */
++	.dapm_widgets		= hp_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(hp_widgets) - NUM_ANALOG_WIDGETS,
++	.dapm_routes		= hp_routes,
++	.num_dapm_routes	= ARRAY_SIZE(hp_routes) - NUM_ANALOG_ROUTES,
++};
++
++static const struct snd_soc_component_driver soc_component_dev_cs43130_analog = {
+ 	.probe			= cs43130_probe,
+ 	.controls		= cs43130_snd_controls,
+ 	.num_controls		= ARRAY_SIZE(cs43130_snd_controls),
+@@ -2407,6 +2417,10 @@ static struct snd_soc_component_driver soc_component_dev_cs43130 = {
+ 	.idle_bias_on		= 1,
+ 	.use_pmdown_time	= 1,
+ 	.endianness		= 1,
++	.dapm_widgets		= hp_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(hp_widgets),
++	.dapm_routes		= hp_routes,
++	.num_dapm_routes	= ARRAY_SIZE(hp_routes),
+ };
+ 
+ static const struct regmap_config cs43130_regmap = {
+@@ -2479,6 +2493,7 @@ static int cs43130_handle_device_data(struct cs43130_private *cs43130)
+ 
+ static int cs43130_i2c_probe(struct i2c_client *client)
+ {
++	const struct snd_soc_component_driver *component_driver;
+ 	struct cs43130_private *cs43130;
+ 	int ret;
+ 	unsigned int reg;
+@@ -2596,39 +2611,15 @@ static int cs43130_i2c_probe(struct i2c_client *client)
+ 	switch (cs43130->dev_id) {
+ 	case CS43130_CHIP_ID:
+ 	case CS43131_CHIP_ID:
+-		memcpy(all_hp_widgets, digital_hp_widgets,
+-		       sizeof(digital_hp_widgets));
+-		memcpy(all_hp_widgets + ARRAY_SIZE(digital_hp_widgets),
+-		       analog_hp_widgets, sizeof(analog_hp_widgets));
+-		memcpy(all_hp_routes, digital_hp_routes,
+-		       sizeof(digital_hp_routes));
+-		memcpy(all_hp_routes + ARRAY_SIZE(digital_hp_routes),
+-		       analog_hp_routes, sizeof(analog_hp_routes));
+-
+-		soc_component_dev_cs43130.dapm_widgets =
+-			all_hp_widgets;
+-		soc_component_dev_cs43130.num_dapm_widgets =
+-			ARRAY_SIZE(all_hp_widgets);
+-		soc_component_dev_cs43130.dapm_routes =
+-			all_hp_routes;
+-		soc_component_dev_cs43130.num_dapm_routes =
+-			ARRAY_SIZE(all_hp_routes);
++		component_driver = &soc_component_dev_cs43130_analog;
+ 		break;
+ 	case CS43198_CHIP_ID:
+ 	case CS4399_CHIP_ID:
+-		soc_component_dev_cs43130.dapm_widgets =
+-			digital_hp_widgets;
+-		soc_component_dev_cs43130.num_dapm_widgets =
+-			ARRAY_SIZE(digital_hp_widgets);
+-		soc_component_dev_cs43130.dapm_routes =
+-			digital_hp_routes;
+-		soc_component_dev_cs43130.num_dapm_routes =
+-			ARRAY_SIZE(digital_hp_routes);
++		component_driver = &soc_component_dev_cs43130_digital;
+ 		break;
+ 	}
+ 
+-	ret = devm_snd_soc_register_component(cs43130->dev,
+-				     &soc_component_dev_cs43130,
++	ret = devm_snd_soc_register_component(cs43130->dev, component_driver,
+ 				     cs43130_dai, ARRAY_SIZE(cs43130_dai));
+ 	if (ret < 0) {
+ 		dev_err(cs43130->dev,
+-- 
+2.45.2
 

@@ -2,149 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B9BD93FE43
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 21:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FFA293FE62
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 21:38:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AACD846;
-	Mon, 29 Jul 2024 21:30:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AACD846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6146B846;
+	Mon, 29 Jul 2024 21:38:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6146B846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722281458;
-	bh=cvfsAHSi0d/dgRWJetm1h/PLtW/nC7SPpo8BdBSh174=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1722281903;
+	bh=lQ1UwaSVRVCr28nA9MaSL3OK4CCm3hBI4Kq6+31BSqY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=h9azuKc4onJOi7SfgDmSe09OQemGqfEQulL3a+PJzxRU8OonOfhvuBZMZJCBxv1cz
-	 kefLp6+i/ioK8ONdJSKdx+5r5QBwWGXJwOS6Yjo4/U5b8zHctURsv/2YRQj/d9SaVj
-	 JeTDPeE8M/ZxOiRzi0LJiikiQGCzvnVDbECundwc=
+	b=jPnwAIf5/hbuMijutQLeZxUC0q+KaXo2VPPYC9wpqMH2LQsOL3EAqCDOZab7OMkOe
+	 qAoN4/ryXrQQrykCb1yHCDu1AK+sJ6oSoVngHVMXC0f5dJcjn4KaLu+LhTYtNVvT1R
+	 9MNjt+7LkwzlD64ttto77wrG8HiSl5UfvBB+dc0w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C441F8058C; Mon, 29 Jul 2024 21:30:26 +0200 (CEST)
+	id 65387F805A1; Mon, 29 Jul 2024 21:37:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 447A8F805B0;
-	Mon, 29 Jul 2024 21:30:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9640F80579;
+	Mon, 29 Jul 2024 21:37:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7CADCF802DB; Mon, 29 Jul 2024 21:27:15 +0200 (CEST)
+	id 29D07F802DB; Mon, 29 Jul 2024 21:37:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D99FF80269
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 21:27:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D99FF80269
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46955F8007E
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 21:37:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46955F8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=VliUM/b6;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=f7J9uxb/;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=s69QFT0M;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=u5FK5zBv
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EEAB11F7B7;
-	Mon, 29 Jul 2024 19:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1722281220;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ap1CzPaQNwLMZeEIW6gyKI8pGrm9CZN65+dOLmY4P3U=;
-	b=VliUM/b6VWpb27ZaZ24e37m5yPfrVX8wD6h+TLPdru4kSlwBpSU+e/fgbFAkVimaJqhZlu
-	T3ULJjgsuCPaTyb06A4EoT9IczZh7saH9TYDFe4bxDgVqagPzFVk0SuFx+aHbpNtcuw7Dp
-	dOMq01hobuaYyrw4DKLZ1FZ5N4/tjzs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1722281220;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ap1CzPaQNwLMZeEIW6gyKI8pGrm9CZN65+dOLmY4P3U=;
-	b=f7J9uxb/14xDOSETXcQHsbDNG6dnajRdOnwdZKTKLGMLaTd1u9eajxFj2e4q7tr5tfW7qJ
-	Cn7JiCGsSRZQurAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1722281218;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ap1CzPaQNwLMZeEIW6gyKI8pGrm9CZN65+dOLmY4P3U=;
-	b=s69QFT0M1jaEEoIyemRP4nmXu+g4fEQed9H+o23IMdvnXyiYpCsknxXNTDK/zt7opkpOuK
-	NKyHcKPslD23f/IUTt84ZingYVyWWjdOIup2Acghq77j11I6GXqNz/pgWre+/Tfsg2dUaw
-	ZtuI+Z5z04epmG+tuTLyo5HIeBZkAjQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1722281218;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ap1CzPaQNwLMZeEIW6gyKI8pGrm9CZN65+dOLmY4P3U=;
-	b=u5FK5zBv/I7ikIqK/JCXDhj8aV0EV/O3VeWTBQvrzIBtrpA8NTWYoQAYPShS72vW33kDZb
-	E4jpYECuYeoj7cCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1229138A7;
-	Mon, 29 Jul 2024 19:26:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Opr7LQLtp2YYPAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 29 Jul 2024 19:26:58 +0000
-Date: Mon, 29 Jul 2024 21:27:34 +0200
-Message-ID: <87jzh49exl.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Simon Trimmer <simont@opensource.cirrus.com>
-Cc: <tiwai@suse.com>,
-	<linux-sound@vger.kernel.org>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>
-Subject: Re: [PATCH] ALSA: hda: cs35l56: Stop creating ALSA controls for
- firmware coefficients
-In-Reply-To: <019d01dae1da$bc32b1d0$34981570$@opensource.cirrus.com>
-References: <20240729161532.147893-1-simont@opensource.cirrus.com>
-	<019d01dae1da$bc32b1d0$34981570$@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.10 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,alsa-project.org:email,suse.com:email,cirrus.com:email]
-Message-ID-Hash: PPUPPPOP2MYQLSPSSUWBDMKQIGQR6A73
-X-Message-ID-Hash: PPUPPPOP2MYQLSPSSUWBDMKQIGQR6A73
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=XUrKe0VV
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 8E1CB6149D;
+	Mon, 29 Jul 2024 19:37:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA431C32786;
+	Mon, 29 Jul 2024 19:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1722281854;
+	bh=lQ1UwaSVRVCr28nA9MaSL3OK4CCm3hBI4Kq6+31BSqY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=XUrKe0VVUZj94jTxc8zqQQzjE9ymJYbBPAUKm9WXeaaAPjwudJ7XUgr5DtcD8uGRA
+	 ohdogn/7LFCPN6kcrLqkohq92gXMdVL0ax9ubaiNZm3wzk3cCIlP5aGqpSdi5u//jO
+	 6iqRrBkbVBHQqU/JWZmqshQQ0MAy2llTqnskQIa/ahzK7h+ACyj7PuR4K5z06DaPUU
+	 ZtRddCROjSiT0Zk3uiOWXDx+979TCIIucX2imDjjOChWD+zKmQD8Ug8wLUBRPvjWkv
+	 19fqCpUw7U0J3rRrKVDwRTf9WCjZwWcIuVXMpshJ+CpzHw5VUT6no60zqNoYx3SyOs
+	 i4zSuUNixVwQw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
+ Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org
+In-Reply-To: 
+ <20240726-asoc-wcd-wsa-swr-ports-genmask-v1-0-d4d7a8b56f05@linaro.org>
+References: 
+ <20240726-asoc-wcd-wsa-swr-ports-genmask-v1-0-d4d7a8b56f05@linaro.org>
+Subject: Re: [PATCH 0/6] ASoC: codecs: wcd93xx/wsa88xx: Correct Soundwire
+ ports mask
+Message-Id: <172228185142.141226.9862825989484734633.b4-ty@kernel.org>
+Date: Mon, 29 Jul 2024 20:37:31 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-37811
+Message-ID-Hash: ODCLRKOWGVKYV6VDMRANCKZL3XIOQCOP
+X-Message-ID-Hash: ODCLRKOWGVKYV6VDMRANCKZL3XIOQCOP
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -156,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PPUPPPOP2MYQLSPSSUWBDMKQIGQR6A73/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ODCLRKOWGVKYV6VDMRANCKZL3XIOQCOP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -165,78 +106,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 29 Jul 2024 19:14:13 +0200,
-Simon Trimmer wrote:
+On Fri, 26 Jul 2024 16:10:40 +0200, Krzysztof Kozlowski wrote:
+> Incorrect mask of Soundwire ports - one bit too long/big - was passed.
 > 
-> Apologies Takashi - can you ignore this one please? It will need a V2
-
-Sure.
-
-
-thanks,
-
-Takashi
-
+> Theoretically, too wide mask could cause an out of bounds read in
+> sdw_get_slave_dpn_prop() in stream.c, however only in the case of buggy
+> driver, e.g. adding incorrect number of ports via
+> sdw_stream_add_slave().
 > 
-> > -----Original Message-----
-> > From: Simon Trimmer <simont@opensource.cirrus.com>
-> > Sent: Monday, July 29, 2024 5:16 PM
-> > To: tiwai@suse.com
-> > Cc: linux-sound@vger.kernel.org; alsa-devel@alsa-project.org; linux-
-> > kernel@vger.kernel.org; patches@opensource.cirrus.com; Simon Trimmer
-> > <simont@opensource.cirrus.com>
-> > Subject: [PATCH] ALSA: hda: cs35l56: Stop creating ALSA controls for
-> firmware
-> > coefficients
-> > 
-> > A number of laptops have gone to market with old firmware versions that
-> > export controls that have since been hidden, but we can't just install a
-> > newer firmware because the firmware for each product is customized and
-> > qualified by the OEM. The issue is that alsactl save and restore has no
-> > idea what controls are good to persist which can lead to
-> > misconfiguration.
-> > 
-> > As the ALSA controls for the firmware coefficients are not used in
-> > normal operation they can all be hidden, but add a kernel parameter so
-> > that they can be re-enabled for debugging.
-> > 
-> > Fixes: 73cfbfa9caea ("ALSA: hda/cs35l56: Add driver for Cirrus Logic
-> CS35L56
-> > amplifier")
-> > Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
-> > ---
-> >  sound/pci/hda/cs35l56_hda.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> > 
-> > diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
-> > index 96d3f13c5abf..1494383b22c9 100644
-> > --- a/sound/pci/hda/cs35l56_hda.c
-> > +++ b/sound/pci/hda/cs35l56_hda.c
-> > @@ -23,6 +23,10 @@
-> >  #include "hda_cs_dsp_ctl.h"
-> >  #include "hda_generic.h"
-> > 
-> > +static bool expose_dsp_controls;
-> > +module_param(expose_dsp_controls, bool, 0444);
-> > +MODULE_PARM_DESC(expose_dsp_controls, "Expose firmware controls as
-> > ALSA controls 0=no (default), 1=yes");
-> > +
-> >   /*
-> >    * The cs35l56_hda_dai_config[] reg sequence configures the device as
-> >    *  ASP1_BCLK_FREQ = 3.072 MHz
-> > @@ -758,6 +762,9 @@ static int cs35l56_hda_bind(struct device *dev, struct
-> > device *master, void *mas
-> > 
-> >  	cs35l56_hda_create_controls(cs35l56);
-> > 
-> > +	if (expose_dsp_controls)
-> > +		cs35l56_hda_add_dsp_controls(cs35l56);
-> > +
-> >  #if IS_ENABLED(CONFIG_SND_DEBUG)
-> >  	cs35l56->debugfs_root = debugfs_create_dir(dev_name(cs35l56-
-> > >base.dev), sound_debugfs_root);
-> >  	cs_dsp_init_debugfs(&cs35l56->cs_dsp, cs35l56->debugfs_root);
-> > --
-> > 2.43.0
-> 
-> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/6] ASoC: codecs: wcd937x-sdw: Correct Soundwire ports mask
+      commit: aebb1813c279ce8f3a2dfa3f86def0c0ec1cbb8d
+[2/6] ASoC: codecs: wcd938x-sdw: Correct Soundwire ports mask
+      commit: 3f6fb03dae9c7dfba7670858d29e03c8faaa89fe
+[3/6] ASoC: codecs: wcd939x-sdw: Correct Soundwire ports mask
+      commit: 74a79977c4e1d09eced33e6e22f875a5bb3fad29
+[4/6] ASoC: codecs: wsa881x: Correct Soundwire ports mask
+      commit: eb11c3bb64ad0a05aeacdb01039863aa2aa3614b
+[5/6] ASoC: codecs: wsa883x: Correct Soundwire ports mask
+      commit: 6801ac36f25690e14955f7f9eace1eaa29edbdd0
+[6/6] ASoC: codecs: wsa884x: Correct Soundwire ports mask
+      commit: dcb6631d05152930e2ea70fd2abfd811b0e970b5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

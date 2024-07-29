@@ -2,76 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1EAE93F268
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 12:17:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 209F193F36D
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 12:58:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B96EE80;
-	Mon, 29 Jul 2024 12:17:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B96EE80
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEC46B60;
+	Mon, 29 Jul 2024 12:58:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEC46B60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722248255;
-	bh=S2kDna0y+5oSBmGdHqrrYsJkaPHhKDJXjStLwhOwkz4=;
-	h=Date:To:From:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=IrxtR0yQCHfR7r0PywouZ1tWvUP0w2SjPA0LNgyWkSbhBnyn7ITug/oUrl1/6WjQv
-	 v8Zj4Gm4jNlKFxvCbTx2R1YsZqX4dFQQMGIQlhZ1TpIUkEgOLdeM0SA2lFzSmnhow0
-	 m95a8w61IUP7OXFg0lbWF4bnQP0xMH54KjdAdg6Q=
+	s=default; t=1722250727;
+	bh=rsai1WDbNUNphHRoS7Z+hKpaBA4Iq2R/l/XTuQ/R0bE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=omtFtxLAQ3UaTdH/vUaZc58ZAwc35crUMNtuErHOx02P4WH/5dehyeGjYOoUgrwrO
+	 wP7Aa3EiPHj7khF+7MTaJx1iS6xFpdNvVg4LxtNZpUVGQ7gnWSAibyUKcUvx5hYNlm
+	 Jm7A3CFeH+ul3ih6fmbkxQ9zoQd/Y4smGNhtzc10=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC157F802DB; Mon, 29 Jul 2024 12:17:04 +0200 (CEST)
+	id 8D2B9F805B0; Mon, 29 Jul 2024 12:58:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17B3AF802DB;
-	Mon, 29 Jul 2024 12:17:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3788AF805B1;
+	Mon, 29 Jul 2024 12:58:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3403F8026A; Mon, 29 Jul 2024 12:16:14 +0200 (CEST)
+	id 04FB0F802DB; Mon, 29 Jul 2024 12:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H4,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
 	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch
- [185.70.43.167])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 503DDF800E3
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 12:16:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 503DDF800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3F953F8007E
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 12:58:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F953F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256
- header.s=protonmail header.b=mc/1nV4m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1722248170; x=1722507370;
-	bh=S2kDna0y+5oSBmGdHqrrYsJkaPHhKDJXjStLwhOwkz4=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=mc/1nV4m8TMMGJeIUMii9ZkH6oZomOab96hwvnxWu2gNI3S1ZVUnJ0v7Zed2yjXbn
-	 As+t2qSXVrAbemPFvrTNio927NzUZiGO68n03CRMo48JkQq0GBnNVFHQrG/9WEMvhR
-	 8ITLplTApB0EwO2nJhfcW0JEAxWVLXyFfhVxjTwyeOPq/4aUrQ/y5XDjvfzp7GLTgv
-	 i4JPcs1zShaNrnPF1B45jSotEIB+vq3FL+DJanNBp4XYD1KA9SweE50fAWSQ1r19TJ
-	 xllms2BUBPXvfcoUZnnIdmH6ReKgnFf4032J509CYFJSqc2NiqqE4UIU48Ow4OWcrS
-	 W2Smoi8ufMUvA==
-Date: Mon, 29 Jul 2024 10:16:04 +0000
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-From: "edmund.raile" <edmund.raile@proton.me>
-Cc: linux-sound@vger.kernel.org, stable@vger.kernel.org, tiwai@suse.com,
- clemens@ladisch.de, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] ALSA: firewire-lib: restore process context
- workqueue to prevent deadlock
-Message-ID: <ora25phw5xyiog2z5xmlkrwvgffpwjq27algi6hqjs7s76b2qg@wbgokl2mblbq>
-Feedback-ID: 45198251:user:proton
-X-Pm-Message-ID: a09e72281001a8ca1419aa95857d79dea51fda67
+ unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com
+ header.a=rsa-sha256 header.s=k1 header.b=OAHR5mQZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=NlU1
+	KeWDVQKzAh1jEb0mrC7e+c0mfZHxd5Tmaj7++js=; b=OAHR5mQZvS3aO0VDTwQn
+	F3kbpavwrGnfdwaGPNUgSALJ5SPCQDN0MIMfHrlkibXWzReQhduf9mX3nKTQ0WLD
+	Hy5lEeFQVL8pmkX7EsnVwAyJ0Yxa5jC7JPxkDVNGsZGpfqi5hoczOXlR1UyQzaCj
+	N5oFilFDF/4ItOq/gL1e6yApU575L9al+q4ROC0/TE0RmZXxlxXuxPBUf9K8tHCX
+	LmW/YjG5xmxFNduUhceUq3IoZrBxreJH9JrG+HDbx1NOzhG7Sx7vceb6HKcjbg8Z
+	oHtdQEioHVklKdLPTYerBZeHFr8mCnFlwfF6D5dnsgoe99lO56JiT+U7q0JpkS3y
+	5g==
+Received: (qmail 4076308 invoked from network); 29 Jul 2024 12:58:05 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 29 Jul 2024 12:58:05 +0200
+X-UD-Smtp-Session: l3s3148p1@NohHvGAesLogAwDPXxLGAIH3oZkcU6AS
+Date: Mon, 29 Jul 2024 12:58:04 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Bjorn Andersson <quic_bjorande@quicinc.com>
+Cc: alsa-devel@alsa-project.org, Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 0/3] slimbus: use 'time_left' instead of 'timeout' with
+ wait_for_*() functions
+Message-ID: <Zqd1vHoEnxxolkn0@shikoro>
+Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Bjorn Andersson <quic_bjorande@quicinc.com>,
+	alsa-devel@alsa-project.org, Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <20240430120102.29459-1-wsa+renesas@sang-engineering.com>
+ <ZjDyWFlx2cjfi1MJ@hu-bjorande-lv.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: ZHL4QBOPY34PUE3PZEHLCZ5OYW7VFDRK
-X-Message-ID-Hash: ZHL4QBOPY34PUE3PZEHLCZ5OYW7VFDRK
-X-MailFrom: edmund.raile@proton.me
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+cknL3Al0OGm9pyy"
+Content-Disposition: inline
+In-Reply-To: <ZjDyWFlx2cjfi1MJ@hu-bjorande-lv.qualcomm.com>
+Message-ID-Hash: WJUKAT3ZA53ML32N6AKKJSCIDOH76Z5P
+X-Message-ID-Hash: WJUKAT3ZA53ML32N6AKKJSCIDOH76Z5P
+X-MailFrom: wsa+renesas@sang-engineering.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -83,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHL4QBOPY34PUE3PZEHLCZ5OYW7VFDRK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJUKAT3ZA53ML32N6AKKJSCIDOH76Z5P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,59 +105,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> Thank you for your sending the revised patches, it looks better than the
-> previous one. However, I have an additional request.
-Allright, patch v3 it is.
 
-> [1] https://git-scm.com/docs/git-revert
-Should have known git has something like that, how handy!
+--+cknL3Al0OGm9pyy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> $ git revert -s b5b519965c4c
-Yes, 5b5 can be removed via revert, but what is the difference in
-effect? Just time saving?
-> $ git revert -s 7ba5ca32fe6e
-This one I'd like to ask you about:
-The original inline comment in amdtp-stream.c
-amdtp_domain_stream_pcm_pointer()
-```
-// This function is called in software IRQ context of
-// period_work or process context.
-//
-// When the software IRQ context was scheduled by software IRQ
-// context of IT contexts, queued packets were already handled.
-// Therefore, no need to flush the queue in buffer furthermore.
-//
-// When the process context reach here, some packets will be
-// already queued in the buffer. These packets should be handled
-// immediately to keep better granularity of PCM pointer.
-//
-// Later, the process context will sometimes schedules software
-// IRQ context of the period_work. Then, no need to flush the
-// queue by the same reason as described in the above
-```
-(let's call the above v1) was replaced with
-```
-// In software IRQ context, the call causes dead-lock to disable the taskle=
-t
-// synchronously.
-```
-on occasion of 7ba5ca32fe6e (let's call this v2).
+On Tue, Apr 30, 2024 at 06:30:00AM -0700, Bjorn Andersson wrote:
+> On Tue, Apr 30, 2024 at 02:00:58PM +0200, Wolfram Sang wrote:
+> > There is a confusing pattern in the kernel to use a variable named 'tim=
+eout' to
+> > store the result of wait_for_*() functions causing patterns like:
+> >=20
+> >         timeout =3D wait_for_completion_timeout(...)
+> >         if (!timeout) return -ETIMEDOUT;
+> >=20
+> > with all kinds of permutations. Use 'time_left' as a variable to make t=
+he code
+> > obvious and self explaining.
+> >=20
+> > This is part of a tree-wide series. The rest of the patches can be foun=
+d here
+> > (some parts may still be WIP):
+> >=20
+> > git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/time_le=
+ft
+> >=20
+> > Because these patches are generated, I audit them before sending. This =
+is why I
+> > will send series step by step. Build bot is happy with these patches, t=
+hough.
+> > No functional changes intended.
+> >=20
+>=20
+> Reviewed-by: Bjorn Andersson <quic_bjorande@quicinc.com>
 
-I sought to replace it with
-```
-// use wq to prevent deadlock between process context spin_lock
-// of snd_pcm_stream_lock_irq() in snd_pcm_status64() and
-// softIRQ context spin_lock of snd_pcm_stream_lock_irqsave()
-// in snd_pcm_period_elapsed()
-```
-to prevent this issue from occurring again (let's call this v3).
+Thanks, Bjorn. Is Srinivas still pick slimbus patches?
 
-Should I include v1, v3 or a combination of v1 and v3 in my next patch?
 
-> Just for safe, it is preferable to execute 'scripts/checkpatch.pl' in
-> kernel tree to check the patchset generated by send-email subcommand[3].
-Absolutely should have done so, sorry.
+--+cknL3Al0OGm9pyy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thank you for your patience and guidance,
-Edmund Raile.
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmandbgACgkQFA3kzBSg
+KbaskRAAgHnV1i8eFtbuTKyO0gMzd1CCUEa3gnpaT196gJstpASz+YeK7r4j1o/j
+HtEofmbsK8gF/4+hxEoZowAnM50t5vnjcQz5wAu7DyV2p6MLyvYV7iIU+Wai89k2
+B9+Og/36PGDXvUWbrPJdX8GRBR92TZGlmalCi+wHc0rn8IPvuQ4a3ACuoQJ2G8K+
+ryWxCq8NmzEsXPljzXnC/iz2whGlIY+ahNj5sgR74CZHH0xAGmGXcF/+Qs7Ha3bs
+9Y00p7HpsSIvW8qoLfUug69pV6EeahETAsx5E+Ja1gXPZuJSedfyz4wieOKJOmk6
+iZRrXIKmRuKAT9xfwWbrEuKGKaseRr6Y9+VFV879qejZi0rp+R2UE0g3tEco0IvO
+KulP559zDKlmPzB7s7irX6I9o9gviqShjlue//QmOG6URUWTjV3zrx52RGmAEd45
+L+CGQGClrEXgusOX6+fsUOnaUnomKLu9P53LsKT5ybNGht2YDJ4AhW0M0KgGr3j6
+wLKZGckva40xuFDTHHZe6JfMzSq7zfJyJXZiDArx0Vo7Yc0mnSPcCODXFhT3zzJ1
+HuziH0w+f2i/PD5wFU+Gulpm1rBz79lwJ83ovT+pxg3Kk4kiugb1O5rPTybfg6/g
+EuBHOIl59f1J/B+OEWtfy/9qe8vfTQbPqfuzpYeV3ywpXRCSP7M=
+=mgwZ
+-----END PGP SIGNATURE-----
+
+--+cknL3Al0OGm9pyy--

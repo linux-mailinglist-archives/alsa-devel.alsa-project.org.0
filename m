@@ -2,101 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 209F193F36D
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 12:58:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D88293F6A2
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2024 15:25:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEC46B60;
-	Mon, 29 Jul 2024 12:58:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEC46B60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3ED0482A;
+	Mon, 29 Jul 2024 15:25:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ED0482A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722250727;
-	bh=rsai1WDbNUNphHRoS7Z+hKpaBA4Iq2R/l/XTuQ/R0bE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=omtFtxLAQ3UaTdH/vUaZc58ZAwc35crUMNtuErHOx02P4WH/5dehyeGjYOoUgrwrO
-	 wP7Aa3EiPHj7khF+7MTaJx1iS6xFpdNvVg4LxtNZpUVGQ7gnWSAibyUKcUvx5hYNlm
-	 Jm7A3CFeH+ul3ih6fmbkxQ9zoQd/Y4smGNhtzc10=
+	s=default; t=1722259540;
+	bh=2/YZLHYwe6VeiM3pUFkU5Uwf+RFlzvvWMDWutDwHs1Q=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nhmEt/qEXosPQfOw5yxLlHc/B9em7f7KgzJo0MUQDdEJUm4iVOCFaeJFrTcM3Q62+
+	 GOCiU4Z1v9pKASYYeJIHlGQwkZ4fYBPTlC0r4yhjqNIk4pDc1XG/MgvP2haaRbBMV5
+	 Ssfgnm/A7C+Tz3PCnRZ8bG/EYxR/yU22DWRdGkD0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D2B9F805B0; Mon, 29 Jul 2024 12:58:16 +0200 (CEST)
+	id 91205F805A1; Mon, 29 Jul 2024 15:25:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3788AF805B1;
-	Mon, 29 Jul 2024 12:58:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6F9CF805AF;
+	Mon, 29 Jul 2024 15:25:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04FB0F802DB; Mon, 29 Jul 2024 12:58:11 +0200 (CEST)
+	id 09B30F80269; Mon, 29 Jul 2024 15:20:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE shortcircuit=no
+	autolearn=unavailable version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F953F8007E
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 12:58:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F953F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id B0065F80269
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 15:14:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0065F80269
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com
- header.a=rsa-sha256 header.s=k1 header.b=OAHR5mQZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=NlU1
-	KeWDVQKzAh1jEb0mrC7e+c0mfZHxd5Tmaj7++js=; b=OAHR5mQZvS3aO0VDTwQn
-	F3kbpavwrGnfdwaGPNUgSALJ5SPCQDN0MIMfHrlkibXWzReQhduf9mX3nKTQ0WLD
-	Hy5lEeFQVL8pmkX7EsnVwAyJ0Yxa5jC7JPxkDVNGsZGpfqi5hoczOXlR1UyQzaCj
-	N5oFilFDF/4ItOq/gL1e6yApU575L9al+q4ROC0/TE0RmZXxlxXuxPBUf9K8tHCX
-	LmW/YjG5xmxFNduUhceUq3IoZrBxreJH9JrG+HDbx1NOzhG7Sx7vceb6HKcjbg8Z
-	oHtdQEioHVklKdLPTYerBZeHFr8mCnFlwfF6D5dnsgoe99lO56JiT+U7q0JpkS3y
-	5g==
-Received: (qmail 4076308 invoked from network); 29 Jul 2024 12:58:05 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 29 Jul 2024 12:58:05 +0200
-X-UD-Smtp-Session: l3s3148p1@NohHvGAesLogAwDPXxLGAIH3oZkcU6AS
-Date: Mon, 29 Jul 2024 12:58:04 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Bjorn Andersson <quic_bjorande@quicinc.com>
-Cc: alsa-devel@alsa-project.org, Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bclbK1iY
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 8BEAE619A2;
+	Mon, 29 Jul 2024 13:14:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39A48C32786;
+	Mon, 29 Jul 2024 13:14:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1722258848;
+	bh=2/YZLHYwe6VeiM3pUFkU5Uwf+RFlzvvWMDWutDwHs1Q=;
+	h=From:To:Cc:Subject:Date:From;
+	b=bclbK1iYJNgcrsT5kdKuydrNKIIhB9Xkxuu1vbCk/IdIchAHY6fpEbFbDii9Glg8A
+	 0/Qbp/aoa7Axdt7t/0BEA4CsN1wHaj7u5GNvphqVma1VRiAhZs649aYytLB3nM0oml
+	 0/6VaNQmEls7l/T0BYUAVW5rJL/5DUL7F4xgS980I3Kahyo+Nek+D/G3/hVJwdbRLx
+	 YqmlZRo0FlELbCfH7iCamL0xvOhnpQX2TjiPtqu1cDrL3J6jUVl/R6TVgMkwyaPzqK
+	 xV/8LfAblWT7U5DkEL/SqAvZJJrQXP4CwZdKpxwlZzofWC/fr0PMh9rJU6AO0g1N2O
+	 JH9JhCwmkpcGw==
+Received: from johan by xi.lan with local (Exim 4.97.1)
+	(envelope-from <johan+linaro@kernel.org>)
+	id 1sYQCa-000000007G9-1tX1;
+	Mon, 29 Jul 2024 15:14:13 +0200
+From: Johan Hovold <johan+linaro@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	alsa-devel@alsa-project.org,
 	linux-arm-msm@vger.kernel.org,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 0/3] slimbus: use 'time_left' instead of 'timeout' with
- wait_for_*() functions
-Message-ID: <Zqd1vHoEnxxolkn0@shikoro>
-Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Bjorn Andersson <quic_bjorande@quicinc.com>,
-	alsa-devel@alsa-project.org, Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-References: <20240430120102.29459-1-wsa+renesas@sang-engineering.com>
- <ZjDyWFlx2cjfi1MJ@hu-bjorande-lv.qualcomm.com>
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Johan Hovold <johan+linaro@kernel.org>,
+	regressions@lists.linux.dev
+Subject: [PATCH] ASoC: codecs: lpass-macro: fix missing codec version
+Date: Mon, 29 Jul 2024 15:13:51 +0200
+Message-ID: <20240729131351.27886-1-johan+linaro@kernel.org>
+X-Mailer: git-send-email 2.44.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+cknL3Al0OGm9pyy"
-Content-Disposition: inline
-In-Reply-To: <ZjDyWFlx2cjfi1MJ@hu-bjorande-lv.qualcomm.com>
-Message-ID-Hash: WJUKAT3ZA53ML32N6AKKJSCIDOH76Z5P
-X-Message-ID-Hash: WJUKAT3ZA53ML32N6AKKJSCIDOH76Z5P
-X-MailFrom: wsa+renesas@sang-engineering.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: CV2D6C4MIC7MGNHNLSLZUNKVXSNILSA5
+X-Message-ID-Hash: CV2D6C4MIC7MGNHNLSLZUNKVXSNILSA5
+X-MailFrom: johan+linaro@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJUKAT3ZA53ML32N6AKKJSCIDOH76Z5P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CV2D6C4MIC7MGNHNLSLZUNKVXSNILSA5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,62 +105,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Recent changes that started checking the codec version broke audio on
+the Lenovo ThinkPad X13s:
 
---+cknL3Al0OGm9pyy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+	wsa_macro 3240000.codec: Unsupported Codec version (0)
+	wsa_macro 3240000.codec: probe with driver wsa_macro failed with error -22
+	rx_macro 3200000.rxmacro: Unsupported Codec version (0)
+	rx_macro 3200000.rxmacro: probe with driver rx_macro failed with error -22
 
-On Tue, Apr 30, 2024 at 06:30:00AM -0700, Bjorn Andersson wrote:
-> On Tue, Apr 30, 2024 at 02:00:58PM +0200, Wolfram Sang wrote:
-> > There is a confusing pattern in the kernel to use a variable named 'tim=
-eout' to
-> > store the result of wait_for_*() functions causing patterns like:
-> >=20
-> >         timeout =3D wait_for_completion_timeout(...)
-> >         if (!timeout) return -ETIMEDOUT;
-> >=20
-> > with all kinds of permutations. Use 'time_left' as a variable to make t=
-he code
-> > obvious and self explaining.
-> >=20
-> > This is part of a tree-wide series. The rest of the patches can be foun=
-d here
-> > (some parts may still be WIP):
-> >=20
-> > git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/time_le=
-ft
-> >=20
-> > Because these patches are generated, I audit them before sending. This =
-is why I
-> > will send series step by step. Build bot is happy with these patches, t=
-hough.
-> > No functional changes intended.
-> >=20
->=20
-> Reviewed-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+Add the missing codec version to the lookup table so that the codec
+drivers probe successfully.
 
-Thanks, Bjorn. Is Srinivas still pick slimbus patches?
+Note that I'm just assuming that this is a 2.0 codec based on the fact
+that this device uses the older register layout.
+
+Fixes: 378918d59181 ("ASoC: codecs: lpass-macro: add helpers to get codec version")
+Fixes: dbacef05898d ("ASoC: codec: lpass-rx-macro: prepare driver to accomdate new codec versions")
+Fixes: 727de4fbc546 ("ASoC: codecs: lpass-wsa-macro: Correct support for newer v2.5 version")
+Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+---
+Cc: regressions@lists.linux.dev
+#regzbot introduced: 378918d59181
 
 
---+cknL3Al0OGm9pyy
-Content-Type: application/pgp-signature; name="signature.asc"
+ sound/soc/codecs/lpass-va-macro.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+index b852cc7ffad9..a62ccd09bacd 100644
+--- a/sound/soc/codecs/lpass-va-macro.c
++++ b/sound/soc/codecs/lpass-va-macro.c
+@@ -1472,6 +1472,8 @@ static void va_macro_set_lpass_codec_version(struct va_macro *va)
+ 
+ 	if ((core_id_0 == 0x01) && (core_id_1 == 0x0F))
+ 		version = LPASS_CODEC_VERSION_2_0;
++	if ((core_id_0 == 0x02) && (core_id_1 == 0x0F) && core_id_2 == 0x01)
++		version = LPASS_CODEC_VERSION_2_0;
+ 	if ((core_id_0 == 0x02) && (core_id_1 == 0x0E))
+ 		version = LPASS_CODEC_VERSION_2_1;
+ 	if ((core_id_0 == 0x02) && (core_id_1 == 0x0F) && (core_id_2 == 0x50 || core_id_2 == 0x51))
+-- 
+2.44.2
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmandbgACgkQFA3kzBSg
-KbaskRAAgHnV1i8eFtbuTKyO0gMzd1CCUEa3gnpaT196gJstpASz+YeK7r4j1o/j
-HtEofmbsK8gF/4+hxEoZowAnM50t5vnjcQz5wAu7DyV2p6MLyvYV7iIU+Wai89k2
-B9+Og/36PGDXvUWbrPJdX8GRBR92TZGlmalCi+wHc0rn8IPvuQ4a3ACuoQJ2G8K+
-ryWxCq8NmzEsXPljzXnC/iz2whGlIY+ahNj5sgR74CZHH0xAGmGXcF/+Qs7Ha3bs
-9Y00p7HpsSIvW8qoLfUug69pV6EeahETAsx5E+Ja1gXPZuJSedfyz4wieOKJOmk6
-iZRrXIKmRuKAT9xfwWbrEuKGKaseRr6Y9+VFV879qejZi0rp+R2UE0g3tEco0IvO
-KulP559zDKlmPzB7s7irX6I9o9gviqShjlue//QmOG6URUWTjV3zrx52RGmAEd45
-L+CGQGClrEXgusOX6+fsUOnaUnomKLu9P53LsKT5ybNGht2YDJ4AhW0M0KgGr3j6
-wLKZGckva40xuFDTHHZe6JfMzSq7zfJyJXZiDArx0Vo7Yc0mnSPcCODXFhT3zzJ1
-HuziH0w+f2i/PD5wFU+Gulpm1rBz79lwJ83ovT+pxg3Kk4kiugb1O5rPTybfg6/g
-EuBHOIl59f1J/B+OEWtfy/9qe8vfTQbPqfuzpYeV3ywpXRCSP7M=
-=mgwZ
------END PGP SIGNATURE-----
-
---+cknL3Al0OGm9pyy--

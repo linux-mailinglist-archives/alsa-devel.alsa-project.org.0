@@ -2,144 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A09F19429AD
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:53:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F4CE9429AE
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:54:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A89B62CFD;
-	Wed, 31 Jul 2024 10:53:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A89B62CFD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 533A32D14;
+	Wed, 31 Jul 2024 10:53:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 533A32D14
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722416035;
-	bh=zZ1diTwdBFLWVY+JZ+0pKMWYvvFbvI82HD0Up/hucrg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FxAiZzLu+ejcR0g+Qz9N4kwNrYeIxYqcnlL1KU2F88ySj2kgsPRi+ADUGVqPJR6Or
-	 4UGri0LU8QGZspyclOPn4Xbneoc2+a5nhYyhuy7jnuceqxG8fhmeSoIlNV7fN34T6C
-	 ZeMVOcfGDuuUvipgcRU/cDY9jpWidIl+UC+c+JbY=
+	s=default; t=1722416045;
+	bh=PhC0RI97md9k9y8LsetvWy1lS6M7fW5lB/J+ZQOYu8k=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=k1cTQTh//DmvqAcEflQFpMWfMSTnvEiRwPXGUjNoC6l2A1ORto95GOTNW+9rE9p4d
+	 IEb/aZTDlA/fYsBmYbmLlqCVg2j739/DTYc570fScT/kP7DxznLoTwa0GVR2b/6bsZ
+	 3n7EgQ0oAq/JS04+KqMFqdI2l61I+vIFRrzGkSt4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACA0CF80897; Wed, 31 Jul 2024 10:50:10 +0200 (CEST)
+	id 96D94F80C57; Wed, 31 Jul 2024 10:50:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2891F8087D;
-	Wed, 31 Jul 2024 10:50:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C63A3F80C75;
+	Wed, 31 Jul 2024 10:50:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B2E4F80448; Mon, 29 Jul 2024 11:40:57 +0200 (CEST)
+	id CBAA1F8026A; Mon, 29 Jul 2024 15:30:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F116F8026A
-	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 11:37:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F116F8026A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 38E7AF802DB
+	for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2024 15:29:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38E7AF802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=LOGYEvGa
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a77ec5d3b0dso394734866b.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 29 Jul 2024 02:37:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722245871; x=1722850671;
- darn=alsa-project.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3eJDPYXgy8QQkiw/Zb7wYEQMVUFtjlM4KzTipc5erj0=;
-        b=LOGYEvGakfqIhaIRMePWBUjXNg75QrRrqVhjCTNYqZG4h+ckhjIhBIBKag22PRK6zx
-         b9jLIoRl4QtKeOMTcSisjZkBsZlgvInjvymCYtdbpzlgNM/A6hXAl6Fo706Yd3gcy7Fz
-         BF2pupXEyWXmB1uMfRhjncJmcxSryc6TkZPjXGeV7WquVpEFdBLs6/K+FZ0rbc3r+brk
-         4ItMdDH78eXPXgi6y7+xZHK5atCjxc4m6RH3HQk4F/Z7KwEHwXyXD4HrORt1Qf6f1aqP
-         C+glUHkhoeajKJtHuS/ZzBiNtezpd5Yu9/aC0wN1X2de0hhEUIZdTloL4fYgAYmHJvv2
-         xKDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722245871; x=1722850671;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3eJDPYXgy8QQkiw/Zb7wYEQMVUFtjlM4KzTipc5erj0=;
-        b=ZRkbjw3OpFERiKfDy4gI562sJMXaF9Sp0J1h/BfX9mfQ8gOneJ/xSrJg8rb9TIqCR7
-         7vsmw+utP32sXAXckWmXHQplINCTQ5dyPInhKDnG1j2YZXVaHQcDHlwpCvnDEdUbTRWf
-         L4Yt+2aFjqbVow9gj8NcbcFj/lOj35LOOgWKWOXUr93rY/5siB/CqH9DxncplKj7euJf
-         BhtCrD/033TFEtdZ15t38sI22NG6C2ojjGkN0lYycI7v69fAW+oDG0v4viJwy6gNsff2
-         ZQrqQQvHRfwQwEAZXjOqCvbr6wre9GOflQ6THEb2tbufqOAjF4Z1zEKVXIW0dpj1P4RT
-         E7+w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCURoRzFJirNdJbqK/gIqs+SE9vz53hWhcjLDAz0e0nSV3CIyavc4tZDj1K7TdLtkVJsqAVC8J+6/gL/Sn6K2SmlM12CQ3CQOSWjeHU=
-X-Gm-Message-State: AOJu0YzRH4OwOZM1+9M7PvtJdbrDF853kY5xD54wyW1PJwVwehaKCcW7
-	ckkfcaK7YqlZL32mEOuzlSFK0IamErSLUjEvB3mZ5tCaQ0RrIw2s
-X-Google-Smtp-Source: 
- AGHT+IEBHnn7keFlJ0y5guCeEd5XYooTXx71rjnTo2kZAITFA6R1xQQb3gBfc6pw8Nx1ROztsH5/xw==
-X-Received: by 2002:a17:906:d54a:b0:a7a:a763:8428 with SMTP id
- a640c23a62f3a-a7d3ffef7e0mr398513466b.25.1722245871127;
-        Mon, 29 Jul 2024 02:37:51 -0700 (PDT)
-Received: from [127.0.1.1] (91-118-163-37.static.upcbusiness.at.
- [91.118.163.37])
-        by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a7acad41b24sm481617966b.116.2024.07.29.02.37.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 29 Jul 2024 02:37:50 -0700 (PDT)
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Mon, 29 Jul 2024 11:37:38 +0200
-Subject: [PATCH v2 2/2] ASoC: constify snd_soc_component_driver struct
+ unprotected) header.d=salutedevices.com header.i=@salutedevices.com
+ header.a=rsa-sha256 header.s=mail header.b=sCzzbvb1
+Received: from p-infra-ksmg-sc-msk01.sberdevices.ru (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id A7C1E10000E;
+	Mon, 29 Jul 2024 16:29:31 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru A7C1E10000E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=mail; t=1722259771;
+	bh=RJNDbeEsGw2i19N8O8rkd1KwYIh3I0C9iW1DtmgVgjg=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
+	b=sCzzbvb1lqCHcR9HPwF82MfcoKaTrvXXG+W6ZL3BcfuhQRtYaNGf8ei+EA2b49Kyy
+	 WoNCQeSDrI+UW+FOD0Yim0h1Gu2Cakipijw3kmBDXhch+r/qAfABYutN7p1tDjySHL
+	 ggqVfU6t9gxeKVatlt892B4WuSRG3ZnZhr9pPcXL8Wo+p/HSyKuyDimxsxYXtHH8U5
+	 d5uVZsUvYt4g5i/CR7WlLk/OiBqbPv7T5bMN92/Xuy8mHlkJ6aZMFd6rZGINyxmKwr
+	 TJ1HQIKeEWIbPX33QDsgOg3u+XeeSb5qtPj/Q9KQ3iH9c8ZeQdHYLDDrBmDjafXfWV
+	 sahQNcRihn8+w==
+Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
+ [172.16.192.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.sberdevices.ru (Postfix) with ESMTPS;
+	Mon, 29 Jul 2024 16:29:31 +0300 (MSK)
+Received: from localhost.localdomain (100.64.160.123) by
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Mon, 29 Jul 2024 16:29:30 +0300
+From: Arseniy Krasnov <avkrasnov@salutedevices.com>
+To: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin
+ Hilman <khilman@baylibre.com>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, <alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <kernel@sberdevices.ru>, <oxffffaa@gmail.com>,
+	<avkrasnov@salutedevices.com>
+Subject: [PATCH v1] ASoC: meson: axg-fifo: set option to use raw spinlock
+Date: Mon, 29 Jul 2024 16:16:52 +0300
+Message-ID: <20240729131652.3012327-1-avkrasnov@salutedevices.com>
+X-Mailer: git-send-email 2.35.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: 
- <20240729-const_snd_soc_component_driver-v2-2-1994f44f1ec2@gmail.com>
-References: 
- <20240729-const_snd_soc_component_driver-v2-0-1994f44f1ec2@gmail.com>
-In-Reply-To: 
- <20240729-const_snd_soc_component_driver-v2-0-1994f44f1ec2@gmail.com>
-To: Tim Harvey <tharvey@gateworks.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
- Javier Carrasco <javier.carrasco.cruz@gmail.com>
-X-Mailer: b4 0.14-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1722245866; l=7340;
- i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
- bh=zZ1diTwdBFLWVY+JZ+0pKMWYvvFbvI82HD0Up/hucrg=;
- b=cRSDxdHyOHXmzLyYvLiNlix02j3ou428swU4/3/NqFC3bMG3c7oecUnUl5+vKxiblOPgDxGaB
- ny4oe+aTVW0Dn0OxNtzjiG8MAMO6P3tIKEmPT2ClAJheGb4Y3GQmsgL
-X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
- pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
-X-MailFrom: javier.carrasco.cruz@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [100.64.160.123]
+X-ClientProxiedBy: p-i-exch-sc-m02.sberdevices.ru (172.16.192.103) To
+ p-i-exch-sc-m02.sberdevices.ru (172.16.192.103)
+X-KSMG-Rule-ID: 10
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 186773 [Jul 29 2024]
+X-KSMG-AntiSpam-Version: 6.1.0.4
+X-KSMG-AntiSpam-Envelope-From: avkrasnov@salutedevices.com
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 24 0.3.24
+ 186c4d603b899ccfd4883d230c53f273b80e467f,
+ {Tracking_from_domain_doesnt_match_to},
+ 100.64.160.123:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;smtp.sberdevices.ru:7.1.1,5.0.1;salutedevices.com:7.1.1;127.0.0.199:7.1.2,
+ FromAlignment: s, ApMailHostAddress: 100.64.160.123
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/07/29 12:26:00 #26174422
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-MailFrom: avkrasnov@salutedevices.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BTXERUWRMXDPUVK2JJZPOKVZ55ZBAMUS
-X-Message-ID-Hash: BTXERUWRMXDPUVK2JJZPOKVZ55ZBAMUS
+Message-ID-Hash: 6QXI7NH3SJDQFX6FH4ZUHS5UXCUZ5JVN
+X-Message-ID-Hash: 6QXI7NH3SJDQFX6FH4ZUHS5UXCUZ5JVN
 X-Mailman-Approved-At: Wed, 31 Jul 2024 08:49:36 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTXERUWRMXDPUVK2JJZPOKVZ55ZBAMUS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6QXI7NH3SJDQFX6FH4ZUHS5UXCUZ5JVN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -148,182 +130,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Declare `snd_soc_component_driver` as const to move it to a read-only
-section for the drivers that do not modify the struct after its
-declaration.
+Raw spinlock is needed here, because with enabled PREEMPT_RT,
+spinlock_t become preemptible, but this regmap lock could be
+acquired in IRQ handler. Found by lockdep:
 
-The affected drivers only pass this struct to
-`devm_snd_soc_register_component()`, whose argument is const and
-therefore does not modify the content of the struct.
+[ ] =============================
+[ ] [ BUG: Invalid wait context ]
+[ ] 6.9.9-sdkernel #1 Tainted: G O
+[ ] -----------------------------
+[ ] aplay/413 is trying to lock:
+[ ] ffff000003930018 (axg_fifo:356:(&axg_fifo_regmap_cfg)->lock){....}-{3:3},c
+[ ] other info that might help us debug this:
+[ ] context-{2:2}
+[ ] no locks held by aplay/413.
+[ ] stack backtrace:
+[ ] CPU: 0 PID: 413 Comm: aplay Tainted: G           O       6.9.9-kernel #1
+[ ] Hardware name: SberDevices SberBoom Mini (DT)
+[ ] Call trace:
+[ ]  dump_backtrace+0x98/0xf0
+[ ]  show_stack+0x18/0x24
+[ ]  dump_stack_lvl+0x90/0xd0
+[ ]  dump_stack+0x18/0x24
+[ ]  __lock_acquire+0x9dc/0x1f10
+[ ]  lock_acquire.part.0+0xe8/0x228
+[ ]  lock_acquire+0x68/0x84
+[ ]  _raw_spin_lock_irqsave+0x60/0x88
+[ ]  regmap_lock_spinlock+0x18/0x2c
+[ ]  regmap_read+0x3c/0x78
+[ ]  axg_fifo_pcm_irq_block+0x4c/0xc8
+[ ]  __handle_irq_event_percpu+0xa4/0x2f8
+[ ]  handle_irq_event+0x4c/0xbc
+[ ]  handle_fasteoi_irq+0xa4/0x23c
+[ ]  generic_handle_domain_irq+0x2c/0x44
+[ ]  gic_handle_irq+0x40/0xc4
+[ ]  call_on_irq_stack+0x24/0x4c
+[ ]  do_interrupt_handler+0x80/0x84
+[ ]  el0_interrupt+0x5c/0x124
+[ ]  __el0_irq_handler_common+0x18/0x24
+[ ]  el0t_32_irq_handler+0x10/0x1c
+[ ]  el0t_32_irq+0x194/0x198
 
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Signed-off-by: Arseniy Krasnov <avkrasnov@salutedevices.com>
 ---
- sound/soc/au1x/dbdma2.c              | 2 +-
- sound/soc/au1x/dma.c                 | 2 +-
- sound/soc/bcm/cygnus-pcm.c           | 2 +-
- sound/soc/codecs/cpcap.c             | 2 +-
- sound/soc/codecs/pcm186x.c           | 4 ++--
- sound/soc/codecs/pcm5102a.c          | 2 +-
- sound/soc/codecs/spdif_receiver.c    | 2 +-
- sound/soc/codecs/spdif_transmitter.c | 2 +-
- sound/soc/codecs/tas6424.c           | 2 +-
- sound/soc/stm/stm32_adfsdm.c         | 2 +-
- sound/soc/uniphier/evea.c            | 2 +-
- 11 files changed, 12 insertions(+), 12 deletions(-)
+ sound/soc/meson/axg-fifo.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/au1x/dbdma2.c b/sound/soc/au1x/dbdma2.c
-index ea01d6490cec..3392693faeb9 100644
---- a/sound/soc/au1x/dbdma2.c
-+++ b/sound/soc/au1x/dbdma2.c
-@@ -311,7 +311,7 @@ static int au1xpsc_pcm_new(struct snd_soc_component *component,
- }
- 
- /* au1xpsc audio platform */
--static struct snd_soc_component_driver au1xpsc_soc_component = {
-+static const struct snd_soc_component_driver au1xpsc_soc_component = {
- 	.name		= DRV_NAME,
- 	.open		= au1xpsc_pcm_open,
- 	.close		= au1xpsc_pcm_close,
-diff --git a/sound/soc/au1x/dma.c b/sound/soc/au1x/dma.c
-index d2fdebd8881b..c9c2b1e71d55 100644
---- a/sound/soc/au1x/dma.c
-+++ b/sound/soc/au1x/dma.c
-@@ -289,7 +289,7 @@ static int alchemy_pcm_new(struct snd_soc_component *component,
- 	return 0;
- }
- 
--static struct snd_soc_component_driver alchemy_pcm_soc_component = {
-+static const struct snd_soc_component_driver alchemy_pcm_soc_component = {
- 	.name		= DRV_NAME,
- 	.open		= alchemy_pcm_open,
- 	.close		= alchemy_pcm_close,
-diff --git a/sound/soc/bcm/cygnus-pcm.c b/sound/soc/bcm/cygnus-pcm.c
-index 2d1e241d8367..4cb2fe10bcdc 100644
---- a/sound/soc/bcm/cygnus-pcm.c
-+++ b/sound/soc/bcm/cygnus-pcm.c
-@@ -707,7 +707,7 @@ static int cygnus_dma_new(struct snd_soc_component *component,
- 	return 0;
- }
- 
--static struct snd_soc_component_driver cygnus_soc_platform = {
-+static const struct snd_soc_component_driver cygnus_soc_platform = {
- 	.open		= cygnus_pcm_open,
- 	.close		= cygnus_pcm_close,
- 	.prepare	= cygnus_pcm_prepare,
-diff --git a/sound/soc/codecs/cpcap.c b/sound/soc/codecs/cpcap.c
-index 4f9dabd9d78a..04304a7ad915 100644
---- a/sound/soc/codecs/cpcap.c
-+++ b/sound/soc/codecs/cpcap.c
-@@ -1649,7 +1649,7 @@ static int cpcap_soc_probe(struct snd_soc_component *component)
- 	return cpcap_audio_reset(component, false);
- }
- 
--static struct snd_soc_component_driver soc_codec_dev_cpcap = {
-+static const struct snd_soc_component_driver soc_codec_dev_cpcap = {
- 	.probe			= cpcap_soc_probe,
- 	.controls		= cpcap_snd_controls,
- 	.num_controls		= ARRAY_SIZE(cpcap_snd_controls),
-diff --git a/sound/soc/codecs/pcm186x.c b/sound/soc/codecs/pcm186x.c
-index 451a8fd8fac5..13443f569ddb 100644
---- a/sound/soc/codecs/pcm186x.c
-+++ b/sound/soc/codecs/pcm186x.c
-@@ -566,7 +566,7 @@ static int pcm186x_set_bias_level(struct snd_soc_component *component,
- 	return 0;
- }
- 
--static struct snd_soc_component_driver soc_codec_dev_pcm1863 = {
-+static const struct snd_soc_component_driver soc_codec_dev_pcm1863 = {
- 	.set_bias_level		= pcm186x_set_bias_level,
- 	.controls		= pcm1863_snd_controls,
- 	.num_controls		= ARRAY_SIZE(pcm1863_snd_controls),
-@@ -579,7 +579,7 @@ static struct snd_soc_component_driver soc_codec_dev_pcm1863 = {
- 	.endianness		= 1,
+diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
+index ecb3eb7a9723d..a22298f74b35a 100644
+--- a/sound/soc/meson/axg-fifo.c
++++ b/sound/soc/meson/axg-fifo.c
+@@ -328,6 +328,7 @@ static const struct regmap_config axg_fifo_regmap_cfg = {
+ 	.val_bits	= 32,
+ 	.reg_stride	= 4,
+ 	.max_register	= FIFO_CTRL2,
++	.use_raw_spinlock = true,
  };
  
--static struct snd_soc_component_driver soc_codec_dev_pcm1865 = {
-+static const struct snd_soc_component_driver soc_codec_dev_pcm1865 = {
- 	.set_bias_level		= pcm186x_set_bias_level,
- 	.controls		= pcm1865_snd_controls,
- 	.num_controls		= ARRAY_SIZE(pcm1865_snd_controls),
-diff --git a/sound/soc/codecs/pcm5102a.c b/sound/soc/codecs/pcm5102a.c
-index 3401a25341e6..9bca53de2475 100644
---- a/sound/soc/codecs/pcm5102a.c
-+++ b/sound/soc/codecs/pcm5102a.c
-@@ -24,7 +24,7 @@ static struct snd_soc_dai_driver pcm5102a_dai = {
- 	},
- };
- 
--static struct snd_soc_component_driver soc_component_dev_pcm5102a = {
-+static const struct snd_soc_component_driver soc_component_dev_pcm5102a = {
- 	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
-diff --git a/sound/soc/codecs/spdif_receiver.c b/sound/soc/codecs/spdif_receiver.c
-index 862e0b654a1c..7043aa9a206e 100644
---- a/sound/soc/codecs/spdif_receiver.c
-+++ b/sound/soc/codecs/spdif_receiver.c
-@@ -35,7 +35,7 @@ static const struct snd_soc_dapm_route dir_routes[] = {
- 			SNDRV_PCM_FMTBIT_S32_LE | \
- 			SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE)
- 
--static struct snd_soc_component_driver soc_codec_spdif_dir = {
-+static const struct snd_soc_component_driver soc_codec_spdif_dir = {
- 	.dapm_widgets		= dir_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(dir_widgets),
- 	.dapm_routes		= dir_routes,
-diff --git a/sound/soc/codecs/spdif_transmitter.c b/sound/soc/codecs/spdif_transmitter.c
-index 736518921555..d997862767ec 100644
---- a/sound/soc/codecs/spdif_transmitter.c
-+++ b/sound/soc/codecs/spdif_transmitter.c
-@@ -35,7 +35,7 @@ static const struct snd_soc_dapm_route dit_routes[] = {
- 	{ "spdif-out", NULL, "Playback" },
- };
- 
--static struct snd_soc_component_driver soc_codec_spdif_dit = {
-+static const struct snd_soc_component_driver soc_codec_spdif_dit = {
- 	.dapm_widgets		= dit_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(dit_widgets),
- 	.dapm_routes		= dit_routes,
-diff --git a/sound/soc/codecs/tas6424.c b/sound/soc/codecs/tas6424.c
-index bb0500e9d3ea..9be054837f68 100644
---- a/sound/soc/codecs/tas6424.c
-+++ b/sound/soc/codecs/tas6424.c
-@@ -364,7 +364,7 @@ static int tas6424_set_bias_level(struct snd_soc_component *component,
- 	return 0;
- }
- 
--static struct snd_soc_component_driver soc_codec_dev_tas6424 = {
-+static const struct snd_soc_component_driver soc_codec_dev_tas6424 = {
- 	.set_bias_level		= tas6424_set_bias_level,
- 	.controls		= tas6424_snd_controls,
- 	.num_controls		= ARRAY_SIZE(tas6424_snd_controls),
-diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
-index fb5dd9a68bea..b35c28b70265 100644
---- a/sound/soc/stm/stm32_adfsdm.c
-+++ b/sound/soc/stm/stm32_adfsdm.c
-@@ -309,7 +309,7 @@ static void stm32_adfsdm_cleanup(void *data)
- 	iio_channel_release_all_cb(data);
- }
- 
--static struct snd_soc_component_driver stm32_adfsdm_soc_platform = {
-+static const struct snd_soc_component_driver stm32_adfsdm_soc_platform = {
- 	.open		= stm32_adfsdm_pcm_open,
- 	.close		= stm32_adfsdm_pcm_close,
- 	.hw_params	= stm32_adfsdm_pcm_hw_params,
-diff --git a/sound/soc/uniphier/evea.c b/sound/soc/uniphier/evea.c
-index d90b3e4b0104..a4cf14462374 100644
---- a/sound/soc/uniphier/evea.c
-+++ b/sound/soc/uniphier/evea.c
-@@ -384,7 +384,7 @@ static int evea_codec_resume(struct snd_soc_component *component)
- 	return ret;
- }
- 
--static struct snd_soc_component_driver soc_codec_evea = {
-+static const struct snd_soc_component_driver soc_codec_evea = {
- 	.probe			= evea_codec_probe,
- 	.suspend		= evea_codec_suspend,
- 	.resume			= evea_codec_resume,
-
+ int axg_fifo_probe(struct platform_device *pdev)
 -- 
-2.43.0
+2.30.1
 

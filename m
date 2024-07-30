@@ -2,165 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB53E940546
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 04:33:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7385940BFE
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 10:42:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A711DE9A;
-	Tue, 30 Jul 2024 04:32:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A711DE9A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11C6684C;
+	Tue, 30 Jul 2024 10:42:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11C6684C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722306788;
-	bh=HEQKq4onP49J9txY9T9/N2rQAIeVPHnq8yJxkpAbgkU=;
-	h=From:Subject:To:Cc:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=SiDbhY5ZWIeSTmy+lk/azDn1qn5SxI5CkolRRgCP/dYZ1uJlxlsijVQ/OTpe6bSdG
-	 ujdIcK7+2zmD9SWHt/vjGk0m0rAS3V38tXoWwOCEeHt+LvZcVMxdiDvJ0zrGE5XMt7
-	 BYRPPItEIKgIreVFNH3OLNY+mIBKdRbIK1WU8WmA=
+	s=default; t=1722328971;
+	bh=H9qkp20YNNay2aj1xO33U6q5QN/JCm1MkKShfQTyIxw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KVf3kyDqNHJoLc6GhrM5GqPNzVdwNGc/7oOWClsS51MJqk6O2vGGX9vYyS3WzxzLz
+	 x3Udg8UEsiv2oSnl4plh6Aw1gtwAUUHsYBprCFvHKXL6Bu/GR1/utg73GoyEMaQViI
+	 yC5sBPhiU5HUDeXbu1wFb70gZPV1fxHwB4ThX7YU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66252F805B5; Tue, 30 Jul 2024 04:32:37 +0200 (CEST)
+	id 53B4FF80579; Tue, 30 Jul 2024 10:42:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7012FF805B1;
-	Tue, 30 Jul 2024 04:32:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCC0FF805AF;
+	Tue, 30 Jul 2024 10:42:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44CD8F80269; Tue, 30 Jul 2024 04:32:32 +0200 (CEST)
+	id 0DF91F802DB; Tue, 30 Jul 2024 10:28:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.3 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazlp170100001.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:c405::1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,TIME_LIMIT_EXCEEDED,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable version=3.4.6
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 35AD6F800C9
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 04:32:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35AD6F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 09C3AF800C9
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 10:23:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09C3AF800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=N2q/Akc+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y15OezYIatUAoFrN8eBCKtq6nMNTk9UkBINCgmQv3uHQiB/KzO8b/LX0FnRgaoJju8yvk/csiLfRp3xJYT48WKKy8NYw+fUYXgYB47tFERIYNN3xbLAD/LEmsX6nvlcCedGYCFaG7/3gTfZ6b7W1jmuBdoR0Fog2/aXPSJAKIuG5XOXC6gSc8EBdLyGFJ8ea+tO9T2Hw6sRlsiCetPiP29fNmioFaoeUrZCL5tmk0o8Bgf6e0rCB4Ny0Z9SPI34wE2w+J22ELaGDknq6oiV79Q3R/UAH5NKsyTUoJiuxu0VTWlVO970Kxp/1IyY1h+4P3UuiJ1AYdGzN426qZe6CfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LCOuxnKrPmp+QdAQ/lpN/A4KnkagsEp0HxZzkm5TM6k=;
- b=sZ29ixHwI+9NGlANMM6EcEmmBJMvQPOZK+m/RXAR2FwlYEnaPDq3Vl0OTjLqILJeld44RL6iFg0padpCCDG4vJ89QJOPhhBJLqdZC/4vdxj41rfqVTHt7Q8JZYnffaMZlP6fZhvFYVaQn4WjUstK7d99MiDQGvT+wRenU0nWkrdldMljVF83imkHln7atKucut2KZL6NVJS4lnT5XWDP+xFKIgcYLptecCxb6zUx+lBb6K4pml2xvwGwDsj44eBezgGuRgu+HUc6D8svgTAiF9Iv4I+0CO+0SW1L+JpBUkF4DGu3bR7hlJlCj85SHQhkrfZgzceeyMWKRx89+QhxhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LCOuxnKrPmp+QdAQ/lpN/A4KnkagsEp0HxZzkm5TM6k=;
- b=N2q/Akc+guSYK0VbZUDlM0CUNGs9NxZmXDpM834dluvdrwmsXUuUiraYSPIdUj+poqLXHAWxvu3hD6pGt7rYAQ/yXpUry+7embAPkmDx1l3saGO72jmhqcxFD352Ma7oMjVqhCohIV+eWMVKGLpSh3t0PCZENkTd8IOSlLuq47s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYWPR01MB11814.jpnprd01.prod.outlook.com
- (2603:1096:400:3fc::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.27; Tue, 30 Jul
- 2024 02:32:22 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11%5]) with mapi id 15.20.7807.026; Tue, 30 Jul 2024
- 02:32:22 +0000
-Message-ID: <87cymvk3t5.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH] ASoC: rsnd: use pcm_dmaengine code
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 30 Jul 2024 02:32:22 +0000
-X-ClientProxiedBy: TYAPR01CA0224.jpnprd01.prod.outlook.com
- (2603:1096:404:11e::20) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=KxEykxyg
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3684eb5be64so2111970f8f.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 30 Jul 2024 01:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1722327787; x=1722932587;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=S0c7sMypLzXHl9r0GfvI5laataVFNaI4Z5VsTchwD6g=;
+        b=KxEykxyg+39K00Hg0Bk5TRT22eaQVKlFNUeuLcIyXKEMerrBzh6Tm++XhYoyy5ZhWF
+         I3f9odbwvO4/+DEpqGuTrroN1DjU9DgvQdbtEdbvM2JDqf1kWzj7M+lbmpl/m4g1LwwB
+         au0oAeZUjm0dvOQeqz2JlQkavZLu53i9YgEHDxX6eqPDUVdZxgCfjOq58crW8nIcMvHc
+         pX/9SKuvXJCvylaS1c/Lo1zK58VPe6b64mUEDZDgytX2jie9UfcJVh8zOO3UCcg9z/Sx
+         deWn0Oyrk8I9SBIi5GIUfHi2FeI+D/gvZfqEqRYW53l20KcL1rhs8nGKuy7XoBByvLyO
+         hQkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722327787; x=1722932587;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=S0c7sMypLzXHl9r0GfvI5laataVFNaI4Z5VsTchwD6g=;
+        b=Xt2Z+tRuco4j7KMrsH8i/eCPOB9gLIQRrW7rMMP+4MDntB/WYGQV+Z3boB1KMwczJy
+         L6/F7h7UwhU9TQeK0V8jUIyW7GApRbaJcIlcbXEcmDhDTyYTodXoOYEdPzDJYNuiD2la
+         0rPatNCWdUXVPN98X5kdc/EoW/W+faRQzikPq6KOMNK1/qvXe20Q3nH9LG7Yj9AM5QV9
+         DI9VGPYlbv15sK3h2VwFkrYM2mozOmsxmod/SlRIhyU6jQqJ+50lz8lyydWP5spjTj8y
+         iIthGWK5ftAEpa+YnxGqOAuODEGqdYmjs1KnVyijgfwrmra/Zfw9MteWls7XfiEvORB5
+         68/Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXlZt/mG8y85E9uJXvN46nkJGctbcE8RCHPmH8K3aIJgZCwOzx6n5mSI6oCjzrmd/sBT1s9bkvEcAgD1vs8ENs2+d7Dhjixv6Maub8=
+X-Gm-Message-State: AOJu0YyFusivLB/rb1pGvoJDPWe/eNy9UQW5T33dgPlG6hqH9XxKGNyS
+	PetJRt85aOla7/NhtxT8ShzXKUMmiB+HoDFRf6VoDSOVphNqKkoysHas3ahVMZc=
+X-Google-Smtp-Source: 
+ AGHT+IGkUDfX2Q9x+dHmZW8xxvfM4QT/m2po2AeYIhouOrYs8BJqn/COJsa1nHEHSePaxKTMebnq3w==
+X-Received: by 2002:adf:ec45:0:b0:368:5a32:f5bc with SMTP id
+ ffacd0b85a97d-36b5d08a846mr6246758f8f.38.1722327786771;
+        Tue, 30 Jul 2024 01:23:06 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.137])
+        by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-36b368706c2sm14005179f8f.117.2024.07.30.01.23.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 30 Jul 2024 01:23:06 -0700 (PDT)
+Message-ID: <22b20ad7-8a25-4cb2-a24e-d6841b219977@linaro.org>
+Date: Tue, 30 Jul 2024 10:23:04 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYWPR01MB11814:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc7f0a30-8cad-492d-e90c-08dcb03fd789
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|52116014|1800799024|376014|366016|38350700014;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?K3zVqW+iRB5oiVFSEj3Z+neaVAyUfhFkfzrWaKdryqXgsIO6D5VW0TU66mXs?=
- =?us-ascii?Q?FbLn7N0dCxXt6mN38rz65Ot84u5pk7eqklVSkAiQfq7SU4qEAhI2l+oraI9v?=
- =?us-ascii?Q?4TU9xh28hZ7DU5pq/IfDzNYMLG8obW01gey3r9DQ40LcJNLi6uEJLzx5ARdh?=
- =?us-ascii?Q?+4rW5jsznjIdvndTcqknD45nGuCpa+rL+JhEfnUW2UsrshRjMTkpz+TJMbbr?=
- =?us-ascii?Q?9Hh/XzZrFEBtaVOu4rek/xbJmpE3TW/sYz4rp7bxQIze7eGiSe/geIghOQVK?=
- =?us-ascii?Q?NeLXR4QkDwOM2ZQUUmx2Fu4fDFryt1Zi2Cf13CLWtNGqVxAn7hD0Uw2+SNAA?=
- =?us-ascii?Q?rYTUzNeX0Jg4k46vckW2XD744+yIBOPSNj8Gzj3+/c58/LYcJX4Yen3RhOO4?=
- =?us-ascii?Q?UDdFJl8hxAKMGAYWGKu5iRVRn2tRtp4OVMvaBwIzh1LgY+RQJQTbB157jLIa?=
- =?us-ascii?Q?3b9OND4vjoUB517uupXKuTfMmAKdbI4N3L6nXoe2g9ILDfbZpjASynHrdien?=
- =?us-ascii?Q?nh1NLV/bB5EEIXacvok171LJB/rJ43SMiXdEd+BLvERf3jtJmmXVtLB7ZCg9?=
- =?us-ascii?Q?PL3hgkx/PRj66A7qneAqOTjjgl9u4AdPhSR/cwd6n7Xrl4Y8HgymJz62Mwx0?=
- =?us-ascii?Q?Xo87inMw5ZyK4zY2PkjNxEQbkQF4nIKw7Ue/WZ3w0Hk3UcDL/zFxFGN+13hD?=
- =?us-ascii?Q?Z+IVDECHMZpaSB+BgJis6RqToeePI5aOukjK2P4y5u6k1oXwoJZgnKD5+wtB?=
- =?us-ascii?Q?6vX2p1RYCS55MbiHSbmGYxrH324gDROXeKx/MdIQFPNk8JC7WWN8dOO+EGS2?=
- =?us-ascii?Q?ea/XsSMMELpIJ8EoK0+0XibHTTG8ozT9REOTJSywEibfGtdcYL0GNht9s3Jo?=
- =?us-ascii?Q?c09Cto6/RYFomW2sMvyIqKL5PLS1XmrTOmkDMaWdE/aKll/yIGAzPIWr5aV2?=
- =?us-ascii?Q?CNgc7k6QcYq9EvKCKedPRZVRxFg8zM/7LW3AbUvC3KxOknrrn+NbmNtVVw8h?=
- =?us-ascii?Q?VetHJSZGWbvAhSM/lGVJSLpSPbbmOdOWaYGXhcusvtabt1uCjHpVLRusja7H?=
- =?us-ascii?Q?NIiPh34eaL6WTU/hDxJpyhLXBpOXWmbhkmfYmTOj3oHyRe/52hS9LBqzOl9j?=
- =?us-ascii?Q?b7vX46WK1yjnXHm7fwa1uNAw5YoJFgjHp/HhA2WvADAQHTlH+HJDVYVH7iKn?=
- =?us-ascii?Q?MzK0cFs74gyvbGqKM4gFqq8Mn+h7eLxrNLMKvdZ2NRdNOJzRxKqVMDsUo5Rl?=
- =?us-ascii?Q?aPzZccePkokvAldRqsb2MMkxpN4OFw34kHvQVKnljkYGVDBAVd+JwLFFKgYH?=
- =?us-ascii?Q?N+1C+X8CRaSYr02+h+VAfFs32bruKcs7nSHsED9s9831WYxsGmJ8BWYWi8N6?=
- =?us-ascii?Q?tPBCw8i5eBek/ucnk6/nhai6iLwqNbCJheLrqIrMJHKAkxRUqg=3D=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(1800799024)(376014)(366016)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?lhoo+2U962tGFuaSgYlnsweGtSiwObE6OZ66Do3pdNOgB6YAxhSsRAMqHdDn?=
- =?us-ascii?Q?nkVFjw106ZZOOqHS70rHqOV7NfLd3L6RfooG1Kww1hR1BmIHKv6kqMFXMvrn?=
- =?us-ascii?Q?/4kcV0TX8oCRAiLo8LBo2xPIi3nHBKwkUn+YB+UxUh+45+UznZRu9V0o2Vdi?=
- =?us-ascii?Q?8Vs0VvLy9J8VQxiqv0z8ShtOYcwojAozVuQuJY6wvs3d/GyhxKzWgTUqIJf6?=
- =?us-ascii?Q?gLbmN/8CrymHAhXjbv+JwEN3Bm0LIcHND42zCQ5puTHypp60YfK0VzSy8+CD?=
- =?us-ascii?Q?mTsevlDxSLY4Dig+LY8rrcBLLND2S2mD4kiMdlNuSTY2NR12Z6g5T7TC/bec?=
- =?us-ascii?Q?L4RW79fSzSr1yzK8p0lwjgGLlreozdcHc9OEZwlp4SS16VSt9+0mU0CzVazh?=
- =?us-ascii?Q?slFl0YJybB5hSGZBofFOFvn6x1ErWn/0XXaPth2qiR8wK/s5+rqscrA3uZCp?=
- =?us-ascii?Q?Tjku0KoS/pG9+GKFioixyu01F9Q+tXNCBpXnt3uXNpHlpbJXeYdVqzN10WYu?=
- =?us-ascii?Q?enUxbUYoG+o0bHdkymqX+tR081rJ9CDneskv93OnLkkgbaD4Idw4xSWaHnfL?=
- =?us-ascii?Q?DSwWCrkd9GMekY2L2WTz4vTLZztqZco/qBnkUgf7Ygy3GtXxb75KZ8JQgDy9?=
- =?us-ascii?Q?+ZsMKYwexScNAMFIJr0ZOMOsDL8H6oaVfP+jlpju4Z1WlfeB5cesFxsQTxwL?=
- =?us-ascii?Q?LtRRwYrHOZQyS9FKj8pCRuenP9N5n0oIR8lkRktENcOrDLOxu2VGNzcQMsPJ?=
- =?us-ascii?Q?hVhI6h73uaJJl9NS5ilyetYDLJn3e+oleIwYPgPbkxdS9Mw2Gyv1/JgIPalu?=
- =?us-ascii?Q?NZ9X6FFZBfV7TUpsptOxkFOBQkNYGA8wnHUljobWypQZYStPvfqfo2rTDGZY?=
- =?us-ascii?Q?PGGcr6fgJGg7srMNTnWrNzQg0Nmo1YHG31fBMEuZnCPYpG9bNB8qyrW7PmaY?=
- =?us-ascii?Q?NnqoHLnbFXRmZ4nF1tNpVgIhhWHC45Fzgt7YxRTcRQU8xFCuwp1ujchQV5IP?=
- =?us-ascii?Q?rdH0RhM15zJFiZhW3FRqGGwVB6yLzAIAYJsesBM0IK+LH5L6Ngv2CuEi324t?=
- =?us-ascii?Q?HJiPgTCAWIwp8ZvXr45u96+4/sXMclMxoReIiYMmRxFXCW+s5Vmm91eCWrzR?=
- =?us-ascii?Q?fwa57k/CySSDmlzZj3BmUXasMj74KMS2t//MSVidcI1/aYS9c9OmygOXrwW/?=
- =?us-ascii?Q?TLkG1X2/pksWoerwYDIXuIvRyVNZxiKaL3JwfVtkOkmEKgEF3JtzfMV7B9WC?=
- =?us-ascii?Q?pQZ3DDNbPQJvzaXmg8TsbzULO4lmgN6bTYSIhkRp1xygP6dnQ6t655xPvlr2?=
- =?us-ascii?Q?E+2ml+MkC1FrwpBWqPgp1BiGxpXD8lJ/ZwIwbHSqMaSn4bpKJs3uJpCEWse/?=
- =?us-ascii?Q?oVwu14uQgTPCEkjY/rNqbk+hqYFXZbqjWy7d3mXhIbjLEJt215ZSGhB67EJN?=
- =?us-ascii?Q?hQrWBWfbjLdX1HN4fFbapXLB2kc9uLFWsALPWNMuNm1o9j2s22QaDGRe3N5u?=
- =?us-ascii?Q?knHaY4IK+ct0pCTPFdu5ktVn6OYtxhqhaFdn31OhV0WM8All6cQDjhyxIXL5?=
- =?us-ascii?Q?IzdS6kzv4/8jzvpOHLP6szm0A8iRrry6vKQtrS8rxSSfsTGI0SlUOU1jsxNo?=
- =?us-ascii?Q?P4QuNbGa2gw7oLMgkiTl6IY=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- dc7f0a30-8cad-492d-e90c-08dcb03fd789
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 02:32:22.6576
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Mg+WNUlrg4R/d2puj952qL/6G3TsEqNTv9Zkin96Qky0hJlnD+3pB8Ow1diteB9YBu25xG2v9G00q7hEmKhydUXwBW6utYNNnCQaBhJIbr/PQEUhhUIKEupo/F/J79BC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11814
-Message-ID-Hash: 47TUEPLNID23XDQPINCCDK6ZRTS5VNYK
-X-Message-ID-Hash: 47TUEPLNID23XDQPINCCDK6ZRTS5VNYK
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soundwire: stream: fix programming slave ports for
+ non-continous port maps
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, Shreyas NC <shreyas.nc@intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20240729140157.326450-1-krzysztof.kozlowski@linaro.org>
+ <095d7119-8221-450a-9616-2df6a0df4c77@linux.intel.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <095d7119-8221-450a-9616-2df6a0df4c77@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: ID6XAXDS6ONGG2RNFUSCQS23LGDZU7FD
+X-Message-ID-Hash: ID6XAXDS6ONGG2RNFUSCQS23LGDZU7FD
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -172,7 +164,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/47TUEPLNID23XDQPINCCDK6ZRTS5VNYK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ID6XAXDS6ONGG2RNFUSCQS23LGDZU7FD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -181,236 +173,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-rsnd is implementing own DMAEngine code, but we can replace it with
-pcm_dmaengine code, because these are almost same.
-Let's use existing and stable code.
+On 29/07/2024 16:25, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 7/29/24 16:01, Krzysztof Kozlowski wrote:
+>> Two bitmasks in 'struct sdw_slave_prop' - 'source_ports' and
+>> 'sink_ports' - define which ports to program in
+>> sdw_program_slave_port_params().  The masks are used to get the
+>> appropriate data port properties ('struct sdw_get_slave_dpn_prop') from
+>> an array.
+>>
+>> Bitmasks can be non-continuous or can start from index different than 0,
+>> thus when looking for matching port property for given port, we must
+>> iterate over mask bits, not from 0 up to number of ports.
+>>
+>> This fixes allocation and programming slave ports, when a source or sink
+>> masks start from further index.
+>>
+>> Fixes: f8101c74aa54 ("soundwire: Add Master and Slave port programming")
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> This is a valid change to optimize how the port are accessed.
+> 
+> But the commit message is not completely clear, the allocation in
+> mipi_disco.c is not modified and I don't think there's anything that
+> would crash. If there are non-contiguous ports, we will still allocate
+> space that will not be initialized/used.
+> 
+> 	/* Allocate memory for set bits in port lists */
+> 	nval = hweight32(prop->source_ports);
+> 	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
+> 					  sizeof(*prop->src_dpn_prop),
+> 					  GFP_KERNEL);
+> 	if (!prop->src_dpn_prop)
+> 		return -ENOMEM;
+> 
+> 	/* Read dpn properties for source port(s) */
+> 	sdw_slave_read_dpn(slave, prop->src_dpn_prop, nval,
+> 			   prop->source_ports, "source");
+> 
+> IOW, this is a valid change, but it's an optimization, not a fix in the
+> usual sense of 'kernel oops otherwise'.
+> 
+> Am I missing something?
+> 
+> BTW, the notion of DPn is that n > 0. DP0 is a special case with
+> different properties, BIT(0) cannot be set for either of the sink/source
+> port bitmask.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- sound/soc/sh/Kconfig     |  1 +
- sound/soc/sh/rcar/core.c | 17 ---------
- sound/soc/sh/rcar/dma.c  | 75 ++++------------------------------------
- sound/soc/sh/rcar/rsnd.h |  1 -
- sound/soc/sh/rcar/ssi.c  |  2 +-
- 5 files changed, 9 insertions(+), 87 deletions(-)
+I think we speak about two different things. port num > 1, that's
+correct. But index for src_dpn_prop array is something different. Look
+at mipi-disco sdw_slave_read_dpn():
 
-diff --git a/sound/soc/sh/Kconfig b/sound/soc/sh/Kconfig
-index 7bddfd5e38d6c..426632996a0a3 100644
---- a/sound/soc/sh/Kconfig
-+++ b/sound/soc/sh/Kconfig
-@@ -41,6 +41,7 @@ config SND_SOC_RCAR
- 	depends on COMMON_CLK
- 	depends on OF
- 	select SND_SIMPLE_CARD_UTILS
-+	select SND_DMAENGINE_PCM
- 	select REGMAP_MMIO
- 	help
- 	  This option enables R-Car SRU/SCU/SSIU/SSI sound support
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index 6bc7027ed4dbf..233128c8ff145 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -660,23 +660,6 @@ static struct rsnd_dai *rsnd_dai_to_rdai(struct snd_soc_dai *dai)
- 	return rsnd_rdai_get(priv, dai->id);
- }
- 
--/*
-- *	rsnd_soc_dai functions
-- */
--void rsnd_dai_period_elapsed(struct rsnd_dai_stream *io)
--{
--	struct snd_pcm_substream *substream = io->substream;
--
--	/*
--	 * this function should be called...
--	 *
--	 * - if rsnd_dai_pointer_update() returns true
--	 * - without spin lock
--	 */
--
--	snd_pcm_period_elapsed(substream);
--}
--
- static void rsnd_dai_stream_init(struct rsnd_dai_stream *io,
- 				struct snd_pcm_substream *substream)
- {
-diff --git a/sound/soc/sh/rcar/dma.c b/sound/soc/sh/rcar/dma.c
-index 7b499eee50806..2342bbb6fe92e 100644
---- a/sound/soc/sh/rcar/dma.c
-+++ b/sound/soc/sh/rcar/dma.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/delay.h>
- #include <linux/of_dma.h>
-+#include <sound/dmaengine_pcm.h>
- #include "rsnd.h"
- 
- /*
-@@ -22,8 +23,6 @@
- 
- struct rsnd_dmaen {
- 	struct dma_chan		*chan;
--	dma_cookie_t		cookie;
--	unsigned int		dma_len;
- };
- 
- struct rsnd_dmapp {
-@@ -66,20 +65,6 @@ static struct rsnd_mod mem = {
- /*
-  *		Audio DMAC
-  */
--static void __rsnd_dmaen_complete(struct rsnd_mod *mod,
--				  struct rsnd_dai_stream *io)
--{
--	if (rsnd_io_is_working(io))
--		rsnd_dai_period_elapsed(io);
--}
--
--static void rsnd_dmaen_complete(void *data)
--{
--	struct rsnd_mod *mod = data;
--
--	rsnd_mod_interrupt(mod, __rsnd_dmaen_complete);
--}
--
- static struct dma_chan *rsnd_dmaen_request_channel(struct rsnd_dai_stream *io,
- 						   struct rsnd_mod *mod_from,
- 						   struct rsnd_mod *mod_to)
-@@ -98,13 +83,7 @@ static int rsnd_dmaen_stop(struct rsnd_mod *mod,
- 			   struct rsnd_dai_stream *io,
- 			   struct rsnd_priv *priv)
- {
--	struct rsnd_dma *dma = rsnd_mod_to_dma(mod);
--	struct rsnd_dmaen *dmaen = rsnd_dma_to_dmaen(dma);
--
--	if (dmaen->chan)
--		dmaengine_terminate_async(dmaen->chan);
--
--	return 0;
-+	return snd_dmaengine_pcm_trigger(io->substream, SNDRV_PCM_TRIGGER_STOP);
- }
- 
- static int rsnd_dmaen_cleanup(struct rsnd_mod *mod,
-@@ -120,7 +99,7 @@ static int rsnd_dmaen_cleanup(struct rsnd_mod *mod,
- 	 * Let's call it under prepare
- 	 */
- 	if (dmaen->chan)
--		dma_release_channel(dmaen->chan);
-+		snd_dmaengine_pcm_close_release_chan(io->substream);
- 
- 	dmaen->chan = NULL;
- 
-@@ -153,7 +132,7 @@ static int rsnd_dmaen_prepare(struct rsnd_mod *mod,
- 		return -EIO;
- 	}
- 
--	return 0;
-+	return snd_dmaengine_pcm_open(io->substream, dmaen->chan);
- }
- 
- static int rsnd_dmaen_start(struct rsnd_mod *mod,
-@@ -162,12 +141,9 @@ static int rsnd_dmaen_start(struct rsnd_mod *mod,
- {
- 	struct rsnd_dma *dma = rsnd_mod_to_dma(mod);
- 	struct rsnd_dmaen *dmaen = rsnd_dma_to_dmaen(dma);
--	struct snd_pcm_substream *substream = io->substream;
- 	struct device *dev = rsnd_priv_to_dev(priv);
--	struct dma_async_tx_descriptor *desc;
- 	struct dma_slave_config cfg = {};
- 	enum dma_slave_buswidth buswidth = DMA_SLAVE_BUSWIDTH_4_BYTES;
--	int is_play = rsnd_io_is_play(io);
- 	int ret;
- 
- 	/*
-@@ -195,7 +171,7 @@ static int rsnd_dmaen_start(struct rsnd_mod *mod,
- 		}
- 	}
- 
--	cfg.direction	= is_play ? DMA_MEM_TO_DEV : DMA_DEV_TO_MEM;
-+	cfg.direction	= snd_pcm_substream_to_dma_direction(io->substream);
- 	cfg.src_addr	= dma->src_addr;
- 	cfg.dst_addr	= dma->dst_addr;
- 	cfg.src_addr_width = buswidth;
-@@ -209,32 +185,7 @@ static int rsnd_dmaen_start(struct rsnd_mod *mod,
- 	if (ret < 0)
- 		return ret;
- 
--	desc = dmaengine_prep_dma_cyclic(dmaen->chan,
--					 substream->runtime->dma_addr,
--					 snd_pcm_lib_buffer_bytes(substream),
--					 snd_pcm_lib_period_bytes(substream),
--					 is_play ? DMA_MEM_TO_DEV : DMA_DEV_TO_MEM,
--					 DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
--
--	if (!desc) {
--		dev_err(dev, "dmaengine_prep_slave_sg() fail\n");
--		return -EIO;
--	}
--
--	desc->callback		= rsnd_dmaen_complete;
--	desc->callback_param	= rsnd_mod_get(dma);
--
--	dmaen->dma_len		= snd_pcm_lib_buffer_bytes(substream);
--
--	dmaen->cookie = dmaengine_submit(desc);
--	if (dmaen->cookie < 0) {
--		dev_err(dev, "dmaengine_submit() fail\n");
--		return -EIO;
--	}
--
--	dma_async_issue_pending(dmaen->chan);
--
--	return 0;
-+	return snd_dmaengine_pcm_trigger(io->substream, SNDRV_PCM_TRIGGER_START);
- }
- 
- struct dma_chan *rsnd_dma_request_channel(struct device_node *of_node, char *name,
-@@ -307,19 +258,7 @@ static int rsnd_dmaen_pointer(struct rsnd_mod *mod,
- 			      struct rsnd_dai_stream *io,
- 			      snd_pcm_uframes_t *pointer)
- {
--	struct snd_pcm_runtime *runtime = rsnd_io_to_runtime(io);
--	struct rsnd_dma *dma = rsnd_mod_to_dma(mod);
--	struct rsnd_dmaen *dmaen = rsnd_dma_to_dmaen(dma);
--	struct dma_tx_state state;
--	enum dma_status status;
--	unsigned int pos = 0;
--
--	status = dmaengine_tx_status(dmaen->chan, dmaen->cookie, &state);
--	if (status == DMA_IN_PROGRESS || status == DMA_PAUSED) {
--		if (state.residue > 0 && state.residue <= dmaen->dma_len)
--			pos = dmaen->dma_len - state.residue;
--	}
--	*pointer = bytes_to_frames(runtime, pos);
-+	*pointer = snd_dmaengine_pcm_pointer(io->substream);
- 
- 	return 0;
- }
-diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index ff294aa2d6407..dba684e4334b1 100644
---- a/sound/soc/sh/rcar/rsnd.h
-+++ b/sound/soc/sh/rcar/rsnd.h
-@@ -576,7 +576,6 @@ int rsnd_rdai_ssi_lane_ctrl(struct rsnd_dai *rdai,
- #define rsnd_rdai_width_get(rdai) \
- 	rsnd_rdai_width_ctrl(rdai, 0)
- int rsnd_rdai_width_ctrl(struct rsnd_dai *rdai, int width);
--void rsnd_dai_period_elapsed(struct rsnd_dai_stream *io);
- int rsnd_dai_connect(struct rsnd_mod *mod,
- 		     struct rsnd_dai_stream *io,
- 		     enum rsnd_mod_type type);
-diff --git a/sound/soc/sh/rcar/ssi.c b/sound/soc/sh/rcar/ssi.c
-index 8d2a86383ae01..b3d4e8ae07eff 100644
---- a/sound/soc/sh/rcar/ssi.c
-+++ b/sound/soc/sh/rcar/ssi.c
-@@ -706,7 +706,7 @@ static void __rsnd_ssi_interrupt(struct rsnd_mod *mod,
- 	spin_unlock(&priv->lock);
- 
- 	if (elapsed)
--		rsnd_dai_period_elapsed(io);
-+		snd_pcm_period_elapsed(io->substream);
- 
- 	if (stop)
- 		snd_pcm_stop_xrun(io->substream);
--- 
-2.43.0
+173         u32 bit, i = 0;
+...
+178         addr = ports;
+179         /* valid ports are 1 to 14 so apply mask */
+180         addr &= GENMASK(14, 1);
+181
+182         for_each_set_bit(bit, &addr, 32) {
+...
+186                 dpn[i].num = bit;
+
+
+so dpn[0..i] = 1..n
+where i is also the bit in the mask.
+
+Similar implementation was done in Qualcomm wsa and wcd codecs like:
+array indexed from 0:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n51
+
+genmask from 0, with a mistake:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n1255
+
+The mistake I corrected here:
+https://lore.kernel.org/all/20240726-asoc-wcd-wsa-swr-ports-genmask-v1-0-d4d7a8b56f05@linaro.org/
+
+To summarize, the mask does not denote port numbers (1...14) but indices
+of the dpn array which are from 0..whatever (usually -1 from port number).
+
+
+Best regards,
+Krzysztof
 

@@ -2,159 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A3D940C01
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 10:43:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 337D7940CA6
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 10:59:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E66A3839;
-	Tue, 30 Jul 2024 10:42:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E66A3839
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB1EF86E;
+	Tue, 30 Jul 2024 10:59:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB1EF86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722328985;
-	bh=kpdQG6yB98uaLHzj03tYd/l6KR69dRR6ZSb3cvXgUII=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=gaSxR2NLmjyHX6FRW8R57Se2tY9eOZnr0Axq58EKTWMoQlkzF4oP0MTNek8p3kiox
-	 VpYOti/1DTA3NHh4pWg/SMADD5qEjdSHC6EGy/JaR16/bRdK1+WxBS64l7pdlS3x33
-	 7100+WirWGnanTFbETUAh9dwKXnJw6ADVnlXns6M=
+	s=default; t=1722329958;
+	bh=khjDndLYXHzZAPFCxoaIB1hzF6l7thcZvrRJ8muy0lU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=rdC4xn8QuvjQiQ60Mk7Rycl6FJbibY+V0/yJfaIwN/CcvjQP9jS6XMxaMZwnFU7cQ
+	 NGZeOTxQHgr7Tec6Cg5SeRqmwOsTPO+m8LJ/n2V+PjCNNEnXkuN/DdlEH4be/Kg63u
+	 LOhrhxs4ZHC2EN5W4ZSzvCQKHy7UgPUMuu0jo7VY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E329F805B1; Tue, 30 Jul 2024 10:42:27 +0200 (CEST)
+	id DCD9DF805BA; Tue, 30 Jul 2024 10:58:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EB19F805D9;
-	Tue, 30 Jul 2024 10:42:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78903F8058C;
+	Tue, 30 Jul 2024 10:58:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F911F802DB; Tue, 30 Jul 2024 10:40:41 +0200 (CEST)
+	id 4A4D1F802DB; Tue, 30 Jul 2024 10:48:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F733F800C9
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 10:39:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F733F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4EA2BF8007E
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 10:48:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EA2BF8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=mNfItDrf
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-428119da952so23843395e9.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 30 Jul 2024 01:39:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1722328782; x=1722933582;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/mAglCNUGdccjoyEA9UGpBCtWXf2TmguD9tkOS0Mdk4=;
-        b=mNfItDrf7BZgHHVXNcjyaum1GOuBkAs3m3FMSXYPoPJmsFYBZjsCpDqCwoPBLKp9Zr
-         46SHtHgBQ0OPjjqv/6wuniA9n391juJQjrtIx6YHLUSAjKNB2/B/6qzRd7D9GvOD+plF
-         hC5gxKN9o8dU+b76zWaDbaorbCCBL6fH6GvE/r2IfGo0dVHRm+VaQhGTX7+E7AL3wx1k
-         dd3DvdiZ+pR8Ko+o+xKM8cPHl952T8T9zMgPCAO5f5ddQk3rKxYyH+K+ONdOAf6bVJ9l
-         mdp6C/tpcxL0MvcM6jinzYkYwkj8eSWez1ESTlS2r6VMq3Rb1v03BMbKc9rnWUsEymi9
-         SsTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722328782; x=1722933582;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/mAglCNUGdccjoyEA9UGpBCtWXf2TmguD9tkOS0Mdk4=;
-        b=fIWbrHL0yBEqW0d+FmspKAU9nk1ToB+TomDXDZEiZNXcqIb04iiqWBY+h6InXYoO65
-         JpXTbz7pS8P/EHCn9YdJK5MBxxA5HmJo5cuVGe0eoNgjTXLJ3NMk+6ii5i2loswDFTNp
-         37Cqrbhg3qkPdMhuLVMLdwr3VkJSB/c06Te10BFH/qOXyYaBFmc/0tgsp44ft4HyVWMa
-         jdV4bLTWHIKBqEqwzrvsGD7V+fT3RUAM3L0CZUFKES5EDYZeMQsI7NJUhs9Xjc68uIZ8
-         s9J1tihKjX4OOg2UGynlJcMqa8UYXlqzweNR44GzkJxkO8FNAUE+su0hEKsAY9c3RIgF
-         OVpQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX6gnmiJlAVCcnREwSa4W9aOPo5m5KKK3Ymb8VSCacnq/1vYo/wq4TNvao3K0vum8dOKJaDgTx8xnaTKYgALPuUHN9y2aNVqEO20cs=
-X-Gm-Message-State: AOJu0YwkA4RIdbLxd/ZlWADpvjjTxKqUNHuEh2y74KfvmIirKHNqTTem
-	FzobHde7mIsmxPztI3iUSC6M5WX3omG8WIrmjOelInQDl/YbAtnJo5NAkw0FPJc=
-X-Google-Smtp-Source: 
- AGHT+IENMcR5jIX/gXj+EPZjFabTgRcbsQcgq6YQWbyvsrf9KC5wqYnfeWPzcHlh/nwwHxI3zHhcMQ==
-X-Received: by 2002:a05:600c:458f:b0:428:16a0:1c3d with SMTP id
- 5b1f17b1804b1-42816a07e88mr61865585e9.19.1722328782375;
-        Tue, 30 Jul 2024 01:39:42 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.137])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4281c79ea02sm72099245e9.46.2024.07.30.01.39.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jul 2024 01:39:41 -0700 (PDT)
-Message-ID: <dc66cd0d-6807-4613-89a8-296ce5dd2daf@linaro.org>
-Date: Tue, 30 Jul 2024 10:39:40 +0200
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=sJ/74LV7
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 46U7FGQ9015481;
+	Tue, 30 Jul 2024 10:48:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=selector1; bh=EiPoUOUSjYhFBaJhI0Ab50
+	w3gl5kD8XTqym4TetSUeU=; b=sJ/74LV7SEcl74BnY7JA6cH4323/T3m6zTyH6O
+	WaFd6TwOmN4D8AAg8obZyyJx7jsghWrqK98HZY7hS29w5S4810zvXaBnUIwkbh6Q
+	Zl9o9mkNXXad1o9Gi2VTcD6RhXP2g4m4KTfLBDEOZyFCNFfxXvBzRMDv5fxus/F1
+	CXgyvutyIj7kL0JMyWl6lPQdv7sFtLCn/n8qjpKAGVK1LFC1g6cy+Gkv7EmN2L1x
+	Et9Ahn2zUPMxsLpuTwDOGEG2wzePPh97J+TnPBuPuv0ciwwSGL5cgFG+syXzBZhu
+	v0KDdhiELZIr0YE8QQBi93xvibAmW8ua3PiLBFcCUgn91lMA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 40mr7wus4h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 30 Jul 2024 10:48:18 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C971540048;
+	Tue, 30 Jul 2024 10:48:06 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD14F21ED50;
+	Tue, 30 Jul 2024 10:47:14 +0200 (CEST)
+Received: from localhost (10.252.3.32) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37; Tue, 30 Jul
+ 2024 10:47:14 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: <fabrice.gasnier@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+        Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Olivier Moysan <olivier.moysan@foss.st.com>,
+        Arnaud Pouliquen
+	<arnaud.pouliquen@foss.st.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Nuno Sa
+	<nuno.sa@analog.com>, Liam Girdwood <lgirdwood@gmail.com>,
+        Mark Brown
+	<broonie@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH v6 0/9] iio: adc: dfsdm: add scaling support
+Date: Tue, 30 Jul 2024 10:46:30 +0200
+Message-ID: <20240730084640.1307938-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soundwire: stream: fix programming slave ports for
- non-continous port maps
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, Shreyas NC <shreyas.nc@intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20240729140157.326450-1-krzysztof.kozlowski@linaro.org>
- <095d7119-8221-450a-9616-2df6a0df4c77@linux.intel.com>
- <22b20ad7-8a25-4cb2-a24e-d6841b219977@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <22b20ad7-8a25-4cb2-a24e-d6841b219977@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UCLZMZQVOXFZG2OEAW6YD7YQCIH4CEHK
-X-Message-ID-Hash: UCLZMZQVOXFZG2OEAW6YD7YQCIH4CEHK
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.252.3.32]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-07-30_09,2024-07-26_01,2024-05-17_01
+Message-ID-Hash: POJDHU42YOOGJOEPPBIMICN2K6RNFH3A
+X-Message-ID-Hash: POJDHU42YOOGJOEPPBIMICN2K6RNFH3A
+X-MailFrom: prvs=8941c56a27=olivier.moysan@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UCLZMZQVOXFZG2OEAW6YD7YQCIH4CEHK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/POJDHU42YOOGJOEPPBIMICN2K6RNFH3A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,97 +123,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 30/07/2024 10:23, Krzysztof Kozlowski wrote:
-> On 29/07/2024 16:25, Pierre-Louis Bossart wrote:
->>
->>
->> On 7/29/24 16:01, Krzysztof Kozlowski wrote:
->>> Two bitmasks in 'struct sdw_slave_prop' - 'source_ports' and
->>> 'sink_ports' - define which ports to program in
->>> sdw_program_slave_port_params().  The masks are used to get the
->>> appropriate data port properties ('struct sdw_get_slave_dpn_prop') from
->>> an array.
->>>
->>> Bitmasks can be non-continuous or can start from index different than 0,
->>> thus when looking for matching port property for given port, we must
->>> iterate over mask bits, not from 0 up to number of ports.
->>>
->>> This fixes allocation and programming slave ports, when a source or sink
->>> masks start from further index.
->>>
->>> Fixes: f8101c74aa54 ("soundwire: Add Master and Slave port programming")
->>> Cc: <stable@vger.kernel.org>
->>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->>
->> This is a valid change to optimize how the port are accessed.
->>
->> But the commit message is not completely clear, the allocation in
->> mipi_disco.c is not modified and I don't think there's anything that
->> would crash. If there are non-contiguous ports, we will still allocate
->> space that will not be initialized/used.
->>
->> 	/* Allocate memory for set bits in port lists */
->> 	nval = hweight32(prop->source_ports);
->> 	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
->> 					  sizeof(*prop->src_dpn_prop),
->> 					  GFP_KERNEL);
->> 	if (!prop->src_dpn_prop)
->> 		return -ENOMEM;
->>
->> 	/* Read dpn properties for source port(s) */
->> 	sdw_slave_read_dpn(slave, prop->src_dpn_prop, nval,
->> 			   prop->source_ports, "source");
->>
->> IOW, this is a valid change, but it's an optimization, not a fix in the
->> usual sense of 'kernel oops otherwise'.
->>
->> Am I missing something?
->>
->> BTW, the notion of DPn is that n > 0. DP0 is a special case with
->> different properties, BIT(0) cannot be set for either of the sink/source
->> port bitmask.
-> 
-> I think we speak about two different things. port num > 1, that's
-> correct. But index for src_dpn_prop array is something different. Look
-> at mipi-disco sdw_slave_read_dpn():
-> 
-> 173         u32 bit, i = 0;
-> ...
-> 178         addr = ports;
-> 179         /* valid ports are 1 to 14 so apply mask */
-> 180         addr &= GENMASK(14, 1);
-> 181
-> 182         for_each_set_bit(bit, &addr, 32) {
-> ...
-> 186                 dpn[i].num = bit;
-> 
-> 
-> so dpn[0..i] = 1..n
-> where i is also the bit in the mask.
-> 
-> Similar implementation was done in Qualcomm wsa and wcd codecs like:
-> array indexed from 0:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n51
-> 
-> genmask from 0, with a mistake:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n1255
-> 
-> The mistake I corrected here:
-> https://lore.kernel.org/all/20240726-asoc-wcd-wsa-swr-ports-genmask-v1-0-d4d7a8b56f05@linaro.org/
-> 
-> To summarize, the mask does not denote port numbers (1...14) but indices
-> of the dpn array which are from 0..whatever (usually -1 from port number).
-> 
+The aim of this serie is to add scaling support to STM32 DFSDM
+peripheral in the analog context.
 
-Let me also complete this with a real life example of my work in
-progress. I want to use same dpn_prop array for sink and source ports
-and use different masks. The code in progress is:
+The DFSDM currently operates as a consumer of IIO channels
+provided by a generic SD modulator. As previously discussed in RFC [1],
+this topology is not suitable for implementing scaling.
 
-https://git.codelinaro.org/krzysztof.kozlowski/linux/-/commit/ef709a0e8ab2498751305367e945df18d7a05c78#6f965d7b74e712a5cfcbc1cca407b85443a66bac_2147_2157
+This series brings the integration of the DFSDM driver with the new 
+IIO backend framework [2], enabling the DFSDM IIO device to offer 
+scaling feature based on reference voltage data obtained from the
+IIO SD modulator backend. This generic SD modulator backend takes the
+place of the former SD modulator, used with legacy implementation.
 
-Without this patch, I get -EINVAL from sdw_get_slave_dpn_prop():
-  soundwire sdw-master-1-0: Program transport params failed: -22
+The DFSDM driver has been updated to adopt the generic ADC channel
+binding [3]. The reasons for this include:
+- Reducing the use of proprietary properties
+- Simplifying the coexistence of legacy and new backend bindings
+- Prepare the support of the MDF peripheral on STM32MP25 SoC
 
-Best regards,
-Krzysztof
+Backward compatibility is maintained through legacy support.
+
+This series extends the backend framework with the following APIs:
+- iio_backend_read_raw:
+	This API is intented to retrieve channel attributes from the
+	backend. It is based on IIO framework read_raw API.
+- iio_backend_read_scale / iio_backend_read_offset
+	Dedicated APIs to read scale and offset channel values.
+- iio_backend_disable / iio_backend_enable:
+	backend enable/disable to be used for PM management
+- devm_iio_backend_fwnode_get
+	Intended for parsing DT subnodes to allow generic channel binding
+	support, as generic channel DT nodes are not populated as devices.
+
+[1]: https://lore.kernel.org/lkml/20200204101008.11411-1-olivier.moysan@st.com/
+[2]: https://lore.kernel.org/all/20240206-iio-backend-v9-0-df66d159c000@analog.com/
+[3]: devicetree/bindings/iio/adc/adc.yaml
+
+Changes in v2:
+- Update enable/disable backend API
+- Rename devm_iio_backend_subnode_get(), as devm_iio_backend_fwnode_get()
+- Update iio_backend_read_raw() prototype to fully match IIO framework
+  read_raw callback prototype.
+- Change st,adc-channel-type property name and type in DFSDM binding
+- Remove sd-backend and rename ads1201 compatibles in SD binding
+
+Changes in v3:
+- Add iio_backend_read_scale and iio_backend_read_offset
+- Remove sd-backend compatible. Adapt existing sd modulator driver and
+  binding to support backend topology.
+- Misc corrections in DFSDM binding & minor changes in DFSDM driver
+
+Changes in v4:
+- Remove allOf and rework examples in SD modulator binding
+- Wrap lines to 80 characters in IIO code
+
+Changes in v5:
+- Move iio_backend_read_scale and iio_backend_read_offset to inline
+  and update prototype
+- Fix channel number & remove legacy binding example in DFSDM binding
+- Rearrange DFSDM patches to fix build issue in serie
+- Split SD modulator binding patch.
+  Move reference voltage change in a separate patch
+
+Changes in v6:
+- Minor cleanup in DFSDM binding
+- Fix vref-supply dependency condition in SD modulator binding
+
+Olivier Moysan (9):
+  iio: add read scale and offset services to iio backend framework
+  iio: add enable and disable services to iio backend framework
+  iio: add child nodes support in iio backend framework
+  dt-bindings: iio: dfsdm: move to backend framework
+  dt-bindings: iio: add backend support to sd modulator
+  dt-bindings: iio: add vref support to sd modulator
+  iio: adc: stm32-dfsdm: adopt generic channels bindings
+  iio: add iio backend support to sd modulator
+  iio: adc: stm32-dfsdm: add scaling support to dfsdm
+
+ .../iio/adc/sigma-delta-modulator.yaml        |  25 +-
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 122 +++++++-
+ drivers/iio/adc/Kconfig                       |   2 +
+ drivers/iio/adc/sd_adc_modulator.c            |  92 +++++-
+ drivers/iio/adc/stm32-dfsdm-adc.c             | 293 +++++++++++++++---
+ drivers/iio/industrialio-backend.c            | 101 +++++-
+ include/linux/iio/backend.h                   |  29 +-
+ 7 files changed, 592 insertions(+), 72 deletions(-)
+
+
+base-commit: bf829a98bc4bb9076a2fd70f4a69ea7e281863fa
+-- 
+2.25.1
 

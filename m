@@ -2,156 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D2E940FB6
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 12:42:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76923941132
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 13:53:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45E4CE94;
-	Tue, 30 Jul 2024 12:42:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45E4CE94
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4574186E;
+	Tue, 30 Jul 2024 13:52:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4574186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722336179;
-	bh=1VRZiR2rqVPNl8VRXfZPLhHjOtvzuPO1/pgyFLT/s64=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=jw6nLQ5EFZeQkClA42zLDrtpWnxhLTI9JOArpsVkwbGtYer6Fr8TJA23y9thDmuSg
-	 Z7RBSdg9bYi6Fux4yBX3MH+1v3yC8NVovqnvsw5cUUpca1rnJAb5sT/PvMW0n2YmgZ
-	 Bnep1ddKgx82t38ph/VvwVBLQPYpW4pSSYgifl4w=
+	s=default; t=1722340379;
+	bh=ENhVlm5z1c38Bwm5WCm4jIh1h1RFWVBTij5tZ5reNl0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=CA7g2GwApp5MlSmu2ofNJncxc84lgaJW2yrTALInilx/5VW9GVDGntdOXsQnrVnJg
+	 Rdcf+tLVFCyZrjbaTvMnBSS4GltHdwbgX9ePetdsd57OUTLhBh/lcfET23iAYzLInF
+	 IgPvI3iAJcwIyWBLlLA0iQ1kgs5Yz2MlwyMejcVk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56A00F805B4; Tue, 30 Jul 2024 12:42:28 +0200 (CEST)
+	id 9CD1FF805A1; Tue, 30 Jul 2024 13:52:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3676AF805B0;
-	Tue, 30 Jul 2024 12:42:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1CB2F805B2;
+	Tue, 30 Jul 2024 13:52:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4315F802DB; Tue, 30 Jul 2024 12:42:21 +0200 (CEST)
+	id E97E9F802DB; Tue, 30 Jul 2024 13:46:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from fhigh4-smtp.messagingengine.com
+ (fhigh4-smtp.messagingengine.com [103.168.172.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF3DBF8007E
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 12:42:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF3DBF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7CBF0F800C9
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 13:46:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CBF0F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Drf1x33Y
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-42122ac2f38so16606045e9.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 30 Jul 2024 03:42:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1722336137; x=1722940937;
- darn=alsa-project.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6deSvIqqsQyDChLYyOgrv+pIRLeJpzpJBJQ+0ud0A3s=;
-        b=Drf1x33Y4IqcNfUEbkQgv57h9tYXPktlP+By75TEv2FA6MWp9Pb4OtTaFOPBr//PkR
-         onHHMavCW24nLpJoVY5CVdFNIv3jHdiuow4ndOQKUH69LmYiY445E2FZwIGIfsxoCRCw
-         RIgFBkE87rMC5HadHETSz/6cquFKXSVcvqsJAeBwHUBmNOhZTBHdKDbcoTFIg/lYNoqp
-         E4EWTeb4VqwJFvYrU/xWQsziNStUflWZLFVfWdkCVtV+mA6Np1RduIylrGtqPquEZDWc
-         tBhlizgGb07sqzDQrHq5EZjUUK8gEy7XHEHAW19erWF6SmDKyKgJrSdq49tzhVnu2koA
-         GIkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722336137; x=1722940937;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6deSvIqqsQyDChLYyOgrv+pIRLeJpzpJBJQ+0ud0A3s=;
-        b=U6PkCdMfdFkAkm1nW7M5DlKsM/VkAqA7Sa8bwsgRRVyLtbh2dGA0RTpLJfcdCIMtGx
-         d+xdGXVwV4IgQkCuybPXVOGBT/SMM/rXH0IZYNiUNV59Co9h6X9z930w52mk0ut/Jf2B
-         pa4l1SZbzyTINUK0+yS4H4tLnxHjF70b8SdrDqQhtV174mjBOwTkLbgq/gdY2dAMsjRj
-         iYJgeG2DvB2hFryRcIdK44JQrezTbxfbO/sKzxuXXEwE/7s5PlWk1s/cuMrEZTZpVP8G
-         xyQFDlSCaJqR062DX1c3LQjr9T7F8yYyP/U3+R5f1y3+briIuZ/7hDqkGnC28/sExPAC
-         fWSw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrbmrlJ1PP8HHRoJ22X6x3zY6k+RUfmnncnKQ5n7N4ueIADqzdT7HoHJfuUyEiYQ9GU3+lqlLvXkiA9Wme3jxpF0cW3Yp+dsnSBe0=
-X-Gm-Message-State: AOJu0YxHBOg8hLdq8SI5MUxaBOwfSnlH39rYYT9+ZYA08PJwic4XAlQZ
-	KmbLGBOcZRqyqhGNO4sF43djFloZORy8ML+fYk0sQR1H/XezV6YXT0II5/InT/g=
-X-Google-Smtp-Source: 
- AGHT+IHeXHY88suE4ewnhsolNXbKjO152PQ5psGYhMg2+jD7tzsUInVGMCmfVitO6UqhI4G5TKjqiw==
-X-Received: by 2002:a05:600c:474b:b0:428:b4a:7001 with SMTP id
- 5b1f17b1804b1-4282445c599mr9828245e9.15.1722336136694;
-        Tue, 30 Jul 2024 03:42:16 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.137])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-427f9372e99sm248611245e9.16.2024.07.30.03.42.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jul 2024 03:42:16 -0700 (PDT)
-Message-ID: <6acf132a-fa8a-4737-88da-23300755f410@linaro.org>
-Date: Tue, 30 Jul 2024 12:42:14 +0200
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm3 header.b=o2VykogO;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=sbVxb0nD
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailfhigh.nyi.internal (Postfix) with ESMTP id 4292E11406BD;
+	Tue, 30 Jul 2024 07:46:13 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute2.internal (MEProxy); Tue, 30 Jul 2024 07:46:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1722339973; x=
+	1722426373; bh=iefsEGpHVlqq7CDg5X+Pi4Watsk5tFu1X0BI8hP/BOU=; b=o
+	2VykogOxTw0K6YszGtXFavrSwCSnNJ0fcfQFLb8c1J62eX/B615C+XzsLPA11GNL
+	paVvvle7JbWzZx68wMti66apiovwHONz2pHLYzHX5YT6Md/N2/yIx9f0WhNWB5UW
+	KdHd9BKOsT5aboAGaC07r694nifQnF4/ojI3ELhm4kYXcM5Y0HAYmo+q0cZuLI8B
+	qlF5CCdKgTki4SCuTCGX101ZCzOGYolol6L3TGo2WiV/jSv8pKB23qHrxNdjKMBJ
+	0eUxVSTGwjXVv7NMhE6DBTNl7xV0wE0UKZWAuLw/b6Zusom4mdWuidI2tTpNnQS+
+	snkxqYyi6vmq/QO0bFThw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1722339973; x=1722426373; bh=iefsEGpHVlqq7CDg5X+Pi4Watsk5
+	tFu1X0BI8hP/BOU=; b=sbVxb0nDK7Sa+vve3/VEOxNinI0/8LrsT6hqOl+8xA3C
+	borTp1s3GIqIgsSAUV90VDAq+HvQXv5th/dpxj5e9McXryDztVMpdmNqYafNObl0
+	UBeGa2rq9I92fmsf+Bhs3ferVdWAPRl7G+HwZotoFCPFOnedzmVK+IExLEk/v0g1
+	fBnuAAjRiUgonaIgTlvfmG0hFziHaN70ma0vFo5i4GiEaPL4oXSaUF67Q0XrdsWt
+	4+GDIOhCtTj8Ad6LoEqKY2b7accrvez7dtqsDkiqCdS82F3Xqq+JKlVdaPkObvor
+	L2iLD24DN75GZzXGr++O5GL6a+OTx8+pu1lt8rfOxA==
+X-ME-Sender: <xms:hNKoZkQx8Q-dXLvW15F4_qi8B7lwCXb1eJqPW-CLk295tUHcN5G6Yg>
+    <xme:hNKoZhwumybvAUplegvwEgurplphzQmME_sBbS2jlIGUBpWB1AodgDF3Tb3IfSBzl
+    N8D51BC7WE1KSPc8sY>
+X-ME-Received: 
+ <xmr:hNKoZh0isJzzVpeh444qXFIHCbnpSkJ4p5y5u28s-nUpZ7biiuHm-rT7p17UJMKeR31c8qDXOraBwSNDtGLBnafzoAIxD1_0_pJg>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgeeftddrjeeggdeggecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+    hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+    hpqeenucggtffrrghtthgvrhhnpeevieelhfdukeffheekffduudevvdefudelleefgeei
+    leejheejuedvgefhteevvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhh
+    ihesshgrkhgrmhhotggthhhirdhjphdpnhgspghrtghpthhtoheptd
+X-ME-Proxy: <xmx:hNKoZoAARNNZ70WX_IV9vHa-FfFD4ZUPGbKfL3LrpwgJVNsBinrJBA>
+    <xmx:hNKoZtj6qr5Qmv2iIPOatqBAbTPD9H67ayhuyYb2dbOyhInEQGo-Tw>
+    <xmx:hNKoZkp6MdyF5qBuOuhoxCratAgQo5blzw-_q_gxrStUXuK_xqjHgw>
+    <xmx:hNKoZggfxY_15cINy0YsjrYL24R1hUf05N8Gfp7DyhjwjIvAtjtqKA>
+    <xmx:hdKoZteGyL-kGhFZbULAT97asYih7oxixtXwX-16PcpTkS8SszcewKR->
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 30 Jul 2024 07:46:11 -0400 (EDT)
+Date: Tue, 30 Jul 2024 20:46:09 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Edmund Raile <edmund.raile@protonmail.com>
+Cc: tiwai@suse.com, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] ALSA: firewire-lib: restore process context
+ workqueue to prevent deadlock
+Message-ID: <20240730114609.GA139690@workstation.local>
+Mail-Followup-To: Edmund Raile <edmund.raile@protonmail.com>,
+	tiwai@suse.com, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org
+References: <20240729214149.752663-1-edmund.raile@protonmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: MAINTAINERS: Drop Banajit Goswami from Qualcomm
- sound drivers
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Banajit Goswami <bgoswami@quicinc.com>
-References: <20240730103511.21728-1-krzysztof.kozlowski@linaro.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240730103511.21728-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: QP6EDGAT2LSXPLXFKN6OZDGNJGHKAZLG
-X-Message-ID-Hash: QP6EDGAT2LSXPLXFKN6OZDGNJGHKAZLG
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240729214149.752663-1-edmund.raile@protonmail.com>
+Message-ID-Hash: SDJ6PJWW3THR232V3HB5WYKEEGEB4I7W
+X-Message-ID-Hash: SDJ6PJWW3THR232V3HB5WYKEEGEB4I7W
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QP6EDGAT2LSXPLXFKN6OZDGNJGHKAZLG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SDJ6PJWW3THR232V3HB5WYKEEGEB4I7W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,23 +138,106 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 30/07/2024 12:35, Krzysztof Kozlowski wrote:
-> There was no active maintenance from Banajit Goswami - last email is
-> from 2019 - so make obvious that Qualcomm sound drivers are maintained
-> by only one person.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
-> ---
-> 
-> Not moving to credits because lore does not point to significant
-> contributions. Just ~140 emails:
-> https://lore.kernel.org/all/?q=f%3A%22Banajit+Goswami%22
-> ---
+Hi,
 
-I forgot cc to Banajit. Sorry for that, adding here and I will also
-bounce the original email.
+On Mon, Jul 29, 2024 at 09:42:02PM +0000, Edmund Raile wrote:
+> This patchset serves to prevent an AB/BA deadlock:
+> 
+> thread 0:
+>     * (lock A) acquire substream lock by
+> 	snd_pcm_stream_lock_irq() in
+> 	snd_pcm_status64()
+>     * (lock B) wait for tasklet to finish by calling
+>     	tasklet_unlock_spin_wait() in
+> 	tasklet_disable_in_atomic() in
+> 	ohci_flush_iso_completions() of ohci.c
+> 
+> thread 1:
+>     * (lock B) enter tasklet
+>     * (lock A) attempt to acquire substream lock,
+>     	waiting for it to be released:
+> 	snd_pcm_stream_lock_irqsave() in
+>     	snd_pcm_period_elapsed() in
+> 	update_pcm_pointers() in
+> 	process_ctx_payloads() in
+> 	process_rx_packets() of amdtp-stream.c
+> 
+> ? tasklet_unlock_spin_wait
+>  </NMI>
+>  <TASK>
+> ohci_flush_iso_completions firewire_ohci
+> amdtp_domain_stream_pcm_pointer snd_firewire_lib
+> snd_pcm_update_hw_ptr0 snd_pcm
+> snd_pcm_status64 snd_pcm
+> 
+> ? native_queued_spin_lock_slowpath
+>  </NMI>
+>  <IRQ>
+> _raw_spin_lock_irqsave
+> snd_pcm_period_elapsed snd_pcm
+> process_rx_packets snd_firewire_lib
+> irq_target_callback snd_firewire_lib
+> handle_it_packet firewire_ohci
+> context_tasklet firewire_ohci
+> 
+> The issue has been reported as a regression of kernel 5.14:
+> Link: https://lore.kernel.org/regressions/kwryofzdmjvzkuw6j3clftsxmoolynljztxqwg76hzeo4simnl@jn3eo7pe642q/T/#u
+> ("[REGRESSION] ALSA: firewire-lib: snd_pcm_period_elapsed deadlock with
+> Fireface 800")
+> 
+> Commit 7ba5ca32fe6e ("ALSA: firewire-lib: operate for period elapse event
+> in process context") removed the process context workqueue from
+> amdtp_domain_stream_pcm_pointer() and update_pcm_pointers() to remove
+> its overhead.
+> Commit b5b519965c4c ("ALSA: firewire-lib: obsolete workqueue for period
+> update") belongs to the same patch series and removed
+> the now-unused workqueue entirely.
+> 
+> Though being observed on RME Fireface 800, this issue would affect all
+> Firewire audio interfaces using ohci amdtp + pcm streaming.
+> 
+> ALSA streaming, especially under intensive CPU load will reveal this issue
+> the soonest due to issuing more hardIRQs, with time to occurrence ranging
+> from 2 secons to 30 minutes after starting playback.
+> 
+> to reproduce the issue:
+> direct ALSA playback to the device:
+>   mpv --audio-device=alsa/sysdefault:CARD=Fireface800 Spor-Ignition.flac
+> Time to occurrence: 2s to 30m
+> Likelihood increased by:
+>   - high CPU load
+>     stress --cpu $(nproc)
+>   - switching between applications via workspaces
+>     tested with i915 in Xfce
+> PulsaAudio / PipeWire conceal the issue as they run PCM substream
+> without period wakeup mode, issuing less hardIRQs.
+> 
+> Cc: stable@vger.kernel.org
+> Backport note:
+> Also applies to and fixes on (tested):
+> 6.10.2, 6.9.12, 6.6.43, 6.1.102, 5.15.164
+> 
+> Edmund Raile (3):
+>   Revert "ALSA: firewire-lib: obsolete workqueue for period update"
+>   Revert "ALSA: firewire-lib: operate for period elapse event in process
+>     context"
+>   ALSA: firewire-lib: amdtp-stream work queue inline description
+> 
+>  sound/firewire/amdtp-stream.c | 38 ++++++++++++++++++++++-------------
+>  sound/firewire/amdtp-stream.h |  1 +
+>  2 files changed, 25 insertions(+), 14 deletions(-)
 
-Best regards,
-Krzysztof
+In my opinion, the patch just to change code comment is not preferable
+to apply stable and longterm kernels as fixes. It is acceptable to
+revise revert commits with slight changes to optimize codes and comments
+to current status, thus I would like you to amend the second and third
+patches so that the patchset consists of two revert commits.
 
+I'm sorry to make many requests to you, however it is a community for
+software development to which we are involved. It has some implicit and
+explicit conventions to which we could follow.
+
+
+Thanks
+
+Takashi Sakamoto

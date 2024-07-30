@@ -2,166 +2,166 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38652940421
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 04:08:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5117940422
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 04:08:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E880E9D;
-	Tue, 30 Jul 2024 04:08:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E880E9D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E3EBF54;
+	Tue, 30 Jul 2024 04:08:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E3EBF54
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722305302;
-	bh=Bp7EUHbMlCX8NrGlSB2mlcwwzFXrG3jyeXK4vHJLKEA=;
+	s=default; t=1722305322;
+	bh=mYuTvqtStt4B4q9ahq5WB/z6GrhgByodBdB1BgAGqs4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IqwqOJIDueMmpVw7pjsn7gXIC6OML9tgk4Lpnbbdeiw2wZI6XSlfrfrEeD/Gbnfat
-	 oGCLblgdHuIigqiU5Fp0cW5pPoblTj1NYX2KlIxhaucjzomxoeiKe7GAXsxdAqpb5F
-	 gmZHDSA51POqgF1dWxQYJGop4PuUFWjhMU0jRFlc=
+	b=UbLLRAiW0B0aq614OrPPOxfZgrN+8kAbhirMzWlCMHqxZXbU+wbekspxkledWXm08
+	 fbrDLJ7h3Ywa79bqGleOGuEpt+4VLb7LOL03+ZzvcN8ybzJFgkcrW7bSm81Lg3C66s
+	 V62T4nAn4OwkbjqK8aPSEixsDe+apqpFgLp8RZ9Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4839F806D7; Tue, 30 Jul 2024 04:06:14 +0200 (CEST)
+	id 12B3CF806ED; Tue, 30 Jul 2024 04:06:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40348F805E5;
-	Tue, 30 Jul 2024 04:06:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2408CF806E9;
+	Tue, 30 Jul 2024 04:06:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6DB7F805FF; Tue, 30 Jul 2024 04:06:09 +0200 (CEST)
+	id A1854F80606; Tue, 30 Jul 2024 04:06:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazlp170110002.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:c405::2])
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazlp170100001.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:c406::1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C959CF805A9
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 04:06:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C959CF805A9
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3512F805E9
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 04:06:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3512F805E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=S939cQuR
+ header.s=selector1 header.b=BWOO3Ol/
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vOddaXstN02B5biK8GudbkBKlQICc2Rap14kNf/tJQcdliaCVY2WmMOV3G2oA5tB4TDsUxxpkvNfMe0TDFfrOdxOYhmJnLyFXcHs3uplMQfpHWkuiM0/88pCVTSowUQfjRhHGQ10bAgzlBBBkW5Ln0zWHAxzZgZTx22M2026MtsmpZKSg/WuwnR7LsX/RaaXj2dKuL4NwMqJfRRJwmkfk4RQgVFHWze5rcdwMFLS7YLF+tjyePfle3nl63y9foP8Pc3E3GQ8BUpUDzpEMUuZLKpYNmdY9JcEYwTAA5GN7IMamE1gsP6T9WpDFs51SFaq6BwRY1CErEDRo6+BiOtj/A==
+ b=aIXgQ0HXcZDax3szUfcMgZHXq/LON1ALv50E7qQSaEEuF13G3nwyzHPCu8fgX+QrEx2aJgF2U6quRbA1OsCKOxK2YbyYXNBApEKTf+UAkVmLblirQeO0Ks8PdyQAO1SrHi9M1tCLhAXz6X8We79I2wcqgIPxKEMvXwxK84ph9kI9yJktK8zYdvot46o71zeantPDlrQa5EWeu3aw9q5cq+CHB0VA3eGKIwfdKtN07/KaZqNqj+E+2xgdc4Tg+hisXoedtkZeSoHKYEUB2W74t5yfb28vWPfwSEXRdjY+HCCS97lly7tmWAXsgM7kNuQvGVvjLU820zD5V5fzoxGCEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PNrZMqv2BKjyKQJMUoZ1S5TDVrPo+9FSNc9wZOBwspk=;
- b=co7NSbH+4GsAyD50K38gD2O/8KCiYraEv3DOw/uhW92oTDkAtAtLG329ued3UXckGYgKok238DiyGmrodbZI6FHF/vy79JZ0UOmM+w8KY1c3zETN/z2oBfBMbLqU4UvuqvvbqhOXYEFt5ZLJ6+aAcFQ9M5SciiMvBz3nRgXmfotT5pBhZg3gOBNYWXnLUu9NjxmJoJDfy3nQz9biG1HEbbtXri5VIx+WJ/A0jP9WbD8DByfFOwfaTjUexK4HPHElDDuGEPTHvhggh7xCEMqp25DIGzxQG+zPeM/c2Txk8XdppMSp6pHFkgzxzyuOKXAAJn4fuzLrHhe2ylVQLVIdrg==
+ bh=GkKt+cOgw4RBFWf0ynqXrMiNv/H3mOk5GGEgecNi1Ik=;
+ b=e1UcjjgBG2dpm2zcmKg05P2/sqQwFV8+SRmwMULglSo2qb9a/QPZneBSjQEHi4kpAev2/ivtsOhZpMU2l3tP0HBLaol8BB998Pg2HH/72gB/IoMBlKLfrGUccmPSFu7cIEB2BQzh7Wi2XxfAUkDoLlMzi972lhori6ZZ5GCkCtgYUnY7Q3klmGocU7q089L/gi2BwtwZ5DBqZ2SsOmH1Tnt0NQ7cEhvb6m/DwIHk2V4rDekOYrHBuEhFo4vz32Awy2i0HtfgHkl7gp7zDSTEmXROJ48qV9cwmG6N/foSPMJbxFeiawg7DOEb/73UOq3TvOPFWs08W6BXj4eEHI3kUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PNrZMqv2BKjyKQJMUoZ1S5TDVrPo+9FSNc9wZOBwspk=;
- b=S939cQuRwsXnf+vAF3VOK75VBVNArimW8dTGdpZXwczQq1wIHqF/1oGTI24OwAMtl7iYAku05khssEw3md/Ce2uWMElrxVXB1H3R10hFStUt9Efp8LtKHOeWzML8+OQukkGAeBGbE352wBXUtlbooUKjTWWlpyHvOOjSy5X3m9A=
+ bh=GkKt+cOgw4RBFWf0ynqXrMiNv/H3mOk5GGEgecNi1Ik=;
+ b=BWOO3Ol/JEh8xw9lTekJoOuC5/eu5k9f2GoInRoV0FW4/7slee+Jkg5msBs6elJk8PNYMFcgSn3uNI0hzxwrRGE+RA5J62furK+IW+cvUBeijMFciJeScY8AypkMAthTOA+4XdMWds5pA3+q1gvJA6Raaq5ioSYZf8sdEExWFig=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYAPR01MB6427.jpnprd01.prod.outlook.com
- (2603:1096:400:a1::10) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:1096:400:3a9::11) by TYCPR01MB6621.jpnprd01.prod.outlook.com
+ (2603:1096:400:ad::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Tue, 30 Jul
- 2024 02:06:04 +0000
+ 2024 02:06:11 +0000
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
  ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
  ([fe80::c568:1028:2fd1:6e11%5]) with mapi id 15.20.7807.026; Tue, 30 Jul 2024
- 02:06:03 +0000
-Message-ID: <87ikwnk510.wl-kuninori.morimoto.gx@renesas.com>
+ 02:06:10 +0000
+Message-ID: <87h6c7k50t.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 10/12] ASoC: tegra: use snd_pcm_direction_name()
+Subject: [PATCH 11/12] ASoC: soc-pcm: use snd_pcm_direction_name()
 User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 In-Reply-To: <87wml3k539.wl-kuninori.morimoto.gx@renesas.com>
 References: <87wml3k539.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 30 Jul 2024 02:06:03 +0000
-X-ClientProxiedBy: TYCP286CA0198.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:385::13) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+Date: Tue, 30 Jul 2024 02:06:10 +0000
+X-ClientProxiedBy: TYCP286CA0200.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:385::6) To TYCPR01MB10914.jpnprd01.prod.outlook.com
  (2603:1096:400:3a9::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYAPR01MB6427:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4def750f-ee63-4bfb-e752-08dcb03c2a93
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYCPR01MB6621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92c9e006-cae9-44af-5215-08dcb03c2eb9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|366016|52116014|376014|1800799024|38350700014;
+	BCL:0;ARA:13230040|52116014|376014|1800799024|366016|38350700014;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?fkFdmtjD+DELYxSxgy4CfTVbNZA3xEwq+TJlVHys3q2KgmaTPhp1tKOwt3NL?=
- =?us-ascii?Q?85lumvIbMOyjAJbfp+aAhna/TASM+bunwKEZooYYtk3b473+FNHDkP2FvQ4x?=
- =?us-ascii?Q?J7WfiNRpXpu9Tm5h6YT+YMAOkerF10+xvRgGag4PD/52IVg/7XcbOZvNF2x4?=
- =?us-ascii?Q?r3PxDVE22lr6u2WRCF8lY6We4ziwTwtXwmneP/s1+VVV6K9HUemdkv8/d3lR?=
- =?us-ascii?Q?g7EPbXAbAHb9fHs1qeu9qlGNNp5YF6+n4BSKH6VnCftowzjEwaBi/kTeqYOg?=
- =?us-ascii?Q?fPVPz32tiv39tqt2J+augwBBlTakm4W9NEUNmr55gdjgHS29qgo2ooGWufa8?=
- =?us-ascii?Q?v/JJP4iISZ1NVsqcikqF8HfdpyUv5lVieu+xXL1TMXcanfziCJNniNgiiwmB?=
- =?us-ascii?Q?vnfAlzEqzMzoyk133Li9hFO9qNBTrnmArjnoCxanAX375kd3M3j+a80Y49xp?=
- =?us-ascii?Q?qzgf5NXSOB9habvAKUTYePF7CvYkTSVU8IA0m3lNEAcGZYQOi64OAUVMJR2i?=
- =?us-ascii?Q?nVSSqaGYsFcN8XEQHbXEGUAZeGExfqaZ2aj3EktWeWPnle8IdPylgUUO8MvV?=
- =?us-ascii?Q?7Cx0qQfbXwElIKMKf2d72s+A2hhhYsdwEN+XYb40E7J9F2wohkbhC+uxllb2?=
- =?us-ascii?Q?oVeB7j6ZsXVXYNuqvN5+SX7KtIUigLe3KdV3Wmnb9MIV65e3qCMd9CVBcYWv?=
- =?us-ascii?Q?gPjeuikuFlOS+D7v3HukPlwvjonQNEUTqwLrbHVfhdSAnP9GF65zQe/yobP9?=
- =?us-ascii?Q?oHEcBq9wg/v5yzWLC5B5CJ4L6g2Aj4VVFSdHCt/gnTXRFM1HM8cL/lQ5QmUC?=
- =?us-ascii?Q?Q8TKXws7yqWybzGjynqkZcY+AdySnddLW5uW0Lx9lvqrvUXAhscYL4WVjCLA?=
- =?us-ascii?Q?NrBqllc2lplN1vrxFGsvs8VZsmWNgT94ScMGYesmFL8EQrR3hlG5SDb8r4m0?=
- =?us-ascii?Q?ucnWvVY3i5hoWF8c7DLn3AucypgUuDmJHT4G6hO0jFfzhdgm0b4c2wQTKOFU?=
- =?us-ascii?Q?ZFfcVHYjHgfRwQFcnTrmYmW02/7gsdf9GKz5a/69Zcq1GICa4M+R4X0pL/yW?=
- =?us-ascii?Q?uxAtCTytHVmySJscRLO2LV8k/GVdmfezci8h9UvdkRGGQKpodSUDT1E4Gjd0?=
- =?us-ascii?Q?C39PmWkw8IzsbfNJFV9z6UPZzEQhQ6u3NN+aNmTToBAzwXQn6jKCSevhZ7Zd?=
- =?us-ascii?Q?yCVbMTSwzHIj5yK0/mN6ShNZjsr+QcFmtytRYReBUXUdlOZNicSqfMyw/Jf7?=
- =?us-ascii?Q?i8MIrtMqWP11xZN6jM8pTPC3Cs40gRq6qfjAO8rwwAEAdvS3SPg4PSamCqfI?=
- =?us-ascii?Q?/3LsYzBJJGEE1Bq/yByTG6XJzJ5k4lNy4LHrErL1oHbUA1xPJTP2EGVsBWIW?=
- =?us-ascii?Q?GAVVi7RxZugnG0Le8aU3VqL6qZHBLjiiEwTantoaMDLvuOpXRw=3D=3D?=
+	=?us-ascii?Q?4XgjXfyyVl77oT9ujKsYHPn5x9e9qR+FKIZepT4veUsSIwbRPP5jVUPVVVvU?=
+ =?us-ascii?Q?7IG8orByLxpOjgT4kAJLieYCKBQs7sx4rzbAnhjA7SOYCBrcnN6XFv4BpyGL?=
+ =?us-ascii?Q?0M6TVvf3FyFbCirSqvsndL/zG7Rkr5Bdm+74qxQFjfBSzpydrcgeSDNupyW2?=
+ =?us-ascii?Q?JTrs1+ZBpOQJCL0IxgST7jPMvtkdequKmU1IMikRS39i8GT1eAK3E7Wu9qtF?=
+ =?us-ascii?Q?r4QKUbutQkk0SFV7X3WIWtKjRxU1+Un2oaPaXbRJqB39lug8k+jJO4so6k7b?=
+ =?us-ascii?Q?6aDpVKIyH6SgOgTDHKUqpg4S9oA/D3vfba2n1sFEPvHIHyuvzb8GNvbTB18q?=
+ =?us-ascii?Q?aY1J3E2u+m/UhbPWdWTHIyfhsiLplNLTJLv6GbWnulIsGnlUgqyQWTjTANcQ?=
+ =?us-ascii?Q?8fRknFT31FDr+wzkRyWIXXO6n7zvJrLeH7gcbhdB9LCk7g4ASxRQDOP2Ib04?=
+ =?us-ascii?Q?PQ4Oz65G//Kfrx4aGcLBqnp7iDDNAu4lkUu92k07zblsrTp3j1KlkoN2nFXl?=
+ =?us-ascii?Q?G3+D85hBJxgnGxJ6cygirMn7LtUznWwUfBQPhP+6EY1qRT5R6cNq5p4xNvtK?=
+ =?us-ascii?Q?XhhbCZpF4WyJRrUgjR10LCQDv24+MjU1Ib6j24U7kJ+VyL94dGZ9EX6VzoxG?=
+ =?us-ascii?Q?fQtkV1hEzhxhBVZsXQEhWRd62FuJh5Jjii3AvTLSLJcw2II/MhHi3cRyUTFI?=
+ =?us-ascii?Q?tei6pQ7e3qFRB/Vbo/JYunGlpsz96CDe3NZti199CxLnU3Faeaek6GmwnFL3?=
+ =?us-ascii?Q?fpcllDEXY3pAdalbOAciybCOTaMfNl901Dw1VTL0m0y/8HCOnpUW5lBl2Nib?=
+ =?us-ascii?Q?9KqsbJUVTvgjnHQkEI42SPJRNhQTkhqKMLcCwknFvdDI8wHCQXjbyaNwlcMV?=
+ =?us-ascii?Q?PVlsA5Uur4x+zJsetkFyYapNokWBuvgA/HtqfvQMCzeO+jCXNVXDjErEDadh?=
+ =?us-ascii?Q?2pZKsVidixVLqZgfiJzTW85j047kXpKuoPnkkAiIPV30EAf+P3T12GiMSLtO?=
+ =?us-ascii?Q?w13PPR2Mq2On2NavG1lyRm5FvRFkgjluG6Hdz2eTh04ens+kr9/uvGOiHSwt?=
+ =?us-ascii?Q?dUeGnf9pMLNieCNgvGpIJZ1Zuhrn/SzyrMSup68FjDHEj7pht2g0XU1e6bZS?=
+ =?us-ascii?Q?OSWoFpT26WQEdJ0B/9+2eIvCQDVy7KBEklPlOeYLDXZRPMlQfRCF6dbI85WN?=
+ =?us-ascii?Q?sLWvsAblBgoyfRTD8js8KqLnT7VWlhhvCDeXZCT75RmzBCM0oiS8DeyCyNfm?=
+ =?us-ascii?Q?dH9PCcgSDCxckWsI0FfUROqLvdeNoTGTva20Nwp50qD9vStqnWLNiVAlWk/E?=
+ =?us-ascii?Q?jhSQrUHiKUAlDHJf2CsyUsiw3jv561DHD+xLAYljvm6c5dnpt5b+2qx8If/6?=
+ =?us-ascii?Q?bmt5Iarl0C6h6OLEMKKBN9/giPt+g7Ouj8P5NDBh9p8RGrmovQ=3D=3D?=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(1800799024)(38350700014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(38350700014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?sYLqQgw87Vwo8J9ZNSlWgFbteU7eNR5Kk64E9Z8JwngWneMCqFwKLsqH1Th5?=
- =?us-ascii?Q?b+p8QrSywQGY90vhCv6oYdcTI6PEjwpSV6VMyUy/ASaHC0fkJrhXo/Mn7ifA?=
- =?us-ascii?Q?2IMWRbDXPoYMNOydAZTmSuWXXmaQryyUqbxIKNN7J8mTMfN9aoVMwzMdDtvs?=
- =?us-ascii?Q?YnHYT1tZL1QwMkoywATnReHl84AG8jg4izRp9ecEtfryOO9RmY1b5EtIM9D9?=
- =?us-ascii?Q?AVEt99hjyZg1FWLcMESvgIedsq3MHfVKSIuzooWAewt/DP8pbqFUWvz6lybQ?=
- =?us-ascii?Q?wHopDGO5e5ADOLvdF8FJgYud38sUc/4pkQzV6kieUQuED75uq2BeHWW0MUbY?=
- =?us-ascii?Q?+qtJIshhF5odeo3b400qEpasSKgAVcqhkn6zdeAAw6wAu5JrUDEy8Ujs+Cdo?=
- =?us-ascii?Q?tiwskSy4gMblfGPelSdKEzEEQ9rGvXusoPz1r7eLbpXMX7zHiBrBXwdz3pm+?=
- =?us-ascii?Q?IxSkulW6JabGDtVEaAdQty0xoojCdY4faOP1KWKlM0YcCX6aQyuZ1Ukyhdq/?=
- =?us-ascii?Q?HAhNEeyfZPM+uh87UBtRCeV3aHtffLwGJJ4/32sreu0BLkf/5u+7TG+24NYz?=
- =?us-ascii?Q?+VgZzTNLCna6RdCBr8fqj+duhw6g2/4ND6fVrYdu3r0RTmu7a/97t57r/BO/?=
- =?us-ascii?Q?fTSXOvclWkeUgxLvcdNlJD2UmuS8EdF5bu54p+Ymm8xXNuCcw9sVvfNm0IKG?=
- =?us-ascii?Q?1QIQdZgvMazOa+zkSyl6uOHyQyvBeP+OW0NR9daBS0gRzCQfTm6/gIUf3xOI?=
- =?us-ascii?Q?wtkE0EZzpiU25yRmZYT2eagdUuvTggK3JYMsELlC59ox7eDIVlf4ZTcOCSmf?=
- =?us-ascii?Q?OJ9Rm56NzpbhqWMNBvJgMUpe4D64ojtfVIUmsEwW3+BUmRqZeAQHiy5xWjqe?=
- =?us-ascii?Q?alOcEJ7lZPr7iBwGCh0bIVsXINrJH/eWIhAT/ujZzPS98nWt+VLx7SXlw1SP?=
- =?us-ascii?Q?7NJ7i7kXhDaJ3S565w+1OUXRz+nxFdOF/QUc7cpzf91bwcLXAN8XwamSkcKD?=
- =?us-ascii?Q?UGyhodsVKLy4HJrGozSHjkSQT9MrxD9Mg2IhDdanPI3qUtrGUP82wIxJmv/4?=
- =?us-ascii?Q?NDBTCXUOp0kebZnkx/3wwFJLevKsRtHtV5JbZSaPtYV69MyxmC4ohwAKodTy?=
- =?us-ascii?Q?F/ogqVheFIJIMhkGdHZ70J/VVaf/SUHCnNEcChn98nR08wVOwhTwxJPandAj?=
- =?us-ascii?Q?RJPkZOheoplGiSq+44u+mtvWbkK/8huuzo9fk4EMS6W9vpGfV3li851IsZ82?=
- =?us-ascii?Q?idieI1j+bnFWuolBmtp9ZTBfG/pDOV4HLJAwotZb1Jltz4fD9kxAEHzitdIW?=
- =?us-ascii?Q?6yJy1eqXjqMEDZ4HdRk3oGF+e+2uarbKTPX6RkUWLPLRzizlzTD/LSu5MYrQ?=
- =?us-ascii?Q?LK7EccJST6CEkdTONoRqZ2oXLoiap3Vu2t+Qai0rX8KcESydzied4PGd1yuz?=
- =?us-ascii?Q?1f2aTSXn83knnYvob59TKX0RGOT6xf5RP5VC3c815pGuLjU/AKIparwCPPgH?=
- =?us-ascii?Q?6arGfP53zSQYq0FTbWcE4/VykhNk/9VPgk0avS9bzC5h3oymRThECIJ/9ecd?=
- =?us-ascii?Q?+I3CqTzOq3iOJy0Poo/Ajd+mL/nHVMeSPwS1NQ2M1aleloCKNjcGvk25/Hwi?=
- =?us-ascii?Q?Np5jXAnSqD9sxfAE00S2YvA=3D?=
+	=?us-ascii?Q?ykQIPCNxK001Py9y2Th7FecmbTh2wVxoTOvzjsVTvXK6cFL2bGEQDxQ4hbju?=
+ =?us-ascii?Q?8dqHJouVuHEixIplJjKJDl2jSI1LNt3ogLVoo4kYBgki1Oy8DF0ClLXiHYun?=
+ =?us-ascii?Q?ZtbjhMPn3PrO3HgH8zkaz9FerMuSN9zNq6DLV9TppKiI2/XlGIDTRC6RKUR9?=
+ =?us-ascii?Q?6EkfhuB/xiox0sJhg+dG0xxrIrj1TuYDTbfI624H+C2lWP1bkvQk2AUF/Eae?=
+ =?us-ascii?Q?Y5/n4+fIf1zDdWCGPT/73+/qKeM3Dx1kJbcHpeUwkaWUzjCV6+JV8kK/xCWf?=
+ =?us-ascii?Q?8cquSS2a894sqTM4ifXyA0OR3bgDx7Ne+3EvcubTT4wVquoWBTfWlhHd1U59?=
+ =?us-ascii?Q?YhFyTrpcqkIE9+IwqurPaDUcfISaVSWXj72dhm6QashTZ/FCUBonA19E2Qqm?=
+ =?us-ascii?Q?/eaF+RYJVrd8O020gbin2gDN4anBsosEMjbZk9H9chjJgQVHHNXi0f3nJj+l?=
+ =?us-ascii?Q?qfTc3PCFSz3izQmM6y9F/84XDPxFlOLa253Njz0CeZgsJ3GgcK2HXfGi0Zd8?=
+ =?us-ascii?Q?q+LrCSAblwD2FuCnmIh4gVMifnezb7xXTStxh5nzTq7KXl3KDHT1P6tblHxW?=
+ =?us-ascii?Q?ZqYGg8sjkTrl1zC2nyZuyly0SG6o4yVLpjsrue4G9qHnk2lRpv20sHvS8pNF?=
+ =?us-ascii?Q?eOxtOEfPGNsHCy6HAIj9jZKdUWQBKJlDmbRyhZ7TivlrxKajRA5G1bi5LHY4?=
+ =?us-ascii?Q?zGum2nw9t4NLXxLDAxdHJyt94Bd8/9B8Qke6lD1KpB7lWUMXHyY+g4jrYzxG?=
+ =?us-ascii?Q?Ok0OnI0w0ihBTcnX4okEVFfFk7onxPV6cl1/Z+yoJsiUMGW7HL+UDGaualc8?=
+ =?us-ascii?Q?KS66LcZnjypbIl8dZXYHfiKQV/1utUFSiLot02duM9k7zeY0DxO+tqKJW2U+?=
+ =?us-ascii?Q?AWAT+tBJQYcv7fqCAua9an9K9S/ZVTe83I0S+kBP1S06Xak588njsrGDevGy?=
+ =?us-ascii?Q?LQ/4bMoblKeYFLAft1D/nIbCZhYwDrO8lyUCm9rfK4QMNUeEofwsuZWYHsvD?=
+ =?us-ascii?Q?G3FzhydFPNy06uXV3Rh1X+jI0auQdMJoPfK9EoHVGCZJ+NfTAAJ1IXm2uukk?=
+ =?us-ascii?Q?5f/tmjKJvEGRLfeZQcnLMGHNUn+Lq4y3pgTQwIKC354KDfN8+FDSRwgXHiC8?=
+ =?us-ascii?Q?b0y6tHoSN115LYaBTvIwbdIL5oCtO2mBRf2nfKt0Q9JINmLoy6gPrGDZtNYc?=
+ =?us-ascii?Q?i675RXvFjjdjoDaB1aCBvV2VvAW13XpHLdw9gxkZprsJD7Lr9XZl96PXbwtc?=
+ =?us-ascii?Q?ZvvBrABiuRJiNydQgA/RwV4yP0mU+oobDHIkDZQDwoyc1RFCzAQKESAjY0l5?=
+ =?us-ascii?Q?m95u5bU2Q85Fr64KjQ3fzG3FIfgKKq8HNK8obUA9lV1hUZ47IIOpC6kEroFU?=
+ =?us-ascii?Q?LV0hw6oeH+GLXn6DN5zzFXk9YU1T+H8MDKUe7TXIMjY0fJsK/yAqlBs7sL5L?=
+ =?us-ascii?Q?XI+ZeY6dmvz4prRka7B55IVD6blZOfALmqiEi7kqTvs3PE3rK5HYpUpzLMw6?=
+ =?us-ascii?Q?GTfCfSbU3Jn7FGhTKg4OCMXBpeJ2c3DVYHWanOY53esUeP2+cwyy8YPhQ7VD?=
+ =?us-ascii?Q?zb3r1ABlJ6lK2U4X2tZ5AhM0FF/sCqybnpPYkWOeEcBNN67Q0l11tzOnh+YS?=
+ =?us-ascii?Q?8bztP7oYRsEUZ2zyCfpUblk=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4def750f-ee63-4bfb-e752-08dcb03c2a93
+ 92c9e006-cae9-44af-5215-08dcb03c2eb9
 X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 02:06:03.9528
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2024 02:06:10.9061
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- xH7mzxAY6lRHW5dZDUkbhI1TYO6SNpwcq/2W4Jx2vd1+3/HfWPQu8uJO16ddEL7mh8fhYAMCpO062lr9Vd2J9auloP5UHmMfoVEU+U1NCrpaxCwLxIHabOJKFRWMg+RY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB6427
-Message-ID-Hash: AKMHX2Q6JWBI5HYIISYJSLT37M4ZQJMN
-X-Message-ID-Hash: AKMHX2Q6JWBI5HYIISYJSLT37M4ZQJMN
+ Y0LSENsPy5ATfscnlf+cTHL/7iKDExNEc4RCduEkMd38Lwq/x0QVrychMDa5eiS+ZK7FcqhoqbJ15CIG/I8fq74vqInvYRRh58ZklVefz1XwyYoHakIwNSHkKRZf7b2b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6621
+Message-ID-Hash: K4G67FFHPVHBZM5JFLX3G25RWZLJU5ET
+X-Message-ID-Hash: K4G67FFHPVHBZM5JFLX3G25RWZLJU5ET
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -174,7 +174,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKMHX2Q6JWBI5HYIISYJSLT37M4ZQJMN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K4G67FFHPVHBZM5JFLX3G25RWZLJU5ET/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -187,74 +187,142 @@ We already have snd_pcm_direction_name(). Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/tegra/tegra210_i2s.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/soc-pcm.c | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra210_i2s.c b/sound/soc/tegra/tegra210_i2s.c
-index fe4fde844d861..e93ceb7afb4c4 100644
---- a/sound/soc/tegra/tegra210_i2s.c
-+++ b/sound/soc/tegra/tegra210_i2s.c
-@@ -85,7 +85,7 @@ static int tegra210_i2s_set_clock_rate(struct device *dev,
- }
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index bad823718ae47..5520944ac9ddc 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -222,7 +222,7 @@ static void dpcm_create_debugfs_state(struct snd_soc_dpcm *dpcm, int stream)
+ 	char *name;
  
- static int tegra210_i2s_sw_reset(struct snd_soc_component *compnt,
--				 bool is_playback)
-+				 int stream)
- {
- 	struct device *dev = compnt->dev;
- 	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
-@@ -95,7 +95,7 @@ static int tegra210_i2s_sw_reset(struct snd_soc_component *compnt,
- 	unsigned int cif_ctrl, stream_ctrl, i2s_ctrl, val;
+ 	name = kasprintf(GFP_KERNEL, "%s:%s", dpcm->be->dai_link->name,
+-			 stream ? "capture" : "playback");
++			 snd_pcm_direction_name(stream));
+ 	if (name) {
+ 		dpcm->debugfs_state = debugfs_create_dir(
+ 			name, dpcm->fe->debugfs_dpcm_root);
+@@ -1278,7 +1278,7 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 	snd_soc_dpcm_stream_unlock_irq(fe, stream);
+ 
+ 	dev_dbg(fe->dev, "connected new DPCM %s path %s %s %s\n",
+-			stream ? "capture" : "playback",  fe->dai_link->name,
++			snd_pcm_direction_name(stream),  fe->dai_link->name,
+ 			stream ? "<-" : "->", be->dai_link->name);
+ 
+ 	dpcm_create_debugfs_state(dpcm, stream);
+@@ -1306,7 +1306,7 @@ static void dpcm_be_reparent(struct snd_soc_pcm_runtime *fe,
+ 			continue;
+ 
+ 		dev_dbg(fe->dev, "reparent %s path %s %s %s\n",
+-			stream ? "capture" : "playback",
++			snd_pcm_direction_name(stream),
+ 			dpcm->fe->dai_link->name,
+ 			stream ? "<-" : "->", dpcm->be->dai_link->name);
+ 
+@@ -1327,14 +1327,14 @@ void dpcm_be_disconnect(struct snd_soc_pcm_runtime *fe, int stream)
+ 	snd_soc_dpcm_stream_lock_irq(fe, stream);
+ 	for_each_dpcm_be_safe(fe, stream, dpcm, d) {
+ 		dev_dbg(fe->dev, "ASoC: BE %s disconnect check for %s\n",
+-				stream ? "capture" : "playback",
++				snd_pcm_direction_name(stream),
+ 				dpcm->be->dai_link->name);
+ 
+ 		if (dpcm->state != SND_SOC_DPCM_LINK_STATE_FREE)
+ 			continue;
+ 
+ 		dev_dbg(fe->dev, "freed DSP %s path %s %s %s\n",
+-			stream ? "capture" : "playback", fe->dai_link->name,
++			snd_pcm_direction_name(stream), fe->dai_link->name,
+ 			stream ? "<-" : "->", dpcm->be->dai_link->name);
+ 
+ 		/* BEs still alive need new FE */
+@@ -1441,10 +1441,10 @@ int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
+ 
+ 	if (paths > 0)
+ 		dev_dbg(fe->dev, "ASoC: found %d audio %s paths\n", paths,
+-			stream ? "capture" : "playback");
++			snd_pcm_direction_name(stream));
+ 	else if (paths == 0)
+ 		dev_dbg(fe->dev, "ASoC: %s no valid %s path\n", fe->dai_link->name,
+-			 stream ? "capture" : "playback");
++			snd_pcm_direction_name(stream));
+ 
+ 	return paths;
+ }
+@@ -1487,7 +1487,7 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
+ 			continue;
+ 
+ 		dev_dbg(fe->dev, "ASoC: pruning %s BE %s for %s\n",
+-			stream ? "capture" : "playback",
++			snd_pcm_direction_name(stream),
+ 			dpcm->be->dai_link->name, fe->dai_link->name);
+ 		dpcm->state = SND_SOC_DPCM_LINK_STATE_FREE;
+ 		dpcm_set_be_update_state(dpcm->be, stream, SND_SOC_DPCM_UPDATE_BE);
+@@ -1605,7 +1605,7 @@ void dpcm_be_dai_stop(struct snd_soc_pcm_runtime *fe, int stream,
+ 
+ 		if (be->dpcm[stream].users == 0) {
+ 			dev_err(be->dev, "ASoC: no users %s at close - state %d\n",
+-				stream ? "capture" : "playback",
++				snd_pcm_direction_name(stream),
+ 				be->dpcm[stream].state);
+ 			continue;
+ 		}
+@@ -1645,7 +1645,7 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 
+ 		if (!be_substream) {
+ 			dev_err(be->dev, "ASoC: no backend %s stream\n",
+-				stream ? "capture" : "playback");
++				snd_pcm_direction_name(stream));
+ 			continue;
+ 		}
+ 
+@@ -1656,7 +1656,7 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 		/* first time the dpcm is open ? */
+ 		if (be->dpcm[stream].users == DPCM_MAX_BE_USERS) {
+ 			dev_err(be->dev, "ASoC: too many users %s at open %d\n",
+-				stream ? "capture" : "playback",
++				snd_pcm_direction_name(stream),
+ 				be->dpcm[stream].state);
+ 			continue;
+ 		}
+@@ -1669,7 +1669,7 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 			continue;
+ 
+ 		dev_dbg(be->dev, "ASoC: open %s BE %s\n",
+-			stream ? "capture" : "playback", be->dai_link->name);
++			snd_pcm_direction_name(stream), be->dai_link->name);
+ 
+ 		be_substream->runtime = fe_substream->runtime;
+ 		err = __soc_pcm_open(be, be_substream);
+@@ -1677,7 +1677,7 @@ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 			be->dpcm[stream].users--;
+ 			if (be->dpcm[stream].users < 0)
+ 				dev_err(be->dev, "ASoC: no users %s at unwind %d\n",
+-					stream ? "capture" : "playback",
++					snd_pcm_direction_name(stream),
+ 					be->dpcm[stream].state);
+ 
+ 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_CLOSE;
+@@ -2531,7 +2531,7 @@ static int dpcm_run_update_shutdown(struct snd_soc_pcm_runtime *fe, int stream)
  	int err;
  
--	if (is_playback) {
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
- 		reset_reg = TEGRA210_I2S_RX_SOFT_RESET;
- 		cif_reg = TEGRA210_I2S_RX_CIF_CTRL;
- 		stream_reg = TEGRA210_I2S_RX_CTRL;
-@@ -118,7 +118,7 @@ static int tegra210_i2s_sw_reset(struct snd_soc_component *compnt,
- 				       10, 10000);
- 	if (err) {
- 		dev_err(dev, "timeout: failed to reset I2S for %s\n",
--			is_playback ? "playback" : "capture");
-+			snd_pcm_direction_name(stream));
- 		return err;
- 	}
+ 	dev_dbg(fe->dev, "ASoC: runtime %s close on FE %s\n",
+-			stream ? "capture" : "playback", fe->dai_link->name);
++		snd_pcm_direction_name(stream), fe->dai_link->name);
  
-@@ -137,16 +137,16 @@ static int tegra210_i2s_init(struct snd_soc_dapm_widget *w,
- 	struct device *dev = compnt->dev;
- 	struct tegra210_i2s *i2s = dev_get_drvdata(dev);
- 	unsigned int val, status_reg;
--	bool is_playback;
-+	int stream;
- 	int err;
+ 	if (trigger == SND_SOC_DPCM_TRIGGER_BESPOKE) {
+ 		/* call bespoke trigger - FE takes care of all BE triggers */
+@@ -2565,7 +2565,7 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	int ret = 0;
  
- 	switch (w->reg) {
- 	case TEGRA210_I2S_RX_ENABLE:
--		is_playback = true;
-+		stream = SNDRV_PCM_STREAM_PLAYBACK;
- 		status_reg = TEGRA210_I2S_RX_STATUS;
- 		break;
- 	case TEGRA210_I2S_TX_ENABLE:
--		is_playback = false;
-+		stream = SNDRV_PCM_STREAM_CAPTURE;
- 		status_reg = TEGRA210_I2S_TX_STATUS;
- 		break;
- 	default:
-@@ -159,11 +159,11 @@ static int tegra210_i2s_init(struct snd_soc_dapm_widget *w,
- 				       10, 10000);
- 	if (err) {
- 		dev_err(dev, "timeout: previous I2S %s is still active\n",
--			is_playback ? "playback" : "capture");
-+			snd_pcm_direction_name(stream));
- 		return err;
- 	}
+ 	dev_dbg(fe->dev, "ASoC: runtime %s open on FE %s\n",
+-			stream ? "capture" : "playback", fe->dai_link->name);
++		snd_pcm_direction_name(stream), fe->dai_link->name);
  
--	return tegra210_i2s_sw_reset(compnt, is_playback);
-+	return tegra210_i2s_sw_reset(compnt, stream);
- }
- 
- static int __maybe_unused tegra210_i2s_runtime_suspend(struct device *dev)
+ 	/* Only start the BE if the FE is ready */
+ 	if (fe->dpcm[stream].state == SND_SOC_DPCM_STATE_HW_FREE ||
 -- 
 2.43.0
 

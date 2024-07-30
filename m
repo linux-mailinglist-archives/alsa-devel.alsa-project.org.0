@@ -2,98 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7385940BFE
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 10:42:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55A3D940C01
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2024 10:43:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11C6684C;
-	Tue, 30 Jul 2024 10:42:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11C6684C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E66A3839;
+	Tue, 30 Jul 2024 10:42:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E66A3839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722328971;
-	bh=H9qkp20YNNay2aj1xO33U6q5QN/JCm1MkKShfQTyIxw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1722328985;
+	bh=kpdQG6yB98uaLHzj03tYd/l6KR69dRR6ZSb3cvXgUII=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KVf3kyDqNHJoLc6GhrM5GqPNzVdwNGc/7oOWClsS51MJqk6O2vGGX9vYyS3WzxzLz
-	 x3Udg8UEsiv2oSnl4plh6Aw1gtwAUUHsYBprCFvHKXL6Bu/GR1/utg73GoyEMaQViI
-	 yC5sBPhiU5HUDeXbu1wFb70gZPV1fxHwB4ThX7YU=
+	b=gaSxR2NLmjyHX6FRW8R57Se2tY9eOZnr0Axq58EKTWMoQlkzF4oP0MTNek8p3kiox
+	 VpYOti/1DTA3NHh4pWg/SMADD5qEjdSHC6EGy/JaR16/bRdK1+WxBS64l7pdlS3x33
+	 7100+WirWGnanTFbETUAh9dwKXnJw6ADVnlXns6M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53B4FF80579; Tue, 30 Jul 2024 10:42:22 +0200 (CEST)
+	id 9E329F805B1; Tue, 30 Jul 2024 10:42:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCC0FF805AF;
-	Tue, 30 Jul 2024 10:42:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EB19F805D9;
+	Tue, 30 Jul 2024 10:42:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DF91F802DB; Tue, 30 Jul 2024 10:28:33 +0200 (CEST)
+	id 3F911F802DB; Tue, 30 Jul 2024 10:40:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,TIME_LIMIT_EXCEEDED,
-	URIBL_BLOCKED shortcircuit=no autolearn=unavailable version=3.4.6
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 09C3AF800C9
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 10:23:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09C3AF800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1F733F800C9
+	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 10:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F733F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=KxEykxyg
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3684eb5be64so2111970f8f.3
+ header.s=google header.b=mNfItDrf
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-428119da952so23843395e9.0
         for <alsa-devel@alsa-project.org>;
- Tue, 30 Jul 2024 01:23:07 -0700 (PDT)
+ Tue, 30 Jul 2024 01:39:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1722327787; x=1722932587;
+        d=linaro.org; s=google; t=1722328782; x=1722933582;
  darn=alsa-project.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=S0c7sMypLzXHl9r0GfvI5laataVFNaI4Z5VsTchwD6g=;
-        b=KxEykxyg+39K00Hg0Bk5TRT22eaQVKlFNUeuLcIyXKEMerrBzh6Tm++XhYoyy5ZhWF
-         I3f9odbwvO4/+DEpqGuTrroN1DjU9DgvQdbtEdbvM2JDqf1kWzj7M+lbmpl/m4g1LwwB
-         au0oAeZUjm0dvOQeqz2JlQkavZLu53i9YgEHDxX6eqPDUVdZxgCfjOq58crW8nIcMvHc
-         pX/9SKuvXJCvylaS1c/Lo1zK58VPe6b64mUEDZDgytX2jie9UfcJVh8zOO3UCcg9z/Sx
-         deWn0Oyrk8I9SBIi5GIUfHi2FeI+D/gvZfqEqRYW53l20KcL1rhs8nGKuy7XoBByvLyO
-         hQkw==
+        bh=/mAglCNUGdccjoyEA9UGpBCtWXf2TmguD9tkOS0Mdk4=;
+        b=mNfItDrf7BZgHHVXNcjyaum1GOuBkAs3m3FMSXYPoPJmsFYBZjsCpDqCwoPBLKp9Zr
+         46SHtHgBQ0OPjjqv/6wuniA9n391juJQjrtIx6YHLUSAjKNB2/B/6qzRd7D9GvOD+plF
+         hC5gxKN9o8dU+b76zWaDbaorbCCBL6fH6GvE/r2IfGo0dVHRm+VaQhGTX7+E7AL3wx1k
+         dd3DvdiZ+pR8Ko+o+xKM8cPHl952T8T9zMgPCAO5f5ddQk3rKxYyH+K+ONdOAf6bVJ9l
+         mdp6C/tpcxL0MvcM6jinzYkYwkj8eSWez1ESTlS2r6VMq3Rb1v03BMbKc9rnWUsEymi9
+         SsTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722327787; x=1722932587;
+        d=1e100.net; s=20230601; t=1722328782; x=1722933582;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=S0c7sMypLzXHl9r0GfvI5laataVFNaI4Z5VsTchwD6g=;
-        b=Xt2Z+tRuco4j7KMrsH8i/eCPOB9gLIQRrW7rMMP+4MDntB/WYGQV+Z3boB1KMwczJy
-         L6/F7h7UwhU9TQeK0V8jUIyW7GApRbaJcIlcbXEcmDhDTyYTodXoOYEdPzDJYNuiD2la
-         0rPatNCWdUXVPN98X5kdc/EoW/W+faRQzikPq6KOMNK1/qvXe20Q3nH9LG7Yj9AM5QV9
-         DI9VGPYlbv15sK3h2VwFkrYM2mozOmsxmod/SlRIhyU6jQqJ+50lz8lyydWP5spjTj8y
-         iIthGWK5ftAEpa+YnxGqOAuODEGqdYmjs1KnVyijgfwrmra/Zfw9MteWls7XfiEvORB5
-         68/Q==
+        bh=/mAglCNUGdccjoyEA9UGpBCtWXf2TmguD9tkOS0Mdk4=;
+        b=fIWbrHL0yBEqW0d+FmspKAU9nk1ToB+TomDXDZEiZNXcqIb04iiqWBY+h6InXYoO65
+         JpXTbz7pS8P/EHCn9YdJK5MBxxA5HmJo5cuVGe0eoNgjTXLJ3NMk+6ii5i2loswDFTNp
+         37Cqrbhg3qkPdMhuLVMLdwr3VkJSB/c06Te10BFH/qOXyYaBFmc/0tgsp44ft4HyVWMa
+         jdV4bLTWHIKBqEqwzrvsGD7V+fT3RUAM3L0CZUFKES5EDYZeMQsI7NJUhs9Xjc68uIZ8
+         s9J1tihKjX4OOg2UGynlJcMqa8UYXlqzweNR44GzkJxkO8FNAUE+su0hEKsAY9c3RIgF
+         OVpQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXlZt/mG8y85E9uJXvN46nkJGctbcE8RCHPmH8K3aIJgZCwOzx6n5mSI6oCjzrmd/sBT1s9bkvEcAgD1vs8ENs2+d7Dhjixv6Maub8=
-X-Gm-Message-State: AOJu0YyFusivLB/rb1pGvoJDPWe/eNy9UQW5T33dgPlG6hqH9XxKGNyS
-	PetJRt85aOla7/NhtxT8ShzXKUMmiB+HoDFRf6VoDSOVphNqKkoysHas3ahVMZc=
+ AJvYcCX6gnmiJlAVCcnREwSa4W9aOPo5m5KKK3Ymb8VSCacnq/1vYo/wq4TNvao3K0vum8dOKJaDgTx8xnaTKYgALPuUHN9y2aNVqEO20cs=
+X-Gm-Message-State: AOJu0YwkA4RIdbLxd/ZlWADpvjjTxKqUNHuEh2y74KfvmIirKHNqTTem
+	FzobHde7mIsmxPztI3iUSC6M5WX3omG8WIrmjOelInQDl/YbAtnJo5NAkw0FPJc=
 X-Google-Smtp-Source: 
- AGHT+IGkUDfX2Q9x+dHmZW8xxvfM4QT/m2po2AeYIhouOrYs8BJqn/COJsa1nHEHSePaxKTMebnq3w==
-X-Received: by 2002:adf:ec45:0:b0:368:5a32:f5bc with SMTP id
- ffacd0b85a97d-36b5d08a846mr6246758f8f.38.1722327786771;
-        Tue, 30 Jul 2024 01:23:06 -0700 (PDT)
+ AGHT+IENMcR5jIX/gXj+EPZjFabTgRcbsQcgq6YQWbyvsrf9KC5wqYnfeWPzcHlh/nwwHxI3zHhcMQ==
+X-Received: by 2002:a05:600c:458f:b0:428:16a0:1c3d with SMTP id
+ 5b1f17b1804b1-42816a07e88mr61865585e9.19.1722328782375;
+        Tue, 30 Jul 2024 01:39:42 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.137])
         by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36b368706c2sm14005179f8f.117.2024.07.30.01.23.05
+ 5b1f17b1804b1-4281c79ea02sm72099245e9.46.2024.07.30.01.39.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 30 Jul 2024 01:23:06 -0700 (PDT)
-Message-ID: <22b20ad7-8a25-4cb2-a24e-d6841b219977@linaro.org>
-Date: Tue, 30 Jul 2024 10:23:04 +0200
+        Tue, 30 Jul 2024 01:39:41 -0700 (PDT)
+Message-ID: <dc66cd0d-6807-4613-89a8-296ce5dd2daf@linaro.org>
+Date: Tue, 30 Jul 2024 10:39:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] soundwire: stream: fix programming slave ports for
  non-continous port maps
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
  Sanyog Kale <sanyog.r.kale@intel.com>, Shreyas NC <shreyas.nc@intel.com>,
@@ -101,7 +103,7 @@ To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 Cc: stable@vger.kernel.org
 References: <20240729140157.326450-1-krzysztof.kozlowski@linaro.org>
  <095d7119-8221-450a-9616-2df6a0df4c77@linux.intel.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ <22b20ad7-8a25-4cb2-a24e-d6841b219977@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -147,11 +149,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <095d7119-8221-450a-9616-2df6a0df4c77@linux.intel.com>
+In-Reply-To: <22b20ad7-8a25-4cb2-a24e-d6841b219977@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ID6XAXDS6ONGG2RNFUSCQS23LGDZU7FD
-X-Message-ID-Hash: ID6XAXDS6ONGG2RNFUSCQS23LGDZU7FD
+Message-ID-Hash: UCLZMZQVOXFZG2OEAW6YD7YQCIH4CEHK
+X-Message-ID-Hash: UCLZMZQVOXFZG2OEAW6YD7YQCIH4CEHK
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -164,7 +166,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ID6XAXDS6ONGG2RNFUSCQS23LGDZU7FD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UCLZMZQVOXFZG2OEAW6YD7YQCIH4CEHK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,86 +175,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 29/07/2024 16:25, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 7/29/24 16:01, Krzysztof Kozlowski wrote:
->> Two bitmasks in 'struct sdw_slave_prop' - 'source_ports' and
->> 'sink_ports' - define which ports to program in
->> sdw_program_slave_port_params().  The masks are used to get the
->> appropriate data port properties ('struct sdw_get_slave_dpn_prop') from
->> an array.
+On 30/07/2024 10:23, Krzysztof Kozlowski wrote:
+> On 29/07/2024 16:25, Pierre-Louis Bossart wrote:
 >>
->> Bitmasks can be non-continuous or can start from index different than 0,
->> thus when looking for matching port property for given port, we must
->> iterate over mask bits, not from 0 up to number of ports.
 >>
->> This fixes allocation and programming slave ports, when a source or sink
->> masks start from further index.
+>> On 7/29/24 16:01, Krzysztof Kozlowski wrote:
+>>> Two bitmasks in 'struct sdw_slave_prop' - 'source_ports' and
+>>> 'sink_ports' - define which ports to program in
+>>> sdw_program_slave_port_params().  The masks are used to get the
+>>> appropriate data port properties ('struct sdw_get_slave_dpn_prop') from
+>>> an array.
+>>>
+>>> Bitmasks can be non-continuous or can start from index different than 0,
+>>> thus when looking for matching port property for given port, we must
+>>> iterate over mask bits, not from 0 up to number of ports.
+>>>
+>>> This fixes allocation and programming slave ports, when a source or sink
+>>> masks start from further index.
+>>>
+>>> Fixes: f8101c74aa54 ("soundwire: Add Master and Slave port programming")
+>>> Cc: <stable@vger.kernel.org>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 >>
->> Fixes: f8101c74aa54 ("soundwire: Add Master and Slave port programming")
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> This is a valid change to optimize how the port are accessed.
+>>
+>> But the commit message is not completely clear, the allocation in
+>> mipi_disco.c is not modified and I don't think there's anything that
+>> would crash. If there are non-contiguous ports, we will still allocate
+>> space that will not be initialized/used.
+>>
+>> 	/* Allocate memory for set bits in port lists */
+>> 	nval = hweight32(prop->source_ports);
+>> 	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
+>> 					  sizeof(*prop->src_dpn_prop),
+>> 					  GFP_KERNEL);
+>> 	if (!prop->src_dpn_prop)
+>> 		return -ENOMEM;
+>>
+>> 	/* Read dpn properties for source port(s) */
+>> 	sdw_slave_read_dpn(slave, prop->src_dpn_prop, nval,
+>> 			   prop->source_ports, "source");
+>>
+>> IOW, this is a valid change, but it's an optimization, not a fix in the
+>> usual sense of 'kernel oops otherwise'.
+>>
+>> Am I missing something?
+>>
+>> BTW, the notion of DPn is that n > 0. DP0 is a special case with
+>> different properties, BIT(0) cannot be set for either of the sink/source
+>> port bitmask.
 > 
-> This is a valid change to optimize how the port are accessed.
+> I think we speak about two different things. port num > 1, that's
+> correct. But index for src_dpn_prop array is something different. Look
+> at mipi-disco sdw_slave_read_dpn():
 > 
-> But the commit message is not completely clear, the allocation in
-> mipi_disco.c is not modified and I don't think there's anything that
-> would crash. If there are non-contiguous ports, we will still allocate
-> space that will not be initialized/used.
+> 173         u32 bit, i = 0;
+> ...
+> 178         addr = ports;
+> 179         /* valid ports are 1 to 14 so apply mask */
+> 180         addr &= GENMASK(14, 1);
+> 181
+> 182         for_each_set_bit(bit, &addr, 32) {
+> ...
+> 186                 dpn[i].num = bit;
 > 
-> 	/* Allocate memory for set bits in port lists */
-> 	nval = hweight32(prop->source_ports);
-> 	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
-> 					  sizeof(*prop->src_dpn_prop),
-> 					  GFP_KERNEL);
-> 	if (!prop->src_dpn_prop)
-> 		return -ENOMEM;
 > 
-> 	/* Read dpn properties for source port(s) */
-> 	sdw_slave_read_dpn(slave, prop->src_dpn_prop, nval,
-> 			   prop->source_ports, "source");
+> so dpn[0..i] = 1..n
+> where i is also the bit in the mask.
 > 
-> IOW, this is a valid change, but it's an optimization, not a fix in the
-> usual sense of 'kernel oops otherwise'.
+> Similar implementation was done in Qualcomm wsa and wcd codecs like:
+> array indexed from 0:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n51
 > 
-> Am I missing something?
+> genmask from 0, with a mistake:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n1255
 > 
-> BTW, the notion of DPn is that n > 0. DP0 is a special case with
-> different properties, BIT(0) cannot be set for either of the sink/source
-> port bitmask.
+> The mistake I corrected here:
+> https://lore.kernel.org/all/20240726-asoc-wcd-wsa-swr-ports-genmask-v1-0-d4d7a8b56f05@linaro.org/
+> 
+> To summarize, the mask does not denote port numbers (1...14) but indices
+> of the dpn array which are from 0..whatever (usually -1 from port number).
+> 
 
-I think we speak about two different things. port num > 1, that's
-correct. But index for src_dpn_prop array is something different. Look
-at mipi-disco sdw_slave_read_dpn():
+Let me also complete this with a real life example of my work in
+progress. I want to use same dpn_prop array for sink and source ports
+and use different masks. The code in progress is:
 
-173         u32 bit, i = 0;
-...
-178         addr = ports;
-179         /* valid ports are 1 to 14 so apply mask */
-180         addr &= GENMASK(14, 1);
-181
-182         for_each_set_bit(bit, &addr, 32) {
-...
-186                 dpn[i].num = bit;
+https://git.codelinaro.org/krzysztof.kozlowski/linux/-/commit/ef709a0e8ab2498751305367e945df18d7a05c78#6f965d7b74e712a5cfcbc1cca407b85443a66bac_2147_2157
 
-
-so dpn[0..i] = 1..n
-where i is also the bit in the mask.
-
-Similar implementation was done in Qualcomm wsa and wcd codecs like:
-array indexed from 0:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n51
-
-genmask from 0, with a mistake:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/wcd938x-sdw.c?h=v6.11-rc1#n1255
-
-The mistake I corrected here:
-https://lore.kernel.org/all/20240726-asoc-wcd-wsa-swr-ports-genmask-v1-0-d4d7a8b56f05@linaro.org/
-
-To summarize, the mask does not denote port numbers (1...14) but indices
-of the dpn array which are from 0..whatever (usually -1 from port number).
-
+Without this patch, I get -EINVAL from sdw_get_slave_dpn_prop():
+  soundwire sdw-master-1-0: Program transport params failed: -22
 
 Best regards,
 Krzysztof

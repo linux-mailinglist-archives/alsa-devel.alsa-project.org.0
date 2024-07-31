@@ -2,92 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55AA59429BA
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:55:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 478DE9429BD
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:56:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BF862DC6;
-	Wed, 31 Jul 2024 10:55:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BF862DC6
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA09722AE;
+	Wed, 31 Jul 2024 10:56:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA09722AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722416156;
-	bh=7t2pb5/6Q/LkGZmrG+ccU7x8AQ7CkBLsXiBJgc4OsqY=;
-	h=Date:To:From:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=BE5KJNMpE9YltWs5thdBfbCH1dEQmfMHSom+DNGwH5Z3PwEws4HfKMND4MjVkRVgB
-	 15521aDs3VOE2c6/xHyhe+ZzlbpdMBteKb/XTyqfUQQAe0yKUmJaOlMM9zhvklFddA
-	 Q7EEils9TagXCQjFwe0IzxIGQQ3p1Ncabd9Wm27c=
+	s=default; t=1722416201;
+	bh=csOnIy/jvpspB9nK47a8ST2AMrQk4NsCoXW6553uEbo=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FW0FFlxCKN4qRC4jh2rUm5gRIIbFeRvhyLEvZwgvkrOKcyxuP62bKKZilh0ZU6gHn
+	 viNjMwBLeBCBo2lex8M9II5nmnLDmDegRzJkQNaDnTMDxMIcORMQ40hdErbPtQK9E5
+	 RJUZTDNFjCYIar9rtNpkGpVlkRE03YjKDULSZ2N0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29B63F8971F; Wed, 31 Jul 2024 10:50:41 +0200 (CEST)
+	id EFD1DF8975A; Wed, 31 Jul 2024 10:50:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1385F89722;
-	Wed, 31 Jul 2024 10:50:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C0E1F89767;
+	Wed, 31 Jul 2024 10:50:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4529CF80448; Tue, 30 Jul 2024 21:59:05 +0200 (CEST)
+	id DE452F802DB; Wed, 31 Jul 2024 09:47:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_MSPIKE_H4,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch
- [185.70.43.167])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_PBL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail.vertone.co.uk (mail.vertone.co.uk [80.229.143.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F689F8007E
-	for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2024 21:53:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F689F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id D6942F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 09:44:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6942F800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=protonmail.com header.i=@protonmail.com
- header.a=rsa-sha256 header.s=protonmail3 header.b=VNOFhtsG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1722369211; x=1722628411;
-	bh=jywWkedUWZsQUoqanntjxmq0rUgTqu6frKuhe/bbf+o=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=VNOFhtsGfwXJInt2Au4rVPgZxoMEG5asE978MEg4iNvPRB3rp4pvsEp8+vfEWT5rn
-	 nHbSJ0AOwcldCFHQo9UAivw+hkoaw6AqZMUIq2IpSJZazo8A1MIJvOZLPtV8BPTEO9
-	 9NaXQsPk9VdVjb3Uq0rwYqdTrazThIEZqaam6rCidKU73Gj9rPYPwEM/5YhcgkpeDe
-	 a6dDyQ5UuZ8m0XgotsZqQL2nvTeegP4QkgTzwLjUxou7Qnt/kcKbbw96FiEHNqKguP
-	 YZ1C1VYO50l2Fv0r1tDB8vTOtFQmH+SHkvOStfjgrguq+jjmT2xYe7nX7FEQ8oJHpc
-	 TroRmWsf5mqMg==
-Date: Tue, 30 Jul 2024 19:53:29 +0000
-To: o-takashi@sakamocchi.jp, clemens@ladisch.de
-From: Edmund Raile <edmund.raile@protonmail.com>
-Cc: tiwai@suse.com, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v4 2/2] Revert "ALSA: firewire-lib: operate for period elapse
- event in process context"
-Message-ID: <20240730195318.869840-3-edmund.raile@protonmail.com>
-In-Reply-To: <20240730195318.869840-1-edmund.raile@protonmail.com>
-References: <20240730195318.869840-1-edmund.raile@protonmail.com>
-Feedback-ID: 43016623:user:proton
-X-Pm-Message-ID: ae12f90033d54c69dac6f2fe2a36cdef77a7bfee
+	dkim=pass (1024-bit key,
+ unprotected) header.d=vertone.co.uk header.i=@vertone.co.uk
+ header.a=rsa-sha256 header.s=t header.b=IQOvIHs5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=vertone.co.uk; s=t; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=wdQ6Mr33/UoTCXYa8G+anhAttrejw9E2vFQmxARDreg=; b=IQOvIHs56RH8SGflsHDCI2Y/FF
+	zWuOC1n2R7Chwdo0d5EONM2p9Y6w/Fa+B9z8GNtAEOnzSUZwyghKzTJhhEg8cEci4YXdJCCLrlx/+
+	6wz0Nzz1IYXE0SURmO7l+NQL3b0w6p071M9o0Dr6ZnqDp+uIStix5XLORNrbaZEVHD/w=;
+Received: from jupiter.vertone.co.uk ([192.168.31.4] helo=jupiter.localnet)
+	by mail.vertone.co.uk with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <linux@vertone.co.uk>)
+	id 1sZ40z-00088T-Ls; Wed, 31 Jul 2024 08:44:54 +0100
+From: Terry Sanders <linux@vertone.co.uk>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Bug in tlv320adc3101 driver
+Date: Wed, 31 Jul 2024 08:44:53 +0100
+Message-ID: <5652371.ZASKD2KPVS@jupiter>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: edmund.raile@protonmail.com
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+X-MailFrom: linux@vertone.co.uk
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: LV72PSWVELNV2JU6DETBPPPJ3G5ZICGN
-X-Message-ID-Hash: LV72PSWVELNV2JU6DETBPPPJ3G5ZICGN
-X-Mailman-Approved-At: Wed, 31 Jul 2024 08:50:13 +0000
+Message-ID-Hash: KD2TM7DQZ2QJ7RIRW55RYUJPTWGKLSFF
+X-Message-ID-Hash: KD2TM7DQZ2QJ7RIRW55RYUJPTWGKLSFF
+X-Mailman-Approved-At: Wed, 31 Jul 2024 08:50:41 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LV72PSWVELNV2JU6DETBPPPJ3G5ZICGN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KD2TM7DQZ2QJ7RIRW55RYUJPTWGKLSFF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,123 +90,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Commit 7ba5ca32fe6e ("ALSA: firewire-lib: operate for period elapse event
-in process context") removed the process context workqueue from
-amdtp_domain_stream_pcm_pointer() and update_pcm_pointers() to remove
-its overhead.
+Hi,
 
-With RME Fireface 800, this lead to a regression since
-Kernels 5.14.0, causing an AB/BA deadlock competition for the
-substream lock with eventual system freeze under ALSA operation:
+There is a bug in the code for the tlv320adc3101 driver when setting up the D value for PLL.
 
-thread 0:
-    * (lock A) acquire substream lock by
-=09snd_pcm_stream_lock_irq() in
-=09snd_pcm_status64()
-    * (lock B) wait for tasklet to finish by calling
-    =09tasklet_unlock_spin_wait() in
-=09tasklet_disable_in_atomic() in
-=09ohci_flush_iso_completions() of ohci.c
+The D value is set via I2C using page 0 registers 7 (MSB) and 8 (LSB).  The data sheet has the following information for the registers:
 
-thread 1:
-    * (lock B) enter tasklet
-    * (lock A) attempt to acquire substream lock,
-    =09waiting for it to be released:
-=09snd_pcm_stream_lock_irqsave() in
-    =09snd_pcm_period_elapsed() in
-=09update_pcm_pointers() in
-=09process_ctx_payloads() in
-=09process_rx_packets() of amdtp-stream.c
+     "Page 0 / Register 7 will be updated when Page 0 / Register 8 is written immediately after Page 0 / Register 7 is written"
 
-? tasklet_unlock_spin_wait
- </NMI>
- <TASK>
-ohci_flush_iso_completions firewire_ohci
-amdtp_domain_stream_pcm_pointer snd_firewire_lib
-snd_pcm_update_hw_ptr0 snd_pcm
-snd_pcm_status64 snd_pcm
+and:
 
-? native_queued_spin_lock_slowpath
- </NMI>
- <IRQ>
-_raw_spin_lock_irqsave
-snd_pcm_period_elapsed snd_pcm
-process_rx_packets snd_firewire_lib
-irq_target_callback snd_firewire_lib
-handle_it_packet firewire_ohci
-context_tasklet firewire_ohci
+   "Page 0 / Register 8 must be written immediately after writing to Page 0 / Register 7"
 
-Restore the process context work queue to prevent deadlock
-AB/BA deadlock competition for ALSA substream lock of
-snd_pcm_stream_lock_irq() in snd_pcm_status64()
-and snd_pcm_stream_lock_irqsave() in snd_pcm_period_elapsed().
+The function that implements this is adc3xxx_setup_pll() in file    soc/codecs/tlv320adc3xxx.c line 1172 - 1189. The function is shown below:
 
-revert commit 7ba5ca32fe6e ("ALSA: firewire-lib: operate for period
-elapse event in process context")
+static void adc3xxx_setup_pll(struct snd_soc_component *component,
+			      int div_entry)
+{
+	int i = div_entry;
 
-Replace inline description to prevent future deadlock.
+	/* P & R values */
+	snd_soc_component_write(component, ADC3XXX_PLL_PROG_PR,
+				(adc3xxx_divs[i].pll_p << ADC3XXX_PLLP_SHIFT) |
+				(adc3xxx_divs[i].pll_r << ADC3XXX_PLLR_SHIFT));
+	/* J value */
+	snd_soc_component_write(component, ADC3XXX_PLL_PROG_J,
+				adc3xxx_divs[i].pll_j & ADC3XXX_PLLJ_MASK);
+	/* D value */
+	snd_soc_component_write(component, ADC3XXX_PLL_PROG_D_LSB,
+				adc3xxx_divs[i].pll_d & ADC3XXX_PLLD_LSB_MASK);
+	snd_soc_component_write(component, ADC3XXX_PLL_PROG_D_MSB,
+				(adc3xxx_divs[i].pll_d >> 8) & ADC3XXX_PLLD_MSB_MASK);
+}
 
-Cc: stable@vger.kernel.org
-Fixes: 7ba5ca32fe6e ("ALSA: firewire-lib: operate for period elapse event i=
-n process context")
-Reported-by: edmund.raile <edmund.raile@proton.me>
-Closes: https://lore.kernel.org/r/kwryofzdmjvzkuw6j3clftsxmoolynljztxqwg76h=
-zeo4simnl@jn3eo7pe642q/
-Signed-off-by: Edmund Raile <edmund.raile@protonmail.com>
----
- sound/firewire/amdtp-stream.c | 23 +++++++++--------------
- 1 file changed, 9 insertions(+), 14 deletions(-)
+In the function the LSB (register 8) is written first followed by the MSB (register 7). This is the wrong way around and should be swapped so that the MSB is written first.
 
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 31201d506a21..7438999e0510 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -615,16 +615,8 @@ static void update_pcm_pointers(struct amdtp_stream *s=
-,
- =09=09// The program in user process should periodically check the status =
-of intermediate
- =09=09// buffer associated to PCM substream to process PCM frames in the b=
-uffer, instead
- =09=09// of receiving notification of period elapsed by poll wait.
--=09=09if (!pcm->runtime->no_period_wakeup) {
--=09=09=09if (in_softirq()) {
--=09=09=09=09// In software IRQ context for 1394 OHCI.
--=09=09=09=09snd_pcm_period_elapsed(pcm);
--=09=09=09} else {
--=09=09=09=09// In process context of ALSA PCM application under acquired l=
-ock of
--=09=09=09=09// PCM substream.
--=09=09=09=09snd_pcm_period_elapsed_under_stream_lock(pcm);
--=09=09=09}
--=09=09}
-+=09=09if (!pcm->runtime->no_period_wakeup)
-+=09=09=09queue_work(system_highpri_wq, &s->period_work);
- =09}
- }
-=20
-@@ -1864,11 +1856,14 @@ unsigned long amdtp_domain_stream_pcm_pointer(struc=
-t amdtp_domain *d,
- {
- =09struct amdtp_stream *irq_target =3D d->irq_target;
-=20
--=09// Process isochronous packets queued till recent isochronous cycle to =
-handle PCM frames.
- =09if (irq_target && amdtp_stream_running(irq_target)) {
--=09=09// In software IRQ context, the call causes dead-lock to disable the=
- tasklet
--=09=09// synchronously.
--=09=09if (!in_softirq())
-+=09=09// use wq to prevent AB/BA deadlock competition for
-+=09=09// substream lock:
-+=09=09// fw_iso_context_flush_completions() acquires
-+=09=09// lock by ohci_flush_iso_completions(),
-+=09=09// amdtp-stream process_rx_packets() attempts to
-+=09=09// acquire same lock by snd_pcm_elapsed()
-+=09=09if (current_work() !=3D &s->period_work)
- =09=09=09fw_iso_context_flush_completions(irq_target->context);
- =09}
-=20
---=20
-2.45.2
+Regards
+
+Terry Sanders
+
+
+
 
 

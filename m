@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93140944B0A
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 14:13:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A35944B06
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 14:12:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD7033F79;
-	Thu,  1 Aug 2024 14:12:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD7033F79
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0E343E57;
+	Thu,  1 Aug 2024 14:11:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0E343E57
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722514384;
-	bh=lyyOSz5mnVlYsXDZyPPBuvrk6tGYt4/xz9ZU1RO5S4A=;
+	s=default; t=1722514322;
+	bh=EVyv4o1kWKU9C0RpwE8ZBKEBCpkeLQtTeetB5bkp+NI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ClrDAB+EB2B+Sh645qmff22Ltelxv094gLxxEm0o1zrzESt6G5pxARR+PGOk7hmUw
-	 v13MyGMdSGePBelh/F/aCaNC5kYkA+RNgsUHNLyGqmO6O1C9lgqSm9sTsmX0QSJu0b
-	 pLDOXhj6174DKFsluZUeiYgAJ9exWGOBPO8DRs+8=
+	b=Px5xgTngO7qsnLx6Q+qHU0N8rSN9Kd3LvmsNkuKfHFLRNPnRecnDNG4v32/su5l6h
+	 4DP2EYCKGPK269Ub44qVJeIzcDzDMhILGwNhfWWkOvUh/ItBwW3td+RhwEw0kXLGiF
+	 2mBGaJQdS9FgGoKUeMydXp5V30sT4kMs89MEpOUo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26784F8063B; Thu,  1 Aug 2024 14:11:37 +0200 (CEST)
+	id 543EBF80588; Thu,  1 Aug 2024 14:11:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 670CDF8064F;
-	Thu,  1 Aug 2024 14:11:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ADBBF805B1;
+	Thu,  1 Aug 2024 14:11:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C148FF802DB; Wed, 31 Jul 2024 17:31:00 +0200 (CEST)
+	id 5D882F8059F; Wed, 31 Jul 2024 17:26:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2DC63F80269
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 17:26:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DC63F80269
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9D868F8026A
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 17:26:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D868F8026A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=fhAa+WYK
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-428243f928fso22700875e9.0
+ header.s=20230601 header.b=CPJmrd3c
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4281abc65daso31402365e9.2
         for <alsa-devel@alsa-project.org>;
- Wed, 31 Jul 2024 08:26:04 -0700 (PDT)
+ Wed, 31 Jul 2024 08:26:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1722439564; x=1723044364;
+        d=gmail.com; s=20230601; t=1722439566; x=1723044366;
  darn=alsa-project.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=FC0xYn/ikx2v85GL/8Br0D4pnaNCpqHqIy3/h9Umxsk=;
-        b=fhAa+WYKa0cO1gGarWcWJ+yrLhaSpwk+dm6C6X6ZfFg8F/d8d+xuWyjZzMwbeJpN+a
-         DuFa5LEjTyuCbCaaY+dH9dwPq0XhvKxh3OGP0A2jyRUM0hl1JKgQCR4wjbV+UjDvMaNp
-         C+kt6Rm1LJPxzj2YG35PS+EiO1vax6vb8Ye3sCsA9ZExV84lB3lTdIwVc0Uv5qO0UY0v
-         Bvhwz3jFj0YBZSTlrhw1Y+hEZGutqgIHwPSIffSBYE+BBAUBdaBLA5KIXLnRkqFb6caz
-         sgfUghxkFXYTUe+irYrf4GZax+mdSgGs98Vbc+vH0w9UiN0mzC2mh1sSA6vGatiSGbWY
-         TwYw==
+        bh=X/h0VtcfMml9IUjMbcpLtg90CxFRBSo+axnBjZNg8dc=;
+        b=CPJmrd3cI3jaf8E/M6WiZMAmeYFCnS62pwyItEUKp1ontPQV9S6yPqA3xyHJU38oxX
+         id6Lj3lElcrhY3RRCrvJ9yEdqdP8brTSZkwOnQOH0ZuCipexAJ0fIUpDcJbbg0ElHs+d
+         Z7S73o8DTxMhRbseBc1iIIFI+q1Xm6AHEE+V3QERm9CqgknONs12CNuGgnbfbxIM9ck+
+         mPyXWZj9Ema1KHSoRm+YUr4Fzb5ywGyKUnAvbb/EAWi/AwRvmhrDndk4JVRvSRWUPKAO
+         1Avr4JiQJPK3feMUdaAmBP4RmjRwvQW8dLyohFCy+olODWi6hDxTIM5AlDQReFk1/QuB
+         GZfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1722439564; x=1723044364;
+        d=1e100.net; s=20230601; t=1722439566; x=1723044366;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=FC0xYn/ikx2v85GL/8Br0D4pnaNCpqHqIy3/h9Umxsk=;
-        b=C0p4qRWItcyqLiyMKMjZemmeJfm3KFHeIuEASo1lHSl44TP49jgpaEA+jLoAXFZ7v+
-         FWrtjwK/mOLxMCn67PzVZIwW9maWxb9K6FHQ8IWhWsilzmqFPzj+VCrsEOHUH/eLTvuA
-         V1Gf8kIw2n8feMMfmpGtSwfQWmVctBUHiwRW5Crxkau8bqJOlr0i59JUdHDY0gPYUvls
-         imhcWd37ayYCiruWuneiihJhXQgoCximJZXJ9pBjSCbZ0UB6QXR4W2oUQmnRLe5xvDpf
-         F8qq/WswioAsvX4YYir2h58AvNjlvJKcHhYFtlCOQVkWi0/veIvEaIRyy1eB9Pe7dWyk
-         xkNA==
-X-Gm-Message-State: AOJu0YzwwmcQ52n6lw8KoKw+o/VxJAOpCSrzo0GngDhYSgadBrsbXgj6
-	0ITLgXa6onzjRjmIEF+t1MPOYR20viLSekmilCOeb/pMoNOkHTm5
+        bh=X/h0VtcfMml9IUjMbcpLtg90CxFRBSo+axnBjZNg8dc=;
+        b=odKkgSa+j+1y2GZCGEvr6jFBxTir2a1tw3PUZTGBrXWoY4rAa82/mu6PKCcH6t+a6b
+         l+GulDhtyHb0WjlYdYDoP/R1BkaPOnAFDOS0gpsz2gJ/qJsBlR6Lc+bs3Y4ivz5+K0XJ
+         j/747ucjJSz+chrTHCpS5m7OI23HVLxmuqJqFqkroeERmY29HASNTqR9Fnm/HxDTMPNu
+         X5XHm/Jl/8aRuTUbSOey+sXJXuLtJ7H1OjhtweHTcetcwddZ2Y6CE+lJhpzoAPB7jbLX
+         yT0/+IEZw02zxlWVB9wieKJS0ha3HHa88frDNwNJg84b6Xh1g0IYZInYwSkKM7Kp3X4e
+         MudA==
+X-Gm-Message-State: AOJu0YxXV86qmaJ8HudiGUlUXDY0WU9F7IDmu47bkWnpqZY9q6BI9z2R
+	v1cNpsRVSh3kA5aJufCOmr2GpeHivQAlezUyv7EEyUgMjhp2uv0f
 X-Google-Smtp-Source: 
- AGHT+IGV5Tyg8OIw9jbYm8EISXLPoSoS24RYZm1S5mUY09Ep05QHPxO5cMSJU7Ibzbu5TFy9NWYQ+w==
-X-Received: by 2002:a05:600c:3590:b0:426:5c81:2538 with SMTP id
- 5b1f17b1804b1-42828544a87mr33856585e9.14.1722439563745;
-        Wed, 31 Jul 2024 08:26:03 -0700 (PDT)
+ AGHT+IFaIxFIYcq+H0ksfzt6nQVNfYnsBfjPxrNT5e1tHpK2RZqBXDqp7VIHxXKG3HBqlL+UiNXlFQ==
+X-Received: by 2002:a05:600c:996:b0:426:59ad:bbb3 with SMTP id
+ 5b1f17b1804b1-42811dfc5f7mr123868005e9.32.1722439565757;
+        Wed, 31 Jul 2024 08:26:05 -0700 (PDT)
 Received: from [127.0.1.1] (byv161.neoplus.adsl.tpnet.pl. [83.30.41.161])
         by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4282bb64755sm25430985e9.36.2024.07.31.08.26.01
+ 5b1f17b1804b1-4282bb64755sm25430985e9.36.2024.07.31.08.26.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 31 Jul 2024 08:26:03 -0700 (PDT)
+        Wed, 31 Jul 2024 08:26:05 -0700 (PDT)
 From: Adam Skladowski <a39.skl@gmail.com>
-Date: Wed, 31 Jul 2024 17:25:25 +0200
-Subject: [PATCH v3 1/8] ASoC: qcom: apq8016_sbc.c: Add Quinary support
+Date: Wed, 31 Jul 2024 17:25:26 +0200
+Subject: [PATCH v3 2/8] ASoC: dt-bindings: pm8916-wcd-analog-codec:
+ Document pm8950/pm8953
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240731-msm8953-msm8976-asoc-v3-1-163f23c3a28d@gmail.com>
+Message-Id: <20240731-msm8953-msm8976-asoc-v3-2-163f23c3a28d@gmail.com>
 References: <20240731-msm8953-msm8976-asoc-v3-0-163f23c3a28d@gmail.com>
 In-Reply-To: <20240731-msm8953-msm8976-asoc-v3-0-163f23c3a28d@gmail.com>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -104,8 +104,7 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Stephan Gerhold <stephan@gerhold.net>
 Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Skladowski <a39.skl@gmail.com>,
- Vladimir Lypak <vladimir.lypak@gmail.com>
+ devicetree@vger.kernel.org, Adam Skladowski <a39.skl@gmail.com>
 X-Mailer: b4 0.14.0
 X-MailFrom: a39.skl@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
@@ -113,15 +112,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: RFTOMY6JAQ537QLQR4L6BMVGCTLVGKNY
-X-Message-ID-Hash: RFTOMY6JAQ537QLQR4L6BMVGCTLVGKNY
-X-Mailman-Approved-At: Thu, 01 Aug 2024 12:06:31 +0000
+Message-ID-Hash: 36L6THG4JGUTAAU5HPKPTSXVYKFAMHHP
+X-Message-ID-Hash: 36L6THG4JGUTAAU5HPKPTSXVYKFAMHHP
+X-Mailman-Approved-At: Thu, 01 Aug 2024 12:06:29 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RFTOMY6JAQ537QLQR4L6BMVGCTLVGKNY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/36L6THG4JGUTAAU5HPKPTSXVYKFAMHHP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,79 +129,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Vladimir Lypak <vladimir.lypak@gmail.com>
+Document pm8950 and pm8953 analog audio codecs.
 
-Add support for configuring Quinary Mi2S interface
-it will be used on MSM8953 and MSM8976 platform.
-
-Signed-off-by: Vladimir Lypak <vladimir.lypak@gmail.com>
-[Adam: Split from MSM8953 support patch,add msg]
 Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 ---
- sound/soc/qcom/apq8016_sbc.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml     | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index 3023cf180a75..5a29adbd3f82 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -20,12 +20,13 @@
- #include "common.h"
- #include "qdsp6/q6afe.h"
+diff --git a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
+index 94e7a1860977..8af8bb747abe 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
+@@ -14,8 +14,10 @@ description:
  
--#define MI2S_COUNT  (MI2S_QUATERNARY + 1)
-+#define MI2S_COUNT  (MI2S_QUINARY + 1)
+ properties:
+   compatible:
+-    const: qcom,pm8916-wcd-analog-codec
+-
++    enum:
++      - qcom,pm8916-wcd-analog-codec
++      - qcom,pm8950-wcd-analog-codec
++      - qcom,pm8953-wcd-analog-codec
+   reg:
+     maxItems: 1
  
- struct apq8016_sbc_data {
- 	struct snd_soc_card card;
- 	void __iomem *mic_iomux;
- 	void __iomem *spkr_iomux;
-+	void __iomem *quin_iomux;
- 	struct snd_soc_jack jack;
- 	bool jack_setup;
- 	int mi2s_clk_count[MI2S_COUNT];
-@@ -86,6 +87,12 @@ static int apq8016_dai_init(struct snd_soc_pcm_runtime *rtd, int mi2s)
- 			SPKR_CTL_TLMM_DATA1_EN | SPKR_CTL_TLMM_WS_OUT_SEL_SEC |
- 			SPKR_CTL_TLMM_WS_EN_SEL_SEC, pdata->spkr_iomux);
- 		break;
-+	case MI2S_QUINARY:
-+		/* Configure Quinary MI2S */
-+		if (!pdata->quin_iomux)
-+			return -ENOENT;
-+		writel(readl(pdata->quin_iomux) | 0x01, pdata->quin_iomux);
-+		break;
- 	case MI2S_TERTIARY:
- 		writel(readl(pdata->mic_iomux) | MIC_CTRL_TER_WS_SLAVE_SEL |
- 			MIC_CTRL_TLMM_SCLK_EN,
-@@ -177,6 +184,9 @@ static int qdsp6_dai_get_lpass_id(struct snd_soc_dai *cpu_dai)
- 	case QUATERNARY_MI2S_RX:
- 	case QUATERNARY_MI2S_TX:
- 		return MI2S_QUATERNARY;
-+	case QUINARY_MI2S_RX:
-+	case QUINARY_MI2S_TX:
-+		return MI2S_QUINARY;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -290,6 +300,7 @@ static int apq8016_sbc_platform_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct snd_soc_card *card;
- 	struct apq8016_sbc_data *data;
-+	struct resource *res;
- 	int ret;
- 
- 	add_ops = device_get_match_data(&pdev->dev);
-@@ -320,6 +331,10 @@ static int apq8016_sbc_platform_probe(struct platform_device *pdev)
- 	if (IS_ERR(data->spkr_iomux))
- 		return PTR_ERR(data->spkr_iomux);
- 
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "quin-iomux");
-+	if (res != NULL)
-+		data->quin_iomux = devm_ioremap_resource(&pdev->dev, res);
-+
- 	snd_soc_card_set_drvdata(card, data);
- 
- 	add_ops(card);
 
 -- 
 2.45.2

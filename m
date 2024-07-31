@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137AC9431CC
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 16:15:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C94CB9431CE
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 16:15:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61BF32D5C;
-	Wed, 31 Jul 2024 16:14:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61BF32D5C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0D372D8D;
+	Wed, 31 Jul 2024 16:15:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0D372D8D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722435289;
-	bh=zx5QL81elKNi3Hk3O7l2BXurVkNfaLTDR0RVBgJkx7A=;
+	s=default; t=1722435310;
+	bh=VE3HKuQhFgEVQYMFuzZC6kA6DGXRuFf6DTcEg9ihqIM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=et0JypzLxGqLWxBnIK4z6x8gnlk8O8ZE+zGCMe+q3Ynabp70tmuNiR6NXvH3i0RjJ
-	 TnuzJ/1WftvVQoYD9FQj1QqafhFrOdp6VZq4uWdLINXM0RbS2b9Nxo4uYEqvoXbjHo
-	 sLPG7JE8Usgbi3iTkOnUqC2832Et0Tk6f6e5t4iQ=
+	b=rXBiAbjByr5PxwxQzIqTcHbvFI/SnJA9xMLfvFYpywGeMvfKgml1bd6az/JGvhU89
+	 XD7J06SHffYLjc7MDrN/3TOPJTX9KyjKdt0fKX9VTplDLLmnTQxyZFKfWeUpk7UeGs
+	 QBATpmR1kA8lTWZy5Rpbj3fbS8NeAELj1q7UMs1k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 129F9F805AB; Wed, 31 Jul 2024 16:14:17 +0200 (CEST)
+	id 3F9AEF805D5; Wed, 31 Jul 2024 16:14:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71828F8059F;
-	Wed, 31 Jul 2024 16:14:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2452CF80579;
+	Wed, 31 Jul 2024 16:14:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D827FF802DB; Wed, 31 Jul 2024 10:59:16 +0200 (CEST)
+	id F40D4F802DB; Wed, 31 Jul 2024 15:41:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20620.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2009::620])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20625.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::625])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EAE99F8007E
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 10:58:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAE99F8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 625BDF80269
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 15:40:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 625BDF80269
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=stMKYT+G
+ header.s=selector1 header.b=DMDLE2WI
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ujGgMoufQR7m0NhyfnxznMOQYSJqjW9tHVCefyzuQa8u6pxwtkDYfrWW1c6297NWd9ATxFj49rvt/u3IOLqDsI3VH9DQxAoQpOHn+b6IFQryXaIX/TTtb3fXVUp7JiWnbt3OnF6FzFkda6Di6I8VGYs84tFL+samp9lquW84jDDc3toIToLmLp9tUx36LMHne4h5Lm2Udbx+yNS7iVXlT6ybtHPlZuxPXibsHvxhEMKjk0dJ1AKavjEZpFrqvjAj2Fd3EslJYQ5i78JfAO0MUMfZYP4f7lH7cJbbdrmdE290f+UsqGGtRK7nojkL4zPKZd2YbpXYbWArA2MgPn16NA==
+ b=MJUvCBYVBAEyvynizNzKl+PggqABYxy5r4zsvpgE7sCikAgNAyF37rLTNTA4eQ7ys6dhRfaZPwnL2VNg0hu8Ct8y9FN71u+HL+Zd+XAf1XMkCDx3O98MwqCNDPRwHQ71H3/jda+6Wriiko9fFAPJ6depEZMM6UTlL2InjUAxDcToe9hl2Wt+fhAN7ltybOLzl+rh24cv0yo4+JvC/AFmOaqRaeh0d1Q1fx3IC9Fdpmnh1Rg2KaahfEzcFvFO5+j1vnjqMfQfDdCMgdqXBMY6teA9klHgmfhQ87fuMSWT3GRCZuSeq2MiZdf+rr96YHrZ3eLl4eZNi3Btz0BBybmQuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hT44oiJXV3gnb6p7ArHuvR9ad1u96eoBmnFY6VopABA=;
- b=Sir6pwfrD1igm/FmlZIkEAjTfQDGS0azS3HjwkTVBTodMQgojc8w5HYx/ClRMCKi2Qem4aWA+LG60Td8/4D6kjxKmzHb9tVBjyYgKAoG3lbzr9sfQyMPENxv+y09E8PoEQzSlFGAOAJdeKs2Ck3Y1FokvgMQe6ZyGz4RFpCOtrrmhdT8hJhqkxYidOQ7dfDpT8bvhUJLYOMxLWBV5h5d8YTWHMjYE6tr8TfTH1TeptFhhTLw5vsRUdrojGuDCGViHh7UIkQCBap1yry2D8nzV0qV0q1UjSTiANl+rbJVYZ2RWcEfaNUrDqK7O2J8ytfTR08WaOngFbsnJQyiGKVl0g==
+ bh=Ksrbx3E953A3UYG/+kxmk7mwcTb3I6qK7fehWGl6YCU=;
+ b=IDxHGTyIyl/DjOF+nKqhseITYmstGdXYWFXYzVBvXgyrtNKywvPTDyv/ksVr3yrPV9Ar6AxyIs45kncUe8DoV6DJ+ZB2sXmMo37cSsYqZnwyY0akFdwn3tcDY4RCtsQzq1010zSYvP7M5Q7UcBHDh6MxWbXYRaHAyoe1CSkDyanUnPeaxTz9+XNaDpIyBLyRVxDGth+hZjVReqFhBb9eUTWw25ZM8LoagUYgL/mYOpYZnIYjuCl7tn5188lim2XqcerJVwcbcquiiEL2NtWNfzbnFhNMbDEWTCueVjkOyeZgJLxG16wpBv8OcnJnc5QMC1oSVcwXkwNKro3ShL1eUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hT44oiJXV3gnb6p7ArHuvR9ad1u96eoBmnFY6VopABA=;
- b=stMKYT+G8h8nYDL0zXjdJ+GTioquaG6q0bOIYqGwwOCx+J0B6V8PcEAu61ucSAYL6uDvb/oWv8pTPp+gxxQVBu6tWfrsMNgsUKwa15i+U2AzbdZhLW1s3K98jHEhERiU0kQQip9Y6jAacWS4Iq6XLzteoTPB2JVWkHl/VZF5kQY=
+ bh=Ksrbx3E953A3UYG/+kxmk7mwcTb3I6qK7fehWGl6YCU=;
+ b=DMDLE2WIZr+xYFFR73l6wDJYwoegyWxQm/UrnicHOeEp2wcMDx1UmZ27uqkZXiWBnOYfdIIgRMge4ZdsGXzhh9Yuj8VY9fQ5Lr5Eu4t/r50wDq70cNJfxCLUogQorDEU7k3JMZAt+YnZNBMjadA8KJp8LipW5m0E/UgzASViZtA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ2PR12MB8109.namprd12.prod.outlook.com (2603:10b6:a03:4f5::8)
- by PH7PR12MB8015.namprd12.prod.outlook.com (2603:10b6:510:26a::7) with
+ by DM4PR12MB7574.namprd12.prod.outlook.com (2603:10b6:8:10e::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.30; Wed, 31 Jul
- 2024 08:58:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.29; Wed, 31 Jul
+ 2024 13:40:51 +0000
 Received: from SJ2PR12MB8109.namprd12.prod.outlook.com
  ([fe80::7f35:efe7:5e82:5e30]) by SJ2PR12MB8109.namprd12.prod.outlook.com
  ([fe80::7f35:efe7:5e82:5e30%5]) with mapi id 15.20.7807.026; Wed, 31 Jul 2024
- 08:58:50 +0000
-Message-ID: <e1587f61-f765-4a22-b06e-71387cc49c4d@amd.com>
-Date: Wed, 31 Jul 2024 10:58:26 +0200
+ 13:40:50 +0000
+Message-ID: <9fb60743-3e89-49fa-a399-3cf2607a7e41@amd.com>
+Date: Wed, 31 Jul 2024 15:40:41 +0200
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
  spi-nor
@@ -103,7 +102,6 @@ Cc: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
  Conor Dooley <conor.dooley@microchip.com>,
  "beanhuo@micron.com" <beanhuo@micron.com>
 References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
- <BN7PR12MB28029EB1A7D09882878499A2DC8FA@BN7PR12MB2802.namprd12.prod.outlook.com>
  <c3fa1e04-92ed-48ab-a509-98e43abd5cd6@linaro.org>
  <BN7PR12MB2802E87F1A6CD22D904CAEACDC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
  <b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
@@ -117,6 +115,8 @@ References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
  <BN7PR12MB28028B63E69134094D50F3E4DC2A2@BN7PR12MB2802.namprd12.prod.outlook.com>
  <IA0PR12MB769944254171C39FF4171B52DCB42@IA0PR12MB7699.namprd12.prod.outlook.com>
  <D2ZHJ765LUGP.2KTA46P1BL75X@walle.cc>
+ <e1587f61-f765-4a22-b06e-71387cc49c4d@amd.com>
+ <D33M26RLVLHF.3Q5YARPBNSBOY@walle.cc>
 Content-Language: en-US
 From: Michal Simek <michal.simek@amd.com>
 Autocrypt: addr=michal.simek@amd.com; keydata=
@@ -163,121 +163,121 @@ Autocrypt: addr=michal.simek@amd.com; keydata=
  y7RkYPOpmElF2pwWI/SXKOgMUgigedGCl1QRUio7iifBmXHkRrTgNT0PWQmeGsWTmfRit2+i
  l2dpB2lxha72cQ6MTEmL65HaoeANhtfO1se2R9dej57g+urO9V2v/UglZG1wsyaP/vOrgs+3
  3i3l5DA=
-In-Reply-To: <D2ZHJ765LUGP.2KTA46P1BL75X@walle.cc>
+In-Reply-To: <D33M26RLVLHF.3Q5YARPBNSBOY@walle.cc>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VI1P190CA0005.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:802:2b::18) To SJ2PR12MB8109.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR13CA0139.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::24) To SJ2PR12MB8109.namprd12.prod.outlook.com
  (2603:10b6:a03:4f5::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8109:EE_|PH7PR12MB8015:EE_
-X-MS-Office365-Filtering-Correlation-Id: e725290d-aa98-4d82-a558-08dcb13eff11
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8109:EE_|DM4PR12MB7574:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9b235ed-0a77-4cca-7e25-08dcb1666433
 X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|376014|366016|1800799024|7416014|921020;
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|921020;
 X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?dUVvay82cTVWVDltdys1VlhMRUx5L1RzS3NKVkZrbFZSVW9pM2lYTHBNazI1?=
- =?utf-8?B?clB3TFBncUZLckgyeXNwdzZxeElFRDBsQnlQeDFkclFGUmMrRnVaQnpKVUpn?=
- =?utf-8?B?WUZnZ0IzdFZBVEZtcTRla3BCUHVWUUswNFdiT3VOV0VPeHZVWGROUnNaa3Jt?=
- =?utf-8?B?RWp6WDREQ3laMVh3ZlZuZllFdTBJMHVFczJ3WUlrTlcvN2pQWlhkenNRMUUz?=
- =?utf-8?B?V29USkRpcTJTZHg1Wm8wQVJRQUN4Y3pxZmo1cWJaTDZndmZxNXFkL1d5UUU5?=
- =?utf-8?B?bXArZjNiNjlETFZCQXVVelhHbVkweno3dGtEQ1dUMkpNTEFwRW5rM1dCN0dv?=
- =?utf-8?B?a3NVbW0rU2g2cTdCTkZGL3VaVzNMbXhXOHQ3SnVnc1RNa1pMZ1o4dUFFM05p?=
- =?utf-8?B?VkV5d3hsU0U4UlNxQjRiVmtvUG9NemRxZ01zKzA2dEpjckVJVWdSTkpJMGk0?=
- =?utf-8?B?dkdiMzJuSTliQnNIN2ljQWNxUzI1SmJQV2ZiTEdaQVI1T3J1dCtobmFXb1Bn?=
- =?utf-8?B?Q3BieVRpRnBlUWhlcG1BSHJ4RlpJd3hoL0tBb2x1cXhzYlBhVWRLUjVCL2VF?=
- =?utf-8?B?N2R0WnBsb1B4Z0FwSWhBd1Bma0Z2R0ZadlhJK2c2WFhmazRiOUlIWmZ5Ynls?=
- =?utf-8?B?ZHovcUtBdmZaKzBSaEFZMFFQc0w4c2lzYlZ0WHVmUjl5L3JMUHZkc3N5bVhT?=
- =?utf-8?B?VHVPWEIza25jV0tUV0I3OEJPT2k4c0lGdDBaeGx5REhkQkVtcUNFMll3N3h5?=
- =?utf-8?B?Rk1OQlVqbSsvRWttWk0yOHZocGRaS05MbjJrRVdTVGdFblMrdXljN1NmaW1W?=
- =?utf-8?B?ZUdONVZQM0pBUzBIZ2NsNXQ3UTljakRTaE5vd1h2RTI0NjRsMkE2YjNBQ3pU?=
- =?utf-8?B?N0xMVGJOTVIwdDBsQnU1QnUrR0hILzdycStWaFZlV3BRblRVaGcwVTBMUnJG?=
- =?utf-8?B?blQ2dVdMbFVCYmhwNVVQWWV5a2dONDNjT1dyNXFBRGZyOUxBMWJBQ0lpV0p5?=
- =?utf-8?B?VTVwdXZZQzNnRlJDb1hFTzYrdDRsY28vYTRmWGRqaHk2ZWNKUEQzbHNYZVBC?=
- =?utf-8?B?OHNOQVdQbFEySE1qY0Z3dEQxamI0Yk15b00zYlp2TDBxWjZCZGMwQUNRa2Jv?=
- =?utf-8?B?VlNiMnRaTmdaZjgvU0RHU3NvMTBBMFFVcXZJeUtvVWJpVjJJYWluaUhJUFVl?=
- =?utf-8?B?TGpWSVFRMzhZckZZRXRoUTNxOENyYkVaNDNxQjlodk1LYVBCZ1VrNTkyRkt2?=
- =?utf-8?B?SGVXL2hzYklZbHhBR0Q4Q0ZaRm9laDhXdzB6TVdkN2ZpcmxWYjlDbzlSSWwr?=
- =?utf-8?B?MlZRT0lwaWxnc2ZkTkhmRlhHUXBZb2VkUlV0UzRRUjZ6OWphZXl4b2VlcXdQ?=
- =?utf-8?B?eUNEMnlKcTFLZ2pOcFAwQkhJdHdtQk1iVDhXNE5ucXc1TU1EWkZHeTRXczd4?=
- =?utf-8?B?QlV1V1I1Tzg4blRscDRDR3ZEdzBvWXNVbXdYSzYvTnZmOGUyNjJXOWJsaW1v?=
- =?utf-8?B?QTFGTzV2VWxjNk0zeTJVMUR1RFQycjVWd2xSMzFGQStyOVZzMTgrYW1XcWhj?=
- =?utf-8?B?dlZQOC9VWG1MeVQxWGFPWFVrVy9JTWNYOS9Fei9pWkFFcnRtUTl2MXkvcldF?=
- =?utf-8?B?RmYxYnF6RWFwaUxVQU9CMElOUUF6eHFUNVYwc1dpVDJ5ZDIxcDg2ZkY2RFQw?=
- =?utf-8?B?U1JnME81cC9MNGR2bnRxRzNhVTRIUHZWR2pYUWIzcFJHNlIvcWx2NlltTFNq?=
- =?utf-8?B?V0JnRnZmS1NiaU1wRlVmREZTbUFYM00ra1d1MmNEMTM0WW9uRjY5Unl4ZW9U?=
- =?utf-8?B?SHhvMlJSeU5xcE80bUVSZz09?=
+	=?utf-8?B?UUllU2dtQjl6ejM4d0ZMbm9pSVlGSFp0N2FiT3hxNi9hSFV3OVZZck1YRW1v?=
+ =?utf-8?B?MDdtKytrQkVCK2dLMUN4SFpRQXMwZ2FialZSTjZ6WUtCbXdXSVhjRHpTWFRv?=
+ =?utf-8?B?djB1TWZadjBONWpPeDJudG1vWHBFOTZmUXJTTUhrRmcvdEUrc0ZwV0NOa3o0?=
+ =?utf-8?B?TlRPd1QrL2p1bTNpR3dJWHE0ZU43YkJ4MGtKY1B4RkNOUURWM1JnUnk3cUJP?=
+ =?utf-8?B?YUdqcFJkMTV3U0dua2xpVGJMMGxsZlJ5azYrUjlWZ2lhVkNQQ3AyVkgzWHRh?=
+ =?utf-8?B?SDRPMmcvZHNTaGQrRFdqZ2QyNjlPWXV0TVFQaUd1STFTeUlRYk1wUlY0U0hN?=
+ =?utf-8?B?d3AwZVRHaDMwWFdqOWFnaXhQYXpFVklRR2d5TWF5VEhNVEkzU011eXlSYjV3?=
+ =?utf-8?B?VXNrenlhNG9lMFVMSHhWL2VYK203MWE4cVAyRjNDc29SVGZDN0FaYzVOdE1B?=
+ =?utf-8?B?RW9zUUxpbHlHdkpFcDc0eVdQcFhNNHVxdnpMTEpLOUVpSmtpMVBzL1V2Y0V1?=
+ =?utf-8?B?RDdHZWowYjRUYWhtaEdqZDcyNzlFVlRlT01qRGg2M1NXdTNQbUJhMkx6L1pR?=
+ =?utf-8?B?VmoyS2l0a1BVZE5mZTZQZlNicVM5ZGFRcmM2ZmRnN1owM3V1Rmp4QVcrTisr?=
+ =?utf-8?B?Umx0MHhkUDgyK0V3UkZSQTUzYXA5eUVSVUZEWW9ad284akFuUC84V1ZBS2tY?=
+ =?utf-8?B?bVg5aFZianpxMlYyNTR1akhJa0pvTVE4cVhJaUhQN0lDQVdPYXZoODZCa01q?=
+ =?utf-8?B?aUVJREhxeHN3Z1FvKzJoajdaeUdPTDBWbVpzeUdMbjg4eUk5anhXMWdvY09X?=
+ =?utf-8?B?ZzJzZlZTUEt4TmtXVmZwQ3RyU1hCZWZJZXlJdUZvaUtmclhpZmNhRno1bVEz?=
+ =?utf-8?B?azN5R2VGcER5c0x1dUgzUkhYM1czcFhSaWVsQ0NjdE9OV0RYMkIxVWV3TzV1?=
+ =?utf-8?B?UmZsNDMvd2dDdEZpcDBZeDFsdjJFdlpmRmhHZ1BkT2JkaVB0SWNVREMyeC91?=
+ =?utf-8?B?aVBGZXNOdU5JK0dXcEd6ZUNzSVlwY3htQjEwUXVkNUdaNkQ1UXA1VGZiZ3JF?=
+ =?utf-8?B?a2JwSUo3R2VIZ3BqZFc1UysyY3ZBWVo4RkNNWW9DaVQ4M1JVZkhDbTk0d0dH?=
+ =?utf-8?B?S0F4bmZpT0wxS0tLNlVkUjZ0U05ST3g5ZXhYMXJqYTNUOTNueERNdFdFNVBO?=
+ =?utf-8?B?WE9SbzZGUTRjS293WGJDRmQxMDhaTW1DcFN0VENrZGVZdng4S2F1MXV5anpD?=
+ =?utf-8?B?cDVPWVJ0RXNydXYrYXlTc2ErcUtlWEMzc0c5a2VsSEUzanpBWU9MNnlLc1oz?=
+ =?utf-8?B?blRib1NXV3dFZm9UUGxqQnYxOGVYTHVLcUprbHh6dWJscmtPeUJJSGhVbkEw?=
+ =?utf-8?B?TDdmaDRoaUN4TExzL2dobExyeFFSNEhQMVl1K1lXNHVmam5pWTJaRitqdVdz?=
+ =?utf-8?B?ek0vV1R0T3BRU2cxV2FoSUE5MTFwV2hFU0dDbXJxTERsOTA3UUMzRnR2Q3lu?=
+ =?utf-8?B?WTl3L0cxZWJZTGhVQ1RkMlZqQ3ZpKzkvaXZmdEZSWTRhM2wyMzAySC9OVi9j?=
+ =?utf-8?B?TjMwOWF6MDBrV1ZCVHl4SHFsTytWNm1NQ05GMVM1RjJ6NDhVOVJnd0pkaHdy?=
+ =?utf-8?B?NUxFdFYzOFNkYkhWZGI1Y2hLUGNqQ2lhYmU4bWhlMU8yUllERmxhYVBHRHZ2?=
+ =?utf-8?B?dTROVERYRExBM1JsWElFbGVrLy9aYXVyandIUmgzMGtlT1ptdGtqTFRUcXVL?=
+ =?utf-8?B?K2l0SWQyYTdYWDQ1VjVWVDRTSFY3Q0NteEtCVEI1WDRCRGZwbjJ1QkNwZ1JT?=
+ =?utf-8?B?ZldrMm1KV0IyTUNKL0dqUT09?=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8109.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(921020);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8109.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?SmdyektYbDVkcmFHUndOTlJoL0FCOEtaRm41Um1OdDhLN0pFSkp0MmNzZzJz?=
- =?utf-8?B?bVVvcDhuZTUvdGNidW4wZDNwSnI3YzVzWTVwZFEyQndSQXF6dkVKeDY4M1JT?=
- =?utf-8?B?NDgrcDRCTVBlUG11RjNuMEtHUDZBR3lwTjVFa3BQckhibGdoSVFpeFVVdVJ3?=
- =?utf-8?B?R0Ivc1FoYnhYVGFoWFdQd3NsQ2ZrUVp1RHRtZlFPdlJFWmFvNUVFaTRmSEQy?=
- =?utf-8?B?bWZ4aUV2WmhGeG5aOGpQaFpic0tvdGhJWS9tMkRmU3hHeUErTHZ2WWZVcjlP?=
- =?utf-8?B?YnphUE8xMFAwNEtkRHl4dGtDTUNyWUEzdC9mZkJqSWIxMzRDK3VyNk5LNXFQ?=
- =?utf-8?B?eCs2QjRnRHJNWnFZQUtJTkJvNVQvZXRwUitvZFRSWHBXVUp6azFiYm9ML3dn?=
- =?utf-8?B?WEdGNWkxR0Y3SHloNWMxa1F2UnZWRXUwSElFNmllVklhdVF3cXBFendjOU1L?=
- =?utf-8?B?cXg1VUtyTTJXOTJGVHd4bEd4TktDUWNFbWtWZmdqd2E0VWVESG1MY01yT3p5?=
- =?utf-8?B?OTNSR3ZxVE9JSStXOVBRbUtKNmRuMDB4LzQ5VG5LNjl5czdzWklhNkx6ZTZy?=
- =?utf-8?B?TGpPMGNRd2ZsZm92cUI5RkNKV3V0V0JtZCtuWndJKzRzOWN4QitWYXRIVTU3?=
- =?utf-8?B?b1pYa0NleFBsMU01WUZtWFhPN3pBb3dDMmFScDVtNnAwN1Z2RGt1dENrM24w?=
- =?utf-8?B?bU9JNzdiUDBWMEYyWkZnZTVIOHFqVGZyTEpzUDVwM251QS9SZFpCK3JsaDlt?=
- =?utf-8?B?NkFha3JZYXdBR2NqTTVGclRpSVpvM1p3M1NOaWxKYThpaHk5dW5hTDNpQmky?=
- =?utf-8?B?OVJ5QS9tOXJpN2N6YUtJS1VOWEVVdGt0NXRQYWo2U1BuTjEvZ1VVdW8zTUkw?=
- =?utf-8?B?WEw2VFBsK0FiZnhVc25XN01qYWlnYjA0UG00Q1JidUJSYklQOTZ6NEFMNzc5?=
- =?utf-8?B?djZyUTZROWlBYndtM1dsMXQrRThSOFg1VmVwVlY4OEVYZEhIMkhPdDdBR1BJ?=
- =?utf-8?B?azRvWVlWZFA1cXRqNzhTaDlWVnpIT1FRdXgvbjZFZ2J3NUJ1dEkyazlkVDFo?=
- =?utf-8?B?bnBUQzc4UCtmUnNyK00yVFdPVEd0SUtoVG4rcDFKemRYZGtwMGc1SDNVRjNk?=
- =?utf-8?B?eFFJcjVGbERKcGZHTzdvcjFsWTRVaTF0WEJkS2dvNXBxY2FEc0cyN0ZLc3kz?=
- =?utf-8?B?eFROazVuWVVyWHhsMkM5NE5DV3c4bmc1d1RlNll4eDh3MFp1MVgzT1pFQ0tS?=
- =?utf-8?B?S1RMMVhjMnNFZ2gzSkU2S25obmM0UERpMGxWVWlWNTNjR2pnc1QvUXRDcTZ1?=
- =?utf-8?B?ZktQeXBzSFBULzhTblBsUDZRMkI1SUQzcHVsNUk3MzVETWZUNFAwTXR4eHlq?=
- =?utf-8?B?KzJ1N3VyQW5UVkJ0eis3TUdSRGkwTjFZdEVjbHQrSmJZMkdkSExqeEJKUlZP?=
- =?utf-8?B?Mzl6dzlvWVh0RDk1aFZCaVA0bDkwdlpaend6ckZ2eFYrV0FBNU1ZQXhDRkI1?=
- =?utf-8?B?T1ZqVHRzOGhWRjNYZ1dNUUlXSDI0UmFMdkN6TzZMU04zOWhEaGplazFXWXRM?=
- =?utf-8?B?MkRDK011OFpsUjVJbit1RElRWDhES2lDODhXamN4elFXelFSNUczZmI1N25w?=
- =?utf-8?B?U1FCalFYZEFmMXZOODZia1JPcFhyRGhYN1AzNDcwT3lSN2tkS05HWW9RdFVM?=
- =?utf-8?B?Y1prdlRpNXczaU5pa2xRRmI5RjJKdTZBYllvSXQyVCtRR1YrUGZZUnhPN3RP?=
- =?utf-8?B?aVNDUW12amMySkJtRWsrSE92RU5YekdaY3pIV3ZwWkloUUV2WVZyUDJkRktr?=
- =?utf-8?B?WFF2WWZ3UjZnUTZBR1JwSGZhdnErL1o4ZHFzcVBYTFFvMzFkb0VsbFAvVTVZ?=
- =?utf-8?B?WHd6UFk5cDRhaHZhR3RyQjhWRmpNWGZrRXNVNDZzWEwyMTRHRkF1a2YvMER1?=
- =?utf-8?B?YkVyQ1lYTTJPYWhaK0llUTlzK21BMytoWEswSnZpOG5NYkpxL2JxclBoUEtM?=
- =?utf-8?B?ZEtFYXB1MDQzZy92ditoWlhTNm03bDlCbDVpL2Y1M0J5UGlKaVRrNTFTc0Nt?=
- =?utf-8?B?a1ZTZkdPY3hDb1loSmtTaHkySmxFNnMxbWk5d3JyelY5eXFVUlFKamNwWXhp?=
- =?utf-8?Q?wywLyW0Qg6Y2FsojwF9hBXcPp?=
+	=?utf-8?B?ZVE0eTVnTUI1c0U5VE5MTHAyV09mdDc0ZVFOWkFSdFVGTlJXV3JwUDVqSlVr?=
+ =?utf-8?B?UnloQjhmRXNCWUo1cnBaY211S1VyYk5PWE5xME5EcERaMW5rZ2FacjhEdmxZ?=
+ =?utf-8?B?TmJzeDRmR3htZWJwSTVnbGRYL0NmMHJOVWw5L3JZNVJTbDl0c1c4ejBpV3Rm?=
+ =?utf-8?B?MFVmTy9TakVBUElvYkdjZmpVSEh0TlRycENjMUZ1L3BCNFVhU3NYTmtiUEg3?=
+ =?utf-8?B?Yng3M2g0S1E3ZWdheUs3Q2d6UHpiZ1ZQQ0w3QWdUWnF0K3Z2QkE4UEZSMVM1?=
+ =?utf-8?B?U3FWbnNKOFJoVFRiY2VBYXpiK1kwSDdrR3FXdzJYRzRrVm5wTmNremViRmwy?=
+ =?utf-8?B?NUp5YW93M3ZvZTNVYnNNblROUDhZYTFZbFB3TjN1ZkZ2V09FMlg0cTVRZmIw?=
+ =?utf-8?B?QzVtQmJvREF0OUVvMDNqVXhZejhVWU8vd2o1Qkp1SjJGUG1sUEcrQjFlOXBB?=
+ =?utf-8?B?Q25tMDJPd3RqcXNGN05EY0pZZjVPQ2pRaWRIUitIeGxaMFF1aDNjWmF1ek1S?=
+ =?utf-8?B?UTRYN3lzVTlEU3BZbnNZRVhiSzVaRWU2Z3hLdS9EUzdBMDg1QVY4a21NOHVL?=
+ =?utf-8?B?bUR0b1I3UnV2My9xdFYyQ052c0U0cjRpbjBXN2ozN2tHUGhUM2R3YXJCWnBn?=
+ =?utf-8?B?TGNmSzVBZG0xdTBCTXZsWkFPci9rcXI2STdQMlVOWkZJTFVpUzFKTGJoU2tJ?=
+ =?utf-8?B?NE5ETzZzSGR4a1JUc216QVFQYkVqVFl5NWZHUUY2aWplenhPM3QvRWExTnRa?=
+ =?utf-8?B?NDBpZ2dwOHhZdHNENjBUVkJMQlNUbVUrbSttcVBLZnprTk1oSkxwcE4xU2lP?=
+ =?utf-8?B?TGMwMFc3SloyN2twN2VLditKbjdpclRycHlLVzdaRzA3UDB3SGJHQ252SVh4?=
+ =?utf-8?B?eUZKOGU5V3BBV1BzOU5sSGdQS09mcVFWem5JYUpiSUk1UlRBdnV2eHd6QW5V?=
+ =?utf-8?B?eEhZSFNXWUFscW5XVXIrUkd2OXBhWVRDUG5RNzZueDRmR0VlZXo3ejVjTGNo?=
+ =?utf-8?B?Z242SkhPU2Q0YWs0dFh5cFJnUjlKOHZnL29lMXdObkZvV3hPSE51UVRvQUVh?=
+ =?utf-8?B?K0NsMEpaa25oWUh5OXZ1VWhHTWVaMXpLOTlsYXFyQVpJWVhUM1ljek1CVGJZ?=
+ =?utf-8?B?ZHNSMG00eDF1bmJnVVJuSUxZelZuSkRVdkZyMG9GVERxU1lFRUJpdS92eXVK?=
+ =?utf-8?B?dHNQVnp6VGc5c0l2U2hWR25jc2RxOVU3emRFQlRYaHQzbTh6VURGeXZkKy8x?=
+ =?utf-8?B?TTNxN1V6bjc4SnU0WXlWN3ErY3ptT2RVM3Y3QjlwandoV3pna0tYdE1IWk1r?=
+ =?utf-8?B?Nm5ROFI0cXFlTTJTWGdPRDVJRzF2N3ordmNma1lpNUhtOGFjWE04YmxqQ0hr?=
+ =?utf-8?B?dTlhd2lmb1JLSW9JS0JwL3o2aE1lMngzdFBDMVZvUlRPbGJGR3B0VVpURWdw?=
+ =?utf-8?B?cFBFeDdWTXBqWDI5TDhTazY0VzkxbWM4K25vaTVwRExzUnpKc0ZhRXFxQmx6?=
+ =?utf-8?B?VHR0cjJnRDJubnNJWTNTMlZjb3A1V3gwQUhzZzJLUStnWUU4alUxTm9MTjZp?=
+ =?utf-8?B?eU1PeXQ2bXBEODYvemhabWx0WDJJK04yMnBPL1VVNVpCemw4VkFNVE5ITjRk?=
+ =?utf-8?B?UE45bzIzaXZRa25RVGt6c2Y5Z3o3WENpVmhscE52NGw4cVFFZld2TEhlOFFF?=
+ =?utf-8?B?VGpUYzcyc3JpU1VDdzNZWTl6MExWWWcwL1Rxd3p5NVhqVDBMNVpOVmZKczJv?=
+ =?utf-8?B?UlgvdWxCRlA5Q3BzR1hPVVlGUDZMakxwTDd3dVREb2kvRkNuaThVeWFVVUZL?=
+ =?utf-8?B?RnhNRUl2Y0UrZ1d0QWNFRFliWDZwTUliK0E1Zm90YVNNbHorNkQ1VTNUMlNL?=
+ =?utf-8?B?djhyVUNWQURiZ0FQWVFRUCtCNEo3S2NwRjV2Qk1VS0NONEtaTHJpUjU3Z1J6?=
+ =?utf-8?B?RXdkMUFNOUVnUUNqY1pmRjl6bGFRM1hWdWpSMGY0V09tL3d1ZVJxVk9FdjM0?=
+ =?utf-8?B?WmN2S0VLY2xuTXZoR3JyTm9ZV0F1NmNCN2JtVEdsN2ZqanZFdGNLTHo3WU1M?=
+ =?utf-8?B?R2llclVIeWhtd1EvdEdjRXBIYUY1aTQwSnhmZEd4Y2w0cEVEZ01LR1NkKzg1?=
+ =?utf-8?Q?0DnK5fIHjM9AYmTeOEtYmckkX?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e725290d-aa98-4d82-a558-08dcb13eff11
+ b9b235ed-0a77-4cca-7e25-08dcb1666433
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8109.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2024 08:58:50.7974
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2024 13:40:50.6497
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- wwBZvdgy1mZDzKeCz80gewMzQPUmT/Zl3Azl2Qux37KkW4vC1IWXeynDW1pA7QUa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8015
+ CpO/gP5SZgUVoyPGOlj5ieEiFxGYLZg2b2qxtM7xHoW94e6gdFAMEP8ePx83EvPb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7574
 X-MailFrom: michal.simek@amd.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: RILE4M7ZWP7BWW2TMJYECY5IHVSYUKPS
-X-Message-ID-Hash: RILE4M7ZWP7BWW2TMJYECY5IHVSYUKPS
-X-Mailman-Approved-At: Wed, 31 Jul 2024 14:14:11 +0000
+Message-ID-Hash: HZHVSMPFFBNNO4ODTMGMSKAFBVLA64HR
+X-Message-ID-Hash: HZHVSMPFFBNNO4ODTMGMSKAFBVLA64HR
+X-Mailman-Approved-At: Wed, 31 Jul 2024 14:14:14 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RILE4M7ZWP7BWW2TMJYECY5IHVSYUKPS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HZHVSMPFFBNNO4ODTMGMSKAFBVLA64HR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -286,38 +286,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Michael,
 
-On 7/26/24 14:55, Michael Walle wrote:
-> Hi,
+
+On 7/31/24 11:19, Michael Walle wrote:
+> Hi Michal,
 > 
->> Based on the inputs/suggestions from Tudor, i am planning to add a new
->> layer between the SPI-NOR and MTD layers to support stacked and parallel
->> configurations. This new layer will be part of the spi-nor and located in
->> mtd/spi-nor/
+>>>> Based on the inputs/suggestions from Tudor, i am planning to add a new
+>>>> layer between the SPI-NOR and MTD layers to support stacked and parallel
+>>>> configurations. This new layer will be part of the spi-nor and located in
+>>>> mtd/spi-nor/
+>>>
+>>> Will AMD submit to maintain this layer? What happens if the
+>>> maintainer will leave AMD? TBH, personally, I don't like to
+>>> maintain such a niche feature.
+>>> I'd really like to see some use cases and performance reports for
+>>> this, like actual boards (and no evaluation boards don't count). Why
+>>> wouldn't someone just use an octal flash?
+>>
+>> AMD/Xilinx is not creating products that's why we don't have data on actual
+>> boards but I don't really understand why evaluation boards don't count.
 > 
-> Will AMD submit to maintain this layer? What happens if the
-> maintainer will leave AMD? TBH, personally, I don't like to
-> maintain such a niche feature.
-> I'd really like to see some use cases and performance reports for
-> this, like actual boards (and no evaluation boards don't count). Why
-> wouldn't someone just use an octal flash?
+> Because on an eval board the vendor just puts everything possible on
+> the board.
+> 
+>> A lot of
+>> customers are taking schematics from us and removing parts which they don't need
+>> and add their custom part.
+>>
+>> But one product for parallel configuration which is publicly saying that it is
+>> using it is for example this SOM.
+>> https://shop.trenz-electronic.de/en/TE0820-05-2AI21MA-MPSoC-Module-with-AMD-Zynq-UltraScale-ZU2CG-1I-2-GByte-DDR4-SDRAM-4-x-5-cm
+>>
+>> I am not marketing guy to tell if there is any other which publicly saying we
+>> are using this feature but we can only develop/support/maintain support for
+>> these configurations on our evaluation boards because that's what we have access
+>> to and what we know how it is done.
+>>
+>> Also performance numbers from us can be only provided against our evaluation boards.
+> 
+> Which is good enough.
+> 
+> All I'm saying is that you shouldn't put burden on us (the SPI NOR
+> maintainers) for what seems to me at least as a niche. Thus I was
+> asking for performance numbers and users. Convince me that I'm
+> wrong and that is worth our time.
 
-AMD/Xilinx is not creating products that's why we don't have data on actual 
-boards but I don't really understand why evaluation boards don't count. A lot of 
-customers are taking schematics from us and removing parts which they don't need 
-and add their custom part.
+No. It is not really just feature of our evaluation boards. Customers are using 
+it. I was talking to one guy from field and he confirms me that these 
+configurations are used by his multiple customers in real products.
 
-But one product for parallel configuration which is publicly saying that it is 
-using it is for example this SOM.
-https://shop.trenz-electronic.de/en/TE0820-05-2AI21MA-MPSoC-Module-with-AMD-Zynq-UltraScale-ZU2CG-1I-2-GByte-DDR4-SDRAM-4-x-5-cm
+> 
+> The first round of patches were really invasive regarding the core
+> code. So if there is a clean layering approach which can be enabled
+> as a module and you are maintaining it I'm fine with that (even if
+> the core code needs some changes then like hooks or so, not sure).
 
-I am not marketing guy to tell if there is any other which publicly saying we 
-are using this feature but we can only develop/support/maintain support for 
-these configurations on our evaluation boards because that's what we have access 
-to and what we know how it is done.
-
-Also performance numbers from us can be only provided against our evaluation boards.
+That discussion started with Miquel some years ago when he was trying to to 
+solve description in DT which is merged for a while in the kernel.
+And Amit is trying to figure it out which way to go.
+I don't want to predict where that code should be going or how it should look 
+like because don't have spi-nor experience. But I hope we finally move forward 
+on this topic to see the path how to upstream support for it.
 
 Thanks,
 Michal
+
+

@@ -2,95 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DEB9429BF
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:57:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA5E9429C2
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 10:57:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3741A2BFC;
-	Wed, 31 Jul 2024 10:56:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3741A2BFC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0D8F2E27;
+	Wed, 31 Jul 2024 10:57:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0D8F2E27
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722416224;
-	bh=V9Run24YjNoyGq66FBbC6lVjACSwTiuXq1CwQ7z1P3E=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=TZT2HIZRsynsN+1EXLoZ2R/N4k8YhdY9yJv5v2T2naxx7BZpiFiJk9eAntTepeD+/
-	 lKwmKFSCjXWJsU9rpe2t3TxzwODwmAB2Nm3/dutClZK9AZBJeDyEJDo/kbcz+fwMd4
-	 ns1yUWJEsyUiYvRV7YXubZSlGYbgLmF1CoWYbu5M=
+	s=default; t=1722416248;
+	bh=8NDiRi+10y1SIiwdA08fsiT9dMy1pZL4V0pvzaA2upM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=HPydrbjJKHWEMU7p7liNXIDtCtF8Csxr2obNXt3Y6VXsrrU/X46PQTfzlRcFUejG1
+	 D/WPxqrdGugZgsVerJI0W2bo5rg1JLibouMa6MHA3vriY6SYkkLYlcFZiisL/orbt/
+	 fffWvpC8a5SuwPRJIF+fYektn1/pEhi4nKI3cYlA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B26E2F80674; Wed, 31 Jul 2024 10:51:52 +0200 (CEST)
+	id F28A4F805E9; Wed, 31 Jul 2024 10:55:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D134F8065B;
-	Wed, 31 Jul 2024 10:51:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B4F8F805E3;
+	Wed, 31 Jul 2024 10:55:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62ADFF805D2; Wed, 31 Jul 2024 10:51:26 +0200 (CEST)
+	id 133EFF80580; Wed, 31 Jul 2024 10:55:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H4,
+	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from fhigh2-smtp.messagingengine.com
+ (fhigh2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 34323F805B2
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 10:46:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34323F805B2
+	by alsa1.perex.cz (Postfix) with ESMTPS id CFCC7F800C9
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 10:55:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFCC7F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dEH+fCqo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1722415576; x=1753951576;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=V9Run24YjNoyGq66FBbC6lVjACSwTiuXq1CwQ7z1P3E=;
-  b=dEH+fCqo6eb/pYslmEMsTKQeq56QWAqh3IaRaP9wLcwD6uvh01479PQY
-   +kxh3ebSNhbUSA2yvzzy+9fiBuQ4e6sefJLw5RCIXrJsjn+jF0bXrLgvv
-   pFVjJlU+G4s8mjJ1bpk25Daql0z8WCwca4dKOi2kV5g7mgPz4MPu3eRrM
-   iFAvKicJUp8wikK2G4Nry6vmSnAbixcnq8+usizRki0kvuc7fTzKPSTN9
-   MrcTxB/oRyOHKCuKBemwQTWEGhzwcCy6LkfvJl44QNqOzL24xwhL+3V9i
-   +Y3UTsBcL8LSCiNlm6rxTXfEoFv4qoaTtNVDJb/lXMhUqZKiFpNEBVhOQ
-   w==;
-X-CSE-ConnectionGUID: VD7mQZrvQc6uGbCMPLy5YA==
-X-CSE-MsgGUID: 0DNGWatVQtGTKRtfXp0EuA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11149"; a="31428283"
-X-IronPort-AV: E=Sophos;i="6.09,251,1716274800";
-   d="scan'208";a="31428283"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2024 01:46:12 -0700
-X-CSE-ConnectionGUID: eUn+BenwSaulz/6QChuy1Q==
-X-CSE-MsgGUID: RTe2u23zS2qdqnWYrMB6tA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,251,1716274800";
-   d="scan'208";a="54605677"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
- ([10.94.0.53])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2024 01:46:11 -0700
-Message-ID: <0796c157-1ac3-47a3-9d54-ba86f59d64d5@linux.intel.com>
-Date: Wed, 31 Jul 2024 10:46:08 +0200
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm3 header.b=vjwe8mSv;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=PJAcPdRB
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailfhigh.nyi.internal (Postfix) with ESMTP id 413BF1146E77;
+	Wed, 31 Jul 2024 04:55:18 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute5.internal (MEProxy); Wed, 31 Jul 2024 04:55:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1722416118; x=
+	1722502518; bh=vMA1vQSN5FVF2YHU0BsfEBv1ul6npqCvlOna7cdXU68=; b=v
+	jwe8mSv0zUGv4/spZMeApZen8UkYHRlA8UBwdkjwctoKNuN/887G4GFOX/uCMfEF
+	+Y+C63ZPqGql4AaNDdwaPjvJb5Arv/tzF9imYrIjfLU7bIz8dlme8AIgQYyueVHT
+	69VF3K4yoWfB290FHsBqWbYD+IOzMUMUs5Jyyz6vnCHGZevNrNCbyH/ug6abD0mo
+	fxb8+PmOiXtORHWoUyXSBsTWa+svEO2HrKQ84PtqE6ey8wI5Zo9wveHVp6hpNvlX
+	rxLzNqKHzMKWgLLE5yAAlAx+X3n8UlBZHcFwptK19NCnKDvk2Yx62ZnL3nEYPGNo
+	t1UpBC1ie5z0kixF9mfGg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1722416118; x=1722502518; bh=vMA1vQSN5FVF2YHU0BsfEBv1ul6n
+	pqCvlOna7cdXU68=; b=PJAcPdRBhmPdTUwxnWmSXdcRfVnUHmouVeGK3Q+CD6jw
+	D/INn9D67J0Vd1DPVrW4/Fqfbq9j94yI9LpND4LwF2uCwXP7txH5m0i52XXWu4GQ
+	u48Cp+0yjVWjp2k6DIDOE1hZ236LhZSCB3u72rlAUtloL8E3tRHbRfjnqsk6rkSe
+	B+pFyCZ9QvOkQHhUKJOddWs02+mw/TdJC3WzDc+RIl15fBRec6wVNRrFvV/odqCB
+	B+moTNe4XOrfvH1DtFwDgEezj3x75bEoqWdN3IO0ZDT3CSAA6hZoyMFx7kCw7luS
+	jJ3c2NZ3tqynspQqmoJy1iXzYP2a9UcP5BtJtfgTlw==
+X-ME-Sender: <xms:9vupZpugOml6e-n6jUR5ZHq4_nYeaAD3gFntlVAvBPyA_Rs0NSXEaw>
+    <xme:9vupZifAGzu-ToorjKNDGV8UPhd9dMSE9x4yNmfvAGSmDWE9cG5yG7WkvL3gys-kb
+    9Z-6NXDI96aFNGP6wA>
+X-ME-Received: 
+ <xmr:9vupZswyyAbUXCSf_qp-u_j3pWQFFtViodkXYEWyWBtpL5IhGpM6wAedqaCp-QN_BYOXrBbtdbZgR9ASwJRt8bJQDRqlb-YRsBZi>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgeeftddrjeeigddutdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+    hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+    hpqeenucggtffrrghtthgvrhhnpeevieelhfdukeffheekffduudevvdefudelleefgeei
+    leejheejuedvgefhteevvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhh
+    ihesshgrkhgrmhhotggthhhirdhjphdpnhgspghrtghpthhtoheptd
+X-ME-Proxy: <xmx:9vupZgNV1MHx1mQds3-bI0YN9YmPNq4w9Rhl0gA0mv4sUP-oNI59Dw>
+    <xmx:9vupZp-o0IBuwb5l-8pOYovM59Ti7W0WCoj0Ev3gzd6mOYI8RANfhA>
+    <xmx:9vupZgVC0SUJCRXaMgKgz-RutyMANAiagjNIUe7SRUtLl79pGGZttA>
+    <xmx:9vupZqcro8ARq1ervbWOEsrXcZ9kUQ9e_gcJac_fOhT-hrTBLtODSA>
+    <xmx:9vupZskm9tid2OVvRMc9J9gpR1yCioPVACDDTwQZpaB1ZVhmtYJ8Lb-X>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 31 Jul 2024 04:55:16 -0400 (EDT)
+Date: Wed, 31 Jul 2024 17:55:14 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Edmund Raile <edmund.raile@protonmail.com>
+Cc: tiwai@suse.com, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] ALSA: firewire-lib: restore process context
+ workqueue to prevent deadlock
+Message-ID: <20240731085514.GA215770@workstation.local>
+Mail-Followup-To: Edmund Raile <edmund.raile@protonmail.com>,
+	tiwai@suse.com, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, stable@vger.kernel.org
+References: <20240730195318.869840-1-edmund.raile@protonmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH alsa-lib 2/4] seq: Add API helper functions for creating
- UMP Endpoint and Blocks
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <20240619152855.6809-1-tiwai@suse.de>
- <20240619152855.6809-3-tiwai@suse.de>
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20240619152855.6809-3-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZEBJT72IXA62Q3GXCIQTYNKYZMUPFR7G
-X-Message-ID-Hash: ZEBJT72IXA62Q3GXCIQTYNKYZMUPFR7G
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240730195318.869840-1-edmund.raile@protonmail.com>
+Message-ID-Hash: WZ4ONVDQUEKLRUEI2NMBLEMBUNJIJCAT
+X-Message-ID-Hash: WZ4ONVDQUEKLRUEI2NMBLEMBUNJIJCAT
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZEBJT72IXA62Q3GXCIQTYNKYZMUPFR7G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZ4ONVDQUEKLRUEI2NMBLEMBUNJIJCAT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,54 +139,101 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 6/19/2024 5:28 PM, Takashi Iwai wrote:
-> For making it easer for applications to create a virtual UMP Endpoint
-> and UMP blocks, add two API helper functions.
+Hi,
+
+On Tue, Jul 30, 2024 at 07:53:23PM +0000, Edmund Raile wrote:
+> This patchset serves to prevent an AB/BA deadlock:
 > 
-> snd_seq_create_ump_endpoint() creates (unsurprisingly) a UMP Endpoint,
-> based on the given snd_ump_endpoint_info_t information.  The number of
-> (max) UMP groups belonging to this Endpoint has to be specified.
-> This function sets up the Endpoint info on the sequencer client, and
-> creates a MIDI 2.0 UMP port as well as UMP Group ports automatically.
-> The name of the sequencer client is updated from the Endpoint name,
-> too.
+> thread 0:
+>     * (lock A) acquire substream lock by
+> 	snd_pcm_stream_lock_irq() in
+> 	snd_pcm_status64()
+>     * (lock B) wait for tasklet to finish by calling
+>     	tasklet_unlock_spin_wait() in
+> 	tasklet_disable_in_atomic() in
+> 	ohci_flush_iso_completions() of ohci.c
 > 
-> After creating a UMP Endpoint, create each UMP Block via
-> snd_seq_create_ump_block() function with a snd_ump_block_info_t info.
-> The associated groups for each block have to be specified there.
-> The port names and capability bits are updated accordingly after
-> setting each block information.
+> thread 1:
+>     * (lock B) enter tasklet
+>     * (lock A) attempt to acquire substream lock,
+>     	waiting for it to be released:
+> 	snd_pcm_stream_lock_irqsave() in
+>     	snd_pcm_period_elapsed() in
+> 	update_pcm_pointers() in
+> 	process_ctx_payloads() in
+> 	process_rx_packets() of amdtp-stream.c
 > 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
+> ? tasklet_unlock_spin_wait
+>  </NMI>
+>  <TASK>
+> ohci_flush_iso_completions firewire_ohci
+> amdtp_domain_stream_pcm_pointer snd_firewire_lib
+> snd_pcm_update_hw_ptr0 snd_pcm
+> snd_pcm_status64 snd_pcm
+> 
+> ? native_queued_spin_lock_slowpath
+>  </NMI>
+>  <IRQ>
+> _raw_spin_lock_irqsave
+> snd_pcm_period_elapsed snd_pcm
+> process_rx_packets snd_firewire_lib
+> irq_target_callback snd_firewire_lib
+> handle_it_packet firewire_ohci
+> context_tasklet firewire_ohci
+> 
+> The issue has been reported as a regression of kernel 5.14:
+> Link: https://lore.kernel.org/regressions/kwryofzdmjvzkuw6j3clftsxmoolynljztxqwg76hzeo4simnl@jn3eo7pe642q/T/#u
+> ("[REGRESSION] ALSA: firewire-lib: snd_pcm_period_elapsed deadlock
+> with Fireface 800")
+> 
+> Commit 7ba5ca32fe6e ("ALSA: firewire-lib: operate for period elapse event
+> in process context") removed the process context workqueue from
+> amdtp_domain_stream_pcm_pointer() and update_pcm_pointers() to remove
+> its overhead.
+> Commit b5b519965c4c ("ALSA: firewire-lib: obsolete workqueue for period
+> update") belongs to the same patch series and removed
+> the now-unused workqueue entirely.
+> 
+> Though being observed on RME Fireface 800, this issue would affect all
+> Firewire audio interfaces using ohci amdtp + pcm streaming.
+> 
+> ALSA streaming, especially under intensive CPU load will reveal this issue
+> the soonest due to issuing more hardIRQs, with time to occurrence ranging
+> from 2 secons to 30 minutes after starting playback.
+> 
+> to reproduce the issue:
+> direct ALSA playback to the device:
+>   mpv --audio-device=alsa/sysdefault:CARD=Fireface800 Spor-Ignition.flac
+> Time to occurrence: 2s to 30m
+> Likelihood increased by:
+>   - high CPU load
+>     stress --cpu $(nproc)
+>   - switching between applications via workspaces
+>     tested with i915 in Xfce
+> PulsaAudio / PipeWire conceal the issue as they run PCM substream
+> without period wakeup mode, issuing less hardIRQs.
+> 
+> Cc: stable@vger.kernel.org
+> Backport note:
+> Also applies to and fixes on (tested):
+> 6.10.2, 6.9.12, 6.6.43, 6.1.102, 5.15.164
+> 
+> Edmund Raile (2):
+>   Revert "ALSA: firewire-lib: obsolete workqueue for period update"
+>   Revert "ALSA: firewire-lib: operate for period elapse event in process
+>     context"
+> 
+>  sound/firewire/amdtp-stream.c | 38 ++++++++++++++++++++++-------------
+>  sound/firewire/amdtp-stream.h |  1 +
+>  2 files changed, 25 insertions(+), 14 deletions(-)
 
-...
+They look good to me.
 
-> +			if (*blknames) {
-> +				strlcat(blknames, ", ", sizeof(blknames));
-> +				strlcat(blknames, (const char *)bp->name,
-> +					sizeof(blknames));
+Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-FYI, this seems to introduce build problems on systems that do not have 
-strlcpy:
-
-During build:
-seqmid.c: In function ‘update_group_ports’:
-seqmid.c:672:33: warning: implicit declaration of function ‘strlcat’; 
-did you mean ‘strncat’? [-Wimplicit-function-declaration]
-   672 |                                 strlcat(blknames, ", ", 
-sizeof(blknames));
-       |                                 ^~~~~~~
-       |                                 strncat
-
-And then during linking:
-/usr/bin/ld: seq/.libs/libseq.a(seqmid.o): in function `update_group_ports':
-/home/amade/workdir/avs/alsa-lib/src/seq/seqmid.c:672: undefined 
-reference to `strlcat'
-/usr/bin/ld: /home/amade/workdir/avs/alsa-lib/src/seq/seqmid.c:673: 
-undefined reference to `strlcat'
-collect2: error: ld returned 1 exit status
+I appreciate your long effort to solve the issue.
 
 
+Thanks
 
-
+Takashi Sakamoto

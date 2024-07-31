@@ -2,154 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65979431DE
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 16:19:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75CD9943602
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 21:01:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 753F42C78;
-	Wed, 31 Jul 2024 16:19:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 753F42C78
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0842BDF;
+	Wed, 31 Jul 2024 21:01:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0842BDF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722435564;
-	bh=DDlLwrsxFMHsqZV2t57k6NTa8ABzfHb6XpafsvaWqwk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1722452498;
+	bh=1biY0mwR6VJBJuHEOr9WJDOVOzJq5hdAvqynpXoc2lE=;
+	h=From:To:CC:References:In-Reply-To:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=k2cttShD4eJxjJN2OxgYs1UzAzje/C7IjZpz3nxWZT97eSFZhbcNBcYtgOtxaR+jr
-	 m7QBda8KQ8FJ0qhU0BVuwAcQqwKfUKeNu6sSHBf1h28/pAlTklOVP7w+oReRKiKUW2
-	 jlCaG0XGponFk2C/+nCA3iuHQnWyq+hHQtqZcebA=
+	b=GKuUCHgGFMGqhnVJSuzPuTQ72fBh9w6pYeINwUDxAIC6ZPhiiODDsOG9loeH9CWXd
+	 qUsVHAvY6YHpZfXDRt6xO/BJvKwlkwh/kwqG4Hc937fXrqra5EjUclUqqXVoZ8Vsfv
+	 vbEyF3DiKOzy2E/t0UWJy5tbzmTpKMFoF2V0/DnY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4EABF8026A; Wed, 31 Jul 2024 16:18:53 +0200 (CEST)
+	id 873F0F8058C; Wed, 31 Jul 2024 21:01:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5202BF805AB;
-	Wed, 31 Jul 2024 16:18:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A013F805AD;
+	Wed, 31 Jul 2024 21:01:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19650F802DB; Wed, 31 Jul 2024 16:18:46 +0200 (CEST)
+	id EA4AEF80448; Wed, 31 Jul 2024 20:53:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B0DCEF8007E
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 16:18:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0DCEF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id EB6C2F80269
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 20:51:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB6C2F80269
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=uGoRr7hf;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=egq+qiMb;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=uGoRr7hf;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=egq+qiMb
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4E04D21A4B;
-	Wed, 31 Jul 2024 14:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1722435505;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
-	b=uGoRr7hfQhVo2Ej45CDn8Hkskxs2oX6REBo75pUIwYfOodezQssp0CJF/QvDz7m60hMi0q
-	Li4mmgxHMhEWJ+HLmnwGHjaKmhmrxREcBGnrNysbAzH6mJJiNVngi7P4YpCFcq8f6kIDSP
-	knDzwo9QhdVFkxynIp8GI1kp4rEdHV4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1722435505;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
-	b=egq+qiMbHWpSFLgPJl42dn73e83NQB6XxONrIvWydATWrbcfkvwbNdU+phTOoepyGkMqa0
-	DqHfMM6q3/ruTaBw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uGoRr7hf;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=egq+qiMb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1722435505;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
-	b=uGoRr7hfQhVo2Ej45CDn8Hkskxs2oX6REBo75pUIwYfOodezQssp0CJF/QvDz7m60hMi0q
-	Li4mmgxHMhEWJ+HLmnwGHjaKmhmrxREcBGnrNysbAzH6mJJiNVngi7P4YpCFcq8f6kIDSP
-	knDzwo9QhdVFkxynIp8GI1kp4rEdHV4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1722435505;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
-	b=egq+qiMbHWpSFLgPJl42dn73e83NQB6XxONrIvWydATWrbcfkvwbNdU+phTOoepyGkMqa0
-	DqHfMM6q3/ruTaBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 35A8113297;
-	Wed, 31 Jul 2024 14:18:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9j7tC7FHqmbocAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 31 Jul 2024 14:18:25 +0000
-Date: Wed, 31 Jul 2024 16:19:02 +0200
-Message-ID: <87sevpbq5l.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sylvain BERTRAND <sylvain.bertrand@legeek.net>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH][LINUX][ALSA][USB AUDIO CLASS 1] wrong channel ids for
- surround
-In-Reply-To: <ZqpEyxz+vgLLDEMI@freedom>
-References: <ZqIyJD8lhd8hFhlC@freedom>
-	<87h6c5zzch.wl-tiwai@suse.de>
-	<ZqpEyxz+vgLLDEMI@freedom>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 4E04D21A4B
-X-Spamd-Result: default: False [-3.31 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-Message-ID-Hash: CNVJFWHDB6L4K2ZJZGGUVXJ52P6P5WV2
-X-Message-ID-Hash: CNVJFWHDB6L4K2ZJZGGUVXJ52P6P5WV2
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Oua0bV0q
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 46V4lq91024935;
+	Wed, 31 Jul 2024 09:53:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=tCTy3HpSclu/JVbVz20IopFee8JQbSd33LbqfZ73sEo=; b=
+	Oua0bV0qSpVqBLWdgBUoJkfGZmleAF1cuAFxynR1Hu+pInZ+4WEC0UEyKKRvW7QN
+	sGphaN/SHq/DPG60gRAajoCCKIyqcB6/b3KhpUfGr94N82eRgZQiM9TC6TrrHQw3
+	DsLZSaxhqEvk2t1mODXCZnYKAqc+6g1VPx0oPE5tK2LjdvlkM+0fWTXNJYm/rVL8
+	xdzQFwg09V7wGlGfbK2cxTi7yoOfwO3s+iBQ3YzUm9ux/obKdbw0+ggSasluUBOJ
+	utswEIfKLD7eRSvnQ0bs3s0vheFIKHwo1xAibdS/TURxHdNYsNo+W4Blo7VaMGP1
+	XE8u++imd53jridB15kd9Q==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 40mx9ymw31-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 31 Jul 2024 09:53:50 -0500 (CDT)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 31 Jul
+ 2024 15:53:48 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Wed, 31 Jul 2024 15:53:48 +0100
+Received: from EDIN6ZZ2FY3 (EDIN6ZZ2FY3.ad.cirrus.com [198.90.188.28])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 6B8E4820244;
+	Wed, 31 Jul 2024 14:53:48 +0000 (UTC)
+From: Simon Trimmer <simont@opensource.cirrus.com>
+To: <tiwai@suse.com>
+CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>
+References: <20240730162907.300046-1-simont@opensource.cirrus.com>
+In-Reply-To: <20240730162907.300046-1-simont@opensource.cirrus.com>
+Subject: RE: [PATCH v2] ALSA: hda: cs35l56: Stop creating ALSA controls for
+ firmware coefficients
+Date: Wed, 31 Jul 2024 15:53:48 +0100
+Message-ID: <002c01dae359$733e2ce0$59ba86a0$@opensource.cirrus.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGzLZ/XK1mMQFNNtpXMWO+/fmdPEbJgVaBg
+X-Proofpoint-GUID: 0dv5u5HeDXBJqM-AFenLSNnyVe_oR9NC
+X-Proofpoint-ORIG-GUID: 0dv5u5HeDXBJqM-AFenLSNnyVe_oR9NC
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 3OF2PZJNWVDI4Q3JJM3GCN46QRSHONLH
+X-Message-ID-Hash: 3OF2PZJNWVDI4Q3JJM3GCN46QRSHONLH
+X-MailFrom: prvs=5942461a0a=simont@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -161,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CNVJFWHDB6L4K2ZJZGGUVXJ52P6P5WV2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3OF2PZJNWVDI4Q3JJM3GCN46QRSHONLH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -170,31 +113,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 31 Jul 2024 16:06:03 +0200,
-Sylvain BERTRAND wrote:
-> 
-> On Wed, Jul 31, 2024 at 11:26:38AM +0200, Takashi Iwai wrote:
-> > Could you submit a properly formatted patch (with a patch description
-> > and your Signed-off-by tag) to linux-sound ML
-> > (linux-sound@vger.kernel.org) instead?
-> 
-> Hi,
-> 
-> I tried to send that patch to the lkml, but some admins removed grey listing
-> and I use a domestic smtp server (with DNS SPF though), then I was blocked.
-> 
-> (I don't use only noscript/basic (x)html browsers, then "Big Tech" email
-> services are not available for me)
-> 
-> (I have a github account, and github is still working with noscript/basic
-> (x)html... as for now... then I did report an issue there)
-> 
-> If you have time and accept to do it, I don't mind you or somebody else doing
-> that on my behalf. What matters is this being fixed I guess.
+Takashi - whilst the reasons for not adding the ALSA controls are different
+to
+those of the CS35L41, given the dislike about being able to re-enable them
+using a kernel parameter for debugging we'll send a V3 that removes all the
+firmware control support.
 
-OK, as the fix is trivial, I'll submit and merge it.
+Thanks
+-Simon
+
+> -----Original Message-----
+> From: Simon Trimmer <simont@opensource.cirrus.com>
+> Sent: Tuesday, July 30, 2024 5:29 PM
+> To: tiwai@suse.com
+> Cc: linux-sound@vger.kernel.org; alsa-devel@alsa-project.org; linux-
+> kernel@vger.kernel.org; patches@opensource.cirrus.com; Simon Trimmer
+> <simont@opensource.cirrus.com>
+> Subject: [PATCH v2] ALSA: hda: cs35l56: Stop creating ALSA controls for
+> firmware coefficients
+> 
+> A number of laptops have gone to market with old firmware versions that
+> export controls that have since been hidden, but we can't just install a
+> newer firmware because the firmware for each product is customized and
+> qualified by the OEM. The issue is that alsactl save and restore has no
+> idea what controls are good to persist which can lead to
+> misconfiguration.
+> 
+> As the ALSA controls for the firmware coefficients are not used in
+> normal operation they can all be hidden, but add a kernel parameter so
+> that they can be re-enabled for debugging.
+> 
+> Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+> ---
+> Changes in v2:
+> - v1 was accidentally the backport version for older kernels instead of
+>   the one for v6.11
+> 
+>  sound/pci/hda/cs35l56_hda.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/cs35l56_hda.c b/sound/pci/hda/cs35l56_hda.c
+> index 96d3f13c5abf..f2f623f713d1 100644
+> --- a/sound/pci/hda/cs35l56_hda.c
+> +++ b/sound/pci/hda/cs35l56_hda.c
+> @@ -23,6 +23,10 @@
+>  #include "hda_cs_dsp_ctl.h"
+>  #include "hda_generic.h"
+> 
+> +static bool expose_dsp_controls;
+> +module_param(expose_dsp_controls, bool, 0444);
+> +MODULE_PARM_DESC(expose_dsp_controls, "Expose firmware controls as
+> ALSA controls 0=no (default), 1=yes");
+> +
+>   /*
+>    * The cs35l56_hda_dai_config[] reg sequence configures the device as
+>    *  ASP1_BCLK_FREQ = 3.072 MHz
+> @@ -613,7 +617,7 @@ static void cs35l56_hda_fw_load(struct cs35l56_hda
+> *cs35l56)
+>  	 */
+>  	if (cs35l56->base.fw_patched)
+>  		cs_dsp_power_down(&cs35l56->cs_dsp);
+> -	else
+> +	else if (expose_dsp_controls)
+>  		add_dsp_controls_required = true;
+> 
+>  	cs35l56->base.fw_patched = false;
+> --
+> 2.43.0
 
 
-thanks,
-
-Takashi

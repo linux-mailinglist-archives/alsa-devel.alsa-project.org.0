@@ -2,120 +2,154 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA31B9431C1
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 16:12:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65979431DE
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2024 16:19:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33B182BAE;
-	Wed, 31 Jul 2024 16:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33B182BAE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 753F42C78;
+	Wed, 31 Jul 2024 16:19:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 753F42C78
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722435107;
-	bh=g0FCq4nnchDFfxh51t3tr65YF79O4pzb8rTXeXDOps0=;
-	h=Date:To:Subject:Cc:From:References:In-Reply-To:List-Id:
+	s=default; t=1722435564;
+	bh=DDlLwrsxFMHsqZV2t57k6NTa8ABzfHb6XpafsvaWqwk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=O1Il0VKsfnk4gvB/h1q9o/fRpfrtY6Uch5fNat0vktw9cOOVYdmAAs4o5nz+W809t
-	 duVNyozSotON3tE8Y5Btn3HfB3hQzNHeBUB+2JxjXhWSDWH5SyNUKlRiTpIj3Mp4s1
-	 ynaS98C1fOaXY2mZJ5NoNYMhOiz0W24DeGtnzMF0=
+	b=k2cttShD4eJxjJN2OxgYs1UzAzje/C7IjZpz3nxWZT97eSFZhbcNBcYtgOtxaR+jr
+	 m7QBda8KQ8FJ0qhU0BVuwAcQqwKfUKeNu6sSHBf1h28/pAlTklOVP7w+oReRKiKUW2
+	 jlCaG0XGponFk2C/+nCA3iuHQnWyq+hHQtqZcebA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21CA0F80579; Wed, 31 Jul 2024 16:11:18 +0200 (CEST)
+	id B4EABF8026A; Wed, 31 Jul 2024 16:18:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 770F2F805B1;
-	Wed, 31 Jul 2024 16:11:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5202BF805AB;
+	Wed, 31 Jul 2024 16:18:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A271DF802DB; Wed, 31 Jul 2024 16:11:13 +0200 (CEST)
+	id 19650F802DB; Wed, 31 Jul 2024 16:18:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,MIME_HEADER_CTYPE_ONLY,SPF_HELO_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail.3ffe.de (0001.3ffe.de [IPv6:2a01:4f8:c0c:9d57::1])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 82902F800C9
-	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 16:11:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82902F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id B0DCEF8007E
+	for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2024 16:18:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0DCEF8007E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=walle.cc header.i=@walle.cc header.a=rsa-sha256
- header.s=mail2022082101 header.b=RheJVGsL
-Received: from localhost (unknown [213.135.10.150])
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=uGoRr7hf;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=egq+qiMb;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=uGoRr7hf;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=egq+qiMb
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id E4BD2505D;
-	Wed, 31 Jul 2024 16:11:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2022082101;
-	t=1722435067;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:in-reply-to:in-reply-to:
-	 references:references; bh=g0FCq4nnchDFfxh51t3tr65YF79O4pzb8rTXeXDOps0=;
-	b=RheJVGsLyDe1VaZaZGyLz41KRqG0eQbpu4lcvjRkmhqYsQxVpnY6SHspc+AJsru6X0q+4H
-	bFookNN2M2VflPjpAAD+KOxP9DSJKXFp+N5ii2OEzP5Mgf0JxBAhKMVXa+A/z9hdaMiFVU
-	fIYwA/Yrhh0W5AFk+8q9MlwIDS81LaZkUIvk2pT5xihTXbtf6qz8ClP1SJsvpKShFVOdsd
-	d9SijFRnSMSkdjPpL9ejDJsPMgkEgPbHP2qO4t795kQoPdBkT7deSy2NsBu4gEQc2GD+eq
-	+UD6qx97Lzo8BKfKecddrJISdAvVIB3G0WsxUA5xQY7a7wjGLRtxXewwju3sqQ==
-Content-Type: multipart/signed;
- boundary=96d5968b07d14bbafb7edd54105440eb618b58c0255484c32a5e40a9f01c;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Wed, 31 Jul 2024 16:11:05 +0200
-Message-Id: <D33S9T73M6ND.G7CCJ4PDVYQU@walle.cc>
-To: "Michal Simek" <michal.simek@amd.com>, "Mahapatra, Amit Kumar"
- <amit.kumar-mahapatra@amd.com>, "Tudor Ambarus" <tudor.ambarus@linaro.org>,
- "broonie@kernel.org" <broonie@kernel.org>, "pratyush@kernel.org"
- <pratyush@kernel.org>, "miquel.raynal@bootlin.com"
- <miquel.raynal@bootlin.com>, "richard@nod.at" <richard@nod.at>,
- "vigneshr@ti.com" <vigneshr@ti.com>, "sbinding@opensource.cirrus.com"
- <sbinding@opensource.cirrus.com>, "lee@kernel.org" <lee@kernel.org>,
- "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
- "david.rhodes@cirrus.com" <david.rhodes@cirrus.com>,
- "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>, "perex@perex.cz"
- <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>
-Subject: Re: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Cc: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
- "claudiu.beznea@tuxon.dev" <claudiu.beznea@tuxon.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "patches@opensource.cirrus.com"
- <patches@opensource.cirrus.com>, "linux-sound@vger.kernel.org"
- <linux-sound@vger.kernel.org>, "git (AMD-Xilinx)" <git@amd.com>,
- "amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>, "Conor Dooley"
- <conor.dooley@microchip.com>, "beanhuo@micron.com" <beanhuo@micron.com>
-From: "Michael Walle" <michael@walle.cc>
-X-Mailer: aerc 0.16.0
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
- <c3fa1e04-92ed-48ab-a509-98e43abd5cd6@linaro.org>
- <BN7PR12MB2802E87F1A6CD22D904CAEACDC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
- <BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
- <BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
- <BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
- <c6f209c8-47da-4881-921d-683464b9ddd5@linaro.org>
- <9cdb7f8b-e64f-46f6-94cb-194a25a42ccd@linaro.org>
- <BN7PR12MB28028B63E69134094D50F3E4DC2A2@BN7PR12MB2802.namprd12.prod.outlook.com>
- <IA0PR12MB769944254171C39FF4171B52DCB42@IA0PR12MB7699.namprd12.prod.outlook.com>
- <D2ZHJ765LUGP.2KTA46P1BL75X@walle.cc>
- <e1587f61-f765-4a22-b06e-71387cc49c4d@amd.com>
- <D33M26RLVLHF.3Q5YARPBNSBOY@walle.cc>
- <9fb60743-3e89-49fa-a399-3cf2607a7e41@amd.com>
-In-Reply-To: <9fb60743-3e89-49fa-a399-3cf2607a7e41@amd.com>
-Message-ID-Hash: EIEA4X5SNNMMQOD75IJUCSZ4NWEL4MSR
-X-Message-ID-Hash: EIEA4X5SNNMMQOD75IJUCSZ4NWEL4MSR
-X-MailFrom: michael@walle.cc
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 4E04D21A4B;
+	Wed, 31 Jul 2024 14:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1722435505;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
+	b=uGoRr7hfQhVo2Ej45CDn8Hkskxs2oX6REBo75pUIwYfOodezQssp0CJF/QvDz7m60hMi0q
+	Li4mmgxHMhEWJ+HLmnwGHjaKmhmrxREcBGnrNysbAzH6mJJiNVngi7P4YpCFcq8f6kIDSP
+	knDzwo9QhdVFkxynIp8GI1kp4rEdHV4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1722435505;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
+	b=egq+qiMbHWpSFLgPJl42dn73e83NQB6XxONrIvWydATWrbcfkvwbNdU+phTOoepyGkMqa0
+	DqHfMM6q3/ruTaBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uGoRr7hf;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=egq+qiMb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1722435505;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
+	b=uGoRr7hfQhVo2Ej45CDn8Hkskxs2oX6REBo75pUIwYfOodezQssp0CJF/QvDz7m60hMi0q
+	Li4mmgxHMhEWJ+HLmnwGHjaKmhmrxREcBGnrNysbAzH6mJJiNVngi7P4YpCFcq8f6kIDSP
+	knDzwo9QhdVFkxynIp8GI1kp4rEdHV4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1722435505;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tgRQoA5RTmJcsrNllSYec8uXbG0ZQF/SNuQ++hdWKAc=;
+	b=egq+qiMbHWpSFLgPJl42dn73e83NQB6XxONrIvWydATWrbcfkvwbNdU+phTOoepyGkMqa0
+	DqHfMM6q3/ruTaBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 35A8113297;
+	Wed, 31 Jul 2024 14:18:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 9j7tC7FHqmbocAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 31 Jul 2024 14:18:25 +0000
+Date: Wed, 31 Jul 2024 16:19:02 +0200
+Message-ID: <87sevpbq5l.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sylvain BERTRAND <sylvain.bertrand@legeek.net>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH][LINUX][ALSA][USB AUDIO CLASS 1] wrong channel ids for
+ surround
+In-Reply-To: <ZqpEyxz+vgLLDEMI@freedom>
+References: <ZqIyJD8lhd8hFhlC@freedom>
+	<87h6c5zzch.wl-tiwai@suse.de>
+	<ZqpEyxz+vgLLDEMI@freedom>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 4E04D21A4B
+X-Spamd-Result: default: False [-3.31 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+Message-ID-Hash: CNVJFWHDB6L4K2ZJZGGUVXJ52P6P5WV2
+X-Message-ID-Hash: CNVJFWHDB6L4K2ZJZGGUVXJ52P6P5WV2
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +161,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EIEA4X5SNNMMQOD75IJUCSZ4NWEL4MSR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CNVJFWHDB6L4K2ZJZGGUVXJ52P6P5WV2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,73 +170,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---96d5968b07d14bbafb7edd54105440eb618b58c0255484c32a5e40a9f01c
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Wed, 31 Jul 2024 16:06:03 +0200,
+Sylvain BERTRAND wrote:
+> 
+> On Wed, Jul 31, 2024 at 11:26:38AM +0200, Takashi Iwai wrote:
+> > Could you submit a properly formatted patch (with a patch description
+> > and your Signed-off-by tag) to linux-sound ML
+> > (linux-sound@vger.kernel.org) instead?
+> 
+> Hi,
+> 
+> I tried to send that patch to the lkml, but some admins removed grey listing
+> and I use a domestic smtp server (with DNS SPF though), then I was blocked.
+> 
+> (I don't use only noscript/basic (x)html browsers, then "Big Tech" email
+> services are not available for me)
+> 
+> (I have a github account, and github is still working with noscript/basic
+> (x)html... as for now... then I did report an issue there)
+> 
+> If you have time and accept to do it, I don't mind you or somebody else doing
+> that on my behalf. What matters is this being fixed I guess.
 
-> > All I'm saying is that you shouldn't put burden on us (the SPI NOR
-> > maintainers) for what seems to me at least as a niche. Thus I was
-> > asking for performance numbers and users. Convince me that I'm
-> > wrong and that is worth our time.
->
-> No. It is not really just feature of our evaluation boards. Customers are=
- using=20
-> it. I was talking to one guy from field and he confirms me that these=20
-> configurations are used by his multiple customers in real products.
+OK, as the fix is trivial, I'll submit and merge it.
 
-Which begs the question, do we really have to support every feature
-in the core (I'd like to hear Tudors and Pratyush opinion here).
-Honestly, this just looks like a concatenation of two QSPI
-controllers. Why didn't you just use a normal octal controller which
-is a protocol also backed by the JEDEC standard. Is it any faster?
-Do you get more capacity? Does anyone really use large SPI-NOR
-flashes? If so, why? I mean you've put that controller on your SoC,
-you must have some convincing arguments why a customer should use
-it.
 
-> > The first round of patches were really invasive regarding the core
-> > code. So if there is a clean layering approach which can be enabled
-> > as a module and you are maintaining it I'm fine with that (even if
-> > the core code needs some changes then like hooks or so, not sure).
->
-> That discussion started with Miquel some years ago when he was trying to =
-to=20
-> solve description in DT which is merged for a while in the kernel.
+thanks,
 
-What's your point here? From what I can tell the DT binding is wrong
-and needs to be reworked anyway.
-
-> And Amit is trying to figure it out which way to go.
-> I don't want to predict where that code should be going or how it should =
-look=20
-> like because don't have spi-nor experience. But I hope we finally move fo=
-rward=20
-> on this topic to see the path how to upstream support for it.
-
-You still didn't answer my initial question. Will AMD support and
-maintain that code? I was pushing you towards putting that code into
-your own driver because then that's up to you what you are doing
-there.
-
-So how do we move forward? I'd like to see as little as core changes
-possible to get your dual flash setup working. I'm fine with having a
-layer in spi-nor/ (not sure that's how it will work with mtdcat
-which looks like it's similar as your stacked flash) as long as it
-can be a module (selected by the driver).
-
--michael
-
---96d5968b07d14bbafb7edd54105440eb618b58c0255484c32a5e40a9f01c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKcEABMJAC8WIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCZqpF+REcbWljaGFlbEB3
-YWxsZS5jYwAKCRASJzzuPgIf+L4FAYD66zueUFU1636OvgoGDTll3VhlpfWvCNks
-ygBkg8btX0/kDdus+Zs1Lz63qoncGBIBfjSOIExt4q/UijTQMIfXmQjnzxUHEsUH
-/aUgW/mzMqFLKqdncy63f8sPZX5ZY3vmAA==
-=2i8/
------END PGP SIGNATURE-----
-
---96d5968b07d14bbafb7edd54105440eb618b58c0255484c32a5e40a9f01c--
+Takashi

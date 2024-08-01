@@ -2,90 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35809944897
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:36:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53AB3944899
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:37:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F0283D13;
-	Thu,  1 Aug 2024 11:36:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F0283D13
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED283347C;
+	Thu,  1 Aug 2024 11:36:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED283347C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722504987;
-	bh=mO7YQ+kpTp1+yWnA682z7NdxMzu/Rh2XK0nHxXaUbVI=;
+	s=default; t=1722505007;
+	bh=99tx3e05MDyfL4o7hhPthNzNR7WFUko4pk2+NFAhRmc=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uQnjEM0J7EkCbiBuHnBTEfUuLB6fa5Ai4jmUCHER5ItjMn02USBXTjWeSZj5Y8kOc
-	 6C+0095Hoe8xtdEQclu0wwvltXmMMKjpIByvrxDYW/a2kJ7PYTv54nW/U/33idmKDu
-	 SW3YVQfi1YWoBXWp8fdXkPMVbkEdYIdG1CxtlBUc=
+	b=Qy9/Zbey2TM3mjJGCxeOd09OaoB6oH2p007us17tknPTEXSEwTOpiaQpAz16F8/ir
+	 UsQ6Cqwyq3As/HP1SmLBCZ7OpeACBJLJ6KnQoQKSPiUtS5itpBHI+VCzUpvPwcimWS
+	 bJKo1PvnZsAMzYHhupHiXhCVvf3FT1qWQhkCeia4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81DCDF805E9; Thu,  1 Aug 2024 11:35:48 +0200 (CEST)
+	id BEBB0F80609; Thu,  1 Aug 2024 11:35:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F354F8019B;
-	Thu,  1 Aug 2024 11:35:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03933F805C7;
+	Thu,  1 Aug 2024 11:35:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDC32F8019B; Thu,  1 Aug 2024 11:23:38 +0200 (CEST)
+	id 15771F8026A; Thu,  1 Aug 2024 11:24:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20608.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7ea9::608])
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20625.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2407::625])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A843AF8019B
-	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:23:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A843AF8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E5C9F8007E
+	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:24:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E5C9F8007E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=1ssoJ5Qa
+ header.s=selector1 header.b=W0y8WmOP
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c96n+RTVu5JEXP85QD3XogJRnNNHynrHCZy/U/pxFnl8sEDIoBjJxmo6OiiN5UJAdVYVHzfmxEn1qKLilt//G4ZPjcuHzlM0Q4l9hckUajEOi/+LDAiSCdI+zZBvB3nWi+m85VQGUELcMtApv7uUu3kpE2cqO0PPM4pW+1cNx+s/8wdQLNDQv/Z9qrtfoxyI8P2lM5aUHldRcKwVL6JS57uuF0j29lYYNZ3JYDNGMzlyw1yL6NceQBidQmYuX+xjDiv10D7PdR4CfAFOiZDw1lWSj7iKe8/H4FxeSungD5d2nTR/gT3yxjwegt51r/Psifa8cM5zeyPBFX/IlJpDQQ==
+ b=OHEnjYTNcCZDTrodUVAHPNmarlXVViMU1pRwlk0RyLC1dUr/ht+qrnVlJZOwmuziypPzZfl+8T0e5pcMcQxB/8faZMvaw8gveJc2bz2xJWyuW49X48RDEEnXww8/ZfCPvoid/2P1UWg8mWTc3DCyNvmTVQIRDmmy/3mjqJPLOkhkvqUfz6eU7JyO1WpjIxFkXsAiXOlRwTQGcRbG487PvSfddFuhR5eSqdx0A1jO7XVlSY+16gx1UMInSPlCNEYbvZcdyYu6U6DNkMbForl0p0AhIfjy0CIqRMjXrCy3tVg2oqJuCZg0ihJyvY1Xz8x4heXPVQeUeRWl7bMk8Kg1qg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qbozI4ddjgSv9+7bNOMeGoYJHbEvkkiHespHtCIOw/0=;
- b=d4ym223ie8YPnsJYhwzXmtkNUQmZwyiE+iDurUHMrVMEFCF3X2DmTrXTSF5auGuSrxWHTUPv2ZhljAAJ2eXzaY80+HSMBWhuES7bPWcuEKSY6xNbR0a2d2XjkOH1A/L1evHMcfouohNz9XUmMHzv9IZyyssBg23ZPUGOpvXzJ1NbEaaCongHN7RU0ngyYRPzJEzFEFXfysBV2OJeoJHKQvc/CrhO3QlBcorTlUQLx0XxaX0lhv1P/mQzzNsRkxohOCjMvewzP3giaIGB0eLIlhoDhtA6J2n3E0cJKdYDg8i1Kq5JOwNp46avb9/gnP1cbR8M/SAB3C+fYEmxHO0+WA==
+ bh=we75CDPL7ANvzTnjyftxd/aOT+5qqjwvgSAZNMOidSo=;
+ b=GT6lSe381cLvKm9P6/7qa8OgpXK240IdxjCy17W7l/LcUsopBi9cKL6qVEyEWRw6M+1vk2xf0tVL7mzxSIRmI7gHOWcvYXE5PHKv2XJNAY4wkk0pvdcVK1c95YF4y9oaPMfUer8M9419bq1+a8i+4LezUr2ZkJGeP2cxaVJ4FULpm3m/oT0GydDgi9eOcUaGwYdIU3/UmCqgDI1/Wck8nuGG+rlgE+kJPa7odsYUJvyg67eeSyEuoWdOQeIGYQIlyMaZp78Q6I8WR85uhTISBApkfGU/Llcn/FC8uRr6tJACBZIkEqlSW6orffMsAh8AFDNY5luBqIzdCLFnKuQhnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qbozI4ddjgSv9+7bNOMeGoYJHbEvkkiHespHtCIOw/0=;
- b=1ssoJ5QapYkewENGexsp/kP1eYmQdXtE+7FpsQpnLKIAF4d6BF4tAPk0EpdS8EnGsty/g35jnoH9YVzapSU9E3vZJ/MQN85i+c8Ay56DM2l+KryLrH7q/+nI7KPQrR9pqGMDpxvGgtpz0Ocv1q41L4oYZLJq5D3ZuWhYk+/3sSA=
-Received: from BL0PR1501CA0024.namprd15.prod.outlook.com
- (2603:10b6:207:17::37) by BY5PR12MB4097.namprd12.prod.outlook.com
- (2603:10b6:a03:213::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.22; Thu, 1 Aug
- 2024 09:23:29 +0000
-Received: from BL02EPF0001A0FE.namprd03.prod.outlook.com
- (2603:10b6:207:17:cafe::bf) by BL0PR1501CA0024.outlook.office365.com
- (2603:10b6:207:17::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.28 via Frontend
- Transport; Thu, 1 Aug 2024 09:23:29 +0000
+ bh=we75CDPL7ANvzTnjyftxd/aOT+5qqjwvgSAZNMOidSo=;
+ b=W0y8WmOPT5g5+3LwrLoL4xgb1hqehEz2Ehke51fKKoGh+ilyN4BEyMObnWzqjaaw10cxGoEw9OqP8C/C+WcU0VbBMbLaU44hXHErhuq+BCoGJOfdYFPR56gGIvmPqCqme9KtzjEefO2nsksVrbQq4iOSPT65ORcJhhVg50Mswdc=
+Received: from DM6PR14CA0041.namprd14.prod.outlook.com (2603:10b6:5:18f::18)
+ by MW4PR12MB6952.namprd12.prod.outlook.com (2603:10b6:303:207::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7807.28; Thu, 1 Aug
+ 2024 09:24:25 +0000
+Received: from DS1PEPF00017091.namprd03.prod.outlook.com
+ (2603:10b6:5:18f:cafe::38) by DM6PR14CA0041.outlook.office365.com
+ (2603:10b6:5:18f::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7762.29 via Frontend
+ Transport; Thu, 1 Aug 2024 09:24:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF0001A0FE.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7828.19 via Frontend Transport; Thu, 1 Aug 2024 09:23:29 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7828.19 via Frontend Transport; Thu, 1 Aug 2024 09:24:25 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 1 Aug
- 2024 04:23:28 -0500
+ 2024 04:24:24 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 1 Aug
+ 2024 04:24:23 -0500
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Thu, 1 Aug 2024 04:23:20 -0500
+ via Frontend Transport; Thu, 1 Aug 2024 04:24:16 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
@@ -99,72 +103,71 @@ CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
 	<kai.vehmanen@linux.intel.com>, Brent Lu <brent.lu@intel.com>, Charles Keepax
 	<ckeepax@opensource.cirrus.com>, Maciej Strozek
 	<mstrozek@opensource.cirrus.com>, Chao Song <chao.song@linux.intel.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>, "open list:SOUND - SOC LAYER / DYNAMIC
- AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
+	Rander Wang <rander.wang@intel.com>, jairaj-arava <jairaj.arava@intel.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Richard Fitzgerald
+	<rf@opensource.cirrus.com>, "open list:SOUND - SOC LAYER / DYNAMIC AUDIO
+ POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH RESEND 18/31] ASoC: intel/sdw_utils: move rtk amp codec helper
- functions
-Date: Thu, 1 Aug 2024 14:44:33 +0530
-Message-ID: <20240801091446.10457-19-Vijendar.Mukunda@amd.com>
+Subject: [PATCH RESEND 19/31] ASoC: intel/sdw_utils: move cirrus soundwire
+ codec helper functions
+Date: Thu, 1 Aug 2024 14:44:34 +0530
+Message-ID: <20240801091446.10457-20-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240801091446.10457-1-Vijendar.Mukunda@amd.com>
 References: <20240801091446.10457-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: Vijendar.Mukunda@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FE:EE_|BY5PR12MB4097:EE_
-X-MS-Office365-Filtering-Correlation-Id: f313ab96-ea8e-4e5e-5da4-08dcb20b9ae8
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|MW4PR12MB6952:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd0312fa-fcbc-45f8-af2c-08dcb20bbc2c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|7416014|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024|7416014;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?iTUiVwy1PhJQyHrJd8eZaHnYycOEci4Xo6vk/rLhZfgDKn0YHuggy0KZfhv3?=
- =?us-ascii?Q?vDc4bCkubXArmlE4nOo+SlxOWJyNz3q04i0VBpvyUq1X302xSXsDqDCPyheb?=
- =?us-ascii?Q?kR1x/K4uPr5PwdXXtPnXlcdHwPnEE+FAvQdxP3UTa+vt5dh5ZSTarXDcsycs?=
- =?us-ascii?Q?rkDgN+SU7NX+J9gbGalxlKQZbdcWKkCMlLeWrjlkpPeMUKrzQ4YrhtzWCLa3?=
- =?us-ascii?Q?Dd2KlVDK4D+PU2ErDjst5R6UaFLNvlRr92Y166BrIUaug1aypk6pqm4by9fr?=
- =?us-ascii?Q?dcuotcn8EBCpjs2IFMddavbcEaQ8Snvpg97uu3GZh+Oq/A5wmpeT5d2p8gLl?=
- =?us-ascii?Q?H4Af1KZbdpeXeGSGg7jdVTOLlnYpr9hRxWZ4cWDEu2voJuPyiXQQOOWYMtxs?=
- =?us-ascii?Q?0SYK7e/lEcLjdS5e9vSNkEb+FSh8MSA6eXI0LkhsVyl/7sfYvYVolynD0tnb?=
- =?us-ascii?Q?0s6LMCnKXaZhDtNDLrsRfMs1XJoHQmETC2zSeQKUVhBFzHFfctd3rOII8BkM?=
- =?us-ascii?Q?6q3nBAe7t0T+wcyI4pb5PkXjfjxUwlMC51/SiSU7iHyJKdZEbh9ymgANvJln?=
- =?us-ascii?Q?YrfLDtbVdnf9ejnE+UZP++QUiMkTTeCP3rci9P8NwB4YuWQy187GswUOyidX?=
- =?us-ascii?Q?AWdFGBdiQdE5s3pe9g9cVCv9T6W7hUEaSMUPenHfnjLJxnyev/URyz1WSMbE?=
- =?us-ascii?Q?XluNCX4wRwFZluZkmzOxv6q0jZt5PpHyDCdkFqyTXx2Aju4BgJ05uxawiznt?=
- =?us-ascii?Q?AWCiLDSsW3Mqv3mUBKUnS1d2Sow2M5pLh1sOtEQhAci79xqNagKJmkKcdN6Q?=
- =?us-ascii?Q?DC1YdEp73NC7JOdOKsl8aa6Zu5TCeTKV4EoQJ+/QYfaTrFccRR7dKMF+zlS3?=
- =?us-ascii?Q?bngx+N12K4h6EsWikSm89qvdcf4zR6gJnAJ/V4ZFlUu5Qx3TnkzN3bO1cmX8?=
- =?us-ascii?Q?MI4dtXgqgT47B/yiHEgIrNBSdLiO2Ryvi1uaT6svi1M5KlZ+/dCUqU3s+Iaj?=
- =?us-ascii?Q?8/SpoR470OsmCd5rvu73wmQ0U5nK5CgewgfaufuZve9hkJaWmmHW4xuJCemE?=
- =?us-ascii?Q?NS2FxGP7g9iqDN7RiQTNHplap0W9IX5j0i0tFCzDJJwuCWxep5GhLlneNJAP?=
- =?us-ascii?Q?BLcFpfAp2ujFnwuOhtTV1TPtFFuHJpQuxhUUuRMQtne7I97T8hf/BunuDA51?=
- =?us-ascii?Q?t846akyHmnxnVwNjdXSmHvH7g6Sm41Hwfcm1O7UMg8YZzmT/k0XyCsBOse+1?=
- =?us-ascii?Q?twYtWURqf5SP1JjzMSD/eC/Bf77yPXGMwtIBgMs0TDfUfUXv92MOqz+rk+Fc?=
- =?us-ascii?Q?+MJuy8GAkKSgivvQGh/QgKVf9bTzm4wOHelsk65vb2nvFLAxvwmZ9YNz6lEQ?=
- =?us-ascii?Q?RQ0yrwZZKhqgGg5nw7AsdCAcNwWu?=
+	=?us-ascii?Q?Z5xyOjRQoD8R9EASiXehDYhmMoYdGjyQs3Mf7MCQlXETLdfxuKFeVdF0HKmh?=
+ =?us-ascii?Q?PX+/OEz5h/PN/AY8mg+BDZ7JUHmTvV5kg21WYGuKQxFtXfrwR5B3bUqbvRRl?=
+ =?us-ascii?Q?JEDXLtiN+rs+NCXQYjb2CwSR6GpoVjWld3Ja7Bbt7gsIYt8QyOFLnx6D2dN9?=
+ =?us-ascii?Q?aDbObmnEn2GuX8r31sI41ByFTAB1Wn/x3Me2ejjVl/cS6apnYOK9MtICE4f1?=
+ =?us-ascii?Q?55Pnh7PLrT3sHUWExPAZSmBxnjU4fCu/8WJ7t7I+iYpRCtvSbLYS/rMHcBNd?=
+ =?us-ascii?Q?fQrImwoQm8dDVe1TBnlB4Viw+MKxMm1SLP/neUSd5GnqQrk5KB7ml2EYmEdM?=
+ =?us-ascii?Q?3or8vR0H5Z8faoiirJRtU8ryBwEDIJgbXg+9/CKJwL7W9kj+D0iX1Wot171p?=
+ =?us-ascii?Q?B749nBtR1mTcsJcskS1Im2OLDyN/79xAWLNy9FKF0yM1hmtY46L2oc9Z6ZmB?=
+ =?us-ascii?Q?3snJ3zOe6SCxNMS0U/x/DXquH/uZjqO6o/7IcHMq5iaqml+Ij37S6diHhCX5?=
+ =?us-ascii?Q?B8c9L8FLSG2Ou8wE0dfIcz+RlkXkoep627s3KfTVrBSQy5kyQnsxB4e9oIqF?=
+ =?us-ascii?Q?bJWbWVl3Brw1lWe6wY1CSlObgy2I1KNgK7Zsclvkhm08X48km7p0jGGv1BCI?=
+ =?us-ascii?Q?ZGoycVInTSz7fyYddbhow7iL1wp1GXQRfKjq3gmx4+T/9socWfm6b782ybpt?=
+ =?us-ascii?Q?d5kAX2s3WTnzBpkA0GmIVy1sIRhCK6TWSeRYBYZSo01wpWXVDjW+u2INorFb?=
+ =?us-ascii?Q?vi5RqAUEAPs6vuNdJdxR6aUkFNSyrj2YpBh7HY4nBnl4Y3NgPG3gZR/YKrhf?=
+ =?us-ascii?Q?gHDsgBL0uF50vE8Rkz0imRgBZFBVLnlPNM3fYuYT/eNJcyqXpzFXNrwd/hbt?=
+ =?us-ascii?Q?QtWoHSyPwXxILAZcyLUxixBvGhUw3ISjcNE+ElRWeqVcPFxmTU4/BE4Iyd7K?=
+ =?us-ascii?Q?4xAFzlpd/Ayy8tm1LXVoA6GATKS5b7im9AaHOMIye92Zga3YSGrN9UlUUbCX?=
+ =?us-ascii?Q?n/bXHv5or+hFsMAnNWXcZi3fVasb5h2dEq5HSZmX7WGZg8dpAOq3CJInfWE5?=
+ =?us-ascii?Q?43QJ2BiaDGb6lE0mG41U2EInXa1HatweUil9OqBFUs0rJ/1aLutDuWGKoYox?=
+ =?us-ascii?Q?CJ0a3EHc3ol64zGnOM16ZXVpJVLcq8BXNHek5APGYSuFpjMR+Y7xHUallSkC?=
+ =?us-ascii?Q?JCdOCrBTq1SfDDTB13nXJEJ2C00UxLte+dv2iNrtDr+ASSMYjzmrV8thDtPc?=
+ =?us-ascii?Q?01hOF82OXHSUQuJVdIHASjLY4tzc7OHPQVOIHME385JluEE5JxZi7ZIBnHEM?=
+ =?us-ascii?Q?RbT8CASmI/eC2p0OZz6iyojKcyoKanGQTlSG3nY44m72/4O+RD6yP6EcJ0pi?=
+ =?us-ascii?Q?TfLBIK30G3rK0d3wD2s5bhQX5n/kVE2air+xLOZjXEGrNVXmCA=3D=3D?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(7416014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2024 09:23:29.2446
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2024 09:24:25.0103
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- f313ab96-ea8e-4e5e-5da4-08dcb20b9ae8
+ fd0312fa-fcbc-45f8-af2c-08dcb20bbc2c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	BL02EPF0001A0FE.namprd03.prod.outlook.com
+	DS1PEPF00017091.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4097
-Message-ID-Hash: 6SGMQFD7SFVYS2YCAI7C6JRCA2MUMC4S
-X-Message-ID-Hash: 6SGMQFD7SFVYS2YCAI7C6JRCA2MUMC4S
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6952
+Message-ID-Hash: ZDLAFEWNFRFYJSIECH42TL4LLTBKAB6M
+X-Message-ID-Hash: ZDLAFEWNFRFYJSIECH42TL4LLTBKAB6M
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -177,7 +180,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6SGMQFD7SFVYS2YCAI7C6JRCA2MUMC4S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZDLAFEWNFRFYJSIECH42TL4LLTBKAB6M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -186,186 +189,459 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Move RTK amp codec helper functions related implementation to common
-place holder to make it generic so that these helper functions will be
-used by other platform machine driver modules.
+To make it generic, move Cirrus Soundwire codec helper functions to
+common place holder so that it can be used by other platform machine
+driver.
 
 Link: https://github.com/thesofproject/linux/pull/5068
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/soc_sdw_utils.h                      | 11 +++++++++++
- sound/soc/intel/boards/Makefile                    |  2 +-
- sound/soc/intel/boards/sof_sdw_common.h            | 11 -----------
- sound/soc/sdw_utils/Makefile                       |  3 ++-
- .../soc_sdw_rt_amp.c}                              | 14 ++++++++++----
- .../soc_sdw_rt_amp_coeff_tables.h}                 |  6 +++---
- 6 files changed, 27 insertions(+), 20 deletions(-)
- rename sound/soc/{intel/boards/sof_sdw_rt_amp.c => sdw_utils/soc_sdw_rt_amp.c} (93%)
- rename sound/soc/{intel/boards/sof_sdw_amp_coeff_tables.h => sdw_utils/soc_sdw_rt_amp_coeff_tables.h} (97%)
+ include/sound/soc_sdw_utils.h                 | 40 +++++++++++++++++++
+ sound/soc/intel/boards/Makefile               |  3 --
+ sound/soc/intel/boards/sof_sdw_common.h       | 39 ------------------
+ sound/soc/sdw_utils/Makefile                  |  5 ++-
+ .../soc_sdw_bridge_cs35l56.c}                 | 38 ++++++++++++------
+ .../soc_sdw_cs42l42.c}                        |  9 +++--
+ .../soc_sdw_cs42l43.c}                        | 20 ++++++----
+ .../soc_sdw_cs_amp.c}                         |  8 +++-
+ 8 files changed, 94 insertions(+), 68 deletions(-)
+ rename sound/soc/{intel/boards/bridge_cs35l56.c => sdw_utils/soc_sdw_bridge_cs35l56.c} (73%)
+ rename sound/soc/{intel/boards/sof_sdw_cs42l42.c => sdw_utils/soc_sdw_cs42l42.c} (88%)
+ rename sound/soc/{intel/boards/sof_sdw_cs42l43.c => sdw_utils/soc_sdw_cs42l43.c} (85%)
+ rename sound/soc/{intel/boards/sof_sdw_cs_amp.c => sdw_utils/soc_sdw_cs_amp.c} (80%)
 
 diff --git a/include/sound/soc_sdw_utils.h b/include/sound/soc_sdw_utils.h
-index 3e55cac33176..450542eb3ea0 100644
+index 450542eb3ea0..d5dd887b9d15 100644
 --- a/include/sound/soc_sdw_utils.h
 +++ b/include/sound/soc_sdw_utils.h
-@@ -99,9 +99,20 @@ int asoc_sdw_rt_sdca_jack_init(struct snd_soc_card *card,
- 			       bool playback);
- int asoc_sdw_rt_sdca_jack_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
+@@ -16,6 +16,19 @@
+ #define SOC_SDW_MAX_NO_PROPS		2
+ #define SOC_SDW_JACK_JDSRC(quirk)	((quirk) & GENMASK(3, 0))
  
-+/* RT1308 I2S support */
-+extern const struct snd_soc_ops soc_sdw_rt1308_i2s_ops;
++/* If a CODEC has an optional speaker output, this quirk will enable it */
++#define SOC_SDW_CODEC_SPKR			BIT(15)
++/*
++ * If the CODEC has additional devices attached directly to it.
++ *
++ * For the cs42l43:
++ *   - 0 - No speaker output
++ *   - SOC_SDW_CODEC_SPKR - CODEC internal speaker
++ *   - SOC_SDW_SIDECAR_AMPS - 2x Sidecar amplifiers + CODEC internal speaker
++ *   - SOC_SDW_CODEC_SPKR | SOF_SIDECAR_AMPS - Not currently supported
++ */
++#define SOC_SDW_SIDECAR_AMPS		BIT(16)
 +
-+/* generic amp support */
-+int asoc_sdw_rt_amp_init(struct snd_soc_card *card,
+ struct asoc_sdw_codec_info;
+ 
+ struct asoc_sdw_dai_info {
+@@ -109,6 +122,28 @@ int asoc_sdw_rt_amp_init(struct snd_soc_card *card,
+ 			 bool playback);
+ int asoc_sdw_rt_amp_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
+ 
++/* CS42L43 support */
++int asoc_sdw_cs42l43_spk_init(struct snd_soc_card *card,
++			      struct snd_soc_dai_link *dai_links,
++			      struct asoc_sdw_codec_info *info,
++			      bool playback);
++
++/* CS AMP support */
++int asoc_sdw_bridge_cs35l56_count_sidecar(struct snd_soc_card *card,
++					  int *num_dais, int *num_devs);
++int asoc_sdw_bridge_cs35l56_add_sidecar(struct snd_soc_card *card,
++					struct snd_soc_dai_link **dai_links,
++					struct snd_soc_codec_conf **codec_conf);
++int asoc_sdw_bridge_cs35l56_spk_init(struct snd_soc_card *card,
++				     struct snd_soc_dai_link *dai_links,
++				     struct asoc_sdw_codec_info *info,
++				     bool playback);
++
++int asoc_sdw_cs_amp_init(struct snd_soc_card *card,
 +			 struct snd_soc_dai_link *dai_links,
 +			 struct asoc_sdw_codec_info *info,
 +			 bool playback);
-+int asoc_sdw_rt_amp_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
 +
  /* dai_link init callbacks */
  int asoc_sdw_rt_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
  int asoc_sdw_rt_sdca_jack_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
-+int asoc_sdw_rt_amp_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
- int asoc_sdw_rt700_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
- int asoc_sdw_rt711_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+@@ -118,5 +153,10 @@ int asoc_sdw_rt711_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai
  int asoc_sdw_rt712_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+ int asoc_sdw_rt722_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+ int asoc_sdw_rt5682_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
++int asoc_sdw_cs42l42_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
++int asoc_sdw_cs42l43_hs_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
++int asoc_sdw_cs42l43_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
++int asoc_sdw_cs42l43_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
++int asoc_sdw_cs_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+ 
+ #endif
 diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index 9f92f49cc517..70c56bdc180c 100644
+index 70c56bdc180c..1ee903e12249 100644
 --- a/sound/soc/intel/boards/Makefile
 +++ b/sound/soc/intel/boards/Makefile
-@@ -35,7 +35,7 @@ snd-soc-skl_nau88l25_ssm4567-y := skl_nau88l25_ssm4567.o
- snd-soc-ehl-rt5660-y := ehl_rt5660.o
+@@ -36,9 +36,6 @@ snd-soc-ehl-rt5660-y := ehl_rt5660.o
  snd-soc-sof-ssp-amp-y := sof_ssp_amp.o
  snd-soc-sof-sdw-y += sof_sdw.o				\
--			sof_sdw_maxim.o sof_sdw_rt_amp.o	\
-+			sof_sdw_maxim.o 		\
- 			bridge_cs35l56.o			\
- 			sof_sdw_cs42l42.o sof_sdw_cs42l43.o	\
- 			sof_sdw_cs_amp.o			\
+ 			sof_sdw_maxim.o 		\
+-			bridge_cs35l56.o			\
+-			sof_sdw_cs42l42.o sof_sdw_cs42l43.o	\
+-			sof_sdw_cs_amp.o			\
+ 			sof_sdw_hdmi.o
+ obj-$(CONFIG_SND_SOC_INTEL_SOF_RT5682_MACH) += snd-soc-sof_rt5682.o
+ obj-$(CONFIG_SND_SOC_INTEL_SOF_CS42L42_MACH) += snd-soc-sof_cs42l42.o
 diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index 1d7e6df02247..7f856c6018aa 100644
+index 7f856c6018aa..b95daa32e343 100644
 --- a/sound/soc/intel/boards/sof_sdw_common.h
 +++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -89,16 +89,6 @@ int sof_sdw_hdmi_init(struct snd_soc_pcm_runtime *rtd);
+@@ -52,18 +52,6 @@ enum {
+ #define SOF_SSP_GET_PORT(quirk)	(((quirk) >> 7) & GENMASK(5, 0))
+ /* Deprecated and no longer supported by the code */
+ #define SOC_SDW_NO_AGGREGATION		BIT(14)
+-/* If a CODEC has an optional speaker output, this quirk will enable it */
+-#define SOC_SDW_CODEC_SPKR		BIT(15)
+-/*
+- * If the CODEC has additional devices attached directly to it.
+- *
+- * For the cs42l43:
+- *   - 0 - No speaker output
+- *   - SOC_SDW_CODEC_SPKR - CODEC internal speaker
+- *   - SOC_SDW_SIDECAR_AMPS - 2x Sidecar amplifiers + CODEC internal speaker
+- *   - SOC_SDW_CODEC_SPKR | SOC_SDW_SIDECAR_AMPS - Not currently supported
+- */
+-#define SOC_SDW_SIDECAR_AMPS		BIT(16)
  
- int sof_sdw_hdmi_card_late_probe(struct snd_soc_card *card);
+ /* BT audio offload: reserve 3 bits for future */
+ #define SOF_BT_OFFLOAD_SSP_SHIFT	15
+@@ -95,35 +83,8 @@ int asoc_sdw_maxim_init(struct snd_soc_card *card,
+ 			struct asoc_sdw_codec_info *info,
+ 			bool playback);
  
--/* RT1308 I2S support */
--extern const struct snd_soc_ops soc_sdw_rt1308_i2s_ops;
+-/* CS42L43 support */
+-int asoc_sdw_cs42l43_spk_init(struct snd_soc_card *card,
+-			      struct snd_soc_dai_link *dai_links,
+-			      struct asoc_sdw_codec_info *info,
+-			      bool playback);
 -
--/* generic amp support */
--int asoc_sdw_rt_amp_init(struct snd_soc_card *card,
+-/* CS AMP support */
+-int asoc_sdw_bridge_cs35l56_count_sidecar(struct snd_soc_card *card,
+-					  int *num_dais, int *num_devs);
+-int asoc_sdw_bridge_cs35l56_add_sidecar(struct snd_soc_card *card,
+-					struct snd_soc_dai_link **dai_links,
+-					struct snd_soc_codec_conf **codec_conf);
+-int asoc_sdw_bridge_cs35l56_spk_init(struct snd_soc_card *card,
+-				     struct snd_soc_dai_link *dai_links,
+-				     struct asoc_sdw_codec_info *info,
+-				     bool playback);
+-
+-int asoc_sdw_cs_amp_init(struct snd_soc_card *card,
 -			 struct snd_soc_dai_link *dai_links,
 -			 struct asoc_sdw_codec_info *info,
 -			 bool playback);
--int asoc_sdw_rt_amp_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
 -
- /* MAXIM codec support */
- int asoc_sdw_maxim_init(struct snd_soc_card *card,
- 			struct snd_soc_dai_link *dai_links,
-@@ -135,6 +125,5 @@ int asoc_sdw_cs42l43_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_so
- int asoc_sdw_cs42l43_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
- int asoc_sdw_cs_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+ /* dai_link init callbacks */
+ 
+-int asoc_sdw_cs42l42_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+-int asoc_sdw_cs42l43_hs_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+-int asoc_sdw_cs42l43_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+-int asoc_sdw_cs42l43_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
+-int asoc_sdw_cs_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
  int asoc_sdw_maxim_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
--int asoc_sdw_rt_amp_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai);
  
  #endif
 diff --git a/sound/soc/sdw_utils/Makefile b/sound/soc/sdw_utils/Makefile
-index 20516094f453..7851af9b8593 100644
+index 7851af9b8593..c15b08f3ab0b 100644
 --- a/sound/soc/sdw_utils/Makefile
 +++ b/sound/soc/sdw_utils/Makefile
-@@ -2,5 +2,6 @@
- snd-soc-sdw-utils-y := soc_sdw_utils.o soc_sdw_dmic.o soc_sdw_rt_dmic.o \
+@@ -3,5 +3,8 @@ snd-soc-sdw-utils-y := soc_sdw_utils.o soc_sdw_dmic.o soc_sdw_rt_dmic.o \
  		       soc_sdw_rt700.o soc_sdw_rt711.o 			\
  		       soc_sdw_rt712_sdca.o soc_sdw_rt722_sdca.o	\
--		       soc_sdw_rt5682.o soc_sdw_rt_sdca_jack_common.o
-+		       soc_sdw_rt5682.o soc_sdw_rt_sdca_jack_common.o	\
-+		       soc_sdw_rt_amp.o
+ 		       soc_sdw_rt5682.o soc_sdw_rt_sdca_jack_common.o	\
+-		       soc_sdw_rt_amp.o
++		       soc_sdw_rt_amp.o					\
++		       soc_sdw_bridge_cs35l56.o 			\
++		       soc_sdw_cs42l42.o soc_sdw_cs42l43.o 		\
++		       soc_sdw_cs_amp.o
  obj-$(CONFIG_SND_SOC_SDW_UTILS) += snd-soc-sdw-utils.o
-diff --git a/sound/soc/intel/boards/sof_sdw_rt_amp.c b/sound/soc/sdw_utils/soc_sdw_rt_amp.c
-similarity index 93%
-rename from sound/soc/intel/boards/sof_sdw_rt_amp.c
-rename to sound/soc/sdw_utils/soc_sdw_rt_amp.c
-index fff746671c1d..42be01405ab4 100644
---- a/sound/soc/intel/boards/sof_sdw_rt_amp.c
-+++ b/sound/soc/sdw_utils/soc_sdw_rt_amp.c
-@@ -1,8 +1,10 @@
+diff --git a/sound/soc/intel/boards/bridge_cs35l56.c b/sound/soc/sdw_utils/soc_sdw_bridge_cs35l56.c
+similarity index 73%
+rename from sound/soc/intel/boards/bridge_cs35l56.c
+rename to sound/soc/sdw_utils/soc_sdw_bridge_cs35l56.c
+index 55e5cfbb2f14..fcc3ef685af7 100644
+--- a/sound/soc/intel/boards/bridge_cs35l56.c
++++ b/sound/soc/sdw_utils/soc_sdw_bridge_cs35l56.c
+@@ -1,6 +1,11 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+-//
+-// Intel SOF Machine Driver with Cirrus Logic CS35L56 Smart Amp
++// This file incorporates work covered by the following copyright notice:
++// Copyright (c) 2024 Intel Corporation
++// Copyright (c) 2024 Advanced Micro Devices, Inc.
++
++/*
++ * soc_sdw_bridge_cs35l56 - codec helper functions for handling CS35L56 Smart AMP
++ */
+ 
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+@@ -9,7 +14,7 @@
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
+ #include <sound/soc-acpi.h>
+-#include "sof_sdw_common.h"
++#include <sound/soc_sdw_utils.h>
+ 
+ static const struct snd_soc_dapm_widget bridge_widgets[] = {
+ 	SND_SOC_DAPM_SPK("Bridge Speaker", NULL),
+@@ -25,7 +30,7 @@ static const char * const bridge_cs35l56_name_prefixes[] = {
+ 	"AMPR",
+ };
+ 
+-static int bridge_cs35l56_asp_init(struct snd_soc_pcm_runtime *rtd)
++static int asoc_sdw_bridge_cs35l56_asp_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_card *card = rtd->card;
+ 	int i, ret;
+@@ -73,7 +78,7 @@ static int bridge_cs35l56_asp_init(struct snd_soc_pcm_runtime *rtd)
+ 	return 0;
+ }
+ 
+-static const struct snd_soc_pcm_stream bridge_params = {
++static const struct snd_soc_pcm_stream asoc_sdw_bridge_params = {
+ 	.formats = SNDRV_PCM_FMTBIT_S16_LE,
+ 	.rate_min = 48000,
+ 	.rate_max = 48000,
+@@ -81,7 +86,7 @@ static const struct snd_soc_pcm_stream bridge_params = {
+ 	.channels_max = 2,
+ };
+ 
+-SND_SOC_DAILINK_DEFS(bridge_dai,
++SND_SOC_DAILINK_DEFS(asoc_sdw_bridge_dai,
+ 		     DAILINK_COMP_ARRAY(COMP_CODEC("cs42l43-codec", "cs42l43-asp")),
+ 		     DAILINK_COMP_ARRAY(COMP_CODEC("spi-cs35l56-left", "cs35l56-asp1"),
+ 					COMP_CODEC("spi-cs35l56-right", "cs35l56-asp1")),
+@@ -89,28 +94,33 @@ SND_SOC_DAILINK_DEFS(bridge_dai,
+ 
+ static const struct snd_soc_dai_link bridge_dai_template = {
+ 	.name = "cs42l43-cs35l56",
+-	.init = bridge_cs35l56_asp_init,
+-	.c2c_params = &bridge_params,
++	.init = asoc_sdw_bridge_cs35l56_asp_init,
++	.c2c_params = &asoc_sdw_bridge_params,
+ 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_IB_IF | SND_SOC_DAIFMT_CBC_CFC,
+-	SND_SOC_DAILINK_REG(bridge_dai),
++	SND_SOC_DAILINK_REG(asoc_sdw_bridge_dai),
+ };
+ 
+ int asoc_sdw_bridge_cs35l56_count_sidecar(struct snd_soc_card *card,
+ 					  int *num_dais, int *num_devs)
+ {
+-	if (sof_sdw_quirk & SOC_SDW_SIDECAR_AMPS) {
++	struct asoc_sdw_mc_private *ctx = snd_soc_card_get_drvdata(card);
++
++	if (ctx->mc_quirk & SOC_SDW_SIDECAR_AMPS) {
+ 		(*num_dais)++;
+ 		(*num_devs) += ARRAY_SIZE(bridge_cs35l56_name_prefixes);
+ 	}
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_bridge_cs35l56_count_sidecar, SND_SOC_SDW_UTILS);
+ 
+ int asoc_sdw_bridge_cs35l56_add_sidecar(struct snd_soc_card *card,
+ 					struct snd_soc_dai_link **dai_links,
+ 					struct snd_soc_codec_conf **codec_conf)
+ {
+-	if (sof_sdw_quirk & SOC_SDW_SIDECAR_AMPS) {
++	struct asoc_sdw_mc_private *ctx = snd_soc_card_get_drvdata(card);
++
++	if (ctx->mc_quirk & SOC_SDW_SIDECAR_AMPS) {
+ 		**dai_links = bridge_dai_template;
+ 
+ 		for (int i = 0; i < ARRAY_SIZE(bridge_cs35l56_name_prefixes); i++) {
+@@ -124,14 +134,18 @@ int asoc_sdw_bridge_cs35l56_add_sidecar(struct snd_soc_card *card,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_bridge_cs35l56_add_sidecar, SND_SOC_SDW_UTILS);
+ 
+ int asoc_sdw_bridge_cs35l56_spk_init(struct snd_soc_card *card,
+ 				     struct snd_soc_dai_link *dai_links,
+ 				     struct asoc_sdw_codec_info *info,
+ 				     bool playback)
+ {
+-	if (sof_sdw_quirk & SOC_SDW_SIDECAR_AMPS)
++	struct asoc_sdw_mc_private *ctx = snd_soc_card_get_drvdata(card);
++
++	if (ctx->mc_quirk & SOC_SDW_SIDECAR_AMPS)
+ 		info->amp_num += ARRAY_SIZE(bridge_cs35l56_name_prefixes);
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_bridge_cs35l56_spk_init, SND_SOC_SDW_UTILS);
+diff --git a/sound/soc/intel/boards/sof_sdw_cs42l42.c b/sound/soc/sdw_utils/soc_sdw_cs42l42.c
+similarity index 88%
+rename from sound/soc/intel/boards/sof_sdw_cs42l42.c
+rename to sound/soc/sdw_utils/soc_sdw_cs42l42.c
+index 3ce2f65f994a..78a6cb059ac0 100644
+--- a/sound/soc/intel/boards/sof_sdw_cs42l42.c
++++ b/sound/soc/sdw_utils/soc_sdw_cs42l42.c
+@@ -1,8 +1,9 @@
  // SPDX-License-Identifier: GPL-2.0-only
 +// This file incorporates work covered by the following copyright notice:
- // Copyright (c) 2022 Intel Corporation
+ // Copyright (c) 2023 Intel Corporation
+-
 +// Copyright (c) 2024 Advanced Micro Devices, Inc.
- 
  /*
-- *  sof_sdw_rt_amp - Helpers to handle RT1308/RT1316/RT1318 from generic machine driver
-+ *  soc_sdw_rt_amp - Helpers to handle RT1308/RT1316/RT1318 from generic machine driver
+- *  sof_sdw_cs42l42 - Helpers to handle CS42L42 from generic machine driver
++ *  soc_sdw_cs42l42 - Helpers to handle CS42L42 from generic machine driver
   */
  
  #include <linux/device.h>
-@@ -14,9 +16,9 @@
- #include <linux/soundwire/sdw.h>
- #include <linux/soundwire/sdw_type.h>
- #include <linux/dmi.h>
+@@ -15,7 +16,7 @@
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-dapm.h>
+ #include <sound/jack.h>
 -#include "sof_sdw_common.h"
--#include "sof_sdw_amp_coeff_tables.h"
--#include "../../codecs/rt1308.h"
 +#include <sound/soc_sdw_utils.h>
-+#include "soc_sdw_rt_amp_coeff_tables.h"
-+#include "../codecs/rt1308.h"
  
- #define CODEC_NAME_SIZE	7
- 
-@@ -199,6 +201,7 @@ int asoc_sdw_rt_amp_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc
+ static const struct snd_soc_dapm_route cs42l42_map[] = {
+ 	/* HP jack connectors - unknown if we have jack detection */
+@@ -87,4 +88,4 @@ int asoc_sdw_cs42l42_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_da
  
  	return ret;
  }
-+EXPORT_SYMBOL_NS(asoc_sdw_rt_amp_spk_rtd_init, SND_SOC_SDW_UTILS);
- 
- static int rt1308_i2s_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
-@@ -236,6 +239,7 @@ static int rt1308_i2s_hw_params(struct snd_pcm_substream *substream,
- const struct snd_soc_ops soc_sdw_rt1308_i2s_ops = {
- 	.hw_params = rt1308_i2s_hw_params,
- };
-+EXPORT_SYMBOL_NS(soc_sdw_rt1308_i2s_ops, SND_SOC_SDW_UTILS);
- 
- int asoc_sdw_rt_amp_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link)
- {
-@@ -253,6 +257,7 @@ int asoc_sdw_rt_amp_exit(struct snd_soc_card *card, struct snd_soc_dai_link *dai
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(asoc_sdw_rt_amp_exit, SND_SOC_SDW_UTILS);
- 
- int asoc_sdw_rt_amp_init(struct snd_soc_card *card,
- 			 struct snd_soc_dai_link *dai_links,
-@@ -295,3 +300,4 @@ int asoc_sdw_rt_amp_init(struct snd_soc_card *card,
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS(asoc_sdw_rt_amp_init, SND_SOC_SDW_UTILS);
-diff --git a/sound/soc/intel/boards/sof_sdw_amp_coeff_tables.h b/sound/soc/sdw_utils/soc_sdw_rt_amp_coeff_tables.h
-similarity index 97%
-rename from sound/soc/intel/boards/sof_sdw_amp_coeff_tables.h
-rename to sound/soc/sdw_utils/soc_sdw_rt_amp_coeff_tables.h
-index 4a3e6fdbd623..4803d134d071 100644
---- a/sound/soc/intel/boards/sof_sdw_amp_coeff_tables.h
-+++ b/sound/soc/sdw_utils/soc_sdw_rt_amp_coeff_tables.h
-@@ -2,11 +2,11 @@
-  */
+-MODULE_IMPORT_NS(SND_SOC_INTEL_SOF_BOARD_HELPERS);
++EXPORT_SYMBOL_NS(asoc_sdw_cs42l42_rtd_init, SND_SOC_SDW_UTILS);
+diff --git a/sound/soc/intel/boards/sof_sdw_cs42l43.c b/sound/soc/sdw_utils/soc_sdw_cs42l43.c
+similarity index 85%
+rename from sound/soc/intel/boards/sof_sdw_cs42l43.c
+rename to sound/soc/sdw_utils/soc_sdw_cs42l43.c
+index 47d05fe7de53..adb1c008e871 100644
+--- a/sound/soc/intel/boards/sof_sdw_cs42l43.c
++++ b/sound/soc/sdw_utils/soc_sdw_cs42l43.c
+@@ -1,9 +1,11 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ // Based on sof_sdw_rt5682.c
++// This file incorporates work covered by the following copyright notice:
+ // Copyright (c) 2023 Intel Corporation
++// Copyright (c) 2024 Advanced Micro Devices, Inc.
  
  /*
-- *  sof_sdw_amp_coeff_tables.h - related coefficients for amplifier parameters
-+ *  soc_sdw_rt_amp_coeff_tables.h - related coefficients for RTK amplifier parameters
+- *  sof_sdw_cs42l43 - Helpers to handle CS42L43 from generic machine driver
++ *  soc_sdw_cs42l43 - Helpers to handle CS42L43 from generic machine driver
+  */
+ #include <linux/device.h>
+ #include <linux/errno.h>
+@@ -16,7 +18,7 @@
+ #include <sound/soc.h>
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-dapm.h>
+-#include "sof_sdw_common.h"
++#include <sound/soc_sdw_utils.h>
+ 
+ static const struct snd_soc_dapm_route cs42l43_hs_map[] = {
+ 	{ "Headphone", NULL, "cs42l43 AMP3_OUT" },
+@@ -37,7 +39,7 @@ static const struct snd_soc_dapm_route cs42l43_dmic_map[] = {
+ 	{ "cs42l43 PDM2_DIN", NULL, "DMIC" },
+ };
+ 
+-static struct snd_soc_jack_pin sof_jack_pins[] = {
++static struct snd_soc_jack_pin soc_jack_pins[] = {
+ 	{
+ 		.pin    = "Headphone",
+ 		.mask   = SND_JACK_HEADPHONE,
+@@ -73,8 +75,8 @@ int asoc_sdw_cs42l43_hs_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc
+ 					 SND_JACK_HEADSET | SND_JACK_LINEOUT |
+ 					 SND_JACK_BTN_0 | SND_JACK_BTN_1 |
+ 					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-					 jack, sof_jack_pins,
+-					 ARRAY_SIZE(sof_jack_pins));
++					 jack, soc_jack_pins,
++					 ARRAY_SIZE(soc_jack_pins));
+ 	if (ret) {
+ 		dev_err(card->dev, "Failed to create jack: %d\n", ret);
+ 		return ret;
+@@ -98,13 +100,15 @@ int asoc_sdw_cs42l43_hs_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_cs42l43_hs_rtd_init, SND_SOC_SDW_UTILS);
+ 
+ int asoc_sdw_cs42l43_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai)
+ {
+ 	struct snd_soc_card *card = rtd->card;
++	struct asoc_sdw_mc_private *ctx = snd_soc_card_get_drvdata(card);
+ 	int ret;
+ 
+-	if (!(sof_sdw_quirk & SOC_SDW_SIDECAR_AMPS)) {
++	if (!(ctx->mc_quirk & SOC_SDW_SIDECAR_AMPS)) {
+ 		/* Will be set by the bridge code in this case */
+ 		card->components = devm_kasprintf(card->dev, GFP_KERNEL,
+ 						  "%s spk:cs42l43-spk",
+@@ -120,6 +124,7 @@ int asoc_sdw_cs42l43_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_so
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_cs42l43_spk_rtd_init, SND_SOC_SDW_UTILS);
+ 
+ int asoc_sdw_cs42l43_spk_init(struct snd_soc_card *card,
+ 			      struct snd_soc_dai_link *dai_links,
+@@ -134,6 +139,7 @@ int asoc_sdw_cs42l43_spk_init(struct snd_soc_card *card,
+ 
+ 	return asoc_sdw_bridge_cs35l56_spk_init(card, dai_links, info, playback);
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_cs42l43_spk_init, SND_SOC_SDW_UTILS);
+ 
+ int asoc_sdw_cs42l43_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai *dai)
+ {
+@@ -152,4 +158,4 @@ int asoc_sdw_cs42l43_dmic_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_s
+ 
+ 	return ret;
+ }
+-
++EXPORT_SYMBOL_NS(asoc_sdw_cs42l43_dmic_rtd_init, SND_SOC_SDW_UTILS);
+diff --git a/sound/soc/intel/boards/sof_sdw_cs_amp.c b/sound/soc/sdw_utils/soc_sdw_cs_amp.c
+similarity index 80%
+rename from sound/soc/intel/boards/sof_sdw_cs_amp.c
+rename to sound/soc/sdw_utils/soc_sdw_cs_amp.c
+index 6479974bd2c3..58b059b68016 100644
+--- a/sound/soc/intel/boards/sof_sdw_cs_amp.c
++++ b/sound/soc/sdw_utils/soc_sdw_cs_amp.c
+@@ -1,8 +1,10 @@
+ // SPDX-License-Identifier: GPL-2.0-only
++// This file incorporates work covered by the following copyright notice:
+ // Copyright (c) 2023 Intel Corporation
++// Copyright (c) 2024 Advanced Micro Devices, Inc.
+ 
+ /*
+- *  sof_sdw_cs_amp - Helpers to handle CS35L56 from generic machine driver
++ *  soc_sdw_cs_amp - Helpers to handle CS35L56 from generic machine driver
   */
  
--#ifndef SND_SOC_SOF_SDW_AMP_COEFF_H
--#define SND_SOC_SOF_SDW_AMP_COEFF_H
-+#ifndef SND_SOC_SDW_RT_SDW_AMP_COEFF_H
-+#define SND_SOC_SDW_RT_SDW_AMP_COEFF_H
+ #include <linux/device.h>
+@@ -10,7 +12,7 @@
+ #include <sound/soc.h>
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-dai.h>
+-#include "sof_sdw_common.h"
++#include <sound/soc_sdw_utils.h>
  
- #define RT1308_MAX_BQ_REG 480
- #define RT1316_MAX_BQ_REG 580
+ #define CODEC_NAME_SIZE	8
+ 
+@@ -44,6 +46,7 @@ int asoc_sdw_cs_spk_rtd_init(struct snd_soc_pcm_runtime *rtd, struct snd_soc_dai
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_cs_spk_rtd_init, SND_SOC_SDW_UTILS);
+ 
+ int asoc_sdw_cs_amp_init(struct snd_soc_card *card,
+ 			 struct snd_soc_dai_link *dai_links,
+@@ -58,3 +61,4 @@ int asoc_sdw_cs_amp_init(struct snd_soc_card *card,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_NS(asoc_sdw_cs_amp_init, SND_SOC_SDW_UTILS);
 -- 
 2.34.1
 

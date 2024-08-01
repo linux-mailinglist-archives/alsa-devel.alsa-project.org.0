@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F0679447C7
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:15:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3444394479A
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:13:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04A9D391B;
-	Thu,  1 Aug 2024 11:15:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04A9D391B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B72B737A2;
+	Thu,  1 Aug 2024 11:12:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B72B737A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722503727;
-	bh=X2yTZOgmtPzRmB9EZfWm8834SLBb4s6ZqLKVNWv52yE=;
+	s=default; t=1722503577;
+	bh=bWXEw8TFjsKa/Hb4/Eb5rG16j7U/8Z24Kda92N1MJ4I=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hsiVxhACdAXAdB1CK+Axjia5od90W/4Uk+FBBiPQZE7Ovdf66DaVIhdSNHpb0oLpf
-	 hM2YeyrzuMFkhGgx44R7o9/89TwHNOBkcWeabCpuvxLsDAURemTEVQ1N6YJr2pygYe
-	 tsT3Pd3zeVYEXIfHsUJK3RDfgWoasTSvuM8TkRo0=
+	b=Z5gpk7isRNr/R64HOutX+ZJzORfS5xlIkRzOZlFnr0j8Xm4kkNNz+FsL3LC82f0zl
+	 wS5OKze7+PcaIUI+I3a+lTVxczcrKuJNuLBr+2nAn44tdV+at/YoQdMFHu2b6bBUyO
+	 AtdkkakYLSAzTuXuqYdiNrHR0PSKCooMDNY79o7w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5D2CCF8026A; Thu,  1 Aug 2024 11:13:28 +0200 (CEST)
+	id 2452EF805E0; Thu,  1 Aug 2024 11:12:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E39BDF806AE;
-	Thu,  1 Aug 2024 11:13:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00CD4F805B4;
+	Thu,  1 Aug 2024 11:12:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37D77F80589; Thu,  1 Aug 2024 11:12:46 +0200 (CEST)
+	id 65BB9F80580; Thu,  1 Aug 2024 11:12:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,49 +35,48 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4CA43F805E6
-	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:12:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA43F805E6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 56275F8019B
+	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56275F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YVYkcZ+L
+ header.s=Intel header.b=C5sfOjqP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1722503544; x=1754039544;
+  t=1722503518; x=1754039518;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=X2yTZOgmtPzRmB9EZfWm8834SLBb4s6ZqLKVNWv52yE=;
-  b=YVYkcZ+LWNkK3GQze6frM3pI2VoLJIWm6aDhs4/4SVdvw4q46n2CpJMd
-   yhldbn8RZTNZaa1jAYS+mWntd6TtUtAb39eofBwMxOODycMA9WTKL0k0U
-   EPc2LSYOeHOtkjV1rnBP22vzMjjZxTlBAWShhYvOgn/qr6QryeT7090ZT
-   yuTSE5eKY6K32YAqr9rsbaijq74rwhtAnCTzwp8i9pxp32lsQ1RyybjGQ
-   xw+UL2fN61Ga6JttmXid7eoaac9Y2r5DEl2GDjSV4vad95n5/AGFt0QmM
-   VZAniE/KdLi5h4V+pw4a+AJCv+DGOugRY1RGEQADCtbyClNQtu2Dbzo10
-   A==;
-X-CSE-ConnectionGUID: OagN88mLQWSZR8evpmPzRQ==
-X-CSE-MsgGUID: LnVlPjEDStevo9gYXjTzVQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11150"; a="20383724"
+  bh=bWXEw8TFjsKa/Hb4/Eb5rG16j7U/8Z24Kda92N1MJ4I=;
+  b=C5sfOjqP2rjl1C1KLk4MpTYqS0UEd9xfzgvev8kbtVybbXDB1g80tP67
+   +nMrzFyfsvZvahyO28d+3tRshvNAjhVGnmXWGLWLZpdR1ZdZgQIXyTyVF
+   z+OX3zlcPIWB9hkFfAM4pko2SXG3oUV7LqyEHT6JukDYb1dU18SAM0rRn
+   N9PK7upb+ZDYVfMO9p8Hd6iDUAhol+Z1n5Lok+DeI4q32FtmLflOdPFII
+   /uZI3jE3gG8S2e6T44bsoprXSG+jdi63M3QqqUrGusH3rFe19Jyyh56Sd
+   ncinQGPHquiv/MMy7fdnfE2mnPcDTcaXEs2kWUw6ZB5Gq4WUBXlFWrk1f
+   g==;
+X-CSE-ConnectionGUID: RrhRysN2TVqZRuzEKVp0tA==
+X-CSE-MsgGUID: ZQWwrCeQRm6BQRJd2qpc8A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11150"; a="20383381"
 X-IronPort-AV: E=Sophos;i="6.09,254,1716274800";
-   d="scan'208";a="20383724"
+   d="scan'208";a="20383381"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2024 02:12:22 -0700
-X-CSE-ConnectionGUID: CIBWS+VXTECq+Rc+1hXfhQ==
-X-CSE-MsgGUID: vzCEqILAQRmz4OwjGFWoOw==
+ 01 Aug 2024 02:10:59 -0700
+X-CSE-ConnectionGUID: wD2mZchpQ2uK+zw06fP8TQ==
+X-CSE-MsgGUID: 2y4A7VElRRC8qWG3k+0cRQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,254,1716274800";
-   d="scan'208";a="59090241"
+   d="scan'208";a="59089784"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO [10.245.246.220])
  ([10.245.246.220])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2024 02:12:16 -0700
-Message-ID: <c0b5be27-4a7a-4e53-ad90-f384b066791b@linux.intel.com>
-Date: Thu, 1 Aug 2024 11:04:26 +0200
+ 01 Aug 2024 02:10:53 -0700
+Message-ID: <f70b6f65-fd8f-4d2c-ba41-fa814d0b5154@linux.intel.com>
+Date: Thu, 1 Aug 2024 11:10:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 34/34] ASoC: qcom: qdsp6: Ensure PCM format is
- supported by USB audio device
+Subject: Re: [PATCH v24 00/34] Introduce QC USB SND audio offloading support
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
@@ -88,14 +87,13 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-35-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240801011730.4797-35-quic_wcheng@quicinc.com>
+In-Reply-To: <20240801011730.4797-1-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: RUWXROKKMAXUJ5EPTNBPLIXCGZVTDJYJ
-X-Message-ID-Hash: RUWXROKKMAXUJ5EPTNBPLIXCGZVTDJYJ
+Message-ID-Hash: H6XFQH5AI352NWBRF4222S3QDYMZNCXC
+X-Message-ID-Hash: H6XFQH5AI352NWBRF4222S3QDYMZNCXC
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RUWXROKKMAXUJ5EPTNBPLIXCGZVTDJYJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H6XFQH5AI352NWBRF4222S3QDYMZNCXC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,40 +117,15 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 8/1/24 03:17, Wesley Cheng wrote:
-> Check for if the PCM format is supported during the hw_params callback.  If
-> the profile is not supported then the userspace ALSA entity will receive an
-> error, and can take further action.
-> 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> ---
->  sound/soc/qcom/qdsp6/q6usb.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/qdsp6/q6usb.c b/sound/soc/qcom/qdsp6/q6usb.c
-> index d8f1bb4ec497..9a3fb3cb32b2 100644
-> --- a/sound/soc/qcom/qdsp6/q6usb.c
-> +++ b/sound/soc/qcom/qdsp6/q6usb.c
-> @@ -52,6 +52,7 @@ static int q6usb_hw_params(struct snd_pcm_substream *substream,
->  	struct q6usb_port_data *data = dev_get_drvdata(dai->dev);
->  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
->  	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-> +	int direction = substream->stream;
->  	struct q6afe_port *q6usb_afe;
->  	struct snd_soc_usb_device *sdev;
->  	int ret;
-> @@ -63,6 +64,10 @@ static int q6usb_hw_params(struct snd_pcm_substream *substream,
->  	mutex_lock(&data->mutex);
->  	sdev = list_last_entry(&data->devices, struct snd_soc_usb_device, list);
->  
-> +	ret = snd_soc_usb_find_supported_format(sdev->chip_idx, params, direction);
-> +	if (ret < 0)
-> +		goto out;
-> +
->  	q6usb_afe = q6afe_port_get_from_id(cpu_dai->dev, USB_RX);
->  	if (IS_ERR(q6usb_afe))
->  		goto out;
+On 8/1/24 03:16, Wesley Cheng wrote:
+> Requesting to see if we can get some Acked-By tags, and merge on usb-next.
 
-This patch and the previous patch 33 should be added before patch 17,
-see comments there.
+I find this update a lot easier to review than previous versions, thanks
+for this. That said, there are still quite a few confusing parts in the
+documentation and implementation - specifically the get_offload_dev()
+stuff makes sense at a high-level but the details can be improved a
+great deal.
+
+It's encouraging though, there aren't any major conceptual issues IMHO,
+it shouldn't be too hard to make the patches clearer/cleaner.
 

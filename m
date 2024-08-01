@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18BF09447C2
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:15:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F0679447C7
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:15:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CF3538EE;
-	Thu,  1 Aug 2024 11:14:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CF3538EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04A9D391B;
+	Thu,  1 Aug 2024 11:15:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04A9D391B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722503706;
-	bh=hlG5dmxzgBQ8QYdl97vTifyi/3aA4LNWtHjoLyb36DE=;
+	s=default; t=1722503727;
+	bh=X2yTZOgmtPzRmB9EZfWm8834SLBb4s6ZqLKVNWv52yE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ike27gFWebZhVd2jKjyn9PNd2E517I5cXBAKXFdKS8u8S3sMFmeMcED4jW5LIo+En
-	 lzHm6W0vnJlSlJuW3PuFH5hDzMrtEc6w7G0zWuzEYBwPBWo2lGamY8SNpn8Jm7sOLD
-	 rGZ0/Dg8ceIg7iojNqIcrTEJU2wDFyR2DyQgfolE=
+	b=hsiVxhACdAXAdB1CK+Axjia5od90W/4Uk+FBBiPQZE7Ovdf66DaVIhdSNHpb0oLpf
+	 hM2YeyrzuMFkhGgx44R7o9/89TwHNOBkcWeabCpuvxLsDAURemTEVQ1N6YJr2pygYe
+	 tsT3Pd3zeVYEXIfHsUJK3RDfgWoasTSvuM8TkRo0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1B96F80608; Thu,  1 Aug 2024 11:13:19 +0200 (CEST)
+	id 5D2CCF8026A; Thu,  1 Aug 2024 11:13:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F408F8069C;
-	Thu,  1 Aug 2024 11:13:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E39BDF806AE;
+	Thu,  1 Aug 2024 11:13:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5520F80605; Thu,  1 Aug 2024 11:12:35 +0200 (CEST)
+	id 37D77F80589; Thu,  1 Aug 2024 11:12:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,49 +35,49 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DD867F805F0
-	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:12:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD867F805F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4CA43F805E6
+	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:12:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA43F805E6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=DCezCAYu
+ header.s=Intel header.b=YVYkcZ+L
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1722503540; x=1754039540;
+  t=1722503544; x=1754039544;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=hlG5dmxzgBQ8QYdl97vTifyi/3aA4LNWtHjoLyb36DE=;
-  b=DCezCAYug2Bw9CWJnq2Fvu+RbjLE+XYLoPTYPNspdcha+dFac2V1Xz8/
-   ZARpka6DkirxIlGbAyE0eA7WDwniYu42Sr1DQeE7wfgkI0gvY+9TYtu5E
-   znr/pUeyX4ppbGMOe6MuOxkbyiIWuLSKfGqadCihJsQP/BsnP4nUcS+n+
-   1f1MqgMEWuxL7hDcTo6nCLoCb+BnIjog3oTEWHpFBpCIBexue8+vjb9Ss
-   yQvFpK6AXTbxTXRe4CJR2WtkoekNen68v+JT+q99PGnHdHTHPxQumLgXl
-   tOZF6O/0Pl8K3Diu0Bg3yMguHzfjSlx+PVUn6tFVG5qT15UR+W1YRWuag
-   w==;
-X-CSE-ConnectionGUID: X1pnGtFWSlanykuA/BGrLg==
-X-CSE-MsgGUID: TeKg5QszQ/qJW4xBVsUwJg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11150"; a="20383700"
+  bh=X2yTZOgmtPzRmB9EZfWm8834SLBb4s6ZqLKVNWv52yE=;
+  b=YVYkcZ+LWNkK3GQze6frM3pI2VoLJIWm6aDhs4/4SVdvw4q46n2CpJMd
+   yhldbn8RZTNZaa1jAYS+mWntd6TtUtAb39eofBwMxOODycMA9WTKL0k0U
+   EPc2LSYOeHOtkjV1rnBP22vzMjjZxTlBAWShhYvOgn/qr6QryeT7090ZT
+   yuTSE5eKY6K32YAqr9rsbaijq74rwhtAnCTzwp8i9pxp32lsQ1RyybjGQ
+   xw+UL2fN61Ga6JttmXid7eoaac9Y2r5DEl2GDjSV4vad95n5/AGFt0QmM
+   VZAniE/KdLi5h4V+pw4a+AJCv+DGOugRY1RGEQADCtbyClNQtu2Dbzo10
+   A==;
+X-CSE-ConnectionGUID: OagN88mLQWSZR8evpmPzRQ==
+X-CSE-MsgGUID: LnVlPjEDStevo9gYXjTzVQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11150"; a="20383724"
 X-IronPort-AV: E=Sophos;i="6.09,254,1716274800";
-   d="scan'208";a="20383700"
+   d="scan'208";a="20383724"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2024 02:12:16 -0700
-X-CSE-ConnectionGUID: as0uoOqLRVyGfgF+j/kEug==
-X-CSE-MsgGUID: YgCYS42HRumVFZ5NUqy/dA==
+ 01 Aug 2024 02:12:22 -0700
+X-CSE-ConnectionGUID: CIBWS+VXTECq+Rc+1hXfhQ==
+X-CSE-MsgGUID: vzCEqILAQRmz4OwjGFWoOw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,254,1716274800";
-   d="scan'208";a="59090227"
+   d="scan'208";a="59090241"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO [10.245.246.220])
  ([10.245.246.220])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2024 02:12:10 -0700
-Message-ID: <4d5fe3f8-d7ba-4647-8dd7-22656ec2fde5@linux.intel.com>
-Date: Thu, 1 Aug 2024 11:02:08 +0200
+ 01 Aug 2024 02:12:16 -0700
+Message-ID: <c0b5be27-4a7a-4e53-ad90-f384b066791b@linux.intel.com>
+Date: Thu, 1 Aug 2024 11:04:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 29/34] ALSA: usb-audio: qcom: Add USB offload route
- kcontrol
+Subject: Re: [PATCH v24 34/34] ASoC: qcom: qdsp6: Ensure PCM format is
+ supported by USB audio device
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
@@ -88,14 +88,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-30-quic_wcheng@quicinc.com>
+ <20240801011730.4797-35-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240801011730.4797-30-quic_wcheng@quicinc.com>
+In-Reply-To: <20240801011730.4797-35-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: RRZW4RGWBYSEXMQ3L7UNB3HGJZ5QHCPD
-X-Message-ID-Hash: RRZW4RGWBYSEXMQ3L7UNB3HGJZ5QHCPD
+Message-ID-Hash: RUWXROKKMAXUJ5EPTNBPLIXCGZVTDJYJ
+X-Message-ID-Hash: RUWXROKKMAXUJ5EPTNBPLIXCGZVTDJYJ
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RRZW4RGWBYSEXMQ3L7UNB3HGJZ5QHCPD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RUWXROKKMAXUJ5EPTNBPLIXCGZVTDJYJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,123 +119,40 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-> +ifneq ($(CONFIG_SND_USB_QC_OFFLOAD_MIXER),)
-> +snd-usb-audio-qmi-objs += mixer_usb_offload.o
-> +endif
-> \ No newline at end of file
+On 8/1/24 03:17, Wesley Cheng wrote:
+> Check for if the PCM format is supported during the hw_params callback.  If
+> the profile is not supported then the userspace ALSA entity will receive an
+> error, and can take further action.
+> 
+> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+> ---
+>  sound/soc/qcom/qdsp6/q6usb.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/sound/soc/qcom/qdsp6/q6usb.c b/sound/soc/qcom/qdsp6/q6usb.c
+> index d8f1bb4ec497..9a3fb3cb32b2 100644
+> --- a/sound/soc/qcom/qdsp6/q6usb.c
+> +++ b/sound/soc/qcom/qdsp6/q6usb.c
+> @@ -52,6 +52,7 @@ static int q6usb_hw_params(struct snd_pcm_substream *substream,
+>  	struct q6usb_port_data *data = dev_get_drvdata(dai->dev);
+>  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>  	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+> +	int direction = substream->stream;
+>  	struct q6afe_port *q6usb_afe;
+>  	struct snd_soc_usb_device *sdev;
+>  	int ret;
+> @@ -63,6 +64,10 @@ static int q6usb_hw_params(struct snd_pcm_substream *substream,
+>  	mutex_lock(&data->mutex);
+>  	sdev = list_last_entry(&data->devices, struct snd_soc_usb_device, list);
+>  
+> +	ret = snd_soc_usb_find_supported_format(sdev->chip_idx, params, direction);
+> +	if (ret < 0)
+> +		goto out;
+> +
+>  	q6usb_afe = q6afe_port_get_from_id(cpu_dai->dev, USB_RX);
+>  	if (IS_ERR(q6usb_afe))
+>  		goto out;
 
-add one?
+This patch and the previous patch 33 should be added before patch 17,
+see comments there.
 
-> diff --git a/sound/usb/qcom/mixer_usb_offload.c b/sound/usb/qcom/mixer_usb_offload.c
-> new file mode 100644
-> index 000000000000..c00770400c67
-> --- /dev/null
-> +++ b/sound/usb/qcom/mixer_usb_offload.c
-> @@ -0,0 +1,101 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
-> + */
-> +
-> +#include <linux/usb.h>
-> +
-> +#include <sound/core.h>
-> +#include <sound/control.h>
-> +#include <sound/soc-usb.h>
-> +
-> +#include "../card.h"
-> +#include "../mixer.h"
-> +#include "../usbaudio.h"
-> +
-> +#include "mixer_usb_offload.h"
-> +
-> +#define PCM_IDX(n)  (n & 0xffff)
-> +#define CARD_IDX(n) (n >> 16)
-> +
-> +static int
-> +snd_usb_offload_route_get(struct snd_kcontrol *kcontrol,
-> +		      struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct device *sysdev = snd_kcontrol_chip(kcontrol);
-> +	int card;
-> +	int pcm;
-> +
-> +	card = soc_usb_get_offload_device(sysdev, CARD_IDX(kcontrol->private_value),
-> +					  PCM_IDX(kcontrol->private_value),
-> +					  SND_SOC_USB_KCTL_CARD_ROUTE);
-> +
-> +	pcm = soc_usb_get_offload_device(sysdev, CARD_IDX(kcontrol->private_value),
-> +					 PCM_IDX(kcontrol->private_value),
-> +					 SND_SOC_USB_KCTL_PCM_ROUTE);
-> +	if (card < 0 || pcm < 0) {
-> +		card = -1;
-> +		pcm = -1;
-> +	}
-> +
-> +	ucontrol->value.integer.value[0] = card;
-> +	ucontrol->value.integer.value[1] = pcm;
-> +
-> +	return 0;
-> +}
-
-see my earlier comment, should those two calls be collapsed to return
-all the information in one shot?
-
-> +
-> +static int snd_usb_offload_route_info(struct snd_kcontrol *kcontrol,
-> +			      struct snd_ctl_elem_info *uinfo)
-> +{
-> +	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-> +	uinfo->count = 2;
-> +	uinfo->value.integer.min = -1;
-> +	/* Arbitrary max value, as there is no 'limit' on number of PCM devices */
-> +	uinfo->value.integer.max = 0xff;
-> +
-> +	return 0;
-> +}
-> +
-> +static struct snd_kcontrol_new snd_usb_offload_mapped_ctl = {
-> +	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-> +	.access = SNDRV_CTL_ELEM_ACCESS_READ,
-> +	.info = snd_usb_offload_route_info,
-> +	.get = snd_usb_offload_route_get,
-> +};
-> +
-> +/**
-> + * snd_usb_offload_create_ctl() - Add USB offload bounded mixer
-> + * @chip - USB SND chip device
-> + *
-> + * Creates a sound control for a USB audio device, so that applications can
-> + * query for if there is an available USB audio offload path, and which
-> + * card is managing it.
-> + */
-> +int snd_usb_offload_create_ctl(struct snd_usb_audio *chip)
-> +{
-> +	struct usb_device *udev = chip->dev;
-> +	struct snd_kcontrol_new *chip_kctl;
-> +	struct snd_usb_stream *as;
-> +	char ctl_name[37];
-> +	int ret;
-> +
-> +	list_for_each_entry(as, &chip->pcm_list, list) {
-> +		chip_kctl = &snd_usb_offload_mapped_ctl;
-> +		chip_kctl->count = 1;
-> +		/*
-> +		 * Store the associated USB SND card number and PCM index for
-> +		 * the kctl.
-> +		 */
-> +		chip_kctl->private_value = as->pcm_index |
-> +					  chip->card->number << 16;
-> +		sprintf(ctl_name, "USB Offload Playback Route PCM#%d",
-> +			as->pcm_index);
-> +		chip_kctl->name = ctl_name;
-> +		ret = snd_ctl_add(chip->card, snd_ctl_new1(chip_kctl,
-> +				  udev->bus->sysdev));
-> +		if (ret < 0)
-> +			break;
-> +	}
-> +
-> +	return ret;
-
-None of this looks Qualcomm-specific, shouldn't this be part of the
-soc_usb framework instead of being added in the qcom/ stuff?

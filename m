@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BE1C944857
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:30:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36F28944855
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2024 11:30:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76C1139BB;
-	Thu,  1 Aug 2024 11:30:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76C1139BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id A237F39A2;
+	Thu,  1 Aug 2024 11:30:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A237F39A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722504645;
-	bh=5p1oyYO6u1shRaRU1kQj5x9fnU5Q6DlYMq5LOgbkvZo=;
+	s=default; t=1722504635;
+	bh=5toF+PsLMmG3nsBrKM94Rd7v4kxGJrsS2p+u19WypBE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OjwtLFMA00v3AXFvZxVh7Y2c29lz52jBiZWNuefUK+G4BqUrimf5IDHQUqbU2ukRj
-	 NDCzTexR0iBdeaCkDwaxG+Ap1BSijUJYX71WSjuhx5iUxhvqdIb+WYooACzpjeEr8R
-	 sNrZ5L6jYpuX9VJRV7uUocBxKVa7IllDxT7WmWLU=
+	b=bkoVJRazEHZ32kYZzFc4MYf/KhbJXZ9KWSQqQvz8lQfJmucZEPFf6vZfUvcFAs7R5
+	 0HzuvCHXr+uB0Bz25PcY84lw0L7xzUqybmii62WL1qWIhdCUpPorxe5+um0nKMF+oA
+	 ByccZQHOMLDCrEIK62fM/kqdopVPGV/Ox4E0mgq8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C8A4F805C3; Thu,  1 Aug 2024 11:30:07 +0200 (CEST)
+	id 7DEB6F805AC; Thu,  1 Aug 2024 11:30:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A659AF805AF;
-	Thu,  1 Aug 2024 11:30:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DB19F80269;
+	Thu,  1 Aug 2024 11:30:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C77B9F80269; Thu,  1 Aug 2024 11:16:19 +0200 (CEST)
+	id 65351F8026A; Thu,  1 Aug 2024 11:16:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 27BC4F802DB
-	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:11:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27BC4F802DB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5DFF9F80579
+	for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2024 11:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DFF9F80579
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XHtM/zXC
+ header.s=Intel header.b=KeyyRNZK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1722503522; x=1754039522;
+  t=1722503524; x=1754039524;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=5p1oyYO6u1shRaRU1kQj5x9fnU5Q6DlYMq5LOgbkvZo=;
-  b=XHtM/zXC5MghpZk4PIpujkUlmaotbUn70g5oQj29zp6eHjno9s6F9hiN
-   JFY6xz0kK/lL2EVhgWYqmwTNS9lJ41YOCprrA+dldEKALMLn8ZWWc0yUV
-   a+VuaMp61TE1qLbqvEh+GqZEMkHIv5oVSibRJZ+7n+kNfUPXWa7B6EMfl
-   5jixSPPId/1GD+Tf55jG4nmc45O5wB3cjq5VHC8NHuwSojl4U6xzInALk
-   DRf/zoqZEjadVCcPEQY6Isyvc2KIAdgyO0dJfq6n2BfS+J2lkdS1y+nrI
-   s6f+srH27qt2BpovAKZ9Gb2Efx6fOsstCPM34EZJ9DWPlOY+ycI38ZeJk
-   w==;
-X-CSE-ConnectionGUID: 6LZBeRatSPCHRCyOY1jdxg==
-X-CSE-MsgGUID: TTvlERyTR0CiqtbJZW39FA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11150"; a="20383498"
+  bh=5toF+PsLMmG3nsBrKM94Rd7v4kxGJrsS2p+u19WypBE=;
+  b=KeyyRNZKJudSc3FVnlS3AI0ktSawfiYUlN1CgBBZbAXO0w7T1ePctNRd
+   snZb7Mmf7ZFb3433H7fbAjiYS3GwhCxxFZrZqJvSdNhnxprDW1xNCqduu
+   pxVO5KwiK4cpA7IM3VuVe54JNpIbMqsil2YSmBG0antAqell+eMuqo0Lz
+   q4WDvkoGH4Mi2ierW2lbEEC6NQK8FempoDDiBoA0Qt5Z5o51r32i4Bz6C
+   dJa9f61G9YfcCb43Msu2HOeEpfTRQTQK36z+/xdb0J54cSVxcfLvbu154
+   84O3xekQAb+Jp49NXzBAu1vnkiXalr1Yid0jro9+2azjZ488AXyeHRjvJ
+   Q==;
+X-CSE-ConnectionGUID: dfTQGb1+Rje/EaWi+Zt/lw==
+X-CSE-MsgGUID: ysxbUTV1QpylftMcw1HBkw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11150"; a="20383539"
 X-IronPort-AV: E=Sophos;i="6.09,254,1716274800";
-   d="scan'208";a="20383498"
+   d="scan'208";a="20383539"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
   by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2024 02:11:27 -0700
-X-CSE-ConnectionGUID: HjVKERAITIC28FpFzogoxA==
-X-CSE-MsgGUID: /6WLYwWXRqOt446s4lkJIA==
+ 01 Aug 2024 02:11:36 -0700
+X-CSE-ConnectionGUID: wcqSdmgMTj+f0XjaXEriKA==
+X-CSE-MsgGUID: qPY3CEHgSiuP5J8I3USl0A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,254,1716274800";
-   d="scan'208";a="59089859"
+   d="scan'208";a="59089896"
 Received: from lfiedoro-mobl.ger.corp.intel.com (HELO [10.245.246.220])
  ([10.245.246.220])
   by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2024 02:11:21 -0700
-Message-ID: <57c5af3e-3299-47ae-9e13-bfce077f5e23@linux.intel.com>
-Date: Thu, 1 Aug 2024 10:26:55 +0200
+ 01 Aug 2024 02:11:29 -0700
+Message-ID: <33f0e72e-aff8-4733-bf71-dd592a99de97@linux.intel.com>
+Date: Thu, 1 Aug 2024 10:30:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 12/34] ASoC: doc: Add documentation for SOC USB
+Subject: Re: [PATCH v24 15/34] ASoC: qcom: qdsp6: Introduce USB AFE port to
+ q6dsp
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
@@ -87,14 +89,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-13-quic_wcheng@quicinc.com>
+ <20240801011730.4797-16-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240801011730.4797-13-quic_wcheng@quicinc.com>
+In-Reply-To: <20240801011730.4797-16-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: QNOYR7JFCXUWIUIYFY4WTN6D72OVLTZF
-X-Message-ID-Hash: QNOYR7JFCXUWIUIYFY4WTN6D72OVLTZF
+Message-ID-Hash: Z22E5SIATZF6PNLAXOYDG5V3UOKEU62H
+X-Message-ID-Hash: Z22E5SIATZF6PNLAXOYDG5V3UOKEU62H
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNOYR7JFCXUWIUIYFY4WTN6D72OVLTZF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z22E5SIATZF6PNLAXOYDG5V3UOKEU62H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,188 +119,26 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-> +
-> +::
-> +
-> +               USB                   |            ASoC
-> +                                     |  _________________________
-> +                                     | |   ASoC Platform card    |
-> +                                     | |_________________________|
-> +                                     |         |           |
-> +                                     |      ___V____   ____V____
-> +                                     |     |ASoC BE | |ASoC FE  |
-> +                                     |     |DAI LNK | |DAI LNK  |
-> +                                     |     |________| |_________|
-> +                                     |         ^  ^        ^
-> +                                     |         |  |________|
-> +                                     |      ___V____    |
-> +                                     |     |SOC-USB |   |
-> +     ________       ________               |        |   |
-> +    |USB SND |<--->|USBSND  |<------------>|________|   |
-> +    |(card.c)|     |offld   |<----------                |
-> +    |________|     |________|___     | |                |
-> +        ^               ^       |    | |    ____________V_________
-> +        |               |       |    | |   |IPC                   |
-> +     __ V_______________V_____  |    | |   |______________________|
-> +    |USB SND (endpoint.c)     | |    | |              ^
-> +    |_________________________| |    | |              |
-> +                ^               |    | |   ___________V___________
-> +                |               |    | |->|audio DSP              |
-> +     ___________V_____________  |    |    |_______________________|
-> +    |XHCI HCD                 |<-    |
-> +    |_________________________|      |
-> +
 
-It wouldn't hurt to describe what you mean by 'port' in this diagram...
+On 8/1/24 03:17, Wesley Cheng wrote:
+> The QC ADSP is able to support USB playback endpoints, so that the main
+> application processor can be placed into lower CPU power modes.  This adds
+> the required AFE port configurations and port start command to start an
+> audio session.
+> 
+> Specifically, the QC ADSP can support all potential endpoints that are
+> exposed by the audio data interface.  This includes, feedback endpoints
+> (both implicit and explicit) as well as the isochronous (data) endpoints.
+> The size of audio samples sent per USB frame (microframe) will be adjusted
+> based on information received on the feedback endpoint.
+> 
+> Some pre-requisites are needed before issuing the AFE port start command,
+> such as setting the USB AFE dev_token.  This carries information about the
+> available USB SND cards and PCM devices that have been discovered on the
+> USB bus.  The dev_token field is used by the audio DSP to notify the USB
+> offload driver of which card and PCM index to enable playback on.
 
+It's just fine if the AFE stuff relies on the 'port' definition/concept,
+but I don't think it needs to pop-up at the ASoC/USB level.
 
-> +SOC USB driver
-> +==============
-> +Structures
-> +----------
-> +``struct snd_soc_usb``
-> +
-> +  - ``list``: list head for SND SOC struct list
-> +  - ``component``: reference to ASoC component
-> +  - ``num_supported_streams``: number of supported concurrent sessions
-> +  - ``connection_status_cb``: callback to notify connection events
-> +  - ``get_offload_dev``: callback to fetch selected USB sound card/PCM device
-
-I think you meant fetch offloaded sound card and PCM device information
-for a given USB card:device pair?
-
-
-> +Functions
-> +---------
-> +.. code-block:: rst
-> +
-> +	const char *snd_soc_usb_get_components_tag(bool playback);
-> +..
-> +
-> +  - ``playback``: direction of audio stream
-
-why not use the usual direction 0: playback and 1: capture?
-
-> +
-> +**snd_soc_usb_get_components_tag()** returns the tag used for describing if USB
-> +offloading is supported for appending to a sound card's components string.
-
-How does this work if the ASoC part is probe after the USB card? The
-component string would be modified after the creation of the card?
-
-A control is more dynamic by nature, not sure about this component
-string. Jaroslav?
-
->
-> +**snd_soc_usb_add_port()** add an allocated SOC USB device to the SOC USB framework.
-> +Once added, this device can be referenced by further operations.
-> +
-> +.. code-block:: rst
-> +
-> +	void snd_soc_usb_remove_port(struct snd_soc_usb *usb);
-> +..
-> +
-> +  - ``usb``: SOC USB device to remove
-> +
-> +**snd_soc_usb_remove_port()** removes a SOC USB device from the SOC USB framework.
-> +After removing a device, any SOC USB operations would not be able to reference the
-> +device removed.
-
-Not clear to me if the notion of 'port' helps, why not just
-snd_soc_usb_add_device() and remove_device()?
-
-
-> +
-> +USB Offload Related Kcontrols
-> +=============================
-> +Details
-> +-------
-> +A set of kcontrols can be utilized by applications to help select the proper sound
-> +devices to enable USB audio offloading.  SOC USB exposes the get_offload_dev()
-> +callback that designs can use to ensure that the proper indices are returned to the
-> +application.
-> +
-> +Implementation
-> +--------------
-> +
-> +**Example:**
-> +
-> +  **Sound Cards**:
-> +
-> +	::
-> +
-> +	  0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
-> +						SM8250-MTP-WCD9380-WSA8810-VA-DMIC
-> +	  1 [Seri           ]: USB-Audio - Plantronics Blackwire 3225 Seri
-> +						Plantronics Plantronics Blackwire 3225 Seri at usb-xhci-hcd.1.auto-1.1, full sp
-> +	  2 [C320M          ]: USB-Audio - Plantronics C320-M
-> +                      Plantronics Plantronics C320-M at usb-xhci-hcd.1.auto-1.2, full speed
-> +
-> +  **USB Sound Card** - card#1:
-> +
-> +	::
-> +
-> +	  USB Offload Playback Route PCM#0        -1, -1 (range -1->255)
-> +
-> +  **USB Sound Card** - card#2:
-> +
-> +	::
-> +
-> +	  USB Offload Playback Route PCM#0        0, 1 (range -1->255)
-> +
-> +The above example shows a scenario where the system has one ASoC platform card
-> +(card#0) and two USB sound devices connected (card#1 and card#2).  When reading
-> +the available kcontrols for each USB audio device, the following kcontrol lists
-> +the mapped offload path for the specific device:
-> +
-> +	"USB Offload Playback Route#*"
-> +
-> +The kcontrol is indexed, because a USB audio device could potentially have
-> +several PCM devices.  The above kcontrols are defined as:
-> +
-> +  - ``USB Offload Playback Route PCM`` **(R)**: Returns the ASoC platform sound
-> +	card and PCM device index.  The output "0, 1" (card index, PCM device index)
-> +	signifies that there is an available offload path for the USB SND device
-> +	through card#0-PCM device#1.  If "-1, -1" is seen, then no offload path is
-> +	available for the USB SND device.
-> +
-> +USB Offload Playback Route Kcontrol
-> +-----------------------------------
-> +In order to allow for vendor specific implementations on audio offloading device
-> +selection, the SOC USB layer exposes the following:
-> +
-> +.. code-block:: rst
-> +
-> +	int (*get_offload_dev)(struct snd_kcontrol *kcontrol,
-> +			      struct snd_ctl_elem_value *ucontrol);
-> +..
-> +
-> +These are specific for the **USB Offload Playback Route PCM#** kcontrol.
-> +
-> +When users issue get calls to the kcontrol, the registered SOC USB callbacks will
-> +execute the registered function calls to the DPCM BE DAI link.
-
-Oh man, now I get what 'get_offload_dev" means: it really means
-"update_offload_info' or 'update_info_kcontrol".
-The 'get' routines usually provide a handle on something to another part
-of the kernel.
-Not here, it's an update of something to be looked-up by userspace...
-
-
-> +**Callback Registration:**
-> +
-> +.. code-block:: rst
-> +
-> +	static int q6usb_component_probe(struct snd_soc_component *component)
-> +	{
-> +	...
-> +	usb = snd_soc_usb_allocate_port(component, 1, &data->priv);
-> +	if (IS_ERR(usb))
-> +		return -ENOMEM;
-> +
-> +	usb->connection_status_cb = q6usb_alsa_connection_cb;
-> +	usb->get_offload_dev = q6usb_get_offload_dev;
-> +
-> +	ret = snd_soc_usb_add_port(usb);
-> +..
 

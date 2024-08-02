@@ -2,78 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2165494628C
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 19:36:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35A829462FB
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 20:22:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D1B746A8;
-	Fri,  2 Aug 2024 19:35:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D1B746A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE96D37F6;
+	Fri,  2 Aug 2024 20:21:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE96D37F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722620166;
-	bh=YWvezw92xAZWv7n4r3RrTRKa6gnXq4ASQa04Qmrwlcg=;
+	s=default; t=1722622911;
+	bh=G7JBKRrOhMKLRs3Q0JQ80dT2AI5Js5oqFIMYQMzMrO4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=F0WwH+xus9NzSzhQApFM+mjUZo11EOVaroeLYyu8kaH2M71myskBTK29HFPUE9Pfv
-	 b/PH8WPMMUB5GmBRPXEAONUWvou/PNLr9IRZPXq2Mzd4yTfIIpsYcPJOawxxLQQ1mm
-	 HoFqNUkEXjZo0bs5b6+eAmSa59IpgazmTj8kQs64=
+	b=Qtwp8r7SJ6vdVOYEZ9IX7K1K+gZHGkwAboNwCgb7NSQLliTv13HusUj4Kxzw++Vnv
+	 fjZENvUQDgffV/QipPFV1SADbkx55D7z3MR6+Wcixl6fCOsVEnK96umRxg4qiqppxz
+	 aeGdvxwP1aXKby8SvqMs1525jm3Mk4soNao5suxc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6C63F805B6; Fri,  2 Aug 2024 19:35:34 +0200 (CEST)
+	id AEE7FF805B2; Fri,  2 Aug 2024 20:21:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1328BF8057A;
-	Fri,  2 Aug 2024 19:35:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B300F805B0;
+	Fri,  2 Aug 2024 20:21:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C402F8026A; Fri,  2 Aug 2024 19:35:28 +0200 (CEST)
+	id C0610F80269; Fri,  2 Aug 2024 20:21:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7220FF800E3
-	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 19:35:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7220FF800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08452F800B0
+	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 20:21:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08452F800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OQKJYQpD
+ header.s=k20201202 header.b=WYgLr98n
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id DDCCC62B0B;
-	Fri,  2 Aug 2024 17:35:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EF2C4AF0A;
-	Fri,  2 Aug 2024 17:35:19 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 8B72B62B15;
+	Fri,  2 Aug 2024 18:21:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4490CC32782;
+	Fri,  2 Aug 2024 18:21:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722620120;
-	bh=YWvezw92xAZWv7n4r3RrTRKa6gnXq4ASQa04Qmrwlcg=;
+	s=k20201202; t=1722622867;
+	bh=G7JBKRrOhMKLRs3Q0JQ80dT2AI5Js5oqFIMYQMzMrO4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=OQKJYQpDP9k12LhGXQpYibv78JOlREWlm6aLhP5b+OKbI1QunhDylm7Kg7Yep0SLe
-	 P2hWyZXLpmOVu3lByB8KGFcPuzMuvVCW4Go6v6mUz+jcCBpKR16fb3S0RhEOk8g+b9
-	 C7VzfuG/KtToI/S9R93WRi3ZyN0Qaycjh4JLSOAQP3I5ytAMJFvnsUIGyHwpzqMN/0
-	 UBXsgXXWqCUWENf4aVXrJRLJKQ9DSSaDiH8rNhtz7b7cgdothx0e+2aQAWCGtTSPyN
-	 28bV5u0FhJsVS7NLX5ac4dYZpuMLFaj8dH9jRAriXfdc4AFxOc+FNkD+SVdrnPT1FC
-	 SnORQRIj/pMWQ==
+	b=WYgLr98nhqiJFVNGCB1MZMWgG4GkCmgKRbVTkOmG0lBdFgdX0MsWcKTzOXvjlAvCe
+	 bWSE9XgSayIl6Ucd8yI+YnAPO77jvLOPcdTnYOAhsf6KZ2/cu0Ewc091xADQIWJDrl
+	 PAicMD4Y3/qOHXSI9oWPY8sMwZrnA4b931YXg2QjcTroB4TM011XR772JlvSi8MQXD
+	 eSbyBNEq56uH/7ReEU2apiraTDAhw7tq7JQrwmfJQwEPZY2rm8+u8yzVDsAuCQ8ltU
+	 VCaTecLrBFC/Ph6JHZM2/a0ovN/7EFq/fKpNnh2/kwk4GH0u4cCfBJwlvAg4sO+mgF
+	 ZxleD+1KV8MUA==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-In-Reply-To: <87wml3k539.wl-kuninori.morimoto.gx@renesas.com>
-References: <87wml3k539.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: (subset) [PATCH 00/12] ALSA/ASoC: use snd_pcm_direction_name()
-Message-Id: <172262011922.68355.11972812555968212748.b4-ty@kernel.org>
-Date: Fri, 02 Aug 2024 18:35:19 +0100
+To: jonathan.downing@nautel.com, piotr.wojtaszczyk@timesys.com,
+ vz@mleia.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ Yue Haibing <yuehaibing@huawei.com>
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20240802101044.3302251-1-yuehaibing@huawei.com>
+References: <20240802101044.3302251-1-yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] ASoC: fsl: lpc3xxx: Make some symbols static
+Message-Id: <172262286392.83468.2866189640414967072.b4-ty@kernel.org>
+Date: Fri, 02 Aug 2024 19:21:03 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: IWDALNG3EZAAVTJUPUFIQHXPZCFRCJZM
-X-Message-ID-Hash: IWDALNG3EZAAVTJUPUFIQHXPZCFRCJZM
+Message-ID-Hash: UHIB5TN3NM26WHZF7TDIKZD7X2XJDWQC
+X-Message-ID-Hash: UHIB5TN3NM26WHZF7TDIKZD7X2XJDWQC
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWDALNG3EZAAVTJUPUFIQHXPZCFRCJZM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UHIB5TN3NM26WHZF7TDIKZD7X2XJDWQC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,17 +98,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 30 Jul 2024 02:04:43 +0000, Kuninori Morimoto wrote:
-> Many drivers are selecting strings "playback" / "capture" by own
-> handling, but we have snd_pcm_direction_name() function for it.
-> This patch use it.
+On Fri, 02 Aug 2024 18:10:44 +0800, Yue Haibing wrote:
+> These symbols are not used outside of the files, make them static to fix
+> sparse warnings:
 > 
-> One note is that snd_pcm_direction_name() will select
-> "Playback" and "Capture", instead of "playback" / "capture".
-> Almost all drivers are using it as dev_dbg() or dev_err()
-> so no problem. But some other drivers are using it as other
-> purpose. It might be issue (?). For example ASoC debugfs dir name
-> will be changed by this patch.
+> sound/soc/fsl/lpc3xxx-i2s.c:261:30: warning: symbol 'lpc3xxx_i2s_dai_ops' was not declared. Should it be static?
+> sound/soc/fsl/lpc3xxx-i2s.c:271:27: warning: symbol 'lpc3xxx_i2s_dai_driver' was not declared. Should it be static?
+> sound/soc/fsl/lpc3xxx-pcm.c:55:39: warning: symbol 'lpc3xxx_soc_platform_driver' was not declared. Should it be static?
 > 
 > [...]
 
@@ -115,20 +114,8 @@ Applied to
 
 Thanks!
 
-[06/12] ASoC: stm: use snd_pcm_direction_name()
-        commit: 7dfdcde20179383d4acfee61692a22955d5a8217
-[07/12] ASoC: sof: pcm: use snd_pcm_direction_name()
-        commit: cda4aa0069b73e3404ee61864b4814ccc7b7a6ad
-[08/12] ASoC: sof: intel: use snd_pcm_direction_name()
-        commit: baa779902020d8921cf652944309d1284a63811c
-[09/12] ASoC: fsl: lpc3xxx-i2s: use snd_pcm_direction_name()
-        commit: 8156921e620827319460e8daa9831d731b0d75fd
-[10/12] ASoC: tegra: use snd_pcm_direction_name()
-        commit: d6db65bc62fd19915a9926e08b9cbcfbadd64291
-[11/12] ASoC: soc-pcm: use snd_pcm_direction_name()
-        commit: ebbd6703d4635d36b35f12a1365dfd7894c0ff12
-[12/12] ASoC: soc-dapm: use snd_pcm_direction_name()
-        commit: bb660132868b5208d6a5f2bd184425cf788f4ef9
+[1/1] ASoC: fsl: lpc3xxx: Make some symbols static
+      commit: a1c2716738b7ba9e912e04872639dd39c72baa35
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

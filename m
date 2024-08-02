@@ -2,120 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 654FF94550E
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 01:59:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85601945921
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 09:45:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2BDA3E58;
-	Fri,  2 Aug 2024 01:58:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2BDA3E58
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFAE83E69;
+	Fri,  2 Aug 2024 09:45:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFAE83E69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722556721;
-	bh=SRe+HOduI9I/TTc5kqhaTutON7QjmRIiDJcjmvowtzA=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ZCCgeRg45FXssnP1J7QylhsSsdYaYRH5hIlTJbH6p/WzZiPZe7APKQu5tVM3kT3Oa
-	 18CT6PlcliT9EyzfIw7tTDTs21l9e9bnKhcE6XlKvqyuOPS4ffVefi69grGhUYtUln
-	 PaE2kcK9003gSbBt469iIPrczTE9uDHWMnzgKUvE=
+	s=default; t=1722584734;
+	bh=dO7WY9wNnBYBYdux/OetuPBmn7xsV3HimPQfb7H1nK4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nu31OP1lg3TQ/Yt7YDiwq902gZa/xWdcmBOqrx0F7gQb7LjV721yIj+hM8OOHumen
+	 PVLhRlF/arrIVfI4K4yFUdX183v0+qpYrmdllvJ9Qp1yQbRkKN2aXwxNFenUIKAInR
+	 gjmwQcGuyldhQq6jNvagZz3ZvHp/YzCgJpKD8bgo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B4DFF805AB; Fri,  2 Aug 2024 01:58:10 +0200 (CEST)
+	id 460D7F80579; Fri,  2 Aug 2024 09:45:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A47A9F80588;
-	Fri,  2 Aug 2024 01:58:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1173EF805AE;
+	Fri,  2 Aug 2024 09:45:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87163F8026A; Fri,  2 Aug 2024 01:51:06 +0200 (CEST)
+	id 6FF91F800B0; Fri,  2 Aug 2024 09:28:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable version=3.4.6
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 655E7F800E3
-	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 01:50:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 655E7F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id EEF66F800B0
+	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 09:21:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEF66F800B0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=YAJq9/uq
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 471Lbj5X028809;
-	Thu, 1 Aug 2024 23:50:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t+jSJ/zbzuWb9fsjty1sUBSDZFvEM1ajNsop565+wIE=; b=YAJq9/uqMKhHRCFo
-	ZooUxgXjmrpO/Ux9ieZ4HcN5AMR//EI9F1OvSxLL6LpSHJN0iULFFp5D+WTt6izt
-	RJhZ6Qn2r7OgTdqjJNCLdVCWRTe0oEDMVIiMVoX9gZQFNaYkn49w+GSWv2oBGU7Y
-	wZvWQ496CuCv3WFJ/rrIFySIMSoau5d8ai7tVGUIwLnbGGaN7CTDCBxFIEoPf7Ut
-	z71SUGm/zlc7GhD7qgXh66PqcR6R9r08ns+IjGsqhOI0zNFe745bX26VRNZ5CxSY
-	JrAoIPotkVJgbylWZsr1nuXDmG/4Uxzk6am58Ugcu/r04ZvhGHxhSF3W01h6YFr/
-	6T57Ew==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40rjefr6wx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 01 Aug 2024 23:50:34 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
- 471NoDKl004700
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 1 Aug 2024 23:50:13 GMT
-Received: from [10.71.115.74] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 1 Aug 2024
- 16:50:12 -0700
-Message-ID: <f621ae59-7a78-4cd2-8eb7-eb02432e4828@quicinc.com>
-Date: Thu, 1 Aug 2024 16:50:11 -0700
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=GIZRilnn
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 4727LDpn124405;
+	Fri, 2 Aug 2024 02:21:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1722583273;
+	bh=LHIZZjOHVcNR6hjQOIRuoaawV1MeK0jjsS9EL7kL5Z0=;
+	h=From:To:CC:Subject:Date;
+	b=GIZRilnntVMJWxkNaPdAQ8ojen9pH8Jj9abjzhv20XCDf6bqB1JmVmghahZzuX5uN
+	 e5Lbyzq3y50M3yEOtdEpMjq49KlMJKqD/K4XdvCFULXmj+D6GAVfI58pesacGESh6G
+	 OVSaxvoUl4LcQJsJktiqK7XX9kt1KtJD4n5AS0RY=
+Received: from DLEE106.ent.ti.com (dlee106.ent.ti.com [157.170.170.36])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 4727LDRB094057
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 2 Aug 2024 02:21:13 -0500
+Received: from DLEE105.ent.ti.com (157.170.170.35) by DLEE106.ent.ti.com
+ (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 2
+ Aug 2024 02:21:12 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE105.ent.ti.com
+ (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Fri, 2 Aug 2024 02:21:12 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.49])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4727L0MI042454;
+	Fri, 2 Aug 2024 02:21:01 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13916275206@139.com>, <zhourui@huaqin.com>,
+        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
+        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
+        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
+        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
+ <yuhsuan@google.com>,
+        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
+ <soyer@irl.hu>,
+        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
+        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
+        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
+        <jesse-ji@ti.com>, <darren.ye@mediatek.com>, <antheas.dk@gmail.com>,
+        <Jerry2.Huang@lcfuturecenter.com>,
+        Shenghao Ding <shenghao-ding@ti.com>
+Subject: [RESEND PATCH v2] ASoc: tas2781: Fix a compiling warning reported by
+ robot kernel test due to adding tas2563_dvc_table
+Date: Fri, 2 Aug 2024 15:20:52 +0800
+Message-ID: <20240802072055.1462-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 12/34] ASoC: doc: Add documentation for SOC USB
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <gregkh@linuxfoundation.org>, <robh@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-13-quic_wcheng@quicinc.com>
- <57c5af3e-3299-47ae-9e13-bfce077f5e23@linux.intel.com>
-Content-Language: en-US
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <57c5af3e-3299-47ae-9e13-bfce077f5e23@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: zEn_n7EfQwr72h4zIsLzjWracdp5xdRR
-X-Proofpoint-ORIG-GUID: zEn_n7EfQwr72h4zIsLzjWracdp5xdRR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-01_22,2024-08-01_01,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
- mlxscore=0 priorityscore=1501 clxscore=1015 spamscore=0 mlxlogscore=579
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408010160
-Message-ID-Hash: B5KC2RDODLMAJB2Z7UPWDCGGWLVNNDJD
-X-Message-ID-Hash: B5KC2RDODLMAJB2Z7UPWDCGGWLVNNDJD
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: YBTRKVEURX3HMFMPR4V5ITBMSR6T5I65
+X-Message-ID-Hash: YBTRKVEURX3HMFMPR4V5ITBMSR6T5I65
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B5KC2RDODLMAJB2Z7UPWDCGGWLVNNDJD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YBTRKVEURX3HMFMPR4V5ITBMSR6T5I65/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,188 +116,595 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Pierre,
+Move tas2563_dvc_table into a separate Header file, as only tas2781
+codec driver use this table, and hda side codec driver won't use it.
 
-On 8/1/2024 1:26 AM, Pierre-Louis Bossart wrote:
->> +
->> +::
->> +
->> +               USB                   |            ASoC
->> +                                     |  _________________________
->> +                                     | |   ASoC Platform card    |
->> +                                     | |_________________________|
->> +                                     |         |           |
->> +                                     |      ___V____   ____V____
->> +                                     |     |ASoC BE | |ASoC FE  |
->> +                                     |     |DAI LNK | |DAI LNK  |
->> +                                     |     |________| |_________|
->> +                                     |         ^  ^        ^
->> +                                     |         |  |________|
->> +                                     |      ___V____    |
->> +                                     |     |SOC-USB |   |
->> +     ________       ________               |        |   |
->> +    |USB SND |<--->|USBSND  |<------------>|________|   |
->> +    |(card.c)|     |offld   |<----------                |
->> +    |________|     |________|___     | |                |
->> +        ^               ^       |    | |    ____________V_________
->> +        |               |       |    | |   |IPC                   |
->> +     __ V_______________V_____  |    | |   |______________________|
->> +    |USB SND (endpoint.c)     | |    | |              ^
->> +    |_________________________| |    | |              |
->> +                ^               |    | |   ___________V___________
->> +                |               |    | |->|audio DSP              |
->> +     ___________V_____________  |    |    |_______________________|
->> +    |XHCI HCD                 |<-    |
->> +    |_________________________|      |
->> +
-> It wouldn't hurt to describe what you mean by 'port' in this diagram...
-Sure, as mentioned in my earlier comments, in the USB world, port and device is kind of interchangeable, at least IMO.  I'd like to stick with the "port" term, but if you see otherwise, let me know. 
->
->> +SOC USB driver
->> +==============
->> +Structures
->> +----------
->> +``struct snd_soc_usb``
->> +
->> +  - ``list``: list head for SND SOC struct list
->> +  - ``component``: reference to ASoC component
->> +  - ``num_supported_streams``: number of supported concurrent sessions
->> +  - ``connection_status_cb``: callback to notify connection events
->> +  - ``get_offload_dev``: callback to fetch selected USB sound card/PCM device
-> I think you meant fetch offloaded sound card and PCM device information
-> for a given USB card:device pair?
-Correct, will change.
->
->> +Functions
->> +---------
->> +.. code-block:: rst
->> +
->> +	const char *snd_soc_usb_get_components_tag(bool playback);
->> +..
->> +
->> +  - ``playback``: direction of audio stream
-> why not use the usual direction 0: playback and 1: capture?
->
->> +
->> +**snd_soc_usb_get_components_tag()** returns the tag used for describing if USB
->> +offloading is supported for appending to a sound card's components string.
-> How does this work if the ASoC part is probe after the USB card? The
-> component string would be modified after the creation of the card?
->
-> A control is more dynamic by nature, not sure about this component
-> string. Jaroslav?
-Do we actually need to add this?  I think just having the kcontrol is sufficient.
->> +**snd_soc_usb_add_port()** add an allocated SOC USB device to the SOC USB framework.
->> +Once added, this device can be referenced by further operations.
->> +
->> +.. code-block:: rst
->> +
->> +	void snd_soc_usb_remove_port(struct snd_soc_usb *usb);
->> +..
->> +
->> +  - ``usb``: SOC USB device to remove
->> +
->> +**snd_soc_usb_remove_port()** removes a SOC USB device from the SOC USB framework.
->> +After removing a device, any SOC USB operations would not be able to reference the
->> +device removed.
-> Not clear to me if the notion of 'port' helps, why not just
-> snd_soc_usb_add_device() and remove_device()?
-I'm open to either terms, since both mean the same to me :).
->
->> +
->> +USB Offload Related Kcontrols
->> +=============================
->> +Details
->> +-------
->> +A set of kcontrols can be utilized by applications to help select the proper sound
->> +devices to enable USB audio offloading.  SOC USB exposes the get_offload_dev()
->> +callback that designs can use to ensure that the proper indices are returned to the
->> +application.
->> +
->> +Implementation
->> +--------------
->> +
->> +**Example:**
->> +
->> +  **Sound Cards**:
->> +
->> +	::
->> +
->> +	  0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
->> +						SM8250-MTP-WCD9380-WSA8810-VA-DMIC
->> +	  1 [Seri           ]: USB-Audio - Plantronics Blackwire 3225 Seri
->> +						Plantronics Plantronics Blackwire 3225 Seri at usb-xhci-hcd.1.auto-1.1, full sp
->> +	  2 [C320M          ]: USB-Audio - Plantronics C320-M
->> +                      Plantronics Plantronics C320-M at usb-xhci-hcd.1.auto-1.2, full speed
->> +
->> +  **USB Sound Card** - card#1:
->> +
->> +	::
->> +
->> +	  USB Offload Playback Route PCM#0        -1, -1 (range -1->255)
->> +
->> +  **USB Sound Card** - card#2:
->> +
->> +	::
->> +
->> +	  USB Offload Playback Route PCM#0        0, 1 (range -1->255)
->> +
->> +The above example shows a scenario where the system has one ASoC platform card
->> +(card#0) and two USB sound devices connected (card#1 and card#2).  When reading
->> +the available kcontrols for each USB audio device, the following kcontrol lists
->> +the mapped offload path for the specific device:
->> +
->> +	"USB Offload Playback Route#*"
->> +
->> +The kcontrol is indexed, because a USB audio device could potentially have
->> +several PCM devices.  The above kcontrols are defined as:
->> +
->> +  - ``USB Offload Playback Route PCM`` **(R)**: Returns the ASoC platform sound
->> +	card and PCM device index.  The output "0, 1" (card index, PCM device index)
->> +	signifies that there is an available offload path for the USB SND device
->> +	through card#0-PCM device#1.  If "-1, -1" is seen, then no offload path is
->> +	available for the USB SND device.
->> +
->> +USB Offload Playback Route Kcontrol
->> +-----------------------------------
->> +In order to allow for vendor specific implementations on audio offloading device
->> +selection, the SOC USB layer exposes the following:
->> +
->> +.. code-block:: rst
->> +
->> +	int (*get_offload_dev)(struct snd_kcontrol *kcontrol,
->> +			      struct snd_ctl_elem_value *ucontrol);
->> +..
->> +
->> +These are specific for the **USB Offload Playback Route PCM#** kcontrol.
->> +
->> +When users issue get calls to the kcontrol, the registered SOC USB callbacks will
->> +execute the registered function calls to the DPCM BE DAI link.
-> Oh man, now I get what 'get_offload_dev" means: it really means
-> "update_offload_info' or 'update_info_kcontrol".
-> The 'get' routines usually provide a handle on something to another part
-> of the kernel.
-> Not here, it's an update of something to be looked-up by userspace...
->
-I can change the naming for this if its not the right terms used.  As long as you understand how the concept works then the name changing isn't a problem.
+Fixes: 75ed63a5ab5d ("ASoC: tas2781: Add new Kontrol to set tas2563 digital Volume")
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-Thanks
+---
+v2:
+ - Modify the submission subject
+v1:
+ - | Reported-by: kernel test robot <lkp@intel.com>
+   | Closes: https://urldefense.com/v3/__https://lore.kernel.org/oe-kbuild-all/202407131659.uSVINfrZ-lkp@intel.com/__;!!G3vK!QyZeGtz-H
+ - Create tas2563-tlv.h into include/sound
+ - Move tas2563_dvc_table from tas2781-tlv.h to tas2563-tlv.h
+ - Add "#include <sound/tas2563-tlv.h>" into tas2781-i2c.c
+---
+ include/sound/tas2563-tlv.h    | 279 +++++++++++++++++++++++++++++++++
+ include/sound/tas2781-tlv.h    | 260 ------------------------------
+ sound/soc/codecs/tas2781-i2c.c |   1 +
+ 3 files changed, 280 insertions(+), 260 deletions(-)
+ create mode 100644 include/sound/tas2563-tlv.h
 
-Wesley Cheng
+diff --git a/include/sound/tas2563-tlv.h b/include/sound/tas2563-tlv.h
+new file mode 100644
+index 000000000000..faa3e194f73b
+--- /dev/null
++++ b/include/sound/tas2563-tlv.h
+@@ -0,0 +1,279 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2563 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2563 driver implements a flexible and configurable
++// algo coefficient setting for one, two, or even multiple
++// TAS2563 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++//
++
++#ifndef __TAS2563_TLV_H__
++#define __TAS2563_TLV_H__
++
++static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
++
++/* pow(10, db/20) * pow(2,30) */
++static const unsigned char tas2563_dvc_table[][4] = {
++	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
++	{ 0X00, 0X00, 0X03, 0XBC }, /* -121.0db */
++	{ 0X00, 0X00, 0X03, 0XF5 }, /* -120.5db */
++	{ 0X00, 0X00, 0X04, 0X31 }, /* -120.0db */
++	{ 0X00, 0X00, 0X04, 0X71 }, /* -119.5db */
++	{ 0X00, 0X00, 0X04, 0XB4 }, /* -119.0db */
++	{ 0X00, 0X00, 0X04, 0XFC }, /* -118.5db */
++	{ 0X00, 0X00, 0X05, 0X47 }, /* -118.0db */
++	{ 0X00, 0X00, 0X05, 0X97 }, /* -117.5db */
++	{ 0X00, 0X00, 0X05, 0XEC }, /* -117.0db */
++	{ 0X00, 0X00, 0X06, 0X46 }, /* -116.5db */
++	{ 0X00, 0X00, 0X06, 0XA5 }, /* -116.0db */
++	{ 0X00, 0X00, 0X07, 0X0A }, /* -115.5db */
++	{ 0X00, 0X00, 0X07, 0X75 }, /* -115.0db */
++	{ 0X00, 0X00, 0X07, 0XE6 }, /* -114.5db */
++	{ 0X00, 0X00, 0X08, 0X5E }, /* -114.0db */
++	{ 0X00, 0X00, 0X08, 0XDD }, /* -113.5db */
++	{ 0X00, 0X00, 0X09, 0X63 }, /* -113.0db */
++	{ 0X00, 0X00, 0X09, 0XF2 }, /* -112.5db */
++	{ 0X00, 0X00, 0X0A, 0X89 }, /* -112.0db */
++	{ 0X00, 0X00, 0X0B, 0X28 }, /* -111.5db */
++	{ 0X00, 0X00, 0X0B, 0XD2 }, /* -111.0db */
++	{ 0X00, 0X00, 0X0C, 0X85 }, /* -110.5db */
++	{ 0X00, 0X00, 0X0D, 0X43 }, /* -110.0db */
++	{ 0X00, 0X00, 0X0E, 0X0C }, /* -109.5db */
++	{ 0X00, 0X00, 0X0E, 0XE1 }, /* -109.0db */
++	{ 0X00, 0X00, 0X0F, 0XC3 }, /* -108.5db */
++	{ 0X00, 0X00, 0X10, 0XB2 }, /* -108.0db */
++	{ 0X00, 0X00, 0X11, 0XAF }, /* -107.5db */
++	{ 0X00, 0X00, 0X12, 0XBC }, /* -107.0db */
++	{ 0X00, 0X00, 0X13, 0XD8 }, /* -106.5db */
++	{ 0X00, 0X00, 0X15, 0X05 }, /* -106.0db */
++	{ 0X00, 0X00, 0X16, 0X44 }, /* -105.5db */
++	{ 0X00, 0X00, 0X17, 0X96 }, /* -105.0db */
++	{ 0X00, 0X00, 0X18, 0XFB }, /* -104.5db */
++	{ 0X00, 0X00, 0X1A, 0X76 }, /* -104.0db */
++	{ 0X00, 0X00, 0X1C, 0X08 }, /* -103.5db */
++	{ 0X00, 0X00, 0X1D, 0XB1 }, /* -103.0db */
++	{ 0X00, 0X00, 0X1F, 0X73 }, /* -102.5db */
++	{ 0X00, 0X00, 0X21, 0X51 }, /* -102.0db */
++	{ 0X00, 0X00, 0X23, 0X4A }, /* -101.5db */
++	{ 0X00, 0X00, 0X25, 0X61 }, /* -101.0db */
++	{ 0X00, 0X00, 0X27, 0X98 }, /* -100.5db */
++	{ 0X00, 0X00, 0X29, 0XF1 }, /* -100.0db */
++	{ 0X00, 0X00, 0X2C, 0X6D }, /* -99.5db */
++	{ 0X00, 0X00, 0X2F, 0X0F }, /* -99.0db */
++	{ 0X00, 0X00, 0X31, 0XD9 }, /* -98.5db */
++	{ 0X00, 0X00, 0X34, 0XCD }, /* -98.0db */
++	{ 0X00, 0X00, 0X37, 0XEE }, /* -97.5db */
++	{ 0X00, 0X00, 0X3B, 0X3F }, /* -97.0db */
++	{ 0X00, 0X00, 0X3E, 0XC1 }, /* -96.5db */
++	{ 0X00, 0X00, 0X42, 0X79 }, /* -96.0db */
++	{ 0X00, 0X00, 0X46, 0X6A }, /* -95.5db */
++	{ 0X00, 0X00, 0X4A, 0X96 }, /* -95.0db */
++	{ 0X00, 0X00, 0X4F, 0X01 }, /* -94.5db */
++	{ 0X00, 0X00, 0X53, 0XAF }, /* -94.0db */
++	{ 0X00, 0X00, 0X58, 0XA5 }, /* -93.5db */
++	{ 0X00, 0X00, 0X5D, 0XE6 }, /* -93.0db */
++	{ 0X00, 0X00, 0X63, 0X76 }, /* -92.5db */
++	{ 0X00, 0X00, 0X69, 0X5B }, /* -92.0db */
++	{ 0X00, 0X00, 0X6F, 0X99 }, /* -91.5db */
++	{ 0X00, 0X00, 0X76, 0X36 }, /* -91.0db */
++	{ 0X00, 0X00, 0X7D, 0X37 }, /* -90.5db */
++	{ 0X00, 0X00, 0X84, 0XA2 }, /* -90.0db */
++	{ 0X00, 0X00, 0X8C, 0X7E }, /* -89.5db */
++	{ 0X00, 0X00, 0X94, 0XD1 }, /* -89.0db */
++	{ 0X00, 0X00, 0X9D, 0XA3 }, /* -88.5db */
++	{ 0X00, 0X00, 0XA6, 0XFA }, /* -88.0db */
++	{ 0X00, 0X00, 0XB0, 0XDF }, /* -87.5db */
++	{ 0X00, 0X00, 0XBB, 0X5A }, /* -87.0db */
++	{ 0X00, 0X00, 0XC6, 0X74 }, /* -86.5db */
++	{ 0X00, 0X00, 0XD2, 0X36 }, /* -86.0db */
++	{ 0X00, 0X00, 0XDE, 0XAB }, /* -85.5db */
++	{ 0X00, 0X00, 0XEB, 0XDC }, /* -85.0db */
++	{ 0X00, 0X00, 0XF9, 0XD6 }, /* -84.5db */
++	{ 0X00, 0X01, 0X08, 0XA4 }, /* -84.0db */
++	{ 0X00, 0X01, 0X18, 0X52 }, /* -83.5db */
++	{ 0X00, 0X01, 0X28, 0XEF }, /* -83.0db */
++	{ 0X00, 0X01, 0X3A, 0X87 }, /* -82.5db */
++	{ 0X00, 0X01, 0X4D, 0X2A }, /* -82.0db */
++	{ 0X00, 0X01, 0X60, 0XE8 }, /* -81.5db */
++	{ 0X00, 0X01, 0X75, 0XD1 }, /* -81.0db */
++	{ 0X00, 0X01, 0X8B, 0XF7 }, /* -80.5db */
++	{ 0X00, 0X01, 0XA3, 0X6E }, /* -80.0db */
++	{ 0X00, 0X01, 0XBC, 0X48 }, /* -79.5db */
++	{ 0X00, 0X01, 0XD6, 0X9B }, /* -79.0db */
++	{ 0X00, 0X01, 0XF2, 0X7E }, /* -78.5db */
++	{ 0X00, 0X02, 0X10, 0X08 }, /* -78.0db */
++	{ 0X00, 0X02, 0X2F, 0X51 }, /* -77.5db */
++	{ 0X00, 0X02, 0X50, 0X76 }, /* -77.0db */
++	{ 0X00, 0X02, 0X73, 0X91 }, /* -76.5db */
++	{ 0X00, 0X02, 0X98, 0XC0 }, /* -76.0db */
++	{ 0X00, 0X02, 0XC0, 0X24 }, /* -75.5db */
++	{ 0X00, 0X02, 0XE9, 0XDD }, /* -75.0db */
++	{ 0X00, 0X03, 0X16, 0X0F }, /* -74.5db */
++	{ 0X00, 0X03, 0X44, 0XDF }, /* -74.0db */
++	{ 0X00, 0X03, 0X76, 0X76 }, /* -73.5db */
++	{ 0X00, 0X03, 0XAA, 0XFC }, /* -73.0db */
++	{ 0X00, 0X03, 0XE2, 0XA0 }, /* -72.5db */
++	{ 0X00, 0X04, 0X1D, 0X8F }, /* -72.0db */
++	{ 0X00, 0X04, 0X5B, 0XFD }, /* -71.5db */
++	{ 0X00, 0X04, 0X9E, 0X1D }, /* -71.0db */
++	{ 0X00, 0X04, 0XE4, 0X29 }, /* -70.5db */
++	{ 0X00, 0X05, 0X2E, 0X5A }, /* -70.0db */
++	{ 0X00, 0X05, 0X7C, 0XF2 }, /* -69.5db */
++	{ 0X00, 0X05, 0XD0, 0X31 }, /* -69.0db */
++	{ 0X00, 0X06, 0X28, 0X60 }, /* -68.5db */
++	{ 0X00, 0X06, 0X85, 0XC8 }, /* -68.0db */
++	{ 0X00, 0X06, 0XE8, 0XB9 }, /* -67.5db */
++	{ 0X00, 0X07, 0X51, 0X86 }, /* -67.0db */
++	{ 0X00, 0X07, 0XC0, 0X8A }, /* -66.5db */
++	{ 0X00, 0X08, 0X36, 0X21 }, /* -66.0db */
++	{ 0X00, 0X08, 0XB2, 0XB0 }, /* -65.5db */
++	{ 0X00, 0X09, 0X36, 0XA1 }, /* -65.0db */
++	{ 0X00, 0X09, 0XC2, 0X63 }, /* -64.5db */
++	{ 0X00, 0X0A, 0X56, 0X6D }, /* -64.0db */
++	{ 0X00, 0X0A, 0XF3, 0X3C }, /* -63.5db */
++	{ 0X00, 0X0B, 0X99, 0X56 }, /* -63.0db */
++	{ 0X00, 0X0C, 0X49, 0X48 }, /* -62.5db */
++	{ 0X00, 0X0D, 0X03, 0XA7 }, /* -62.0db */
++	{ 0X00, 0X0D, 0XC9, 0X11 }, /* -61.5db */
++	{ 0X00, 0X0E, 0X9A, 0X2D }, /* -61.0db */
++	{ 0X00, 0X0F, 0X77, 0XAD }, /* -60.5db */
++	{ 0X00, 0X10, 0X62, 0X4D }, /* -60.0db */
++	{ 0X00, 0X11, 0X5A, 0XD5 }, /* -59.5db */
++	{ 0X00, 0X12, 0X62, 0X16 }, /* -59.0db */
++	{ 0X00, 0X13, 0X78, 0XF0 }, /* -58.5db */
++	{ 0X00, 0X14, 0XA0, 0X50 }, /* -58.0db */
++	{ 0X00, 0X15, 0XD9, 0X31 }, /* -57.5db */
++	{ 0X00, 0X17, 0X24, 0X9C }, /* -57.0db */
++	{ 0X00, 0X18, 0X83, 0XAA }, /* -56.5db */
++	{ 0X00, 0X19, 0XF7, 0X86 }, /* -56.0db */
++	{ 0X00, 0X1B, 0X81, 0X6A }, /* -55.5db */
++	{ 0X00, 0X1D, 0X22, 0XA4 }, /* -55.0db */
++	{ 0X00, 0X1E, 0XDC, 0X98 }, /* -54.5db */
++	{ 0X00, 0X20, 0XB0, 0XBC }, /* -54.0db */
++	{ 0X00, 0X22, 0XA0, 0X9D }, /* -53.5db */
++	{ 0X00, 0X24, 0XAD, 0XE0 }, /* -53.0db */
++	{ 0X00, 0X26, 0XDA, 0X43 }, /* -52.5db */
++	{ 0X00, 0X29, 0X27, 0X9D }, /* -52.0db */
++	{ 0X00, 0X2B, 0X97, 0XE3 }, /* -51.5db */
++	{ 0X00, 0X2E, 0X2D, 0X27 }, /* -51.0db */
++	{ 0X00, 0X30, 0XE9, 0X9A }, /* -50.5db */
++	{ 0X00, 0X33, 0XCF, 0X8D }, /* -50.0db */
++	{ 0X00, 0X36, 0XE1, 0X78 }, /* -49.5db */
++	{ 0X00, 0X3A, 0X21, 0XF3 }, /* -49.0db */
++	{ 0X00, 0X3D, 0X93, 0XC3 }, /* -48.5db */
++	{ 0X00, 0X41, 0X39, 0XD3 }, /* -48.0db */
++	{ 0X00, 0X45, 0X17, 0X3B }, /* -47.5db */
++	{ 0X00, 0X49, 0X2F, 0X44 }, /* -47.0db */
++	{ 0X00, 0X4D, 0X85, 0X66 }, /* -46.5db */
++	{ 0X00, 0X52, 0X1D, 0X50 }, /* -46.0db */
++	{ 0X00, 0X56, 0XFA, 0XE8 }, /* -45.5db */
++	{ 0X00, 0X5C, 0X22, 0X4E }, /* -45.0db */
++	{ 0X00, 0X61, 0X97, 0XE1 }, /* -44.5db */
++	{ 0X00, 0X67, 0X60, 0X44 }, /* -44.0db */
++	{ 0X00, 0X6D, 0X80, 0X60 }, /* -43.5db */
++	{ 0X00, 0X73, 0XFD, 0X65 }, /* -43.0db */
++	{ 0X00, 0X7A, 0XDC, 0XD7 }, /* -42.5db */
++	{ 0X00, 0X82, 0X24, 0X8A }, /* -42.0db */
++	{ 0X00, 0X89, 0XDA, 0XAB }, /* -41.5db */
++	{ 0X00, 0X92, 0X05, 0XC6 }, /* -41.0db */
++	{ 0X00, 0X9A, 0XAC, 0XC8 }, /* -40.5db */
++	{ 0X00, 0XA3, 0XD7, 0X0A }, /* -40.0db */
++	{ 0X00, 0XAD, 0X8C, 0X52 }, /* -39.5db */
++	{ 0X00, 0XB7, 0XD4, 0XDD }, /* -39.0db */
++	{ 0X00, 0XC2, 0XB9, 0X65 }, /* -38.5db */
++	{ 0X00, 0XCE, 0X43, 0X28 }, /* -38.0db */
++	{ 0X00, 0XDA, 0X7B, 0XF1 }, /* -37.5db */
++	{ 0X00, 0XE7, 0X6E, 0X1E }, /* -37.0db */
++	{ 0X00, 0XF5, 0X24, 0XAC }, /* -36.5db */
++	{ 0X01, 0X03, 0XAB, 0X3D }, /* -36.0db */
++	{ 0X01, 0X13, 0X0E, 0X24 }, /* -35.5db */
++	{ 0X01, 0X23, 0X5A, 0X71 }, /* -35.0db */
++	{ 0X01, 0X34, 0X9D, 0XF8 }, /* -34.5db */
++	{ 0X01, 0X46, 0XE7, 0X5D }, /* -34.0db */
++	{ 0X01, 0X5A, 0X46, 0X27 }, /* -33.5db */
++	{ 0X01, 0X6E, 0XCA, 0XC5 }, /* -33.0db */
++	{ 0X01, 0X84, 0X86, 0X9F }, /* -32.5db */
++	{ 0X01, 0X9B, 0X8C, 0X27 }, /* -32.0db */
++	{ 0X01, 0XB3, 0XEE, 0XE5 }, /* -31.5db */
++	{ 0X01, 0XCD, 0XC3, 0X8C }, /* -31.0db */
++	{ 0X01, 0XE9, 0X20, 0X05 }, /* -30.5db */
++	{ 0X02, 0X06, 0X1B, 0X89 }, /* -30.0db */
++	{ 0X02, 0X24, 0XCE, 0XB0 }, /* -29.5db */
++	{ 0X02, 0X45, 0X53, 0X85 }, /* -29.0db */
++	{ 0X02, 0X67, 0XC5, 0XA2 }, /* -28.5db */
++	{ 0X02, 0X8C, 0X42, 0X3F }, /* -28.0db */
++	{ 0X02, 0XB2, 0XE8, 0X55 }, /* -27.5db */
++	{ 0X02, 0XDB, 0XD8, 0XAD }, /* -27.0db */
++	{ 0X03, 0X07, 0X36, 0X05 }, /* -26.5db */
++	{ 0X03, 0X35, 0X25, 0X29 }, /* -26.0db */
++	{ 0X03, 0X65, 0XCD, 0X13 }, /* -25.5db */
++	{ 0X03, 0X99, 0X57, 0X0C }, /* -25.0db */
++	{ 0X03, 0XCF, 0XEE, 0XCF }, /* -24.5db */
++	{ 0X04, 0X09, 0XC2, 0XB0 }, /* -24.0db */
++	{ 0X04, 0X47, 0X03, 0XC1 }, /* -23.5db */
++	{ 0X04, 0X87, 0XE5, 0XFB }, /* -23.0db */
++	{ 0X04, 0XCC, 0XA0, 0X6D }, /* -22.5db */
++	{ 0X05, 0X15, 0X6D, 0X68 }, /* -22.0db */
++	{ 0X05, 0X62, 0X8A, 0XB3 }, /* -21.5db */
++	{ 0X05, 0XB4, 0X39, 0XBC }, /* -21.0db */
++	{ 0X06, 0X0A, 0XBF, 0XD4 }, /* -20.5db */
++	{ 0X06, 0X66, 0X66, 0X66 }, /* -20.0db */
++	{ 0X06, 0XC7, 0X7B, 0X36 }, /* -19.5db */
++	{ 0X07, 0X2E, 0X50, 0XA6 }, /* -19.0db */
++	{ 0X07, 0X9B, 0X3D, 0XF6 }, /* -18.5db */
++	{ 0X08, 0X0E, 0X9F, 0X96 }, /* -18.0db */
++	{ 0X08, 0X88, 0XD7, 0X6D }, /* -17.5db */
++	{ 0X09, 0X0A, 0X4D, 0X2F }, /* -17.0db */
++	{ 0X09, 0X93, 0X6E, 0XB8 }, /* -16.5db */
++	{ 0X0A, 0X24, 0XB0, 0X62 }, /* -16.0db */
++	{ 0X0A, 0XBE, 0X8D, 0X70 }, /* -15.5db */
++	{ 0X0B, 0X61, 0X88, 0X71 }, /* -15.0db */
++	{ 0X0C, 0X0E, 0X2B, 0XB0 }, /* -14.5db */
++	{ 0X0C, 0XC5, 0X09, 0XAB }, /* -14.0db */
++	{ 0X0D, 0X86, 0XBD, 0X8D }, /* -13.5db */
++	{ 0X0E, 0X53, 0XEB, 0XB3 }, /* -13.0db */
++	{ 0X0F, 0X2D, 0X42, 0X38 }, /* -12.5db */
++	{ 0X10, 0X13, 0X79, 0X87 }, /* -12.0db */
++	{ 0X11, 0X07, 0X54, 0XF9 }, /* -11.5db */
++	{ 0X12, 0X09, 0XA3, 0X7A }, /* -11.0db */
++	{ 0X13, 0X1B, 0X40, 0X39 }, /* -10.5db */
++	{ 0X14, 0X3D, 0X13, 0X62 }, /* -10.0db */
++	{ 0X15, 0X70, 0X12, 0XE1 }, /* -9.5db */
++	{ 0X16, 0XB5, 0X43, 0X37 }, /* -9.0db */
++	{ 0X18, 0X0D, 0XB8, 0X54 }, /* -8.5db */
++	{ 0X19, 0X7A, 0X96, 0X7F }, /* -8.0db */
++	{ 0X1A, 0XFD, 0X13, 0X54 }, /* -7.5db */
++	{ 0X1C, 0X96, 0X76, 0XC6 }, /* -7.0db */
++	{ 0X1E, 0X48, 0X1C, 0X37 }, /* -6.5db */
++	{ 0X20, 0X13, 0X73, 0X9E }, /* -6.0db */
++	{ 0X21, 0XFA, 0X02, 0XBF }, /* -5.5db */
++	{ 0X23, 0XFD, 0X66, 0X78 }, /* -5.0db */
++	{ 0X26, 0X1F, 0X54, 0X1C }, /* -4.5db */
++	{ 0X28, 0X61, 0X9A, 0XE9 }, /* -4.0db */
++	{ 0X2A, 0XC6, 0X25, 0X91 }, /* -3.5db */
++	{ 0X2D, 0X4E, 0XFB, 0XD5 }, /* -3.0db */
++	{ 0X2F, 0XFE, 0X44, 0X48 }, /* -2.5db */
++	{ 0X32, 0XD6, 0X46, 0X17 }, /* -2.0db */
++	{ 0X35, 0XD9, 0X6B, 0X02 }, /* -1.5db */
++	{ 0X39, 0X0A, 0X41, 0X5F }, /* -1.0db */
++	{ 0X3C, 0X6B, 0X7E, 0X4F }, /* -0.5db */
++	{ 0X40, 0X00, 0X00, 0X00 }, /* 0.0db */
++	{ 0X43, 0XCA, 0XD0, 0X22 }, /* 0.5db */
++	{ 0X47, 0XCF, 0X26, 0X7D }, /* 1.0db */
++	{ 0X4C, 0X10, 0X6B, 0XA5 }, /* 1.5db */
++	{ 0X50, 0X92, 0X3B, 0XE3 }, /* 2.0db */
++	{ 0X55, 0X58, 0X6A, 0X46 }, /* 2.5db */
++	{ 0X5A, 0X67, 0X03, 0XDF }, /* 3.0db */
++	{ 0X5F, 0XC2, 0X53, 0X32 }, /* 3.5db */
++	{ 0X65, 0X6E, 0XE3, 0XDB }, /* 4.0db */
++	{ 0X6B, 0X71, 0X86, 0X68 }, /* 4.5db */
++	{ 0X71, 0XCF, 0X54, 0X71 }, /* 5.0db */
++	{ 0X78, 0X8D, 0XB4, 0XE9 }, /* 5.5db */
++	{ 0X7F, 0XFF, 0XFF, 0XFF }, /* 6.0db */
++};
++#endif
+diff --git a/include/sound/tas2781-tlv.h b/include/sound/tas2781-tlv.h
+index 00fd4d449ff3..d87263e43fdb 100644
+--- a/include/sound/tas2781-tlv.h
++++ b/include/sound/tas2781-tlv.h
+@@ -17,265 +17,5 @@
+ 
+ static const __maybe_unused DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
+ static const __maybe_unused DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
+-static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
+ 
+-/* pow(10, db/20) * pow(2,30) */
+-static const __maybe_unused unsigned char tas2563_dvc_table[][4] = {
+-	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
+-	{ 0X00, 0X00, 0X03, 0XBC }, /* -121.0db */
+-	{ 0X00, 0X00, 0X03, 0XF5 }, /* -120.5db */
+-	{ 0X00, 0X00, 0X04, 0X31 }, /* -120.0db */
+-	{ 0X00, 0X00, 0X04, 0X71 }, /* -119.5db */
+-	{ 0X00, 0X00, 0X04, 0XB4 }, /* -119.0db */
+-	{ 0X00, 0X00, 0X04, 0XFC }, /* -118.5db */
+-	{ 0X00, 0X00, 0X05, 0X47 }, /* -118.0db */
+-	{ 0X00, 0X00, 0X05, 0X97 }, /* -117.5db */
+-	{ 0X00, 0X00, 0X05, 0XEC }, /* -117.0db */
+-	{ 0X00, 0X00, 0X06, 0X46 }, /* -116.5db */
+-	{ 0X00, 0X00, 0X06, 0XA5 }, /* -116.0db */
+-	{ 0X00, 0X00, 0X07, 0X0A }, /* -115.5db */
+-	{ 0X00, 0X00, 0X07, 0X75 }, /* -115.0db */
+-	{ 0X00, 0X00, 0X07, 0XE6 }, /* -114.5db */
+-	{ 0X00, 0X00, 0X08, 0X5E }, /* -114.0db */
+-	{ 0X00, 0X00, 0X08, 0XDD }, /* -113.5db */
+-	{ 0X00, 0X00, 0X09, 0X63 }, /* -113.0db */
+-	{ 0X00, 0X00, 0X09, 0XF2 }, /* -112.5db */
+-	{ 0X00, 0X00, 0X0A, 0X89 }, /* -112.0db */
+-	{ 0X00, 0X00, 0X0B, 0X28 }, /* -111.5db */
+-	{ 0X00, 0X00, 0X0B, 0XD2 }, /* -111.0db */
+-	{ 0X00, 0X00, 0X0C, 0X85 }, /* -110.5db */
+-	{ 0X00, 0X00, 0X0D, 0X43 }, /* -110.0db */
+-	{ 0X00, 0X00, 0X0E, 0X0C }, /* -109.5db */
+-	{ 0X00, 0X00, 0X0E, 0XE1 }, /* -109.0db */
+-	{ 0X00, 0X00, 0X0F, 0XC3 }, /* -108.5db */
+-	{ 0X00, 0X00, 0X10, 0XB2 }, /* -108.0db */
+-	{ 0X00, 0X00, 0X11, 0XAF }, /* -107.5db */
+-	{ 0X00, 0X00, 0X12, 0XBC }, /* -107.0db */
+-	{ 0X00, 0X00, 0X13, 0XD8 }, /* -106.5db */
+-	{ 0X00, 0X00, 0X15, 0X05 }, /* -106.0db */
+-	{ 0X00, 0X00, 0X16, 0X44 }, /* -105.5db */
+-	{ 0X00, 0X00, 0X17, 0X96 }, /* -105.0db */
+-	{ 0X00, 0X00, 0X18, 0XFB }, /* -104.5db */
+-	{ 0X00, 0X00, 0X1A, 0X76 }, /* -104.0db */
+-	{ 0X00, 0X00, 0X1C, 0X08 }, /* -103.5db */
+-	{ 0X00, 0X00, 0X1D, 0XB1 }, /* -103.0db */
+-	{ 0X00, 0X00, 0X1F, 0X73 }, /* -102.5db */
+-	{ 0X00, 0X00, 0X21, 0X51 }, /* -102.0db */
+-	{ 0X00, 0X00, 0X23, 0X4A }, /* -101.5db */
+-	{ 0X00, 0X00, 0X25, 0X61 }, /* -101.0db */
+-	{ 0X00, 0X00, 0X27, 0X98 }, /* -100.5db */
+-	{ 0X00, 0X00, 0X29, 0XF1 }, /* -100.0db */
+-	{ 0X00, 0X00, 0X2C, 0X6D }, /* -99.5db */
+-	{ 0X00, 0X00, 0X2F, 0X0F }, /* -99.0db */
+-	{ 0X00, 0X00, 0X31, 0XD9 }, /* -98.5db */
+-	{ 0X00, 0X00, 0X34, 0XCD }, /* -98.0db */
+-	{ 0X00, 0X00, 0X37, 0XEE }, /* -97.5db */
+-	{ 0X00, 0X00, 0X3B, 0X3F }, /* -97.0db */
+-	{ 0X00, 0X00, 0X3E, 0XC1 }, /* -96.5db */
+-	{ 0X00, 0X00, 0X42, 0X79 }, /* -96.0db */
+-	{ 0X00, 0X00, 0X46, 0X6A }, /* -95.5db */
+-	{ 0X00, 0X00, 0X4A, 0X96 }, /* -95.0db */
+-	{ 0X00, 0X00, 0X4F, 0X01 }, /* -94.5db */
+-	{ 0X00, 0X00, 0X53, 0XAF }, /* -94.0db */
+-	{ 0X00, 0X00, 0X58, 0XA5 }, /* -93.5db */
+-	{ 0X00, 0X00, 0X5D, 0XE6 }, /* -93.0db */
+-	{ 0X00, 0X00, 0X63, 0X76 }, /* -92.5db */
+-	{ 0X00, 0X00, 0X69, 0X5B }, /* -92.0db */
+-	{ 0X00, 0X00, 0X6F, 0X99 }, /* -91.5db */
+-	{ 0X00, 0X00, 0X76, 0X36 }, /* -91.0db */
+-	{ 0X00, 0X00, 0X7D, 0X37 }, /* -90.5db */
+-	{ 0X00, 0X00, 0X84, 0XA2 }, /* -90.0db */
+-	{ 0X00, 0X00, 0X8C, 0X7E }, /* -89.5db */
+-	{ 0X00, 0X00, 0X94, 0XD1 }, /* -89.0db */
+-	{ 0X00, 0X00, 0X9D, 0XA3 }, /* -88.5db */
+-	{ 0X00, 0X00, 0XA6, 0XFA }, /* -88.0db */
+-	{ 0X00, 0X00, 0XB0, 0XDF }, /* -87.5db */
+-	{ 0X00, 0X00, 0XBB, 0X5A }, /* -87.0db */
+-	{ 0X00, 0X00, 0XC6, 0X74 }, /* -86.5db */
+-	{ 0X00, 0X00, 0XD2, 0X36 }, /* -86.0db */
+-	{ 0X00, 0X00, 0XDE, 0XAB }, /* -85.5db */
+-	{ 0X00, 0X00, 0XEB, 0XDC }, /* -85.0db */
+-	{ 0X00, 0X00, 0XF9, 0XD6 }, /* -84.5db */
+-	{ 0X00, 0X01, 0X08, 0XA4 }, /* -84.0db */
+-	{ 0X00, 0X01, 0X18, 0X52 }, /* -83.5db */
+-	{ 0X00, 0X01, 0X28, 0XEF }, /* -83.0db */
+-	{ 0X00, 0X01, 0X3A, 0X87 }, /* -82.5db */
+-	{ 0X00, 0X01, 0X4D, 0X2A }, /* -82.0db */
+-	{ 0X00, 0X01, 0X60, 0XE8 }, /* -81.5db */
+-	{ 0X00, 0X01, 0X75, 0XD1 }, /* -81.0db */
+-	{ 0X00, 0X01, 0X8B, 0XF7 }, /* -80.5db */
+-	{ 0X00, 0X01, 0XA3, 0X6E }, /* -80.0db */
+-	{ 0X00, 0X01, 0XBC, 0X48 }, /* -79.5db */
+-	{ 0X00, 0X01, 0XD6, 0X9B }, /* -79.0db */
+-	{ 0X00, 0X01, 0XF2, 0X7E }, /* -78.5db */
+-	{ 0X00, 0X02, 0X10, 0X08 }, /* -78.0db */
+-	{ 0X00, 0X02, 0X2F, 0X51 }, /* -77.5db */
+-	{ 0X00, 0X02, 0X50, 0X76 }, /* -77.0db */
+-	{ 0X00, 0X02, 0X73, 0X91 }, /* -76.5db */
+-	{ 0X00, 0X02, 0X98, 0XC0 }, /* -76.0db */
+-	{ 0X00, 0X02, 0XC0, 0X24 }, /* -75.5db */
+-	{ 0X00, 0X02, 0XE9, 0XDD }, /* -75.0db */
+-	{ 0X00, 0X03, 0X16, 0X0F }, /* -74.5db */
+-	{ 0X00, 0X03, 0X44, 0XDF }, /* -74.0db */
+-	{ 0X00, 0X03, 0X76, 0X76 }, /* -73.5db */
+-	{ 0X00, 0X03, 0XAA, 0XFC }, /* -73.0db */
+-	{ 0X00, 0X03, 0XE2, 0XA0 }, /* -72.5db */
+-	{ 0X00, 0X04, 0X1D, 0X8F }, /* -72.0db */
+-	{ 0X00, 0X04, 0X5B, 0XFD }, /* -71.5db */
+-	{ 0X00, 0X04, 0X9E, 0X1D }, /* -71.0db */
+-	{ 0X00, 0X04, 0XE4, 0X29 }, /* -70.5db */
+-	{ 0X00, 0X05, 0X2E, 0X5A }, /* -70.0db */
+-	{ 0X00, 0X05, 0X7C, 0XF2 }, /* -69.5db */
+-	{ 0X00, 0X05, 0XD0, 0X31 }, /* -69.0db */
+-	{ 0X00, 0X06, 0X28, 0X60 }, /* -68.5db */
+-	{ 0X00, 0X06, 0X85, 0XC8 }, /* -68.0db */
+-	{ 0X00, 0X06, 0XE8, 0XB9 }, /* -67.5db */
+-	{ 0X00, 0X07, 0X51, 0X86 }, /* -67.0db */
+-	{ 0X00, 0X07, 0XC0, 0X8A }, /* -66.5db */
+-	{ 0X00, 0X08, 0X36, 0X21 }, /* -66.0db */
+-	{ 0X00, 0X08, 0XB2, 0XB0 }, /* -65.5db */
+-	{ 0X00, 0X09, 0X36, 0XA1 }, /* -65.0db */
+-	{ 0X00, 0X09, 0XC2, 0X63 }, /* -64.5db */
+-	{ 0X00, 0X0A, 0X56, 0X6D }, /* -64.0db */
+-	{ 0X00, 0X0A, 0XF3, 0X3C }, /* -63.5db */
+-	{ 0X00, 0X0B, 0X99, 0X56 }, /* -63.0db */
+-	{ 0X00, 0X0C, 0X49, 0X48 }, /* -62.5db */
+-	{ 0X00, 0X0D, 0X03, 0XA7 }, /* -62.0db */
+-	{ 0X00, 0X0D, 0XC9, 0X11 }, /* -61.5db */
+-	{ 0X00, 0X0E, 0X9A, 0X2D }, /* -61.0db */
+-	{ 0X00, 0X0F, 0X77, 0XAD }, /* -60.5db */
+-	{ 0X00, 0X10, 0X62, 0X4D }, /* -60.0db */
+-	{ 0X00, 0X11, 0X5A, 0XD5 }, /* -59.5db */
+-	{ 0X00, 0X12, 0X62, 0X16 }, /* -59.0db */
+-	{ 0X00, 0X13, 0X78, 0XF0 }, /* -58.5db */
+-	{ 0X00, 0X14, 0XA0, 0X50 }, /* -58.0db */
+-	{ 0X00, 0X15, 0XD9, 0X31 }, /* -57.5db */
+-	{ 0X00, 0X17, 0X24, 0X9C }, /* -57.0db */
+-	{ 0X00, 0X18, 0X83, 0XAA }, /* -56.5db */
+-	{ 0X00, 0X19, 0XF7, 0X86 }, /* -56.0db */
+-	{ 0X00, 0X1B, 0X81, 0X6A }, /* -55.5db */
+-	{ 0X00, 0X1D, 0X22, 0XA4 }, /* -55.0db */
+-	{ 0X00, 0X1E, 0XDC, 0X98 }, /* -54.5db */
+-	{ 0X00, 0X20, 0XB0, 0XBC }, /* -54.0db */
+-	{ 0X00, 0X22, 0XA0, 0X9D }, /* -53.5db */
+-	{ 0X00, 0X24, 0XAD, 0XE0 }, /* -53.0db */
+-	{ 0X00, 0X26, 0XDA, 0X43 }, /* -52.5db */
+-	{ 0X00, 0X29, 0X27, 0X9D }, /* -52.0db */
+-	{ 0X00, 0X2B, 0X97, 0XE3 }, /* -51.5db */
+-	{ 0X00, 0X2E, 0X2D, 0X27 }, /* -51.0db */
+-	{ 0X00, 0X30, 0XE9, 0X9A }, /* -50.5db */
+-	{ 0X00, 0X33, 0XCF, 0X8D }, /* -50.0db */
+-	{ 0X00, 0X36, 0XE1, 0X78 }, /* -49.5db */
+-	{ 0X00, 0X3A, 0X21, 0XF3 }, /* -49.0db */
+-	{ 0X00, 0X3D, 0X93, 0XC3 }, /* -48.5db */
+-	{ 0X00, 0X41, 0X39, 0XD3 }, /* -48.0db */
+-	{ 0X00, 0X45, 0X17, 0X3B }, /* -47.5db */
+-	{ 0X00, 0X49, 0X2F, 0X44 }, /* -47.0db */
+-	{ 0X00, 0X4D, 0X85, 0X66 }, /* -46.5db */
+-	{ 0X00, 0X52, 0X1D, 0X50 }, /* -46.0db */
+-	{ 0X00, 0X56, 0XFA, 0XE8 }, /* -45.5db */
+-	{ 0X00, 0X5C, 0X22, 0X4E }, /* -45.0db */
+-	{ 0X00, 0X61, 0X97, 0XE1 }, /* -44.5db */
+-	{ 0X00, 0X67, 0X60, 0X44 }, /* -44.0db */
+-	{ 0X00, 0X6D, 0X80, 0X60 }, /* -43.5db */
+-	{ 0X00, 0X73, 0XFD, 0X65 }, /* -43.0db */
+-	{ 0X00, 0X7A, 0XDC, 0XD7 }, /* -42.5db */
+-	{ 0X00, 0X82, 0X24, 0X8A }, /* -42.0db */
+-	{ 0X00, 0X89, 0XDA, 0XAB }, /* -41.5db */
+-	{ 0X00, 0X92, 0X05, 0XC6 }, /* -41.0db */
+-	{ 0X00, 0X9A, 0XAC, 0XC8 }, /* -40.5db */
+-	{ 0X00, 0XA3, 0XD7, 0X0A }, /* -40.0db */
+-	{ 0X00, 0XAD, 0X8C, 0X52 }, /* -39.5db */
+-	{ 0X00, 0XB7, 0XD4, 0XDD }, /* -39.0db */
+-	{ 0X00, 0XC2, 0XB9, 0X65 }, /* -38.5db */
+-	{ 0X00, 0XCE, 0X43, 0X28 }, /* -38.0db */
+-	{ 0X00, 0XDA, 0X7B, 0XF1 }, /* -37.5db */
+-	{ 0X00, 0XE7, 0X6E, 0X1E }, /* -37.0db */
+-	{ 0X00, 0XF5, 0X24, 0XAC }, /* -36.5db */
+-	{ 0X01, 0X03, 0XAB, 0X3D }, /* -36.0db */
+-	{ 0X01, 0X13, 0X0E, 0X24 }, /* -35.5db */
+-	{ 0X01, 0X23, 0X5A, 0X71 }, /* -35.0db */
+-	{ 0X01, 0X34, 0X9D, 0XF8 }, /* -34.5db */
+-	{ 0X01, 0X46, 0XE7, 0X5D }, /* -34.0db */
+-	{ 0X01, 0X5A, 0X46, 0X27 }, /* -33.5db */
+-	{ 0X01, 0X6E, 0XCA, 0XC5 }, /* -33.0db */
+-	{ 0X01, 0X84, 0X86, 0X9F }, /* -32.5db */
+-	{ 0X01, 0X9B, 0X8C, 0X27 }, /* -32.0db */
+-	{ 0X01, 0XB3, 0XEE, 0XE5 }, /* -31.5db */
+-	{ 0X01, 0XCD, 0XC3, 0X8C }, /* -31.0db */
+-	{ 0X01, 0XE9, 0X20, 0X05 }, /* -30.5db */
+-	{ 0X02, 0X06, 0X1B, 0X89 }, /* -30.0db */
+-	{ 0X02, 0X24, 0XCE, 0XB0 }, /* -29.5db */
+-	{ 0X02, 0X45, 0X53, 0X85 }, /* -29.0db */
+-	{ 0X02, 0X67, 0XC5, 0XA2 }, /* -28.5db */
+-	{ 0X02, 0X8C, 0X42, 0X3F }, /* -28.0db */
+-	{ 0X02, 0XB2, 0XE8, 0X55 }, /* -27.5db */
+-	{ 0X02, 0XDB, 0XD8, 0XAD }, /* -27.0db */
+-	{ 0X03, 0X07, 0X36, 0X05 }, /* -26.5db */
+-	{ 0X03, 0X35, 0X25, 0X29 }, /* -26.0db */
+-	{ 0X03, 0X65, 0XCD, 0X13 }, /* -25.5db */
+-	{ 0X03, 0X99, 0X57, 0X0C }, /* -25.0db */
+-	{ 0X03, 0XCF, 0XEE, 0XCF }, /* -24.5db */
+-	{ 0X04, 0X09, 0XC2, 0XB0 }, /* -24.0db */
+-	{ 0X04, 0X47, 0X03, 0XC1 }, /* -23.5db */
+-	{ 0X04, 0X87, 0XE5, 0XFB }, /* -23.0db */
+-	{ 0X04, 0XCC, 0XA0, 0X6D }, /* -22.5db */
+-	{ 0X05, 0X15, 0X6D, 0X68 }, /* -22.0db */
+-	{ 0X05, 0X62, 0X8A, 0XB3 }, /* -21.5db */
+-	{ 0X05, 0XB4, 0X39, 0XBC }, /* -21.0db */
+-	{ 0X06, 0X0A, 0XBF, 0XD4 }, /* -20.5db */
+-	{ 0X06, 0X66, 0X66, 0X66 }, /* -20.0db */
+-	{ 0X06, 0XC7, 0X7B, 0X36 }, /* -19.5db */
+-	{ 0X07, 0X2E, 0X50, 0XA6 }, /* -19.0db */
+-	{ 0X07, 0X9B, 0X3D, 0XF6 }, /* -18.5db */
+-	{ 0X08, 0X0E, 0X9F, 0X96 }, /* -18.0db */
+-	{ 0X08, 0X88, 0XD7, 0X6D }, /* -17.5db */
+-	{ 0X09, 0X0A, 0X4D, 0X2F }, /* -17.0db */
+-	{ 0X09, 0X93, 0X6E, 0XB8 }, /* -16.5db */
+-	{ 0X0A, 0X24, 0XB0, 0X62 }, /* -16.0db */
+-	{ 0X0A, 0XBE, 0X8D, 0X70 }, /* -15.5db */
+-	{ 0X0B, 0X61, 0X88, 0X71 }, /* -15.0db */
+-	{ 0X0C, 0X0E, 0X2B, 0XB0 }, /* -14.5db */
+-	{ 0X0C, 0XC5, 0X09, 0XAB }, /* -14.0db */
+-	{ 0X0D, 0X86, 0XBD, 0X8D }, /* -13.5db */
+-	{ 0X0E, 0X53, 0XEB, 0XB3 }, /* -13.0db */
+-	{ 0X0F, 0X2D, 0X42, 0X38 }, /* -12.5db */
+-	{ 0X10, 0X13, 0X79, 0X87 }, /* -12.0db */
+-	{ 0X11, 0X07, 0X54, 0XF9 }, /* -11.5db */
+-	{ 0X12, 0X09, 0XA3, 0X7A }, /* -11.0db */
+-	{ 0X13, 0X1B, 0X40, 0X39 }, /* -10.5db */
+-	{ 0X14, 0X3D, 0X13, 0X62 }, /* -10.0db */
+-	{ 0X15, 0X70, 0X12, 0XE1 }, /* -9.5db */
+-	{ 0X16, 0XB5, 0X43, 0X37 }, /* -9.0db */
+-	{ 0X18, 0X0D, 0XB8, 0X54 }, /* -8.5db */
+-	{ 0X19, 0X7A, 0X96, 0X7F }, /* -8.0db */
+-	{ 0X1A, 0XFD, 0X13, 0X54 }, /* -7.5db */
+-	{ 0X1C, 0X96, 0X76, 0XC6 }, /* -7.0db */
+-	{ 0X1E, 0X48, 0X1C, 0X37 }, /* -6.5db */
+-	{ 0X20, 0X13, 0X73, 0X9E }, /* -6.0db */
+-	{ 0X21, 0XFA, 0X02, 0XBF }, /* -5.5db */
+-	{ 0X23, 0XFD, 0X66, 0X78 }, /* -5.0db */
+-	{ 0X26, 0X1F, 0X54, 0X1C }, /* -4.5db */
+-	{ 0X28, 0X61, 0X9A, 0XE9 }, /* -4.0db */
+-	{ 0X2A, 0XC6, 0X25, 0X91 }, /* -3.5db */
+-	{ 0X2D, 0X4E, 0XFB, 0XD5 }, /* -3.0db */
+-	{ 0X2F, 0XFE, 0X44, 0X48 }, /* -2.5db */
+-	{ 0X32, 0XD6, 0X46, 0X17 }, /* -2.0db */
+-	{ 0X35, 0XD9, 0X6B, 0X02 }, /* -1.5db */
+-	{ 0X39, 0X0A, 0X41, 0X5F }, /* -1.0db */
+-	{ 0X3C, 0X6B, 0X7E, 0X4F }, /* -0.5db */
+-	{ 0X40, 0X00, 0X00, 0X00 }, /* 0.0db */
+-	{ 0X43, 0XCA, 0XD0, 0X22 }, /* 0.5db */
+-	{ 0X47, 0XCF, 0X26, 0X7D }, /* 1.0db */
+-	{ 0X4C, 0X10, 0X6B, 0XA5 }, /* 1.5db */
+-	{ 0X50, 0X92, 0X3B, 0XE3 }, /* 2.0db */
+-	{ 0X55, 0X58, 0X6A, 0X46 }, /* 2.5db */
+-	{ 0X5A, 0X67, 0X03, 0XDF }, /* 3.0db */
+-	{ 0X5F, 0XC2, 0X53, 0X32 }, /* 3.5db */
+-	{ 0X65, 0X6E, 0XE3, 0XDB }, /* 4.0db */
+-	{ 0X6B, 0X71, 0X86, 0X68 }, /* 4.5db */
+-	{ 0X71, 0XCF, 0X54, 0X71 }, /* 5.0db */
+-	{ 0X78, 0X8D, 0XB4, 0XE9 }, /* 5.5db */
+-	{ 0XFF, 0XFF, 0XFF, 0XFF }, /* 6.0db */
+-};
+ #endif
+diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
+index e79d613745b4..8a57c045afdd 100644
+--- a/sound/soc/codecs/tas2781-i2c.c
++++ b/sound/soc/codecs/tas2781-i2c.c
+@@ -30,6 +30,7 @@
+ #include <sound/soc.h>
+ #include <sound/tas2781.h>
+ #include <sound/tlv.h>
++#include <sound/tas2563-tlv.h>
+ #include <sound/tas2781-tlv.h>
+ #include <asm/unaligned.h>
+ 
+-- 
+2.34.1
 
->> +**Callback Registration:**
->> +
->> +.. code-block:: rst
->> +
->> +	static int q6usb_component_probe(struct snd_soc_component *component)
->> +	{
->> +	...
->> +	usb = snd_soc_usb_allocate_port(component, 1, &data->priv);
->> +	if (IS_ERR(usb))
->> +		return -ENOMEM;
->> +
->> +	usb->connection_status_cb = q6usb_alsa_connection_cb;
->> +	usb->get_offload_dev = q6usb_get_offload_dev;
->> +
->> +	ret = snd_soc_usb_add_port(usb);
->> +..

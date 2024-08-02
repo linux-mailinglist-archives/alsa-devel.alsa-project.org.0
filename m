@@ -2,77 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B86945947
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 09:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65917945A26
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 10:41:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EED5A3E4B;
-	Fri,  2 Aug 2024 09:52:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EED5A3E4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2E463EF8;
+	Fri,  2 Aug 2024 10:40:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2E463EF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722585132;
-	bh=KtqdbPC2o6IT0W3PNKnfutxEkL8rAszRLKhYIvtv7AA=;
+	s=default; t=1722588061;
+	bh=o5ldDmwI4O1uoqb5bZgb+RdBM23lBYhE06XgyRHKgGI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SBI+UFRwddNtGhwkqlaj7A/5943i8sTBTJ91ALqDw0r/w50i5T/bOlBgy/9K936nA
-	 ggQ/RraNPSj2FE81NYLAPda2mi/5XUAVSZ6OjTF56Gg4pKuUX9oC+ldlm0XVO1Sacw
-	 88BmVtsmenkSqZtdAXC68kM0RsKscWueQAOOLhYo=
+	b=Vca/Z3sQZkEw+IYTebzzvTHdi4CjiMyBqORh/pwF2LuUeGLiZd7PYPs8Y0MaLog8P
+	 z+wn5pANPWJqqrgSVTdH6/EcTJVjKJBpx9wrhbbpLJSbi+Wz2VcPeO+7Quh7gGbN8I
+	 V7o3NDir8UGDVdfu9G0/vxDaFwcoJX93EkMbwlpo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38594F805C9; Fri,  2 Aug 2024 09:51:33 +0200 (CEST)
+	id C0DF0F8059F; Fri,  2 Aug 2024 10:40:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28009F805D8;
-	Fri,  2 Aug 2024 09:51:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7FC8F80588;
+	Fri,  2 Aug 2024 10:40:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6386F8026A; Fri,  2 Aug 2024 09:36:25 +0200 (CEST)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+	id DFD06F8026A; Fri,  2 Aug 2024 10:37:46 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9EAE9F8026A
-	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 09:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EAE9F8026A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F3DFF800E3
+	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 10:37:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F3DFF800E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bCmfwO+f
+ header.s=k20201202 header.b=KjgRkYS8
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id B2DC1CE1AC6;
-	Fri,  2 Aug 2024 07:29:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DE0C32782;
-	Fri,  2 Aug 2024 07:29:16 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 5699B629E5;
+	Fri,  2 Aug 2024 08:37:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D55C32782;
+	Fri,  2 Aug 2024 08:37:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722583762;
-	bh=KtqdbPC2o6IT0W3PNKnfutxEkL8rAszRLKhYIvtv7AA=;
+	s=k20201202; t=1722587850;
+	bh=o5ldDmwI4O1uoqb5bZgb+RdBM23lBYhE06XgyRHKgGI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bCmfwO+fu9j0QTon9YQfB8yelVnCYyn1lj95e8R4wUDXOmUO92GOPVFxkCfoTfZaw
-	 AyTMcsIM57Fl40GH8zZAqjWYvB8+2hft6cN3RE+EYxNC08KNFEGuboCPGymBsWetdy
-	 kRDX0oAywmClNOcIxXNnWsW9q8qWgPdxqSAbbLTCf+sHk7lhQNrArYL+cL36zyKOWI
-	 J1i3KwDCRhgp+V2RPLNX0EMFs1LSm9ERnJELwGci8MN9Jf1x5VkWxHebX+gBHkwj8w
-	 z8S7NKggHTAzQT8PpBPrcglOZu6QvC4hJ3z/To3xfiRdPmC15jvelcc72iB9TttXHY
-	 6oyNVJKjpF+Mw==
-Message-ID: <33212ecd-535e-48aa-a960-aae2019c176c@kernel.org>
-Date: Fri, 2 Aug 2024 09:29:15 +0200
+	b=KjgRkYS8UdU75/UaDsETcM4aNDYHLgl7s6eVAs4m0jMRobz24pvNG/F0UjLLXbqey
+	 V42a7uAmME/BPGQSecchATBWd1X0R9X55iTH/uYxXoTR6RToRgfLhCWbUEuIrPn6BM
+	 WvnvCxmQm/3jk9pwLlscFD+Ov0Aeq7W5xkGGeuplZ6XUSYcUZ8lqyRKkyuWIHjSVzx
+	 DqoEvjyXxDnaCCsygdCD5Vl/IIF7Tc2no2OS5ZlBD9Almw2rm8Iu1PT6Xsv834LdXE
+	 ajsy76TVq7NPklqf6BiB8A4weu3jMHTmjKtqanjmADepKZg3g0xUri+aJS/vsRCboE
+	 UhgcVliSad6uQ==
+Message-ID: <64839bd4-f8c8-42da-823a-13fd6dc34238@kernel.org>
+Date: Fri, 2 Aug 2024 10:37:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/8] ASoC: dt-bindings: apq8016-sbc: Add
- msm8953/msm8976-qdsp6-sndcard
-To: Adam Skladowski <a39.skl@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Stephan Gerhold <stephan@gerhold.net>
-Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20240731-msm8953-msm8976-asoc-v3-0-163f23c3a28d@gmail.com>
- <20240731-msm8953-msm8976-asoc-v3-5-163f23c3a28d@gmail.com>
+Subject: Re: [PATCH RESEND 31/31] ASoC: amd/sdw_utils: add sof based soundwire
+ generic machine driver
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
+Cc: Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ venkataprasad.potturu@amd.com, yung-chuan.liao@linux.intel.com,
+ linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ Marian Postevca <posteuca@mutex.one>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20240801091446.10457-1-Vijendar.Mukunda@amd.com>
+ <20240801111821.18076-1-Vijendar.Mukunda@amd.com>
+ <20240801111821.18076-11-Vijendar.Mukunda@amd.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -118,11 +122,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240731-msm8953-msm8976-asoc-v3-5-163f23c3a28d@gmail.com>
+In-Reply-To: <20240801111821.18076-11-Vijendar.Mukunda@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: YOBO6QMPRNOYVD4PKBPWXKPCPBVEBI2V
-X-Message-ID-Hash: YOBO6QMPRNOYVD4PKBPWXKPCPBVEBI2V
+Message-ID-Hash: T3RPK4YPNKIVUONHXIHF6LA2L2IAPC7L
+X-Message-ID-Hash: T3RPK4YPNKIVUONHXIHF6LA2L2IAPC7L
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -135,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOBO6QMPRNOYVD4PKBPWXKPCPBVEBI2V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T3RPK4YPNKIVUONHXIHF6LA2L2IAPC7L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,13 +148,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 31/07/2024 17:25, Adam Skladowski wrote:
-> Document MSM8953/MSM8976 QDSP6 cards.
+On 01/08/2024 13:18, Vijendar Mukunda wrote:
+> Add sof based Soundwire generic driver for amd platforms.
+> Currently support added for ACP6.3 based platforms.
 > 
-> Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
-> ---
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+...
+
+> +static const struct platform_device_id mc_id_table[] = {
+> +	{ "amd_sof_sdw", },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(platform, mc_id_table);
+> +
+> +static struct platform_driver sof_sdw_driver = {
+> +	.driver = {
+> +		.name = "amd_sof_sdw",
+> +		.pm = &snd_soc_pm_ops,
+> +	},
+> +	.probe = mc_probe,
+> +	.remove_new = mc_remove,
+> +	.id_table = mc_id_table,
+> +};
+> +
+> +module_platform_driver(sof_sdw_driver);
+> +
+> +MODULE_DESCRIPTION("ASoC AMD SoundWire Generic Machine driver");
+> +MODULE_AUTHOR("Vijendar Mukunda <Vijendar.Mukunda@amd.com");
+> +MODULE_LICENSE("GPL");
+> +MODULE_ALIAS("platform:amd_sof_sdw");
+
+That's a total duplicate... standard form letter:
+
+You should not need MODULE_ALIAS() in normal cases. If you need it,
+usually it means your device ID table is wrong (e.g. misses either
+entries or MODULE_DEVICE_TABLE()). MODULE_ALIAS() is not a substitute
+for incomplete ID table.
+
 
 Best regards,
 Krzysztof

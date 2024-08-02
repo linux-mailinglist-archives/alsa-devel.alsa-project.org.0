@@ -2,54 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55E794634A
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 20:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7858594659E
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 23:54:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51B85475C;
-	Fri,  2 Aug 2024 20:40:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51B85475C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDCC7471E;
+	Fri,  2 Aug 2024 23:53:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDCC7471E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722624012;
-	bh=uTZqiMGFQ/jGkRHiamEEHtPD07usskeQyvZpi4sCpv8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=W9+QqgcGk4qAfjCKYiuLX8XbgTpclUZ5kVOR2YZyT0z6tNb/C482qvVbRAIjcisQ/
-	 v8Q48tKyS0FUjHgMfI9Tx3DLC3ILxe6sLAgCWxxkqVZlIe2stIl4p+a7lEoEbbhbIW
-	 ozxkQN37BgcX/kkncXmgNJi47TWa5DZg7hwE5Mmw=
+	s=default; t=1722635638;
+	bh=xPpOgoirjlpTp6dIkK1onCx8bz+DwC/ESltou7nhPII=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=T0CrOLgidaDqKiFrxPvfN1Lcx2uA6OX2l6uKhZqPRzkoCZlDaJKzspzWZcmGqy69I
+	 qVfPeLy4p9F25UeVSEkpoMa6L0/o/Tv17wVzvZ2SD4qsT09rSKQvHV7tBcgE8UBf8j
+	 GXiTVEtshUmdLrI5mog5aXyS9gzpvm+JiOfZZ9Lw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 284C7F801C0; Fri,  2 Aug 2024 20:39:40 +0200 (CEST)
+	id C450EF805B1; Fri,  2 Aug 2024 23:53:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEF2BF8059F;
-	Fri,  2 Aug 2024 20:39:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71C4CF805AD;
+	Fri,  2 Aug 2024 23:53:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B3F7F80269; Fri,  2 Aug 2024 20:39:35 +0200 (CEST)
+	id 907DEF80269; Fri,  2 Aug 2024 23:33:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEACEF800B0
-	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 20:39:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEACEF800B0
+X-Spam-Status: No, score=0.0 required=5.0 tests=TIME_LIMIT_EXCEEDED
+	shortcircuit=no autolearn=unavailable version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2E611F8019B
+	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 23:26:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E611F8019B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=uBTeeDqD
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 98276628BC;
+	Fri,  2 Aug 2024 21:26:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B85C32782;
+	Fri,  2 Aug 2024 21:26:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1722633999;
+	bh=xPpOgoirjlpTp6dIkK1onCx8bz+DwC/ESltou7nhPII=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=uBTeeDqDk4FJpBnvh59txdULuMSlyeHec0h17tIktJckFKxW5lGA1LsUv5q8datEn
+	 vFbeDNsRKmwhWtSiPA+Gc7HBXQXO+h13ky4cfKFiW3bWe6tN+a1luI5DfI7ZkqpQ1j
+	 JeElDwqCv7SCS/rADZeGTsRGVFkdNzA8pHI86aJR9GXuc6SB9HJo14z+vRHb3vQ6sR
+	 yDRyn3ECafo1GyA/4L8cjqZPiGCGsK16jDMtUCcZHoeCzVu2ROS77XgVNqpEUe3/eD
+	 7v9m5pknjQCVsMF4aNmoG3Le9NqzEHqT9DH3oB/nfQvqTERXOKsXyOW0KK7FC+0Aye
+	 ESyU5lJntzVCA==
+From: Mark Brown <broonie@kernel.org>
+To: ckeepax@opensource.cirrus.com, javier.carrasco.cruz@gmail.com,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-sound@vger.kernel.org
+In-Reply-To: 
+ <1f04bb0366d9640d7ee361dae114ff79e4b381c1.1722274212.git.christophe.jaillet@wanadoo.fr>
+References: 
+ <1f04bb0366d9640d7ee361dae114ff79e4b381c1.1722274212.git.christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH] ASoC: cs43130: Constify snd_soc_component_driver
+ struct
+Message-Id: <172263399662.130801.3172998123321447676.b4-ty@kernel.org>
+Date: Fri, 02 Aug 2024 22:26:36 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1722623971060228348-webhooks-bot@alsa-project.org>
-References: <1722623971060228348-webhooks-bot@alsa-project.org>
-Subject: Soundblaster AE-5 100% Muted on alsamixer every boot!!
-Message-Id: <20240802183935.8B3F7F80269@alsa1.perex.cz>
-Date: Fri,  2 Aug 2024 20:39:35 +0200 (CEST)
-Message-ID-Hash: 4F6VQ725HE2T4LJHKRXNIARRETFI5HK4
-X-Message-ID-Hash: 4F6VQ725HE2T4LJHKRXNIARRETFI5HK4
-X-MailFrom: github@alsa-project.org
+X-Mailer: b4 0.15-dev-37811
+Message-ID-Hash: PKLLXWL772NENFFUX2FLIUTZITYUTBYV
+X-Message-ID-Hash: PKLLXWL772NENFFUX2FLIUTZITYUTBYV
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4F6VQ725HE2T4LJHKRXNIARRETFI5HK4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKLLXWL772NENFFUX2FLIUTZITYUTBYV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,18 +103,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #404 was opened from DavidRLTG:
+On Mon, 29 Jul 2024 19:36:05 +0200, Christophe JAILLET wrote:
+> In order to constify `snd_soc_component_driver` struct, duplicate
+> `soc_component_dev_cs43130` into a `soc_component_dev_cs43130_digital` and
+> `soc_component_dev_cs43130_analog`.
+> 
+> These 2 new structures share the same .dapm_widgets and .dapm_routes
+> arrays but differ for .num_dapm_widgets and .num_dapm_routes.
+> 
+> [...]
 
-I am on Linux Mint Wilma (22), 64-bit.
-Obviously, I have a Soundblaster AE-5 Sound card
-The issue I am encountering is, well, every boot I have to enter Alsamixer and unmute every channel on my Soundblaster AE-5.
+Applied to
 
-alsactl store does nothing, and yes I ran it as superuser.
-Also, I'm on pipewire! I think Wilma comes with it preinstalled.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-sudo alsactl store is also temporary, the config is lost at every reboot, and doing sudo alsactl restore does nothing.
+Thanks!
 
-Any ideas for a fix?
+[1/1] ASoC: cs43130: Constify snd_soc_component_driver struct
+      commit: 839e231a53b824a62bc3696ad3ba1dcedc4f4167
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/404
-Repository URL: https://github.com/alsa-project/alsa-lib
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

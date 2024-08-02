@@ -2,86 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7858594659E
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 23:54:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9876B9465F5
+	for <lists+alsa-devel@lfdr.de>; Sat,  3 Aug 2024 00:45:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDCC7471E;
-	Fri,  2 Aug 2024 23:53:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDCC7471E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C779D4743;
+	Sat,  3 Aug 2024 00:45:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C779D4743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722635638;
-	bh=xPpOgoirjlpTp6dIkK1onCx8bz+DwC/ESltou7nhPII=;
+	s=default; t=1722638713;
+	bh=/eVmcksdoa4kQw5S2+wVUPx1PaMX3q1iFd1MtgTYtXM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=T0CrOLgidaDqKiFrxPvfN1Lcx2uA6OX2l6uKhZqPRzkoCZlDaJKzspzWZcmGqy69I
-	 qVfPeLy4p9F25UeVSEkpoMa6L0/o/Tv17wVzvZ2SD4qsT09rSKQvHV7tBcgE8UBf8j
-	 GXiTVEtshUmdLrI5mog5aXyS9gzpvm+JiOfZZ9Lw=
+	b=DR/Xz1B50A1/zJt8asCg0B/WXEfSDd9RJR0SmKe9j1DiIS9RYunPbJv8xgcgMuF4a
+	 9dlQtKFJq/pnnOPhKclwfTo673+5VzlYJyX94cHEc5MvBy1zkc+SAyJvnFxJF2uyCZ
+	 AdWB1oZ7qfdaduXV+d7gwr9VCT8N4xxmasyN/QCc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C450EF805B1; Fri,  2 Aug 2024 23:53:26 +0200 (CEST)
+	id CF85CF805A1; Sat,  3 Aug 2024 00:44:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71C4CF805AD;
-	Fri,  2 Aug 2024 23:53:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C6B4F805AD;
+	Sat,  3 Aug 2024 00:44:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 907DEF80269; Fri,  2 Aug 2024 23:33:21 +0200 (CEST)
+	id 951A6F800E3; Sat,  3 Aug 2024 00:27:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=TIME_LIMIT_EXCEEDED
-	shortcircuit=no autolearn=unavailable version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2E611F8019B
-	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 23:26:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E611F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 718F3F800E3
+	for <alsa-devel@alsa-project.org>; Sat,  3 Aug 2024 00:22:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 718F3F800E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uBTeeDqD
+ header.s=k20201202 header.b=ojgRO6N5
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 98276628BC;
-	Fri,  2 Aug 2024 21:26:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B85C32782;
-	Fri,  2 Aug 2024 21:26:36 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 65BA262B62;
+	Fri,  2 Aug 2024 22:22:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D828EC32782;
+	Fri,  2 Aug 2024 22:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722633999;
-	bh=xPpOgoirjlpTp6dIkK1onCx8bz+DwC/ESltou7nhPII=;
+	s=k20201202; t=1722637341;
+	bh=/eVmcksdoa4kQw5S2+wVUPx1PaMX3q1iFd1MtgTYtXM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=uBTeeDqDk4FJpBnvh59txdULuMSlyeHec0h17tIktJckFKxW5lGA1LsUv5q8datEn
-	 vFbeDNsRKmwhWtSiPA+Gc7HBXQXO+h13ky4cfKFiW3bWe6tN+a1luI5DfI7ZkqpQ1j
-	 JeElDwqCv7SCS/rADZeGTsRGVFkdNzA8pHI86aJR9GXuc6SB9HJo14z+vRHb3vQ6sR
-	 yDRyn3ECafo1GyA/4L8cjqZPiGCGsK16jDMtUCcZHoeCzVu2ROS77XgVNqpEUe3/eD
-	 7v9m5pknjQCVsMF4aNmoG3Le9NqzEHqT9DH3oB/nfQvqTERXOKsXyOW0KK7FC+0Aye
-	 ESyU5lJntzVCA==
+	b=ojgRO6N5BMItB/nYMai2Kn/KR9U06/FwsCs738VezxjlaQnVp5KZ1XJVsXt0fnSPS
+	 +vS3mdb+fhV0K6kjiGEvbgF0hocL4ACGcSOAoeko3wMrfT4LAsofwiTqwMbe9l+MRi
+	 uxczxvRrKnfUyW9ocPxkLrqKDIMdMh8SsTrgTYO7Sj3hynmuEBoL4VsUYcJgfttyi0
+	 E/eMnUl+ruGlPiRlzvSyYu/q9oZKYDYlLjBzqi+P0lpMxVyMv4tgH0ds1M3GIj5zNu
+	 BTZeEXKZeOu68yZgpS+SuQ4Pb24i9YchQP/tiJRuccUsLEYf5n+SQx4sVdA1/Rdp5/
+	 pQNkqBmZXm7Iw==
 From: Mark Brown <broonie@kernel.org>
-To: ckeepax@opensource.cirrus.com, javier.carrasco.cruz@gmail.com,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- linux-sound@vger.kernel.org
-In-Reply-To: 
- <1f04bb0366d9640d7ee361dae114ff79e4b381c1.1722274212.git.christophe.jaillet@wanadoo.fr>
-References: 
- <1f04bb0366d9640d7ee361dae114ff79e4b381c1.1722274212.git.christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: cs43130: Constify snd_soc_component_driver
- struct
-Message-Id: <172263399662.130801.3172998123321447676.b4-ty@kernel.org>
-Date: Fri, 02 Aug 2024 22:26:36 +0100
+To: linux-sound@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
+In-Reply-To: <20240802124011.173820-1-pierre-louis.bossart@linux.intel.com>
+References: <20240802124011.173820-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v4 0/5] ASoC/SOF/PCI/Intel: add PantherLake support
+Message-Id: <172263733961.144413.228232614375148648.b4-ty@kernel.org>
+Date: Fri, 02 Aug 2024 23:22:19 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: PKLLXWL772NENFFUX2FLIUTZITYUTBYV
-X-Message-ID-Hash: PKLLXWL772NENFFUX2FLIUTZITYUTBYV
+Message-ID-Hash: R34FKCD26K66XX2A3KI5DDOM5ZUBLFZD
+X-Message-ID-Hash: R34FKCD26K66XX2A3KI5DDOM5ZUBLFZD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKLLXWL772NENFFUX2FLIUTZITYUTBYV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R34FKCD26K66XX2A3KI5DDOM5ZUBLFZD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,13 +97,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 29 Jul 2024 19:36:05 +0200, Christophe JAILLET wrote:
-> In order to constify `snd_soc_component_driver` struct, duplicate
-> `soc_component_dev_cs43130` into a `soc_component_dev_cs43130_digital` and
-> `soc_component_dev_cs43130_analog`.
+On Fri, 02 Aug 2024 14:40:06 +0200, Pierre-Louis Bossart wrote:
+> Add initial support for the PantherLake platform, and initial ACPI
+> configurations.
 > 
-> These 2 new structures share the same .dapm_widgets and .dapm_routes
-> arrays but differ for .num_dapm_widgets and .num_dapm_routes.
+> All the dependencies required in the initial versions are now
+> available in ASoc for-next branch.
+> 
+> v4: topology name simplification for rt722
 > 
 > [...]
 
@@ -119,8 +114,16 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs43130: Constify snd_soc_component_driver struct
-      commit: 839e231a53b824a62bc3696ad3ba1dcedc4f4167
+[1/5] ASoC: Intel: soc-acpi: add PTL match tables
+      commit: 6a965fbaac461564ae74dbfe6d9c9e9de65ea67a
+[2/5] ASoC: SOF: Intel: add PTL specific power control register
+      commit: 42b4763ab301c5604343aa49774426d5005711a3
+[3/5] ASoC: SOF: Intel: add initial support for PTL
+      commit: 3f8c8027775901c13d1289b4c54e024d3d5d982a
+[4/5] ASoC: Intel: soc-acpi-intel-ptl-match: add rt711-sdca table
+      commit: 77a6869afbbfad0db297e9e4b9233aac209d5385
+[5/5] ASoC: Intel: soc-acpi-intel-ptl-match: Add rt722 support
+      commit: 2786d3f4943c472c10dd630ec3e0a1a892181562
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

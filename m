@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90C33945DB4
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 14:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B05F945DB7
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 14:13:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63A914052;
-	Fri,  2 Aug 2024 14:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63A914052
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEC61409A;
+	Fri,  2 Aug 2024 14:13:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEC61409A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722600683;
-	bh=eR+iu6/0WXfDTtplSQGsJVWxAt8YS165hY1VY+hKTf8=;
+	s=default; t=1722600813;
+	bh=KEYXx/jAB3vyQ6OMi4gTqUazWDOQK45pIkjybNC7SuQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XTijeAwhDhmHWGhbJxZ6r1vOozPvcXFAVs8Mh8H5ru6KrWslXJvezYX9dtesQdyDg
-	 lM9SMjMhjTWmoQfd0cFtfI6dGsQCxawkcGejfPv5hn1QbpYt+EEU0I6uGcpNABFFuc
-	 zNSNikZomcSns/lcebaB6AzslpMBv3h0n2dg+DYc=
+	b=B1bn4CkUIsunv5bpIT1f/os2N1+A7EozsLvG/DGHqyjwlHXlb+7TGj9FB8ra0c3M+
+	 wipWyl6U826NnJ7O9CMKadyLqD3RzPsgoYbOxBetPmdD0NmGQECAtGqwf53IyhUN1P
+	 s9KuMXctwRCsmn1k5EItKyXjlrQWpseEbDr3k+Rk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F365DF805BF; Fri,  2 Aug 2024 14:11:08 +0200 (CEST)
+	id DEB18F80588; Fri,  2 Aug 2024 14:13:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78E45F805B0;
-	Fri,  2 Aug 2024 14:11:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22AEDF805AC;
+	Fri,  2 Aug 2024 14:13:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B27BF80588; Fri,  2 Aug 2024 14:11:02 +0200 (CEST)
+	id DEBD1F8026A; Fri,  2 Aug 2024 14:13:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DATE_IN_PAST_03_06,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=0.8 required=5.0 tests=DATE_IN_PAST_03_06,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9D9AEF800B0
-	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 14:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D9AEF800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 78395F8019B
+	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 14:10:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78395F8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=HmKVvvfg
+ header.s=Intel header.b=U4I50ePU
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1722600649; x=1754136649;
+  t=1722600654; x=1754136654;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=eR+iu6/0WXfDTtplSQGsJVWxAt8YS165hY1VY+hKTf8=;
-  b=HmKVvvfgqvUyZnfyL/hhSFRihv2FC1ljAgRq/7xVaveJSd9nZQNqoU08
-   /dZ/Y0eLt/SQXbY/OsEfNUfNxoLxMohBkDohsJgNrXIbvbFpkC1FQ1LOi
-   5BEELz7SP0WGBJ73blPRA6lXVCYRW9XwJtks/6+MUkj4gu41TSAONeKq0
-   sJ+jLI5CoYsvTXJKLUdAN0KQitvKuuw9CBWkZK1SR5CCc1bnXtmUe2Ahk
-   t0M/HwzzCimxes9Dfyzl1zx1DjSUtMQRhgoSkqzy2eay+K099ItvRPrna
-   057QMPCQin3g1bBuDs/2B3msdlq7Myb4zFiUiDbzpO7ScP4RAMz2NR9Kj
+  bh=KEYXx/jAB3vyQ6OMi4gTqUazWDOQK45pIkjybNC7SuQ=;
+  b=U4I50ePUyzDDIxUwt5C0CwZntvlyMbDR7e036NIotH/+o3LSxPPYS139
+   tPCfqBdzXYyZSdQ4pgQ9nCpohrId/ICfMYChN9cPoyV3MLjKxW+5KrdSN
+   6IVEkHNTuUZb3XcZAXwMSJHGlQJVeKn+nYbXUXAKYnG1To+JORMOgTlcM
+   growXZnB7cbBRpNVINMQOweCzImDjZftr7/1vgrIdv/+zCnVH4Le0qcyG
+   QJ8wnp1jJtG0uhHTa/Qe+M/rlruTAkokTbeMBHReIAlGPT377yazroFKu
+   tUL65GYI8KYd9lDDN4wZgx+YYiF7Mnon8Un45P6YSBA15cihQNlCfzNHl
    Q==;
-X-CSE-ConnectionGUID: SAKhToJNT8ujrWkXmiG95w==
-X-CSE-MsgGUID: hciSOZGOQtatODAmCvBWeQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11151"; a="24484194"
+X-CSE-ConnectionGUID: qprGbDEdSXqW0emFAY1L5g==
+X-CSE-MsgGUID: Yjht/CzhTJ+kuNz+vJyxGA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11151"; a="24484214"
 X-IronPort-AV: E=Sophos;i="6.09,257,1716274800";
-   d="scan'208";a="24484194"
+   d="scan'208";a="24484214"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
   by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2024 05:10:46 -0700
-X-CSE-ConnectionGUID: WeoaLZ5qS1yBmoKb3Bfcyg==
-X-CSE-MsgGUID: UgZNmmCzQrqeVCUuSYL9GA==
+ 02 Aug 2024 05:10:53 -0700
+X-CSE-ConnectionGUID: eze3z9pvRdWNf/nfC0oIGw==
+X-CSE-MsgGUID: nX2dhYZKTa2IYxh8hBSGJg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,257,1716274800";
-   d="scan'208";a="55978897"
+   d="scan'208";a="55978928"
 Received: from ltuz-desk.ger.corp.intel.com (HELO [10.245.246.89])
  ([10.245.246.89])
   by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2024 05:10:42 -0700
-Message-ID: <acf4de1d-d551-4539-8353-3c85aa3d965c@linux.intel.com>
-Date: Fri, 2 Aug 2024 08:26:10 +0200
+ 02 Aug 2024 05:10:48 -0700
+Message-ID: <1a2d0962-405d-4ccf-a0da-00a624c0f3e8@linux.intel.com>
+Date: Fri, 2 Aug 2024 08:32:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 09/34] ASoC: Add SOC USB APIs for adding an USB
- backend
+Subject: Re: [PATCH v24 17/34] ASoC: qcom: qdsp6: Add USB backend ASoC driver
+ for Q6
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
@@ -89,16 +89,16 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-10-quic_wcheng@quicinc.com>
- <09fde4e6-c3be-484d-a7a5-bd653dc42094@linux.intel.com>
- <f761530c-a49b-4dd5-b01c-97d08931e0ab@quicinc.com>
+ <20240801011730.4797-18-quic_wcheng@quicinc.com>
+ <5f37c04d-f564-40b9-a9f3-d071ea0a6f19@linux.intel.com>
+ <1a284449-204a-4d01-90c9-ec6b1ed56e30@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <f761530c-a49b-4dd5-b01c-97d08931e0ab@quicinc.com>
+In-Reply-To: <1a284449-204a-4d01-90c9-ec6b1ed56e30@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VO2Q2OBTKDP5MU6XJ74DNUMH4HFY2FLG
-X-Message-ID-Hash: VO2Q2OBTKDP5MU6XJ74DNUMH4HFY2FLG
+Message-ID-Hash: ZTLRQ3AB7AH2TTILWQ5RSFBF4EBPD54L
+X-Message-ID-Hash: ZTLRQ3AB7AH2TTILWQ5RSFBF4EBPD54L
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VO2Q2OBTKDP5MU6XJ74DNUMH4HFY2FLG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZTLRQ3AB7AH2TTILWQ5RSFBF4EBPD54L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,110 +122,59 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 8/1/24 23:43, Wesley Cheng wrote:
+On 8/2/24 01:10, Wesley Cheng wrote:
 > Hi Pierre,
 > 
-> On 8/1/2024 1:02 AM, Pierre-Louis Bossart wrote:
+> On 8/1/2024 1:40 AM, Pierre-Louis Bossart wrote:
 >>
 >>
->>> +/**
->>> + * struct snd_soc_usb_device
->>> + * @card_idx - sound card index associated with USB device
->>> + * @pcm_idx - PCM device index associated with USB device
->>> + * @chip_idx - USB sound chip array index
->>> + * @num_playback - number of playback streams
->>> + * @num_capture - number of capture streams
->> so here we have a clear separation between playback and capture...
-> 
-> Thanks for the quick review of the series, I know that its a lot of work, so its much appreciated.
-> 
-> I guess in the past revisions there was some discussions that highlighted on the fact that, currently, in our QC USB offload implementation we're supporting playback only, and maybe it should be considered to also expand on the capture path.  I went ahead and added some sprinkles of that throughout the SOC USB layer, since its vendor agnostic, and some vendors may potentially have that type of support.  Is it safe to assume that this is the right thinking?  If so, I will go and review some of the spots that may need to consider both playback and capture paths ONLY for soc-usb. (as you highlighted one below)  Else, I can note an assumption somewhere that soc-usb supports playback only and add the capture path when implemented.
-
-I don't think it's as simple as playback only or playback+capture. If
-there is no support for capture, then there is also no support for
-devices with implicit feedback - which uses the capture path. So you
-gradually start drawing a jagged boundary of what is supported and what
-isn't.
-
-My preference would be to add capture in APIs where we can, with TODOs
-added to make sure no one us under any illusion that the code is fully
-tested. But at least some of the basic plumbing will be in place.
-
-Takashi should chime in on this...
-
->>> + * @list - list head for SoC USB devices
->>> + **/
->>> +struct snd_soc_usb_device {
->>> +	int card_idx;
->>> +	int pcm_idx;
->>> +	int chip_idx;
->>> +	int num_playback;
->>> +	int num_capture;
->>> +	struct list_head list;
->>> +};
->>> +
->>> +/**
->>> + * struct snd_soc_usb
->>> + * @list - list head for SND SOC struct list
->>> + * @component - reference to ASoC component
->>> + * @num_supported_streams - number of supported concurrent sessions
->> ... but here we don't. And it's not clear what the working 'sessions'
->> means in the comment.
->>
->>> + * @connection_status_cb - callback to notify connection events
->>> + * @priv_data - driver data
->>> + **/
->>> +struct snd_soc_usb {
->>> +	struct list_head list;
->>> +	struct snd_soc_component *component;
->>> +	unsigned int num_supported_streams;
->>> +	int (*connection_status_cb)(struct snd_soc_usb *usb,
->>> +			struct snd_soc_usb_device *sdev, bool connected);
->>> +	void *priv_data;
->>> +};
->>> +/**
->>> + * snd_soc_usb_allocate_port() - allocate a SOC USB device
->> USB port?
-> Noted, refer to the last comment.
->>> + * @component: USB DPCM backend DAI component
->>> + * @num_streams: number of offloading sessions supported
->> same comment, is this direction-specific or not?
-> Depending on what you think about my first comment above, I'll also fix or remove the concept of direction entirely.
->>> + * @data: private data
->>> + *
->>> + * Allocate and initialize a SOC USB device.  This will populate parameters that
->>> + * are used in subsequent sequences.
->>> + *
->>> + */
->>> +struct snd_soc_usb *snd_soc_usb_allocate_port(struct snd_soc_component *component,
->>> +					      int num_streams, void *data)
+>>> +static int q6usb_hw_params(struct snd_pcm_substream *substream,
+>>> +			   struct snd_pcm_hw_params *params,
+>>> +			   struct snd_soc_dai *dai)
 >>> +{
->>> +	struct snd_soc_usb *usb;
+>>> +	struct q6usb_port_data *data = dev_get_drvdata(dai->dev);
+>>> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>>> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+>>> +	struct q6afe_port *q6usb_afe;
+>>> +	struct snd_soc_usb_device *sdev;
+>>> +	int ret;
 >>> +
->>> +	usb = kzalloc(sizeof(*usb), GFP_KERNEL);
->>> +	if (!usb)
->>> +		return ERR_PTR(-ENOMEM);
+>>> +	/* No active chip index */
+>>> +	if (list_empty(&data->devices))
+>>> +		return -EINVAL;
 >>> +
->>> +	usb->component = component;
->>> +	usb->priv_data = data;
->>> +	usb->num_supported_streams = num_streams;
+>>> +	mutex_lock(&data->mutex);
+>>> +	sdev = list_last_entry(&data->devices, struct snd_soc_usb_device, list);
 >>> +
->>> +	return usb;
+>>> +	q6usb_afe = q6afe_port_get_from_id(cpu_dai->dev, USB_RX);
+>>> +	if (IS_ERR(q6usb_afe))
+>>> +		goto out;
+>>> +
+>>> +	/* Notify audio DSP about the devices being offloaded */
+>>> +	ret = afe_port_send_usb_dev_param(q6usb_afe, sdev->card_idx,
+>>> +						sdev->pcm_idx);
+>>> +
+>>> +out:
+>>> +	mutex_unlock(&data->mutex);
+>>> +
+>>> +	return ret;
 >>> +}
->>> +EXPORT_SYMBOL_GPL(snd_soc_usb_allocate_port);
->>> +
->>> +/**
->>> + * snd_soc_usb_free_port() - free a SOC USB device
->>> + * @usb: allocated SOC USB device
->>> +
->>> + * Free and remove the SOC USB device from the available list of devices.
->> Now I am lost again on the device:port relationship. I am sure you've
->> explained this before but I forget things and the code isn't
->> self-explanatory.
+>> Humm, multiple questions here
 >>
-> Ok, I think the problem is that I'm interchanging the port and device terminology, because from the USB perspective its one device connected to a USB port, so its a one-to-one relation.  Removing that mindset, I think the proper term here would still be "port," because in the end SOC USB is always only servicing a port.  If this is the case, do you have any objections using this terminology in the Q6AFE as well as ASoC?  I will use consistent wording throughout SOC USB if so.
+>> a) is this intentional that the params are not used in a hw_params routine?
+> Think this was answered in patch#34.
 
-I am not sure USB uses 'port' at all. If by 'port' you meant 'connector'
-it's not quite right, USB audio works across hubs.
+yes, but that really begs the question if the format check shouldn't be
+added here.
 
+>> b) if yes, could this be replaced by a .prepare callback
+>>
+>> c) along the same lines as b), is suspend-resume during playback
+>> supported? Usually this is handled with a .prepare callback to restore
+>> connections.
+> 
+> I don't see us supporting that throughout any of the QC based DAI drivers, so this probably isn't implemented yet.  In terms of supporting system PM suspend for this USB offload path, we're going to explicitly stop the audio stream from the USB offload driver (qc_audio_offload) before we suspend the usb device. (refer to qc_usb_audio_offload_suspend()
 
+The system suspend-resume during playback is not enabled in all
+platforms indeed, it mostly depends on what userspace does. IIRC this is
+required for Chrome/CRAS and it's supported by aplay.

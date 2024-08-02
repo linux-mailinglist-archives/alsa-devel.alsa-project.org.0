@@ -2,68 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0813C945941
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 09:52:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21B86945947
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2024 09:52:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C7003762;
-	Fri,  2 Aug 2024 09:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C7003762
+	by alsa0.perex.cz (Postfix) with ESMTPS id EED5A3E4B;
+	Fri,  2 Aug 2024 09:52:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EED5A3E4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722585121;
-	bh=1w+7rrYCa3LRNi+HM2wn8pYcRqkhvqQwbQhxswRVpZ0=;
+	s=default; t=1722585132;
+	bh=KtqdbPC2o6IT0W3PNKnfutxEkL8rAszRLKhYIvtv7AA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UMEP3Hsap2hHGpH7rS3aiD7fYrajkF8b/EHKvFoMT05CmgLcV3j9iGIugVusZEACM
-	 PKfeXIshKzbJGKOrE1XdpU5tbSgiuxadR27IRKE0szCl94PQmzi5NpXALlp9ZneIin
-	 jFXpvlNVDWR23isPrvlAnC+SGwVOk2MjOAY1IG0c=
+	b=SBI+UFRwddNtGhwkqlaj7A/5943i8sTBTJ91ALqDw0r/w50i5T/bOlBgy/9K936nA
+	 ggQ/RraNPSj2FE81NYLAPda2mi/5XUAVSZ6OjTF56Gg4pKuUX9oC+ldlm0XVO1Sacw
+	 88BmVtsmenkSqZtdAXC68kM0RsKscWueQAOOLhYo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7999BF805AC; Fri,  2 Aug 2024 09:51:31 +0200 (CEST)
+	id 38594F805C9; Fri,  2 Aug 2024 09:51:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAD8FF805AF;
-	Fri,  2 Aug 2024 09:51:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28009F805D8;
+	Fri,  2 Aug 2024 09:51:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 423F9F80448; Fri,  2 Aug 2024 09:34:39 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	TIME_LIMIT_EXCEEDED shortcircuit=no autolearn=unavailable version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	id D6386F8026A; Fri,  2 Aug 2024 09:36:25 +0200 (CEST)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D5DC8F80269
-	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 09:29:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5DC8F80269
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9EAE9F8026A
+	for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2024 09:29:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EAE9F8026A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Hh67PEb7
+ header.s=k20201202 header.b=bCmfwO+f
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 69EE96277C;
-	Fri,  2 Aug 2024 07:29:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EF6C4AF09;
-	Fri,  2 Aug 2024 07:28:57 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id B2DC1CE1AC6;
+	Fri,  2 Aug 2024 07:29:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16DE0C32782;
+	Fri,  2 Aug 2024 07:29:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1722583743;
-	bh=1w+7rrYCa3LRNi+HM2wn8pYcRqkhvqQwbQhxswRVpZ0=;
+	s=k20201202; t=1722583762;
+	bh=KtqdbPC2o6IT0W3PNKnfutxEkL8rAszRLKhYIvtv7AA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Hh67PEb72N2VVF+qkXferhBwAhLAQzGLOvfL0UoeuLtig+sjoSsd50+KBqF4wEUvq
-	 /4oMF4oUO3cSbu+9Z1yoN7R863aDLzAH5A6NLFncIKCNPQ+IFTMPbuppM+FmuL24bg
-	 LvICqgGmnWO2ABTqTtKbjJyGejU1CB775K7DmyadwnCC3I4kPsonUXBpFEuXAQxHUf
-	 6xLUkauYcIJWtRbrLMMAK32fuyUOBNgq8gZpqydd5Uw/HDLhoC4QvrbisKFJkzguLF
-	 IwcJkZFBV68x5QQHzOa7oY4V5ytWMAJSMFWoGsGimhWmXb+HemstwqF0CNgbvLoMYj
-	 7OeRwlcSQEpdA==
-Message-ID: <c65a6eab-1f76-43ee-9bde-9ab1d5cd2819@kernel.org>
-Date: Fri, 2 Aug 2024 09:28:55 +0200
+	b=bCmfwO+fu9j0QTon9YQfB8yelVnCYyn1lj95e8R4wUDXOmUO92GOPVFxkCfoTfZaw
+	 AyTMcsIM57Fl40GH8zZAqjWYvB8+2hft6cN3RE+EYxNC08KNFEGuboCPGymBsWetdy
+	 kRDX0oAywmClNOcIxXNnWsW9q8qWgPdxqSAbbLTCf+sHk7lhQNrArYL+cL36zyKOWI
+	 J1i3KwDCRhgp+V2RPLNX0EMFs1LSm9ERnJELwGci8MN9Jf1x5VkWxHebX+gBHkwj8w
+	 z8S7NKggHTAzQT8PpBPrcglOZu6QvC4hJ3z/To3xfiRdPmC15jvelcc72iB9TttXHY
+	 6oyNVJKjpF+Mw==
+Message-ID: <33212ecd-535e-48aa-a960-aae2019c176c@kernel.org>
+Date: Fri, 2 Aug 2024 09:29:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/8] ASoC: dt-bindings: pm8916-wcd-analog-codec:
- Document pm8950/pm8953
+Subject: Re: [PATCH v3 5/8] ASoC: dt-bindings: apq8016-sbc: Add
+ msm8953/msm8976-qdsp6-sndcard
 To: Adam Skladowski <a39.skl@gmail.com>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -76,9 +72,9 @@ Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org
 References: <20240731-msm8953-msm8976-asoc-v3-0-163f23c3a28d@gmail.com>
- <20240731-msm8953-msm8976-asoc-v3-2-163f23c3a28d@gmail.com>
-Content-Language: en-US
+ <20240731-msm8953-msm8976-asoc-v3-5-163f23c3a28d@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
  cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
@@ -122,11 +118,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240731-msm8953-msm8976-asoc-v3-2-163f23c3a28d@gmail.com>
+In-Reply-To: <20240731-msm8953-msm8976-asoc-v3-5-163f23c3a28d@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: Y6NDXB6X6TEYMEOZVRMWJWLNNEELWUEO
-X-Message-ID-Hash: Y6NDXB6X6TEYMEOZVRMWJWLNNEELWUEO
+Message-ID-Hash: YOBO6QMPRNOYVD4PKBPWXKPCPBVEBI2V
+X-Message-ID-Hash: YOBO6QMPRNOYVD4PKBPWXKPCPBVEBI2V
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -139,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y6NDXB6X6TEYMEOZVRMWJWLNNEELWUEO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOBO6QMPRNOYVD4PKBPWXKPCPBVEBI2V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,30 +145,12 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 31/07/2024 17:25, Adam Skladowski wrote:
-> Document pm8950 and pm8953 analog audio codecs.
+> Document MSM8953/MSM8976 QDSP6 cards.
 > 
 > Signed-off-by: Adam Skladowski <a39.skl@gmail.com>
 > ---
->  .../devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml     | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-> index 94e7a1860977..8af8bb747abe 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml
-> @@ -14,8 +14,10 @@ description:
->  
->  properties:
->    compatible:
-> -    const: qcom,pm8916-wcd-analog-codec
-> -
-> +    enum:
-> +      - qcom,pm8916-wcd-analog-codec
-> +      - qcom,pm8950-wcd-analog-codec
-> +      - qcom,pm8953-wcd-analog-codec
 
-Why dropping new line?
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof

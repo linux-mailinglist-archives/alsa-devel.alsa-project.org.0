@@ -2,100 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50AE4946746
-	for <lists+alsa-devel@lfdr.de>; Sat,  3 Aug 2024 05:51:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54867946920
+	for <lists+alsa-devel@lfdr.de>; Sat,  3 Aug 2024 12:48:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60C9F4792;
-	Sat,  3 Aug 2024 05:51:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60C9F4792
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D7794768;
+	Sat,  3 Aug 2024 12:47:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D7794768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722657070;
-	bh=Jp4s2u0rPcRvnjZtDW6tpNcOkZxG/4WF21pFw18kwPk=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1722682063;
+	bh=/keCe+RYTAEof6iY2K+Bnv28/+hoBwjA1/9NQ0Hke4I=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=vu9jWIjq1LrBsj9M1a6n4rP2x9GueQLs3Dz0HzEbmQSqbDQt30cIDcZXZvzv7ViAu
-	 sjXysTGGwFO/vyM4ix4uifYO4ltoAaY6fPNJDAV+aDqHg8Q/9qegENvgQnV762X1Jo
-	 ikkwRGJhEIsxdY9LoIONc2wyzqYlGAt0vF9AzUVI=
+	b=LUUJE6wHzLACE5mrVJBN25kIpMBFzHKca6HB4BpfJIQbIME742whAkN2PeGdy+bXa
+	 81IfmiGXrIcLmNVFPlR7rcHoq3kKrf2g3KGjWzLQiyIkf+Dr04QFYeQK5mhifiPS5M
+	 DRngriK1mipATzSKlcSlBk2j5U4zJFP3uMCkDY2c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9149EF805B0; Sat,  3 Aug 2024 05:50:38 +0200 (CEST)
+	id 4BCA3F8058C; Sat,  3 Aug 2024 12:47:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3CD8F805AD;
-	Sat,  3 Aug 2024 05:50:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB609F805AE;
+	Sat,  3 Aug 2024 12:47:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 885D1F80269; Sat,  3 Aug 2024 05:33:02 +0200 (CEST)
+	id 69521F802DB; Sat,  3 Aug 2024 12:41:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable version=3.4.6
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [IPv6:2a00:1450:4864:20::12d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7096CF8007E
-	for <alsa-devel@alsa-project.org>; Sat,  3 Aug 2024 05:27:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7096CF8007E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7DAC5F8019B
+	for <alsa-devel@alsa-project.org>; Sat,  3 Aug 2024 12:41:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DAC5F8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=HF+cLjwF
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 4733RYv2063336;
-	Fri, 2 Aug 2024 22:27:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1722655655;
-	bh=w8ZgzIw3ffEKLb+e21Wl0tugPEMWOMJhKlOMPqkQpb8=;
-	h=From:To:CC:Subject:Date;
-	b=HF+cLjwFIb6RgvSLRRZoorR7tPUPJNBrp0bcNq6diMAe4dpJyYDiFI6HymnC3OUFs
-	 gGIqE8UNSlvGUuBxBREt6E/S7xav/xUc7GB1TMjzeLZzQPyL4KJg6bAUKp0s7MNUIv
-	 xrkI56Vu5ghA9SMeAGdqEvK3ZNFSrZW9GCm8VKFM=
-Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 4733RYeB025914
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 2 Aug 2024 22:27:34 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE102.ent.ti.com
- (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 2
- Aug 2024 22:27:34 -0500
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 2 Aug 2024 22:27:34 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.49])
-	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4733RMx9057588;
-	Fri, 2 Aug 2024 22:27:23 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
-        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
-        <13916275206@139.com>, <zhourui@huaqin.com>,
-        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
-        <linux-kernel@vger.kernel.org>, <j-chadha@ti.com>,
-        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
-        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
- <yuhsuan@google.com>,
-        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
- <soyer@irl.hu>,
-        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
-        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
-        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
-        <jesse-ji@ti.com>, <darren.ye@mediatek.com>, <antheas.dk@gmail.com>,
-        <Jerry2.Huang@lcfuturecenter.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v1] ASoc: tas2781: Rename dai_driver name to unify the name
- between TAS2563 and TAS2781
-Date: Sat, 3 Aug 2024 11:27:14 +0800
-Message-ID: <20240803032717.175-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=JdFJGS4T
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-52f04b3cb33so19468180e87.0
+        for <alsa-devel@alsa-project.org>;
+ Sat, 03 Aug 2024 03:41:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1722681705; x=1723286505;
+ darn=alsa-project.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=X6XfE0wuy/HIDAoO9pP4NYutSvJQFGt1Hra+lGxkJO4=;
+        b=JdFJGS4T6x08NIxbZwZ9BE7npvNv8rlm5i7S4Z2UujpMGYKL4G1WezteMwmLK1N5fj
+         nApA++Iku/6w7GQZnQVmtM+s/uVCItCnNyVdgXzZaHj1D1ULZClmzX51R5CXFDgyu9Gi
+         d71uzCAbq+T3QVbPANm4GqRerqTuvd+qKhWnoHwUcq/hZO+ds/xiqNmnqRNSs9wDr9DD
+         5QNHyVha01u38vlV4VSacKNAPEiNJkrvNDnbPOm4zRKVFz0On6QkDWVt8xbHowkMbKp0
+         OJNqaG/f9zG4FGK1IvdSUx03W0MHLKWfJkOtd2MJFAdpZMHrD0Cm1kiS4EDqNR9twqyb
+         vJxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722681705; x=1723286505;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=X6XfE0wuy/HIDAoO9pP4NYutSvJQFGt1Hra+lGxkJO4=;
+        b=mffsKrICpSA8Wbu7PKUOnqbTFQQVFFmoE2PACkSD+VQJXdutUg20LgUVgWRmtkmubp
+         3Najphry3m7GLmUHR4VqUGfqzsMZSz9TuONfCv2JeGyB2zHmN1ieLaO23p3tfogqb3O1
+         bTVXmMzqKXvvvsc3HXPfEz3OVcKF+bcuKhfByBv4JhGBPUJwDy6AExJFIbM0d2oIK2j0
+         2GlEAR+uZ2GXPc081bmej6/akPxBIxTZ3Er5wzPbt4l+egfsE/pZHtD5zT7RO4GkNv1R
+         I57rIAg6cvMWenJ1cNFqZ/55HjO814WabTeOOS6gemhKzCUKY5DII4sKs0ZCVbSqilpo
+         +fJw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXu1CCUEh/TJa+eGu4jurjWHpBpbdLt15z4MqgLIMRhrpa085TQBMFYW9iazstHcu5CRiMbY4h9P5dTwD8AXv2s+47xKSNZAQgcePk=
+X-Gm-Message-State: AOJu0Yx/YrHX5N6sT3OESbMr5qPmPU+sS/60JiteO7lAHzLbXyJ54p8A
+	8fYy5LHIvzhBs4xEjj042VX7/5h+leZoBI+HuJrQmJfXfpn18QMFb7GBWvTHYmE=
+X-Google-Smtp-Source: 
+ AGHT+IF800af46goSmkquETHEPslclS/M3eT6WGABoZvnDas++CS/5VA5nNGupa/GwDs2mHuxpiZKg==
+X-Received: by 2002:a05:6512:1094:b0:52c:df55:e110 with SMTP id
+ 2adb3069b0e04-530bb373806mr5208762e87.12.1722681704438;
+        Sat, 03 Aug 2024 03:41:44 -0700 (PDT)
+Received: from umbar.lan ([192.130.178.91])
+        by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a7dc9e7feecsm202086366b.176.2024.08.03.03.41.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Aug 2024 03:41:43 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH 0/2] ASoC: codecs: warn on unknown codec version
+Date: Sat, 03 Aug 2024 13:41:39 +0300
+Message-Id: <20240803-codec-version-v1-0-bc29baa5e417@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Message-ID-Hash: NG5KKIXUG7CPAHEVPAQ63RQUIR6XVZFC
-X-Message-ID-Hash: NG5KKIXUG7CPAHEVPAQ63RQUIR6XVZFC
-X-MailFrom: shenghao-ding@ti.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGQJrmYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDCwNj3eT8lNRk3bLUIpBK3ZQkszQz08QkU8PkVCWgnoKi1LTMCrB50bG
+ 1tQASd7tkXwAAAA==
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=967;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=/keCe+RYTAEof6iY2K+Bnv28/+hoBwjA1/9NQ0Hke4I=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBmrglmKnfdtOGxXRACB8UtRgTdRs5sMF7sJRo7w
+ 3EY4ygT+smJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZq4JZgAKCRCLPIo+Aiko
+ 1WG/CACayIklwe1wlfXJJ61EnWlvC8/+TtjBvjCNMmW6IlKA8j+pUQYqOb+lXwgofI8nDEAN7mG
+ nC4IqS1m583hIVeTvOVh+A714w9AgQ1lRSBHIn//0Wo4RXGYOfuPZUuQg+BknlbWx6iE+X14gwN
+ mLSDiebkQtEx5ePwbUl41NGCM3i8XHCssI8Kl9ptHceBty9qD6lwk5XdyTbQn7RbzbeWXk8vVc/
+ 25iTZbVmDW4iIEG37IzqszToAl+A8YkD4xEN5x/F8Yr1wA5+uZyiY8aO9zAPrdlLKtaiDLf1ME2
+ xpy3DXb2xx2u+DNMojPMNf68mgvEShp/c4KgWQNeRq1KjCZC
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Message-ID-Hash: ONRWW4VV4S5O5USDXAF5C5TXFVSYCRK5
+X-Message-ID-Hash: ONRWW4VV4S5O5USDXAF5C5TXFVSYCRK5
+X-MailFrom: dmitry.baryshkov@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NG5KKIXUG7CPAHEVPAQ63RQUIR6XVZFC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ONRWW4VV4S5O5USDXAF5C5TXFVSYCRK5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,74 +139,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Rename dai_driver name to unify the name between TAS2563 and
-TAS2781, remove unnecessary line feed, strscpy replace scnprintf.
+While debugging broken audio issues on some of Qualcomm platforms I
+stumbled upon the kernel not providing the actual error information.
+It prints an error from the wsa_macro driver, but the actual issue is in
+the VA macro driver. Add error message to point to the actual error
+location.
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+va_macro 3370000.codec: Unknown VA Codec version, ID: 00 / 0f / 00
+wsa_macro 3240000.codec: Unsupported Codec version (0)
 
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
-v1:
- - Use strscpy to replace scnprintf.
- - rename dai_driver name from "tas2781_codec" to "tasdev_codec",
-   in case of misunderstanding whether tas2781 or tas2563.
- - Remove unnecessary line feed for tasdevice_dsp_create_ctrls
----
- sound/soc/codecs/tas2781-i2c.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+Dmitry Baryshkov (2):
+      ASoC: codecs: lpass-macro: fix version strings returned for 1.x codecs
+      ASoC: codecs: lpass-va-macro: warn on unknown version
 
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index 8a57c045afdd..6631254d4985 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -353,7 +353,7 @@ static int tasdevice_create_control(struct tasdevice_priv *tas_priv)
- 		ret = -ENOMEM;
- 		goto out;
- 	}
--	scnprintf(name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "Speaker Profile Id");
-+	strscpy(name, "Speaker Profile Id", SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
- 	prof_ctrls[mix_index].name = name;
- 	prof_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 	prof_ctrls[mix_index].info = tasdevice_info_profile;
-@@ -424,8 +424,7 @@ static int tasdevice_configuration_put(
- 	return ret;
- }
- 
--static int tasdevice_dsp_create_ctrls(
--	struct tasdevice_priv *tas_priv)
-+static int tasdevice_dsp_create_ctrls(struct tasdevice_priv *tas_priv)
- {
- 	struct snd_kcontrol_new *dsp_ctrls;
- 	char *prog_name, *conf_name;
-@@ -453,8 +452,8 @@ static int tasdevice_dsp_create_ctrls(
- 		goto out;
- 	}
- 
--	scnprintf(prog_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
--		"Speaker Program Id");
-+	strscpy(prog_name, "Speaker Program Id",
-+		SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
- 	dsp_ctrls[mix_index].name = prog_name;
- 	dsp_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 	dsp_ctrls[mix_index].info = tasdevice_info_programs;
-@@ -462,8 +461,7 @@ static int tasdevice_dsp_create_ctrls(
- 	dsp_ctrls[mix_index].put = tasdevice_program_put;
- 	mix_index++;
- 
--	scnprintf(conf_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
--		"Speaker Config Id");
-+	strscpy(conf_name, "Speaker Config Id", SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
- 	dsp_ctrls[mix_index].name = conf_name;
- 	dsp_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 	dsp_ctrls[mix_index].info = tasdevice_info_configurations;
-@@ -673,7 +671,7 @@ static const struct snd_soc_dai_ops tasdevice_dai_ops = {
- 
- static struct snd_soc_dai_driver tasdevice_dai_driver[] = {
- 	{
--		.name = "tas2781_codec",
-+		.name = "tasdev_codec",
- 		.id = 0,
- 		.playback = {
- 			.stream_name = "Playback",
+ sound/soc/codecs/lpass-macro-common.h | 6 ++++++
+ sound/soc/codecs/lpass-va-macro.c     | 4 ++++
+ 2 files changed, 10 insertions(+)
+---
+base-commit: 668d33c9ff922c4590c58754ab064aaf53c387dd
+change-id: 20240803-codec-version-db6f65ab51ce
+
+Best regards,
 -- 
-2.34.1
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 

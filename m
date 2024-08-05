@@ -2,107 +2,286 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 458DD952A5A
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:24:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B1E952A5B
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:24:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9315D2344;
-	Thu, 15 Aug 2024 10:23:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9315D2344
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41DC722CC;
+	Thu, 15 Aug 2024 10:24:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41DC722CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723710241;
-	bh=tr2hvW/r5N6TVdAKZ17CUyY3aWxwTcu2aswf6pSub4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1723710259;
+	bh=u4zGHHNvCwELzRoEWNIKhk7pWCclbrHYSVjErgBG6H8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MtV/Rgw2iQer7w24sE60YRttacZZRijA6PNlG4gEBgKe/fOhJd9bz41BX/0iXrNtb
-	 27MQZdaSKyFAXZHBE1Ksmq9JlZL0jQPt2AvOHnMcE6YyyT4lq9MAWoVWdB/zTu4CFr
-	 tOgHWz4WiM8S0K5cfjey0xnFszmggwEddYPmHaFY=
+	b=UMOfNBZg35WtSsLJo+IgFlYKqhMuPmv3tcEoGrubfQslUTQoyysPW97NZIMiN1G2Q
+	 Ej4vgR1RL3VrEZ622TWMqOnhDdjDn8zkAEiP9B0llomuWv6yZ6nz/uGndMUvkrsliy
+	 zQk6kqVE5axGkguQYeLSYxS/++RW3HvK5ZZRsA3Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3A71F805B1; Thu, 15 Aug 2024 10:23:29 +0200 (CEST)
+	id 7A74DF805C6; Thu, 15 Aug 2024 10:23:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92E7CF8059F;
-	Thu, 15 Aug 2024 10:23:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81595F805D3;
+	Thu, 15 Aug 2024 10:23:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A609CF802DB; Sun,  4 Aug 2024 16:34:36 +0200 (CEST)
+	id 51E23F8057A; Mon,  5 Aug 2024 15:54:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-m16.yeah.net (mail-m16.yeah.net [1.95.21.15])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BA14F800B0
-	for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2024 16:31:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BA14F800B0
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2417::601])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id E74ECF802DB
+	for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2024 15:54:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E74ECF802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=yeah.net header.i=@yeah.net header.a=rsa-sha256
- header.s=s110527 header.b=R4AuMlJc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
-	s=s110527; h=Date:From:Subject:Message-ID:MIME-Version:
-	Content-Type; bh=2Q94fzLl3lSmFdIfJpIE1h4MlKx0ywkHDPte+ksg2FI=;
-	b=R4AuMlJcBZ8UfBtIXyM2Bw2P0p6SKG9SiSYXTbCUoAx4Uznm/YB7hXx/T54ncj
-	kPeOmH53nbbkTVc2XStCCqnT40Ba0qEr0p8NOeTIhknnLGj4w6n08yXI/DULNBgy
-	PEiVC+3Izg70MuT4/Raqr6jpQHlb0UiBjyv5uUvjfdW1k=
-Received: from dragon (unknown [117.62.10.86])
-	by gzsmtp1 (Coremail) with SMTP id Mc8vCgCXnyCvkK9mrxa9AQ--.57464S3;
-	Sun, 04 Aug 2024 22:31:13 +0800 (CST)
-Date: Sun, 4 Aug 2024 22:31:11 +0800
-From: Shawn Guo <shawnguo2@yeah.net>
-To: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org,
-	Philip-Dylan <philip-dylan.gleonec@savoirfairelinux.com>
-Subject: Re: [PATCH v6 6/7] arm64: dts: imx8m: update spdif sound card node
- properties
-Message-ID: <Zq+QrxKFb3U1IEv/@dragon>
-References: <20240627083104.123357-1-elinor.montmasson@savoirfairelinux.com>
- <20240627083104.123357-7-elinor.montmasson@savoirfairelinux.com>
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=hJgOUaJH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tvYXjX835sr1xNPG7/FwjZ9zMcEeJxxvtLq6DMVCxNTI2VQ4EkKOmwsOtVeehGXdNPUSaqJi0oJzd9blTfaAQ2ld4VjnfisBBKrbNBHDDIhZut35p02cKfj9us3JNVrvgX4K5n248JWoeToe89GOeP/TFd8TQDhBahVW06tFrpRR1X+rrny5ocOPv2slYBPBZQk8cILvcfnxem7D5r55K1QGz7qHaPueD5AhbYkFh6zcrdjJYmQ0Z73oTU+/7pJcbDSvLSBgWYfPzqpawuBu5csJqGvUrI5a3XlmHaOefOXy2qyOcE7HUyw71ubKoTgD32Nrl4xbFn65TbcxWPurTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vbo23A1SlkC8BWYfrG46Q2gif3cx7rdi9xwlhU59K5w=;
+ b=rNYH1FJrrbjSF+7w20nSOu8/IW/G9YBhRdrS9M9KROc1MFmxsXY3+D6D7PyllYwHTQkrwS3rZs5T4h4DvuBEHy4s1MHhK04MD7DL/aq6R1wrKMF1v9D1erktIccMuaTFcReUUSwHyFyU5wVBWQQKt0ymvW0a/bjXCGokYwEZEsvNL8kCmPzc+oFApPMlwweovmXmRQx1RvvryFvynYInyTu5LlY70EOOztbYvYTwB14/pA8wmfwndVa1PcNTWN7mpw2sj3gp9ewW+NN5Aj/pFH9V/Su66ZhnREn18FlNXiIrzwqyEQ1iRVfNg2DDH0ZdgQGKzDgK33kIGPOplSy4pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vbo23A1SlkC8BWYfrG46Q2gif3cx7rdi9xwlhU59K5w=;
+ b=hJgOUaJHp9M5Q+wd83TEF0eJAqvANPN7E7YPpQAffATNAwey+yAyYakmNx7nWV4zSGNUeH07EWI3ApZ9BQ9ScdjVPsWIsIHJXesJ6OcFFaO/6q8I1RsJukkYLKZY9LlFNNzlVNUWQ2T1+JFYhDSAFYlql9w0XCALTrMZsUYSRS8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ2PR12MB8109.namprd12.prod.outlook.com (2603:10b6:a03:4f5::8)
+ by LV2PR12MB6014.namprd12.prod.outlook.com (2603:10b6:408:170::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.26; Mon, 5 Aug
+ 2024 11:01:05 +0000
+Received: from SJ2PR12MB8109.namprd12.prod.outlook.com
+ ([fe80::7f35:efe7:5e82:5e30]) by SJ2PR12MB8109.namprd12.prod.outlook.com
+ ([fe80::7f35:efe7:5e82:5e30%5]) with mapi id 15.20.7828.021; Mon, 5 Aug 2024
+ 11:01:05 +0000
+Message-ID: <1b726ef7-e25c-4a19-aaa8-77fdbdd8bcca@amd.com>
+Date: Mon, 5 Aug 2024 13:00:40 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
+ spi-nor
+To: Michael Walle <michael@walle.cc>,
+ "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "pratyush@kernel.org" <pratyush@kernel.org>,
+ "miquel.raynal@bootlin.com" <miquel.raynal@bootlin.com>,
+ "richard@nod.at" <richard@nod.at>, "vigneshr@ti.com" <vigneshr@ti.com>,
+ "sbinding@opensource.cirrus.com" <sbinding@opensource.cirrus.com>,
+ "lee@kernel.org" <lee@kernel.org>,
+ "james.schulman@cirrus.com" <james.schulman@cirrus.com>,
+ "david.rhodes@cirrus.com" <david.rhodes@cirrus.com>,
+ "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
+ "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+ Neal Frager <neal.frager@amd.com>
+Cc: "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+ "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
+ "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+ "claudiu.beznea@tuxon.dev" <claudiu.beznea@tuxon.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+ "git (AMD-Xilinx)" <git@amd.com>,
+ "amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ "beanhuo@micron.com" <beanhuo@micron.com>
+References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
+ <BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
+ <BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
+ <BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <c6f209c8-47da-4881-921d-683464b9ddd5@linaro.org>
+ <9cdb7f8b-e64f-46f6-94cb-194a25a42ccd@linaro.org>
+ <BN7PR12MB28028B63E69134094D50F3E4DC2A2@BN7PR12MB2802.namprd12.prod.outlook.com>
+ <IA0PR12MB769944254171C39FF4171B52DCB42@IA0PR12MB7699.namprd12.prod.outlook.com>
+ <D2ZHJ765LUGP.2KTA46P1BL75X@walle.cc>
+ <e1587f61-f765-4a22-b06e-71387cc49c4d@amd.com>
+ <D33M26RLVLHF.3Q5YARPBNSBOY@walle.cc>
+ <9fb60743-3e89-49fa-a399-3cf2607a7e41@amd.com>
+ <D33S9T73M6ND.G7CCJ4PDVYQU@walle.cc>
+ <c01d048f-ad8b-417e-8ff0-96f9252c87f2@amd.com>
+ <D37U3QPX0J5J.21CTXMW2KC72G@walle.cc>
+Content-Language: en-US
+From: Michal Simek <michal.simek@amd.com>
+Autocrypt: addr=michal.simek@amd.com; keydata=
+ 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
+ 3i3l5DA=
+In-Reply-To: <D37U3QPX0J5J.21CTXMW2KC72G@walle.cc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR09CA0174.eurprd09.prod.outlook.com
+ (2603:10a6:800:120::28) To SJ2PR12MB8109.namprd12.prod.outlook.com
+ (2603:10b6:a03:4f5::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240627083104.123357-7-elinor.montmasson@savoirfairelinux.com>
-X-CM-TRANSID: Mc8vCgCXnyCvkK9mrxa9AQ--.57464S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuryfAryfAFW7Wr45XFW8WFg_yoW7JF47pa
-	1vkFZ7Zr1xG3WIy345XF40v3s3Aa4rGFs09r17try8trs8Zry8twn7Krn5ur4UZr1Sqw4S
-	gF1DZFy8Wrn0qaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbrcfUUUUU=
-X-Originating-IP: [117.62.10.86]
-X-CM-SenderInfo: pvkd40hjxrjqh1hdxhhqhw/1tbiEQoxZWavY9tYNAAAsS
-X-MailFrom: shawnguo2@yeah.net
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8109:EE_|LV2PR12MB6014:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48e3e644-3ad2-4eb3-a8bf-08dcb53de69b
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|921020;
+X-Microsoft-Antispam-Message-Info: 
+	=?utf-8?B?UU41Wm8ycnVKbFR6S2VpTEN2RDFGL0dQejIyY2t6dVJxeWxqRjU2YVUzcEpK?=
+ =?utf-8?B?dmRyWVo3VmxvSUN6VTh3bWFuRUdSbStlY1c4MjYrZFFKbXZjQVUzY3huUjBm?=
+ =?utf-8?B?S2UwNzE5bnM3aVZMVkhPeUpjS29wT1ZVVXY4WE1yU1ZhNXQ0czdXSThBL0la?=
+ =?utf-8?B?NmRhRUx3N0d6YVpwcGI2czRiQkN6MjA5SmR0UExudDlwYm1NQURoZTBKNUlr?=
+ =?utf-8?B?ck8wNkZKcDJadEtEdVZ4b3k2bjB4ZWNpVHdSNThtcU9rYzBEZ0pRQWI2a2Zo?=
+ =?utf-8?B?NzhEMS9XTXpaVlBmK3B6cGxISk45eFZ4amNJN0FPZXJRUHR1cHo3UGtOVTkx?=
+ =?utf-8?B?R3dnQTVrV1M2emdwOWw3NjFUSGt3N0hEdndEM1ArR29aQ3Byc3A3Znpmd1JL?=
+ =?utf-8?B?d094VitBZHVBVk94d3J4QWkvZGVzZEhuMG04MTBaNEVtZHN1SHlsVGZmbGJP?=
+ =?utf-8?B?bUFsM0NnaUw5QUk0TXdrK0VoWDcrNEdvV2JUNmRoT2pQWmQyK2U2SkRqNGtx?=
+ =?utf-8?B?S24wZXhqUjFwZTJvd0tuaEdvL2JSR3QvSTlvRjc5bG1tSUhkYVU4YUtvZ0Zl?=
+ =?utf-8?B?am1KYUlhdGgvWEMyWXFpZ1o2NjNLZGZKcy9EQ0JhWC9USlNzcHh6TGorT2Zy?=
+ =?utf-8?B?UmRKc2k5MXZ1WTc1bHFoY3lFdU51ck1aOEY2ZmJ3RThUVE4rUVlrWWJESTRa?=
+ =?utf-8?B?aDlZNTU5MXZmci8ydXgwNkR1aWN0alFmbEc2UU5KdFR6aUlCM3JqczZ1Lzkv?=
+ =?utf-8?B?ZVpLbGtKMGkrSzVJOWR0VHJlWnJaOW95YXhPYlVWOWpPcm9ueXBDSU1SVnU0?=
+ =?utf-8?B?UUtQQU1uQU9yQjFTN21UUWhKTUFHUzhsYy8xOGJVWk9TUE1KMXorcThBWCtq?=
+ =?utf-8?B?Y21ZRUtHYmRIcndzdW1YNVIyWHJGY1Bud1pEeStibkRZUUVyM1ZOYXFIZmxZ?=
+ =?utf-8?B?cnZVUFRINTZnYnFYMnpBMnpmMmdUTGlSNlcwWWNkUjBRbkNtaksxZnpCNVU1?=
+ =?utf-8?B?V2NsS1RxN2ZxZWNoNzJGeUFOWG8zc0lGY01oY3dKc01NcHQ2OEUzZk1DaWIy?=
+ =?utf-8?B?VlBJL3RJMVZXSCtwaDJqZHRNTWE2L1IvRDhKdXAzU3p1cktJQXhxeDFnQU51?=
+ =?utf-8?B?bVJsOXVsZ3dpbHQ3ckFtUlAzN1huRHByd2hKbGRiUS83NnIyUXVRcFB3TXZZ?=
+ =?utf-8?B?cXg5QTIxRU5YY3dLWWlneUZWZk1QWUdDbXN3UjNqeFcwTk9xVnl0VHpSN2dL?=
+ =?utf-8?B?WktTWU13b3NiYjcxRG04emFzS0RyRXY2UGRtOGVjVzZvZURXVmhDYy93QnA0?=
+ =?utf-8?B?YzVyMmFqR2hyUTk3MlpaM3NvK2EyRSs0MEN6bi9UTU03K2xZYTZuOGtKdlVV?=
+ =?utf-8?B?QkZsMnJpbUkvcVQ0RWJCL0pNTlJBSWJ0NFM1Y21jRHM2UEErOW1WeFhBMXUw?=
+ =?utf-8?B?TElpNXNOMkZHTDlHVUZFanRyMlVvM25KOXByQ3ZWbkJpc1RTaVJ3NmtYVnRZ?=
+ =?utf-8?B?R0xCRk8vKzFMUGh2NXArazVtZ0k4bGhYYVBmRzF1ang2dlMvVHhsTTd1eU8r?=
+ =?utf-8?B?WEt0ZGZ3NHBSbG1OVC9oK3RHNmt5WE1NcWZZV1hibDQ4RHNlOHdYbzMzZ3lM?=
+ =?utf-8?B?QW91MzZ0dFpua092L0luNFU2R1cxT2ZDNUt2UTl6NURCRG91eVBRYUJheVRC?=
+ =?utf-8?B?UFdGN0JNalRRcjVoRUZPR0Z3K0dpL1oyenF6OXJMdkNnRFEvbnkwa2tSc0xy?=
+ =?utf-8?B?SHRPcEtORVYyN1VIQ0RTdHFHT08zRTR1WTcrbjFraUpSUkFKT3pubUp6THM2?=
+ =?utf-8?B?OFJpSTJja1hRUmZOQkVNclV0T25KNFVTSEdhcVJJemZiU2hrV1QrMXFrR1E0?=
+ =?utf-8?Q?40asSLL0YzlRQ?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8109.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?TFk3M2E0Z2plc2ZiOHB2WXY3M2kzUS9qOHJFTkdUTjF2K3FxVUV2b2JVMUZF?=
+ =?utf-8?B?WHo2MUdnSGlrSi8zMU9FOVYvai9ycjBhWkJwY1ZzZWtxWUxWcHFESlNtMnhw?=
+ =?utf-8?B?am5icEwzQkMyaEt1WTJ0bGIzdC9CVC9mTXJyYm5Sd1pSbGxseVBLbkRhWEZx?=
+ =?utf-8?B?akRtZVloeGJqcjFRSGQ5Qk9wNHBkNW95dmJZUk45Q0VZU3lUYmpBUmxZYS90?=
+ =?utf-8?B?OThveWxWRkVFWkNnZEkyMDN4ZE5NRENYbmZSSnF5MFU0VzNKbHhKSlJlSDU2?=
+ =?utf-8?B?bnBjMlZHTUNUcFczN0RkSHNWeGhKQ0pkTXJEZmtsdVMrekY3UEdETSs5dlhp?=
+ =?utf-8?B?NEVCZVpXQVhLTjhnSmNnRVcvVFR6d1FxdHU5Z2IvZndObWxVaysvWHFzZTRM?=
+ =?utf-8?B?cE5JRU4xVytMYnVTQlFwTUIyLzFUOFliTkNnMjNwQUpLWlZaRWU2Q29YWTY4?=
+ =?utf-8?B?ZEE1bTJxVGd6c2FpbDBGaFgydzBXVGVtVHh0dlQ2bjkxOFJpRGxhM095QWcz?=
+ =?utf-8?B?dTlac1BrMG55VzhNdXhDaEY5OTNvM1RmNmJsUXlZMmZ6cUlnZkJ0RVdtb055?=
+ =?utf-8?B?bmVlamtWdkNZS0VEM0lNVWUrM3p5N1RaMGdIS2pTZTN2ZHo4S01EaGN1cmN2?=
+ =?utf-8?B?cFpqaTkzMlVZd3NibDV2S0JkQ2YyQ3BBdk9MNFBLanNzNGtCcGEzREhSMkNC?=
+ =?utf-8?B?U0RvMGNHSHFQY2RuNVFMbWJ3c1JhL3RURDZnZEJKaGxYdUtRWTBrUlpwUXhh?=
+ =?utf-8?B?V25DOEh2SVk4YjhJQmhxS1ZVT3N1dHVTazkxRmdaMzFMMmFhb1hoa3daREM0?=
+ =?utf-8?B?Q2NnUTlzMUM3K0M3ZDRaVnhxdmVUYkMwdjJWdWVVUVBRQ1pMVURZL1pMRWJk?=
+ =?utf-8?B?dzU0d1E5L09MTTM4M0pNTkxwOU9sOW83RFNnbDRVU1dMTGNHZmRVRjBkcUZK?=
+ =?utf-8?B?SG42bEwvUWxwQisvdzQ5VUZpTGI3cHBvaVhKdFlzZy92N1YzeklsN09sRlJO?=
+ =?utf-8?B?UmZ6L2c4b2NvMmtZbnB2YS9oWWd0T2RXSG9PVXpiRUMxSlhiaFdPMitaZnI4?=
+ =?utf-8?B?aXRHM2ZqekhNUFlCRjJ2QVBzaHU5OEZ0L3BLQkcrN1hEM3dXMzY2MEFtNnVJ?=
+ =?utf-8?B?dU9PbEl5NkJXT045aDY0cTY5cUNIMHRUaGJFRFZpY3hhUEs1Si8wSkxUTGlw?=
+ =?utf-8?B?RExuamQ3Q3lrT01na3NKTHh3R3Q2RGpBdDVHVXcrUG4zUzhMKzJwZk1JYWV5?=
+ =?utf-8?B?S0xyWDdTTk9tczQ2eDBYc2dzbFlSemZqdVhjODFSVWMyM09QUXNETzVvMi8x?=
+ =?utf-8?B?RThHbkZWWTB0VlRVS3FQOUJFWEd1anhGazVCQmU2ejF5ZExtVjI4VE5XM2FT?=
+ =?utf-8?B?S3IyUTRoR2MzYTZuK0RnNDlrWlQ4aW93TXNmbUcyM0hqOW1VTVBWK0o3UDZr?=
+ =?utf-8?B?OEJ5bUxPZzN3UzVzRUZid2lLSnVNRDA3QmZrZzZuR3FPY2RhYjdIWmZpd3VK?=
+ =?utf-8?B?MlEyNmVrNGZDSnNUbkhIbzd5QTJYbENHQ1V0RzJncWNkUk83YW1pR1cyMWRC?=
+ =?utf-8?B?S2o1akVweGl1QktDaTA2MlZxMFFZL2RtNUxEYmsvaU1xU05OWUI0dlpYTXhI?=
+ =?utf-8?B?OG5obmZUMkpvaGd1WndDVjdMOGlTRlJrTGhCalV6dlQ5V041ekFKYmErTjRM?=
+ =?utf-8?B?NktwWGZWY1hvdk9rTjZGMDVseEFHM1hnRW92OVJLRGIxVUxKdytxaWkyMGJO?=
+ =?utf-8?B?bkd6Rkg3NnlKOTBlUFVtV1pDUVdYTlJSZ1I3VzdlUE5KTG0xMjFtbTZMdEVI?=
+ =?utf-8?B?a2haSXUrOUIvelM1aHhnb3dpYTZ1M0ZiNU02Y2c3OWVEaGZ4U01INWtVZnpx?=
+ =?utf-8?B?L2ZmUXJTVE03R2FZcVVvQkxoQ3EzVjlNcVZDTGhGWVJlVzI4RnRmSjBoZlFK?=
+ =?utf-8?B?ZTdNb2VyWS8zbTJucFEwdUovK2dDSktnQjVLWi82UmZGZnhVR09QclJxK3VF?=
+ =?utf-8?B?ckpheTZ3ZjVwTWg4ZFg1eGFOVXhwRWxVVXFIaUNRQ1VWaDQwdUJvRFdwQ3BM?=
+ =?utf-8?B?UXF4L1lYYzFVVVZ1NGZLWkVRR2NlNDhMQmxjVXd5MlRUaGZMQWZaMENwWXpR?=
+ =?utf-8?Q?fUskuUII2QUbdmUFf9rODKFsS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 48e3e644-3ad2-4eb3-a8bf-08dcb53de69b
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8109.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2024 11:01:05.0677
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ Lx89rO16LqFzFQTu709ksPAEzwWwmvAZu0VEgpe0MfEi533rtHgMjI3aE/zO9baO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6014
+X-MailFrom: michal.simek@amd.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: HCMWQQHMAOAL5OKIS6RYMCOQR5IHTW24
-X-Message-ID-Hash: HCMWQQHMAOAL5OKIS6RYMCOQR5IHTW24
-X-Mailman-Approved-At: Thu, 15 Aug 2024 08:20:30 +0000
+Message-ID-Hash: TRFCEYO64LZY6UWXELLFQGHKBLVNFA4G
+X-Message-ID-Hash: TRFCEYO64LZY6UWXELLFQGHKBLVNFA4G
+X-Mailman-Approved-At: Thu, 15 Aug 2024 08:20:33 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HCMWQQHMAOAL5OKIS6RYMCOQR5IHTW24/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TRFCEYO64LZY6UWXELLFQGHKBLVNFA4G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,158 +290,107 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jun 27, 2024 at 10:31:03AM +0200, Elinor Montmasson wrote:
-> The merge of imx-spdif driver into fsl-asoc-card brought
-> new DT properties that can be used with the "fsl,imx-audio-spdif"
-> compatible:
-> * The "spdif-controller" property from imx-spdif is named "audio-cpu"
->   in fsl-asoc-card.
-> * fsl-asoc-card uses codecs explicitly declared in DT
->   with "audio-codec".
->   With an S/PDIF, codec drivers spdif_transmitter and
->   spdif_receiver should be used.
->   Driver imx-spdif used instead the dummy codec and a pair of
->   boolean properties, "spdif-in" and "spdif-out".
-> 
-> While backward compatibility is kept to support properties
-> "spdif-controller", "spdif-in" and "spdif-out", using new properties has
-> several benefits:
-> * "audio-cpu" and "audio-codec" are more generic names reflecting
->   that the fsl-asoc-card driver supports multiple hardware.
->   They are properties already used by devices using the
->   fsl-asoc-card driver.
->   They are also similar to properties of simple-card: "cpu" and "codec".
-> * "spdif-in" and "spdif-out" imply the use of the dummy codec in the
->   driver. However, there are already two codec drivers for the S/PDIF,
->   spdif_transmitter and spdif_receiver.
->   It is better to declare S/PDIF Tx and Rx devices in a DT, and then
->   reference them with "audio-codec" than using the dummy codec.
-> 
-> For those reasons, this commit updates in-tree DTs to use the new
-> properties:
-> * Rename "spdif-controller" property to "audio-cpu".
-> * Declare S/PDIF transmitter and/or receiver devices, and use them with
->   the "audio-codec" property instead of "spdif-out" and/or "spdif-in".
-> 
-> These modifications were tested only on an imx8mn-evk board.
-> 
-> Note that out-of-tree and old DTs are still supported.
-> 
-> Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi | 15 +++++++++---
->  arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi | 15 +++++++++---
->  arch/arm64/boot/dts/freescale/imx8mq-evk.dts  | 24 +++++++++++++++----
->  3 files changed, 43 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi
-> index 90d1901df2b1..348855a41852 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi
-> @@ -180,12 +180,21 @@ cpu {
->  		};
->  	};
->  
-> +	spdif_out: spdif-out {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "linux,spdif-dit";
+Hi,
 
-It's recommended that the property list begins with 'compatible'.  Could
-you flip them?
-
-Shawn
-
-> +	};
-> +
-> +	spdif_in: spdif-in {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "linux,spdif-dir";
-> +	};
-> +
->  	sound-spdif {
->  		compatible = "fsl,imx-audio-spdif";
->  		model = "imx-spdif";
-> -		spdif-controller = <&spdif1>;
-> -		spdif-out;
-> -		spdif-in;
-> +		audio-cpu = <&spdif1>;
-> +		audio-codec = <&spdif_out>, <&spdif_in>;
->  	};
->  };
->  
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-> index 9e0259ddf4bc..6a47e09703a7 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi
-> @@ -124,12 +124,21 @@ sound-wm8524 {
->  			"Line Out Jack", "LINEVOUTR";
->  	};
->  
-> +	spdif_out: spdif-out {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "linux,spdif-dit";
-> +	};
-> +
-> +	spdif_in: spdif-in {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "linux,spdif-dir";
-> +	};
-> +
->  	sound-spdif {
->  		compatible = "fsl,imx-audio-spdif";
->  		model = "imx-spdif";
-> -		spdif-controller = <&spdif1>;
-> -		spdif-out;
-> -		spdif-in;
-> +		audio-cpu = <&spdif1>;
-> +		audio-codec = <&spdif_out>, <&spdif_in>;
->  	};
->  
->  	sound-micfil {
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts b/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-> index 7507548cdb16..b953865f0b46 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mq-evk.dts
-> @@ -125,19 +125,33 @@ link_codec: simple-audio-card,codec {
->  		};
->  	};
->  
-> +	spdif_out: spdif-out {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "linux,spdif-dit";
-> +	};
-> +
-> +	spdif_in: spdif-in {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "linux,spdif-dir";
-> +	};
-> +
->  	sound-spdif {
->  		compatible = "fsl,imx-audio-spdif";
->  		model = "imx-spdif";
-> -		spdif-controller = <&spdif1>;
-> -		spdif-out;
-> -		spdif-in;
-> +		audio-cpu = <&spdif1>;
-> +		audio-codec = <&spdif_out>, <&spdif_in>;
-> +	};
-> +
-> +	hdmi_arc_in: hdmi-arc-in {
-> +		#sound-dai-cells = <0>;
-> +		compatible = "linux,spdif-dir";
->  	};
->  
->  	sound-hdmi-arc {
->  		compatible = "fsl,imx-audio-spdif";
->  		model = "imx-hdmi-arc";
-> -		spdif-controller = <&spdif2>;
-> -		spdif-in;
-> +		audio-cpu = <&spdif2>;
-> +		audio-codec = <&hdmi_arc_in>;
->  	};
->  };
->  
-> -- 
-> 2.34.1
+On 8/5/24 10:27, Michael Walle wrote:
+> Hi,
 > 
+>>>>> All I'm saying is that you shouldn't put burden on us (the SPI NOR
+>>>>> maintainers) for what seems to me at least as a niche. Thus I was
+>>>>> asking for performance numbers and users. Convince me that I'm
+>>>>> wrong and that is worth our time.
+>>>>
+>>>> No. It is not really just feature of our evaluation boards. Customers are using
+>>>> it. I was talking to one guy from field and he confirms me that these
+>>>> configurations are used by his multiple customers in real products.
+>>>
+>>> Which begs the question, do we really have to support every feature
+>>> in the core (I'd like to hear Tudors and Pratyush opinion here).
+>>> Honestly, this just looks like a concatenation of two QSPI
+>>> controllers.
+>>
+>> Based on my understanding for stacked yes. For parallel no.
+> 
+> See below.
+> 
+>>> Why didn't you just use a normal octal controller which
+>>> is a protocol also backed by the JEDEC standard.
+>>
+>> On newer SOC octal IP core is used.
+>> Amit please comment.
+>>
+>>> Is it any faster?
+>>
+>> Amit: please provide numbers.
+>>
+>>> Do you get more capacity? Does anyone really use large SPI-NOR
+>>> flashes? If so, why?
+>>
+>> You get twice more capacity based on that configuration. I can't answer the
+>> second question because not working with field. But both of that configurations
+>> are used by customers. Adding Neal if he wants to add something more to it.
+>>
+>>> I mean you've put that controller on your SoC,
+>>> you must have some convincing arguments why a customer should use
+>>> it.
+>>
+>> I expect recommendation is to use single configuration but if you need bigger
+>> space for your application the only way to extend it is to use stacked
+>> configuration with two the same flashes next to each other.
+>> If you want to have bigger size and also be faster answer is parallel
+>> configuration.
+> 
+> But who is using expensive NOR flash for bulk storage anyway? 
+
+I expect you understand that even if I know companies which does it I am not 
+allow to share their names.
+
+But customers don't need to have other free pins to connect for example emmc.
+That's why adding one more "expensive flash" can be for them only one option.
+
+Also I bet that price for one more qspi flash is nothing compare to chip itself 
+and other related expenses for low volume production.
+
+> You're
+> only mentioning parallel mode. Also the performance numbers were
+> just about the parallel mode. What about stacked mode? Because
+> there's a chance that parallel mode works without modification of
+> the core (?).
+
+I will let Amit to comment it.
+
+
+> 
+>>>>> The first round of patches were really invasive regarding the core
+>>>>> code. So if there is a clean layering approach which can be enabled
+>>>>> as a module and you are maintaining it I'm fine with that (even if
+>>>>> the core code needs some changes then like hooks or so, not sure).
+>>>>
+>>>> That discussion started with Miquel some years ago when he was trying to to
+>>>> solve description in DT which is merged for a while in the kernel.
+>>>
+>>> What's your point here? From what I can tell the DT binding is wrong
+>>> and needs to be reworked anyway.
+>>
+>> I am just saying that this is not any adhoc new feature but configuration which
+>> has been already discussed and some steps made. If DT binding is wrong it can be
+>> deprecated and use new one but for that it has be clear which way to go.
+> 
+> Well, AMD could have side stepped all this if they had just
+> integrated a normal OSPI flash controller, which would have the same
+> requirements regarding the pins (if not even less) and it would have
+> been *easy* to integrate it into the already available ecosystem.
+> That was what my initial question was about. Why did you choose two
+> QSPI ports instead of one OSPI port.
+
+Keep in your mind that ZynqMP is 9years old SoC. Zynq 12+ years with a lot of 
+internal development happening before. Not sure if ospi even exists at that 
+time. Also if any IP was available for the price which they were targeting.
+I don't think make sense to discuss OSPI in this context because that's not in 
+these SoCs.
+I have never worked with spi that's why don't know historical context to provide 
+more details.
+
+Thanks,
+Michal
 

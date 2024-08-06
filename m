@@ -2,92 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20F6948F55
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 14:42:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A808949247
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 15:56:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 118122D95;
-	Tue,  6 Aug 2024 14:41:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 118122D95
+	by alsa0.perex.cz (Postfix) with ESMTPS id 930B93BC2;
+	Tue,  6 Aug 2024 15:56:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 930B93BC2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722948129;
-	bh=Q5ZNqxDbR4EwDeeBN89lQiVRPFwV9vl6BCMgkOcCKMQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tetsLc4nqWjOC0f7ieiO6ZEi1l945/sKxvBufa3s6nTF86xnvE5Y/AIlaoRGblab8
-	 4qDWox3mZcXbTUfXhdZlhE6h/ygKDSWC+cTyhewWm2T04tvoPVayIMIPXEMXuHnWis
-	 3SDN3ZXDgbQRLmGJ2BqEVBb3N1dRHaCeZOnfLZpc=
+	s=default; t=1722952589;
+	bh=5a1X9wFrWBvpAQTBrO/UprB7XAg2K7Y8ijJUSSEGM4M=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KuzPcuj8C0AvuGKGIXLd6ddSHSJqYgwnxEL2Hx604kIEIHrjiQoFNlBPDQzIMsqko
+	 FZrN3ISa8phwvWR6XwGNybsrAFhw28qduYrvNWGpZkjcS9Vn6DR0D6fdJLC2KGwOHm
+	 vOjnS6y+tY8hqJFCVuNZSDyEKJH3NvduX8GeKA30=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B63EF800B0; Tue,  6 Aug 2024 14:41:38 +0200 (CEST)
+	id E4AEBF805AB; Tue,  6 Aug 2024 15:55:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DE34F805AE;
-	Tue,  6 Aug 2024 14:41:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C654EF805AA;
+	Tue,  6 Aug 2024 15:55:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8E2BF802DB; Tue,  6 Aug 2024 14:36:07 +0200 (CEST)
+	id AA5DCF802DB; Tue,  6 Aug 2024 15:43:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,
+	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from msa.smtpout.orange.fr (msa-211.smtpout.orange.fr
+ [193.252.23.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B7A6FF80236
-	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 14:36:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7A6FF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id B3B5CF800E3
+	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 15:43:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B5CF800E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linutronix.de header.i=@linutronix.de
- header.a=rsa-sha256 header.s=2020 header.b=4m0tszts;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de
- header.a=ed25519-sha256 header.s=2020e header.b=wotMqU59
-Date: Tue, 6 Aug 2024 14:36:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1722947761;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LxRFPMssv0TbntD/eFDfQJABume4sd1MP+ymuPVXIMs=;
-	b=4m0tsztsBPr+9mmrcnWxq/lZkoO8odl8CGs6qI25Z1zRNYgQoKXKr4ZaByl6dBrVhFzByu
-	kzA5HK8d9DMIOtsKiVlrdcZO/8QWXdrbbKjYqqjOsCLbqdNa4KaD0fVY+45JiomSwJkueT
-	z9cNVR8YYFIPCX1QATrLaeyWFJ920wDF1X1U4QwsyNd4TId6eOQmDrskXmTeAmvKoNmWid
-	TY0AUs52gyd4bOmrCTMoq51FigtT2MDE9a8lE3nvlgfC/jvuMrcjP90VKpB1FGP4EiPciB
-	N3LbMvHa0DE1NrFVpp5vB2n9BHncTWQsw7Vj5ajqlMt7L/jfM8dkyCyNtgwDEg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1722947761;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LxRFPMssv0TbntD/eFDfQJABume4sd1MP+ymuPVXIMs=;
-	b=wotMqU59S88oaztq3MncD0BL4YuXzvYzxYh4qAO3DGWbQurB/e6HrSu55TBnCKXPBZA7aM
-	OlapAP5nRhxhSTDA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Arseniy Krasnov <avkrasnov@salutedevices.com>
-Subject: Re: [PATCH] ASoC: meson: axg-fifo: fix irq scheduling issue with
- PREEMPT_RT
-Message-ID: <20240806123600.uI5LeCdp@linutronix.de>
-References: <20240806102707.3825703-1-jbrunet@baylibre.com>
+ unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
+ header.s=t20230301 header.b=Cdn64Utg
+Received: from fedora.home ([90.11.132.44])
+	by smtp.orange.fr with ESMTPA
+	id bKSxsQhrDrWkDbKSxsiUeV; Tue, 06 Aug 2024 15:43:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1722951789;
+	bh=/3TrRDY1xrq9A6NvQnziOhi0PcSU3SG4UHNJJeoANis=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Cdn64UtgloRvBi5reaIPWOGLqOKXMxxD82CJboKK9NuwhH6HxHJvU8OqmvsP2jMDg
+	 KR3gAPfsvJopnBlZpdNDtx6kSA0rLGRdr2sGBFELjcDDQeU+C9xVz/Z8ui0I+FukQJ
+	 iWwAu7h4L010vJiLL75PmkB9tGYZgqoaXDIQSNW2L0gQ5FJzNL23bi6NcDx8nNrfTZ
+	 D0tSL4t1XPVSAxqWUBKuAwWUq3Z4j6UAeQTumXnbYn3xDO4v2SZcradoPEiiKDYdyu
+	 FXybXzG2rBk9sUDMBvYeQWIRr2x7y29zvPTdUteLSdpBOQtDbNEws4Eu3hXEuLv5E5
+	 r7QWsiaGxjQXg==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Tue, 06 Aug 2024 15:43:08 +0200
+X-ME-IP: 90.11.132.44
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org
+Subject: [PATCH] ASoC: cs43130: Constify struct reg_sequence and reg_sequences
+Date: Tue,  6 Aug 2024 15:43:00 +0200
+Message-ID: 
+ <5b906a0cc9b7be15d0d6310069f54254a75ea767.1722951770.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20240806102707.3825703-1-jbrunet@baylibre.com>
-Message-ID-Hash: 66BYAAW6MQQLN2DJWNP2275TEYWLAQOQ
-X-Message-ID-Hash: 66BYAAW6MQQLN2DJWNP2275TEYWLAQOQ
-X-MailFrom: bigeasy@linutronix.de
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: K6UY3LB3JQCVJ633COKBPSSYVXN4TUN3
+X-Message-ID-Hash: K6UY3LB3JQCVJ633COKBPSSYVXN4TUN3
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/66BYAAW6MQQLN2DJWNP2275TEYWLAQOQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K6UY3LB3JQCVJ633COKBPSSYVXN4TUN3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,59 +103,179 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 2024-08-06 12:27:03 [+0200], Jerome Brunet wrote:
-> With PREEMPT_RT enabled, spinlocks become preemptible.
-With PREEMPT_RT enabled a spinlock_t becomes a sleeping lock.
+'struct reg_sequence' and 'struct reg_sequences' are not modified in this
+drivers.
 
-> This is usually not a problem with spinlocks used in IRQ context since
-> IRQ handlers get threaded. However, if IRQF_ONESHOT is set, the upper half
-> of a threaded irq handler won't be threaded and this causes scheduling
-> problems if spinlocks are used in the upper half, like with regmap when
-> '.fast_io' is set.
+Constifying these structures moves some data to a read-only section, so
+increase overall security.
 
-=E2=80=A6 However, if IRQF_ONESHOT is set, the primary handler won't be
-force-threaded and runs always in hardirq context. This is a problem
-because spinlock_t requires a preemptible context on PREEMPT_RT.=20
+On a x86_64, with allmodconfig:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  54409	   7881	     64	  62354	   f392	sound/soc/codecs/cs43130.o
 
-> In this particular instance, it is actually better to do everything in
-> the bottom half and it solves the problem with PREEMPT_RT.
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  55562	   6729	     64	  62355	   f393	sound/soc/codecs/cs43130.o
 
-      threaded handler
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested-only.
+---
+ sound/soc/codecs/cs43130.c | 40 +++++++++++++++++++-------------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
-The term "bottom half" is usually used with softirq. The IRQ part has a
-primary handler and a threaded handler.
+diff --git a/sound/soc/codecs/cs43130.c b/sound/soc/codecs/cs43130.c
+index cb4ca80f36d2..f8e2fb69ada2 100644
+--- a/sound/soc/codecs/cs43130.c
++++ b/sound/soc/codecs/cs43130.c
+@@ -1805,7 +1805,7 @@ static struct attribute *hpload_attrs[] = {
+ };
+ ATTRIBUTE_GROUPS(hpload);
+ 
+-static struct reg_sequence hp_en_cal_seq[] = {
++static const struct reg_sequence hp_en_cal_seq[] = {
+ 	{CS43130_INT_MASK_4, CS43130_INT_MASK_ALL},
+ 	{CS43130_HP_MEAS_LOAD_1, 0},
+ 	{CS43130_HP_MEAS_LOAD_2, 0},
+@@ -1820,7 +1820,7 @@ static struct reg_sequence hp_en_cal_seq[] = {
+ 	{CS43130_HP_LOAD_1, 0x80},
+ };
+ 
+-static struct reg_sequence hp_en_cal_seq2[] = {
++static const struct reg_sequence hp_en_cal_seq2[] = {
+ 	{CS43130_INT_MASK_4, CS43130_INT_MASK_ALL},
+ 	{CS43130_HP_MEAS_LOAD_1, 0},
+ 	{CS43130_HP_MEAS_LOAD_2, 0},
+@@ -1828,7 +1828,7 @@ static struct reg_sequence hp_en_cal_seq2[] = {
+ 	{CS43130_HP_LOAD_1, 0x80},
+ };
+ 
+-static struct reg_sequence hp_dis_cal_seq[] = {
++static const struct reg_sequence hp_dis_cal_seq[] = {
+ 	{CS43130_HP_LOAD_1, 0x80},
+ 	{CS43130_DXD1, 0x99},
+ 	{CS43130_DXD12, 0},
+@@ -1836,12 +1836,12 @@ static struct reg_sequence hp_dis_cal_seq[] = {
+ 	{CS43130_HP_LOAD_1, 0},
+ };
+ 
+-static struct reg_sequence hp_dis_cal_seq2[] = {
++static const struct reg_sequence hp_dis_cal_seq2[] = {
+ 	{CS43130_HP_LOAD_1, 0x80},
+ 	{CS43130_HP_LOAD_1, 0},
+ };
+ 
+-static struct reg_sequence hp_dc_ch_l_seq[] = {
++static const struct reg_sequence hp_dc_ch_l_seq[] = {
+ 	{CS43130_DXD1, 0x99},
+ 	{CS43130_DXD19, 0x0A},
+ 	{CS43130_DXD17, 0x93},
+@@ -1851,12 +1851,12 @@ static struct reg_sequence hp_dc_ch_l_seq[] = {
+ 	{CS43130_HP_LOAD_1, 0x81},
+ };
+ 
+-static struct reg_sequence hp_dc_ch_l_seq2[] = {
++static const struct reg_sequence hp_dc_ch_l_seq2[] = {
+ 	{CS43130_HP_LOAD_1, 0x80},
+ 	{CS43130_HP_LOAD_1, 0x81},
+ };
+ 
+-static struct reg_sequence hp_dc_ch_r_seq[] = {
++static const struct reg_sequence hp_dc_ch_r_seq[] = {
+ 	{CS43130_DXD1, 0x99},
+ 	{CS43130_DXD19, 0x8A},
+ 	{CS43130_DXD17, 0x15},
+@@ -1866,12 +1866,12 @@ static struct reg_sequence hp_dc_ch_r_seq[] = {
+ 	{CS43130_HP_LOAD_1, 0x91},
+ };
+ 
+-static struct reg_sequence hp_dc_ch_r_seq2[] = {
++static const struct reg_sequence hp_dc_ch_r_seq2[] = {
+ 	{CS43130_HP_LOAD_1, 0x90},
+ 	{CS43130_HP_LOAD_1, 0x91},
+ };
+ 
+-static struct reg_sequence hp_ac_ch_l_seq[] = {
++static const struct reg_sequence hp_ac_ch_l_seq[] = {
+ 	{CS43130_DXD1, 0x99},
+ 	{CS43130_DXD19, 0x0A},
+ 	{CS43130_DXD17, 0x93},
+@@ -1881,12 +1881,12 @@ static struct reg_sequence hp_ac_ch_l_seq[] = {
+ 	{CS43130_HP_LOAD_1, 0x82},
+ };
+ 
+-static struct reg_sequence hp_ac_ch_l_seq2[] = {
++static const struct reg_sequence hp_ac_ch_l_seq2[] = {
+ 	{CS43130_HP_LOAD_1, 0x80},
+ 	{CS43130_HP_LOAD_1, 0x82},
+ };
+ 
+-static struct reg_sequence hp_ac_ch_r_seq[] = {
++static const struct reg_sequence hp_ac_ch_r_seq[] = {
+ 	{CS43130_DXD1, 0x99},
+ 	{CS43130_DXD19, 0x8A},
+ 	{CS43130_DXD17, 0x15},
+@@ -1896,24 +1896,24 @@ static struct reg_sequence hp_ac_ch_r_seq[] = {
+ 	{CS43130_HP_LOAD_1, 0x92},
+ };
+ 
+-static struct reg_sequence hp_ac_ch_r_seq2[] = {
++static const struct reg_sequence hp_ac_ch_r_seq2[] = {
+ 	{CS43130_HP_LOAD_1, 0x90},
+ 	{CS43130_HP_LOAD_1, 0x92},
+ };
+ 
+-static struct reg_sequence hp_cln_seq[] = {
++static const struct reg_sequence hp_cln_seq[] = {
+ 	{CS43130_INT_MASK_4, CS43130_INT_MASK_ALL},
+ 	{CS43130_HP_MEAS_LOAD_1, 0},
+ 	{CS43130_HP_MEAS_LOAD_2, 0},
+ };
+ 
+ struct reg_sequences {
+-	struct reg_sequence	*seq;
+-	int			size;
+-	unsigned int		msk;
++	const struct reg_sequence	*seq;
++	int				size;
++	unsigned int			msk;
+ };
+ 
+-static struct reg_sequences hpload_seq1[] = {
++static const struct reg_sequences hpload_seq1[] = {
+ 	{
+ 		.seq	= hp_en_cal_seq,
+ 		.size	= ARRAY_SIZE(hp_en_cal_seq),
+@@ -1951,7 +1951,7 @@ static struct reg_sequences hpload_seq1[] = {
+ 	},
+ };
+ 
+-static struct reg_sequences hpload_seq2[] = {
++static const struct reg_sequences hpload_seq2[] = {
+ 	{
+ 		.seq	= hp_en_cal_seq2,
+ 		.size	= ARRAY_SIZE(hp_en_cal_seq2),
+@@ -2041,7 +2041,7 @@ static int cs43130_update_hpload(unsigned int msk, int ac_idx,
+ }
+ 
+ static int cs43130_hpload_proc(struct cs43130_private *cs43130,
+-			       struct reg_sequence *seq, int seq_size,
++			       const struct reg_sequence *seq, int seq_size,
+ 			       unsigned int rslt_msk, int ac_idx)
+ {
+ 	int ret;
+@@ -2122,7 +2122,7 @@ static void cs43130_imp_meas(struct work_struct *wk)
+ 	int i, ret, ac_idx;
+ 	struct cs43130_private *cs43130;
+ 	struct snd_soc_component *component;
+-	struct reg_sequences *hpload_seq;
++	const struct reg_sequences *hpload_seq;
+ 
+ 	cs43130 = container_of(wk, struct cs43130_private, work);
+ 	component = cs43130->component;
+-- 
+2.45.2
 
-> Reported-by: Arseniy Krasnov <avkrasnov@salutedevices.com>
-> Closes: https://lore.kernel.org/linux-amlogic/20240729131652.3012327-1-av=
-krasnov@salutedevices.com
-> Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> Fixes: b11d26660dff ("ASoC: meson: axg-fifo: use threaded irq to check pe=
-riods")
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
->  sound/soc/meson/axg-fifo.c | 26 ++++++++++----------------
->  1 file changed, 10 insertions(+), 16 deletions(-)
->=20
-> diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
-> index 7e6090af720b..d0d05fa44d66 100644
-> --- a/sound/soc/meson/axg-fifo.c
-> +++ b/sound/soc/meson/axg-fifo.c
-> @@ -251,8 +244,9 @@ int axg_fifo_pcm_open(struct snd_soc_component *compo=
-nent,
->  	if (ret)
->  		return ret;
-> =20
-> -	ret =3D request_threaded_irq(fifo->irq, axg_fifo_pcm_irq_block,
-> -				   axg_fifo_pcm_irq_block_thread,
-> +	/* Use the bottom half of a threaded irq with non-atomic links */
-
-This requests only a threaded handler. There is no "bottom half of a
-threaded IRQ".
-
-> +	ret =3D request_threaded_irq(fifo->irq, NULL,
-> +				   axg_fifo_pcm_irq_block,
->  				   IRQF_ONESHOT, dev_name(dev), ss);
->  	if (ret)
->  		return ret;
-
-Sebastian

@@ -2,77 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1190948D2A
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 12:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F5FA948CDF
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 12:34:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11FFB3B0B;
-	Tue,  6 Aug 2024 12:49:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11FFB3B0B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D687436CC;
+	Tue,  6 Aug 2024 12:34:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D687436CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722941373;
-	bh=G6B1/BrdV5xtz9U9lJX6IlnXxyM5OmUZ0gZB6H4vRFU=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=FJwsnuhgl/EECjQgCc+UtE8B/zZnX0fjJ7j4O/YqPW0u9m6RISjruJFM7hoCWYR9j
-	 09HIqxH+Hk6aks5Xu9lGyFN0Vdp9iwvvblyp1fAzd7RJvHWeJMaNN3LDbcV+PhTsQo
-	 d50QjnHb6bqhPG3a8GKq+tZE8X0ZpxRymlCh1TpY=
+	s=default; t=1722940461;
+	bh=Xa7ikL07CwO7v5NvJFdMz+B9/6IHLNqvB3+OJfxa9Ig=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tCfsZZfDNVOK0E5WD1j23cLhLf48pl4cBtWILR318anc7EHf3TDZUvkOQeZW7bH5G
+	 usBuD7TCgByYjBqUmADzefDhRIz76TkoAUt8q5iMr6U4qqrm1pneQY6txCVzPJ2hHt
+	 JD+kPZwRYwFivBefU9ofiiVfLcMQiIf35IjaDMuY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BA1FF8061E; Tue,  6 Aug 2024 12:48:28 +0200 (CEST)
+	id 895D3F805AA; Tue,  6 Aug 2024 12:33:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 236B2F8060B;
-	Tue,  6 Aug 2024 12:48:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF0A8F805AE;
+	Tue,  6 Aug 2024 12:33:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2AE3F802DB; Tue,  6 Aug 2024 12:48:10 +0200 (CEST)
+	id B3486F8023A; Tue,  6 Aug 2024 12:29:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 71EE5F800E3
-	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 12:47:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71EE5F800E3
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 28605200E65;
-	Tue,  6 Aug 2024 12:47:41 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com
- (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E1C27200E5A;
-	Tue,  6 Aug 2024 12:47:40 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 321E2183487B;
-	Tue,  6 Aug 2024 18:47:39 +0800 (+08)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: vkoul@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4C6C7F805D8
+	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 12:27:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C6C7F805D8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=pilJ/Ebi
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2ef27bfd15bso4136311fa.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 06 Aug 2024 03:27:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1722940035;
+ x=1723544835; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PWPNsrWX2yOQoNoUJ3eWdP1AwzsknTGOk+n/VwMy71Y=;
+        b=pilJ/Ebi0vhB72gKVFd8ewWIg+WoZzTDESTYzbUhRT6zSDCVQqi7BJ7GOzHiZWPU+i
+         23ymxVcZXekY429AfaUsgMfiH0XuBFCTqPuWXEoA57C/NC66YtoRYm9IZyllmkJVukXE
+         H7QbEDYi/2XP24+6ILMrmcs4OAo2Df5dtdwhZzn6+b57bD98f1n0ONr+7O2jn/HFfUiO
+         bJBjWaX7tkc0Hs4+ebQLUgd2UVh57N56SVWzTNk91sJqhIvNbEqvqFO6zl+WYdiuC+0e
+         J0iZg+pywKgZsL6HziFuNMQ5jCIo1ub0wVAnimCERMjIzvaZUxyhrV5vY68/Qqs3XD1A
+         zhyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1722940035; x=1723544835;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PWPNsrWX2yOQoNoUJ3eWdP1AwzsknTGOk+n/VwMy71Y=;
+        b=Kv/K0hhOhdHezOKBB48LJ/jD2BBr51C11qbUk6hQDTYq6M4u0UYTkEBoJYxnTSmmBi
+         xBfO0HeLQ5mNHMhK6B+RA3MtyYSY5IX3qrF6vw4GUQdvhWUzpetduersLJE6CIvHdOxz
+         uO11L+Cry/gf5XZoS/vlbl0EfxbOM/tI6qD/I3Y+f2mIRdJAXiqbTZN559c94b34loLp
+         IFSHp+pIv9tcoyIrsi+6k52K70X+sart9KIq1T6SAI4MpRswQUGkMcuhiAB5WU1Vo16m
+         Xg+Njc9SXQWYX7N67rS8somyGgkkYjM1g0Wmwsu4w6A+pEdzYQ0DYfr5Q8mWwg5/ogb2
+         Gvvg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX+11J4ketQ/tPnN816HTsly2gBF2g86Cl6pjAdX7D3OKkt/fYWmNgIp3ZG4MbPECjJnhvI7Xtn+5iq@alsa-project.org
+X-Gm-Message-State: AOJu0YyYSqkfcTDi4UWbXD5cdVr3qlZ0ZEOhNVjhCfnqbAAXY+J1A7XD
+	kwezjmiycnhMb+1TZeml8xnAYq06Ux7Z3Cz5TUC2czFtUec5NPohKhTCgUQChqY=
+X-Google-Smtp-Source: 
+ AGHT+IFLNq6D7zUmhFznmLMT/7z1PKPJ2cAodH71RSFK2iNObFZv9SHqiiRmAW23aOKp+qbcYsfsJQ==
+X-Received: by 2002:a2e:8696:0:b0:2ef:246e:d04c with SMTP id
+ 38308e7fff4ca-2f15aab265dmr99425811fa.26.1722940034418;
+        Tue, 06 Aug 2024 03:27:14 -0700 (PDT)
+Received: from toaster.lan ([2a01:e0a:3c5:5fb1:c541:c0a5:2f43:ca78])
+        by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-428e4073f7bsm195890475e9.18.2024.08.06.03.27.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Aug 2024 03:27:14 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-amlogic@lists.infradead.org,
 	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Subject: [RFC PATCH 6/6] ASoC: fsl_easrc: register m2m platform device
-Date: Tue,  6 Aug 2024 18:26:43 +0800
-Message-Id: <1722940003-20126-7-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: 27NG7HKVFDRNQSZSLORQ54A7CXSNFVW7
-X-Message-ID-Hash: 27NG7HKVFDRNQSZSLORQ54A7CXSNFVW7
-X-MailFrom: shengjiu.wang@nxp.com
+	Arseniy Krasnov <avkrasnov@salutedevices.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH] ASoC: meson: axg-fifo: fix irq scheduling issue with
+ PREEMPT_RT
+Date: Tue,  6 Aug 2024 12:27:03 +0200
+Message-ID: <20240806102707.3825703-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: USR4OQPLQHHF75G4LAVYWFEA37R53S5Z
+X-Message-ID-Hash: USR4OQPLQHHF75G4LAVYWFEA37R53S5Z
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -84,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/27NG7HKVFDRNQSZSLORQ54A7CXSNFVW7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/USR4OQPLQHHF75G4LAVYWFEA37R53S5Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,74 +127,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Register m2m platform device,that user can
-use M2M feature.
+With PREEMPT_RT enabled, spinlocks become preemptible.
+This is usually not a problem with spinlocks used in IRQ context since
+IRQ handlers get threaded. However, if IRQF_ONESHOT is set, the upper half
+of a threaded irq handler won't be threaded and this causes scheduling
+problems if spinlocks are used in the upper half, like with regmap when
+'.fast_io' is set.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+In this particular instance, it is actually better to do everything in
+the bottom half and it solves the problem with PREEMPT_RT.
+
+Reported-by: Arseniy Krasnov <avkrasnov@salutedevices.com>
+Closes: https://lore.kernel.org/linux-amlogic/20240729131652.3012327-1-avkrasnov@salutedevices.com
+Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Fixes: b11d26660dff ("ASoC: meson: axg-fifo: use threaded irq to check periods")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/fsl/fsl_easrc.c | 33 +++++++++++++++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+ sound/soc/meson/axg-fifo.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-index 959a8e2dd716..98adbae082fa 100644
---- a/sound/soc/fsl/fsl_easrc.c
-+++ b/sound/soc/fsl/fsl_easrc.c
-@@ -2202,6 +2202,12 @@ static int fsl_easrc_probe(struct platform_device *pdev)
- 		goto err_pm_disable;
- 	}
+diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
+index 7e6090af720b..d0d05fa44d66 100644
+--- a/sound/soc/meson/axg-fifo.c
++++ b/sound/soc/meson/axg-fifo.c
+@@ -207,25 +207,18 @@ static irqreturn_t axg_fifo_pcm_irq_block(int irq, void *dev_id)
+ 	status = FIELD_GET(STATUS1_INT_STS, status);
+ 	axg_fifo_ack_irq(fifo, status);
  
-+	ret = fsl_asrc_m2m_init(easrc);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to init m2m device %d\n", ret);
-+		return ret;
+-	/* Use the thread to call period elapsed on nonatomic links */
+-	if (status & FIFO_INT_COUNT_REPEAT)
+-		return IRQ_WAKE_THREAD;
++	if (status & ~FIFO_INT_COUNT_REPEAT)
++		dev_dbg(axg_fifo_dev(ss), "unexpected irq - STS 0x%02x\n",
++			status);
+ 
+-	dev_dbg(axg_fifo_dev(ss), "unexpected irq - STS 0x%02x\n",
+-		status);
++	if (status & FIFO_INT_COUNT_REPEAT) {
++		snd_pcm_period_elapsed(ss);
++		return IRQ_HANDLED;
 +	}
-+
- 	return 0;
  
- err_pm_disable:
-@@ -2211,6 +2217,10 @@ static int fsl_easrc_probe(struct platform_device *pdev)
+ 	return IRQ_NONE;
+ }
  
- static void fsl_easrc_remove(struct platform_device *pdev)
+-static irqreturn_t axg_fifo_pcm_irq_block_thread(int irq, void *dev_id)
+-{
+-	struct snd_pcm_substream *ss = dev_id;
+-
+-	snd_pcm_period_elapsed(ss);
+-
+-	return IRQ_HANDLED;
+-}
+-
+ int axg_fifo_pcm_open(struct snd_soc_component *component,
+ 		      struct snd_pcm_substream *ss)
  {
-+	struct fsl_asrc *easrc = dev_get_drvdata(&pdev->dev);
-+
-+	fsl_asrc_m2m_exit(easrc);
-+
- 	pm_runtime_disable(&pdev->dev);
- }
+@@ -251,8 +244,9 @@ int axg_fifo_pcm_open(struct snd_soc_component *component,
+ 	if (ret)
+ 		return ret;
  
-@@ -2311,10 +2321,29 @@ static int fsl_easrc_runtime_resume(struct device *dev)
- 	return ret;
- }
- 
-+static int fsl_easrc_suspend(struct device *dev)
-+{
-+	struct fsl_asrc *easrc = dev_get_drvdata(dev);
-+	int ret;
-+
-+	fsl_asrc_m2m_suspend(easrc);
-+	ret = pm_runtime_force_suspend(dev);
-+	return ret;
-+}
-+
-+static int fsl_easrc_resume(struct device *dev)
-+{
-+	struct fsl_asrc *easrc = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = pm_runtime_force_resume(dev);
-+	fsl_asrc_m2m_resume(easrc);
-+	return ret;
-+}
-+
- static const struct dev_pm_ops fsl_easrc_pm_ops = {
- 	RUNTIME_PM_OPS(fsl_easrc_runtime_suspend, fsl_easrc_runtime_resume, NULL)
--	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
--				pm_runtime_force_resume)
-+	SYSTEM_SLEEP_PM_OPS(fsl_easrc_suspend, fsl_easrc_resume)
- };
- 
- static struct platform_driver fsl_easrc_driver = {
+-	ret = request_threaded_irq(fifo->irq, axg_fifo_pcm_irq_block,
+-				   axg_fifo_pcm_irq_block_thread,
++	/* Use the bottom half of a threaded irq with non-atomic links */
++	ret = request_threaded_irq(fifo->irq, NULL,
++				   axg_fifo_pcm_irq_block,
+ 				   IRQF_ONESHOT, dev_name(dev), ss);
+ 	if (ret)
+ 		return ret;
 -- 
-2.34.1
+2.43.0
 

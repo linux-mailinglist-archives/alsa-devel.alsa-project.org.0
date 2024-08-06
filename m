@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50AEF949403
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 16:58:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3F05949404
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 16:58:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB2203CB0;
-	Tue,  6 Aug 2024 16:57:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB2203CB0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D9A33CE6;
+	Tue,  6 Aug 2024 16:57:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D9A33CE6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722956260;
-	bh=7fGp4iTGKumpsOqbZPBC+cJ99owLh5xAt61X67NylpQ=;
+	s=default; t=1722956276;
+	bh=ulhVGtEPKBdoyHz0l9ezBsABeAF4IDtYxjCyDs4xjzE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=S3aH5CM/IBz0PkyJSluL8v3x4b110jC70hclmBmIrApxWQeJ4IH/vVGc0J9R62QOB
-	 DsICT+FZ17wldaR759b7bUBPZRtL1CPfSRY7+v9gSH+2sjChKdsOij/28BocOvUWa9
-	 mmNYiiB40f5Of2MpkzibfXxxmsYIE+zdiP4OVbQA=
+	b=JS+5NvKBQ+Kq3eYVMe9GWWZRnKop/TKYI1IooIe7fsVBIubUIlcpbWd6pCshtCyb3
+	 Zp9k6+hmR5i9xCHkt/WAIHrX7cqyc1KpwauFi9DtBK5Pd6hDfAIFT1lKjvp3IJNdr2
+	 hzNApipq8DZX5+9/JLt+nTEM7lxdklyr0dWNB6oA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15E83F805D8; Tue,  6 Aug 2024 16:57:18 +0200 (CEST)
+	id 246AFF805C5; Tue,  6 Aug 2024 16:57:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 709C2F805C9;
-	Tue,  6 Aug 2024 16:57:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06826F805D3;
+	Tue,  6 Aug 2024 16:57:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E19CF8047C; Tue,  6 Aug 2024 16:52:16 +0200 (CEST)
+	id 8C42FF80448; Tue,  6 Aug 2024 16:52:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,48 +36,49 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 76837F800B0
-	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 16:52:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76837F800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id B3605F802DB
+	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 16:52:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3605F802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Q3dPipIs
+ header.s=Intel header.b=GgpKBbWZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1722955930; x=1754491930;
+  t=1722955932; x=1754491932;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=7fGp4iTGKumpsOqbZPBC+cJ99owLh5xAt61X67NylpQ=;
-  b=Q3dPipIsN9c+4M0deU+Wt1BUit1dGzYid7jIzj/OPEKyVcSNLu/SnpJF
-   MAxDEo/8qEPtOBPbkpDxcammEk0pqk+Vi7nFYojjDVVemvMkAHXgcJNWB
-   FxrHWZhkyWP7pIIdTUwfXWDYZU4ik+db4VCzm1Zxp45oPBCvNy8ACvZJk
-   tdOzsepYrMjyy9g3h0Na3mboZqZQU40TLbB36rSk0+DwkDPUx6x60Rzw+
-   YKPuW8I+Jw3tSHydrNs7L8cx9nO5/UUopLlRAKmwQvgBTWZPi/KPm+rzK
-   HKy3p73Ke63C9sutsO/5QX2emyE//swfn4qEEnAiykzsnSI8zlBR1EHrR
-   w==;
-X-CSE-ConnectionGUID: QppDSIzfTaWl62s9INR47A==
-X-CSE-MsgGUID: hKPaLxoYRc+Jo2aIaOHoUA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11156"; a="21101995"
+  bh=ulhVGtEPKBdoyHz0l9ezBsABeAF4IDtYxjCyDs4xjzE=;
+  b=GgpKBbWZAz+itR/acbMgt/uRXWhk8Gt3RY47vse4JMQvXmOPPu6Zea7c
+   o8cHQeS70o9iSTUI1WmokqA0iC1UBbizDffJXXFQdVjgUNb8sT6FGl333
+   T84wwgOyqxWWoHTFykew0iGoT7tPiDE/61B8n/2vylX94bcxdgDxTIVAD
+   xjOHAQtXMd5dE96E09q7NhBEWo6qyfWcHV+0/H9Xje+8bxDrX1dnyoZT/
+   +JW2BRp0T99FCGn7oKSBar4ZUv0a04G4daup5/2zzGuqH2V5b3QTpQpvh
+   SEmIx+AuN0BIRiE5GscaKpqkU3Sci29GeAet5hFFvSyyR23ra2xiuVjVk
+   g==;
+X-CSE-ConnectionGUID: Ic+7ieVBS/afAt9t9/umQw==
+X-CSE-MsgGUID: KqFAwrAPQMOXjnA4y7m/0g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11156"; a="21102051"
 X-IronPort-AV: E=Sophos;i="6.09,268,1716274800";
-   d="scan'208";a="21101995"
+   d="scan'208";a="21102051"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
   by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2024 07:51:48 -0700
-X-CSE-ConnectionGUID: CYOwO9ASSIW+5Vg8zuCwVQ==
-X-CSE-MsgGUID: AoaYNMTNSkOzX+xnnSusDg==
+ 06 Aug 2024 07:52:03 -0700
+X-CSE-ConnectionGUID: cJPN9FP4TuWrzG0YHOubYw==
+X-CSE-MsgGUID: Y9MkFWawRqaVopuvdK1S7w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,268,1716274800";
-   d="scan'208";a="87476697"
+   d="scan'208";a="87476718"
 Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
  ([10.94.0.53])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2024 07:51:43 -0700
-Message-ID: <1a93dbae-6fba-4f07-a732-51a4cd98ff2a@linux.intel.com>
-Date: Tue, 6 Aug 2024 16:51:43 +0200
+ 06 Aug 2024 07:51:57 -0700
+Message-ID: <186ae30f-678c-423a-a56f-74510a184f99@linux.intel.com>
+Date: Tue, 6 Aug 2024 16:51:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 12/34] ASoC: doc: Add documentation for SOC USB
+Subject: Re: [PATCH v24 23/34] ALSA: usb-audio: Prevent starting of audio
+ stream if in use
 Content-Language: en-US
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
@@ -89,14 +90,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
  alsa-devel@alsa-project.org
 References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-13-quic_wcheng@quicinc.com>
+ <20240801011730.4797-24-quic_wcheng@quicinc.com>
 From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20240801011730.4797-13-quic_wcheng@quicinc.com>
+In-Reply-To: <20240801011730.4797-24-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: YZ3ZUIG7OAZTENFFFY6VKEOU75N7QU4F
-X-Message-ID-Hash: YZ3ZUIG7OAZTENFFFY6VKEOU75N7QU4F
+Message-ID-Hash: 247X3YC5FNN3RP32ST62SJD7ZH6G25GM
+X-Message-ID-Hash: 247X3YC5FNN3RP32ST62SJD7ZH6G25GM
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YZ3ZUIG7OAZTENFFFY6VKEOU75N7QU4F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/247X3YC5FNN3RP32ST62SJD7ZH6G25GM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,99 +120,15 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 8/1/2024 3:17 AM, Wesley Cheng wrote:
-> With the introduction of the soc-usb driver, add documentation highlighting
-> details on how to utilize the new driver and how it interacts with
-> different components in USB SND and ASoC.  It provides examples on how to
-> implement the drivers that will need to be introduced in order to enable
-> USB audio offloading.
+> With USB audio offloading, an audio session is started from the ASoC
+> platform sound card and PCM devices.  Likewise, the USB SND path is still
+> readily available for use, in case the non-offload path is desired.  In
+> order to prevent the two entities from attempting to use the USB bus,
+> introduce a flag that determines when either paths are in use.
 > 
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> ---
 
-(...)
-
-> +
-> +One potential use case would be to support USB audio offloading, which is
-> +an implementation that allows for an external DSP on the SoC to handle the
-> +transfer of audio data over the USB bus.  This would let the main
-> +processor to stay in lower power modes for longer durations.  The following
-
-*duration
-
-(...)
-
-> +
-> +In order to account for conditions where driver or device existence is
-> +not guaranteed, USB SND exposes snd_usb_rediscover_devices() to resend the
-> +connect events for any identified USB audio interfaces.  Consider the
-> +the following situtation:
-
-*situation
-
-> +USB Offload Related Kcontrols
-> +=============================
-> +Details
-> +-------
-> +A set of kcontrols can be utilized by applications to help select the proper sound
-> +devices to enable USB audio offloading.  SOC USB exposes the get_offload_dev()
-> +callback that designs can use to ensure that the proper indices are returned to the
-> +application.
-
-At the moment I only see getter below, how does application set it?
-
-> +
-> +Implementation
-> +--------------
-> +
-> +**Example:**
-> +
-> +  **Sound Cards**:
-> +
-> +	::
-> +
-> +	  0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
-> +						SM8250-MTP-WCD9380-WSA8810-VA-DMIC
-> +	  1 [Seri           ]: USB-Audio - Plantronics Blackwire 3225 Seri
-> +						Plantronics Plantronics Blackwire 3225 Seri at usb-xhci-hcd.1.auto-1.1, full sp
-> +	  2 [C320M          ]: USB-Audio - Plantronics C320-M
-> +                      Plantronics Plantronics C320-M at usb-xhci-hcd.1.auto-1.2, full speed
-> +
-> +  **USB Sound Card** - card#1:
-> +
-> +	::
-> +
-> +	  USB Offload Playback Route PCM#0        -1, -1 (range -1->255)
-> +
-> +  **USB Sound Card** - card#2:
-> +
-> +	::
-> +
-> +	  USB Offload Playback Route PCM#0        0, 1 (range -1->255)
-> +
-> +The above example shows a scenario where the system has one ASoC platform card
-> +(card#0) and two USB sound devices connected (card#1 and card#2).  When reading
-> +the available kcontrols for each USB audio device, the following kcontrol lists
-> +the mapped offload path for the specific device:
-> +
-> +	"USB Offload Playback Route#*"
-> +
-> +The kcontrol is indexed, because a USB audio device could potentially have
-> +several PCM devices.  The above kcontrols are defined as:
-> +
-> +  - ``USB Offload Playback Route PCM`` **(R)**: Returns the ASoC platform sound
-> +	card and PCM device index.  The output "0, 1" (card index, PCM device index)
-> +	signifies that there is an available offload path for the USB SND device
-> +	through card#0-PCM device#1.  If "-1, -1" is seen, then no offload path is
-> +	available for the USB SND device.
-> +
-
-That's better, although I'm still not convinced end users care where 
-offload happens.
-
-Few questions though, so I'm sure I understand how it works:
-Does "0, 1" in this case means that if you try to open device 1 on card 
-0, you won't be able to do it, because it is offloading USB?
-
-In case it is "-1, -1" is there a chance that it can change?
-
+How can this happen? Can you provide some example with list of devices 
+and which one should block the other? If I recall correctly devices are 
+already exclusive unless you support substreams which ASoC does not at 
+the moment.
 

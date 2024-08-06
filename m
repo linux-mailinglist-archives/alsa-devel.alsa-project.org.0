@@ -2,156 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (unknown [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC472948D04
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 12:44:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C14C7948DB7
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2024 13:31:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCA2539DC;
-	Tue,  6 Aug 2024 12:44:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCA2539DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4571E3C26;
+	Tue,  6 Aug 2024 13:30:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4571E3C26
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1722941064;
-	bh=QkpGSkbekU65CyNZ6Go/3sPioDO7v6PTx9Io42oqkMc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=sRNJgKML1SkDeerDr64DA3V09VZsdkiVrsGnu9NjtsrQcAv/iZ5CV3KqurOC4GhkF
-	 604P2n/ocg6ILwm9NWi+C8Z9rk1f+hfdb9eaOpVLGLaGDbmKo4lairqoW2To1mYBfo
-	 K2GDR1VThB6Y/QsTQ5l+UuCXAR+v5DgfbDkq2R5Y=
+	s=default; t=1722943855;
+	bh=XeP8qMVW9duWHN2BUl9XidmCMVmrVkb5XZ55nX3RpWU=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=CvEVCEusNOZHW5HegkaS7vhyjAB8TvYHxTp9d+RPzdhrXOZl/Bs6FJsAsd/kNGfMA
+	 BTrozqsRLBIAyN7m8YNZMHuoPMVnIHe5vmWNUukhyXcFgCxanjhlw1mkB7lQHMd4Gt
+	 N+f99LdPDrbCtqMshVyuhbUPu2SVObHERK/SVX3I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28834F805AD; Tue,  6 Aug 2024 12:43:53 +0200 (CEST)
+	id 4F1BAF805AA; Tue,  6 Aug 2024 13:30:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75432F805AF;
-	Tue,  6 Aug 2024 12:43:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FF12F805AE;
+	Tue,  6 Aug 2024 13:30:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D502F8023A; Tue,  6 Aug 2024 12:39:17 +0200 (CEST)
+	id 24F08F802DB; Tue,  6 Aug 2024 13:25:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 39047F8049C
-	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 12:37:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39047F8049C
+	by alsa1.perex.cz (Postfix) with ESMTPS id AAA99F800E3
+	for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2024 13:25:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA99F800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=F78/w7Hc;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=dCM/3xqn;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=F78/w7Hc;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=dCM/3xqn
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0D1901FB44;
-	Tue,  6 Aug 2024 10:37:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1722940638;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sxDufsMSRoTTfgOt2HU3HOyQ+7jkyAj1dGKnhs/i/ig=;
-	b=F78/w7Hc51nyhOlt9terW1GCXpwSDjuqSktl0PbrKoUuaDi/FSJ0aPoOG26aDG4ML3M1DF
-	h6ZDK+EyV3rLA75t2pEaIui99Tkwq7+9a5TsNnV+nfiJ0tiZnwOa4W5ghAiVvKtQR9sgmg
-	t2ldvl4y1Qd51GVbuTcS/w6tlp1ulfQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1722940638;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sxDufsMSRoTTfgOt2HU3HOyQ+7jkyAj1dGKnhs/i/ig=;
-	b=dCM/3xqniYmTqr5RlXi4A4zkLMcxcug5UGiygmea6frFFzxRH8bB6ZLWybm86yhTuYb8Ev
-	8zAoFZxTTKaTiLAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="F78/w7Hc";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="dCM/3xqn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1722940638;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sxDufsMSRoTTfgOt2HU3HOyQ+7jkyAj1dGKnhs/i/ig=;
-	b=F78/w7Hc51nyhOlt9terW1GCXpwSDjuqSktl0PbrKoUuaDi/FSJ0aPoOG26aDG4ML3M1DF
-	h6ZDK+EyV3rLA75t2pEaIui99Tkwq7+9a5TsNnV+nfiJ0tiZnwOa4W5ghAiVvKtQR9sgmg
-	t2ldvl4y1Qd51GVbuTcS/w6tlp1ulfQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1722940638;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sxDufsMSRoTTfgOt2HU3HOyQ+7jkyAj1dGKnhs/i/ig=;
-	b=dCM/3xqniYmTqr5RlXi4A4zkLMcxcug5UGiygmea6frFFzxRH8bB6ZLWybm86yhTuYb8Ev
-	8zAoFZxTTKaTiLAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F3FB513770;
-	Tue,  6 Aug 2024 10:37:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XpUFO938sWaQFAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 06 Aug 2024 10:37:17 +0000
-Date: Tue, 06 Aug 2024 12:37:56 +0200
-Message-ID: <87jzgu9bsr.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stefan Stistrup <sstistrup@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: usb-audio: Add input gain and master output mixer
- controls for RME Babyface Pro
-In-Reply-To: <20240802142439.2823864-1-sstistrup@gmail.com>
-References: <20240802142439.2823864-1-sstistrup@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 0D1901FB44
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_TWO(0.00)[2];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: CTTD2ZKZCM3BNQTNJWAVJEQXN63CWJDC
-X-Message-ID-Hash: CTTD2ZKZCM3BNQTNJWAVJEQXN63CWJDC
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=IRH8Dcyz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1722943542; x=1754479542;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=XeP8qMVW9duWHN2BUl9XidmCMVmrVkb5XZ55nX3RpWU=;
+  b=IRH8DcyzQDP4IeKaMhmVfxkHvwdF2i6cRe/zuWSJjnQ81uUcwDtaWSCc
+   XOplIuly0LJV44pvPyCvSNQpWO3Ng/P5qiwSBXBRj2LXaddZW4IEK/xAg
+   u2XBLP0foZnbNG2iWertNjd4Xutsh1AWwOW5gbhDfULwMApnVsAmkcjf/
+   43Bi0zCEJrwcvFrCZunZ1kLP2MUjMsFxe9y4OtPXxXtkD0gnLcsMD/qJ7
+   Z/ng98KSsNQ413liFJMSNmYWgWZd7l4vV/g3fixBhc3niYvqj3efp5wz/
+   lfxUaSr8cv4G7i3a3lbIcfECnddpG8vu8JWP7typKKc47guERq6rwC7QC
+   Q==;
+X-CSE-ConnectionGUID: KGUMovVqS4KnCJ3gDNa/hQ==
+X-CSE-MsgGUID: aGUP/JoKQamEddJXwxNB/A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11155"; a="20804833"
+X-IronPort-AV: E=Sophos;i="6.09,267,1716274800";
+   d="scan'208";a="20804833"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2024 04:25:37 -0700
+X-CSE-ConnectionGUID: uVVs95WMQuuVeX2XlWhaPA==
+X-CSE-MsgGUID: 4wC1AypiTUqIxnJYqoPfTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,267,1716274800";
+   d="scan'208";a="56399162"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.246.248])
+ ([10.245.246.248])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2024 04:25:34 -0700
+Message-ID: <e89a56bf-c377-43d8-bba8-6a09e571ed64@linux.intel.com>
+Date: Tue, 6 Aug 2024 13:16:38 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
+ support
+To: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, perex@perex.cz,
+ tiwai@suse.com, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
+ broonie@kernel.org, linuxppc-dev@lists.ozlabs.org
+References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
+ <1722940003-20126-2-git-send-email-shengjiu.wang@nxp.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <1722940003-20126-2-git-send-email-shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: WATCIRYZQLAJQT6SVMW34ZLJONTKGEDC
+X-Message-ID-Hash: WATCIRYZQLAJQT6SVMW34ZLJONTKGEDC
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CTTD2ZKZCM3BNQTNJWAVJEQXN63CWJDC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WATCIRYZQLAJQT6SVMW34ZLJONTKGEDC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,50 +114,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 02 Aug 2024 16:24:39 +0200,
-Stefan Stistrup wrote:
+
+
+On 8/6/24 12:26, Shengjiu Wang wrote:
+> Add Sample Rate Converter(SRC) codec support, define the output
+> format and rate for SRC.
 > 
-> Add missing input gain and master output mixer controls for RME Babyface Pro
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
+>  include/uapi/sound/compress_offload.h | 2 ++
+>  include/uapi/sound/compress_params.h  | 9 ++++++++-
+>  2 files changed, 10 insertions(+), 1 deletion(-)
 > 
-> This patch implements:
-> 
-> 1. Input gain controls for 2 mic and 2 line inputs
-> 2. Master output volume controls for all 12 output channels
-> 
-> These additions allow for more complete control of the Babyface Pro under Linux.
-> 
-> Signed-off-by: Stefan Stistrup <sstistrup@gmail.com>
-> +static int snd_bbfpro_gain_update(struct usb_mixer_interface *mixer,
-> +				  u8 channel, u8 gain)
-> +{
-> +	int err;
-> +
-> +	struct snd_usb_audio *chip = mixer->chip;
+> diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/sound/compress_offload.h
+> index 98772b0cbcb7..8b2b72f94e26 100644
+> --- a/include/uapi/sound/compress_offload.h
+> +++ b/include/uapi/sound/compress_offload.h
+> @@ -112,10 +112,12 @@ struct snd_compr_codec_caps {
+>   * end of the track
+>   * @SNDRV_COMPRESS_ENCODER_DELAY: no of samples inserted by the encoder at the
+>   * beginning of the track
+> + * @SNDRV_COMPRESS_SRC_RATIO_MOD: Resampling Ratio Modifier for sample rate converter
+>   */
+>  enum sndrv_compress_encoder {
+>  	SNDRV_COMPRESS_ENCODER_PADDING = 1,
+>  	SNDRV_COMPRESS_ENCODER_DELAY = 2,
+> +	SNDRV_COMPRESS_SRC_RATIO_MOD = 3,
+>  };
 
-An unneeded blank line.  There are a few other coding style issues, as
-it seems.  Please correct the errors reported by checkpatch.pl.
+this sounds wrong to me. The sample rate converter is not an "encoder",
+and the properties for padding/delay are totally specific to an encoder
+function.
 
-> +static int snd_bbfpro_gain_put(struct snd_kcontrol *kcontrol,
-> +                               struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	int pv, channel, old_value, value, err;
-> +
-> +	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kcontrol);
-> +	struct usb_mixer_interface *mixer = list->mixer;
-> +
-> +	pv = kcontrol->private_value;
-> +	channel = (pv >> SND_BBFPRO_GAIN_CHANNEL_SHIFT) &
-> +		  SND_BBFPRO_GAIN_CHANNEL_MASK;
-> +	old_value = pv & SND_BBFPRO_GAIN_VAL_MASK;
-> +	value = ucontrol->value.integer.value[0];
-> +
-> +	if (channel < 2) {
-> +		if (value > SND_BBFPRO_GAIN_VAL_MIC_MAX)
-> +			return -EINVAL;
+The other point is that I am not sure how standard this ratio_mod
+parameter is. This could be totally specific to a specific
+implementation, and another ASRC might have different parameters.
 
-Also check an invalid negative value, too.
+>  
+>  /**
+> diff --git a/include/uapi/sound/compress_params.h b/include/uapi/sound/compress_params.h
+> index ddc77322d571..0843773ea6b4 100644
+> --- a/include/uapi/sound/compress_params.h
+> +++ b/include/uapi/sound/compress_params.h
+> @@ -43,7 +43,8 @@
+>  #define SND_AUDIOCODEC_BESPOKE               ((__u32) 0x0000000E)
+>  #define SND_AUDIOCODEC_ALAC                  ((__u32) 0x0000000F)
+>  #define SND_AUDIOCODEC_APE                   ((__u32) 0x00000010)
+> -#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_APE
+> +#define SND_AUDIOCODEC_SRC                   ((__u32) 0x00000011)
+> +#define SND_AUDIOCODEC_MAX                   SND_AUDIOCODEC_SRC
 
+I am not sure this is wise to change such definitions?
+>  
+>  /*
+>   * Profile and modes are listed with bit masks. This allows for a
+> @@ -324,6 +325,11 @@ struct snd_dec_ape {
+>  	__u32 seek_table_present;
+>  } __attribute__((packed, aligned(4)));
+>  
+> +struct snd_dec_src {
+> +	__u32 format_out;
+> +	__u32 rate_out;
+> +} __attribute__((packed, aligned(4)));
 
-thanks,
+Again I am not sure how standard those parameters are, and even if they
+were if their representation is reusable.
 
-Takashi
+And the compressed API has a good split between encoders and decoders, I
+am not sure how an SRC can be classified as either.
+
+>  union snd_codec_options {
+>  	struct snd_enc_wma wma;
+>  	struct snd_enc_vorbis vorbis;
+> @@ -334,6 +340,7 @@ union snd_codec_options {
+>  	struct snd_dec_wma wma_d;
+>  	struct snd_dec_alac alac_d;
+>  	struct snd_dec_ape ape_d;
+> +	struct snd_dec_src src;
+>  } __attribute__((packed, aligned(4)));
+>  
+>  /** struct snd_codec_desc - description of codec capabilities
+

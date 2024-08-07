@@ -2,112 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5236894AC5D
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2024 17:14:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CA8394AE4E
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2024 18:42:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5D47193B;
-	Wed,  7 Aug 2024 17:14:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5D47193B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D31020C5;
+	Wed,  7 Aug 2024 18:42:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D31020C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723043668;
-	bh=gD60QMy/QwxxGBLOYwPLMsMir9my6tspif2L4UDaxCo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=b2lN4yN1Pr1dgTpxmBDF9SsvHGfXqMs33ScTH75prI/ivQaPc/M2K59ybvqnfQ0Qz
-	 ESl+uNnBGDiGPS/boOkxbcKeCxU6beMMc/Fbtd9oDVzndDlh/TZuY5GcRDTP1qk+PQ
-	 Fff5767Cup4fixum4G5hAMo5r5M0b+CcUJthJ/ps=
+	s=default; t=1723048941;
+	bh=Ng+/JCc1gUQ4aifD/rVtKKq53bnVZwaYRNuOqvikte8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CgCuL8NG+grN34qPLP5cwD98Z9DSe/HXm7FRrrXExqLn+MAOijx70ux9YgBILx7ve
+	 tKI8WawRse+1kaVMdoNCs5TxdN5b+Gc+uHB0sJZLpF5qwZGLZVbis+2jz1fAO+wbU6
+	 5vWi0JafnMnJ2JUdldXvVvSvpdlHz4lUtGDErMp8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6DD0F805F8; Wed,  7 Aug 2024 17:13:29 +0200 (CEST)
+	id 6FE3FF80589; Wed,  7 Aug 2024 18:41:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7F20F805FA;
-	Wed,  7 Aug 2024 17:13:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ACCDF805B5;
+	Wed,  7 Aug 2024 18:41:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44414F8023A; Wed,  7 Aug 2024 17:06:52 +0200 (CEST)
+	id A7E9FF802DB; Wed,  7 Aug 2024 18:32:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,TIME_LIMIT_EXCEEDED shortcircuit=no
+	autolearn=unavailable version=3.4.6
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 77A15F802DB
-	for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2024 17:02:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77A15F802DB
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF69BF8023A
+	for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2024 18:27:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF69BF8023A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=lhTNlaoC
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5b8c2a6135dso2781296a12.1
+ unprotected) header.d=baylibre-com.20230601.gappssmtp.com
+ header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
+ header.s=20230601 header.b=2al10gmv
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-368712acb8dso11577f8f.2
         for <alsa-devel@alsa-project.org>;
- Wed, 07 Aug 2024 08:02:45 -0700 (PDT)
+ Wed, 07 Aug 2024 09:27:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1723042964; x=1723647764;
- darn=alsa-project.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zb7lA4qnI7KpE11eMK8Td9pIdoQNK6RGZ1WWHf+hwpk=;
-        b=lhTNlaoCfgzc+TqVIm0LoGeqrJnrIOQBwawdDR24q5eGL62nEzllP3/5D7zU/44dqS
-         E5q5ArFE2LO3ZU+cg/HDzOP1pEWArepJZFNLzYqxBpFkLdehUiSP+u3gEhb7yarTm3dU
-         yAiPAv8fAcgk3F+A/qqenn1rkXidQGoF7gJ5gwDWfiTTCAiIlOd4pdLnN//dUtO/fgRE
-         My/DeyQEjqARHA8AhZPJ/UVDhp0YpKdWDBkd3sdrh6mrmX4xOcdGK5txFrkZiPiB+yqr
-         ghj7Rf7WaJT2CiLbyQT+rxCh05gn8Al85Pe44n6ePUImHLd3jeevUbDFbYFrKTm68aeJ
-         k+fA==
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1723048036;
+ x=1723652836; darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=x+dBIqzE9uz4423Miwg6qL/QPsaguESKxdu18p0e9Wk=;
+        b=2al10gmvSAai4iry2TTkVG52GLc3t6CWJ/L8OOwQFVdQ8xa8jVsuYyH+OKF/d8xrEZ
+         4kCpimrfiaXS7z0hI8V/MMAC0TCKK9/X+T2DyPN/vm1Rz6rW4Kttx7nxXGX13VIubWyL
+         CgO6Z/OrG5MAaDN8eyvnYOuj2wTu+RGG2orlKUU5WbCRH7YxNrlBe4C4QUPlgVPRHc1D
+         sPLP7W13TlCb4ez4KjCeZaVpdtf2ZUVZMECZKqGq38uBRHCKyNi3flT+jKyoIMzdcZ+w
+         VgyNkT1rzPTxdW8on5L6C6BPSiplxINa2DnYRbb2uOsE+XmHXyCGelyCV0E0NZWSg3Mf
+         8C1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723042964; x=1723647764;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zb7lA4qnI7KpE11eMK8Td9pIdoQNK6RGZ1WWHf+hwpk=;
-        b=DwOcspvhltWT+NVmdS1cUaZ9yNyhwO9VYDu1l54Ed5UybxQAvw4eKQyHcUoLvValQW
-         agzCjrlOhC6SkCGJIrlZ2Jm7xyX7M3LIebbJJEShEL2mFtx5OLMvoWdmnT5zJCwTHejV
-         BriMkOtPtwR0dR8Xf5GgWlQDP+JaXBDQzgkaaDBZ8EDSNAKn1gP3OdB8XtsgCy6Y4ZIN
-         O2gCuDq8k9ySQQpvazVIpqk6tupj8cVJama2KgFQhjIOXWVeugYXUsq8EBlm1D/gB0vx
-         ON0m2rJnsH3BSAT//X+X6LvaBr/yMOL6k2kIWMGOOgMfRrqwf/72Pqgjv+sf3O6FVFm1
-         mGHw==
+        d=1e100.net; s=20230601; t=1723048036; x=1723652836;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=x+dBIqzE9uz4423Miwg6qL/QPsaguESKxdu18p0e9Wk=;
+        b=hVqBvGI57H4a1OF6lHVQJTK8/x2eE+N7NzrTRJXJ6mZbUKxpb91c3IkPb0CO3jX0+U
+         Iz9MmbL5RPbCVhuZW7X5LAb9KMZfFFKFHpzTPhC57zfztFlIT+u5Bn+t4ZueTlQ1tIN+
+         eTIaZZIaZX3Q5xi6ZbxOtAXrUyyliQI9Trys36tCnsmEeUqehf1d1ukgK+fK8cPfOaBx
+         ru6o48oKXQEXOTv8K4VmDK5Z0ZB05tr2gMPeQOKyw+T4lYSCFKnYpsGSgOT1KdODJcaC
+         S/zs6K/zHnJZyxB0EPzDLWYRXAs804l9WEoEZ5w9kqjuTJGvb8EcKey/x9Yw3dtGRMwb
+         YxsQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUwcC6lCPQkoG2fqTxZPe6JwQAofZvv8b1FC606m9k1+TIj8Soo2VLQy/WE9wS3vlEhlSCNnzDGsJrNPXSKi7ciBaZzEhhDEUQMHw0=
-X-Gm-Message-State: AOJu0YwCwsarxEx4FEQsaAmDZ/a6fbki8yRf2fyfKLIQz2XSEMXZyFYw
-	lMiIzmaKWo0E7MRnzxnm09XB1P8q6vFaJXEoVvaYIVrJ8FeJwRWdNGoDxhzpqyk=
+ AJvYcCWN9Cf/lELjHaxYCJFOMIGtSIJ8LSqKZzTJlLZZdYkTSCHUvHrmoAEJ2Mk2/54PyRyVhd8IpQuOH4u0SKWLdEjT0FalBoQPiHjXz88=
+X-Gm-Message-State: AOJu0Yw11oYqUGrXQxidRjZyoW2H3rgpsyA0MtC1HFCR/BNKe3hYEtIe
+	jtWj49QqzdEsn1wbc2TJvnRwmPAkz/WFc4S1erckbCFdXMcNbasecl5H0jHugoE=
 X-Google-Smtp-Source: 
- AGHT+IEBb/2tO0u0sDAp3dDW7mXSiJkZfOd7Vz4ANN2+MBZgge3MX1YpJhT2vVz4APXcj0lgtag8Kw==
-X-Received: by 2002:a05:6402:1a3c:b0:5a2:1f7b:dffa with SMTP id
- 4fb4d7f45d1cf-5b7f350462fmr13646143a12.3.1723042963968;
-        Wed, 07 Aug 2024 08:02:43 -0700 (PDT)
-Received: from lino.lan ([85.235.12.238])
-        by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bb90be3a91sm2583047a12.65.2024.08.07.08.02.41
+ AGHT+IFwKsKtdGBREmHTq2kOs7k4+/3e+X9EV8QnAXRSEkHZm0dwuN3Fu+VfeXznpGNYYLj47KdTtw==
+X-Received: by 2002:a5d:5c87:0:b0:36b:bd75:ed73 with SMTP id
+ ffacd0b85a97d-36bbd75ef23mr13891573f8f.23.1723048036168;
+        Wed, 07 Aug 2024 09:27:16 -0700 (PDT)
+Received: from toaster.lan ([2a01:e0a:3c5:5fb1:90f1:3c4c:261c:b0f5])
+        by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-36bbd169697sm16494184f8f.107.2024.08.07.09.27.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Aug 2024 08:02:42 -0700 (PDT)
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 07 Aug 2024 17:02:34 +0200
-Subject: [PATCH v2 3/3] ASoC: tas*: Drop unused GPIO includes
+        Wed, 07 Aug 2024 09:27:15 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-amlogic@lists.infradead.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Arseniy Krasnov <avkrasnov@salutedevices.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH v2] ASoC: meson: axg-fifo: fix irq scheduling issue with
+ PREEMPT_RT
+Date: Wed,  7 Aug 2024 18:27:03 +0200
+Message-ID: <20240807162705.4024136-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240807-asoc-tas-gpios-v2-3-bd0f2705d58b@linaro.org>
-References: <20240807-asoc-tas-gpios-v2-0-bd0f2705d58b@linaro.org>
-In-Reply-To: <20240807-asoc-tas-gpios-v2-0-bd0f2705d58b@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shenghao Ding <13916275206@139.com>, alsa-devel@alsa-project.org,
- Linus Walleij <linus.walleij@linaro.org>
-X-Mailer: b4 0.14.0
-Message-ID-Hash: 6MWZXGSJUFC57NNZYSX2YF3WZR633BAC
-X-Message-ID-Hash: 6MWZXGSJUFC57NNZYSX2YF3WZR633BAC
-X-MailFrom: linus.walleij@linaro.org
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 7J65LMCSWYYE7X75OBEFM2W6G6Q2BSXH
+X-Message-ID-Hash: 7J65LMCSWYYE7X75OBEFM2W6G6Q2BSXH
+X-MailFrom: jbrunet@baylibre.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6MWZXGSJUFC57NNZYSX2YF3WZR633BAC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7J65LMCSWYYE7X75OBEFM2W6G6Q2BSXH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,67 +127,76 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These drivers all use <linux/gpio/consumer.h> and has no business
-including the legacy headers <linux/gpio.h> or <linux/of_gpio.h>.
-Drop the surplus includes.
+With PREEMPT_RT enabled a spinlock_t becomes a sleeping lock.
 
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+This is usually not a problem with spinlocks used in IRQ context since
+IRQ handlers get threaded. However, if IRQF_ONESHOT is set, the primary
+handler won't be force-threaded and runs always in hardirq context. This is
+a problem because spinlock_t requires a preemptible context on PREEMPT_RT.
+
+In this particular instance, regmap mmio uses spinlock_t to protect the
+register access and IRQF_ONESHOT is set on the IRQ. In this case, it is
+actually better to do everything in threaded handler and it solves the
+problem with PREEMPT_RT.
+
+Reported-by: Arseniy Krasnov <avkrasnov@salutedevices.com>
+Closes: https://lore.kernel.org/linux-amlogic/20240729131652.3012327-1-avkrasnov@salutedevices.com
+Suggested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Fixes: b11d26660dff ("ASoC: meson: axg-fifo: use threaded irq to check periods")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/codecs/tas2552.c | 1 -
- sound/soc/codecs/tas2764.c | 1 -
- sound/soc/codecs/tas2770.c | 1 -
- sound/soc/codecs/tas2780.c | 1 -
- 4 files changed, 4 deletions(-)
+ sound/soc/meson/axg-fifo.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2552.c b/sound/soc/codecs/tas2552.c
-index 9e68afc09897..684d52ec6600 100644
---- a/sound/soc/codecs/tas2552.c
-+++ b/sound/soc/codecs/tas2552.c
-@@ -12,7 +12,6 @@
- #include <linux/errno.h>
- #include <linux/device.h>
- #include <linux/i2c.h>
--#include <linux/gpio.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
-diff --git a/sound/soc/codecs/tas2764.c b/sound/soc/codecs/tas2764.c
-index 5eaddf07aadc..d482cd194c08 100644
---- a/sound/soc/codecs/tas2764.c
-+++ b/sound/soc/codecs/tas2764.c
-@@ -10,7 +10,6 @@
- #include <linux/delay.h>
- #include <linux/pm.h>
- #include <linux/i2c.h>
--#include <linux/gpio.h>
- #include <linux/gpio/consumer.h>
- #include <linux/regulator/consumer.h>
- #include <linux/regmap.h>
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index 5601fba17c96..9f93b230652a 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -14,7 +14,6 @@
- #include <linux/delay.h>
- #include <linux/pm.h>
- #include <linux/i2c.h>
--#include <linux/gpio.h>
- #include <linux/gpio/consumer.h>
- #include <linux/regulator/consumer.h>
- #include <linux/firmware.h>
-diff --git a/sound/soc/codecs/tas2780.c b/sound/soc/codecs/tas2780.c
-index 6902bfef185b..a1963415c931 100644
---- a/sound/soc/codecs/tas2780.c
-+++ b/sound/soc/codecs/tas2780.c
-@@ -7,7 +7,6 @@
- #include <linux/err.h>
- #include <linux/pm.h>
- #include <linux/i2c.h>
--#include <linux/gpio.h>
- #include <linux/gpio/consumer.h>
- #include <linux/regmap.h>
- #include <linux/of.h>
-
+diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
+index 7e6090af720b..75909196b769 100644
+--- a/sound/soc/meson/axg-fifo.c
++++ b/sound/soc/meson/axg-fifo.c
+@@ -207,25 +207,18 @@ static irqreturn_t axg_fifo_pcm_irq_block(int irq, void *dev_id)
+ 	status = FIELD_GET(STATUS1_INT_STS, status);
+ 	axg_fifo_ack_irq(fifo, status);
+ 
+-	/* Use the thread to call period elapsed on nonatomic links */
+-	if (status & FIFO_INT_COUNT_REPEAT)
+-		return IRQ_WAKE_THREAD;
++	if (status & ~FIFO_INT_COUNT_REPEAT)
++		dev_dbg(axg_fifo_dev(ss), "unexpected irq - STS 0x%02x\n",
++			status);
+ 
+-	dev_dbg(axg_fifo_dev(ss), "unexpected irq - STS 0x%02x\n",
+-		status);
++	if (status & FIFO_INT_COUNT_REPEAT) {
++		snd_pcm_period_elapsed(ss);
++		return IRQ_HANDLED;
++	}
+ 
+ 	return IRQ_NONE;
+ }
+ 
+-static irqreturn_t axg_fifo_pcm_irq_block_thread(int irq, void *dev_id)
+-{
+-	struct snd_pcm_substream *ss = dev_id;
+-
+-	snd_pcm_period_elapsed(ss);
+-
+-	return IRQ_HANDLED;
+-}
+-
+ int axg_fifo_pcm_open(struct snd_soc_component *component,
+ 		      struct snd_pcm_substream *ss)
+ {
+@@ -251,8 +244,9 @@ int axg_fifo_pcm_open(struct snd_soc_component *component,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = request_threaded_irq(fifo->irq, axg_fifo_pcm_irq_block,
+-				   axg_fifo_pcm_irq_block_thread,
++	/* Use the threaded irq handler only with non-atomic links */
++	ret = request_threaded_irq(fifo->irq, NULL,
++				   axg_fifo_pcm_irq_block,
+ 				   IRQF_ONESHOT, dev_name(dev), ss);
+ 	if (ret)
+ 		return ret;
 -- 
-2.45.2
+2.43.0
 

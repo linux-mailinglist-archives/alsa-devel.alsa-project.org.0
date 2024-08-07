@@ -2,93 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73A6794B07A
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2024 21:32:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6BDE94B121
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2024 22:19:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E5B01930;
-	Wed,  7 Aug 2024 21:32:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E5B01930
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EC2319E7;
+	Wed,  7 Aug 2024 22:19:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EC2319E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723059140;
-	bh=JSlmQu0sMhUSvnb2vx7Z4vXQuFMmDuKF1NXJ4GjBvLc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=tqMmU1Upor1aFQXm7j07WBYZmvtvA1DR+Uha6+hDAGp7Ui2ng6D31nsWCUv4GqVks
-	 uieao5wyrXbvUyLyrjJA7f3A4xAoDa/mWRIVxeEglk82wBPTu7iRgecI0uIzNLiFT6
-	 UR+p5WFGe9kAnyK2X3s0QIIjkHTyMOrqCtEqL2w0=
+	s=default; t=1723061969;
+	bh=tP5PZPiSOfnHtE2NF+/nff/1qVnyTM8U4pN2u4dY22w=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=o8Pypuo+KaU5/LQroBrATd551PJTlWYmSGtv8WbKC43saGhc55/Xks2+eZXqRwhb5
+	 kqVyWEHyXzBeb2aLkTaurK/Y7B2CM4Fso36iBvKBKVK77DjHUy9+m3QI0BkB4F7/If
+	 A1PsVqt/7WfPOJE78RMrZMbt3ruYD9m8Gcm54Cxo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A5EBF8059F; Wed,  7 Aug 2024 21:31:48 +0200 (CEST)
+	id 0E4A7F805AB; Wed,  7 Aug 2024 22:18:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10618F805AE;
-	Wed,  7 Aug 2024 21:31:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67874F805AF;
+	Wed,  7 Aug 2024 22:18:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4F8AF8023A; Wed,  7 Aug 2024 21:20:34 +0200 (CEST)
+	id 19744F800B0; Wed,  7 Aug 2024 22:11:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,TIME_LIMIT_EXCEEDED,URIBL_BLOCKED
+	shortcircuit=no autolearn=unavailable version=3.4.6
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6C29CF802DB
-	for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2024 21:18:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C29CF802DB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8EA3CF800B0
+	for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2024 22:05:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EA3CF800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=W4KPw2mj
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4772aVhV001596;
-	Wed, 7 Aug 2024 09:27:20 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=PODMain02222019; bh=p0oTbEs7cI+w0AoN
-	8oY3G9EIxazKWWurXI38qc2APK0=; b=W4KPw2mj/rKY27c8FmcSANFBkztmg6oQ
-	5hfMx1XKDsoTJv3agqLXbW20tnvomZWHu+u0jF4dT+rhLd6Fk/NIgx6GIR80Um6M
-	4LjbuwRx6/95/vBV+5D2KIAMYUZ7d/yoRFZJX3OW8yVAGp5rq29Kfad0v6qzQv9u
-	fFuDIWIE8s8xePS3mf4pv1+Kq1mv7IqLgzSMMzIOjahERzXo/KxIY9003RJpEA2C
-	xD0cT5HRQp73g93kDjC8VkZ5iKzTEhpNqi01HYd98atTja/61ydWHpd6Ic9fhBYV
-	D+zixzV88U18unmEmKJoW89C5GVfupMh4ErCQWVb/2mwev6DTWcoYQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 40shxx4hvk-1
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=Gl8WZrpf
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 477I2CCO016435;
+	Wed, 7 Aug 2024 20:05:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BBQkqFMaehnNVf00RomtVqmkJg9WcgOkBeKwzL5TMP8=; b=Gl8WZrpfsq2WndmI
+	vq8ltohYyFRNsQAOOipCQh8AY3CKAU9orOFIjFKQy0/IwVK7qM++/1CFtBXWhRkI
+	+v8nzim8SsXu4MoDcH9kmgQ54yZ5v3ZrEibnkVVkI/+dehSKb/M98CvR18kk/0c5
+	HAj4B3v//ASNN1SES+XeGFR8sCMlhTu/fnsA2f5gHf5rAlgyl7cicSCOuqwA7sT9
+	oQ6yhVzdNyuAvwwlkLhqIQQC30k3WTXxL7nDr1OGyLaRs2Gxf3uqCx74qk3bqV6E
+	WbRtyPWvTvpZVUiBLhiBpS7XlswmpzGCJYPeVPdb9SKtenkhVelHRA6OpbxJ55bQ
+	DmgG7g==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40vdupg851-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 07 Aug 2024 09:27:20 -0500 (CDT)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+	Wed, 07 Aug 2024 20:05:37 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA03.qualcomm.com (8.17.1.19/8.17.1.19) with ESMTPS id
+ 477K5akV014973
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 7 Aug 2024 20:05:36 GMT
+Received: from [10.71.113.127] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 7 Aug 2024
- 15:27:18 +0100
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Wed, 7 Aug 2024 15:27:18 +0100
-Received: from lonswws01.ad.cirrus.com (lonswws01.ad.cirrus.com
- [198.90.188.26])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id D875C820244;
-	Wed,  7 Aug 2024 14:27:17 +0000 (UTC)
-From: Simon Trimmer <simont@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
-        "Simon
- Trimmer" <simont@opensource.cirrus.com>
-Subject: [PATCH] ASoC: cs35l56: Use regmap_read_bypassed() to wake the device
-Date: Wed, 7 Aug 2024 14:27:15 +0000
-Message-ID: <20240807142715.47077-1-simont@opensource.cirrus.com>
-X-Mailer: git-send-email 2.43.0
+ 13:05:35 -0700
+Message-ID: <09aa3611-42bb-413a-b5a6-6d08045e5c00@quicinc.com>
+Date: Wed, 7 Aug 2024 13:05:35 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v24 17/34] ASoC: qcom: qdsp6: Add USB backend ASoC driver
+ for Q6
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
+        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
+        <gregkh@linuxfoundation.org>, <robh@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>
+References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
+ <20240801011730.4797-18-quic_wcheng@quicinc.com>
+ <5f37c04d-f564-40b9-a9f3-d071ea0a6f19@linux.intel.com>
+ <1a284449-204a-4d01-90c9-ec6b1ed56e30@quicinc.com>
+ <1a2d0962-405d-4ccf-a0da-00a624c0f3e8@linux.intel.com>
+Content-Language: en-US
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <1a2d0962-405d-4ccf-a0da-00a624c0f3e8@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: -z6U3q9v758xXAD3PAczDtYAJn0qULY_
-X-Proofpoint-ORIG-GUID: -z6U3q9v758xXAD3PAczDtYAJn0qULY_
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: VIJCJMU2VSBQIQGIH24ZBTYGOLEGEGQL
-X-Message-ID-Hash: VIJCJMU2VSBQIQGIH24ZBTYGOLEGEGQL
-X-MailFrom: prvs=5949c4a4be=simont@opensource.cirrus.com
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: mjrcji4RzpWV_B4Ua1x-VexTrXY01KX0
+X-Proofpoint-GUID: mjrcji4RzpWV_B4Ua1x-VexTrXY01KX0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
+ definitions=2024-08-07_11,2024-08-07_01,2024-05-17_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 impostorscore=0 mlxscore=0
+ clxscore=1015 mlxlogscore=999 spamscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2407110000
+ definitions=main-2408070141
+Message-ID-Hash: PXZWKM6O6EQUP5KHIXSQ67YKPEDGR75F
+X-Message-ID-Hash: PXZWKM6O6EQUP5KHIXSQ67YKPEDGR75F
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VIJCJMU2VSBQIQGIH24ZBTYGOLEGEGQL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PXZWKM6O6EQUP5KHIXSQ67YKPEDGR75F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,58 +137,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Now that regmap_read_bypassed() has been added to the kernel it is
-preferable to wake the device with a read rather than a write as the
-utility function can be called at a time before the device has been
-identified.
+Hi Pierre,
 
-Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
----
- sound/soc/codecs/cs35l56-shared.c | 19 +++++--------------
- 1 file changed, 5 insertions(+), 14 deletions(-)
+On 8/1/2024 11:32 PM, Pierre-Louis Bossart wrote:
+>
+> On 8/2/24 01:10, Wesley Cheng wrote:
+>> Hi Pierre,
+>>
+>> On 8/1/2024 1:40 AM, Pierre-Louis Bossart wrote:
+>>>
+>>>> +static int q6usb_hw_params(struct snd_pcm_substream *substream,
+>>>> +			   struct snd_pcm_hw_params *params,
+>>>> +			   struct snd_soc_dai *dai)
+>>>> +{
+>>>> +	struct q6usb_port_data *data = dev_get_drvdata(dai->dev);
+>>>> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>>>> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+>>>> +	struct q6afe_port *q6usb_afe;
+>>>> +	struct snd_soc_usb_device *sdev;
+>>>> +	int ret;
+>>>> +
+>>>> +	/* No active chip index */
+>>>> +	if (list_empty(&data->devices))
+>>>> +		return -EINVAL;
+>>>> +
+>>>> +	mutex_lock(&data->mutex);
+>>>> +	sdev = list_last_entry(&data->devices, struct snd_soc_usb_device, list);
+>>>> +
+>>>> +	q6usb_afe = q6afe_port_get_from_id(cpu_dai->dev, USB_RX);
+>>>> +	if (IS_ERR(q6usb_afe))
+>>>> +		goto out;
+>>>> +
+>>>> +	/* Notify audio DSP about the devices being offloaded */
+>>>> +	ret = afe_port_send_usb_dev_param(q6usb_afe, sdev->card_idx,
+>>>> +						sdev->pcm_idx);
+>>>> +
+>>>> +out:
+>>>> +	mutex_unlock(&data->mutex);
+>>>> +
+>>>> +	return ret;
+>>>> +}
+>>> Humm, multiple questions here
+>>>
+>>> a) is this intentional that the params are not used in a hw_params routine?
+>> Think this was answered in patch#34.
+> yes, but that really begs the question if the format check shouldn't be
+> added here.
 
-diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
-index e7e8d617da94..91b3c1c8575c 100644
---- a/sound/soc/codecs/cs35l56-shared.c
-+++ b/sound/soc/codecs/cs35l56-shared.c
-@@ -450,32 +450,23 @@ static const struct reg_sequence cs35l56_hibernate_seq[] = {
- 	REG_SEQ0(CS35L56_DSP_VIRTUAL1_MBOX_1, CS35L56_MBOX_CMD_ALLOW_AUTO_HIBERNATE),
- };
- 
--static const struct reg_sequence cs35l56_hibernate_wake_seq[] = {
--	REG_SEQ0(CS35L56_DSP_VIRTUAL1_MBOX_1, CS35L56_MBOX_CMD_WAKEUP),
--};
--
- static void cs35l56_issue_wake_event(struct cs35l56_base *cs35l56_base)
- {
-+	unsigned int val;
-+
- 	/*
- 	 * Dummy transactions to trigger I2C/SPI auto-wake. Issue two
- 	 * transactions to meet the minimum required time from the rising edge
- 	 * to the last falling edge of wake.
- 	 *
--	 * It uses bypassed write because we must wake the chip before
-+	 * It uses bypassed read because we must wake the chip before
- 	 * disabling regmap cache-only.
--	 *
--	 * This can NAK on I2C which will terminate the write sequence so the
--	 * single-write sequence is issued twice.
- 	 */
--	regmap_multi_reg_write_bypassed(cs35l56_base->regmap,
--					cs35l56_hibernate_wake_seq,
--					ARRAY_SIZE(cs35l56_hibernate_wake_seq));
-+	regmap_read_bypassed(cs35l56_base->regmap, CS35L56_IRQ1_STATUS, &val);
- 
- 	usleep_range(CS35L56_WAKE_HOLD_TIME_US, 2 * CS35L56_WAKE_HOLD_TIME_US);
- 
--	regmap_multi_reg_write_bypassed(cs35l56_base->regmap,
--					cs35l56_hibernate_wake_seq,
--					ARRAY_SIZE(cs35l56_hibernate_wake_seq));
-+	regmap_read_bypassed(cs35l56_base->regmap, CS35L56_IRQ1_STATUS, &val);
- 
- 	cs35l56_wait_control_port_ready();
- }
--- 
-2.43.0
+Sure, I'm not against squashing the format check to this patch.
 
+Thanks
+
+Wesley Cheng
+
+>>> b) if yes, could this be replaced by a .prepare callback
+>>>
+>>> c) along the same lines as b), is suspend-resume during playback
+>>> supported? Usually this is handled with a .prepare callback to restore
+>>> connections.
+>> I don't see us supporting that throughout any of the QC based DAI drivers, so this probably isn't implemented yet.  In terms of supporting system PM suspend for this USB offload path, we're going to explicitly stop the audio stream from the USB offload driver (qc_audio_offload) before we suspend the usb device. (refer to qc_usb_audio_offload_suspend()
+> The system suspend-resume during playback is not enabled in all
+> platforms indeed, it mostly depends on what userspace does. IIRC this is
+> required for Chrome/CRAS and it's supported by aplay.

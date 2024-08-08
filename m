@@ -2,107 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA62694C4EA
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:53:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A7F94C4E9
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:53:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6DD9857;
-	Thu,  8 Aug 2024 20:53:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6DD9857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E0B7E80;
+	Thu,  8 Aug 2024 20:52:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E0B7E80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723143192;
-	bh=ae321LVliHmFa1rc8wI0yU3i6cZfo8RmSnDSmF2dykk=;
+	s=default; t=1723143175;
+	bh=YT5DQ0+/e7yx74XohDZVPwTDptrdlTLnHK8ziXULtxc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o54uibKxPnElOvqJvF1shW1JObHGD0KOTuhOh+i7na+OvaVoTMt1wBr1uUGMpWEtn
-	 0acNfO/BmG7LndKuX7aR70HkWZ4tTna5+fRG1My9NeALlLuF+LvxTTIEbUYLK5cMqz
-	 dQFKEO2q/YW2C3b58jfIVSuixu8dAKsmpwFtxq0A=
+	b=ju5bcdPoVAjCvVT3O+Jv2hxD8ISQOqpc1Byx+//m1IpPi2MBnuIO/YYyzaRo5xM0b
+	 K4BAF0qz3Y2UMwHMrmy6CmMLqPm1a66feE/AHmazwz1zE6l5GZupMAnvxHCm/6GsZw
+	 zWenW/jiIulNMxpkivxC1j9H7tvPEzeWV5mW6Lhc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12B20F80615; Thu,  8 Aug 2024 20:51:58 +0200 (CEST)
+	id 6A766F805FB; Thu,  8 Aug 2024 20:51:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53974F80623;
-	Thu,  8 Aug 2024 20:51:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51B4EF805EF;
+	Thu,  8 Aug 2024 20:51:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E516FF802DB; Thu,  8 Aug 2024 20:50:40 +0200 (CEST)
+	id 1FA94F8047C; Thu,  8 Aug 2024 20:50:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0EF5EF8023A
-	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 20:50:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EF5EF8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 00C16F802DB
+	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 20:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00C16F802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=ZoxCBn17
-Received: by mail-pj1-x1034.google.com with SMTP id
- 98e67ed59e1d1-2cdae2bc04dso234916a91.0
+ header.s=20230601 header.b=DY7Dx+Ub
+Received: by mail-pf1-x432.google.com with SMTP id
+ d2e1a72fcca58-70d2cd07869so110863b3a.0
         for <alsa-devel@alsa-project.org>;
- Thu, 08 Aug 2024 11:50:33 -0700 (PDT)
+ Thu, 08 Aug 2024 11:50:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723143031; x=1723747831;
+        d=gmail.com; s=20230601; t=1723143034; x=1723747834;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iQf8+lxBRGqbcfv4HYra0T6yNXl6ceOKIYI4wys2BEk=;
-        b=ZoxCBn172tQK2e/n6qpy8awG4++KX+cXdvqAbTzFs3GIjRQ2DYyPA0E4lch1u/xkmr
-         G5KzBvx0xajkVYVfGJLlmRiE0BuMrpkCmwDe+k3PsA0Dn+jADA8vwayibpCMF5q9QEZL
-         4Z152MZUYzFMqc/XJe7QYxbeFlgkGUlmk+ymeaDafSShZMSDqJziE70dTijClcPyLbcX
-         SPQJvHfDaiNA3gHWjoasNoumDyoE2DRVLY6/ROJ9Mxi8MzYc3upqasmS58aTL3Kayipm
-         m0ZRypOCTXVakFzGeOFFeFsHqp9PQZLspI91OmyU++/jUd9VZsmqfB7PhqoWzllWhxLc
-         jIMg==
+        bh=IAYNl1QP07O60/hQ1fZUEjMYLs8NATGmFAsys6ANyRo=;
+        b=DY7Dx+UbtV3NZL708ktJXSih94thySpIGFJUxDVW5CZgx2bbKn2acoP9zxz7IvPIr9
+         LsnSYPQ8g7NxRsNJYE1Umjt5Tmwh9A9ZHlCn0qCzTpYNqSrRjc+hG+PtgOG9zirPt9hc
+         G26R3+YlodQJ3bAYGGu+YfcpY/JtzJrp4FTuxNFP76y7ImQLXguj8a4loNH0K2Nuen6l
+         MPLjbsY7R3OoakXR+DNqRrCyK3vs4MPK+9vlWokmMg9mrHXSWHBIG9pxiJMdGWL5EEmP
+         9AGW+vIS8C5G32lHO5eO+avNho111MudHsYIfR0wfSPAcfWutugUheCUjlwu6QQQhPBM
+         /INw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723143031; x=1723747831;
+        d=1e100.net; s=20230601; t=1723143034; x=1723747834;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=iQf8+lxBRGqbcfv4HYra0T6yNXl6ceOKIYI4wys2BEk=;
-        b=VTM2cXEBFMdIy4KhpddwebUEBhtPzhtjsukZebZEn3WVISYqrOYasXVjCEeg8OGrNU
-         8NKnX5U7MhVEYDxUPlkZzcD8lrAfRdeRoMyyZPZT0cznaN39w07iElP2sroo4ulp+Scx
-         OFsEGflLGjfsZ7DNMK29mok4HjerEdjgbRDTbHAS1IQiIXcxBxPKrafww6/A2/5C/hjY
-         1HZM8vZbgiXxDMuukNsWoZO8tkITzhWfHd9qjZce/Fc3XxrSIOCwba+v278YLq0Ti9J/
-         BkAEMFbxGp0mGEhmdrPPbNtGMmGuDSuNMYJM4V9daZHJDhxxjJS7qh58xjiwGvuu+ncq
-         ecSw==
+        bh=IAYNl1QP07O60/hQ1fZUEjMYLs8NATGmFAsys6ANyRo=;
+        b=w1ZDJpPNPqUlIaRSILxRefh0gG++PCP5CTBU9ytOKjDn1+RmNqby8kyzrjZsN1R5IN
+         jjX94U2mdPYGQpGu9g8opZIxV4I7RgVTOhu/6Z7vQW3kX+o/bia/E1hSGMxFKHZVkJcq
+         zUtZVgDN7Dkp2mzBdDtBpc2Oxn73TVO55dt60fmPzHAwIbTmA9O0e+Zva1E8S8ae54TK
+         us4YRtrgBBH7M5scoZaYvVOXQnR5QIGgk1uQqdxTjbm4oyE2gNjyEdmDBkH9s3kQtB0C
+         sAWzWMb4JnqlK/qdZQSslAZkA9lZGGD9B3O4UpifoefRz73eymGEtahUoErz6nwpoHJt
+         4fdA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUvaBSjgo1ED+ghKLUx3lSO0dEDLQrPz31pcZlPI7WxaJl/cjeeUfOoID1hcmHnUZw14UgoJLzcM0OVbLt5x0kVdz9GGp4fPFtulTM=
-X-Gm-Message-State: AOJu0YxrsKrLTHyhASQfmO28P0gY7Rt8627ImPIf5o0B9W69sLZSxxSB
-	blemrG6/yQcqwk6tb/N/l1NuY+BcPwYAIB89OWKfOwu3QxkTTtrgxl0Hzw==
+ AJvYcCXrJd/C/zqhTUAtjKUk9ld1FsYtUXM/pcsIF7x6RrZgt/wrPLyxXgdy8hOp0RtT7zPvdQTKvVUfD1KU@alsa-project.org
+X-Gm-Message-State: AOJu0YzkL0iQ/zlpu12PG0yVymi+IZPF5j7nmrcEjXY/xKpmcfqyhofa
+	62fgEUawWiMvR2qPB0s3B9UbRBvLeygs4VScz9lpKcztHARuvh/j
 X-Google-Smtp-Source: 
- AGHT+IHW5d95YR1OZ6QMEQsz+kRupys9NmA4P5IVjto+TNNsbAqmJQ0uN35VZ0RnFXrrfKa/SN78LQ==
-X-Received: by 2002:a05:6a21:99a0:b0:1c4:92fc:7c79 with SMTP id
- adf61e73a8af0-1c6fcf8565amr2124920637.5.1723143031420;
-        Thu, 08 Aug 2024 11:50:31 -0700 (PDT)
+ AGHT+IHJIqEGKclHlOo1+rDoERCauD/j0paHC49vv/k4K6HAjTuLx6t0loSWmMiikFyjXXlwHIsUaQ==
+X-Received: by 2002:a05:6a00:1151:b0:710:5d11:ec2e with SMTP id
+ d2e1a72fcca58-710cab62135mr2080404b3a.0.1723143033686;
+        Thu, 08 Aug 2024 11:50:33 -0700 (PDT)
 Received: from fabio-Precision-3551..
  ([2804:14c:485:4b61:d689:1e02:dd79:b72c])
         by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-710cb2e4acesm1466354b3a.141.2024.08.08.11.50.29
+ d2e1a72fcca58-710cb2e4acesm1466354b3a.141.2024.08.08.11.50.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Aug 2024 11:50:30 -0700 (PDT)
+        Thu, 08 Aug 2024 11:50:33 -0700 (PDT)
 From: Fabio Estevam <festevam@gmail.com>
 To: broonie@kernel.org
 Cc: shengjiu.wang@gmail.com,
 	alsa-devel@alsa-project.org,
 	Fabio Estevam <festevam@denx.de>
-Subject: [PATCH 3/7] ASoC: fsl_rpmsg: Switch to RUNTIME_PM_OPS()
-Date: Thu,  8 Aug 2024 15:49:40 -0300
-Message-Id: <20240808184944.267686-3-festevam@gmail.com>
+Subject: [PATCH 4/7] ASoC: fsl_spdif: Switch to RUNTIME/SYSTEM_SLEEP_PM_OPS()
+Date: Thu,  8 Aug 2024 15:49:41 -0300
+Message-Id: <20240808184944.267686-4-festevam@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240808184944.267686-1-festevam@gmail.com>
 References: <20240808184944.267686-1-festevam@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3BOQSDYARTPTADEGRRYJHT77SGBNSVWE
-X-Message-ID-Hash: 3BOQSDYARTPTADEGRRYJHT77SGBNSVWE
+Message-ID-Hash: COODNZQHHRIQHZ35YF35N4XJ7ZDI4KA7
+X-Message-ID-Hash: COODNZQHHRIQHZ35YF35N4XJ7ZDI4KA7
 X-MailFrom: festevam@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BOQSDYARTPTADEGRRYJHT77SGBNSVWE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/COODNZQHHRIQHZ35YF35N4XJ7ZDI4KA7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,11 +126,11 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Fabio Estevam <festevam@denx.de>
 
-Replace SET_RUNTIME_PM_OPS() with its modern RUNTIME_PM_OPS()
-alternative.
+Replace SET_RUNTIME_PM_OPS()/SET SYSTEM_SLEEP_PM_OPS() with their modern
+RUNTIME_PM_OPS() and SYSTEM_SLEEP_PM_OPS() alternatives.
 
-The combined usage of pm_ptr() and RUNTIME_PM_OPS() allows the
-compiler to evaluate if the runtime suspend/resume() functions
+The combined usage of pm_ptr() and RUNTIME_PM_OPS/SYSTEM_SLEEP_PM_OPS()
+allows the compiler to evaluate if the runtime suspend/resume() functions
 are used at build time or are simply dead code.
 
 This allows removing the CONFIG_PM ifdefery from the runtime
@@ -138,45 +138,47 @@ suspend/resume() functions.
 
 Signed-off-by: Fabio Estevam <festevam@denx.de>
 ---
- sound/soc/fsl/fsl_rpmsg.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ sound/soc/fsl/fsl_spdif.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_rpmsg.c b/sound/soc/fsl/fsl_rpmsg.c
-index 467d6bc9f956..be46fbfd487a 100644
---- a/sound/soc/fsl/fsl_rpmsg.c
-+++ b/sound/soc/fsl/fsl_rpmsg.c
-@@ -286,7 +286,6 @@ static void fsl_rpmsg_remove(struct platform_device *pdev)
- 		platform_device_unregister(rpmsg->card_pdev);
+diff --git a/sound/soc/fsl/fsl_spdif.c b/sound/soc/fsl/fsl_spdif.c
+index a63121c888e0..eace399cb064 100644
+--- a/sound/soc/fsl/fsl_spdif.c
++++ b/sound/soc/fsl/fsl_spdif.c
+@@ -1667,7 +1667,6 @@ static void fsl_spdif_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
  }
  
 -#ifdef CONFIG_PM
- static int fsl_rpmsg_runtime_resume(struct device *dev)
+ static int fsl_spdif_runtime_suspend(struct device *dev)
  {
- 	struct fsl_rpmsg *rpmsg = dev_get_drvdata(dev);
-@@ -321,12 +320,10 @@ static int fsl_rpmsg_runtime_suspend(struct device *dev)
+ 	struct fsl_spdif_priv *spdif_priv = dev_get_drvdata(dev);
+@@ -1739,13 +1738,11 @@ static int fsl_spdif_runtime_resume(struct device *dev)
  
- 	return 0;
+ 	return ret;
  }
--#endif
+-#endif /* CONFIG_PM */
  
- static const struct dev_pm_ops fsl_rpmsg_pm_ops = {
--	SET_RUNTIME_PM_OPS(fsl_rpmsg_runtime_suspend,
--			   fsl_rpmsg_runtime_resume,
+ static const struct dev_pm_ops fsl_spdif_pm = {
+-	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+-				pm_runtime_force_resume)
+-	SET_RUNTIME_PM_OPS(fsl_spdif_runtime_suspend, fsl_spdif_runtime_resume,
 -			   NULL)
-+	RUNTIME_PM_OPS(fsl_rpmsg_runtime_suspend, fsl_rpmsg_runtime_resume,
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
++	RUNTIME_PM_OPS(fsl_spdif_runtime_suspend, fsl_spdif_runtime_resume,
 +		       NULL)
  };
  
- static struct platform_driver fsl_rpmsg_driver = {
-@@ -334,7 +331,7 @@ static struct platform_driver fsl_rpmsg_driver = {
- 	.remove_new = fsl_rpmsg_remove,
+ static const struct of_device_id fsl_spdif_dt_ids[] = {
+@@ -1763,7 +1760,7 @@ static struct platform_driver fsl_spdif_driver = {
  	.driver = {
- 		.name = "fsl_rpmsg",
--		.pm = &fsl_rpmsg_pm_ops,
-+		.pm = pm_ptr(&fsl_rpmsg_pm_ops),
- 		.of_match_table = fsl_rpmsg_ids,
+ 		.name = "fsl-spdif-dai",
+ 		.of_match_table = fsl_spdif_dt_ids,
+-		.pm = &fsl_spdif_pm,
++		.pm = pm_ptr(&fsl_spdif_pm),
  	},
- };
+ 	.probe = fsl_spdif_probe,
+ 	.remove_new = fsl_spdif_remove,
 -- 
 2.34.1
 

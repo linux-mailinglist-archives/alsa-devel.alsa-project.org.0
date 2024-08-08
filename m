@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB5B94C431
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A16E94C43E
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:22:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFBA3832;
-	Thu,  8 Aug 2024 20:20:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFBA3832
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1809201;
+	Thu,  8 Aug 2024 20:22:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1809201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723141258;
-	bh=EYvWmbwapxhXRrApxnPn19zusiErRpPzHSu/Ib9cSag=;
+	s=default; t=1723141378;
+	bh=3Dcu6aJU8X/aJgTk736SCzyefoHjdCUG7aL9wcxERrk=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m72nwMyKjO3xU5/UlOfQxw2lyKZw1i44VsouLQdTV0oN5gyJaL5DKOSk7KXHINxLg
-	 0z7CowijVP1+bpD6CxR/3TW3C2lbQgeUDdHkSMMggXtTNQzAD2QzCRPZGRCy4K0opR
-	 IQfbZI0kFcnFC1eQQiOl/e1IFvc+/4Wc7jLxz32c=
+	b=nPJh/oRMVV6ylKiW2oKHzudaNApTtj0r0K5fydIT8nZnZy+ppNB4vjWdS1gimL9++
+	 IRp0AY5abMo7OALlaj8iGfRSnJyY8Usz1Otk/tdfDqtTpT/+0vnVqybsajWCQ1ctVa
+	 AYwrTBKTZmHT2TfueqtvVTNnB+3SjaSOuM9Vep3s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4EB7F8058C; Thu,  8 Aug 2024 20:20:28 +0200 (CEST)
+	id F034EF805B6; Thu,  8 Aug 2024 20:21:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46F27F805A0;
-	Thu,  8 Aug 2024 20:20:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C341F806A9;
+	Thu,  8 Aug 2024 20:21:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A9D9F8047C; Thu,  8 Aug 2024 18:58:37 +0200 (CEST)
+	id A1FF0F80448; Thu,  8 Aug 2024 18:59:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20618.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2009::618])
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2415::601])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58F67F8023A;
-	Thu,  8 Aug 2024 18:58:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58F67F8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id BFF1CF802DB;
+	Thu,  8 Aug 2024 18:58:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFF1CF802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=kRRu9WCc
+ header.s=selector1 header.b=EzNrThNF
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qwnfuz5yElhw6mV0bvuexrXU8ivrXLXvxAGMZGNTQs1pQPKvXMD6FNSJNwCWjzCYEgqcDzgf3Gazer6uXG8dn/cFk9qypARo/9tJnNHfdgyXwIO3VRADBdZMWyeosF3L5wsoraWIqPfYUy/Yb7vZhf5Sj4wVUJShv64gx6Me/x0dWe54cKM4sS2lvrDqR2RtLeAVBz/LT86hIwl5hAaFhgLX37J/otQvMWesrMVj1DJMVxDxx5lnyaY6kP4npBC7E2eVCTP+AOCICn5m4vBGYHzg4YdaEgThTrvpC4eIRkAxC1jnOQsrvyA1Npo/L6svsqq6SBz7jtdcXtxHGYbhbQ==
+ b=aSldk5ncTv4n0aBIGe3Cm2BVxBQCGxX/gvWpks+vmBfN2blu6Rjbxr/KnX58+DKnnIK7kCr5r6vTi4223kPLYabUUqkBaZnWYFZFNrFCy04tjMulZ8XyZcJHfTjDWWvxS8UXXNuilLttNxgdE+ZpFctzPl7bXKz9Iq51mnT/Hlp+StQ+SYdm3+CtG7zGCzqdVoVVIMiFarv9O1wpdGSCTkiFaFHjQLIpLxs/cYkQ7zjvNIq1TSTEVzIl11sH9YX5EvotlODR+fEg17CeusTyGz4oBIwPRmN4Wi0XKqanTuCieLL1FNh9LRUxhkrIlYYY00h58m/7H/VD99rLrLQ3Lw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=niKGXD7RG6SLE2Z/Fkk9hOW6fVU5W+mLoOggWoOsWho=;
- b=S0m823CM9mj/eShNj5rJ5mucYgDZ6m0HRzNYa5ULKEuU3U+zpHbIvcTtXpWR5Kn09/5v6/ParL1BUOHh0S9gk72FJxMtn0+iaynkY7WV9ck5fuV9KVnIZZJx+x19UfoswdAYhFg4ilr9LRv392ZWMCkxohFnbi6uNim9b+heaFZnPlAZ76xE5/Yt7xDKemH2ZORGG+8TBel5ryogcOTI8rR6T96ny1XhiWzsVIiIxm4q8STst0uU+c/lHase30IIDjA0hPqewdwKp2zdKVTbJZWS1d4K/7qYsuTD5ULjN6JwyuS+6IaTf4H1ss3MY+ECVJheAqVNRDFMJ51yQ1vhHA==
+ bh=I2KCJG/+YUEu+WHixSrZZlPKZxJ6pb4opybJ0tKtTd4=;
+ b=rqykIFEOEWZDyoE3gXusVrRK0C4SszWauoU0a6/5zSV4JdDbBehtjauuYB+zRKcXAmzvcMAEUV+WKEaOZaf6VJX2raCgmjlCguqTAqn5vet6jpfN0S2RfzrvVpxYmfpF5819L0tVrQZPtvi33oM7VCvikspheFG6XGXbQtRkhc/RteSWkJeYi1u76v6CJx2pK06XMFE/OzU0wLLuu8JxgH01W8ouFeSEFcEBb5kOYk5abSfgMkkycBerCCnwBFCHD5m26cJPJ1pBv8c7whV9LtUTA6ZWQ6o/Tmgn9Bw5JolqynU6zp14i5lX5aczM/23SjU79LtBgW6cSy1alWwuPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=niKGXD7RG6SLE2Z/Fkk9hOW6fVU5W+mLoOggWoOsWho=;
- b=kRRu9WCca24vJNKhz4SbtYMxvKbM6JHTtC5FtDNMs4x/GbGVJymYWzatDabiQurjUTi+NKvFCx1vsrQqEBjg6M253ReXVOyiohNPGbJ22jNs9A5hxVsz3j91tftdUxdKd6TVCrFzRcNnVhl7KQfsnExKowkwnPtqLdd2dNCZwC4=
-Received: from MN2PR02CA0014.namprd02.prod.outlook.com (2603:10b6:208:fc::27)
- by LV2PR12MB6013.namprd12.prod.outlook.com (2603:10b6:408:171::13) with
+ bh=I2KCJG/+YUEu+WHixSrZZlPKZxJ6pb4opybJ0tKtTd4=;
+ b=EzNrThNFt1tXRFuvHRiGOLjDHAJfciYsqRgVEXKBqy65IIqFBvJ15IRIJ81VK7QRWkfV7A+QNbesPDF2ltqpAgxzguz6/AbCSnaBU9mu3mNwZm7heorBfon8pCKVv0eQbiMjFNgkwhcDM66EzcvFrmmEcreVhc7U7Vz9ooYaoKc=
+Received: from BN9PR03CA0226.namprd03.prod.outlook.com (2603:10b6:408:f8::21)
+ by CH3PR12MB8548.namprd12.prod.outlook.com (2603:10b6:610:165::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.14; Thu, 8 Aug
- 2024 16:58:22 +0000
-Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
- (2603:10b6:208:fc:cafe::73) by MN2PR02CA0014.outlook.office365.com
- (2603:10b6:208:fc::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.14 via Frontend
- Transport; Thu, 8 Aug 2024 16:58:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.13; Thu, 8 Aug
+ 2024 16:58:27 +0000
+Received: from BL6PEPF0001AB53.namprd02.prod.outlook.com
+ (2603:10b6:408:f8:cafe::ec) by BN9PR03CA0226.outlook.office365.com
+ (2603:10b6:408:f8::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.29 via Frontend
+ Transport; Thu, 8 Aug 2024 16:58:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -76,13 +76,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
+ BL6PEPF0001AB53.mail.protection.outlook.com (10.167.241.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Thu, 8 Aug 2024 16:58:22 +0000
+ 15.20.7849.8 via Frontend Transport; Thu, 8 Aug 2024 16:58:27 +0000
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 8 Aug 2024 11:58:16 -0500
+ 15.1.2507.39; Thu, 8 Aug 2024 11:58:22 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <sound-open-firmware@alsa-project.org>,
@@ -94,10 +94,10 @@ CC: <alsa-devel@alsa-project.org>, <sound-open-firmware@alsa-project.org>,
 	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
 	<cristian.ciocaltea@collabora.com>, Vijendar Mukunda
 	<Vijendar.Mukunda@amd.com>
-Subject: [PATCH RESEND 2/8] ASoC: SOF: amd: fix for acp error reason registers
- wrong offset
-Date: Thu, 8 Aug 2024 22:27:47 +0530
-Message-ID: <20240808165753.3414464-3-Vijendar.Mukunda@amd.com>
+Subject: [PATCH RESEND 3/8] ASoC: SOF: amd: move iram-dram fence register
+ programming sequence
+Date: Thu, 8 Aug 2024 22:27:48 +0530
+Message-ID: <20240808165753.3414464-4-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240808165753.3414464-1-Vijendar.Mukunda@amd.com>
 References: <20240808165753.3414464-1-Vijendar.Mukunda@amd.com>
@@ -109,55 +109,55 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|LV2PR12MB6013:EE_
-X-MS-Office365-Filtering-Correlation-Id: e86d17f8-a62c-4aa7-c532-08dcb7cb4fbd
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB53:EE_|CH3PR12MB8548:EE_
+X-MS-Office365-Filtering-Correlation-Id: a84714e4-e8a9-4620-2654-08dcb7cb52d3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|7416014|376014;
+	BCL:0;ARA:13230040|36860700013|82310400026|7416014|376014|1800799024;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?rWAr5VKk+KWbFce8IMSz+i4KwU2RGqaJrqIofG1oaJ0EvWi3Euwpq1PrJda3?=
- =?us-ascii?Q?3lGc8yyFxBw2nw53iLa8ZBtagY4aS4rk++lcOHzxWqlwbtlrrgk35NxVAtlH?=
- =?us-ascii?Q?c7unmD7KT1MXw4GsB1bzzrM3icCQ8bkCr8a1Ao4pQPkDslmMx2WZ6fu50SZl?=
- =?us-ascii?Q?Y/V7YLQ8jLGjB9kdtuiX3Ib2GeftnQnJ0LPahNGtt3KyQYQdGbmlAZBWGNTU?=
- =?us-ascii?Q?Q4S2ToDLyMrKWk8o+PuCAdXkqIa8enJ7vzIGAutfsvKzai6gE7QGxgmiKQ4R?=
- =?us-ascii?Q?CNcy2RBDa9/tlTh7eP7KyqaNCZPVrZ9UAst4ugl8Nb3hAGlz9IAOt2JjHYS6?=
- =?us-ascii?Q?uEmYL2iax3Rpz7Pgl292q6qDEGFLQuZs5Lu9JNvLz1xHork8+GK1sfq0+szj?=
- =?us-ascii?Q?XSGolN9ETLnMY83kRkxCaMpIONATRVSwftUB//LFHesd4NxU1lGDAyhFwFmj?=
- =?us-ascii?Q?Xwj2GXNdEJgVvnsSjcb1/3doRp8cJhxUggUUiG6HNikId/LDAuPJx6jiegP1?=
- =?us-ascii?Q?SlRANrnhwJlkkS759HD+sbrXeIEqueWv/WbO+sy0/CoFrZp7M0uf6V9I9q+j?=
- =?us-ascii?Q?73AqqOvapszGRtjqS+VvITX3z72yTn56TPGDCsefPS1kE6G6tzVoQO5GJ1QW?=
- =?us-ascii?Q?TFDxUNWjSig8I6c8XRHRmrkOO0Ep+N1EQQUi6jYbfZVr8rkhHQDS3wDbBV9+?=
- =?us-ascii?Q?ap+kgUZzHRqtcHPm39D2OtIw2I1T/g2qo88pMZQY0+hUdQeCrYwnJ1nGnL2e?=
- =?us-ascii?Q?Ye8W7SxDThoLk9NP7rSH1IPkZPyBudSmo/friakchdwYvaVuGWzvg2Bw5pA6?=
- =?us-ascii?Q?V0vVXgGZebOmxZ+SfsbEIpk2AM0XoG9/hvuTOuV105gvk0izEFdk55Y4RyNQ?=
- =?us-ascii?Q?cwUIVvNcbs/+sj/bOH5D5K2QKZNiFC2i/G7SfoGtYIW2hJIZLc6SEHiJ+Dyc?=
- =?us-ascii?Q?ohb5yow44XcXZZJM04oV183MsUN7TMDQVRCzS0ZylffagoeIoLm9K+oS2qTD?=
- =?us-ascii?Q?gMGQqccsYrIahq57pBjc6Pcs29R2tLPMJmgxo4hUXKvqlEsEIWR/NE+M4qg4?=
- =?us-ascii?Q?DW/eGghe6xO2YKJdjsTNIAPrhK0CChZq9mpu3yGOvuKlofaOOfs6tUc+/KSP?=
- =?us-ascii?Q?qALw3gG1oUwdccpBtSDFoGa67t3ea5f0l6irl2ggs03ITEHOH5QpTHIt+rAF?=
- =?us-ascii?Q?FT9CIOCnqPT7qS/7XRQ6Kq71asyLAeC7S9sXWgA2JJKhhHrfO31hJy/bfQls?=
- =?us-ascii?Q?tUbCFk7K1oRCkzCfPFEH04HZIcseZYsvGMnhlqYMFVv63XxTZeq0QSw5p6ge?=
- =?us-ascii?Q?Fj0gL4y0hZmkpCB5wTVTBNcRpjgrURDt2/91vuEAcLKC4h20IOY21HaExNaV?=
- =?us-ascii?Q?e9GOzAzucZIx9LtKNStdVhkUnU/aoI03Zq5BppW9vk+gyx9JzrPtdZl5c9Hs?=
- =?us-ascii?Q?cMk+Jd0uUTDG2YpnxmwXtwf6PohHtnVx?=
+	=?us-ascii?Q?bKV+OQO2gn/MUaAu5SudUqR+DpNq7ZjyuhcJW4BEWdQvgJWf2vUBtPTYFm0T?=
+ =?us-ascii?Q?auKIFcTkfuvexQ9FPEk1rcs14NkQ6fKnC+Th71yUMAUQG93KE/5H/R61Wjvs?=
+ =?us-ascii?Q?691dTfc6ZZCO+6hCuGVNTBrowBShGgKKkL2QSJapPD2bgX1jO3JBaFvKnevN?=
+ =?us-ascii?Q?fIkx0CpJXprVGyLprVHn0PRKhL6mHJy/3ff87UgmYO1Hp89yBCsFlN2NR/q5?=
+ =?us-ascii?Q?bgBjPR0N977UWz6PIdr5CFd47dZbeZH5sl9miQUxo3WoOLa6Ql0HZTGlPdc7?=
+ =?us-ascii?Q?BRIaHHdK40gA2OjXKvsg6y8wJUxRkcEM3veU4a7ieqC7CojfBlV/6txeJbyl?=
+ =?us-ascii?Q?G9CTNRbpljBpdL/gVwimpfX53J1LJrLwqoq5XJOUTVc+wdIG/Ia/LG4kDCvj?=
+ =?us-ascii?Q?FeZNHG4DlDubJWzfd9nErtfZOdjq5dh0ajR5Y8moE0GA9CgZxstfqtOKbogn?=
+ =?us-ascii?Q?e6uNwJGsbvlTMEAN85hPCUOh5YPGkry5ywj71wWFLYGDUlZ9BIb/W9Do6doy?=
+ =?us-ascii?Q?YXWPw+AsKDaoA28KjG9GUCBQ0ZrhSU64D04fhnnyc9kKWCkhXBVjR3H6R5rr?=
+ =?us-ascii?Q?0UK8H3OL1pEdfwGRcOcQxnmx3vrPnE+dwhryCn9N3heKIm0+WK00mkXchPHB?=
+ =?us-ascii?Q?7xJDXfWimNNUS9nnHm/NQpsI3A3YC215kNRwoiROLKVNmcI/GydU99l9qVfI?=
+ =?us-ascii?Q?YtS6J9t0OTfdoX/FvETw3k2SffhmyZ/Rwdh/ulmBwKcUZ1AlTRj+9CqzqnZJ?=
+ =?us-ascii?Q?zgKFdFidzMiU4htlKeMdwx2EoptAdn+yu4TKoTYKKByLS611Yny7ulfBr29q?=
+ =?us-ascii?Q?C4cRR94Ie6ZnC1SxiNQ2kQf8QhttjyGcwnWJawcGexORMW/b9Vx5zUmVgesL?=
+ =?us-ascii?Q?zBfendkop5msWvThGXjwDlXK6x8if8hxkKINknEzPg+fErBsjznFdCWFX28r?=
+ =?us-ascii?Q?kZTlZ5X6mOmO00iJPzZA5bXJ4KZC+TjzMTEHREc7OJKJKUIzm0yFKsGNkcrL?=
+ =?us-ascii?Q?eYMqEwilK9CJ9X6G/2UJkCkZ1a3rypUZIAJwxCgLrGJrsqQS0K4O+Cve6Yi/?=
+ =?us-ascii?Q?buMA3vmmrb7CE8qH7N7s1r6qlOdi3+Mfon03WNYLdEO5zEFBcYjsRSnKKOs+?=
+ =?us-ascii?Q?FEGTN0MabSHMgE22kMLHZxhqMLI/3K1j900b4+NxPz1M3wHp/2KusPgE0LRc?=
+ =?us-ascii?Q?XCOZ+ZElSqJuMsZ79RKcQECyT5PcrlMdm/ggkrpJMqxedenJX4EuQGKFCByT?=
+ =?us-ascii?Q?039jm4UwITLu5xrzEHTrF7FwjmFAsFJLrId3HN+i61BDFPPFhs/yC71kPRCS?=
+ =?us-ascii?Q?Xkoq8E8hhqriysm1YUktvrdzgodz0PFGkHCcF70XYqJBu+nK9U558WBycRzy?=
+ =?us-ascii?Q?B+1AfkuSNM6gpWbf+keb10F8wLIEKID32PpQ/JsjLBjDvXQH0GzxZj3iHYVo?=
+ =?us-ascii?Q?GWcn5x7iFWzTf/+yPrIybjJlUa0rw1el?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(7416014)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(7416014)(376014)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2024 16:58:22.3067
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2024 16:58:27.4800
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e86d17f8-a62c-4aa7-c532-08dcb7cb4fbd
+ a84714e4-e8a9-4620-2654-08dcb7cb52d3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
  TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	BL6PEPF0001AB58.namprd02.prod.outlook.com
+	BL6PEPF0001AB53.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6013
-Message-ID-Hash: 7ZFRSZAJEHCPMFIV4FKQFZEWENUP5ZZT
-X-Message-ID-Hash: 7ZFRSZAJEHCPMFIV4FKQFZEWENUP5ZZT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8548
+Message-ID-Hash: P7E5OQZWLMGUDWSTXP2CRWQJKFQ6SCFX
+X-Message-ID-Hash: P7E5OQZWLMGUDWSTXP2CRWQJKFQ6SCFX
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -170,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ZFRSZAJEHCPMFIV4FKQFZEWENUP5ZZT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P7E5OQZWLMGUDWSTXP2CRWQJKFQ6SCFX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,103 +179,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix the incorrect register offsets for acp error reason registers.
-Add 'acp_sw0_i2s_err_reason' as register field in acp descriptor structure
-and update the value based on the acp variant.
-ACP_SW1_ERROR_REASON register was added from Rembrandt platform onwards.
-Add conditional check for the same.
+As per design, ACP iram-dram fence register sequence should be initiated
+before triggering SHA dma. This ensures that IRAM size will programmed
+correctly before initiaing SHA dma.
 
-Fixes: 96eb81851012 ("ASoC: SOF: amd: add interrupt handling for SoundWire manager devices")
+Fixes: 094d11768f74 ("ASoC: SOF: amd: Skip IRAM/DRAM size modification for Steam Deck OLED")
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/amd/acp-dsp-offset.h | 3 ++-
- sound/soc/sof/amd/acp.c            | 5 +++--
- sound/soc/sof/amd/acp.h            | 1 +
- sound/soc/sof/amd/pci-acp63.c      | 1 +
- sound/soc/sof/amd/pci-rmb.c        | 1 +
- sound/soc/sof/amd/pci-rn.c         | 1 +
- 6 files changed, 9 insertions(+), 3 deletions(-)
+ sound/soc/sof/amd/acp.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/sof/amd/acp-dsp-offset.h b/sound/soc/sof/amd/acp-dsp-offset.h
-index 66968efda869..072b703f9b3f 100644
---- a/sound/soc/sof/amd/acp-dsp-offset.h
-+++ b/sound/soc/sof/amd/acp-dsp-offset.h
-@@ -83,7 +83,8 @@
- #define ACP6X_AXI2DAGB_SEM_0			0x1874
- 
- /* ACP common registers to report errors related to I2S & SoundWire interfaces */
--#define ACP_SW0_I2S_ERROR_REASON		0x18B4
-+#define ACP3X_SW_I2S_ERROR_REASON		0x18C8
-+#define ACP6X_SW0_I2S_ERROR_REASON		0x18B4
- #define ACP_SW1_I2S_ERROR_REASON		0x1A50
- 
- /* Registers from ACP_SHA block */
 diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
-index d0b7d1c54248..9ce8b5ccb3d7 100644
+index 9ce8b5ccb3d7..d0ba641ba28c 100644
 --- a/sound/soc/sof/amd/acp.c
 +++ b/sound/soc/sof/amd/acp.c
-@@ -403,8 +403,9 @@ static irqreturn_t acp_irq_handler(int irq, void *dev_id)
+@@ -264,6 +264,17 @@ int configure_and_run_sha_dma(struct acp_dev_data *adata, void *image_addr,
+ 	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SHA_DMA_STRT_ADDR, start_addr);
+ 	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SHA_DMA_DESTINATION_ADDR, dest_addr);
+ 	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SHA_MSG_LENGTH, image_length);
++
++	/* psp_send_cmd only required for vangogh platform (rev - 5) */
++	if (desc->rev == 5 && !(adata->quirks && adata->quirks->skip_iram_dram_size_mod)) {
++		/* Modify IRAM and DRAM size */
++		ret = psp_send_cmd(adata, MBOX_ACP_IRAM_DRAM_FENCE_COMMAND | IRAM_DRAM_FENCE_2);
++		if (ret)
++			return ret;
++		ret = psp_send_cmd(adata, MBOX_ACP_IRAM_DRAM_FENCE_COMMAND | MBOX_ISREADY_FLAG);
++		if (ret)
++			return ret;
++	}
+ 	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SHA_DMA_CMD, ACP_SHA_RUN);
  
- 	if (val & ACP_ERROR_IRQ_MASK) {
- 		snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->ext_intr_stat, ACP_ERROR_IRQ_MASK);
--		snd_sof_dsp_write(sdev, ACP_DSP_BAR, base + ACP_SW0_I2S_ERROR_REASON, 0);
--		snd_sof_dsp_write(sdev, ACP_DSP_BAR, base + ACP_SW1_I2S_ERROR_REASON, 0);
-+		snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->acp_sw0_i2s_err_reason, 0);
-+		if (adata->pci_rev >= ACP_RMB_PCI_ID)
-+			snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SW1_I2S_ERROR_REASON, 0);
- 		snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->acp_error_stat, 0);
- 		irq_flag = 1;
+ 	ret = snd_sof_dsp_read_poll_timeout(sdev, ACP_DSP_BAR, ACP_SHA_TRANSFER_BYTE_CNT,
+@@ -281,17 +292,6 @@ int configure_and_run_sha_dma(struct acp_dev_data *adata, void *image_addr,
+ 			return ret;
  	}
-diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
-index 6ac853ff6093..f6f0fcfeb691 100644
---- a/sound/soc/sof/amd/acp.h
-+++ b/sound/soc/sof/amd/acp.h
-@@ -204,6 +204,7 @@ struct sof_amd_acp_desc {
- 	u32 reg_start_addr;
- 	u32 reg_end_addr;
- 	u32 acp_error_stat;
-+	u32 acp_sw0_i2s_err_reason;
- 	u32 sdw_max_link_count;
- 	u64 sdw_acpi_dev_addr;
- };
-diff --git a/sound/soc/sof/amd/pci-acp63.c b/sound/soc/sof/amd/pci-acp63.c
-index c3da70549995..e90658ba2bd7 100644
---- a/sound/soc/sof/amd/pci-acp63.c
-+++ b/sound/soc/sof/amd/pci-acp63.c
-@@ -36,6 +36,7 @@ static const struct sof_amd_acp_desc acp63_chip_info = {
- 	.ext_intr_stat	= ACP6X_EXT_INTR_STAT,
- 	.ext_intr_stat1	= ACP6X_EXT_INTR_STAT1,
- 	.acp_error_stat = ACP6X_ERROR_STATUS,
-+	.acp_sw0_i2s_err_reason = ACP6X_SW0_I2S_ERROR_REASON,
- 	.dsp_intr_base	= ACP6X_DSP_SW_INTR_BASE,
- 	.sram_pte_offset = ACP6X_SRAM_PTE_OFFSET,
- 	.hw_semaphore_offset = ACP6X_AXI2DAGB_SEM_0,
-diff --git a/sound/soc/sof/amd/pci-rmb.c b/sound/soc/sof/amd/pci-rmb.c
-index 194b7ff37e9e..a366f904e6f3 100644
---- a/sound/soc/sof/amd/pci-rmb.c
-+++ b/sound/soc/sof/amd/pci-rmb.c
-@@ -34,6 +34,7 @@ static const struct sof_amd_acp_desc rembrandt_chip_info = {
- 	.ext_intr_stat	= ACP6X_EXT_INTR_STAT,
- 	.dsp_intr_base	= ACP6X_DSP_SW_INTR_BASE,
- 	.acp_error_stat = ACP6X_ERROR_STATUS,
-+	.acp_sw0_i2s_err_reason = ACP6X_SW0_I2S_ERROR_REASON,
- 	.sram_pte_offset = ACP6X_SRAM_PTE_OFFSET,
- 	.hw_semaphore_offset = ACP6X_AXI2DAGB_SEM_0,
- 	.fusion_dsp_offset = ACP6X_DSP_FUSION_RUNSTALL,
-diff --git a/sound/soc/sof/amd/pci-rn.c b/sound/soc/sof/amd/pci-rn.c
-index bff2d979ea6a..2b7c53470ce8 100644
---- a/sound/soc/sof/amd/pci-rn.c
-+++ b/sound/soc/sof/amd/pci-rn.c
-@@ -34,6 +34,7 @@ static const struct sof_amd_acp_desc renoir_chip_info = {
- 	.ext_intr_stat	= ACP3X_EXT_INTR_STAT,
- 	.dsp_intr_base	= ACP3X_DSP_SW_INTR_BASE,
- 	.acp_error_stat = ACP3X_ERROR_STATUS,
-+	.acp_sw0_i2s_err_reason = ACP3X_SW_I2S_ERROR_REASON,
- 	.sram_pte_offset = ACP3X_SRAM_PTE_OFFSET,
- 	.hw_semaphore_offset = ACP3X_AXI2DAGB_SEM_0,
- 	.acp_clkmux_sel	= ACP3X_CLKMUX_SEL,
+ 
+-	/* psp_send_cmd only required for vangogh platform (rev - 5) */
+-	if (desc->rev == 5 && !(adata->quirks && adata->quirks->skip_iram_dram_size_mod)) {
+-		/* Modify IRAM and DRAM size */
+-		ret = psp_send_cmd(adata, MBOX_ACP_IRAM_DRAM_FENCE_COMMAND | IRAM_DRAM_FENCE_2);
+-		if (ret)
+-			return ret;
+-		ret = psp_send_cmd(adata, MBOX_ACP_IRAM_DRAM_FENCE_COMMAND | MBOX_ISREADY_FLAG);
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	ret = snd_sof_dsp_read_poll_timeout(sdev, ACP_DSP_BAR, ACP_SHA_DSP_FW_QUALIFIER,
+ 					    fw_qualifier, fw_qualifier & DSP_FW_RUN_ENABLE,
+ 					    ACP_REG_POLL_INTERVAL, ACP_DMA_COMPLETE_TIMEOUT_US);
 -- 
 2.34.1
 

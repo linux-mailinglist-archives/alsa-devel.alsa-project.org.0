@@ -2,86 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2CE394C612
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 22:57:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BCBD94C616
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 22:57:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DA06B71;
-	Thu,  8 Aug 2024 22:57:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DA06B71
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A3BBE8E;
+	Thu,  8 Aug 2024 22:57:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A3BBE8E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723150656;
-	bh=7c4tQRSAELTB1T8amQAP3q6kd8OVoXeWj2W715x9jIM=;
+	s=default; t=1723150677;
+	bh=8HZW9ydPbynTwHn2r0OXZgO4S5M5/tgIuH3d75AJA0A=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MGyGTqIUy2RmhK+g2Udhwskuhm8PgZ+4QLeihpS2v+XDSnvdCAnNkDRMGgPw6UXWf
-	 6koIFI2QdAVkB8ZaLp+BT9KhQ+itm7waolGhXPsDqZDe0Gnb0Cgba0qfVP5Wzr9SY5
-	 fWQcbK+g8Zn9Diiw8SicUPvUDVkikc2PIs3ASX3o=
+	b=PCR8NgD5Xv/lNS0qfaDqdDr3G+SCg18ThWKis60vkSXZZXI+Mu4CNNM3IENZddfMI
+	 +0Qx6bQ9RpsRfXIYPqAQ6XX0yE8R8yY1EIK14uJ4ph2QOJsclMN5fHqs0sfYOz7Gv3
+	 aG1G15is8IuLCxsyv/zeYJIUkmMlKnBOSk02OVII=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58953F80448; Thu,  8 Aug 2024 22:56:52 +0200 (CEST)
+	id 10EFDF805B5; Thu,  8 Aug 2024 22:57:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB4D1F805F2;
-	Thu,  8 Aug 2024 22:56:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C30CF80606;
+	Thu,  8 Aug 2024 22:57:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20C78F8057A; Thu,  8 Aug 2024 22:56:48 +0200 (CEST)
+	id CF86BF805A8; Thu,  8 Aug 2024 22:57:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 79F03F802DB
-	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 22:56:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79F03F802DB
+	by alsa1.perex.cz (Postfix) with ESMTPS id BCF9BF8059F;
+	Thu,  8 Aug 2024 22:57:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCF9BF8059F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=WixlTFq0
+ header.s=k20201202 header.b=BhCj/MDP
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 61A03CE1381;
-	Thu,  8 Aug 2024 20:56:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DABCCC32782;
-	Thu,  8 Aug 2024 20:56:30 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id E7274615B8;
+	Thu,  8 Aug 2024 20:56:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5500CC32782;
+	Thu,  8 Aug 2024 20:56:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723150600;
-	bh=7c4tQRSAELTB1T8amQAP3q6kd8OVoXeWj2W715x9jIM=;
+	s=k20201202; t=1723150619;
+	bh=8HZW9ydPbynTwHn2r0OXZgO4S5M5/tgIuH3d75AJA0A=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=WixlTFq0j1bNZegfuhsDPidaMkO1UMMoCEpakA6WQAbgHAATKM/qL2CrLZlYrteet
-	 Rtcs4/Dx/Ur2nCg7lOjqBEcP/SVmChvg7VMZayqpBWwLddXZRmM6ExqymPzYZjRT6E
-	 mI3nRNUruH8YhEg3rXpPr8cLGttvEL/SC6AnXtrdf2HBH+UzKCkj4AnIRO7z1H9Lkk
-	 3cpbWo3vtTxDYBtjav95DrXk44TMyJ4E9elV5v/8GRi89DtjgYOqC6Ck8k4FGBglgq
-	 4tKkN+ibwx7DqrxlfUCRTHgcEt/0Dsbcpf99EhVG/G0Q+lYoA42RpEAVkpfRcK3j2S
-	 vpxkaROuzrBJQ==
+	b=BhCj/MDPwqsTvO3JLNkrAB9k7dGBoLzqHUBEpMVCPYWHzVb//6U/3Bu7qfFHiVNOu
+	 5XhU9Zj45yz4eDsztzVZT+32vIvf3AWrFU2rqtvvP4h1oPSvQ7x15SSIdIWPnvfA2p
+	 Pi+TtpvQSOqytHTykS4+hcTdwck8CdCcf/bqaIuFKQ/1klNx0Gtbbhb2Ly3cyQ8iyj
+	 djApxLe6xJMFY9SvmpqXic7Ka081kFshTyUNNr7blsoA1PFWcPgjIzE6QXL0tymzDY
+	 zAmyGxjwRbmsolaTRPGwPTue8rwjM9WMoTk0VM8MEep1bb4tWtst+eHqi9MkEA2VKG
+	 h7jxhlbxPkkmQ==
 From: Mark Brown <broonie@kernel.org>
 To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
  Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- sunpeng.li@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Jeff Johnson <quic_jjohnson@quicinc.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
  "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
  <linux-sound@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20240807085154.1987681-1-Vijendar.Mukunda@amd.com>
-References: <20240807085154.1987681-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH] ASoC: amd: acp: add ZSC control register programming
- sequence
-Message-Id: <172315059143.475406.15663956148866112375.b4-ty@kernel.org>
-Date: Thu, 08 Aug 2024 21:56:31 +0100
+In-Reply-To: <20240807051341.1616925-1-Vijendar.Mukunda@amd.com>
+References: <20240807051341.1616925-1-Vijendar.Mukunda@amd.com>
+Subject: Re: (subset) [PATCH 1/8] ASoC: SOF: amd: Fix for incorrect acp
+ error satus register offset
+Message-Id: <172315061079.475406.3339971086228165624.b4-ty@kernel.org>
+Date: Thu, 08 Aug 2024 21:56:50 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: EZUUSGJVY5ISVJOVR4LCXZCQLVJAS4DM
-X-Message-ID-Hash: EZUUSGJVY5ISVJOVR4LCXZCQLVJAS4DM
+Message-ID-Hash: ICAHXPRLEBQ3P3CRZ3WD22YDHOL5RKZS
+X-Message-ID-Hash: ICAHXPRLEBQ3P3CRZ3WD22YDHOL5RKZS
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZUUSGJVY5ISVJOVR4LCXZCQLVJAS4DM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ICAHXPRLEBQ3P3CRZ3WD22YDHOL5RKZS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,11 +112,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 07 Aug 2024 14:21:48 +0530, Vijendar Mukunda wrote:
-> Add ZSC Control register programming sequence for ACP D0 and D3 state
-> transitions for ACP7.0 onwards. This will allow ACP to enter low power
-> state when ACP enters D3 state. When ACP enters D0 State, ZSC control
-> should be disabled.
+On Wed, 07 Aug 2024 10:43:13 +0530, Vijendar Mukunda wrote:
+> Adding 'dsp_intr_base' to ACP error status register offset in irq handler
+> points to wrong register offset. ACP error status register offset got
+> changed from ACP 6.0 onwards. Add 'acp_error_stat' descriptor field and
+> update the value based on the ACP variant.
 > 
 > 
 
@@ -117,8 +126,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: acp: add ZSC control register programming sequence
-      commit: c35fad6f7e0d69b0e9e7e196bdbca3ed03ac24ea
+[5/8] ASoC: SOF: amd: update conditional check for cache register update
+      commit: 001f8443d480773117a013a07f774d252f369bea
+[6/8] ASoC: SOF: amd: modify psp send command conditional checks
+      (no commit info)
+[7/8] ASoC: SOF: amd: remove unused variable from sof_amd_acp_desc structure
+      (no commit info)
+[8/8] ASoC: amd: acp: Convert comma to semicolon
+      (no commit info)
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

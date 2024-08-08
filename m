@@ -2,104 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA34D94BD49
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 14:21:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BEDA94BD7A
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 14:28:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 154BA83B;
-	Thu,  8 Aug 2024 14:21:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 154BA83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C964DE72;
+	Thu,  8 Aug 2024 14:28:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C964DE72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723119690;
-	bh=ypoxP7jDf7LjMLCC24x01FzK9fJ/WozB7SR4D4u7jHA=;
+	s=default; t=1723120115;
+	bh=Xljr1/yImIwhvpLum0DZInmLBuHQBsAlpx6pOkwH+MQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=p1N/nXz3Y150/5xnBBgfZ8It3F9X663bJ+Z9CRxDDbuXIxP042LgiHJbO1cZxRX4z
-	 dqLTSp0zF4WEbdthDDQa2VcXpgQarZ3ml2yiOLy7GKcYNSyJ1zSEhyjOwqGPoE1mUo
-	 O9xr3bXxctOeuCbUx5MWvQJ1Iq6bbjyl4wrJ5k3Y=
+	b=a6NWAL4Wyp/ywJIMdZf6sQgD/D1xCXi3guMLE7miF2KRt6gJO4JtbYq4SV8PN68JO
+	 blouvHY9LyiKD2HkpKWzxA3FmyT1EHQ8DScjvXdV/EbKS/f8tmyZErtOcG7vUAMB1G
+	 g7tAiH7fYFs7zaU2AV8y1bA7CVehfNIRdjUQVDnA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 623C7F805D3; Thu,  8 Aug 2024 14:20:41 +0200 (CEST)
+	id E2C21F805BF; Thu,  8 Aug 2024 14:27:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4D32F805D2;
-	Thu,  8 Aug 2024 14:20:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CBB6F805AE;
+	Thu,  8 Aug 2024 14:27:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 673A5F802DB; Thu,  8 Aug 2024 14:11:36 +0200 (CEST)
+	id DD289F802DB; Thu,  8 Aug 2024 14:20:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E1717F800B0
-	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 14:11:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1717F800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id C2B14F800B0
+	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 14:19:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2B14F800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=AjBqdD3v
+ header.s=Intel header.b=YZUgD8RN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723119080; x=1754655080;
+  t=1723119592; x=1754655592;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=ypoxP7jDf7LjMLCC24x01FzK9fJ/WozB7SR4D4u7jHA=;
-  b=AjBqdD3va8GcBqwGQVcpO57OM7NPjWW4ePJQyqSKGs9JjhEJH1QH2INN
-   iMvHFpYVG1naf4pki0Uor54TLJaASWCqJqg9W2Beuc/wbp527c5PXVh2I
-   J9r6i27MFsRPIMF1ien0dueC1UTFxmx3MSvdklqNbRNvc57qYHsZaPj/5
-   wHAsj5gsfrMC3eRfLRvm1KhvHp/yFw6erhIqLMO3KvMHaJm7L3Y2fEMwR
-   75k7ZH0ERv0fkrTWUTEVRo1hdePJl3C6l1UkaWgPMOpd0JMC8npWBVIH8
-   Y0M1nNk6crhxekJrwd6P+3DhcJVgEBOxR15fxDXG+HoVFaZk7j/JeXjGp
-   g==;
-X-CSE-ConnectionGUID: cpiKCEuRRS+3Jf8Y3lBILw==
-X-CSE-MsgGUID: bo+FiF4ETB2EU0A1A+kPrQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11157"; a="20901296"
-X-IronPort-AV: E=Sophos;i="6.09,272,1716274800";
-   d="scan'208";a="20901296"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2024 05:11:15 -0700
-X-CSE-ConnectionGUID: TmdFroz0QU6FXsOr/pvTEg==
-X-CSE-MsgGUID: D7BmpyGfTAuI8ysmCatVhQ==
+  bh=Xljr1/yImIwhvpLum0DZInmLBuHQBsAlpx6pOkwH+MQ=;
+  b=YZUgD8RN+2NanAMbvyAKJApGiDccNKzqHlMkXXjC/MXDwL40KpN+C8PU
+   JQtFb0pFGGDp33EmwPpfbhJ9bd5kMEamZjYe9bCnOff/EMxpWoO//asqO
+   4v4xGDsn5eHabbsPf9npPZbqC5/k/FufgjEJpc2iy/9gwb5m+Q1bAxvhy
+   2ceVcPD9wSTfLtT3Kz2AkGKirdYi5dUEEisXAclyiHCP9DLH9zj+ZCUrS
+   qDjkOREug0dUyVkzg/RtX9wIIJPVH5Q+byhL+uM83cHySMZBhr9JQEdVJ
+   EypDwad/lL1s0ieefMjKs796Yi1CYm75zU0iUh6piJ6W6akjJEIzQiuY+
+   A==;
+X-CSE-ConnectionGUID: QQHt1C+kTxa3zxNnMEdi4Q==
+X-CSE-MsgGUID: wiyKCCUmThOGOC69OcXryg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11157"; a="21211075"
+X-IronPort-AV: E=Sophos;i="6.09,273,1716274800";
+   d="scan'208";a="21211075"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Aug 2024 05:19:47 -0700
+X-CSE-ConnectionGUID: Lc3kUjvGS4O6ti6CxYqRAg==
+X-CSE-MsgGUID: jAJZWV/mQoSDOKO9l/WVxA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,272,1716274800";
-   d="scan'208";a="62149825"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.8.107])
- ([10.94.8.107])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2024 05:11:11 -0700
-Message-ID: <c3b6ac24-6359-4809-83d9-ac62ec64b396@linux.intel.com>
-Date: Thu, 8 Aug 2024 14:11:07 +0200
+X-IronPort-AV: E=Sophos;i="6.09,273,1716274800";
+   d="scan'208";a="57122886"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.246.169])
+ ([10.245.246.169])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Aug 2024 05:19:43 -0700
+Message-ID: <930bb152-860a-4ec5-9ef0-1c96f554f365@linux.intel.com>
+Date: Thu, 8 Aug 2024 14:19:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 23/34] ALSA: usb-audio: Prevent starting of audio
- stream if in use
+Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
+ support
+To: Jaroslav Kysela <perex@perex.cz>, Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
+ <1722940003-20126-2-git-send-email-shengjiu.wang@nxp.com>
+ <e89a56bf-c377-43d8-bba8-6a09e571ed64@linux.intel.com>
+ <CAA+D8AN9JXJr-BZf8aY7d4rB6M60pXS_DG=qv=P6=2r1A18ATA@mail.gmail.com>
+ <ffa85004-8d86-4168-b278-afd24d79f9d8@linux.intel.com>
+ <116041ee-7139-4b77-89be-3a68f699c01b@perex.cz>
 Content-Language: en-US
-To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
- corbet@lwn.net, broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
- Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, tiwai@suse.com,
- gregkh@linuxfoundation.org, robh@kernel.org
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-doc@vger.kernel.org,
- alsa-devel@alsa-project.org
-References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-24-quic_wcheng@quicinc.com>
- <186ae30f-678c-423a-a56f-74510a184f99@linux.intel.com>
- <43e9850c-3e34-4582-aadd-4a6dcbd3ce8d@quicinc.com>
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <43e9850c-3e34-4582-aadd-4a6dcbd3ce8d@quicinc.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <116041ee-7139-4b77-89be-3a68f699c01b@perex.cz>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: G4Q7222BT2OOVNN6AJ2CT73VQB32EHXT
-X-Message-ID-Hash: G4Q7222BT2OOVNN6AJ2CT73VQB32EHXT
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Message-ID-Hash: Y44GU3I3ZNSXUKMZKW4IMVVQBMOUSNM5
+X-Message-ID-Hash: Y44GU3I3ZNSXUKMZKW4IMVVQBMOUSNM5
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G4Q7222BT2OOVNN6AJ2CT73VQB32EHXT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y44GU3I3ZNSXUKMZKW4IMVVQBMOUSNM5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,79 +118,113 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 8/8/2024 3:19 AM, Wesley Cheng wrote:
-> Hi Amadeusz,
-> 
-> On 8/6/2024 7:51 AM, Amadeusz Sławiński wrote:
->> On 8/1/2024 3:17 AM, Wesley Cheng wrote:
->>> With USB audio offloading, an audio session is started from the ASoC
->>> platform sound card and PCM devices.  Likewise, the USB SND path is still
->>> readily available for use, in case the non-offload path is desired.  In
->>> order to prevent the two entities from attempting to use the USB bus,
->>> introduce a flag that determines when either paths are in use.
+ files changed, 10 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/
+>>>>> sound/compress_offload.h
+>>>>> index 98772b0cbcb7..8b2b72f94e26 100644
+>>>>> --- a/include/uapi/sound/compress_offload.h
+>>>>> +++ b/include/uapi/sound/compress_offload.h
+>>>>> @@ -112,10 +112,12 @@ struct snd_compr_codec_caps {
+>>>>>    * end of the track
+>>>>>    * @SNDRV_COMPRESS_ENCODER_DELAY: no of samples inserted by the
+>>>>> encoder at the
+>>>>>    * beginning of the track
+>>>>> + * @SNDRV_COMPRESS_SRC_RATIO_MOD: Resampling Ratio Modifier for
+>>>>> sample rate converter
+>>>>>    */
+>>>>>   enum sndrv_compress_encoder {
+>>>>>        SNDRV_COMPRESS_ENCODER_PADDING = 1,
+>>>>>        SNDRV_COMPRESS_ENCODER_DELAY = 2,
+>>>>> +     SNDRV_COMPRESS_SRC_RATIO_MOD = 3,
+>>>>>   };
+>>>>
+>>>> this sounds wrong to me. The sample rate converter is not an "encoder",
+>>>> and the properties for padding/delay are totally specific to an encoder
+>>>> function.
 >>>
+>>> There is only decoder and encoder definition for compress,  I know
+>>> it is difficult to add SRC to encoder or decoder classification,
+>>> SRC is a Post Processing.  I hope you can have a recommandation
 >>
->> How can this happen? Can you provide some example with list of devices and which one should block the other? If I recall correctly devices are already exclusive unless you support substreams which ASoC does not at the moment.
+>> I don't. I think we're blurring layers in a really odd way.
 >>
->  From past discussions, I think so far everyone is on board with the idea of having both the USB sound card and PCM devices exist in conjunction w/ the USB offload path, which is going to be done over the ASoC platform card.  So for example,
+>> The main reason why the compress API was added is to remove the
+>> byte-to-time conversions. But that's clearly not useful for a
+>> post-processing of PCM data, where the bitrate is constant. It really
+>> feels like we're adding this memory-to-memory API to the compress
+>> framework because we don't have anything else available, not because it
+>> makes sense to do so.
 > 
+> It makes sense to offload decoder/encoder tasks as batch processing for
+> standard compress stream and return back result (PCM stream or encoded
+> stream) to user space. So it makes sense to use the compress interface
+> (parameters handshake) for it. Let's talk about the proper SRC extension.
+> 
+> For SRC and dynamic rate modification. I would just create an ALSA
+> control for this. We are already using the "PCM Rate Shift 100000"
+> control in the sound/drivers/aloop.c for this purpose (something like
+> pitch in MIDI) for example. There is no requirement to add this function
+> through metadata ioctls. As bonus, this control can be monitored with
+> multiple tasks.
 
-Sorry, I must have missed that and examples in documentation could 
-probably be a bit better, it is bit late at patchset 24 that I 
-understood about this now. And is part of a reason why I was confused 
-about kcontrol implementation.
-
-> / # cat /proc/asound/cards
->   0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
->                        SM8250-MTP-WCD9380-WSA8810-VA-DMIC
->   1 [C320M          ]: USB-Audio - Plantronics C320-M
->                        Plantronics Plantronics C320-M at usb-xhci-hcd.1.auto-1.2, full speed
-> 
-> This device currently has the following sound cards within the system:
-> 
-> - card#0 - ASoC platform card: handles USB offload, speaker, etc...
-> 
-> - card#1 - USB SND card: card created for interacting with the connected USB device.
-> 
-> So now, with USB offloading in the picture, there are basically two paths that can start attempting to utilize the same USB device endpoints.  Let's keep it simple and assume the device only has one playback substream (which means only one PCM device)
-> 
-> /proc/asound/card1 # cat stream0
-> Plantronics Plantronics C320-M at usb-xhci-hcd.1.auto-1.2, full speed : USB Audio
-> 
-> Playback:
->    Status: Stop
->    Interface 2
->      Altset 1
->      Format: S16_LE
->      Channels: 2
->      Endpoint: 0x01 (1 OUT) (ADAPTIVE)
->      Rates: 8000, 16000, 24000, 32000, 44100, 48000
->      Bits: 16
->      Channel map: FL FR
-> 
-> So the patch here will prevent transfers from happening from both the offload path and directly over the USB SND PCM device, which correlates to the following paths:
-> 
-> - offload: card#0 pcm#0
-> 
-> - USB SND: card#1 pcm#0
-
-Well, it's one way to do that.
-
-Personally I would just reuse USB FEs and when opening one check if it 
-can be offloaded:
-* check if someone disabled Offload on FE
-* check if it is connected to HW that can do Offload at all
-* check if Offload streams are available on backing HW
-* check if audio formats are supported by above HW
-* do any other checks that may be needed
-and then just redirect FE setup to relevant driver doing offload if 
-able, otherwise just go standard path.
+this wouldn't work when the rate is estimated in firmware/hardware,
+which is precisely what the 'asynchronous' part of ASRC does.
 
 
-As I've wrote I must have missed the discussion where it was agreed on 
-and if maintainers agree that it can be done this way, I won't fight it. 
-Even though I would consider my way a lot simpler and user friendly from 
-end user point of view.
+>> Then there's the issue of parameters, we chose to only add parameters
+>> for standard encoders/decoders. Post-processing is highly specific and
+>> the parameter definitions varies from one implementation to another -
+>> and usually parameters are handled in an opaque way with binary
+>> controls. This is best handled with a UUID that needs to be known only
+>> to applications and low-level firmware/hardware, the kernel code should
+>> not have to be modified for each and every processing and to add new
+>> parameters. It just does not scale and it's unmaintainable.
+>>
+>> At the very least if you really want to use this compress API, extend it
+>> to use a non-descript "UUID-defined" type and an opaque set of
+>> parameters with this UUID passed in a header.
+> 
+> We don't need to use UUID-defined scheme for simple (A)SRC
+> implementation. As I noted, the specific runtime controls may use
+> existing ALSA control API.
 
-Thanks,
-Amadeusz
+"Simple (A)SRC" is an oxymoron. There are multiple ways to define the
+performance, and how the drift estimator is handled. There's nothing
+simple if you look under the hood. The SOF implementation has for
+example those parameters:
+
+uint32_t source_rate;           /**< Define fixed source rate or */
+				/**< use 0 to indicate need to get */
+				/**< the rate from stream */
+uint32_t sink_rate;             /**< Define fixed sink rate or */
+				/**< use 0 to indicate need to get */
+				/**< the rate from stream */
+uint32_t asynchronous_mode;     /**< synchronous 0, asynchronous 1 */
+				/**< When 1 the ASRC tracks and */
+				/**< compensates for drift. */
+uint32_t operation_mode;        /**< push 0, pull 1, In push mode the */
+				/**< ASRC consumes a defined number */
+				/**< of frames at input, with varying */
+				/**< number of frames at output. */
+				/**< In pull mode the ASRC outputs */
+				/**< a defined number of frames while */
+				/**< number of input frames varies. */
+
+They are clearly different from what is suggested above with a 'ratio-mod'.
+
+Same if you have a 'simple EQ'. there are dozens of ways to implement
+the functionality with FIR, IIR or a combination of the two, and
+multiple bands.
+
+The point is that you have to think upfront about a generic way to pass
+parameters. We didn't have to do it for encoders/decoders because we
+only catered to well-documented standard solutions only. By choosing to
+support PCM processing, a new can of worms is now open.
+
+I repeat: please do not make the mistake of listing all processing with
+an enum and a new structure for parameters every time someone needs a
+specific transform in their pipeline. We made that mistake with SOF and
+had to backtrack rather quickly. The only way to scale is an identifier
+that is NOT included in the kernel code but is known to higher and
+lower-levels only.

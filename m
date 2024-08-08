@@ -2,82 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD0AB94C6BA
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 00:07:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74AF794C6BB
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 00:07:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74D6CB76;
-	Fri,  9 Aug 2024 00:07:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74D6CB76
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1B37E80;
+	Fri,  9 Aug 2024 00:07:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B37E80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723154835;
-	bh=qtAK0UeXQRcCnP7Y+pZwRW9Qdm29Lj43pKM6k3a4U4I=;
+	s=default; t=1723154857;
+	bh=4qDVAjJfZJck66hTltxpHpYd6rfa84s00JWu0atPoDU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PzN5R6OKiAg4EQSUZPZM4kfwOW2ejICAymhWdOWgoDAxr4w4NJwSTrfaCaw/V/xpW
-	 on01CbDkajX8FbmshTzq5NrXUcyMQAm1t0D6AhAEmIZjU6YEt0d31ugvx2baykb1uc
-	 Kn9ld+mFpm6mI6+PMeQ3LNplB6juCA9DjQ3S5rZw=
+	b=C4m1sKhZZERNpX4jJGJ5IiiKvocsbOdBL3n1HjRdaIBNUaCYgROCpc3zEpJ1j6VRz
+	 euhd3NcFta2A2PwpWSGuTs+r5Okn1Izcb4+jSXziJZBbnbGVB7adEVqsbtjf8es8xP
+	 Fa+4W0hNq0l1rhOyh4Lin4M5sF6UkABKRPU1QS7s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FBC2F80588; Fri,  9 Aug 2024 00:06:43 +0200 (CEST)
+	id 12A52F805E6; Fri,  9 Aug 2024 00:06:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9826BF8049C;
-	Fri,  9 Aug 2024 00:06:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E514F805BD;
+	Fri,  9 Aug 2024 00:06:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5BC9CF80579; Thu,  8 Aug 2024 23:52:33 +0200 (CEST)
+	id 1F935F8047C; Thu,  8 Aug 2024 23:53:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,TIME_LIMIT_EXCEEDED shortcircuit=no
-	autolearn=unavailable version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 503FAF80236
-	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 23:46:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 503FAF80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 28322F8023A
+	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 23:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28322F8023A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GB7iBy2z
+ header.s=k20201202 header.b=XnDsAlGR
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 87D2D61592;
-	Thu,  8 Aug 2024 21:46:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CBAC4AF0C;
-	Thu,  8 Aug 2024 21:46:51 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 267C0CE1669;
+	Thu,  8 Aug 2024 21:47:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B62D5C4AF0C;
+	Thu,  8 Aug 2024 21:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723153615;
-	bh=qtAK0UeXQRcCnP7Y+pZwRW9Qdm29Lj43pKM6k3a4U4I=;
+	s=k20201202; t=1723153621;
+	bh=4qDVAjJfZJck66hTltxpHpYd6rfa84s00JWu0atPoDU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=GB7iBy2zOeWDJaLuvF3/XzjgSBufy8srdgMk7h+UCiYbiGidb8LtqyFWVikrd2AAA
-	 4DehsFUaMiOS+XE2iIKdMzJlQCpszYg29ZvL7bYlPL+yg60MayHfVaP5+CUrfotPKy
-	 17fXirqE5RtqZ9kJ3SBgYP8YHxZqGDarp5fbh96B+7miSyNiALUNG4oYrNZzH/aEw8
-	 CNM2M1Lcta0NGOQ2PxMSPsOX6qiti92Usx4mRsf+6+xWmxEtEHyVJrsJkKOxUX5/ln
-	 J6N79l2h0fueSsEmkv34gxldPIeqbv9McxUZw+UuhlyLV5NFsX0PFBx4CjGqdD8+Dq
-	 VBTlcWCqmbtUw==
+	b=XnDsAlGRPM/2ZTTer/eUU69MDS2XWj6RVEI/S2Q5jVPCjGHSADI7izX3KPyJrLWPf
+	 nd5QNC2584o8dsyCcGgRkam5I67qT6G2zO4qE4BwNfa1/lyeGvA+jz14R2QGR/GTaJ
+	 M0GoOrne1v5aDNz3YZzz8tKt9MOyBQ+HxhUKcI1cbwIG3jxQfZmVfVZhe4pk+zGcGj
+	 Et88J0b1EsujTi4sDFvKoLWV+1UaV7LLKrz3qvHuZckWLGKKH8mGerXntDmbUhxRVT
+	 nGsCbGcI8ENlfRl2bx0l64ZtJVad85d2R8SvT6EBqvM0TdU2zGyh3fdyws44iHV7OC
+	 /9+0fKuTDjpkA==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Shenghao Ding <shenghao-ding@ti.com>,
- Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
- Linus Walleij <linus.walleij@linaro.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Shenghao Ding <13916275206@139.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20240807-asoc-tas-gpios-v2-0-bd0f2705d58b@linaro.org>
-References: <20240807-asoc-tas-gpios-v2-0-bd0f2705d58b@linaro.org>
-Subject: Re: [PATCH v2 0/3] ASoC: tas*: Fix up GPIO usage
-Message-Id: <172315361213.480667.14057947911720144793.b4-ty@kernel.org>
-Date: Thu, 08 Aug 2024 22:46:52 +0100
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Alexey Klimov <alexey.klimov@linaro.org>
+In-Reply-To: <20240806114931.40090-1-krzysztof.kozlowski@linaro.org>
+References: <20240806114931.40090-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: qcom,wcd937x: Correct reset
+ GPIO polarity in example
+Message-Id: <172315361817.480667.1573735001583504478.b4-ty@kernel.org>
+Date: Thu, 08 Aug 2024 22:46:58 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: IEHFAX5H36LBGSP5446AAY7W6WQLXVWH
-X-Message-ID-Hash: IEHFAX5H36LBGSP5446AAY7W6WQLXVWH
+Message-ID-Hash: F73DES4OXZELU6H7OUGGNJMSJTGHC25R
+X-Message-ID-Hash: F73DES4OXZELU6H7OUGGNJMSJTGHC25R
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IEHFAX5H36LBGSP5446AAY7W6WQLXVWH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F73DES4OXZELU6H7OUGGNJMSJTGHC25R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,17 +101,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 07 Aug 2024 17:02:31 +0200, Linus Walleij wrote:
-> The TI TAS drivers use some legacy GPIO code and headers,
-> this series fixes it up.
+On Tue, 06 Aug 2024 13:49:28 +0200, Krzysztof Kozlowski wrote:
+> The reset GPIO of WCD9370/WCD9375 is active low and that's how it is
+> routed on typical boards, so correct the example DTS to use expected
+> polarity.
 > 
-> The TAS2781 is a special case since it adds a handful of
-> lines of deviating code to reconfigure a GPIO line for
-> IRQ mode and then never actually use the IRQ obtained in
-> the code. Is the line used by autonomous hardware? I'm
-> puzzled by this.
 > 
-> [...]
 
 Applied to
 
@@ -117,12 +114,14 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: tas2781-i2c: Drop weird GPIO code
-      commit: c2c0b67dca3cb3b3cea0dd60075a1c5ba77e2fcd
-[2/3] ASoC: tas2781-i2c: Get the right GPIO line
-      commit: 1c4b509edad15192bfb64c81d3c305bbae8070db
-[3/3] ASoC: tas*: Drop unused GPIO includes
-      commit: caab9a1cbb9a9fca24ceabeef57b3764d861ad32
+[1/4] ASoC: dt-bindings: qcom,wcd937x: Correct reset GPIO polarity in example
+      commit: 2f3e2c9eaafc272266344d777f8de44f8632e247
+[2/4] ASoC: dt-bindings: qcom,wcd934x: Correct reset GPIO polarity in example
+      commit: 55922275702e112652d314a9b6a6ca31d4b7252e
+[3/4] ASoC: dt-bindings: qcom,wcd938x: Correct reset GPIO polarity in example
+      commit: 871f1a16fa3506487de24b05d68be45e9185e77a
+[4/4] ASoC: dt-bindings: qcom,wcd939x: Correct reset GPIO polarity in example
+      commit: 81f88fddef9cddae6b4e5d9359022c7a2a3e3b6a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

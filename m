@@ -2,107 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4418794C4EF
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:53:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C5D694C4F0
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:53:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3E987F8;
-	Thu,  8 Aug 2024 20:53:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3E987F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAF01E82;
+	Thu,  8 Aug 2024 20:53:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAF01E82
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723143223;
-	bh=IYIEF2tpGgWgsk3UCWqxe52vjVCoL1cfnQRYQZUX0wU=;
+	s=default; t=1723143237;
+	bh=ddYKQIDL235r4+RKAIGr9PUoUGq/CeBqhl036jTf0z4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=u7BTMLTMoTjdNjAELDzJry5TszowMyIq/ezp2q/Q5kTZqOM3ET+gMxT//HAkpxhMO
-	 sH0kg8vsPuNXVpTNKEmh2Rze4ixNvpo9yAUuwMA4k0a+0yG64nzleVhZYVp0TjuEHP
-	 wqpnVDMMAxh2/FURo/TpEA2Z7fofbZTHwQJJsDZ0=
+	b=t7/9PUSZl9J2d7CJsu9zfFKL7atTlw16nlnR9Jh+BDU5Q3+dc+sjII5FLDmbsz9du
+	 YlSqZn68vdMZ+n8uyB0h7byYxewtH5o7nvV9cldXKmywBAiWTVVHuiHuFj1aOrVX3U
+	 yxsbLWdXXoFfR4qTenKmjaVPz/m7QY7H9GX8Xtj0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 763B3F8067B; Thu,  8 Aug 2024 20:52:03 +0200 (CEST)
+	id 25E45F80693; Thu,  8 Aug 2024 20:52:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92541F8023A;
-	Thu,  8 Aug 2024 20:52:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CE01F806A6;
+	Thu,  8 Aug 2024 20:52:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F18CCF802DB; Thu,  8 Aug 2024 20:50:42 +0200 (CEST)
+	id B6419F802DB; Thu,  8 Aug 2024 20:50:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7B0C1F800B0
-	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 20:50:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B0C1F800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27C54F80236
+	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 20:50:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27C54F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=l+EKkqen
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-70d2879bfb0so130383b3a.0
+ header.s=20230601 header.b=SyBorBet
+Received: by mail-pf1-x434.google.com with SMTP id
+ d2e1a72fcca58-70d2cd07869so110877b3a.0
         for <alsa-devel@alsa-project.org>;
- Thu, 08 Aug 2024 11:50:40 -0700 (PDT)
+ Thu, 08 Aug 2024 11:50:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1723143038; x=1723747838;
+        d=gmail.com; s=20230601; t=1723143041; x=1723747841;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dN83GrAFp2sbzsWsThcrr6kqMedA31alRy4sc8FYM98=;
-        b=l+EKkqenm1F3rZRnETewYts3rx2y52TwdiieuBFCkDopzjdSxnzBkTyr8jjia/kmK1
-         s/58btUGb0LO31YNvmgrYJi+Rk8Jw5qdbgyLvQKFFU9M7vwIclU/Oxsys1SPoN+FBv9B
-         PZXG3I5djJ1sitnJMaYv4LxHH4OOW+7fRvHk0vehAc3yEI3UziFnW4ahLRj2FEtCmxNS
-         ee8xZZb0j+4WfCeVKsZCSW76JlOqxhXwQOvWZG7s6rfRaZx9P22rQ/RRKu3bsPqMy3N1
-         fozcl7VWjdzXuqGh+cH4Px6CdtDjg/dcEM/q8IikjAXgO/vz93Mb92Nevq61udceXDdd
-         Oe6w==
+        bh=zHFlSeM0x9wf/C8SejIAylQjDyad2lQr4Ad9tCBEoBs=;
+        b=SyBorBet/uvWrWxQW8OzhKSLZ+PVIwfM+XyHtJiMhlksdoDARagFFgpc6mF1oqySM2
+         PRJpS4y5KtsgEmK/434RQWcw8R++XCjDQVC4PEDEiV2xZpzsDykPbBPHdkUHRT70UbLt
+         lHpXgnK4Pko2TDu4+DXLPVm2z6LRvWJlFwXDe6iaj7IcntsHuiRJyLwJTfT9MMg2+Y2F
+         nkgasipMmLlVOZkNZZ863V+Mezp60QUOf1RHdez1v9o7QFRA9kbxsyE7ix82ViZTlyKh
+         GjZzwEj2IPjUB+vGAdws34CV9Sdcatl4Vz5J0QzBHtqPzT7MqDHhBDrH9TGrC9wpLV6V
+         SFwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723143038; x=1723747838;
+        d=1e100.net; s=20230601; t=1723143041; x=1723747841;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=dN83GrAFp2sbzsWsThcrr6kqMedA31alRy4sc8FYM98=;
-        b=Sx/YyI50YhF+cWqbuH6H59cJMyVgrY5F0WdP7Smm+lgd3EKJs+e8Sv+Twg/ADFSyrV
-         vxLG6GZ5x4P8dBYkQMyvfVVI+k+yAX3HvsCW0g5mFrC4Fi+hwvZQag1Ay8bmmyhnZCGR
-         w73sN62d+RLKHWJp3mCNOOxTRN7cZ5Dgl5gUeGyTgBdKCuQGTjnrRdDPgHSZLbQuhTrB
-         1kDbfndlqMBiSvi1QXh9YR/zlLhJyHt0bjJntde0nYYJMvmVa5YYlt40kFgi4fhl/Dfx
-         H9XaZKXhHC5D+RjnpqvKgs0HvWHLMj+I6AFGu/+RhGwRPGVsdryOJjaVOrTaq/20eJIk
-         2Wug==
+        bh=zHFlSeM0x9wf/C8SejIAylQjDyad2lQr4Ad9tCBEoBs=;
+        b=oEm51C8zVGSJ0bnzhaGHOrZga336lWEl4knKCAgzZbFGNC5H8XU+RNFLFF4brdIZqC
+         o/GnzhT0MAIgZhx/gqUeoXd6Bssz5AK32mqwNLRtN2AoouuT6hRKl8zS7Q6AVIGVeH3/
+         DXqlpYYyCy5oVaLSfyxaQkrLIV054C9tYcAEFZgLh+LJLazc4EKhEF9lqPUp+wfCz5/A
+         LIK1hpA7ULYlo8d03Qke85r8TH9vMQIqHZNv3w/QPHXx4MDKqBf6EjLPx0gCvdM1St9K
+         kQda0Uaht+jhcYrHr+W3lGsvczG5SHSgxzWWmRHnpINJkFN6OtEz274z7JerokGfYk+C
+         VNPA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU5RgWnAfQvu4lRSOR89ypUCp2llPxYetBduz8VGJbEmbqmJHumRToGr931BRU7JQdtAqk1vnBYS5qwmBMO1EuabheZgh6bVQtanbg=
-X-Gm-Message-State: AOJu0YwMVOtZQ67Stz0fz9s5w6smK0hjwcbAb7p7FDNKQKkRx1YaWi/c
-	pIBznjEKXne88nE2GCe7W7xbeoPjXo+HJgeWhw1gk38I8uoNFeWIO9rQ1A==
+ AJvYcCVYZRNRf+MZASY+DIBtKw15sxLmmhMqteh1IOS/hMFPSTNTtNFKHyBbEgoBwZhFBDMls2aGXwiT40Xw@alsa-project.org
+X-Gm-Message-State: AOJu0YyoupXtuNo1NA6mEdhMmPlTQvUIiEshiiwaGnF9iKGzXHe3j+62
+	dINr8dVVhAWWIhRpWhzJuXuZHFu7UHbv9VEzi5iNhVDNZ3htWit9F/Krww==
 X-Google-Smtp-Source: 
- AGHT+IFNv4lJ/2PUM0ae4lyqNexS0DCH4TI69skYGrTVrP7C3nl35aJfHts5bNDEcXHvD5zesFe0ww==
-X-Received: by 2002:a05:6a00:3a14:b0:70d:1048:d4eb with SMTP id
- d2e1a72fcca58-710cae6b355mr2038957b3a.3.1723143038367;
-        Thu, 08 Aug 2024 11:50:38 -0700 (PDT)
+ AGHT+IEJNzTRowR2scY7npjwzCxHF+PmEuPWdFSnIypgTkFivuBev917Fym2WHBPKdalssWtfBz3sA==
+X-Received: by 2002:a05:6a00:3928:b0:70d:148e:4bad with SMTP id
+ d2e1a72fcca58-710cad593demr2064483b3a.2.1723143040643;
+        Thu, 08 Aug 2024 11:50:40 -0700 (PDT)
 Received: from fabio-Precision-3551..
  ([2804:14c:485:4b61:d689:1e02:dd79:b72c])
         by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-710cb2e4acesm1466354b3a.141.2024.08.08.11.50.36
+ d2e1a72fcca58-710cb2e4acesm1466354b3a.141.2024.08.08.11.50.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Aug 2024 11:50:37 -0700 (PDT)
+        Thu, 08 Aug 2024 11:50:40 -0700 (PDT)
 From: Fabio Estevam <festevam@gmail.com>
 To: broonie@kernel.org
 Cc: shengjiu.wang@gmail.com,
 	alsa-devel@alsa-project.org,
 	Fabio Estevam <festevam@denx.de>
-Subject: [PATCH 6/7] ASoC: imx-audmux: Switch to SYSTEM_SLEEP_PM_OPS
-Date: Thu,  8 Aug 2024 15:49:43 -0300
-Message-Id: <20240808184944.267686-6-festevam@gmail.com>
+Subject: [PATCH 7/7] ASoC: imx-pcm-rpmsg: Switch to
+ RUNTIME/SYSTEM_SLEEP_PM_OPS()
+Date: Thu,  8 Aug 2024 15:49:44 -0300
+Message-Id: <20240808184944.267686-7-festevam@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240808184944.267686-1-festevam@gmail.com>
 References: <20240808184944.267686-1-festevam@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JZEVBSDBMEZAHDY4BBELFLWT4EXXOGCS
-X-Message-ID-Hash: JZEVBSDBMEZAHDY4BBELFLWT4EXXOGCS
+Message-ID-Hash: FX5IGAQUDLTOHKNT2J235MLANA5FHAYI
+X-Message-ID-Hash: FX5IGAQUDLTOHKNT2J235MLANA5FHAYI
 X-MailFrom: festevam@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JZEVBSDBMEZAHDY4BBELFLWT4EXXOGCS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FX5IGAQUDLTOHKNT2J235MLANA5FHAYI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,54 +127,70 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Fabio Estevam <festevam@denx.de>
 
-Replace SET_SYSTEM_SLEEP_PM_OPS() with its modern SYSTEM_SLEEP_PM_OPS()
-alternative.
+Replace SET_RUNTIME_PM_OPS()/SET SYSTEM_SLEEP_PM_OPS() with their modern
+RUNTIME_PM_OPS() and SYSTEM_SLEEP_PM_OPS() alternatives.
 
-The combined usage of pm_sleep_ptr() and SYSTEM_SLEEP_PM_OPS() allows
-the compiler to evaluate if the suspend/resume() functions
+The combined usage of pm_ptr() and RUNTIME_PM_OPS/SYSTEM_SLEEP_PM_OPS()
+allows the compiler to evaluate if the runtime suspend/resume() functions
 are used at build time or are simply dead code.
 
-This allows removing the CONFIG_PM_SLEEP ifdefery from the
+This allows removing the CONFIG_PM ifdefery from the runtime
 suspend/resume() functions.
 
 Signed-off-by: Fabio Estevam <festevam@denx.de>
 ---
- sound/soc/fsl/imx-audmux.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ sound/soc/fsl/imx-pcm-rpmsg.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/fsl/imx-audmux.c b/sound/soc/fsl/imx-audmux.c
-index 747ab2f1aae3..f97ae14dc452 100644
---- a/sound/soc/fsl/imx-audmux.c
-+++ b/sound/soc/fsl/imx-audmux.c
-@@ -320,7 +320,6 @@ static void imx_audmux_remove(struct platform_device *pdev)
- 		audmux_debugfs_remove();
+diff --git a/sound/soc/fsl/imx-pcm-rpmsg.c b/sound/soc/fsl/imx-pcm-rpmsg.c
+index b0944a07ab47..22156f99dcee 100644
+--- a/sound/soc/fsl/imx-pcm-rpmsg.c
++++ b/sound/soc/fsl/imx-pcm-rpmsg.c
+@@ -753,7 +753,6 @@ static void imx_rpmsg_pcm_remove(struct platform_device *pdev)
+ 		destroy_workqueue(info->rpmsg_wq);
  }
  
--#ifdef CONFIG_PM_SLEEP
- static int imx_audmux_suspend(struct device *dev)
+-#ifdef CONFIG_PM
+ static int imx_rpmsg_pcm_runtime_resume(struct device *dev)
  {
- 	int i;
-@@ -348,10 +347,9 @@ static int imx_audmux_resume(struct device *dev)
+ 	struct rpmsg_info *info = dev_get_drvdata(dev);
+@@ -771,9 +770,7 @@ static int imx_rpmsg_pcm_runtime_suspend(struct device *dev)
+ 
+ 	return 0;
+ }
+-#endif
+ 
+-#ifdef CONFIG_PM_SLEEP
+ static int imx_rpmsg_pcm_suspend(struct device *dev)
+ {
+ 	struct rpmsg_info *info = dev_get_drvdata(dev);
+@@ -809,14 +806,11 @@ static int imx_rpmsg_pcm_resume(struct device *dev)
  
  	return 0;
  }
 -#endif /* CONFIG_PM_SLEEP */
  
- static const struct dev_pm_ops imx_audmux_pm = {
--	SET_SYSTEM_SLEEP_PM_OPS(imx_audmux_suspend, imx_audmux_resume)
-+	SYSTEM_SLEEP_PM_OPS(imx_audmux_suspend, imx_audmux_resume)
+ static const struct dev_pm_ops imx_rpmsg_pcm_pm_ops = {
+-	SET_RUNTIME_PM_OPS(imx_rpmsg_pcm_runtime_suspend,
+-			   imx_rpmsg_pcm_runtime_resume,
+-			   NULL)
+-	SET_SYSTEM_SLEEP_PM_OPS(imx_rpmsg_pcm_suspend,
+-				imx_rpmsg_pcm_resume)
++	RUNTIME_PM_OPS(imx_rpmsg_pcm_runtime_suspend,
++		       imx_rpmsg_pcm_runtime_resume, NULL)
++	SYSTEM_SLEEP_PM_OPS(imx_rpmsg_pcm_suspend, imx_rpmsg_pcm_resume)
  };
  
- static struct platform_driver imx_audmux_driver = {
-@@ -359,7 +357,7 @@ static struct platform_driver imx_audmux_driver = {
- 	.remove_new	= imx_audmux_remove,
- 	.driver	= {
- 		.name	= DRIVER_NAME,
--		.pm = &imx_audmux_pm,
-+		.pm = pm_sleep_ptr(&imx_audmux_pm),
- 		.of_match_table = imx_audmux_dt_ids,
- 	}
+ static const struct platform_device_id imx_rpmsg_pcm_id_table[] = {
+@@ -832,7 +826,7 @@ static struct platform_driver imx_pcm_rpmsg_driver = {
+ 	.id_table = imx_rpmsg_pcm_id_table,
+ 	.driver = {
+ 		.name = IMX_PCM_DRV_NAME,
+-		.pm = &imx_rpmsg_pcm_pm_ops,
++		.pm = pm_ptr(&imx_rpmsg_pcm_pm_ops),
+ 	},
  };
+ module_platform_driver(imx_pcm_rpmsg_driver);
 -- 
 2.34.1
 

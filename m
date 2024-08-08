@@ -2,90 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AEDC94C441
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:23:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41F3F94C4E6
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2024 20:52:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2579A4A;
-	Thu,  8 Aug 2024 20:23:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2579A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C1AFB71;
+	Thu,  8 Aug 2024 20:52:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C1AFB71
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723141427;
-	bh=fBYzb9q58GUyO+F6s8oW2cvMI2xtXQ/irUMXIi6iaFE=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1723143143;
+	bh=DaTT56HwWTXhqRQOruorS7NdSThzxpJeGMYGKESqA14=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LOn5w6a/RGA5l98Svir7I6i306X1NMzX4ucaZQkn01bhDDgO1frC5tVt2QSCAreai
-	 ALkms21tAkGx2OnQyXR4rv60CHYpkn0pV5FaE7nyehWhqvcs3i7dBxMUNs/Ea8J8vR
-	 rEY6Kzd6MDEcbAwdovp169S9EdKskpC3e4tn5Hk4=
+	b=OfpP9+TFACp7V1DY3A3xC6PZtpuzkiMPt+qsxPsSl8SC5bZ1/IV9ece2c3QmeLllI
+	 SOS+oHprZhuYsp/PXVU/GXJVtbfpdW1oYDyo09p0Qx9zfVH3f8jqVpXUGggJP6BOpt
+	 RShVOAF7a+FenSDIx5se0bXhggCdQ0CVdOmtFYvw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA183F806DF; Thu,  8 Aug 2024 20:21:21 +0200 (CEST)
+	id 88DB2F805BD; Thu,  8 Aug 2024 20:51:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD4EDF8070C;
-	Thu,  8 Aug 2024 20:21:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DA93F805AF;
+	Thu,  8 Aug 2024 20:51:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C08B6F802DB; Thu,  8 Aug 2024 19:53:05 +0200 (CEST)
+	id 4FB6BF8047C; Thu,  8 Aug 2024 20:50:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0BFD8F80236
-	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 19:52:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BFD8F80236
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68969F80236
+	for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2024 20:50:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68969F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=LsSc0sXu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723139569; x=1754675569;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=fBYzb9q58GUyO+F6s8oW2cvMI2xtXQ/irUMXIi6iaFE=;
-  b=LsSc0sXuRd5LAB4lbc6AQPwRVQfeC1FdD4CrNltd6LayB+g8BgsFwpyz
-   ZX739A/WVOOIHUApKELk9YhRj4MNNmC8Pp9v72P/nOpiYhyxfCyVZx3XD
-   c0r/ilFzJhQdtgwSkjGrwGJPuduyD17TSIUGbIgntzxN5LCFp1rp5CeS9
-   VdvGBBK5IlrK77XIYFpRfAqN6oX565x4QP1xB2fCgY5v3/FEobrkk0q4N
-   sPvJhU4tjbmvg1CEtUtuPQVWjj0qiqd0GyO2SzUduG/de7Zk0hyvWKHed
-   +0N4cv2E7sqhJDvRwZVHc+LwD3RhHUgNDCAsCChg8eH3g2nECSargFryP
-   Q==;
-X-CSE-ConnectionGUID: Vs0H6sfgS9yaa0lxpRrggQ==
-X-CSE-MsgGUID: o7hU5AdaTKSV8rES2wIYQg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11158"; a="32433599"
-X-IronPort-AV: E=Sophos;i="6.09,273,1716274800";
-   d="scan'208";a="32433599"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2024 10:52:43 -0700
-X-CSE-ConnectionGUID: ISTeMbyLSyuhUOk3z5pfCQ==
-X-CSE-MsgGUID: Cwk/nXO2RYaAN3s29GK5gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,273,1716274800";
-   d="scan'208";a="57537432"
-Received: from unknown (HELO b6bf6c95bbab) ([10.239.97.151])
-  by orviesa006.jf.intel.com with ESMTP; 08 Aug 2024 10:52:41 -0700
-Received: from kbuild by b6bf6c95bbab with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1sc7JW-0006OJ-1p;
-	Thu, 08 Aug 2024 17:52:38 +0000
-Date: Fri, 9 Aug 2024 01:52:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: [tiwai-sound:for-next 69/82] sound/pcmcia/vx/vxpocket.c:273:26:
- error: 'pdev' undeclared; did you mean 'p_dev'?
-Message-ID: <202408090110.t0mWbTyh-lkp@intel.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=YRE5mkPg
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-1fc53171e56so708735ad.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 08 Aug 2024 11:50:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1723143027; x=1723747827;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wG1tqS3eErBEKRyG5e7foes5NY/LKwy15yIXBQJIJ5I=;
+        b=YRE5mkPgj5o/UOheAf3leSWRode4VA+V0qkGhV4hkXjDjYiLUOUoEouG5+YFmatV1j
+         +Mvf5lrrahkun2pvjKmNyQtmhRhnV1tHYEMcjfBhjrs9K6NqxwcQmt5OXb0wi7mqVtkg
+         BRgv0LpkdgHxT+s0FQFcCbyFJRwpFC3NJctY9D9WD+SVWRAMmYZM4u0tX90fLN0t8CD9
+         39yzHb36wzHVUb+Wa0EmsiXx/xTkB6Y4EFoMfSxrdKz8x4qqVeBJKxC8Dxvp/T9E86JU
+         4JWT9/rN8sQz4dPBI/CHJQ5HcbMQJe+H/yXF2ccWInYpDlHQppi+uHraac1nYWvqlAvw
+         T+Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723143027; x=1723747827;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wG1tqS3eErBEKRyG5e7foes5NY/LKwy15yIXBQJIJ5I=;
+        b=lVgn05lkZm61O5j15Jcf00wjbML1/KehIOkTCIqp/qotYJ4S50n2YgYdlkvXXV0mhC
+         lulCfPu9ZCHXT1Q7Z2kXocdqwWUqtrvFDpZ9DeQ/XZO3SiZrM3f2uPhlgpQIr5vNF78x
+         XsC+GFsKqga85dHIf0a5+14bz9+9GCR92cpIMWDrgCU/oBt5zWSLM4ToqHdCR7U3rT9t
+         OMk2TxmLLVkAnPqH2kSHjhTRtLSa5G9Ayre/+VHRb81J0GBFrzxbWO/MVMSyAXifdYFz
+         rBvqPJrOGW0iPhVgQHN9/qL5TftQosecmg8BuGOPK7jm7F4cOfG1W8gSqqR1fQDunD8z
+         mejw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX8iDYBc+a8qZSyAD/Ph01NZU2tPKs1k5NOYpLbTlbQoxLVdKgF3lBWH6xWH5GLnExIp9sYY+yXYTgaEamlC+blkm1/Xj/1g88xV14=
+X-Gm-Message-State: AOJu0YyilUjBehL3WVNmoruxr6wQya6tEUDlnyMOrTe7qM5SrrQd610C
+	srXJ9hKQzlMBgV+HzTnzAbh3V61MiOJDSQi/lvZkOqYCR4f9kHjC
+X-Google-Smtp-Source: 
+ AGHT+IErgJoqGZZOyiPlyr6fP443pbB4bYS3lKSH/Ix5z3YbKi2bSdPWbx3yesrbIs+1ELgQjYkvXQ==
+X-Received: by 2002:a05:6a21:6d94:b0:1c4:c007:51b7 with SMTP id
+ adf61e73a8af0-1c6fcfac527mr1932361637.6.1723143026786;
+        Thu, 08 Aug 2024 11:50:26 -0700 (PDT)
+Received: from fabio-Precision-3551..
+ ([2804:14c:485:4b61:d689:1e02:dd79:b72c])
+        by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-710cb2e4acesm1466354b3a.141.2024.08.08.11.50.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Aug 2024 11:50:26 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: broonie@kernel.org
+Cc: shengjiu.wang@gmail.com,
+	alsa-devel@alsa-project.org,
+	Fabio Estevam <festevam@denx.de>
+Subject: [PATCH 1/7] ASoC: fsl_audmix: Switch to RUNTIME/SYSTEM_SLEEP_PM_OPS()
+Date: Thu,  8 Aug 2024 15:49:38 -0300
+Message-Id: <20240808184944.267686-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: JUDCWT6XS52VZRW32I3DX2HLBO4THDFN
-X-Message-ID-Hash: JUDCWT6XS52VZRW32I3DX2HLBO4THDFN
-X-MailFrom: lkp@intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: YV7NJ7RWLK6RDL2IK62PUVDPS5J2XSUM
+X-Message-ID-Hash: YV7NJ7RWLK6RDL2IK62PUVDPS5J2XSUM
+X-MailFrom: festevam@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JUDCWT6XS52VZRW32I3DX2HLBO4THDFN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YV7NJ7RWLK6RDL2IK62PUVDPS5J2XSUM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,96 +120,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-head:   e95b9f7f2ee05bbef3bf6a4cd7da6e887f17f652
-commit: 2acbb5e57230830016e0fb2d61886e7a8c7f59ce [69/82] ALSA: vxpocket: Use standard print API
-config: i386-randconfig-141-20240808 (https://download.01.org/0day-ci/archive/20240809/202408090110.t0mWbTyh-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240809/202408090110.t0mWbTyh-lkp@intel.com/reproduce)
+From: Fabio Estevam <festevam@denx.de>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202408090110.t0mWbTyh-lkp@intel.com/
+Replace SET_RUNTIME_PM_OPS()/SET SYSTEM_SLEEP_PM_OPS() with their modern
+RUNTIME_PM_OPS() and SYSTEM_SLEEP_PM_OPS() alternatives.
 
-All errors (new ones prefixed by >>):
+The combined usage of pm_ptr() and RUNTIME_PM_OPS/SYSTEM_SLEEP_PM_OPS()
+allows the compiler to evaluate if the runtime suspend/resume() functions
+are used at build time or are simply dead code.
 
-   sound/pcmcia/vx/vxpocket.c: In function 'vxpocket_config':
-   sound/pcmcia/vx/vxpocket.c:207:13: error: 'struct vx_core' has no member named 'dev'
-     207 |         chip->dev = &link->dev;
-         |             ^~
-   In file included from include/linux/device.h:15,
-                    from include/sound/core.h:10,
-                    from sound/pcmcia/vx/vxpocket.c:13:
-   sound/pcmcia/vx/vxpocket.c: In function 'vxpocket_probe':
->> sound/pcmcia/vx/vxpocket.c:273:26: error: 'pdev' undeclared (first use in this function); did you mean 'p_dev'?
-     273 |                 dev_err(&pdev->dev, "vxpocket: cannot create a card instance\n");
-         |                          ^~~~
-   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                         ^~~
-   sound/pcmcia/vx/vxpocket.c:273:17: note: in expansion of macro 'dev_err'
-     273 |                 dev_err(&pdev->dev, "vxpocket: cannot create a card instance\n");
-         |                 ^~~~~~~
-   sound/pcmcia/vx/vxpocket.c:273:26: note: each undeclared identifier is reported only once for each function it appears in
-     273 |                 dev_err(&pdev->dev, "vxpocket: cannot create a card instance\n");
-         |                          ^~~~
-   include/linux/dev_printk.h:110:25: note: in definition of macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                         ^~~
-   sound/pcmcia/vx/vxpocket.c:273:17: note: in expansion of macro 'dev_err'
-     273 |                 dev_err(&pdev->dev, "vxpocket: cannot create a card instance\n");
-         |                 ^~~~~~~
+This allows removing the CONFIG_PM ifdefery from the runtime
+suspend/resume() functions.
 
+Signed-off-by: Fabio Estevam <festevam@denx.de>
+---
+ sound/soc/fsl/fsl_audmix.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-vim +273 sound/pcmcia/vx/vxpocket.c
-
-   247	
-   248	
-   249	/*
-   250	 */
-   251	static int vxpocket_probe(struct pcmcia_device *p_dev)
-   252	{
-   253		struct snd_card *card;
-   254		struct snd_vxpocket *vxp;
-   255		int i, err;
-   256	
-   257		/* find an empty slot from the card list */
-   258		for (i = 0; i < SNDRV_CARDS; i++) {
-   259			if (!(card_alloc & (1 << i)))
-   260				break;
-   261		}
-   262		if (i >= SNDRV_CARDS) {
-   263			dev_err(&p_dev->dev, "vxpocket: too many cards found\n");
-   264			return -EINVAL;
-   265		}
-   266		if (! enable[i])
-   267			return -ENODEV; /* disabled explicitly */
-   268	
-   269		/* ok, create a card instance */
-   270		err = snd_card_new(&p_dev->dev, index[i], id[i], THIS_MODULE,
-   271				   0, &card);
-   272		if (err < 0) {
- > 273			dev_err(&pdev->dev, "vxpocket: cannot create a card instance\n");
-   274			return err;
-   275		}
-   276	
-   277		err = snd_vxpocket_new(card, ibl[i], p_dev, &vxp);
-   278		if (err < 0) {
-   279			snd_card_free(card);
-   280			return err;
-   281		}
-   282		card->private_data = vxp;
-   283	
-   284		vxp->index = i;
-   285		card_alloc |= 1 << i;
-   286	
-   287		vxp->p_dev = p_dev;
-   288	
-   289		return vxpocket_config(p_dev);
-   290	}
-   291	
-
+diff --git a/sound/soc/fsl/fsl_audmix.c b/sound/soc/fsl/fsl_audmix.c
+index 1671a3037c60..f3a24758aedb 100644
+--- a/sound/soc/fsl/fsl_audmix.c
++++ b/sound/soc/fsl/fsl_audmix.c
+@@ -512,7 +512,6 @@ static void fsl_audmix_remove(struct platform_device *pdev)
+ 		platform_device_unregister(priv->pdev);
+ }
+ 
+-#ifdef CONFIG_PM
+ static int fsl_audmix_runtime_resume(struct device *dev)
+ {
+ 	struct fsl_audmix *priv = dev_get_drvdata(dev);
+@@ -540,14 +539,11 @@ static int fsl_audmix_runtime_suspend(struct device *dev)
+ 
+ 	return 0;
+ }
+-#endif /* CONFIG_PM */
+ 
+ static const struct dev_pm_ops fsl_audmix_pm = {
+-	SET_RUNTIME_PM_OPS(fsl_audmix_runtime_suspend,
+-			   fsl_audmix_runtime_resume,
+-			   NULL)
+-	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+-				pm_runtime_force_resume)
++	RUNTIME_PM_OPS(fsl_audmix_runtime_suspend, fsl_audmix_runtime_resume,
++		       NULL)
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ };
+ 
+ static struct platform_driver fsl_audmix_driver = {
+@@ -556,7 +552,7 @@ static struct platform_driver fsl_audmix_driver = {
+ 	.driver = {
+ 		.name = "fsl-audmix",
+ 		.of_match_table = fsl_audmix_ids,
+-		.pm = &fsl_audmix_pm,
++		.pm = pm_ptr(&fsl_audmix_pm),
+ 	},
+ };
+ module_platform_driver(fsl_audmix_driver);
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+

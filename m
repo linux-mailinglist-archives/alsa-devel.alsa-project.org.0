@@ -2,114 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC6A594CC36
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 10:30:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF46794CC7E
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 10:42:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E831BE67;
-	Fri,  9 Aug 2024 10:30:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E831BE67
+	by alsa0.perex.cz (Postfix) with ESMTPS id A99C7EC7;
+	Fri,  9 Aug 2024 10:42:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A99C7EC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723192224;
-	bh=rRzR7Rhb6KTpSoOJoC/MP6DtbgV1G83HjbsiHEJJe+I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1723192972;
+	bh=Lsrix0a9mPAkh++sDpeUPRDGIMXvv+WDXlhgbmW2LXY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m15IBWcTvFutndfiwsw8ZvgH+WZRnBfOiETQH9+VPkzO+CrRFL4jAzpBybmi92usf
-	 57ID4vCmMbkhsLQbBBELmP9awpoNrWC5wrn9TTvpjoEmXwnJGbSUWyN88DLV4PwTW4
-	 UrydoMJNnze+Etn1VaxBw+S954cYZKrITwZzgTuY=
+	b=ZBxMdy1jt1anP8bdLQ0OVKCNfclHu+cUub4+VGbfxQrJnBXISvkabXWMz8zMF4GKD
+	 MnBzq0/sO3IAWNeQgyAYtbGEhTJCceOMSu3zvUH4+klI0REJ5EVN6j7MaVZXLnk52p
+	 d6pioV4vf79M+h5ul7OPhgbasN9DJOeJ9VWRmBjs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6AE2F805AE; Fri,  9 Aug 2024 10:29:45 +0200 (CEST)
+	id 03F82F800BF; Fri,  9 Aug 2024 10:42:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE625F802DB;
-	Fri,  9 Aug 2024 10:29:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A05EF805AF;
+	Fri,  9 Aug 2024 10:42:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68889F802DB; Fri,  9 Aug 2024 10:29:28 +0200 (CEST)
+	id E6399F802DB; Fri,  9 Aug 2024 10:42:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	SPF_HELO_NONE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 14B37F800E3
-	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 10:29:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14B37F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3BE5F800E3
+	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 10:41:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3BE5F800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=mRZZxbMF
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-428e0d18666so12801915e9.3
-        for <alsa-devel@alsa-project.org>;
- Fri, 09 Aug 2024 01:29:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1723192146;
- x=1723796946; darn=alsa-project.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=M9XgrXqJt0/9CkMxHNu45QhllGaF2W8Tzkt4pRfBbFk=;
-        b=mRZZxbMFzePortNlB8Pt2ejY9H+A/6CDDpcB6MRIqhtwUBTKx+c3nWhKg5M/enGZVs
-         SN6CvIgqjgJSSRdIVd4snMCfAwIGHY/xN4zdr5UZcinEIe1qY4Kg5Dsbf3JzT5nxrvTw
-         W21WStPqPB9XvRcdDF0eIGjdKLWQDNI7sOaLXsyJmW99+Mtf0sKZXDEO/6+bOTrVGW45
-         rJ032/1tnSMDBjJlAE4jZ5iwCx8h//t56cPjP4Etp/RwLvjk/zICJ6Sg19PcK+O0N9mu
-         IZTWbxu62uv4pXI5lVGh7mK9+2AyNkkiuGbyv/Fdr81spkeC4pW7/MZwoPPwJclXV2P/
-         WJoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723192146; x=1723796946;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=M9XgrXqJt0/9CkMxHNu45QhllGaF2W8Tzkt4pRfBbFk=;
-        b=ATGhPE4AViDgfoq6e2bDX4fFHnCaDKPednqxv8pSIKUUQIxT87AS7kNI8k45aZVzfv
-         ipgEBlSA2gNIV3LZyQINBDrXW3dvbDFbWNbEK9oybQTocFvgi+GHsDcrdS8MENNp92QT
-         pALiZZym2RNiBCX2Ers0ITlkp7xqC4fH6GZgLyxT1rTC5xwjVFhLm1o5ulp2EgR9wqhI
-         73CPok0QKyZFk0gyTXKs6mKJGFwjL7WjaeN5e6Z2gkxUjVZLfLhkF6p8oNrDCqMDQQEa
-         k6eZSGTe2wiYQ3eEgH3jtBRsav5l5AvGlMYzqZVBBUUMrqboquRSXSP2IS27W86j2ydK
-         eeNw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVUoBFIGZpGy4IR0pYOO8MP6UInuDk7IjTy27sIg73p68Tfb0qTayAIJ2gE0ndiZlpSnxBnmjuRuCCVDAmlzy1GrmivQ9fiqtuxvQk=
-X-Gm-Message-State: AOJu0YwzIEBdQn6cmCt5QcMkSjri/GizV9uR2lOtjSXQPhG21P+oKHZs
-	PAPz9ku5JplPrXA8ESVr1z9Bn35mSEcYiF3kIsFyjPVpXPuGV2BezHfqD/U1vuQ=
-X-Google-Smtp-Source: 
- AGHT+IHe4KRBbn78xJ+uhzDvBdPlN0FDRDNiUwGsnx4SLammGg6F32dtNQbopsE3P9TfIiTwaOcj/w==
-X-Received: by 2002:a05:600c:4514:b0:426:5fe1:ec7a with SMTP id
- 5b1f17b1804b1-429c3a58c23mr6422525e9.31.1723192146423;
-        Fri, 09 Aug 2024 01:29:06 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:f0cb:cecc:348d:4d08])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4290c74a855sm63260855e9.25.2024.08.09.01.29.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Aug 2024 01:29:05 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
- <amadeuszx.slawinski@linux.intel.com>, 	Mark Brown
- <broonie@kernel.org>,  Liam Girdwood <lgirdwood@gmail.com>, 	Takashi Iwai
- <tiwai@suse.com>,  Jaroslav Kysela <perex@perex.cz>,
- 	alsa-devel@alsa-project.org,  linux-sound@vger.kernel.org,
- 	linux-kernel@vger.kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=ZYekwGaQ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=wcRnPAI2;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=ZYekwGaQ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=wcRnPAI2
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B397D21EF6;
+	Fri,  9 Aug 2024 08:41:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1723192918;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BRiurSnhbX0Q0d4QpIJcDdBXPtjc29Jx8x6UeMt8HO8=;
+	b=ZYekwGaQc3Pn2w66kA9qJvI12iyHfEtvTHrOJU6CDDld4uuFOXjIBl6DtqYpr+iE+2rEab
+	pgekBwbAhr7obK8ktk0hyP7wJJAw7JBZjtuP9BxVZSRP/gFKSCByKlSiyV8EeerucZ2Zji
+	wr3+1o0TSOgXodUlu7BjMk1OikBV98M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1723192918;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BRiurSnhbX0Q0d4QpIJcDdBXPtjc29Jx8x6UeMt8HO8=;
+	b=wcRnPAI2xdlVPfQpoRqCgJsmawCUrh34oCFGWkOnB8GkjT0e8KcLlysiuqDio0+bYCjFpj
+	Go3QCpi5WE6XaBDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZYekwGaQ;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wcRnPAI2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1723192918;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BRiurSnhbX0Q0d4QpIJcDdBXPtjc29Jx8x6UeMt8HO8=;
+	b=ZYekwGaQc3Pn2w66kA9qJvI12iyHfEtvTHrOJU6CDDld4uuFOXjIBl6DtqYpr+iE+2rEab
+	pgekBwbAhr7obK8ktk0hyP7wJJAw7JBZjtuP9BxVZSRP/gFKSCByKlSiyV8EeerucZ2Zji
+	wr3+1o0TSOgXodUlu7BjMk1OikBV98M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1723192918;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BRiurSnhbX0Q0d4QpIJcDdBXPtjc29Jx8x6UeMt8HO8=;
+	b=wcRnPAI2xdlVPfQpoRqCgJsmawCUrh34oCFGWkOnB8GkjT0e8KcLlysiuqDio0+bYCjFpj
+	Go3QCpi5WE6XaBDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7569213A7D;
+	Fri,  9 Aug 2024 08:41:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xtA5G1bWtWZ6KAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 09 Aug 2024 08:41:58 +0000
+Date: Fri, 09 Aug 2024 10:42:37 +0200
+Message-ID: <87seve6q9u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>,	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 1/3] ALSA: pcm: add support for 128kHz sample rate
-In-Reply-To: <87ed84rnk7.wl-tiwai@suse.de> (Takashi Iwai's message of "Mon, 08
-	Jul 2024 16:00:24 +0200")
+In-Reply-To: <1jcymixfou.fsf@starbuckisacylon.baylibre.com>
 References: <20240628122429.2018059-1-jbrunet@baylibre.com>
 	<20240628122429.2018059-2-jbrunet@baylibre.com>
 	<326792b9-e706-4ab0-a1e8-cc48943e357d@linux.intel.com>
 	<874j99434a.wl-tiwai@suse.de>
 	<1j4j90hurv.fsf@starbuckisacylon.baylibre.com>
 	<87ed84rnk7.wl-tiwai@suse.de>
-Date: Fri, 09 Aug 2024 10:29:05 +0200
-Message-ID: <1jcymixfou.fsf@starbuckisacylon.baylibre.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-Message-ID-Hash: PBKYDKG3LW5UCYO4OTDBAH7ROHYOHVEM
-X-Message-ID-Hash: PBKYDKG3LW5UCYO4OTDBAH7ROHYOHVEM
-X-MailFrom: jbrunet@baylibre.com
+	<1jcymixfou.fsf@starbuckisacylon.baylibre.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,suse.com,perex.cz,alsa-project.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: B397D21EF6
+Message-ID-Hash: DSR46JEPFPCVSYE6E2DFVYLKNA4NAGM3
+X-Message-ID-Hash: DSR46JEPFPCVSYE6E2DFVYLKNA4NAGM3
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PBKYDKG3LW5UCYO4OTDBAH7ROHYOHVEM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DSR46JEPFPCVSYE6E2DFVYLKNA4NAGM3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,47 +179,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 09 Aug 2024 10:29:05 +0200,
+Jerome Brunet wrote:
+> 
+> 
+> >> 
+> >> Apart from the problem reported in sound/usb/caiaq/audio.c, is there
+> >> another clean up expected ?
+> >
+> > The change for caiaq/audio.c is rather a "fix" :)
+> > As a cleanup, I meant, whether this extension can be applied to the
+> > other existing drivers that already use 128kHz with RATE_KNOT and an
+> > extra list.
+> 
+> Grepping in sound/ for 128000, I've found only 3 files which could
+> benefit from solely adding 128kHz to the defined rates:
+> 
+> * sound/pci/cmipci.c
+> * sound/pci/rme9652/hdsp.c
+> * sound/pci/rme9652/hdspm.c
+> 
+> The rest are unsing other rates which require the use of RATE_KNOT.
+> The most regular rates being 12kHz and 24kHz. Adding those as well could
+> help in:
+> 
+> * sound/soc/codecs/adau1977.c
+> * sound/soc/fsl/fsl_asrc.c
+> * sound/soc/fsl/fsl_easrc.c
+> * sound/soc/intel/avs/pcm.c
+> 
+> I admit that's a fairly low number of drivers, maybe it is not worth it
+> at this stage.
+> 
+> Takashi, Mark, what is your preference ? Should I:
+>  * tweak the spdif codec to use RATE_KNOT ?
+>  * add just 128kHz, fixing the 3 file above ?
+>  * add 12 and 24kHz as well ?
+> 
+> I don't really mind one way or the other.
 
->> 
->> Apart from the problem reported in sound/usb/caiaq/audio.c, is there
->> another clean up expected ?
->
-> The change for caiaq/audio.c is rather a "fix" :)
-> As a cleanup, I meant, whether this extension can be applied to the
-> other existing drivers that already use 128kHz with RATE_KNOT and an
-> extra list.
+If there are multiple instances, it's fine to extend the standards.
+Then we can clean up them as well.
 
-Grepping in sound/ for 128000, I've found only 3 files which could
-benefit from solely adding 128kHz to the defined rates:
 
-* sound/pci/cmipci.c
-* sound/pci/rme9652/hdsp.c
-* sound/pci/rme9652/hdspm.c
+thanks,
 
-The rest are unsing other rates which require the use of RATE_KNOT.
-The most regular rates being 12kHz and 24kHz. Adding those as well could
-help in:
-
-* sound/soc/codecs/adau1977.c
-* sound/soc/fsl/fsl_asrc.c
-* sound/soc/fsl/fsl_easrc.c
-* sound/soc/intel/avs/pcm.c
-
-I admit that's a fairly low number of drivers, maybe it is not worth it
-at this stage.
-
-Takashi, Mark, what is your preference ? Should I:
- * tweak the spdif codec to use RATE_KNOT ?
- * add just 128kHz, fixing the 3 file above ?
- * add 12 and 24kHz as well ?
-
-I don't really mind one way or the other.
-
->
->
-> thanks,
->
-> Takashi
-
--- 
-Jerome
+Takashi

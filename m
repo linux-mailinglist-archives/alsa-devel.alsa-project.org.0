@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 686E2952A65
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523F9952A67
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:26:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 882662BD0;
-	Thu, 15 Aug 2024 10:26:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 882662BD0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B82972BB6;
+	Thu, 15 Aug 2024 10:26:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B82972BB6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723710387;
-	bh=iQCCZNb15xA7YzIyMpV93MbfBBT7xhwt8+pmmQPh75s=;
+	s=default; t=1723710407;
+	bh=OI0BTlanZ3ouih1Oc8Ys+Q4/CwcrtvqnlxKkb99HXII=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LPWTEiXAq89I0uJCt2cj4JdLNjFMzrhhTU4pHfJ7GLpgUc7JSkuDE6e1uAvFGGbb+
-	 uwo3F47z32ZxCVhPqJ3xfaTvqa+Km3ymIrzj+fevcOZ50Q3BT8tpSB6XAhZae/XjZV
-	 eA6nD/C7N8XtHxh8buhL++QnyeQ18sRNdiLgA56g=
+	b=Z7cB60xN3zvvcTAIPecyBURUWDIXbLNnjHOIbQaMoah7kM95mvusep15myL4MtjBb
+	 cnMc7azrJfZnJmUFwKvtsmPU/YzTRS8KOoMateDAS+WgWyOnTx5Y2rbLxy9KmLx7CZ
+	 qMRylTvHu7WOB/Cm3QCyxIwZvJJykT3md5wabqa0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8562DF806FA; Thu, 15 Aug 2024 10:23:57 +0200 (CEST)
+	id 27D1AF8072C; Thu, 15 Aug 2024 10:24:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ECE0F80709;
-	Thu, 15 Aug 2024 10:23:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC018F8074E;
+	Thu, 15 Aug 2024 10:23:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BC1AF80448; Fri,  9 Aug 2024 10:34:42 +0200 (CEST)
+	id BB09FF8023A; Fri,  9 Aug 2024 10:39:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,65 +37,65 @@ Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CE262F8023A
-	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 10:34:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE262F8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id A545BF802DB
+	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 10:34:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A545BF802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=fairphone.com header.i=@fairphone.com
- header.a=rsa-sha256 header.s=fair header.b=vBran/mx
+ header.a=rsa-sha256 header.s=fair header.b=ralt7BOQ
 Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5a1c49632deso1954216a12.2
+ 4fb4d7f45d1cf-5ba43b433beso2056177a12.1
         for <alsa-devel@alsa-project.org>;
- Fri, 09 Aug 2024 01:34:14 -0700 (PDT)
+ Fri, 09 Aug 2024 01:34:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1723192453; x=1723797253;
+        d=fairphone.com; s=fair; t=1723192454; x=1723797254;
  darn=alsa-project.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=pM2zQn5p3FDpIYaXA2RbE1R8wZYvgZjYLsbkdX740GY=;
-        b=vBran/mxoZdJUZjb8DIE+B+rhZNBzjap0CWr+fH2Jfzd6dkW44Q3nLImHm8HAbNjky
-         0Awfq2go2zIKfH893370RN2syF5v7CAtp5nsvCd14oqSo4XYiBO7LUWwxPkMFHxMbT7p
-         XJqmgWQJPuavh+NxfGSADw5uN4X+0dS+hc5M2S5ApLzz5cgR0cHTEiELn4FpFx/jycM8
-         0+NWN+tyDigK/seCmCM5Hb3t62Pk2LixV8nZLnyGGPjL99MtT9/BwPFn+46S3GdeNe9d
-         fQ4zUxGgVRV32h1HKpxgLNGTNLPfLTJwISK2Hwfgu8UYkriqbbtekayhW+QLkyGSzMV2
-         YhIA==
+        bh=SY4fryrxNkvZgli9BRICsfInr4nHVNsC/F28oVigWAk=;
+        b=ralt7BOQiZd7J9S7smASUBg+mQO9lnmiQvPhsFGfJtQQ/NTZr81IgzW8Px9yQ5GmOy
+         ezKSp6fJLwW9zdMMOr4wp2St1swPvljdCqHIgB4z/EUzXpSNmMN0IuUgVNZSwgP/tRMc
+         tay6TVXkauZ/Xd+wn8TkucxsCOadOwXXUJN8UgTlolfVAFwerAZQ5XiaH/p4rFfJwY+7
+         3Cb8QYLydOEihCaGzJCjMO7R8bEk6VBsnD3aFpIpQVkrZJ1Trd4ctgz9q6KgNfiZTc1h
+         2uC1guSPMlQKDHjxtJzx4xqHkTvcRswM/db8kwUWUeizJQ5TbjJFQs/2ntRh6JgTnd+W
+         PNfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723192453; x=1723797253;
+        d=1e100.net; s=20230601; t=1723192454; x=1723797254;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=pM2zQn5p3FDpIYaXA2RbE1R8wZYvgZjYLsbkdX740GY=;
-        b=eSyV0pAW7Bb1vciKu95168LFixF4bKbs/KXxTwhxdiYl7n4SzHYUbj9c31ihJjSwkg
-         XjAL2+QAfBnIMUMBZn9gTBU6GMenbBRZUM5EhenUds7opRXuZsmr4KF7QgE2CMwNT5vW
-         IlHcSBv1OgBOmE9S//1oeY62Hahz9NupZZYU812j5Atx9sAbng3xEUgsxkrIyw20p2Sm
-         FmEYAusX3acYJx73IE74D879mWRnlEKMbwlHDuCXzzQZBb05pjnKvS69IdE4kGYaGVQs
-         OHSVp1XdxDhsRu+5g6cRfgZaqfJLNgR6lxhdEOQOkDPph+Rp+V0Wgbys5JSXdsU2sHNR
-         HeVA==
+        bh=SY4fryrxNkvZgli9BRICsfInr4nHVNsC/F28oVigWAk=;
+        b=jxciaMDdVZguvL622UM8mPNxMteUqHCZ6GY4Xb3kFEXKfqeLPALDsFt4aC0KDTDLwu
+         bPmEd8wcccMLyiU7gxiwrFOZifTdFMsjX/MjOyMTwcdd4leWFvig3Zv9bBEALdEj4I27
+         2O36q0LZUcE905PFofbzBKPLeP7thFEAhYYanwSvngXUHst2fo63ncb6ZTTDaWRA065I
+         zmcXTRKf92rH9kYWWuillWDjWNVS2H/0GXCOn6jdy3YkzpmsZ5a6D01Bl0AZ7Xc9Gq4K
+         RlfJhjcBCz7+swniPmKw76acePrqcKp0EwnzIst2lPFut63pLPdWylgliwBv2F7IdZ40
+         qiSg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWb5DszXK41JPfR3Tg0q+KvfFEFPFD4DVFKWVOZpTYMxOufMsAw6ucmpJYucEFSjhL4lZi+P3xXY1+d@alsa-project.org
-X-Gm-Message-State: AOJu0YzAP2v8GLJf/Chwjfn6k6n77UgjQ55TqEqgkC6m33HGLBuN3WLz
-	edcyZh8P7a2yaN/8rC4uvBDQHKYcsgalyxGgXrzr1/H/NiC8kzMugJ+Zy3dzUZfCYZWqP7xQX7V
-	D
+ AJvYcCUIZVdgK1D4eAFv4q0CbtucZL0R2as+RFEo7rHls9ph3/asO2k1AK6vk/jQdlCmTSHmRiGPVtNcLg0BO7WCp9CpWGA36lwgx8ZJ9RU=
+X-Gm-Message-State: AOJu0Yx37pcS3xr91Dr1h8RiZC/Mds3xB2zaa0muSI5WYA8KliRbvE7l
+	DmPhjJmbGv0TGWhkwo2KH5Zo64clCwyo0RwM8XyHu7nN73mZDNYY3Ff1Z95x7VI=
 X-Google-Smtp-Source: 
- AGHT+IFCpnNxr3OIcmfuo39c+nNlT21/T85VjYH0R0lGnoZyeMzkVNE10LVLArSs5TAUEYYxuW88qw==
-X-Received: by 2002:a05:6402:3548:b0:5a3:b64:3b98 with SMTP id
- 4fb4d7f45d1cf-5bd0a5a5d44mr558924a12.19.1723192453020;
-        Fri, 09 Aug 2024 01:34:13 -0700 (PDT)
+ AGHT+IFR/fUi2PxofvVcuUfiPXGSTvHp8HjNo2okFizvskVBpDGatZfaIDw3fHAvXy9BNCnQOZOyKg==
+X-Received: by 2002:a05:6402:4309:b0:5a1:b42f:c93 with SMTP id
+ 4fb4d7f45d1cf-5bd0a588be6mr680639a12.13.1723192454170;
+        Fri, 09 Aug 2024 01:34:14 -0700 (PDT)
 Received: from [100.64.0.4] (144-178-202-138.static.ef-service.nl.
  [144.178.202.138])
         by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2c41916sm1336288a12.41.2024.08.09.01.34.12
+ 4fb4d7f45d1cf-5bbb2c41916sm1336288a12.41.2024.08.09.01.34.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Aug 2024 01:34:12 -0700 (PDT)
+        Fri, 09 Aug 2024 01:34:13 -0700 (PDT)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 09 Aug 2024 10:33:58 +0200
-Subject: [PATCH 2/3] ASoC: qcom: sc8280xp: Add support for generic QCM6490
+Date: Fri, 09 Aug 2024 10:33:59 +0200
+Subject: [PATCH 3/3] arm64: dts: qcom: qcm6490-fairphone-fp5: Add
+ DisplayPort sound support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20240809-fp5-dp-sound-v1-2-d7ba2c24f6b9@fairphone.com>
+Message-Id: <20240809-fp5-dp-sound-v1-3-d7ba2c24f6b9@fairphone.com>
 References: <20240809-fp5-dp-sound-v1-0-d7ba2c24f6b9@fairphone.com>
 In-Reply-To: <20240809-fp5-dp-sound-v1-0-d7ba2c24f6b9@fairphone.com>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -116,15 +116,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: NJ2CEXXAVQEGIONJJ5IZ6UETIOYIDD7V
-X-Message-ID-Hash: NJ2CEXXAVQEGIONJJ5IZ6UETIOYIDD7V
+Message-ID-Hash: WXVREVOLCVE6DYW5GUMT7KJZFXRQG4VK
+X-Message-ID-Hash: WXVREVOLCVE6DYW5GUMT7KJZFXRQG4VK
 X-Mailman-Approved-At: Thu, 15 Aug 2024 08:23:16 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJ2CEXXAVQEGIONJJ5IZ6UETIOYIDD7V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WXVREVOLCVE6DYW5GUMT7KJZFXRQG4VK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,26 +133,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add compatibles for sound card on Qualcomm QCM6490 boards, e.g.
-Fairphone 5 smartphone.
+Add the required nodes for sound playback via a connected external
+display (DisplayPort over USB-C).
+
+In user space just the following route needs to be set (e.g. using
+ALSA UCM):
+
+  amixer -c0 cset name='DISPLAY_PORT_RX Audio Mixer MultiMedia1' 1
+
+Afterwards one can play audio on the MultiMedia1 sound device, e.g.:
+
+  aplay -D plughw:0,0 test.wav
 
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- sound/soc/qcom/sc8280xp.c | 1 +
- 1 file changed, 1 insertion(+)
+(from cover letter)
+Unfortunately DisplayPort enablement itself for Fairphone 5 is not
+upstream yet. This is blocked by DSI display bringup upstream which is
+blocked by DSC 1:1:1 not being supported upstream yet and just working
+with a hacky patch. Nevertheless, DisplayPort audio was validated
+working with no additional sound-related changes so once DisplayPort
+gets enabled, sound should also just work upstream.
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 37 ++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 922ecada1cd8..385e902944b3 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -185,6 +185,7 @@ static int sc8280xp_platform_probe(struct platform_device *pdev)
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index 8ab30c01712e..45d4512546fe 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -14,6 +14,8 @@
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/sound/qcom,q6afe.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
+ #include "sc7280.dtsi"
+ #include "pm7250b.dtsi"
+ #include "pm7325.dtsi"
+@@ -841,6 +843,12 @@ &pon_resin {
+ 	status = "okay";
+ };
  
- static const struct of_device_id snd_sc8280xp_dt_match[] = {
- 	{.compatible = "qcom,qcm6490-idp-sndcard", "qcm6490"},
-+	{.compatible = "qcom,qcm6490-sndcard", "qcm6490"},
- 	{.compatible = "qcom,qcs6490-rb3gen2-sndcard", "qcs6490"},
- 	{.compatible = "qcom,sc8280xp-sndcard", "sc8280xp"},
- 	{.compatible = "qcom,sm8450-sndcard", "sm8450"},
++&q6afedai {
++	dai@104 {
++		reg = <DISPLAY_PORT_RX>;
++	};
++};
++
+ &qup_spi13_cs {
+ 	drive-strength = <6>;
+ 	bias-disable;
+@@ -914,6 +922,35 @@ &sdhc_2 {
+ 	status = "okay";
+ };
+ 
++&sound {
++	compatible = "qcom,qcm6490-sndcard";
++	model = "Fairphone 5";
++
++	mm1-dai-link {
++		link-name = "MultiMedia1";
++
++		cpu {
++			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
++		};
++	};
++
++	displayport-rx-dai-link {
++		link-name = "DisplayPort Playback";
++
++		cpu {
++			sound-dai = <&q6afedai DISPLAY_PORT_RX>;
++		};
++
++		platform {
++			sound-dai = <&q6routing>;
++		};
++
++		codec {
++			sound-dai = <&mdss_dp>;
++		};
++	};
++};
++
+ &spi13 {
+ 	status = "okay";
+ 
 
 -- 
 2.46.0

@@ -2,132 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F3D952A68
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:27:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E4E952A6A
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:27:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B5122BCD;
-	Thu, 15 Aug 2024 10:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B5122BCD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FD242BD5;
+	Thu, 15 Aug 2024 10:27:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FD242BD5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723710421;
-	bh=iLzGfAYReosnIhXCk1VOcUKl/i0/LVKCJemQ52zsYcY=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ktROU9JsoSJAieEGUG8wXVnP1yy0jAXGrd9pZKsRLzJVxJU+S6h9oSUeQ49wdSQ6r
-	 300LvrIKAC6G6az08O17lYRI90gm6kXjl6DyIjvYasF1JKvVK9hvT6tVduJZ3+ohXt
-	 SZrRH1AxmxW0A8+Ti1Xuqdnj0mbUmyXCgqwNm4Xo=
+	s=default; t=1723710440;
+	bh=3XkI4b92uJtcH/wkNHuOUJZhokFuyv930DI5WCjRN0I=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=AZFuVm0nyVtDtS0KTdWQ/bRjjyVSuk1GLCsTNL1YI+TSo8D4zf/a5tlAaly8QQi3m
+	 XTxLI+piw+eNMPKcOZVYTrTGgT5Ddr/0ew8yqBNSegmfLGO0V/31R0heQBhkMiidyi
+	 IOHsWBGM8Rgr7ZyZC+p/BMarf8TOk0WtB5ZKkMjg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FB15F807B5; Thu, 15 Aug 2024 10:24:03 +0200 (CEST)
+	id 2FC45F807DE; Thu, 15 Aug 2024 10:24:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDF74F807A2;
-	Thu, 15 Aug 2024 10:24:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50D2FF805BE;
+	Thu, 15 Aug 2024 10:24:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2634F802DB; Fri,  9 Aug 2024 11:21:41 +0200 (CEST)
+	id 370F1F802DB; Fri,  9 Aug 2024 16:07:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 43D34F8023A
-	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 11:12:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43D34F8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id BEAE8F800BF
+	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 16:07:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEAE8F800BF
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=fairphone.com header.i=@fairphone.com
- header.a=rsa-sha256 header.s=fair header.b=gDjgsmBq
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5b8c2a61386so2407674a12.2
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=AUxBP7D5
+Received: by mail-pg1-x52d.google.com with SMTP id
+ 41be03b00d2f7-7ae3d7222d4so1501298a12.3
         for <alsa-devel@alsa-project.org>;
- Fri, 09 Aug 2024 02:12:37 -0700 (PDT)
+ Fri, 09 Aug 2024 07:07:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1723194757; x=1723799557;
+        d=chromium.org; s=google; t=1723212436; x=1723817236;
  darn=alsa-project.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/g1EWdSRyPvJJ8eyFtdobneAEkMnKZn9VHRowDdqkMs=;
-        b=gDjgsmBq5pjArzbU/unx+0k4HUz+FaoBLHeewGxnXLi0DL/W8E60aanj+AkJcAcsar
-         psTPgWPe5vD83Pdmfru1EAIOGcIfBI230kddah4gf3B/aS2piy2OooFxjwdPpGAhLjd2
-         Rz2VYBhEqJSTPsgBRMcMi9SRMeaEK9t8SRkYh0B/l/gIhouArJ//BaQVfj09cb+hJCgl
-         VvTsasrUTaQiQGohcLZ4BWBT5Jh7qDw+3b3dQrDeKbFxOA3qfTeha0Erm+q5w4BcpflO
-         whesWOxUzU+M9NqDWJ8dtqWjx+yv0dIfpGsiSZkhNmK2RMoS2XRbm0nzRViswo1UAFXe
-         ghqg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=g2ubsNBkHICjAKnj3VJLgF6tvUYKGQaSXUZ9IHeUjTM=;
+        b=AUxBP7D5A4M4nWSj6wdDak4icDqjtYKB5JwXL34dVtf1NlZS99aHAGv+1muOE/PMRI
+         fE9ha8FgG7UDp5YXNQ619H4xavX1925aW0d9y6Zbp0z3NvOYJrgNGNDRV2uyaI/lBD4B
+         6aILx5Fk8wQNuTiKyAIBzjk+2CVj6APGpDqsM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723194757; x=1723799557;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/g1EWdSRyPvJJ8eyFtdobneAEkMnKZn9VHRowDdqkMs=;
-        b=OLKdeEL1M6UoVSTrJO+6nW5CQKeSZDXKVtyZADvQplroUtC7+suonP7ys4ihBEddEB
-         WiztTwx8wZBqVj1KjsPbF+YDeZX6Hfpp624G0Wl1CSnDNboNRh1M3Z/UemPptCzDslTK
-         wZkyErB+BdBelHbW9frpljVoU9H47EjYucC6n+ep2YzIbpsnvP/NMYsPJ005GBtXjBk3
-         tx1sfAw34YtNa4dIMYVzcDHNTeBQrnRx4kWn99ZvFsiCCCtHGcKYnWaZGVx6cJjZpiG5
-         vU9k49B+5yFC8RhtC/g7CYE0OJL9cS1gpIeTiCAHn6iTp6q1fHV0b3qB8qPRGcICB0QX
-         x/Eg==
+        d=1e100.net; s=20230601; t=1723212436; x=1723817236;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=g2ubsNBkHICjAKnj3VJLgF6tvUYKGQaSXUZ9IHeUjTM=;
+        b=uEjtez7jiJ2Jddvgcd0cJUu7z0HM7gT7GayguGWA28kuZYTVCLYnYTxcIHjuGoMFe2
+         rK1syIS0LUG5WXGYW2/T7knymrJY36uDNp52GlOKWQOQ6Vxhosq1NGahky3aTiaD8wz0
+         prqQp/KXn34VXdbf+ylbWFlWoTM+O7yFPwFejNzN+Ax2KOm7ewyXx3wLElQ55Y3H7faF
+         9dAFuXu3JHRZAESeLqRneo8GVBqcwoxJLT4gw78ElM7DZE1hGM2nW5lUOZvlKRUCSeX6
+         l5g4hlvHEPUV8NEmFoweHKfrRm9R2HDLRDTskmb7M67VvqcuAw7N3Jq9Hd/AlXKjcP04
+         6HKQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVwuvpE+GZfYORKFXegwbEh3waeHBm872Scl0D2s4RKxXD6K5NI73dxlTvw6R5ZWu3deK7w6nUCD7ltoKklSJIzml6BTXBuCq7JgAY=
-X-Gm-Message-State: AOJu0YzADjumkH7vlNwKpRZc/4NUaPnoeX2+D8hPbSv5r4Xzz7/Y8+BB
-	Q/nv3xp/TI75DPxhXX+yN3GQSBSvP6BZBHIJb+IkM1KdCkAD5ncarsggCbEzTCw=
+ AJvYcCVkvBo2ZiXfff744Ds8yfzcoBFRRSbaYPRPnWtmlX6TZIWbnppCbQDVVahymIA4vRNYXf4Atulnu+3EMTfb49t3UaVAlki51LpX/+k=
+X-Gm-Message-State: AOJu0YzMs+FFnG07huQssoZMfShVQT6+xZDLxTkoXDGR6lFrdjXKKzG6
+	pxRK8TJ+hhMOmt5qRu328ySbLFFqIiliU14GJHqzFU13m/lvhUKSt9M0qc4rTQ==
 X-Google-Smtp-Source: 
- AGHT+IHDUZDs7bOcbUASgJVPa4IcEoa+TGubCNTDd+aHDQmy+MvrocMHlvfzwk/Wi4ksiDbfFd9BVQ==
-X-Received: by 2002:a05:6402:42c6:b0:5a2:ec88:de7a with SMTP id
- 4fb4d7f45d1cf-5bd0a6dc52cmr695902a12.33.1723194756675;
-        Fri, 09 Aug 2024 02:12:36 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138])
+ AGHT+IHBh5T9/m4Bb3Mnijo58OaunbxzLHZGB7+5RnK6l5Z6jVFq/unajHaFdxGJkfXNRPo1eRsBIQ==
+X-Received: by 2002:a17:90a:510e:b0:2cb:5128:efdd with SMTP id
+ 98e67ed59e1d1-2d1e7fb6373mr1812276a91.10.1723212435769;
+        Fri, 09 Aug 2024 07:07:15 -0700 (PDT)
+Received: from normanbt-p620.tpe.corp.google.com
+ ([2401:fa00:1:17:86a2:9ae6:e93:3245])
         by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5bbb2c4b5f2sm1358221a12.45.2024.08.09.02.12.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Aug 2024 02:12:36 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Aug 2024 11:12:35 +0200
-Message-Id: <D3B9K69AAWNT.2KIHAZRFNB8NP@fairphone.com>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: qcom,sm8250: Add generic QCM6490
- sound card
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Srinivas Kandagatla"
- <srinivas.kandagatla@linaro.org>, "Banajit Goswami" <bgoswami@quicinc.com>,
- "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jaroslav
- Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.18.2-0-ge037c095a049
-References: <20240809-fp5-dp-sound-v1-0-d7ba2c24f6b9@fairphone.com>
- <20240809-fp5-dp-sound-v1-1-d7ba2c24f6b9@fairphone.com>
- <e8a24709-de96-4d09-ba00-1e084a656c68@kernel.org>
-In-Reply-To: <e8a24709-de96-4d09-ba00-1e084a656c68@kernel.org>
-X-MailFrom: luca.weiss@fairphone.com
+ 98e67ed59e1d1-2d1c9c64b1fsm3262422a91.7.2024.08.09.07.07.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Aug 2024 07:07:15 -0700 (PDT)
+From: Norman Bintang <normanbt@chromium.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: broonie@kernel.org,
+	alsa-devel@alsa-project.org,
+	Takashi Iwai <tiwai@suse.com>,
+	cujomalainey@chromium.org,
+	Norman Bintang <normanbt@chromium.org>,
+	Chih-Yang Hsia <paulhsia@chromium.org>,
+	David Riley <davidriley@chromium.org>
+Subject: [PATCH] ALSA: pcm: Add xrun counter for snd_pcm_substream
+Date: Fri,  9 Aug 2024 22:06:45 +0800
+Message-ID: <20240809140648.3414349-1-normanbt@chromium.org>
+X-Mailer: git-send-email 2.46.0.76.ge559c4bf1a-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MailFrom: normanbt@chromium.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UKWRSYVOUHNAPZGDZKWX4KYR6AHK6BYT
-X-Message-ID-Hash: UKWRSYVOUHNAPZGDZKWX4KYR6AHK6BYT
+Message-ID-Hash: ZALWLOQASDMMAWMUFAR4HGRRIHUWWFQX
+X-Message-ID-Hash: ZALWLOQASDMMAWMUFAR4HGRRIHUWWFQX
 X-Mailman-Approved-At: Thu, 15 Aug 2024 08:23:16 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UKWRSYVOUHNAPZGDZKWX4KYR6AHK6BYT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZALWLOQASDMMAWMUFAR4HGRRIHUWWFQX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,40 +122,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri Aug 9, 2024 at 11:09 AM CEST, Krzysztof Kozlowski wrote:
-> On 09/08/2024 10:33, Luca Weiss wrote:
-> > Document the bindings for the Qualcomm QCM6490 sound card.
-> >=20
-> > Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> > ---
-> >  Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
-> >  1 file changed, 1 insertion(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b=
-/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> > index c9076dcd44c1..0a31be6d917f 100644
-> > --- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> > @@ -31,6 +31,7 @@ properties:
-> >            - qcom,apq8096-sndcard
-> >            - qcom,msm8916-qdsp6-sndcard
-> >            - qcom,qcm6490-idp-sndcard
-> > +          - qcom,qcm6490-sndcard
->
-> I think it would be better to make it a board-compatible and also
-> followed by qcom,qcm6490-idp-sndcard fallback, thus no need for driver
-> changes.
+This patch adds an xrun counter to snd_pcm_substream as an alternative
+to using logs from XRUN_DEBUG_BASIC. The counter provides a way to track
+the number of xrun occurences, accessible through the /proc interface.
 
-Hi Krzysztof,
+The counter is enabled when CONFIG_SND_PCM_XRUN_DEBUG is set.
 
-So that we get "fairphone,fp5-sndcard", "qcom,qcm6490-idp-sndcard"?
+Example output:
 
-I can change it to that in v2.
+$ cat /proc/asound/card0/pcm9p/sub0/status
 
-Regards
-Luca
+owner_pid   : 1425
+trigger_time: 235.248957291
+tstamp      : 0.000000000
+delay       : 1912
+avail       : 480
+avail_max   : 1920
+-----
+hw_ptr      : 672000
+appl_ptr    : 673440
+xrun_counter: 3  # (new row)
 
->
-> Best regards,
-> Krzysztof
+Signed-off-by: Norman Bintang <normanbt@chromium.org>
+Reviewed-by: Chih-Yang Hsia <paulhsia@chromium.org>
+Tested-by: Chih-Yang Hsia <paulhsia@chromium.org>
+Reviewed-by: David Riley <davidriley@chromium.org>
+---
+
+ include/sound/pcm.h  | 3 +++
+ sound/core/pcm.c     | 6 ++++++
+ sound/core/pcm_lib.c | 3 +++
+ 3 files changed, 12 insertions(+)
+
+diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+index ac8f3aef9205..384032b6c59c 100644
+--- a/include/sound/pcm.h
++++ b/include/sound/pcm.h
+@@ -498,6 +498,9 @@ struct snd_pcm_substream {
+ 	/* misc flags */
+ 	unsigned int hw_opened: 1;
+ 	unsigned int managed_buffer_alloc:1;
++#ifdef CONFIG_SND_PCM_XRUN_DEBUG
++	unsigned int xrun_counter; /* number of times xrun happens */
++#endif /* CONFIG_SND_PCM_XRUN_DEBUG */
+ };
+ 
+ #define SUBSTREAM_BUSY(substream) ((substream)->ref_count > 0)
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index dc37f3508dc7..290690fc2abc 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -462,6 +462,9 @@ static void snd_pcm_substream_proc_status_read(struct snd_info_entry *entry,
+ 	snd_iprintf(buffer, "-----\n");
+ 	snd_iprintf(buffer, "hw_ptr      : %ld\n", runtime->status->hw_ptr);
+ 	snd_iprintf(buffer, "appl_ptr    : %ld\n", runtime->control->appl_ptr);
++#ifdef CONFIG_SND_PCM_XRUN_DEBUG
++	snd_iprintf(buffer, "xrun_counter: %d\n", substream->xrun_counter);
++#endif
+ }
+ 
+ #ifdef CONFIG_SND_PCM_XRUN_DEBUG
+@@ -970,6 +973,9 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
+ 	substream->pid = get_pid(task_pid(current));
+ 	pstr->substream_opened++;
+ 	*rsubstream = substream;
++#ifdef CONFIG_SND_PCM_XRUN_DEBUG
++	substream->xrun_counter = 0;
++#endif /* CONFIG_SND_PCM_XRUN_DEBUG */
+ 	return 0;
+ }
+ 
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 6e7905749c4a..6eaa950504cf 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -184,6 +184,9 @@ void __snd_pcm_xrun(struct snd_pcm_substream *substream)
+ 		pcm_warn(substream->pcm, "XRUN: %s\n", name);
+ 		dump_stack_on_xrun(substream);
+ 	}
++#ifdef CONFIG_SND_PCM_XRUN_DEBUG
++	substream->xrun_counter++;
++#endif
+ }
+ 
+ #ifdef CONFIG_SND_PCM_XRUN_DEBUG
+-- 
+2.46.0.76.ge559c4bf1a-goog
 

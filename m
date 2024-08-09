@@ -2,82 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9B4094CB96
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 09:43:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02AB594CB95
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 09:43:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76D61EB6;
-	Fri,  9 Aug 2024 09:43:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76D61EB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AFC114E1;
+	Fri,  9 Aug 2024 09:43:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AFC114E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723189420;
-	bh=MKkruNKNh4Cg9ReIgGScwKqxFuJeRLtS5G6RkOok3Fw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1723189411;
+	bh=1QQ6IERaVvmQgZYfk/xYBeo9a86+7mGsf8Ey/jbzXQ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dnrNmIVlF9dbCIYOPpohi8vt2UMUSAi9j/4YmlBjSJA2WQFP7hjGJpQPuAbDum3Z3
-	 Liqu41yphQcjxNnuU1Q2c4BaH5MrVcLdlahVWm69k8C5Cfxv9u+uyPjrGZffA/dUnM
-	 sMsL3R5Pv2bXStMau+YX318dn/87BOzktzftegNU=
+	b=MsdtUNBhYWXSPCLIDKhFfIn/nQWb46+nNElPmkeOJqOfNHhCLt7XZ83XRCUZof/6H
+	 E9EqSyWWcQ4oWZSFVlhvTbl/niGzNCNh+uDbAweL0/ecov8ctjcagEAozV0xKIP+Yq
+	 bC1XK47uybTQzCoq3rvVSCPILqzB617ySlV8SmH0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 255A8F805EE; Fri,  9 Aug 2024 09:42:48 +0200 (CEST)
+	id C4B8DF805DF; Fri,  9 Aug 2024 09:42:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B2B3F805C7;
-	Fri,  9 Aug 2024 09:42:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8443F805FD;
+	Fri,  9 Aug 2024 09:42:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 257D9F8047C; Fri,  9 Aug 2024 09:39:07 +0200 (CEST)
+	id 0FBD4F80448; Fri,  9 Aug 2024 09:39:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00CE1F800BF
-	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 09:34:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00CE1F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 33326F800B0;
+	Fri,  9 Aug 2024 09:35:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33326F800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QEFpYwQv
+ header.s=k20201202 header.b=ANIuIKC4
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8992161645;
-	Fri,  9 Aug 2024 07:33:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE99EC4AF17;
-	Fri,  9 Aug 2024 07:33:52 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 35CEE61626;
+	Fri,  9 Aug 2024 07:35:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F67C32782;
+	Fri,  9 Aug 2024 07:35:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723188837;
-	bh=MKkruNKNh4Cg9ReIgGScwKqxFuJeRLtS5G6RkOok3Fw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=QEFpYwQvYQ1L0WYxxq/s7qQXEI3q25gBMZFmlCKbsg281NUSyb15H0qlzisr/Ibz2
-	 s2TWdXvOIrkwrMEafegpg1b1d7ogihi3hbJgV+bSQ6BD2MLUAk4EFRw9UJ310umgZ5
-	 /ZLBHNOA4huDgkWcPCk6gHKLe3gq6+ojGJO/KcW3YVZZ1J5geYaLebAMiY5gfmcxuP
-	 7s9dB1VNxnamt1sWz7fonCis3KAj1mLPn7hbDKLy+VlaSaPbh9jgbva+MhRe8Pyyoa
-	 Xkxdvbnq61eeVmG8jrZpQf/NFYJ2shUuVjpJi9q1K4+UHNfWHXHNzlKPTrBDYgJbOS
-	 SJlzuCTObHwfA==
+	s=k20201202; t=1723188948;
+	bh=1QQ6IERaVvmQgZYfk/xYBeo9a86+7mGsf8Ey/jbzXQ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ANIuIKC44kb6rGZ2+BWwRs1fobAope6oTe2TR7eZVrvbX7dln1qyRVxRQKEsfbkrh
+	 uwriJwOtabpfS9B0tJrWQn1FcHKN3ttkKaRVh+2mSZ4kSB6X7kuvbEMSai2CkabR62
+	 ux2cXvV/DaG8/+vCDJu3qff1flOWYJSyBe7B7/RYUrZYCFJQogCIIqMxhXRkTg7CL0
+	 Xcujy+YV88lBR3Q1z6YyEykvS/oTBx7dBPTqFFmW8iBYtNnB5CKSok2KZ3RfzIQjTc
+	 fXg4+nWPdLP7tHpV3f/ATUGx985XAwj7U+f0fDwbpN7iaoTPgIDTyHQRZ596jTYLRr
+	 KbbiBQT9dnY/w==
+Date: Fri, 9 Aug 2024 08:35:42 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org
-In-Reply-To: <20240803-codec-version-v1-0-bc29baa5e417@linaro.org>
-References: <20240803-codec-version-v1-0-bc29baa5e417@linaro.org>
-Subject: Re: [PATCH 0/2] ASoC: codecs: warn on unknown codec version
-Message-Id: <172318883316.484675.7690867442520809785.b4-ty@kernel.org>
-Date: Fri, 09 Aug 2024 08:33:53 +0100
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+	Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	"moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <linux-sound@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/8] ASoC: SOF: amd: fix for acp error reason registers
+ wrong offset
+Message-ID: <ZrXGzmhgyIJ9ID6I@finisterre.sirena.org.uk>
+References: <20240807051341.1616925-1-Vijendar.Mukunda@amd.com>
+ <20240807051341.1616925-2-Vijendar.Mukunda@amd.com>
+ <ZrUdOyGiFRH0sRlt@finisterre.sirena.org.uk>
+ <a6a0c975-728b-4379-b074-b88ac928c58b@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: 3GRJMZHTCPRN2HOPCFLDOXATEJCS52Q5
-X-Message-ID-Hash: 3GRJMZHTCPRN2HOPCFLDOXATEJCS52Q5
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oZGvFgiQ7XPpJzCg"
+Content-Disposition: inline
+In-Reply-To: <a6a0c975-728b-4379-b074-b88ac928c58b@amd.com>
+X-Cookie: Your love life will be... interesting.
+Message-ID-Hash: QW2C3SSLQLM7W7U5MMHS6B3KGW5S6MAR
+X-Message-ID-Hash: QW2C3SSLQLM7W7U5MMHS6B3KGW5S6MAR
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3GRJMZHTCPRN2HOPCFLDOXATEJCS52Q5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QW2C3SSLQLM7W7U5MMHS6B3KGW5S6MAR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,45 +116,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 03 Aug 2024 13:41:39 +0300, Dmitry Baryshkov wrote:
-> While debugging broken audio issues on some of Qualcomm platforms I
-> stumbled upon the kernel not providing the actual error information.
-> It prints an error from the wsa_macro driver, but the actual issue is in
-> the VA macro driver. Add error message to point to the actual error
-> location.
-> 
-> va_macro 3370000.codec: Unknown VA Codec version, ID: 00 / 0f / 00
-> wsa_macro 3240000.codec: Unsupported Codec version (0)
-> 
-> [...]
 
-Applied to
+--oZGvFgiQ7XPpJzCg
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Aug 09, 2024 at 07:30:54AM +0530, Mukunda,Vijendar wrote:
+> On 09/08/24 01:02, Mark Brown wrote:
 
-Thanks!
+> > /build/stage/linux/sound/soc/sof/amd/acp.c: In function =E2=80=98acp_ir=
+q_handler=E2=80=99:
+> > /build/stage/linux/sound/soc/sof/amd/acp.c:407:26: error: =E2=80=98stru=
+ct acp_dev_data=E2=80=99 h
+> > as no member named =E2=80=98pci_rev=E2=80=99
+> >   407 |                 if (adata->pci_rev >=3D ACP_RMB_PCI_ID)
+> >       |                          ^~
 
-[1/2] ASoC: codecs: lpass-macro: fix version strings returned for 1.x codecs
-      commit: 49f6202ce991742f451fc724f03d0c17460d06cd
-[2/2] ASoC: codecs: lpass-va-macro: warn on unknown version
-      commit: a9a7a2d80790d06cd32c535e2e7b10f72ce592e7
+> This patch is part of https://github.com/thesofproject/linux/pull/5103
+> which got successfully merged into sof github without any build errors.
+> This patch is dependent on
+> Link: https://patch.msgid.link/20240801111821.18076-10-Vijendar.Mukunda@a=
+md.com
+> which got already merged in to ASoC tree for-next base.
+> It shouldn't cause build error if the dependent patch already merged.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Are the patches it depends on actually before it in the patch series?
+We want the resulting git tree to be bisectable, that means testing each
+commit not just the final result.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+--oZGvFgiQ7XPpJzCg
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+-----BEGIN PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma1xs0ACgkQJNaLcl1U
+h9D8Awf+Idi79Uow4rDHeevyxUJtVFJXMcuUJIjmkUD4+D/O9De7gvSHEszmIGbL
+J8DQrDQ6PJhXBSEcdGojOFP4EB5zXiX3f4pt3rY+Fi2D7ek4A+kjdG8UFrpeX4qQ
+WBQP1ycUxZSV0JI7+a0pBVoo+Zr0tAcn4Rar29VXRKFH4ZD1JCUIKsRf6Db1JZRt
+hgJf41uLg5siRcgrouiVrJeqiL0SvsK2IWbINNbbJ4xc52YDjLs0H8+ux0MCh+/E
+h2Hd3q7THZibHlVEuBO+v6h6e86dR6k+X05Ou5uPgGeygR88Mm+3NQb47SXIj28K
+l56vUzz42Bjtmk0dQLonssYugDtOyg==
+=iQRN
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mark
-
+--oZGvFgiQ7XPpJzCg--

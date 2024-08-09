@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D9C994D1BD
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 16:01:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BFDF94D1C3
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2024 16:02:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E0AA14EA;
-	Fri,  9 Aug 2024 16:01:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E0AA14EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74C8814E8;
+	Fri,  9 Aug 2024 16:02:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74C8814E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723212086;
-	bh=5ogXGrZdvbT4WutFOAqshOubqCpu2wcZcmFB8geElsw=;
+	s=default; t=1723212143;
+	bh=IgMhrJ6GM2quj2X0SARC9nS56WSNelqxMnz0IIiGEtg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i2c5PTk/X0+/fdhgjPQRGwDhgee8Y0hxIugRvZclWsVVUD4cxohW38nhmNi4Krp6d
-	 hjvV9yUB+9HFUPosJyjK31PiRRZdUxFwEOx0TfeoTkLE2OqE6WeJHfRM4amvYgrsCQ
-	 BJsddzzVlKzCsXF6GJ7SRa+TK2GKR7yjn/vLfiV0=
+	b=WSVoFqdUrVj2qR/HqnGgy6mF3PgyP2dBdlmejBZxtwgx7CCuUY98uOuS0yZu4gTfK
+	 t2vmyAxJY70VntI2xeWtDBbMZOb9nMSu5KslKP6lozmme4OgPxPSbIwcm/DDmPaGCL
+	 phLormI9usjwpOpmw6wq9/mt5VrFfkgI5gWg9aJc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25A74F805B4; Fri,  9 Aug 2024 16:01:05 +0200 (CEST)
+	id 1E672F805AC; Fri,  9 Aug 2024 16:01:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B1BDF805AE;
-	Fri,  9 Aug 2024 16:01:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F7A2F805AF;
+	Fri,  9 Aug 2024 16:01:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AC23F802DB; Fri,  9 Aug 2024 15:52:09 +0200 (CEST)
+	id D3CB0F8057A; Fri,  9 Aug 2024 16:01:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,18 +37,18 @@ Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C805F800BF
-	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 15:51:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC088F8047C
+	for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2024 16:01:14 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2CFDB36295;
-	Fri,  9 Aug 2024 15:51:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2CFDB36295
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 02DFB36298;
+	Fri,  9 Aug 2024 16:01:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 02DFB36298
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1723211514; bh=bfR8xK8YRjbeCEtA/tBvDIAuJxRdvXjkUB7dml/F+x4=;
+	t=1723212073; bh=CJr5XwtgzWNpNhJhirVRyEVa0EaFIxqG/PFO+omGCVU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TnOCcVRBcxKQEqiclDVDFTrDossLOublsWu2dGWoRkqZ+h3Qaz72TZssUWyzHYxdK
-	 uaWbNAq2ALX2pMWExoEQ+iz8Oje7UeXeMUAAosNplUe80deubBxcCYe3jEA9mN6tb8
-	 jxCA6ENCyhEiHkTxixmFYK9DdJ8oqc+zBA7Ifxfw=
+	b=uZHlfDdG7Jsu510hURejqOXa7UW34u+A8XY5U77moHdlF9UUgAaet5RwzeXAHm/LQ
+	 g0/Z3Cs0oKqzKfY3iJsS4m72CON5+2skn3G6GAB78SQVFdj6djko227aAgSudqHxjB
+	 lfx+Uy4vILRdrxcakmhuQmMq8AZqXgP1Ig06YG7U=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
@@ -56,15 +56,15 @@ Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(No client certificate requested)
 	(Authenticated sender: perex)
 	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Fri,  9 Aug 2024 15:51:40 +0200 (CEST)
-Message-ID: <e087f554-394e-4d61-8fa4-ddbedd485448@perex.cz>
-Date: Fri, 9 Aug 2024 15:51:39 +0200
+	Fri,  9 Aug 2024 16:00:58 +0200 (CEST)
+Message-ID: <c3b8f7b8-fc5e-4285-bee8-7edd448a405d@perex.cz>
+Date: Fri, 9 Aug 2024 16:00:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
  support
-To: Shengjiu Wang <shengjiu.wang@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
 Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, tiwai@suse.com,
  alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
  linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
@@ -80,8 +80,9 @@ References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
  <c9039808-cd04-452d-9f6c-f91811088456@perex.cz>
  <ed1192e0-00e7-4739-a687-c96dc2d62898@linux.intel.com>
  <CAA+D8AMOh=G7W5-dYw_=Xx-s0PqEu2suKYorscoWku86Rn-=+A@mail.gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
+ <542d47c5-7ce3-4c17-8c0a-3a2b2a9e6c6a@linux.intel.com>
 Content-Language: en-US
+From: Jaroslav Kysela <perex@perex.cz>
 Autocrypt: addr=perex@perex.cz; keydata=
  xsFNBFvNeCsBEACUu2ZgwoGXmVFGukNPWjA68/7eMWI7AvNHpekSGv3z42Iy4DGZabs2Jtvk
  ZeWulJmMOh9ktP9rVWYKL9H54gH5LSdxjYYTQpSCPzM37nisJaksC8XCwD4yTDR+VFCtB5z/
@@ -125,12 +126,11 @@ Autocrypt: addr=perex@perex.cz; keydata=
  k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
  m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
  WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: 
- <CAA+D8AMOh=G7W5-dYw_=Xx-s0PqEu2suKYorscoWku86Rn-=+A@mail.gmail.com>
+In-Reply-To: <542d47c5-7ce3-4c17-8c0a-3a2b2a9e6c6a@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZB273IREHEDQSLUBWFUV4QCQAIFWLV4D
-X-Message-ID-Hash: ZB273IREHEDQSLUBWFUV4QCQAIFWLV4D
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: Q3WU27BG7QHHSIW7QK645QFOMSU37CVH
+X-Message-ID-Hash: Q3WU27BG7QHHSIW7QK645QFOMSU37CVH
 X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -143,7 +143,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZB273IREHEDQSLUBWFUV4QCQAIFWLV4D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q3WU27BG7QHHSIW7QK645QFOMSU37CVH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,127 +152,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 09. 08. 24 12:14, Shengjiu Wang wrote:
-> On Fri, Aug 9, 2024 at 3:25 PM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
->>
->>
->>>>>> Then there's the issue of parameters, we chose to only add parameters
->>>>>> for standard encoders/decoders. Post-processing is highly specific and
->>>>>> the parameter definitions varies from one implementation to another -
->>>>>> and usually parameters are handled in an opaque way with binary
->>>>>> controls. This is best handled with a UUID that needs to be known only
->>>>>> to applications and low-level firmware/hardware, the kernel code should
->>>>>> not have to be modified for each and every processing and to add new
->>>>>> parameters. It just does not scale and it's unmaintainable.
->>>>>>
->>>>>> At the very least if you really want to use this compress API,
->>>>>> extend it
->>>>>> to use a non-descript "UUID-defined" type and an opaque set of
->>>>>> parameters with this UUID passed in a header.
->>>>>
->>>>> We don't need to use UUID-defined scheme for simple (A)SRC
->>>>> implementation. As I noted, the specific runtime controls may use
->>>>> existing ALSA control API.
->>>>
->>>> "Simple (A)SRC" is an oxymoron. There are multiple ways to define the
->>>> performance, and how the drift estimator is handled. There's nothing
->>>> simple if you look under the hood. The SOF implementation has for
->>>> example those parameters:
->>>>
->>>> uint32_t source_rate;           /**< Define fixed source rate or */
->>>>                  /**< use 0 to indicate need to get */
->>>>                  /**< the rate from stream */
->>>> uint32_t sink_rate;             /**< Define fixed sink rate or */
->>>>                  /**< use 0 to indicate need to get */
->>>>                  /**< the rate from stream */
->>>> uint32_t asynchronous_mode;     /**< synchronous 0, asynchronous 1 */
->>>>                  /**< When 1 the ASRC tracks and */
->>>>                  /**< compensates for drift. */
->>>> uint32_t operation_mode;        /**< push 0, pull 1, In push mode the */
->>>>                  /**< ASRC consumes a defined number */
->>>>                  /**< of frames at input, with varying */
->>>>                  /**< number of frames at output. */
->>>>                  /**< In pull mode the ASRC outputs */
->>>>                  /**< a defined number of frames while */
->>>>                  /**< number of input frames varies. */
->>>>
->>>> They are clearly different from what is suggested above with a 'ratio-
->>>> mod'.
->>>
->>> I don't think so. The proposed (A)SRC for compress-accel is just one
->>> case for the above configs where the input is known and output is
->>> controlled by the requested rate. The I/O mechanism is abstracted enough
->>> in this case and the driver/hardware/firmware must follow it.
->>
->> ASRC is usually added when the nominal rates are known but the clock
->> sources differ and the drift needs to be estimated at run-time and the
->> coefficients or interpolation modified dynamically
->>
->> If the ratio is known exactly and there's no clock drift, then it's a
->> different problem where the filter coefficients are constant.
->>
->>>> Same if you have a 'simple EQ'. there are dozens of ways to implement
->>>> the functionality with FIR, IIR or a combination of the two, and
->>>> multiple bands.
->>>>
->>>> The point is that you have to think upfront about a generic way to pass
->>>> parameters. We didn't have to do it for encoders/decoders because we
->>>> only catered to well-documented standard solutions only. By choosing to
->>>> support PCM processing, a new can of worms is now open.
->>>>
->>>> I repeat: please do not make the mistake of listing all processing with
->>>> an enum and a new structure for parameters every time someone needs a
->>>> specific transform in their pipeline. We made that mistake with SOF and
->>>> had to backtrack rather quickly. The only way to scale is an identifier
->>>> that is NOT included in the kernel code but is known to higher and
->>>> lower-levels only.
->>>
->>> There are two ways - black box (UUID - as you suggested) - or well
->>> defined purpose (abstraction). For your example 'simple EQ', the
->>> parameters should be the band (frequency range) volume values. It's
->>> abstract and the real filters (resp. implementation) used behind may
->>> depend on the hardware/driver capabilities.
->>
->> Indeed there is a possibility that the parameters are high-level, but
->> that would require firmware or hardware to be able to generate actual
->> coefficients from those parameters. That usually requires some advanced
->> math which isn't necessarily obvious to implement with fixed-point hardware.
->>
->>>  From my view, the really special cases may be handled as black box, but
->>> others like (A)SRC should follow some well-defined abstraction IMHO to
->>> not force user space to handle all special cases.
->>
->> I am not against the high-level abstractions, e.g. along the lines of
->> what Android defined:
->> https://developer.android.com/reference/android/media/audiofx/AudioEffect
->>
->> That's not sufficient however, we also need to make sure there's an
->> ability to provide pre-computed coefficients in an opaque manner for
->> processing that doesn't fit in the well-defined cases. In practice there
->> are very few 3rd party IP that fits in well-defined cases, everyone has
->> secret-sauce parameters and options.
-> 
-> Appreciate the discussion.
-> 
-> Let me explain the reason for the change:
-> 
-> Why I use the metadata ioctl is because the ALSA controls are binding
-> to the sound card.  What I want is the controls can be bound to
-> snd_compr_stream, because the ASRC compress sound card can
-> support multi instances ( the ASRC can support multi conversion in
-> parallel).   The ALSA controls can't be used for this case,  the only
-> choice in current compress API is metadata ioctl. And metadata
-> ioctl can be called many times which can meet the ratio modifier
-> requirement (ratio may be drift on the fly)
+On 09. 08. 24 14:52, Pierre-Louis Bossart wrote:
 
-This argument is not valid. The controls are bound to the card, but the 
-element identifiers have already iface (interface), device and subdevice 
-numbers. We are using controls for PCM devices for example. The binding is 
-straight.
+>> And metadata
+>> ioctl can be called many times which can meet the ratio modifier
+>> requirement (ratio may be drift on the fly)
+> 
+> Interesting, that's yet another way of handling the drift with userspace
+> modifying the ratio dynamically. That's different to what I've seen before.
 
-Just add SNDRV_CTL_ELEM_IFACE_COMPRESS define and specify the compress device 
-number in the 'struct snd_ctl_elem_id'.
+Note that the "timing" is managed by the user space with this scheme.
+
+>> And compress API uses codec as the unit for capability query and
+>> parameter setting,  So I think need to define "SND_AUDIOCODEC_SRC'
+>> and 'struct snd_dec_src',  for the 'snd_dec_src' just defined output
+>> format and output rate, channels definition just reuse the snd_codec.ch_in.
+> 
+> The capability query is an interesting point as well, it's not clear how
+> to expose to userspace what this specific implementation can do, while
+> at the same time *requiring* userpace to update the ratio dynamically.
+> For something like this to work, userspace needs to have pre-existing
+> information on how the SRC works.
+
+Yes, it's about abstraction. The user space wants to push data, read data back 
+converted to the target rate and eventually modify the drift using a control 
+managing clocks using own way. We can eventually assume, that if this control 
+does not exist, the drift cannot be controlled. Also, nice thing is that the 
+control has min and max values (range), so driver can specify the drift range, 
+too.
+
+And again, look to "PCM Rate Shift 100000" control implementation in 
+sound/drivers/aloop.c. It would be nice to have the base offset for the 
+shift/drift/pitch value standardized.
 
 					Jaroslav
 

@@ -2,91 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CAFD94D92F
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2024 01:37:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80CCC94DBA4
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2024 10:52:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 259AF10BE;
-	Sat, 10 Aug 2024 01:36:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 259AF10BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id F200E10BE;
+	Sat, 10 Aug 2024 10:52:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F200E10BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723246629;
-	bh=xUsKLR4zWYnJT9y7G1ygwy0DPpPNyOurGAR0AtKb+BU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1723279946;
+	bh=zT5rASv96Ev8n9CddTVeF1TAdQH7tDQYlH/IQ8smeuo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=owwZCuqY0GEbE5nrRazwHEa5DT04ZzoTQMhoYA+TPl9EvG4PikPW+kBJqiJE7rwSd
-	 /vkRpb8OGbx2FieRxafyAbTyBFzmvPX/6Y4dsiLxf54jT8H7kbJ5F2B5byl3cC4znR
-	 DnbtjRsgCKxGwBu9MNcym+U+mylPDqF5PdoAvimo=
+	b=P+6DkSPj1zupNCAKQfr0Fy4i/ZXz//lVDjcfmcgNKyg/H25hweYw2TysiN4N3TBO4
+	 a53jgpMVJGI5YW/IGTcXSJ2ip3YT4KqukhYUzBGLndJ6Em1nqHe2IYz+z5XwcziIuD
+	 8qRWQriFBqoLabflWUhWlAoEPEKMoj5DmQ8Nn7RI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D465DF805BD; Sat, 10 Aug 2024 01:36:26 +0200 (CEST)
+	id 5047CF805C1; Sat, 10 Aug 2024 10:52:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7909F805BD;
-	Sat, 10 Aug 2024 01:36:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58E07F805AE;
+	Sat, 10 Aug 2024 10:51:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64CC5F802DB; Sat, 10 Aug 2024 01:27:52 +0200 (CEST)
+	id 671C3F802DB; Sat, 10 Aug 2024 10:46:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,TIME_LIMIT_EXCEEDED,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1653EF800E3
-	for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2024 01:27:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1653EF800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 502A0F800BF
+	for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2024 10:40:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 502A0F800BF
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=txk8RPRD
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 0E668CE180B;
-	Fri,  9 Aug 2024 23:27:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891C4C4AF0D;
-	Fri,  9 Aug 2024 23:27:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723246062;
-	bh=xUsKLR4zWYnJT9y7G1ygwy0DPpPNyOurGAR0AtKb+BU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=txk8RPRDqGhf+5ZiYnVn+HRXgou6FTRRvAj5/j4152rHhchNuvaaaafmVSKhJ4Pc+
-	 6WDuHXU/d7tG2vmrygwjvTjsFrN1hOkZjq7RT+4nY953Hy/XeUgK+b844DAedyqS6A
-	 Wl6FSXQ9fWLkDkJXx8XD3B2zUz+NmHcbAUSKLMKZ5c5eosLQe4H8fNE8CLQy5OuBk9
-	 nH09X3mRU8zic7VCqJwtfzWLPotT1VbXwiu8GPiFYmSI6TFtNjbGjFKSmCl2Pv2otg
-	 9aNrxdrZCzxt5nfPmsXfhxb/eujJ/9C9u6rWbiXpqOKjrSWX8NWLpcwDmDym+q4fl0
-	 ACacER/Jvk1XA==
-Date: Sat, 10 Aug 2024 00:27:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] ALSA: pcm: add support for 128kHz sample rate
-Message-ID: <Zral597nrlHHj9-W@finisterre.sirena.org.uk>
-References: <20240628122429.2018059-1-jbrunet@baylibre.com>
- <20240628122429.2018059-2-jbrunet@baylibre.com>
- <326792b9-e706-4ab0-a1e8-cc48943e357d@linux.intel.com>
- <874j99434a.wl-tiwai@suse.de>
- <1j4j90hurv.fsf@starbuckisacylon.baylibre.com>
- <87ed84rnk7.wl-tiwai@suse.de>
- <1jcymixfou.fsf@starbuckisacylon.baylibre.com>
- <87seve6q9u.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j9aCuwDsgaYEuagC"
-Content-Disposition: inline
-In-Reply-To: <87seve6q9u.wl-tiwai@suse.de>
-X-Cookie: Your love life will be... interesting.
-Message-ID-Hash: U24SQ2KS7FRFG7VTLA4WWKB6FH3K64DY
-X-Message-ID-Hash: U24SQ2KS7FRFG7VTLA4WWKB6FH3K64DY
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=hvMyslfl;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=twiaINLH;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=hvMyslfl;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=twiaINLH
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B7F69220E0;
+	Sat, 10 Aug 2024 08:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1723279254;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JOlgF9chdSFGs3DgiXE9oTOri2EHGPEGhgk4hioJWuk=;
+	b=hvMyslfl1Oe1tI1q7bQBtBd3LHUe8KIm0hQU618WeXvPxVIsct/+tlF6Hn66KzO2jXJED1
+	etjr1czhUcMEn2TLUXOQVzLf58UwgRLxpDAgTGF0FNrFXVLYgMOTKGszugJzFeZDTzcVIG
+	KFpinlXggNhdo0DBinz0/nNqLHRUuZ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1723279254;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JOlgF9chdSFGs3DgiXE9oTOri2EHGPEGhgk4hioJWuk=;
+	b=twiaINLHiatdKiMDBzGlMbjAu+R6EdysgaDWY9WtiebRK0SlrdFODd3EM5eEHBmU/C7tC6
+	nXke1zuo+a+Sq3Dw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1723279254;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JOlgF9chdSFGs3DgiXE9oTOri2EHGPEGhgk4hioJWuk=;
+	b=hvMyslfl1Oe1tI1q7bQBtBd3LHUe8KIm0hQU618WeXvPxVIsct/+tlF6Hn66KzO2jXJED1
+	etjr1czhUcMEn2TLUXOQVzLf58UwgRLxpDAgTGF0FNrFXVLYgMOTKGszugJzFeZDTzcVIG
+	KFpinlXggNhdo0DBinz0/nNqLHRUuZ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1723279254;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JOlgF9chdSFGs3DgiXE9oTOri2EHGPEGhgk4hioJWuk=;
+	b=twiaINLHiatdKiMDBzGlMbjAu+R6EdysgaDWY9WtiebRK0SlrdFODd3EM5eEHBmU/C7tC6
+	nXke1zuo+a+Sq3Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 76EC913704;
+	Sat, 10 Aug 2024 08:40:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aPHFGpYnt2azJAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 10 Aug 2024 08:40:54 +0000
+Date: Sat, 10 Aug 2024 10:41:34 +0200
+Message-ID: <87a5hklqgx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Norman Bintang <normanbt@chromium.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	broonie@kernel.org,
+	alsa-devel@alsa-project.org,
+	Takashi Iwai <tiwai@suse.com>,
+	cujomalainey@chromium.org,
+	Chih-Yang Hsia <paulhsia@chromium.org>,
+	David Riley <davidriley@chromium.org>
+Subject: Re: [PATCH] ALSA: pcm: Add xrun counter for snd_pcm_substream
+In-Reply-To: <20240809140648.3414349-1-normanbt@chromium.org>
+References: <20240809140648.3414349-1-normanbt@chromium.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+Message-ID-Hash: N2ZSJFOL5KGTXEHA3XVBETHECNWNPC55
+X-Message-ID-Hash: N2ZSJFOL5KGTXEHA3XVBETHECNWNPC55
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +156,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U24SQ2KS7FRFG7VTLA4WWKB6FH3K64DY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N2ZSJFOL5KGTXEHA3XVBETHECNWNPC55/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,40 +165,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 09 Aug 2024 16:06:45 +0200,
+Norman Bintang wrote:
+> 
+> This patch adds an xrun counter to snd_pcm_substream as an alternative
+> to using logs from XRUN_DEBUG_BASIC. The counter provides a way to track
+> the number of xrun occurences, accessible through the /proc interface.
+> 
+> The counter is enabled when CONFIG_SND_PCM_XRUN_DEBUG is set.
+> 
+> Example output:
+> 
+> $ cat /proc/asound/card0/pcm9p/sub0/status
+> 
+> owner_pid   : 1425
+> trigger_time: 235.248957291
+> tstamp      : 0.000000000
+> delay       : 1912
+> avail       : 480
+> avail_max   : 1920
+> -----
+> hw_ptr      : 672000
+> appl_ptr    : 673440
+> xrun_counter: 3  # (new row)
+> 
+> Signed-off-by: Norman Bintang <normanbt@chromium.org>
+> Reviewed-by: Chih-Yang Hsia <paulhsia@chromium.org>
+> Tested-by: Chih-Yang Hsia <paulhsia@chromium.org>
+> Reviewed-by: David Riley <davidriley@chromium.org>
 
---j9aCuwDsgaYEuagC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to for-next branch.  Thanks.
 
-On Fri, Aug 09, 2024 at 10:42:37AM +0200, Takashi Iwai wrote:
-> Jerome Brunet wrote:
 
-> > Takashi, Mark, what is your preference ? Should I:
-> >  * tweak the spdif codec to use RATE_KNOT ?
-> >  * add just 128kHz, fixing the 3 file above ?
-> >  * add 12 and 24kHz as well ?
-
-> > I don't really mind one way or the other.
-
-> If there are multiple instances, it's fine to extend the standards.
-> Then we can clean up them as well.
-
-I tend to agree, it seems like an obvious thing that people will be
-wanting to use and there's already multiple users appearing.
-
---j9aCuwDsgaYEuagC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma2peYACgkQJNaLcl1U
-h9D+2Af+LZNFlSJBrfEP3351HBCHpFs3TZZnxbfrjvVH0yUKD0hjTTetbbvhdGvg
-osn/y10PkEQQ9dESuH+u9CshDO3rw8XPBUlb58L7N1WfRfgE6J54tM7RqaipHv2D
-oRuNwSLn9Z2D3/QKywH4MgAcZo+JLKQMWaQnd7IiOItG64qdf4VPolKK4qZj6xlk
-wdFrnMEXJn0ox/JRx4gJgZJh0a0YdkRIKaLZIDuOTEJFMK+cfbzlsNtcJPvefZqA
-VYW7mPEUfqPqEkCenyVr54ikDvbaDVDxaXj1WumDRU9Ju4lSGWw9/OqDUX+ypmdJ
-RQeMnBz4fUojzjlmKM1UkSlHS/o86g==
-=/6uj
------END PGP SIGNATURE-----
-
---j9aCuwDsgaYEuagC--
+Takashi

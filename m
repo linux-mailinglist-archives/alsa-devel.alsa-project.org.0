@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BF2794EA2C
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2024 11:45:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BE3594EA2D
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2024 11:45:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4510D210B;
-	Mon, 12 Aug 2024 11:44:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4510D210B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82CA0193B;
+	Mon, 12 Aug 2024 11:45:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82CA0193B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723455900;
-	bh=k4VkIH98ZFpmVpOG03fATVuas2sxjUqfvf5im5/BQcc=;
+	s=default; t=1723455915;
+	bh=vtLupBFNdLI40EsNkr9DaAj4vIa8r6PWiSJXmmzJUAQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GVwtS5umymWSQMY7bFM20yCHcbYFPFDvSmoImg3VPRtsia3YebBrdt3sJq1r3Reqk
-	 d+YSVFQNq0ti6obJwgU7+33MSkmJkd+SkM+jBdwGOeE1SaUsTdP/1ol+DFgrVjknPX
-	 ahv+m0FIfXo/p61lW8vn2zEXgfmoYT8ed825xELY=
+	b=D4x0Xl7CnNFhMVd/M9j7RpmLj7ZgYZsFIh86YIZwkLmDOw+LXALRks8TT81iGrMl2
+	 XkyXIHxJ+XbgijpNnEmc+PAVSD+7lrLOPUqcxQr6XnV1Jxpxtwd2C+QUkXuY//6MnW
+	 3/7+CcHmpjVMsj0OHHaWBPgHQpGIeWuie3qzaXWk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2184BF8061B; Mon, 12 Aug 2024 11:43:58 +0200 (CEST)
+	id F30A8F80652; Mon, 12 Aug 2024 11:44:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF2C5F8061F;
-	Mon, 12 Aug 2024 11:43:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31D97F80651;
+	Mon, 12 Aug 2024 11:44:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEDC4F8057A; Mon, 12 Aug 2024 11:43:37 +0200 (CEST)
+	id 9A9BCF8057A; Mon, 12 Aug 2024 11:43:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,41 +36,41 @@ X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2385F805BE
-	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 11:43:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2385F805BE
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4B0AFF80301
+	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 11:43:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B0AFF80301
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=WHW5vGzT
+ header.s=Intel header.b=Dfqfyu1g
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723455787; x=1754991787;
+  t=1723455791; x=1754991791;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=k4VkIH98ZFpmVpOG03fATVuas2sxjUqfvf5im5/BQcc=;
-  b=WHW5vGzTrk40sh7gl+/cxn4VhYDyJCFJVGgIjhTbsnPWauVrBHzu6MwN
-   y15sdMtFSPAnfUAxJ++xOIWeWfwM1yu/yhCcWuSD5TErgv9ueFcjQyfpd
-   rNAPkPEFLpxdLhh4f/ke4MNxu527nPUk3eHOAqLzGxPLf2Q2Fn2L4Idnm
-   ghYC7nKuwGGWfj9iDT2+vnwjV7H/Mabo1jBCeLpHBRAFTJKOzRV+JMBw1
-   mk6eL1fKxeePenwKsKxd5RecZcx2zqHQkIFlNu2CLig48pSc+MVwOdZid
-   SiURTelUPa12uZiaQO/SYyyKB9oMG9lJFnQbSXNYD0oZGK+no1g8jp60D
-   w==;
-X-CSE-ConnectionGUID: yDD8x/LSSa+8qkjRapPKkg==
-X-CSE-MsgGUID: /x4A4WyFTU69KddnPZjjsw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11161"; a="21705425"
+  bh=vtLupBFNdLI40EsNkr9DaAj4vIa8r6PWiSJXmmzJUAQ=;
+  b=Dfqfyu1gSIx3NNBaeVh50HQ3jNV/W9Ore1PSbX41WE761i4tvPkCyt5O
+   2vRnoB5RTgZhyWzPiji7Bdbk99zXNMdIKniBKfpC9UUPC3iqLvKMsOy1T
+   bGziXkSsr+v3aEJWRu4+/TYJOju1Ocv+s96Xt9LogZKS19eYtZeei0qyS
+   j9xHwJSm8ElAHoi4RiPx9rh1dYPOhuq87MkRnrgVcApSJvkVBebFuB1UM
+   NehTf1BmxhOnrUjBLZ/q49VbaQD+c51wO2wFIsCkGb1C/5UVB9ojWZcbb
+   ZTZXWNBqT9QKQxU431PX0aTzxeKcWeicsuBjyhaBEroIWcW9sMHjwPeLB
+   Q==;
+X-CSE-ConnectionGUID: It5W9hUFTGiDUutwOHub+w==
+X-CSE-MsgGUID: 8gk2oozJTja6rdUGlzhy9Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11161"; a="21705436"
 X-IronPort-AV: E=Sophos;i="6.09,282,1716274800";
-   d="scan'208";a="21705425"
+   d="scan'208";a="21705436"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
   by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2024 02:43:06 -0700
-X-CSE-ConnectionGUID: WIRAmYFSSGOgRQxkGiLx8g==
-X-CSE-MsgGUID: M4XScATMQdqCQCqBzbo8lQ==
+ 12 Aug 2024 02:43:09 -0700
+X-CSE-ConnectionGUID: vRPT/xM1Q6+ZU+jZte1mLg==
+X-CSE-MsgGUID: 0rEf/D8iRpKmPzeY/ud0rg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,282,1716274800";
-   d="scan'208";a="63057013"
+   d="scan'208";a="63057018"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by orviesa005.jf.intel.com with ESMTP; 12 Aug 2024 02:43:02 -0700
+  by orviesa005.jf.intel.com with ESMTP; 12 Aug 2024 02:43:06 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -84,16 +84,16 @@ Cc: alsa-devel@alsa-project.org,
 	cujomalainey@chromium.org,
 	lmajczak@google.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 09/12] ASoC: Intel: Remove skl_nau88l25_ssm4567 board driver
-Date: Mon, 12 Aug 2024 11:43:25 +0200
-Message-Id: <20240812094328.842661-10-cezary.rojewski@intel.com>
+Subject: [PATCH 10/12] ASoC: Intel: Remove skl_nau88l25_max98357a board driver
+Date: Mon, 12 Aug 2024 11:43:26 +0200
+Message-Id: <20240812094328.842661-11-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240812094328.842661-1-cezary.rojewski@intel.com>
 References: <20240812094328.842661-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: X63XNDJMC4XY66EGHUBVPKUC4SYBXI45
-X-Message-ID-Hash: X63XNDJMC4XY66EGHUBVPKUC4SYBXI45
+Message-ID-Hash: H46UQMWZJ5JOQFJQOKJYOK352KNAQVWA
+X-Message-ID-Hash: H46UQMWZJ5JOQFJQOKJYOK352KNAQVWA
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X63XNDJMC4XY66EGHUBVPKUC4SYBXI45/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H46UQMWZJ5JOQFJQOKJYOK352KNAQVWA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,92 +119,92 @@ The driver has no users.
 
 Succeeded by:
 - avs_nau8825 (./intel/avs/boards/nau8825.c)
-- avs_ssm4567 (./intel/avs/boards/ssm4567.c)
+- avs_max98357a (./intel/avs/boards/max98357a.c)
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/boards/Kconfig                |  14 -
+ sound/soc/intel/boards/Kconfig                |  18 -
  sound/soc/intel/boards/Makefile               |   2 -
- sound/soc/intel/boards/skl_nau88l25_ssm4567.c | 751 ------------------
- 3 files changed, 767 deletions(-)
- delete mode 100644 sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+ .../soc/intel/boards/skl_nau88l25_max98357a.c | 704 ------------------
+ 3 files changed, 724 deletions(-)
+ delete mode 100644 sound/soc/intel/boards/skl_nau88l25_max98357a.c
 
 diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 03244ec1933f..243b91501e7f 100644
+index 243b91501e7f..ba717e401805 100644
 --- a/sound/soc/intel/boards/Kconfig
 +++ b/sound/soc/intel/boards/Kconfig
-@@ -254,20 +254,6 @@ endif ## SND_SST_ATOM_HIFI2_PLATFORM
+@@ -252,24 +252,6 @@ config SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH
  
- if SND_SOC_INTEL_SKL
+ endif ## SND_SST_ATOM_HIFI2_PLATFORM
  
--config SND_SOC_INTEL_SKL_NAU88L25_SSM4567_MACH
--	tristate "SKL with NAU88L25 and SSM4567 in I2S Mode"
+-if SND_SOC_INTEL_SKL
+-
+-config SND_SOC_INTEL_SKL_NAU88L25_MAX98357A_MACH
+-	tristate "SKL with NAU88L25 and MAX98357A in I2S Mode"
 -	depends on I2C && ACPI
 -	depends on MFD_INTEL_LPSS || COMPILE_TEST
 -	select SND_SOC_NAU8825
--	select SND_SOC_SSM4567
+-	select SND_SOC_MAX98357A
 -	select SND_SOC_DMIC
 -	select SND_SOC_HDAC_HDMI
 -	help
 -	  This adds support for ASoC Onboard Codec I2S machine driver. This will
--	  create an alsa sound card for NAU88L25 + SSM4567.
+-	  create an alsa sound card for NAU88L25 + MAX98357A.
 -	  Say Y or m if you have such a device. This is a recommended option.
 -	  If unsure select "N".
 -
- config SND_SOC_INTEL_SKL_NAU88L25_MAX98357A_MACH
- 	tristate "SKL with NAU88L25 and MAX98357A in I2S Mode"
- 	depends on I2C && ACPI
+-endif ## SND_SOC_INTEL_SKL
+-
+ config SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
+ 	tristate
+ 	select SND_SOC_DA7219
 diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index 3ef77c99ff09..cde3cfae33c1 100644
+index cde3cfae33c1..9b24de731332 100644
 --- a/sound/soc/intel/boards/Makefile
 +++ b/sound/soc/intel/boards/Makefile
-@@ -23,7 +23,6 @@ snd-soc-sof_nau8825-y := sof_nau8825.o
+@@ -22,7 +22,6 @@ snd-soc-sof_es8336-y := sof_es8336.o
+ snd-soc-sof_nau8825-y := sof_nau8825.o
  snd-soc-sof_da7219-y := sof_da7219.o
  snd-soc-skl_hda_dsp-y := skl_hda_dsp_generic.o skl_hda_dsp_common.o
- snd-skl_nau88l25_max98357a-y := skl_nau88l25_max98357a.o
--snd-soc-skl_nau88l25_ssm4567-y := skl_nau88l25_ssm4567.o
+-snd-skl_nau88l25_max98357a-y := skl_nau88l25_max98357a.o
  snd-soc-ehl-rt5660-y := ehl_rt5660.o
  snd-soc-sof-ssp-amp-y := sof_ssp_amp.o
  snd-soc-sof-sdw-y += sof_sdw.o				\
-@@ -51,7 +50,6 @@ obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_DA7213_MACH) += snd-soc-sst-byt-cht-da7213.o
+@@ -49,7 +48,6 @@ obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_CX2072X_MACH) += snd-soc-sst-byt-cht-cx2072x.
+ obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_DA7213_MACH) += snd-soc-sst-byt-cht-da7213.o
  obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_ES8316_MACH) += snd-soc-sst-byt-cht-es8316.o
  obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH) += snd-soc-sst-byt-cht-nocodec.o
- obj-$(CONFIG_SND_SOC_INTEL_SKL_NAU88L25_MAX98357A_MACH) += snd-skl_nau88l25_max98357a.o
--obj-$(CONFIG_SND_SOC_INTEL_SKL_NAU88L25_SSM4567_MACH) += snd-soc-skl_nau88l25_ssm4567.o
+-obj-$(CONFIG_SND_SOC_INTEL_SKL_NAU88L25_MAX98357A_MACH) += snd-skl_nau88l25_max98357a.o
  obj-$(CONFIG_SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH) += snd-soc-skl_hda_dsp.o
  obj-$(CONFIG_SND_SOC_INTEL_EHL_RT5660_MACH) += snd-soc-ehl-rt5660.o
  obj-$(CONFIG_SND_SOC_INTEL_SOUNDWIRE_SOF_MACH) += snd-soc-sof-sdw.o
-diff --git a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+diff --git a/sound/soc/intel/boards/skl_nau88l25_max98357a.c b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
 deleted file mode 100644
-index d53bf3516c0d..000000000000
---- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+index 91fe9834aab4..000000000000
+--- a/sound/soc/intel/boards/skl_nau88l25_max98357a.c
 +++ /dev/null
-@@ -1,751 +0,0 @@
+@@ -1,704 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0-only
 -/*
-- * Intel Skylake I2S Machine Driver for NAU88L25+SSM4567
+- * Intel Skylake I2S Machine Driver with MAXIM98357A
+- * and NAU88L25
 - *
 - * Copyright (C) 2015, Intel Corporation
-- *
-- * Modified from:
-- *   Intel Skylake I2S Machine Driver for NAU88L25 and SSM4567
-- *
-- *   Copyright (C) 2015, Intel Corporation
 - */
 -
 -#include <linux/module.h>
 -#include <linux/platform_device.h>
 -#include <sound/core.h>
+-#include <sound/jack.h>
 -#include <sound/pcm.h>
+-#include <sound/pcm_params.h>
 -#include <sound/soc.h>
 -#include <sound/soc-acpi.h>
--#include <sound/jack.h>
--#include <sound/pcm_params.h>
 -#include "../../codecs/nau8825.h"
 -#include "../../codecs/hdac_hdmi.h"
 -
 -#define SKL_NUVOTON_CODEC_DAI	"nau8825-hifi"
--#define SKL_SSM_CODEC_DAI	"ssm4567-hifi"
+-#define SKL_MAXIM_CODEC_DAI "HiFi"
 -#define DMIC_CH(p)     p->list[p->count-1]
 -
 -static struct snd_soc_jack skylake_headset;
@@ -218,9 +218,10 @@ index d53bf3516c0d..000000000000
 -	int device;
 -};
 -
--struct skl_nau88125_private {
+-struct skl_nau8825_private {
 -	struct list_head hdmi_pcm_list;
 -};
+-
 -enum {
 -	SKL_DPCM_AUDIO_PB = 0,
 -	SKL_DPCM_AUDIO_CP,
@@ -231,15 +232,8 @@ index d53bf3516c0d..000000000000
 -	SKL_DPCM_AUDIO_HDMI3_PB,
 -};
 -
--static const struct snd_kcontrol_new skylake_controls[] = {
--	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
--	SOC_DAPM_PIN_SWITCH("Headset Mic"),
--	SOC_DAPM_PIN_SWITCH("Left Speaker"),
--	SOC_DAPM_PIN_SWITCH("Right Speaker"),
--};
--
 -static int platform_clock_control(struct snd_soc_dapm_widget *w,
--		struct snd_kcontrol *k, int  event)
+-	struct snd_kcontrol *k, int  event)
 -{
 -	struct snd_soc_dapm_context *dapm = w->dapm;
 -	struct snd_soc_card *card = dapm->card;
@@ -248,7 +242,7 @@ index d53bf3516c0d..000000000000
 -
 -	codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
 -	if (!codec_dai) {
--		dev_err(card->dev, "Codec dai not found\n");
+-		dev_err(card->dev, "Codec dai not found; Unable to set platform clock\n");
 -		return -EIO;
 -	}
 -
@@ -267,14 +261,20 @@ index d53bf3516c0d..000000000000
 -			return -EIO;
 -		}
 -	}
+-
 -	return ret;
 -}
+-
+-static const struct snd_kcontrol_new skylake_controls[] = {
+-	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+-	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+-	SOC_DAPM_PIN_SWITCH("Spk"),
+-};
 -
 -static const struct snd_soc_dapm_widget skylake_widgets[] = {
 -	SND_SOC_DAPM_HP("Headphone Jack", NULL),
 -	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Left Speaker", NULL),
--	SND_SOC_DAPM_SPK("Right Speaker", NULL),
+-	SND_SOC_DAPM_SPK("Spk", NULL),
 -	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
 -	SND_SOC_DAPM_SPK("DP1", NULL),
 -	SND_SOC_DAPM_SPK("DP2", NULL),
@@ -296,29 +296,22 @@ index d53bf3516c0d..000000000000
 -
 -static const struct snd_soc_dapm_route skylake_map[] = {
 -	/* HP jack connectors - unknown if we have jack detection */
--	{"Headphone Jack", NULL, "HPOL"},
--	{"Headphone Jack", NULL, "HPOR"},
+-	{ "Headphone Jack", NULL, "HPOL" },
+-	{ "Headphone Jack", NULL, "HPOR" },
 -
 -	/* speaker */
--	{"Left Speaker", NULL, "Left OUT"},
--	{"Right Speaker", NULL, "Right OUT"},
+-	{ "Spk", NULL, "Speaker" },
 -
 -	/* other jacks */
--	{"MIC", NULL, "Headset Mic"},
--	{"DMic", NULL, "SoC DMIC"},
+-	{ "MIC", NULL, "Headset Mic" },
+-	{ "DMic", NULL, "SoC DMIC" },
 -
 -	/* CODEC BE connections */
--	{ "Left Playback", NULL, "ssp0 Tx"},
--	{ "Right Playback", NULL, "ssp0 Tx"},
--	{ "ssp0 Tx", NULL, "codec0_out"},
+-	{ "HiFi Playback", NULL, "ssp0 Tx" },
+-	{ "ssp0 Tx", NULL, "codec0_out" },
 -
--	/* IV feedback path */
--	{ "codec0_lp_in", NULL, "ssp0 Rx"},
--	{ "ssp0 Rx", NULL, "Left Capture Sense" },
--	{ "ssp0 Rx", NULL, "Right Capture Sense" },
--
--	{ "Playback", NULL, "ssp1 Tx"},
--	{ "ssp1 Tx", NULL, "codec1_out"},
+-	{ "Playback", NULL, "ssp1 Tx" },
+-	{ "ssp1 Tx", NULL, "codec1_out" },
 -
 -	{ "codec0_in", NULL, "ssp1 Rx" },
 -	{ "ssp1 Rx", NULL, "Capture" },
@@ -338,32 +331,24 @@ index d53bf3516c0d..000000000000
 -	{ "Headset Mic", NULL, "Platform Clock" },
 -};
 -
--static struct snd_soc_codec_conf ssm4567_codec_conf[] = {
--	{
--		.dlc = COMP_CODEC_CONF("i2c-INT343B:00"),
--		.name_prefix = "Left",
--	},
--	{
--		.dlc = COMP_CODEC_CONF("i2c-INT343B:01"),
--		.name_prefix = "Right",
--	},
--};
--
--static int skylake_ssm4567_codec_init(struct snd_soc_pcm_runtime *rtd)
+-static int skylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+-	struct snd_pcm_hw_params *params)
 -{
--	int ret;
+-	struct snd_interval *rate = hw_param_interval(params,
+-			SNDRV_PCM_HW_PARAM_RATE);
+-	struct snd_interval *chan = hw_param_interval(params,
+-			SNDRV_PCM_HW_PARAM_CHANNELS);
+-	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
 -
--	/* Slot 1 for left */
--	ret = snd_soc_dai_set_tdm_slot(snd_soc_rtd_to_codec(rtd, 0), 0x01, 0x01, 2, 48);
--	if (ret < 0)
--		return ret;
+-	/* The ADSP will convert the FE rate to 48k, stereo */
+-	rate->min = rate->max = 48000;
+-	chan->min = chan->max = 2;
 -
--	/* Slot 2 for right */
--	ret = snd_soc_dai_set_tdm_slot(snd_soc_rtd_to_codec(rtd, 1), 0x02, 0x02, 2, 48);
--	if (ret < 0)
--		return ret;
+-	/* set SSP0 to 24 bit */
+-	snd_mask_none(fmt);
+-	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
 -
--	return ret;
+-	return 0;
 -}
 -
 -static int skylake_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
@@ -372,8 +357,8 @@ index d53bf3516c0d..000000000000
 -	struct snd_soc_component *component = snd_soc_rtd_to_codec(rtd, 0)->component;
 -
 -	/*
--	 * 4 buttons here map to the google Reference headset
--	 * The use of these buttons can be decided by the user space.
+-	 * Headset buttons map to the google Reference headset.
+-	 * These can be configured by userspace.
 -	 */
 -	ret = snd_soc_card_jack_new_pins(&skylake_audio_card, "Headset Jack",
 -					 SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
@@ -394,7 +379,7 @@ index d53bf3516c0d..000000000000
 -
 -static int skylake_hdmi1_init(struct snd_soc_pcm_runtime *rtd)
 -{
--	struct skl_nau88125_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+-	struct skl_nau8825_private *ctx = snd_soc_card_get_drvdata(rtd->card);
 -	struct snd_soc_dai *dai = snd_soc_rtd_to_codec(rtd, 0);
 -	struct skl_hdmi_pcm *pcm;
 -
@@ -412,7 +397,7 @@ index d53bf3516c0d..000000000000
 -
 -static int skylake_hdmi2_init(struct snd_soc_pcm_runtime *rtd)
 -{
--	struct skl_nau88125_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+-	struct skl_nau8825_private *ctx = snd_soc_card_get_drvdata(rtd->card);
 -	struct snd_soc_dai *dai = snd_soc_rtd_to_codec(rtd, 0);
 -	struct skl_hdmi_pcm *pcm;
 -
@@ -428,10 +413,9 @@ index d53bf3516c0d..000000000000
 -	return 0;
 -}
 -
--
 -static int skylake_hdmi3_init(struct snd_soc_pcm_runtime *rtd)
 -{
--	struct skl_nau88125_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+-	struct skl_nau8825_private *ctx = snd_soc_card_get_drvdata(rtd->card);
 -	struct snd_soc_dai *dai = snd_soc_rtd_to_codec(rtd, 0);
 -	struct skl_hdmi_pcm *pcm;
 -
@@ -483,10 +467,10 @@ index d53bf3516c0d..000000000000
 -	struct snd_pcm_runtime *runtime = substream->runtime;
 -
 -	/*
--	 * on this platform for PCM device we support,
--	 *	48Khz
--	 *	stereo
--	 *	16 bit audio
+-	 * On this platform for PCM device we support,
+-	 * 48Khz
+-	 * stereo
+-	 * 16 bit audio
 -	 */
 -
 -	runtime->hw.channels_max = 2;
@@ -505,38 +489,6 @@ index d53bf3516c0d..000000000000
 -static const struct snd_soc_ops skylake_nau8825_fe_ops = {
 -	.startup = skl_fe_startup,
 -};
--
--static int skylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
--			struct snd_pcm_hw_params *params)
--{
--	struct snd_interval *rate = hw_param_interval(params,
--			SNDRV_PCM_HW_PARAM_RATE);
--	struct snd_interval *chan = hw_param_interval(params,
--						SNDRV_PCM_HW_PARAM_CHANNELS);
--	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
--
--	/* The ADSP will convert the FE rate to 48k, stereo */
--	rate->min = rate->max = 48000;
--	chan->min = chan->max = 2;
--
--	/* set SSP0 to 24 bit */
--	snd_mask_none(fmt);
--	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
--	return 0;
--}
--
--static int skylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
--			struct snd_pcm_hw_params *params)
--{
--	struct snd_interval *chan = hw_param_interval(params,
--						SNDRV_PCM_HW_PARAM_CHANNELS);
--	if (params_channels(params) == 2 || DMIC_CH(dmic_constraints) == 2)
--		chan->min = chan->max = 2;
--	else
--		chan->min = chan->max = 4;
--
--	return 0;
--}
 -
 -static int skylake_nau8825_hw_params(struct snd_pcm_substream *substream,
 -	struct snd_pcm_hw_params *params)
@@ -557,6 +509,20 @@ index d53bf3516c0d..000000000000
 -static const struct snd_soc_ops skylake_nau8825_ops = {
 -	.hw_params = skylake_nau8825_hw_params,
 -};
+-
+-static int skylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
+-		struct snd_pcm_hw_params *params)
+-{
+-	struct snd_interval *chan = hw_param_interval(params,
+-				SNDRV_PCM_HW_PARAM_CHANNELS);
+-
+-	if (params_channels(params) == 2 || DMIC_CH(dmic_constraints) == 2)
+-		chan->min = chan->max = 2;
+-	else
+-		chan->min = chan->max = 4;
+-
+-	return 0;
+-}
 -
 -static const unsigned int channels_dmic[] = {
 -	2, 4,
@@ -620,8 +586,8 @@ index d53bf3516c0d..000000000000
 -					&constraints_refcap);
 -
 -	return snd_pcm_hw_constraint_list(substream->runtime, 0,
--			SNDRV_PCM_HW_PARAM_RATE,
--			&constraints_16000);
+-				SNDRV_PCM_HW_PARAM_RATE,
+-				&constraints_16000);
 -}
 -
 -static const struct snd_soc_ops skylake_refcap_ops = {
@@ -652,16 +618,15 @@ index d53bf3516c0d..000000000000
 -SND_SOC_DAILINK_DEF(ssp0_pin,
 -	DAILINK_COMP_ARRAY(COMP_CPU("SSP0 Pin")));
 -SND_SOC_DAILINK_DEF(ssp0_codec,
--	DAILINK_COMP_ARRAY(
--	/* Left */	COMP_CODEC("i2c-INT343B:00", SKL_SSM_CODEC_DAI),
--	/* Right */	COMP_CODEC("i2c-INT343B:01", SKL_SSM_CODEC_DAI)));
+-	DAILINK_COMP_ARRAY(COMP_CODEC("MX98357A:00", SKL_MAXIM_CODEC_DAI)));
 -
 -SND_SOC_DAILINK_DEF(ssp1_pin,
 -	DAILINK_COMP_ARRAY(COMP_CPU("SSP1 Pin")));
 -SND_SOC_DAILINK_DEF(ssp1_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10508825:00", SKL_NUVOTON_CODEC_DAI)));
+-	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10508825:00",
+-				      SKL_NUVOTON_CODEC_DAI)));
 -
--SND_SOC_DAILINK_DEF(dmic01_pin,
+-SND_SOC_DAILINK_DEF(dmic_pin,
 -	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
 -SND_SOC_DAILINK_DEF(dmic_codec,
 -	DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
@@ -770,14 +735,12 @@ index d53bf3516c0d..000000000000
 -		.name = "SSP0-Codec",
 -		.id = 0,
 -		.no_pcm = 1,
--		.dai_fmt = SND_SOC_DAIFMT_DSP_A |
--			SND_SOC_DAIFMT_IB_NF |
+-		.dai_fmt = SND_SOC_DAIFMT_I2S |
+-			SND_SOC_DAIFMT_NB_NF |
 -			SND_SOC_DAIFMT_CBC_CFC,
--		.init = skylake_ssm4567_codec_init,
 -		.ignore_pmdown_time = 1,
 -		.be_hw_params_fixup = skylake_ssp_fixup,
 -		.dpcm_playback = 1,
--		.dpcm_capture = 1,
 -		SND_SOC_DAILINK_REG(ssp0_pin, ssp0_codec, platform),
 -	},
 -	{
@@ -798,11 +761,11 @@ index d53bf3516c0d..000000000000
 -	{
 -		.name = "dmic01",
 -		.id = 2,
--		.ignore_suspend = 1,
 -		.be_hw_params_fixup = skylake_dmic_fixup,
+-		.ignore_suspend = 1,
 -		.dpcm_capture = 1,
 -		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(dmic01_pin, dmic_codec, platform),
+-		SND_SOC_DAILINK_REG(dmic_pin, dmic_codec, platform),
 -	},
 -	{
 -		.name = "iDisp1",
@@ -833,7 +796,7 @@ index d53bf3516c0d..000000000000
 -#define NAME_SIZE	32
 -static int skylake_card_late_probe(struct snd_soc_card *card)
 -{
--	struct skl_nau88125_private *ctx = snd_soc_card_get_drvdata(card);
+-	struct skl_nau8825_private *ctx = snd_soc_card_get_drvdata(card);
 -	struct skl_hdmi_pcm *pcm;
 -	struct snd_soc_component *component = NULL;
 -	int err, i = 0;
@@ -866,7 +829,7 @@ index d53bf3516c0d..000000000000
 -
 -/* skylake audio machine driver for SPT + NAU88L25 */
 -static struct snd_soc_card skylake_audio_card = {
--	.name = "sklnau8825adi",
+-	.name = "sklnau8825max",
 -	.owner = THIS_MODULE,
 -	.dai_link = skylake_dais,
 -	.num_links = ARRAY_SIZE(skylake_dais),
@@ -876,8 +839,6 @@ index d53bf3516c0d..000000000000
 -	.num_dapm_widgets = ARRAY_SIZE(skylake_widgets),
 -	.dapm_routes = skylake_map,
 -	.num_dapm_routes = ARRAY_SIZE(skylake_map),
--	.codec_conf = ssm4567_codec_conf,
--	.num_configs = ARRAY_SIZE(ssm4567_codec_conf),
 -	.fully_routed = true,
 -	.disable_route_checks = true,
 -	.late_probe = skylake_card_late_probe,
@@ -885,7 +846,7 @@ index d53bf3516c0d..000000000000
 -
 -static int skylake_audio_probe(struct platform_device *pdev)
 -{
--	struct skl_nau88125_private *ctx;
+-	struct skl_nau8825_private *ctx;
 -	struct snd_soc_acpi_mach *mach;
 -
 -	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
@@ -906,8 +867,8 @@ index d53bf3516c0d..000000000000
 -}
 -
 -static const struct platform_device_id skl_board_ids[] = {
--	{ .name = "skl_n88l25_s4567" },
--	{ .name = "kbl_n88l25_s4567" },
+-	{ .name = "skl_n88l25_m98357a" },
+-	{ .name = "kbl_n88l25_m98357a" },
 -	{ }
 -};
 -MODULE_DEVICE_TABLE(platform, skl_board_ids);
@@ -915,7 +876,7 @@ index d53bf3516c0d..000000000000
 -static struct platform_driver skylake_audio = {
 -	.probe = skylake_audio_probe,
 -	.driver = {
--		.name = "skl_n88l25_s4567",
+-		.name = "skl_n88l25_m98357a",
 -		.pm = &snd_soc_pm_ops,
 -	},
 -	.id_table = skl_board_ids,
@@ -924,12 +885,8 @@ index d53bf3516c0d..000000000000
 -module_platform_driver(skylake_audio)
 -
 -/* Module information */
--MODULE_AUTHOR("Conrad Cooke  <conrad.cooke@intel.com>");
--MODULE_AUTHOR("Harsha Priya <harshapriya.n@intel.com>");
--MODULE_AUTHOR("Naveen M <naveen.m@intel.com>");
--MODULE_AUTHOR("Sathya Prakash M R <sathya.prakash.m.r@intel.com>");
--MODULE_AUTHOR("Yong Zhi <yong.zhi@intel.com>");
--MODULE_DESCRIPTION("Intel Audio Machine driver for SKL with NAU88L25 and SSM4567 in I2S Mode");
+-MODULE_DESCRIPTION("Audio Machine driver-NAU88L25 & MAX98357A in I2S mode");
+-MODULE_AUTHOR("Rohit Ainapure <rohit.m.ainapure@intel.com");
 -MODULE_LICENSE("GPL v2");
 -- 
 2.25.1

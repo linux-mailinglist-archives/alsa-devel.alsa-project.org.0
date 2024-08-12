@@ -2,120 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A519952A72
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:28:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 372B4952A73
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 10:29:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D224A2BDD;
-	Thu, 15 Aug 2024 10:28:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D224A2BDD
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEEB223D5;
+	Thu, 15 Aug 2024 10:28:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEEB223D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723710513;
-	bh=lovVcsparyQLzbiTdzR4lipqejlHTuMFMVwgsKqkt5Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1723710540;
+	bh=F+asspZzrmAq62vojp28zpCMQebVKGGjHXeAPjvtBak=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=j8KYTBRcscx8p9/v74UgUj080sOJyH7KlovPwau2Q5icvE8TmK+a517Vf5+pAwiAa
-	 4avi/BfXirL26BonBBjz/6YgMNFNFQiStfaWHyvZkSSD0Gfq7+Ej8gMN5gpkwD4Mpb
-	 3S+tSR5JG9u4yTfkSzQrdLdmEuIQNwU+86FRCjyQ=
+	b=QCEUig8O8bpziP7+678XDoEhybqLVip7O1y/A95bFK6Ky/35Cwgw3MCbeALCXYqoQ
+	 nYFwE1bEegici9mHlxlXsYyuVrv0f3yUGz2EWd0ucqIwDX0eEVI3HBTy3Wt68lrXAg
+	 DOq+Ogn86Nx28XHoaG5kaQuVW81atCtmuT5xpQ3A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56EB7F80CBE; Thu, 15 Aug 2024 10:24:19 +0200 (CEST)
+	id 3CB55F89623; Thu, 15 Aug 2024 10:24:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEA01F89616;
-	Thu, 15 Aug 2024 10:24:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 038EEF805F1;
+	Thu, 15 Aug 2024 10:24:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CBB6F80423; Mon, 12 Aug 2024 09:46:17 +0200 (CEST)
+	id A080DF8057A; Mon, 12 Aug 2024 11:43:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from linux1587.grserver.gr (linux1587.grserver.gr [185.138.42.100])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3FFA6F80107
-	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 09:46:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FFA6F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id D894AF8058C
+	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 11:43:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D894AF8058C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256
- header.s=default header.b=QumNQx4B
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
-	by linux1587.grserver.gr (Postfix) with ESMTPSA id 4D1B62E096D1
-	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 10:46:11 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1723448771;
-	bh=lovVcsparyQLzbiTdzR4lipqejlHTuMFMVwgsKqkt5Y=;
-	h=Received:From:Subject:To;
-	b=QumNQx4BurKSTJTXjNLxeCRSqNhzbR/7PwnGIY6IjeqCRhgCq2DhDCyNUzeRwZnuK
-	 FIY2ZpR8fmheaeii+yFmSHYe3ABVi/dn8C9tHMBeV3tOAItH70dBTyfcgBg00+SW9+
-	 ICFYT9jly0NDf5uh0u/FJErbA6agianLE0j5gpbA=
-Authentication-Results: linux1587.grserver.gr;
-        spf=pass (sender IP is 209.85.208.170) smtp.mailfrom=lkml@antheas.dev
- smtp.helo=mail-lj1-f170.google.com
-Received-SPF: pass (linux1587.grserver.gr: connection is authenticated)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2f1870c355cso39310721fa.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 12 Aug 2024 00:46:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCULTkIb3cksyp8i2dcPlxZLqGTFqfgyb6syqNoC6Fo3kzwBkbPciLiPyu7PZN07ZZQ4vV/wC7yQ75LKqicnqZBfYBGehjZq2lw8r3g=
-X-Gm-Message-State: AOJu0Yx8Y3YlWIB13FkMBm1MALsAn+F+8//y8OSg2emiBxeb/vz650yK
-	lxvJxXbsWJ6cQKnEzeERJX1URpd8JcXYCdXv5gQ0atcenHzkT/7DqhrGcMnsmDvOxSnaT+4t5Ax
-	iXUHbqH3oox8uI+ajTbLEkzXpteg=
-X-Google-Smtp-Source: 
- AGHT+IEGDxiXteEGjvdwhj+3EgeaSWNthj1Z7EwZ38GB6EXFwI85n3rWFDPUxgr+Yz72Dce2gCSF873McunVeaAwslI=
-X-Received: by 2002:a2e:6a02:0:b0:2ef:2b6e:f8c8 with SMTP id
- 38308e7fff4ca-2f1a6cfa608mr57926631fa.42.1723448770481; Mon, 12 Aug 2024
- 00:46:10 -0700 (PDT)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=JrbWv1rK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1723455796; x=1754991796;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=F+asspZzrmAq62vojp28zpCMQebVKGGjHXeAPjvtBak=;
+  b=JrbWv1rK6T2idZNVmpkumB+oQQIefKVbeRYXVyPaVYhgj90nWM0DA13z
+   CPrvet3fiH7Atm6dPMnChj042NZn7PnKwSKBIaZUNDe8oH4Bq8qfamYDr
+   m520zHWzItdXWx0sSV1i8etMQDjyA3Gpc6kS4MySwTN7QUGjlnCcWKtRD
+   ZRKM80276riKZgxr/n0Wn5Pe3qZCjxwhriQU0HZNwoXf0M9mO42bk+fUs
+   9jfOPh615jpvCtKIY+z3UKtZvAIs+IavhQ3G9dQ0qS638Xi6lKzS5WQFW
+   nM6L27xUym6Fqq6mHSBFb3tZC1aDYcdKU6+y7p7qhMwiDCGnR1LAZxOOz
+   A==;
+X-CSE-ConnectionGUID: +9lppyTETHG5v7GEzUWuvQ==
+X-CSE-MsgGUID: haJB5xx1SVq4gQxUV/kMZQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11161"; a="21705451"
+X-IronPort-AV: E=Sophos;i="6.09,282,1716274800";
+   d="scan'208";a="21705451"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2024 02:43:14 -0700
+X-CSE-ConnectionGUID: GKSdaXthQyWiraDCmcPZFg==
+X-CSE-MsgGUID: wqXxBlbsQD6NPgf1mBxBJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.09,282,1716274800";
+   d="scan'208";a="63057022"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+  by orviesa005.jf.intel.com with ESMTP; 12 Aug 2024 02:43:09 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	amadeuszx.slawinski@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com,
+	hdegoede@redhat.com,
+	andriy.shevchenko@linux.intel.com,
+	cujomalainey@chromium.org,
+	lmajczak@google.com,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: [PATCH 11/12] ASoC: Intel: Remove skylake driver
+Date: Mon, 12 Aug 2024 11:43:27 +0200
+Message-Id: <20240812094328.842661-12-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240812094328.842661-1-cezary.rojewski@intel.com>
+References: <20240812094328.842661-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-References: <20240812045325.47736-1-jlobue10@gmail.com>
- <87frra2ocp.wl-tiwai@suse.de>
-In-Reply-To: <87frra2ocp.wl-tiwai@suse.de>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Mon, 12 Aug 2024 10:45:59 +0300
-X-Gmail-Original-Message-ID: 
- <CAGwozwF7aR5UypRTe7tNFR+xOfQ=rhqkzYUgBcYH4_LvO9_zXQ@mail.gmail.com>
-Message-ID: 
- <CAGwozwF7aR5UypRTe7tNFR+xOfQ=rhqkzYUgBcYH4_LvO9_zXQ@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: tas2781: Fix ROG ALLY X audio
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Jonathan LoBue <jlobue10@gmail.com>, perex@perex.cz, tiwai@suse.com,
-	shenghao-ding@ti.com, kailang@realtek.com, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	derekjohn.clark@gmail.com, luke@ljones.dev, benato.denis96@gmail.com,
-	Kyle Gospodnetich <me@kylegospodneti.ch>,
- Jan Drogehoff <sentrycraft123@gmail.com>,
-	Richard Alvarez <alvarez.richard@gmail.com>,
-	Miles Montierth <cyber_dopamine@intheblackmedia.com>, "Chen,
- Robin" <robinchen@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <172344877185.29889.6099517917494462069@linux1587.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 0.103.11 at linux1587.grserver.gr
-X-Virus-Status: Clean
-X-MailFrom: lkml@antheas.dev
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 8bit
+X-MailFrom: cezary.rojewski@intel.com
+X-Mailman-Rule-Hits: max-size
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: PI37BHTWAFU5JDNRFDJOSLOXHUKRCR4D
-X-Message-ID-Hash: PI37BHTWAFU5JDNRFDJOSLOXHUKRCR4D
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: UZK7I5TQ4BS3QSPZ772CFOVSCP4QLYIL
+X-Message-ID-Hash: UZK7I5TQ4BS3QSPZ772CFOVSCP4QLYIL
 X-Mailman-Approved-At: Thu, 15 Aug 2024 08:24:12 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I3EAVBW3E5Y6D4E6OMLBB47KG7LE6HEC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UZK7I5TQ4BS3QSPZ772CFOVSCP4QLYIL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,74 +117,15084 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
-I have spoken with Shenghao and Robin Chen (who I CC) from Texas Instruments.
+The avs-driver found in sound/soc/intel/avs is a direct replacement to
+the existing skylake-driver. It covers all features supported by it and
+more and aligns with the recommended flows and requirements based on
+Windows driver equivalent.
 
-There is no such thing as TAS2XXX1EB3. For Ally X, there are two firmware files:
-TAS2XXX1EB30 and TAS2XXX1EB31. Both are licensed with GPL
-according to Shenghao.
+For the official kernel tree the deprecation begun with v6.0. Most
+skylake-drivers users moved to avs- or SOF-driver when AudioDSP
+capabilities are available on the platform or to snd-hda-intel
+(sound/pci/hda) when such capabilities are not.
 
-Since the linux driver has no concept of the 0 and 1 suffix, I propose
-we symlink the
-0 one to TAS2XXX1EB3. If required, the driver can be augmented in the future
-to either choose the 0 or 1 file.
+For the supported trees the deprecation begun with v5.4 with v5.15 being
+the first where the skylake-driver is disabled entirely.
 
-According to Robin Chen about the difference with the files:
-> They are IO, I/F settings, audio tuning and speaker protection. In current cause, you can ignore them.
+All machine board drivers that consume the DSP driver have their
+replacements present within sound/soc/intel/avs/boards/ directory.
 
-The only source we know of right now is the Windows executable.
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ sound/soc/intel/Kconfig                 |  120 -
+ sound/soc/intel/Makefile                |    1 -
+ sound/soc/intel/boards/Kconfig          |    4 +-
+ sound/soc/intel/skylake/Makefile        |   15 -
+ sound/soc/intel/skylake/bxt-sst.c       |  629 ----
+ sound/soc/intel/skylake/cnl-sst-dsp.c   |  266 --
+ sound/soc/intel/skylake/cnl-sst-dsp.h   |  103 -
+ sound/soc/intel/skylake/cnl-sst.c       |  508 ----
+ sound/soc/intel/skylake/skl-debug.c     |  248 --
+ sound/soc/intel/skylake/skl-i2s.h       |   87 -
+ sound/soc/intel/skylake/skl-messages.c  | 1419 ---------
+ sound/soc/intel/skylake/skl-nhlt.c      |  269 --
+ sound/soc/intel/skylake/skl-pcm.c       | 1507 ----------
+ sound/soc/intel/skylake/skl-ssp-clk.c   |  428 ---
+ sound/soc/intel/skylake/skl-ssp-clk.h   |  108 -
+ sound/soc/intel/skylake/skl-sst-cldma.c |  373 ---
+ sound/soc/intel/skylake/skl-sst-cldma.h |  243 --
+ sound/soc/intel/skylake/skl-sst-dsp.c   |  462 ---
+ sound/soc/intel/skylake/skl-sst-dsp.h   |  256 --
+ sound/soc/intel/skylake/skl-sst-ipc.c   | 1071 -------
+ sound/soc/intel/skylake/skl-sst-ipc.h   |  169 --
+ sound/soc/intel/skylake/skl-sst-utils.c |  425 ---
+ sound/soc/intel/skylake/skl-sst.c       |  599 ----
+ sound/soc/intel/skylake/skl-topology.c  | 3605 -----------------------
+ sound/soc/intel/skylake/skl-topology.h  |  524 ----
+ sound/soc/intel/skylake/skl.c           | 1177 --------
+ sound/soc/intel/skylake/skl.h           |  207 --
+ 27 files changed, 2 insertions(+), 14821 deletions(-)
+ delete mode 100644 sound/soc/intel/skylake/Makefile
+ delete mode 100644 sound/soc/intel/skylake/bxt-sst.c
+ delete mode 100644 sound/soc/intel/skylake/cnl-sst-dsp.c
+ delete mode 100644 sound/soc/intel/skylake/cnl-sst-dsp.h
+ delete mode 100644 sound/soc/intel/skylake/cnl-sst.c
+ delete mode 100644 sound/soc/intel/skylake/skl-debug.c
+ delete mode 100644 sound/soc/intel/skylake/skl-i2s.h
+ delete mode 100644 sound/soc/intel/skylake/skl-messages.c
+ delete mode 100644 sound/soc/intel/skylake/skl-nhlt.c
+ delete mode 100644 sound/soc/intel/skylake/skl-pcm.c
+ delete mode 100644 sound/soc/intel/skylake/skl-ssp-clk.c
+ delete mode 100644 sound/soc/intel/skylake/skl-ssp-clk.h
+ delete mode 100644 sound/soc/intel/skylake/skl-sst-cldma.c
+ delete mode 100644 sound/soc/intel/skylake/skl-sst-cldma.h
+ delete mode 100644 sound/soc/intel/skylake/skl-sst-dsp.c
+ delete mode 100644 sound/soc/intel/skylake/skl-sst-dsp.h
+ delete mode 100644 sound/soc/intel/skylake/skl-sst-ipc.c
+ delete mode 100644 sound/soc/intel/skylake/skl-sst-ipc.h
+ delete mode 100644 sound/soc/intel/skylake/skl-sst-utils.c
+ delete mode 100644 sound/soc/intel/skylake/skl-sst.c
+ delete mode 100644 sound/soc/intel/skylake/skl-topology.c
+ delete mode 100644 sound/soc/intel/skylake/skl-topology.h
+ delete mode 100644 sound/soc/intel/skylake/skl.c
+ delete mode 100644 sound/soc/intel/skylake/skl.h
 
-I would be happy to upload those files in linux-firmware later this week.
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index 38b61dfd1487..a32fb0a8d7d7 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -67,126 +67,6 @@ config SND_SST_ATOM_HIFI2_PLATFORM_ACPI
+ 	  Baytrail/Cherrytrail. If you want to enable SOF on
+ 	  Baytrail/Cherrytrail, you need to deselect this option first.
+ 
+-config SND_SOC_INTEL_SKYLAKE
+-	tristate "All Skylake/SST Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKL
+-	select SND_SOC_INTEL_APL
+-	select SND_SOC_INTEL_KBL
+-	select SND_SOC_INTEL_GLK
+-	select SND_SOC_INTEL_CNL
+-	select SND_SOC_INTEL_CFL
+-	help
+-	  This is a backwards-compatible option to select all devices
+-	  supported by the Intel SST/Skylake driver. This option is no
+-	  longer recommended and will be deprecated when the SOF
+-	  driver is introduced.  Distributions should explicitly
+-	  select which platform uses this driver.
+-
+-config SND_SOC_INTEL_SKL
+-	tristate "Skylake Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel Skylake platform with the DSP enabled
+-	  in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_APL
+-	tristate "Broxton/ApolloLake Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel Broxton/ApolloLake platform with the DSP
+-	  enabled in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_KBL
+-	tristate "Kabylake Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel Kabylake platform with the DSP
+-	  enabled in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_GLK
+-	tristate "GeminiLake Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel GeminiLake platform with the DSP
+-	  enabled in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_CNL
+-	tristate "CannonLake/WhiskyLake Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel CNL/WHL platform with the DSP
+-	  enabled in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_CFL
+-	tristate "CoffeeLake Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel CoffeeLake platform with the DSP
+-	  enabled in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_CML_H
+-	tristate "CometLake-H Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel CometLake-H platform with the DSP
+-	  enabled in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_CML_LP
+-	tristate "CometLake-LP Platforms"
+-	depends on PCI && ACPI
+-	depends on COMMON_CLK
+-	select SND_SOC_INTEL_SKYLAKE_FAMILY
+-	help
+-	  If you have a Intel CometLake-LP platform with the DSP
+-	  enabled in the BIOS then enable this option by saying Y or m.
+-
+-config SND_SOC_INTEL_SKYLAKE_FAMILY
+-	tristate
+-	select SND_SOC_INTEL_SKYLAKE_COMMON
+-
+-if SND_SOC_INTEL_SKYLAKE_FAMILY
+-
+-config SND_SOC_INTEL_SKYLAKE_SSP_CLK
+-	tristate
+-
+-config SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC
+-	bool "HDAudio codec support"
+-	help
+-	  If you have Intel Skylake or Kabylake with HDAudio codec
+-	  and DMIC present then enable this option by saying Y.
+-
+-config SND_SOC_INTEL_SKYLAKE_COMMON
+-	tristate
+-	select SND_HDA_EXT_CORE
+-	select SND_HDA_DSP_LOADER
+-	select SND_SOC_TOPOLOGY
+-	select SND_SOC_INTEL_SST
+-	select SND_SOC_HDAC_HDA
+-	select SND_SOC_ACPI_INTEL_MATCH
+-	select SND_INTEL_DSP_CONFIG
+-	help
+-	  If you have a Intel Skylake/Broxton/ApolloLake/KabyLake/
+-	  GeminiLake or CannonLake platform with the DSP enabled in the BIOS
+-	  then enable this option by saying Y or m.
+-
+-endif ## SND_SOC_INTEL_SKYLAKE_FAMILY
+-
+ endif ## SND_SOC_INTEL_SST_TOPLEVEL
+ 
+ if SND_SOC_INTEL_SST_TOPLEVEL || SND_SOC_SOF_INTEL_TOPLEVEL
+diff --git a/sound/soc/intel/Makefile b/sound/soc/intel/Makefile
+index d44b2652c707..8ecc7047d700 100644
+--- a/sound/soc/intel/Makefile
++++ b/sound/soc/intel/Makefile
+@@ -5,7 +5,6 @@ obj-$(CONFIG_SND_SOC) += common/
+ # Platform Support
+ obj-$(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM) += atom/
+ obj-$(CONFIG_SND_SOC_INTEL_CATPT) += catpt/
+-obj-$(CONFIG_SND_SOC_INTEL_SKYLAKE_COMMON) += skylake/
+ obj-$(CONFIG_SND_SOC_INTEL_KEEMBAY) += keembay/
+ obj-$(CONFIG_SND_SOC_INTEL_AVS) += avs/
+ 
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index ba717e401805..cb952183f5ed 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -300,7 +300,7 @@ config SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH
+ 
+ endif ## SND_SOC_SOF_GEMINILAKE
+ 
+-if SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
++if SND_SOC_SOF_HDA_AUDIO_CODEC
+ 
+ config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
+ 	tristate "Skylake+ with HDA Codecs"
+@@ -316,7 +316,7 @@ config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
+ 	  Say Y or m if you have such a device. This is a recommended option.
+ 	  If unsure select "N".
+ 
+-endif ## SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
++endif ## SND_SOC_SOF_HDA_AUDIO_CODEC
+ 
+ if SND_SOC_SOF_HDA_LINK || SND_SOC_SOF_BAYTRAIL
+ config SND_SOC_INTEL_SOF_RT5682_MACH
+diff --git a/sound/soc/intel/skylake/Makefile b/sound/soc/intel/skylake/Makefile
+deleted file mode 100644
+index ad9be6168428..000000000000
+--- a/sound/soc/intel/skylake/Makefile
++++ /dev/null
+@@ -1,15 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
+-snd-soc-skl-y := skl.o skl-pcm.o skl-nhlt.o skl-messages.o skl-topology.o \
+-		skl-sst-ipc.o skl-sst-dsp.o cnl-sst-dsp.o skl-sst-cldma.o \
+-		skl-sst.o bxt-sst.o cnl-sst.o skl-sst-utils.o
+-
+-ifdef CONFIG_DEBUG_FS
+-  snd-soc-skl-y += skl-debug.o
+-endif
+-
+-obj-$(CONFIG_SND_SOC_INTEL_SKYLAKE_COMMON) += snd-soc-skl.o
+-
+-#Skylake Clock device support
+-snd-soc-skl-ssp-clk-y := skl-ssp-clk.o
+-
+-obj-$(CONFIG_SND_SOC_INTEL_SKYLAKE_SSP_CLK) += snd-soc-skl-ssp-clk.o
+diff --git a/sound/soc/intel/skylake/bxt-sst.c b/sound/soc/intel/skylake/bxt-sst.c
+deleted file mode 100644
+index fd4fdcb95224..000000000000
+--- a/sound/soc/intel/skylake/bxt-sst.c
++++ /dev/null
+@@ -1,629 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  bxt-sst.c - DSP library functions for BXT platform
+- *
+- *  Copyright (C) 2015-16 Intel Corp
+- *  Author:Rafal Redzimski <rafal.f.redzimski@intel.com>
+- *	   Jeeja KP <jeeja.kp@intel.com>
+- */
+-
+-#include <linux/module.h>
+-#include <linux/delay.h>
+-#include <linux/firmware.h>
+-#include <linux/device.h>
+-
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "skl.h"
+-
+-#define BXT_BASEFW_TIMEOUT	3000
+-#define BXT_ROM_INIT_TIMEOUT	70
+-#define BXT_IPC_PURGE_FW	0x01004000
+-
+-#define BXT_ROM_INIT		0x5
+-#define BXT_ADSP_SRAM0_BASE	0x80000
+-
+-/* Firmware status window */
+-#define BXT_ADSP_FW_STATUS	BXT_ADSP_SRAM0_BASE
+-#define BXT_ADSP_ERROR_CODE     (BXT_ADSP_FW_STATUS + 0x4)
+-
+-#define BXT_ADSP_SRAM1_BASE	0xA0000
+-
+-#define BXT_INSTANCE_ID 0
+-#define BXT_BASE_FW_MODULE_ID 0
+-
+-#define BXT_ADSP_FW_BIN_HDR_OFFSET 0x2000
+-
+-/* Delay before scheduling D0i3 entry */
+-#define BXT_D0I3_DELAY 5000
+-
+-static unsigned int bxt_get_errorcode(struct sst_dsp *ctx)
+-{
+-	 return sst_dsp_shim_read(ctx, BXT_ADSP_ERROR_CODE);
+-}
+-
+-static int
+-bxt_load_library(struct sst_dsp *ctx, struct skl_lib_info *linfo, int lib_count)
+-{
+-	struct snd_dma_buffer dmab;
+-	struct skl_dev *skl = ctx->thread_context;
+-	struct firmware stripped_fw;
+-	int ret = 0, i, dma_id, stream_tag;
+-
+-	/* library indices start from 1 to N. 0 represents base FW */
+-	for (i = 1; i < lib_count; i++) {
+-		ret = skl_prepare_lib_load(skl, &skl->lib_info[i], &stripped_fw,
+-					BXT_ADSP_FW_BIN_HDR_OFFSET, i);
+-		if (ret < 0)
+-			goto load_library_failed;
+-
+-		stream_tag = ctx->dsp_ops.prepare(ctx->dev, 0x40,
+-					stripped_fw.size, &dmab);
+-		if (stream_tag <= 0) {
+-			dev_err(ctx->dev, "Lib prepare DMA err: %x\n",
+-					stream_tag);
+-			ret = stream_tag;
+-			goto load_library_failed;
+-		}
+-
+-		dma_id = stream_tag - 1;
+-		memcpy(dmab.area, stripped_fw.data, stripped_fw.size);
+-
+-		ctx->dsp_ops.trigger(ctx->dev, true, stream_tag);
+-		ret = skl_sst_ipc_load_library(&skl->ipc, dma_id, i, true);
+-		if (ret < 0)
+-			dev_err(ctx->dev, "IPC Load Lib for %s fail: %d\n",
+-					linfo[i].name, ret);
+-
+-		ctx->dsp_ops.trigger(ctx->dev, false, stream_tag);
+-		ctx->dsp_ops.cleanup(ctx->dev, &dmab, stream_tag);
+-	}
+-
+-	return ret;
+-
+-load_library_failed:
+-	skl_release_library(linfo, lib_count);
+-	return ret;
+-}
+-
+-/*
+- * First boot sequence has some extra steps. Core 0 waits for power
+- * status on core 1, so power up core 1 also momentarily, keep it in
+- * reset/stall and then turn it off
+- */
+-static int sst_bxt_prepare_fw(struct sst_dsp *ctx,
+-			const void *fwdata, u32 fwsize)
+-{
+-	int stream_tag, ret;
+-
+-	stream_tag = ctx->dsp_ops.prepare(ctx->dev, 0x40, fwsize, &ctx->dmab);
+-	if (stream_tag <= 0) {
+-		dev_err(ctx->dev, "Failed to prepare DMA FW loading err: %x\n",
+-				stream_tag);
+-		return stream_tag;
+-	}
+-
+-	ctx->dsp_ops.stream_tag = stream_tag;
+-	memcpy(ctx->dmab.area, fwdata, fwsize);
+-
+-	/* Step 1: Power up core 0 and core1 */
+-	ret = skl_dsp_core_power_up(ctx, SKL_DSP_CORE0_MASK |
+-				SKL_DSP_CORE_MASK(1));
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "dsp core0/1 power up failed\n");
+-		goto base_fw_load_failed;
+-	}
+-
+-	/* Step 2: Purge FW request */
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_HIPCI, SKL_ADSP_REG_HIPCI_BUSY |
+-				(BXT_IPC_PURGE_FW | ((stream_tag - 1) << 9)));
+-
+-	/* Step 3: Unset core0 reset state & unstall/run core0 */
+-	ret = skl_dsp_start_core(ctx, SKL_DSP_CORE0_MASK);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Start dsp core failed ret: %d\n", ret);
+-		ret = -EIO;
+-		goto base_fw_load_failed;
+-	}
+-
+-	/* Step 4: Wait for DONE Bit */
+-	ret = sst_dsp_register_poll(ctx, SKL_ADSP_REG_HIPCIE,
+-					SKL_ADSP_REG_HIPCIE_DONE,
+-					SKL_ADSP_REG_HIPCIE_DONE,
+-					BXT_INIT_TIMEOUT, "HIPCIE Done");
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Timeout for Purge Request%d\n", ret);
+-		goto base_fw_load_failed;
+-	}
+-
+-	/* Step 5: power down core1 */
+-	ret = skl_dsp_core_power_down(ctx, SKL_DSP_CORE_MASK(1));
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "dsp core1 power down failed\n");
+-		goto base_fw_load_failed;
+-	}
+-
+-	/* Step 6: Enable Interrupt */
+-	skl_ipc_int_enable(ctx);
+-	skl_ipc_op_int_enable(ctx);
+-
+-	/* Step 7: Wait for ROM init */
+-	ret = sst_dsp_register_poll(ctx, BXT_ADSP_FW_STATUS, SKL_FW_STS_MASK,
+-			SKL_FW_INIT, BXT_ROM_INIT_TIMEOUT, "ROM Load");
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Timeout for ROM init, ret:%d\n", ret);
+-		goto base_fw_load_failed;
+-	}
+-
+-	return ret;
+-
+-base_fw_load_failed:
+-	ctx->dsp_ops.cleanup(ctx->dev, &ctx->dmab, stream_tag);
+-	skl_dsp_core_power_down(ctx, SKL_DSP_CORE_MASK(1));
+-	skl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-	return ret;
+-}
+-
+-static int sst_transfer_fw_host_dma(struct sst_dsp *ctx)
+-{
+-	int ret;
+-
+-	ctx->dsp_ops.trigger(ctx->dev, true, ctx->dsp_ops.stream_tag);
+-	ret = sst_dsp_register_poll(ctx, BXT_ADSP_FW_STATUS, SKL_FW_STS_MASK,
+-			BXT_ROM_INIT, BXT_BASEFW_TIMEOUT, "Firmware boot");
+-
+-	ctx->dsp_ops.trigger(ctx->dev, false, ctx->dsp_ops.stream_tag);
+-	ctx->dsp_ops.cleanup(ctx->dev, &ctx->dmab, ctx->dsp_ops.stream_tag);
+-
+-	return ret;
+-}
+-
+-static int bxt_load_base_firmware(struct sst_dsp *ctx)
+-{
+-	struct firmware stripped_fw;
+-	struct skl_dev *skl = ctx->thread_context;
+-	int ret, i;
+-
+-	if (ctx->fw == NULL) {
+-		ret = request_firmware(&ctx->fw, ctx->fw_name, ctx->dev);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "Request firmware failed %d\n", ret);
+-			return ret;
+-		}
+-	}
+-
+-	/* prase uuids on first boot */
+-	if (skl->is_first_boot) {
+-		ret = snd_skl_parse_uuids(ctx, ctx->fw, BXT_ADSP_FW_BIN_HDR_OFFSET, 0);
+-		if (ret < 0)
+-			goto sst_load_base_firmware_failed;
+-	}
+-
+-	stripped_fw.data = ctx->fw->data;
+-	stripped_fw.size = ctx->fw->size;
+-	skl_dsp_strip_extended_manifest(&stripped_fw);
+-
+-
+-	for (i = 0; i < BXT_FW_ROM_INIT_RETRY; i++) {
+-		ret = sst_bxt_prepare_fw(ctx, stripped_fw.data, stripped_fw.size);
+-		if (ret == 0)
+-			break;
+-	}
+-
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Error code=0x%x: FW status=0x%x\n",
+-			sst_dsp_shim_read(ctx, BXT_ADSP_ERROR_CODE),
+-			sst_dsp_shim_read(ctx, BXT_ADSP_FW_STATUS));
+-
+-		dev_err(ctx->dev, "Core En/ROM load fail:%d\n", ret);
+-		goto sst_load_base_firmware_failed;
+-	}
+-
+-	ret = sst_transfer_fw_host_dma(ctx);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Transfer firmware failed %d\n", ret);
+-		dev_info(ctx->dev, "Error code=0x%x: FW status=0x%x\n",
+-			sst_dsp_shim_read(ctx, BXT_ADSP_ERROR_CODE),
+-			sst_dsp_shim_read(ctx, BXT_ADSP_FW_STATUS));
+-
+-		skl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-	} else {
+-		dev_dbg(ctx->dev, "Firmware download successful\n");
+-		ret = wait_event_timeout(skl->boot_wait, skl->boot_complete,
+-					msecs_to_jiffies(SKL_IPC_BOOT_MSECS));
+-		if (ret == 0) {
+-			dev_err(ctx->dev, "DSP boot fail, FW Ready timeout\n");
+-			skl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-			ret = -EIO;
+-		} else {
+-			ret = 0;
+-			skl->fw_loaded = true;
+-		}
+-	}
+-
+-	return ret;
+-
+-sst_load_base_firmware_failed:
+-	release_firmware(ctx->fw);
+-	ctx->fw = NULL;
+-	return ret;
+-}
+-
+-/*
+- * Decide the D0i3 state that can be targeted based on the usecase
+- * ref counts and DSP state
+- *
+- * Decision Matrix:  (X= dont care; state = target state)
+- *
+- * DSP state != SKL_DSP_RUNNING ; state = no d0i3
+- *
+- * DSP state == SKL_DSP_RUNNING , the following matrix applies
+- * non_d0i3 >0; streaming =X; non_streaming =X; state = no d0i3
+- * non_d0i3 =X; streaming =0; non_streaming =0; state = no d0i3
+- * non_d0i3 =0; streaming >0; non_streaming =X; state = streaming d0i3
+- * non_d0i3 =0; streaming =0; non_streaming =X; state = non-streaming d0i3
+- */
+-static int bxt_d0i3_target_state(struct sst_dsp *ctx)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	struct skl_d0i3_data *d0i3 = &skl->d0i3;
+-
+-	if (skl->cores.state[SKL_DSP_CORE0_ID] != SKL_DSP_RUNNING)
+-		return SKL_DSP_D0I3_NONE;
+-
+-	if (d0i3->non_d0i3)
+-		return SKL_DSP_D0I3_NONE;
+-	else if (d0i3->streaming)
+-		return SKL_DSP_D0I3_STREAMING;
+-	else if (d0i3->non_streaming)
+-		return SKL_DSP_D0I3_NON_STREAMING;
+-	else
+-		return SKL_DSP_D0I3_NONE;
+-}
+-
+-static void bxt_set_dsp_D0i3(struct work_struct *work)
+-{
+-	int ret;
+-	struct skl_ipc_d0ix_msg msg;
+-	struct skl_dev *skl = container_of(work,
+-			struct skl_dev, d0i3.work.work);
+-	struct sst_dsp *ctx = skl->dsp;
+-	struct skl_d0i3_data *d0i3 = &skl->d0i3;
+-	int target_state;
+-
+-	dev_dbg(ctx->dev, "In %s:\n", __func__);
+-
+-	/* D0i3 entry allowed only if core 0 alone is running */
+-	if (skl_dsp_get_enabled_cores(ctx) !=  SKL_DSP_CORE0_MASK) {
+-		dev_warn(ctx->dev,
+-				"D0i3 allowed when only core0 running:Exit\n");
+-		return;
+-	}
+-
+-	target_state = bxt_d0i3_target_state(ctx);
+-	if (target_state == SKL_DSP_D0I3_NONE)
+-		return;
+-
+-	msg.instance_id = 0;
+-	msg.module_id = 0;
+-	msg.wake = 1;
+-	msg.streaming = 0;
+-	if (target_state == SKL_DSP_D0I3_STREAMING)
+-		msg.streaming = 1;
+-
+-	ret =  skl_ipc_set_d0ix(&skl->ipc, &msg);
+-
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Failed to set DSP to D0i3 state\n");
+-		return;
+-	}
+-
+-	/* Set Vendor specific register D0I3C.I3 to enable D0i3*/
+-	if (skl->update_d0i3c)
+-		skl->update_d0i3c(skl->dev, true);
+-
+-	d0i3->state = target_state;
+-	skl->cores.state[SKL_DSP_CORE0_ID] = SKL_DSP_RUNNING_D0I3;
+-}
+-
+-static int bxt_schedule_dsp_D0i3(struct sst_dsp *ctx)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	struct skl_d0i3_data *d0i3 = &skl->d0i3;
+-
+-	/* Schedule D0i3 only if the usecase ref counts are appropriate */
+-	if (bxt_d0i3_target_state(ctx) != SKL_DSP_D0I3_NONE) {
+-
+-		dev_dbg(ctx->dev, "%s: Schedule D0i3\n", __func__);
+-
+-		schedule_delayed_work(&d0i3->work,
+-				msecs_to_jiffies(BXT_D0I3_DELAY));
+-	}
+-
+-	return 0;
+-}
+-
+-static int bxt_set_dsp_D0i0(struct sst_dsp *ctx)
+-{
+-	int ret;
+-	struct skl_ipc_d0ix_msg msg;
+-	struct skl_dev *skl = ctx->thread_context;
+-
+-	dev_dbg(ctx->dev, "In %s:\n", __func__);
+-
+-	/* First Cancel any pending attempt to put DSP to D0i3 */
+-	cancel_delayed_work_sync(&skl->d0i3.work);
+-
+-	/* If DSP is currently in D0i3, bring it to D0i0 */
+-	if (skl->cores.state[SKL_DSP_CORE0_ID] != SKL_DSP_RUNNING_D0I3)
+-		return 0;
+-
+-	dev_dbg(ctx->dev, "Set DSP to D0i0\n");
+-
+-	msg.instance_id = 0;
+-	msg.module_id = 0;
+-	msg.streaming = 0;
+-	msg.wake = 0;
+-
+-	if (skl->d0i3.state == SKL_DSP_D0I3_STREAMING)
+-		msg.streaming = 1;
+-
+-	/* Clear Vendor specific register D0I3C.I3 to disable D0i3*/
+-	if (skl->update_d0i3c)
+-		skl->update_d0i3c(skl->dev, false);
+-
+-	ret =  skl_ipc_set_d0ix(&skl->ipc, &msg);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Failed to set DSP to D0i0\n");
+-		return ret;
+-	}
+-
+-	skl->cores.state[SKL_DSP_CORE0_ID] = SKL_DSP_RUNNING;
+-	skl->d0i3.state = SKL_DSP_D0I3_NONE;
+-
+-	return 0;
+-}
+-
+-static int bxt_set_dsp_D0(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	int ret;
+-	struct skl_ipc_dxstate_info dx;
+-	unsigned int core_mask = SKL_DSP_CORE_MASK(core_id);
+-
+-	if (skl->fw_loaded == false) {
+-		skl->boot_complete = false;
+-		ret = bxt_load_base_firmware(ctx);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "reload fw failed: %d\n", ret);
+-			return ret;
+-		}
+-
+-		if (skl->lib_count > 1) {
+-			ret = bxt_load_library(ctx, skl->lib_info,
+-						skl->lib_count);
+-			if (ret < 0) {
+-				dev_err(ctx->dev, "reload libs failed: %d\n", ret);
+-				return ret;
+-			}
+-		}
+-		skl->cores.state[core_id] = SKL_DSP_RUNNING;
+-		return ret;
+-	}
+-
+-	/* If core 0 is being turned on, turn on core 1 as well */
+-	if (core_id == SKL_DSP_CORE0_ID)
+-		ret = skl_dsp_core_power_up(ctx, core_mask |
+-				SKL_DSP_CORE_MASK(1));
+-	else
+-		ret = skl_dsp_core_power_up(ctx, core_mask);
+-
+-	if (ret < 0)
+-		goto err;
+-
+-	if (core_id == SKL_DSP_CORE0_ID) {
+-
+-		/*
+-		 * Enable interrupt after SPA is set and before
+-		 * DSP is unstalled
+-		 */
+-		skl_ipc_int_enable(ctx);
+-		skl_ipc_op_int_enable(ctx);
+-		skl->boot_complete = false;
+-	}
+-
+-	ret = skl_dsp_start_core(ctx, core_mask);
+-	if (ret < 0)
+-		goto err;
+-
+-	if (core_id == SKL_DSP_CORE0_ID) {
+-		ret = wait_event_timeout(skl->boot_wait,
+-				skl->boot_complete,
+-				msecs_to_jiffies(SKL_IPC_BOOT_MSECS));
+-
+-	/* If core 1 was turned on for booting core 0, turn it off */
+-		skl_dsp_core_power_down(ctx, SKL_DSP_CORE_MASK(1));
+-		if (ret == 0) {
+-			dev_err(ctx->dev, "%s: DSP boot timeout\n", __func__);
+-			dev_err(ctx->dev, "Error code=0x%x: FW status=0x%x\n",
+-				sst_dsp_shim_read(ctx, BXT_ADSP_ERROR_CODE),
+-				sst_dsp_shim_read(ctx, BXT_ADSP_FW_STATUS));
+-			dev_err(ctx->dev, "Failed to set core0 to D0 state\n");
+-			ret = -EIO;
+-			goto err;
+-		}
+-	}
+-
+-	/* Tell FW if additional core in now On */
+-
+-	if (core_id != SKL_DSP_CORE0_ID) {
+-		dx.core_mask = core_mask;
+-		dx.dx_mask = core_mask;
+-
+-		ret = skl_ipc_set_dx(&skl->ipc, BXT_INSTANCE_ID,
+-					BXT_BASE_FW_MODULE_ID, &dx);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "IPC set_dx for core %d fail: %d\n",
+-								core_id, ret);
+-			goto err;
+-		}
+-	}
+-
+-	skl->cores.state[core_id] = SKL_DSP_RUNNING;
+-	return 0;
+-err:
+-	if (core_id == SKL_DSP_CORE0_ID)
+-		core_mask |= SKL_DSP_CORE_MASK(1);
+-	skl_dsp_disable_core(ctx, core_mask);
+-
+-	return ret;
+-}
+-
+-static int bxt_set_dsp_D3(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	int ret;
+-	struct skl_ipc_dxstate_info dx;
+-	struct skl_dev *skl = ctx->thread_context;
+-	unsigned int core_mask = SKL_DSP_CORE_MASK(core_id);
+-
+-	dx.core_mask = core_mask;
+-	dx.dx_mask = SKL_IPC_D3_MASK;
+-
+-	dev_dbg(ctx->dev, "core mask=%x dx_mask=%x\n",
+-			dx.core_mask, dx.dx_mask);
+-
+-	ret = skl_ipc_set_dx(&skl->ipc, BXT_INSTANCE_ID,
+-				BXT_BASE_FW_MODULE_ID, &dx);
+-	if (ret < 0) {
+-		dev_err(ctx->dev,
+-		"Failed to set DSP to D3:core id = %d;Continue reset\n",
+-		core_id);
+-		/*
+-		 * In case of D3 failure, re-download the firmware, so set
+-		 * fw_loaded to false.
+-		 */
+-		skl->fw_loaded = false;
+-	}
+-
+-	if (core_id == SKL_DSP_CORE0_ID) {
+-		/* disable Interrupt */
+-		skl_ipc_op_int_disable(ctx);
+-		skl_ipc_int_disable(ctx);
+-	}
+-	ret = skl_dsp_disable_core(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Failed to disable core %d\n", ret);
+-		return ret;
+-	}
+-	skl->cores.state[core_id] = SKL_DSP_RESET;
+-	return 0;
+-}
+-
+-static const struct skl_dsp_fw_ops bxt_fw_ops = {
+-	.set_state_D0 = bxt_set_dsp_D0,
+-	.set_state_D3 = bxt_set_dsp_D3,
+-	.set_state_D0i3 = bxt_schedule_dsp_D0i3,
+-	.set_state_D0i0 = bxt_set_dsp_D0i0,
+-	.load_fw = bxt_load_base_firmware,
+-	.get_fw_errcode = bxt_get_errorcode,
+-	.load_library = bxt_load_library,
+-};
+-
+-static struct sst_ops skl_ops = {
+-	.irq_handler = skl_dsp_sst_interrupt,
+-	.write = sst_shim32_write,
+-	.read = sst_shim32_read,
+-	.free = skl_dsp_free,
+-};
+-
+-static struct sst_dsp_device skl_dev = {
+-	.thread = skl_dsp_irq_thread_handler,
+-	.ops = &skl_ops,
+-};
+-
+-int bxt_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+-			const char *fw_name, struct skl_dsp_loader_ops dsp_ops,
+-			struct skl_dev **dsp)
+-{
+-	struct skl_dev *skl;
+-	struct sst_dsp *sst;
+-	int ret;
+-
+-	ret = skl_sst_ctx_init(dev, irq, fw_name, dsp_ops, dsp, &skl_dev);
+-	if (ret < 0) {
+-		dev_err(dev, "%s: no device\n", __func__);
+-		return ret;
+-	}
+-
+-	skl = *dsp;
+-	sst = skl->dsp;
+-	sst->fw_ops = bxt_fw_ops;
+-	sst->addr.lpe = mmio_base;
+-	sst->addr.shim = mmio_base;
+-	sst->addr.sram0_base = BXT_ADSP_SRAM0_BASE;
+-	sst->addr.sram1_base = BXT_ADSP_SRAM1_BASE;
+-	sst->addr.w0_stat_sz = SKL_ADSP_W0_STAT_SZ;
+-	sst->addr.w0_up_sz = SKL_ADSP_W0_UP_SZ;
+-
+-	sst_dsp_mailbox_init(sst, (BXT_ADSP_SRAM0_BASE + SKL_ADSP_W0_STAT_SZ),
+-			SKL_ADSP_W0_UP_SZ, BXT_ADSP_SRAM1_BASE, SKL_ADSP_W1_SZ);
+-
+-	ret = skl_ipc_init(dev, skl);
+-	if (ret) {
+-		skl_dsp_free(sst);
+-		return ret;
+-	}
+-
+-	/* set the D0i3 check */
+-	skl->ipc.ops.check_dsp_lp_on = skl_ipc_check_D0i0;
+-
+-	skl->boot_complete = false;
+-	init_waitqueue_head(&skl->boot_wait);
+-	INIT_DELAYED_WORK(&skl->d0i3.work, bxt_set_dsp_D0i3);
+-	skl->d0i3.state = SKL_DSP_D0I3_NONE;
+-
+-	return skl_dsp_acquire_irq(sst);
+-}
+-EXPORT_SYMBOL_GPL(bxt_sst_dsp_init);
+-
+-int bxt_sst_init_fw(struct device *dev, struct skl_dev *skl)
+-{
+-	int ret;
+-	struct sst_dsp *sst = skl->dsp;
+-
+-	ret = sst->fw_ops.load_fw(sst);
+-	if (ret < 0) {
+-		dev_err(dev, "Load base fw failed: %x\n", ret);
+-		return ret;
+-	}
+-
+-	skl_dsp_init_core_state(sst);
+-
+-	if (skl->lib_count > 1) {
+-		ret = sst->fw_ops.load_library(sst, skl->lib_info,
+-						skl->lib_count);
+-		if (ret < 0) {
+-			dev_err(dev, "Load Library failed : %x\n", ret);
+-			return ret;
+-		}
+-	}
+-	skl->is_first_boot = false;
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(bxt_sst_init_fw);
+-
+-void bxt_sst_dsp_cleanup(struct device *dev, struct skl_dev *skl)
+-{
+-
+-	skl_release_library(skl->lib_info, skl->lib_count);
+-	if (skl->dsp->fw)
+-		release_firmware(skl->dsp->fw);
+-	skl_freeup_uuid_list(skl);
+-	skl_ipc_free(&skl->ipc);
+-	skl->dsp->ops->free(skl->dsp);
+-}
+-EXPORT_SYMBOL_GPL(bxt_sst_dsp_cleanup);
+-
+-MODULE_LICENSE("GPL v2");
+-MODULE_DESCRIPTION("Intel Broxton IPC driver");
+diff --git a/sound/soc/intel/skylake/cnl-sst-dsp.c b/sound/soc/intel/skylake/cnl-sst-dsp.c
+deleted file mode 100644
+index 3ef1b194add1..000000000000
+--- a/sound/soc/intel/skylake/cnl-sst-dsp.c
++++ /dev/null
+@@ -1,266 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * cnl-sst-dsp.c - CNL SST library generic function
+- *
+- * Copyright (C) 2016-17, Intel Corporation.
+- * Author: Guneshwor Singh <guneshwor.o.singh@intel.com>
+- *
+- * Modified from:
+- *	SKL SST library generic function
+- *	Copyright (C) 2014-15, Intel Corporation.
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-#include <linux/device.h>
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-ipc.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "cnl-sst-dsp.h"
+-
+-/* various timeout values */
+-#define CNL_DSP_PU_TO		50
+-#define CNL_DSP_PD_TO		50
+-#define CNL_DSP_RESET_TO	50
+-
+-static int
+-cnl_dsp_core_set_reset_state(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx,
+-			CNL_ADSP_REG_ADSPCS, CNL_ADSPCS_CRST(core_mask),
+-			CNL_ADSPCS_CRST(core_mask));
+-
+-	/* poll with timeout to check if operation successful */
+-	return sst_dsp_register_poll(ctx,
+-			CNL_ADSP_REG_ADSPCS,
+-			CNL_ADSPCS_CRST(core_mask),
+-			CNL_ADSPCS_CRST(core_mask),
+-			CNL_DSP_RESET_TO,
+-			"Set reset");
+-}
+-
+-static int
+-cnl_dsp_core_unset_reset_state(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx, CNL_ADSP_REG_ADSPCS,
+-					CNL_ADSPCS_CRST(core_mask), 0);
+-
+-	/* poll with timeout to check if operation successful */
+-	return sst_dsp_register_poll(ctx,
+-			CNL_ADSP_REG_ADSPCS,
+-			CNL_ADSPCS_CRST(core_mask),
+-			0,
+-			CNL_DSP_RESET_TO,
+-			"Unset reset");
+-}
+-
+-static bool is_cnl_dsp_core_enable(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int val;
+-	bool is_enable;
+-
+-	val = sst_dsp_shim_read_unlocked(ctx, CNL_ADSP_REG_ADSPCS);
+-
+-	is_enable = (val & CNL_ADSPCS_CPA(core_mask)) &&
+-			(val & CNL_ADSPCS_SPA(core_mask)) &&
+-			!(val & CNL_ADSPCS_CRST(core_mask)) &&
+-			!(val & CNL_ADSPCS_CSTALL(core_mask));
+-
+-	dev_dbg(ctx->dev, "DSP core(s) enabled? %d: core_mask %#x\n",
+-		is_enable, core_mask);
+-
+-	return is_enable;
+-}
+-
+-static int cnl_dsp_reset_core(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	/* stall core */
+-	sst_dsp_shim_update_bits_unlocked(ctx, CNL_ADSP_REG_ADSPCS,
+-			CNL_ADSPCS_CSTALL(core_mask),
+-			CNL_ADSPCS_CSTALL(core_mask));
+-
+-	/* set reset state */
+-	return cnl_dsp_core_set_reset_state(ctx, core_mask);
+-}
+-
+-static int cnl_dsp_start_core(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	/* unset reset state */
+-	ret = cnl_dsp_core_unset_reset_state(ctx, core_mask);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* run core */
+-	sst_dsp_shim_update_bits_unlocked(ctx, CNL_ADSP_REG_ADSPCS,
+-				CNL_ADSPCS_CSTALL(core_mask), 0);
+-
+-	if (!is_cnl_dsp_core_enable(ctx, core_mask)) {
+-		cnl_dsp_reset_core(ctx, core_mask);
+-		dev_err(ctx->dev, "DSP core mask %#x enable failed\n",
+-			core_mask);
+-		ret = -EIO;
+-	}
+-
+-	return ret;
+-}
+-
+-static int cnl_dsp_core_power_up(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx, CNL_ADSP_REG_ADSPCS,
+-					  CNL_ADSPCS_SPA(core_mask),
+-					  CNL_ADSPCS_SPA(core_mask));
+-
+-	/* poll with timeout to check if operation successful */
+-	return sst_dsp_register_poll(ctx, CNL_ADSP_REG_ADSPCS,
+-				    CNL_ADSPCS_CPA(core_mask),
+-				    CNL_ADSPCS_CPA(core_mask),
+-				    CNL_DSP_PU_TO,
+-				    "Power up");
+-}
+-
+-static int cnl_dsp_core_power_down(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx, CNL_ADSP_REG_ADSPCS,
+-					CNL_ADSPCS_SPA(core_mask), 0);
+-
+-	/* poll with timeout to check if operation successful */
+-	return sst_dsp_register_poll(ctx,
+-			CNL_ADSP_REG_ADSPCS,
+-			CNL_ADSPCS_CPA(core_mask),
+-			0,
+-			CNL_DSP_PD_TO,
+-			"Power down");
+-}
+-
+-int cnl_dsp_enable_core(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	/* power up */
+-	ret = cnl_dsp_core_power_up(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_dbg(ctx->dev, "DSP core mask %#x power up failed",
+-			core_mask);
+-		return ret;
+-	}
+-
+-	return cnl_dsp_start_core(ctx, core_mask);
+-}
+-
+-int cnl_dsp_disable_core(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	ret = cnl_dsp_reset_core(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "DSP core mask %#x reset failed\n",
+-			core_mask);
+-		return ret;
+-	}
+-
+-	/* power down core*/
+-	ret = cnl_dsp_core_power_down(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "DSP core mask %#x power down failed\n",
+-			core_mask);
+-		return ret;
+-	}
+-
+-	if (is_cnl_dsp_core_enable(ctx, core_mask)) {
+-		dev_err(ctx->dev, "DSP core mask %#x disable failed\n",
+-			core_mask);
+-		ret = -EIO;
+-	}
+-
+-	return ret;
+-}
+-
+-irqreturn_t cnl_dsp_sst_interrupt(int irq, void *dev_id)
+-{
+-	struct sst_dsp *ctx = dev_id;
+-	u32 val;
+-	irqreturn_t ret = IRQ_NONE;
+-
+-	spin_lock(&ctx->spinlock);
+-
+-	val = sst_dsp_shim_read_unlocked(ctx, CNL_ADSP_REG_ADSPIS);
+-	ctx->intr_status = val;
+-
+-	if (val == 0xffffffff) {
+-		spin_unlock(&ctx->spinlock);
+-		return IRQ_NONE;
+-	}
+-
+-	if (val & CNL_ADSPIS_IPC) {
+-		cnl_ipc_int_disable(ctx);
+-		ret = IRQ_WAKE_THREAD;
+-	}
+-
+-	spin_unlock(&ctx->spinlock);
+-
+-	return ret;
+-}
+-
+-void cnl_dsp_free(struct sst_dsp *dsp)
+-{
+-	cnl_ipc_int_disable(dsp);
+-
+-	free_irq(dsp->irq, dsp);
+-	cnl_ipc_op_int_disable(dsp);
+-	cnl_dsp_disable_core(dsp, SKL_DSP_CORE0_MASK);
+-}
+-EXPORT_SYMBOL_GPL(cnl_dsp_free);
+-
+-void cnl_ipc_int_enable(struct sst_dsp *ctx)
+-{
+-	sst_dsp_shim_update_bits(ctx, CNL_ADSP_REG_ADSPIC,
+-				 CNL_ADSPIC_IPC, CNL_ADSPIC_IPC);
+-}
+-
+-void cnl_ipc_int_disable(struct sst_dsp *ctx)
+-{
+-	sst_dsp_shim_update_bits_unlocked(ctx, CNL_ADSP_REG_ADSPIC,
+-					  CNL_ADSPIC_IPC, 0);
+-}
+-
+-void cnl_ipc_op_int_enable(struct sst_dsp *ctx)
+-{
+-	/* enable IPC DONE interrupt */
+-	sst_dsp_shim_update_bits(ctx, CNL_ADSP_REG_HIPCCTL,
+-				 CNL_ADSP_REG_HIPCCTL_DONE,
+-				 CNL_ADSP_REG_HIPCCTL_DONE);
+-
+-	/* enable IPC BUSY interrupt */
+-	sst_dsp_shim_update_bits(ctx, CNL_ADSP_REG_HIPCCTL,
+-				 CNL_ADSP_REG_HIPCCTL_BUSY,
+-				 CNL_ADSP_REG_HIPCCTL_BUSY);
+-}
+-
+-void cnl_ipc_op_int_disable(struct sst_dsp *ctx)
+-{
+-	/* disable IPC DONE interrupt */
+-	sst_dsp_shim_update_bits(ctx, CNL_ADSP_REG_HIPCCTL,
+-				 CNL_ADSP_REG_HIPCCTL_DONE, 0);
+-
+-	/* disable IPC BUSY interrupt */
+-	sst_dsp_shim_update_bits(ctx, CNL_ADSP_REG_HIPCCTL,
+-				 CNL_ADSP_REG_HIPCCTL_BUSY, 0);
+-}
+-
+-bool cnl_ipc_int_status(struct sst_dsp *ctx)
+-{
+-	return sst_dsp_shim_read_unlocked(ctx, CNL_ADSP_REG_ADSPIS) &
+-							CNL_ADSPIS_IPC;
+-}
+-
+-void cnl_ipc_free(struct sst_generic_ipc *ipc)
+-{
+-	cnl_ipc_op_int_disable(ipc->dsp);
+-	sst_ipc_fini(ipc);
+-}
+diff --git a/sound/soc/intel/skylake/cnl-sst-dsp.h b/sound/soc/intel/skylake/cnl-sst-dsp.h
+deleted file mode 100644
+index d3cf4bd1a070..000000000000
+--- a/sound/soc/intel/skylake/cnl-sst-dsp.h
++++ /dev/null
+@@ -1,103 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * Cannonlake SST DSP Support
+- *
+- * Copyright (C) 2016-17, Intel Corporation.
+- */
+-
+-#ifndef __CNL_SST_DSP_H__
+-#define __CNL_SST_DSP_H__
+-
+-struct sst_dsp;
+-struct sst_dsp_device;
+-struct sst_generic_ipc;
+-
+-/* Intel HD Audio General DSP Registers */
+-#define CNL_ADSP_GEN_BASE		0x0
+-#define CNL_ADSP_REG_ADSPCS		(CNL_ADSP_GEN_BASE + 0x04)
+-#define CNL_ADSP_REG_ADSPIC		(CNL_ADSP_GEN_BASE + 0x08)
+-#define CNL_ADSP_REG_ADSPIS		(CNL_ADSP_GEN_BASE + 0x0c)
+-
+-/* Intel HD Audio Inter-Processor Communication Registers */
+-#define CNL_ADSP_IPC_BASE               0xc0
+-#define CNL_ADSP_REG_HIPCTDR            (CNL_ADSP_IPC_BASE + 0x00)
+-#define CNL_ADSP_REG_HIPCTDA            (CNL_ADSP_IPC_BASE + 0x04)
+-#define CNL_ADSP_REG_HIPCTDD            (CNL_ADSP_IPC_BASE + 0x08)
+-#define CNL_ADSP_REG_HIPCIDR            (CNL_ADSP_IPC_BASE + 0x10)
+-#define CNL_ADSP_REG_HIPCIDA            (CNL_ADSP_IPC_BASE + 0x14)
+-#define CNL_ADSP_REG_HIPCIDD            (CNL_ADSP_IPC_BASE + 0x18)
+-#define CNL_ADSP_REG_HIPCCTL            (CNL_ADSP_IPC_BASE + 0x28)
+-
+-/* HIPCTDR */
+-#define CNL_ADSP_REG_HIPCTDR_BUSY	BIT(31)
+-
+-/* HIPCTDA */
+-#define CNL_ADSP_REG_HIPCTDA_DONE	BIT(31)
+-
+-/* HIPCIDR */
+-#define CNL_ADSP_REG_HIPCIDR_BUSY	BIT(31)
+-
+-/* HIPCIDA */
+-#define CNL_ADSP_REG_HIPCIDA_DONE	BIT(31)
+-
+-/* CNL HIPCCTL */
+-#define CNL_ADSP_REG_HIPCCTL_DONE	BIT(1)
+-#define CNL_ADSP_REG_HIPCCTL_BUSY	BIT(0)
+-
+-/* CNL HIPCT */
+-#define CNL_ADSP_REG_HIPCT_BUSY		BIT(31)
+-
+-/* Intel HD Audio SRAM Window 1 */
+-#define CNL_ADSP_SRAM1_BASE		0xa0000
+-
+-#define CNL_ADSP_MMIO_LEN		0x10000
+-
+-#define CNL_ADSP_W0_STAT_SZ		0x1000
+-
+-#define CNL_ADSP_W0_UP_SZ		0x1000
+-
+-#define CNL_ADSP_W1_SZ			0x1000
+-
+-#define CNL_FW_STS_MASK			0xf
+-
+-#define CNL_ADSPIC_IPC			0x1
+-#define CNL_ADSPIS_IPC			0x1
+-
+-#define CNL_DSP_CORES		4
+-#define CNL_DSP_CORES_MASK	((1 << CNL_DSP_CORES) - 1)
+-
+-/* core reset - asserted high */
+-#define CNL_ADSPCS_CRST_SHIFT	0
+-#define CNL_ADSPCS_CRST(x)	(x << CNL_ADSPCS_CRST_SHIFT)
+-
+-/* core run/stall - when set to 1 core is stalled */
+-#define CNL_ADSPCS_CSTALL_SHIFT	8
+-#define CNL_ADSPCS_CSTALL(x)	(x << CNL_ADSPCS_CSTALL_SHIFT)
+-
+-/* set power active - when set to 1 turn core on */
+-#define CNL_ADSPCS_SPA_SHIFT	16
+-#define CNL_ADSPCS_SPA(x)	(x << CNL_ADSPCS_SPA_SHIFT)
+-
+-/* current power active - power status of cores, set by hardware */
+-#define CNL_ADSPCS_CPA_SHIFT	24
+-#define CNL_ADSPCS_CPA(x)	(x << CNL_ADSPCS_CPA_SHIFT)
+-
+-int cnl_dsp_enable_core(struct sst_dsp *ctx, unsigned int core_mask);
+-int cnl_dsp_disable_core(struct sst_dsp *ctx, unsigned int core_mask);
+-irqreturn_t cnl_dsp_sst_interrupt(int irq, void *dev_id);
+-void cnl_dsp_free(struct sst_dsp *dsp);
+-
+-void cnl_ipc_int_enable(struct sst_dsp *ctx);
+-void cnl_ipc_int_disable(struct sst_dsp *ctx);
+-void cnl_ipc_op_int_enable(struct sst_dsp *ctx);
+-void cnl_ipc_op_int_disable(struct sst_dsp *ctx);
+-bool cnl_ipc_int_status(struct sst_dsp *ctx);
+-void cnl_ipc_free(struct sst_generic_ipc *ipc);
+-
+-int cnl_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+-		     const char *fw_name, struct skl_dsp_loader_ops dsp_ops,
+-		     struct skl_dev **dsp);
+-int cnl_sst_init_fw(struct device *dev, struct skl_dev *skl);
+-void cnl_sst_dsp_cleanup(struct device *dev, struct skl_dev *skl);
+-
+-#endif /*__CNL_SST_DSP_H__*/
+diff --git a/sound/soc/intel/skylake/cnl-sst.c b/sound/soc/intel/skylake/cnl-sst.c
+deleted file mode 100644
+index 1275c149acc0..000000000000
+--- a/sound/soc/intel/skylake/cnl-sst.c
++++ /dev/null
+@@ -1,508 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * cnl-sst.c - DSP library functions for CNL platform
+- *
+- * Copyright (C) 2016-17, Intel Corporation.
+- *
+- * Author: Guneshwor Singh <guneshwor.o.singh@intel.com>
+- *
+- * Modified from:
+- *	HDA DSP library functions for SKL platform
+- *	Copyright (C) 2014-15, Intel Corporation.
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#include <linux/module.h>
+-#include <linux/delay.h>
+-#include <linux/firmware.h>
+-#include <linux/device.h>
+-
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "../common/sst-ipc.h"
+-#include "cnl-sst-dsp.h"
+-#include "skl.h"
+-
+-#define CNL_FW_ROM_INIT		0x1
+-#define CNL_FW_INIT		0x5
+-#define CNL_IPC_PURGE		0x01004000
+-#define CNL_INIT_TIMEOUT	300
+-#define CNL_BASEFW_TIMEOUT	3000
+-
+-#define CNL_ADSP_SRAM0_BASE	0x80000
+-
+-/* Firmware status window */
+-#define CNL_ADSP_FW_STATUS	CNL_ADSP_SRAM0_BASE
+-#define CNL_ADSP_ERROR_CODE	(CNL_ADSP_FW_STATUS + 0x4)
+-
+-#define CNL_INSTANCE_ID		0
+-#define CNL_BASE_FW_MODULE_ID	0
+-#define CNL_ADSP_FW_HDR_OFFSET	0x2000
+-#define CNL_ROM_CTRL_DMA_ID	0x9
+-
+-static int cnl_prepare_fw(struct sst_dsp *ctx, const void *fwdata, u32 fwsize)
+-{
+-
+-	int ret, stream_tag;
+-
+-	stream_tag = ctx->dsp_ops.prepare(ctx->dev, 0x40, fwsize, &ctx->dmab);
+-	if (stream_tag <= 0) {
+-		dev_err(ctx->dev, "dma prepare failed: 0%#x\n", stream_tag);
+-		return stream_tag;
+-	}
+-
+-	ctx->dsp_ops.stream_tag = stream_tag;
+-	memcpy(ctx->dmab.area, fwdata, fwsize);
+-
+-	ret = skl_dsp_core_power_up(ctx, SKL_DSP_CORE0_MASK);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "dsp core0 power up failed\n");
+-		ret = -EIO;
+-		goto base_fw_load_failed;
+-	}
+-
+-	/* purge FW request */
+-	sst_dsp_shim_write(ctx, CNL_ADSP_REG_HIPCIDR,
+-			   CNL_ADSP_REG_HIPCIDR_BUSY | (CNL_IPC_PURGE |
+-			   ((stream_tag - 1) << CNL_ROM_CTRL_DMA_ID)));
+-
+-	ret = skl_dsp_start_core(ctx, SKL_DSP_CORE0_MASK);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Start dsp core failed ret: %d\n", ret);
+-		ret = -EIO;
+-		goto base_fw_load_failed;
+-	}
+-
+-	ret = sst_dsp_register_poll(ctx, CNL_ADSP_REG_HIPCIDA,
+-				    CNL_ADSP_REG_HIPCIDA_DONE,
+-				    CNL_ADSP_REG_HIPCIDA_DONE,
+-				    BXT_INIT_TIMEOUT, "HIPCIDA Done");
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "timeout for purge request: %d\n", ret);
+-		goto base_fw_load_failed;
+-	}
+-
+-	/* enable interrupt */
+-	cnl_ipc_int_enable(ctx);
+-	cnl_ipc_op_int_enable(ctx);
+-
+-	ret = sst_dsp_register_poll(ctx, CNL_ADSP_FW_STATUS, CNL_FW_STS_MASK,
+-				    CNL_FW_ROM_INIT, CNL_INIT_TIMEOUT,
+-				    "rom load");
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "rom init timeout, ret: %d\n", ret);
+-		goto base_fw_load_failed;
+-	}
+-
+-	return 0;
+-
+-base_fw_load_failed:
+-	ctx->dsp_ops.cleanup(ctx->dev, &ctx->dmab, stream_tag);
+-	cnl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-
+-	return ret;
+-}
+-
+-static int sst_transfer_fw_host_dma(struct sst_dsp *ctx)
+-{
+-	int ret;
+-
+-	ctx->dsp_ops.trigger(ctx->dev, true, ctx->dsp_ops.stream_tag);
+-	ret = sst_dsp_register_poll(ctx, CNL_ADSP_FW_STATUS, CNL_FW_STS_MASK,
+-				    CNL_FW_INIT, CNL_BASEFW_TIMEOUT,
+-				    "firmware boot");
+-
+-	ctx->dsp_ops.trigger(ctx->dev, false, ctx->dsp_ops.stream_tag);
+-	ctx->dsp_ops.cleanup(ctx->dev, &ctx->dmab, ctx->dsp_ops.stream_tag);
+-
+-	return ret;
+-}
+-
+-static int cnl_load_base_firmware(struct sst_dsp *ctx)
+-{
+-	struct firmware stripped_fw;
+-	struct skl_dev *cnl = ctx->thread_context;
+-	int ret, i;
+-
+-	if (!ctx->fw) {
+-		ret = request_firmware(&ctx->fw, ctx->fw_name, ctx->dev);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "request firmware failed: %d\n", ret);
+-			goto cnl_load_base_firmware_failed;
+-		}
+-	}
+-
+-	/* parse uuids if first boot */
+-	if (cnl->is_first_boot) {
+-		ret = snd_skl_parse_uuids(ctx, ctx->fw,
+-					  CNL_ADSP_FW_HDR_OFFSET, 0);
+-		if (ret < 0)
+-			goto cnl_load_base_firmware_failed;
+-	}
+-
+-	stripped_fw.data = ctx->fw->data;
+-	stripped_fw.size = ctx->fw->size;
+-	skl_dsp_strip_extended_manifest(&stripped_fw);
+-
+-	for (i = 0; i < BXT_FW_ROM_INIT_RETRY; i++) {
+-		ret = cnl_prepare_fw(ctx, stripped_fw.data, stripped_fw.size);
+-		if (!ret)
+-			break;
+-		dev_dbg(ctx->dev, "prepare firmware failed: %d\n", ret);
+-	}
+-
+-	if (ret < 0)
+-		goto cnl_load_base_firmware_failed;
+-
+-	ret = sst_transfer_fw_host_dma(ctx);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "transfer firmware failed: %d\n", ret);
+-		cnl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-		goto cnl_load_base_firmware_failed;
+-	}
+-
+-	ret = wait_event_timeout(cnl->boot_wait, cnl->boot_complete,
+-				 msecs_to_jiffies(SKL_IPC_BOOT_MSECS));
+-	if (ret == 0) {
+-		dev_err(ctx->dev, "FW ready timed-out\n");
+-		cnl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-		ret = -EIO;
+-		goto cnl_load_base_firmware_failed;
+-	}
+-
+-	cnl->fw_loaded = true;
+-
+-	return 0;
+-
+-cnl_load_base_firmware_failed:
+-	dev_err(ctx->dev, "firmware load failed: %d\n", ret);
+-	release_firmware(ctx->fw);
+-	ctx->fw = NULL;
+-
+-	return ret;
+-}
+-
+-static int cnl_set_dsp_D0(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	struct skl_dev *cnl = ctx->thread_context;
+-	unsigned int core_mask = SKL_DSP_CORE_MASK(core_id);
+-	struct skl_ipc_dxstate_info dx;
+-	int ret;
+-
+-	if (!cnl->fw_loaded) {
+-		cnl->boot_complete = false;
+-		ret = cnl_load_base_firmware(ctx);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "fw reload failed: %d\n", ret);
+-			return ret;
+-		}
+-
+-		cnl->cores.state[core_id] = SKL_DSP_RUNNING;
+-		return ret;
+-	}
+-
+-	ret = cnl_dsp_enable_core(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "enable dsp core %d failed: %d\n",
+-			core_id, ret);
+-		goto err;
+-	}
+-
+-	if (core_id == SKL_DSP_CORE0_ID) {
+-		/* enable interrupt */
+-		cnl_ipc_int_enable(ctx);
+-		cnl_ipc_op_int_enable(ctx);
+-		cnl->boot_complete = false;
+-
+-		ret = wait_event_timeout(cnl->boot_wait, cnl->boot_complete,
+-					 msecs_to_jiffies(SKL_IPC_BOOT_MSECS));
+-		if (ret == 0) {
+-			dev_err(ctx->dev,
+-				"dsp boot timeout, status=%#x error=%#x\n",
+-				sst_dsp_shim_read(ctx, CNL_ADSP_FW_STATUS),
+-				sst_dsp_shim_read(ctx, CNL_ADSP_ERROR_CODE));
+-			ret = -ETIMEDOUT;
+-			goto err;
+-		}
+-	} else {
+-		dx.core_mask = core_mask;
+-		dx.dx_mask = core_mask;
+-
+-		ret = skl_ipc_set_dx(&cnl->ipc, CNL_INSTANCE_ID,
+-				     CNL_BASE_FW_MODULE_ID, &dx);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "set_dx failed, core: %d ret: %d\n",
+-				core_id, ret);
+-			goto err;
+-		}
+-	}
+-	cnl->cores.state[core_id] = SKL_DSP_RUNNING;
+-
+-	return 0;
+-err:
+-	cnl_dsp_disable_core(ctx, core_mask);
+-
+-	return ret;
+-}
+-
+-static int cnl_set_dsp_D3(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	struct skl_dev *cnl = ctx->thread_context;
+-	unsigned int core_mask = SKL_DSP_CORE_MASK(core_id);
+-	struct skl_ipc_dxstate_info dx;
+-	int ret;
+-
+-	dx.core_mask = core_mask;
+-	dx.dx_mask = SKL_IPC_D3_MASK;
+-
+-	ret = skl_ipc_set_dx(&cnl->ipc, CNL_INSTANCE_ID,
+-			     CNL_BASE_FW_MODULE_ID, &dx);
+-	if (ret < 0) {
+-		dev_err(ctx->dev,
+-			"dsp core %d to d3 failed; continue reset\n",
+-			core_id);
+-		cnl->fw_loaded = false;
+-	}
+-
+-	/* disable interrupts if core 0 */
+-	if (core_id == SKL_DSP_CORE0_ID) {
+-		skl_ipc_op_int_disable(ctx);
+-		skl_ipc_int_disable(ctx);
+-	}
+-
+-	ret = cnl_dsp_disable_core(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "disable dsp core %d failed: %d\n",
+-			core_id, ret);
+-		return ret;
+-	}
+-
+-	cnl->cores.state[core_id] = SKL_DSP_RESET;
+-
+-	return ret;
+-}
+-
+-static unsigned int cnl_get_errno(struct sst_dsp *ctx)
+-{
+-	return sst_dsp_shim_read(ctx, CNL_ADSP_ERROR_CODE);
+-}
+-
+-static const struct skl_dsp_fw_ops cnl_fw_ops = {
+-	.set_state_D0 = cnl_set_dsp_D0,
+-	.set_state_D3 = cnl_set_dsp_D3,
+-	.load_fw = cnl_load_base_firmware,
+-	.get_fw_errcode = cnl_get_errno,
+-};
+-
+-static struct sst_ops cnl_ops = {
+-	.irq_handler = cnl_dsp_sst_interrupt,
+-	.write = sst_shim32_write,
+-	.read = sst_shim32_read,
+-	.free = cnl_dsp_free,
+-};
+-
+-#define CNL_IPC_GLB_NOTIFY_RSP_SHIFT	29
+-#define CNL_IPC_GLB_NOTIFY_RSP_MASK	0x1
+-#define CNL_IPC_GLB_NOTIFY_RSP_TYPE(x)	(((x) >> CNL_IPC_GLB_NOTIFY_RSP_SHIFT) \
+-					& CNL_IPC_GLB_NOTIFY_RSP_MASK)
+-
+-static irqreturn_t cnl_dsp_irq_thread_handler(int irq, void *context)
+-{
+-	struct sst_dsp *dsp = context;
+-	struct skl_dev *cnl = dsp->thread_context;
+-	struct sst_generic_ipc *ipc = &cnl->ipc;
+-	struct skl_ipc_header header = {0};
+-	u32 hipcida, hipctdr, hipctdd;
+-	int ipc_irq = 0;
+-
+-	/* here we handle ipc interrupts only */
+-	if (!(dsp->intr_status & CNL_ADSPIS_IPC))
+-		return IRQ_NONE;
+-
+-	hipcida = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCIDA);
+-	hipctdr = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCTDR);
+-	hipctdd = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCTDD);
+-
+-	/* reply message from dsp */
+-	if (hipcida & CNL_ADSP_REG_HIPCIDA_DONE) {
+-		sst_dsp_shim_update_bits(dsp, CNL_ADSP_REG_HIPCCTL,
+-			CNL_ADSP_REG_HIPCCTL_DONE, 0);
+-
+-		/* clear done bit - tell dsp operation is complete */
+-		sst_dsp_shim_update_bits_forced(dsp, CNL_ADSP_REG_HIPCIDA,
+-			CNL_ADSP_REG_HIPCIDA_DONE, CNL_ADSP_REG_HIPCIDA_DONE);
+-
+-		ipc_irq = 1;
+-
+-		/* unmask done interrupt */
+-		sst_dsp_shim_update_bits(dsp, CNL_ADSP_REG_HIPCCTL,
+-			CNL_ADSP_REG_HIPCCTL_DONE, CNL_ADSP_REG_HIPCCTL_DONE);
+-	}
+-
+-	/* new message from dsp */
+-	if (hipctdr & CNL_ADSP_REG_HIPCTDR_BUSY) {
+-		header.primary = hipctdr;
+-		header.extension = hipctdd;
+-		dev_dbg(dsp->dev, "IPC irq: Firmware respond primary:%x",
+-						header.primary);
+-		dev_dbg(dsp->dev, "IPC irq: Firmware respond extension:%x",
+-						header.extension);
+-
+-		if (CNL_IPC_GLB_NOTIFY_RSP_TYPE(header.primary)) {
+-			/* Handle Immediate reply from DSP Core */
+-			skl_ipc_process_reply(ipc, header);
+-		} else {
+-			dev_dbg(dsp->dev, "IPC irq: Notification from firmware\n");
+-			skl_ipc_process_notification(ipc, header);
+-		}
+-		/* clear busy interrupt */
+-		sst_dsp_shim_update_bits_forced(dsp, CNL_ADSP_REG_HIPCTDR,
+-			CNL_ADSP_REG_HIPCTDR_BUSY, CNL_ADSP_REG_HIPCTDR_BUSY);
+-
+-		/* set done bit to ack dsp */
+-		sst_dsp_shim_update_bits_forced(dsp, CNL_ADSP_REG_HIPCTDA,
+-			CNL_ADSP_REG_HIPCTDA_DONE, CNL_ADSP_REG_HIPCTDA_DONE);
+-		ipc_irq = 1;
+-	}
+-
+-	if (ipc_irq == 0)
+-		return IRQ_NONE;
+-
+-	cnl_ipc_int_enable(dsp);
+-
+-	/* continue to send any remaining messages */
+-	schedule_work(&ipc->kwork);
+-
+-	return IRQ_HANDLED;
+-}
+-
+-static struct sst_dsp_device cnl_dev = {
+-	.thread = cnl_dsp_irq_thread_handler,
+-	.ops = &cnl_ops,
+-};
+-
+-static void cnl_ipc_tx_msg(struct sst_generic_ipc *ipc, struct ipc_message *msg)
+-{
+-	struct skl_ipc_header *header = (struct skl_ipc_header *)(&msg->tx.header);
+-
+-	if (msg->tx.size)
+-		sst_dsp_outbox_write(ipc->dsp, msg->tx.data, msg->tx.size);
+-	sst_dsp_shim_write_unlocked(ipc->dsp, CNL_ADSP_REG_HIPCIDD,
+-				    header->extension);
+-	sst_dsp_shim_write_unlocked(ipc->dsp, CNL_ADSP_REG_HIPCIDR,
+-				header->primary | CNL_ADSP_REG_HIPCIDR_BUSY);
+-}
+-
+-static bool cnl_ipc_is_dsp_busy(struct sst_dsp *dsp)
+-{
+-	u32 hipcidr;
+-
+-	hipcidr = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCIDR);
+-
+-	return (hipcidr & CNL_ADSP_REG_HIPCIDR_BUSY);
+-}
+-
+-static int cnl_ipc_init(struct device *dev, struct skl_dev *cnl)
+-{
+-	struct sst_generic_ipc *ipc;
+-	int err;
+-
+-	ipc = &cnl->ipc;
+-	ipc->dsp = cnl->dsp;
+-	ipc->dev = dev;
+-
+-	ipc->tx_data_max_size = CNL_ADSP_W1_SZ;
+-	ipc->rx_data_max_size = CNL_ADSP_W0_UP_SZ;
+-
+-	err = sst_ipc_init(ipc);
+-	if (err)
+-		return err;
+-
+-	/*
+-	 * overriding tx_msg and is_dsp_busy since
+-	 * ipc registers are different for cnl
+-	 */
+-	ipc->ops.tx_msg = cnl_ipc_tx_msg;
+-	ipc->ops.tx_data_copy = skl_ipc_tx_data_copy;
+-	ipc->ops.is_dsp_busy = cnl_ipc_is_dsp_busy;
+-
+-	return 0;
+-}
+-
+-int cnl_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+-		     const char *fw_name, struct skl_dsp_loader_ops dsp_ops,
+-		     struct skl_dev **dsp)
+-{
+-	struct skl_dev *cnl;
+-	struct sst_dsp *sst;
+-	int ret;
+-
+-	ret = skl_sst_ctx_init(dev, irq, fw_name, dsp_ops, dsp, &cnl_dev);
+-	if (ret < 0) {
+-		dev_err(dev, "%s: no device\n", __func__);
+-		return ret;
+-	}
+-
+-	cnl = *dsp;
+-	sst = cnl->dsp;
+-	sst->fw_ops = cnl_fw_ops;
+-	sst->addr.lpe = mmio_base;
+-	sst->addr.shim = mmio_base;
+-	sst->addr.sram0_base = CNL_ADSP_SRAM0_BASE;
+-	sst->addr.sram1_base = CNL_ADSP_SRAM1_BASE;
+-	sst->addr.w0_stat_sz = CNL_ADSP_W0_STAT_SZ;
+-	sst->addr.w0_up_sz = CNL_ADSP_W0_UP_SZ;
+-
+-	sst_dsp_mailbox_init(sst, (CNL_ADSP_SRAM0_BASE + CNL_ADSP_W0_STAT_SZ),
+-			     CNL_ADSP_W0_UP_SZ, CNL_ADSP_SRAM1_BASE,
+-			     CNL_ADSP_W1_SZ);
+-
+-	ret = cnl_ipc_init(dev, cnl);
+-	if (ret) {
+-		skl_dsp_free(sst);
+-		return ret;
+-	}
+-
+-	cnl->boot_complete = false;
+-	init_waitqueue_head(&cnl->boot_wait);
+-
+-	return skl_dsp_acquire_irq(sst);
+-}
+-EXPORT_SYMBOL_GPL(cnl_sst_dsp_init);
+-
+-int cnl_sst_init_fw(struct device *dev, struct skl_dev *skl)
+-{
+-	int ret;
+-	struct sst_dsp *sst = skl->dsp;
+-
+-	ret = skl->dsp->fw_ops.load_fw(sst);
+-	if (ret < 0) {
+-		dev_err(dev, "load base fw failed: %d", ret);
+-		return ret;
+-	}
+-
+-	skl_dsp_init_core_state(sst);
+-
+-	skl->is_first_boot = false;
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(cnl_sst_init_fw);
+-
+-void cnl_sst_dsp_cleanup(struct device *dev, struct skl_dev *skl)
+-{
+-	if (skl->dsp->fw)
+-		release_firmware(skl->dsp->fw);
+-
+-	skl_freeup_uuid_list(skl);
+-	cnl_ipc_free(&skl->ipc);
+-
+-	skl->dsp->ops->free(skl->dsp);
+-}
+-EXPORT_SYMBOL_GPL(cnl_sst_dsp_cleanup);
+-
+-MODULE_LICENSE("GPL v2");
+-MODULE_DESCRIPTION("Intel Cannonlake IPC driver");
+diff --git a/sound/soc/intel/skylake/skl-debug.c b/sound/soc/intel/skylake/skl-debug.c
+deleted file mode 100644
+index a15aa2ffa681..000000000000
+--- a/sound/soc/intel/skylake/skl-debug.c
++++ /dev/null
+@@ -1,248 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  skl-debug.c - Debugfs for skl driver
+- *
+- *  Copyright (C) 2016-17 Intel Corp
+- */
+-
+-#include <linux/pci.h>
+-#include <linux/debugfs.h>
+-#include <uapi/sound/skl-tplg-interface.h>
+-#include "skl.h"
+-#include "skl-sst-dsp.h"
+-#include "skl-sst-ipc.h"
+-#include "skl-topology.h"
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-
+-#define MOD_BUF		PAGE_SIZE
+-#define FW_REG_BUF	PAGE_SIZE
+-#define FW_REG_SIZE	0x60
+-
+-struct skl_debug {
+-	struct skl_dev *skl;
+-	struct device *dev;
+-
+-	struct dentry *fs;
+-	struct dentry *modules;
+-	u8 fw_read_buff[FW_REG_BUF];
+-};
+-
+-static ssize_t skl_print_pins(struct skl_module_pin *m_pin, char *buf,
+-				int max_pin, ssize_t size, bool direction)
+-{
+-	int i;
+-	ssize_t ret = 0;
+-
+-	for (i = 0; i < max_pin; i++) {
+-		ret += scnprintf(buf + size, MOD_BUF - size,
+-				"%s %d\n\tModule %d\n\tInstance %d\n\t"
+-				"In-used %s\n\tType %s\n"
+-				"\tState %d\n\tIndex %d\n",
+-				direction ? "Input Pin:" : "Output Pin:",
+-				i, m_pin[i].id.module_id,
+-				m_pin[i].id.instance_id,
+-				m_pin[i].in_use ? "Used" : "Unused",
+-				m_pin[i].is_dynamic ? "Dynamic" : "Static",
+-				m_pin[i].pin_state, i);
+-		size += ret;
+-	}
+-	return ret;
+-}
+-
+-static ssize_t skl_print_fmt(struct skl_module_fmt *fmt, char *buf,
+-					ssize_t size, bool direction)
+-{
+-	return scnprintf(buf + size, MOD_BUF - size,
+-			"%s\n\tCh %d\n\tFreq %d\n\tBit depth %d\n\t"
+-			"Valid bit depth %d\n\tCh config %#x\n\tInterleaving %d\n\t"
+-			"Sample Type %d\n\tCh Map %#x\n",
+-			direction ? "Input Format:" : "Output Format:",
+-			fmt->channels, fmt->s_freq, fmt->bit_depth,
+-			fmt->valid_bit_depth, fmt->ch_cfg,
+-			fmt->interleaving_style, fmt->sample_type,
+-			fmt->ch_map);
+-}
+-
+-static ssize_t module_read(struct file *file, char __user *user_buf,
+-			   size_t count, loff_t *ppos)
+-{
+-	struct skl_module_cfg *mconfig = file->private_data;
+-	struct skl_module *module = mconfig->module;
+-	struct skl_module_res *res = &module->resources[mconfig->res_idx];
+-	char *buf;
+-	ssize_t ret;
+-
+-	buf = kzalloc(MOD_BUF, GFP_KERNEL);
+-	if (!buf)
+-		return -ENOMEM;
+-
+-	ret = scnprintf(buf, MOD_BUF, "Module:\n\tUUID %pUL\n\tModule id %d\n"
+-			"\tInstance id %d\n\tPvt_id %d\n", mconfig->guid,
+-			mconfig->id.module_id, mconfig->id.instance_id,
+-			mconfig->id.pvt_id);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"Resources:\n\tCPC %#x\n\tIBS %#x\n\tOBS %#x\t\n",
+-			res->cpc, res->ibs, res->obs);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"Module data:\n\tCore %d\n\tIn queue %d\n\t"
+-			"Out queue %d\n\tType %s\n",
+-			mconfig->core_id, mconfig->max_in_queue,
+-			mconfig->max_out_queue,
+-			mconfig->is_loadable ? "loadable" : "inbuilt");
+-
+-	ret += skl_print_fmt(mconfig->in_fmt, buf, ret, true);
+-	ret += skl_print_fmt(mconfig->out_fmt, buf, ret, false);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"Fixup:\n\tParams %#x\n\tConverter %#x\n",
+-			mconfig->params_fixup, mconfig->converter);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"Module Gateway:\n\tType %#x\n\tVbus %#x\n\tHW conn %#x\n\tSlot %#x\n",
+-			mconfig->dev_type, mconfig->vbus_id,
+-			mconfig->hw_conn_type, mconfig->time_slot);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"Pipeline:\n\tID %d\n\tPriority %d\n\tConn Type %d\n\t"
+-			"Pages %#x\n", mconfig->pipe->ppl_id,
+-			mconfig->pipe->pipe_priority, mconfig->pipe->conn_type,
+-			mconfig->pipe->memory_pages);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"\tParams:\n\t\tHost DMA %d\n\t\tLink DMA %d\n",
+-			mconfig->pipe->p_params->host_dma_id,
+-			mconfig->pipe->p_params->link_dma_id);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"\tPCM params:\n\t\tCh %d\n\t\tFreq %d\n\t\tFormat %d\n",
+-			mconfig->pipe->p_params->ch,
+-			mconfig->pipe->p_params->s_freq,
+-			mconfig->pipe->p_params->s_fmt);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"\tLink %#x\n\tStream %#x\n",
+-			mconfig->pipe->p_params->linktype,
+-			mconfig->pipe->p_params->stream);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"\tState %d\n\tPassthru %s\n",
+-			mconfig->pipe->state,
+-			mconfig->pipe->passthru ? "true" : "false");
+-
+-	ret += skl_print_pins(mconfig->m_in_pin, buf,
+-			mconfig->max_in_queue, ret, true);
+-	ret += skl_print_pins(mconfig->m_out_pin, buf,
+-			mconfig->max_out_queue, ret, false);
+-
+-	ret += scnprintf(buf + ret, MOD_BUF - ret,
+-			"Other:\n\tDomain %d\n\tHomogeneous Input %s\n\t"
+-			"Homogeneous Output %s\n\tIn Queue Mask %d\n\t"
+-			"Out Queue Mask %d\n\tDMA ID %d\n\tMem Pages %d\n\t"
+-			"Module Type %d\n\tModule State %d\n",
+-			mconfig->domain,
+-			mconfig->homogenous_inputs ? "true" : "false",
+-			mconfig->homogenous_outputs ? "true" : "false",
+-			mconfig->in_queue_mask, mconfig->out_queue_mask,
+-			mconfig->dma_id, mconfig->mem_pages, mconfig->m_state,
+-			mconfig->m_type);
+-
+-	ret = simple_read_from_buffer(user_buf, count, ppos, buf, ret);
+-
+-	kfree(buf);
+-	return ret;
+-}
+-
+-static const struct file_operations mcfg_fops = {
+-	.open = simple_open,
+-	.read = module_read,
+-	.llseek = default_llseek,
+-};
+-
+-
+-void skl_debug_init_module(struct skl_debug *d,
+-			struct snd_soc_dapm_widget *w,
+-			struct skl_module_cfg *mconfig)
+-{
+-	debugfs_create_file(w->name, 0444, d->modules, mconfig,
+-			    &mcfg_fops);
+-}
+-
+-static ssize_t fw_softreg_read(struct file *file, char __user *user_buf,
+-			       size_t count, loff_t *ppos)
+-{
+-	struct skl_debug *d = file->private_data;
+-	struct sst_dsp *sst = d->skl->dsp;
+-	size_t w0_stat_sz = sst->addr.w0_stat_sz;
+-	void __iomem *in_base = sst->mailbox.in_base;
+-	void __iomem *fw_reg_addr;
+-	unsigned int offset;
+-	char *tmp;
+-	ssize_t ret = 0;
+-
+-	tmp = kzalloc(FW_REG_BUF, GFP_KERNEL);
+-	if (!tmp)
+-		return -ENOMEM;
+-
+-	fw_reg_addr = in_base - w0_stat_sz;
+-	memset(d->fw_read_buff, 0, FW_REG_BUF);
+-
+-	if (w0_stat_sz > 0)
+-		__ioread32_copy(d->fw_read_buff, fw_reg_addr, w0_stat_sz >> 2);
+-
+-	for (offset = 0; offset < FW_REG_SIZE; offset += 16) {
+-		ret += scnprintf(tmp + ret, FW_REG_BUF - ret, "%#.4x: ", offset);
+-		hex_dump_to_buffer(d->fw_read_buff + offset, 16, 16, 4,
+-				   tmp + ret, FW_REG_BUF - ret, 0);
+-		ret += strlen(tmp + ret);
+-
+-		/* print newline for each offset */
+-		if (FW_REG_BUF - ret > 0)
+-			tmp[ret++] = '\n';
+-	}
+-
+-	ret = simple_read_from_buffer(user_buf, count, ppos, tmp, ret);
+-	kfree(tmp);
+-
+-	return ret;
+-}
+-
+-static const struct file_operations soft_regs_ctrl_fops = {
+-	.open = simple_open,
+-	.read = fw_softreg_read,
+-	.llseek = default_llseek,
+-};
+-
+-struct skl_debug *skl_debugfs_init(struct skl_dev *skl)
+-{
+-	struct skl_debug *d;
+-
+-	d = devm_kzalloc(&skl->pci->dev, sizeof(*d), GFP_KERNEL);
+-	if (!d)
+-		return NULL;
+-
+-	/* create the debugfs dir with platform component's debugfs as parent */
+-	d->fs = debugfs_create_dir("dsp", skl->component->debugfs_root);
+-
+-	d->skl = skl;
+-	d->dev = &skl->pci->dev;
+-
+-	/* now create the module dir */
+-	d->modules = debugfs_create_dir("modules", d->fs);
+-
+-	debugfs_create_file("fw_soft_regs_rd", 0444, d->fs, d,
+-			    &soft_regs_ctrl_fops);
+-
+-	return d;
+-}
+-
+-void skl_debugfs_exit(struct skl_dev *skl)
+-{
+-	struct skl_debug *d = skl->debugfs;
+-
+-	debugfs_remove_recursive(d->fs);
+-
+-	d = NULL;
+-}
+diff --git a/sound/soc/intel/skylake/skl-i2s.h b/sound/soc/intel/skylake/skl-i2s.h
+deleted file mode 100644
+index dfce91e11be1..000000000000
+--- a/sound/soc/intel/skylake/skl-i2s.h
++++ /dev/null
+@@ -1,87 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  skl-i2s.h - i2s blob mapping
+- *
+- *  Copyright (C) 2017 Intel Corp
+- *  Author: Subhransu S. Prusty < subhransu.s.prusty@intel.com>
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#ifndef __SOUND_SOC_SKL_I2S_H
+-#define __SOUND_SOC_SKL_I2S_H
+-
+-#define SKL_I2S_MAX_TIME_SLOTS		8
+-#define SKL_MCLK_DIV_CLK_SRC_MASK	GENMASK(17, 16)
+-
+-#define SKL_MNDSS_DIV_CLK_SRC_MASK	GENMASK(21, 20)
+-#define SKL_SHIFT(x)			(ffs(x) - 1)
+-#define SKL_MCLK_DIV_RATIO_MASK		GENMASK(11, 0)
+-
+-#define is_legacy_blob(x) (x.signature != 0xEE)
+-#define ext_to_legacy_blob(i2s_config_blob_ext) \
+-	((struct skl_i2s_config_blob_legacy *) i2s_config_blob_ext)
+-
+-#define get_clk_src(mclk, mask) \
+-		((mclk.mdivctrl & mask) >> SKL_SHIFT(mask))
+-struct skl_i2s_config {
+-	u32 ssc0;
+-	u32 ssc1;
+-	u32 sscto;
+-	u32 sspsp;
+-	u32 sstsa;
+-	u32 ssrsa;
+-	u32 ssc2;
+-	u32 sspsp2;
+-	u32 ssc3;
+-	u32 ssioc;
+-} __packed;
+-
+-struct skl_i2s_config_mclk {
+-	u32 mdivctrl;
+-	u32 mdivr;
+-};
+-
+-struct skl_i2s_config_mclk_ext {
+-	u32 mdivctrl;
+-	u32 mdivr_count;
+-	u32 mdivr[];
+-} __packed;
+-
+-struct skl_i2s_config_blob_signature {
+-	u32 minor_ver : 8;
+-	u32 major_ver : 8;
+-	u32 resvdz : 8;
+-	u32 signature : 8;
+-} __packed;
+-
+-struct skl_i2s_config_blob_header {
+-	struct skl_i2s_config_blob_signature sig;
+-	u32 size;
+-};
+-
+-/**
+- * struct skl_i2s_config_blob_legacy - Structure defines I2S Gateway
+- * configuration legacy blob
+- *
+- * @gtw_attr:		Gateway attribute for the I2S Gateway
+- * @tdm_ts_group:	TDM slot mapping against channels in the Gateway.
+- * @i2s_cfg:		I2S HW registers
+- * @mclk:		MCLK clock source and divider values
+- */
+-struct skl_i2s_config_blob_legacy {
+-	u32 gtw_attr;
+-	u32 tdm_ts_group[SKL_I2S_MAX_TIME_SLOTS];
+-	struct skl_i2s_config i2s_cfg;
+-	struct skl_i2s_config_mclk mclk;
+-};
+-
+-struct skl_i2s_config_blob_ext {
+-	u32 gtw_attr;
+-	struct skl_i2s_config_blob_header hdr;
+-	u32 tdm_ts_group[SKL_I2S_MAX_TIME_SLOTS];
+-	struct skl_i2s_config i2s_cfg;
+-	struct skl_i2s_config_mclk_ext mclk;
+-} __packed;
+-#endif /* __SOUND_SOC_SKL_I2S_H */
+diff --git a/sound/soc/intel/skylake/skl-messages.c b/sound/soc/intel/skylake/skl-messages.c
+deleted file mode 100644
+index fc2eb04da172..000000000000
+--- a/sound/soc/intel/skylake/skl-messages.c
++++ /dev/null
+@@ -1,1419 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  skl-message.c - HDA DSP interface for FW registration, Pipe and Module
+- *  configurations
+- *
+- *  Copyright (C) 2015 Intel Corp
+- *  Author:Rafal Redzimski <rafal.f.redzimski@intel.com>
+- *	   Jeeja KP <jeeja.kp@intel.com>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#include <linux/slab.h>
+-#include <linux/pci.h>
+-#include <sound/core.h>
+-#include <sound/pcm.h>
+-#include <uapi/sound/skl-tplg-interface.h>
+-#include "skl-sst-dsp.h"
+-#include "cnl-sst-dsp.h"
+-#include "skl-sst-ipc.h"
+-#include "skl.h"
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "skl-topology.h"
+-
+-static int skl_alloc_dma_buf(struct device *dev,
+-		struct snd_dma_buffer *dmab, size_t size)
+-{
+-	return snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size, dmab);
+-}
+-
+-static int skl_free_dma_buf(struct device *dev, struct snd_dma_buffer *dmab)
+-{
+-	snd_dma_free_pages(dmab);
+-	return 0;
+-}
+-
+-#define SKL_ASTATE_PARAM_ID	4
+-
+-void skl_dsp_set_astate_cfg(struct skl_dev *skl, u32 cnt, void *data)
+-{
+-	struct skl_ipc_large_config_msg	msg = {0};
+-
+-	msg.large_param_id = SKL_ASTATE_PARAM_ID;
+-	msg.param_data_size = (cnt * sizeof(struct skl_astate_param) +
+-				sizeof(cnt));
+-
+-	skl_ipc_set_large_config(&skl->ipc, &msg, data);
+-}
+-
+-static int skl_dsp_setup_spib(struct device *dev, unsigned int size,
+-				int stream_tag, int enable)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	struct hdac_stream *stream = snd_hdac_get_stream(bus,
+-			SNDRV_PCM_STREAM_PLAYBACK, stream_tag);
+-
+-	if (!stream)
+-		return -EINVAL;
+-
+-	/* enable/disable SPIB for this hdac stream */
+-	snd_hdac_stream_spbcap_enable(bus, enable, stream->index);
+-
+-	/* set the spib value */
+-	snd_hdac_stream_set_spib(bus, stream, size);
+-
+-	return 0;
+-}
+-
+-static int skl_dsp_prepare(struct device *dev, unsigned int format,
+-			unsigned int size, struct snd_dma_buffer *dmab)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	struct hdac_ext_stream *estream;
+-	struct hdac_stream *stream;
+-	struct snd_pcm_substream substream;
+-	int ret;
+-
+-	if (!bus)
+-		return -ENODEV;
+-
+-	memset(&substream, 0, sizeof(substream));
+-	substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
+-
+-	estream = snd_hdac_ext_stream_assign(bus, &substream,
+-					HDAC_EXT_STREAM_TYPE_HOST);
+-	if (!estream)
+-		return -ENODEV;
+-
+-	stream = hdac_stream(estream);
+-
+-	/* assign decouple host dma channel */
+-	ret = snd_hdac_dsp_prepare(stream, format, size, dmab);
+-	if (ret < 0)
+-		return ret;
+-
+-	skl_dsp_setup_spib(dev, size, stream->stream_tag, true);
+-
+-	return stream->stream_tag;
+-}
+-
+-static int skl_dsp_trigger(struct device *dev, bool start, int stream_tag)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	struct hdac_stream *stream;
+-
+-	if (!bus)
+-		return -ENODEV;
+-
+-	stream = snd_hdac_get_stream(bus,
+-		SNDRV_PCM_STREAM_PLAYBACK, stream_tag);
+-	if (!stream)
+-		return -EINVAL;
+-
+-	snd_hdac_dsp_trigger(stream, start);
+-
+-	return 0;
+-}
+-
+-static int skl_dsp_cleanup(struct device *dev,
+-		struct snd_dma_buffer *dmab, int stream_tag)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	struct hdac_stream *stream;
+-	struct hdac_ext_stream *estream;
+-
+-	if (!bus)
+-		return -ENODEV;
+-
+-	stream = snd_hdac_get_stream(bus,
+-		SNDRV_PCM_STREAM_PLAYBACK, stream_tag);
+-	if (!stream)
+-		return -EINVAL;
+-
+-	estream = stream_to_hdac_ext_stream(stream);
+-	skl_dsp_setup_spib(dev, 0, stream_tag, false);
+-	snd_hdac_ext_stream_release(estream, HDAC_EXT_STREAM_TYPE_HOST);
+-
+-	snd_hdac_dsp_cleanup(stream, dmab);
+-
+-	return 0;
+-}
+-
+-static struct skl_dsp_loader_ops skl_get_loader_ops(void)
+-{
+-	struct skl_dsp_loader_ops loader_ops;
+-
+-	memset(&loader_ops, 0, sizeof(struct skl_dsp_loader_ops));
+-
+-	loader_ops.alloc_dma_buf = skl_alloc_dma_buf;
+-	loader_ops.free_dma_buf = skl_free_dma_buf;
+-
+-	return loader_ops;
+-};
+-
+-static struct skl_dsp_loader_ops bxt_get_loader_ops(void)
+-{
+-	struct skl_dsp_loader_ops loader_ops;
+-
+-	memset(&loader_ops, 0, sizeof(loader_ops));
+-
+-	loader_ops.alloc_dma_buf = skl_alloc_dma_buf;
+-	loader_ops.free_dma_buf = skl_free_dma_buf;
+-	loader_ops.prepare = skl_dsp_prepare;
+-	loader_ops.trigger = skl_dsp_trigger;
+-	loader_ops.cleanup = skl_dsp_cleanup;
+-
+-	return loader_ops;
+-};
+-
+-static const struct skl_dsp_ops dsp_ops[] = {
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_SKL_LP,
+-		.num_cores = 2,
+-		.loader_ops = skl_get_loader_ops,
+-		.init = skl_sst_dsp_init,
+-		.init_fw = skl_sst_init_fw,
+-		.cleanup = skl_sst_dsp_cleanup
+-	},
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_KBL_LP,
+-		.num_cores = 2,
+-		.loader_ops = skl_get_loader_ops,
+-		.init = skl_sst_dsp_init,
+-		.init_fw = skl_sst_init_fw,
+-		.cleanup = skl_sst_dsp_cleanup
+-	},
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_APL,
+-		.num_cores = 2,
+-		.loader_ops = bxt_get_loader_ops,
+-		.init = bxt_sst_dsp_init,
+-		.init_fw = bxt_sst_init_fw,
+-		.cleanup = bxt_sst_dsp_cleanup
+-	},
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_GML,
+-		.num_cores = 2,
+-		.loader_ops = bxt_get_loader_ops,
+-		.init = bxt_sst_dsp_init,
+-		.init_fw = bxt_sst_init_fw,
+-		.cleanup = bxt_sst_dsp_cleanup
+-	},
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_CNL_LP,
+-		.num_cores = 4,
+-		.loader_ops = bxt_get_loader_ops,
+-		.init = cnl_sst_dsp_init,
+-		.init_fw = cnl_sst_init_fw,
+-		.cleanup = cnl_sst_dsp_cleanup
+-	},
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_CNL_H,
+-		.num_cores = 4,
+-		.loader_ops = bxt_get_loader_ops,
+-		.init = cnl_sst_dsp_init,
+-		.init_fw = cnl_sst_init_fw,
+-		.cleanup = cnl_sst_dsp_cleanup
+-	},
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_CML_LP,
+-		.num_cores = 4,
+-		.loader_ops = bxt_get_loader_ops,
+-		.init = cnl_sst_dsp_init,
+-		.init_fw = cnl_sst_init_fw,
+-		.cleanup = cnl_sst_dsp_cleanup
+-	},
+-	{
+-		.id = PCI_DEVICE_ID_INTEL_HDA_CML_H,
+-		.num_cores = 4,
+-		.loader_ops = bxt_get_loader_ops,
+-		.init = cnl_sst_dsp_init,
+-		.init_fw = cnl_sst_init_fw,
+-		.cleanup = cnl_sst_dsp_cleanup
+-	},
+-};
+-
+-const struct skl_dsp_ops *skl_get_dsp_ops(int pci_id)
+-{
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(dsp_ops); i++) {
+-		if (dsp_ops[i].id == pci_id)
+-			return &dsp_ops[i];
+-	}
+-
+-	return NULL;
+-}
+-
+-int skl_init_dsp(struct skl_dev *skl)
+-{
+-	void __iomem *mmio_base;
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	struct skl_dsp_loader_ops loader_ops;
+-	int irq = bus->irq;
+-	const struct skl_dsp_ops *ops;
+-	struct skl_dsp_cores *cores;
+-	int ret;
+-
+-	/* enable ppcap interrupt */
+-	snd_hdac_ext_bus_ppcap_enable(bus, true);
+-	snd_hdac_ext_bus_ppcap_int_enable(bus, true);
+-
+-	/* read the BAR of the ADSP MMIO */
+-	mmio_base = pci_ioremap_bar(skl->pci, 4);
+-	if (mmio_base == NULL) {
+-		dev_err(bus->dev, "ioremap error\n");
+-		return -ENXIO;
+-	}
+-
+-	ops = skl_get_dsp_ops(skl->pci->device);
+-	if (!ops) {
+-		ret = -EIO;
+-		goto unmap_mmio;
+-	}
+-
+-	loader_ops = ops->loader_ops();
+-	ret = ops->init(bus->dev, mmio_base, irq,
+-				skl->fw_name, loader_ops,
+-				&skl);
+-
+-	if (ret < 0)
+-		goto unmap_mmio;
+-
+-	skl->dsp_ops = ops;
+-	cores = &skl->cores;
+-	cores->count = ops->num_cores;
+-
+-	cores->state = kcalloc(cores->count, sizeof(*cores->state), GFP_KERNEL);
+-	if (!cores->state) {
+-		ret = -ENOMEM;
+-		goto unmap_mmio;
+-	}
+-
+-	cores->usage_count = kcalloc(cores->count, sizeof(*cores->usage_count),
+-				     GFP_KERNEL);
+-	if (!cores->usage_count) {
+-		ret = -ENOMEM;
+-		goto free_core_state;
+-	}
+-
+-	dev_dbg(bus->dev, "dsp registration status=%d\n", ret);
+-
+-	return 0;
+-
+-free_core_state:
+-	kfree(cores->state);
+-
+-unmap_mmio:
+-	iounmap(mmio_base);
+-
+-	return ret;
+-}
+-
+-int skl_free_dsp(struct skl_dev *skl)
+-{
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-
+-	/* disable  ppcap interrupt */
+-	snd_hdac_ext_bus_ppcap_int_enable(bus, false);
+-
+-	skl->dsp_ops->cleanup(bus->dev, skl);
+-
+-	kfree(skl->cores.state);
+-	kfree(skl->cores.usage_count);
+-
+-	if (skl->dsp->addr.lpe)
+-		iounmap(skl->dsp->addr.lpe);
+-
+-	return 0;
+-}
+-
+-/*
+- * In the case of "suspend_active" i.e, the Audio IP being active
+- * during system suspend, immediately excecute any pending D0i3 work
+- * before suspending. This is needed for the IP to work in low power
+- * mode during system suspend. In the case of normal suspend, cancel
+- * any pending D0i3 work.
+- */
+-int skl_suspend_late_dsp(struct skl_dev *skl)
+-{
+-	struct delayed_work *dwork;
+-
+-	if (!skl)
+-		return 0;
+-
+-	dwork = &skl->d0i3.work;
+-
+-	if (dwork->work.func) {
+-		if (skl->supend_active)
+-			flush_delayed_work(dwork);
+-		else
+-			cancel_delayed_work_sync(dwork);
+-	}
+-
+-	return 0;
+-}
+-
+-int skl_suspend_dsp(struct skl_dev *skl)
+-{
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	int ret;
+-
+-	/* if ppcap is not supported return 0 */
+-	if (!bus->ppcap)
+-		return 0;
+-
+-	ret = skl_dsp_sleep(skl->dsp);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* disable ppcap interrupt */
+-	snd_hdac_ext_bus_ppcap_int_enable(bus, false);
+-	snd_hdac_ext_bus_ppcap_enable(bus, false);
+-
+-	return 0;
+-}
+-
+-int skl_resume_dsp(struct skl_dev *skl)
+-{
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	int ret;
+-
+-	/* if ppcap is not supported return 0 */
+-	if (!bus->ppcap)
+-		return 0;
+-
+-	/* enable ppcap interrupt */
+-	snd_hdac_ext_bus_ppcap_enable(bus, true);
+-	snd_hdac_ext_bus_ppcap_int_enable(bus, true);
+-
+-	/* check if DSP 1st boot is done */
+-	if (skl->is_first_boot)
+-		return 0;
+-
+-	/*
+-	 * Disable dynamic clock and power gating during firmware
+-	 * and library download
+-	 */
+-	skl->enable_miscbdcge(skl->dev, false);
+-	skl->clock_power_gating(skl->dev, false);
+-
+-	ret = skl_dsp_wake(skl->dsp);
+-	skl->enable_miscbdcge(skl->dev, true);
+-	skl->clock_power_gating(skl->dev, true);
+-	if (ret < 0)
+-		return ret;
+-
+-	if (skl->cfg.astate_cfg != NULL) {
+-		skl_dsp_set_astate_cfg(skl, skl->cfg.astate_cfg->count,
+-					skl->cfg.astate_cfg);
+-	}
+-	return ret;
+-}
+-
+-enum skl_bitdepth skl_get_bit_depth(int params)
+-{
+-	switch (params) {
+-	case 8:
+-		return SKL_DEPTH_8BIT;
+-
+-	case 16:
+-		return SKL_DEPTH_16BIT;
+-
+-	case 24:
+-		return SKL_DEPTH_24BIT;
+-
+-	case 32:
+-		return SKL_DEPTH_32BIT;
+-
+-	default:
+-		return SKL_DEPTH_INVALID;
+-
+-	}
+-}
+-
+-/*
+- * Each module in DSP expects a base module configuration, which consists of
+- * PCM format information, which we calculate in driver and resource values
+- * which are read from widget information passed through topology binary
+- * This is send when we create a module with INIT_INSTANCE IPC msg
+- */
+-static void skl_set_base_module_format(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_base_cfg *base_cfg)
+-{
+-	struct skl_module *module = mconfig->module;
+-	struct skl_module_res *res = &module->resources[mconfig->res_idx];
+-	struct skl_module_iface *fmt = &module->formats[mconfig->fmt_idx];
+-	struct skl_module_fmt *format = &fmt->inputs[0].fmt;
+-
+-	base_cfg->audio_fmt.number_of_channels = format->channels;
+-
+-	base_cfg->audio_fmt.s_freq = format->s_freq;
+-	base_cfg->audio_fmt.bit_depth = format->bit_depth;
+-	base_cfg->audio_fmt.valid_bit_depth = format->valid_bit_depth;
+-	base_cfg->audio_fmt.ch_cfg = format->ch_cfg;
+-	base_cfg->audio_fmt.sample_type = format->sample_type;
+-
+-	dev_dbg(skl->dev, "bit_depth=%x valid_bd=%x ch_config=%x\n",
+-			format->bit_depth, format->valid_bit_depth,
+-			format->ch_cfg);
+-
+-	base_cfg->audio_fmt.channel_map = format->ch_map;
+-
+-	base_cfg->audio_fmt.interleaving = format->interleaving_style;
+-
+-	base_cfg->cpc = res->cpc;
+-	base_cfg->ibs = res->ibs;
+-	base_cfg->obs = res->obs;
+-	base_cfg->is_pages = res->is_pages;
+-}
+-
+-static void fill_pin_params(struct skl_audio_data_format *pin_fmt,
+-			    struct skl_module_fmt *format)
+-{
+-	pin_fmt->number_of_channels = format->channels;
+-	pin_fmt->s_freq = format->s_freq;
+-	pin_fmt->bit_depth = format->bit_depth;
+-	pin_fmt->valid_bit_depth = format->valid_bit_depth;
+-	pin_fmt->ch_cfg = format->ch_cfg;
+-	pin_fmt->sample_type = format->sample_type;
+-	pin_fmt->channel_map = format->ch_map;
+-	pin_fmt->interleaving = format->interleaving_style;
+-}
+-
+-/*
+- * Any module configuration begins with a base module configuration but
+- * can be followed by a generic extension containing audio format for all
+- * module's pins that are in use.
+- */
+-static void skl_set_base_ext_module_format(struct skl_dev *skl,
+-					   struct skl_module_cfg *mconfig,
+-					   struct skl_base_cfg_ext *base_cfg_ext)
+-{
+-	struct skl_module *module = mconfig->module;
+-	struct skl_module_pin_resources *pin_res;
+-	struct skl_module_iface *fmt = &module->formats[mconfig->fmt_idx];
+-	struct skl_module_res *res = &module->resources[mconfig->res_idx];
+-	struct skl_module_fmt *format;
+-	struct skl_pin_format *pin_fmt;
+-	char *params;
+-	int i;
+-
+-	base_cfg_ext->nr_input_pins = res->nr_input_pins;
+-	base_cfg_ext->nr_output_pins = res->nr_output_pins;
+-	base_cfg_ext->priv_param_length =
+-		mconfig->formats_config[SKL_PARAM_INIT].caps_size;
+-
+-	for (i = 0; i < res->nr_input_pins; i++) {
+-		pin_res = &res->input[i];
+-		pin_fmt = &base_cfg_ext->pins_fmt[i];
+-
+-		pin_fmt->pin_idx = pin_res->pin_index;
+-		pin_fmt->buf_size = pin_res->buf_size;
+-
+-		format = &fmt->inputs[pin_res->pin_index].fmt;
+-		fill_pin_params(&pin_fmt->audio_fmt, format);
+-	}
+-
+-	for (i = 0; i < res->nr_output_pins; i++) {
+-		pin_res = &res->output[i];
+-		pin_fmt = &base_cfg_ext->pins_fmt[res->nr_input_pins + i];
+-
+-		pin_fmt->pin_idx = pin_res->pin_index;
+-		pin_fmt->buf_size = pin_res->buf_size;
+-
+-		format = &fmt->outputs[pin_res->pin_index].fmt;
+-		fill_pin_params(&pin_fmt->audio_fmt, format);
+-	}
+-
+-	if (!base_cfg_ext->priv_param_length)
+-		return;
+-
+-	params = (char *)base_cfg_ext + sizeof(struct skl_base_cfg_ext);
+-	params += (base_cfg_ext->nr_input_pins + base_cfg_ext->nr_output_pins) *
+-		  sizeof(struct skl_pin_format);
+-
+-	memcpy(params, mconfig->formats_config[SKL_PARAM_INIT].caps,
+-	       mconfig->formats_config[SKL_PARAM_INIT].caps_size);
+-}
+-
+-/*
+- * Copies copier capabilities into copier module and updates copier module
+- * config size.
+- */
+-static void skl_copy_copier_caps(struct skl_module_cfg *mconfig,
+-				struct skl_cpr_cfg *cpr_mconfig)
+-{
+-	if (mconfig->formats_config[SKL_PARAM_INIT].caps_size == 0)
+-		return;
+-
+-	memcpy(&cpr_mconfig->gtw_cfg.config_data,
+-			mconfig->formats_config[SKL_PARAM_INIT].caps,
+-			mconfig->formats_config[SKL_PARAM_INIT].caps_size);
+-
+-	cpr_mconfig->gtw_cfg.config_length =
+-			(mconfig->formats_config[SKL_PARAM_INIT].caps_size) / 4;
+-}
+-
+-#define SKL_NON_GATEWAY_CPR_NODE_ID 0xFFFFFFFF
+-/*
+- * Calculate the gatewat settings required for copier module, type of
+- * gateway and index of gateway to use
+- */
+-static u32 skl_get_node_id(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig)
+-{
+-	union skl_connector_node_id node_id = {0};
+-	union skl_ssp_dma_node ssp_node  = {0};
+-	struct skl_pipe_params *params = mconfig->pipe->p_params;
+-
+-	switch (mconfig->dev_type) {
+-	case SKL_DEVICE_BT:
+-		node_id.node.dma_type =
+-			(SKL_CONN_SOURCE == mconfig->hw_conn_type) ?
+-			SKL_DMA_I2S_LINK_OUTPUT_CLASS :
+-			SKL_DMA_I2S_LINK_INPUT_CLASS;
+-		node_id.node.vindex = params->host_dma_id +
+-					(mconfig->vbus_id << 3);
+-		break;
+-
+-	case SKL_DEVICE_I2S:
+-		node_id.node.dma_type =
+-			(SKL_CONN_SOURCE == mconfig->hw_conn_type) ?
+-			SKL_DMA_I2S_LINK_OUTPUT_CLASS :
+-			SKL_DMA_I2S_LINK_INPUT_CLASS;
+-		ssp_node.dma_node.time_slot_index = mconfig->time_slot;
+-		ssp_node.dma_node.i2s_instance = mconfig->vbus_id;
+-		node_id.node.vindex = ssp_node.val;
+-		break;
+-
+-	case SKL_DEVICE_DMIC:
+-		node_id.node.dma_type = SKL_DMA_DMIC_LINK_INPUT_CLASS;
+-		node_id.node.vindex = mconfig->vbus_id +
+-					 (mconfig->time_slot);
+-		break;
+-
+-	case SKL_DEVICE_HDALINK:
+-		node_id.node.dma_type =
+-			(SKL_CONN_SOURCE == mconfig->hw_conn_type) ?
+-			SKL_DMA_HDA_LINK_OUTPUT_CLASS :
+-			SKL_DMA_HDA_LINK_INPUT_CLASS;
+-		node_id.node.vindex = params->link_dma_id;
+-		break;
+-
+-	case SKL_DEVICE_HDAHOST:
+-		node_id.node.dma_type =
+-			(SKL_CONN_SOURCE == mconfig->hw_conn_type) ?
+-			SKL_DMA_HDA_HOST_OUTPUT_CLASS :
+-			SKL_DMA_HDA_HOST_INPUT_CLASS;
+-		node_id.node.vindex = params->host_dma_id;
+-		break;
+-
+-	default:
+-		node_id.val = 0xFFFFFFFF;
+-		break;
+-	}
+-
+-	return node_id.val;
+-}
+-
+-static void skl_setup_cpr_gateway_cfg(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_cpr_cfg *cpr_mconfig)
+-{
+-	u32 dma_io_buf;
+-	struct skl_module_res *res;
+-	int res_idx = mconfig->res_idx;
+-
+-	cpr_mconfig->gtw_cfg.node_id = skl_get_node_id(skl, mconfig);
+-
+-	if (cpr_mconfig->gtw_cfg.node_id == SKL_NON_GATEWAY_CPR_NODE_ID) {
+-		cpr_mconfig->cpr_feature_mask = 0;
+-		return;
+-	}
+-
+-	if (skl->nr_modules) {
+-		res = &mconfig->module->resources[mconfig->res_idx];
+-		cpr_mconfig->gtw_cfg.dma_buffer_size = res->dma_buffer_size;
+-		goto skip_buf_size_calc;
+-	} else {
+-		res = &mconfig->module->resources[res_idx];
+-	}
+-
+-	switch (mconfig->hw_conn_type) {
+-	case SKL_CONN_SOURCE:
+-		if (mconfig->dev_type == SKL_DEVICE_HDAHOST)
+-			dma_io_buf =  res->ibs;
+-		else
+-			dma_io_buf =  res->obs;
+-		break;
+-
+-	case SKL_CONN_SINK:
+-		if (mconfig->dev_type == SKL_DEVICE_HDAHOST)
+-			dma_io_buf =  res->obs;
+-		else
+-			dma_io_buf =  res->ibs;
+-		break;
+-
+-	default:
+-		dev_warn(skl->dev, "wrong connection type: %d\n",
+-				mconfig->hw_conn_type);
+-		return;
+-	}
+-
+-	cpr_mconfig->gtw_cfg.dma_buffer_size =
+-				mconfig->dma_buffer_size * dma_io_buf;
+-
+-	/* fallback to 2ms default value */
+-	if (!cpr_mconfig->gtw_cfg.dma_buffer_size) {
+-		if (mconfig->hw_conn_type == SKL_CONN_SOURCE)
+-			cpr_mconfig->gtw_cfg.dma_buffer_size = 2 * res->obs;
+-		else
+-			cpr_mconfig->gtw_cfg.dma_buffer_size = 2 * res->ibs;
+-	}
+-
+-skip_buf_size_calc:
+-	cpr_mconfig->cpr_feature_mask = 0;
+-	cpr_mconfig->gtw_cfg.config_length  = 0;
+-
+-	skl_copy_copier_caps(mconfig, cpr_mconfig);
+-}
+-
+-#define DMA_CONTROL_ID 5
+-#define DMA_I2S_BLOB_SIZE 21
+-
+-int skl_dsp_set_dma_control(struct skl_dev *skl, u32 *caps,
+-				u32 caps_size, u32 node_id)
+-{
+-	struct skl_dma_control *dma_ctrl;
+-	struct skl_ipc_large_config_msg msg = {0};
+-	int err = 0;
+-
+-
+-	/*
+-	 * if blob size zero, then return
+-	 */
+-	if (caps_size == 0)
+-		return 0;
+-
+-	msg.large_param_id = DMA_CONTROL_ID;
+-	msg.param_data_size = sizeof(struct skl_dma_control) + caps_size;
+-
+-	dma_ctrl = kzalloc(msg.param_data_size, GFP_KERNEL);
+-	if (dma_ctrl == NULL)
+-		return -ENOMEM;
+-
+-	dma_ctrl->node_id = node_id;
+-
+-	/*
+-	 * NHLT blob may contain additional configs along with i2s blob.
+-	 * firmware expects only the i2s blob size as the config_length.
+-	 * So fix to i2s blob size.
+-	 * size in dwords.
+-	 */
+-	dma_ctrl->config_length = DMA_I2S_BLOB_SIZE;
+-
+-	memcpy(dma_ctrl->config_data, caps, caps_size);
+-
+-	err = skl_ipc_set_large_config(&skl->ipc, &msg, (u32 *)dma_ctrl);
+-
+-	kfree(dma_ctrl);
+-	return err;
+-}
+-EXPORT_SYMBOL_GPL(skl_dsp_set_dma_control);
+-
+-static void skl_setup_out_format(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_audio_data_format *out_fmt)
+-{
+-	struct skl_module *module = mconfig->module;
+-	struct skl_module_iface *fmt = &module->formats[mconfig->fmt_idx];
+-	struct skl_module_fmt *format = &fmt->outputs[0].fmt;
+-
+-	out_fmt->number_of_channels = (u8)format->channels;
+-	out_fmt->s_freq = format->s_freq;
+-	out_fmt->bit_depth = format->bit_depth;
+-	out_fmt->valid_bit_depth = format->valid_bit_depth;
+-	out_fmt->ch_cfg = format->ch_cfg;
+-
+-	out_fmt->channel_map = format->ch_map;
+-	out_fmt->interleaving = format->interleaving_style;
+-	out_fmt->sample_type = format->sample_type;
+-
+-	dev_dbg(skl->dev, "copier out format chan=%d fre=%d bitdepth=%d\n",
+-		out_fmt->number_of_channels, format->s_freq, format->bit_depth);
+-}
+-
+-/*
+- * DSP needs SRC module for frequency conversion, SRC takes base module
+- * configuration and the target frequency as extra parameter passed as src
+- * config
+- */
+-static void skl_set_src_format(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_src_module_cfg *src_mconfig)
+-{
+-	struct skl_module *module = mconfig->module;
+-	struct skl_module_iface *iface = &module->formats[mconfig->fmt_idx];
+-	struct skl_module_fmt *fmt = &iface->outputs[0].fmt;
+-
+-	skl_set_base_module_format(skl, mconfig,
+-		(struct skl_base_cfg *)src_mconfig);
+-
+-	src_mconfig->src_cfg = fmt->s_freq;
+-}
+-
+-/*
+- * DSP needs updown module to do channel conversion. updown module take base
+- * module configuration and channel configuration
+- * It also take coefficients and now we have defaults applied here
+- */
+-static void skl_set_updown_mixer_format(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_up_down_mixer_cfg *mixer_mconfig)
+-{
+-	struct skl_module *module = mconfig->module;
+-	struct skl_module_iface *iface = &module->formats[mconfig->fmt_idx];
+-	struct skl_module_fmt *fmt = &iface->outputs[0].fmt;
+-
+-	skl_set_base_module_format(skl,	mconfig,
+-		(struct skl_base_cfg *)mixer_mconfig);
+-	mixer_mconfig->out_ch_cfg = fmt->ch_cfg;
+-	mixer_mconfig->ch_map = fmt->ch_map;
+-}
+-
+-/*
+- * 'copier' is DSP internal module which copies data from Host DMA (HDA host
+- * dma) or link (hda link, SSP, PDM)
+- * Here we calculate the copier module parameters, like PCM format, output
+- * format, gateway settings
+- * copier_module_config is sent as input buffer with INIT_INSTANCE IPC msg
+- */
+-static void skl_set_copier_format(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_cpr_cfg *cpr_mconfig)
+-{
+-	struct skl_audio_data_format *out_fmt = &cpr_mconfig->out_fmt;
+-	struct skl_base_cfg *base_cfg = (struct skl_base_cfg *)cpr_mconfig;
+-
+-	skl_set_base_module_format(skl, mconfig, base_cfg);
+-
+-	skl_setup_out_format(skl, mconfig, out_fmt);
+-	skl_setup_cpr_gateway_cfg(skl, mconfig, cpr_mconfig);
+-}
+-
+-/*
+- * Mic select module allows selecting one or many input channels, thus
+- * acting as a demux.
+- *
+- * Mic select module take base module configuration and out-format
+- * configuration
+- */
+-static void skl_set_base_outfmt_format(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_base_outfmt_cfg *base_outfmt_mcfg)
+-{
+-	struct skl_audio_data_format *out_fmt = &base_outfmt_mcfg->out_fmt;
+-	struct skl_base_cfg *base_cfg =
+-				(struct skl_base_cfg *)base_outfmt_mcfg;
+-
+-	skl_set_base_module_format(skl, mconfig, base_cfg);
+-	skl_setup_out_format(skl, mconfig, out_fmt);
+-}
+-
+-static u16 skl_get_module_param_size(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig)
+-{
+-	struct skl_module_res *res;
+-	struct skl_module *module = mconfig->module;
+-	u16 param_size;
+-
+-	switch (mconfig->m_type) {
+-	case SKL_MODULE_TYPE_COPIER:
+-		param_size = sizeof(struct skl_cpr_cfg);
+-		param_size += mconfig->formats_config[SKL_PARAM_INIT].caps_size;
+-		return param_size;
+-
+-	case SKL_MODULE_TYPE_SRCINT:
+-		return sizeof(struct skl_src_module_cfg);
+-
+-	case SKL_MODULE_TYPE_UPDWMIX:
+-		return sizeof(struct skl_up_down_mixer_cfg);
+-
+-	case SKL_MODULE_TYPE_BASE_OUTFMT:
+-	case SKL_MODULE_TYPE_MIC_SELECT:
+-		return sizeof(struct skl_base_outfmt_cfg);
+-
+-	case SKL_MODULE_TYPE_MIXER:
+-	case SKL_MODULE_TYPE_KPB:
+-		return sizeof(struct skl_base_cfg);
+-
+-	case SKL_MODULE_TYPE_ALGO:
+-	default:
+-		res = &module->resources[mconfig->res_idx];
+-
+-		param_size = sizeof(struct skl_base_cfg) + sizeof(struct skl_base_cfg_ext);
+-		param_size += (res->nr_input_pins + res->nr_output_pins) *
+-			      sizeof(struct skl_pin_format);
+-		param_size += mconfig->formats_config[SKL_PARAM_INIT].caps_size;
+-
+-		return param_size;
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * DSP firmware supports various modules like copier, SRC, updown etc.
+- * These modules required various parameters to be calculated and sent for
+- * the module initialization to DSP. By default a generic module needs only
+- * base module format configuration
+- */
+-
+-static int skl_set_module_format(struct skl_dev *skl,
+-			struct skl_module_cfg *module_config,
+-			u16 *module_config_size,
+-			void **param_data)
+-{
+-	u16 param_size;
+-
+-	param_size  = skl_get_module_param_size(skl, module_config);
+-
+-	*param_data = kzalloc(param_size, GFP_KERNEL);
+-	if (NULL == *param_data)
+-		return -ENOMEM;
+-
+-	*module_config_size = param_size;
+-
+-	switch (module_config->m_type) {
+-	case SKL_MODULE_TYPE_COPIER:
+-		skl_set_copier_format(skl, module_config, *param_data);
+-		break;
+-
+-	case SKL_MODULE_TYPE_SRCINT:
+-		skl_set_src_format(skl, module_config, *param_data);
+-		break;
+-
+-	case SKL_MODULE_TYPE_UPDWMIX:
+-		skl_set_updown_mixer_format(skl, module_config, *param_data);
+-		break;
+-
+-	case SKL_MODULE_TYPE_BASE_OUTFMT:
+-	case SKL_MODULE_TYPE_MIC_SELECT:
+-		skl_set_base_outfmt_format(skl, module_config, *param_data);
+-		break;
+-
+-	case SKL_MODULE_TYPE_MIXER:
+-	case SKL_MODULE_TYPE_KPB:
+-		skl_set_base_module_format(skl, module_config, *param_data);
+-		break;
+-
+-	case SKL_MODULE_TYPE_ALGO:
+-	default:
+-		skl_set_base_module_format(skl, module_config, *param_data);
+-		skl_set_base_ext_module_format(skl, module_config,
+-					       *param_data +
+-					       sizeof(struct skl_base_cfg));
+-		break;
+-	}
+-
+-	dev_dbg(skl->dev, "Module type=%d id=%d config size: %d bytes\n",
+-			module_config->m_type, module_config->id.module_id,
+-			param_size);
+-	print_hex_dump_debug("Module params:", DUMP_PREFIX_OFFSET, 8, 4,
+-			*param_data, param_size, false);
+-	return 0;
+-}
+-
+-static int skl_get_queue_index(struct skl_module_pin *mpin,
+-				struct skl_module_inst_id id, int max)
+-{
+-	int i;
+-
+-	for (i = 0; i < max; i++)  {
+-		if (mpin[i].id.module_id == id.module_id &&
+-			mpin[i].id.instance_id == id.instance_id)
+-			return i;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-/*
+- * Allocates queue for each module.
+- * if dynamic, the pin_index is allocated 0 to max_pin.
+- * In static, the pin_index is fixed based on module_id and instance id
+- */
+-static int skl_alloc_queue(struct skl_module_pin *mpin,
+-			struct skl_module_cfg *tgt_cfg, int max)
+-{
+-	int i;
+-	struct skl_module_inst_id id = tgt_cfg->id;
+-	/*
+-	 * if pin in dynamic, find first free pin
+-	 * otherwise find match module and instance id pin as topology will
+-	 * ensure a unique pin is assigned to this so no need to
+-	 * allocate/free
+-	 */
+-	for (i = 0; i < max; i++)  {
+-		if (mpin[i].is_dynamic) {
+-			if (!mpin[i].in_use &&
+-				mpin[i].pin_state == SKL_PIN_UNBIND) {
+-
+-				mpin[i].in_use = true;
+-				mpin[i].id.module_id = id.module_id;
+-				mpin[i].id.instance_id = id.instance_id;
+-				mpin[i].id.pvt_id = id.pvt_id;
+-				mpin[i].tgt_mcfg = tgt_cfg;
+-				return i;
+-			}
+-		} else {
+-			if (mpin[i].id.module_id == id.module_id &&
+-				mpin[i].id.instance_id == id.instance_id &&
+-				mpin[i].pin_state == SKL_PIN_UNBIND) {
+-
+-				mpin[i].tgt_mcfg = tgt_cfg;
+-				return i;
+-			}
+-		}
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-static void skl_free_queue(struct skl_module_pin *mpin, int q_index)
+-{
+-	if (mpin[q_index].is_dynamic) {
+-		mpin[q_index].in_use = false;
+-		mpin[q_index].id.module_id = 0;
+-		mpin[q_index].id.instance_id = 0;
+-		mpin[q_index].id.pvt_id = 0;
+-	}
+-	mpin[q_index].pin_state = SKL_PIN_UNBIND;
+-	mpin[q_index].tgt_mcfg = NULL;
+-}
+-
+-/* Module state will be set to unint, if all the out pin state is UNBIND */
+-
+-static void skl_clear_module_state(struct skl_module_pin *mpin, int max,
+-						struct skl_module_cfg *mcfg)
+-{
+-	int i;
+-	bool found = false;
+-
+-	for (i = 0; i < max; i++)  {
+-		if (mpin[i].pin_state == SKL_PIN_UNBIND)
+-			continue;
+-		found = true;
+-		break;
+-	}
+-
+-	if (!found)
+-		mcfg->m_state = SKL_MODULE_INIT_DONE;
+-	return;
+-}
+-
+-/*
+- * A module needs to be instanataited in DSP. A mdoule is present in a
+- * collection of module referred as a PIPE.
+- * We first calculate the module format, based on module type and then
+- * invoke the DSP by sending IPC INIT_INSTANCE using ipc helper
+- */
+-int skl_init_module(struct skl_dev *skl,
+-			struct skl_module_cfg *mconfig)
+-{
+-	u16 module_config_size = 0;
+-	void *param_data = NULL;
+-	int ret;
+-	struct skl_ipc_init_instance_msg msg;
+-
+-	dev_dbg(skl->dev, "%s: module_id = %d instance=%d\n", __func__,
+-		 mconfig->id.module_id, mconfig->id.pvt_id);
+-
+-	if (mconfig->pipe->state != SKL_PIPE_CREATED) {
+-		dev_err(skl->dev, "Pipe not created state= %d pipe_id= %d\n",
+-				 mconfig->pipe->state, mconfig->pipe->ppl_id);
+-		return -EIO;
+-	}
+-
+-	ret = skl_set_module_format(skl, mconfig,
+-			&module_config_size, &param_data);
+-	if (ret < 0) {
+-		dev_err(skl->dev, "Failed to set module format ret=%d\n", ret);
+-		return ret;
+-	}
+-
+-	msg.module_id = mconfig->id.module_id;
+-	msg.instance_id = mconfig->id.pvt_id;
+-	msg.ppl_instance_id = mconfig->pipe->ppl_id;
+-	msg.param_data_size = module_config_size;
+-	msg.core_id = mconfig->core_id;
+-	msg.domain = mconfig->domain;
+-
+-	ret = skl_ipc_init_instance(&skl->ipc, &msg, param_data);
+-	if (ret < 0) {
+-		dev_err(skl->dev, "Failed to init instance ret=%d\n", ret);
+-		kfree(param_data);
+-		return ret;
+-	}
+-	mconfig->m_state = SKL_MODULE_INIT_DONE;
+-	kfree(param_data);
+-	return ret;
+-}
+-
+-static void skl_dump_bind_info(struct skl_dev *skl, struct skl_module_cfg
+-	*src_module, struct skl_module_cfg *dst_module)
+-{
+-	dev_dbg(skl->dev, "%s: src module_id = %d  src_instance=%d\n",
+-		__func__, src_module->id.module_id, src_module->id.pvt_id);
+-	dev_dbg(skl->dev, "%s: dst_module=%d dst_instance=%d\n", __func__,
+-		 dst_module->id.module_id, dst_module->id.pvt_id);
+-
+-	dev_dbg(skl->dev, "src_module state = %d dst module state = %d\n",
+-		src_module->m_state, dst_module->m_state);
+-}
+-
+-/*
+- * On module freeup, we need to unbind the module with modules
+- * it is already bind.
+- * Find the pin allocated and unbind then using bind_unbind IPC
+- */
+-int skl_unbind_modules(struct skl_dev *skl,
+-			struct skl_module_cfg *src_mcfg,
+-			struct skl_module_cfg *dst_mcfg)
+-{
+-	int ret;
+-	struct skl_ipc_bind_unbind_msg msg;
+-	struct skl_module_inst_id src_id = src_mcfg->id;
+-	struct skl_module_inst_id dst_id = dst_mcfg->id;
+-	int in_max = dst_mcfg->module->max_input_pins;
+-	int out_max = src_mcfg->module->max_output_pins;
+-	int src_index, dst_index, src_pin_state, dst_pin_state;
+-
+-	skl_dump_bind_info(skl, src_mcfg, dst_mcfg);
+-
+-	/* get src queue index */
+-	src_index = skl_get_queue_index(src_mcfg->m_out_pin, dst_id, out_max);
+-	if (src_index < 0)
+-		return 0;
+-
+-	msg.src_queue = src_index;
+-
+-	/* get dst queue index */
+-	dst_index  = skl_get_queue_index(dst_mcfg->m_in_pin, src_id, in_max);
+-	if (dst_index < 0)
+-		return 0;
+-
+-	msg.dst_queue = dst_index;
+-
+-	src_pin_state = src_mcfg->m_out_pin[src_index].pin_state;
+-	dst_pin_state = dst_mcfg->m_in_pin[dst_index].pin_state;
+-
+-	if (src_pin_state != SKL_PIN_BIND_DONE ||
+-		dst_pin_state != SKL_PIN_BIND_DONE)
+-		return 0;
+-
+-	msg.module_id = src_mcfg->id.module_id;
+-	msg.instance_id = src_mcfg->id.pvt_id;
+-	msg.dst_module_id = dst_mcfg->id.module_id;
+-	msg.dst_instance_id = dst_mcfg->id.pvt_id;
+-	msg.bind = false;
+-
+-	ret = skl_ipc_bind_unbind(&skl->ipc, &msg);
+-	if (!ret) {
+-		/* free queue only if unbind is success */
+-		skl_free_queue(src_mcfg->m_out_pin, src_index);
+-		skl_free_queue(dst_mcfg->m_in_pin, dst_index);
+-
+-		/*
+-		 * check only if src module bind state, bind is
+-		 * always from src -> sink
+-		 */
+-		skl_clear_module_state(src_mcfg->m_out_pin, out_max, src_mcfg);
+-	}
+-
+-	return ret;
+-}
+-
+-#define CPR_SINK_FMT_PARAM_ID 2
+-
+-/*
+- * Once a module is instantiated it need to be 'bind' with other modules in
+- * the pipeline. For binding we need to find the module pins which are bind
+- * together
+- * This function finds the pins and then sends bund_unbind IPC message to
+- * DSP using IPC helper
+- */
+-int skl_bind_modules(struct skl_dev *skl,
+-			struct skl_module_cfg *src_mcfg,
+-			struct skl_module_cfg *dst_mcfg)
+-{
+-	int ret = 0;
+-	struct skl_ipc_bind_unbind_msg msg;
+-	int in_max = dst_mcfg->module->max_input_pins;
+-	int out_max = src_mcfg->module->max_output_pins;
+-	int src_index, dst_index;
+-	struct skl_module_fmt *format;
+-	struct skl_cpr_pin_fmt pin_fmt;
+-	struct skl_module *module;
+-	struct skl_module_iface *fmt;
+-
+-	skl_dump_bind_info(skl, src_mcfg, dst_mcfg);
+-
+-	if (src_mcfg->m_state < SKL_MODULE_INIT_DONE ||
+-		dst_mcfg->m_state < SKL_MODULE_INIT_DONE)
+-		return 0;
+-
+-	src_index = skl_alloc_queue(src_mcfg->m_out_pin, dst_mcfg, out_max);
+-	if (src_index < 0)
+-		return -EINVAL;
+-
+-	msg.src_queue = src_index;
+-	dst_index = skl_alloc_queue(dst_mcfg->m_in_pin, src_mcfg, in_max);
+-	if (dst_index < 0) {
+-		skl_free_queue(src_mcfg->m_out_pin, src_index);
+-		return -EINVAL;
+-	}
+-
+-	/*
+-	 * Copier module requires the separate large_config_set_ipc to
+-	 * configure the pins other than 0
+-	 */
+-	if (src_mcfg->m_type == SKL_MODULE_TYPE_COPIER && src_index > 0) {
+-		pin_fmt.sink_id = src_index;
+-		module = src_mcfg->module;
+-		fmt = &module->formats[src_mcfg->fmt_idx];
+-
+-		/* Input fmt is same as that of src module input cfg */
+-		format = &fmt->inputs[0].fmt;
+-		fill_pin_params(&(pin_fmt.src_fmt), format);
+-
+-		format = &fmt->outputs[src_index].fmt;
+-		fill_pin_params(&(pin_fmt.dst_fmt), format);
+-		ret = skl_set_module_params(skl, (void *)&pin_fmt,
+-					sizeof(struct skl_cpr_pin_fmt),
+-					CPR_SINK_FMT_PARAM_ID, src_mcfg);
+-
+-		if (ret < 0)
+-			goto out;
+-	}
+-
+-	msg.dst_queue = dst_index;
+-
+-	dev_dbg(skl->dev, "src queue = %d dst queue =%d\n",
+-			 msg.src_queue, msg.dst_queue);
+-
+-	msg.module_id = src_mcfg->id.module_id;
+-	msg.instance_id = src_mcfg->id.pvt_id;
+-	msg.dst_module_id = dst_mcfg->id.module_id;
+-	msg.dst_instance_id = dst_mcfg->id.pvt_id;
+-	msg.bind = true;
+-
+-	ret = skl_ipc_bind_unbind(&skl->ipc, &msg);
+-
+-	if (!ret) {
+-		src_mcfg->m_state = SKL_MODULE_BIND_DONE;
+-		src_mcfg->m_out_pin[src_index].pin_state = SKL_PIN_BIND_DONE;
+-		dst_mcfg->m_in_pin[dst_index].pin_state = SKL_PIN_BIND_DONE;
+-		return ret;
+-	}
+-out:
+-	/* error case , if IPC fails, clear the queue index */
+-	skl_free_queue(src_mcfg->m_out_pin, src_index);
+-	skl_free_queue(dst_mcfg->m_in_pin, dst_index);
+-
+-	return ret;
+-}
+-
+-static int skl_set_pipe_state(struct skl_dev *skl, struct skl_pipe *pipe,
+-	enum skl_ipc_pipeline_state state)
+-{
+-	dev_dbg(skl->dev, "%s: pipe_state = %d\n", __func__, state);
+-
+-	return skl_ipc_set_pipeline_state(&skl->ipc, pipe->ppl_id, state);
+-}
+-
+-/*
+- * A pipeline is a collection of modules. Before a module in instantiated a
+- * pipeline needs to be created for it.
+- * This function creates pipeline, by sending create pipeline IPC messages
+- * to FW
+- */
+-int skl_create_pipeline(struct skl_dev *skl, struct skl_pipe *pipe)
+-{
+-	int ret;
+-
+-	dev_dbg(skl->dev, "%s: pipe_id = %d\n", __func__, pipe->ppl_id);
+-
+-	ret = skl_ipc_create_pipeline(&skl->ipc, pipe->memory_pages,
+-				pipe->pipe_priority, pipe->ppl_id,
+-				pipe->lp_mode);
+-	if (ret < 0) {
+-		dev_err(skl->dev, "Failed to create pipeline\n");
+-		return ret;
+-	}
+-
+-	pipe->state = SKL_PIPE_CREATED;
+-
+-	return 0;
+-}
+-
+-/*
+- * A pipeline needs to be deleted on cleanup. If a pipeline is running,
+- * then pause it first. Before actual deletion, pipeline should enter
+- * reset state. Finish the procedure by sending delete pipeline IPC.
+- * DSP will stop the DMA engines and release resources
+- */
+-int skl_delete_pipe(struct skl_dev *skl, struct skl_pipe *pipe)
+-{
+-	int ret;
+-
+-	dev_dbg(skl->dev, "%s: pipe = %d\n", __func__, pipe->ppl_id);
+-
+-	/* If pipe was not created in FW, do not try to delete it */
+-	if (pipe->state < SKL_PIPE_CREATED)
+-		return 0;
+-
+-	/* If pipe is started, do stop the pipe in FW. */
+-	if (pipe->state >= SKL_PIPE_STARTED) {
+-		ret = skl_set_pipe_state(skl, pipe, PPL_PAUSED);
+-		if (ret < 0) {
+-			dev_err(skl->dev, "Failed to stop pipeline\n");
+-			return ret;
+-		}
+-
+-		pipe->state = SKL_PIPE_PAUSED;
+-	}
+-
+-	/* reset pipe state before deletion */
+-	ret = skl_set_pipe_state(skl, pipe, PPL_RESET);
+-	if (ret < 0) {
+-		dev_err(skl->dev, "Failed to reset pipe ret=%d\n", ret);
+-		return ret;
+-	}
+-
+-	pipe->state = SKL_PIPE_RESET;
+-
+-	ret = skl_ipc_delete_pipeline(&skl->ipc, pipe->ppl_id);
+-	if (ret < 0) {
+-		dev_err(skl->dev, "Failed to delete pipeline\n");
+-		return ret;
+-	}
+-
+-	pipe->state = SKL_PIPE_INVALID;
+-
+-	return ret;
+-}
+-
+-/*
+- * A pipeline is also a scheduling entity in DSP which can be run, stopped
+- * For processing data the pipe need to be run by sending IPC set pipe state
+- * to DSP
+- */
+-int skl_run_pipe(struct skl_dev *skl, struct skl_pipe *pipe)
+-{
+-	int ret;
+-
+-	dev_dbg(skl->dev, "%s: pipe = %d\n", __func__, pipe->ppl_id);
+-
+-	/* If pipe was not created in FW, do not try to pause or delete */
+-	if (pipe->state < SKL_PIPE_CREATED)
+-		return 0;
+-
+-	/* Pipe has to be paused before it is started */
+-	ret = skl_set_pipe_state(skl, pipe, PPL_PAUSED);
+-	if (ret < 0) {
+-		dev_err(skl->dev, "Failed to pause pipe\n");
+-		return ret;
+-	}
+-
+-	pipe->state = SKL_PIPE_PAUSED;
+-
+-	ret = skl_set_pipe_state(skl, pipe, PPL_RUNNING);
+-	if (ret < 0) {
+-		dev_err(skl->dev, "Failed to start pipe\n");
+-		return ret;
+-	}
+-
+-	pipe->state = SKL_PIPE_STARTED;
+-
+-	return 0;
+-}
+-
+-/*
+- * Stop the pipeline by sending set pipe state IPC
+- * DSP doesnt implement stop so we always send pause message
+- */
+-int skl_stop_pipe(struct skl_dev *skl, struct skl_pipe *pipe)
+-{
+-	int ret;
+-
+-	dev_dbg(skl->dev, "In %s pipe=%d\n", __func__, pipe->ppl_id);
+-
+-	/* If pipe was not created in FW, do not try to pause or delete */
+-	if (pipe->state < SKL_PIPE_PAUSED)
+-		return 0;
+-
+-	ret = skl_set_pipe_state(skl, pipe, PPL_PAUSED);
+-	if (ret < 0) {
+-		dev_dbg(skl->dev, "Failed to stop pipe\n");
+-		return ret;
+-	}
+-
+-	pipe->state = SKL_PIPE_PAUSED;
+-
+-	return 0;
+-}
+-
+-/*
+- * Reset the pipeline by sending set pipe state IPC this will reset the DMA
+- * from the DSP side
+- */
+-int skl_reset_pipe(struct skl_dev *skl, struct skl_pipe *pipe)
+-{
+-	int ret;
+-
+-	/* If pipe was not created in FW, do not try to pause or delete */
+-	if (pipe->state < SKL_PIPE_PAUSED)
+-		return 0;
+-
+-	ret = skl_set_pipe_state(skl, pipe, PPL_RESET);
+-	if (ret < 0) {
+-		dev_dbg(skl->dev, "Failed to reset pipe ret=%d\n", ret);
+-		return ret;
+-	}
+-
+-	pipe->state = SKL_PIPE_RESET;
+-
+-	return 0;
+-}
+-
+-/* Algo parameter set helper function */
+-int skl_set_module_params(struct skl_dev *skl, u32 *params, int size,
+-				u32 param_id, struct skl_module_cfg *mcfg)
+-{
+-	struct skl_ipc_large_config_msg msg;
+-
+-	msg.module_id = mcfg->id.module_id;
+-	msg.instance_id = mcfg->id.pvt_id;
+-	msg.param_data_size = size;
+-	msg.large_param_id = param_id;
+-
+-	return skl_ipc_set_large_config(&skl->ipc, &msg, params);
+-}
+-
+-int skl_get_module_params(struct skl_dev *skl, u32 *params, int size,
+-			  u32 param_id, struct skl_module_cfg *mcfg)
+-{
+-	struct skl_ipc_large_config_msg msg;
+-	size_t bytes = size;
+-
+-	msg.module_id = mcfg->id.module_id;
+-	msg.instance_id = mcfg->id.pvt_id;
+-	msg.param_data_size = size;
+-	msg.large_param_id = param_id;
+-
+-	return skl_ipc_get_large_config(&skl->ipc, &msg, &params, &bytes);
+-}
+diff --git a/sound/soc/intel/skylake/skl-nhlt.c b/sound/soc/intel/skylake/skl-nhlt.c
+deleted file mode 100644
+index e617b4c335a4..000000000000
+--- a/sound/soc/intel/skylake/skl-nhlt.c
++++ /dev/null
+@@ -1,269 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  skl-nhlt.c - Intel SKL Platform NHLT parsing
+- *
+- *  Copyright (C) 2015 Intel Corp
+- *  Author: Sanjiv Kumar <sanjiv.kumar@intel.com>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-#include <linux/pci.h>
+-#include <sound/intel-nhlt.h>
+-#include "skl.h"
+-#include "skl-i2s.h"
+-
+-static void skl_nhlt_trim_space(char *trim)
+-{
+-	char *s = trim;
+-	int cnt;
+-	int i;
+-
+-	cnt = 0;
+-	for (i = 0; s[i]; i++) {
+-		if (!isspace(s[i]))
+-			s[cnt++] = s[i];
+-	}
+-
+-	s[cnt] = '\0';
+-}
+-
+-int skl_nhlt_update_topology_bin(struct skl_dev *skl)
+-{
+-	struct nhlt_acpi_table *nhlt = (struct nhlt_acpi_table *)skl->nhlt;
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	struct device *dev = bus->dev;
+-
+-	dev_dbg(dev, "oem_id %.6s, oem_table_id %.8s oem_revision %d\n",
+-		nhlt->header.oem_id, nhlt->header.oem_table_id,
+-		nhlt->header.oem_revision);
+-
+-	snprintf(skl->tplg_name, sizeof(skl->tplg_name), "%x-%.6s-%.8s-%d%s",
+-		skl->pci_id, nhlt->header.oem_id, nhlt->header.oem_table_id,
+-		nhlt->header.oem_revision, "-tplg.bin");
+-
+-	skl_nhlt_trim_space(skl->tplg_name);
+-
+-	return 0;
+-}
+-
+-static ssize_t platform_id_show(struct device *dev,
+-				struct device_attribute *attr, char *buf)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct nhlt_acpi_table *nhlt = (struct nhlt_acpi_table *)skl->nhlt;
+-	char platform_id[32];
+-
+-	sprintf(platform_id, "%x-%.6s-%.8s-%d", skl->pci_id,
+-			nhlt->header.oem_id, nhlt->header.oem_table_id,
+-			nhlt->header.oem_revision);
+-
+-	skl_nhlt_trim_space(platform_id);
+-	return sysfs_emit(buf, "%s\n", platform_id);
+-}
+-
+-static DEVICE_ATTR_RO(platform_id);
+-
+-int skl_nhlt_create_sysfs(struct skl_dev *skl)
+-{
+-	struct device *dev = &skl->pci->dev;
+-
+-	if (sysfs_create_file(&dev->kobj, &dev_attr_platform_id.attr))
+-		dev_warn(dev, "Error creating sysfs entry\n");
+-
+-	return 0;
+-}
+-
+-void skl_nhlt_remove_sysfs(struct skl_dev *skl)
+-{
+-	struct device *dev = &skl->pci->dev;
+-
+-	if (skl->nhlt)
+-		sysfs_remove_file(&dev->kobj, &dev_attr_platform_id.attr);
+-}
+-
+-/*
+- * Queries NHLT for all the fmt configuration for a particular endpoint and
+- * stores all possible rates supported in a rate table for the corresponding
+- * sclk/sclkfs.
+- */
+-static void skl_get_ssp_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks,
+-				struct nhlt_fmt *fmt, u8 id)
+-{
+-	struct skl_i2s_config_blob_ext *i2s_config_ext;
+-	struct skl_i2s_config_blob_legacy *i2s_config;
+-	struct skl_clk_parent_src *parent;
+-	struct skl_ssp_clk *sclk, *sclkfs;
+-	struct nhlt_fmt_cfg *fmt_cfg;
+-	struct wav_fmt_ext *wav_fmt;
+-	unsigned long rate;
+-	int rate_index = 0;
+-	u16 channels, bps;
+-	u8 clk_src;
+-	int i, j;
+-	u32 fs;
+-
+-	sclk = &ssp_clks[SKL_SCLK_OFS];
+-	sclkfs = &ssp_clks[SKL_SCLKFS_OFS];
+-
+-	if (fmt->fmt_count == 0)
+-		return;
+-
+-	fmt_cfg = (struct nhlt_fmt_cfg *)fmt->fmt_config;
+-	for (i = 0; i < fmt->fmt_count; i++) {
+-		struct nhlt_fmt_cfg *saved_fmt_cfg = fmt_cfg;
+-		bool present = false;
+-
+-		wav_fmt = &saved_fmt_cfg->fmt_ext;
+-
+-		channels = wav_fmt->fmt.channels;
+-		bps = wav_fmt->fmt.bits_per_sample;
+-		fs = wav_fmt->fmt.samples_per_sec;
+-
+-		/*
+-		 * In case of TDM configuration on a ssp, there can
+-		 * be more than one blob in which channel masks are
+-		 * different for each usecase for a specific rate and bps.
+-		 * But the sclk rate will be generated for the total
+-		 * number of channels used for that endpoint.
+-		 *
+-		 * So for the given fs and bps, choose blob which has
+-		 * the superset of all channels for that endpoint and
+-		 * derive the rate.
+-		 */
+-		for (j = i; j < fmt->fmt_count; j++) {
+-			struct nhlt_fmt_cfg *tmp_fmt_cfg = fmt_cfg;
+-
+-			wav_fmt = &tmp_fmt_cfg->fmt_ext;
+-			if ((fs == wav_fmt->fmt.samples_per_sec) &&
+-			   (bps == wav_fmt->fmt.bits_per_sample)) {
+-				channels = max_t(u16, channels,
+-						wav_fmt->fmt.channels);
+-				saved_fmt_cfg = tmp_fmt_cfg;
+-			}
+-			/* Move to the next nhlt_fmt_cfg */
+-			tmp_fmt_cfg = (struct nhlt_fmt_cfg *)(tmp_fmt_cfg->config.caps +
+-							      tmp_fmt_cfg->config.size);
+-		}
+-
+-		rate = channels * bps * fs;
+-
+-		/* check if the rate is added already to the given SSP's sclk */
+-		for (j = 0; (j < SKL_MAX_CLK_RATES) &&
+-			    (sclk[id].rate_cfg[j].rate != 0); j++) {
+-			if (sclk[id].rate_cfg[j].rate == rate) {
+-				present = true;
+-				break;
+-			}
+-		}
+-
+-		/* Fill rate and parent for sclk/sclkfs */
+-		if (!present) {
+-			struct nhlt_fmt_cfg *first_fmt_cfg;
+-
+-			first_fmt_cfg = (struct nhlt_fmt_cfg *)fmt->fmt_config;
+-			i2s_config_ext = (struct skl_i2s_config_blob_ext *)
+-						first_fmt_cfg->config.caps;
+-
+-			/* MCLK Divider Source Select */
+-			if (is_legacy_blob(i2s_config_ext->hdr.sig)) {
+-				i2s_config = ext_to_legacy_blob(i2s_config_ext);
+-				clk_src = get_clk_src(i2s_config->mclk,
+-						SKL_MNDSS_DIV_CLK_SRC_MASK);
+-			} else {
+-				clk_src = get_clk_src(i2s_config_ext->mclk,
+-						SKL_MNDSS_DIV_CLK_SRC_MASK);
+-			}
+-
+-			parent = skl_get_parent_clk(clk_src);
+-
+-			/* Move to the next nhlt_fmt_cfg */
+-			fmt_cfg = (struct nhlt_fmt_cfg *)(fmt_cfg->config.caps +
+-							  fmt_cfg->config.size);
+-			/*
+-			 * Do not copy the config data if there is no parent
+-			 * clock available for this clock source select
+-			 */
+-			if (!parent)
+-				continue;
+-
+-			sclk[id].rate_cfg[rate_index].rate = rate;
+-			sclk[id].rate_cfg[rate_index].config = saved_fmt_cfg;
+-			sclkfs[id].rate_cfg[rate_index].rate = rate;
+-			sclkfs[id].rate_cfg[rate_index].config = saved_fmt_cfg;
+-			sclk[id].parent_name = parent->name;
+-			sclkfs[id].parent_name = parent->name;
+-
+-			rate_index++;
+-		}
+-	}
+-}
+-
+-static void skl_get_mclk(struct skl_dev *skl, struct skl_ssp_clk *mclk,
+-				struct nhlt_fmt *fmt, u8 id)
+-{
+-	struct skl_i2s_config_blob_ext *i2s_config_ext;
+-	struct skl_i2s_config_blob_legacy *i2s_config;
+-	struct nhlt_fmt_cfg *fmt_cfg;
+-	struct skl_clk_parent_src *parent;
+-	u32 clkdiv, div_ratio;
+-	u8 clk_src;
+-
+-	fmt_cfg = (struct nhlt_fmt_cfg *)fmt->fmt_config;
+-	i2s_config_ext = (struct skl_i2s_config_blob_ext *)fmt_cfg->config.caps;
+-
+-	/* MCLK Divider Source Select and divider */
+-	if (is_legacy_blob(i2s_config_ext->hdr.sig)) {
+-		i2s_config = ext_to_legacy_blob(i2s_config_ext);
+-		clk_src = get_clk_src(i2s_config->mclk,
+-				SKL_MCLK_DIV_CLK_SRC_MASK);
+-		clkdiv = i2s_config->mclk.mdivr &
+-				SKL_MCLK_DIV_RATIO_MASK;
+-	} else {
+-		clk_src = get_clk_src(i2s_config_ext->mclk,
+-				SKL_MCLK_DIV_CLK_SRC_MASK);
+-		clkdiv = i2s_config_ext->mclk.mdivr[0] &
+-				SKL_MCLK_DIV_RATIO_MASK;
+-	}
+-
+-	/* bypass divider */
+-	div_ratio = 1;
+-
+-	if (clkdiv != SKL_MCLK_DIV_RATIO_MASK)
+-		/* Divider is 2 + clkdiv */
+-		div_ratio = clkdiv + 2;
+-
+-	/* Calculate MCLK rate from source using div value */
+-	parent = skl_get_parent_clk(clk_src);
+-	if (!parent)
+-		return;
+-
+-	mclk[id].rate_cfg[0].rate = parent->rate/div_ratio;
+-	mclk[id].rate_cfg[0].config = fmt_cfg;
+-	mclk[id].parent_name = parent->name;
+-}
+-
+-void skl_get_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks)
+-{
+-	struct nhlt_acpi_table *nhlt = (struct nhlt_acpi_table *)skl->nhlt;
+-	struct nhlt_endpoint *epnt;
+-	struct nhlt_fmt *fmt;
+-	int i;
+-	u8 id;
+-
+-	epnt = (struct nhlt_endpoint *)nhlt->desc;
+-	for (i = 0; i < nhlt->endpoint_count; i++) {
+-		if (epnt->linktype == NHLT_LINK_SSP) {
+-			id = epnt->virtual_bus_id;
+-
+-			fmt = (struct nhlt_fmt *)(epnt->config.caps
+-					+ epnt->config.size);
+-
+-			skl_get_ssp_clks(skl, ssp_clks, fmt, id);
+-			skl_get_mclk(skl, ssp_clks, fmt, id);
+-		}
+-		epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
+-	}
+-}
+diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
+deleted file mode 100644
+index 613b27b8da13..000000000000
+--- a/sound/soc/intel/skylake/skl-pcm.c
++++ /dev/null
+@@ -1,1507 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  skl-pcm.c -ASoC HDA Platform driver file implementing PCM functionality
+- *
+- *  Copyright (C) 2014-2015 Intel Corp
+- *  Author:  Jeeja KP <jeeja.kp@intel.com>
+- *
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#include <linux/pci.h>
+-#include <linux/pm_runtime.h>
+-#include <linux/delay.h>
+-#include <sound/hdaudio.h>
+-#include <sound/pcm_params.h>
+-#include <sound/soc.h>
+-#include "skl.h"
+-#include "skl-topology.h"
+-#include "skl-sst-dsp.h"
+-#include "skl-sst-ipc.h"
+-
+-#define HDA_MONO 1
+-#define HDA_STEREO 2
+-#define HDA_QUAD 4
+-#define HDA_MAX 8
+-
+-static const struct snd_pcm_hardware azx_pcm_hw = {
+-	.info =			(SNDRV_PCM_INFO_MMAP |
+-				 SNDRV_PCM_INFO_INTERLEAVED |
+-				 SNDRV_PCM_INFO_BLOCK_TRANSFER |
+-				 SNDRV_PCM_INFO_MMAP_VALID |
+-				 SNDRV_PCM_INFO_PAUSE |
+-				 SNDRV_PCM_INFO_RESUME |
+-				 SNDRV_PCM_INFO_SYNC_START |
+-				 SNDRV_PCM_INFO_HAS_WALL_CLOCK | /* legacy */
+-				 SNDRV_PCM_INFO_HAS_LINK_ATIME |
+-				 SNDRV_PCM_INFO_NO_PERIOD_WAKEUP),
+-	.formats =		SNDRV_PCM_FMTBIT_S16_LE |
+-				SNDRV_PCM_FMTBIT_S32_LE |
+-				SNDRV_PCM_FMTBIT_S24_LE,
+-	.rates =		SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000 |
+-				SNDRV_PCM_RATE_8000,
+-	.rate_min =		8000,
+-	.rate_max =		48000,
+-	.channels_min =		1,
+-	.channels_max =		8,
+-	.buffer_bytes_max =	AZX_MAX_BUF_SIZE,
+-	.period_bytes_min =	128,
+-	.period_bytes_max =	AZX_MAX_BUF_SIZE / 2,
+-	.periods_min =		2,
+-	.periods_max =		AZX_MAX_FRAG,
+-	.fifo_size =		0,
+-};
+-
+-static inline
+-struct hdac_ext_stream *get_hdac_ext_stream(struct snd_pcm_substream *substream)
+-{
+-	return substream->runtime->private_data;
+-}
+-
+-static struct hdac_bus *get_bus_ctx(struct snd_pcm_substream *substream)
+-{
+-	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
+-	struct hdac_stream *hstream = hdac_stream(stream);
+-	struct hdac_bus *bus = hstream->bus;
+-	return bus;
+-}
+-
+-static int skl_substream_alloc_pages(struct hdac_bus *bus,
+-				 struct snd_pcm_substream *substream,
+-				 size_t size)
+-{
+-	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
+-
+-	hdac_stream(stream)->bufsize = 0;
+-	hdac_stream(stream)->period_bytes = 0;
+-	hdac_stream(stream)->format_val = 0;
+-
+-	return 0;
+-}
+-
+-static void skl_set_pcm_constrains(struct hdac_bus *bus,
+-				 struct snd_pcm_runtime *runtime)
+-{
+-	snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
+-
+-	/* avoid wrap-around with wall-clock */
+-	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_TIME,
+-				     20, 178000000);
+-}
+-
+-static enum hdac_ext_stream_type skl_get_host_stream_type(struct hdac_bus *bus)
+-{
+-	if (bus->ppcap)
+-		return HDAC_EXT_STREAM_TYPE_HOST;
+-	else
+-		return HDAC_EXT_STREAM_TYPE_COUPLED;
+-}
+-
+-/*
+- * check if the stream opened is marked as ignore_suspend by machine, if so
+- * then enable suspend_active refcount
+- *
+- * The count supend_active does not need lock as it is used in open/close
+- * and suspend context
+- */
+-static void skl_set_suspend_active(struct snd_pcm_substream *substream,
+-					 struct snd_soc_dai *dai, bool enable)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct snd_soc_dapm_widget *w;
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	w = snd_soc_dai_get_widget(dai, substream->stream);
+-
+-	if (w->ignore_suspend && enable)
+-		skl->supend_active++;
+-	else if (w->ignore_suspend && !enable)
+-		skl->supend_active--;
+-}
+-
+-int skl_pcm_host_dma_prepare(struct device *dev, struct skl_pipe_params *params)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	unsigned int format_val;
+-	struct hdac_stream *hstream;
+-	struct hdac_ext_stream *stream;
+-	unsigned int bits;
+-	int err;
+-
+-	hstream = snd_hdac_get_stream(bus, params->stream,
+-					params->host_dma_id + 1);
+-	if (!hstream)
+-		return -EINVAL;
+-
+-	stream = stream_to_hdac_ext_stream(hstream);
+-	snd_hdac_ext_stream_decouple(bus, stream, true);
+-
+-	bits = snd_hdac_stream_format_bits(params->format, SNDRV_PCM_SUBFORMAT_STD,
+-					   params->host_bps);
+-	format_val = snd_hdac_stream_format(params->ch, bits, params->s_freq);
+-
+-	dev_dbg(dev, "format_val=%d, rate=%d, ch=%d, format=%d\n",
+-		format_val, params->s_freq, params->ch, params->format);
+-
+-	snd_hdac_stream_reset(hdac_stream(stream));
+-	err = snd_hdac_stream_set_params(hdac_stream(stream), format_val);
+-	if (err < 0)
+-		return err;
+-
+-	err = snd_hdac_ext_host_stream_setup(stream, false);
+-	if (err < 0)
+-		return err;
+-
+-	hdac_stream(stream)->prepared = 1;
+-
+-	return 0;
+-}
+-
+-int skl_pcm_link_dma_prepare(struct device *dev, struct skl_pipe_params *params)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	unsigned int format_val;
+-	struct hdac_stream *hstream;
+-	struct hdac_ext_stream *stream;
+-	struct hdac_ext_link *link;
+-	unsigned char stream_tag;
+-	unsigned int bits;
+-
+-	hstream = snd_hdac_get_stream(bus, params->stream,
+-					params->link_dma_id + 1);
+-	if (!hstream)
+-		return -EINVAL;
+-
+-	stream = stream_to_hdac_ext_stream(hstream);
+-	snd_hdac_ext_stream_decouple(bus, stream, true);
+-
+-	bits = snd_hdac_stream_format_bits(params->format, SNDRV_PCM_SUBFORMAT_STD,
+-					   params->link_bps);
+-	format_val = snd_hdac_stream_format(params->ch, bits, params->s_freq);
+-
+-	dev_dbg(dev, "format_val=%d, rate=%d, ch=%d, format=%d\n",
+-		format_val, params->s_freq, params->ch, params->format);
+-
+-	snd_hdac_ext_stream_reset(stream);
+-
+-	snd_hdac_ext_stream_setup(stream, format_val);
+-
+-	stream_tag = hstream->stream_tag;
+-	if (stream->hstream.direction == SNDRV_PCM_STREAM_PLAYBACK) {
+-		list_for_each_entry(link, &bus->hlink_list, list) {
+-			if (link->index == params->link_index)
+-				snd_hdac_ext_bus_link_set_stream_id(link,
+-								    stream_tag);
+-		}
+-	}
+-
+-	stream->link_prepared = 1;
+-
+-	return 0;
+-}
+-
+-static int skl_pcm_open(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct hdac_ext_stream *stream;
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct skl_dma_params *dma_params;
+-	struct skl_dev *skl = get_skl_ctx(dai->dev);
+-	struct skl_module_cfg *mconfig;
+-
+-	dev_dbg(dai->dev, "%s: %s\n", __func__, dai->name);
+-
+-	stream = snd_hdac_ext_stream_assign(bus, substream,
+-					skl_get_host_stream_type(bus));
+-	if (stream == NULL)
+-		return -EBUSY;
+-
+-	skl_set_pcm_constrains(bus, runtime);
+-
+-	/*
+-	 * disable WALLCLOCK timestamps for capture streams
+-	 * until we figure out how to handle digital inputs
+-	 */
+-	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
+-		runtime->hw.info &= ~SNDRV_PCM_INFO_HAS_WALL_CLOCK; /* legacy */
+-		runtime->hw.info &= ~SNDRV_PCM_INFO_HAS_LINK_ATIME;
+-	}
+-
+-	runtime->private_data = stream;
+-
+-	dma_params = kzalloc(sizeof(*dma_params), GFP_KERNEL);
+-	if (!dma_params)
+-		return -ENOMEM;
+-
+-	dma_params->stream_tag = hdac_stream(stream)->stream_tag;
+-	snd_soc_dai_set_dma_data(dai, substream, dma_params);
+-
+-	dev_dbg(dai->dev, "stream tag set in dma params=%d\n",
+-				 dma_params->stream_tag);
+-	skl_set_suspend_active(substream, dai, true);
+-	snd_pcm_set_sync(substream);
+-
+-	mconfig = skl_tplg_fe_get_cpr_module(dai, substream->stream);
+-	if (!mconfig) {
+-		kfree(dma_params);
+-		return -EINVAL;
+-	}
+-
+-	skl_tplg_d0i3_get(skl, mconfig->d0i3_caps);
+-
+-	return 0;
+-}
+-
+-static int skl_pcm_prepare(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	struct skl_dev *skl = get_skl_ctx(dai->dev);
+-	struct skl_module_cfg *mconfig;
+-	int ret;
+-
+-	dev_dbg(dai->dev, "%s: %s\n", __func__, dai->name);
+-
+-	mconfig = skl_tplg_fe_get_cpr_module(dai, substream->stream);
+-
+-	/*
+-	 * In case of XRUN recovery or in the case when the application
+-	 * calls prepare another time, reset the FW pipe to clean state
+-	 */
+-	if (mconfig &&
+-		(substream->runtime->state == SNDRV_PCM_STATE_XRUN ||
+-		 mconfig->pipe->state == SKL_PIPE_CREATED ||
+-		 mconfig->pipe->state == SKL_PIPE_PAUSED)) {
+-
+-		ret = skl_reset_pipe(skl, mconfig->pipe);
+-
+-		if (ret < 0)
+-			return ret;
+-
+-		ret = skl_pcm_host_dma_prepare(dai->dev,
+-					mconfig->pipe->p_params);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_pcm_hw_params(struct snd_pcm_substream *substream,
+-				struct snd_pcm_hw_params *params,
+-				struct snd_soc_dai *dai)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct skl_pipe_params p_params = {0};
+-	struct skl_module_cfg *m_cfg;
+-	int ret, dma_id;
+-
+-	dev_dbg(dai->dev, "%s: %s\n", __func__, dai->name);
+-	ret = skl_substream_alloc_pages(bus, substream,
+-					  params_buffer_bytes(params));
+-	if (ret < 0)
+-		return ret;
+-
+-	dev_dbg(dai->dev, "format_val, rate=%d, ch=%d, format=%d\n",
+-			runtime->rate, runtime->channels, runtime->format);
+-
+-	dma_id = hdac_stream(stream)->stream_tag - 1;
+-	dev_dbg(dai->dev, "dma_id=%d\n", dma_id);
+-
+-	p_params.s_fmt = snd_pcm_format_width(params_format(params));
+-	p_params.s_cont = snd_pcm_format_physical_width(params_format(params));
+-	p_params.ch = params_channels(params);
+-	p_params.s_freq = params_rate(params);
+-	p_params.host_dma_id = dma_id;
+-	p_params.stream = substream->stream;
+-	p_params.format = params_format(params);
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		p_params.host_bps = dai->driver->playback.sig_bits;
+-	else
+-		p_params.host_bps = dai->driver->capture.sig_bits;
+-
+-
+-	m_cfg = skl_tplg_fe_get_cpr_module(dai, p_params.stream);
+-	if (m_cfg)
+-		skl_tplg_update_pipe_params(dai->dev, m_cfg, &p_params);
+-
+-	return 0;
+-}
+-
+-static void skl_pcm_close(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
+-	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct skl_dma_params *dma_params = NULL;
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct skl_module_cfg *mconfig;
+-
+-	dev_dbg(dai->dev, "%s: %s\n", __func__, dai->name);
+-
+-	snd_hdac_ext_stream_release(stream, skl_get_host_stream_type(bus));
+-
+-	dma_params = snd_soc_dai_get_dma_data(dai, substream);
+-	/*
+-	 * now we should set this to NULL as we are freeing by the
+-	 * dma_params
+-	 */
+-	snd_soc_dai_set_dma_data(dai, substream, NULL);
+-	skl_set_suspend_active(substream, dai, false);
+-
+-	/*
+-	 * check if close is for "Reference Pin" and set back the
+-	 * CGCTL.MISCBDCGE if disabled by driver
+-	 */
+-	if (!strncmp(dai->name, "Reference Pin", 13) &&
+-			skl->miscbdcg_disabled) {
+-		skl->enable_miscbdcge(dai->dev, true);
+-		skl->miscbdcg_disabled = false;
+-	}
+-
+-	mconfig = skl_tplg_fe_get_cpr_module(dai, substream->stream);
+-	if (mconfig)
+-		skl_tplg_d0i3_put(skl, mconfig->d0i3_caps);
+-
+-	kfree(dma_params);
+-}
+-
+-static int skl_pcm_hw_free(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
+-	struct skl_dev *skl = get_skl_ctx(dai->dev);
+-	struct skl_module_cfg *mconfig;
+-	int ret;
+-
+-	dev_dbg(dai->dev, "%s: %s\n", __func__, dai->name);
+-
+-	mconfig = skl_tplg_fe_get_cpr_module(dai, substream->stream);
+-
+-	if (mconfig) {
+-		ret = skl_reset_pipe(skl, mconfig->pipe);
+-		if (ret < 0)
+-			dev_err(dai->dev, "%s:Reset failed ret =%d",
+-						__func__, ret);
+-	}
+-
+-	snd_hdac_stream_cleanup(hdac_stream(stream));
+-	hdac_stream(stream)->prepared = 0;
+-
+-	return 0;
+-}
+-
+-static int skl_be_hw_params(struct snd_pcm_substream *substream,
+-				struct snd_pcm_hw_params *params,
+-				struct snd_soc_dai *dai)
+-{
+-	struct skl_pipe_params p_params = {0};
+-
+-	p_params.s_fmt = snd_pcm_format_width(params_format(params));
+-	p_params.s_cont = snd_pcm_format_physical_width(params_format(params));
+-	p_params.ch = params_channels(params);
+-	p_params.s_freq = params_rate(params);
+-	p_params.stream = substream->stream;
+-
+-	return skl_tplg_be_update_params(dai, &p_params);
+-}
+-
+-static int skl_decoupled_trigger(struct snd_pcm_substream *substream,
+-		int cmd)
+-{
+-	struct hdac_bus *bus = get_bus_ctx(substream);
+-	struct hdac_ext_stream *stream;
+-	int start;
+-	unsigned long cookie;
+-	struct hdac_stream *hstr;
+-
+-	stream = get_hdac_ext_stream(substream);
+-	hstr = hdac_stream(stream);
+-
+-	if (!hstr->prepared)
+-		return -EPIPE;
+-
+-	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_START:
+-	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-	case SNDRV_PCM_TRIGGER_RESUME:
+-		start = 1;
+-		break;
+-
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-	case SNDRV_PCM_TRIGGER_STOP:
+-		start = 0;
+-		break;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	spin_lock_irqsave(&bus->reg_lock, cookie);
+-
+-	if (start) {
+-		snd_hdac_stream_start(hdac_stream(stream));
+-		snd_hdac_stream_timecounter_init(hstr, 0);
+-	} else {
+-		snd_hdac_stream_stop(hdac_stream(stream));
+-	}
+-
+-	spin_unlock_irqrestore(&bus->reg_lock, cookie);
+-
+-	return 0;
+-}
+-
+-static int skl_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
+-		struct snd_soc_dai *dai)
+-{
+-	struct skl_dev *skl = get_skl_ctx(dai->dev);
+-	struct skl_module_cfg *mconfig;
+-	struct hdac_bus *bus = get_bus_ctx(substream);
+-	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
+-	struct hdac_stream *hstream = hdac_stream(stream);
+-	struct snd_soc_dapm_widget *w;
+-	int ret;
+-
+-	mconfig = skl_tplg_fe_get_cpr_module(dai, substream->stream);
+-	if (!mconfig)
+-		return -EIO;
+-
+-	w = snd_soc_dai_get_widget(dai, substream->stream);
+-
+-	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_RESUME:
+-		if (!w->ignore_suspend) {
+-			/*
+-			 * enable DMA Resume enable bit for the stream, set the
+-			 * dpib & lpib position to resume before starting the
+-			 * DMA
+-			 */
+-			snd_hdac_stream_drsm_enable(bus, true, hstream->index);
+-			snd_hdac_stream_set_dpibr(bus, hstream, hstream->lpib);
+-			snd_hdac_stream_set_lpib(hstream, hstream->lpib);
+-		}
+-		fallthrough;
+-
+-	case SNDRV_PCM_TRIGGER_START:
+-	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		/*
+-		 * Start HOST DMA and Start FE Pipe.This is to make sure that
+-		 * there are no underrun/overrun in the case when the FE
+-		 * pipeline is started but there is a delay in starting the
+-		 * DMA channel on the host.
+-		 */
+-		ret = skl_decoupled_trigger(substream, cmd);
+-		if (ret < 0)
+-			return ret;
+-		return skl_run_pipe(skl, mconfig->pipe);
+-
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-	case SNDRV_PCM_TRIGGER_STOP:
+-		/*
+-		 * Stop FE Pipe first and stop DMA. This is to make sure that
+-		 * there are no underrun/overrun in the case if there is a delay
+-		 * between the two operations.
+-		 */
+-		ret = skl_stop_pipe(skl, mconfig->pipe);
+-		if (ret < 0)
+-			return ret;
+-
+-		ret = skl_decoupled_trigger(substream, cmd);
+-		if (ret < 0)
+-			return ret;
+-
+-		if ((cmd == SNDRV_PCM_TRIGGER_SUSPEND) && !w->ignore_suspend) {
+-			/* save the dpib and lpib positions */
+-			hstream->dpib = readl(bus->remap_addr +
+-					AZX_REG_VS_SDXDPIB_XBASE +
+-					(AZX_REG_VS_SDXDPIB_XINTERVAL *
+-					hstream->index));
+-
+-			hstream->lpib = snd_hdac_stream_get_pos_lpib(hstream);
+-
+-			snd_hdac_ext_stream_decouple(bus, stream, false);
+-		}
+-		break;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-
+-static int skl_link_hw_params(struct snd_pcm_substream *substream,
+-				struct snd_pcm_hw_params *params,
+-				struct snd_soc_dai *dai)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct hdac_ext_stream *link_dev;
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+-	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	struct skl_pipe_params p_params = {0};
+-	struct hdac_ext_link *link;
+-	int stream_tag;
+-
+-	link_dev = snd_hdac_ext_stream_assign(bus, substream,
+-					HDAC_EXT_STREAM_TYPE_LINK);
+-	if (!link_dev)
+-		return -EBUSY;
+-
+-	snd_soc_dai_set_dma_data(dai, substream, (void *)link_dev);
+-
+-	link = snd_hdac_ext_bus_get_hlink_by_name(bus, codec_dai->component->name);
+-	if (!link)
+-		return -EINVAL;
+-
+-	stream_tag = hdac_stream(link_dev)->stream_tag;
+-
+-	/* set the hdac_stream in the codec dai */
+-	snd_soc_dai_set_stream(codec_dai, hdac_stream(link_dev), substream->stream);
+-
+-	p_params.s_fmt = snd_pcm_format_width(params_format(params));
+-	p_params.s_cont = snd_pcm_format_physical_width(params_format(params));
+-	p_params.ch = params_channels(params);
+-	p_params.s_freq = params_rate(params);
+-	p_params.stream = substream->stream;
+-	p_params.link_dma_id = stream_tag - 1;
+-	p_params.link_index = link->index;
+-	p_params.format = params_format(params);
+-
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		p_params.link_bps = codec_dai->driver->playback.sig_bits;
+-	else
+-		p_params.link_bps = codec_dai->driver->capture.sig_bits;
+-
+-	return skl_tplg_be_update_params(dai, &p_params);
+-}
+-
+-static int skl_link_pcm_prepare(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	struct skl_dev *skl = get_skl_ctx(dai->dev);
+-	struct skl_module_cfg *mconfig = NULL;
+-
+-	/* In case of XRUN recovery, reset the FW pipe to clean state */
+-	mconfig = skl_tplg_be_get_cpr_module(dai, substream->stream);
+-	if (mconfig && !mconfig->pipe->passthru &&
+-		(substream->runtime->state == SNDRV_PCM_STATE_XRUN))
+-		skl_reset_pipe(skl, mconfig->pipe);
+-
+-	return 0;
+-}
+-
+-static int skl_link_pcm_trigger(struct snd_pcm_substream *substream,
+-	int cmd, struct snd_soc_dai *dai)
+-{
+-	struct hdac_ext_stream *link_dev =
+-				snd_soc_dai_get_dma_data(dai, substream);
+-	struct hdac_bus *bus = get_bus_ctx(substream);
+-	struct hdac_ext_stream *stream = get_hdac_ext_stream(substream);
+-
+-	dev_dbg(dai->dev, "In %s cmd=%d\n", __func__, cmd);
+-	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_RESUME:
+-	case SNDRV_PCM_TRIGGER_START:
+-	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		snd_hdac_ext_stream_start(link_dev);
+-		break;
+-
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-	case SNDRV_PCM_TRIGGER_STOP:
+-		snd_hdac_ext_stream_clear(link_dev);
+-		if (cmd == SNDRV_PCM_TRIGGER_SUSPEND)
+-			snd_hdac_ext_stream_decouple(bus, stream, false);
+-		break;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-	return 0;
+-}
+-
+-static int skl_link_hw_free(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+-	struct hdac_ext_stream *link_dev =
+-				snd_soc_dai_get_dma_data(dai, substream);
+-	struct hdac_ext_link *link;
+-	unsigned char stream_tag;
+-
+-	dev_dbg(dai->dev, "%s: %s\n", __func__, dai->name);
+-
+-	link_dev->link_prepared = 0;
+-
+-	link = snd_hdac_ext_bus_get_hlink_by_name(bus, snd_soc_rtd_to_codec(rtd, 0)->component->name);
+-	if (!link)
+-		return -EINVAL;
+-
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		stream_tag = hdac_stream(link_dev)->stream_tag;
+-		snd_hdac_ext_bus_link_clear_stream_id(link, stream_tag);
+-	}
+-
+-	snd_hdac_ext_stream_release(link_dev, HDAC_EXT_STREAM_TYPE_LINK);
+-	return 0;
+-}
+-
+-static const struct snd_soc_dai_ops skl_pcm_dai_ops = {
+-	.startup = skl_pcm_open,
+-	.shutdown = skl_pcm_close,
+-	.prepare = skl_pcm_prepare,
+-	.hw_params = skl_pcm_hw_params,
+-	.hw_free = skl_pcm_hw_free,
+-	.trigger = skl_pcm_trigger,
+-};
+-
+-static const struct snd_soc_dai_ops skl_dmic_dai_ops = {
+-	.hw_params = skl_be_hw_params,
+-};
+-
+-static const struct snd_soc_dai_ops skl_be_ssp_dai_ops = {
+-	.hw_params = skl_be_hw_params,
+-};
+-
+-static const struct snd_soc_dai_ops skl_link_dai_ops = {
+-	.prepare = skl_link_pcm_prepare,
+-	.hw_params = skl_link_hw_params,
+-	.hw_free = skl_link_hw_free,
+-	.trigger = skl_link_pcm_trigger,
+-};
+-
+-static struct snd_soc_dai_driver skl_fe_dai[] = {
+-{
+-	.name = "System Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.playback = {
+-		.stream_name = "System Playback",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_8000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE |
+-			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE,
+-		.sig_bits = 32,
+-	},
+-	.capture = {
+-		.stream_name = "System Capture",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-{
+-	.name = "System Pin2",
+-	.ops = &skl_pcm_dai_ops,
+-	.playback = {
+-		.stream_name = "Headset Playback",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000 |
+-			SNDRV_PCM_RATE_8000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE |
+-			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-},
+-{
+-	.name = "Echoref Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.capture = {
+-		.stream_name = "Echoreference Capture",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000 |
+-			SNDRV_PCM_RATE_8000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE |
+-			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-},
+-{
+-	.name = "Reference Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.capture = {
+-		.stream_name = "Reference Capture",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_QUAD,
+-		.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-{
+-	.name = "Deepbuffer Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.playback = {
+-		.stream_name = "Deepbuffer Playback",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-{
+-	.name = "LowLatency Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.playback = {
+-		.stream_name = "Low Latency Playback",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-{
+-	.name = "DMIC Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.capture = {
+-		.stream_name = "DMIC Capture",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_QUAD,
+-		.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-{
+-	.name = "HDMI1 Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.playback = {
+-		.stream_name = "HDMI1 Playback",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = 8,
+-		.rates = SNDRV_PCM_RATE_32000 |	SNDRV_PCM_RATE_44100 |
+-			SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |
+-			SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |
+-			SNDRV_PCM_RATE_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-{
+-	.name = "HDMI2 Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.playback = {
+-		.stream_name = "HDMI2 Playback",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = 8,
+-		.rates = SNDRV_PCM_RATE_32000 |	SNDRV_PCM_RATE_44100 |
+-			SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |
+-			SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |
+-			SNDRV_PCM_RATE_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-{
+-	.name = "HDMI3 Pin",
+-	.ops = &skl_pcm_dai_ops,
+-	.playback = {
+-		.stream_name = "HDMI3 Playback",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = 8,
+-		.rates = SNDRV_PCM_RATE_32000 |	SNDRV_PCM_RATE_44100 |
+-			SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |
+-			SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |
+-			SNDRV_PCM_RATE_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-		.sig_bits = 32,
+-	},
+-},
+-};
+-
+-/* BE CPU  Dais */
+-static struct snd_soc_dai_driver skl_platform_dai[] = {
+-{
+-	.name = "SSP0 Pin",
+-	.ops = &skl_be_ssp_dai_ops,
+-	.playback = {
+-		.stream_name = "ssp0 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-	.capture = {
+-		.stream_name = "ssp0 Rx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-},
+-{
+-	.name = "SSP1 Pin",
+-	.ops = &skl_be_ssp_dai_ops,
+-	.playback = {
+-		.stream_name = "ssp1 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-	.capture = {
+-		.stream_name = "ssp1 Rx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-},
+-{
+-	.name = "SSP2 Pin",
+-	.ops = &skl_be_ssp_dai_ops,
+-	.playback = {
+-		.stream_name = "ssp2 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-	.capture = {
+-		.stream_name = "ssp2 Rx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-},
+-{
+-	.name = "SSP3 Pin",
+-	.ops = &skl_be_ssp_dai_ops,
+-	.playback = {
+-		.stream_name = "ssp3 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-	.capture = {
+-		.stream_name = "ssp3 Rx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-},
+-{
+-	.name = "SSP4 Pin",
+-	.ops = &skl_be_ssp_dai_ops,
+-	.playback = {
+-		.stream_name = "ssp4 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-	.capture = {
+-		.stream_name = "ssp4 Rx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-},
+-{
+-	.name = "SSP5 Pin",
+-	.ops = &skl_be_ssp_dai_ops,
+-	.playback = {
+-		.stream_name = "ssp5 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-	.capture = {
+-		.stream_name = "ssp5 Rx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = HDA_STEREO,
+-		.rates = SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-},
+-{
+-	.name = "iDisp1 Pin",
+-	.ops = &skl_link_dai_ops,
+-	.playback = {
+-		.stream_name = "iDisp1 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = 8,
+-		.rates = SNDRV_PCM_RATE_8000|SNDRV_PCM_RATE_16000|SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE |
+-			SNDRV_PCM_FMTBIT_S24_LE,
+-	},
+-},
+-{
+-	.name = "iDisp2 Pin",
+-	.ops = &skl_link_dai_ops,
+-	.playback = {
+-		.stream_name = "iDisp2 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = 8,
+-		.rates = SNDRV_PCM_RATE_8000|SNDRV_PCM_RATE_16000|
+-			SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE |
+-			SNDRV_PCM_FMTBIT_S24_LE,
+-	},
+-},
+-{
+-	.name = "iDisp3 Pin",
+-	.ops = &skl_link_dai_ops,
+-	.playback = {
+-		.stream_name = "iDisp3 Tx",
+-		.channels_min = HDA_STEREO,
+-		.channels_max = 8,
+-		.rates = SNDRV_PCM_RATE_8000|SNDRV_PCM_RATE_16000|
+-			SNDRV_PCM_RATE_48000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE |
+-			SNDRV_PCM_FMTBIT_S24_LE,
+-	},
+-},
+-{
+-	.name = "DMIC01 Pin",
+-	.ops = &skl_dmic_dai_ops,
+-	.capture = {
+-		.stream_name = "DMIC01 Rx",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_QUAD,
+-		.rates = SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_16000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
+-	},
+-},
+-{
+-	.name = "DMIC16k Pin",
+-	.ops = &skl_dmic_dai_ops,
+-	.capture = {
+-		.stream_name = "DMIC16k Rx",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_QUAD,
+-		.rates = SNDRV_PCM_RATE_16000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-	},
+-},
+-{
+-	.name = "Analog CPU DAI",
+-	.ops = &skl_link_dai_ops,
+-	.playback = {
+-		.stream_name = "Analog CPU Playback",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-	.capture = {
+-		.stream_name = "Analog CPU Capture",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-},
+-{
+-	.name = "Alt Analog CPU DAI",
+-	.ops = &skl_link_dai_ops,
+-	.playback = {
+-		.stream_name = "Alt Analog CPU Playback",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-	.capture = {
+-		.stream_name = "Alt Analog CPU Capture",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-},
+-{
+-	.name = "Digital CPU DAI",
+-	.ops = &skl_link_dai_ops,
+-	.playback = {
+-		.stream_name = "Digital CPU Playback",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-	.capture = {
+-		.stream_name = "Digital CPU Capture",
+-		.channels_min = HDA_MONO,
+-		.channels_max = HDA_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+-			SNDRV_PCM_FMTBIT_S32_LE,
+-	},
+-},
+-};
+-
+-int skl_dai_load(struct snd_soc_component *cmp, int index,
+-			struct snd_soc_dai_driver *dai_drv,
+-			struct snd_soc_tplg_pcm *pcm, struct snd_soc_dai *dai)
+-{
+-	dai_drv->ops = &skl_pcm_dai_ops;
+-
+-	return 0;
+-}
+-
+-static int skl_platform_soc_open(struct snd_soc_component *component,
+-				 struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+-	struct snd_soc_dai_link *dai_link = rtd->dai_link;
+-
+-	dev_dbg(snd_soc_rtd_to_cpu(rtd, 0)->dev, "In %s:%s\n", __func__,
+-					dai_link->cpus->dai_name);
+-
+-	snd_soc_set_runtime_hwparams(substream, &azx_pcm_hw);
+-
+-	return 0;
+-}
+-
+-static int skl_coupled_trigger(struct snd_pcm_substream *substream,
+-					int cmd)
+-{
+-	struct hdac_bus *bus = get_bus_ctx(substream);
+-	struct hdac_ext_stream *stream;
+-	struct snd_pcm_substream *s;
+-	bool start;
+-	int sbits = 0;
+-	unsigned long cookie;
+-	struct hdac_stream *hstr;
+-
+-	stream = get_hdac_ext_stream(substream);
+-	hstr = hdac_stream(stream);
+-
+-	dev_dbg(bus->dev, "In %s cmd=%d\n", __func__, cmd);
+-
+-	if (!hstr->prepared)
+-		return -EPIPE;
+-
+-	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_START:
+-	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-	case SNDRV_PCM_TRIGGER_RESUME:
+-		start = true;
+-		break;
+-
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-	case SNDRV_PCM_TRIGGER_STOP:
+-		start = false;
+-		break;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	snd_pcm_group_for_each_entry(s, substream) {
+-		if (s->pcm->card != substream->pcm->card)
+-			continue;
+-		stream = get_hdac_ext_stream(s);
+-		sbits |= 1 << hdac_stream(stream)->index;
+-		snd_pcm_trigger_done(s, substream);
+-	}
+-
+-	spin_lock_irqsave(&bus->reg_lock, cookie);
+-
+-	/* first, set SYNC bits of corresponding streams */
+-	snd_hdac_stream_sync_trigger(hstr, true, sbits, AZX_REG_SSYNC);
+-
+-	snd_pcm_group_for_each_entry(s, substream) {
+-		if (s->pcm->card != substream->pcm->card)
+-			continue;
+-		stream = get_hdac_ext_stream(s);
+-		if (start)
+-			snd_hdac_stream_start(hdac_stream(stream));
+-		else
+-			snd_hdac_stream_stop(hdac_stream(stream));
+-	}
+-	spin_unlock_irqrestore(&bus->reg_lock, cookie);
+-
+-	snd_hdac_stream_sync(hstr, start, sbits);
+-
+-	spin_lock_irqsave(&bus->reg_lock, cookie);
+-
+-	/* reset SYNC bits */
+-	snd_hdac_stream_sync_trigger(hstr, false, sbits, AZX_REG_SSYNC);
+-	if (start)
+-		snd_hdac_stream_timecounter_init(hstr, sbits);
+-	spin_unlock_irqrestore(&bus->reg_lock, cookie);
+-
+-	return 0;
+-}
+-
+-static int skl_platform_soc_trigger(struct snd_soc_component *component,
+-				    struct snd_pcm_substream *substream,
+-				    int cmd)
+-{
+-	struct hdac_bus *bus = get_bus_ctx(substream);
+-
+-	if (!bus->ppcap)
+-		return skl_coupled_trigger(substream, cmd);
+-
+-	return 0;
+-}
+-
+-static snd_pcm_uframes_t skl_platform_soc_pointer(
+-	struct snd_soc_component *component,
+-	struct snd_pcm_substream *substream)
+-{
+-	struct hdac_ext_stream *hstream = get_hdac_ext_stream(substream);
+-	struct hdac_bus *bus = get_bus_ctx(substream);
+-	unsigned int pos;
+-
+-	/*
+-	 * Use DPIB for Playback stream as the periodic DMA Position-in-
+-	 * Buffer Writes may be scheduled at the same time or later than
+-	 * the MSI and does not guarantee to reflect the Position of the
+-	 * last buffer that was transferred. Whereas DPIB register in
+-	 * HAD space reflects the actual data that is transferred.
+-	 * Use the position buffer for capture, as DPIB write gets
+-	 * completed earlier than the actual data written to the DDR.
+-	 *
+-	 * For capture stream following workaround is required to fix the
+-	 * incorrect position reporting.
+-	 *
+-	 * 1. Wait for 20us before reading the DMA position in buffer once
+-	 * the interrupt is generated for stream completion as update happens
+-	 * on the HDA frame boundary i.e. 20.833uSec.
+-	 * 2. Read DPIB register to flush the DMA position value. This dummy
+-	 * read is required to flush DMA position value.
+-	 * 3. Read the DMA Position-in-Buffer. This value now will be equal to
+-	 * or greater than period boundary.
+-	 */
+-
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		pos = readl(bus->remap_addr + AZX_REG_VS_SDXDPIB_XBASE +
+-				(AZX_REG_VS_SDXDPIB_XINTERVAL *
+-				hdac_stream(hstream)->index));
+-	} else {
+-		udelay(20);
+-		readl(bus->remap_addr +
+-				AZX_REG_VS_SDXDPIB_XBASE +
+-				(AZX_REG_VS_SDXDPIB_XINTERVAL *
+-				 hdac_stream(hstream)->index));
+-		pos = snd_hdac_stream_get_pos_posbuf(hdac_stream(hstream));
+-	}
+-
+-	if (pos >= hdac_stream(hstream)->bufsize)
+-		pos = 0;
+-
+-	return bytes_to_frames(substream->runtime, pos);
+-}
+-
+-static u64 skl_adjust_codec_delay(struct snd_pcm_substream *substream,
+-				u64 nsec)
+-{
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+-	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	u64 codec_frames, codec_nsecs;
+-
+-	if (!codec_dai->driver->ops->delay)
+-		return nsec;
+-
+-	codec_frames = codec_dai->driver->ops->delay(substream, codec_dai);
+-	codec_nsecs = div_u64(codec_frames * 1000000000LL,
+-			      substream->runtime->rate);
+-
+-	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
+-		return nsec + codec_nsecs;
+-
+-	return (nsec > codec_nsecs) ? nsec - codec_nsecs : 0;
+-}
+-
+-static int skl_platform_soc_get_time_info(
+-			struct snd_soc_component *component,
+-			struct snd_pcm_substream *substream,
+-			struct timespec64 *system_ts, struct timespec64 *audio_ts,
+-			struct snd_pcm_audio_tstamp_config *audio_tstamp_config,
+-			struct snd_pcm_audio_tstamp_report *audio_tstamp_report)
+-{
+-	struct hdac_ext_stream *sstream = get_hdac_ext_stream(substream);
+-	struct hdac_stream *hstr = hdac_stream(sstream);
+-	u64 nsec;
+-
+-	if ((substream->runtime->hw.info & SNDRV_PCM_INFO_HAS_LINK_ATIME) &&
+-		(audio_tstamp_config->type_requested == SNDRV_PCM_AUDIO_TSTAMP_TYPE_LINK)) {
+-
+-		snd_pcm_gettime(substream->runtime, system_ts);
+-
+-		nsec = timecounter_read(&hstr->tc);
+-		if (audio_tstamp_config->report_delay)
+-			nsec = skl_adjust_codec_delay(substream, nsec);
+-
+-		*audio_ts = ns_to_timespec64(nsec);
+-
+-		audio_tstamp_report->actual_type = SNDRV_PCM_AUDIO_TSTAMP_TYPE_LINK;
+-		audio_tstamp_report->accuracy_report = 1; /* rest of struct is valid */
+-		audio_tstamp_report->accuracy = 42; /* 24MHzWallClk == 42ns resolution */
+-
+-	} else {
+-		audio_tstamp_report->actual_type = SNDRV_PCM_AUDIO_TSTAMP_TYPE_DEFAULT;
+-	}
+-
+-	return 0;
+-}
+-
+-#define MAX_PREALLOC_SIZE	(32 * 1024 * 1024)
+-
+-static int skl_platform_soc_new(struct snd_soc_component *component,
+-				struct snd_soc_pcm_runtime *rtd)
+-{
+-	struct snd_soc_dai *dai = snd_soc_rtd_to_cpu(rtd, 0);
+-	struct hdac_bus *bus = dev_get_drvdata(dai->dev);
+-	struct snd_pcm *pcm = rtd->pcm;
+-	unsigned int size;
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	if (dai->driver->playback.channels_min ||
+-		dai->driver->capture.channels_min) {
+-		/* buffer pre-allocation */
+-		size = CONFIG_SND_HDA_PREALLOC_SIZE * 1024;
+-		if (size > MAX_PREALLOC_SIZE)
+-			size = MAX_PREALLOC_SIZE;
+-		snd_pcm_set_managed_buffer_all(pcm,
+-					       SNDRV_DMA_TYPE_DEV_SG,
+-					       &skl->pci->dev,
+-					       size, MAX_PREALLOC_SIZE);
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_get_module_info(struct skl_dev *skl,
+-		struct skl_module_cfg *mconfig)
+-{
+-	struct skl_module_inst_id *pin_id;
+-	guid_t *uuid_mod, *uuid_tplg;
+-	struct skl_module *skl_module;
+-	struct uuid_module *module;
+-	int i, ret = -EIO;
+-
+-	uuid_mod = (guid_t *)mconfig->guid;
+-
+-	if (list_empty(&skl->uuid_list)) {
+-		dev_err(skl->dev, "Module list is empty\n");
+-		return -EIO;
+-	}
+-
+-	for (i = 0; i < skl->nr_modules; i++) {
+-		skl_module = skl->modules[i];
+-		uuid_tplg = &skl_module->uuid;
+-		if (guid_equal(uuid_mod, uuid_tplg)) {
+-			mconfig->module = skl_module;
+-			ret = 0;
+-			break;
+-		}
+-	}
+-
+-	if (skl->nr_modules && ret)
+-		return ret;
+-
+-	ret = -EIO;
+-	list_for_each_entry(module, &skl->uuid_list, list) {
+-		if (guid_equal(uuid_mod, &module->uuid)) {
+-			mconfig->id.module_id = module->id;
+-			mconfig->module->loadable = module->is_loadable;
+-			ret = 0;
+-		}
+-
+-		for (i = 0; i < MAX_IN_QUEUE; i++) {
+-			pin_id = &mconfig->m_in_pin[i].id;
+-			if (guid_equal(&pin_id->mod_uuid, &module->uuid))
+-				pin_id->module_id = module->id;
+-		}
+-
+-		for (i = 0; i < MAX_OUT_QUEUE; i++) {
+-			pin_id = &mconfig->m_out_pin[i].id;
+-			if (guid_equal(&pin_id->mod_uuid, &module->uuid))
+-				pin_id->module_id = module->id;
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-static int skl_populate_modules(struct skl_dev *skl)
+-{
+-	struct skl_pipeline *p;
+-	struct skl_pipe_module *m;
+-	struct snd_soc_dapm_widget *w;
+-	struct skl_module_cfg *mconfig;
+-	int ret = 0;
+-
+-	list_for_each_entry(p, &skl->ppl_list, node) {
+-		list_for_each_entry(m, &p->pipe->w_list, node) {
+-			w = m->w;
+-			mconfig = w->priv;
+-
+-			ret = skl_get_module_info(skl, mconfig);
+-			if (ret < 0) {
+-				dev_err(skl->dev,
+-					"query module info failed\n");
+-				return ret;
+-			}
+-
+-			skl_tplg_add_moduleid_in_bind_params(skl, w);
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-static int skl_platform_soc_probe(struct snd_soc_component *component)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(component->dev);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	const struct skl_dsp_ops *ops;
+-	int ret;
+-
+-	ret = pm_runtime_resume_and_get(component->dev);
+-	if (ret < 0 && ret != -EACCES)
+-		return ret;
+-
+-	if (bus->ppcap) {
+-		skl->component = component;
+-
+-		/* init debugfs */
+-		skl->debugfs = skl_debugfs_init(skl);
+-
+-		ret = skl_tplg_init(component, bus);
+-		if (ret < 0) {
+-			dev_err(component->dev, "Failed to init topology!\n");
+-			return ret;
+-		}
+-
+-		/* load the firmwares, since all is set */
+-		ops = skl_get_dsp_ops(skl->pci->device);
+-		if (!ops)
+-			return -EIO;
+-
+-		/*
+-		 * Disable dynamic clock and power gating during firmware
+-		 * and library download
+-		 */
+-		skl->enable_miscbdcge(component->dev, false);
+-		skl->clock_power_gating(component->dev, false);
+-
+-		ret = ops->init_fw(component->dev, skl);
+-		skl->enable_miscbdcge(component->dev, true);
+-		skl->clock_power_gating(component->dev, true);
+-		if (ret < 0) {
+-			dev_err(component->dev, "Failed to boot first fw: %d\n", ret);
+-			return ret;
+-		}
+-		skl_populate_modules(skl);
+-		skl->update_d0i3c = skl_update_d0i3c;
+-
+-		if (skl->cfg.astate_cfg != NULL) {
+-			skl_dsp_set_astate_cfg(skl,
+-					skl->cfg.astate_cfg->count,
+-					skl->cfg.astate_cfg);
+-		}
+-	}
+-	pm_runtime_mark_last_busy(component->dev);
+-	pm_runtime_put_autosuspend(component->dev);
+-
+-	return 0;
+-}
+-
+-static void skl_platform_soc_remove(struct snd_soc_component *component)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(component->dev);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	skl_tplg_exit(component, bus);
+-
+-	skl_debugfs_exit(skl);
+-}
+-
+-static const struct snd_soc_component_driver skl_component  = {
+-	.name		= "pcm",
+-	.probe		= skl_platform_soc_probe,
+-	.remove		= skl_platform_soc_remove,
+-	.open		= skl_platform_soc_open,
+-	.trigger	= skl_platform_soc_trigger,
+-	.pointer	= skl_platform_soc_pointer,
+-	.get_time_info	= skl_platform_soc_get_time_info,
+-	.pcm_construct	= skl_platform_soc_new,
+-	.module_get_upon_open = 1, /* increment refcount when a pcm is opened */
+-};
+-
+-int skl_platform_register(struct device *dev)
+-{
+-	int ret;
+-	struct snd_soc_dai_driver *dais;
+-	int num_dais = ARRAY_SIZE(skl_platform_dai);
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	skl->dais = kmemdup(skl_platform_dai, sizeof(skl_platform_dai),
+-			    GFP_KERNEL);
+-	if (!skl->dais) {
+-		ret = -ENOMEM;
+-		goto err;
+-	}
+-
+-	if (!skl->use_tplg_pcm) {
+-		dais = krealloc(skl->dais, sizeof(skl_fe_dai) +
+-				sizeof(skl_platform_dai), GFP_KERNEL);
+-		if (!dais) {
+-			kfree(skl->dais);
+-			ret = -ENOMEM;
+-			goto err;
+-		}
+-
+-		skl->dais = dais;
+-		memcpy(&skl->dais[ARRAY_SIZE(skl_platform_dai)], skl_fe_dai,
+-		       sizeof(skl_fe_dai));
+-		num_dais += ARRAY_SIZE(skl_fe_dai);
+-	}
+-
+-	ret = devm_snd_soc_register_component(dev, &skl_component,
+-					 skl->dais, num_dais);
+-	if (ret) {
+-		kfree(skl->dais);
+-		dev_err(dev, "soc component registration failed %d\n", ret);
+-	}
+-err:
+-	return ret;
+-}
+-
+-int skl_platform_unregister(struct device *dev)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct skl_module_deferred_bind *modules, *tmp;
+-
+-	list_for_each_entry_safe(modules, tmp, &skl->bind_list, node) {
+-		list_del(&modules->node);
+-		kfree(modules);
+-	}
+-
+-	kfree(skl->dais);
+-
+-	return 0;
+-}
+diff --git a/sound/soc/intel/skylake/skl-ssp-clk.c b/sound/soc/intel/skylake/skl-ssp-clk.c
+deleted file mode 100644
+index 50e93c3707e8..000000000000
+--- a/sound/soc/intel/skylake/skl-ssp-clk.c
++++ /dev/null
+@@ -1,428 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-// Copyright(c) 2015-17 Intel Corporation
+-
+-/*
+- *  skl-ssp-clk.c - ASoC skylake ssp clock driver
+- */
+-
+-#include <linux/kernel.h>
+-#include <linux/module.h>
+-#include <linux/err.h>
+-#include <linux/platform_device.h>
+-#include <linux/clk-provider.h>
+-#include <linux/clkdev.h>
+-#include <sound/intel-nhlt.h>
+-#include "skl.h"
+-#include "skl-ssp-clk.h"
+-#include "skl-topology.h"
+-
+-#define to_skl_clk(_hw)	container_of(_hw, struct skl_clk, hw)
+-
+-struct skl_clk_parent {
+-	struct clk_hw *hw;
+-	struct clk_lookup *lookup;
+-};
+-
+-struct skl_clk {
+-	struct clk_hw hw;
+-	struct clk_lookup *lookup;
+-	unsigned long rate;
+-	struct skl_clk_pdata *pdata;
+-	u32 id;
+-};
+-
+-struct skl_clk_data {
+-	struct skl_clk_parent parent[SKL_MAX_CLK_SRC];
+-	struct skl_clk *clk[SKL_MAX_CLK_CNT];
+-	u8 avail_clk_cnt;
+-};
+-
+-static int skl_get_clk_type(u32 index)
+-{
+-	switch (index) {
+-	case 0 ... (SKL_SCLK_OFS - 1):
+-		return SKL_MCLK;
+-
+-	case SKL_SCLK_OFS ... (SKL_SCLKFS_OFS - 1):
+-		return SKL_SCLK;
+-
+-	case SKL_SCLKFS_OFS ... (SKL_MAX_CLK_CNT - 1):
+-		return SKL_SCLK_FS;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-}
+-
+-static int skl_get_vbus_id(u32 index, u8 clk_type)
+-{
+-	switch (clk_type) {
+-	case SKL_MCLK:
+-		return index;
+-
+-	case SKL_SCLK:
+-		return index - SKL_SCLK_OFS;
+-
+-	case SKL_SCLK_FS:
+-		return index - SKL_SCLKFS_OFS;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-}
+-
+-static void skl_fill_clk_ipc(struct skl_clk_rate_cfg_table *rcfg, u8 clk_type)
+-{
+-	struct nhlt_fmt_cfg *fmt_cfg;
+-	union skl_clk_ctrl_ipc *ipc;
+-	struct wav_fmt *wfmt;
+-
+-	if (!rcfg)
+-		return;
+-
+-	ipc = &rcfg->dma_ctl_ipc;
+-	if (clk_type == SKL_SCLK_FS) {
+-		fmt_cfg = (struct nhlt_fmt_cfg *)rcfg->config;
+-		wfmt = &fmt_cfg->fmt_ext.fmt;
+-
+-		/* Remove TLV Header size */
+-		ipc->sclk_fs.hdr.size = sizeof(struct skl_dmactrl_sclkfs_cfg) -
+-						sizeof(struct skl_tlv_hdr);
+-		ipc->sclk_fs.sampling_frequency = wfmt->samples_per_sec;
+-		ipc->sclk_fs.bit_depth = wfmt->bits_per_sample;
+-		ipc->sclk_fs.valid_bit_depth =
+-			fmt_cfg->fmt_ext.sample.valid_bits_per_sample;
+-		ipc->sclk_fs.number_of_channels = wfmt->channels;
+-	} else {
+-		ipc->mclk.hdr.type = DMA_CLK_CONTROLS;
+-		/* Remove TLV Header size */
+-		ipc->mclk.hdr.size = sizeof(struct skl_dmactrl_mclk_cfg) -
+-						sizeof(struct skl_tlv_hdr);
+-	}
+-}
+-
+-/* Sends dma control IPC to turn the clock ON/OFF */
+-static int skl_send_clk_dma_control(struct skl_dev *skl,
+-				struct skl_clk_rate_cfg_table *rcfg,
+-				u32 vbus_id, u8 clk_type,
+-				bool enable)
+-{
+-	struct nhlt_specific_cfg *sp_cfg;
+-	u32 i2s_config_size, node_id = 0;
+-	struct nhlt_fmt_cfg *fmt_cfg;
+-	union skl_clk_ctrl_ipc *ipc;
+-	void *i2s_config = NULL;
+-	u8 *data, size;
+-	int ret;
+-
+-	if (!rcfg)
+-		return -EIO;
+-
+-	ipc = &rcfg->dma_ctl_ipc;
+-	fmt_cfg = (struct nhlt_fmt_cfg *)rcfg->config;
+-	sp_cfg = &fmt_cfg->config;
+-
+-	if (clk_type == SKL_SCLK_FS) {
+-		ipc->sclk_fs.hdr.type =
+-			enable ? DMA_TRANSMITION_START : DMA_TRANSMITION_STOP;
+-		data = (u8 *)&ipc->sclk_fs;
+-		size = sizeof(struct skl_dmactrl_sclkfs_cfg);
+-	} else {
+-		/* 1 to enable mclk, 0 to enable sclk */
+-		if (clk_type == SKL_SCLK)
+-			ipc->mclk.mclk = 0;
+-		else
+-			ipc->mclk.mclk = 1;
+-
+-		ipc->mclk.keep_running = enable;
+-		ipc->mclk.warm_up_over = enable;
+-		ipc->mclk.clk_stop_over = !enable;
+-		data = (u8 *)&ipc->mclk;
+-		size = sizeof(struct skl_dmactrl_mclk_cfg);
+-	}
+-
+-	i2s_config_size = sp_cfg->size + size;
+-	i2s_config = kzalloc(i2s_config_size, GFP_KERNEL);
+-	if (!i2s_config)
+-		return -ENOMEM;
+-
+-	/* copy blob */
+-	memcpy(i2s_config, sp_cfg->caps, sp_cfg->size);
+-
+-	/* copy additional dma controls information */
+-	memcpy(i2s_config + sp_cfg->size, data, size);
+-
+-	node_id = ((SKL_DMA_I2S_LINK_INPUT_CLASS << 8) | (vbus_id << 4));
+-	ret = skl_dsp_set_dma_control(skl, (u32 *)i2s_config,
+-					i2s_config_size, node_id);
+-	kfree(i2s_config);
+-
+-	return ret;
+-}
+-
+-static struct skl_clk_rate_cfg_table *skl_get_rate_cfg(
+-		struct skl_clk_rate_cfg_table *rcfg,
+-				unsigned long rate)
+-{
+-	int i;
+-
+-	for (i = 0; (i < SKL_MAX_CLK_RATES) && rcfg[i].rate; i++) {
+-		if (rcfg[i].rate == rate)
+-			return &rcfg[i];
+-	}
+-
+-	return NULL;
+-}
+-
+-static int skl_clk_change_status(struct skl_clk *clkdev,
+-				bool enable)
+-{
+-	struct skl_clk_rate_cfg_table *rcfg;
+-	int vbus_id, clk_type;
+-
+-	clk_type = skl_get_clk_type(clkdev->id);
+-	if (clk_type < 0)
+-		return clk_type;
+-
+-	vbus_id = skl_get_vbus_id(clkdev->id, clk_type);
+-	if (vbus_id < 0)
+-		return vbus_id;
+-
+-	rcfg = skl_get_rate_cfg(clkdev->pdata->ssp_clks[clkdev->id].rate_cfg,
+-						clkdev->rate);
+-	if (!rcfg)
+-		return -EINVAL;
+-
+-	return skl_send_clk_dma_control(clkdev->pdata->pvt_data, rcfg,
+-					vbus_id, clk_type, enable);
+-}
+-
+-static int skl_clk_prepare(struct clk_hw *hw)
+-{
+-	struct skl_clk *clkdev = to_skl_clk(hw);
+-
+-	return skl_clk_change_status(clkdev, true);
+-}
+-
+-static void skl_clk_unprepare(struct clk_hw *hw)
+-{
+-	struct skl_clk *clkdev = to_skl_clk(hw);
+-
+-	skl_clk_change_status(clkdev, false);
+-}
+-
+-static int skl_clk_set_rate(struct clk_hw *hw, unsigned long rate,
+-					unsigned long parent_rate)
+-{
+-	struct skl_clk *clkdev = to_skl_clk(hw);
+-	struct skl_clk_rate_cfg_table *rcfg;
+-	int clk_type;
+-
+-	if (!rate)
+-		return -EINVAL;
+-
+-	rcfg = skl_get_rate_cfg(clkdev->pdata->ssp_clks[clkdev->id].rate_cfg,
+-							rate);
+-	if (!rcfg)
+-		return -EINVAL;
+-
+-	clk_type = skl_get_clk_type(clkdev->id);
+-	if (clk_type < 0)
+-		return clk_type;
+-
+-	skl_fill_clk_ipc(rcfg, clk_type);
+-	clkdev->rate = rate;
+-
+-	return 0;
+-}
+-
+-static unsigned long skl_clk_recalc_rate(struct clk_hw *hw,
+-				unsigned long parent_rate)
+-{
+-	struct skl_clk *clkdev = to_skl_clk(hw);
+-
+-	if (clkdev->rate)
+-		return clkdev->rate;
+-
+-	return 0;
+-}
+-
+-/* Not supported by clk driver. Implemented to satisfy clk fw */
+-static long skl_clk_round_rate(struct clk_hw *hw, unsigned long rate,
+-			       unsigned long *parent_rate)
+-{
+-	return rate;
+-}
+-
+-/*
+- * prepare/unprepare are used instead of enable/disable as IPC will be sent
+- * in non-atomic context.
+- */
+-static const struct clk_ops skl_clk_ops = {
+-	.prepare = skl_clk_prepare,
+-	.unprepare = skl_clk_unprepare,
+-	.set_rate = skl_clk_set_rate,
+-	.round_rate = skl_clk_round_rate,
+-	.recalc_rate = skl_clk_recalc_rate,
+-};
+-
+-static void unregister_parent_src_clk(struct skl_clk_parent *pclk,
+-					unsigned int id)
+-{
+-	while (id--) {
+-		clkdev_drop(pclk[id].lookup);
+-		clk_hw_unregister_fixed_rate(pclk[id].hw);
+-	}
+-}
+-
+-static void unregister_src_clk(struct skl_clk_data *dclk)
+-{
+-	while (dclk->avail_clk_cnt--)
+-		clkdev_drop(dclk->clk[dclk->avail_clk_cnt]->lookup);
+-}
+-
+-static int skl_register_parent_clks(struct device *dev,
+-			struct skl_clk_parent *parent,
+-			struct skl_clk_parent_src *pclk)
+-{
+-	int i, ret;
+-
+-	for (i = 0; i < SKL_MAX_CLK_SRC; i++) {
+-
+-		/* Register Parent clock */
+-		parent[i].hw = clk_hw_register_fixed_rate(dev, pclk[i].name,
+-				pclk[i].parent_name, 0, pclk[i].rate);
+-		if (IS_ERR(parent[i].hw)) {
+-			ret = PTR_ERR(parent[i].hw);
+-			goto err;
+-		}
+-
+-		parent[i].lookup = clkdev_hw_create(parent[i].hw, pclk[i].name,
+-									NULL);
+-		if (!parent[i].lookup) {
+-			clk_hw_unregister_fixed_rate(parent[i].hw);
+-			ret = -ENOMEM;
+-			goto err;
+-		}
+-	}
+-
+-	return 0;
+-err:
+-	unregister_parent_src_clk(parent, i);
+-	return ret;
+-}
+-
+-/* Assign fmt_config to clk_data */
+-static struct skl_clk *register_skl_clk(struct device *dev,
+-			struct skl_ssp_clk *clk,
+-			struct skl_clk_pdata *clk_pdata, int id)
+-{
+-	struct clk_init_data init;
+-	struct skl_clk *clkdev;
+-	int ret;
+-
+-	clkdev = devm_kzalloc(dev, sizeof(*clkdev), GFP_KERNEL);
+-	if (!clkdev)
+-		return ERR_PTR(-ENOMEM);
+-
+-	init.name = clk->name;
+-	init.ops = &skl_clk_ops;
+-	init.flags = CLK_SET_RATE_GATE;
+-	init.parent_names = &clk->parent_name;
+-	init.num_parents = 1;
+-	clkdev->hw.init = &init;
+-	clkdev->pdata = clk_pdata;
+-
+-	clkdev->id = id;
+-	ret = devm_clk_hw_register(dev, &clkdev->hw);
+-	if (ret) {
+-		clkdev = ERR_PTR(ret);
+-		return clkdev;
+-	}
+-
+-	clkdev->lookup = clkdev_hw_create(&clkdev->hw, init.name, NULL);
+-	if (!clkdev->lookup)
+-		clkdev = ERR_PTR(-ENOMEM);
+-
+-	return clkdev;
+-}
+-
+-static int skl_clk_dev_probe(struct platform_device *pdev)
+-{
+-	struct device *dev = &pdev->dev;
+-	struct device *parent_dev = dev->parent;
+-	struct skl_clk_parent_src *parent_clks;
+-	struct skl_clk_pdata *clk_pdata;
+-	struct skl_clk_data *data;
+-	struct skl_ssp_clk *clks;
+-	int ret, i;
+-
+-	clk_pdata = dev_get_platdata(&pdev->dev);
+-	parent_clks = clk_pdata->parent_clks;
+-	clks = clk_pdata->ssp_clks;
+-	if (!parent_clks || !clks)
+-		return -EIO;
+-
+-	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+-	if (!data)
+-		return -ENOMEM;
+-
+-	/* Register Parent clock */
+-	ret = skl_register_parent_clks(parent_dev, data->parent, parent_clks);
+-	if (ret < 0)
+-		return ret;
+-
+-	for (i = 0; i < clk_pdata->num_clks; i++) {
+-		/*
+-		 * Only register valid clocks
+-		 * i.e. for which nhlt entry is present.
+-		 */
+-		if (clks[i].rate_cfg[0].rate == 0)
+-			continue;
+-
+-		data->clk[data->avail_clk_cnt] = register_skl_clk(dev,
+-				&clks[i], clk_pdata, i);
+-
+-		if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+-			ret = PTR_ERR(data->clk[data->avail_clk_cnt]);
+-			goto err_unreg_skl_clk;
+-		}
+-
+-		data->avail_clk_cnt++;
+-	}
+-
+-	platform_set_drvdata(pdev, data);
+-
+-	return 0;
+-
+-err_unreg_skl_clk:
+-	unregister_src_clk(data);
+-	unregister_parent_src_clk(data->parent, SKL_MAX_CLK_SRC);
+-
+-	return ret;
+-}
+-
+-static void skl_clk_dev_remove(struct platform_device *pdev)
+-{
+-	struct skl_clk_data *data;
+-
+-	data = platform_get_drvdata(pdev);
+-	unregister_src_clk(data);
+-	unregister_parent_src_clk(data->parent, SKL_MAX_CLK_SRC);
+-}
+-
+-static struct platform_driver skl_clk_driver = {
+-	.driver = {
+-		.name = "skl-ssp-clk",
+-	},
+-	.probe = skl_clk_dev_probe,
+-	.remove_new = skl_clk_dev_remove,
+-};
+-
+-module_platform_driver(skl_clk_driver);
+-
+-MODULE_DESCRIPTION("Skylake clock driver");
+-MODULE_AUTHOR("Jaikrishna Nemallapudi <jaikrishnax.nemallapudi@intel.com>");
+-MODULE_AUTHOR("Subhransu S. Prusty <subhransu.s.prusty@intel.com>");
+-MODULE_LICENSE("GPL v2");
+-MODULE_ALIAS("platform:skl-ssp-clk");
+diff --git a/sound/soc/intel/skylake/skl-ssp-clk.h b/sound/soc/intel/skylake/skl-ssp-clk.h
+deleted file mode 100644
+index b7852c7f277b..000000000000
+--- a/sound/soc/intel/skylake/skl-ssp-clk.h
++++ /dev/null
+@@ -1,108 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  skl-ssp-clk.h - Skylake ssp clock information and ipc structure
+- *
+- *  Copyright (C) 2017 Intel Corp
+- *  Author: Jaikrishna Nemallapudi <jaikrishnax.nemallapudi@intel.com>
+- *  Author: Subhransu S. Prusty <subhransu.s.prusty@intel.com>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#ifndef SOUND_SOC_SKL_SSP_CLK_H
+-#define SOUND_SOC_SKL_SSP_CLK_H
+-
+-#define SKL_MAX_SSP		6
+-/* xtal/cardinal/pll, parent of ssp clocks and mclk */
+-#define SKL_MAX_CLK_SRC		3
+-#define SKL_MAX_SSP_CLK_TYPES	3 /* mclk, sclk, sclkfs */
+-
+-#define SKL_MAX_CLK_CNT		(SKL_MAX_SSP * SKL_MAX_SSP_CLK_TYPES)
+-
+-/* Max number of configurations supported for each clock */
+-#define SKL_MAX_CLK_RATES	10
+-
+-#define SKL_SCLK_OFS		SKL_MAX_SSP
+-#define SKL_SCLKFS_OFS		(SKL_SCLK_OFS + SKL_MAX_SSP)
+-
+-enum skl_clk_type {
+-	SKL_MCLK,
+-	SKL_SCLK,
+-	SKL_SCLK_FS,
+-};
+-
+-enum skl_clk_src_type {
+-	SKL_XTAL,
+-	SKL_CARDINAL,
+-	SKL_PLL,
+-};
+-
+-struct skl_clk_parent_src {
+-	u8 clk_id;
+-	const char *name;
+-	unsigned long rate;
+-	const char *parent_name;
+-};
+-
+-struct skl_tlv_hdr {
+-	u32 type;
+-	u32 size;
+-};
+-
+-struct skl_dmactrl_mclk_cfg {
+-	struct skl_tlv_hdr hdr;
+-	/* DMA Clk TLV params */
+-	u32 clk_warm_up:16;
+-	u32 mclk:1;
+-	u32 warm_up_over:1;
+-	u32 rsvd0:14;
+-	u32 clk_stop_delay:16;
+-	u32 keep_running:1;
+-	u32 clk_stop_over:1;
+-	u32 rsvd1:14;
+-};
+-
+-struct skl_dmactrl_sclkfs_cfg {
+-	struct skl_tlv_hdr hdr;
+-	/* DMA SClk&FS  TLV params */
+-	u32 sampling_frequency;
+-	u32 bit_depth;
+-	u32 channel_map;
+-	u32 channel_config;
+-	u32 interleaving_style;
+-	u32 number_of_channels : 8;
+-	u32 valid_bit_depth : 8;
+-	u32 sample_type : 8;
+-	u32 reserved : 8;
+-};
+-
+-union skl_clk_ctrl_ipc {
+-	struct skl_dmactrl_mclk_cfg mclk;
+-	struct skl_dmactrl_sclkfs_cfg sclk_fs;
+-};
+-
+-struct skl_clk_rate_cfg_table {
+-	unsigned long rate;
+-	union skl_clk_ctrl_ipc dma_ctl_ipc;
+-	void *config;
+-};
+-
+-/*
+- * rate for mclk will be in rates[0]. For sclk and sclkfs, rates[] store
+- * all possible clocks ssp can generate for that platform.
+- */
+-struct skl_ssp_clk {
+-	const char *name;
+-	const char *parent_name;
+-	struct skl_clk_rate_cfg_table rate_cfg[SKL_MAX_CLK_RATES];
+-};
+-
+-struct skl_clk_pdata {
+-	struct skl_clk_parent_src *parent_clks;
+-	int num_clks;
+-	struct skl_ssp_clk *ssp_clks;
+-	void *pvt_data;
+-};
+-
+-#endif /* SOUND_SOC_SKL_SSP_CLK_H */
+diff --git a/sound/soc/intel/skylake/skl-sst-cldma.c b/sound/soc/intel/skylake/skl-sst-cldma.c
+deleted file mode 100644
+index b0204ea00f07..000000000000
+--- a/sound/soc/intel/skylake/skl-sst-cldma.c
++++ /dev/null
+@@ -1,373 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * skl-sst-cldma.c - Code Loader DMA handler
+- *
+- * Copyright (C) 2015, Intel Corporation.
+- * Author: Subhransu S. Prusty <subhransu.s.prusty@intel.com>
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#include <linux/device.h>
+-#include <linux/io.h>
+-#include <linux/mm.h>
+-#include <linux/delay.h>
+-#include <sound/hda_register.h>
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-
+-static void skl_cldma_int_enable(struct sst_dsp *ctx)
+-{
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_ADSPIC,
+-				SKL_ADSPIC_CL_DMA, SKL_ADSPIC_CL_DMA);
+-}
+-
+-void skl_cldma_int_disable(struct sst_dsp *ctx)
+-{
+-	sst_dsp_shim_update_bits_unlocked(ctx,
+-			SKL_ADSP_REG_ADSPIC, SKL_ADSPIC_CL_DMA, 0);
+-}
+-
+-static void skl_cldma_stream_run(struct sst_dsp  *ctx, bool enable)
+-{
+-	unsigned char val;
+-	int timeout;
+-
+-	sst_dsp_shim_update_bits_unlocked(ctx,
+-			SKL_ADSP_REG_CL_SD_CTL,
+-			CL_SD_CTL_RUN_MASK, CL_SD_CTL_RUN(enable));
+-
+-	udelay(3);
+-	timeout = 300;
+-	do {
+-		/* waiting for hardware to report that the stream Run bit set */
+-		val = sst_dsp_shim_read(ctx, SKL_ADSP_REG_CL_SD_CTL) &
+-			CL_SD_CTL_RUN_MASK;
+-		if (enable && val)
+-			break;
+-		else if (!enable && !val)
+-			break;
+-		udelay(3);
+-	} while (--timeout);
+-
+-	if (timeout == 0)
+-		dev_err(ctx->dev, "Failed to set Run bit=%d enable=%d\n", val, enable);
+-}
+-
+-static void skl_cldma_stream_clear(struct sst_dsp  *ctx)
+-{
+-	/* make sure Run bit is cleared before setting stream register */
+-	skl_cldma_stream_run(ctx, 0);
+-
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-				CL_SD_CTL_IOCE_MASK, CL_SD_CTL_IOCE(0));
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-				CL_SD_CTL_FEIE_MASK, CL_SD_CTL_FEIE(0));
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-				CL_SD_CTL_DEIE_MASK, CL_SD_CTL_DEIE(0));
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-				CL_SD_CTL_STRM_MASK, CL_SD_CTL_STRM(0));
+-
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_BDLPL, CL_SD_BDLPLBA(0));
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_BDLPU, 0);
+-
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_CBL, 0);
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_LVI, 0);
+-}
+-
+-/* Code loader helper APIs */
+-static void skl_cldma_setup_bdle(struct sst_dsp *ctx,
+-		struct snd_dma_buffer *dmab_data,
+-		__le32 **bdlp, int size, int with_ioc)
+-{
+-	__le32 *bdl = *bdlp;
+-	int remaining = ctx->cl_dev.bufsize;
+-	int offset = 0;
+-
+-	ctx->cl_dev.frags = 0;
+-	while (remaining > 0) {
+-		phys_addr_t addr;
+-		int chunk;
+-
+-		addr = snd_sgbuf_get_addr(dmab_data, offset);
+-		bdl[0] = cpu_to_le32(lower_32_bits(addr));
+-		bdl[1] = cpu_to_le32(upper_32_bits(addr));
+-		chunk = snd_sgbuf_get_chunk_size(dmab_data, offset, size);
+-		bdl[2] = cpu_to_le32(chunk);
+-
+-		remaining -= chunk;
+-		bdl[3] = (remaining > 0) ? 0 : cpu_to_le32(0x01);
+-
+-		bdl += 4;
+-		offset += chunk;
+-		ctx->cl_dev.frags++;
+-	}
+-}
+-
+-/*
+- * Setup controller
+- * Configure the registers to update the dma buffer address and
+- * enable interrupts.
+- * Note: Using the channel 1 for transfer
+- */
+-static void skl_cldma_setup_controller(struct sst_dsp  *ctx,
+-		struct snd_dma_buffer *dmab_bdl, unsigned int max_size,
+-		u32 count)
+-{
+-	skl_cldma_stream_clear(ctx);
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_BDLPL,
+-			CL_SD_BDLPLBA(dmab_bdl->addr));
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_BDLPU,
+-			CL_SD_BDLPUBA(dmab_bdl->addr));
+-
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_CBL, max_size);
+-	sst_dsp_shim_write(ctx, SKL_ADSP_REG_CL_SD_LVI, count - 1);
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-			CL_SD_CTL_IOCE_MASK, CL_SD_CTL_IOCE(1));
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-			CL_SD_CTL_FEIE_MASK, CL_SD_CTL_FEIE(1));
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-			CL_SD_CTL_DEIE_MASK, CL_SD_CTL_DEIE(1));
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_CL_SD_CTL,
+-			CL_SD_CTL_STRM_MASK, CL_SD_CTL_STRM(FW_CL_STREAM_NUMBER));
+-}
+-
+-static void skl_cldma_setup_spb(struct sst_dsp  *ctx,
+-		unsigned int size, bool enable)
+-{
+-	if (enable)
+-		sst_dsp_shim_update_bits_unlocked(ctx,
+-				SKL_ADSP_REG_CL_SPBFIFO_SPBFCCTL,
+-				CL_SPBFIFO_SPBFCCTL_SPIBE_MASK,
+-				CL_SPBFIFO_SPBFCCTL_SPIBE(1));
+-
+-	sst_dsp_shim_write_unlocked(ctx, SKL_ADSP_REG_CL_SPBFIFO_SPIB, size);
+-}
+-
+-static void skl_cldma_cleanup_spb(struct sst_dsp  *ctx)
+-{
+-	sst_dsp_shim_update_bits_unlocked(ctx,
+-			SKL_ADSP_REG_CL_SPBFIFO_SPBFCCTL,
+-			CL_SPBFIFO_SPBFCCTL_SPIBE_MASK,
+-			CL_SPBFIFO_SPBFCCTL_SPIBE(0));
+-
+-	sst_dsp_shim_write_unlocked(ctx, SKL_ADSP_REG_CL_SPBFIFO_SPIB, 0);
+-}
+-
+-static void skl_cldma_cleanup(struct sst_dsp  *ctx)
+-{
+-	skl_cldma_cleanup_spb(ctx);
+-	skl_cldma_stream_clear(ctx);
+-
+-	ctx->dsp_ops.free_dma_buf(ctx->dev, &ctx->cl_dev.dmab_data);
+-	ctx->dsp_ops.free_dma_buf(ctx->dev, &ctx->cl_dev.dmab_bdl);
+-}
+-
+-int skl_cldma_wait_interruptible(struct sst_dsp *ctx)
+-{
+-	int ret = 0;
+-
+-	if (!wait_event_timeout(ctx->cl_dev.wait_queue,
+-				ctx->cl_dev.wait_condition,
+-				msecs_to_jiffies(SKL_WAIT_TIMEOUT))) {
+-		dev_err(ctx->dev, "%s: Wait timeout\n", __func__);
+-		ret = -EIO;
+-		goto cleanup;
+-	}
+-
+-	dev_dbg(ctx->dev, "%s: Event wake\n", __func__);
+-	if (ctx->cl_dev.wake_status != SKL_CL_DMA_BUF_COMPLETE) {
+-		dev_err(ctx->dev, "%s: DMA Error\n", __func__);
+-		ret = -EIO;
+-	}
+-
+-cleanup:
+-	ctx->cl_dev.wake_status = SKL_CL_DMA_STATUS_NONE;
+-	return ret;
+-}
+-
+-static void skl_cldma_stop(struct sst_dsp *ctx)
+-{
+-	skl_cldma_stream_run(ctx, false);
+-}
+-
+-static void skl_cldma_fill_buffer(struct sst_dsp *ctx, unsigned int size,
+-		const void *curr_pos, bool intr_enable, bool trigger)
+-{
+-	dev_dbg(ctx->dev, "Size: %x, intr_enable: %d\n", size, intr_enable);
+-	dev_dbg(ctx->dev, "buf_pos_index:%d, trigger:%d\n",
+-			ctx->cl_dev.dma_buffer_offset, trigger);
+-	dev_dbg(ctx->dev, "spib position: %d\n", ctx->cl_dev.curr_spib_pos);
+-
+-	/*
+-	 * Check if the size exceeds buffer boundary. If it exceeds
+-	 * max_buffer size, then copy till buffer size and then copy
+-	 * remaining buffer from the start of ring buffer.
+-	 */
+-	if (ctx->cl_dev.dma_buffer_offset + size > ctx->cl_dev.bufsize) {
+-		unsigned int size_b = ctx->cl_dev.bufsize -
+-					ctx->cl_dev.dma_buffer_offset;
+-		memcpy(ctx->cl_dev.dmab_data.area + ctx->cl_dev.dma_buffer_offset,
+-			curr_pos, size_b);
+-		size -= size_b;
+-		curr_pos += size_b;
+-		ctx->cl_dev.dma_buffer_offset = 0;
+-	}
+-
+-	memcpy(ctx->cl_dev.dmab_data.area + ctx->cl_dev.dma_buffer_offset,
+-			curr_pos, size);
+-
+-	if (ctx->cl_dev.curr_spib_pos == ctx->cl_dev.bufsize)
+-		ctx->cl_dev.dma_buffer_offset = 0;
+-	else
+-		ctx->cl_dev.dma_buffer_offset = ctx->cl_dev.curr_spib_pos;
+-
+-	ctx->cl_dev.wait_condition = false;
+-
+-	if (intr_enable)
+-		skl_cldma_int_enable(ctx);
+-
+-	ctx->cl_dev.ops.cl_setup_spb(ctx, ctx->cl_dev.curr_spib_pos, trigger);
+-	if (trigger)
+-		ctx->cl_dev.ops.cl_trigger(ctx, true);
+-}
+-
+-/*
+- * The CL dma doesn't have any way to update the transfer status until a BDL
+- * buffer is fully transferred
+- *
+- * So Copying is divided in two parts.
+- * 1. Interrupt on buffer done where the size to be transferred is more than
+- *    ring buffer size.
+- * 2. Polling on fw register to identify if data left to transferred doesn't
+- *    fill the ring buffer. Caller takes care of polling the required status
+- *    register to identify the transfer status.
+- * 3. if wait flag is set, waits for DBL interrupt to copy the next chunk till
+- *    bytes_left is 0.
+- *    if wait flag is not set, doesn't wait for BDL interrupt. after ccopying
+- *    the first chunk return the no of bytes_left to be copied.
+- */
+-static int
+-skl_cldma_copy_to_buf(struct sst_dsp *ctx, const void *bin,
+-			u32 total_size, bool wait)
+-{
+-	int ret;
+-	bool start = true;
+-	unsigned int excess_bytes;
+-	u32 size;
+-	unsigned int bytes_left = total_size;
+-	const void *curr_pos = bin;
+-
+-	if (total_size <= 0)
+-		return -EINVAL;
+-
+-	dev_dbg(ctx->dev, "%s: Total binary size: %u\n", __func__, bytes_left);
+-
+-	while (bytes_left) {
+-		if (bytes_left > ctx->cl_dev.bufsize) {
+-
+-			/*
+-			 * dma transfers only till the write pointer as
+-			 * updated in spib
+-			 */
+-			if (ctx->cl_dev.curr_spib_pos == 0)
+-				ctx->cl_dev.curr_spib_pos = ctx->cl_dev.bufsize;
+-
+-			size = ctx->cl_dev.bufsize;
+-			skl_cldma_fill_buffer(ctx, size, curr_pos, true, start);
+-
+-			if (wait) {
+-				start = false;
+-				ret = skl_cldma_wait_interruptible(ctx);
+-				if (ret < 0) {
+-					skl_cldma_stop(ctx);
+-					return ret;
+-				}
+-			}
+-		} else {
+-			skl_cldma_int_disable(ctx);
+-
+-			if ((ctx->cl_dev.curr_spib_pos + bytes_left)
+-							<= ctx->cl_dev.bufsize) {
+-				ctx->cl_dev.curr_spib_pos += bytes_left;
+-			} else {
+-				excess_bytes = bytes_left -
+-					(ctx->cl_dev.bufsize -
+-					ctx->cl_dev.curr_spib_pos);
+-				ctx->cl_dev.curr_spib_pos = excess_bytes;
+-			}
+-
+-			size = bytes_left;
+-			skl_cldma_fill_buffer(ctx, size,
+-					curr_pos, false, start);
+-		}
+-		bytes_left -= size;
+-		curr_pos = curr_pos + size;
+-		if (!wait)
+-			return bytes_left;
+-	}
+-
+-	return bytes_left;
+-}
+-
+-void skl_cldma_process_intr(struct sst_dsp *ctx)
+-{
+-	u8 cl_dma_intr_status;
+-
+-	cl_dma_intr_status =
+-		sst_dsp_shim_read_unlocked(ctx, SKL_ADSP_REG_CL_SD_STS);
+-
+-	if (!(cl_dma_intr_status & SKL_CL_DMA_SD_INT_COMPLETE))
+-		ctx->cl_dev.wake_status = SKL_CL_DMA_ERR;
+-	else
+-		ctx->cl_dev.wake_status = SKL_CL_DMA_BUF_COMPLETE;
+-
+-	ctx->cl_dev.wait_condition = true;
+-	wake_up(&ctx->cl_dev.wait_queue);
+-}
+-
+-int skl_cldma_prepare(struct sst_dsp *ctx)
+-{
+-	int ret;
+-	__le32 *bdl;
+-
+-	ctx->cl_dev.bufsize = SKL_MAX_BUFFER_SIZE;
+-
+-	/* Allocate cl ops */
+-	ctx->cl_dev.ops.cl_setup_bdle = skl_cldma_setup_bdle;
+-	ctx->cl_dev.ops.cl_setup_controller = skl_cldma_setup_controller;
+-	ctx->cl_dev.ops.cl_setup_spb = skl_cldma_setup_spb;
+-	ctx->cl_dev.ops.cl_cleanup_spb = skl_cldma_cleanup_spb;
+-	ctx->cl_dev.ops.cl_trigger = skl_cldma_stream_run;
+-	ctx->cl_dev.ops.cl_cleanup_controller = skl_cldma_cleanup;
+-	ctx->cl_dev.ops.cl_copy_to_dmabuf = skl_cldma_copy_to_buf;
+-	ctx->cl_dev.ops.cl_stop_dma = skl_cldma_stop;
+-
+-	/* Allocate buffer*/
+-	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_SG, ctx->dev, ctx->cl_dev.bufsize,
+-				  &ctx->cl_dev.dmab_data);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Alloc buffer for base fw failed: %x\n", ret);
+-		return ret;
+-	}
+-
+-	/* Setup Code loader BDL */
+-	ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, ctx->dev, BDL_SIZE, &ctx->cl_dev.dmab_bdl);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Alloc buffer for blde failed: %x\n", ret);
+-		ctx->dsp_ops.free_dma_buf(ctx->dev, &ctx->cl_dev.dmab_data);
+-		return ret;
+-	}
+-	bdl = (__le32 *)ctx->cl_dev.dmab_bdl.area;
+-
+-	/* Allocate BDLs */
+-	ctx->cl_dev.ops.cl_setup_bdle(ctx, &ctx->cl_dev.dmab_data,
+-			&bdl, ctx->cl_dev.bufsize, 1);
+-	ctx->cl_dev.ops.cl_setup_controller(ctx, &ctx->cl_dev.dmab_bdl,
+-			ctx->cl_dev.bufsize, ctx->cl_dev.frags);
+-
+-	ctx->cl_dev.curr_spib_pos = 0;
+-	ctx->cl_dev.dma_buffer_offset = 0;
+-	init_waitqueue_head(&ctx->cl_dev.wait_queue);
+-
+-	return ret;
+-}
+diff --git a/sound/soc/intel/skylake/skl-sst-cldma.h b/sound/soc/intel/skylake/skl-sst-cldma.h
+deleted file mode 100644
+index d5e285a69baa..000000000000
+--- a/sound/soc/intel/skylake/skl-sst-cldma.h
++++ /dev/null
+@@ -1,243 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * Intel Code Loader DMA support
+- *
+- * Copyright (C) 2015, Intel Corporation.
+- */
+-
+-#ifndef SKL_SST_CLDMA_H_
+-#define SKL_SST_CLDMA_H_
+-
+-#define FW_CL_STREAM_NUMBER		0x1
+-
+-#define DMA_ADDRESS_128_BITS_ALIGNMENT	7
+-#define BDL_ALIGN(x)			(x >> DMA_ADDRESS_128_BITS_ALIGNMENT)
+-
+-#define SKL_ADSPIC_CL_DMA			0x2
+-#define SKL_ADSPIS_CL_DMA			0x2
+-#define SKL_CL_DMA_SD_INT_DESC_ERR		0x10 /* Descriptor error interrupt */
+-#define SKL_CL_DMA_SD_INT_FIFO_ERR		0x08 /* FIFO error interrupt */
+-#define SKL_CL_DMA_SD_INT_COMPLETE		0x04 /* Buffer completion interrupt */
+-
+-/* Intel HD Audio Code Loader DMA Registers */
+-
+-#define HDA_ADSP_LOADER_BASE		0x80
+-
+-/* Stream Registers */
+-#define SKL_ADSP_REG_CL_SD_CTL			(HDA_ADSP_LOADER_BASE + 0x00)
+-#define SKL_ADSP_REG_CL_SD_STS			(HDA_ADSP_LOADER_BASE + 0x03)
+-#define SKL_ADSP_REG_CL_SD_LPIB			(HDA_ADSP_LOADER_BASE + 0x04)
+-#define SKL_ADSP_REG_CL_SD_CBL			(HDA_ADSP_LOADER_BASE + 0x08)
+-#define SKL_ADSP_REG_CL_SD_LVI			(HDA_ADSP_LOADER_BASE + 0x0c)
+-#define SKL_ADSP_REG_CL_SD_FIFOW		(HDA_ADSP_LOADER_BASE + 0x0e)
+-#define SKL_ADSP_REG_CL_SD_FIFOSIZE		(HDA_ADSP_LOADER_BASE + 0x10)
+-#define SKL_ADSP_REG_CL_SD_FORMAT		(HDA_ADSP_LOADER_BASE + 0x12)
+-#define SKL_ADSP_REG_CL_SD_FIFOL		(HDA_ADSP_LOADER_BASE + 0x14)
+-#define SKL_ADSP_REG_CL_SD_BDLPL		(HDA_ADSP_LOADER_BASE + 0x18)
+-#define SKL_ADSP_REG_CL_SD_BDLPU		(HDA_ADSP_LOADER_BASE + 0x1c)
+-
+-/* CL: Software Position Based FIFO Capability Registers */
+-#define SKL_ADSP_REG_CL_SPBFIFO			(HDA_ADSP_LOADER_BASE + 0x20)
+-#define SKL_ADSP_REG_CL_SPBFIFO_SPBFCH		(SKL_ADSP_REG_CL_SPBFIFO + 0x0)
+-#define SKL_ADSP_REG_CL_SPBFIFO_SPBFCCTL	(SKL_ADSP_REG_CL_SPBFIFO + 0x4)
+-#define SKL_ADSP_REG_CL_SPBFIFO_SPIB		(SKL_ADSP_REG_CL_SPBFIFO + 0x8)
+-#define SKL_ADSP_REG_CL_SPBFIFO_MAXFIFOS	(SKL_ADSP_REG_CL_SPBFIFO + 0xc)
+-
+-/* CL: Stream Descriptor x Control */
+-
+-/* Stream Reset */
+-#define CL_SD_CTL_SRST_SHIFT		0
+-#define CL_SD_CTL_SRST_MASK		(1 << CL_SD_CTL_SRST_SHIFT)
+-#define CL_SD_CTL_SRST(x)		\
+-			((x << CL_SD_CTL_SRST_SHIFT) & CL_SD_CTL_SRST_MASK)
+-
+-/* Stream Run */
+-#define CL_SD_CTL_RUN_SHIFT		1
+-#define CL_SD_CTL_RUN_MASK		(1 << CL_SD_CTL_RUN_SHIFT)
+-#define CL_SD_CTL_RUN(x)		\
+-			((x << CL_SD_CTL_RUN_SHIFT) & CL_SD_CTL_RUN_MASK)
+-
+-/* Interrupt On Completion Enable */
+-#define CL_SD_CTL_IOCE_SHIFT		2
+-#define CL_SD_CTL_IOCE_MASK		(1 << CL_SD_CTL_IOCE_SHIFT)
+-#define CL_SD_CTL_IOCE(x)		\
+-			((x << CL_SD_CTL_IOCE_SHIFT) & CL_SD_CTL_IOCE_MASK)
+-
+-/* FIFO Error Interrupt Enable */
+-#define CL_SD_CTL_FEIE_SHIFT		3
+-#define CL_SD_CTL_FEIE_MASK		(1 << CL_SD_CTL_FEIE_SHIFT)
+-#define CL_SD_CTL_FEIE(x)		\
+-			((x << CL_SD_CTL_FEIE_SHIFT) & CL_SD_CTL_FEIE_MASK)
+-
+-/* Descriptor Error Interrupt Enable */
+-#define CL_SD_CTL_DEIE_SHIFT		4
+-#define CL_SD_CTL_DEIE_MASK		(1 << CL_SD_CTL_DEIE_SHIFT)
+-#define CL_SD_CTL_DEIE(x)		\
+-			((x << CL_SD_CTL_DEIE_SHIFT) & CL_SD_CTL_DEIE_MASK)
+-
+-/* FIFO Limit Change */
+-#define CL_SD_CTL_FIFOLC_SHIFT		5
+-#define CL_SD_CTL_FIFOLC_MASK		(1 << CL_SD_CTL_FIFOLC_SHIFT)
+-#define CL_SD_CTL_FIFOLC(x)		\
+-			((x << CL_SD_CTL_FIFOLC_SHIFT) & CL_SD_CTL_FIFOLC_MASK)
+-
+-/* Stripe Control */
+-#define CL_SD_CTL_STRIPE_SHIFT		16
+-#define CL_SD_CTL_STRIPE_MASK		(0x3 << CL_SD_CTL_STRIPE_SHIFT)
+-#define CL_SD_CTL_STRIPE(x)		\
+-			((x << CL_SD_CTL_STRIPE_SHIFT) & CL_SD_CTL_STRIPE_MASK)
+-
+-/* Traffic Priority */
+-#define CL_SD_CTL_TP_SHIFT		18
+-#define CL_SD_CTL_TP_MASK		(1 << CL_SD_CTL_TP_SHIFT)
+-#define CL_SD_CTL_TP(x)			\
+-			((x << CL_SD_CTL_TP_SHIFT) & CL_SD_CTL_TP_MASK)
+-
+-/* Bidirectional Direction Control */
+-#define CL_SD_CTL_DIR_SHIFT		19
+-#define CL_SD_CTL_DIR_MASK		(1 << CL_SD_CTL_DIR_SHIFT)
+-#define CL_SD_CTL_DIR(x)		\
+-			((x << CL_SD_CTL_DIR_SHIFT) & CL_SD_CTL_DIR_MASK)
+-
+-/* Stream Number */
+-#define CL_SD_CTL_STRM_SHIFT		20
+-#define CL_SD_CTL_STRM_MASK		(0xf << CL_SD_CTL_STRM_SHIFT)
+-#define CL_SD_CTL_STRM(x)		\
+-			((x << CL_SD_CTL_STRM_SHIFT) & CL_SD_CTL_STRM_MASK)
+-
+-/* CL: Stream Descriptor x Status */
+-
+-/* Buffer Completion Interrupt Status */
+-#define CL_SD_STS_BCIS(x)		CL_SD_CTL_IOCE(x)
+-
+-/* FIFO Error */
+-#define CL_SD_STS_FIFOE(x)		CL_SD_CTL_FEIE(x)
+-
+-/* Descriptor Error */
+-#define CL_SD_STS_DESE(x)		CL_SD_CTL_DEIE(x)
+-
+-/* FIFO Ready */
+-#define CL_SD_STS_FIFORDY(x)	CL_SD_CTL_FIFOLC(x)
+-
+-
+-/* CL: Stream Descriptor x Last Valid Index */
+-#define CL_SD_LVI_SHIFT			0
+-#define CL_SD_LVI_MASK			(0xff << CL_SD_LVI_SHIFT)
+-#define CL_SD_LVI(x)			((x << CL_SD_LVI_SHIFT) & CL_SD_LVI_MASK)
+-
+-/* CL: Stream Descriptor x FIFO Eviction Watermark */
+-#define CL_SD_FIFOW_SHIFT		0
+-#define CL_SD_FIFOW_MASK		(0x7 << CL_SD_FIFOW_SHIFT)
+-#define CL_SD_FIFOW(x)			\
+-			((x << CL_SD_FIFOW_SHIFT) & CL_SD_FIFOW_MASK)
+-
+-/* CL: Stream Descriptor x Buffer Descriptor List Pointer Lower Base Address */
+-
+-/* Protect Bits */
+-#define CL_SD_BDLPLBA_PROT_SHIFT	0
+-#define CL_SD_BDLPLBA_PROT_MASK		(1 << CL_SD_BDLPLBA_PROT_SHIFT)
+-#define CL_SD_BDLPLBA_PROT(x)		\
+-		((x << CL_SD_BDLPLBA_PROT_SHIFT) & CL_SD_BDLPLBA_PROT_MASK)
+-
+-/* Buffer Descriptor List Lower Base Address */
+-#define CL_SD_BDLPLBA_SHIFT		7
+-#define CL_SD_BDLPLBA_MASK		(0x1ffffff << CL_SD_BDLPLBA_SHIFT)
+-#define CL_SD_BDLPLBA(x)		\
+-	((BDL_ALIGN(lower_32_bits(x)) << CL_SD_BDLPLBA_SHIFT) & CL_SD_BDLPLBA_MASK)
+-
+-/* Buffer Descriptor List Upper Base Address */
+-#define CL_SD_BDLPUBA_SHIFT		0
+-#define CL_SD_BDLPUBA_MASK		(0xffffffff << CL_SD_BDLPUBA_SHIFT)
+-#define CL_SD_BDLPUBA(x)		\
+-		((upper_32_bits(x) << CL_SD_BDLPUBA_SHIFT) & CL_SD_BDLPUBA_MASK)
+-
+-/*
+- * Code Loader - Software Position Based FIFO
+- * Capability Registers x Software Position Based FIFO Header
+- */
+-
+-/* Next Capability Pointer */
+-#define CL_SPBFIFO_SPBFCH_PTR_SHIFT	0
+-#define CL_SPBFIFO_SPBFCH_PTR_MASK	(0xff << CL_SPBFIFO_SPBFCH_PTR_SHIFT)
+-#define CL_SPBFIFO_SPBFCH_PTR(x)	\
+-		((x << CL_SPBFIFO_SPBFCH_PTR_SHIFT) & CL_SPBFIFO_SPBFCH_PTR_MASK)
+-
+-/* Capability Identifier */
+-#define CL_SPBFIFO_SPBFCH_ID_SHIFT	16
+-#define CL_SPBFIFO_SPBFCH_ID_MASK	(0xfff << CL_SPBFIFO_SPBFCH_ID_SHIFT)
+-#define CL_SPBFIFO_SPBFCH_ID(x)		\
+-		((x << CL_SPBFIFO_SPBFCH_ID_SHIFT) & CL_SPBFIFO_SPBFCH_ID_MASK)
+-
+-/* Capability Version */
+-#define CL_SPBFIFO_SPBFCH_VER_SHIFT	28
+-#define CL_SPBFIFO_SPBFCH_VER_MASK	(0xf << CL_SPBFIFO_SPBFCH_VER_SHIFT)
+-#define CL_SPBFIFO_SPBFCH_VER(x)	\
+-	((x << CL_SPBFIFO_SPBFCH_VER_SHIFT) & CL_SPBFIFO_SPBFCH_VER_MASK)
+-
+-/* Software Position in Buffer Enable */
+-#define CL_SPBFIFO_SPBFCCTL_SPIBE_SHIFT	0
+-#define CL_SPBFIFO_SPBFCCTL_SPIBE_MASK	(1 << CL_SPBFIFO_SPBFCCTL_SPIBE_SHIFT)
+-#define CL_SPBFIFO_SPBFCCTL_SPIBE(x)	\
+-	((x << CL_SPBFIFO_SPBFCCTL_SPIBE_SHIFT) & CL_SPBFIFO_SPBFCCTL_SPIBE_MASK)
+-
+-/* SST IPC SKL defines */
+-#define SKL_WAIT_TIMEOUT		500	/* 500 msec */
+-#define SKL_MAX_BUFFER_SIZE		(32 * PAGE_SIZE)
+-
+-enum skl_cl_dma_wake_states {
+-	SKL_CL_DMA_STATUS_NONE = 0,
+-	SKL_CL_DMA_BUF_COMPLETE,
+-	SKL_CL_DMA_ERR,	/* TODO: Expand the error states */
+-};
+-
+-struct sst_dsp;
+-
+-struct skl_cl_dev_ops {
+-	void (*cl_setup_bdle)(struct sst_dsp *ctx,
+-			struct snd_dma_buffer *dmab_data,
+-			__le32 **bdlp, int size, int with_ioc);
+-	void (*cl_setup_controller)(struct sst_dsp *ctx,
+-			struct snd_dma_buffer *dmab_bdl,
+-			unsigned int max_size, u32 page_count);
+-	void (*cl_setup_spb)(struct sst_dsp  *ctx,
+-			unsigned int size, bool enable);
+-	void (*cl_cleanup_spb)(struct sst_dsp  *ctx);
+-	void (*cl_trigger)(struct sst_dsp  *ctx, bool enable);
+-	void (*cl_cleanup_controller)(struct sst_dsp  *ctx);
+-	int (*cl_copy_to_dmabuf)(struct sst_dsp *ctx,
+-			const void *bin, u32 size, bool wait);
+-	void (*cl_stop_dma)(struct sst_dsp *ctx);
+-};
+-
+-/**
+- * skl_cl_dev - holds information for code loader dma transfer
+- *
+- * @dmab_data: buffer pointer
+- * @dmab_bdl: buffer descriptor list
+- * @bufsize: ring buffer size
+- * @frags: Last valid buffer descriptor index in the BDL
+- * @curr_spib_pos: Current position in ring buffer
+- * @dma_buffer_offset: dma buffer offset
+- * @ops: operations supported on CL dma
+- * @wait_queue: wait queue to wake for wake event
+- * @wake_status: DMA wake status
+- * @wait_condition: condition to wait on wait queue
+- * @cl_dma_lock: for synchronized access to cldma
+- */
+-struct skl_cl_dev {
+-	struct snd_dma_buffer dmab_data;
+-	struct snd_dma_buffer dmab_bdl;
+-
+-	unsigned int bufsize;
+-	unsigned int frags;
+-
+-	unsigned int curr_spib_pos;
+-	unsigned int dma_buffer_offset;
+-	struct skl_cl_dev_ops ops;
+-
+-	wait_queue_head_t wait_queue;
+-	int wake_status;
+-	bool wait_condition;
+-};
+-
+-#endif /* SKL_SST_CLDMA_H_ */
+diff --git a/sound/soc/intel/skylake/skl-sst-dsp.c b/sound/soc/intel/skylake/skl-sst-dsp.c
+deleted file mode 100644
+index 4ae3eae0d1fd..000000000000
+--- a/sound/soc/intel/skylake/skl-sst-dsp.c
++++ /dev/null
+@@ -1,462 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * skl-sst-dsp.c - SKL SST library generic function
+- *
+- * Copyright (C) 2014-15, Intel Corporation.
+- * Author:Rafal Redzimski <rafal.f.redzimski@intel.com>
+- *	Jeeja KP <jeeja.kp@intel.com>
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-#include <sound/pcm.h>
+-
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-ipc.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "skl.h"
+-
+-/* various timeout values */
+-#define SKL_DSP_PU_TO		50
+-#define SKL_DSP_PD_TO		50
+-#define SKL_DSP_RESET_TO	50
+-
+-void skl_dsp_set_state_locked(struct sst_dsp *ctx, int state)
+-{
+-	mutex_lock(&ctx->mutex);
+-	ctx->sst_state = state;
+-	mutex_unlock(&ctx->mutex);
+-}
+-
+-/*
+- * Initialize core power state and usage count. To be called after
+- * successful first boot. Hence core 0 will be running and other cores
+- * will be reset
+- */
+-void skl_dsp_init_core_state(struct sst_dsp *ctx)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	int i;
+-
+-	skl->cores.state[SKL_DSP_CORE0_ID] = SKL_DSP_RUNNING;
+-	skl->cores.usage_count[SKL_DSP_CORE0_ID] = 1;
+-
+-	for (i = SKL_DSP_CORE0_ID + 1; i < skl->cores.count; i++) {
+-		skl->cores.state[i] = SKL_DSP_RESET;
+-		skl->cores.usage_count[i] = 0;
+-	}
+-}
+-
+-/* Get the mask for all enabled cores */
+-unsigned int skl_dsp_get_enabled_cores(struct sst_dsp *ctx)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	unsigned int core_mask, en_cores_mask;
+-	u32 val;
+-
+-	core_mask = SKL_DSP_CORES_MASK(skl->cores.count);
+-
+-	val = sst_dsp_shim_read_unlocked(ctx, SKL_ADSP_REG_ADSPCS);
+-
+-	/* Cores having CPA bit set */
+-	en_cores_mask = (val & SKL_ADSPCS_CPA_MASK(core_mask)) >>
+-			SKL_ADSPCS_CPA_SHIFT;
+-
+-	/* And cores having CRST bit cleared */
+-	en_cores_mask &= (~val & SKL_ADSPCS_CRST_MASK(core_mask)) >>
+-			SKL_ADSPCS_CRST_SHIFT;
+-
+-	/* And cores having CSTALL bit cleared */
+-	en_cores_mask &= (~val & SKL_ADSPCS_CSTALL_MASK(core_mask)) >>
+-			SKL_ADSPCS_CSTALL_SHIFT;
+-	en_cores_mask &= core_mask;
+-
+-	dev_dbg(ctx->dev, "DSP enabled cores mask = %x\n", en_cores_mask);
+-
+-	return en_cores_mask;
+-}
+-
+-static int
+-skl_dsp_core_set_reset_state(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx,
+-			SKL_ADSP_REG_ADSPCS, SKL_ADSPCS_CRST_MASK(core_mask),
+-			SKL_ADSPCS_CRST_MASK(core_mask));
+-
+-	/* poll with timeout to check if operation successful */
+-	ret = sst_dsp_register_poll(ctx,
+-			SKL_ADSP_REG_ADSPCS,
+-			SKL_ADSPCS_CRST_MASK(core_mask),
+-			SKL_ADSPCS_CRST_MASK(core_mask),
+-			SKL_DSP_RESET_TO,
+-			"Set reset");
+-	if ((sst_dsp_shim_read_unlocked(ctx, SKL_ADSP_REG_ADSPCS) &
+-				SKL_ADSPCS_CRST_MASK(core_mask)) !=
+-				SKL_ADSPCS_CRST_MASK(core_mask)) {
+-		dev_err(ctx->dev, "Set reset state failed: core_mask %x\n",
+-							core_mask);
+-		ret = -EIO;
+-	}
+-
+-	return ret;
+-}
+-
+-int skl_dsp_core_unset_reset_state(
+-		struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	dev_dbg(ctx->dev, "In %s\n", __func__);
+-
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_ADSPCS,
+-				SKL_ADSPCS_CRST_MASK(core_mask), 0);
+-
+-	/* poll with timeout to check if operation successful */
+-	ret = sst_dsp_register_poll(ctx,
+-			SKL_ADSP_REG_ADSPCS,
+-			SKL_ADSPCS_CRST_MASK(core_mask),
+-			0,
+-			SKL_DSP_RESET_TO,
+-			"Unset reset");
+-
+-	if ((sst_dsp_shim_read_unlocked(ctx, SKL_ADSP_REG_ADSPCS) &
+-				SKL_ADSPCS_CRST_MASK(core_mask)) != 0) {
+-		dev_err(ctx->dev, "Unset reset state failed: core_mask %x\n",
+-				core_mask);
+-		ret = -EIO;
+-	}
+-
+-	return ret;
+-}
+-
+-static bool
+-is_skl_dsp_core_enable(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int val;
+-	bool is_enable;
+-
+-	val = sst_dsp_shim_read_unlocked(ctx, SKL_ADSP_REG_ADSPCS);
+-
+-	is_enable = ((val & SKL_ADSPCS_CPA_MASK(core_mask)) &&
+-			(val & SKL_ADSPCS_SPA_MASK(core_mask)) &&
+-			!(val & SKL_ADSPCS_CRST_MASK(core_mask)) &&
+-			!(val & SKL_ADSPCS_CSTALL_MASK(core_mask)));
+-
+-	dev_dbg(ctx->dev, "DSP core(s) enabled? %d : core_mask %x\n",
+-						is_enable, core_mask);
+-
+-	return is_enable;
+-}
+-
+-static int skl_dsp_reset_core(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	/* stall core */
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_ADSPCS,
+-			SKL_ADSPCS_CSTALL_MASK(core_mask),
+-			SKL_ADSPCS_CSTALL_MASK(core_mask));
+-
+-	/* set reset state */
+-	return skl_dsp_core_set_reset_state(ctx, core_mask);
+-}
+-
+-int skl_dsp_start_core(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	/* unset reset state */
+-	ret = skl_dsp_core_unset_reset_state(ctx, core_mask);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* run core */
+-	dev_dbg(ctx->dev, "unstall/run core: core_mask = %x\n", core_mask);
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_ADSPCS,
+-			SKL_ADSPCS_CSTALL_MASK(core_mask), 0);
+-
+-	if (!is_skl_dsp_core_enable(ctx, core_mask)) {
+-		skl_dsp_reset_core(ctx, core_mask);
+-		dev_err(ctx->dev, "DSP start core failed: core_mask %x\n",
+-							core_mask);
+-		ret = -EIO;
+-	}
+-
+-	return ret;
+-}
+-
+-int skl_dsp_core_power_up(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_ADSPCS,
+-			SKL_ADSPCS_SPA_MASK(core_mask),
+-			SKL_ADSPCS_SPA_MASK(core_mask));
+-
+-	/* poll with timeout to check if operation successful */
+-	ret = sst_dsp_register_poll(ctx,
+-			SKL_ADSP_REG_ADSPCS,
+-			SKL_ADSPCS_CPA_MASK(core_mask),
+-			SKL_ADSPCS_CPA_MASK(core_mask),
+-			SKL_DSP_PU_TO,
+-			"Power up");
+-
+-	if ((sst_dsp_shim_read_unlocked(ctx, SKL_ADSP_REG_ADSPCS) &
+-			SKL_ADSPCS_CPA_MASK(core_mask)) !=
+-			SKL_ADSPCS_CPA_MASK(core_mask)) {
+-		dev_err(ctx->dev, "DSP core power up failed: core_mask %x\n",
+-				core_mask);
+-		ret = -EIO;
+-	}
+-
+-	return ret;
+-}
+-
+-int skl_dsp_core_power_down(struct sst_dsp  *ctx, unsigned int core_mask)
+-{
+-	/* update bits */
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_ADSPCS,
+-				SKL_ADSPCS_SPA_MASK(core_mask), 0);
+-
+-	/* poll with timeout to check if operation successful */
+-	return sst_dsp_register_poll(ctx,
+-			SKL_ADSP_REG_ADSPCS,
+-			SKL_ADSPCS_CPA_MASK(core_mask),
+-			0,
+-			SKL_DSP_PD_TO,
+-			"Power down");
+-}
+-
+-int skl_dsp_enable_core(struct sst_dsp  *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	/* power up */
+-	ret = skl_dsp_core_power_up(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "dsp core power up failed: core_mask %x\n",
+-							core_mask);
+-		return ret;
+-	}
+-
+-	return skl_dsp_start_core(ctx, core_mask);
+-}
+-
+-int skl_dsp_disable_core(struct sst_dsp *ctx, unsigned int core_mask)
+-{
+-	int ret;
+-
+-	ret = skl_dsp_reset_core(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "dsp core reset failed: core_mask %x\n",
+-							core_mask);
+-		return ret;
+-	}
+-
+-	/* power down core*/
+-	ret = skl_dsp_core_power_down(ctx, core_mask);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "dsp core power down fail mask %x: %d\n",
+-							core_mask, ret);
+-		return ret;
+-	}
+-
+-	if (is_skl_dsp_core_enable(ctx, core_mask)) {
+-		dev_err(ctx->dev, "dsp core disable fail mask %x: %d\n",
+-							core_mask, ret);
+-		ret = -EIO;
+-	}
+-
+-	return ret;
+-}
+-
+-int skl_dsp_boot(struct sst_dsp *ctx)
+-{
+-	int ret;
+-
+-	if (is_skl_dsp_core_enable(ctx, SKL_DSP_CORE0_MASK)) {
+-		ret = skl_dsp_reset_core(ctx, SKL_DSP_CORE0_MASK);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "dsp core0 reset fail: %d\n", ret);
+-			return ret;
+-		}
+-
+-		ret = skl_dsp_start_core(ctx, SKL_DSP_CORE0_MASK);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "dsp core0 start fail: %d\n", ret);
+-			return ret;
+-		}
+-	} else {
+-		ret = skl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "dsp core0 disable fail: %d\n", ret);
+-			return ret;
+-		}
+-		ret = skl_dsp_enable_core(ctx, SKL_DSP_CORE0_MASK);
+-	}
+-
+-	return ret;
+-}
+-
+-irqreturn_t skl_dsp_sst_interrupt(int irq, void *dev_id)
+-{
+-	struct sst_dsp *ctx = dev_id;
+-	u32 val;
+-	irqreturn_t result = IRQ_NONE;
+-
+-	spin_lock(&ctx->spinlock);
+-
+-	val = sst_dsp_shim_read_unlocked(ctx, SKL_ADSP_REG_ADSPIS);
+-	ctx->intr_status = val;
+-
+-	if (val == 0xffffffff) {
+-		spin_unlock(&ctx->spinlock);
+-		return IRQ_NONE;
+-	}
+-
+-	if (val & SKL_ADSPIS_IPC) {
+-		skl_ipc_int_disable(ctx);
+-		result = IRQ_WAKE_THREAD;
+-	}
+-
+-	if (val & SKL_ADSPIS_CL_DMA) {
+-		skl_cldma_int_disable(ctx);
+-		result = IRQ_WAKE_THREAD;
+-	}
+-
+-	spin_unlock(&ctx->spinlock);
+-
+-	return result;
+-}
+-/*
+- * skl_dsp_get_core/skl_dsp_put_core will be called inside DAPM context
+- * within the dapm mutex. Hence no separate lock is used.
+- */
+-int skl_dsp_get_core(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	int ret = 0;
+-
+-	if (core_id >= skl->cores.count) {
+-		dev_err(ctx->dev, "invalid core id: %d\n", core_id);
+-		return -EINVAL;
+-	}
+-
+-	skl->cores.usage_count[core_id]++;
+-
+-	if (skl->cores.state[core_id] == SKL_DSP_RESET) {
+-		ret = ctx->fw_ops.set_state_D0(ctx, core_id);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "unable to get core%d\n", core_id);
+-			goto out;
+-		}
+-	}
+-
+-out:
+-	dev_dbg(ctx->dev, "core id %d state %d usage_count %d\n",
+-			core_id, skl->cores.state[core_id],
+-			skl->cores.usage_count[core_id]);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_dsp_get_core);
+-
+-int skl_dsp_put_core(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	int ret = 0;
+-
+-	if (core_id >= skl->cores.count) {
+-		dev_err(ctx->dev, "invalid core id: %d\n", core_id);
+-		return -EINVAL;
+-	}
+-
+-	if ((--skl->cores.usage_count[core_id] == 0) &&
+-		(skl->cores.state[core_id] != SKL_DSP_RESET)) {
+-		ret = ctx->fw_ops.set_state_D3(ctx, core_id);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "unable to put core %d: %d\n",
+-					core_id, ret);
+-			skl->cores.usage_count[core_id]++;
+-		}
+-	}
+-
+-	dev_dbg(ctx->dev, "core id %d state %d usage_count %d\n",
+-			core_id, skl->cores.state[core_id],
+-			skl->cores.usage_count[core_id]);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_dsp_put_core);
+-
+-int skl_dsp_wake(struct sst_dsp *ctx)
+-{
+-	return skl_dsp_get_core(ctx, SKL_DSP_CORE0_ID);
+-}
+-EXPORT_SYMBOL_GPL(skl_dsp_wake);
+-
+-int skl_dsp_sleep(struct sst_dsp *ctx)
+-{
+-	return skl_dsp_put_core(ctx, SKL_DSP_CORE0_ID);
+-}
+-EXPORT_SYMBOL_GPL(skl_dsp_sleep);
+-
+-struct sst_dsp *skl_dsp_ctx_init(struct device *dev,
+-		struct sst_dsp_device *sst_dev, int irq)
+-{
+-	int ret;
+-	struct sst_dsp *sst;
+-
+-	sst = devm_kzalloc(dev, sizeof(*sst), GFP_KERNEL);
+-	if (sst == NULL)
+-		return NULL;
+-
+-	spin_lock_init(&sst->spinlock);
+-	mutex_init(&sst->mutex);
+-	sst->dev = dev;
+-	sst->sst_dev = sst_dev;
+-	sst->irq = irq;
+-	sst->ops = sst_dev->ops;
+-	sst->thread_context = sst_dev->thread_context;
+-
+-	/* Initialise SST Audio DSP */
+-	if (sst->ops->init) {
+-		ret = sst->ops->init(sst);
+-		if (ret < 0)
+-			return NULL;
+-	}
+-
+-	return sst;
+-}
+-
+-int skl_dsp_acquire_irq(struct sst_dsp *sst)
+-{
+-	struct sst_dsp_device *sst_dev = sst->sst_dev;
+-	int ret;
+-
+-	/* Register the ISR */
+-	ret = request_threaded_irq(sst->irq, sst->ops->irq_handler,
+-		sst_dev->thread, IRQF_SHARED, "AudioDSP", sst);
+-	if (ret)
+-		dev_err(sst->dev, "unable to grab threaded IRQ %d, disabling device\n",
+-			       sst->irq);
+-
+-	return ret;
+-}
+-
+-void skl_dsp_free(struct sst_dsp *dsp)
+-{
+-	skl_ipc_int_disable(dsp);
+-
+-	free_irq(dsp->irq, dsp);
+-	skl_ipc_op_int_disable(dsp);
+-	skl_dsp_disable_core(dsp, SKL_DSP_CORE0_MASK);
+-}
+-EXPORT_SYMBOL_GPL(skl_dsp_free);
+-
+-bool is_skl_dsp_running(struct sst_dsp *ctx)
+-{
+-	return (ctx->sst_state == SKL_DSP_RUNNING);
+-}
+-EXPORT_SYMBOL_GPL(is_skl_dsp_running);
+diff --git a/sound/soc/intel/skylake/skl-sst-dsp.h b/sound/soc/intel/skylake/skl-sst-dsp.h
+deleted file mode 100644
+index 1df9ef422f61..000000000000
+--- a/sound/soc/intel/skylake/skl-sst-dsp.h
++++ /dev/null
+@@ -1,256 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * Skylake SST DSP Support
+- *
+- * Copyright (C) 2014-15, Intel Corporation.
+- */
+-
+-#ifndef __SKL_SST_DSP_H__
+-#define __SKL_SST_DSP_H__
+-
+-#include <linux/interrupt.h>
+-#include <linux/uuid.h>
+-#include <linux/firmware.h>
+-#include <sound/memalloc.h>
+-#include "skl-sst-cldma.h"
+-
+-struct sst_dsp;
+-struct sst_dsp_device;
+-struct skl_lib_info;
+-struct skl_dev;
+-
+-/* Intel HD Audio General DSP Registers */
+-#define SKL_ADSP_GEN_BASE		0x0
+-#define SKL_ADSP_REG_ADSPCS		(SKL_ADSP_GEN_BASE + 0x04)
+-#define SKL_ADSP_REG_ADSPIC		(SKL_ADSP_GEN_BASE + 0x08)
+-#define SKL_ADSP_REG_ADSPIS		(SKL_ADSP_GEN_BASE + 0x0C)
+-#define SKL_ADSP_REG_ADSPIC2		(SKL_ADSP_GEN_BASE + 0x10)
+-#define SKL_ADSP_REG_ADSPIS2		(SKL_ADSP_GEN_BASE + 0x14)
+-
+-/* Intel HD Audio Inter-Processor Communication Registers */
+-#define SKL_ADSP_IPC_BASE		0x40
+-#define SKL_ADSP_REG_HIPCT		(SKL_ADSP_IPC_BASE + 0x00)
+-#define SKL_ADSP_REG_HIPCTE		(SKL_ADSP_IPC_BASE + 0x04)
+-#define SKL_ADSP_REG_HIPCI		(SKL_ADSP_IPC_BASE + 0x08)
+-#define SKL_ADSP_REG_HIPCIE		(SKL_ADSP_IPC_BASE + 0x0C)
+-#define SKL_ADSP_REG_HIPCCTL		(SKL_ADSP_IPC_BASE + 0x10)
+-
+-/*  HIPCI */
+-#define SKL_ADSP_REG_HIPCI_BUSY		BIT(31)
+-
+-/* HIPCIE */
+-#define SKL_ADSP_REG_HIPCIE_DONE	BIT(30)
+-
+-/* HIPCCTL */
+-#define SKL_ADSP_REG_HIPCCTL_DONE	BIT(1)
+-#define SKL_ADSP_REG_HIPCCTL_BUSY	BIT(0)
+-
+-/* HIPCT */
+-#define SKL_ADSP_REG_HIPCT_BUSY		BIT(31)
+-
+-/* FW base IDs */
+-#define SKL_INSTANCE_ID			0
+-#define SKL_BASE_FW_MODULE_ID		0
+-
+-/* Intel HD Audio SRAM Window 1 */
+-#define SKL_ADSP_SRAM1_BASE		0xA000
+-
+-#define SKL_ADSP_MMIO_LEN		0x10000
+-
+-#define SKL_ADSP_W0_STAT_SZ		0x1000
+-
+-#define SKL_ADSP_W0_UP_SZ		0x1000
+-
+-#define SKL_ADSP_W1_SZ			0x1000
+-
+-#define SKL_FW_STS_MASK			0xf
+-
+-#define SKL_FW_INIT			0x1
+-#define SKL_FW_RFW_START		0xf
+-#define BXT_FW_ROM_INIT_RETRY		3
+-#define BXT_INIT_TIMEOUT		300
+-
+-#define SKL_ADSPIC_IPC			1
+-#define SKL_ADSPIS_IPC			1
+-
+-/* Core ID of core0 */
+-#define SKL_DSP_CORE0_ID		0
+-
+-/* Mask for a given core index, c = 0.. number of supported cores - 1 */
+-#define SKL_DSP_CORE_MASK(c)		BIT(c)
+-
+-/*
+- * Core 0 mask = SKL_DSP_CORE_MASK(0); Defined separately
+- * since Core0 is primary core and it is used often
+- */
+-#define SKL_DSP_CORE0_MASK		BIT(0)
+-
+-/*
+- * Mask for a given number of cores
+- * nc = number of supported cores
+- */
+-#define SKL_DSP_CORES_MASK(nc)	GENMASK((nc - 1), 0)
+-
+-/* ADSPCS - Audio DSP Control & Status */
+-
+-/*
+- * Core Reset - asserted high
+- * CRST Mask for a given core mask pattern, cm
+- */
+-#define SKL_ADSPCS_CRST_SHIFT		0
+-#define SKL_ADSPCS_CRST_MASK(cm)	((cm) << SKL_ADSPCS_CRST_SHIFT)
+-
+-/*
+- * Core run/stall - when set to '1' core is stalled
+- * CSTALL Mask for a given core mask pattern, cm
+- */
+-#define SKL_ADSPCS_CSTALL_SHIFT		8
+-#define SKL_ADSPCS_CSTALL_MASK(cm)	((cm) << SKL_ADSPCS_CSTALL_SHIFT)
+-
+-/*
+- * Set Power Active - when set to '1' turn cores on
+- * SPA Mask for a given core mask pattern, cm
+- */
+-#define SKL_ADSPCS_SPA_SHIFT		16
+-#define SKL_ADSPCS_SPA_MASK(cm)		((cm) << SKL_ADSPCS_SPA_SHIFT)
+-
+-/*
+- * Current Power Active - power status of cores, set by hardware
+- * CPA Mask for a given core mask pattern, cm
+- */
+-#define SKL_ADSPCS_CPA_SHIFT		24
+-#define SKL_ADSPCS_CPA_MASK(cm)		((cm) << SKL_ADSPCS_CPA_SHIFT)
+-
+-/* DSP Core state */
+-enum skl_dsp_states {
+-	SKL_DSP_RUNNING = 1,
+-	/* Running in D0i3 state; can be in streaming or non-streaming D0i3 */
+-	SKL_DSP_RUNNING_D0I3, /* Running in D0i3 state*/
+-	SKL_DSP_RESET,
+-};
+-
+-/* D0i3 substates */
+-enum skl_dsp_d0i3_states {
+-	SKL_DSP_D0I3_NONE = -1, /* No D0i3 */
+-	SKL_DSP_D0I3_NON_STREAMING = 0,
+-	SKL_DSP_D0I3_STREAMING = 1,
+-};
+-
+-struct skl_dsp_fw_ops {
+-	int (*load_fw)(struct sst_dsp  *ctx);
+-	/* FW module parser/loader */
+-	int (*load_library)(struct sst_dsp *ctx,
+-		struct skl_lib_info *linfo, int lib_count);
+-	int (*parse_fw)(struct sst_dsp *ctx);
+-	int (*set_state_D0)(struct sst_dsp *ctx, unsigned int core_id);
+-	int (*set_state_D3)(struct sst_dsp *ctx, unsigned int core_id);
+-	int (*set_state_D0i3)(struct sst_dsp *ctx);
+-	int (*set_state_D0i0)(struct sst_dsp *ctx);
+-	unsigned int (*get_fw_errcode)(struct sst_dsp *ctx);
+-	int (*load_mod)(struct sst_dsp *ctx, u16 mod_id, u8 *mod_name);
+-	int (*unload_mod)(struct sst_dsp *ctx, u16 mod_id);
+-
+-};
+-
+-struct skl_dsp_loader_ops {
+-	int stream_tag;
+-
+-	int (*alloc_dma_buf)(struct device *dev,
+-		struct snd_dma_buffer *dmab, size_t size);
+-	int (*free_dma_buf)(struct device *dev,
+-		struct snd_dma_buffer *dmab);
+-	int (*prepare)(struct device *dev, unsigned int format,
+-				unsigned int byte_size,
+-				struct snd_dma_buffer *bufp);
+-	int (*trigger)(struct device *dev, bool start, int stream_tag);
+-
+-	int (*cleanup)(struct device *dev, struct snd_dma_buffer *dmab,
+-				 int stream_tag);
+-};
+-
+-#define MAX_INSTANCE_BUFF 2
+-
+-struct uuid_module {
+-	guid_t uuid;
+-	int id;
+-	int is_loadable;
+-	int max_instance;
+-	u64 pvt_id[MAX_INSTANCE_BUFF];
+-	int *instance_id;
+-
+-	struct list_head list;
+-};
+-
+-struct skl_load_module_info {
+-	u16 mod_id;
+-	const struct firmware *fw;
+-};
+-
+-struct skl_module_table {
+-	struct skl_load_module_info *mod_info;
+-	unsigned int usage_cnt;
+-	struct list_head list;
+-};
+-
+-void skl_cldma_process_intr(struct sst_dsp *ctx);
+-void skl_cldma_int_disable(struct sst_dsp *ctx);
+-int skl_cldma_prepare(struct sst_dsp *ctx);
+-int skl_cldma_wait_interruptible(struct sst_dsp *ctx);
+-
+-void skl_dsp_set_state_locked(struct sst_dsp *ctx, int state);
+-struct sst_dsp *skl_dsp_ctx_init(struct device *dev,
+-		struct sst_dsp_device *sst_dev, int irq);
+-int skl_dsp_acquire_irq(struct sst_dsp *sst);
+-bool is_skl_dsp_running(struct sst_dsp *ctx);
+-
+-unsigned int skl_dsp_get_enabled_cores(struct sst_dsp *ctx);
+-void skl_dsp_init_core_state(struct sst_dsp *ctx);
+-int skl_dsp_enable_core(struct sst_dsp *ctx, unsigned int core_mask);
+-int skl_dsp_disable_core(struct sst_dsp *ctx, unsigned int core_mask);
+-int skl_dsp_core_power_up(struct sst_dsp *ctx, unsigned int core_mask);
+-int skl_dsp_core_power_down(struct sst_dsp *ctx, unsigned int core_mask);
+-int skl_dsp_core_unset_reset_state(struct sst_dsp *ctx,
+-					unsigned int core_mask);
+-int skl_dsp_start_core(struct sst_dsp *ctx, unsigned int core_mask);
+-
+-irqreturn_t skl_dsp_sst_interrupt(int irq, void *dev_id);
+-int skl_dsp_wake(struct sst_dsp *ctx);
+-int skl_dsp_sleep(struct sst_dsp *ctx);
+-void skl_dsp_free(struct sst_dsp *dsp);
+-
+-int skl_dsp_get_core(struct sst_dsp *ctx, unsigned int core_id);
+-int skl_dsp_put_core(struct sst_dsp *ctx, unsigned int core_id);
+-
+-int skl_dsp_boot(struct sst_dsp *ctx);
+-int skl_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+-		const char *fw_name, struct skl_dsp_loader_ops dsp_ops,
+-		struct skl_dev **dsp);
+-int bxt_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+-		const char *fw_name, struct skl_dsp_loader_ops dsp_ops,
+-		struct skl_dev **dsp);
+-int skl_sst_init_fw(struct device *dev, struct skl_dev *skl);
+-int bxt_sst_init_fw(struct device *dev, struct skl_dev *skl);
+-void skl_sst_dsp_cleanup(struct device *dev, struct skl_dev *skl);
+-void bxt_sst_dsp_cleanup(struct device *dev, struct skl_dev *skl);
+-
+-int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
+-				unsigned int offset, int index);
+-int skl_get_pvt_id(struct skl_dev *skl, guid_t *uuid_mod, int instance_id);
+-int skl_put_pvt_id(struct skl_dev *skl, guid_t *uuid_mod, int *pvt_id);
+-int skl_get_pvt_instance_id_map(struct skl_dev *skl,
+-				int module_id, int instance_id);
+-void skl_freeup_uuid_list(struct skl_dev *skl);
+-
+-int skl_dsp_strip_extended_manifest(struct firmware *fw);
+-
+-void skl_dsp_set_astate_cfg(struct skl_dev *skl, u32 cnt, void *data);
+-
+-int skl_sst_ctx_init(struct device *dev, int irq, const char *fw_name,
+-		struct skl_dsp_loader_ops dsp_ops, struct skl_dev **dsp,
+-		struct sst_dsp_device *skl_dev);
+-int skl_prepare_lib_load(struct skl_dev *skl, struct skl_lib_info *linfo,
+-			struct firmware *stripped_fw,
+-			unsigned int hdr_offset, int index);
+-void skl_release_library(struct skl_lib_info *linfo, int lib_count);
+-
+-#endif /*__SKL_SST_DSP_H__*/
+diff --git a/sound/soc/intel/skylake/skl-sst-ipc.c b/sound/soc/intel/skylake/skl-sst-ipc.c
+deleted file mode 100644
+index fd9624ad5f72..000000000000
+--- a/sound/soc/intel/skylake/skl-sst-ipc.c
++++ /dev/null
+@@ -1,1071 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * skl-sst-ipc.c - Intel skl IPC Support
+- *
+- * Copyright (C) 2014-15, Intel Corporation.
+- */
+-#include <linux/device.h>
+-
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "skl.h"
+-#include "skl-sst-dsp.h"
+-#include "skl-sst-ipc.h"
+-#include "sound/hdaudio_ext.h"
+-
+-
+-#define IPC_IXC_STATUS_BITS		24
+-
+-/* Global Message - Generic */
+-#define IPC_GLB_TYPE_SHIFT		24
+-#define IPC_GLB_TYPE_MASK		(0xf << IPC_GLB_TYPE_SHIFT)
+-#define IPC_GLB_TYPE(x)			((x) << IPC_GLB_TYPE_SHIFT)
+-
+-/* Global Message - Reply */
+-#define IPC_GLB_REPLY_STATUS_SHIFT	24
+-#define IPC_GLB_REPLY_STATUS_MASK	((0x1 << IPC_GLB_REPLY_STATUS_SHIFT) - 1)
+-#define IPC_GLB_REPLY_STATUS(x)		((x) << IPC_GLB_REPLY_STATUS_SHIFT)
+-
+-#define IPC_GLB_REPLY_TYPE_SHIFT	29
+-#define IPC_GLB_REPLY_TYPE_MASK		0x1F
+-#define IPC_GLB_REPLY_TYPE(x)		(((x) >> IPC_GLB_REPLY_TYPE_SHIFT) \
+-					& IPC_GLB_RPLY_TYPE_MASK)
+-
+-#define IPC_TIMEOUT_MSECS		3000
+-
+-#define IPC_EMPTY_LIST_SIZE		8
+-
+-#define IPC_MSG_TARGET_SHIFT		30
+-#define IPC_MSG_TARGET_MASK		0x1
+-#define IPC_MSG_TARGET(x)		(((x) & IPC_MSG_TARGET_MASK) \
+-					<< IPC_MSG_TARGET_SHIFT)
+-
+-#define IPC_MSG_DIR_SHIFT		29
+-#define IPC_MSG_DIR_MASK		0x1
+-#define IPC_MSG_DIR(x)			(((x) & IPC_MSG_DIR_MASK) \
+-					<< IPC_MSG_DIR_SHIFT)
+-/* Global Notification Message */
+-#define IPC_GLB_NOTIFY_TYPE_SHIFT	16
+-#define IPC_GLB_NOTIFY_TYPE_MASK	0xFF
+-#define IPC_GLB_NOTIFY_TYPE(x)		(((x) >> IPC_GLB_NOTIFY_TYPE_SHIFT) \
+-					& IPC_GLB_NOTIFY_TYPE_MASK)
+-
+-#define IPC_GLB_NOTIFY_MSG_TYPE_SHIFT	24
+-#define IPC_GLB_NOTIFY_MSG_TYPE_MASK	0x1F
+-#define IPC_GLB_NOTIFY_MSG_TYPE(x)	(((x) >> IPC_GLB_NOTIFY_MSG_TYPE_SHIFT)	\
+-						& IPC_GLB_NOTIFY_MSG_TYPE_MASK)
+-
+-#define IPC_GLB_NOTIFY_RSP_SHIFT	29
+-#define IPC_GLB_NOTIFY_RSP_MASK		0x1
+-#define IPC_GLB_NOTIFY_RSP_TYPE(x)	(((x) >> IPC_GLB_NOTIFY_RSP_SHIFT) \
+-					& IPC_GLB_NOTIFY_RSP_MASK)
+-
+-/* Pipeline operations */
+-
+-/* Create pipeline message */
+-#define IPC_PPL_MEM_SIZE_SHIFT		0
+-#define IPC_PPL_MEM_SIZE_MASK		0x7FF
+-#define IPC_PPL_MEM_SIZE(x)		(((x) & IPC_PPL_MEM_SIZE_MASK) \
+-					<< IPC_PPL_MEM_SIZE_SHIFT)
+-
+-#define IPC_PPL_TYPE_SHIFT		11
+-#define IPC_PPL_TYPE_MASK		0x1F
+-#define IPC_PPL_TYPE(x)			(((x) & IPC_PPL_TYPE_MASK) \
+-					<< IPC_PPL_TYPE_SHIFT)
+-
+-#define IPC_INSTANCE_ID_SHIFT		16
+-#define IPC_INSTANCE_ID_MASK		0xFF
+-#define IPC_INSTANCE_ID(x)		(((x) & IPC_INSTANCE_ID_MASK) \
+-					<< IPC_INSTANCE_ID_SHIFT)
+-
+-#define IPC_PPL_LP_MODE_SHIFT           0
+-#define IPC_PPL_LP_MODE_MASK            0x1
+-#define IPC_PPL_LP_MODE(x)              (((x) & IPC_PPL_LP_MODE_MASK) \
+-					<< IPC_PPL_LP_MODE_SHIFT)
+-
+-/* Set pipeline state message */
+-#define IPC_PPL_STATE_SHIFT		0
+-#define IPC_PPL_STATE_MASK		0x1F
+-#define IPC_PPL_STATE(x)		(((x) & IPC_PPL_STATE_MASK) \
+-					<< IPC_PPL_STATE_SHIFT)
+-
+-/* Module operations primary register */
+-#define IPC_MOD_ID_SHIFT		0
+-#define IPC_MOD_ID_MASK		0xFFFF
+-#define IPC_MOD_ID(x)		(((x) & IPC_MOD_ID_MASK) \
+-					<< IPC_MOD_ID_SHIFT)
+-
+-#define IPC_MOD_INSTANCE_ID_SHIFT	16
+-#define IPC_MOD_INSTANCE_ID_MASK	0xFF
+-#define IPC_MOD_INSTANCE_ID(x)	(((x) & IPC_MOD_INSTANCE_ID_MASK) \
+-					<< IPC_MOD_INSTANCE_ID_SHIFT)
+-
+-/* Init instance message extension register */
+-#define IPC_PARAM_BLOCK_SIZE_SHIFT	0
+-#define IPC_PARAM_BLOCK_SIZE_MASK	0xFFFF
+-#define IPC_PARAM_BLOCK_SIZE(x)		(((x) & IPC_PARAM_BLOCK_SIZE_MASK) \
+-					<< IPC_PARAM_BLOCK_SIZE_SHIFT)
+-
+-#define IPC_PPL_INSTANCE_ID_SHIFT	16
+-#define IPC_PPL_INSTANCE_ID_MASK	0xFF
+-#define IPC_PPL_INSTANCE_ID(x)		(((x) & IPC_PPL_INSTANCE_ID_MASK) \
+-					<< IPC_PPL_INSTANCE_ID_SHIFT)
+-
+-#define IPC_CORE_ID_SHIFT		24
+-#define IPC_CORE_ID_MASK		0x1F
+-#define IPC_CORE_ID(x)			(((x) & IPC_CORE_ID_MASK) \
+-					<< IPC_CORE_ID_SHIFT)
+-
+-#define IPC_DOMAIN_SHIFT                28
+-#define IPC_DOMAIN_MASK                 0x1
+-#define IPC_DOMAIN(x)                   (((x) & IPC_DOMAIN_MASK) \
+-					<< IPC_DOMAIN_SHIFT)
+-
+-/* Bind/Unbind message extension register */
+-#define IPC_DST_MOD_ID_SHIFT		0
+-#define IPC_DST_MOD_ID(x)		(((x) & IPC_MOD_ID_MASK) \
+-					<< IPC_DST_MOD_ID_SHIFT)
+-
+-#define IPC_DST_MOD_INSTANCE_ID_SHIFT 16
+-#define IPC_DST_MOD_INSTANCE_ID(x)	(((x) & IPC_MOD_INSTANCE_ID_MASK) \
+-					<< IPC_DST_MOD_INSTANCE_ID_SHIFT)
+-
+-#define IPC_DST_QUEUE_SHIFT		24
+-#define IPC_DST_QUEUE_MASK		0x7
+-#define IPC_DST_QUEUE(x)		(((x) & IPC_DST_QUEUE_MASK) \
+-					<< IPC_DST_QUEUE_SHIFT)
+-
+-#define IPC_SRC_QUEUE_SHIFT		27
+-#define IPC_SRC_QUEUE_MASK		0x7
+-#define IPC_SRC_QUEUE(x)		(((x) & IPC_SRC_QUEUE_MASK) \
+-					<< IPC_SRC_QUEUE_SHIFT)
+-/* Load Module count */
+-#define IPC_LOAD_MODULE_SHIFT		0
+-#define IPC_LOAD_MODULE_MASK		0xFF
+-#define IPC_LOAD_MODULE_CNT(x)		(((x) & IPC_LOAD_MODULE_MASK) \
+-					<< IPC_LOAD_MODULE_SHIFT)
+-
+-/* Save pipeline messgae extension register */
+-#define IPC_DMA_ID_SHIFT		0
+-#define IPC_DMA_ID_MASK			0x1F
+-#define IPC_DMA_ID(x)			(((x) & IPC_DMA_ID_MASK) \
+-					<< IPC_DMA_ID_SHIFT)
+-/* Large Config message extension register */
+-#define IPC_DATA_OFFSET_SZ_SHIFT	0
+-#define IPC_DATA_OFFSET_SZ_MASK		0xFFFFF
+-#define IPC_DATA_OFFSET_SZ(x)		(((x) & IPC_DATA_OFFSET_SZ_MASK) \
+-					<< IPC_DATA_OFFSET_SZ_SHIFT)
+-#define IPC_DATA_OFFSET_SZ_CLEAR	~(IPC_DATA_OFFSET_SZ_MASK \
+-					  << IPC_DATA_OFFSET_SZ_SHIFT)
+-
+-#define IPC_LARGE_PARAM_ID_SHIFT	20
+-#define IPC_LARGE_PARAM_ID_MASK		0xFF
+-#define IPC_LARGE_PARAM_ID(x)		(((x) & IPC_LARGE_PARAM_ID_MASK) \
+-					<< IPC_LARGE_PARAM_ID_SHIFT)
+-
+-#define IPC_FINAL_BLOCK_SHIFT		28
+-#define IPC_FINAL_BLOCK_MASK		0x1
+-#define IPC_FINAL_BLOCK(x)		(((x) & IPC_FINAL_BLOCK_MASK) \
+-					<< IPC_FINAL_BLOCK_SHIFT)
+-
+-#define IPC_INITIAL_BLOCK_SHIFT		29
+-#define IPC_INITIAL_BLOCK_MASK		0x1
+-#define IPC_INITIAL_BLOCK(x)		(((x) & IPC_INITIAL_BLOCK_MASK) \
+-					<< IPC_INITIAL_BLOCK_SHIFT)
+-#define IPC_INITIAL_BLOCK_CLEAR		~(IPC_INITIAL_BLOCK_MASK \
+-					  << IPC_INITIAL_BLOCK_SHIFT)
+-/* Set D0ix IPC extension register */
+-#define IPC_D0IX_WAKE_SHIFT		0
+-#define IPC_D0IX_WAKE_MASK		0x1
+-#define IPC_D0IX_WAKE(x)		(((x) & IPC_D0IX_WAKE_MASK) \
+-					<< IPC_D0IX_WAKE_SHIFT)
+-
+-#define IPC_D0IX_STREAMING_SHIFT	1
+-#define IPC_D0IX_STREAMING_MASK		0x1
+-#define IPC_D0IX_STREAMING(x)		(((x) & IPC_D0IX_STREAMING_MASK) \
+-					<< IPC_D0IX_STREAMING_SHIFT)
+-
+-
+-enum skl_ipc_msg_target {
+-	IPC_FW_GEN_MSG = 0,
+-	IPC_MOD_MSG = 1
+-};
+-
+-enum skl_ipc_msg_direction {
+-	IPC_MSG_REQUEST = 0,
+-	IPC_MSG_REPLY = 1
+-};
+-
+-/* Global Message Types */
+-enum skl_ipc_glb_type {
+-	IPC_GLB_GET_FW_VERSION = 0, /* Retrieves firmware version */
+-	IPC_GLB_LOAD_MULTIPLE_MODS = 15,
+-	IPC_GLB_UNLOAD_MULTIPLE_MODS = 16,
+-	IPC_GLB_CREATE_PPL = 17,
+-	IPC_GLB_DELETE_PPL = 18,
+-	IPC_GLB_SET_PPL_STATE = 19,
+-	IPC_GLB_GET_PPL_STATE = 20,
+-	IPC_GLB_GET_PPL_CONTEXT_SIZE = 21,
+-	IPC_GLB_SAVE_PPL = 22,
+-	IPC_GLB_RESTORE_PPL = 23,
+-	IPC_GLB_LOAD_LIBRARY = 24,
+-	IPC_GLB_NOTIFY = 26,
+-	IPC_GLB_MAX_IPC_MSG_NUMBER = 31 /* Maximum message number */
+-};
+-
+-enum skl_ipc_glb_reply {
+-	IPC_GLB_REPLY_SUCCESS = 0,
+-
+-	IPC_GLB_REPLY_UNKNOWN_MSG_TYPE = 1,
+-	IPC_GLB_REPLY_ERROR_INVALID_PARAM = 2,
+-
+-	IPC_GLB_REPLY_BUSY = 3,
+-	IPC_GLB_REPLY_PENDING = 4,
+-	IPC_GLB_REPLY_FAILURE = 5,
+-	IPC_GLB_REPLY_INVALID_REQUEST = 6,
+-
+-	IPC_GLB_REPLY_OUT_OF_MEMORY = 7,
+-	IPC_GLB_REPLY_OUT_OF_MIPS = 8,
+-
+-	IPC_GLB_REPLY_INVALID_RESOURCE_ID = 9,
+-	IPC_GLB_REPLY_INVALID_RESOURCE_STATE = 10,
+-
+-	IPC_GLB_REPLY_MOD_MGMT_ERROR = 100,
+-	IPC_GLB_REPLY_MOD_LOAD_CL_FAILED = 101,
+-	IPC_GLB_REPLY_MOD_LOAD_INVALID_HASH = 102,
+-
+-	IPC_GLB_REPLY_MOD_UNLOAD_INST_EXIST = 103,
+-	IPC_GLB_REPLY_MOD_NOT_INITIALIZED = 104,
+-
+-	IPC_GLB_REPLY_INVALID_CONFIG_PARAM_ID = 120,
+-	IPC_GLB_REPLY_INVALID_CONFIG_DATA_LEN = 121,
+-	IPC_GLB_REPLY_GATEWAY_NOT_INITIALIZED = 140,
+-	IPC_GLB_REPLY_GATEWAY_NOT_EXIST = 141,
+-	IPC_GLB_REPLY_SCLK_ALREADY_RUNNING = 150,
+-	IPC_GLB_REPLY_MCLK_ALREADY_RUNNING = 151,
+-
+-	IPC_GLB_REPLY_PPL_NOT_INITIALIZED = 160,
+-	IPC_GLB_REPLY_PPL_NOT_EXIST = 161,
+-	IPC_GLB_REPLY_PPL_SAVE_FAILED = 162,
+-	IPC_GLB_REPLY_PPL_RESTORE_FAILED = 163,
+-
+-	IPC_MAX_STATUS = ((1<<IPC_IXC_STATUS_BITS)-1)
+-};
+-
+-enum skl_ipc_notification_type {
+-	IPC_GLB_NOTIFY_GLITCH = 0,
+-	IPC_GLB_NOTIFY_OVERRUN = 1,
+-	IPC_GLB_NOTIFY_UNDERRUN = 2,
+-	IPC_GLB_NOTIFY_END_STREAM = 3,
+-	IPC_GLB_NOTIFY_PHRASE_DETECTED = 4,
+-	IPC_GLB_NOTIFY_RESOURCE_EVENT = 5,
+-	IPC_GLB_NOTIFY_LOG_BUFFER_STATUS = 6,
+-	IPC_GLB_NOTIFY_TIMESTAMP_CAPTURED = 7,
+-	IPC_GLB_NOTIFY_FW_READY = 8
+-};
+-
+-/* Module Message Types */
+-enum skl_ipc_module_msg {
+-	IPC_MOD_INIT_INSTANCE = 0,
+-	IPC_MOD_CONFIG_GET = 1,
+-	IPC_MOD_CONFIG_SET = 2,
+-	IPC_MOD_LARGE_CONFIG_GET = 3,
+-	IPC_MOD_LARGE_CONFIG_SET = 4,
+-	IPC_MOD_BIND = 5,
+-	IPC_MOD_UNBIND = 6,
+-	IPC_MOD_SET_DX = 7,
+-	IPC_MOD_SET_D0IX = 8
+-};
+-
+-void skl_ipc_tx_data_copy(struct ipc_message *msg, char *tx_data,
+-		size_t tx_size)
+-{
+-	if (tx_size)
+-		memcpy(msg->tx.data, tx_data, tx_size);
+-}
+-
+-static bool skl_ipc_is_dsp_busy(struct sst_dsp *dsp)
+-{
+-	u32 hipci;
+-
+-	hipci = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCI);
+-	return (hipci & SKL_ADSP_REG_HIPCI_BUSY);
+-}
+-
+-/* Lock to be held by caller */
+-static void skl_ipc_tx_msg(struct sst_generic_ipc *ipc, struct ipc_message *msg)
+-{
+-	struct skl_ipc_header *header = (struct skl_ipc_header *)(&msg->tx.header);
+-
+-	if (msg->tx.size)
+-		sst_dsp_outbox_write(ipc->dsp, msg->tx.data, msg->tx.size);
+-	sst_dsp_shim_write_unlocked(ipc->dsp, SKL_ADSP_REG_HIPCIE,
+-						header->extension);
+-	sst_dsp_shim_write_unlocked(ipc->dsp, SKL_ADSP_REG_HIPCI,
+-		header->primary | SKL_ADSP_REG_HIPCI_BUSY);
+-}
+-
+-int skl_ipc_check_D0i0(struct sst_dsp *dsp, bool state)
+-{
+-	int ret;
+-
+-	/* check D0i3 support */
+-	if (!dsp->fw_ops.set_state_D0i0)
+-		return 0;
+-
+-	/* Attempt D0i0 or D0i3 based on state */
+-	if (state)
+-		ret = dsp->fw_ops.set_state_D0i0(dsp);
+-	else
+-		ret = dsp->fw_ops.set_state_D0i3(dsp);
+-
+-	return ret;
+-}
+-
+-static struct ipc_message *skl_ipc_reply_get_msg(struct sst_generic_ipc *ipc,
+-				u64 ipc_header)
+-{
+-	struct ipc_message *msg =  NULL;
+-	struct skl_ipc_header *header = (struct skl_ipc_header *)(&ipc_header);
+-
+-	if (list_empty(&ipc->rx_list)) {
+-		dev_err(ipc->dev, "ipc: rx list is empty but received 0x%x\n",
+-			header->primary);
+-		goto out;
+-	}
+-
+-	msg = list_first_entry(&ipc->rx_list, struct ipc_message, list);
+-
+-	list_del(&msg->list);
+-out:
+-	return msg;
+-
+-}
+-
+-int skl_ipc_process_notification(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_header header)
+-{
+-	struct skl_dev *skl = container_of(ipc, struct skl_dev, ipc);
+-
+-	if (IPC_GLB_NOTIFY_MSG_TYPE(header.primary)) {
+-		switch (IPC_GLB_NOTIFY_TYPE(header.primary)) {
+-
+-		case IPC_GLB_NOTIFY_UNDERRUN:
+-			dev_err(ipc->dev, "FW Underrun %x\n", header.primary);
+-			break;
+-
+-		case IPC_GLB_NOTIFY_RESOURCE_EVENT:
+-			dev_err(ipc->dev, "MCPS Budget Violation: %x\n",
+-						header.primary);
+-			break;
+-
+-		case IPC_GLB_NOTIFY_FW_READY:
+-			skl->boot_complete = true;
+-			wake_up(&skl->boot_wait);
+-			break;
+-
+-		case IPC_GLB_NOTIFY_PHRASE_DETECTED:
+-			dev_dbg(ipc->dev, "***** Phrase Detected **********\n");
+-
+-			/*
+-			 * Per HW recomendation, After phrase detection,
+-			 * clear the CGCTL.MISCBDCGE.
+-			 *
+-			 * This will be set back on stream closure
+-			 */
+-			skl->enable_miscbdcge(ipc->dev, false);
+-			skl->miscbdcg_disabled = true;
+-			break;
+-
+-		default:
+-			dev_err(ipc->dev, "ipc: Unhandled error msg=%x\n",
+-						header.primary);
+-			break;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-struct skl_ipc_err_map {
+-	const char *msg;
+-	enum skl_ipc_glb_reply reply;
+-	int err;
+-};
+-
+-static struct skl_ipc_err_map skl_err_map[] = {
+-	{"DSP out of memory", IPC_GLB_REPLY_OUT_OF_MEMORY, -ENOMEM},
+-	{"DSP busy", IPC_GLB_REPLY_BUSY, -EBUSY},
+-	{"SCLK already running", IPC_GLB_REPLY_SCLK_ALREADY_RUNNING,
+-			IPC_GLB_REPLY_SCLK_ALREADY_RUNNING},
+-	{"MCLK already running", IPC_GLB_REPLY_MCLK_ALREADY_RUNNING,
+-			IPC_GLB_REPLY_MCLK_ALREADY_RUNNING},
+-};
+-
+-static int skl_ipc_set_reply_error_code(struct sst_generic_ipc *ipc, u32 reply)
+-{
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(skl_err_map); i++) {
+-		if (skl_err_map[i].reply == reply)
+-			break;
+-	}
+-
+-	if (i == ARRAY_SIZE(skl_err_map)) {
+-		dev_err(ipc->dev, "ipc FW reply: %d FW Error Code: %u\n",
+-				reply,
+-				ipc->dsp->fw_ops.get_fw_errcode(ipc->dsp));
+-		return -EINVAL;
+-	}
+-
+-	if (skl_err_map[i].err < 0)
+-		dev_err(ipc->dev, "ipc FW reply: %s FW Error Code: %u\n",
+-				skl_err_map[i].msg,
+-				ipc->dsp->fw_ops.get_fw_errcode(ipc->dsp));
+-	else
+-		dev_info(ipc->dev, "ipc FW reply: %s FW Error Code: %u\n",
+-				skl_err_map[i].msg,
+-				ipc->dsp->fw_ops.get_fw_errcode(ipc->dsp));
+-
+-	return skl_err_map[i].err;
+-}
+-
+-void skl_ipc_process_reply(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_header header)
+-{
+-	struct ipc_message *msg;
+-	u32 reply = header.primary & IPC_GLB_REPLY_STATUS_MASK;
+-	u64 *ipc_header = (u64 *)(&header);
+-	struct skl_dev *skl = container_of(ipc, struct skl_dev, ipc);
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ipc->dsp->spinlock, flags);
+-	msg = skl_ipc_reply_get_msg(ipc, *ipc_header);
+-	spin_unlock_irqrestore(&ipc->dsp->spinlock, flags);
+-	if (msg == NULL) {
+-		dev_dbg(ipc->dev, "ipc: rx list is empty\n");
+-		return;
+-	}
+-
+-	msg->rx.header = *ipc_header;
+-	/* first process the header */
+-	if (reply == IPC_GLB_REPLY_SUCCESS) {
+-		dev_dbg(ipc->dev, "ipc FW reply %x: success\n", header.primary);
+-		/* copy the rx data from the mailbox */
+-		sst_dsp_inbox_read(ipc->dsp, msg->rx.data, msg->rx.size);
+-		switch (IPC_GLB_NOTIFY_MSG_TYPE(header.primary)) {
+-		case IPC_GLB_LOAD_MULTIPLE_MODS:
+-		case IPC_GLB_LOAD_LIBRARY:
+-			skl->mod_load_complete = true;
+-			skl->mod_load_status = true;
+-			wake_up(&skl->mod_load_wait);
+-			break;
+-
+-		default:
+-			break;
+-
+-		}
+-	} else {
+-		msg->errno = skl_ipc_set_reply_error_code(ipc, reply);
+-		switch (IPC_GLB_NOTIFY_MSG_TYPE(header.primary)) {
+-		case IPC_GLB_LOAD_MULTIPLE_MODS:
+-		case IPC_GLB_LOAD_LIBRARY:
+-			skl->mod_load_complete = true;
+-			skl->mod_load_status = false;
+-			wake_up(&skl->mod_load_wait);
+-			break;
+-
+-		default:
+-			break;
+-
+-		}
+-	}
+-
+-	spin_lock_irqsave(&ipc->dsp->spinlock, flags);
+-	sst_ipc_tx_msg_reply_complete(ipc, msg);
+-	spin_unlock_irqrestore(&ipc->dsp->spinlock, flags);
+-}
+-
+-irqreturn_t skl_dsp_irq_thread_handler(int irq, void *context)
+-{
+-	struct sst_dsp *dsp = context;
+-	struct skl_dev *skl = dsp->thread_context;
+-	struct sst_generic_ipc *ipc = &skl->ipc;
+-	struct skl_ipc_header header = {0};
+-	u32 hipcie, hipct, hipcte;
+-	int ipc_irq = 0;
+-
+-	if (dsp->intr_status & SKL_ADSPIS_CL_DMA)
+-		skl_cldma_process_intr(dsp);
+-
+-	/* Here we handle IPC interrupts only */
+-	if (!(dsp->intr_status & SKL_ADSPIS_IPC))
+-		return IRQ_NONE;
+-
+-	hipcie = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCIE);
+-	hipct = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCT);
+-	hipcte = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCTE);
+-
+-	/* reply message from DSP */
+-	if (hipcie & SKL_ADSP_REG_HIPCIE_DONE) {
+-		sst_dsp_shim_update_bits(dsp, SKL_ADSP_REG_HIPCCTL,
+-			SKL_ADSP_REG_HIPCCTL_DONE, 0);
+-
+-		/* clear DONE bit - tell DSP we have completed the operation */
+-		sst_dsp_shim_update_bits_forced(dsp, SKL_ADSP_REG_HIPCIE,
+-			SKL_ADSP_REG_HIPCIE_DONE, SKL_ADSP_REG_HIPCIE_DONE);
+-
+-		ipc_irq = 1;
+-
+-		/* unmask Done interrupt */
+-		sst_dsp_shim_update_bits(dsp, SKL_ADSP_REG_HIPCCTL,
+-			SKL_ADSP_REG_HIPCCTL_DONE, SKL_ADSP_REG_HIPCCTL_DONE);
+-	}
+-
+-	/* New message from DSP */
+-	if (hipct & SKL_ADSP_REG_HIPCT_BUSY) {
+-		header.primary = hipct;
+-		header.extension = hipcte;
+-		dev_dbg(dsp->dev, "IPC irq: Firmware respond primary:%x\n",
+-						header.primary);
+-		dev_dbg(dsp->dev, "IPC irq: Firmware respond extension:%x\n",
+-						header.extension);
+-
+-		if (IPC_GLB_NOTIFY_RSP_TYPE(header.primary)) {
+-			/* Handle Immediate reply from DSP Core */
+-			skl_ipc_process_reply(ipc, header);
+-		} else {
+-			dev_dbg(dsp->dev, "IPC irq: Notification from firmware\n");
+-			skl_ipc_process_notification(ipc, header);
+-		}
+-		/* clear  busy interrupt */
+-		sst_dsp_shim_update_bits_forced(dsp, SKL_ADSP_REG_HIPCT,
+-			SKL_ADSP_REG_HIPCT_BUSY, SKL_ADSP_REG_HIPCT_BUSY);
+-		ipc_irq = 1;
+-	}
+-
+-	if (ipc_irq == 0)
+-		return IRQ_NONE;
+-
+-	skl_ipc_int_enable(dsp);
+-
+-	/* continue to send any remaining messages... */
+-	schedule_work(&ipc->kwork);
+-
+-	return IRQ_HANDLED;
+-}
+-
+-void skl_ipc_int_enable(struct sst_dsp *ctx)
+-{
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_ADSPIC,
+-			SKL_ADSPIC_IPC, SKL_ADSPIC_IPC);
+-}
+-
+-void skl_ipc_int_disable(struct sst_dsp *ctx)
+-{
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_ADSPIC,
+-			SKL_ADSPIC_IPC, 0);
+-}
+-
+-void skl_ipc_op_int_enable(struct sst_dsp *ctx)
+-{
+-	/* enable IPC DONE interrupt */
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_HIPCCTL,
+-		SKL_ADSP_REG_HIPCCTL_DONE, SKL_ADSP_REG_HIPCCTL_DONE);
+-
+-	/* Enable IPC BUSY interrupt */
+-	sst_dsp_shim_update_bits(ctx, SKL_ADSP_REG_HIPCCTL,
+-		SKL_ADSP_REG_HIPCCTL_BUSY, SKL_ADSP_REG_HIPCCTL_BUSY);
+-}
+-
+-void skl_ipc_op_int_disable(struct sst_dsp *ctx)
+-{
+-	/* disable IPC DONE interrupt */
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_HIPCCTL,
+-					SKL_ADSP_REG_HIPCCTL_DONE, 0);
+-
+-	/* Disable IPC BUSY interrupt */
+-	sst_dsp_shim_update_bits_unlocked(ctx, SKL_ADSP_REG_HIPCCTL,
+-					SKL_ADSP_REG_HIPCCTL_BUSY, 0);
+-
+-}
+-
+-bool skl_ipc_int_status(struct sst_dsp *ctx)
+-{
+-	return sst_dsp_shim_read_unlocked(ctx,
+-			SKL_ADSP_REG_ADSPIS) & SKL_ADSPIS_IPC;
+-}
+-
+-int skl_ipc_init(struct device *dev, struct skl_dev *skl)
+-{
+-	struct sst_generic_ipc *ipc;
+-	int err;
+-
+-	ipc = &skl->ipc;
+-	ipc->dsp = skl->dsp;
+-	ipc->dev = dev;
+-
+-	ipc->tx_data_max_size = SKL_ADSP_W1_SZ;
+-	ipc->rx_data_max_size = SKL_ADSP_W0_UP_SZ;
+-
+-	err = sst_ipc_init(ipc);
+-	if (err)
+-		return err;
+-
+-	ipc->ops.tx_msg = skl_ipc_tx_msg;
+-	ipc->ops.tx_data_copy = skl_ipc_tx_data_copy;
+-	ipc->ops.is_dsp_busy = skl_ipc_is_dsp_busy;
+-
+-	return 0;
+-}
+-
+-void skl_ipc_free(struct sst_generic_ipc *ipc)
+-{
+-	/* Disable IPC DONE interrupt */
+-	sst_dsp_shim_update_bits(ipc->dsp, SKL_ADSP_REG_HIPCCTL,
+-		SKL_ADSP_REG_HIPCCTL_DONE, 0);
+-
+-	/* Disable IPC BUSY interrupt */
+-	sst_dsp_shim_update_bits(ipc->dsp, SKL_ADSP_REG_HIPCCTL,
+-		SKL_ADSP_REG_HIPCCTL_BUSY, 0);
+-
+-	sst_ipc_fini(ipc);
+-}
+-
+-int skl_ipc_create_pipeline(struct sst_generic_ipc *ipc,
+-		u16 ppl_mem_size, u8 ppl_type, u8 instance_id, u8 lp_mode)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_CREATE_PPL);
+-	header.primary |= IPC_INSTANCE_ID(instance_id);
+-	header.primary |= IPC_PPL_TYPE(ppl_type);
+-	header.primary |= IPC_PPL_MEM_SIZE(ppl_mem_size);
+-
+-	header.extension = IPC_PPL_LP_MODE(lp_mode);
+-	request.header = *(u64 *)(&header);
+-
+-	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: create pipeline fail, err: %d\n", ret);
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_create_pipeline);
+-
+-int skl_ipc_delete_pipeline(struct sst_generic_ipc *ipc, u8 instance_id)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_DELETE_PPL);
+-	header.primary |= IPC_INSTANCE_ID(instance_id);
+-	request.header = *(u64 *)(&header);
+-
+-	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: delete pipeline failed, err %d\n", ret);
+-		return ret;
+-	}
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_delete_pipeline);
+-
+-int skl_ipc_set_pipeline_state(struct sst_generic_ipc *ipc,
+-		u8 instance_id, enum skl_ipc_pipeline_state state)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_SET_PPL_STATE);
+-	header.primary |= IPC_INSTANCE_ID(instance_id);
+-	header.primary |= IPC_PPL_STATE(state);
+-	request.header = *(u64 *)(&header);
+-
+-	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: set pipeline state failed, err: %d\n", ret);
+-		return ret;
+-	}
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_set_pipeline_state);
+-
+-int
+-skl_ipc_save_pipeline(struct sst_generic_ipc *ipc, u8 instance_id, int dma_id)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_SAVE_PPL);
+-	header.primary |= IPC_INSTANCE_ID(instance_id);
+-
+-	header.extension = IPC_DMA_ID(dma_id);
+-	request.header = *(u64 *)(&header);
+-
+-	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: save pipeline failed, err: %d\n", ret);
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_save_pipeline);
+-
+-int skl_ipc_restore_pipeline(struct sst_generic_ipc *ipc, u8 instance_id)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_RESTORE_PPL);
+-	header.primary |= IPC_INSTANCE_ID(instance_id);
+-	request.header = *(u64 *)(&header);
+-
+-	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: restore  pipeline failed, err: %d\n", ret);
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_restore_pipeline);
+-
+-int skl_ipc_set_dx(struct sst_generic_ipc *ipc, u8 instance_id,
+-		u16 module_id, struct skl_ipc_dxstate_info *dx)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request;
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_MOD_SET_DX);
+-	header.primary |= IPC_MOD_INSTANCE_ID(instance_id);
+-	header.primary |= IPC_MOD_ID(module_id);
+-
+-	request.header = *(u64 *)(&header);
+-	request.data = dx;
+-	request.size = sizeof(*dx);
+-
+-	dev_dbg(ipc->dev, "In %s primary =%x ext=%x\n", __func__,
+-			 header.primary, header.extension);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: set dx failed, err %d\n", ret);
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_set_dx);
+-
+-int skl_ipc_init_instance(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_init_instance_msg *msg, void *param_data)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request;
+-	int ret;
+-	u32 *buffer = (u32 *)param_data;
+-	 /* param_block_size must be in dwords */
+-	u16 param_block_size = msg->param_data_size / sizeof(u32);
+-
+-	print_hex_dump_debug("Param data:", DUMP_PREFIX_NONE,
+-		16, 4, buffer, param_block_size, false);
+-
+-	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_MOD_INIT_INSTANCE);
+-	header.primary |= IPC_MOD_INSTANCE_ID(msg->instance_id);
+-	header.primary |= IPC_MOD_ID(msg->module_id);
+-
+-	header.extension = IPC_CORE_ID(msg->core_id);
+-	header.extension |= IPC_PPL_INSTANCE_ID(msg->ppl_instance_id);
+-	header.extension |= IPC_PARAM_BLOCK_SIZE(param_block_size);
+-	header.extension |= IPC_DOMAIN(msg->domain);
+-
+-	request.header = *(u64 *)(&header);
+-	request.data = param_data;
+-	request.size = msg->param_data_size;
+-
+-	dev_dbg(ipc->dev, "In %s primary =%x ext=%x\n", __func__,
+-			 header.primary, header.extension);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: init instance failed\n");
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_init_instance);
+-
+-int skl_ipc_bind_unbind(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_bind_unbind_msg *msg)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	u8 bind_unbind = msg->bind ? IPC_MOD_BIND : IPC_MOD_UNBIND;
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(bind_unbind);
+-	header.primary |= IPC_MOD_INSTANCE_ID(msg->instance_id);
+-	header.primary |= IPC_MOD_ID(msg->module_id);
+-
+-	header.extension = IPC_DST_MOD_ID(msg->dst_module_id);
+-	header.extension |= IPC_DST_MOD_INSTANCE_ID(msg->dst_instance_id);
+-	header.extension |= IPC_DST_QUEUE(msg->dst_queue);
+-	header.extension |= IPC_SRC_QUEUE(msg->src_queue);
+-	request.header = *(u64 *)(&header);
+-
+-	dev_dbg(ipc->dev, "In %s hdr=%x ext=%x\n", __func__, header.primary,
+-			 header.extension);
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(ipc->dev, "ipc: bind/unbind failed\n");
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_bind_unbind);
+-
+-/*
+- * In order to load a module we need to send IPC to initiate that. DMA will
+- * performed to load the module memory. The FW supports multiple module load
+- * at single shot, so we can send IPC with N modules represented by
+- * module_cnt
+- */
+-int skl_ipc_load_modules(struct sst_generic_ipc *ipc,
+-				u8 module_cnt, void *data)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request;
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_LOAD_MULTIPLE_MODS);
+-	header.primary |= IPC_LOAD_MODULE_CNT(module_cnt);
+-
+-	request.header = *(u64 *)(&header);
+-	request.data = data;
+-	request.size = sizeof(u16) * module_cnt;
+-
+-	ret = sst_ipc_tx_message_nowait(ipc, request);
+-	if (ret < 0)
+-		dev_err(ipc->dev, "ipc: load modules failed :%d\n", ret);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_load_modules);
+-
+-int skl_ipc_unload_modules(struct sst_generic_ipc *ipc, u8 module_cnt,
+-							void *data)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request;
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_UNLOAD_MULTIPLE_MODS);
+-	header.primary |= IPC_LOAD_MODULE_CNT(module_cnt);
+-
+-	request.header = *(u64 *)(&header);
+-	request.data = data;
+-	request.size = sizeof(u16) * module_cnt;
+-
+-	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	if (ret < 0)
+-		dev_err(ipc->dev, "ipc: unload modules failed :%d\n", ret);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_unload_modules);
+-
+-int skl_ipc_set_large_config(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_large_config_msg *msg, u32 *param)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request;
+-	int ret = 0;
+-	size_t sz_remaining, tx_size, data_offset;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_MOD_LARGE_CONFIG_SET);
+-	header.primary |= IPC_MOD_INSTANCE_ID(msg->instance_id);
+-	header.primary |= IPC_MOD_ID(msg->module_id);
+-
+-	header.extension = IPC_DATA_OFFSET_SZ(msg->param_data_size);
+-	header.extension |= IPC_LARGE_PARAM_ID(msg->large_param_id);
+-	header.extension |= IPC_FINAL_BLOCK(0);
+-	header.extension |= IPC_INITIAL_BLOCK(1);
+-
+-	sz_remaining = msg->param_data_size;
+-	data_offset = 0;
+-	while (sz_remaining != 0) {
+-		tx_size = sz_remaining > SKL_ADSP_W1_SZ
+-				? SKL_ADSP_W1_SZ : sz_remaining;
+-		if (tx_size == sz_remaining)
+-			header.extension |= IPC_FINAL_BLOCK(1);
+-
+-		dev_dbg(ipc->dev, "In %s primary=%#x ext=%#x\n", __func__,
+-			header.primary, header.extension);
+-		dev_dbg(ipc->dev, "transmitting offset: %#x, size: %#x\n",
+-			(unsigned)data_offset, (unsigned)tx_size);
+-
+-		request.header = *(u64 *)(&header);
+-		request.data = ((char *)param) + data_offset;
+-		request.size = tx_size;
+-		ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-		if (ret < 0) {
+-			dev_err(ipc->dev,
+-				"ipc: set large config fail, err: %d\n", ret);
+-			return ret;
+-		}
+-		sz_remaining -= tx_size;
+-		data_offset = msg->param_data_size - sz_remaining;
+-
+-		/* clear the fields */
+-		header.extension &= IPC_INITIAL_BLOCK_CLEAR;
+-		header.extension &= IPC_DATA_OFFSET_SZ_CLEAR;
+-		/* fill the fields */
+-		header.extension |= IPC_INITIAL_BLOCK(0);
+-		header.extension |= IPC_DATA_OFFSET_SZ(data_offset);
+-	}
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_set_large_config);
+-
+-int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_large_config_msg *msg,
+-		u32 **payload, size_t *bytes)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request, reply = {0};
+-	unsigned int *buf;
+-	int ret;
+-
+-	reply.data = kzalloc(SKL_ADSP_W1_SZ, GFP_KERNEL);
+-	if (!reply.data)
+-		return -ENOMEM;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_MOD_LARGE_CONFIG_GET);
+-	header.primary |= IPC_MOD_INSTANCE_ID(msg->instance_id);
+-	header.primary |= IPC_MOD_ID(msg->module_id);
+-
+-	header.extension = IPC_DATA_OFFSET_SZ(msg->param_data_size);
+-	header.extension |= IPC_LARGE_PARAM_ID(msg->large_param_id);
+-	header.extension |= IPC_FINAL_BLOCK(1);
+-	header.extension |= IPC_INITIAL_BLOCK(1);
+-
+-	request.header = *(u64 *)&header;
+-	request.data = *payload;
+-	request.size = *bytes;
+-	reply.size = SKL_ADSP_W1_SZ;
+-
+-	ret = sst_ipc_tx_message_wait(ipc, request, &reply);
+-	if (ret < 0)
+-		dev_err(ipc->dev, "ipc: get large config fail, err: %d\n", ret);
+-
+-	reply.size = (reply.header >> 32) & IPC_DATA_OFFSET_SZ_MASK;
+-	buf = krealloc(reply.data, reply.size, GFP_KERNEL);
+-	if (!buf) {
+-		kfree(reply.data);
+-		return -ENOMEM;
+-	}
+-	*payload = buf;
+-	*bytes = reply.size;
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_get_large_config);
+-
+-int skl_sst_ipc_load_library(struct sst_generic_ipc *ipc,
+-				u8 dma_id, u8 table_id, bool wait)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	int ret = 0;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_GLB_LOAD_LIBRARY);
+-	header.primary |= IPC_MOD_INSTANCE_ID(table_id);
+-	header.primary |= IPC_MOD_ID(dma_id);
+-	request.header = *(u64 *)(&header);
+-
+-	if (wait)
+-		ret = sst_ipc_tx_message_wait(ipc, request, NULL);
+-	else
+-		ret = sst_ipc_tx_message_nowait(ipc, request);
+-
+-	if (ret < 0)
+-		dev_err(ipc->dev, "ipc: load lib failed\n");
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_sst_ipc_load_library);
+-
+-int skl_ipc_set_d0ix(struct sst_generic_ipc *ipc, struct skl_ipc_d0ix_msg *msg)
+-{
+-	struct skl_ipc_header header = {0};
+-	struct sst_ipc_message request = {0};
+-	int ret;
+-
+-	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
+-	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
+-	header.primary |= IPC_GLB_TYPE(IPC_MOD_SET_D0IX);
+-	header.primary |= IPC_MOD_INSTANCE_ID(msg->instance_id);
+-	header.primary |= IPC_MOD_ID(msg->module_id);
+-
+-	header.extension = IPC_D0IX_WAKE(msg->wake);
+-	header.extension |= IPC_D0IX_STREAMING(msg->streaming);
+-	request.header = *(u64 *)(&header);
+-
+-	dev_dbg(ipc->dev, "In %s primary=%x ext=%x\n", __func__,
+-			header.primary,	header.extension);
+-
+-	/*
+-	 * Use the nopm IPC here as we dont want it checking for D0iX
+-	 */
+-	ret = sst_ipc_tx_message_nopm(ipc, request, NULL);
+-	if (ret < 0)
+-		dev_err(ipc->dev, "ipc: set d0ix failed, err %d\n", ret);
+-
+-	return ret;
+-}
+-EXPORT_SYMBOL_GPL(skl_ipc_set_d0ix);
+diff --git a/sound/soc/intel/skylake/skl-sst-ipc.h b/sound/soc/intel/skylake/skl-sst-ipc.h
+deleted file mode 100644
+index aaaab3b3ec42..000000000000
+--- a/sound/soc/intel/skylake/skl-sst-ipc.h
++++ /dev/null
+@@ -1,169 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * Intel SKL IPC Support
+- *
+- * Copyright (C) 2014-15, Intel Corporation.
+- */
+-
+-#ifndef __SKL_IPC_H
+-#define __SKL_IPC_H
+-
+-#include <linux/irqreturn.h>
+-#include "../common/sst-ipc.h"
+-#include "skl-sst-dsp.h"
+-
+-struct sst_dsp;
+-struct sst_generic_ipc;
+-
+-enum skl_ipc_pipeline_state {
+-	PPL_INVALID_STATE =	0,
+-	PPL_UNINITIALIZED =	1,
+-	PPL_RESET =		2,
+-	PPL_PAUSED =		3,
+-	PPL_RUNNING =		4,
+-	PPL_ERROR_STOP =	5,
+-	PPL_SAVED =		6,
+-	PPL_RESTORED =		7
+-};
+-
+-struct skl_ipc_dxstate_info {
+-	u32 core_mask;
+-	u32 dx_mask;
+-};
+-
+-struct skl_ipc_header {
+-	u32 primary;
+-	u32 extension;
+-};
+-
+-struct skl_dsp_cores {
+-	unsigned int count;
+-	enum skl_dsp_states *state;
+-	int *usage_count;
+-};
+-
+-/**
+- * skl_d0i3_data: skl D0i3 counters data struct
+- *
+- * @streaming: Count of usecases that can attempt streaming D0i3
+- * @non_streaming: Count of usecases that can attempt non-streaming D0i3
+- * @non_d0i3: Count of usecases that cannot attempt D0i3
+- * @state: current state
+- * @work: D0i3 worker thread
+- */
+-struct skl_d0i3_data {
+-	int streaming;
+-	int non_streaming;
+-	int non_d0i3;
+-	enum skl_dsp_d0i3_states state;
+-	struct delayed_work work;
+-};
+-
+-#define SKL_LIB_NAME_LENGTH 128
+-#define SKL_MAX_LIB 16
+-
+-struct skl_lib_info {
+-	char name[SKL_LIB_NAME_LENGTH];
+-	const struct firmware *fw;
+-};
+-
+-struct skl_ipc_init_instance_msg {
+-	u32 module_id;
+-	u32 instance_id;
+-	u16 param_data_size;
+-	u8 ppl_instance_id;
+-	u8 core_id;
+-	u8 domain;
+-};
+-
+-struct skl_ipc_bind_unbind_msg {
+-	u32 module_id;
+-	u32 instance_id;
+-	u32 dst_module_id;
+-	u32 dst_instance_id;
+-	u8 src_queue;
+-	u8 dst_queue;
+-	bool bind;
+-};
+-
+-struct skl_ipc_large_config_msg {
+-	u32 module_id;
+-	u32 instance_id;
+-	u32 large_param_id;
+-	u32 param_data_size;
+-};
+-
+-struct skl_ipc_d0ix_msg {
+-	u32 module_id;
+-	u32 instance_id;
+-	u8 streaming;
+-	u8 wake;
+-};
+-
+-#define SKL_IPC_BOOT_MSECS		3000
+-
+-#define SKL_IPC_D3_MASK	0
+-#define SKL_IPC_D0_MASK	3
+-
+-irqreturn_t skl_dsp_irq_thread_handler(int irq, void *context);
+-
+-int skl_ipc_create_pipeline(struct sst_generic_ipc *ipc,
+-		u16 ppl_mem_size, u8 ppl_type, u8 instance_id, u8 lp_mode);
+-
+-int skl_ipc_delete_pipeline(struct sst_generic_ipc *ipc, u8 instance_id);
+-
+-int skl_ipc_set_pipeline_state(struct sst_generic_ipc *ipc,
+-		u8 instance_id,	enum skl_ipc_pipeline_state state);
+-
+-int skl_ipc_save_pipeline(struct sst_generic_ipc *ipc,
+-		u8 instance_id, int dma_id);
+-
+-int skl_ipc_restore_pipeline(struct sst_generic_ipc *ipc, u8 instance_id);
+-
+-int skl_ipc_init_instance(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_init_instance_msg *msg, void *param_data);
+-
+-int skl_ipc_bind_unbind(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_bind_unbind_msg *msg);
+-
+-int skl_ipc_load_modules(struct sst_generic_ipc *ipc,
+-				u8 module_cnt, void *data);
+-
+-int skl_ipc_unload_modules(struct sst_generic_ipc *ipc,
+-				u8 module_cnt, void *data);
+-
+-int skl_ipc_set_dx(struct sst_generic_ipc *ipc,
+-		u8 instance_id, u16 module_id, struct skl_ipc_dxstate_info *dx);
+-
+-int skl_ipc_set_large_config(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_large_config_msg *msg, u32 *param);
+-
+-int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_large_config_msg *msg,
+-		u32 **payload, size_t *bytes);
+-
+-int skl_sst_ipc_load_library(struct sst_generic_ipc *ipc,
+-			u8 dma_id, u8 table_id, bool wait);
+-
+-int skl_ipc_set_d0ix(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_d0ix_msg *msg);
+-
+-int skl_ipc_check_D0i0(struct sst_dsp *dsp, bool state);
+-
+-void skl_ipc_int_enable(struct sst_dsp *ctx);
+-void skl_ipc_op_int_enable(struct sst_dsp *ctx);
+-void skl_ipc_op_int_disable(struct sst_dsp *ctx);
+-void skl_ipc_int_disable(struct sst_dsp *ctx);
+-
+-bool skl_ipc_int_status(struct sst_dsp *ctx);
+-void skl_ipc_free(struct sst_generic_ipc *ipc);
+-int skl_ipc_init(struct device *dev, struct skl_dev *skl);
+-void skl_clear_module_cnt(struct sst_dsp *ctx);
+-
+-void skl_ipc_process_reply(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_header header);
+-int skl_ipc_process_notification(struct sst_generic_ipc *ipc,
+-		struct skl_ipc_header header);
+-void skl_ipc_tx_data_copy(struct ipc_message *msg, char *tx_data,
+-		size_t tx_size);
+-#endif /* __SKL_IPC_H */
+diff --git a/sound/soc/intel/skylake/skl-sst-utils.c b/sound/soc/intel/skylake/skl-sst-utils.c
+deleted file mode 100644
+index b776c58dcf47..000000000000
+--- a/sound/soc/intel/skylake/skl-sst-utils.c
++++ /dev/null
+@@ -1,425 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  skl-sst-utils.c - SKL sst utils functions
+- *
+- *  Copyright (C) 2016 Intel Corp
+- */
+-
+-#include <linux/device.h>
+-#include <linux/slab.h>
+-#include <linux/uuid.h>
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "skl.h"
+-
+-#define DEFAULT_HASH_SHA256_LEN 32
+-
+-/* FW Extended Manifest Header id = $AE1 */
+-#define SKL_EXT_MANIFEST_HEADER_MAGIC   0x31454124
+-
+-union seg_flags {
+-	u32 ul;
+-	struct {
+-		u32 contents : 1;
+-		u32 alloc    : 1;
+-		u32 load     : 1;
+-		u32 read_only : 1;
+-		u32 code     : 1;
+-		u32 data     : 1;
+-		u32 _rsvd0   : 2;
+-		u32 type     : 4;
+-		u32 _rsvd1   : 4;
+-		u32 length   : 16;
+-	} r;
+-} __packed;
+-
+-struct segment_desc {
+-	union seg_flags flags;
+-	u32 v_base_addr;
+-	u32 file_offset;
+-};
+-
+-struct module_type {
+-	u32 load_type  : 4;
+-	u32 auto_start : 1;
+-	u32 domain_ll  : 1;
+-	u32 domain_dp  : 1;
+-	u32 rsvd       : 25;
+-} __packed;
+-
+-struct adsp_module_entry {
+-	u32 struct_id;
+-	u8  name[8];
+-	u8  uuid[16];
+-	struct module_type type;
+-	u8  hash1[DEFAULT_HASH_SHA256_LEN];
+-	u32 entry_point;
+-	u16 cfg_offset;
+-	u16 cfg_count;
+-	u32 affinity_mask;
+-	u16 instance_max_count;
+-	u16 instance_bss_size;
+-	struct segment_desc segments[3];
+-} __packed;
+-
+-struct adsp_fw_hdr {
+-	u32 id;
+-	u32 len;
+-	u8  name[8];
+-	u32 preload_page_count;
+-	u32 fw_image_flags;
+-	u32 feature_mask;
+-	u16 major;
+-	u16 minor;
+-	u16 hotfix;
+-	u16 build;
+-	u32 num_modules;
+-	u32 hw_buf_base;
+-	u32 hw_buf_length;
+-	u32 load_offset;
+-} __packed;
+-
+-struct skl_ext_manifest_hdr {
+-	u32 id;
+-	u32 len;
+-	u16 version_major;
+-	u16 version_minor;
+-	u32 entries;
+-};
+-
+-static int skl_get_pvtid_map(struct uuid_module *module, int instance_id)
+-{
+-	int pvt_id;
+-
+-	for (pvt_id = 0; pvt_id < module->max_instance; pvt_id++) {
+-		if (module->instance_id[pvt_id] == instance_id)
+-			return pvt_id;
+-	}
+-	return -EINVAL;
+-}
+-
+-int skl_get_pvt_instance_id_map(struct skl_dev *skl,
+-				int module_id, int instance_id)
+-{
+-	struct uuid_module *module;
+-
+-	list_for_each_entry(module, &skl->uuid_list, list) {
+-		if (module->id == module_id)
+-			return skl_get_pvtid_map(module, instance_id);
+-	}
+-
+-	return -EINVAL;
+-}
+-EXPORT_SYMBOL_GPL(skl_get_pvt_instance_id_map);
+-
+-static inline int skl_getid_32(struct uuid_module *module, u64 *val,
+-				int word1_mask, int word2_mask)
+-{
+-	int index, max_inst, pvt_id;
+-	u32 mask_val;
+-
+-	max_inst =  module->max_instance;
+-	mask_val = (u32)(*val >> word1_mask);
+-
+-	if (mask_val != 0xffffffff) {
+-		index = ffz(mask_val);
+-		pvt_id = index + word1_mask + word2_mask;
+-		if (pvt_id <= (max_inst - 1)) {
+-			*val |= 1ULL << (index + word1_mask);
+-			return pvt_id;
+-		}
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-static inline int skl_pvtid_128(struct uuid_module *module)
+-{
+-	int j, i, word1_mask, word2_mask = 0, pvt_id;
+-
+-	for (j = 0; j < MAX_INSTANCE_BUFF; j++) {
+-		word1_mask = 0;
+-
+-		for (i = 0; i < 2; i++) {
+-			pvt_id = skl_getid_32(module, &module->pvt_id[j],
+-						word1_mask, word2_mask);
+-			if (pvt_id >= 0)
+-				return pvt_id;
+-
+-			word1_mask += 32;
+-			if ((word1_mask + word2_mask) >= module->max_instance)
+-				return -EINVAL;
+-		}
+-
+-		word2_mask += 64;
+-		if (word2_mask >= module->max_instance)
+-			return -EINVAL;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-/**
+- * skl_get_pvt_id: generate a private id for use as module id
+- *
+- * @skl: driver context
+- * @uuid_mod: module's uuid
+- * @instance_id: module's instance id
+- *
+- * This generates a 128 bit private unique id for a module TYPE so that
+- * module instance is unique
+- */
+-int skl_get_pvt_id(struct skl_dev *skl, guid_t *uuid_mod, int instance_id)
+-{
+-	struct uuid_module *module;
+-	int pvt_id;
+-
+-	list_for_each_entry(module, &skl->uuid_list, list) {
+-		if (guid_equal(uuid_mod, &module->uuid)) {
+-
+-			pvt_id = skl_pvtid_128(module);
+-			if (pvt_id >= 0) {
+-				module->instance_id[pvt_id] = instance_id;
+-
+-				return pvt_id;
+-			}
+-		}
+-	}
+-
+-	return -EINVAL;
+-}
+-EXPORT_SYMBOL_GPL(skl_get_pvt_id);
+-
+-/**
+- * skl_put_pvt_id: free up the private id allocated
+- *
+- * @skl: driver context
+- * @uuid_mod: module's uuid
+- * @pvt_id: module pvt id
+- *
+- * This frees a 128 bit private unique id previously generated
+- */
+-int skl_put_pvt_id(struct skl_dev *skl, guid_t *uuid_mod, int *pvt_id)
+-{
+-	int i;
+-	struct uuid_module *module;
+-
+-	list_for_each_entry(module, &skl->uuid_list, list) {
+-		if (guid_equal(uuid_mod, &module->uuid)) {
+-
+-			if (*pvt_id != 0)
+-				i = (*pvt_id) / 64;
+-			else
+-				i = 0;
+-
+-			module->pvt_id[i] &= ~(1 << (*pvt_id));
+-			*pvt_id = -1;
+-			return 0;
+-		}
+-	}
+-
+-	return -EINVAL;
+-}
+-EXPORT_SYMBOL_GPL(skl_put_pvt_id);
+-
+-/*
+- * Parse the firmware binary to get the UUID, module id
+- * and loadable flags
+- */
+-int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
+-			unsigned int offset, int index)
+-{
+-	struct adsp_fw_hdr *adsp_hdr;
+-	struct adsp_module_entry *mod_entry;
+-	int i, num_entry, size;
+-	const char *buf;
+-	struct skl_dev *skl = ctx->thread_context;
+-	struct uuid_module *module;
+-	struct firmware stripped_fw;
+-	unsigned int safe_file;
+-	int ret;
+-
+-	/* Get the FW pointer to derive ADSP header */
+-	stripped_fw.data = fw->data;
+-	stripped_fw.size = fw->size;
+-
+-	skl_dsp_strip_extended_manifest(&stripped_fw);
+-
+-	buf = stripped_fw.data;
+-
+-	/* check if we have enough space in file to move to header */
+-	safe_file = sizeof(*adsp_hdr) + offset;
+-	if (stripped_fw.size <= safe_file) {
+-		dev_err(ctx->dev, "Small fw file size, No space for hdr\n");
+-		return -EINVAL;
+-	}
+-
+-	adsp_hdr = (struct adsp_fw_hdr *)(buf + offset);
+-
+-	/* check 1st module entry is in file */
+-	safe_file += adsp_hdr->len + sizeof(*mod_entry);
+-	if (stripped_fw.size <= safe_file) {
+-		dev_err(ctx->dev, "Small fw file size, No module entry\n");
+-		return -EINVAL;
+-	}
+-
+-	mod_entry = (struct adsp_module_entry *)(buf + offset + adsp_hdr->len);
+-
+-	num_entry = adsp_hdr->num_modules;
+-
+-	/* check all entries are in file */
+-	safe_file += num_entry * sizeof(*mod_entry);
+-	if (stripped_fw.size <= safe_file) {
+-		dev_err(ctx->dev, "Small fw file size, No modules\n");
+-		return -EINVAL;
+-	}
+-
+-
+-	/*
+-	 * Read the UUID(GUID) from FW Manifest.
+-	 *
+-	 * The 16 byte UUID format is: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXX
+-	 * Populate the UUID table to store module_id and loadable flags
+-	 * for the module.
+-	 */
+-
+-	for (i = 0; i < num_entry; i++, mod_entry++) {
+-		module = kzalloc(sizeof(*module), GFP_KERNEL);
+-		if (!module) {
+-			ret = -ENOMEM;
+-			goto free_uuid_list;
+-		}
+-
+-		import_guid(&module->uuid, mod_entry->uuid);
+-
+-		module->id = (i | (index << 12));
+-		module->is_loadable = mod_entry->type.load_type;
+-		module->max_instance = mod_entry->instance_max_count;
+-		size = sizeof(int) * mod_entry->instance_max_count;
+-		module->instance_id = devm_kzalloc(ctx->dev, size, GFP_KERNEL);
+-		if (!module->instance_id) {
+-			ret = -ENOMEM;
+-			kfree(module);
+-			goto free_uuid_list;
+-		}
+-
+-		list_add_tail(&module->list, &skl->uuid_list);
+-
+-		dev_dbg(ctx->dev,
+-			"Adding uuid :%pUL   mod id: %d  Loadable: %d\n",
+-			&module->uuid, module->id, module->is_loadable);
+-	}
+-
+-	return 0;
+-
+-free_uuid_list:
+-	skl_freeup_uuid_list(skl);
+-	return ret;
+-}
+-
+-void skl_freeup_uuid_list(struct skl_dev *skl)
+-{
+-	struct uuid_module *uuid, *_uuid;
+-
+-	list_for_each_entry_safe(uuid, _uuid, &skl->uuid_list, list) {
+-		list_del(&uuid->list);
+-		kfree(uuid);
+-	}
+-}
+-
+-/*
+- * some firmware binary contains some extended manifest. This needs
+- * to be stripped in that case before we load and use that image.
+- *
+- * Get the module id for the module by checking
+- * the table for the UUID for the module
+- */
+-int skl_dsp_strip_extended_manifest(struct firmware *fw)
+-{
+-	struct skl_ext_manifest_hdr *hdr;
+-
+-	/* check if fw file is greater than header we are looking */
+-	if (fw->size < sizeof(hdr)) {
+-		pr_err("%s: Firmware file small, no hdr\n", __func__);
+-		return -EINVAL;
+-	}
+-
+-	hdr = (struct skl_ext_manifest_hdr *)fw->data;
+-
+-	if (hdr->id == SKL_EXT_MANIFEST_HEADER_MAGIC) {
+-		fw->size -= hdr->len;
+-		fw->data += hdr->len;
+-	}
+-
+-	return 0;
+-}
+-
+-int skl_sst_ctx_init(struct device *dev, int irq, const char *fw_name,
+-	struct skl_dsp_loader_ops dsp_ops, struct skl_dev **dsp,
+-	struct sst_dsp_device *skl_dev)
+-{
+-	struct skl_dev *skl = *dsp;
+-	struct sst_dsp *sst;
+-
+-	skl->dev = dev;
+-	skl_dev->thread_context = skl;
+-	INIT_LIST_HEAD(&skl->uuid_list);
+-	skl->dsp = skl_dsp_ctx_init(dev, skl_dev, irq);
+-	if (!skl->dsp) {
+-		dev_err(skl->dev, "%s: no device\n", __func__);
+-		return -ENODEV;
+-	}
+-
+-	sst = skl->dsp;
+-	sst->fw_name = fw_name;
+-	sst->dsp_ops = dsp_ops;
+-	init_waitqueue_head(&skl->mod_load_wait);
+-	INIT_LIST_HEAD(&sst->module_list);
+-
+-	skl->is_first_boot = true;
+-
+-	return 0;
+-}
+-
+-int skl_prepare_lib_load(struct skl_dev *skl, struct skl_lib_info *linfo,
+-		struct firmware *stripped_fw,
+-		unsigned int hdr_offset, int index)
+-{
+-	int ret;
+-	struct sst_dsp *dsp = skl->dsp;
+-
+-	if (linfo->fw == NULL) {
+-		ret = request_firmware(&linfo->fw, linfo->name,
+-					skl->dev);
+-		if (ret < 0) {
+-			dev_err(skl->dev, "Request lib %s failed:%d\n",
+-				linfo->name, ret);
+-			return ret;
+-		}
+-	}
+-
+-	if (skl->is_first_boot) {
+-		ret = snd_skl_parse_uuids(dsp, linfo->fw, hdr_offset, index);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+-	stripped_fw->data = linfo->fw->data;
+-	stripped_fw->size = linfo->fw->size;
+-	skl_dsp_strip_extended_manifest(stripped_fw);
+-
+-	return 0;
+-}
+-
+-void skl_release_library(struct skl_lib_info *linfo, int lib_count)
+-{
+-	int i;
+-
+-	/* library indices start from 1 to N. 0 represents base FW */
+-	for (i = 1; i < lib_count; i++) {
+-		if (linfo[i].fw) {
+-			release_firmware(linfo[i].fw);
+-			linfo[i].fw = NULL;
+-		}
+-	}
+-}
+diff --git a/sound/soc/intel/skylake/skl-sst.c b/sound/soc/intel/skylake/skl-sst.c
+deleted file mode 100644
+index 39d027ac16ec..000000000000
+--- a/sound/soc/intel/skylake/skl-sst.c
++++ /dev/null
+@@ -1,599 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * skl-sst.c - HDA DSP library functions for SKL platform
+- *
+- * Copyright (C) 2014-15, Intel Corporation.
+- * Author:Rafal Redzimski <rafal.f.redzimski@intel.com>
+- *	Jeeja KP <jeeja.kp@intel.com>
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#include <linux/module.h>
+-#include <linux/delay.h>
+-#include <linux/device.h>
+-#include <linux/err.h>
+-#include <linux/uuid.h>
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "../common/sst-ipc.h"
+-#include "skl.h"
+-
+-#define SKL_BASEFW_TIMEOUT	300
+-#define SKL_INIT_TIMEOUT	1000
+-
+-/* Intel HD Audio SRAM Window 0*/
+-#define SKL_ADSP_SRAM0_BASE	0x8000
+-
+-/* Firmware status window */
+-#define SKL_ADSP_FW_STATUS	SKL_ADSP_SRAM0_BASE
+-#define SKL_ADSP_ERROR_CODE	(SKL_ADSP_FW_STATUS + 0x4)
+-
+-#define SKL_NUM_MODULES		1
+-
+-static bool skl_check_fw_status(struct sst_dsp *ctx, u32 status)
+-{
+-	u32 cur_sts;
+-
+-	cur_sts = sst_dsp_shim_read(ctx, SKL_ADSP_FW_STATUS) & SKL_FW_STS_MASK;
+-
+-	return (cur_sts == status);
+-}
+-
+-static int skl_transfer_firmware(struct sst_dsp *ctx,
+-		const void *basefw, u32 base_fw_size)
+-{
+-	int ret = 0;
+-
+-	ret = ctx->cl_dev.ops.cl_copy_to_dmabuf(ctx, basefw, base_fw_size,
+-								true);
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = sst_dsp_register_poll(ctx,
+-			SKL_ADSP_FW_STATUS,
+-			SKL_FW_STS_MASK,
+-			SKL_FW_RFW_START,
+-			SKL_BASEFW_TIMEOUT,
+-			"Firmware boot");
+-
+-	ctx->cl_dev.ops.cl_stop_dma(ctx);
+-
+-	return ret;
+-}
+-
+-#define SKL_ADSP_FW_BIN_HDR_OFFSET 0x284
+-
+-static int skl_load_base_firmware(struct sst_dsp *ctx)
+-{
+-	int ret = 0, i;
+-	struct skl_dev *skl = ctx->thread_context;
+-	struct firmware stripped_fw;
+-	u32 reg;
+-
+-	skl->boot_complete = false;
+-	init_waitqueue_head(&skl->boot_wait);
+-
+-	if (ctx->fw == NULL) {
+-		ret = request_firmware(&ctx->fw, ctx->fw_name, ctx->dev);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "Request firmware failed %d\n", ret);
+-			return -EIO;
+-		}
+-	}
+-
+-	/* prase uuids on first boot */
+-	if (skl->is_first_boot) {
+-		ret = snd_skl_parse_uuids(ctx, ctx->fw, SKL_ADSP_FW_BIN_HDR_OFFSET, 0);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "UUID parsing err: %d\n", ret);
+-			release_firmware(ctx->fw);
+-			skl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-			return ret;
+-		}
+-	}
+-
+-	/* check for extended manifest */
+-	stripped_fw.data = ctx->fw->data;
+-	stripped_fw.size = ctx->fw->size;
+-
+-	skl_dsp_strip_extended_manifest(&stripped_fw);
+-
+-	ret = skl_dsp_boot(ctx);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Boot dsp core failed ret: %d\n", ret);
+-		goto skl_load_base_firmware_failed;
+-	}
+-
+-	ret = skl_cldma_prepare(ctx);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "CL dma prepare failed : %d\n", ret);
+-		goto skl_load_base_firmware_failed;
+-	}
+-
+-	/* enable Interrupt */
+-	skl_ipc_int_enable(ctx);
+-	skl_ipc_op_int_enable(ctx);
+-
+-	/* check ROM Status */
+-	for (i = SKL_INIT_TIMEOUT; i > 0; --i) {
+-		if (skl_check_fw_status(ctx, SKL_FW_INIT)) {
+-			dev_dbg(ctx->dev,
+-				"ROM loaded, we can continue with FW loading\n");
+-			break;
+-		}
+-		mdelay(1);
+-	}
+-	if (!i) {
+-		reg = sst_dsp_shim_read(ctx, SKL_ADSP_FW_STATUS);
+-		dev_err(ctx->dev,
+-			"Timeout waiting for ROM init done, reg:0x%x\n", reg);
+-		ret = -EIO;
+-		goto transfer_firmware_failed;
+-	}
+-
+-	ret = skl_transfer_firmware(ctx, stripped_fw.data, stripped_fw.size);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Transfer firmware failed%d\n", ret);
+-		goto transfer_firmware_failed;
+-	} else {
+-		ret = wait_event_timeout(skl->boot_wait, skl->boot_complete,
+-					msecs_to_jiffies(SKL_IPC_BOOT_MSECS));
+-		if (ret == 0) {
+-			dev_err(ctx->dev, "DSP boot failed, FW Ready timed-out\n");
+-			ret = -EIO;
+-			goto transfer_firmware_failed;
+-		}
+-
+-		dev_dbg(ctx->dev, "Download firmware successful%d\n", ret);
+-		skl->fw_loaded = true;
+-	}
+-	return 0;
+-transfer_firmware_failed:
+-	ctx->cl_dev.ops.cl_cleanup_controller(ctx);
+-skl_load_base_firmware_failed:
+-	skl_dsp_disable_core(ctx, SKL_DSP_CORE0_MASK);
+-	release_firmware(ctx->fw);
+-	ctx->fw = NULL;
+-	return ret;
+-}
+-
+-static int skl_set_dsp_D0(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	int ret;
+-	struct skl_ipc_dxstate_info dx;
+-	struct skl_dev *skl = ctx->thread_context;
+-	unsigned int core_mask = SKL_DSP_CORE_MASK(core_id);
+-
+-	/* If core0 is being turned on, we need to load the FW */
+-	if (core_id == SKL_DSP_CORE0_ID) {
+-		ret = skl_load_base_firmware(ctx);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "unable to load firmware\n");
+-			return ret;
+-		}
+-
+-		/* load libs as they are also lost on D3 */
+-		if (skl->lib_count > 1) {
+-			ret = ctx->fw_ops.load_library(ctx, skl->lib_info,
+-							skl->lib_count);
+-			if (ret < 0) {
+-				dev_err(ctx->dev, "reload libs failed: %d\n",
+-						ret);
+-				return ret;
+-			}
+-
+-		}
+-	}
+-
+-	/*
+-	 * If any core other than core 0 is being moved to D0, enable the
+-	 * core and send the set dx IPC for the core.
+-	 */
+-	if (core_id != SKL_DSP_CORE0_ID) {
+-		ret = skl_dsp_enable_core(ctx, core_mask);
+-		if (ret < 0)
+-			return ret;
+-
+-		dx.core_mask = core_mask;
+-		dx.dx_mask = core_mask;
+-
+-		ret = skl_ipc_set_dx(&skl->ipc, SKL_INSTANCE_ID,
+-					SKL_BASE_FW_MODULE_ID, &dx);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "Failed to set dsp to D0:core id= %d\n",
+-					core_id);
+-			skl_dsp_disable_core(ctx, core_mask);
+-		}
+-	}
+-
+-	skl->cores.state[core_id] = SKL_DSP_RUNNING;
+-
+-	return 0;
+-}
+-
+-static int skl_set_dsp_D3(struct sst_dsp *ctx, unsigned int core_id)
+-{
+-	int ret;
+-	struct skl_ipc_dxstate_info dx;
+-	struct skl_dev *skl = ctx->thread_context;
+-	unsigned int core_mask = SKL_DSP_CORE_MASK(core_id);
+-
+-	dx.core_mask = core_mask;
+-	dx.dx_mask = SKL_IPC_D3_MASK;
+-
+-	ret = skl_ipc_set_dx(&skl->ipc, SKL_INSTANCE_ID, SKL_BASE_FW_MODULE_ID, &dx);
+-	if (ret < 0)
+-		dev_err(ctx->dev, "set Dx core %d fail: %d\n", core_id, ret);
+-
+-	if (core_id == SKL_DSP_CORE0_ID) {
+-		/* disable Interrupt */
+-		ctx->cl_dev.ops.cl_cleanup_controller(ctx);
+-		skl_cldma_int_disable(ctx);
+-		skl_ipc_op_int_disable(ctx);
+-		skl_ipc_int_disable(ctx);
+-	}
+-
+-	ret = skl_dsp_disable_core(ctx, core_mask);
+-	if (ret < 0)
+-		return ret;
+-
+-	skl->cores.state[core_id] = SKL_DSP_RESET;
+-	return ret;
+-}
+-
+-static unsigned int skl_get_errorcode(struct sst_dsp *ctx)
+-{
+-	 return sst_dsp_shim_read(ctx, SKL_ADSP_ERROR_CODE);
+-}
+-
+-/*
+- * since get/set_module are called from DAPM context,
+- * we don't need lock for usage count
+- */
+-static int skl_get_module(struct sst_dsp *ctx, u16 mod_id)
+-{
+-	struct skl_module_table *module;
+-
+-	list_for_each_entry(module, &ctx->module_list, list) {
+-		if (module->mod_info->mod_id == mod_id)
+-			return ++module->usage_cnt;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-static int skl_put_module(struct sst_dsp *ctx, u16 mod_id)
+-{
+-	struct skl_module_table *module;
+-
+-	list_for_each_entry(module, &ctx->module_list, list) {
+-		if (module->mod_info->mod_id == mod_id)
+-			return --module->usage_cnt;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-static struct skl_module_table *skl_fill_module_table(struct sst_dsp *ctx,
+-						char *mod_name, int mod_id)
+-{
+-	const struct firmware *fw;
+-	struct skl_module_table *skl_module;
+-	unsigned int size;
+-	int ret;
+-
+-	ret = request_firmware(&fw, mod_name, ctx->dev);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Request Module %s failed :%d\n",
+-							mod_name, ret);
+-		return NULL;
+-	}
+-
+-	skl_module = devm_kzalloc(ctx->dev, sizeof(*skl_module), GFP_KERNEL);
+-	if (skl_module == NULL) {
+-		release_firmware(fw);
+-		return NULL;
+-	}
+-
+-	size = sizeof(*skl_module->mod_info);
+-	skl_module->mod_info = devm_kzalloc(ctx->dev, size, GFP_KERNEL);
+-	if (skl_module->mod_info == NULL) {
+-		release_firmware(fw);
+-		return NULL;
+-	}
+-
+-	skl_module->mod_info->mod_id = mod_id;
+-	skl_module->mod_info->fw = fw;
+-	list_add(&skl_module->list, &ctx->module_list);
+-
+-	return skl_module;
+-}
+-
+-/* get a module from it's unique ID */
+-static struct skl_module_table *skl_module_get_from_id(
+-			struct sst_dsp *ctx, u16 mod_id)
+-{
+-	struct skl_module_table *module;
+-
+-	if (list_empty(&ctx->module_list)) {
+-		dev_err(ctx->dev, "Module list is empty\n");
+-		return NULL;
+-	}
+-
+-	list_for_each_entry(module, &ctx->module_list, list) {
+-		if (module->mod_info->mod_id == mod_id)
+-			return module;
+-	}
+-
+-	return NULL;
+-}
+-
+-static int skl_transfer_module(struct sst_dsp *ctx, const void *data,
+-			u32 size, u16 mod_id, u8 table_id, bool is_module)
+-{
+-	int ret, bytes_left, curr_pos;
+-	struct skl_dev *skl = ctx->thread_context;
+-	skl->mod_load_complete = false;
+-
+-	bytes_left = ctx->cl_dev.ops.cl_copy_to_dmabuf(ctx, data, size, false);
+-	if (bytes_left < 0)
+-		return bytes_left;
+-
+-	/* check is_module flag to load module or library */
+-	if (is_module)
+-		ret = skl_ipc_load_modules(&skl->ipc, SKL_NUM_MODULES, &mod_id);
+-	else
+-		ret = skl_sst_ipc_load_library(&skl->ipc, 0, table_id, false);
+-
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Failed to Load %s with err %d\n",
+-				is_module ? "module" : "lib", ret);
+-		goto out;
+-	}
+-
+-	/*
+-	 * if bytes_left > 0 then wait for BDL complete interrupt and
+-	 * copy the next chunk till bytes_left is 0. if bytes_left is
+-	 * zero, then wait for load module IPC reply
+-	 */
+-	while (bytes_left > 0) {
+-		curr_pos = size - bytes_left;
+-
+-		ret = skl_cldma_wait_interruptible(ctx);
+-		if (ret < 0)
+-			goto out;
+-
+-		bytes_left = ctx->cl_dev.ops.cl_copy_to_dmabuf(ctx,
+-							data + curr_pos,
+-							bytes_left, false);
+-	}
+-
+-	ret = wait_event_timeout(skl->mod_load_wait, skl->mod_load_complete,
+-				msecs_to_jiffies(SKL_IPC_BOOT_MSECS));
+-	if (ret == 0 || !skl->mod_load_status) {
+-		dev_err(ctx->dev, "Module Load failed\n");
+-		ret = -EIO;
+-	}
+-
+-out:
+-	ctx->cl_dev.ops.cl_stop_dma(ctx);
+-
+-	return ret;
+-}
+-
+-static int
+-skl_load_library(struct sst_dsp *ctx, struct skl_lib_info *linfo, int lib_count)
+-{
+-	struct skl_dev *skl = ctx->thread_context;
+-	struct firmware stripped_fw;
+-	int ret, i;
+-
+-	/* library indices start from 1 to N. 0 represents base FW */
+-	for (i = 1; i < lib_count; i++) {
+-		ret = skl_prepare_lib_load(skl, &skl->lib_info[i], &stripped_fw,
+-					SKL_ADSP_FW_BIN_HDR_OFFSET, i);
+-		if (ret < 0)
+-			goto load_library_failed;
+-		ret = skl_transfer_module(ctx, stripped_fw.data,
+-				stripped_fw.size, 0, i, false);
+-		if (ret < 0)
+-			goto load_library_failed;
+-	}
+-
+-	return 0;
+-
+-load_library_failed:
+-	skl_release_library(linfo, lib_count);
+-	return ret;
+-}
+-
+-static int skl_load_module(struct sst_dsp *ctx, u16 mod_id, u8 *guid)
+-{
+-	struct skl_module_table *module_entry = NULL;
+-	int ret = 0;
+-	char mod_name[64]; /* guid str = 32 chars + 4 hyphens */
+-
+-	snprintf(mod_name, sizeof(mod_name), "intel/dsp_fw_%pUL.bin", guid);
+-
+-	module_entry = skl_module_get_from_id(ctx, mod_id);
+-	if (module_entry == NULL) {
+-		module_entry = skl_fill_module_table(ctx, mod_name, mod_id);
+-		if (module_entry == NULL) {
+-			dev_err(ctx->dev, "Failed to Load module\n");
+-			return -EINVAL;
+-		}
+-	}
+-
+-	if (!module_entry->usage_cnt) {
+-		ret = skl_transfer_module(ctx, module_entry->mod_info->fw->data,
+-				module_entry->mod_info->fw->size,
+-				mod_id, 0, true);
+-		if (ret < 0) {
+-			dev_err(ctx->dev, "Failed to Load module\n");
+-			return ret;
+-		}
+-	}
+-
+-	ret = skl_get_module(ctx, mod_id);
+-
+-	return ret;
+-}
+-
+-static int skl_unload_module(struct sst_dsp *ctx, u16 mod_id)
+-{
+-	int usage_cnt;
+-	struct skl_dev *skl = ctx->thread_context;
+-	int ret = 0;
+-
+-	usage_cnt = skl_put_module(ctx, mod_id);
+-	if (usage_cnt < 0) {
+-		dev_err(ctx->dev, "Module bad usage cnt!:%d\n", usage_cnt);
+-		return -EIO;
+-	}
+-
+-	/* if module is used by others return, no need to unload */
+-	if (usage_cnt > 0)
+-		return 0;
+-
+-	ret = skl_ipc_unload_modules(&skl->ipc,
+-			SKL_NUM_MODULES, &mod_id);
+-	if (ret < 0) {
+-		dev_err(ctx->dev, "Failed to UnLoad module\n");
+-		skl_get_module(ctx, mod_id);
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-
+-void skl_clear_module_cnt(struct sst_dsp *ctx)
+-{
+-	struct skl_module_table *module;
+-
+-	if (list_empty(&ctx->module_list))
+-		return;
+-
+-	list_for_each_entry(module, &ctx->module_list, list) {
+-		module->usage_cnt = 0;
+-	}
+-}
+-EXPORT_SYMBOL_GPL(skl_clear_module_cnt);
+-
+-static void skl_clear_module_table(struct sst_dsp *ctx)
+-{
+-	struct skl_module_table *module, *tmp;
+-
+-	if (list_empty(&ctx->module_list))
+-		return;
+-
+-	list_for_each_entry_safe(module, tmp, &ctx->module_list, list) {
+-		list_del(&module->list);
+-		release_firmware(module->mod_info->fw);
+-	}
+-}
+-
+-static const struct skl_dsp_fw_ops skl_fw_ops = {
+-	.set_state_D0 = skl_set_dsp_D0,
+-	.set_state_D3 = skl_set_dsp_D3,
+-	.load_fw = skl_load_base_firmware,
+-	.get_fw_errcode = skl_get_errorcode,
+-	.load_library = skl_load_library,
+-	.load_mod = skl_load_module,
+-	.unload_mod = skl_unload_module,
+-};
+-
+-static struct sst_ops skl_ops = {
+-	.irq_handler = skl_dsp_sst_interrupt,
+-	.write = sst_shim32_write,
+-	.read = sst_shim32_read,
+-	.free = skl_dsp_free,
+-};
+-
+-static struct sst_dsp_device skl_dev = {
+-	.thread = skl_dsp_irq_thread_handler,
+-	.ops = &skl_ops,
+-};
+-
+-int skl_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+-		const char *fw_name, struct skl_dsp_loader_ops dsp_ops,
+-		struct skl_dev **dsp)
+-{
+-	struct skl_dev *skl;
+-	struct sst_dsp *sst;
+-	int ret;
+-
+-	ret = skl_sst_ctx_init(dev, irq, fw_name, dsp_ops, dsp, &skl_dev);
+-	if (ret < 0) {
+-		dev_err(dev, "%s: no device\n", __func__);
+-		return ret;
+-	}
+-
+-	skl = *dsp;
+-	sst = skl->dsp;
+-	sst->addr.lpe = mmio_base;
+-	sst->addr.shim = mmio_base;
+-	sst->addr.sram0_base = SKL_ADSP_SRAM0_BASE;
+-	sst->addr.sram1_base = SKL_ADSP_SRAM1_BASE;
+-	sst->addr.w0_stat_sz = SKL_ADSP_W0_STAT_SZ;
+-	sst->addr.w0_up_sz = SKL_ADSP_W0_UP_SZ;
+-
+-	sst_dsp_mailbox_init(sst, (SKL_ADSP_SRAM0_BASE + SKL_ADSP_W0_STAT_SZ),
+-			SKL_ADSP_W0_UP_SZ, SKL_ADSP_SRAM1_BASE, SKL_ADSP_W1_SZ);
+-
+-	ret = skl_ipc_init(dev, skl);
+-	if (ret) {
+-		skl_dsp_free(sst);
+-		return ret;
+-	}
+-
+-	sst->fw_ops = skl_fw_ops;
+-
+-	return skl_dsp_acquire_irq(sst);
+-}
+-EXPORT_SYMBOL_GPL(skl_sst_dsp_init);
+-
+-int skl_sst_init_fw(struct device *dev, struct skl_dev *skl)
+-{
+-	int ret;
+-	struct sst_dsp *sst = skl->dsp;
+-
+-	ret = sst->fw_ops.load_fw(sst);
+-	if (ret < 0) {
+-		dev_err(dev, "Load base fw failed : %d\n", ret);
+-		return ret;
+-	}
+-
+-	skl_dsp_init_core_state(sst);
+-
+-	if (skl->lib_count > 1) {
+-		ret = sst->fw_ops.load_library(sst, skl->lib_info,
+-						skl->lib_count);
+-		if (ret < 0) {
+-			dev_err(dev, "Load Library failed : %x\n", ret);
+-			return ret;
+-		}
+-	}
+-	skl->is_first_boot = false;
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(skl_sst_init_fw);
+-
+-void skl_sst_dsp_cleanup(struct device *dev, struct skl_dev *skl)
+-{
+-
+-	if (skl->dsp->fw)
+-		release_firmware(skl->dsp->fw);
+-	skl_clear_module_table(skl->dsp);
+-	skl_freeup_uuid_list(skl);
+-	skl_ipc_free(&skl->ipc);
+-	skl->dsp->ops->free(skl->dsp);
+-	if (skl->boot_complete) {
+-		skl->dsp->cl_dev.ops.cl_cleanup_controller(skl->dsp);
+-		skl_cldma_int_disable(skl->dsp);
+-	}
+-}
+-EXPORT_SYMBOL_GPL(skl_sst_dsp_cleanup);
+-
+-MODULE_LICENSE("GPL v2");
+-MODULE_DESCRIPTION("Intel Skylake IPC driver");
+diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
+deleted file mode 100644
+index 602ef4321122..000000000000
+--- a/sound/soc/intel/skylake/skl-topology.c
++++ /dev/null
+@@ -1,3605 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  skl-topology.c - Implements Platform component ALSA controls/widget
+- *  handlers.
+- *
+- *  Copyright (C) 2014-2015 Intel Corp
+- *  Author: Jeeja KP <jeeja.kp@intel.com>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#include <linux/slab.h>
+-#include <linux/types.h>
+-#include <linux/firmware.h>
+-#include <linux/uuid.h>
+-#include <sound/intel-nhlt.h>
+-#include <sound/soc.h>
+-#include <sound/soc-acpi.h>
+-#include <sound/soc-topology.h>
+-#include <uapi/sound/snd_sst_tokens.h>
+-#include <uapi/sound/skl-tplg-interface.h>
+-#include "skl-sst-dsp.h"
+-#include "skl-sst-ipc.h"
+-#include "skl-topology.h"
+-#include "skl.h"
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-
+-#define SKL_CH_FIXUP_MASK		(1 << 0)
+-#define SKL_RATE_FIXUP_MASK		(1 << 1)
+-#define SKL_FMT_FIXUP_MASK		(1 << 2)
+-#define SKL_IN_DIR_BIT_MASK		BIT(0)
+-#define SKL_PIN_COUNT_MASK		GENMASK(7, 4)
+-
+-static const int mic_mono_list[] = {
+-0, 1, 2, 3,
+-};
+-static const int mic_stereo_list[][SKL_CH_STEREO] = {
+-{0, 1}, {0, 2}, {0, 3}, {1, 2}, {1, 3}, {2, 3},
+-};
+-static const int mic_trio_list[][SKL_CH_TRIO] = {
+-{0, 1, 2}, {0, 1, 3}, {0, 2, 3}, {1, 2, 3},
+-};
+-static const int mic_quatro_list[][SKL_CH_QUATRO] = {
+-{0, 1, 2, 3},
+-};
+-
+-#define CHECK_HW_PARAMS(ch, freq, bps, prm_ch, prm_freq, prm_bps) \
+-	((ch == prm_ch) && (bps == prm_bps) && (freq == prm_freq))
+-
+-void skl_tplg_d0i3_get(struct skl_dev *skl, enum d0i3_capability caps)
+-{
+-	struct skl_d0i3_data *d0i3 =  &skl->d0i3;
+-
+-	switch (caps) {
+-	case SKL_D0I3_NONE:
+-		d0i3->non_d0i3++;
+-		break;
+-
+-	case SKL_D0I3_STREAMING:
+-		d0i3->streaming++;
+-		break;
+-
+-	case SKL_D0I3_NON_STREAMING:
+-		d0i3->non_streaming++;
+-		break;
+-	}
+-}
+-
+-void skl_tplg_d0i3_put(struct skl_dev *skl, enum d0i3_capability caps)
+-{
+-	struct skl_d0i3_data *d0i3 =  &skl->d0i3;
+-
+-	switch (caps) {
+-	case SKL_D0I3_NONE:
+-		d0i3->non_d0i3--;
+-		break;
+-
+-	case SKL_D0I3_STREAMING:
+-		d0i3->streaming--;
+-		break;
+-
+-	case SKL_D0I3_NON_STREAMING:
+-		d0i3->non_streaming--;
+-		break;
+-	}
+-}
+-
+-/*
+- * SKL DSP driver modelling uses only few DAPM widgets so for rest we will
+- * ignore. This helpers checks if the SKL driver handles this widget type
+- */
+-static int is_skl_dsp_widget_type(struct snd_soc_dapm_widget *w,
+-				  struct device *dev)
+-{
+-	if (w->dapm->dev != dev)
+-		return false;
+-
+-	switch (w->id) {
+-	case snd_soc_dapm_dai_link:
+-	case snd_soc_dapm_dai_in:
+-	case snd_soc_dapm_aif_in:
+-	case snd_soc_dapm_aif_out:
+-	case snd_soc_dapm_dai_out:
+-	case snd_soc_dapm_switch:
+-	case snd_soc_dapm_output:
+-	case snd_soc_dapm_mux:
+-
+-		return false;
+-	default:
+-		return true;
+-	}
+-}
+-
+-static void skl_dump_mconfig(struct skl_dev *skl, struct skl_module_cfg *mcfg)
+-{
+-	struct skl_module_iface *iface = &mcfg->module->formats[mcfg->fmt_idx];
+-
+-	dev_dbg(skl->dev, "Dumping config\n");
+-	dev_dbg(skl->dev, "Input Format:\n");
+-	dev_dbg(skl->dev, "channels = %d\n", iface->inputs[0].fmt.channels);
+-	dev_dbg(skl->dev, "s_freq = %d\n", iface->inputs[0].fmt.s_freq);
+-	dev_dbg(skl->dev, "ch_cfg = %d\n", iface->inputs[0].fmt.ch_cfg);
+-	dev_dbg(skl->dev, "valid bit depth = %d\n",
+-				iface->inputs[0].fmt.valid_bit_depth);
+-	dev_dbg(skl->dev, "Output Format:\n");
+-	dev_dbg(skl->dev, "channels = %d\n", iface->outputs[0].fmt.channels);
+-	dev_dbg(skl->dev, "s_freq = %d\n", iface->outputs[0].fmt.s_freq);
+-	dev_dbg(skl->dev, "valid bit depth = %d\n",
+-				iface->outputs[0].fmt.valid_bit_depth);
+-	dev_dbg(skl->dev, "ch_cfg = %d\n", iface->outputs[0].fmt.ch_cfg);
+-}
+-
+-static void skl_tplg_update_chmap(struct skl_module_fmt *fmt, int chs)
+-{
+-	int slot_map = 0xFFFFFFFF;
+-	int start_slot = 0;
+-	int i;
+-
+-	for (i = 0; i < chs; i++) {
+-		/*
+-		 * For 2 channels with starting slot as 0, slot map will
+-		 * look like 0xFFFFFF10.
+-		 */
+-		slot_map &= (~(0xF << (4 * i)) | (start_slot << (4 * i)));
+-		start_slot++;
+-	}
+-	fmt->ch_map = slot_map;
+-}
+-
+-static void skl_tplg_update_params(struct skl_module_fmt *fmt,
+-			struct skl_pipe_params *params, int fixup)
+-{
+-	if (fixup & SKL_RATE_FIXUP_MASK)
+-		fmt->s_freq = params->s_freq;
+-	if (fixup & SKL_CH_FIXUP_MASK) {
+-		fmt->channels = params->ch;
+-		skl_tplg_update_chmap(fmt, fmt->channels);
+-	}
+-	if (fixup & SKL_FMT_FIXUP_MASK) {
+-		fmt->valid_bit_depth = skl_get_bit_depth(params->s_fmt);
+-
+-		/*
+-		 * 16 bit is 16 bit container whereas 24 bit is in 32 bit
+-		 * container so update bit depth accordingly
+-		 */
+-		switch (fmt->valid_bit_depth) {
+-		case SKL_DEPTH_16BIT:
+-			fmt->bit_depth = fmt->valid_bit_depth;
+-			break;
+-
+-		default:
+-			fmt->bit_depth = SKL_DEPTH_32BIT;
+-			break;
+-		}
+-	}
+-
+-}
+-
+-/*
+- * A pipeline may have modules which impact the pcm parameters, like SRC,
+- * channel converter, format converter.
+- * We need to calculate the output params by applying the 'fixup'
+- * Topology will tell driver which type of fixup is to be applied by
+- * supplying the fixup mask, so based on that we calculate the output
+- *
+- * Now In FE the pcm hw_params is source/target format. Same is applicable
+- * for BE with its hw_params invoked.
+- * here based on FE, BE pipeline and direction we calculate the input and
+- * outfix and then apply that for a module
+- */
+-static void skl_tplg_update_params_fixup(struct skl_module_cfg *m_cfg,
+-		struct skl_pipe_params *params, bool is_fe)
+-{
+-	int in_fixup, out_fixup;
+-	struct skl_module_fmt *in_fmt, *out_fmt;
+-
+-	/* Fixups will be applied to pin 0 only */
+-	in_fmt = &m_cfg->module->formats[m_cfg->fmt_idx].inputs[0].fmt;
+-	out_fmt = &m_cfg->module->formats[m_cfg->fmt_idx].outputs[0].fmt;
+-
+-	if (params->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		if (is_fe) {
+-			in_fixup = m_cfg->params_fixup;
+-			out_fixup = (~m_cfg->converter) &
+-					m_cfg->params_fixup;
+-		} else {
+-			out_fixup = m_cfg->params_fixup;
+-			in_fixup = (~m_cfg->converter) &
+-					m_cfg->params_fixup;
+-		}
+-	} else {
+-		if (is_fe) {
+-			out_fixup = m_cfg->params_fixup;
+-			in_fixup = (~m_cfg->converter) &
+-					m_cfg->params_fixup;
+-		} else {
+-			in_fixup = m_cfg->params_fixup;
+-			out_fixup = (~m_cfg->converter) &
+-					m_cfg->params_fixup;
+-		}
+-	}
+-
+-	skl_tplg_update_params(in_fmt, params, in_fixup);
+-	skl_tplg_update_params(out_fmt, params, out_fixup);
+-}
+-
+-/*
+- * A module needs input and output buffers, which are dependent upon pcm
+- * params, so once we have calculate params, we need buffer calculation as
+- * well.
+- */
+-static void skl_tplg_update_buffer_size(struct skl_dev *skl,
+-				struct skl_module_cfg *mcfg)
+-{
+-	int multiplier = 1;
+-	struct skl_module_fmt *in_fmt, *out_fmt;
+-	struct skl_module_res *res;
+-
+-	/* Since fixups is applied to pin 0 only, ibs, obs needs
+-	 * change for pin 0 only
+-	 */
+-	res = &mcfg->module->resources[mcfg->res_idx];
+-	in_fmt = &mcfg->module->formats[mcfg->fmt_idx].inputs[0].fmt;
+-	out_fmt = &mcfg->module->formats[mcfg->fmt_idx].outputs[0].fmt;
+-
+-	if (mcfg->m_type == SKL_MODULE_TYPE_SRCINT)
+-		multiplier = 5;
+-
+-	res->ibs = DIV_ROUND_UP(in_fmt->s_freq, 1000) *
+-			in_fmt->channels * (in_fmt->bit_depth >> 3) *
+-			multiplier;
+-
+-	res->obs = DIV_ROUND_UP(out_fmt->s_freq, 1000) *
+-			out_fmt->channels * (out_fmt->bit_depth >> 3) *
+-			multiplier;
+-}
+-
+-static u8 skl_tplg_be_dev_type(int dev_type)
+-{
+-	int ret;
+-
+-	switch (dev_type) {
+-	case SKL_DEVICE_BT:
+-		ret = NHLT_DEVICE_BT;
+-		break;
+-
+-	case SKL_DEVICE_DMIC:
+-		ret = NHLT_DEVICE_DMIC;
+-		break;
+-
+-	case SKL_DEVICE_I2S:
+-		ret = NHLT_DEVICE_I2S;
+-		break;
+-
+-	default:
+-		ret = NHLT_DEVICE_INVALID;
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+-static int skl_tplg_update_be_blob(struct snd_soc_dapm_widget *w,
+-						struct skl_dev *skl)
+-{
+-	struct skl_module_cfg *m_cfg = w->priv;
+-	int link_type, dir;
+-	u32 ch, s_freq, s_fmt, s_cont;
+-	struct nhlt_specific_cfg *cfg;
+-	u8 dev_type = skl_tplg_be_dev_type(m_cfg->dev_type);
+-	int fmt_idx = m_cfg->fmt_idx;
+-	struct skl_module_iface *m_iface = &m_cfg->module->formats[fmt_idx];
+-
+-	/* check if we already have blob */
+-	if (m_cfg->formats_config[SKL_PARAM_INIT].caps_size > 0)
+-		return 0;
+-
+-	dev_dbg(skl->dev, "Applying default cfg blob\n");
+-	switch (m_cfg->dev_type) {
+-	case SKL_DEVICE_DMIC:
+-		link_type = NHLT_LINK_DMIC;
+-		dir = SNDRV_PCM_STREAM_CAPTURE;
+-		s_freq = m_iface->inputs[0].fmt.s_freq;
+-		s_fmt = m_iface->inputs[0].fmt.valid_bit_depth;
+-		s_cont = m_iface->inputs[0].fmt.bit_depth;
+-		ch = m_iface->inputs[0].fmt.channels;
+-		break;
+-
+-	case SKL_DEVICE_I2S:
+-		link_type = NHLT_LINK_SSP;
+-		if (m_cfg->hw_conn_type == SKL_CONN_SOURCE) {
+-			dir = SNDRV_PCM_STREAM_PLAYBACK;
+-			s_freq = m_iface->outputs[0].fmt.s_freq;
+-			s_fmt = m_iface->outputs[0].fmt.valid_bit_depth;
+-			s_cont = m_iface->outputs[0].fmt.bit_depth;
+-			ch = m_iface->outputs[0].fmt.channels;
+-		} else {
+-			dir = SNDRV_PCM_STREAM_CAPTURE;
+-			s_freq = m_iface->inputs[0].fmt.s_freq;
+-			s_fmt = m_iface->inputs[0].fmt.valid_bit_depth;
+-			s_cont = m_iface->inputs[0].fmt.bit_depth;
+-			ch = m_iface->inputs[0].fmt.channels;
+-		}
+-		break;
+-
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	/* update the blob based on virtual bus_id and default params */
+-	cfg = intel_nhlt_get_endpoint_blob(skl->dev, skl->nhlt, m_cfg->vbus_id,
+-					   link_type, s_fmt, s_cont, ch,
+-					   s_freq, dir, dev_type);
+-	if (cfg) {
+-		m_cfg->formats_config[SKL_PARAM_INIT].caps_size = cfg->size;
+-		m_cfg->formats_config[SKL_PARAM_INIT].caps = (u32 *)&cfg->caps;
+-	} else {
+-		dev_err(skl->dev, "Blob NULL for id %x type %d dirn %d\n",
+-					m_cfg->vbus_id, link_type, dir);
+-		dev_err(skl->dev, "PCM: ch %d, freq %d, fmt %d/%d\n",
+-					ch, s_freq, s_fmt, s_cont);
+-		return -EIO;
+-	}
+-
+-	return 0;
+-}
+-
+-static void skl_tplg_update_module_params(struct snd_soc_dapm_widget *w,
+-							struct skl_dev *skl)
+-{
+-	struct skl_module_cfg *m_cfg = w->priv;
+-	struct skl_pipe_params *params = m_cfg->pipe->p_params;
+-	int p_conn_type = m_cfg->pipe->conn_type;
+-	bool is_fe;
+-
+-	if (!m_cfg->params_fixup)
+-		return;
+-
+-	dev_dbg(skl->dev, "Mconfig for widget=%s BEFORE updation\n",
+-				w->name);
+-
+-	skl_dump_mconfig(skl, m_cfg);
+-
+-	if (p_conn_type == SKL_PIPE_CONN_TYPE_FE)
+-		is_fe = true;
+-	else
+-		is_fe = false;
+-
+-	skl_tplg_update_params_fixup(m_cfg, params, is_fe);
+-	skl_tplg_update_buffer_size(skl, m_cfg);
+-
+-	dev_dbg(skl->dev, "Mconfig for widget=%s AFTER updation\n",
+-				w->name);
+-
+-	skl_dump_mconfig(skl, m_cfg);
+-}
+-
+-/*
+- * some modules can have multiple params set from user control and
+- * need to be set after module is initialized. If set_param flag is
+- * set module params will be done after module is initialised.
+- */
+-static int skl_tplg_set_module_params(struct snd_soc_dapm_widget *w,
+-						struct skl_dev *skl)
+-{
+-	int i, ret;
+-	struct skl_module_cfg *mconfig = w->priv;
+-	const struct snd_kcontrol_new *k;
+-	struct soc_bytes_ext *sb;
+-	struct skl_algo_data *bc;
+-	struct skl_specific_cfg *sp_cfg;
+-
+-	if (mconfig->formats_config[SKL_PARAM_SET].caps_size > 0 &&
+-	    mconfig->formats_config[SKL_PARAM_SET].set_params == SKL_PARAM_SET) {
+-		sp_cfg = &mconfig->formats_config[SKL_PARAM_SET];
+-		ret = skl_set_module_params(skl, sp_cfg->caps,
+-					sp_cfg->caps_size,
+-					sp_cfg->param_id, mconfig);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+-	for (i = 0; i < w->num_kcontrols; i++) {
+-		k = &w->kcontrol_news[i];
+-		if (k->access & SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK) {
+-			sb = (void *) k->private_value;
+-			bc = (struct skl_algo_data *)sb->dobj.private;
+-
+-			if (bc->set_params == SKL_PARAM_SET) {
+-				ret = skl_set_module_params(skl,
+-						(u32 *)bc->params, bc->size,
+-						bc->param_id, mconfig);
+-				if (ret < 0)
+-					return ret;
+-			}
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * some module param can set from user control and this is required as
+- * when module is initailzed. if module param is required in init it is
+- * identifed by set_param flag. if set_param flag is not set, then this
+- * parameter needs to set as part of module init.
+- */
+-static int skl_tplg_set_module_init_data(struct snd_soc_dapm_widget *w)
+-{
+-	const struct snd_kcontrol_new *k;
+-	struct soc_bytes_ext *sb;
+-	struct skl_algo_data *bc;
+-	struct skl_module_cfg *mconfig = w->priv;
+-	int i;
+-
+-	for (i = 0; i < w->num_kcontrols; i++) {
+-		k = &w->kcontrol_news[i];
+-		if (k->access & SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK) {
+-			sb = (struct soc_bytes_ext *)k->private_value;
+-			bc = (struct skl_algo_data *)sb->dobj.private;
+-
+-			if (bc->set_params != SKL_PARAM_INIT)
+-				continue;
+-
+-			mconfig->formats_config[SKL_PARAM_INIT].caps =
+-							(u32 *)bc->params;
+-			mconfig->formats_config[SKL_PARAM_INIT].caps_size =
+-								bc->size;
+-
+-			break;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_module_prepare(struct skl_dev *skl, struct skl_pipe *pipe,
+-		struct snd_soc_dapm_widget *w, struct skl_module_cfg *mcfg)
+-{
+-	switch (mcfg->dev_type) {
+-	case SKL_DEVICE_HDAHOST:
+-		return skl_pcm_host_dma_prepare(skl->dev, pipe->p_params);
+-
+-	case SKL_DEVICE_HDALINK:
+-		return skl_pcm_link_dma_prepare(skl->dev, pipe->p_params);
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Inside a pipe instance, we can have various modules. These modules need
+- * to instantiated in DSP by invoking INIT_MODULE IPC, which is achieved by
+- * skl_init_module() routine, so invoke that for all modules in a pipeline
+- */
+-static int
+-skl_tplg_init_pipe_modules(struct skl_dev *skl, struct skl_pipe *pipe)
+-{
+-	struct skl_pipe_module *w_module;
+-	struct snd_soc_dapm_widget *w;
+-	struct skl_module_cfg *mconfig;
+-	u8 cfg_idx;
+-	int ret = 0;
+-
+-	list_for_each_entry(w_module, &pipe->w_list, node) {
+-		guid_t *uuid_mod;
+-		w = w_module->w;
+-		mconfig = w->priv;
+-
+-		/* check if module ids are populated */
+-		if (mconfig->id.module_id < 0) {
+-			dev_err(skl->dev,
+-					"module %pUL id not populated\n",
+-					(guid_t *)mconfig->guid);
+-			return -EIO;
+-		}
+-
+-		cfg_idx = mconfig->pipe->cur_config_idx;
+-		mconfig->fmt_idx = mconfig->mod_cfg[cfg_idx].fmt_idx;
+-		mconfig->res_idx = mconfig->mod_cfg[cfg_idx].res_idx;
+-
+-		if (mconfig->module->loadable && skl->dsp->fw_ops.load_mod) {
+-			ret = skl->dsp->fw_ops.load_mod(skl->dsp,
+-				mconfig->id.module_id, mconfig->guid);
+-			if (ret < 0)
+-				return ret;
+-		}
+-
+-		/* prepare the DMA if the module is gateway cpr */
+-		ret = skl_tplg_module_prepare(skl, pipe, w, mconfig);
+-		if (ret < 0)
+-			return ret;
+-
+-		/* update blob if blob is null for be with default value */
+-		skl_tplg_update_be_blob(w, skl);
+-
+-		/*
+-		 * apply fix/conversion to module params based on
+-		 * FE/BE params
+-		 */
+-		skl_tplg_update_module_params(w, skl);
+-		uuid_mod = (guid_t *)mconfig->guid;
+-		mconfig->id.pvt_id = skl_get_pvt_id(skl, uuid_mod,
+-						mconfig->id.instance_id);
+-		if (mconfig->id.pvt_id < 0)
+-			return ret;
+-		skl_tplg_set_module_init_data(w);
+-
+-		ret = skl_dsp_get_core(skl->dsp, mconfig->core_id);
+-		if (ret < 0) {
+-			dev_err(skl->dev, "Failed to wake up core %d ret=%d\n",
+-						mconfig->core_id, ret);
+-			return ret;
+-		}
+-
+-		ret = skl_init_module(skl, mconfig);
+-		if (ret < 0) {
+-			skl_put_pvt_id(skl, uuid_mod, &mconfig->id.pvt_id);
+-			goto err;
+-		}
+-
+-		ret = skl_tplg_set_module_params(w, skl);
+-		if (ret < 0)
+-			goto err;
+-	}
+-
+-	return 0;
+-err:
+-	skl_dsp_put_core(skl->dsp, mconfig->core_id);
+-	return ret;
+-}
+-
+-static int skl_tplg_unload_pipe_modules(struct skl_dev *skl,
+-	 struct skl_pipe *pipe)
+-{
+-	int ret = 0;
+-	struct skl_pipe_module *w_module;
+-	struct skl_module_cfg *mconfig;
+-
+-	list_for_each_entry(w_module, &pipe->w_list, node) {
+-		guid_t *uuid_mod;
+-		mconfig  = w_module->w->priv;
+-		uuid_mod = (guid_t *)mconfig->guid;
+-
+-		if (mconfig->module->loadable && skl->dsp->fw_ops.unload_mod) {
+-			ret = skl->dsp->fw_ops.unload_mod(skl->dsp,
+-						mconfig->id.module_id);
+-			if (ret < 0)
+-				return -EIO;
+-		}
+-		skl_put_pvt_id(skl, uuid_mod, &mconfig->id.pvt_id);
+-
+-		ret = skl_dsp_put_core(skl->dsp, mconfig->core_id);
+-		if (ret < 0) {
+-			/* don't return; continue with other modules */
+-			dev_err(skl->dev, "Failed to sleep core %d ret=%d\n",
+-				mconfig->core_id, ret);
+-		}
+-	}
+-
+-	/* no modules to unload in this path, so return */
+-	return ret;
+-}
+-
+-static void skl_tplg_set_pipe_config_idx(struct skl_pipe *pipe, int idx)
+-{
+-	pipe->cur_config_idx = idx;
+-	pipe->memory_pages = pipe->configs[idx].mem_pages;
+-}
+-
+-/*
+- * Here, we select pipe format based on the pipe type and pipe
+- * direction to determine the current config index for the pipeline.
+- * The config index is then used to select proper module resources.
+- * Intermediate pipes currently have a fixed format hence we select the
+- * 0th configuratation by default for such pipes.
+- */
+-static int
+-skl_tplg_get_pipe_config(struct skl_dev *skl, struct skl_module_cfg *mconfig)
+-{
+-	struct skl_pipe *pipe = mconfig->pipe;
+-	struct skl_pipe_params *params = pipe->p_params;
+-	struct skl_path_config *pconfig = &pipe->configs[0];
+-	struct skl_pipe_fmt *fmt = NULL;
+-	bool in_fmt = false;
+-	int i;
+-
+-	if (pipe->nr_cfgs == 0) {
+-		skl_tplg_set_pipe_config_idx(pipe, 0);
+-		return 0;
+-	}
+-
+-	if (pipe->conn_type == SKL_PIPE_CONN_TYPE_NONE || pipe->nr_cfgs == 1) {
+-		dev_dbg(skl->dev, "No conn_type or just 1 pathcfg, taking 0th for %d\n",
+-			pipe->ppl_id);
+-		skl_tplg_set_pipe_config_idx(pipe, 0);
+-		return 0;
+-	}
+-
+-	if ((pipe->conn_type == SKL_PIPE_CONN_TYPE_FE &&
+-	     pipe->direction == SNDRV_PCM_STREAM_PLAYBACK) ||
+-	     (pipe->conn_type == SKL_PIPE_CONN_TYPE_BE &&
+-	     pipe->direction == SNDRV_PCM_STREAM_CAPTURE))
+-		in_fmt = true;
+-
+-	for (i = 0; i < pipe->nr_cfgs; i++) {
+-		pconfig = &pipe->configs[i];
+-		if (in_fmt)
+-			fmt = &pconfig->in_fmt;
+-		else
+-			fmt = &pconfig->out_fmt;
+-
+-		if (CHECK_HW_PARAMS(params->ch, params->s_freq, params->s_fmt,
+-				    fmt->channels, fmt->freq, fmt->bps)) {
+-			skl_tplg_set_pipe_config_idx(pipe, i);
+-			dev_dbg(skl->dev, "Using pipe config: %d\n", i);
+-			return 0;
+-		}
+-	}
+-
+-	dev_err(skl->dev, "Invalid pipe config: %d %d %d for pipe: %d\n",
+-		params->ch, params->s_freq, params->s_fmt, pipe->ppl_id);
+-	return -EINVAL;
+-}
+-
+-/*
+- * Mixer module represents a pipeline. So in the Pre-PMU event of mixer we
+- * need create the pipeline. So we do following:
+- *   - Create the pipeline
+- *   - Initialize the modules in pipeline
+- *   - finally bind all modules together
+- */
+-static int skl_tplg_mixer_dapm_pre_pmu_event(struct snd_soc_dapm_widget *w,
+-							struct skl_dev *skl)
+-{
+-	int ret;
+-	struct skl_module_cfg *mconfig = w->priv;
+-	struct skl_pipe_module *w_module;
+-	struct skl_pipe *s_pipe = mconfig->pipe;
+-	struct skl_module_cfg *src_module = NULL, *dst_module, *module;
+-	struct skl_module_deferred_bind *modules;
+-
+-	ret = skl_tplg_get_pipe_config(skl, mconfig);
+-	if (ret < 0)
+-		return ret;
+-
+-	/*
+-	 * Create a list of modules for pipe.
+-	 * This list contains modules from source to sink
+-	 */
+-	ret = skl_create_pipeline(skl, mconfig->pipe);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Init all pipe modules from source to sink */
+-	ret = skl_tplg_init_pipe_modules(skl, s_pipe);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Bind modules from source to sink */
+-	list_for_each_entry(w_module, &s_pipe->w_list, node) {
+-		dst_module = w_module->w->priv;
+-
+-		if (src_module == NULL) {
+-			src_module = dst_module;
+-			continue;
+-		}
+-
+-		ret = skl_bind_modules(skl, src_module, dst_module);
+-		if (ret < 0)
+-			return ret;
+-
+-		src_module = dst_module;
+-	}
+-
+-	/*
+-	 * When the destination module is initialized, check for these modules
+-	 * in deferred bind list. If found, bind them.
+-	 */
+-	list_for_each_entry(w_module, &s_pipe->w_list, node) {
+-		if (list_empty(&skl->bind_list))
+-			break;
+-
+-		list_for_each_entry(modules, &skl->bind_list, node) {
+-			module = w_module->w->priv;
+-			if (modules->dst == module)
+-				skl_bind_modules(skl, modules->src,
+-							modules->dst);
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_fill_sink_instance_id(struct skl_dev *skl, u32 *params,
+-				int size, struct skl_module_cfg *mcfg)
+-{
+-	int i, pvt_id;
+-
+-	if (mcfg->m_type == SKL_MODULE_TYPE_KPB) {
+-		struct skl_kpb_params *kpb_params =
+-				(struct skl_kpb_params *)params;
+-		struct skl_mod_inst_map *inst = kpb_params->u.map;
+-
+-		for (i = 0; i < kpb_params->num_modules; i++) {
+-			pvt_id = skl_get_pvt_instance_id_map(skl, inst->mod_id,
+-								inst->inst_id);
+-			if (pvt_id < 0)
+-				return -EINVAL;
+-
+-			inst->inst_id = pvt_id;
+-			inst++;
+-		}
+-	}
+-
+-	return 0;
+-}
+-/*
+- * Some modules require params to be set after the module is bound to
+- * all pins connected.
+- *
+- * The module provider initializes set_param flag for such modules and we
+- * send params after binding
+- */
+-static int skl_tplg_set_module_bind_params(struct snd_soc_dapm_widget *w,
+-			struct skl_module_cfg *mcfg, struct skl_dev *skl)
+-{
+-	int i, ret;
+-	struct skl_module_cfg *mconfig = w->priv;
+-	const struct snd_kcontrol_new *k;
+-	struct soc_bytes_ext *sb;
+-	struct skl_algo_data *bc;
+-	struct skl_specific_cfg *sp_cfg;
+-	u32 *params;
+-
+-	/*
+-	 * check all out/in pins are in bind state.
+-	 * if so set the module param
+-	 */
+-	for (i = 0; i < mcfg->module->max_output_pins; i++) {
+-		if (mcfg->m_out_pin[i].pin_state != SKL_PIN_BIND_DONE)
+-			return 0;
+-	}
+-
+-	for (i = 0; i < mcfg->module->max_input_pins; i++) {
+-		if (mcfg->m_in_pin[i].pin_state != SKL_PIN_BIND_DONE)
+-			return 0;
+-	}
+-
+-	if (mconfig->formats_config[SKL_PARAM_BIND].caps_size > 0 &&
+-	    mconfig->formats_config[SKL_PARAM_BIND].set_params ==
+-								SKL_PARAM_BIND) {
+-		sp_cfg = &mconfig->formats_config[SKL_PARAM_BIND];
+-		ret = skl_set_module_params(skl, sp_cfg->caps,
+-					sp_cfg->caps_size,
+-					sp_cfg->param_id, mconfig);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
+-	for (i = 0; i < w->num_kcontrols; i++) {
+-		k = &w->kcontrol_news[i];
+-		if (k->access & SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK) {
+-			sb = (void *) k->private_value;
+-			bc = (struct skl_algo_data *)sb->dobj.private;
+-
+-			if (bc->set_params == SKL_PARAM_BIND) {
+-				params = kmemdup(bc->params, bc->max, GFP_KERNEL);
+-				if (!params)
+-					return -ENOMEM;
+-
+-				skl_fill_sink_instance_id(skl, params, bc->max,
+-								mconfig);
+-
+-				ret = skl_set_module_params(skl, params,
+-						bc->max, bc->param_id, mconfig);
+-				kfree(params);
+-
+-				if (ret < 0)
+-					return ret;
+-			}
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_get_module_id(struct skl_dev *skl, guid_t *uuid)
+-{
+-	struct uuid_module *module;
+-
+-	list_for_each_entry(module, &skl->uuid_list, list) {
+-		if (guid_equal(uuid, &module->uuid))
+-			return module->id;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-static int skl_tplg_find_moduleid_from_uuid(struct skl_dev *skl,
+-					const struct snd_kcontrol_new *k)
+-{
+-	struct soc_bytes_ext *sb = (void *) k->private_value;
+-	struct skl_algo_data *bc = (struct skl_algo_data *)sb->dobj.private;
+-	struct skl_kpb_params *uuid_params, *params;
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	int i, size, module_id;
+-
+-	if (bc->set_params == SKL_PARAM_BIND && bc->max) {
+-		uuid_params = (struct skl_kpb_params *)bc->params;
+-		size = struct_size(params, u.map, uuid_params->num_modules);
+-
+-		params = devm_kzalloc(bus->dev, size, GFP_KERNEL);
+-		if (!params)
+-			return -ENOMEM;
+-
+-		params->num_modules = uuid_params->num_modules;
+-
+-		for (i = 0; i < uuid_params->num_modules; i++) {
+-			module_id = skl_get_module_id(skl,
+-				&uuid_params->u.map_uuid[i].mod_uuid);
+-			if (module_id < 0) {
+-				devm_kfree(bus->dev, params);
+-				return -EINVAL;
+-			}
+-
+-			params->u.map[i].mod_id = module_id;
+-			params->u.map[i].inst_id =
+-				uuid_params->u.map_uuid[i].inst_id;
+-		}
+-
+-		devm_kfree(bus->dev, bc->params);
+-		bc->params = (char *)params;
+-		bc->max = size;
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Retrieve the module id from UUID mentioned in the
+- * post bind params
+- */
+-void skl_tplg_add_moduleid_in_bind_params(struct skl_dev *skl,
+-				struct snd_soc_dapm_widget *w)
+-{
+-	struct skl_module_cfg *mconfig = w->priv;
+-	int i;
+-
+-	/*
+-	 * Post bind params are used for only for KPB
+-	 * to set copier instances to drain the data
+-	 * in fast mode
+-	 */
+-	if (mconfig->m_type != SKL_MODULE_TYPE_KPB)
+-		return;
+-
+-	for (i = 0; i < w->num_kcontrols; i++)
+-		if ((w->kcontrol_news[i].access &
+-			SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK) &&
+-			(skl_tplg_find_moduleid_from_uuid(skl,
+-			&w->kcontrol_news[i]) < 0))
+-			dev_err(skl->dev,
+-				"%s: invalid kpb post bind params\n",
+-				__func__);
+-}
+-
+-static int skl_tplg_module_add_deferred_bind(struct skl_dev *skl,
+-	struct skl_module_cfg *src, struct skl_module_cfg *dst)
+-{
+-	struct skl_module_deferred_bind *m_list, *modules;
+-	int i;
+-
+-	/* only supported for module with static pin connection */
+-	for (i = 0; i < dst->module->max_input_pins; i++) {
+-		struct skl_module_pin *pin = &dst->m_in_pin[i];
+-
+-		if (pin->is_dynamic)
+-			continue;
+-
+-		if ((pin->id.module_id  == src->id.module_id) &&
+-			(pin->id.instance_id  == src->id.instance_id)) {
+-
+-			if (!list_empty(&skl->bind_list)) {
+-				list_for_each_entry(modules, &skl->bind_list, node) {
+-					if (modules->src == src && modules->dst == dst)
+-						return 0;
+-				}
+-			}
+-
+-			m_list = kzalloc(sizeof(*m_list), GFP_KERNEL);
+-			if (!m_list)
+-				return -ENOMEM;
+-
+-			m_list->src = src;
+-			m_list->dst = dst;
+-
+-			list_add(&m_list->node, &skl->bind_list);
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_bind_sinks(struct snd_soc_dapm_widget *w,
+-				struct skl_dev *skl,
+-				struct snd_soc_dapm_widget *src_w,
+-				struct skl_module_cfg *src_mconfig)
+-{
+-	struct snd_soc_dapm_path *p;
+-	struct snd_soc_dapm_widget *sink = NULL, *next_sink = NULL;
+-	struct skl_module_cfg *sink_mconfig;
+-	int ret;
+-
+-	snd_soc_dapm_widget_for_each_sink_path(w, p) {
+-		if (!p->connect)
+-			continue;
+-
+-		dev_dbg(skl->dev,
+-			"%s: src widget=%s\n", __func__, w->name);
+-		dev_dbg(skl->dev,
+-			"%s: sink widget=%s\n", __func__, p->sink->name);
+-
+-		next_sink = p->sink;
+-
+-		if (!is_skl_dsp_widget_type(p->sink, skl->dev))
+-			return skl_tplg_bind_sinks(p->sink, skl, src_w, src_mconfig);
+-
+-		/*
+-		 * here we will check widgets in sink pipelines, so that
+-		 * can be any widgets type and we are only interested if
+-		 * they are ones used for SKL so check that first
+-		 */
+-		if ((p->sink->priv != NULL) &&
+-				is_skl_dsp_widget_type(p->sink, skl->dev)) {
+-
+-			sink = p->sink;
+-			sink_mconfig = sink->priv;
+-
+-			/*
+-			 * Modules other than PGA leaf can be connected
+-			 * directly or via switch to a module in another
+-			 * pipeline. EX: reference path
+-			 * when the path is enabled, the dst module that needs
+-			 * to be bound may not be initialized. if the module is
+-			 * not initialized, add these modules in the deferred
+-			 * bind list and when the dst module is initialised,
+-			 * bind this module to the dst_module in deferred list.
+-			 */
+-			if (((src_mconfig->m_state == SKL_MODULE_INIT_DONE)
+-				&& (sink_mconfig->m_state == SKL_MODULE_UNINIT))) {
+-
+-				ret = skl_tplg_module_add_deferred_bind(skl,
+-						src_mconfig, sink_mconfig);
+-
+-				if (ret < 0)
+-					return ret;
+-
+-			}
+-
+-
+-			if (src_mconfig->m_state == SKL_MODULE_UNINIT ||
+-				sink_mconfig->m_state == SKL_MODULE_UNINIT)
+-				continue;
+-
+-			/* Bind source to sink, mixin is always source */
+-			ret = skl_bind_modules(skl, src_mconfig, sink_mconfig);
+-			if (ret)
+-				return ret;
+-
+-			/* set module params after bind */
+-			skl_tplg_set_module_bind_params(src_w,
+-					src_mconfig, skl);
+-			skl_tplg_set_module_bind_params(sink,
+-					sink_mconfig, skl);
+-
+-			/* Start sinks pipe first */
+-			if (sink_mconfig->pipe->state != SKL_PIPE_STARTED) {
+-				if (sink_mconfig->pipe->conn_type !=
+-							SKL_PIPE_CONN_TYPE_FE)
+-					ret = skl_run_pipe(skl,
+-							sink_mconfig->pipe);
+-				if (ret)
+-					return ret;
+-			}
+-		}
+-	}
+-
+-	if (!sink && next_sink)
+-		return skl_tplg_bind_sinks(next_sink, skl, src_w, src_mconfig);
+-
+-	return 0;
+-}
+-
+-/*
+- * A PGA represents a module in a pipeline. So in the Pre-PMU event of PGA
+- * we need to do following:
+- *   - Bind to sink pipeline
+- *      Since the sink pipes can be running and we don't get mixer event on
+- *      connect for already running mixer, we need to find the sink pipes
+- *      here and bind to them. This way dynamic connect works.
+- *   - Start sink pipeline, if not running
+- *   - Then run current pipe
+- */
+-static int skl_tplg_pga_dapm_pre_pmu_event(struct snd_soc_dapm_widget *w,
+-							struct skl_dev *skl)
+-{
+-	struct skl_module_cfg *src_mconfig;
+-	int ret = 0;
+-
+-	src_mconfig = w->priv;
+-
+-	/*
+-	 * find which sink it is connected to, bind with the sink,
+-	 * if sink is not started, start sink pipe first, then start
+-	 * this pipe
+-	 */
+-	ret = skl_tplg_bind_sinks(w, skl, w, src_mconfig);
+-	if (ret)
+-		return ret;
+-
+-	/* Start source pipe last after starting all sinks */
+-	if (src_mconfig->pipe->conn_type != SKL_PIPE_CONN_TYPE_FE)
+-		return skl_run_pipe(skl, src_mconfig->pipe);
+-
+-	return 0;
+-}
+-
+-static struct snd_soc_dapm_widget *skl_get_src_dsp_widget(
+-		struct snd_soc_dapm_widget *w, struct skl_dev *skl)
+-{
+-	struct snd_soc_dapm_path *p;
+-	struct snd_soc_dapm_widget *src_w = NULL;
+-
+-	snd_soc_dapm_widget_for_each_source_path(w, p) {
+-		src_w = p->source;
+-		if (!p->connect)
+-			continue;
+-
+-		dev_dbg(skl->dev, "sink widget=%s\n", w->name);
+-		dev_dbg(skl->dev, "src widget=%s\n", p->source->name);
+-
+-		/*
+-		 * here we will check widgets in sink pipelines, so that can
+-		 * be any widgets type and we are only interested if they are
+-		 * ones used for SKL so check that first
+-		 */
+-		if ((p->source->priv != NULL) &&
+-				is_skl_dsp_widget_type(p->source, skl->dev)) {
+-			return p->source;
+-		}
+-	}
+-
+-	if (src_w != NULL)
+-		return skl_get_src_dsp_widget(src_w, skl);
+-
+-	return NULL;
+-}
+-
+-/*
+- * in the Post-PMU event of mixer we need to do following:
+- *   - Check if this pipe is running
+- *   - if not, then
+- *	- bind this pipeline to its source pipeline
+- *	  if source pipe is already running, this means it is a dynamic
+- *	  connection and we need to bind only to that pipe
+- *	- start this pipeline
+- */
+-static int skl_tplg_mixer_dapm_post_pmu_event(struct snd_soc_dapm_widget *w,
+-							struct skl_dev *skl)
+-{
+-	int ret = 0;
+-	struct snd_soc_dapm_widget *source, *sink;
+-	struct skl_module_cfg *src_mconfig, *sink_mconfig;
+-	int src_pipe_started = 0;
+-
+-	sink = w;
+-	sink_mconfig = sink->priv;
+-
+-	/*
+-	 * If source pipe is already started, that means source is driving
+-	 * one more sink before this sink got connected, Since source is
+-	 * started, bind this sink to source and start this pipe.
+-	 */
+-	source = skl_get_src_dsp_widget(w, skl);
+-	if (source != NULL) {
+-		src_mconfig = source->priv;
+-		sink_mconfig = sink->priv;
+-		src_pipe_started = 1;
+-
+-		/*
+-		 * check pipe state, then no need to bind or start the
+-		 * pipe
+-		 */
+-		if (src_mconfig->pipe->state != SKL_PIPE_STARTED)
+-			src_pipe_started = 0;
+-	}
+-
+-	if (src_pipe_started) {
+-		ret = skl_bind_modules(skl, src_mconfig, sink_mconfig);
+-		if (ret)
+-			return ret;
+-
+-		/* set module params after bind */
+-		skl_tplg_set_module_bind_params(source, src_mconfig, skl);
+-		skl_tplg_set_module_bind_params(sink, sink_mconfig, skl);
+-
+-		if (sink_mconfig->pipe->conn_type != SKL_PIPE_CONN_TYPE_FE)
+-			ret = skl_run_pipe(skl, sink_mconfig->pipe);
+-	}
+-
+-	return ret;
+-}
+-
+-/*
+- * in the Pre-PMD event of mixer we need to do following:
+- *   - Stop the pipe
+- *   - find the source connections and remove that from dapm_path_list
+- *   - unbind with source pipelines if still connected
+- */
+-static int skl_tplg_mixer_dapm_pre_pmd_event(struct snd_soc_dapm_widget *w,
+-							struct skl_dev *skl)
+-{
+-	struct skl_module_cfg *src_mconfig, *sink_mconfig;
+-	int ret = 0, i;
+-
+-	sink_mconfig = w->priv;
+-
+-	/* Stop the pipe */
+-	ret = skl_stop_pipe(skl, sink_mconfig->pipe);
+-	if (ret)
+-		return ret;
+-
+-	for (i = 0; i < sink_mconfig->module->max_input_pins; i++) {
+-		if (sink_mconfig->m_in_pin[i].pin_state == SKL_PIN_BIND_DONE) {
+-			src_mconfig = sink_mconfig->m_in_pin[i].tgt_mcfg;
+-			if (!src_mconfig)
+-				continue;
+-
+-			ret = skl_unbind_modules(skl,
+-						src_mconfig, sink_mconfig);
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-/*
+- * in the Post-PMD event of mixer we need to do following:
+- *   - Unbind the modules within the pipeline
+- *   - Delete the pipeline (modules are not required to be explicitly
+- *     deleted, pipeline delete is enough here
+- */
+-static int skl_tplg_mixer_dapm_post_pmd_event(struct snd_soc_dapm_widget *w,
+-							struct skl_dev *skl)
+-{
+-	struct skl_module_cfg *mconfig = w->priv;
+-	struct skl_pipe_module *w_module;
+-	struct skl_module_cfg *src_module = NULL, *dst_module;
+-	struct skl_pipe *s_pipe = mconfig->pipe;
+-	struct skl_module_deferred_bind *modules, *tmp;
+-
+-	if (s_pipe->state == SKL_PIPE_INVALID)
+-		return -EINVAL;
+-
+-	list_for_each_entry(w_module, &s_pipe->w_list, node) {
+-		if (list_empty(&skl->bind_list))
+-			break;
+-
+-		src_module = w_module->w->priv;
+-
+-		list_for_each_entry_safe(modules, tmp, &skl->bind_list, node) {
+-			/*
+-			 * When the destination module is deleted, Unbind the
+-			 * modules from deferred bind list.
+-			 */
+-			if (modules->dst == src_module) {
+-				skl_unbind_modules(skl, modules->src,
+-						modules->dst);
+-			}
+-
+-			/*
+-			 * When the source module is deleted, remove this entry
+-			 * from the deferred bind list.
+-			 */
+-			if (modules->src == src_module) {
+-				list_del(&modules->node);
+-				modules->src = NULL;
+-				modules->dst = NULL;
+-				kfree(modules);
+-			}
+-		}
+-	}
+-
+-	list_for_each_entry(w_module, &s_pipe->w_list, node) {
+-		dst_module = w_module->w->priv;
+-
+-		if (src_module == NULL) {
+-			src_module = dst_module;
+-			continue;
+-		}
+-
+-		skl_unbind_modules(skl, src_module, dst_module);
+-		src_module = dst_module;
+-	}
+-
+-	skl_delete_pipe(skl, mconfig->pipe);
+-
+-	list_for_each_entry(w_module, &s_pipe->w_list, node) {
+-		src_module = w_module->w->priv;
+-		src_module->m_state = SKL_MODULE_UNINIT;
+-	}
+-
+-	return skl_tplg_unload_pipe_modules(skl, s_pipe);
+-}
+-
+-/*
+- * in the Post-PMD event of PGA we need to do following:
+- *   - Stop the pipeline
+- *   - In source pipe is connected, unbind with source pipelines
+- */
+-static int skl_tplg_pga_dapm_post_pmd_event(struct snd_soc_dapm_widget *w,
+-							struct skl_dev *skl)
+-{
+-	struct skl_module_cfg *src_mconfig, *sink_mconfig;
+-	int ret = 0, i;
+-
+-	src_mconfig = w->priv;
+-
+-	/* Stop the pipe since this is a mixin module */
+-	ret = skl_stop_pipe(skl, src_mconfig->pipe);
+-	if (ret)
+-		return ret;
+-
+-	for (i = 0; i < src_mconfig->module->max_output_pins; i++) {
+-		if (src_mconfig->m_out_pin[i].pin_state == SKL_PIN_BIND_DONE) {
+-			sink_mconfig = src_mconfig->m_out_pin[i].tgt_mcfg;
+-			if (!sink_mconfig)
+-				continue;
+-			/*
+-			 * This is a connecter and if path is found that means
+-			 * unbind between source and sink has not happened yet
+-			 */
+-			ret = skl_unbind_modules(skl, src_mconfig,
+-							sink_mconfig);
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-/*
+- * In modelling, we assume there will be ONLY one mixer in a pipeline. If a
+- * second one is required that is created as another pipe entity.
+- * The mixer is responsible for pipe management and represent a pipeline
+- * instance
+- */
+-static int skl_tplg_mixer_event(struct snd_soc_dapm_widget *w,
+-				struct snd_kcontrol *k, int event)
+-{
+-	struct snd_soc_dapm_context *dapm = w->dapm;
+-	struct skl_dev *skl = get_skl_ctx(dapm->dev);
+-
+-	switch (event) {
+-	case SND_SOC_DAPM_PRE_PMU:
+-		return skl_tplg_mixer_dapm_pre_pmu_event(w, skl);
+-
+-	case SND_SOC_DAPM_POST_PMU:
+-		return skl_tplg_mixer_dapm_post_pmu_event(w, skl);
+-
+-	case SND_SOC_DAPM_PRE_PMD:
+-		return skl_tplg_mixer_dapm_pre_pmd_event(w, skl);
+-
+-	case SND_SOC_DAPM_POST_PMD:
+-		return skl_tplg_mixer_dapm_post_pmd_event(w, skl);
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * In modelling, we assumed rest of the modules in pipeline are PGA. But we
+- * are interested in last PGA (leaf PGA) in a pipeline to disconnect with
+- * the sink when it is running (two FE to one BE or one FE to two BE)
+- * scenarios
+- */
+-static int skl_tplg_pga_event(struct snd_soc_dapm_widget *w,
+-			struct snd_kcontrol *k, int event)
+-
+-{
+-	struct snd_soc_dapm_context *dapm = w->dapm;
+-	struct skl_dev *skl = get_skl_ctx(dapm->dev);
+-
+-	switch (event) {
+-	case SND_SOC_DAPM_PRE_PMU:
+-		return skl_tplg_pga_dapm_pre_pmu_event(w, skl);
+-
+-	case SND_SOC_DAPM_POST_PMD:
+-		return skl_tplg_pga_dapm_post_pmd_event(w, skl);
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_multi_config_set_get(struct snd_kcontrol *kcontrol,
+-					 struct snd_ctl_elem_value *ucontrol,
+-					 bool is_set)
+-{
+-	struct snd_soc_component *component =
+-		snd_soc_kcontrol_component(kcontrol);
+-	struct hdac_bus *bus = snd_soc_component_get_drvdata(component);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct skl_pipeline *ppl;
+-	struct skl_pipe *pipe = NULL;
+-	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
+-	u32 *pipe_id;
+-
+-	if (!ec)
+-		return -EINVAL;
+-
+-	if (is_set && ucontrol->value.enumerated.item[0] > ec->items)
+-		return -EINVAL;
+-
+-	pipe_id = ec->dobj.private;
+-
+-	list_for_each_entry(ppl, &skl->ppl_list, node) {
+-		if (ppl->pipe->ppl_id == *pipe_id) {
+-			pipe = ppl->pipe;
+-			break;
+-		}
+-	}
+-	if (!pipe)
+-		return -EIO;
+-
+-	if (is_set)
+-		skl_tplg_set_pipe_config_idx(pipe, ucontrol->value.enumerated.item[0]);
+-	else
+-		ucontrol->value.enumerated.item[0] = pipe->cur_config_idx;
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_multi_config_get(struct snd_kcontrol *kcontrol,
+-				     struct snd_ctl_elem_value *ucontrol)
+-{
+-	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, false);
+-}
+-
+-static int skl_tplg_multi_config_set(struct snd_kcontrol *kcontrol,
+-				     struct snd_ctl_elem_value *ucontrol)
+-{
+-	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, true);
+-}
+-
+-static int skl_tplg_multi_config_get_dmic(struct snd_kcontrol *kcontrol,
+-					  struct snd_ctl_elem_value *ucontrol)
+-{
+-	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, false);
+-}
+-
+-static int skl_tplg_multi_config_set_dmic(struct snd_kcontrol *kcontrol,
+-					  struct snd_ctl_elem_value *ucontrol)
+-{
+-	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, true);
+-}
+-
+-static int skl_tplg_tlv_control_get(struct snd_kcontrol *kcontrol,
+-			unsigned int __user *data, unsigned int size)
+-{
+-	struct soc_bytes_ext *sb =
+-			(struct soc_bytes_ext *)kcontrol->private_value;
+-	struct skl_algo_data *bc = (struct skl_algo_data *)sb->dobj.private;
+-	struct snd_soc_dapm_widget *w = snd_soc_dapm_kcontrol_widget(kcontrol);
+-	struct skl_module_cfg *mconfig = w->priv;
+-	struct skl_dev *skl = get_skl_ctx(w->dapm->dev);
+-
+-	if (w->power)
+-		skl_get_module_params(skl, (u32 *)bc->params,
+-				      bc->size, bc->param_id, mconfig);
+-
+-	/* decrement size for TLV header */
+-	size -= 2 * sizeof(u32);
+-
+-	/* check size as we don't want to send kernel data */
+-	if (size > bc->max)
+-		size = bc->max;
+-
+-	if (bc->params) {
+-		if (copy_to_user(data, &bc->param_id, sizeof(u32)))
+-			return -EFAULT;
+-		if (copy_to_user(data + 1, &size, sizeof(u32)))
+-			return -EFAULT;
+-		if (copy_to_user(data + 2, bc->params, size))
+-			return -EFAULT;
+-	}
+-
+-	return 0;
+-}
+-
+-#define SKL_PARAM_VENDOR_ID 0xff
+-
+-static int skl_tplg_tlv_control_set(struct snd_kcontrol *kcontrol,
+-			const unsigned int __user *data, unsigned int size)
+-{
+-	struct snd_soc_dapm_widget *w = snd_soc_dapm_kcontrol_widget(kcontrol);
+-	struct skl_module_cfg *mconfig = w->priv;
+-	struct soc_bytes_ext *sb =
+-			(struct soc_bytes_ext *)kcontrol->private_value;
+-	struct skl_algo_data *ac = (struct skl_algo_data *)sb->dobj.private;
+-	struct skl_dev *skl = get_skl_ctx(w->dapm->dev);
+-
+-	if (ac->params) {
+-		if (size > ac->max)
+-			return -EINVAL;
+-		ac->size = size;
+-
+-		if (copy_from_user(ac->params, data, size))
+-			return -EFAULT;
+-
+-		if (w->power)
+-			return skl_set_module_params(skl,
+-						(u32 *)ac->params, ac->size,
+-						ac->param_id, mconfig);
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_mic_control_get(struct snd_kcontrol *kcontrol,
+-		struct snd_ctl_elem_value *ucontrol)
+-{
+-	struct snd_soc_dapm_widget *w = snd_soc_dapm_kcontrol_widget(kcontrol);
+-	struct skl_module_cfg *mconfig = w->priv;
+-	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
+-	u32 ch_type = *((u32 *)ec->dobj.private);
+-
+-	if (mconfig->dmic_ch_type == ch_type)
+-		ucontrol->value.enumerated.item[0] =
+-					mconfig->dmic_ch_combo_index;
+-	else
+-		ucontrol->value.enumerated.item[0] = 0;
+-
+-	return 0;
+-}
+-
+-static int skl_fill_mic_sel_params(struct skl_module_cfg *mconfig,
+-	struct skl_mic_sel_config *mic_cfg, struct device *dev)
+-{
+-	struct skl_specific_cfg *sp_cfg =
+-				&mconfig->formats_config[SKL_PARAM_INIT];
+-
+-	sp_cfg->caps_size = sizeof(struct skl_mic_sel_config);
+-	sp_cfg->set_params = SKL_PARAM_SET;
+-	sp_cfg->param_id = 0x00;
+-	if (!sp_cfg->caps) {
+-		sp_cfg->caps = devm_kzalloc(dev, sp_cfg->caps_size, GFP_KERNEL);
+-		if (!sp_cfg->caps)
+-			return -ENOMEM;
+-	}
+-
+-	mic_cfg->mic_switch = SKL_MIC_SEL_SWITCH;
+-	mic_cfg->flags = 0;
+-	memcpy(sp_cfg->caps, mic_cfg, sp_cfg->caps_size);
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_mic_control_set(struct snd_kcontrol *kcontrol,
+-			struct snd_ctl_elem_value *ucontrol)
+-{
+-	struct snd_soc_dapm_widget *w = snd_soc_dapm_kcontrol_widget(kcontrol);
+-	struct skl_module_cfg *mconfig = w->priv;
+-	struct skl_mic_sel_config mic_cfg = {0};
+-	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
+-	u32 ch_type = *((u32 *)ec->dobj.private);
+-	const int *list;
+-	u8 in_ch, out_ch, index;
+-
+-	mconfig->dmic_ch_type = ch_type;
+-	mconfig->dmic_ch_combo_index = ucontrol->value.enumerated.item[0];
+-
+-	/* enum control index 0 is INVALID, so no channels to be set */
+-	if (mconfig->dmic_ch_combo_index == 0)
+-		return 0;
+-
+-	/* No valid channel selection map for index 0, so offset by 1 */
+-	index = mconfig->dmic_ch_combo_index - 1;
+-
+-	switch (ch_type) {
+-	case SKL_CH_MONO:
+-		if (mconfig->dmic_ch_combo_index > ARRAY_SIZE(mic_mono_list))
+-			return -EINVAL;
+-
+-		list = &mic_mono_list[index];
+-		break;
+-
+-	case SKL_CH_STEREO:
+-		if (mconfig->dmic_ch_combo_index > ARRAY_SIZE(mic_stereo_list))
+-			return -EINVAL;
+-
+-		list = mic_stereo_list[index];
+-		break;
+-
+-	case SKL_CH_TRIO:
+-		if (mconfig->dmic_ch_combo_index > ARRAY_SIZE(mic_trio_list))
+-			return -EINVAL;
+-
+-		list = mic_trio_list[index];
+-		break;
+-
+-	case SKL_CH_QUATRO:
+-		if (mconfig->dmic_ch_combo_index > ARRAY_SIZE(mic_quatro_list))
+-			return -EINVAL;
+-
+-		list = mic_quatro_list[index];
+-		break;
+-
+-	default:
+-		dev_err(w->dapm->dev,
+-				"Invalid channel %d for mic_select module\n",
+-				ch_type);
+-		return -EINVAL;
+-
+-	}
+-
+-	/* channel type enum map to number of chanels for that type */
+-	for (out_ch = 0; out_ch < ch_type; out_ch++) {
+-		in_ch = list[out_ch];
+-		mic_cfg.blob[out_ch][in_ch] = SKL_DEFAULT_MIC_SEL_GAIN;
+-	}
+-
+-	return skl_fill_mic_sel_params(mconfig, &mic_cfg, w->dapm->dev);
+-}
+-
+-/*
+- * Fill the dma id for host and link. In case of passthrough
+- * pipeline, this will both host and link in the same
+- * pipeline, so need to copy the link and host based on dev_type
+- */
+-static void skl_tplg_fill_dma_id(struct skl_module_cfg *mcfg,
+-				struct skl_pipe_params *params)
+-{
+-	struct skl_pipe *pipe = mcfg->pipe;
+-
+-	if (pipe->passthru) {
+-		switch (mcfg->dev_type) {
+-		case SKL_DEVICE_HDALINK:
+-			pipe->p_params->link_dma_id = params->link_dma_id;
+-			pipe->p_params->link_index = params->link_index;
+-			pipe->p_params->link_bps = params->link_bps;
+-			break;
+-
+-		case SKL_DEVICE_HDAHOST:
+-			pipe->p_params->host_dma_id = params->host_dma_id;
+-			pipe->p_params->host_bps = params->host_bps;
+-			break;
+-
+-		default:
+-			break;
+-		}
+-		pipe->p_params->s_fmt = params->s_fmt;
+-		pipe->p_params->ch = params->ch;
+-		pipe->p_params->s_freq = params->s_freq;
+-		pipe->p_params->stream = params->stream;
+-		pipe->p_params->format = params->format;
+-
+-	} else {
+-		memcpy(pipe->p_params, params, sizeof(*params));
+-	}
+-}
+-
+-/*
+- * The FE params are passed by hw_params of the DAI.
+- * On hw_params, the params are stored in Gateway module of the FE and we
+- * need to calculate the format in DSP module configuration, that
+- * conversion is done here
+- */
+-int skl_tplg_update_pipe_params(struct device *dev,
+-			struct skl_module_cfg *mconfig,
+-			struct skl_pipe_params *params)
+-{
+-	struct skl_module_res *res;
+-	struct skl_dev *skl = get_skl_ctx(dev);
+-	struct skl_module_fmt *format = NULL;
+-	u8 cfg_idx = mconfig->pipe->cur_config_idx;
+-
+-	res = &mconfig->module->resources[mconfig->res_idx];
+-	skl_tplg_fill_dma_id(mconfig, params);
+-	mconfig->fmt_idx = mconfig->mod_cfg[cfg_idx].fmt_idx;
+-	mconfig->res_idx = mconfig->mod_cfg[cfg_idx].res_idx;
+-
+-	if (skl->nr_modules)
+-		return 0;
+-
+-	if (params->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		format = &mconfig->module->formats[mconfig->fmt_idx].inputs[0].fmt;
+-	else
+-		format = &mconfig->module->formats[mconfig->fmt_idx].outputs[0].fmt;
+-
+-	/* set the hw_params */
+-	format->s_freq = params->s_freq;
+-	format->channels = params->ch;
+-	format->valid_bit_depth = skl_get_bit_depth(params->s_fmt);
+-
+-	/*
+-	 * 16 bit is 16 bit container whereas 24 bit is in 32 bit
+-	 * container so update bit depth accordingly
+-	 */
+-	switch (format->valid_bit_depth) {
+-	case SKL_DEPTH_16BIT:
+-		format->bit_depth = format->valid_bit_depth;
+-		break;
+-
+-	case SKL_DEPTH_24BIT:
+-	case SKL_DEPTH_32BIT:
+-		format->bit_depth = SKL_DEPTH_32BIT;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid bit depth %x for pipe\n",
+-				format->valid_bit_depth);
+-		return -EINVAL;
+-	}
+-
+-	if (params->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		res->ibs = (format->s_freq / 1000) *
+-				(format->channels) *
+-				(format->bit_depth >> 3);
+-	} else {
+-		res->obs = (format->s_freq / 1000) *
+-				(format->channels) *
+-				(format->bit_depth >> 3);
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Query the module config for the FE DAI
+- * This is used to find the hw_params set for that DAI and apply to FE
+- * pipeline
+- */
+-struct skl_module_cfg *
+-skl_tplg_fe_get_cpr_module(struct snd_soc_dai *dai, int stream)
+-{
+-	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(dai, stream);
+-	struct snd_soc_dapm_path *p = NULL;
+-
+-	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		snd_soc_dapm_widget_for_each_sink_path(w, p) {
+-			if (p->connect && p->sink->power &&
+-				!is_skl_dsp_widget_type(p->sink, dai->dev))
+-				continue;
+-
+-			if (p->sink->priv) {
+-				dev_dbg(dai->dev, "set params for %s\n",
+-						p->sink->name);
+-				return p->sink->priv;
+-			}
+-		}
+-	} else {
+-		snd_soc_dapm_widget_for_each_source_path(w, p) {
+-			if (p->connect && p->source->power &&
+-				!is_skl_dsp_widget_type(p->source, dai->dev))
+-				continue;
+-
+-			if (p->source->priv) {
+-				dev_dbg(dai->dev, "set params for %s\n",
+-						p->source->name);
+-				return p->source->priv;
+-			}
+-		}
+-	}
+-
+-	return NULL;
+-}
+-
+-static struct skl_module_cfg *skl_get_mconfig_pb_cpr(
+-		struct snd_soc_dai *dai, struct snd_soc_dapm_widget *w)
+-{
+-	struct snd_soc_dapm_path *p;
+-	struct skl_module_cfg *mconfig = NULL;
+-
+-	snd_soc_dapm_widget_for_each_source_path(w, p) {
+-		if (w->endpoints[SND_SOC_DAPM_DIR_OUT] > 0) {
+-			if (p->connect &&
+-				    (p->sink->id == snd_soc_dapm_aif_out) &&
+-				    p->source->priv) {
+-				mconfig = p->source->priv;
+-				return mconfig;
+-			}
+-			mconfig = skl_get_mconfig_pb_cpr(dai, p->source);
+-			if (mconfig)
+-				return mconfig;
+-		}
+-	}
+-	return mconfig;
+-}
+-
+-static struct skl_module_cfg *skl_get_mconfig_cap_cpr(
+-		struct snd_soc_dai *dai, struct snd_soc_dapm_widget *w)
+-{
+-	struct snd_soc_dapm_path *p;
+-	struct skl_module_cfg *mconfig = NULL;
+-
+-	snd_soc_dapm_widget_for_each_sink_path(w, p) {
+-		if (w->endpoints[SND_SOC_DAPM_DIR_IN] > 0) {
+-			if (p->connect &&
+-				    (p->source->id == snd_soc_dapm_aif_in) &&
+-				    p->sink->priv) {
+-				mconfig = p->sink->priv;
+-				return mconfig;
+-			}
+-			mconfig = skl_get_mconfig_cap_cpr(dai, p->sink);
+-			if (mconfig)
+-				return mconfig;
+-		}
+-	}
+-	return mconfig;
+-}
+-
+-struct skl_module_cfg *
+-skl_tplg_be_get_cpr_module(struct snd_soc_dai *dai, int stream)
+-{
+-	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(dai, stream);
+-	struct skl_module_cfg *mconfig;
+-
+-	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		mconfig = skl_get_mconfig_pb_cpr(dai, w);
+-	} else {
+-		mconfig = skl_get_mconfig_cap_cpr(dai, w);
+-	}
+-	return mconfig;
+-}
+-
+-static u8 skl_tplg_be_link_type(int dev_type)
+-{
+-	int ret;
+-
+-	switch (dev_type) {
+-	case SKL_DEVICE_BT:
+-		ret = NHLT_LINK_SSP;
+-		break;
+-
+-	case SKL_DEVICE_DMIC:
+-		ret = NHLT_LINK_DMIC;
+-		break;
+-
+-	case SKL_DEVICE_I2S:
+-		ret = NHLT_LINK_SSP;
+-		break;
+-
+-	case SKL_DEVICE_HDALINK:
+-		ret = NHLT_LINK_HDA;
+-		break;
+-
+-	default:
+-		ret = NHLT_LINK_INVALID;
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+-/*
+- * Fill the BE gateway parameters
+- * The BE gateway expects a blob of parameters which are kept in the ACPI
+- * NHLT blob, so query the blob for interface type (i2s/pdm) and instance.
+- * The port can have multiple settings so pick based on the pipeline
+- * parameters
+- */
+-static int skl_tplg_be_fill_pipe_params(struct snd_soc_dai *dai,
+-				struct skl_module_cfg *mconfig,
+-				struct skl_pipe_params *params)
+-{
+-	struct nhlt_specific_cfg *cfg;
+-	struct skl_pipe *pipe = mconfig->pipe;
+-	struct skl_pipe_params save = *pipe->p_params;
+-	struct skl_pipe_fmt *pipe_fmt;
+-	struct skl_dev *skl = get_skl_ctx(dai->dev);
+-	int link_type = skl_tplg_be_link_type(mconfig->dev_type);
+-	u8 dev_type = skl_tplg_be_dev_type(mconfig->dev_type);
+-	int ret;
+-
+-	skl_tplg_fill_dma_id(mconfig, params);
+-
+-	if (link_type == NHLT_LINK_HDA)
+-		return 0;
+-
+-	*pipe->p_params = *params;
+-	ret = skl_tplg_get_pipe_config(skl, mconfig);
+-	if (ret)
+-		goto err;
+-
+-	dev_dbg(skl->dev, "%s using pipe config: %d\n", __func__, pipe->cur_config_idx);
+-	if (pipe->direction == SNDRV_PCM_STREAM_PLAYBACK)
+-		pipe_fmt = &pipe->configs[pipe->cur_config_idx].out_fmt;
+-	else
+-		pipe_fmt = &pipe->configs[pipe->cur_config_idx].in_fmt;
+-
+-	/* update the blob based on virtual bus_id*/
+-	cfg = intel_nhlt_get_endpoint_blob(dai->dev, skl->nhlt,
+-					mconfig->vbus_id, link_type,
+-					pipe_fmt->bps, params->s_cont,
+-					pipe_fmt->channels, pipe_fmt->freq,
+-					pipe->direction, dev_type);
+-	if (cfg) {
+-		mconfig->formats_config[SKL_PARAM_INIT].caps_size = cfg->size;
+-		mconfig->formats_config[SKL_PARAM_INIT].caps = (u32 *)&cfg->caps;
+-	} else {
+-		dev_err(dai->dev, "Blob NULL for id:%d type:%d dirn:%d ch:%d, freq:%d, fmt:%d\n",
+-			mconfig->vbus_id, link_type, params->stream,
+-			params->ch, params->s_freq, params->s_fmt);
+-		ret = -EINVAL;
+-		goto err;
+-	}
+-
+-	return 0;
+-
+-err:
+-	*pipe->p_params = save;
+-	return ret;
+-}
+-
+-static int skl_tplg_be_set_src_pipe_params(struct snd_soc_dai *dai,
+-				struct snd_soc_dapm_widget *w,
+-				struct skl_pipe_params *params)
+-{
+-	struct snd_soc_dapm_path *p;
+-	int ret = -EIO;
+-
+-	snd_soc_dapm_widget_for_each_source_path(w, p) {
+-		if (p->connect && is_skl_dsp_widget_type(p->source, dai->dev) &&
+-						p->source->priv) {
+-
+-			ret = skl_tplg_be_fill_pipe_params(dai,
+-						p->source->priv, params);
+-			if (ret < 0)
+-				return ret;
+-		} else {
+-			ret = skl_tplg_be_set_src_pipe_params(dai,
+-						p->source, params);
+-			if (ret < 0)
+-				return ret;
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-static int skl_tplg_be_set_sink_pipe_params(struct snd_soc_dai *dai,
+-	struct snd_soc_dapm_widget *w, struct skl_pipe_params *params)
+-{
+-	struct snd_soc_dapm_path *p;
+-	int ret = -EIO;
+-
+-	snd_soc_dapm_widget_for_each_sink_path(w, p) {
+-		if (p->connect && is_skl_dsp_widget_type(p->sink, dai->dev) &&
+-						p->sink->priv) {
+-
+-			ret = skl_tplg_be_fill_pipe_params(dai,
+-						p->sink->priv, params);
+-			if (ret < 0)
+-				return ret;
+-		} else {
+-			ret = skl_tplg_be_set_sink_pipe_params(
+-						dai, p->sink, params);
+-			if (ret < 0)
+-				return ret;
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-/*
+- * BE hw_params can be a source parameters (capture) or sink parameters
+- * (playback). Based on sink and source we need to either find the source
+- * list or the sink list and set the pipeline parameters
+- */
+-int skl_tplg_be_update_params(struct snd_soc_dai *dai,
+-				struct skl_pipe_params *params)
+-{
+-	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(dai, params->stream);
+-
+-	if (params->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		return skl_tplg_be_set_src_pipe_params(dai, w, params);
+-	} else {
+-		return skl_tplg_be_set_sink_pipe_params(dai, w, params);
+-	}
+-}
+-
+-static const struct snd_soc_tplg_widget_events skl_tplg_widget_ops[] = {
+-	{SKL_MIXER_EVENT, skl_tplg_mixer_event},
+-	{SKL_VMIXER_EVENT, skl_tplg_mixer_event},
+-	{SKL_PGA_EVENT, skl_tplg_pga_event},
+-};
+-
+-static const struct snd_soc_tplg_bytes_ext_ops skl_tlv_ops[] = {
+-	{SKL_CONTROL_TYPE_BYTE_TLV, skl_tplg_tlv_control_get,
+-					skl_tplg_tlv_control_set},
+-};
+-
+-static const struct snd_soc_tplg_kcontrol_ops skl_tplg_kcontrol_ops[] = {
+-	{
+-		.id = SKL_CONTROL_TYPE_MIC_SELECT,
+-		.get = skl_tplg_mic_control_get,
+-		.put = skl_tplg_mic_control_set,
+-	},
+-	{
+-		.id = SKL_CONTROL_TYPE_MULTI_IO_SELECT,
+-		.get = skl_tplg_multi_config_get,
+-		.put = skl_tplg_multi_config_set,
+-	},
+-	{
+-		.id = SKL_CONTROL_TYPE_MULTI_IO_SELECT_DMIC,
+-		.get = skl_tplg_multi_config_get_dmic,
+-		.put = skl_tplg_multi_config_set_dmic,
+-	}
+-};
+-
+-static int skl_tplg_fill_pipe_cfg(struct device *dev,
+-			struct skl_pipe *pipe, u32 tkn,
+-			u32 tkn_val, int conf_idx, int dir)
+-{
+-	struct skl_pipe_fmt *fmt;
+-	struct skl_path_config *config;
+-
+-	switch (dir) {
+-	case SKL_DIR_IN:
+-		fmt = &pipe->configs[conf_idx].in_fmt;
+-		break;
+-
+-	case SKL_DIR_OUT:
+-		fmt = &pipe->configs[conf_idx].out_fmt;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid direction: %d\n", dir);
+-		return -EINVAL;
+-	}
+-
+-	config = &pipe->configs[conf_idx];
+-
+-	switch (tkn) {
+-	case SKL_TKN_U32_CFG_FREQ:
+-		fmt->freq = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U8_CFG_CHAN:
+-		fmt->channels = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U8_CFG_BPS:
+-		fmt->bps = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U32_PATH_MEM_PGS:
+-		config->mem_pages = tkn_val;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid token config: %d\n", tkn);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_fill_pipe_tkn(struct device *dev,
+-			struct skl_pipe *pipe, u32 tkn,
+-			u32 tkn_val)
+-{
+-
+-	switch (tkn) {
+-	case SKL_TKN_U32_PIPE_CONN_TYPE:
+-		pipe->conn_type = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U32_PIPE_PRIORITY:
+-		pipe->pipe_priority = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U32_PIPE_MEM_PGS:
+-		pipe->memory_pages = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U32_PMODE:
+-		pipe->lp_mode = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U32_PIPE_DIRECTION:
+-		pipe->direction = tkn_val;
+-		break;
+-
+-	case SKL_TKN_U32_NUM_CONFIGS:
+-		pipe->nr_cfgs = tkn_val;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Token not handled %d\n", tkn);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Add pipeline by parsing the relevant tokens
+- * Return an existing pipe if the pipe already exists.
+- */
+-static int skl_tplg_add_pipe(struct device *dev,
+-		struct skl_module_cfg *mconfig, struct skl_dev *skl,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem)
+-{
+-	struct skl_pipeline *ppl;
+-	struct skl_pipe *pipe;
+-	struct skl_pipe_params *params;
+-
+-	list_for_each_entry(ppl, &skl->ppl_list, node) {
+-		if (ppl->pipe->ppl_id == tkn_elem->value) {
+-			mconfig->pipe = ppl->pipe;
+-			return -EEXIST;
+-		}
+-	}
+-
+-	ppl = devm_kzalloc(dev, sizeof(*ppl), GFP_KERNEL);
+-	if (!ppl)
+-		return -ENOMEM;
+-
+-	pipe = devm_kzalloc(dev, sizeof(*pipe), GFP_KERNEL);
+-	if (!pipe)
+-		return -ENOMEM;
+-
+-	params = devm_kzalloc(dev, sizeof(*params), GFP_KERNEL);
+-	if (!params)
+-		return -ENOMEM;
+-
+-	pipe->p_params = params;
+-	pipe->ppl_id = tkn_elem->value;
+-	INIT_LIST_HEAD(&pipe->w_list);
+-
+-	ppl->pipe = pipe;
+-	list_add(&ppl->node, &skl->ppl_list);
+-
+-	mconfig->pipe = pipe;
+-	mconfig->pipe->state = SKL_PIPE_INVALID;
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_get_uuid(struct device *dev, guid_t *guid,
+-	      struct snd_soc_tplg_vendor_uuid_elem *uuid_tkn)
+-{
+-	if (uuid_tkn->token == SKL_TKN_UUID) {
+-		import_guid(guid, uuid_tkn->uuid);
+-		return 0;
+-	}
+-
+-	dev_err(dev, "Not an UUID token %d\n", uuid_tkn->token);
+-
+-	return -EINVAL;
+-}
+-
+-static int skl_tplg_fill_pin(struct device *dev,
+-			struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-			struct skl_module_pin *m_pin,
+-			int pin_index)
+-{
+-	int ret;
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_U32_PIN_MOD_ID:
+-		m_pin[pin_index].id.module_id = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_PIN_INST_ID:
+-		m_pin[pin_index].id.instance_id = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_UUID:
+-		ret = skl_tplg_get_uuid(dev, &m_pin[pin_index].id.mod_uuid,
+-			(struct snd_soc_tplg_vendor_uuid_elem *)tkn_elem);
+-		if (ret < 0)
+-			return ret;
+-
+-		break;
+-
+-	default:
+-		dev_err(dev, "%d Not a pin token\n", tkn_elem->token);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Parse for pin config specific tokens to fill up the
+- * module private data
+- */
+-static int skl_tplg_fill_pins_info(struct device *dev,
+-		struct skl_module_cfg *mconfig,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-		int dir, int pin_count)
+-{
+-	int ret;
+-	struct skl_module_pin *m_pin;
+-
+-	switch (dir) {
+-	case SKL_DIR_IN:
+-		m_pin = mconfig->m_in_pin;
+-		break;
+-
+-	case SKL_DIR_OUT:
+-		m_pin = mconfig->m_out_pin;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid direction value\n");
+-		return -EINVAL;
+-	}
+-
+-	ret = skl_tplg_fill_pin(dev, tkn_elem, m_pin, pin_count);
+-	if (ret < 0)
+-		return ret;
+-
+-	m_pin[pin_count].in_use = false;
+-	m_pin[pin_count].pin_state = SKL_PIN_UNBIND;
+-
+-	return 0;
+-}
+-
+-/*
+- * Fill up input/output module config format based
+- * on the direction
+- */
+-static int skl_tplg_fill_fmt(struct device *dev,
+-		struct skl_module_fmt *dst_fmt,
+-		u32 tkn, u32 value)
+-{
+-	switch (tkn) {
+-	case SKL_TKN_U32_FMT_CH:
+-		dst_fmt->channels  = value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_FREQ:
+-		dst_fmt->s_freq = value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_BIT_DEPTH:
+-		dst_fmt->bit_depth = value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_SAMPLE_SIZE:
+-		dst_fmt->valid_bit_depth = value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_CH_CONFIG:
+-		dst_fmt->ch_cfg = value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_INTERLEAVE:
+-		dst_fmt->interleaving_style = value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_SAMPLE_TYPE:
+-		dst_fmt->sample_type = value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_CH_MAP:
+-		dst_fmt->ch_map = value;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid token %d\n", tkn);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_widget_fill_fmt(struct device *dev,
+-		struct skl_module_iface *fmt,
+-		u32 tkn, u32 val, u32 dir, int fmt_idx)
+-{
+-	struct skl_module_fmt *dst_fmt;
+-
+-	if (!fmt)
+-		return -EINVAL;
+-
+-	switch (dir) {
+-	case SKL_DIR_IN:
+-		dst_fmt = &fmt->inputs[fmt_idx].fmt;
+-		break;
+-
+-	case SKL_DIR_OUT:
+-		dst_fmt = &fmt->outputs[fmt_idx].fmt;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid direction: %d\n", dir);
+-		return -EINVAL;
+-	}
+-
+-	return skl_tplg_fill_fmt(dev, dst_fmt, tkn, val);
+-}
+-
+-static void skl_tplg_fill_pin_dynamic_val(
+-		struct skl_module_pin *mpin, u32 pin_count, u32 value)
+-{
+-	int i;
+-
+-	for (i = 0; i < pin_count; i++)
+-		mpin[i].is_dynamic = value;
+-}
+-
+-/*
+- * Resource table in the manifest has pin specific resources
+- * like pin and pin buffer size
+- */
+-static int skl_tplg_manifest_pin_res_tkn(struct device *dev,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-		struct skl_module_res *res, int pin_idx, int dir)
+-{
+-	struct skl_module_pin_resources *m_pin;
+-
+-	switch (dir) {
+-	case SKL_DIR_IN:
+-		m_pin = &res->input[pin_idx];
+-		break;
+-
+-	case SKL_DIR_OUT:
+-		m_pin = &res->output[pin_idx];
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid pin direction: %d\n", dir);
+-		return -EINVAL;
+-	}
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_MM_U32_RES_PIN_ID:
+-		m_pin->pin_index = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U32_PIN_BUF:
+-		m_pin->buf_size = tkn_elem->value;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid token: %d\n", tkn_elem->token);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Fill module specific resources from the manifest's resource
+- * table like CPS, DMA size, mem_pages.
+- */
+-static int skl_tplg_fill_res_tkn(struct device *dev,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-		struct skl_module_res *res,
+-		int pin_idx, int dir)
+-{
+-	int ret, tkn_count = 0;
+-
+-	if (!res)
+-		return -EINVAL;
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_MM_U32_DMA_SIZE:
+-		res->dma_buffer_size = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U32_CPC:
+-		res->cpc = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_MEM_PAGES:
+-		res->is_pages = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_OBS:
+-		res->obs = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_IBS:
+-		res->ibs = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U32_RES_PIN_ID:
+-	case SKL_TKN_MM_U32_PIN_BUF:
+-		ret = skl_tplg_manifest_pin_res_tkn(dev, tkn_elem, res,
+-						    pin_idx, dir);
+-		if (ret < 0)
+-			return ret;
+-		break;
+-
+-	case SKL_TKN_MM_U32_CPS:
+-	case SKL_TKN_U32_MAX_MCPS:
+-		/* ignore unused tokens */
+-		break;
+-
+-	default:
+-		dev_err(dev, "Not a res type token: %d", tkn_elem->token);
+-		return -EINVAL;
+-
+-	}
+-	tkn_count++;
+-
+-	return tkn_count;
+-}
+-
+-/*
+- * Parse tokens to fill up the module private data
+- */
+-static int skl_tplg_get_token(struct device *dev,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-		struct skl_dev *skl, struct skl_module_cfg *mconfig)
+-{
+-	int tkn_count = 0;
+-	int ret;
+-	static int is_pipe_exists;
+-	static int pin_index, dir, conf_idx;
+-	struct skl_module_iface *iface = NULL;
+-	struct skl_module_res *res = NULL;
+-	int res_idx = mconfig->res_idx;
+-	int fmt_idx = mconfig->fmt_idx;
+-
+-	/*
+-	 * If the manifest structure contains no modules, fill all
+-	 * the module data to 0th index.
+-	 * res_idx and fmt_idx are default set to 0.
+-	 */
+-	if (skl->nr_modules == 0) {
+-		res = &mconfig->module->resources[res_idx];
+-		iface = &mconfig->module->formats[fmt_idx];
+-	}
+-
+-	if (tkn_elem->token > SKL_TKN_MAX)
+-		return -EINVAL;
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_U8_IN_QUEUE_COUNT:
+-		mconfig->module->max_input_pins = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_OUT_QUEUE_COUNT:
+-		mconfig->module->max_output_pins = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_DYN_IN_PIN:
+-		if (!mconfig->m_in_pin)
+-			mconfig->m_in_pin =
+-				devm_kcalloc(dev, MAX_IN_QUEUE,
+-					     sizeof(*mconfig->m_in_pin),
+-					     GFP_KERNEL);
+-		if (!mconfig->m_in_pin)
+-			return -ENOMEM;
+-
+-		skl_tplg_fill_pin_dynamic_val(mconfig->m_in_pin, MAX_IN_QUEUE,
+-					      tkn_elem->value);
+-		break;
+-
+-	case SKL_TKN_U8_DYN_OUT_PIN:
+-		if (!mconfig->m_out_pin)
+-			mconfig->m_out_pin =
+-				devm_kcalloc(dev, MAX_IN_QUEUE,
+-					     sizeof(*mconfig->m_in_pin),
+-					     GFP_KERNEL);
+-		if (!mconfig->m_out_pin)
+-			return -ENOMEM;
+-
+-		skl_tplg_fill_pin_dynamic_val(mconfig->m_out_pin, MAX_OUT_QUEUE,
+-					      tkn_elem->value);
+-		break;
+-
+-	case SKL_TKN_U8_TIME_SLOT:
+-		mconfig->time_slot = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_CORE_ID:
+-		mconfig->core_id = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_MOD_TYPE:
+-		mconfig->m_type = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_DEV_TYPE:
+-		mconfig->dev_type = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_HW_CONN_TYPE:
+-		mconfig->hw_conn_type = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U16_MOD_INST_ID:
+-		mconfig->id.instance_id =
+-		tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_MEM_PAGES:
+-	case SKL_TKN_U32_MAX_MCPS:
+-	case SKL_TKN_U32_OBS:
+-	case SKL_TKN_U32_IBS:
+-		ret = skl_tplg_fill_res_tkn(dev, tkn_elem, res, pin_index, dir);
+-		if (ret < 0)
+-			return ret;
+-
+-		break;
+-
+-	case SKL_TKN_U32_VBUS_ID:
+-		mconfig->vbus_id = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_PARAMS_FIXUP:
+-		mconfig->params_fixup = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_CONVERTER:
+-		mconfig->converter = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_D0I3_CAPS:
+-		mconfig->d0i3_caps = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_PIPE_ID:
+-		ret = skl_tplg_add_pipe(dev,
+-				mconfig, skl, tkn_elem);
+-
+-		if (ret < 0) {
+-			if (ret == -EEXIST) {
+-				is_pipe_exists = 1;
+-				break;
+-			}
+-			return is_pipe_exists;
+-		}
+-
+-		break;
+-
+-	case SKL_TKN_U32_PIPE_CONFIG_ID:
+-		conf_idx = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_PIPE_CONN_TYPE:
+-	case SKL_TKN_U32_PIPE_PRIORITY:
+-	case SKL_TKN_U32_PIPE_MEM_PGS:
+-	case SKL_TKN_U32_PMODE:
+-	case SKL_TKN_U32_PIPE_DIRECTION:
+-	case SKL_TKN_U32_NUM_CONFIGS:
+-		if (is_pipe_exists) {
+-			ret = skl_tplg_fill_pipe_tkn(dev, mconfig->pipe,
+-					tkn_elem->token, tkn_elem->value);
+-			if (ret < 0)
+-				return ret;
+-		}
+-
+-		break;
+-
+-	case SKL_TKN_U32_PATH_MEM_PGS:
+-	case SKL_TKN_U32_CFG_FREQ:
+-	case SKL_TKN_U8_CFG_CHAN:
+-	case SKL_TKN_U8_CFG_BPS:
+-		if (mconfig->pipe->nr_cfgs) {
+-			ret = skl_tplg_fill_pipe_cfg(dev, mconfig->pipe,
+-					tkn_elem->token, tkn_elem->value,
+-					conf_idx, dir);
+-			if (ret < 0)
+-				return ret;
+-		}
+-		break;
+-
+-	case SKL_TKN_CFG_MOD_RES_ID:
+-		mconfig->mod_cfg[conf_idx].res_idx = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_CFG_MOD_FMT_ID:
+-		mconfig->mod_cfg[conf_idx].fmt_idx = tkn_elem->value;
+-		break;
+-
+-	/*
+-	 * SKL_TKN_U32_DIR_PIN_COUNT token has the value for both
+-	 * direction and the pin count. The first four bits represent
+-	 * direction and next four the pin count.
+-	 */
+-	case SKL_TKN_U32_DIR_PIN_COUNT:
+-		dir = tkn_elem->value & SKL_IN_DIR_BIT_MASK;
+-		pin_index = (tkn_elem->value &
+-			SKL_PIN_COUNT_MASK) >> 4;
+-
+-		break;
+-
+-	case SKL_TKN_U32_FMT_CH:
+-	case SKL_TKN_U32_FMT_FREQ:
+-	case SKL_TKN_U32_FMT_BIT_DEPTH:
+-	case SKL_TKN_U32_FMT_SAMPLE_SIZE:
+-	case SKL_TKN_U32_FMT_CH_CONFIG:
+-	case SKL_TKN_U32_FMT_INTERLEAVE:
+-	case SKL_TKN_U32_FMT_SAMPLE_TYPE:
+-	case SKL_TKN_U32_FMT_CH_MAP:
+-		ret = skl_tplg_widget_fill_fmt(dev, iface, tkn_elem->token,
+-				tkn_elem->value, dir, pin_index);
+-
+-		if (ret < 0)
+-			return ret;
+-
+-		break;
+-
+-	case SKL_TKN_U32_PIN_MOD_ID:
+-	case SKL_TKN_U32_PIN_INST_ID:
+-	case SKL_TKN_UUID:
+-		ret = skl_tplg_fill_pins_info(dev,
+-				mconfig, tkn_elem, dir,
+-				pin_index);
+-		if (ret < 0)
+-			return ret;
+-
+-		break;
+-
+-	case SKL_TKN_U32_FMT_CFG_IDX:
+-		if (tkn_elem->value > SKL_MAX_PARAMS_TYPES)
+-			return -EINVAL;
+-
+-		mconfig->fmt_cfg_idx = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_CAPS_SIZE:
+-		mconfig->formats_config[mconfig->fmt_cfg_idx].caps_size =
+-			tkn_elem->value;
+-
+-		break;
+-
+-	case SKL_TKN_U32_CAPS_SET_PARAMS:
+-		mconfig->formats_config[mconfig->fmt_cfg_idx].set_params =
+-				tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_CAPS_PARAMS_ID:
+-		mconfig->formats_config[mconfig->fmt_cfg_idx].param_id =
+-				tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_PROC_DOMAIN:
+-		mconfig->domain =
+-			tkn_elem->value;
+-
+-		break;
+-
+-	case SKL_TKN_U32_DMA_BUF_SIZE:
+-		mconfig->dma_buffer_size = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_IN_PIN_TYPE:
+-	case SKL_TKN_U8_OUT_PIN_TYPE:
+-	case SKL_TKN_U8_CONN_TYPE:
+-		break;
+-
+-	default:
+-		dev_err(dev, "Token %d not handled\n",
+-				tkn_elem->token);
+-		return -EINVAL;
+-	}
+-
+-	tkn_count++;
+-
+-	return tkn_count;
+-}
+-
+-/*
+- * Parse the vendor array for specific tokens to construct
+- * module private data
+- */
+-static int skl_tplg_get_tokens(struct device *dev,
+-		char *pvt_data,	struct skl_dev *skl,
+-		struct skl_module_cfg *mconfig, int block_size)
+-{
+-	struct snd_soc_tplg_vendor_array *array;
+-	struct snd_soc_tplg_vendor_value_elem *tkn_elem;
+-	int tkn_count = 0, ret;
+-	int off = 0, tuple_size = 0;
+-	bool is_module_guid = true;
+-
+-	if (block_size <= 0)
+-		return -EINVAL;
+-
+-	while (tuple_size < block_size) {
+-		array = (struct snd_soc_tplg_vendor_array *)(pvt_data + off);
+-
+-		off += array->size;
+-
+-		switch (array->type) {
+-		case SND_SOC_TPLG_TUPLE_TYPE_STRING:
+-			dev_warn(dev, "no string tokens expected for skl tplg\n");
+-			continue;
+-
+-		case SND_SOC_TPLG_TUPLE_TYPE_UUID:
+-			if (is_module_guid) {
+-				ret = skl_tplg_get_uuid(dev, (guid_t *)mconfig->guid,
+-							array->uuid);
+-				is_module_guid = false;
+-			} else {
+-				ret = skl_tplg_get_token(dev, array->value, skl,
+-							 mconfig);
+-			}
+-
+-			if (ret < 0)
+-				return ret;
+-
+-			tuple_size += sizeof(*array->uuid);
+-
+-			continue;
+-
+-		default:
+-			tkn_elem = array->value;
+-			tkn_count = 0;
+-			break;
+-		}
+-
+-		while (tkn_count <= (array->num_elems - 1)) {
+-			ret = skl_tplg_get_token(dev, tkn_elem,
+-					skl, mconfig);
+-
+-			if (ret < 0)
+-				return ret;
+-
+-			tkn_count = tkn_count + ret;
+-			tkn_elem++;
+-		}
+-
+-		tuple_size += tkn_count * sizeof(*tkn_elem);
+-	}
+-
+-	return off;
+-}
+-
+-/*
+- * Every data block is preceded by a descriptor to read the number
+- * of data blocks, they type of the block and it's size
+- */
+-static int skl_tplg_get_desc_blocks(struct device *dev,
+-		struct snd_soc_tplg_vendor_array *array)
+-{
+-	struct snd_soc_tplg_vendor_value_elem *tkn_elem;
+-
+-	tkn_elem = array->value;
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_U8_NUM_BLOCKS:
+-	case SKL_TKN_U8_BLOCK_TYPE:
+-	case SKL_TKN_U16_BLOCK_SIZE:
+-		return tkn_elem->value;
+-
+-	default:
+-		dev_err(dev, "Invalid descriptor token %d\n", tkn_elem->token);
+-		break;
+-	}
+-
+-	return -EINVAL;
+-}
+-
+-static int skl_tplg_get_caps_data(struct device *dev, char *data,
+-				  struct skl_module_cfg *mconfig)
+-{
+-	int idx = mconfig->fmt_cfg_idx;
+-
+-	if (mconfig->formats_config[idx].caps_size > 0) {
+-		mconfig->formats_config[idx].caps =
+-			devm_kzalloc(dev, mconfig->formats_config[idx].caps_size,
+-				     GFP_KERNEL);
+-		if (!mconfig->formats_config[idx].caps)
+-			return -ENOMEM;
+-		memcpy(mconfig->formats_config[idx].caps, data,
+-		       mconfig->formats_config[idx].caps_size);
+-	}
+-
+-	return mconfig->formats_config[idx].caps_size;
+-}
+-
+-/*
+- * Parse the private data for the token and corresponding value.
+- * The private data can have multiple data blocks. So, a data block
+- * is preceded by a descriptor for number of blocks and a descriptor
+- * for the type and size of the suceeding data block.
+- */
+-static int skl_tplg_get_pvt_data(struct snd_soc_tplg_dapm_widget *tplg_w,
+-				struct skl_dev *skl, struct device *dev,
+-				struct skl_module_cfg *mconfig)
+-{
+-	struct snd_soc_tplg_vendor_array *array;
+-	int num_blocks, block_size, block_type, off = 0;
+-	char *data;
+-	int ret;
+-
+-	/* Read the NUM_DATA_BLOCKS descriptor */
+-	array = (struct snd_soc_tplg_vendor_array *)tplg_w->priv.data;
+-	ret = skl_tplg_get_desc_blocks(dev, array);
+-	if (ret < 0)
+-		return ret;
+-	num_blocks = ret;
+-
+-	off += array->size;
+-	/* Read the BLOCK_TYPE and BLOCK_SIZE descriptor */
+-	while (num_blocks > 0) {
+-		array = (struct snd_soc_tplg_vendor_array *)
+-				(tplg_w->priv.data + off);
+-
+-		ret = skl_tplg_get_desc_blocks(dev, array);
+-
+-		if (ret < 0)
+-			return ret;
+-		block_type = ret;
+-		off += array->size;
+-
+-		array = (struct snd_soc_tplg_vendor_array *)
+-			(tplg_w->priv.data + off);
+-
+-		ret = skl_tplg_get_desc_blocks(dev, array);
+-
+-		if (ret < 0)
+-			return ret;
+-		block_size = ret;
+-		off += array->size;
+-
+-		data = (tplg_w->priv.data + off);
+-
+-		if (block_type == SKL_TYPE_TUPLE) {
+-			ret = skl_tplg_get_tokens(dev, data,
+-					skl, mconfig, block_size);
+-		} else {
+-			ret = skl_tplg_get_caps_data(dev, data, mconfig);
+-		}
+-
+-		if (ret < 0)
+-			return ret;
+-
+-		--num_blocks;
+-		off += ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static void skl_clear_pin_config(struct snd_soc_component *component,
+-				struct snd_soc_dapm_widget *w)
+-{
+-	int i;
+-	struct skl_module_cfg *mconfig;
+-	struct skl_pipe *pipe;
+-
+-	if (!strncmp(w->dapm->component->name, component->name,
+-					strlen(component->name))) {
+-		mconfig = w->priv;
+-		pipe = mconfig->pipe;
+-		for (i = 0; i < mconfig->module->max_input_pins; i++) {
+-			mconfig->m_in_pin[i].in_use = false;
+-			mconfig->m_in_pin[i].pin_state = SKL_PIN_UNBIND;
+-		}
+-		for (i = 0; i < mconfig->module->max_output_pins; i++) {
+-			mconfig->m_out_pin[i].in_use = false;
+-			mconfig->m_out_pin[i].pin_state = SKL_PIN_UNBIND;
+-		}
+-		pipe->state = SKL_PIPE_INVALID;
+-		mconfig->m_state = SKL_MODULE_UNINIT;
+-	}
+-}
+-
+-void skl_cleanup_resources(struct skl_dev *skl)
+-{
+-	struct snd_soc_component *soc_component = skl->component;
+-	struct snd_soc_dapm_widget *w;
+-	struct snd_soc_card *card;
+-
+-	if (soc_component == NULL)
+-		return;
+-
+-	card = soc_component->card;
+-	if (!snd_soc_card_is_instantiated(card))
+-		return;
+-
+-	list_for_each_entry(w, &card->widgets, list) {
+-		if (is_skl_dsp_widget_type(w, skl->dev) && w->priv != NULL)
+-			skl_clear_pin_config(soc_component, w);
+-	}
+-
+-	skl_clear_module_cnt(skl->dsp);
+-}
+-
+-/*
+- * Topology core widget load callback
+- *
+- * This is used to save the private data for each widget which gives
+- * information to the driver about module and pipeline parameters which DSP
+- * FW expects like ids, resource values, formats etc
+- */
+-static int skl_tplg_widget_load(struct snd_soc_component *cmpnt, int index,
+-				struct snd_soc_dapm_widget *w,
+-				struct snd_soc_tplg_dapm_widget *tplg_w)
+-{
+-	int ret;
+-	struct hdac_bus *bus = snd_soc_component_get_drvdata(cmpnt);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct skl_module_cfg *mconfig;
+-
+-	if (!tplg_w->priv.size)
+-		goto bind_event;
+-
+-	mconfig = devm_kzalloc(bus->dev, sizeof(*mconfig), GFP_KERNEL);
+-
+-	if (!mconfig)
+-		return -ENOMEM;
+-
+-	if (skl->nr_modules == 0) {
+-		mconfig->module = devm_kzalloc(bus->dev,
+-				sizeof(*mconfig->module), GFP_KERNEL);
+-		if (!mconfig->module)
+-			return -ENOMEM;
+-	}
+-
+-	w->priv = mconfig;
+-
+-	/*
+-	 * module binary can be loaded later, so set it to query when
+-	 * module is load for a use case
+-	 */
+-	mconfig->id.module_id = -1;
+-
+-	/* To provide backward compatibility, set default as SKL_PARAM_INIT */
+-	mconfig->fmt_cfg_idx = SKL_PARAM_INIT;
+-
+-	/* Parse private data for tuples */
+-	ret = skl_tplg_get_pvt_data(tplg_w, skl, bus->dev, mconfig);
+-	if (ret < 0)
+-		return ret;
+-
+-	skl_debug_init_module(skl->debugfs, w, mconfig);
+-
+-bind_event:
+-	if (tplg_w->event_type == 0) {
+-		dev_dbg(bus->dev, "ASoC: No event handler required\n");
+-		return 0;
+-	}
+-
+-	ret = snd_soc_tplg_widget_bind_event(w, skl_tplg_widget_ops,
+-					ARRAY_SIZE(skl_tplg_widget_ops),
+-					tplg_w->event_type);
+-
+-	if (ret) {
+-		dev_err(bus->dev, "%s: No matching event handlers found for %d\n",
+-					__func__, tplg_w->event_type);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_init_algo_data(struct device *dev, struct soc_bytes_ext *be,
+-					struct snd_soc_tplg_bytes_control *bc)
+-{
+-	struct skl_algo_data *ac;
+-	struct skl_dfw_algo_data *dfw_ac =
+-				(struct skl_dfw_algo_data *)bc->priv.data;
+-
+-	ac = devm_kzalloc(dev, sizeof(*ac), GFP_KERNEL);
+-	if (!ac)
+-		return -ENOMEM;
+-
+-	/* Fill private data */
+-	ac->max = dfw_ac->max;
+-	ac->param_id = dfw_ac->param_id;
+-	ac->set_params = dfw_ac->set_params;
+-	ac->size = dfw_ac->max;
+-
+-	if (ac->max) {
+-		ac->params = devm_kzalloc(dev, ac->max, GFP_KERNEL);
+-		if (!ac->params)
+-			return -ENOMEM;
+-
+-		memcpy(ac->params, dfw_ac->params, ac->max);
+-	}
+-
+-	be->dobj.private  = ac;
+-	return 0;
+-}
+-
+-static int skl_init_enum_data(struct device *dev, struct soc_enum *se,
+-				struct snd_soc_tplg_enum_control *ec)
+-{
+-
+-	void *data;
+-
+-	if (ec->priv.size) {
+-		data = devm_kzalloc(dev, sizeof(ec->priv.size), GFP_KERNEL);
+-		if (!data)
+-			return -ENOMEM;
+-		memcpy(data, ec->priv.data, ec->priv.size);
+-		se->dobj.private = data;
+-	}
+-
+-	return 0;
+-
+-}
+-
+-static int skl_tplg_control_load(struct snd_soc_component *cmpnt,
+-				int index,
+-				struct snd_kcontrol_new *kctl,
+-				struct snd_soc_tplg_ctl_hdr *hdr)
+-{
+-	struct soc_bytes_ext *sb;
+-	struct snd_soc_tplg_bytes_control *tplg_bc;
+-	struct snd_soc_tplg_enum_control *tplg_ec;
+-	struct hdac_bus *bus  = snd_soc_component_get_drvdata(cmpnt);
+-	struct soc_enum *se;
+-
+-	switch (hdr->ops.info) {
+-	case SND_SOC_TPLG_CTL_BYTES:
+-		tplg_bc = container_of(hdr,
+-				struct snd_soc_tplg_bytes_control, hdr);
+-		if (kctl->access & SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK) {
+-			sb = (struct soc_bytes_ext *)kctl->private_value;
+-			if (tplg_bc->priv.size)
+-				return skl_init_algo_data(
+-						bus->dev, sb, tplg_bc);
+-		}
+-		break;
+-
+-	case SND_SOC_TPLG_CTL_ENUM:
+-		tplg_ec = container_of(hdr,
+-				struct snd_soc_tplg_enum_control, hdr);
+-		if (kctl->access & SNDRV_CTL_ELEM_ACCESS_READ) {
+-			se = (struct soc_enum *)kctl->private_value;
+-			if (tplg_ec->priv.size)
+-				skl_init_enum_data(bus->dev, se, tplg_ec);
+-		}
+-
+-		/*
+-		 * now that the control initializations are done, remove
+-		 * write permission for the DMIC configuration enums to
+-		 * avoid conflicts between NHLT settings and user interaction
+-		 */
+-
+-		if (hdr->ops.get == SKL_CONTROL_TYPE_MULTI_IO_SELECT_DMIC)
+-			kctl->access = SNDRV_CTL_ELEM_ACCESS_READ;
+-
+-		break;
+-
+-	default:
+-		dev_dbg(bus->dev, "Control load not supported %d:%d:%d\n",
+-			hdr->ops.get, hdr->ops.put, hdr->ops.info);
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_fill_str_mfest_tkn(struct device *dev,
+-		struct snd_soc_tplg_vendor_string_elem *str_elem,
+-		struct skl_dev *skl)
+-{
+-	int tkn_count = 0;
+-	static int ref_count;
+-
+-	switch (str_elem->token) {
+-	case SKL_TKN_STR_LIB_NAME:
+-		if (ref_count > skl->lib_count - 1) {
+-			ref_count = 0;
+-			return -EINVAL;
+-		}
+-
+-		strncpy(skl->lib_info[ref_count].name,
+-			str_elem->string,
+-			ARRAY_SIZE(skl->lib_info[ref_count].name));
+-		ref_count++;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Not a string token %d\n", str_elem->token);
+-		break;
+-	}
+-	tkn_count++;
+-
+-	return tkn_count;
+-}
+-
+-static int skl_tplg_get_str_tkn(struct device *dev,
+-		struct snd_soc_tplg_vendor_array *array,
+-		struct skl_dev *skl)
+-{
+-	int tkn_count = 0, ret;
+-	struct snd_soc_tplg_vendor_string_elem *str_elem;
+-
+-	str_elem = (struct snd_soc_tplg_vendor_string_elem *)array->value;
+-	while (tkn_count < array->num_elems) {
+-		ret = skl_tplg_fill_str_mfest_tkn(dev, str_elem, skl);
+-		str_elem++;
+-
+-		if (ret < 0)
+-			return ret;
+-
+-		tkn_count = tkn_count + ret;
+-	}
+-
+-	return tkn_count;
+-}
+-
+-static int skl_tplg_manifest_fill_fmt(struct device *dev,
+-		struct skl_module_iface *fmt,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-		u32 dir, int fmt_idx)
+-{
+-	struct skl_module_pin_fmt *dst_fmt;
+-	struct skl_module_fmt *mod_fmt;
+-	int ret;
+-
+-	if (!fmt)
+-		return -EINVAL;
+-
+-	switch (dir) {
+-	case SKL_DIR_IN:
+-		dst_fmt = &fmt->inputs[fmt_idx];
+-		break;
+-
+-	case SKL_DIR_OUT:
+-		dst_fmt = &fmt->outputs[fmt_idx];
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid direction: %d\n", dir);
+-		return -EINVAL;
+-	}
+-
+-	mod_fmt = &dst_fmt->fmt;
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_MM_U32_INTF_PIN_ID:
+-		dst_fmt->id = tkn_elem->value;
+-		break;
+-
+-	default:
+-		ret = skl_tplg_fill_fmt(dev, mod_fmt, tkn_elem->token,
+-					tkn_elem->value);
+-		if (ret < 0)
+-			return ret;
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_fill_mod_info(struct device *dev,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-		struct skl_module *mod)
+-{
+-
+-	if (!mod)
+-		return -EINVAL;
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_U8_IN_PIN_TYPE:
+-		mod->input_pin_type = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_OUT_PIN_TYPE:
+-		mod->output_pin_type = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_IN_QUEUE_COUNT:
+-		mod->max_input_pins = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_OUT_QUEUE_COUNT:
+-		mod->max_output_pins = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U8_NUM_RES:
+-		mod->nr_resources = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U8_NUM_INTF:
+-		mod->nr_interfaces = tkn_elem->value;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Invalid mod info token %d", tkn_elem->token);
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-
+-static int skl_tplg_get_int_tkn(struct device *dev,
+-		struct snd_soc_tplg_vendor_value_elem *tkn_elem,
+-		struct skl_dev *skl)
+-{
+-	int tkn_count = 0, ret;
+-	static int mod_idx, res_val_idx, intf_val_idx, dir, pin_idx;
+-	struct skl_module_res *res = NULL;
+-	struct skl_module_iface *fmt = NULL;
+-	struct skl_module *mod = NULL;
+-	static struct skl_astate_param *astate_table;
+-	static int astate_cfg_idx, count;
+-	int i;
+-	size_t size;
+-
+-	if (skl->modules) {
+-		mod = skl->modules[mod_idx];
+-		res = &mod->resources[res_val_idx];
+-		fmt = &mod->formats[intf_val_idx];
+-	}
+-
+-	switch (tkn_elem->token) {
+-	case SKL_TKN_U32_LIB_COUNT:
+-		skl->lib_count = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_NUM_MOD:
+-		skl->nr_modules = tkn_elem->value;
+-		skl->modules = devm_kcalloc(dev, skl->nr_modules,
+-				sizeof(*skl->modules), GFP_KERNEL);
+-		if (!skl->modules)
+-			return -ENOMEM;
+-
+-		for (i = 0; i < skl->nr_modules; i++) {
+-			skl->modules[i] = devm_kzalloc(dev,
+-					sizeof(struct skl_module), GFP_KERNEL);
+-			if (!skl->modules[i])
+-				return -ENOMEM;
+-		}
+-		break;
+-
+-	case SKL_TKN_MM_U8_MOD_IDX:
+-		mod_idx = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_ASTATE_COUNT:
+-		if (astate_table != NULL) {
+-			dev_err(dev, "More than one entry for A-State count");
+-			return -EINVAL;
+-		}
+-
+-		if (tkn_elem->value > SKL_MAX_ASTATE_CFG) {
+-			dev_err(dev, "Invalid A-State count %d\n",
+-				tkn_elem->value);
+-			return -EINVAL;
+-		}
+-
+-		size = struct_size(skl->cfg.astate_cfg, astate_table,
+-				   tkn_elem->value);
+-		skl->cfg.astate_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
+-		if (!skl->cfg.astate_cfg)
+-			return -ENOMEM;
+-
+-		astate_table = skl->cfg.astate_cfg->astate_table;
+-		count = skl->cfg.astate_cfg->count = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_ASTATE_IDX:
+-		if (tkn_elem->value >= count) {
+-			dev_err(dev, "Invalid A-State index %d\n",
+-				tkn_elem->value);
+-			return -EINVAL;
+-		}
+-
+-		astate_cfg_idx = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_ASTATE_KCPS:
+-		astate_table[astate_cfg_idx].kcps = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_ASTATE_CLK_SRC:
+-		astate_table[astate_cfg_idx].clk_src = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U8_IN_PIN_TYPE:
+-	case SKL_TKN_U8_OUT_PIN_TYPE:
+-	case SKL_TKN_U8_IN_QUEUE_COUNT:
+-	case SKL_TKN_U8_OUT_QUEUE_COUNT:
+-	case SKL_TKN_MM_U8_NUM_RES:
+-	case SKL_TKN_MM_U8_NUM_INTF:
+-		ret = skl_tplg_fill_mod_info(dev, tkn_elem, mod);
+-		if (ret < 0)
+-			return ret;
+-		break;
+-
+-	case SKL_TKN_U32_DIR_PIN_COUNT:
+-		dir = tkn_elem->value & SKL_IN_DIR_BIT_MASK;
+-		pin_idx = (tkn_elem->value & SKL_PIN_COUNT_MASK) >> 4;
+-		break;
+-
+-	case SKL_TKN_MM_U32_RES_ID:
+-		if (!res)
+-			return -EINVAL;
+-
+-		res->id = tkn_elem->value;
+-		res_val_idx = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U32_FMT_ID:
+-		if (!fmt)
+-			return -EINVAL;
+-
+-		fmt->fmt_idx = tkn_elem->value;
+-		intf_val_idx = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U32_CPS:
+-	case SKL_TKN_MM_U32_DMA_SIZE:
+-	case SKL_TKN_MM_U32_CPC:
+-	case SKL_TKN_U32_MEM_PAGES:
+-	case SKL_TKN_U32_OBS:
+-	case SKL_TKN_U32_IBS:
+-	case SKL_TKN_MM_U32_RES_PIN_ID:
+-	case SKL_TKN_MM_U32_PIN_BUF:
+-		ret = skl_tplg_fill_res_tkn(dev, tkn_elem, res, pin_idx, dir);
+-		if (ret < 0)
+-			return ret;
+-
+-		break;
+-
+-	case SKL_TKN_MM_U32_NUM_IN_FMT:
+-		if (!fmt)
+-			return -EINVAL;
+-
+-		res->nr_input_pins = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_MM_U32_NUM_OUT_FMT:
+-		if (!fmt)
+-			return -EINVAL;
+-
+-		res->nr_output_pins = tkn_elem->value;
+-		break;
+-
+-	case SKL_TKN_U32_FMT_CH:
+-	case SKL_TKN_U32_FMT_FREQ:
+-	case SKL_TKN_U32_FMT_BIT_DEPTH:
+-	case SKL_TKN_U32_FMT_SAMPLE_SIZE:
+-	case SKL_TKN_U32_FMT_CH_CONFIG:
+-	case SKL_TKN_U32_FMT_INTERLEAVE:
+-	case SKL_TKN_U32_FMT_SAMPLE_TYPE:
+-	case SKL_TKN_U32_FMT_CH_MAP:
+-	case SKL_TKN_MM_U32_INTF_PIN_ID:
+-		ret = skl_tplg_manifest_fill_fmt(dev, fmt, tkn_elem,
+-						 dir, pin_idx);
+-		if (ret < 0)
+-			return ret;
+-		break;
+-
+-	default:
+-		dev_err(dev, "Not a manifest token %d\n", tkn_elem->token);
+-		return -EINVAL;
+-	}
+-	tkn_count++;
+-
+-	return tkn_count;
+-}
+-
+-/*
+- * Fill the manifest structure by parsing the tokens based on the
+- * type.
+- */
+-static int skl_tplg_get_manifest_tkn(struct device *dev,
+-		char *pvt_data, struct skl_dev *skl,
+-		int block_size)
+-{
+-	int tkn_count = 0, ret;
+-	int off = 0, tuple_size = 0;
+-	u8 uuid_index = 0;
+-	struct snd_soc_tplg_vendor_array *array;
+-	struct snd_soc_tplg_vendor_value_elem *tkn_elem;
+-
+-	if (block_size <= 0)
+-		return -EINVAL;
+-
+-	while (tuple_size < block_size) {
+-		array = (struct snd_soc_tplg_vendor_array *)(pvt_data + off);
+-		off += array->size;
+-		switch (array->type) {
+-		case SND_SOC_TPLG_TUPLE_TYPE_STRING:
+-			ret = skl_tplg_get_str_tkn(dev, array, skl);
+-
+-			if (ret < 0)
+-				return ret;
+-			tkn_count = ret;
+-
+-			tuple_size += tkn_count *
+-				sizeof(struct snd_soc_tplg_vendor_string_elem);
+-			continue;
+-
+-		case SND_SOC_TPLG_TUPLE_TYPE_UUID:
+-			if (array->uuid->token != SKL_TKN_UUID) {
+-				dev_err(dev, "Not an UUID token: %d\n",
+-					array->uuid->token);
+-				return -EINVAL;
+-			}
+-			if (uuid_index >= skl->nr_modules) {
+-				dev_err(dev, "Too many UUID tokens\n");
+-				return -EINVAL;
+-			}
+-			import_guid(&skl->modules[uuid_index++]->uuid,
+-				    array->uuid->uuid);
+-
+-			tuple_size += sizeof(*array->uuid);
+-			continue;
+-
+-		default:
+-			tkn_elem = array->value;
+-			tkn_count = 0;
+-			break;
+-		}
+-
+-		while (tkn_count <= array->num_elems - 1) {
+-			ret = skl_tplg_get_int_tkn(dev,
+-					tkn_elem, skl);
+-			if (ret < 0)
+-				return ret;
+-
+-			tkn_count = tkn_count + ret;
+-			tkn_elem++;
+-		}
+-		tuple_size += (tkn_count * sizeof(*tkn_elem));
+-		tkn_count = 0;
+-	}
+-
+-	return off;
+-}
+-
+-/*
+- * Parse manifest private data for tokens. The private data block is
+- * preceded by descriptors for type and size of data block.
+- */
+-static int skl_tplg_get_manifest_data(struct snd_soc_tplg_manifest *manifest,
+-			struct device *dev, struct skl_dev *skl)
+-{
+-	struct snd_soc_tplg_vendor_array *array;
+-	int num_blocks, block_size = 0, block_type, off = 0;
+-	char *data;
+-	int ret;
+-
+-	/* Read the NUM_DATA_BLOCKS descriptor */
+-	array = (struct snd_soc_tplg_vendor_array *)manifest->priv.data;
+-	ret = skl_tplg_get_desc_blocks(dev, array);
+-	if (ret < 0)
+-		return ret;
+-	num_blocks = ret;
+-
+-	off += array->size;
+-	/* Read the BLOCK_TYPE and BLOCK_SIZE descriptor */
+-	while (num_blocks > 0) {
+-		array = (struct snd_soc_tplg_vendor_array *)
+-				(manifest->priv.data + off);
+-		ret = skl_tplg_get_desc_blocks(dev, array);
+-
+-		if (ret < 0)
+-			return ret;
+-		block_type = ret;
+-		off += array->size;
+-
+-		array = (struct snd_soc_tplg_vendor_array *)
+-			(manifest->priv.data + off);
+-
+-		ret = skl_tplg_get_desc_blocks(dev, array);
+-
+-		if (ret < 0)
+-			return ret;
+-		block_size = ret;
+-		off += array->size;
+-
+-		data = (manifest->priv.data + off);
+-
+-		if (block_type == SKL_TYPE_TUPLE) {
+-			ret = skl_tplg_get_manifest_tkn(dev, data, skl,
+-					block_size);
+-
+-			if (ret < 0)
+-				return ret;
+-
+-			--num_blocks;
+-		} else {
+-			return -EINVAL;
+-		}
+-		off += ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_manifest_load(struct snd_soc_component *cmpnt, int index,
+-				struct snd_soc_tplg_manifest *manifest)
+-{
+-	struct hdac_bus *bus = snd_soc_component_get_drvdata(cmpnt);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	/* proceed only if we have private data defined */
+-	if (manifest->priv.size == 0)
+-		return 0;
+-
+-	skl_tplg_get_manifest_data(manifest, bus->dev, skl);
+-
+-	if (skl->lib_count > SKL_MAX_LIB) {
+-		dev_err(bus->dev, "Exceeding max Library count. Got:%d\n",
+-					skl->lib_count);
+-		return  -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_tplg_complete(struct snd_soc_component *component)
+-{
+-	struct snd_soc_dobj *dobj;
+-	struct snd_soc_acpi_mach *mach;
+-	struct snd_ctl_elem_value *val;
+-	int i;
+-
+-	val = kmalloc(sizeof(*val), GFP_KERNEL);
+-	if (!val)
+-		return -ENOMEM;
+-
+-	mach = dev_get_platdata(component->card->dev);
+-	list_for_each_entry(dobj, &component->dobj_list, list) {
+-		struct snd_kcontrol *kcontrol = dobj->control.kcontrol;
+-		struct soc_enum *se;
+-		char **texts;
+-		char chan_text[4];
+-
+-		if (dobj->type != SND_SOC_DOBJ_ENUM || !kcontrol ||
+-		    kcontrol->put != skl_tplg_multi_config_set_dmic)
+-			continue;
+-
+-		se = (struct soc_enum *)kcontrol->private_value;
+-		texts = dobj->control.dtexts;
+-		sprintf(chan_text, "c%d", mach->mach_params.dmic_num);
+-
+-		for (i = 0; i < se->items; i++) {
+-			if (strstr(texts[i], chan_text)) {
+-				memset(val, 0, sizeof(*val));
+-				val->value.enumerated.item[0] = i;
+-				kcontrol->put(kcontrol, val);
+-			}
+-		}
+-	}
+-
+-	kfree(val);
+-	return 0;
+-}
+-
+-static const struct snd_soc_tplg_ops skl_tplg_ops = {
+-	.widget_load = skl_tplg_widget_load,
+-	.control_load = skl_tplg_control_load,
+-	.bytes_ext_ops = skl_tlv_ops,
+-	.bytes_ext_ops_count = ARRAY_SIZE(skl_tlv_ops),
+-	.io_ops = skl_tplg_kcontrol_ops,
+-	.io_ops_count = ARRAY_SIZE(skl_tplg_kcontrol_ops),
+-	.manifest = skl_manifest_load,
+-	.dai_load = skl_dai_load,
+-	.complete = skl_tplg_complete,
+-};
+-
+-/*
+- * A pipe can have multiple modules, each of them will be a DAPM widget as
+- * well. While managing a pipeline we need to get the list of all the
+- * widgets in a pipelines, so this helper - skl_tplg_create_pipe_widget_list()
+- * helps to get the SKL type widgets in that pipeline
+- */
+-static int skl_tplg_create_pipe_widget_list(struct snd_soc_component *component)
+-{
+-	struct snd_soc_dapm_widget *w;
+-	struct skl_module_cfg *mcfg = NULL;
+-	struct skl_pipe_module *p_module = NULL;
+-	struct skl_pipe *pipe;
+-
+-	list_for_each_entry(w, &component->card->widgets, list) {
+-		if (is_skl_dsp_widget_type(w, component->dev) && w->priv) {
+-			mcfg = w->priv;
+-			pipe = mcfg->pipe;
+-
+-			p_module = devm_kzalloc(component->dev,
+-						sizeof(*p_module), GFP_KERNEL);
+-			if (!p_module)
+-				return -ENOMEM;
+-
+-			p_module->w = w;
+-			list_add_tail(&p_module->node, &pipe->w_list);
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-static void skl_tplg_set_pipe_type(struct skl_dev *skl, struct skl_pipe *pipe)
+-{
+-	struct skl_pipe_module *w_module;
+-	struct snd_soc_dapm_widget *w;
+-	struct skl_module_cfg *mconfig;
+-	bool host_found = false, link_found = false;
+-
+-	list_for_each_entry(w_module, &pipe->w_list, node) {
+-		w = w_module->w;
+-		mconfig = w->priv;
+-
+-		if (mconfig->dev_type == SKL_DEVICE_HDAHOST)
+-			host_found = true;
+-		else if (mconfig->dev_type != SKL_DEVICE_NONE)
+-			link_found = true;
+-	}
+-
+-	if (host_found && link_found)
+-		pipe->passthru = true;
+-	else
+-		pipe->passthru = false;
+-}
+-
+-/*
+- * SKL topology init routine
+- */
+-int skl_tplg_init(struct snd_soc_component *component, struct hdac_bus *bus)
+-{
+-	int ret;
+-	const struct firmware *fw;
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct skl_pipeline *ppl;
+-
+-	ret = request_firmware(&fw, skl->tplg_name, bus->dev);
+-	if (ret < 0) {
+-		char alt_tplg_name[64];
+-
+-		snprintf(alt_tplg_name, sizeof(alt_tplg_name), "%s-tplg.bin",
+-			 skl->mach->drv_name);
+-		dev_info(bus->dev, "tplg fw %s load failed with %d, trying alternative tplg name %s",
+-			 skl->tplg_name, ret, alt_tplg_name);
+-
+-		ret = request_firmware(&fw, alt_tplg_name, bus->dev);
+-		if (!ret)
+-			goto component_load;
+-
+-		dev_info(bus->dev, "tplg %s failed with %d, falling back to dfw_sst.bin",
+-			 alt_tplg_name, ret);
+-
+-		ret = request_firmware(&fw, "dfw_sst.bin", bus->dev);
+-		if (ret < 0) {
+-			dev_err(bus->dev, "Fallback tplg fw %s load failed with %d\n",
+-					"dfw_sst.bin", ret);
+-			return ret;
+-		}
+-	}
+-
+-component_load:
+-	ret = snd_soc_tplg_component_load(component, &skl_tplg_ops, fw);
+-	if (ret < 0) {
+-		dev_err(bus->dev, "tplg component load failed%d\n", ret);
+-		goto err;
+-	}
+-
+-	ret = skl_tplg_create_pipe_widget_list(component);
+-	if (ret < 0) {
+-		dev_err(bus->dev, "tplg create pipe widget list failed%d\n",
+-				ret);
+-		goto err;
+-	}
+-
+-	list_for_each_entry(ppl, &skl->ppl_list, node)
+-		skl_tplg_set_pipe_type(skl, ppl->pipe);
+-
+-err:
+-	release_firmware(fw);
+-	return ret;
+-}
+-
+-void skl_tplg_exit(struct snd_soc_component *component, struct hdac_bus *bus)
+-{
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct skl_pipeline *ppl, *tmp;
+-
+-	list_for_each_entry_safe(ppl, tmp, &skl->ppl_list, node)
+-		list_del(&ppl->node);
+-
+-	/* clean up topology */
+-	snd_soc_tplg_component_remove(component);
+-}
+diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
+deleted file mode 100644
+index 30a0977af943..000000000000
+--- a/sound/soc/intel/skylake/skl-topology.h
++++ /dev/null
+@@ -1,524 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  skl_topology.h - Intel HDA Platform topology header file
+- *
+- *  Copyright (C) 2014-15 Intel Corp
+- *  Author: Jeeja KP <jeeja.kp@intel.com>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#ifndef __SKL_TOPOLOGY_H__
+-#define __SKL_TOPOLOGY_H__
+-
+-#include <linux/types.h>
+-
+-#include <sound/hdaudio_ext.h>
+-#include <sound/soc.h>
+-#include <uapi/sound/skl-tplg-interface.h>
+-#include "skl.h"
+-
+-#define BITS_PER_BYTE 8
+-#define MAX_TS_GROUPS 8
+-#define MAX_DMIC_TS_GROUPS 4
+-#define MAX_FIXED_DMIC_PARAMS_SIZE 727
+-
+-/* Maximum number of coefficients up down mixer module */
+-#define UP_DOWN_MIXER_MAX_COEFF		8
+-
+-#define MODULE_MAX_IN_PINS	8
+-#define MODULE_MAX_OUT_PINS	8
+-
+-#define SKL_MIC_CH_SUPPORT	4
+-#define SKL_MIC_MAX_CH_SUPPORT	8
+-#define SKL_DEFAULT_MIC_SEL_GAIN	0x3FF
+-#define SKL_MIC_SEL_SWITCH	0x3
+-
+-#define SKL_OUTPUT_PIN		0
+-#define SKL_INPUT_PIN		1
+-#define SKL_MAX_PATH_CONFIGS	8
+-#define SKL_MAX_MODULES_IN_PIPE	8
+-#define SKL_MAX_MODULE_FORMATS		32
+-#define SKL_MAX_MODULE_RESOURCES	32
+-
+-enum skl_channel_index {
+-	SKL_CHANNEL_LEFT = 0,
+-	SKL_CHANNEL_RIGHT = 1,
+-	SKL_CHANNEL_CENTER = 2,
+-	SKL_CHANNEL_LEFT_SURROUND = 3,
+-	SKL_CHANNEL_CENTER_SURROUND = 3,
+-	SKL_CHANNEL_RIGHT_SURROUND = 4,
+-	SKL_CHANNEL_LFE = 7,
+-	SKL_CHANNEL_INVALID = 0xF,
+-};
+-
+-enum skl_bitdepth {
+-	SKL_DEPTH_8BIT = 8,
+-	SKL_DEPTH_16BIT = 16,
+-	SKL_DEPTH_24BIT = 24,
+-	SKL_DEPTH_32BIT = 32,
+-	SKL_DEPTH_INVALID
+-};
+-
+-
+-enum skl_s_freq {
+-	SKL_FS_8000 = 8000,
+-	SKL_FS_11025 = 11025,
+-	SKL_FS_12000 = 12000,
+-	SKL_FS_16000 = 16000,
+-	SKL_FS_22050 = 22050,
+-	SKL_FS_24000 = 24000,
+-	SKL_FS_32000 = 32000,
+-	SKL_FS_44100 = 44100,
+-	SKL_FS_48000 = 48000,
+-	SKL_FS_64000 = 64000,
+-	SKL_FS_88200 = 88200,
+-	SKL_FS_96000 = 96000,
+-	SKL_FS_128000 = 128000,
+-	SKL_FS_176400 = 176400,
+-	SKL_FS_192000 = 192000,
+-	SKL_FS_INVALID
+-};
+-
+-#define SKL_MAX_PARAMS_TYPES	4
+-
+-enum skl_widget_type {
+-	SKL_WIDGET_VMIXER = 1,
+-	SKL_WIDGET_MIXER = 2,
+-	SKL_WIDGET_PGA = 3,
+-	SKL_WIDGET_MUX = 4
+-};
+-
+-struct skl_audio_data_format {
+-	enum skl_s_freq s_freq;
+-	enum skl_bitdepth bit_depth;
+-	u32 channel_map;
+-	enum skl_ch_cfg ch_cfg;
+-	enum skl_interleaving interleaving;
+-	u8 number_of_channels;
+-	u8 valid_bit_depth;
+-	u8 sample_type;
+-	u8 reserved;
+-} __packed;
+-
+-struct skl_base_cfg {
+-	u32 cpc;
+-	u32 ibs;
+-	u32 obs;
+-	u32 is_pages;
+-	struct skl_audio_data_format audio_fmt;
+-};
+-
+-struct skl_cpr_gtw_cfg {
+-	u32 node_id;
+-	u32 dma_buffer_size;
+-	u32 config_length;
+-	/* not mandatory; required only for DMIC/I2S */
+-	struct {
+-		u32 gtw_attrs;
+-		u32 data[];
+-	} config_data;
+-} __packed;
+-
+-struct skl_dma_control {
+-	u32 node_id;
+-	u32 config_length;
+-	u32 config_data[];
+-} __packed;
+-
+-struct skl_cpr_cfg {
+-	struct skl_base_cfg base_cfg;
+-	struct skl_audio_data_format out_fmt;
+-	u32 cpr_feature_mask;
+-	struct skl_cpr_gtw_cfg gtw_cfg;
+-} __packed;
+-
+-struct skl_cpr_pin_fmt {
+-	u32 sink_id;
+-	struct skl_audio_data_format src_fmt;
+-	struct skl_audio_data_format dst_fmt;
+-} __packed;
+-
+-struct skl_src_module_cfg {
+-	struct skl_base_cfg base_cfg;
+-	enum skl_s_freq src_cfg;
+-} __packed;
+-
+-struct skl_up_down_mixer_cfg {
+-	struct skl_base_cfg base_cfg;
+-	enum skl_ch_cfg out_ch_cfg;
+-	/* This should be set to 1 if user coefficients are required */
+-	u32 coeff_sel;
+-	/* Pass the user coeff in this array */
+-	s32 coeff[UP_DOWN_MIXER_MAX_COEFF];
+-	u32 ch_map;
+-} __packed;
+-
+-struct skl_pin_format {
+-	u32 pin_idx;
+-	u32 buf_size;
+-	struct skl_audio_data_format audio_fmt;
+-} __packed;
+-
+-struct skl_base_cfg_ext {
+-	u16 nr_input_pins;
+-	u16 nr_output_pins;
+-	u8 reserved[8];
+-	u32 priv_param_length;
+-	/* Input pin formats followed by output ones. */
+-	struct skl_pin_format pins_fmt[];
+-} __packed;
+-
+-struct skl_algo_cfg {
+-	struct skl_base_cfg  base_cfg;
+-	char params[];
+-} __packed;
+-
+-struct skl_base_outfmt_cfg {
+-	struct skl_base_cfg base_cfg;
+-	struct skl_audio_data_format out_fmt;
+-} __packed;
+-
+-enum skl_dma_type {
+-	SKL_DMA_HDA_HOST_OUTPUT_CLASS = 0,
+-	SKL_DMA_HDA_HOST_INPUT_CLASS = 1,
+-	SKL_DMA_HDA_HOST_INOUT_CLASS = 2,
+-	SKL_DMA_HDA_LINK_OUTPUT_CLASS = 8,
+-	SKL_DMA_HDA_LINK_INPUT_CLASS = 9,
+-	SKL_DMA_HDA_LINK_INOUT_CLASS = 0xA,
+-	SKL_DMA_DMIC_LINK_INPUT_CLASS = 0xB,
+-	SKL_DMA_I2S_LINK_OUTPUT_CLASS = 0xC,
+-	SKL_DMA_I2S_LINK_INPUT_CLASS = 0xD,
+-};
+-
+-union skl_ssp_dma_node {
+-	u8 val;
+-	struct {
+-		u8 time_slot_index:4;
+-		u8 i2s_instance:4;
+-	} dma_node;
+-};
+-
+-union skl_connector_node_id {
+-	u32 val;
+-	struct {
+-		u32 vindex:8;
+-		u32 dma_type:4;
+-		u32 rsvd:20;
+-	} node;
+-};
+-
+-struct skl_module_fmt {
+-	u32 channels;
+-	u32 s_freq;
+-	u32 bit_depth;
+-	u32 valid_bit_depth;
+-	u32 ch_cfg;
+-	u32 interleaving_style;
+-	u32 sample_type;
+-	u32 ch_map;
+-};
+-
+-struct skl_module_cfg;
+-
+-struct skl_mod_inst_map {
+-	u16 mod_id;
+-	u16 inst_id;
+-};
+-
+-struct skl_uuid_inst_map {
+-	u16 inst_id;
+-	u16 reserved;
+-	guid_t mod_uuid;
+-} __packed;
+-
+-struct skl_kpb_params {
+-	u32 num_modules;
+-	union {
+-		DECLARE_FLEX_ARRAY(struct skl_mod_inst_map, map);
+-		DECLARE_FLEX_ARRAY(struct skl_uuid_inst_map, map_uuid);
+-	} u;
+-};
+-
+-struct skl_module_inst_id {
+-	guid_t mod_uuid;
+-	int module_id;
+-	u32 instance_id;
+-	int pvt_id;
+-};
+-
+-enum skl_module_pin_state {
+-	SKL_PIN_UNBIND = 0,
+-	SKL_PIN_BIND_DONE = 1,
+-};
+-
+-struct skl_module_pin {
+-	struct skl_module_inst_id id;
+-	bool is_dynamic;
+-	bool in_use;
+-	enum skl_module_pin_state pin_state;
+-	struct skl_module_cfg *tgt_mcfg;
+-};
+-
+-struct skl_specific_cfg {
+-	u32 set_params;
+-	u32 param_id;
+-	u32 caps_size;
+-	u32 *caps;
+-};
+-
+-enum skl_pipe_state {
+-	SKL_PIPE_INVALID = 0,
+-	SKL_PIPE_CREATED = 1,
+-	SKL_PIPE_PAUSED = 2,
+-	SKL_PIPE_STARTED = 3,
+-	SKL_PIPE_RESET = 4
+-};
+-
+-struct skl_pipe_module {
+-	struct snd_soc_dapm_widget *w;
+-	struct list_head node;
+-};
+-
+-struct skl_pipe_params {
+-	u8 host_dma_id;
+-	u8 link_dma_id;
+-	u32 ch;
+-	u32 s_freq;
+-	u32 s_fmt;
+-	u32 s_cont;
+-	u8 linktype;
+-	snd_pcm_format_t format;
+-	int link_index;
+-	int stream;
+-	unsigned int host_bps;
+-	unsigned int link_bps;
+-};
+-
+-struct skl_pipe_fmt {
+-	u32 freq;
+-	u8 channels;
+-	u8 bps;
+-};
+-
+-struct skl_pipe_mcfg {
+-	u8 res_idx;
+-	u8 fmt_idx;
+-};
+-
+-struct skl_path_config {
+-	u8 mem_pages;
+-	struct skl_pipe_fmt in_fmt;
+-	struct skl_pipe_fmt out_fmt;
+-};
+-
+-struct skl_pipe {
+-	u8 ppl_id;
+-	u8 pipe_priority;
+-	u16 conn_type;
+-	u32 memory_pages;
+-	u8 lp_mode;
+-	struct skl_pipe_params *p_params;
+-	enum skl_pipe_state state;
+-	u8 direction;
+-	u8 cur_config_idx;
+-	u8 nr_cfgs;
+-	struct skl_path_config configs[SKL_MAX_PATH_CONFIGS];
+-	struct list_head w_list;
+-	bool passthru;
+-};
+-
+-enum skl_module_state {
+-	SKL_MODULE_UNINIT = 0,
+-	SKL_MODULE_INIT_DONE = 1,
+-	SKL_MODULE_BIND_DONE = 2,
+-};
+-
+-enum d0i3_capability {
+-	SKL_D0I3_NONE = 0,
+-	SKL_D0I3_STREAMING = 1,
+-	SKL_D0I3_NON_STREAMING = 2,
+-};
+-
+-struct skl_module_pin_fmt {
+-	u8 id;
+-	struct skl_module_fmt fmt;
+-};
+-
+-struct skl_module_iface {
+-	u8 fmt_idx;
+-	u8 nr_in_fmt;
+-	u8 nr_out_fmt;
+-	struct skl_module_pin_fmt inputs[MAX_IN_QUEUE];
+-	struct skl_module_pin_fmt outputs[MAX_OUT_QUEUE];
+-};
+-
+-struct skl_module_pin_resources {
+-	u8 pin_index;
+-	u32 buf_size;
+-};
+-
+-struct skl_module_res {
+-	u8 id;
+-	u32 is_pages;
+-	u32 ibs;
+-	u32 obs;
+-	u32 dma_buffer_size;
+-	u32 cpc;
+-	u8 nr_input_pins;
+-	u8 nr_output_pins;
+-	struct skl_module_pin_resources input[MAX_IN_QUEUE];
+-	struct skl_module_pin_resources output[MAX_OUT_QUEUE];
+-};
+-
+-struct skl_module {
+-	guid_t uuid;
+-	u8 loadable;
+-	u8 input_pin_type;
+-	u8 output_pin_type;
+-	u8 max_input_pins;
+-	u8 max_output_pins;
+-	u8 nr_resources;
+-	u8 nr_interfaces;
+-	struct skl_module_res resources[SKL_MAX_MODULE_RESOURCES];
+-	struct skl_module_iface formats[SKL_MAX_MODULE_FORMATS];
+-};
+-
+-struct skl_module_cfg {
+-	u8 guid[16];
+-	struct skl_module_inst_id id;
+-	struct skl_module *module;
+-	int res_idx;
+-	int fmt_idx;
+-	int fmt_cfg_idx;
+-	u8 domain;
+-	bool homogenous_inputs;
+-	bool homogenous_outputs;
+-	struct skl_module_fmt in_fmt[MODULE_MAX_IN_PINS];
+-	struct skl_module_fmt out_fmt[MODULE_MAX_OUT_PINS];
+-	u8 max_in_queue;
+-	u8 max_out_queue;
+-	u8 in_queue_mask;
+-	u8 out_queue_mask;
+-	u8 in_queue;
+-	u8 out_queue;
+-	u8 is_loadable;
+-	u8 core_id;
+-	u8 dev_type;
+-	u8 dma_id;
+-	u8 time_slot;
+-	u8 dmic_ch_combo_index;
+-	u32 dmic_ch_type;
+-	u32 params_fixup;
+-	u32 converter;
+-	u32 vbus_id;
+-	u32 mem_pages;
+-	enum d0i3_capability d0i3_caps;
+-	u32 dma_buffer_size; /* in milli seconds */
+-	struct skl_module_pin *m_in_pin;
+-	struct skl_module_pin *m_out_pin;
+-	enum skl_module_type m_type;
+-	enum skl_hw_conn_type  hw_conn_type;
+-	enum skl_module_state m_state;
+-	struct skl_pipe *pipe;
+-	struct skl_specific_cfg formats_config[SKL_MAX_PARAMS_TYPES];
+-	struct skl_pipe_mcfg mod_cfg[SKL_MAX_MODULES_IN_PIPE];
+-};
+-
+-struct skl_algo_data {
+-	u32 param_id;
+-	u32 set_params;
+-	u32 max;
+-	u32 size;
+-	char *params;
+-};
+-
+-struct skl_pipeline {
+-	struct skl_pipe *pipe;
+-	struct list_head node;
+-};
+-
+-struct skl_module_deferred_bind {
+-	struct skl_module_cfg *src;
+-	struct skl_module_cfg *dst;
+-	struct list_head node;
+-};
+-
+-struct skl_mic_sel_config {
+-	u16 mic_switch;
+-	u16 flags;
+-	u16 blob[SKL_MIC_MAX_CH_SUPPORT][SKL_MIC_MAX_CH_SUPPORT];
+-} __packed;
+-
+-enum skl_channel {
+-	SKL_CH_MONO = 1,
+-	SKL_CH_STEREO = 2,
+-	SKL_CH_TRIO = 3,
+-	SKL_CH_QUATRO = 4,
+-};
+-
+-static inline struct skl_dev *get_skl_ctx(struct device *dev)
+-{
+-	struct hdac_bus *bus = dev_get_drvdata(dev);
+-
+-	return bus_to_skl(bus);
+-}
+-
+-int skl_tplg_be_update_params(struct snd_soc_dai *dai,
+-	struct skl_pipe_params *params);
+-int skl_dsp_set_dma_control(struct skl_dev *skl, u32 *caps,
+-			u32 caps_size, u32 node_id);
+-void skl_tplg_set_be_dmic_config(struct snd_soc_dai *dai,
+-	struct skl_pipe_params *params, int stream);
+-int skl_tplg_init(struct snd_soc_component *component,
+-				struct hdac_bus *bus);
+-void skl_tplg_exit(struct snd_soc_component *component,
+-				struct hdac_bus *bus);
+-struct skl_module_cfg *skl_tplg_fe_get_cpr_module(
+-		struct snd_soc_dai *dai, int stream);
+-int skl_tplg_update_pipe_params(struct device *dev,
+-		struct skl_module_cfg *mconfig, struct skl_pipe_params *params);
+-
+-void skl_tplg_d0i3_get(struct skl_dev *skl, enum d0i3_capability caps);
+-void skl_tplg_d0i3_put(struct skl_dev *skl, enum d0i3_capability caps);
+-
+-int skl_create_pipeline(struct skl_dev *skl, struct skl_pipe *pipe);
+-
+-int skl_run_pipe(struct skl_dev *skl, struct skl_pipe *pipe);
+-
+-int skl_pause_pipe(struct skl_dev *skl, struct skl_pipe *pipe);
+-
+-int skl_delete_pipe(struct skl_dev *skl, struct skl_pipe *pipe);
+-
+-int skl_stop_pipe(struct skl_dev *skl, struct skl_pipe *pipe);
+-
+-int skl_reset_pipe(struct skl_dev *skl, struct skl_pipe *pipe);
+-
+-int skl_init_module(struct skl_dev *skl, struct skl_module_cfg *mconfig);
+-
+-int skl_bind_modules(struct skl_dev *skl, struct skl_module_cfg
+-	*src_mcfg, struct skl_module_cfg *dst_mcfg);
+-
+-int skl_unbind_modules(struct skl_dev *skl, struct skl_module_cfg
+-	*src_mcfg, struct skl_module_cfg *dst_mcfg);
+-
+-int skl_set_module_params(struct skl_dev *skl, u32 *params, int size,
+-			u32 param_id, struct skl_module_cfg *mcfg);
+-int skl_get_module_params(struct skl_dev *skl, u32 *params, int size,
+-			  u32 param_id, struct skl_module_cfg *mcfg);
+-
+-struct skl_module_cfg *skl_tplg_be_get_cpr_module(struct snd_soc_dai *dai,
+-								int stream);
+-enum skl_bitdepth skl_get_bit_depth(int params);
+-int skl_pcm_host_dma_prepare(struct device *dev,
+-			struct skl_pipe_params *params);
+-int skl_pcm_link_dma_prepare(struct device *dev,
+-			struct skl_pipe_params *params);
+-
+-int skl_dai_load(struct snd_soc_component *cmp, int index,
+-		struct snd_soc_dai_driver *dai_drv,
+-		struct snd_soc_tplg_pcm *pcm, struct snd_soc_dai *dai);
+-void skl_tplg_add_moduleid_in_bind_params(struct skl_dev *skl,
+-				struct snd_soc_dapm_widget *w);
+-#endif
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+deleted file mode 100644
+index 117125187793..000000000000
+--- a/sound/soc/intel/skylake/skl.c
++++ /dev/null
+@@ -1,1177 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  skl.c - Implementation of ASoC Intel SKL HD Audio driver
+- *
+- *  Copyright (C) 2014-2015 Intel Corp
+- *  Author: Jeeja KP <jeeja.kp@intel.com>
+- *
+- *  Derived mostly from Intel HDA driver with following copyrights:
+- *  Copyright (c) 2004 Takashi Iwai <tiwai@suse.de>
+- *                     PeiSen Hou <pshou@realtek.com.tw>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#include <linux/module.h>
+-#include <linux/pci.h>
+-#include <linux/pm_runtime.h>
+-#include <linux/platform_device.h>
+-#include <linux/firmware.h>
+-#include <linux/delay.h>
+-#include <sound/pcm.h>
+-#include <sound/soc-acpi.h>
+-#include <sound/soc-acpi-intel-match.h>
+-#include <sound/hda_register.h>
+-#include <sound/hdaudio.h>
+-#include <sound/hda_i915.h>
+-#include <sound/hda_codec.h>
+-#include <sound/intel-nhlt.h>
+-#include <sound/intel-dsp-config.h>
+-#include "skl.h"
+-#include "skl-sst-dsp.h"
+-#include "skl-sst-ipc.h"
+-
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+-#include "../../../soc/codecs/hdac_hda.h"
+-#endif
+-static int skl_pci_binding;
+-module_param_named(pci_binding, skl_pci_binding, int, 0444);
+-MODULE_PARM_DESC(pci_binding, "PCI binding (0=auto, 1=only legacy, 2=only asoc");
+-
+-/*
+- * initialize the PCI registers
+- */
+-static void skl_update_pci_byte(struct pci_dev *pci, unsigned int reg,
+-			    unsigned char mask, unsigned char val)
+-{
+-	unsigned char data;
+-
+-	pci_read_config_byte(pci, reg, &data);
+-	data &= ~mask;
+-	data |= (val & mask);
+-	pci_write_config_byte(pci, reg, data);
+-}
+-
+-static void skl_init_pci(struct skl_dev *skl)
+-{
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-
+-	/*
+-	 * Clear bits 0-2 of PCI register TCSEL (at offset 0x44)
+-	 * TCSEL == Traffic Class Select Register, which sets PCI express QOS
+-	 * Ensuring these bits are 0 clears playback static on some HD Audio
+-	 * codecs.
+-	 * The PCI register TCSEL is defined in the Intel manuals.
+-	 */
+-	dev_dbg(bus->dev, "Clearing TCSEL\n");
+-	skl_update_pci_byte(skl->pci, AZX_PCIREG_TCSEL, 0x07, 0);
+-}
+-
+-static void update_pci_dword(struct pci_dev *pci,
+-			unsigned int reg, u32 mask, u32 val)
+-{
+-	u32 data = 0;
+-
+-	pci_read_config_dword(pci, reg, &data);
+-	data &= ~mask;
+-	data |= (val & mask);
+-	pci_write_config_dword(pci, reg, data);
+-}
+-
+-/*
+- * skl_enable_miscbdcge - enable/dsiable CGCTL.MISCBDCGE bits
+- *
+- * @dev: device pointer
+- * @enable: enable/disable flag
+- */
+-static void skl_enable_miscbdcge(struct device *dev, bool enable)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	u32 val;
+-
+-	val = enable ? AZX_CGCTL_MISCBDCGE_MASK : 0;
+-
+-	update_pci_dword(pci, AZX_PCIREG_CGCTL, AZX_CGCTL_MISCBDCGE_MASK, val);
+-}
+-
+-/**
+- * skl_clock_power_gating: Enable/Disable clock and power gating
+- *
+- * @dev: Device pointer
+- * @enable: Enable/Disable flag
+- */
+-static void skl_clock_power_gating(struct device *dev, bool enable)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	u32 val;
+-
+-	/* Update PDCGE bit of CGCTL register */
+-	val = enable ? AZX_CGCTL_ADSPDCGE : 0;
+-	update_pci_dword(pci, AZX_PCIREG_CGCTL, AZX_CGCTL_ADSPDCGE, val);
+-
+-	/* Update L1SEN bit of EM2 register */
+-	val = enable ? AZX_REG_VS_EM2_L1SEN : 0;
+-	snd_hdac_chip_updatel(bus, VS_EM2, AZX_REG_VS_EM2_L1SEN, val);
+-
+-	/* Update ADSPPGD bit of PGCTL register */
+-	val = enable ? 0 : AZX_PGCTL_ADSPPGD;
+-	update_pci_dword(pci, AZX_PCIREG_PGCTL, AZX_PGCTL_ADSPPGD, val);
+-}
+-
+-/*
+- * While performing reset, controller may not come back properly causing
+- * issues, so recommendation is to set CGCTL.MISCBDCGE to 0 then do reset
+- * (init chip) and then again set CGCTL.MISCBDCGE to 1
+- */
+-static int skl_init_chip(struct hdac_bus *bus, bool full_reset)
+-{
+-	struct hdac_ext_link *hlink;
+-	int ret;
+-
+-	snd_hdac_set_codec_wakeup(bus, true);
+-	skl_enable_miscbdcge(bus->dev, false);
+-	ret = snd_hdac_bus_init_chip(bus, full_reset);
+-
+-	/* Reset stream-to-link mapping */
+-	list_for_each_entry(hlink, &bus->hlink_list, list)
+-		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
+-
+-	skl_enable_miscbdcge(bus->dev, true);
+-	snd_hdac_set_codec_wakeup(bus, false);
+-
+-	return ret;
+-}
+-
+-void skl_update_d0i3c(struct device *dev, bool enable)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	u8 reg;
+-	int timeout = 50;
+-
+-	reg = snd_hdac_chip_readb(bus, VS_D0I3C);
+-	/* Do not write to D0I3C until command in progress bit is cleared */
+-	while ((reg & AZX_REG_VS_D0I3C_CIP) && --timeout) {
+-		udelay(10);
+-		reg = snd_hdac_chip_readb(bus, VS_D0I3C);
+-	}
+-
+-	/* Highly unlikely. But if it happens, flag error explicitly */
+-	if (!timeout) {
+-		dev_err(bus->dev, "Before D0I3C update: D0I3C CIP timeout\n");
+-		return;
+-	}
+-
+-	if (enable)
+-		reg = reg | AZX_REG_VS_D0I3C_I3;
+-	else
+-		reg = reg & (~AZX_REG_VS_D0I3C_I3);
+-
+-	snd_hdac_chip_writeb(bus, VS_D0I3C, reg);
+-
+-	timeout = 50;
+-	/* Wait for cmd in progress to be cleared before exiting the function */
+-	reg = snd_hdac_chip_readb(bus, VS_D0I3C);
+-	while ((reg & AZX_REG_VS_D0I3C_CIP) && --timeout) {
+-		udelay(10);
+-		reg = snd_hdac_chip_readb(bus, VS_D0I3C);
+-	}
+-
+-	/* Highly unlikely. But if it happens, flag error explicitly */
+-	if (!timeout) {
+-		dev_err(bus->dev, "After D0I3C update: D0I3C CIP timeout\n");
+-		return;
+-	}
+-
+-	dev_dbg(bus->dev, "D0I3C register = 0x%x\n",
+-			snd_hdac_chip_readb(bus, VS_D0I3C));
+-}
+-
+-/**
+- * skl_dum_set - set DUM bit in EM2 register
+- * @bus: HD-audio core bus
+- *
+- * Addresses incorrect position reporting for capture streams.
+- * Used on device power up.
+- */
+-static void skl_dum_set(struct hdac_bus *bus)
+-{
+-	/* For the DUM bit to be set, CRST needs to be out of reset state */
+-	if (!(snd_hdac_chip_readb(bus, GCTL) & AZX_GCTL_RESET)) {
+-		skl_enable_miscbdcge(bus->dev, false);
+-		snd_hdac_bus_exit_link_reset(bus);
+-		skl_enable_miscbdcge(bus->dev, true);
+-	}
+-
+-	snd_hdac_chip_updatel(bus, VS_EM2, AZX_VS_EM2_DUM, AZX_VS_EM2_DUM);
+-}
+-
+-/* called from IRQ */
+-static void skl_stream_update(struct hdac_bus *bus, struct hdac_stream *hstr)
+-{
+-	snd_pcm_period_elapsed(hstr->substream);
+-}
+-
+-static irqreturn_t skl_interrupt(int irq, void *dev_id)
+-{
+-	struct hdac_bus *bus = dev_id;
+-	u32 status;
+-
+-	if (!pm_runtime_active(bus->dev))
+-		return IRQ_NONE;
+-
+-	spin_lock(&bus->reg_lock);
+-
+-	status = snd_hdac_chip_readl(bus, INTSTS);
+-	if (status == 0 || status == 0xffffffff) {
+-		spin_unlock(&bus->reg_lock);
+-		return IRQ_NONE;
+-	}
+-
+-	/* clear rirb int */
+-	status = snd_hdac_chip_readb(bus, RIRBSTS);
+-	if (status & RIRB_INT_MASK) {
+-		if (status & RIRB_INT_RESPONSE)
+-			snd_hdac_bus_update_rirb(bus);
+-		snd_hdac_chip_writeb(bus, RIRBSTS, RIRB_INT_MASK);
+-	}
+-
+-	spin_unlock(&bus->reg_lock);
+-
+-	return snd_hdac_chip_readl(bus, INTSTS) ? IRQ_WAKE_THREAD : IRQ_HANDLED;
+-}
+-
+-static irqreturn_t skl_threaded_handler(int irq, void *dev_id)
+-{
+-	struct hdac_bus *bus = dev_id;
+-	u32 status;
+-
+-	status = snd_hdac_chip_readl(bus, INTSTS);
+-
+-	snd_hdac_bus_handle_stream_irq(bus, status, skl_stream_update);
+-
+-	return IRQ_HANDLED;
+-}
+-
+-static int skl_acquire_irq(struct hdac_bus *bus, int do_disconnect)
+-{
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	int ret;
+-
+-	ret = request_threaded_irq(skl->pci->irq, skl_interrupt,
+-			skl_threaded_handler,
+-			IRQF_SHARED,
+-			KBUILD_MODNAME, bus);
+-	if (ret) {
+-		dev_err(bus->dev,
+-			"unable to grab IRQ %d, disabling device\n",
+-			skl->pci->irq);
+-		return ret;
+-	}
+-
+-	bus->irq = skl->pci->irq;
+-	pci_intx(skl->pci, 1);
+-
+-	return 0;
+-}
+-
+-static int skl_suspend_late(struct device *dev)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	return skl_suspend_late_dsp(skl);
+-}
+-
+-#ifdef CONFIG_PM
+-static int _skl_suspend(struct hdac_bus *bus)
+-{
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct pci_dev *pci = to_pci_dev(bus->dev);
+-	int ret;
+-
+-	snd_hdac_ext_bus_link_power_down_all(bus);
+-
+-	ret = skl_suspend_dsp(skl);
+-	if (ret < 0)
+-		return ret;
+-
+-	snd_hdac_bus_stop_chip(bus);
+-	update_pci_dword(pci, AZX_PCIREG_PGCTL,
+-		AZX_PGCTL_LSRMD_MASK, AZX_PGCTL_LSRMD_MASK);
+-	skl_enable_miscbdcge(bus->dev, false);
+-	snd_hdac_bus_enter_link_reset(bus);
+-	skl_enable_miscbdcge(bus->dev, true);
+-	skl_cleanup_resources(skl);
+-
+-	return 0;
+-}
+-
+-static int _skl_resume(struct hdac_bus *bus)
+-{
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	skl_init_pci(skl);
+-	skl_dum_set(bus);
+-	skl_init_chip(bus, true);
+-
+-	return skl_resume_dsp(skl);
+-}
+-#endif
+-
+-#ifdef CONFIG_PM_SLEEP
+-/*
+- * power management
+- */
+-static int skl_suspend(struct device *dev)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	struct skl_dev *skl  = bus_to_skl(bus);
+-	int ret;
+-
+-	/*
+-	 * Do not suspend if streams which are marked ignore suspend are
+-	 * running, we need to save the state for these and continue
+-	 */
+-	if (skl->supend_active) {
+-		/* turn off the links and stop the CORB/RIRB DMA if it is On */
+-		snd_hdac_ext_bus_link_power_down_all(bus);
+-
+-		if (bus->cmd_dma_state)
+-			snd_hdac_bus_stop_cmd_io(bus);
+-
+-		enable_irq_wake(bus->irq);
+-		pci_save_state(pci);
+-	} else {
+-		ret = _skl_suspend(bus);
+-		if (ret < 0)
+-			return ret;
+-		skl->fw_loaded = false;
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_resume(struct device *dev)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	struct skl_dev *skl  = bus_to_skl(bus);
+-	struct hdac_ext_link *hlink;
+-	int ret;
+-
+-	/*
+-	 * resume only when we are not in suspend active, otherwise need to
+-	 * restore the device
+-	 */
+-	if (skl->supend_active) {
+-		pci_restore_state(pci);
+-		snd_hdac_ext_bus_link_power_up_all(bus);
+-		disable_irq_wake(bus->irq);
+-		/*
+-		 * turn On the links which are On before active suspend
+-		 * and start the CORB/RIRB DMA if On before
+-		 * active suspend.
+-		 */
+-		list_for_each_entry(hlink, &bus->hlink_list, list) {
+-			if (hlink->ref_count)
+-				snd_hdac_ext_bus_link_power_up(hlink);
+-		}
+-
+-		ret = 0;
+-		if (bus->cmd_dma_state)
+-			snd_hdac_bus_init_cmd_io(bus);
+-	} else {
+-		ret = _skl_resume(bus);
+-	}
+-
+-	return ret;
+-}
+-#endif /* CONFIG_PM_SLEEP */
+-
+-#ifdef CONFIG_PM
+-static int skl_runtime_suspend(struct device *dev)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-
+-	dev_dbg(bus->dev, "in %s\n", __func__);
+-
+-	return _skl_suspend(bus);
+-}
+-
+-static int skl_runtime_resume(struct device *dev)
+-{
+-	struct pci_dev *pci = to_pci_dev(dev);
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-
+-	dev_dbg(bus->dev, "in %s\n", __func__);
+-
+-	return _skl_resume(bus);
+-}
+-#endif /* CONFIG_PM */
+-
+-static const struct dev_pm_ops skl_pm = {
+-	SET_SYSTEM_SLEEP_PM_OPS(skl_suspend, skl_resume)
+-	SET_RUNTIME_PM_OPS(skl_runtime_suspend, skl_runtime_resume, NULL)
+-	.suspend_late = skl_suspend_late,
+-};
+-
+-/*
+- * destructor
+- */
+-static int skl_free(struct hdac_bus *bus)
+-{
+-	struct skl_dev *skl  = bus_to_skl(bus);
+-
+-	skl->init_done = 0; /* to be sure */
+-
+-	snd_hdac_stop_streams_and_chip(bus);
+-
+-	if (bus->irq >= 0)
+-		free_irq(bus->irq, (void *)bus);
+-	snd_hdac_bus_free_stream_pages(bus);
+-	snd_hdac_ext_stream_free_all(bus);
+-	snd_hdac_ext_link_free_all(bus);
+-
+-	if (bus->remap_addr)
+-		iounmap(bus->remap_addr);
+-
+-	pci_release_regions(skl->pci);
+-	pci_disable_device(skl->pci);
+-
+-	snd_hdac_ext_bus_exit(bus);
+-
+-	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)) {
+-		snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
+-		snd_hdac_i915_exit(bus);
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * For each ssp there are 3 clocks (mclk/sclk/sclkfs).
+- * e.g. for ssp0, clocks will be named as
+- *      "ssp0_mclk", "ssp0_sclk", "ssp0_sclkfs"
+- * So for skl+, there are 6 ssps, so 18 clocks will be created.
+- */
+-static struct skl_ssp_clk skl_ssp_clks[] = {
+-	{.name = "ssp0_mclk"}, {.name = "ssp1_mclk"}, {.name = "ssp2_mclk"},
+-	{.name = "ssp3_mclk"}, {.name = "ssp4_mclk"}, {.name = "ssp5_mclk"},
+-	{.name = "ssp0_sclk"}, {.name = "ssp1_sclk"}, {.name = "ssp2_sclk"},
+-	{.name = "ssp3_sclk"}, {.name = "ssp4_sclk"}, {.name = "ssp5_sclk"},
+-	{.name = "ssp0_sclkfs"}, {.name = "ssp1_sclkfs"},
+-						{.name = "ssp2_sclkfs"},
+-	{.name = "ssp3_sclkfs"}, {.name = "ssp4_sclkfs"},
+-						{.name = "ssp5_sclkfs"},
+-};
+-
+-static struct snd_soc_acpi_mach *skl_find_hda_machine(struct skl_dev *skl,
+-					struct snd_soc_acpi_mach *machines)
+-{
+-	struct snd_soc_acpi_mach *mach;
+-
+-	/* point to common table */
+-	mach = snd_soc_acpi_intel_hda_machines;
+-
+-	/* all entries in the machine table use the same firmware */
+-	mach->fw_filename = machines->fw_filename;
+-
+-	return mach;
+-}
+-
+-static int skl_find_machine(struct skl_dev *skl, void *driver_data)
+-{
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	struct snd_soc_acpi_mach *mach = driver_data;
+-	struct skl_machine_pdata *pdata;
+-
+-	mach = snd_soc_acpi_find_machine(mach);
+-	if (!mach) {
+-		dev_dbg(bus->dev, "No matching I2S machine driver found\n");
+-		mach = skl_find_hda_machine(skl, driver_data);
+-		if (!mach) {
+-			dev_err(bus->dev, "No matching machine driver found\n");
+-			return -ENODEV;
+-		}
+-	}
+-
+-	skl->mach = mach;
+-	skl->fw_name = mach->fw_filename;
+-	pdata = mach->pdata;
+-
+-	if (pdata) {
+-		skl->use_tplg_pcm = pdata->use_tplg_pcm;
+-		mach->mach_params.dmic_num =
+-			intel_nhlt_get_dmic_geo(&skl->pci->dev,
+-						skl->nhlt);
+-	}
+-
+-	return 0;
+-}
+-
+-static int skl_machine_device_register(struct skl_dev *skl)
+-{
+-	struct snd_soc_acpi_mach *mach = skl->mach;
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	struct platform_device *pdev;
+-	int ret;
+-
+-	pdev = platform_device_alloc(mach->drv_name, -1);
+-	if (pdev == NULL) {
+-		dev_err(bus->dev, "platform device alloc failed\n");
+-		return -EIO;
+-	}
+-
+-	mach->mach_params.platform = dev_name(bus->dev);
+-	mach->mach_params.codec_mask = bus->codec_mask;
+-
+-	ret = platform_device_add_data(pdev, (const void *)mach, sizeof(*mach));
+-	if (ret) {
+-		dev_err(bus->dev, "failed to add machine device platform data\n");
+-		platform_device_put(pdev);
+-		return ret;
+-	}
+-
+-	ret = platform_device_add(pdev);
+-	if (ret) {
+-		dev_err(bus->dev, "failed to add machine device\n");
+-		platform_device_put(pdev);
+-		return -EIO;
+-	}
+-
+-
+-	skl->i2s_dev = pdev;
+-
+-	return 0;
+-}
+-
+-static void skl_machine_device_unregister(struct skl_dev *skl)
+-{
+-	if (skl->i2s_dev)
+-		platform_device_unregister(skl->i2s_dev);
+-}
+-
+-static int skl_dmic_device_register(struct skl_dev *skl)
+-{
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	struct platform_device *pdev;
+-	int ret;
+-
+-	/* SKL has one dmic port, so allocate dmic device for this */
+-	pdev = platform_device_alloc("dmic-codec", -1);
+-	if (!pdev) {
+-		dev_err(bus->dev, "failed to allocate dmic device\n");
+-		return -ENOMEM;
+-	}
+-
+-	ret = platform_device_add(pdev);
+-	if (ret) {
+-		dev_err(bus->dev, "failed to add dmic device: %d\n", ret);
+-		platform_device_put(pdev);
+-		return ret;
+-	}
+-	skl->dmic_dev = pdev;
+-
+-	return 0;
+-}
+-
+-static void skl_dmic_device_unregister(struct skl_dev *skl)
+-{
+-	if (skl->dmic_dev)
+-		platform_device_unregister(skl->dmic_dev);
+-}
+-
+-static struct skl_clk_parent_src skl_clk_src[] = {
+-	{ .clk_id = SKL_XTAL, .name = "xtal" },
+-	{ .clk_id = SKL_CARDINAL, .name = "cardinal", .rate = 24576000 },
+-	{ .clk_id = SKL_PLL, .name = "pll", .rate = 96000000 },
+-};
+-
+-struct skl_clk_parent_src *skl_get_parent_clk(u8 clk_id)
+-{
+-	unsigned int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(skl_clk_src); i++) {
+-		if (skl_clk_src[i].clk_id == clk_id)
+-			return &skl_clk_src[i];
+-	}
+-
+-	return NULL;
+-}
+-
+-static void init_skl_xtal_rate(int pci_id)
+-{
+-	switch (pci_id) {
+-	case PCI_DEVICE_ID_INTEL_HDA_SKL_LP:
+-	case PCI_DEVICE_ID_INTEL_HDA_KBL_LP:
+-		skl_clk_src[0].rate = 24000000;
+-		return;
+-
+-	default:
+-		skl_clk_src[0].rate = 19200000;
+-		return;
+-	}
+-}
+-
+-static int skl_clock_device_register(struct skl_dev *skl)
+-{
+-	struct platform_device_info pdevinfo = {NULL};
+-	struct skl_clk_pdata *clk_pdata;
+-
+-	if (!skl->nhlt)
+-		return 0;
+-
+-	clk_pdata = devm_kzalloc(&skl->pci->dev, sizeof(*clk_pdata),
+-							GFP_KERNEL);
+-	if (!clk_pdata)
+-		return -ENOMEM;
+-
+-	init_skl_xtal_rate(skl->pci->device);
+-
+-	clk_pdata->parent_clks = skl_clk_src;
+-	clk_pdata->ssp_clks = skl_ssp_clks;
+-	clk_pdata->num_clks = ARRAY_SIZE(skl_ssp_clks);
+-
+-	/* Query NHLT to fill the rates and parent */
+-	skl_get_clks(skl, clk_pdata->ssp_clks);
+-	clk_pdata->pvt_data = skl;
+-
+-	/* Register Platform device */
+-	pdevinfo.parent = &skl->pci->dev;
+-	pdevinfo.id = -1;
+-	pdevinfo.name = "skl-ssp-clk";
+-	pdevinfo.data = clk_pdata;
+-	pdevinfo.size_data = sizeof(*clk_pdata);
+-	skl->clk_dev = platform_device_register_full(&pdevinfo);
+-	return PTR_ERR_OR_ZERO(skl->clk_dev);
+-}
+-
+-static void skl_clock_device_unregister(struct skl_dev *skl)
+-{
+-	if (skl->clk_dev)
+-		platform_device_unregister(skl->clk_dev);
+-}
+-
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+-
+-#define IDISP_INTEL_VENDOR_ID	0x80860000
+-
+-/*
+- * load the legacy codec driver
+- */
+-static void load_codec_module(struct hda_codec *codec)
+-{
+-#ifdef MODULE
+-	char modalias[MODULE_NAME_LEN];
+-	const char *mod = NULL;
+-
+-	snd_hdac_codec_modalias(&codec->core, modalias, sizeof(modalias));
+-	mod = modalias;
+-	dev_dbg(&codec->core.dev, "loading %s codec module\n", mod);
+-	request_module(mod);
+-#endif
+-}
+-
+-#endif /* CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC */
+-
+-static struct hda_codec *skl_codec_device_init(struct hdac_bus *bus, int addr)
+-{
+-	struct hda_codec *codec;
+-	int ret;
+-
+-	codec = snd_hda_codec_device_init(to_hda_bus(bus), addr, "ehdaudio%dD%d", bus->idx, addr);
+-	if (IS_ERR(codec)) {
+-		dev_err(bus->dev, "device init failed for hdac device\n");
+-		return codec;
+-	}
+-
+-	codec->core.type = HDA_DEV_ASOC;
+-
+-	ret = snd_hdac_device_register(&codec->core);
+-	if (ret) {
+-		dev_err(bus->dev, "failed to register hdac device\n");
+-		put_device(&codec->core.dev);
+-		return ERR_PTR(ret);
+-	}
+-
+-	return codec;
+-}
+-
+-/*
+- * Probe the given codec address
+- */
+-static int probe_codec(struct hdac_bus *bus, int addr)
+-{
+-	unsigned int cmd = (addr << 28) | (AC_NODE_ROOT << 20) |
+-		(AC_VERB_PARAMETERS << 8) | AC_PAR_VENDOR_ID;
+-	unsigned int res = -1;
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct hdac_hda_priv *hda_codec;
+-#endif
+-	struct hda_codec *codec;
+-
+-	mutex_lock(&bus->cmd_mutex);
+-	snd_hdac_bus_send_cmd(bus, cmd);
+-	snd_hdac_bus_get_response(bus, addr, &res);
+-	mutex_unlock(&bus->cmd_mutex);
+-	if (res == -1)
+-		return -EIO;
+-	dev_dbg(bus->dev, "codec #%d probed OK: %x\n", addr, res);
+-
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+-	hda_codec = devm_kzalloc(&skl->pci->dev, sizeof(*hda_codec),
+-				 GFP_KERNEL);
+-	if (!hda_codec)
+-		return -ENOMEM;
+-
+-	codec = skl_codec_device_init(bus, addr);
+-	if (IS_ERR(codec))
+-		return PTR_ERR(codec);
+-
+-	hda_codec->codec = codec;
+-	hda_codec->dev_index = addr;
+-	dev_set_drvdata(&codec->core.dev, hda_codec);
+-
+-	/* use legacy bus only for HDA codecs, idisp uses ext bus */
+-	if ((res & 0xFFFF0000) != IDISP_INTEL_VENDOR_ID) {
+-		codec->core.type = HDA_DEV_LEGACY;
+-		load_codec_module(hda_codec->codec);
+-	}
+-	return 0;
+-#else
+-	codec = skl_codec_device_init(bus, addr);
+-	return PTR_ERR_OR_ZERO(codec);
+-#endif /* CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC */
+-}
+-
+-/* Codec initialization */
+-static void skl_codec_create(struct hdac_bus *bus)
+-{
+-	int c, max_slots;
+-
+-	max_slots = HDA_MAX_CODECS;
+-
+-	/* First try to probe all given codec slots */
+-	for (c = 0; c < max_slots; c++) {
+-		if ((bus->codec_mask & (1 << c))) {
+-			if (probe_codec(bus, c) < 0) {
+-				/*
+-				 * Some BIOSen give you wrong codec addresses
+-				 * that don't exist
+-				 */
+-				dev_warn(bus->dev,
+-					 "Codec #%d probe error; disabling it...\n", c);
+-				bus->codec_mask &= ~(1 << c);
+-				/*
+-				 * More badly, accessing to a non-existing
+-				 * codec often screws up the controller bus,
+-				 * and disturbs the further communications.
+-				 * Thus if an error occurs during probing,
+-				 * better to reset the controller bus to get
+-				 * back to the sanity state.
+-				 */
+-				snd_hdac_bus_stop_chip(bus);
+-				skl_init_chip(bus, true);
+-			}
+-		}
+-	}
+-}
+-
+-static void skl_probe_work(struct work_struct *work)
+-{
+-	struct skl_dev *skl = container_of(work, struct skl_dev, probe_work);
+-	struct hdac_bus *bus = skl_to_bus(skl);
+-	struct hdac_ext_link *hlink;
+-	int err;
+-
+-	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI))
+-		snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, true);
+-
+-	skl_init_pci(skl);
+-	skl_dum_set(bus);
+-
+-	err = skl_init_chip(bus, true);
+-	if (err < 0) {
+-		dev_err(bus->dev, "Init chip failed with err: %d\n", err);
+-		goto out_err;
+-	}
+-
+-	/* codec detection */
+-	if (!bus->codec_mask)
+-		dev_info(bus->dev, "no hda codecs found!\n");
+-
+-	/* create codec instances */
+-	skl_codec_create(bus);
+-
+-	/* register platform dai and controls */
+-	err = skl_platform_register(bus->dev);
+-	if (err < 0) {
+-		dev_err(bus->dev, "platform register failed: %d\n", err);
+-		goto out_err;
+-	}
+-
+-	err = skl_machine_device_register(skl);
+-	if (err < 0) {
+-		dev_err(bus->dev, "machine register failed: %d\n", err);
+-		goto out_err;
+-	}
+-
+-	/*
+-	 * we are done probing so decrement link counts
+-	 */
+-	list_for_each_entry(hlink, &bus->hlink_list, list)
+-		snd_hdac_ext_bus_link_put(bus, hlink);
+-
+-	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI))
+-		snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
+-
+-	/* configure PM */
+-	pm_runtime_put_noidle(bus->dev);
+-	pm_runtime_allow(bus->dev);
+-	skl->init_done = 1;
+-
+-	return;
+-
+-out_err:
+-	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI))
+-		snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
+-}
+-
+-/*
+- * constructor
+- */
+-static int skl_create(struct pci_dev *pci,
+-		      struct skl_dev **rskl)
+-{
+-	struct hdac_ext_bus_ops *ext_ops = NULL;
+-	struct skl_dev *skl;
+-	struct hdac_bus *bus;
+-	struct hda_bus *hbus;
+-	int err;
+-
+-	*rskl = NULL;
+-
+-	err = pci_enable_device(pci);
+-	if (err < 0)
+-		return err;
+-
+-	skl = devm_kzalloc(&pci->dev, sizeof(*skl), GFP_KERNEL);
+-	if (!skl) {
+-		pci_disable_device(pci);
+-		return -ENOMEM;
+-	}
+-
+-	hbus = skl_to_hbus(skl);
+-	bus = skl_to_bus(skl);
+-
+-	INIT_LIST_HEAD(&skl->ppl_list);
+-	INIT_LIST_HEAD(&skl->bind_list);
+-
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+-	ext_ops = snd_soc_hdac_hda_get_ops();
+-#endif
+-	snd_hdac_ext_bus_init(bus, &pci->dev, NULL, ext_ops);
+-	bus->use_posbuf = 1;
+-	skl->pci = pci;
+-	INIT_WORK(&skl->probe_work, skl_probe_work);
+-	bus->bdl_pos_adj = 0;
+-
+-	mutex_init(&hbus->prepare_mutex);
+-	hbus->pci = pci;
+-	hbus->mixer_assigned = -1;
+-	hbus->modelname = "sklbus";
+-
+-	*rskl = skl;
+-
+-	return 0;
+-}
+-
+-static int skl_first_init(struct hdac_bus *bus)
+-{
+-	struct skl_dev *skl = bus_to_skl(bus);
+-	struct pci_dev *pci = skl->pci;
+-	int err;
+-	unsigned short gcap;
+-	int cp_streams, pb_streams, start_idx;
+-
+-	err = pci_request_regions(pci, "Skylake HD audio");
+-	if (err < 0)
+-		return err;
+-
+-	bus->addr = pci_resource_start(pci, 0);
+-	bus->remap_addr = pci_ioremap_bar(pci, 0);
+-	if (bus->remap_addr == NULL) {
+-		dev_err(bus->dev, "ioremap error\n");
+-		return -ENXIO;
+-	}
+-
+-	snd_hdac_bus_parse_capabilities(bus);
+-
+-	/* check if PPCAP exists */
+-	if (!bus->ppcap) {
+-		dev_err(bus->dev, "bus ppcap not set, HDAudio or DSP not present?\n");
+-		return -ENODEV;
+-	}
+-
+-	if (skl_acquire_irq(bus, 0) < 0)
+-		return -EBUSY;
+-
+-	pci_set_master(pci);
+-	synchronize_irq(bus->irq);
+-
+-	gcap = snd_hdac_chip_readw(bus, GCAP);
+-	dev_dbg(bus->dev, "chipset global capabilities = 0x%x\n", gcap);
+-
+-	/* read number of streams from GCAP register */
+-	cp_streams = (gcap >> 8) & 0x0f;
+-	pb_streams = (gcap >> 12) & 0x0f;
+-
+-	if (!pb_streams && !cp_streams) {
+-		dev_err(bus->dev, "no streams found in GCAP definitions?\n");
+-		return -EIO;
+-	}
+-
+-	bus->num_streams = cp_streams + pb_streams;
+-
+-	/* allow 64bit DMA address if supported by H/W */
+-	if (dma_set_mask_and_coherent(bus->dev, DMA_BIT_MASK(64)))
+-		dma_set_mask_and_coherent(bus->dev, DMA_BIT_MASK(32));
+-	dma_set_max_seg_size(bus->dev, UINT_MAX);
+-
+-	/* initialize streams */
+-	snd_hdac_ext_stream_init_all
+-		(bus, 0, cp_streams, SNDRV_PCM_STREAM_CAPTURE);
+-	start_idx = cp_streams;
+-	snd_hdac_ext_stream_init_all
+-		(bus, start_idx, pb_streams, SNDRV_PCM_STREAM_PLAYBACK);
+-
+-	err = snd_hdac_bus_alloc_stream_pages(bus);
+-	if (err < 0)
+-		return err;
+-
+-	return 0;
+-}
+-
+-static int skl_probe(struct pci_dev *pci,
+-		     const struct pci_device_id *pci_id)
+-{
+-	struct skl_dev *skl;
+-	struct hdac_bus *bus = NULL;
+-	int err;
+-
+-	switch (skl_pci_binding) {
+-	case SND_SKL_PCI_BIND_AUTO:
+-		err = snd_intel_dsp_driver_probe(pci);
+-		if (err != SND_INTEL_DSP_DRIVER_ANY &&
+-		    err != SND_INTEL_DSP_DRIVER_SST)
+-			return -ENODEV;
+-		break;
+-	case SND_SKL_PCI_BIND_LEGACY:
+-		dev_info(&pci->dev, "Module parameter forced binding with HDAudio legacy, aborting probe\n");
+-		return -ENODEV;
+-	case SND_SKL_PCI_BIND_ASOC:
+-		dev_info(&pci->dev, "Module parameter forced binding with SKL driver, bypassed detection logic\n");
+-		break;
+-	default:
+-		dev_err(&pci->dev, "invalid value for skl_pci_binding module parameter, ignored\n");
+-		break;
+-	}
+-
+-	/* we use ext core ops, so provide NULL for ops here */
+-	err = skl_create(pci, &skl);
+-	if (err < 0)
+-		return err;
+-
+-	bus = skl_to_bus(skl);
+-
+-	err = skl_first_init(bus);
+-	if (err < 0) {
+-		dev_err(bus->dev, "skl_first_init failed with err: %d\n", err);
+-		goto out_free;
+-	}
+-
+-	skl->pci_id = pci->device;
+-
+-	device_disable_async_suspend(bus->dev);
+-
+-	skl->nhlt = intel_nhlt_init(bus->dev);
+-
+-	if (skl->nhlt == NULL) {
+-#if !IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+-		dev_err(bus->dev, "no nhlt info found\n");
+-		err = -ENODEV;
+-		goto out_free;
+-#else
+-		dev_warn(bus->dev, "no nhlt info found, continuing to try to enable HDAudio codec\n");
+-#endif
+-	} else {
+-
+-		err = skl_nhlt_create_sysfs(skl);
+-		if (err < 0) {
+-			dev_err(bus->dev, "skl_nhlt_create_sysfs failed with err: %d\n", err);
+-			goto out_nhlt_free;
+-		}
+-
+-		skl_nhlt_update_topology_bin(skl);
+-
+-		/* create device for dsp clk */
+-		err = skl_clock_device_register(skl);
+-		if (err < 0) {
+-			dev_err(bus->dev, "skl_clock_device_register failed with err: %d\n", err);
+-			goto out_clk_free;
+-		}
+-	}
+-
+-	pci_set_drvdata(skl->pci, bus);
+-
+-
+-	err = skl_find_machine(skl, (void *)pci_id->driver_data);
+-	if (err < 0) {
+-		dev_err(bus->dev, "skl_find_machine failed with err: %d\n", err);
+-		goto out_nhlt_free;
+-	}
+-
+-	err = skl_init_dsp(skl);
+-	if (err < 0) {
+-		dev_dbg(bus->dev, "error failed to register dsp\n");
+-		goto out_nhlt_free;
+-	}
+-	skl->enable_miscbdcge = skl_enable_miscbdcge;
+-	skl->clock_power_gating = skl_clock_power_gating;
+-
+-	if (bus->mlcap)
+-		snd_hdac_ext_bus_get_ml_capabilities(bus);
+-
+-	/* create device for soc dmic */
+-	err = skl_dmic_device_register(skl);
+-	if (err < 0) {
+-		dev_err(bus->dev, "skl_dmic_device_register failed with err: %d\n", err);
+-		goto out_dsp_free;
+-	}
+-
+-	if (IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)) {
+-		err = snd_hdac_i915_init(bus);
+-		if (err < 0)
+-			goto out_dmic_unregister;
+-	}
+-	schedule_work(&skl->probe_work);
+-
+-	return 0;
+-
+-out_dmic_unregister:
+-	skl_dmic_device_unregister(skl);
+-out_dsp_free:
+-	skl_free_dsp(skl);
+-out_clk_free:
+-	skl_clock_device_unregister(skl);
+-out_nhlt_free:
+-	if (skl->nhlt)
+-		intel_nhlt_free(skl->nhlt);
+-out_free:
+-	skl_free(bus);
+-
+-	return err;
+-}
+-
+-static void skl_shutdown(struct pci_dev *pci)
+-{
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	struct hdac_stream *s;
+-	struct hdac_ext_stream *stream;
+-	struct skl_dev *skl;
+-
+-	if (!bus)
+-		return;
+-
+-	skl = bus_to_skl(bus);
+-
+-	if (!skl->init_done)
+-		return;
+-
+-	snd_hdac_stop_streams(bus);
+-	snd_hdac_ext_bus_link_power_down_all(bus);
+-	skl_dsp_sleep(skl->dsp);
+-
+-	list_for_each_entry(s, &bus->stream_list, list) {
+-		stream = stream_to_hdac_ext_stream(s);
+-		snd_hdac_ext_stream_decouple(bus, stream, false);
+-	}
+-
+-	snd_hdac_bus_stop_chip(bus);
+-}
+-
+-static void skl_remove(struct pci_dev *pci)
+-{
+-	struct hdac_bus *bus = pci_get_drvdata(pci);
+-	struct skl_dev *skl = bus_to_skl(bus);
+-
+-	cancel_work_sync(&skl->probe_work);
+-
+-	pm_runtime_get_noresume(&pci->dev);
+-
+-	/* codec removal, invoke bus_device_remove */
+-	snd_hdac_ext_bus_device_remove(bus);
+-
+-	skl_platform_unregister(&pci->dev);
+-	skl_free_dsp(skl);
+-	skl_machine_device_unregister(skl);
+-	skl_dmic_device_unregister(skl);
+-	skl_clock_device_unregister(skl);
+-	skl_nhlt_remove_sysfs(skl);
+-	if (skl->nhlt)
+-		intel_nhlt_free(skl->nhlt);
+-	skl_free(bus);
+-}
+-
+-/* PCI IDs */
+-static const struct pci_device_id skl_ids[] = {
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKL)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_SKL_LP, &snd_soc_acpi_intel_skl_machines) },
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_APL)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_APL, &snd_soc_acpi_intel_bxt_machines) },
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_KBL)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_KBL_LP, &snd_soc_acpi_intel_kbl_machines) },
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_GLK)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_GML, &snd_soc_acpi_intel_glk_machines) },
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CNL)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_CNL_LP, &snd_soc_acpi_intel_cnl_machines) },
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CFL)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_CNL_H, &snd_soc_acpi_intel_cnl_machines) },
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CML_LP)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_CML_LP, &snd_soc_acpi_intel_cnl_machines) },
+-#endif
+-#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CML_H)
+-	{ PCI_DEVICE_DATA(INTEL, HDA_CML_H, &snd_soc_acpi_intel_cnl_machines) },
+-#endif
+-	{ 0, }
+-};
+-MODULE_DEVICE_TABLE(pci, skl_ids);
+-
+-/* pci_driver definition */
+-static struct pci_driver skl_driver = {
+-	.name = KBUILD_MODNAME,
+-	.id_table = skl_ids,
+-	.probe = skl_probe,
+-	.remove = skl_remove,
+-	.shutdown = skl_shutdown,
+-	.driver = {
+-		.pm = &skl_pm,
+-	},
+-};
+-module_pci_driver(skl_driver);
+-
+-MODULE_LICENSE("GPL v2");
+-MODULE_DESCRIPTION("Intel Skylake ASoC HDA driver");
+diff --git a/sound/soc/intel/skylake/skl.h b/sound/soc/intel/skylake/skl.h
+deleted file mode 100644
+index f55f8b3dbdc3..000000000000
+--- a/sound/soc/intel/skylake/skl.h
++++ /dev/null
+@@ -1,207 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  skl.h - HD Audio skylake definitions.
+- *
+- *  Copyright (C) 2015 Intel Corp
+- *  Author: Jeeja KP <jeeja.kp@intel.com>
+- *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- *
+- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- */
+-
+-#ifndef __SOUND_SOC_SKL_H
+-#define __SOUND_SOC_SKL_H
+-
+-#include <sound/hda_register.h>
+-#include <sound/hdaudio_ext.h>
+-#include <sound/hda_codec.h>
+-#include <sound/soc.h>
+-#include "skl-ssp-clk.h"
+-#include "skl-sst-ipc.h"
+-
+-#define SKL_SUSPEND_DELAY 2000
+-
+-#define SKL_MAX_ASTATE_CFG		3
+-
+-#define AZX_PCIREG_PGCTL		0x44
+-#define AZX_PGCTL_LSRMD_MASK		(1 << 4)
+-#define AZX_PGCTL_ADSPPGD		BIT(2)
+-#define AZX_PCIREG_CGCTL		0x48
+-#define AZX_CGCTL_MISCBDCGE_MASK	(1 << 6)
+-#define AZX_CGCTL_ADSPDCGE		BIT(1)
+-/* D0I3C Register fields */
+-#define AZX_REG_VS_D0I3C_CIP      0x1 /* Command in progress */
+-#define AZX_REG_VS_D0I3C_I3       0x4 /* D0i3 enable */
+-#define SKL_MAX_DMACTRL_CFG	18
+-#define DMA_CLK_CONTROLS	1
+-#define DMA_TRANSMITION_START	2
+-#define DMA_TRANSMITION_STOP	3
+-
+-#define AZX_VS_EM2_DUM			BIT(23)
+-#define AZX_REG_VS_EM2_L1SEN		BIT(13)
+-
+-struct skl_debug;
+-
+-struct skl_astate_param {
+-	u32 kcps;
+-	u32 clk_src;
+-};
+-
+-struct skl_astate_config {
+-	u32 count;
+-	struct skl_astate_param astate_table[];
+-};
+-
+-struct skl_fw_config {
+-	struct skl_astate_config *astate_cfg;
+-};
+-
+-struct skl_dev {
+-	struct hda_bus hbus;
+-	struct pci_dev *pci;
+-
+-	unsigned int init_done:1; /* delayed init status */
+-	struct platform_device *dmic_dev;
+-	struct platform_device *i2s_dev;
+-	struct platform_device *clk_dev;
+-	struct snd_soc_component *component;
+-	struct snd_soc_dai_driver *dais;
+-
+-	struct nhlt_acpi_table *nhlt; /* nhlt ptr */
+-
+-	struct list_head ppl_list;
+-	struct list_head bind_list;
+-
+-	const char *fw_name;
+-	char tplg_name[64];
+-	unsigned short pci_id;
+-
+-	int supend_active;
+-
+-	struct work_struct probe_work;
+-
+-	struct skl_debug *debugfs;
+-	u8 nr_modules;
+-	struct skl_module **modules;
+-	bool use_tplg_pcm;
+-	struct skl_fw_config cfg;
+-	struct snd_soc_acpi_mach *mach;
+-
+-	struct device *dev;
+-	struct sst_dsp *dsp;
+-
+-	/* boot */
+-	wait_queue_head_t boot_wait;
+-	bool boot_complete;
+-
+-	/* module load */
+-	wait_queue_head_t mod_load_wait;
+-	bool mod_load_complete;
+-	bool mod_load_status;
+-
+-	/* IPC messaging */
+-	struct sst_generic_ipc ipc;
+-
+-	/* callback for miscbdge */
+-	void (*enable_miscbdcge)(struct device *dev, bool enable);
+-	/* Is CGCTL.MISCBDCGE disabled */
+-	bool miscbdcg_disabled;
+-
+-	/* Populate module information */
+-	struct list_head uuid_list;
+-
+-	/* Is firmware loaded */
+-	bool fw_loaded;
+-
+-	/* first boot ? */
+-	bool is_first_boot;
+-
+-	/* multi-core */
+-	struct skl_dsp_cores cores;
+-
+-	/* library info */
+-	struct skl_lib_info  lib_info[SKL_MAX_LIB];
+-	int lib_count;
+-
+-	/* Callback to update D0i3C register */
+-	void (*update_d0i3c)(struct device *dev, bool enable);
+-
+-	struct skl_d0i3_data d0i3;
+-
+-	const struct skl_dsp_ops *dsp_ops;
+-
+-	/* Callback to update dynamic clock and power gating registers */
+-	void (*clock_power_gating)(struct device *dev, bool enable);
+-};
+-
+-#define skl_to_bus(s)  (&(s)->hbus.core)
+-#define bus_to_skl(bus) container_of(bus, struct skl_dev, hbus.core)
+-
+-#define skl_to_hbus(s) (&(s)->hbus)
+-#define hbus_to_skl(hbus) container_of((hbus), struct skl_dev, (hbus))
+-
+-/* to pass dai dma data */
+-struct skl_dma_params {
+-	u32 format;
+-	u8 stream_tag;
+-};
+-
+-struct skl_machine_pdata {
+-	bool use_tplg_pcm; /* use dais and dai links from topology */
+-};
+-
+-struct skl_dsp_ops {
+-	int id;
+-	unsigned int num_cores;
+-	struct skl_dsp_loader_ops (*loader_ops)(void);
+-	int (*init)(struct device *dev, void __iomem *mmio_base,
+-			int irq, const char *fw_name,
+-			struct skl_dsp_loader_ops loader_ops,
+-			struct skl_dev **skl_sst);
+-	int (*init_fw)(struct device *dev, struct skl_dev *skl);
+-	void (*cleanup)(struct device *dev, struct skl_dev *skl);
+-};
+-
+-int skl_platform_unregister(struct device *dev);
+-int skl_platform_register(struct device *dev);
+-
+-int skl_nhlt_update_topology_bin(struct skl_dev *skl);
+-int skl_init_dsp(struct skl_dev *skl);
+-int skl_free_dsp(struct skl_dev *skl);
+-int skl_suspend_late_dsp(struct skl_dev *skl);
+-int skl_suspend_dsp(struct skl_dev *skl);
+-int skl_resume_dsp(struct skl_dev *skl);
+-void skl_cleanup_resources(struct skl_dev *skl);
+-const struct skl_dsp_ops *skl_get_dsp_ops(int pci_id);
+-void skl_update_d0i3c(struct device *dev, bool enable);
+-int skl_nhlt_create_sysfs(struct skl_dev *skl);
+-void skl_nhlt_remove_sysfs(struct skl_dev *skl);
+-void skl_get_clks(struct skl_dev *skl, struct skl_ssp_clk *ssp_clks);
+-struct skl_clk_parent_src *skl_get_parent_clk(u8 clk_id);
+-int skl_dsp_set_dma_control(struct skl_dev *skl, u32 *caps,
+-				u32 caps_size, u32 node_id);
+-
+-struct skl_module_cfg;
+-
+-#ifdef CONFIG_DEBUG_FS
+-struct skl_debug *skl_debugfs_init(struct skl_dev *skl);
+-void skl_debugfs_exit(struct skl_dev *skl);
+-void skl_debug_init_module(struct skl_debug *d,
+-			struct snd_soc_dapm_widget *w,
+-			struct skl_module_cfg *mconfig);
+-#else
+-static inline struct skl_debug *skl_debugfs_init(struct skl_dev *skl)
+-{
+-	return NULL;
+-}
+-
+-static inline void skl_debugfs_exit(struct skl_dev *skl)
+-{}
+-
+-static inline void skl_debug_init_module(struct skl_debug *d,
+-					 struct snd_soc_dapm_widget *w,
+-					 struct skl_module_cfg *mconfig)
+-{}
+-#endif
+-
+-#endif /* __SOUND_SOC_SKL_H */
+-- 
+2.25.1
 
-We validated that this patch meets all basic functionality, including no pops
-during sleep and mic operation.
-
-Some users reported lower volume than windows, but perhaps that is due to
-Dolby integration in windows, or using the 0 firmware file instead of 1 and
-in any case a minor issue.
-
-Best,
-Antheas
-
-On Mon, 12 Aug 2024 at 10:26, Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 12 Aug 2024 06:53:25 +0200,
-> Jonathan LoBue wrote:
-> >
-> > This patch enables the TI TAS2781 amplifier SoC for the ASUS ROG ALLY X.
-> > This is a design change from the original ASUS ROG ALLY, creating the need
-> > for this patch. All other Realtek Codec settings seem to be re-used from
-> > the original ROG ALLY design (on the ROG ALLY X). This patch maintains the
-> > previous settings for the Realtek codec portion, but enables the I2C
-> > binding for the TI TAS2781 amplifier (instead of the Cirrus CS35L41 amp
-> > used on the original ASUS ROG ALLY).
-> >
-> > One other requirement must be met for audio to work on the ASUS ROG ALLY X.
-> > A proper firmware file in the correct location with a proper symlink. We
-> > had reached out to TI engineers and confirmed that the firmware found in
-> > the Windows' driver package has a GPL license. Bazzite Github is hosting
-> > this firmware file for now until proper linux-firmware upstreaming can
-> > occur. https://github.com/ublue-os/bazzite
-> >
-> > This firmware file should be placed in
-> > /usr/lib/firmware/ti/tas2781/TAS2XXX1EB3.bin with a symlink to it from
-> > /usr/lib/firmware/TAS2XXX1EB3.bin
-> >
-> > Co-developed by: Kyle Gospodnetich <me@kylegospodneti.ch>
-> > Signed-off-by: Kyle Gospodnetich <me@kylegospodneti.ch>
-> > Co-developed by: Jan Drogehoff <sentrycraft123@gmail.com>
-> > Signed-off-by: Jan Drogehoff <sentrycraft123@gmail.com>
-> > Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
-> > Tested-by: Richard Alvarez <alvarez.richard@gmail.com>
-> > Tested-by: Miles Montierth <cyber_dopamine@intheblackmedia.com>
-> > Signed-off-by: Jonathan LoBue <jlobue10@gmail.com>
->
-> Applied to for-next branch.
->
-> Meanwhile, could you ask TI guys to include the missing firmware files
-> in linux-firmware git tree, too?
->
->
-> thanks,
->
-> Takashi

@@ -2,98 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B4A694F386
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2024 18:18:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C07394F5AD
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2024 19:13:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BC6B2234;
-	Mon, 12 Aug 2024 18:18:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BC6B2234
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F11F21A1;
+	Mon, 12 Aug 2024 19:13:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F11F21A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723479528;
-	bh=C+REZLQz14gUYtQxBQ4k0O1BXwqSNt7VLHOsQU2J85Q=;
+	s=default; t=1723482820;
+	bh=aL4DOc2Na+/OPEQw8CVeC4lC8QebtBc1CYlW3Jh60kE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=S81GRzoowQukTjkW+5/+qDueLn8hevt7BKl9IR7o+yPSIUCZPkf6F7FUyM15C8mTw
-	 NdFhzdBjLbPSuoB8PlXYP90enAAbpVngMK+bDAAqKBwQsJAn2ZicnTJ+LxoH6K/0cJ
-	 kkDlbbSbjw9hGsklJYbDxgLhtktC2DKzE3I8L3tE=
+	b=Ye/8mdom94sLWQIKp9ZlpMzG5AGDjP3RLI7FUzEY1UKzrNZ4hkkvNvEofGve2Pf4z
+	 0Aj8JvmswnT9S3gH8u/Z+QM6xTfRPfQf8wa5bjD+t5sKTUgRsqqnwVXmcQKCcL7YMq
+	 MhXvke61vnetieKSO87nHUomRaFF9mn1oUI1pqgA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17A51F80423; Mon, 12 Aug 2024 18:18:15 +0200 (CEST)
+	id 83930F80107; Mon, 12 Aug 2024 19:13:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70CFEF80579;
-	Mon, 12 Aug 2024 18:18:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0E60F8016E;
+	Mon, 12 Aug 2024 19:13:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3B4BF80423; Mon, 12 Aug 2024 18:15:34 +0200 (CEST)
+	id 2B750F80423; Mon, 12 Aug 2024 19:12:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 87972F80107
-	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 18:15:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87972F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1382DF8016E
+	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 19:12:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1382DF8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dmPZi4z5
+ header.s=Intel header.b=mj6AhL1h
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723479313; x=1755015313;
+  t=1723482741; x=1755018741;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=C+REZLQz14gUYtQxBQ4k0O1BXwqSNt7VLHOsQU2J85Q=;
-  b=dmPZi4z5XLeFJyBW0VVYrs5Urt8wnwK5jB56MgkP/ZAcyWp5p+1KbER+
-   HDy63gYkrpJx4vhBGGLqjK4CD8Gc9QqHABVfUDSk2ac7Q2+8Go0Qd3KUW
-   9ZOb8+09eM1vzTseklMNicSbXxFebK8U0KNqRWPG3cCwCIyP9VXmIQAtd
-   HRxomjIE5UBDR9LQbppC2AQliv1gx2Wa5KL+7QJ6Qu5dXCx5ekPD/In/M
-   7hHSqHWkeuQaD7AvmefM/ZZNYDxtHOBzR3fPUJE6pFxZnA2tn2Y8kKaL7
-   r+62hgNdDlvN2cwHGsOr7lU8un+dfpebz+lpLZ+HBVTWGHVDcB18jybDO
-   w==;
-X-CSE-ConnectionGUID: ZgXnG+TwTRGoNdPRoEG5Gw==
-X-CSE-MsgGUID: 0M2iMfYTR8OaT0+zkwk9kw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11162"; a="32989739"
+  bh=aL4DOc2Na+/OPEQw8CVeC4lC8QebtBc1CYlW3Jh60kE=;
+  b=mj6AhL1h8YNNOFhGmGLBwDebptP/lXAhS8xJvMPxV7DmpAtiQZmfUr0W
+   cVz+ZuKGQ3PueTTfJr3D3CiJgc66d13etVXCvdt8R18YTLhWnUqoKPq1/
+   kGuluCpj9wkYHSxHjIQYhCWAKU4zpySaEHsyXjq3MFywr9bO95bWfwCdn
+   6OeWS7scBMVQLCUYCxdbe0Y+DYlynrtLCNbTCcxQqhSiXZzV8yO4Xr3Ue
+   wibZR0fPnYfiOpJyYKo5cCoj9o/srpzOtzLu+1XtN784Si/TvTo9nSRTg
+   qPx/X2HM50feNKBTu6o3Z7vhLn+zcXRAwm8W3rZ2K5WSTZPlHGsVWEVYa
+   g==;
+X-CSE-ConnectionGUID: oG0Zy9BHTty0MaQtBxIfgg==
+X-CSE-MsgGUID: bAW7zAfdQ/CybMuE/LZ17w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11162"; a="21772323"
 X-IronPort-AV: E=Sophos;i="6.09,283,1716274800";
-   d="scan'208";a="32989739"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2024 09:15:09 -0700
-X-CSE-ConnectionGUID: pwoS+pHUSRy6bZDQeJILNw==
-X-CSE-MsgGUID: 4hPne9QIRm6PtY6nbvIJQw==
+   d="scan'208";a="21772323"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2024 10:12:15 -0700
+X-CSE-ConnectionGUID: 4tHKUzgKQ4O7C28hz8LUuQ==
+X-CSE-MsgGUID: DU89H2vBR2i1FPoEZlh9Jg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,283,1716274800";
-   d="scan'208";a="63173826"
+   d="scan'208";a="81584021"
 Received: from smile.fi.intel.com ([10.237.72.54])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2024 09:15:06 -0700
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2024 10:12:09 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.98)
 	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1sdXhG-0000000EPIo-2JWP;
-	Mon, 12 Aug 2024 19:15:02 +0300
-Date: Mon, 12 Aug 2024 19:15:02 +0300
+	id 1sdYaT-0000000EQMB-1R2S;
+	Mon, 12 Aug 2024 20:12:05 +0300
+Date: Mon, 12 Aug 2024 20:12:05 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, tiwai@suse.com, perex@perex.cz,
-	amadeuszx.slawinski@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com, hdegoede@redhat.com,
-	cujomalainey@chromium.org, lmajczak@google.com
-Subject: Re: [PATCH 00/12] ASoC: Intel: Remove skylake driver
-Message-ID: <Zro1Bslw-L2FfC0c@smile.fi.intel.com>
-References: <20240812094328.842661-1-cezary.rojewski@intel.com>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+	zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
+	linux-kernel@vger.kernel.org, j-chadha@ti.com,
+	liam.r.girdwood@intel.com, jaden-yue@ti.com,
+	yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
+	henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, soyer@irl.hu,
+	Baojun.Xu@fpt.com, judyhsiao@google.com, navada@ti.com,
+	cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
+	savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com,
+	jesse-ji@ti.com, darren.ye@mediatek.com, antheas.dk@gmail.com,
+	Jerry2.Huang@lcfuturecenter.com
+Subject: Re: [PATCH] ASoc: tas2781: Rename dai_driver name to unify the name
+ between TAS2563 and TAS2781
+Message-ID: <ZrpCZfuNOdBhRMh4@smile.fi.intel.com>
+References: <20240806041719.1477-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240812094328.842661-1-cezary.rojewski@intel.com>
+In-Reply-To: <20240806041719.1477-1-shenghao-ding@ti.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: 6YZ7J2LEBYZXONER763WQTTXXUFHXJJO
-X-Message-ID-Hash: 6YZ7J2LEBYZXONER763WQTTXXUFHXJJO
+Message-ID-Hash: ZC6DR5KHQPVW2666Q4UZQMSWZCH3RAJP
+X-Message-ID-Hash: ZC6DR5KHQPVW2666Q4UZQMSWZCH3RAJP
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6YZ7J2LEBYZXONER763WQTTXXUFHXJJO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZC6DR5KHQPVW2666Q4UZQMSWZCH3RAJP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,31 +123,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Aug 12, 2024 at 11:43:16AM +0200, Cezary Rojewski wrote:
-> A spiritual successor to haswell/baytrail removal series [1].
-> 
-> The avs-driver found in sound/soc/intel/avs is a direct replacement to
-> the existing skylake-driver. It covers all features supported by it and
-> more and aligns with the recommended flows and requirements based on
-> Windows driver equivalent.
-> 
-> The skylake-driver related UAPI has been removed with "ASoC: Drop
-> soc-topology ABI v4 support" [2].
-> 
-> For the official kernel tree the deprecation begun with v6.0. Most
-> skylake-drivers users moved to avs- or SOF-driver when AudioDSP
-> capabilities are available on the platform or to snd-hda-intel
-> (sound/pci/hda) when such capabilities are not.
-> 
-> For the supported trees the deprecation begun with v5.4 with v5.15 being
-> the first where the skylake-driver is disabled entirely.
-> 
-> All machine board drivers that consume this DSP driver have their
-> replacements present within sound/soc/intel/avs/boards/ directory.
+On Tue, Aug 06, 2024 at 12:17:17PM +0800, Shenghao Ding wrote:
+> Rename dai_driver name to unify the name between TAS2563 and
+> TAS2781.
 
-I like the idea of having better and unified equivalent!
-FWIW,
-Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+I am not sure this is a good change. Theoretically one with the platform that
+has a certain codec may connect the other one. How that will be distinguished?
+
+If there is no issue for such configurations, please mention this fact in the
+commit message.
 
 -- 
 With Best Regards,

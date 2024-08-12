@@ -2,159 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A63E394EA76
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2024 12:06:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A021994EB38
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2024 12:34:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7DF11919;
-	Mon, 12 Aug 2024 12:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7DF11919
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3F802097;
+	Mon, 12 Aug 2024 12:34:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3F802097
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723457161;
-	bh=pFphKa6qJi6OgcW+BS+FZxBkttZDB6P+4CpWPOvplFE=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=h7m5bolHwqZporJPzgJ9JVjweG9cMjLpC17XORtYSRIDR5vLixzb7H2cGakErk863
-	 h3FLMQACMGZnIxCM7LlLZKmyQAX9JpJg0g08PxV2UYueIkUx0uGA2vZAiCT1ldvUez
-	 +r76ZK8LhvxEj7jqty8Yh83bN5OwJ/kX271CzSp0=
+	s=default; t=1723458868;
+	bh=53diBSJIt3VJL8ICb+KbhOnHfQVqCPJkKKJXnKOXMfw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=HJ8uE0uq9o+zcfXL7XcLdwzqD1AvDrz/B6HzA7LkMJvehnXO8dZNjrhdOPWZGE2/S
+	 CyfqWViBX+ZzMf1bUeB8E3u6ZQXX//yhGYHegHImnEOYJp43upY3toB/dMUYgiXlG+
+	 hXNEBniQE3VBLUDgF9WKUCcnOczKF0urteyIq8Dk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53678F805A8; Mon, 12 Aug 2024 12:05:29 +0200 (CEST)
+	id 7CBDCF805B0; Mon, 12 Aug 2024 12:33:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3B1FF805B0;
-	Mon, 12 Aug 2024 12:05:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D57AF805AF;
+	Mon, 12 Aug 2024 12:33:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 689C6F80423; Mon, 12 Aug 2024 12:05:23 +0200 (CEST)
+	id DA488F8016E; Mon, 12 Aug 2024 12:27:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061e.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2412::61e])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2A7EDF80107
-	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 12:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A7EDF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3BF9F8016E
+	for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2024 12:24:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3BF9F8016E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=WHHzcnkF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cd14mg9eq72hndL7BpqvcJ2ZaeNSsHCcgwlw/GPDTnu8F4tq8GFDzu3SpvkxJEUH70TotYXXm5xdhyQJl3j+7saLSmppqjEfJEwSKqrR79J2BHYC28bRsJcDAKXuQG8tUMBuJnFI/keS3G7+lu19vXYNatY6uY02mDHK7D6RO+qqH412SFcZqorb6YkIzdtKDuynu5o5iqLKGEhRYByu43TE9w+MSlp312EzVBioSxt80o2Pc5Isgb37NJ0dMdwYu8WhpZZEZWt20Mo7gA821ewlsZiTF/SHDLEEUK2I/wybI44CIyP8b9IR7B60fhRmS+/bdMP5DiuJc59uwpvnuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KPt72Cimb+2QfkM30b0ByRs6PiQ/Yi2yATKvrS50q9M=;
- b=y87DWE1cZiSYTcf7DlJm58nXnQaMoE4QKcE11T4NJBV1M9+kqyTnmiXTmLIZm3hsqscIXow0yS125CBhTPQtB//FE35jEJzdEfkqDJqFP6eBDBIeRa54NU8q5JVhbuYXetUGIXnGzFWDuM6SgjFiuBuhkFSdUPcdKLff+gha9bOXZ8ZjUhSp7lqRPhsv2WCmx7jUyek+nYCCvgvpLT18utSKVkH37+Wgn8HP+zYYbU0c7Pr6UCeloSpqm8Ze22ovjhJ7IpYt32UqSUkrZOX48XsRqQZmZ6QR6mtWLxnIlVtsY6wZ3aI0OVMJm7Uo7V2Beiv71oaL1KilavYHOxDcXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KPt72Cimb+2QfkM30b0ByRs6PiQ/Yi2yATKvrS50q9M=;
- b=WHHzcnkFW7wh4YkDoJMv4aLtTu5EIQdR/Az6IhC2TLQT7b9IjdIOryss95JlOipCSK8vI+JziM0dhgqISKHbLGgqbMEhe0bqMKMUzZCXy00Vias93ZRMbR99F82G/fUJb/Ezx2+XKxrYbneN6o2bJGUd46t63cG53iUy+B5yyWA=
-Received: from DM6PR02CA0060.namprd02.prod.outlook.com (2603:10b6:5:177::37)
- by DS7PR12MB8420.namprd12.prod.outlook.com (2603:10b6:8:e9::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.20; Mon, 12 Aug
- 2024 10:04:47 +0000
-Received: from DS1PEPF0001709C.namprd05.prod.outlook.com
- (2603:10b6:5:177:cafe::c2) by DM6PR02CA0060.outlook.office365.com
- (2603:10b6:5:177::37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7849.22 via Frontend
- Transport; Mon, 12 Aug 2024 10:04:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709C.mail.protection.outlook.com (10.167.18.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7849.8 via Frontend Transport; Mon, 12 Aug 2024 10:04:46 +0000
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 12 Aug 2024 05:04:41 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <Sunil-kumar.Dommati@amd.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <venkataprasad.potturu@amd.com>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>, Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Bard Liao
-	<yung-chuan.liao@linux.intel.com>, "open list:SOUND - SOC LAYER / DYNAMIC
- AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: amd: acp: Convert comma to semicolon
-Date: Mon, 12 Aug 2024 15:34:22 +0530
-Message-ID: <20240812100429.2594745-1-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=D+0uUm5D
+Received: by mail-il1-x12b.google.com with SMTP id
+ e9e14a558f8ab-397ba4f7387so19427315ab.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 12 Aug 2024 03:24:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1723458263; x=1724063063;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mPC3vtsqYn5XJUeqo67iJn2rVnzxW9E5GvxuWYZUQ5I=;
+        b=D+0uUm5DApWRlehGOc8lkkIjefbUt3hsF3L7VA1jHRYRobRLuj5QRv35prwqpk5saq
+         wmqJiM3l5ZnS3FENdR5kllnrmkQSXnhdh4inZFmS3VHt6k5ll2acOcuEoTpxcVX5QjO+
+         E2pcXotftbiHrcgwEee098r92eSdIHJJ0b1Xkq8yBDTy+D3Ovn7LEVWxCW5bDleGCthr
+         1oJAVPa8xCIB4OsyALJpEsncxQ+boynrbY25hduExx0Pg7x57HHUtK9VPB3buAB86EoV
+         McuENUABomXuJFThxKHBflINN1DMB9W9GsS7djoxMO2QPPV7TpsEy2JwInUl5VRCYCKV
+         A0Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723458263; x=1724063063;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mPC3vtsqYn5XJUeqo67iJn2rVnzxW9E5GvxuWYZUQ5I=;
+        b=EbqwX3RWdnMObO086DC7lZfWCf7ldKP2eatxS6FrShjk5UhhvjVRWdfxzd4mgZ9xne
+         Pw7WxI11akB0EUxm1YLftW/ms/FXXA8nAMNuueWDoUJICzGBaJApidpMYSfhwUsPQobS
+         /9g5HGbsqAJj0xWPXhaEUA1IoHcFd38ZsEZiBWyH8pDOBluzMn4myRe1Fy7NRAEYxEwM
+         dX5/BpnUoY1FQgvzX0P4ECFJt+Zmfn6D4EVKtOJYpPI/L7igZvUrNpHsG8nvaV0fSxfS
+         Xk8gHuwBadOC655iG/mf8okQbEK1rhCK2lrtpWTjFAz2NB8Vw2BnIlsn2ws55MdA1m4m
+         RPlw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWPibrYrjszuE9+9AneGDh4C6GwN2i8Qvj87mzd1I5ybyrFWezfV9m5czOqx5e+VqY2cy0Jb5JOlr/fmMAkHMvZ8TGLkUrsdpKwWPk=
+X-Gm-Message-State: AOJu0YwAx1XdWZ1ScWkMiNsAxIntgsWkNjG72HZ/tkASjz6a0j0Lb94t
+	uemiQBU7tONdwKqImBy4ZCeZOFgCtUrSKeaRPbIpcVyhNyr6YrjeAx2hF2XhY/AZCP2xKeY3NGy
+	rOT9FtGqGMPPjcy7M37YxqPufaKQ=
+X-Google-Smtp-Source: 
+ AGHT+IHdQ3RNrczHyEp+b16RjNhnMCOeSegrx7nTq50uxdHKAwi7ql6H7scu59mGUC+Dyrjh2BuMJ/sg9salc/H/EqI=
+X-Received: by 2002:a05:6e02:1a04:b0:397:2dcd:80e5 with SMTP id
+ e9e14a558f8ab-39b7a463914mr85661235ab.27.1723458263144; Mon, 12 Aug 2024
+ 03:24:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709C:EE_|DS7PR12MB8420:EE_
-X-MS-Office365-Filtering-Correlation-Id: efa20020-2f16-4e9f-e2fb-08dcbab631dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|7416014|1800799024|36860700013|82310400026|376014;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?Pvnyzke4/2boeDTINZcan20y8GEIvVNrYp27L8oYzJSNTz0q/49yOhyvjebV?=
- =?us-ascii?Q?oIdmZbIc6/D5KYHel2+DTMQaVQS03JlRKIXP4iIFx9zyc6AVHvWBi52nS0qa?=
- =?us-ascii?Q?OYgQioWotqABPpK2vSog652Gplya/l8NDaaf3AYzNix6XgUmnN/OOy+8jixo?=
- =?us-ascii?Q?Rv8t/RRief4GJiJNA9RIPz0oRlRDZwu00Hq3xEtSipwTEPH87wSUfSSec+5s?=
- =?us-ascii?Q?KQi1LmDrcexVXDJfp85N3O9rYSda8kEztKNpXQqJCr52vEy+H1TAGwL5b9U2?=
- =?us-ascii?Q?GIGIoBR5hx4IpvugMNEDfCf7h++eh34vy1TPkb04rw3kAdjhtaxFwUOJVzAO?=
- =?us-ascii?Q?1Y/e+QLaNa/71yn9AS+SZegBYd6e1160qCofDVxFRX9+WNkyAwtPN1hTQumf?=
- =?us-ascii?Q?sXDZ6l7pvoGZMlZnFgI0baVby1MEKl1sl2JVtHl2jgkWqvHYu0FsvCgnEqxo?=
- =?us-ascii?Q?nKMGsXrkrlCJGMlFIxREo4/oeIzBQ23K4dk7+fdloxwpr05UDk4pwA2s3vLC?=
- =?us-ascii?Q?bcaCheSipv7d8RAUG3QTZQVLvnxuu0zhkFyO9M+4lBlY2voxbsYNx0zxArHZ?=
- =?us-ascii?Q?T6QBNJ3/MF3OpE1UdajHxa/7YnGUZ8wvQCeQJdhRR9r1rwIj/nk75QFEUD13?=
- =?us-ascii?Q?RwALNIhMeVtqvsfH0/8KI7mV3uyCtwfTmlSh3YgKR0eE87+aneBdQ17gzJAg?=
- =?us-ascii?Q?IECgGLEJNwioVlZIAxGrccDgI+8UYNTM1jjMOHSZmb/l4nBCQG09YMwExMxR?=
- =?us-ascii?Q?fpmiFO0ynftVDzBka+hJ55akykFFIPqLVbHrSACeT1D9o8Cyl0ekSvvEOjbc?=
- =?us-ascii?Q?+jAN/CZmBPMevBJJRAXL9nCkqk3spXUx6+HyzlKq1xh6PQ+bws2UX+rRqr8m?=
- =?us-ascii?Q?ZxucHEw+nw5iADs67EYJqgugL8SPFqdUrYvAuQvYOSeDOmjtrw2CNbrznnTu?=
- =?us-ascii?Q?y7cIJ+qraqURJxVFLuZfwPmVJb0sXRhiJdiXqo0C8EUb/db13jRofCGqqrkX?=
- =?us-ascii?Q?txiAhTzTMfinU8uaGyODU18htXbr5fiWyQxs13kdycjxl6Dh2U0A22jxwHbA?=
- =?us-ascii?Q?gsQCuBn9YJuI+CDZp68y2wsgYOBwv0FhZ3doVmCQMRnzrZ21yKORrkFb705L?=
- =?us-ascii?Q?T0YypyGVaRe3sa4ZcizdPjjvC/iSu9tLwRej+znaxH9kzKXNsNPJjJ4ceDwc?=
- =?us-ascii?Q?O5d2ef03MuPajfYpy+MZ40ObMeioNXH0Gi17KXQVkv/wFg7I3IlZ2ldp/n48?=
- =?us-ascii?Q?ecrjMfRskE41k1iWpBHO5V+RmfBfzI1Sg/7uOM8weEXPRT6o4BSYq9lhZh70?=
- =?us-ascii?Q?v+Ox+dzDWQEkhfT6aDLhv1Dy47lND3v7U5hqXZND+acLgISVOCXA7B+tquX9?=
- =?us-ascii?Q?ex/OLZPs1pq/m4Qi3s9kd/w2XoxZnDMOyS2ZJ8Dd7N4iX/tZ3K2Il0U4OiVZ?=
- =?us-ascii?Q?sjay/s1zBm4fN6vmqbsF1fTFMbj6VAbv?=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2024 10:04:46.2204
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- efa20020-2f16-4e9f-e2fb-08dcbab631dc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	DS1PEPF0001709C.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8420
-Message-ID-Hash: EPITERKB5MYECPWA3AFIOECXYTATJYC5
-X-Message-ID-Hash: EPITERKB5MYECPWA3AFIOECXYTATJYC5
-X-MailFrom: Vijendar.Mukunda@amd.com
+References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
+ <1722940003-20126-2-git-send-email-shengjiu.wang@nxp.com>
+ <e89a56bf-c377-43d8-bba8-6a09e571ed64@linux.intel.com>
+ <CAA+D8AN9JXJr-BZf8aY7d4rB6M60pXS_DG=qv=P6=2r1A18ATA@mail.gmail.com>
+ <ffa85004-8d86-4168-b278-afd24d79f9d8@linux.intel.com>
+ <116041ee-7139-4b77-89be-3a68f699c01b@perex.cz>
+ <930bb152-860a-4ec5-9ef0-1c96f554f365@linux.intel.com>
+ <c9039808-cd04-452d-9f6c-f91811088456@perex.cz>
+ <ed1192e0-00e7-4739-a687-c96dc2d62898@linux.intel.com>
+ <CAA+D8AMOh=G7W5-dYw_=Xx-s0PqEu2suKYorscoWku86Rn-=+A@mail.gmail.com>
+ <542d47c5-7ce3-4c17-8c0a-3a2b2a9e6c6a@linux.intel.com>
+ <c3b8f7b8-fc5e-4285-bee8-7edd448a405d@perex.cz>
+In-Reply-To: <c3b8f7b8-fc5e-4285-bee8-7edd448a405d@perex.cz>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 12 Aug 2024 18:24:11 +0800
+Message-ID: 
+ <CAA+D8ANg7C7vuxU44mAG8EnmcZjB_te5N_=4M4v_-Q9ZyPZ49g@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
+ support
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: YG6BLIB4YZ3JHHAPLSYMQ2DTVTSTXOMN
+X-Message-ID-Hash: YG6BLIB4YZ3JHHAPLSYMQ2DTVTSTXOMN
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EPITERKB5MYECPWA3AFIOECXYTATJYC5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YG6BLIB4YZ3JHHAPLSYMQ2DTVTSTXOMN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,32 +136,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Replace a comma between expression statements by a semicolon.
+On Fri, Aug 9, 2024 at 10:01=E2=80=AFPM Jaroslav Kysela <perex@perex.cz> wr=
+ote:
+>
+> On 09. 08. 24 14:52, Pierre-Louis Bossart wrote:
+>
+> >> And metadata
+> >> ioctl can be called many times which can meet the ratio modifier
+> >> requirement (ratio may be drift on the fly)
+> >
+> > Interesting, that's yet another way of handling the drift with userspac=
+e
+> > modifying the ratio dynamically. That's different to what I've seen bef=
+ore.
+>
+> Note that the "timing" is managed by the user space with this scheme.
+>
+> >> And compress API uses codec as the unit for capability query and
+> >> parameter setting,  So I think need to define "SND_AUDIOCODEC_SRC'
+> >> and 'struct snd_dec_src',  for the 'snd_dec_src' just defined output
+> >> format and output rate, channels definition just reuse the snd_codec.c=
+h_in.
+> >
+> > The capability query is an interesting point as well, it's not clear ho=
+w
+> > to expose to userspace what this specific implementation can do, while
+> > at the same time *requiring* userpace to update the ratio dynamically.
+> > For something like this to work, userspace needs to have pre-existing
+> > information on how the SRC works.
+>
+> Yes, it's about abstraction. The user space wants to push data, read data=
+ back
+> converted to the target rate and eventually modify the drift using a cont=
+rol
+> managing clocks using own way. We can eventually assume, that if this con=
+trol
+> does not exist, the drift cannot be controlled. Also, nice thing is that =
+the
+> control has min and max values (range), so driver can specify the drift r=
+ange,
+> too.
+>
+> And again, look to "PCM Rate Shift 100000" control implementation in
+> sound/drivers/aloop.c. It would be nice to have the base offset for the
+> shift/drift/pitch value standardized.
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/amd/acp/acp-sdw-sof-mach.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Thanks.
 
-diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-index f7e4af850309..08f368b3bbc8 100644
---- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-@@ -657,9 +657,9 @@ static int mc_probe(struct platform_device *pdev)
- 	ctx->private = amd_ctx;
- 	card = &ctx->card;
- 	card->dev = &pdev->dev;
--	card->name = "amd-soundwire",
--	card->owner = THIS_MODULE,
--	card->late_probe = asoc_sdw_card_late_probe,
-+	card->name = "amd-soundwire";
-+	card->owner = THIS_MODULE;
-+	card->late_probe = asoc_sdw_card_late_probe;
- 
- 	snd_soc_card_set_drvdata(card, ctx);
- 
--- 
-2.34.1
+But the ASRC driver I implemented is different, I just register one sound
+card, one device/subdevice.  but the ASRC hardware support 4 instances
+together, so user can open the card device 4 times to create 4 instances
+then the controls can only bind with compress streams.
 
+I think I can remove the 'SNDRV_COMPRESS_SRC_RATIO_MOD',
+Only define a private type for driver,  which means only the ASRC driver
+and its user application know the type.
+
+For the change in 'include/uapi/sound/compress_params.h",  should I
+keep them,  is there any other suggestion for them?
+
+Best regards
+Shengjiu Wang
+
+>
+>                                         Jaroslav
+>
+> --
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>

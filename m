@@ -2,83 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D8B94FCA5
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2024 06:29:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB51094FCE3
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2024 06:38:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CEDA21B6;
-	Tue, 13 Aug 2024 06:28:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CEDA21B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D317219E;
+	Tue, 13 Aug 2024 06:38:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D317219E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723523344;
-	bh=wpwi0ABCpp/fgkqrTv1+QuSZw7VZSn7T7zdqlyzHuzE=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=a0PfHKUwl39aArTqYIr8eDpErtKdMjERgqFOPG3nBfxVTkN8AE+qm3tV/H+l0sBQZ
-	 vv5ZuVTX4QmDkb/rr1IO2DnWqboAMpondwzS3PXVdEwxwVZOhhWbiLmAtKjlRfFk1Z
-	 seeih/kP4tOx6X672Hi1OtuS2hF+eMxUz+qhBrT4=
+	s=default; t=1723523937;
+	bh=gwJc0XVib0+KTUgs1o4JdC5RA69htRjz2E5EOUvji4c=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=d5r6+5ZYqTEoJBfJHZyFvmmf37EMIZ3E38jAs7VmUsh/bYvI+gvsUM1xrKQzn0rav
+	 W240BaZ/vBfueiLWHzXwyJ+Y5OL8McXRhNbP438hG7qTdfl3o/lvbUz1yQmwFKt59D
+	 bX9lvHYWk08j6w4YYGkPRwT3qVAKc3u/QlxSmWlY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9488EF805AF; Tue, 13 Aug 2024 06:28:32 +0200 (CEST)
+	id 05CF5F805AD; Tue, 13 Aug 2024 06:38:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54C4DF805AD;
-	Tue, 13 Aug 2024 06:28:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CFD9F80580;
+	Tue, 13 Aug 2024 06:38:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8AEF7F80423; Tue, 13 Aug 2024 06:23:17 +0200 (CEST)
+	id 386F2F80423; Tue, 13 Aug 2024 06:38:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9213DF8016E
-	for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2024 06:23:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9213DF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4149EF8016E
+	for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2024 06:38:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4149EF8016E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hbuFRMU2
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id C970ECE1173;
-	Tue, 13 Aug 2024 04:23:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB382C4AF09;
-	Tue, 13 Aug 2024 04:22:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723522980;
-	bh=wpwi0ABCpp/fgkqrTv1+QuSZw7VZSn7T7zdqlyzHuzE=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
-	b=hbuFRMU2cxJKNWakFAu1FeNWOGPlUJPWqiBrM3xL4n4TTmQO2j5LTDpgXkE14Vypm
-	 GiHp5tlytZBsFDe/bi7SSADLkl5TTvWUUoksk3tzmYEsvnpSE+SfBgBueKpP1o9tmu
-	 Zg8XIVQZHecwg9ApAcvKaXk5WEBdsR25zTRRHRNwBqKapmLJb5qp7QQdhMiN0qfLTU
-	 LkAgTxEV8mXibgc/lQroYwino9fcca9vBaewCLjxysyUd0tYcFaNHjFu8fV9/D10KE
-	 1v/HvOPvs3qkpJXRpE0Wn7CbsDWsjGGesBGklkjZPOfWSF2bKL8MhsBhCJlZ4ZDfd4
-	 fB+NKC3lceyfg==
-Date: Mon, 12 Aug 2024 22:22:57 -0600
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=RRyvh5pT
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 47D4c0mZ078328;
+	Mon, 12 Aug 2024 23:38:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1723523880;
+	bh=Xte8G+0VpiYtF8McsRCLaZwIghkZ8dUUM0IzF8hp5JQ=;
+	h=From:To:CC:Subject:Date;
+	b=RRyvh5pTu1QOYIo/89sszeZXDPRdEcoMN7BVtFDstVulQ+G1DYWymzKCkBq7ESe8y
+	 HYMRgJnAP+SYjwqgu4nejd+TcKUvw9qde4vOgh6hQHuGWeJDKscdKcDC8GXO4UrNNY
+	 htssQWWCgZsNZoRWSLLkdEnksam18bR+w+JiErWo=
+Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 47D4c09v083839
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 12 Aug 2024 23:38:00 -0500
+Received: from DFLE114.ent.ti.com (10.64.6.35) by DFLE109.ent.ti.com
+ (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 12
+ Aug 2024 23:37:59 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE114.ent.ti.com
+ (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Mon, 12 Aug 2024 23:37:59 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.152])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 47D4bsqC107764;
+	Mon, 12 Aug 2024 23:37:55 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13564923607@139.com>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
+        <cameron.berkenpas@gmail.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
+        <soyer@irl.hu>, <Baojun.Xu@fpt.com>, <robinchen@ti.com>
+Subject: [PATCH v2] ALSA: ASoC/tas2781: fix wrong calibrated data order
+Date: Tue, 13 Aug 2024 12:37:48 +0800
+Message-ID: <20240813043749.108-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Kiseok Jo <kiseok.jo@irondevice.com>
-Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-In-Reply-To: <20240813025436.52410-3-kiseok.jo@irondevice.com>
-References: <20240813025436.52410-1-kiseok.jo@irondevice.com>
- <20240813025436.52410-3-kiseok.jo@irondevice.com>
-Message-Id: <172352297724.3355027.16490098797646859934.robh@kernel.org>
-Subject: Re: [PATCH 2/2] ASoC: sma1307: Add bindings for Iron Device
- SMA1307 amplifier
-Message-ID-Hash: 6PMYXSC7UNYRNSAXBWQN3RBBULZX7BG2
-X-Message-ID-Hash: 6PMYXSC7UNYRNSAXBWQN3RBBULZX7BG2
-X-MailFrom: robh@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: 2WH45OD524DXD7ZXLWKWIG4OSHBIO4ST
+X-Message-ID-Hash: 2WH45OD524DXD7ZXLWKWIG4OSHBIO4ST
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6PMYXSC7UNYRNSAXBWQN3RBBULZX7BG2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2WH45OD524DXD7ZXLWKWIG4OSHBIO4ST/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,36 +106,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Baojun Xu <baojun.xu@ti.com>
 
-On Tue, 13 Aug 2024 11:54:36 +0900, Kiseok Jo wrote:
-> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
-> ---
->  .../bindings/sound/irondevice,sma1307.yaml    | 66 +++++++++++++++++++
->  1 file changed, 66 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/irondevice,sma1307.yaml
-> 
+Wrong calibration data order cause sound too low in some device.
+Fix wrong calibrated data order, add calibration data converssion
+by get_unaligned_be32() after reading from UEFI.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Fixes: 5be27f1e3ec9 ("ALSA: hda/tas2781: Add tas2781 HDA driver")
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 
-yamllint warnings/errors:
+---
+v2:
+ - Change data type from int to __be32.
+v1:
+ - Change copyright date, and add new maintainer.
+ - Add unaligned.h included for get_unaligned_be32().
+ - In tas2781_apply_calib(), change data address transfer directly to
+   get data by get_unaligned_be32(), and send address to device.
+---
+ sound/pci/hda/tas2781_hda_i2c.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/irondevice,sma1307.yaml: use-binary: missing type definition
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240813025436.52410-3-kiseok.jo@irondevice.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
+index 8a7fe48043d2..5a8193285f9f 100644
+--- a/sound/pci/hda/tas2781_hda_i2c.c
++++ b/sound/pci/hda/tas2781_hda_i2c.c
+@@ -2,10 +2,12 @@
+ //
+ // TAS2781 HDA I2C driver
+ //
+-// Copyright 2023 Texas Instruments, Inc.
++// Copyright 2023 - 2024 Texas Instruments, Inc.
+ //
+ // Author: Shenghao Ding <shenghao-ding@ti.com>
++// Current maintainer: Baojun Xu <baojun.xu@ti.com>
+ 
++#include <asm/unaligned.h>
+ #include <linux/acpi.h>
+ #include <linux/crc8.h>
+ #include <linux/crc32.h>
+@@ -519,20 +521,22 @@ static void tas2781_apply_calib(struct tasdevice_priv *tas_priv)
+ 	static const unsigned char rgno_array[CALIB_MAX] = {
+ 		0x74, 0x0c, 0x14, 0x70, 0x7c,
+ 	};
+-	unsigned char *data;
++	int offset = 0;
+ 	int i, j, rc;
++	__be32 data;
+ 
+ 	for (i = 0; i < tas_priv->ndev; i++) {
+-		data = tas_priv->cali_data.data +
+-			i * TASDEVICE_SPEAKER_CALIBRATION_SIZE;
+ 		for (j = 0; j < CALIB_MAX; j++) {
++			data = get_unaligned_be32(
++				&tas_priv->cali_data.data[offset]);
+ 			rc = tasdevice_dev_bulk_write(tas_priv, i,
+ 				TASDEVICE_REG(0, page_array[j], rgno_array[j]),
+-				&(data[4 * j]), 4);
++				(unsigned char *)&data, 4);
+ 			if (rc < 0)
+ 				dev_err(tas_priv->dev,
+ 					"chn %d calib %d bulk_wr err = %d\n",
+ 					i, j, rc);
++			offset += 4;
+ 		}
+ 	}
+ }
+-- 
+2.43.0
 

@@ -2,99 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E425095066C
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2024 15:27:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67C77950672
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2024 15:27:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6902E2345;
-	Tue, 13 Aug 2024 15:26:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6902E2345
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1199D23D5;
+	Tue, 13 Aug 2024 15:27:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1199D23D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723555629;
-	bh=IxBzL8jZcrNuPWO/7D8XwVLbEykT+21gC+FbHu5yEzg=;
+	s=default; t=1723555649;
+	bh=2cwE07vpiCyGBrhyTLV34EZJb7Hk/Mu8zBy8VUuQNto=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mye+LMDHcHtodculsUqpYuA8bS2aai5HrGfsAV9dxZXmK9q1rZTjo5VxBWfdrq2Rv
-	 sX4kl189mwB3XB2oTzRU6idt8eQJXga02iTN1Vm6jyAQvrG8sYzwe6I4Bw7SpIoq/Q
-	 DJvjR96xOVPbeIcGlscbhI9c3fwnS6RbILeUPhNA=
+	b=nVsXL+VqqOYcedP6bPqr0lHq5Rs4WDkhP9MNZzl+s9BQkOgayGYWSEv506tfOhvsO
+	 atETA7y7KqWXN2aUc5Id4A8PjnntqZ1AotQSWwIgdFDEYz+4lexfpnvgWs709YAxa2
+	 WRsC1b40OlodE6MV8Rkbxw7MpR4bFgwYZkrYL7Mo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B455F80613; Tue, 13 Aug 2024 15:26:05 +0200 (CEST)
+	id A517EF80620; Tue, 13 Aug 2024 15:26:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B07BF80614;
-	Tue, 13 Aug 2024 15:26:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1DB9F80619;
+	Tue, 13 Aug 2024 15:26:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7333CF8047C; Tue, 13 Aug 2024 15:10:43 +0200 (CEST)
+	id 03925F80301; Tue, 13 Aug 2024 15:14:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0DCBF8049C
-	for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2024 15:10:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0DCBF8049C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3436CF80517
+	for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2024 15:10:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3436CF80517
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=tqbAlE2w
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3685a5e7d3cso3371088f8f.1
+ header.s=google header.b=MKk1ka3o
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3684eb5be64so3052553f8f.3
         for <alsa-devel@alsa-project.org>;
- Tue, 13 Aug 2024 06:10:16 -0700 (PDT)
+ Tue, 13 Aug 2024 06:10:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1723554615; x=1724159415;
+        d=linaro.org; s=google; t=1723554618; x=1724159418;
  darn=alsa-project.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=rJOIZffdYgY6uiS66ZwE+qixLpFdnbV3QcaMFwjqIS8=;
-        b=tqbAlE2wGeVM+TV8el3SUgPInuMhwgpdANf2Trh38juJK4bIvhPnvvUWzlrg85vUVe
-         nQsOQyPCAM+kt944qBhtrVbhPHNDRj1jiLNnm9Gs/muMYujm/p3IA2UM45ZR3qabHWRM
-         bXZRk2MZYCC1V6K/dBpUVFeVoLvAFom3hNvQCAaKi1TVE4bOloUuQ5EH5dQvPtFgbl0g
-         nSistmfYBie/eGd/G+uabOTDDbI6jkRARPnonxjw6PdLiJBjFGhxbsDR/YxOjWX/E+bj
-         Ogvls9fnz6/XoRpQ6sqrmN6Bl4++omPNuEz/clQfFJvvCvAIjmwa8GjIzFnxAfXgRQuz
-         PROg==
+        bh=mP8c2gbWyRGgea+bz+7uGbaKYyoVwEycZmklOCGi8GE=;
+        b=MKk1ka3o1BGmPAr2/ZZN33Zwjd+drLfanfc91nhGzRCO5Qf7sBSwBx7EfWoSvPDrMP
+         IGvMkNrQdNoWR1IhCX4BQ3T+E6iaO1g0gqJ6m/u6tFUpstwdsLLL7cjLmTYVfDaHIZyk
+         +9F2cQH1/sF9yAjxyER6yTxTzmf4/rYZMkCdj30v4FLZwwsBLRADi/YrUM+j42jglEg/
+         IpeVMiSwNA0fcr4SyCI/s7llnkAA88E3grGYDfiQmmnQvJ+NOnEF21yMtiLIBBfkBKGz
+         9vv5SmWX+IdzGIr2edCGBUGQfF4KatJ4mhYswfU0oIRQUH3a+qUbIiqxDvLqImaNyi+o
+         OeFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723554615; x=1724159415;
+        d=1e100.net; s=20230601; t=1723554618; x=1724159418;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=rJOIZffdYgY6uiS66ZwE+qixLpFdnbV3QcaMFwjqIS8=;
-        b=mqcFXM4RZywbonjOg3Gz11zXdOYUWvFq7kPzg+fJlXqJaJyRiIqnZPkX0cnRqFrSDy
-         U4T3BtuI7s5mrxBIraRX9kn5uOg+DsxGQQjXmLrJL2aJOTxp2E0ydJjL7tdED+CJnC7f
-         nSD56D3c55fbmI5/5ug7vtsbrZhFBcusJzKANbNgOtjqGJ9eSelaY3iOz51GBI7evezx
-         iXJqXbdyImJFYD1SI0pHO+mU6sSw9nOd6r5xPN/mcb2gItM3aSmKBMRHJ7WnLeRdlOmg
-         tSMdw17357btiY46bt4YIWnJE6PC2QKTzQ+gf/pBShwXP9xvO6yfsF/gc34YzgxRr42W
-         V69g==
-X-Gm-Message-State: AOJu0Yz9jbWwkoAloTTKfg4/2Or2bZi8ofVZhCDEf1t4GD1CFX0feXjy
-	AbYy9wb0hvgo8M8mmMWO7TSkTENJ2znQtiJyrm2ooi5J3IcWqfmvxj5eUUCWKfk=
+        bh=mP8c2gbWyRGgea+bz+7uGbaKYyoVwEycZmklOCGi8GE=;
+        b=tF/xkwjE9pkr2GysBCJbYt1kpSI7geyVp7QURbVN5HTXP6yi9ixXbaCLEe9Ha0SY/T
+         P19OXSbqNa7owKphjXNXduki6K8CUkto4R/cx7hKACwzd2lIUt5dZXHAjQBFSlD5dWlO
+         FJMAsLtPI2I0M5OlI6ehOIZoNK6K8zqvTqOzxpkf0SXwAmm6zuW47Y4rzwEiZjUd6nVf
+         aZupZcwADfswuR7f6/ORHIKzpu9OjinV27TJDuMkZSng3kjPEe6fXQRV5KmqTvhRDRKH
+         EjaHpiu0bfyJ8slCaTtZEG3vUcJZGvtNldMDXectKQIF9dKTXzykHQqp/NMOFTCUWeTF
+         1icw==
+X-Gm-Message-State: AOJu0YycGLy1Z/jiVEpY80CExrW4Ghc9RQ+Dz3i6QDNZ8L6eqgWMv+Xv
+	9Zwau9jlTIrVqXlKykP4Yyjfu/2m5CJ8PX32G21bvIi92d3C9avD3kpgAJTZm9A=
 X-Google-Smtp-Source: 
- AGHT+IH2fWoDkGNXR0eRrjdb6m7GxMgF+j9Va9DvtxfYZzZLGqKP3dmGXHQVk6zw5owlp+AcpM80rQ==
-X-Received: by 2002:a5d:5f55:0:b0:35f:cd7:5ba1 with SMTP id
- ffacd0b85a97d-3716cd45ff1mr2848538f8f.60.1723554615211;
-        Tue, 13 Aug 2024 06:10:15 -0700 (PDT)
+ AGHT+IEDchtCCXZEFTjTv7KCKp+KTGrJNg4Wo5BxMZL+yOQsb/AR6j4g5GGlBRSIedjp6ch6nbqYkQ==
+X-Received: by 2002:a5d:4481:0:b0:367:96b5:784e with SMTP id
+ ffacd0b85a97d-3716cd28208mr1973169f8f.50.1723554617874;
+        Tue, 13 Aug 2024 06:10:17 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.215.209])
         by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-36e4c938280sm10305003f8f.36.2024.08.13.06.10.13
+ ffacd0b85a97d-36e4c938280sm10305003f8f.36.2024.08.13.06.10.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Aug 2024 06:10:14 -0700 (PDT)
+        Tue, 13 Aug 2024 06:10:15 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 13 Aug 2024 15:09:51 +0200
-Subject: [PATCH 5/6] soc: qcom: pbs: use scoped device node handling to
+Date: Tue, 13 Aug 2024 15:09:52 +0200
+Subject: [PATCH 6/6] soc: qcom: smp2p: use scoped device node handling to
  simplify error paths
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Message-Id: 
- <20240813-b4-cleanup-h-of-node-put-other-v1-5-cfb67323a95c@linaro.org>
+ <20240813-b4-cleanup-h-of-node-put-other-v1-6-cfb67323a95c@linaro.org>
 References: 
  <20240813-b4-cleanup-h-of-node-put-other-v1-0-cfb67323a95c@linaro.org>
 In-Reply-To: 
@@ -107,25 +106,25 @@ Cc: alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2160;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1946;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=IxBzL8jZcrNuPWO/7D8XwVLbEykT+21gC+FbHu5yEzg=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmu1sjtqc3LW0OQNAOtQMO9+aLWWp94JHd3wNgK
- r/V4thgZHyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZrtbIwAKCRDBN2bmhouD
- 1xhVD/0RgrZURCzpXb3YXvnPk6hKrlLP06DLbvCh62dHZC7woXTSyVi7a8IL4ASirn+Sb2K3X9q
- d3xyu3wLmnNLwCMt8/oAbK8OCelqtGjohE/HWKV+4w2dpHLI+BfdBlv9dXG07iWeDFGImCtYJaf
- FHZQD21L1VuhPv53cz2rAnF0t1rsVh8Py6TNfOTQ4Xe3Ko9WCYtqS68W5hzuNHs+bnFrKgARQYa
- xzPw8NoDX2Z7iXZSGQ4iEhM9W/HLPAeAlGPNnaqLkucx+mp/uNWmCIouUYtZJdwn8+kjSvH+/iW
- xSEn7wI2yxrAj9PeGCxbz50rnvkuj5xcnRKF30sJSYhm+O9VVq8b4CffXZH6D2FFjYkJfLLxtXX
- hELXzZnEaihOvGuY6FkBLWg0bpVeec/vgG93UtmE1/yArs+kyqtaPAkrcYk6TnJDZswr/Nry7jN
- QVZ0sMCg+uP/BVPmokjBVl3wvRKuF1qJ8q1hsKs6yYPKI04ow/NnPPEMBgFqEU2NZWd0MNlu2vX
- 8l1HxlV4MpRquSCvz5L7/VG35i1kIOimX8/tLkip0PAlD/pOBGZPtargXrpTgyhy2l9KcCqU+hG
- tF9B7iEHl8akSUQtX2rairPy+sOwumSqE+jvjj8y11gFz27qtrNI7vLXop7r2tNleIoDP1IgACA
- wfFtE7W6uRM0Oqw==
+ bh=2cwE07vpiCyGBrhyTLV34EZJb7Hk/Mu8zBy8VUuQNto=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmu1sjJN14aYmlpr8rTr9yYtjfVVS+zWUS2l146
+ f7fNMYMCtCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZrtbIwAKCRDBN2bmhouD
+ 1xmRD/9h/P0Het6Jm2rGA3UM3LAszAgU3PyV5T6E96tiL7xRF6IrhT+P6GS1+HrZeLHZt/7/3v2
+ xvbX4iYvn7yHnGp//K4u+6YB3isGbI0dSbliRFs8bqdp8MndfYQoMw77n9rZJbSBqLDI8NLKshS
+ wUDaHY5WFF894y/XXeTDM/PRA5cD6BlzevUcWPmr8gDtvUH8+LgocW+2P2UwnCwmX2DgwN3ZeQM
+ WqLLEiUQTen+QI37hpUg6TvRYCRMLFkr/VMs3/kbHRYir/fBuolFVZFawgeX6gP7BLNVmUQxEst
+ ZfqX7RPXVbf3zxG6ZNz74mbX9zbRSw0QoJczdjKiHMGOipCWmR778oHi8igpEKH4eTsQdRJhFnY
+ zK15u0Qs8HFOm8ALMDmYrhsUOQyfuwdBcpI23XBimnNl/yZPViJZREmTEZkfe390bmIpc7mTTgo
+ nzFuLKquUdYF3T6nDfVXN8btg3tXea42nBTjwWdVR5l8wXJSJWZiMZf/tkl53OxOE0jRJtLehRo
+ 8lVeIsD4Fcs0OwUKubSHxP8JxytWepvza4Ay3hdomgSPOilOyZfspn4RQikAl02pnm393jTf9M5
+ MSeWXlH4VsVFvDiWocSaYUlIMxbToTvHCjMFE1B70QBhw6ry724w2jy33jv+7Mb55dEb/lL0s29
+ 2YG/JDwEhwT04cA==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Message-ID-Hash: 776QZUWNLQL27R2EQJYMH5M6P7BAZPN7
-X-Message-ID-Hash: 776QZUWNLQL27R2EQJYMH5M6P7BAZPN7
+Message-ID-Hash: JVQAF6GKNOGVCQS46R6I32TLG3MEZR4V
+X-Message-ID-Hash: JVQAF6GKNOGVCQS46R6I32TLG3MEZR4V
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -138,7 +137,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/776QZUWNLQL27R2EQJYMH5M6P7BAZPN7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JVQAF6GKNOGVCQS46R6I32TLG3MEZR4V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,67 +151,63 @@ handling and make the code a bit simpler.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/soc/qcom/qcom-pbs.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ drivers/soc/qcom/smp2p.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/soc/qcom/qcom-pbs.c b/drivers/soc/qcom/qcom-pbs.c
-index 6af49b5060e5..77a70d3d0d0b 100644
---- a/drivers/soc/qcom/qcom-pbs.c
-+++ b/drivers/soc/qcom/qcom-pbs.c
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/module.h>
-@@ -148,11 +149,11 @@ EXPORT_SYMBOL_GPL(qcom_pbs_trigger_event);
-  */
- struct pbs_dev *get_pbs_client_device(struct device *dev)
+diff --git a/drivers/soc/qcom/smp2p.c b/drivers/soc/qcom/smp2p.c
+index 4aa61b0f11ad..cefcbd61c628 100644
+--- a/drivers/soc/qcom/smp2p.c
++++ b/drivers/soc/qcom/smp2p.c
+@@ -539,7 +539,6 @@ static int smp2p_parse_ipc(struct qcom_smp2p *smp2p)
+ static int qcom_smp2p_probe(struct platform_device *pdev)
  {
--	struct device_node *pbs_dev_node;
- 	struct platform_device *pdev;
- 	struct pbs_dev *pbs;
+ 	struct smp2p_entry *entry;
+-	struct device_node *node;
+ 	struct qcom_smp2p *smp2p;
+ 	const char *key;
+ 	int irq;
+@@ -593,11 +592,10 @@ static int qcom_smp2p_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto release_mbox;
  
--	pbs_dev_node = of_parse_phandle(dev->of_node, "qcom,pbs", 0);
-+	struct device_node *pbs_dev_node __free(device_node) = of_parse_phandle(dev->of_node,
-+										"qcom,pbs", 0);
- 	if (!pbs_dev_node) {
- 		dev_err(dev, "Missing qcom,pbs property\n");
- 		return ERR_PTR(-ENODEV);
-@@ -161,28 +162,23 @@ struct pbs_dev *get_pbs_client_device(struct device *dev)
- 	pdev = of_find_device_by_node(pbs_dev_node);
- 	if (!pdev) {
- 		dev_err(dev, "Unable to find PBS dev_node\n");
--		pbs = ERR_PTR(-EPROBE_DEFER);
--		goto out;
-+		return ERR_PTR(-EPROBE_DEFER);
- 	}
+-	for_each_available_child_of_node(pdev->dev.of_node, node) {
++	for_each_available_child_of_node_scoped(pdev->dev.of_node, node) {
+ 		entry = devm_kzalloc(&pdev->dev, sizeof(*entry), GFP_KERNEL);
+ 		if (!entry) {
+ 			ret = -ENOMEM;
+-			of_node_put(node);
+ 			goto unwind_interfaces;
+ 		}
  
- 	pbs = platform_get_drvdata(pdev);
- 	if (!pbs) {
- 		dev_err(dev, "Cannot get pbs instance from %s\n", dev_name(&pdev->dev));
- 		platform_device_put(pdev);
--		pbs = ERR_PTR(-EPROBE_DEFER);
--		goto out;
-+		return ERR_PTR(-EPROBE_DEFER);
- 	}
+@@ -605,25 +603,19 @@ static int qcom_smp2p_probe(struct platform_device *pdev)
+ 		spin_lock_init(&entry->lock);
  
- 	pbs->link = device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_SUPPLIER);
- 	if (!pbs->link) {
- 		dev_err(&pdev->dev, "Failed to create device link to consumer %s\n", dev_name(dev));
- 		platform_device_put(pdev);
--		pbs = ERR_PTR(-EINVAL);
--		goto out;
-+		return ERR_PTR(-EINVAL);
- 	}
+ 		ret = of_property_read_string(node, "qcom,entry-name", &entry->name);
+-		if (ret < 0) {
+-			of_node_put(node);
++		if (ret < 0)
+ 			goto unwind_interfaces;
+-		}
  
--out:
--	of_node_put(pbs_dev_node);
- 	return pbs;
- }
- EXPORT_SYMBOL_GPL(get_pbs_client_device);
+ 		if (of_property_read_bool(node, "interrupt-controller")) {
+ 			ret = qcom_smp2p_inbound_entry(smp2p, entry, node);
+-			if (ret < 0) {
+-				of_node_put(node);
++			if (ret < 0)
+ 				goto unwind_interfaces;
+-			}
+ 
+ 			list_add(&entry->node, &smp2p->inbound);
+ 		} else  {
+ 			ret = qcom_smp2p_outbound_entry(smp2p, entry, node);
+-			if (ret < 0) {
+-				of_node_put(node);
++			if (ret < 0)
+ 				goto unwind_interfaces;
+-			}
+ 
+ 			list_add(&entry->node, &smp2p->outbound);
+ 		}
 
 -- 
 2.43.0

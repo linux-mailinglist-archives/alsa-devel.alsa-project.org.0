@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3286894FE13
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2024 08:49:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB5C294FE14
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2024 08:49:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36B5322AA;
-	Tue, 13 Aug 2024 08:49:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36B5322AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3ACBD227C;
+	Tue, 13 Aug 2024 08:49:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ACBD227C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723531753;
-	bh=iCZiCwtRsRSzu+6HOIiipboOpFCrwsZfm6lxtXFjzWI=;
+	s=default; t=1723531771;
+	bh=R4N3idk2fr51n2Ysp1ZJvB7OoNsVjtmm9+5kWMMUGGw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KpfQd/f5x3A1kWcSO9BiHCoddbl0siGLVPNYr7wWKAvotDu9PH2+6S5a3fIlGr0u3
-	 oNREYQ8eqQxPVXeQMGh00vLr+cv8lG1niOdJZIZS5oN66fPgMw0WYxdEhFhZwoVPXq
-	 v4JRvVQBe2Yyd8mtTSIkrHR+41SfHc7L3pvKb5jQ=
+	b=s7559BHvdiX0RQio7X+SyRl1jpaBjV5TFzogFYSN0lv0i7A0pU8l+o5A0eNAZMwbI
+	 RYT8ZwQ80um9mTLIdqclxpeMGcephDPkLHHhYcJzfP6CswCmhYUH7KHWxNrki/V7ZA
+	 cWwFYDJXJpi96MNAbhrUzzPzr7FEzJm9qcceBj2c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82672F805BA; Tue, 13 Aug 2024 08:48:41 +0200 (CEST)
+	id 9A831F805C4; Tue, 13 Aug 2024 08:48:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC85DF8059F;
-	Tue, 13 Aug 2024 08:48:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E742EF805D3;
+	Tue, 13 Aug 2024 08:48:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F7F5F8016E; Tue, 13 Aug 2024 08:48:37 +0200 (CEST)
+	id 0D507F8057A; Tue, 13 Aug 2024 08:48:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A595BF8016E
-	for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2024 08:48:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A595BF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 14C11F80423
+	for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2024 08:48:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14C11F80423
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gmDVXe/u
+ header.s=k20201202 header.b=puLQ0j5H
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id DC55E61563;
-	Tue, 13 Aug 2024 06:48:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6205C4AF0B;
-	Tue, 13 Aug 2024 06:48:26 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 22BE9CE1187;
+	Tue, 13 Aug 2024 06:48:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1750BC4AF0B;
+	Tue, 13 Aug 2024 06:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723531709;
-	bh=iCZiCwtRsRSzu+6HOIiipboOpFCrwsZfm6lxtXFjzWI=;
+	s=k20201202; t=1723531726;
+	bh=R4N3idk2fr51n2Ysp1ZJvB7OoNsVjtmm9+5kWMMUGGw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gmDVXe/u4YJ5sKxw4eMVjEPg9Il2q7u8LjzKG27RbUHikRFpdti7S/dAedVDJj5sy
-	 Cfj8UfAWhw92cdOYTOX2BLrApB6RZAR/N8woNop8VpcWXkPhxe2r0xT95uKpW7I2YJ
-	 /3t72VUcb8RkiWIZe9nQTECxzPJchdkNmjyS/eqb10W3/JNQfUH1mux4TNlniZ+XTP
-	 lWeoaUJoiMicF0xPcjOd4pJd5abG6ssh35UAckxT2nAeHp28UifApBUfVtfuqAAztq
-	 q8Axu6nZka7SxEKrFaKA0/awHszhpPcFDKiZqrURcTcQtjQ+XINTGKBfjgeQMtaERl
-	 BwGvGoi22gQ5A==
-Message-ID: <5094cee1-d5f7-4ffe-9297-d865dd6949c8@kernel.org>
-Date: Tue, 13 Aug 2024 08:48:22 +0200
+	b=puLQ0j5HiQMaBgSHU7ylgTLgQtucGjEcdCGG+G2mRBzq8fSBY6LKbmkMBtg/YXzXc
+	 GyhaxChBQ3/mtn/oVRi7G20Cbh2/28jx25PvRSbYKFstKjSlpDMdykoSObBTaCyJ6w
+	 VPYhnTDWeEEK19Pgr2rYu6S3kX0OjAOP5E/ZwxZL7NWSlHi7MhqSCK4bncy3VO3ejn
+	 YenK1IhrvMDmmhCD+mIjq/3odYugTZ/2eExHayHU4c9LepHhwfwDjFMydKiZugDU8g
+	 Rqj6tkmfpvbq3UrGO4l22Ve4fZCTrJywm6xaDpnoWdHQsDxyf2RH7HmI+je3dUkcOD
+	 0x1/WRiKRfvzw==
+Message-ID: <3eceaca8-9c12-42b3-8470-5862a9e908b3@kernel.org>
+Date: Tue, 13 Aug 2024 08:48:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add a driver for the Iron Device SMA1307 Amp
+Subject: Re: [PATCH 2/2] ASoC: sma1307: Add bindings for Iron Device SMA1307
+ amplifier
 To: Kiseok Jo <kiseok.jo@irondevice.com>, Liam Girdwood
  <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
  devicetree@vger.kernel.org
 References: <20240813052609.56527-1-kiseok.jo@irondevice.com>
+ <20240813052609.56527-3-kiseok.jo@irondevice.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -116,11 +118,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240813052609.56527-1-kiseok.jo@irondevice.com>
+In-Reply-To: <20240813052609.56527-3-kiseok.jo@irondevice.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5RXU5BCL4KNS4QIPHVN7VYZ6F54ERTAD
-X-Message-ID-Hash: 5RXU5BCL4KNS4QIPHVN7VYZ6F54ERTAD
+Message-ID-Hash: JOCCQACPKHSLZRAHWU5BY7DUV3TMRDLW
+X-Message-ID-Hash: JOCCQACPKHSLZRAHWU5BY7DUV3TMRDLW
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -133,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5RXU5BCL4KNS4QIPHVN7VYZ6F54ERTAD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JOCCQACPKHSLZRAHWU5BY7DUV3TMRDLW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,16 +145,11 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 13/08/2024 07:26, Kiseok Jo wrote:
-> This adds basic audio support for the Iron Device SMA1307 amplifier
-> 
-> Kiseok Jo (2):
->   ASoC: sma1307: Add driver for Iron Device SMA1307
->   ASoC: sma1307: Add bindings for Iron Device SMA1307 amplifier
+> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+> ---
+>  .../bindings/sound/irondevice,sma1307.yaml    | 67 +++++++++++++++++++
 
-Why do you send the same stuff second time, without addressing feedback?
-
-No, please version your patches, provide changelog, respond to comments
-and then send a v3 with all above.
+I do not see improvements.
 
 Best regards,
 Krzysztof

@@ -2,123 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EFB895100D
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 01:01:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E04951249
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 04:23:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 296C5238B;
-	Wed, 14 Aug 2024 01:00:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 296C5238B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D38E414EB;
+	Wed, 14 Aug 2024 04:23:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D38E414EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723590065;
-	bh=v6pouzSjcUubJw/OLcJ2anfWGui3sH49fxAKvgWiqqg=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1723602210;
+	bh=oEPhdZKTVMMMYtu4Nx5jQ4/hJEvXTQ1pwlI8w6rCBJA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MQFi/oRFDp1KPHNSrhocGG9anUX/mDwpsySSq7q9AU4X/RQ+eJLoKZ+O66UNegVFs
-	 DiGauf76/Ph6Vwv5rldY1QLK61/rLgNx8njdenZMitkaUV7aikwwAiIHCLg8qqZVlv
-	 itb8ekeyDZ6KH8fUcQXnYtlHNaLWkOPNK0kfVlcg=
+	b=In2H0qYQnPA+zEH3Nwy0GHEuRHn67k+dOOHaPuci8X6+t4Dn3qJssHsUjyP4unX2B
+	 WxOdPb7aS4gOQMEdYZDLdr6jZjNUDADobH5YGjSkTMOMsDs/VOxIOiFF+9Fl/vAny4
+	 b3STnvAqZnBX+53iH1kRIz04rbsBINfplblwnmrs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1FE31F8047C; Wed, 14 Aug 2024 01:00:32 +0200 (CEST)
+	id 034A7F8059F; Wed, 14 Aug 2024 04:22:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A61EF80589;
-	Wed, 14 Aug 2024 01:00:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61177F805AF;
+	Wed, 14 Aug 2024 04:22:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98444F80423; Wed, 14 Aug 2024 00:58:04 +0200 (CEST)
+	id 4DA8BF80423; Wed, 14 Aug 2024 04:22:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A3DDF8016E
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 00:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A3DDF8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 22BC7F80107
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 04:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22BC7F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=bnUyn2ta
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 47DCpTrR002395;
-	Tue, 13 Aug 2024 22:57:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gIL8R124Of5TZX5wuk8bz/6NSDthT5u39JslZvw5xWQ=; b=bnUyn2taEsFo120f
-	aDfi8xAXE4/49Wtnkp+VAjs0ie7H24kmQ0Zb52l2H9wyJoCTanQUlwIXXGs4iiH0
-	lKug3mE1Y6rSOmhAyznmCo1ei9k+wrSv2BIKiImss5YVIGMOC2iIpYRLSD2pVeQk
-	KBFFL2lsPummAneqfAlYXjKdjDew10e5rOw0RON7NebDDuT5WVqDkFTaME6TrgOu
-	CfMPyLOH5XotZ0brNyMxp3JPlFO4CTK7FJkf9U0PwY7vjrVdAqusnvQnQvaQs1Bh
-	ZrhITT2EvsKyaWdycfPcXk2dcfacAx0wTcqdQyGU5HqSVRstzK45b9amykW43gGn
-	uXydyg==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 40x16815va-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Aug 2024 22:57:47 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 47DMvjSW005026
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Aug 2024 22:57:45 GMT
-Received: from [10.110.24.42] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 13 Aug
- 2024 15:57:45 -0700
-Message-ID: <6855763c-0230-4535-a603-343059de5202@quicinc.com>
-Date: Tue, 13 Aug 2024 15:57:44 -0700
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=TtYl2p+B
+Received: by mail-il1-x131.google.com with SMTP id
+ e9e14a558f8ab-39b3ffc570bso28498265ab.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 13 Aug 2024 19:22:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1723602167; x=1724206967;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=89JHmaWrb++n3w64WkT++R6JNihPGry7EvRTcS8lWyw=;
+        b=TtYl2p+BpBVxztMYEsmd6M3hSrqvcH1Yj7KjIGaOFa7WMjxeix9Hp/8xMQWJ991772
+         8DrU6pz8wlnHnvITs6hkwbPEig3sKFFnhHCwWYs5lcMLDc9ZKHFdFhbRZv+c3BjvveTm
+         sSVqoYbXEZGezRJhu1AL4rh42ohROWYr30Y48xE9Lv5NwbhqirJIZggkHrA/RFdTO37o
+         SEDMqqlQDUvJVQJp9xXRqwCwTRle5JX/RbHvvqHG5Qg4F3X4kb2fkbeEgLyA0A8unPCn
+         L0UY3Zy2N1pd+53g3OWMFB7MadB+sqnTf3kof76bOzrh/LY/isHwOh2ax78ONgZq/lQX
+         ZXQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723602167; x=1724206967;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=89JHmaWrb++n3w64WkT++R6JNihPGry7EvRTcS8lWyw=;
+        b=e2Kp0OvVsGCFdCID6kf0r+wmpwYXqNkQ/CVmfipMuMEBYkbr1UV+FpHpGA/lPzgnlP
+         uHeGmV0Ht7fURdnb0ngcM3mKTPwdICtZxIzhKlvh1ZpmLal5SVI0E86dkyOlvAcm7LjV
+         Hp7hGnfGlJKEA8BGBFzCXG37f9nw286NEfRV0zzlI75K0EIKN8saDNKN0bXG+pdSZ0o3
+         Twb9AV/uIvVczKBQPm2PlknGHZGfd2xFe1nchDTclymvnEdC5C3VebcFRtQ3roFld716
+         c4iLO4xEqbXnhMet92+uRntK0umiLlIys7D+r5VVpw0WUROKi6pq5wXNdG/Bx7SseEhx
+         ZVRg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVRhLH5z1rq+Hx4bUBT45KLpTgVBW1jtUItKsdWMZlmvWTbBI4fG0nIC8qk6/BQeg4J/Ia0MeTY6AgzPwzYzkgHlm9IcXniQtYei+0=
+X-Gm-Message-State: AOJu0Yz+0MkkaFkcYzDE7awVEluNuvgpMjkfpf+XgKd5xBbUWByQzS25
+	La0OUHEsqs6+JK7CF/kcZ7yzq0gKQ/V8iPgZF8QSOm4lod+4pGXPFK//stIRax6WJbDnosHeK5e
+	J5XqCWvtjj5Rj/5wHqDKMXpbipvA=
+X-Google-Smtp-Source: 
+ AGHT+IFPVUkZK6h4SS7dzEMo826uVZIEi+fljxMmUw43807CP8vAA2UHQF5gxQfwfaTavdVKDSVhT479wlqQfJ6aRnI=
+X-Received: by 2002:a05:6e02:1d9d:b0:397:c5da:dc02 with SMTP id
+ e9e14a558f8ab-39d12484a08mr20645625ab.4.1723602167332; Tue, 13 Aug 2024
+ 19:22:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 09/34] ASoC: Add SOC USB APIs for adding an USB
- backend
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <gregkh@linuxfoundation.org>, <robh@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-10-quic_wcheng@quicinc.com>
- <09fde4e6-c3be-484d-a7a5-bd653dc42094@linux.intel.com>
- <f761530c-a49b-4dd5-b01c-97d08931e0ab@quicinc.com>
- <acf4de1d-d551-4539-8353-3c85aa3d965c@linux.intel.com>
-Content-Language: en-US
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <acf4de1d-d551-4539-8353-3c85aa3d965c@linux.intel.com>
+References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
+ <1722940003-20126-2-git-send-email-shengjiu.wang@nxp.com>
+ <e89a56bf-c377-43d8-bba8-6a09e571ed64@linux.intel.com>
+ <CAA+D8AN9JXJr-BZf8aY7d4rB6M60pXS_DG=qv=P6=2r1A18ATA@mail.gmail.com>
+ <ffa85004-8d86-4168-b278-afd24d79f9d8@linux.intel.com>
+ <116041ee-7139-4b77-89be-3a68f699c01b@perex.cz>
+ <930bb152-860a-4ec5-9ef0-1c96f554f365@linux.intel.com>
+ <c9039808-cd04-452d-9f6c-f91811088456@perex.cz>
+ <ed1192e0-00e7-4739-a687-c96dc2d62898@linux.intel.com>
+ <CAA+D8AMOh=G7W5-dYw_=Xx-s0PqEu2suKYorscoWku86Rn-=+A@mail.gmail.com>
+ <542d47c5-7ce3-4c17-8c0a-3a2b2a9e6c6a@linux.intel.com>
+ <c3b8f7b8-fc5e-4285-bee8-7edd448a405d@perex.cz>
+ <CAA+D8ANg7C7vuxU44mAG8EnmcZjB_te5N_=4M4v_-Q9ZyPZ49g@mail.gmail.com>
+ <2be4303e-58e1-4ad7-92cf-f06fa6fa0f08@perex.cz>
+ <7dc039db-ecce-4650-8eb7-96d0cfde09a2@linux.intel.com>
+In-Reply-To: <7dc039db-ecce-4650-8eb7-96d0cfde09a2@linux.intel.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Wed, 14 Aug 2024 10:22:35 +0800
+Message-ID: 
+ <CAA+D8AMv=tHV3b-Rfo9Pjqs0bX5SVschD=WD06qxjJOk5zQmiQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
+ support
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ vkoul@kernel.org,
+	tiwai@suse.com, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: _WsJpwi-2I3ra7escjcgBbfBvs8wZqXW
-X-Proofpoint-ORIG-GUID: _WsJpwi-2I3ra7escjcgBbfBvs8wZqXW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-13_12,2024-08-13_02,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015
- suspectscore=0 mlxlogscore=999 impostorscore=0 malwarescore=0 spamscore=0
- mlxscore=0 priorityscore=1501 phishscore=0 adultscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2407110000
- definitions=main-2408130165
-Message-ID-Hash: MHQOAAGTAU3YUIT4F3PNAR5QDNQ4GNUA
-X-Message-ID-Hash: MHQOAAGTAU3YUIT4F3PNAR5QDNQ4GNUA
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: DWR4GUV53YRBSK7JXQ2KQR25BEAJACKX
+X-Message-ID-Hash: DWR4GUV53YRBSK7JXQ2KQR25BEAJACKX
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -130,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MHQOAAGTAU3YUIT4F3PNAR5QDNQ4GNUA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWR4GUV53YRBSK7JXQ2KQR25BEAJACKX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,118 +139,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Pierre,
-
-On 8/1/2024 11:26 PM, Pierre-Louis Bossart wrote:
->
-> On 8/1/24 23:43, Wesley Cheng wrote:
->> Hi Pierre,
->>
->> On 8/1/2024 1:02 AM, Pierre-Louis Bossart wrote:
->>>
->>>> +/**
->>>> + * struct snd_soc_usb_device
->>>> + * @card_idx - sound card index associated with USB device
->>>> + * @pcm_idx - PCM device index associated with USB device
->>>> + * @chip_idx - USB sound chip array index
->>>> + * @num_playback - number of playback streams
->>>> + * @num_capture - number of capture streams
->>> so here we have a clear separation between playback and capture...
->> Thanks for the quick review of the series, I know that its a lot of work, so its much appreciated.
->>
->> I guess in the past revisions there was some discussions that highlighted on the fact that, currently, in our QC USB offload implementation we're supporting playback only, and maybe it should be considered to also expand on the capture path.  I went ahead and added some sprinkles of that throughout the SOC USB layer, since its vendor agnostic, and some vendors may potentially have that type of support.  Is it safe to assume that this is the right thinking?  If so, I will go and review some of the spots that may need to consider both playback and capture paths ONLY for soc-usb. (as you highlighted one below)  Else, I can note an assumption somewhere that soc-usb supports playback only and add the capture path when implemented.
-> I don't think it's as simple as playback only or playback+capture. If
-> there is no support for capture, then there is also no support for
-> devices with implicit feedback - which uses the capture path. So you
-> gradually start drawing a jagged boundary of what is supported and what
-> isn't.
->
-> My preference would be to add capture in APIs where we can, with TODOs
-> added to make sure no one us under any illusion that the code is fully
-> tested. But at least some of the basic plumbing will be in place.
->
-> Takashi should chime in on this...
->
->>>> + * @list - list head for SoC USB devices
->>>> + **/
->>>> +struct snd_soc_usb_device {
->>>> +	int card_idx;
->>>> +	int pcm_idx;
->>>> +	int chip_idx;
->>>> +	int num_playback;
->>>> +	int num_capture;
->>>> +	struct list_head list;
->>>> +};
->>>> +
->>>> +/**
->>>> + * struct snd_soc_usb
->>>> + * @list - list head for SND SOC struct list
->>>> + * @component - reference to ASoC component
->>>> + * @num_supported_streams - number of supported concurrent sessions
->>> ... but here we don't. And it's not clear what the working 'sessions'
->>> means in the comment.
-
-After taking a look at this "num_supported_streams" naming a bit more, I wanted to check with you to see adds to the complexity of the terminology being used across soc-usb.
-
-The intention of this is to define how many concurrent USB devices the USB backend can support.  So for example, if the audio DSP did support multiple USB devices at the same time, this would denote that.  This is where I wanted to make sure the terminology was right....  So in this case, to me, it makes more sense if num_supported_streams --> num_supported_devices, because it determines how many USB devices the ASoC USB backend DAI can manage/support.  This adds a bit to the reason why I think using the term "port" for explaining the SOC USB context is reasonable.
-
-Thanks
-
-Wesley Cheng
-
->>>> + * @connection_status_cb - callback to notify connection events
->>>> + * @priv_data - driver data
->>>> + **/
->>>> +struct snd_soc_usb {
->>>> +	struct list_head list;
->>>> +	struct snd_soc_component *component;
->>>> +	unsigned int num_supported_streams;
->>>> +	int (*connection_status_cb)(struct snd_soc_usb *usb,
->>>> +			struct snd_soc_usb_device *sdev, bool connected);
->>>> +	void *priv_data;
->>>> +};
->>>> +/**
->>>> + * snd_soc_usb_allocate_port() - allocate a SOC USB device
->>> USB port?
->> Noted, refer to the last comment.
->>>> + * @component: USB DPCM backend DAI component
->>>> + * @num_streams: number of offloading sessions supported
->>> same comment, is this direction-specific or not?
->> Depending on what you think about my first comment above, I'll also fix or remove the concept of direction entirely.
->>>> + * @data: private data
->>>> + *
->>>> + * Allocate and initialize a SOC USB device.  This will populate parameters that
->>>> + * are used in subsequent sequences.
->>>> + *
->>>> + */
->>>> +struct snd_soc_usb *snd_soc_usb_allocate_port(struct snd_soc_component *component,
->>>> +					      int num_streams, void *data)
->>>> +{
->>>> +	struct snd_soc_usb *usb;
->>>> +
->>>> +	usb = kzalloc(sizeof(*usb), GFP_KERNEL);
->>>> +	if (!usb)
->>>> +		return ERR_PTR(-ENOMEM);
->>>> +
->>>> +	usb->component = component;
->>>> +	usb->priv_data = data;
->>>> +	usb->num_supported_streams = num_streams;
->>>> +
->>>> +	return usb;
->>>> +}
->>>> +EXPORT_SYMBOL_GPL(snd_soc_usb_allocate_port);
->>>> +
->>>> +/**
->>>> + * snd_soc_usb_free_port() - free a SOC USB device
->>>> + * @usb: allocated SOC USB device
->>>> +
->>>> + * Free and remove the SOC USB device from the available list of devices.
->>> Now I am lost again on the device:port relationship. I am sure you've
->>> explained this before but I forget things and the code isn't
->>> self-explanatory.
->>>
->> Ok, I think the problem is that I'm interchanging the port and device terminology, because from the USB perspective its one device connected to a USB port, so its a one-to-one relation.  Removing that mindset, I think the proper term here would still be "port," because in the end SOC USB is always only servicing a port.  If this is the case, do you have any objections using this terminology in the Q6AFE as well as ASoC?  I will use consistent wording throughout SOC USB if so.
-> I am not sure USB uses 'port' at all. If by 'port' you meant 'connector'
-> it's not quite right, USB audio works across hubs.
+On Mon, Aug 12, 2024 at 9:44=E2=80=AFPM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
 >
 >
+>
+> On 8/12/24 15:31, Jaroslav Kysela wrote:
+> > On 12. 08. 24 12:24, Shengjiu Wang wrote:
+> >> On Fri, Aug 9, 2024 at 10:01=E2=80=AFPM Jaroslav Kysela <perex@perex.c=
+z> wrote:
+> >>>
+> >>> On 09. 08. 24 14:52, Pierre-Louis Bossart wrote:
+> >>>
+> >>>>> And metadata
+> >>>>> ioctl can be called many times which can meet the ratio modifier
+> >>>>> requirement (ratio may be drift on the fly)
+> >>>>
+> >>>> Interesting, that's yet another way of handling the drift with
+> >>>> userspace
+> >>>> modifying the ratio dynamically. That's different to what I've seen
+> >>>> before.
+> >>>
+> >>> Note that the "timing" is managed by the user space with this scheme.
+> >>>
+> >>>>> And compress API uses codec as the unit for capability query and
+> >>>>> parameter setting,  So I think need to define "SND_AUDIOCODEC_SRC'
+> >>>>> and 'struct snd_dec_src',  for the 'snd_dec_src' just defined outpu=
+t
+> >>>>> format and output rate, channels definition just reuse the
+> >>>>> snd_codec.ch_in.
+> >>>>
+> >>>> The capability query is an interesting point as well, it's not clear
+> >>>> how
+> >>>> to expose to userspace what this specific implementation can do, whi=
+le
+> >>>> at the same time *requiring* userpace to update the ratio dynamicall=
+y.
+> >>>> For something like this to work, userspace needs to have pre-existin=
+g
+> >>>> information on how the SRC works.
+> >>>
+> >>> Yes, it's about abstraction. The user space wants to push data, read
+> >>> data back
+> >>> converted to the target rate and eventually modify the drift using a
+> >>> control
+> >>> managing clocks using own way. We can eventually assume, that if this
+> >>> control
+> >>> does not exist, the drift cannot be controlled. Also, nice thing is
+> >>> that the
+> >>> control has min and max values (range), so driver can specify the
+> >>> drift range,
+> >>> too.
+> >>>
+> >>> And again, look to "PCM Rate Shift 100000" control implementation in
+> >>> sound/drivers/aloop.c. It would be nice to have the base offset for t=
+he
+> >>> shift/drift/pitch value standardized.
+> >>
+> >> Thanks.
+> >>
+> >> But the ASRC driver I implemented is different, I just register one so=
+und
+> >> card, one device/subdevice.  but the ASRC hardware support 4 instances
+> >> together, so user can open the card device 4 times to create 4 instanc=
+es
+> >> then the controls can only bind with compress streams.
+> >
+> > It's just a reason to add the subdevice code for the compress offload
+> > layer like we have in other APIs for overall consistency. I'll try to
+> > work on this.
+>
+> I thought this was supported already? I remember there was a request to
+> enable more than one compressed stream for enhanced cross-fade support
+> with different formats? That isn't supported with the single-device +
+> PARTIAL_DRAIN method.
+>
+> Vinod?
+>
+> >> I think I can remove the 'SNDRV_COMPRESS_SRC_RATIO_MOD',
+> >
+> > Yes.
+> >
+> >> Only define a private type for driver,  which means only the ASRC driv=
+er
+> >> and its user application know the type.
+> >
+> > The control API should be used for this IMHO.
+>
+> Agree, this would be a 'clean' split where the compress API is used for
+> the data parts and the control parts used otherwise to alter the ratio
+> or whatever else is needed.
+>
+> >> For the change in 'include/uapi/sound/compress_params.h",  should I
+> >> keep them,  is there any other suggestion for them?
+>
+> You can add the SRC type but if you use a control for the parameters you
+> don't need to add anything for the encoder options, do you?
+>
+
+Yes, to go further, I think we can use SND_AUDIOCODEC_PCM, then
+the SRC type will be dropped.
+
+But my understanding of the control means the .set_metadata() API, right?
+As I said, the output rate, output format, and ratio modifier are applied t=
+o
+the instances of ASRC,  which is the snd_compr_stream in driver.
+so only the .set_metadata() API can be used for these purposes.
+
+Best regards
+Shengjiu Wang

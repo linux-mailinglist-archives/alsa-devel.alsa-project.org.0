@@ -2,200 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009DE951DAA
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 16:49:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7603C951DAD
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 16:49:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC7F0299A;
-	Wed, 14 Aug 2024 16:49:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC7F0299A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDDD52318;
+	Wed, 14 Aug 2024 16:49:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDDD52318
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723646959;
-	bh=Ue6gvmOB1R9tUO509u/APPzZ9jdKXrV8QeyGXx7eTQA=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1723646981;
+	bh=bgB+AGxkL7pa/5RfEGmbSBFKn4UxH4cStFGcwBOixEs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=t+vVqeS3z9EpYIBOAKU8PlQ6lY/Weh70FK1rOK0n4d+ulIGTIAvn5TcKMQREoEECB
-	 LYmvtUvrHO9XWW4+zAdwXzyzQE8CBLe2ZlmqIRS/rJVj2pAle1AOPQMWot4EICTBhs
-	 TJOMI/DYYfU0T45zy/0cF0hYMefB3rWM+sQDopwk=
+	b=lLGXonxBtZ7uDHnCXQeS0nMhLsBY2+HtYnOQM25kzs+0Sm//G2zNGhpQEJ7SSJoDs
+	 qel/lppmVqo9LqAQum+VagxQXmotqE1ZMfaRxjHOod9YvAV5mROk0YFRTI+OHAyWOi
+	 /2TqWUva7FVpJComp7hCaa4YoUG2oIMJnsErW12Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF8F0F80589; Wed, 14 Aug 2024 16:48:47 +0200 (CEST)
+	id 97E8CF805C5; Wed, 14 Aug 2024 16:49:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AD3BF805AF;
-	Wed, 14 Aug 2024 16:48:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90302F80107;
+	Wed, 14 Aug 2024 16:49:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93F81F8047C; Wed, 14 Aug 2024 16:48:43 +0200 (CEST)
+	id A34C6F805BF; Wed, 14 Aug 2024 16:48:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF04CF8016E
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 16:48:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF04CF8016E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=GFXxZ6DL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723646921; x=1755182921;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Ue6gvmOB1R9tUO509u/APPzZ9jdKXrV8QeyGXx7eTQA=;
-  b=GFXxZ6DLflp/4U7BAQG/mZjCdLrXyuw0l/ntqQdVIhcJWD/BlOz3sIid
-   bzU+2qITcELtKYfpLFQGNj7F/SkdDlA17p1wjuw0zl2A73Uc9AXEQH79t
-   Q9lg4jDeQyM2Vfoi8nlFkdUAQ5AliTbN70fKiUdZcjflgTJcXxbSu2y9s
-   hCy/B+WknxRv8R0X1j9NHQbwKZ5/TjYxu/SRwUDg+5OXtK17CF2APsoFQ
-   fqMAaXd6cF0JcSjpfkNZoonckcAGsPXTEmRaN6kRO4fATvKqHXVQbP1bB
-   qPSXSqr4SbXrW/rCu8vdDGNJZLepvKc559BwVRMF+1xX+O5ldcpawyM/k
-   Q==;
-X-CSE-ConnectionGUID: vWniG8snT1WkzswwbbBAVQ==
-X-CSE-MsgGUID: LwghIEvQQdu7kh1i2hNcbQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="25733790"
-X-IronPort-AV: E=Sophos;i="6.10,146,1719903600";
-   d="scan'208";a="25733790"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 07:48:35 -0700
-X-CSE-ConnectionGUID: L8ZvAyH7RluJWTVh9O1UEQ==
-X-CSE-MsgGUID: 675R5GT3TL6kHt68/aYbxw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,146,1719903600";
-   d="scan'208";a="89741759"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
-  by orviesa002.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 14 Aug 2024 07:48:34 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 14 Aug 2024 07:48:33 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 14 Aug 2024 07:48:32 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Wed, 14 Aug 2024 07:48:32 -0700
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.175)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Wed, 14 Aug 2024 07:48:32 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s5Qbd3MoJ7fdH5/2/PjOdOEFDXU+wjKJ4TOnkeYq+o+pCzKCKlnRJ9q5DzIgtcH4qXcKVGTVNrQPeAPRKInrZa4+REQqzBRxwy+Rf3GHa8lZgidRx73tx/nI1sVwRgXFwy8yh7fPQCJHih97rwUVf5ddsun652qeNXl5z/eSHW6PmLmyVFIYqIUX/zD3rvwNNyT3zagnD7VtarGkvFppkEVP4TTn00z03AMUj5TMwr41HGy+Pug++7LUurwRX4jmNWrUA6jiEX3fqkqWyCEO+FgVXOOnnrSkpd4JFS+lfTLv/OKiHoxd4EV8aDNL8sAsAyCiYMOS0mz4DD4VB9Itmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1+F9Fn7KGVVOVf6yiGx94ms9pbAtsETbTpi6H0QPRJI=;
- b=fgI5OvtoNpX1pHtGPOWLzyhWrAXHb+bIQzgtMpxJ/9LvmuD0GMSAOHJo6SxIIiP9kHLieKKa3CrDK1zzV2PV7VZ3MyMkJstmxcJbPpJd5BCwYk9uTjy4/U4bVWqVRBXr+vY6ECQk142e8QaSBAgc7+6gRb9nM/48Zk5RjTSHsIHkUbMvPsOruOVnxIKOCKqykfqGwU4hA4kGrYr49uyNWKznBxc2wqri4cYspTogIt3s5je6kcitJanIFzQCmG6JR2o8ZsdV3xAfpLwBw/sBqv7Vx/C9C52HisejPaOmeraIumotyKURAVcg12G7EUMa+S8ckWutTbZ8W5uUmQ09cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- CH3PR11MB7371.namprd11.prod.outlook.com (2603:10b6:610:151::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33; Wed, 14 Aug
- 2024 14:48:29 +0000
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::cd01:59f6:b0f8:c832]) by DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::cd01:59f6:b0f8:c832%7]) with mapi id 15.20.7828.031; Wed, 14 Aug 2024
- 14:48:29 +0000
-Message-ID: <060a90cb-e044-49f7-a7da-364d6e0ff2e2@intel.com>
-Date: Wed, 14 Aug 2024 16:48:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/14] ASoC: Intel: Remove skylake driver
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
-	<linux-sound@vger.kernel.org>, <tiwai@suse.com>, <perex@perex.cz>,
-	<amadeuszx.slawinski@linux.intel.com>,
-	<pierre-louis.bossart@linux.intel.com>, <hdegoede@redhat.com>,
-	<cujomalainey@chromium.org>, <lmajczak@google.com>
-References: <20240814083929.1217319-1-cezary.rojewski@intel.com>
- <ZrzCPfagF7ezdzMq@smile.fi.intel.com>
-Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <ZrzCPfagF7ezdzMq@smile.fi.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA2P291CA0037.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1f::17) To DS0PR11MB6375.namprd11.prod.outlook.com
- (2603:10b6:8:c9::21)
+	by alsa1.perex.cz (Postfix) with ESMTPS id B0416F80579
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 16:48:46 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 17094362A8;
+	Wed, 14 Aug 2024 16:48:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 17094362A8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1723646925; bh=uf2xW8WtF5oep5EfMnSWo30bmq7rA/yv7ksjq5ZNF78=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZqtZ6mknsdTb+GhlqSLU1pKMbzM12+PpwW0OnK88bXL0kBV8lLkCxyZVV1ptFHw+1
+	 0/MVjwkOrTVIOThvtkEjJIdRJ6u6E9vAg8TT8yWDP7y+Qdpzu5/BZiwUtgabcD9sc0
+	 746KEDhSb8cWb8XGOlSeUG9EZsRiMBla3zPQQbH4=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 14 Aug 2024 16:48:31 +0200 (CEST)
+Message-ID: <bf85656b-5b12-4101-adfa-1a8c6afb6084@perex.cz>
+Date: Wed, 14 Aug 2024 16:48:30 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|CH3PR11MB7371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 969d5215-4dda-45d0-3ca5-08dcbc702942
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|7416014|366016;
-X-Microsoft-Antispam-Message-Info: 
- 3Rb8DkdczRTLOXejvMKXUYrjyCKkz83IILopWARr38RhulJJy+EkL4DXTJHaDXHw4HoC8svWY1NKchB5LtCK35KAudhUVwTUCmjFpi7CEcyG+Rl8uhSZGH/JYJm/J5VvroCrOjaBO8aHGGvqvil8Sm9eG6ABdQbH50+2nXc4nOeM+VvbrQqOcvT0BMcr4t9/vTf+VXMdB56zqPHdxW2TgbeH5Hm2X2jhun1HOtA0erkMB3Q36M3tzd/FulhnRDXMHFhI5BEUmbJn8JKxJNteANJR/veTnmsgCF0ecAwDgdTx+l7Iw9115bC8VFXwgFQhYQEJ0tDI2b4zFdYzuX0cfggLZqQTpgbXOy+bgZwfRuDDWfnjdnCguXo8v0YhFeumvmIax+wgnsJXvs3N1G6+XYZq9gGUNBruoRF8844tSyT0Ti1V2EIO1obdY9EZJUTYZqUSduhOv9lD94IeE0eMSa98XscHxP1FiP5Rx4MJBZB1Tj4Z1Riz6+OIC58Es17MEu9Ldym7FDYBh6N1z/JvyNpEgXVf+POI+hMBpO4O5yb+z2ba5MdfF/m7msqtrjLfZCsV8NRwjb87+t0KYpDqORBEH+1ZlaypYgee5W/edwOSy2gIXkNoBcX36PB6BUojdsS8TnhJyNtt4eD6d+E3hnXE5oX00DXQCiet7auQxP0=
-X-Forefront-Antispam-Report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6375.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
- =?utf-8?B?emxJcU82WDZrcjhwT1ZKN3hoQlkwVHA0YlpJdmNzNUV1Q3RuWTFtVjU3dXpV?=
- =?utf-8?B?RVJkbjFONU5pV3NNYzZJTEE3b3I3ODQ5cy9ycHk3bjBOaVFvUTAzNnJ1V2Yw?=
- =?utf-8?B?dUcwM3REVWhjYXdVQjVwRGVWL0hEa0NOaGdjZzFmYVQ0WWFiZy96MWdBUzhv?=
- =?utf-8?B?RGluUUdBY2FoWmZLMTgvQThIdk1YUTlNTzdQR3hNVSszQm5HdUJiQzJpOW9J?=
- =?utf-8?B?NWdUdktnVWpONGRNeSt1ZFFYRTFaSyszNUlIOUZPcGNzTUplcjdXRHJJQUNC?=
- =?utf-8?B?clR0UUttbG5YS0tqWVY1ZFpQdHNUY2NsQUZlT2ZPczhEOE03ZWovajR3eWhH?=
- =?utf-8?B?Y2JlV0Rxd0d4enBlVGhtTTdySzQvb1lhWkx0WnkweWxpVjl0MTg5RTNYQkVy?=
- =?utf-8?B?TlBRK3ZVZjgvNEtLN2Q2VGk5Z3BoLzlxRHNpY01yNEI3NTNoSG14QlBLakxK?=
- =?utf-8?B?Wm9UMVp3SVE3NTl4RHAxQjdtZWR3Nlc4eUNhcmFyaTdDS2h6L3lBYXNpMHFP?=
- =?utf-8?B?ZGZqcEU2VlYrZmZsVFNVSWlDREY2WVVZSEFQSW1PRDNaZDR3TzNmekN2VkRq?=
- =?utf-8?B?b0lXcnd5VFhaRndSbUU1djlKcEdxUnU5UFlFd2NDcHd2eUU0NUt1Y3U1UGNq?=
- =?utf-8?B?Y2FBbkJ2bkplZDRUaDhwOUluT21VRFM2djdBYmZYdk5POW0wUElCTVQ0UzVK?=
- =?utf-8?B?NmpBTHZDbkFhZTFoZDVyWFRDSUJKajBoOFV3ZjVxUFF5ODMrVm1YU0pMNmRK?=
- =?utf-8?B?c2svWlFYdnZodHhwZlV5L0dTSEgrZmk3YmtHeHp3ZG90c3l0UEZxRTRFb3FH?=
- =?utf-8?B?QnhuNndXajBRMWltQVRObHBrVkVzcjdxYnEyZHkxOTNzVHN5cHZwSWhqNVhH?=
- =?utf-8?B?cldDNWQ0RmRYSXhsL3JNWUFBQkt2a0cwcm8wdlZNNHkyQlVVbTZBUWc2aTBo?=
- =?utf-8?B?OUNFbzB2aGI2NlRTMTJRSU8zS2l3OVhKcnF1a2llQkVBRkZ1N01WTlZhWXp4?=
- =?utf-8?B?akJTQ1FML3VpM0VTN2wvaFdjR256djh4SWxrcUhwMEFhTXhoNG5VZ2Yweldh?=
- =?utf-8?B?SjVhN3ZDUUdoWkptMDhmVERuS3NBaWV1Q243bEpGRWFHUEdwdnZSZ3VhbWxn?=
- =?utf-8?B?VHIxZC8ycXB3Rk9QQ0NOcndlZlg0WHF2UVIrYk9TU3U4aklQWW9xdUsvUUxs?=
- =?utf-8?B?RS9xWk9KYXAvQXBieFdvMGhPRkFxTEt2SGRIcWIxL0V1MmlKelJHRlVsMTZ5?=
- =?utf-8?B?STJsQmUxSEcrMHVEd3QyL2lUOHYybFlSZHdBWG82L0t2V1ZNcWVCUHdDL3lY?=
- =?utf-8?B?bGpPSWFleHJVdldXMmVmelFkaGI4a0FKN2lUejA2N3RVTVFjdlNYTUh1R1Jo?=
- =?utf-8?B?VVg2eXVmUU5jYnhraUhnZG1oc3Mvd3Fob2Q2T2ZzRE5QNWVlaDQ5Qks2WVFV?=
- =?utf-8?B?aW9LeGlsK1hobyt1dDJyejA2bmFwMHFmaGhVSElhMEdDYUlDM1hzNXEzRS9E?=
- =?utf-8?B?Y2laYmVRd0N2b05yN3g2bVpwQmthL0JOdnRxMDB1STVYeVpkQjlhemJ5Y0hk?=
- =?utf-8?B?Y2lsSkJkK25aemRYMzkxbWZTN21MbTZLcjJWdHpTblhhTVU5L0xRQkpsd0Jo?=
- =?utf-8?B?Yk5lYUpmOURuUjFLbkdQaHF2ZXFlMERKbnVWVTNZOERIajNkakI2QW83YXFk?=
- =?utf-8?B?NEI5d0pLV3lpcFNtVjdtbnJJdE5rOW9hRmRvUGxzQVorTDR0VzF5WW9QWkoy?=
- =?utf-8?B?ZGZaVzcwbTZpZHhUcDFPN1YvMllZT2J4QkRLbzBYMmVVNDF5RldOZjczY1Iz?=
- =?utf-8?B?TU5aZzljaHlBT3JMOXoxejArSGtjbTZqRlVsMXRCVys5NnBNSExEVUh6V2ZV?=
- =?utf-8?B?WXdpQTlwckxxUHJhWnNOME14N053cGFpN051aVlYV3ZOWHluaEplOXRDY0tw?=
- =?utf-8?B?d2xmVWtMQXMxZmRqN1B1SUFZeFBhSnE3Zzl6eVpsRnVZQlBwUzV5c3N3ZEc0?=
- =?utf-8?B?NU5CaXg3Q3FtL0RTaXI1MU5NOUgyNGJpaHBtaVBsSCs5WWtQY256VWhzU0Nr?=
- =?utf-8?B?dkNOcy9DWnAwU0hrQXQzaTV3RkV0dVgwRVNkVWZKRERjU1o2YWpBYWdHWGFy?=
- =?utf-8?B?amRjM2lmUnpJQ3JNYTdDR2o0Y1ZGUk9zeENBcjVBNHUxVVkxWTU4ODYxcWFt?=
- =?utf-8?B?d1E9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 969d5215-4dda-45d0-3ca5-08dcbc702942
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 14:48:29.6910
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Ojz527AQ+q03mq80YYxH1BGej+SrXYjYCcVDJ8/I1xecluQAu7EmRECzIiIAczpmEzqcYg64QE1yY7CD9Fr3rJNGw+6iA9gTELB4WHJe2ng=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7371
-X-OriginatorOrg: intel.com
-Message-ID-Hash: 26RIRBTT773R57ISHCZ7UNKSOUI7LBLG
-X-Message-ID-Hash: 26RIRBTT773R57ISHCZ7UNKSOUI7LBLG
-X-MailFrom: cezary.rojewski@intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
+ support
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
+ <CAA+D8AN9JXJr-BZf8aY7d4rB6M60pXS_DG=qv=P6=2r1A18ATA@mail.gmail.com>
+ <ffa85004-8d86-4168-b278-afd24d79f9d8@linux.intel.com>
+ <116041ee-7139-4b77-89be-3a68f699c01b@perex.cz>
+ <930bb152-860a-4ec5-9ef0-1c96f554f365@linux.intel.com>
+ <c9039808-cd04-452d-9f6c-f91811088456@perex.cz>
+ <ed1192e0-00e7-4739-a687-c96dc2d62898@linux.intel.com>
+ <CAA+D8AMOh=G7W5-dYw_=Xx-s0PqEu2suKYorscoWku86Rn-=+A@mail.gmail.com>
+ <542d47c5-7ce3-4c17-8c0a-3a2b2a9e6c6a@linux.intel.com>
+ <c3b8f7b8-fc5e-4285-bee8-7edd448a405d@perex.cz>
+ <CAA+D8ANg7C7vuxU44mAG8EnmcZjB_te5N_=4M4v_-Q9ZyPZ49g@mail.gmail.com>
+ <2be4303e-58e1-4ad7-92cf-f06fa6fa0f08@perex.cz>
+ <7dc039db-ecce-4650-8eb7-96d0cfde09a2@linux.intel.com>
+ <CAA+D8AMv=tHV3b-Rfo9Pjqs0bX5SVschD=WD06qxjJOk5zQmiQ@mail.gmail.com>
+ <3cdb2041-59d4-4d43-ac4d-39d7f9640cef@linux.intel.com>
+ <CAA+D8APSrH_pum6Cm0YxDzWMs4Roi=h1hkBjPMfXocXt7z4oVA@mail.gmail.com>
+ <55a82ba3-1c33-4d1b-9f5f-8af33d76222f@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Content-Language: en-US
+Autocrypt: addr=perex@perex.cz; keydata=
+ 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
+In-Reply-To: <55a82ba3-1c33-4d1b-9f5f-8af33d76222f@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5PGKVGDWI67FNYNMPGUPWRXEKY5QEB5Z
+X-Message-ID-Hash: 5PGKVGDWI67FNYNMPGUPWRXEKY5QEB5Z
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -207,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/26RIRBTT773R57ISHCZ7UNKSOUI7LBLG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5PGKVGDWI67FNYNMPGUPWRXEKY5QEB5Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -216,47 +159,178 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 2024-08-14 4:42 PM, Andy Shevchenko wrote:
-> On Wed, Aug 14, 2024 at 10:39:15AM +0200, Cezary Rojewski wrote:
->> A spiritual successor to haswell/baytrail removal series [1].
->>
->> The avs-driver found in sound/soc/intel/avs is a direct replacement to
->> the existing skylake-driver. It covers all features supported by it and
->> more and aligns with the recommended flows and requirements based on
->> Windows driver equivalent.
->>
->> The skylake-driver related UAPI has been removed with "ASoC: Drop
->> soc-topology ABI v4 support" [2].
->>
->> For the official kernel tree the deprecation begun with v6.0. Most
->> skylake-drivers users moved to avs- or SOF-driver when AudioDSP
->> capabilities are available on the platform or to snd-hda-intel
->> (sound/pci/hda) when such capabilities are not.
->>
->> For the supported trees the deprecation begun with v5.4 with v5.15 being
->> the first where the skylake-driver is disabled entirely.
->>
->> All machine board drivers that consume this DSP driver have their
->> replacements present within sound/soc/intel/avs/boards/ directory.
+On 14. 08. 24 13:58, Pierre-Louis Bossart wrote:
 > 
->> Changes in v2:
->> - added two new patches (leading the series)
->> - the first moves all device entries previously under the skylake-driver
->>    dependency under the avs-driver
->> - the second patch drops struct skl_machine_pdata usage to fix
->>    compilation errors as pointed out by IKP
->> - no further changes, retained Acked-by tags for these
 > 
-> Hmm... Have you received my tag for the v1?
+> On 8/14/24 13:12, Shengjiu Wang wrote:
+>> On Wed, Aug 14, 2024 at 5:40 PM Pierre-Louis Bossart
+>> <pierre-louis.bossart@linux.intel.com> wrote:
+>>>
+>>>
+>>>> Yes, to go further, I think we can use SND_AUDIOCODEC_PCM, then
+>>>> the SRC type will be dropped.
+>>>
+>>> sounds good.
+>>>
+>>>> But my understanding of the control means the .set_metadata() API, right?
+>>>> As I said, the output rate, output format, and ratio modifier are applied to
+>>>> the instances of ASRC,  which is the snd_compr_stream in driver.
+>>>> so only the .set_metadata() API can be used for these purposes.
+>>>
+>>> Humm, this is more controversial.
+>>>
+>>> The term 'metadata' really referred to known information present in
+>>> headers or additional ID3 tags and not in the compressed file itself.
+>>> The .set_metadata was assumed to be called ONCE before decoding.
+>>>
+>>> But here you have a need to update the ratio modifier on a regular basis
+>>> to compensate for the drift. This isn't what this specific callback was
+>>> designed for. We could change and allow this callback to be used
+>>> multiple times, but then this could create problems for existing
+>>> implementations which cannot deal with modified metadata on the fly.
+>>
+>> .set_metadata can be called multi times now, no need to change currently.
 > 
-> Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Not really, this set_metadata() callback is used only for gapless
+> transitions between tracks, see fcplay.c in tinycompress.
+> 
+> And now I am really confused because tinycompress uses an IOCTL directly:
+> 
+> 	metadata.key = SNDRV_COMPRESS_ENCODER_PADDING;
+> 	metadata.value[0] = mdata->encoder_padding;
+> 	if (ioctl(compress->fd, SNDRV_COMPRESS_SET_METADATA, &metadata))
+> 
+> Whereas you want to use the ops callback directly from the control layer?
+> 
+> What would present a userspace program from using the ioctl directly
+> then? In that case, why do we need the control? I must be missing something.
 
-Yeah, I've left the tags alone for patches 3-14 but for the newly added 
-two I did not as that would be inappropriate. The first two patches 
-address the problems reported by IKP bot - I've not been dealing with 
-sound/soc/intel/common/ for a while and have forgotten about its existence.
+The whole discussion is which place is more appropriate for the runtime 
+controls (like the frequency shift). My opinion is, if we have a layer for 
+this which can be used for presence of those controls and even range / type / 
+notifications, we should use it.
 
-Thank you for reviewing the series!
+The new/updated ioctls bounded only to active file descriptor does not allow 
+to monitor those values outside.
 
-Kind regards,
-Czarek
+>>> And then there's the problem of defining a 'key' for the metadata. the
+>>> definition of the key is a u32, so there's plenty of space for different
+>>> implementations, but a collision is possible. We'd need an agreement on
+>>> how to allocate keys to different solutions without changing the header
+>>> file for every implementation.
+>>
+>> Can we define a private space for each case?   For example the key larger
+>> than 0x80000000 is private, each driver can define it by themself?
+> 
+> that would be a possibility indeed - provided that the opens above are
+> straightened out.
+> 
+>>> It sounds like we'd need a 'runtime params' callback - unless there's a
+>>> better trick to tie the control and compress layers?
+
+I don't follow. If the compress driver code uses card/device/subdevice 
+numbers, we can address the control properly. The problem is just that 
+subdevice support in missing the current compress code / API.
+
+For me, the compress_params.h changes may also require to pay attention to the 
+encoding/decoding of the current compressed streams. So something like this 
+may be more appropriate for the first step:
+
+diff --git a/include/uapi/sound/compress_params.h 
+b/include/uapi/sound/compress_params.h
+index ddc77322d571..c664d15410eb 100644
+--- a/include/uapi/sound/compress_params.h
++++ b/include/uapi/sound/compress_params.h
+@@ -347,6 +347,8 @@ union snd_codec_options {
+   * @modes: Supported modes. See SND_AUDIOMODE defines
+   * @formats: Supported formats. See SND_AUDIOSTREAMFORMAT defines
+   * @min_buffer: Minimum buffer size handled by codec implementation
++ * @pcm_formats: Output (for decoders) or input (for encoders)
++ *               PCM formats (required to accel mode, 0 for other modes)
+   * @reserved: reserved for future use
+   *
+   * This structure provides a scalar value for profiles, modes and stream
+@@ -370,7 +372,8 @@ struct snd_codec_desc {
+         __u32 modes;
+         __u32 formats;
+         __u32 min_buffer;
+-       __u32 reserved[15];
++       __u32 pcm_formats;
++       __u32 reserved[14];
+  } __attribute__((packed, aligned(4)));
+
+  /** struct snd_codec
+@@ -395,6 +398,8 @@ struct snd_codec_desc {
+   * @align: Block alignment in bytes of an audio sample.
+   *             Only required for PCM or IEC formats.
+   * @options: encoder-specific settings
++ * @pcm_format: Output (for decoders) or input (for encoders)
++ *               PCM formats (required to accel mode, 0 for other modes)
+   * @reserved: reserved for future use
+   */
+
+@@ -411,7 +416,8 @@ struct snd_codec {
+         __u32 format;
+         __u32 align;
+         union snd_codec_options options;
+-       __u32 reserved[3];
++       __u32 pcm_format;
++       __u32 reserved[2];
+  } __attribute__((packed, aligned(4)));
+
+  #endif
+
+Then the SRC extension may be like:
+
+diff --git a/include/uapi/sound/compress_params.h 
+b/include/uapi/sound/compress_params.h
+index c664d15410eb..5d51ecba6d55 100644
+--- a/include/uapi/sound/compress_params.h
++++ b/include/uapi/sound/compress_params.h
+@@ -334,6 +334,14 @@ union snd_codec_options {
+  	struct snd_dec_wma wma_d;
+  	struct snd_dec_alac alac_d;
+  	struct snd_dec_ape ape_d;
++	struct {
++		__u32 out_sample_rate;
++	} src_d;
++} __attribute__((packed, aligned(4)));
++
++struct snd_codec_desc_src {
++	__u32 out_sample_rate_min;
++	__u32 out_sample_rate_max;
+  } __attribute__((packed, aligned(4)));
+
+  /** struct snd_codec_desc - description of codec capabilities
+@@ -349,6 +357,7 @@ union snd_codec_options {
+   * @min_buffer: Minimum buffer size handled by codec implementation
+   * @pcm_formats: Output (for decoders) or input (for encoders)
+   *               PCM formats (required to accel mode, 0 for other modes)
++ * @u_space: union space (for codec dependent date)
+   * @reserved: reserved for future use
+   *
+   * This structure provides a scalar value for profiles, modes and stream
+@@ -373,7 +382,11 @@ struct snd_codec_desc {
+  	__u32 formats;
+  	__u32 min_buffer;
+  	__u32 pcm_formats;
+-	__u32 reserved[14];
++	union {
++		__u32 u_space[6];
++		struct snd_codec_desc_src src;
++	} __attribute__((packed, aligned(4)));
++	__u32 reserved[8];
+  } __attribute__((packed, aligned(4)));
+
+  /** struct snd_codec
+
+This will allow to handshake the output rate between user space and kernel 
+driver. Eventually we can use a rate bitmap to be more precise in "struct 
+snd_codec_desc_src" (or combination of range/bitmap).
+
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+

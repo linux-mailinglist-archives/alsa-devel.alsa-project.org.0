@@ -2,143 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7603C951DAD
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 16:49:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5262952061
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 18:50:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDDD52318;
-	Wed, 14 Aug 2024 16:49:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDDD52318
+	by alsa0.perex.cz (Postfix) with ESMTPS id 736D9238B;
+	Wed, 14 Aug 2024 18:50:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 736D9238B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723646981;
-	bh=bgB+AGxkL7pa/5RfEGmbSBFKn4UxH4cStFGcwBOixEs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1723654213;
+	bh=meqvXO3+nmuZ5AIXtSVgg8WAYFetsdNizUtH8eryubs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lLGXonxBtZ7uDHnCXQeS0nMhLsBY2+HtYnOQM25kzs+0Sm//G2zNGhpQEJ7SSJoDs
-	 qel/lppmVqo9LqAQum+VagxQXmotqE1ZMfaRxjHOod9YvAV5mROk0YFRTI+OHAyWOi
-	 /2TqWUva7FVpJComp7hCaa4YoUG2oIMJnsErW12Y=
+	b=cYPrLStH5GlQfrFaTVjzzxhQsEkFuoTCYywf2nkZsb8LWujKthEuQdkc2AZ96JqFu
+	 JLeitSsDltU7H5qF46PYVeNwybqBXIObYIe9wKKrAQgZJYR2Rbg78k9w9khBlVPOWE
+	 4Ei6UPHWXehpaQyEBa2Ylyai82A+zznvk6cNzKxA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97E8CF805C5; Wed, 14 Aug 2024 16:49:00 +0200 (CEST)
+	id 48B4AF805AB; Wed, 14 Aug 2024 18:49:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90302F80107;
-	Wed, 14 Aug 2024 16:49:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3BD7F80423;
+	Wed, 14 Aug 2024 18:49:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A34C6F805BF; Wed, 14 Aug 2024 16:48:55 +0200 (CEST)
+	id B3305F80107; Wed, 14 Aug 2024 18:49:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B0416F80579
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 16:48:46 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 17094362A8;
-	Wed, 14 Aug 2024 16:48:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 17094362A8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1723646925; bh=uf2xW8WtF5oep5EfMnSWo30bmq7rA/yv7ksjq5ZNF78=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZqtZ6mknsdTb+GhlqSLU1pKMbzM12+PpwW0OnK88bXL0kBV8lLkCxyZVV1ptFHw+1
-	 0/MVjwkOrTVIOThvtkEjJIdRJ6u6E9vAg8TT8yWDP7y+Qdpzu5/BZiwUtgabcD9sc0
-	 746KEDhSb8cWb8XGOlSeUG9EZsRiMBla3zPQQbH4=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 14 Aug 2024 16:48:31 +0200 (CEST)
-Message-ID: <bf85656b-5b12-4101-adfa-1a8c6afb6084@perex.cz>
-Date: Wed, 14 Aug 2024 16:48:30 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id B5891F80107
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 18:49:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5891F80107
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=KYHIl4Bl
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0DD9D61A5C;
+	Wed, 14 Aug 2024 16:49:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCAEBC116B1;
+	Wed, 14 Aug 2024 16:49:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1723654172;
+	bh=meqvXO3+nmuZ5AIXtSVgg8WAYFetsdNizUtH8eryubs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KYHIl4Blh/i77OC9N5FoMY//D7bQrsyMvbhheGmNID6geQzGDJhyX7DUmhvA9V1HF
+	 tDY3heh+p+JbGaZ839bp7GA2+lM0r8oAKIv/iVnVZTDju+OaKOx8ZOPeJt9w1P6sjD
+	 d+RH8EEzxly1Soxm/s5yjeh3m6oFqDs+aehkqgQWtoY7OZYqc02KqBPyRIFtueDLR3
+	 WQtGxzHr/TKvETyuutYRO9UTjVQElN3zSyuBfpvSgTu3h62KeZkp72bW1sO62TKXvR
+	 sGQMKkXvavl3cJUSW6xrvs57Mqchsgn6V/Rf6x6O4IVQQik3GBN7DzDCIjx9w+krD9
+	 y3E+zKNE1I85g==
+Date: Wed, 14 Aug 2024 17:49:23 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+	zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
+	linux-kernel@vger.kernel.org, j-chadha@ti.com,
+	liam.r.girdwood@intel.com, jaden-yue@ti.com,
+	yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
+	henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, soyer@irl.hu,
+	Baojun.Xu@fpt.com, judyhsiao@google.com, navada@ti.com,
+	cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
+	savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com,
+	jesse-ji@ti.com, darren.ye@mediatek.com, antheas.dk@gmail.com,
+	Jerry2.Huang@lcfuturecenter.com
+Subject: Re: [PATCH v1] ASoc: tas2781: Add Calibration Kcontrols for
+ Chromebook
+Message-ID: <97275835-fff5-49ac-bd15-c6b6c6e89fe0@sirena.org.uk>
+References: <20240726084757.369-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
- support
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- linuxppc-dev@lists.ozlabs.org
-References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
- <CAA+D8AN9JXJr-BZf8aY7d4rB6M60pXS_DG=qv=P6=2r1A18ATA@mail.gmail.com>
- <ffa85004-8d86-4168-b278-afd24d79f9d8@linux.intel.com>
- <116041ee-7139-4b77-89be-3a68f699c01b@perex.cz>
- <930bb152-860a-4ec5-9ef0-1c96f554f365@linux.intel.com>
- <c9039808-cd04-452d-9f6c-f91811088456@perex.cz>
- <ed1192e0-00e7-4739-a687-c96dc2d62898@linux.intel.com>
- <CAA+D8AMOh=G7W5-dYw_=Xx-s0PqEu2suKYorscoWku86Rn-=+A@mail.gmail.com>
- <542d47c5-7ce3-4c17-8c0a-3a2b2a9e6c6a@linux.intel.com>
- <c3b8f7b8-fc5e-4285-bee8-7edd448a405d@perex.cz>
- <CAA+D8ANg7C7vuxU44mAG8EnmcZjB_te5N_=4M4v_-Q9ZyPZ49g@mail.gmail.com>
- <2be4303e-58e1-4ad7-92cf-f06fa6fa0f08@perex.cz>
- <7dc039db-ecce-4650-8eb7-96d0cfde09a2@linux.intel.com>
- <CAA+D8AMv=tHV3b-Rfo9Pjqs0bX5SVschD=WD06qxjJOk5zQmiQ@mail.gmail.com>
- <3cdb2041-59d4-4d43-ac4d-39d7f9640cef@linux.intel.com>
- <CAA+D8APSrH_pum6Cm0YxDzWMs4Roi=h1hkBjPMfXocXt7z4oVA@mail.gmail.com>
- <55a82ba3-1c33-4d1b-9f5f-8af33d76222f@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Content-Language: en-US
-Autocrypt: addr=perex@perex.cz; keydata=
- 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
-In-Reply-To: <55a82ba3-1c33-4d1b-9f5f-8af33d76222f@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5PGKVGDWI67FNYNMPGUPWRXEKY5QEB5Z
-X-Message-ID-Hash: 5PGKVGDWI67FNYNMPGUPWRXEKY5QEB5Z
-X-MailFrom: perex@perex.cz
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QnAnomE4bcSDKfDc"
+Content-Disposition: inline
+In-Reply-To: <20240726084757.369-1-shenghao-ding@ti.com>
+X-Cookie: The second best policy is dishonesty.
+Message-ID-Hash: PPRNJV6CHUSYV7BMKSWANCJW6JCVTSZG
+X-Message-ID-Hash: PPRNJV6CHUSYV7BMKSWANCJW6JCVTSZG
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -150,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5PGKVGDWI67FNYNMPGUPWRXEKY5QEB5Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PPRNJV6CHUSYV7BMKSWANCJW6JCVTSZG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,178 +108,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 14. 08. 24 13:58, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 8/14/24 13:12, Shengjiu Wang wrote:
->> On Wed, Aug 14, 2024 at 5:40 PM Pierre-Louis Bossart
->> <pierre-louis.bossart@linux.intel.com> wrote:
->>>
->>>
->>>> Yes, to go further, I think we can use SND_AUDIOCODEC_PCM, then
->>>> the SRC type will be dropped.
->>>
->>> sounds good.
->>>
->>>> But my understanding of the control means the .set_metadata() API, right?
->>>> As I said, the output rate, output format, and ratio modifier are applied to
->>>> the instances of ASRC,  which is the snd_compr_stream in driver.
->>>> so only the .set_metadata() API can be used for these purposes.
->>>
->>> Humm, this is more controversial.
->>>
->>> The term 'metadata' really referred to known information present in
->>> headers or additional ID3 tags and not in the compressed file itself.
->>> The .set_metadata was assumed to be called ONCE before decoding.
->>>
->>> But here you have a need to update the ratio modifier on a regular basis
->>> to compensate for the drift. This isn't what this specific callback was
->>> designed for. We could change and allow this callback to be used
->>> multiple times, but then this could create problems for existing
->>> implementations which cannot deal with modified metadata on the fly.
->>
->> .set_metadata can be called multi times now, no need to change currently.
-> 
-> Not really, this set_metadata() callback is used only for gapless
-> transitions between tracks, see fcplay.c in tinycompress.
-> 
-> And now I am really confused because tinycompress uses an IOCTL directly:
-> 
-> 	metadata.key = SNDRV_COMPRESS_ENCODER_PADDING;
-> 	metadata.value[0] = mdata->encoder_padding;
-> 	if (ioctl(compress->fd, SNDRV_COMPRESS_SET_METADATA, &metadata))
-> 
-> Whereas you want to use the ops callback directly from the control layer?
-> 
-> What would present a userspace program from using the ioctl directly
-> then? In that case, why do we need the control? I must be missing something.
 
-The whole discussion is which place is more appropriate for the runtime 
-controls (like the frequency shift). My opinion is, if we have a layer for 
-this which can be used for presence of those controls and even range / type / 
-notifications, we should use it.
+--QnAnomE4bcSDKfDc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The new/updated ioctls bounded only to active file descriptor does not allow 
-to monitor those values outside.
+On Fri, Jul 26, 2024 at 04:47:55PM +0800, Shenghao Ding wrote:
+> Add calibration related kcontrol for speaker impedance calibration and
+> speaker leakage check for Chromebook
 
->>> And then there's the problem of defining a 'key' for the metadata. the
->>> definition of the key is a u32, so there's plenty of space for different
->>> implementations, but a collision is possible. We'd need an agreement on
->>> how to allocate keys to different solutions without changing the header
->>> file for every implementation.
->>
->> Can we define a private space for each case?   For example the key larger
->> than 0x80000000 is private, each driver can define it by themself?
-> 
-> that would be a possibility indeed - provided that the opens above are
-> straightened out.
-> 
->>> It sounds like we'd need a 'runtime params' callback - unless there's a
->>> better trick to tie the control and compress layers?
+This is pretty hard to understand, it feels like there's a bunch of
+cleanup work in here along with the actual control addition and there's
+nothing really saying anything concrete about the actual controls to
+check that the controls do the right thing.  It's hard to do anything
+but the most superficial review here since I don't really understand
+what the changes are trying to accomplish.
 
-I don't follow. If the compress driver code uses card/device/subdevice 
-numbers, we can address the control properly. The problem is just that 
-subdevice support in missing the current compress code / API.
+> -/* pow(10, db/20) * pow(2,30) */
+> -static const unsigned char tas2563_dvc_table[][4] =3D {
+> -	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
 
-For me, the compress_params.h changes may also require to pay attention to the 
-encoding/decoding of the current compressed streams. So something like this 
-may be more appropriate for the first step:
+For example moving this to the header could be done separately (though
+perhaps it should just be exported rather than placed in the header)?
 
-diff --git a/include/uapi/sound/compress_params.h 
-b/include/uapi/sound/compress_params.h
-index ddc77322d571..c664d15410eb 100644
---- a/include/uapi/sound/compress_params.h
-+++ b/include/uapi/sound/compress_params.h
-@@ -347,6 +347,8 @@ union snd_codec_options {
-   * @modes: Supported modes. See SND_AUDIOMODE defines
-   * @formats: Supported formats. See SND_AUDIOSTREAMFORMAT defines
-   * @min_buffer: Minimum buffer size handled by codec implementation
-+ * @pcm_formats: Output (for decoders) or input (for encoders)
-+ *               PCM formats (required to accel mode, 0 for other modes)
-   * @reserved: reserved for future use
-   *
-   * This structure provides a scalar value for profiles, modes and stream
-@@ -370,7 +372,8 @@ struct snd_codec_desc {
-         __u32 modes;
-         __u32 formats;
-         __u32 min_buffer;
--       __u32 reserved[15];
-+       __u32 pcm_formats;
-+       __u32 reserved[14];
-  } __attribute__((packed, aligned(4)));
+> @@ -64,8 +64,8 @@ static int tasdevice_change_chn_book(struct tasdevice_p=
+riv *tas_priv,
+>  			 */
+>  			ret =3D regmap_write(map, TASDEVICE_PAGE_SELECT, 0);
+>  			if (ret < 0) {
+> -				dev_err(tas_priv->dev, "%s, E=3D%d\n",
+> -					__func__, ret);
+> +				dev_err(tas_priv->dev, "%s, E=3D%d channel:%d\n",
+> +					__func__, ret, chn);
+>  				goto out;
+>  			}
+>  		}
 
-  /** struct snd_codec
-@@ -395,6 +398,8 @@ struct snd_codec_desc {
-   * @align: Block alignment in bytes of an audio sample.
-   *             Only required for PCM or IEC formats.
-   * @options: encoder-specific settings
-+ * @pcm_format: Output (for decoders) or input (for encoders)
-+ *               PCM formats (required to accel mode, 0 for other modes)
-   * @reserved: reserved for future use
-   */
+This is another example of a random cleanup.
 
-@@ -411,7 +416,8 @@ struct snd_codec {
-         __u32 format;
-         __u32 align;
-         union snd_codec_options options;
--       __u32 reserved[3];
-+       __u32 pcm_format;
-+       __u32 reserved[2];
-  } __attribute__((packed, aligned(4)));
+>  static void tasdev_load_calibrated_data(struct tasdevice_priv *priv, int=
+ i)
+>  {
+> +	struct tasdevice_fw *cal_fmw =3D priv->tasdevice[i].cali_data_fmw;
+> +	struct calidata *cali_data =3D &priv->cali_data;
+> +	unsigned char *data =3D &cali_data->data[1];
+>  	struct tasdevice_calibration *cal;
+> -	struct tasdevice_fw *cal_fmw;
+> +	int k =3D i * (cali_data->cali_dat_sz + 1);
+> +	int j, rc;
+> =20
+> -	cal_fmw =3D priv->tasdevice[i].cali_data_fmw;
+> +	/* Load the calibrated data from cal bin file */
+> +	if (!priv->is_user_space_calidata && cal_fmw) {
+> +		cal =3D cal_fmw->calibrations;
+> =20
+> -	/* No calibrated data for current devices, playback will go ahead. */
+> -	if (!cal_fmw)
+> +		if (cal)
+> +			load_calib_data(priv, &cal->dev_data);
+>  		return;
 
-  #endif
+It feels like there's an abstraction problem with the different ways to
+get calibration data.  Perhaps each way of loading calibration data
+should parse the data into a standard format on load and then the rest
+of the code doesn't need to worry about where it came from?
 
-Then the SRC extension may be like:
+> @@ -67,8 +215,13 @@ static int tas2781_digital_getvol(struct snd_kcontrol=
+ *kcontrol,
+>  	struct tasdevice_priv *tas_priv =3D snd_soc_component_get_drvdata(codec=
+);
+>  	struct soc_mixer_control *mc =3D
+>  		(struct soc_mixer_control *)kcontrol->private_value;
+> +	int rc;
+> +
+> +	mutex_lock(&tas_priv->codec_lock);
+> +	rc =3D tasdevice_digital_getvol(tas_priv, ucontrol, mc);
+> +	mutex_unlock(&tas_priv->codec_lock);
+> =20
+> -	return tasdevice_digital_getvol(tas_priv, ucontrol, mc);
+> +	return rc;
+>  }
+> =20
 
-diff --git a/include/uapi/sound/compress_params.h 
-b/include/uapi/sound/compress_params.h
-index c664d15410eb..5d51ecba6d55 100644
---- a/include/uapi/sound/compress_params.h
-+++ b/include/uapi/sound/compress_params.h
-@@ -334,6 +334,14 @@ union snd_codec_options {
-  	struct snd_dec_wma wma_d;
-  	struct snd_dec_alac alac_d;
-  	struct snd_dec_ape ape_d;
-+	struct {
-+		__u32 out_sample_rate;
-+	} src_d;
-+} __attribute__((packed, aligned(4)));
-+
-+struct snd_codec_desc_src {
-+	__u32 out_sample_rate_min;
-+	__u32 out_sample_rate_max;
-  } __attribute__((packed, aligned(4)));
+Why all these locking changes?  Could they be split out into a
+praparatory change?
 
-  /** struct snd_codec_desc - description of codec capabilities
-@@ -349,6 +357,7 @@ union snd_codec_options {
-   * @min_buffer: Minimum buffer size handled by codec implementation
-   * @pcm_formats: Output (for decoders) or input (for encoders)
-   *               PCM formats (required to accel mode, 0 for other modes)
-+ * @u_space: union space (for codec dependent date)
-   * @reserved: reserved for future use
-   *
-   * This structure provides a scalar value for profiles, modes and stream
-@@ -373,7 +382,11 @@ struct snd_codec_desc {
-  	__u32 formats;
-  	__u32 min_buffer;
-  	__u32 pcm_formats;
--	__u32 reserved[14];
-+	union {
-+		__u32 u_space[6];
-+		struct snd_codec_desc_src src;
-+	} __attribute__((packed, aligned(4)));
-+	__u32 reserved[8];
-  } __attribute__((packed, aligned(4)));
+> +static int tasdevice_get_chip_id(struct snd_kcontrol *kcontrol,
+> +			struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *codec =3D snd_soc_kcontrol_component(kcontrol=
+);
+> +	struct tasdevice_priv *tas_priv =3D snd_soc_component_get_drvdata(codec=
+);
+> +
+> +	ucontrol->value.integer.value[0] =3D tas_priv->chip_id;
+> +
+> +	return 0;
+> +}
 
-  /** struct snd_codec
+Should these chip ID controls be done separately?  They don't seem super
+related.
 
-This will allow to handshake the output rate between user space and kernel 
-driver. Eventually we can use a rate bitmap to be more precise in "struct 
-snd_codec_desc_src" (or combination of range/bitmap).
+--QnAnomE4bcSDKfDc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-						Jaroslav
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma84BIACgkQJNaLcl1U
+h9D5yQf/S2RGcP8shc2wriIE+yF1lZjsRkb33r0Lhu8jdZM2AkDS7vB7WgX5Yq/S
+VLHewFCklL8gQF2tyLEBNsjt+nSzE0JBN65sGlLYnebPBb/stXw5Ld2H7j74+mLi
+muB6v7LvP77hImPyOFDusq0T3swIU3MNqGpzWFaK428KnD7JOL7uZYuzt7GnKwOj
+dJfX7xxOFpV66cwB8SBhY91y6ybBDC/qwC1N+kkSWAwWP6Z62c8bbVeI3rWx8dMq
+e7Kq0m6cC2Xp9Xbm5MAvZPxzmrxMWtf6p/ALvDfjM2tEKTADXKYLX6foZK1lSZ62
+wl3RVYwBq8rx0rLVJpF6ttXYc3Swhg==
+=pFim
+-----END PGP SIGNATURE-----
 
+--QnAnomE4bcSDKfDc--

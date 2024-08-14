@@ -2,116 +2,200 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2DED951D9F
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 16:47:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 009DE951DAA
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 16:49:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75DEF27A9;
-	Wed, 14 Aug 2024 16:47:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75DEF27A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC7F0299A;
+	Wed, 14 Aug 2024 16:49:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC7F0299A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723646845;
-	bh=MrMdfHFc7DN4P8cobS1SgsWZXFCwinhPD2p8GEm5rxA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1723646959;
+	bh=Ue6gvmOB1R9tUO509u/APPzZ9jdKXrV8QeyGXx7eTQA=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PaLRyrxKCiDkWzPyLT7by6W+aD2gFfb1tExWlFvFiyhn8ncTsSEqlTnXWOufOT5XY
-	 xurJCHp0j5ECkiGDk8/9/X5K1Lx8Nowa0cuyDq6iJ4wB/tqbRYCML/SFMoB5nugAWs
-	 qIjVojehCs62LmKk3R94r+MEM7DA3wmN8q7KK4Ng=
+	b=t+vVqeS3z9EpYIBOAKU8PlQ6lY/Weh70FK1rOK0n4d+ulIGTIAvn5TcKMQREoEECB
+	 LYmvtUvrHO9XWW4+zAdwXzyzQE8CBLe2ZlmqIRS/rJVj2pAle1AOPQMWot4EICTBhs
+	 TJOMI/DYYfU0T45zy/0cF0hYMefB3rWM+sQDopwk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E0D2F805AA; Wed, 14 Aug 2024 16:46:53 +0200 (CEST)
+	id EF8F0F80589; Wed, 14 Aug 2024 16:48:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 948F1F80580;
-	Wed, 14 Aug 2024 16:46:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AD3BF805AF;
+	Wed, 14 Aug 2024 16:48:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4415FF80423; Wed, 14 Aug 2024 16:46:49 +0200 (CEST)
+	id 93F81F8047C; Wed, 14 Aug 2024 16:48:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F471F80107
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 16:46:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F471F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id AF04CF8016E
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 16:48:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF04CF8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=a/65HTTM
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 620DA240005;
-	Wed, 14 Aug 2024 14:46:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1723646805;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xDfSsuNrPtx6YX5pobWJTyhNVK0h9n02y4gpLyd5QZ0=;
-	b=a/65HTTM/Z2uuPVwZKhtoPVKYKAssPIOGi1yJ87QWyxc0Yy9B/HO9r53TlM7SKb4aDZ+/Q
-	W6rJ9e2mF+xR+Jl744Ovws0z1I5cdIq31Vv1pwpD9wLK7HEBFJIpuIWK6Vaq7l0IYBIqV7
-	4b3HVhC09ke19XLLWgBT/5VwLBJ8J7Oset9eu1j5nL89W/N3sK6iHbvqDSK38O0Ezl39Bi
-	OFCgH/+vOzdJFjrKLhZCp7ZfV0xiV4MPwJkRjCHxESDQtvz8wbMP5qBNdtgqN719/o5xpQ
-	eg3SAKUv5Kfqp+R+i9NkVYRsaGc0wZCqzTMUSS2knl3fnKuXGO3BFN+Hl++fEQ==
-Date: Wed, 14 Aug 2024 16:46:42 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, "broonie@kernel.org"
- <broonie@kernel.org>, "pratyush@kernel.org" <pratyush@kernel.org>,
- "richard@nod.at" <richard@nod.at>, "vigneshr@ti.com" <vigneshr@ti.com>,
- "sbinding@opensource.cirrus.com" <sbinding@opensource.cirrus.com>,
- "lee@kernel.org" <lee@kernel.org>, "james.schulman@cirrus.com"
- <james.schulman@cirrus.com>, "david.rhodes@cirrus.com"
- <david.rhodes@cirrus.com>, "rf@opensource.cirrus.com"
- <rf@opensource.cirrus.com>, "perex@perex.cz" <perex@perex.cz>,
- "tiwai@suse.com" <tiwai@suse.com>, "linux-spi@vger.kernel.org"
- <linux-spi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "michael@walle.cc" <michael@walle.cc>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
- "claudiu.beznea@tuxon.dev" <claudiu.beznea@tuxon.dev>, "Simek, Michal"
- <michal.simek@amd.com>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "patches@opensource.cirrus.com"
- <patches@opensource.cirrus.com>, "linux-sound@vger.kernel.org"
- <linux-sound@vger.kernel.org>, "git (AMD-Xilinx)" <git@amd.com>,
- "amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>, Conor Dooley
- <conor.dooley@microchip.com>, "beanhuo@micron.com" <beanhuo@micron.com>
-Subject: Re: [PATCH v11 07/10] mtd: spi-nor: Add stacked memories support in
- spi-nor
-Message-ID: <20240814164642.24705f18@xps-13>
-In-Reply-To: 
- <IA0PR12MB7699670B7EE37C60C672FC5EDC872@IA0PR12MB7699.namprd12.prod.outlook.com>
-References: <20231125092137.2948-1-amit.kumar-mahapatra@amd.com>
-	<b3d3c457-a43b-478a-85b3-52558227d139@linaro.org>
-	<BN7PR12MB28027E62D66460A374E3CFEADC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
-	<e212f9fa-83c5-4b9e-8636-c8c6183096ab@linaro.org>
-	<BN7PR12MB280237CDD7BB148479932874DC93A@BN7PR12MB2802.namprd12.prod.outlook.com>
-	<576d56ed-d24b-40f9-9ae4-a02c50eea2ab@linaro.org>
-	<BN7PR12MB2802F288C6A6B1580CF07959DC95A@BN7PR12MB2802.namprd12.prod.outlook.com>
-	<c6f209c8-47da-4881-921d-683464b9ddd5@linaro.org>
-	<9cdb7f8b-e64f-46f6-94cb-194a25a42ccd@linaro.org>
-	<BN7PR12MB28028B63E69134094D50F3E4DC2A2@BN7PR12MB2802.namprd12.prod.outlook.com>
-	<IA0PR12MB769944254171C39FF4171B52DCB42@IA0PR12MB7699.namprd12.prod.outlook.com>
-	<20240812103812.72763f69@xps-13>
-	<IA0PR12MB769997D5958C191215254983DC872@IA0PR12MB7699.namprd12.prod.outlook.com>
-	<20240814104623.72eef495@xps-13>
-	<IA0PR12MB7699670B7EE37C60C672FC5EDC872@IA0PR12MB7699.namprd12.prod.outlook.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=GFXxZ6DL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1723646921; x=1755182921;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=Ue6gvmOB1R9tUO509u/APPzZ9jdKXrV8QeyGXx7eTQA=;
+  b=GFXxZ6DLflp/4U7BAQG/mZjCdLrXyuw0l/ntqQdVIhcJWD/BlOz3sIid
+   bzU+2qITcELtKYfpLFQGNj7F/SkdDlA17p1wjuw0zl2A73Uc9AXEQH79t
+   Q9lg4jDeQyM2Vfoi8nlFkdUAQ5AliTbN70fKiUdZcjflgTJcXxbSu2y9s
+   hCy/B+WknxRv8R0X1j9NHQbwKZ5/TjYxu/SRwUDg+5OXtK17CF2APsoFQ
+   fqMAaXd6cF0JcSjpfkNZoonckcAGsPXTEmRaN6kRO4fATvKqHXVQbP1bB
+   qPSXSqr4SbXrW/rCu8vdDGNJZLepvKc559BwVRMF+1xX+O5ldcpawyM/k
+   Q==;
+X-CSE-ConnectionGUID: vWniG8snT1WkzswwbbBAVQ==
+X-CSE-MsgGUID: LwghIEvQQdu7kh1i2hNcbQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="25733790"
+X-IronPort-AV: E=Sophos;i="6.10,146,1719903600";
+   d="scan'208";a="25733790"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2024 07:48:35 -0700
+X-CSE-ConnectionGUID: L8ZvAyH7RluJWTVh9O1UEQ==
+X-CSE-MsgGUID: 675R5GT3TL6kHt68/aYbxw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,146,1719903600";
+   d="scan'208";a="89741759"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+  by orviesa002.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 14 Aug 2024 07:48:34 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 14 Aug 2024 07:48:33 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 14 Aug 2024 07:48:32 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Wed, 14 Aug 2024 07:48:32 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.175)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 14 Aug 2024 07:48:32 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s5Qbd3MoJ7fdH5/2/PjOdOEFDXU+wjKJ4TOnkeYq+o+pCzKCKlnRJ9q5DzIgtcH4qXcKVGTVNrQPeAPRKInrZa4+REQqzBRxwy+Rf3GHa8lZgidRx73tx/nI1sVwRgXFwy8yh7fPQCJHih97rwUVf5ddsun652qeNXl5z/eSHW6PmLmyVFIYqIUX/zD3rvwNNyT3zagnD7VtarGkvFppkEVP4TTn00z03AMUj5TMwr41HGy+Pug++7LUurwRX4jmNWrUA6jiEX3fqkqWyCEO+FgVXOOnnrSkpd4JFS+lfTLv/OKiHoxd4EV8aDNL8sAsAyCiYMOS0mz4DD4VB9Itmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1+F9Fn7KGVVOVf6yiGx94ms9pbAtsETbTpi6H0QPRJI=;
+ b=fgI5OvtoNpX1pHtGPOWLzyhWrAXHb+bIQzgtMpxJ/9LvmuD0GMSAOHJo6SxIIiP9kHLieKKa3CrDK1zzV2PV7VZ3MyMkJstmxcJbPpJd5BCwYk9uTjy4/U4bVWqVRBXr+vY6ECQk142e8QaSBAgc7+6gRb9nM/48Zk5RjTSHsIHkUbMvPsOruOVnxIKOCKqykfqGwU4hA4kGrYr49uyNWKznBxc2wqri4cYspTogIt3s5je6kcitJanIFzQCmG6JR2o8ZsdV3xAfpLwBw/sBqv7Vx/C9C52HisejPaOmeraIumotyKURAVcg12G7EUMa+S8ckWutTbZ8W5uUmQ09cg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
+ CH3PR11MB7371.namprd11.prod.outlook.com (2603:10b6:610:151::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7828.33; Wed, 14 Aug
+ 2024 14:48:29 +0000
+Received: from DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::cd01:59f6:b0f8:c832]) by DS0PR11MB6375.namprd11.prod.outlook.com
+ ([fe80::cd01:59f6:b0f8:c832%7]) with mapi id 15.20.7828.031; Wed, 14 Aug 2024
+ 14:48:29 +0000
+Message-ID: <060a90cb-e044-49f7-a7da-364d6e0ff2e2@intel.com>
+Date: Wed, 14 Aug 2024 16:48:21 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/14] ASoC: Intel: Remove skylake driver
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>, <tiwai@suse.com>, <perex@perex.cz>,
+	<amadeuszx.slawinski@linux.intel.com>,
+	<pierre-louis.bossart@linux.intel.com>, <hdegoede@redhat.com>,
+	<cujomalainey@chromium.org>, <lmajczak@google.com>
+References: <20240814083929.1217319-1-cezary.rojewski@intel.com>
+ <ZrzCPfagF7ezdzMq@smile.fi.intel.com>
+Content-Language: en-US
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <ZrzCPfagF7ezdzMq@smile.fi.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA2P291CA0037.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::17) To DS0PR11MB6375.namprd11.prod.outlook.com
+ (2603:10b6:8:c9::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-GND-Sasl: miquel.raynal@bootlin.com
-Message-ID-Hash: EBX7J3WQNJ4364T35QW7E52IW2IRJM7H
-X-Message-ID-Hash: EBX7J3WQNJ4364T35QW7E52IW2IRJM7H
-X-MailFrom: miquel.raynal@bootlin.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|CH3PR11MB7371:EE_
+X-MS-Office365-Filtering-Correlation-Id: 969d5215-4dda-45d0-3ca5-08dcbc702942
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|7416014|366016;
+X-Microsoft-Antispam-Message-Info: 
+ 3Rb8DkdczRTLOXejvMKXUYrjyCKkz83IILopWARr38RhulJJy+EkL4DXTJHaDXHw4HoC8svWY1NKchB5LtCK35KAudhUVwTUCmjFpi7CEcyG+Rl8uhSZGH/JYJm/J5VvroCrOjaBO8aHGGvqvil8Sm9eG6ABdQbH50+2nXc4nOeM+VvbrQqOcvT0BMcr4t9/vTf+VXMdB56zqPHdxW2TgbeH5Hm2X2jhun1HOtA0erkMB3Q36M3tzd/FulhnRDXMHFhI5BEUmbJn8JKxJNteANJR/veTnmsgCF0ecAwDgdTx+l7Iw9115bC8VFXwgFQhYQEJ0tDI2b4zFdYzuX0cfggLZqQTpgbXOy+bgZwfRuDDWfnjdnCguXo8v0YhFeumvmIax+wgnsJXvs3N1G6+XYZq9gGUNBruoRF8844tSyT0Ti1V2EIO1obdY9EZJUTYZqUSduhOv9lD94IeE0eMSa98XscHxP1FiP5Rx4MJBZB1Tj4Z1Riz6+OIC58Es17MEu9Ldym7FDYBh6N1z/JvyNpEgXVf+POI+hMBpO4O5yb+z2ba5MdfF/m7msqtrjLfZCsV8NRwjb87+t0KYpDqORBEH+1ZlaypYgee5W/edwOSy2gIXkNoBcX36PB6BUojdsS8TnhJyNtt4eD6d+E3hnXE5oX00DXQCiet7auQxP0=
+X-Forefront-Antispam-Report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6375.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+ =?utf-8?B?emxJcU82WDZrcjhwT1ZKN3hoQlkwVHA0YlpJdmNzNUV1Q3RuWTFtVjU3dXpV?=
+ =?utf-8?B?RVJkbjFONU5pV3NNYzZJTEE3b3I3ODQ5cy9ycHk3bjBOaVFvUTAzNnJ1V2Yw?=
+ =?utf-8?B?dUcwM3REVWhjYXdVQjVwRGVWL0hEa0NOaGdjZzFmYVQ0WWFiZy96MWdBUzhv?=
+ =?utf-8?B?RGluUUdBY2FoWmZLMTgvQThIdk1YUTlNTzdQR3hNVSszQm5HdUJiQzJpOW9J?=
+ =?utf-8?B?NWdUdktnVWpONGRNeSt1ZFFYRTFaSyszNUlIOUZPcGNzTUplcjdXRHJJQUNC?=
+ =?utf-8?B?clR0UUttbG5YS0tqWVY1ZFpQdHNUY2NsQUZlT2ZPczhEOE03ZWovajR3eWhH?=
+ =?utf-8?B?Y2JlV0Rxd0d4enBlVGhtTTdySzQvb1lhWkx0WnkweWxpVjl0MTg5RTNYQkVy?=
+ =?utf-8?B?TlBRK3ZVZjgvNEtLN2Q2VGk5Z3BoLzlxRHNpY01yNEI3NTNoSG14QlBLakxK?=
+ =?utf-8?B?Wm9UMVp3SVE3NTl4RHAxQjdtZWR3Nlc4eUNhcmFyaTdDS2h6L3lBYXNpMHFP?=
+ =?utf-8?B?ZGZqcEU2VlYrZmZsVFNVSWlDREY2WVVZSEFQSW1PRDNaZDR3TzNmekN2VkRq?=
+ =?utf-8?B?b0lXcnd5VFhaRndSbUU1djlKcEdxUnU5UFlFd2NDcHd2eUU0NUt1Y3U1UGNq?=
+ =?utf-8?B?Y2FBbkJ2bkplZDRUaDhwOUluT21VRFM2djdBYmZYdk5POW0wUElCTVQ0UzVK?=
+ =?utf-8?B?NmpBTHZDbkFhZTFoZDVyWFRDSUJKajBoOFV3ZjVxUFF5ODMrVm1YU0pMNmRK?=
+ =?utf-8?B?c2svWlFYdnZodHhwZlV5L0dTSEgrZmk3YmtHeHp3ZG90c3l0UEZxRTRFb3FH?=
+ =?utf-8?B?QnhuNndXajBRMWltQVRObHBrVkVzcjdxYnEyZHkxOTNzVHN5cHZwSWhqNVhH?=
+ =?utf-8?B?cldDNWQ0RmRYSXhsL3JNWUFBQkt2a0cwcm8wdlZNNHkyQlVVbTZBUWc2aTBo?=
+ =?utf-8?B?OUNFbzB2aGI2NlRTMTJRSU8zS2l3OVhKcnF1a2llQkVBRkZ1N01WTlZhWXp4?=
+ =?utf-8?B?akJTQ1FML3VpM0VTN2wvaFdjR256djh4SWxrcUhwMEFhTXhoNG5VZ2Yweldh?=
+ =?utf-8?B?SjVhN3ZDUUdoWkptMDhmVERuS3NBaWV1Q243bEpGRWFHUEdwdnZSZ3VhbWxn?=
+ =?utf-8?B?VHIxZC8ycXB3Rk9QQ0NOcndlZlg0WHF2UVIrYk9TU3U4aklQWW9xdUsvUUxs?=
+ =?utf-8?B?RS9xWk9KYXAvQXBieFdvMGhPRkFxTEt2SGRIcWIxL0V1MmlKelJHRlVsMTZ5?=
+ =?utf-8?B?STJsQmUxSEcrMHVEd3QyL2lUOHYybFlSZHdBWG82L0t2V1ZNcWVCUHdDL3lY?=
+ =?utf-8?B?bGpPSWFleHJVdldXMmVmelFkaGI4a0FKN2lUejA2N3RVTVFjdlNYTUh1R1Jo?=
+ =?utf-8?B?VVg2eXVmUU5jYnhraUhnZG1oc3Mvd3Fob2Q2T2ZzRE5QNWVlaDQ5Qks2WVFV?=
+ =?utf-8?B?aW9LeGlsK1hobyt1dDJyejA2bmFwMHFmaGhVSElhMEdDYUlDM1hzNXEzRS9E?=
+ =?utf-8?B?Y2laYmVRd0N2b05yN3g2bVpwQmthL0JOdnRxMDB1STVYeVpkQjlhemJ5Y0hk?=
+ =?utf-8?B?Y2lsSkJkK25aemRYMzkxbWZTN21MbTZLcjJWdHpTblhhTVU5L0xRQkpsd0Jo?=
+ =?utf-8?B?Yk5lYUpmOURuUjFLbkdQaHF2ZXFlMERKbnVWVTNZOERIajNkakI2QW83YXFk?=
+ =?utf-8?B?NEI5d0pLV3lpcFNtVjdtbnJJdE5rOW9hRmRvUGxzQVorTDR0VzF5WW9QWkoy?=
+ =?utf-8?B?ZGZaVzcwbTZpZHhUcDFPN1YvMllZT2J4QkRLbzBYMmVVNDF5RldOZjczY1Iz?=
+ =?utf-8?B?TU5aZzljaHlBT3JMOXoxejArSGtjbTZqRlVsMXRCVys5NnBNSExEVUh6V2ZV?=
+ =?utf-8?B?WXdpQTlwckxxUHJhWnNOME14N053cGFpN051aVlYV3ZOWHluaEplOXRDY0tw?=
+ =?utf-8?B?d2xmVWtMQXMxZmRqN1B1SUFZeFBhSnE3Zzl6eVpsRnVZQlBwUzV5c3N3ZEc0?=
+ =?utf-8?B?NU5CaXg3Q3FtL0RTaXI1MU5NOUgyNGJpaHBtaVBsSCs5WWtQY256VWhzU0Nr?=
+ =?utf-8?B?dkNOcy9DWnAwU0hrQXQzaTV3RkV0dVgwRVNkVWZKRERjU1o2YWpBYWdHWGFy?=
+ =?utf-8?B?amRjM2lmUnpJQ3JNYTdDR2o0Y1ZGUk9zeENBcjVBNHUxVVkxWTU4ODYxcWFt?=
+ =?utf-8?B?d1E9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 969d5215-4dda-45d0-3ca5-08dcbc702942
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2024 14:48:29.6910
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ Ojz527AQ+q03mq80YYxH1BGej+SrXYjYCcVDJ8/I1xecluQAu7EmRECzIiIAczpmEzqcYg64QE1yY7CD9Fr3rJNGw+6iA9gTELB4WHJe2ng=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7371
+X-OriginatorOrg: intel.com
+Message-ID-Hash: 26RIRBTT773R57ISHCZ7UNKSOUI7LBLG
+X-Message-ID-Hash: 26RIRBTT773R57ISHCZ7UNKSOUI7LBLG
+X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +207,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EBX7J3WQNJ4364T35QW7E52IW2IRJM7H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/26RIRBTT773R57ISHCZ7UNKSOUI7LBLG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,66 +216,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Amit,
+On 2024-08-14 4:42 PM, Andy Shevchenko wrote:
+> On Wed, Aug 14, 2024 at 10:39:15AM +0200, Cezary Rojewski wrote:
+>> A spiritual successor to haswell/baytrail removal series [1].
+>>
+>> The avs-driver found in sound/soc/intel/avs is a direct replacement to
+>> the existing skylake-driver. It covers all features supported by it and
+>> more and aligns with the recommended flows and requirements based on
+>> Windows driver equivalent.
+>>
+>> The skylake-driver related UAPI has been removed with "ASoC: Drop
+>> soc-topology ABI v4 support" [2].
+>>
+>> For the official kernel tree the deprecation begun with v6.0. Most
+>> skylake-drivers users moved to avs- or SOF-driver when AudioDSP
+>> capabilities are available on the platform or to snd-hda-intel
+>> (sound/pci/hda) when such capabilities are not.
+>>
+>> For the supported trees the deprecation begun with v5.4 with v5.15 being
+>> the first where the skylake-driver is disabled entirely.
+>>
+>> All machine board drivers that consume this DSP driver have their
+>> replacements present within sound/soc/intel/avs/boards/ directory.
+> 
+>> Changes in v2:
+>> - added two new patches (leading the series)
+>> - the first moves all device entries previously under the skylake-driver
+>>    dependency under the avs-driver
+>> - the second patch drops struct skl_machine_pdata usage to fix
+>>    compilation errors as pointed out by IKP
+>> - no further changes, retained Acked-by tags for these
+> 
+> Hmm... Have you received my tag for the v1?
+> 
+> Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-> > > > > For implementing this the current DT binding need to be updated as
-> > > > > follows. =20
-> > > >
-> > > > So you want to go back to step 1 and redefine bindings? Is that wor=
-th? =20
-> > >
-> > > The current bindings are effective if we only support identical flash
-> > > devices or flashes of the same make but with different sizes connected
-> > > in stacked mode. However, if we want to extend stacked support to
-> > > include flashes of different makes in stacked mode, =20
-> >=20
-> > The only actual feature the stacked mode brings is the ability to consi=
-der two
-> > devices like one. This is abstracted by hardware, this is a controller =
-capability. =20
->=20
-> Stacked mode is a software abstraction rather than a controller feature o=
-r=20
-> capability. At any given time, the controller communicates with one of th=
-e=20
-> two connected flash devices, as determined by the requested address and d=
-ata=20
-> length. If an operation starts on one flash and ends on the other, the co=
-re=20
-> needs to split it into two separate operations and adjust the data length=
-=20
-> accordingly.
+Yeah, I've left the tags alone for patches 3-14 but for the newly added 
+two I did not as that would be inappropriate. The first two patches 
+address the problems reported by IKP bot - I've not been dealing with 
+sound/soc/intel/common/ for a while and have forgotten about its existence.
 
-I'm sorry, that was not my understanding, cf the initial RFC:
+Thank you for reviewing the series!
 
-	Subject: [RFC PATCH 0/3] Dual stacked/parallel memories bindings
-	Date: Fri, 12 Nov 2021 16:24:08 +0100
-
-	"[...] supporting specific SPI controller modes like Xilinx's
-	where the controller can highly abstract the hardware and
-	provide access to a single bigger device instead [...]"
-
-Furthermore, I rapidly checked the Zynq7000 TRM, it suggests that the
-controller is capable of addressing the right memory itself based on
-the address, especially in linear mode?=20
-
-	https://docs.amd.com/r/en-US/ug585-zynq-7000-SoC-TRM/Dual-SS-4-bit-Stacked=
--I/O
-
-	"The lower SPI flash memory should always be connected if the
-	linear Quad-SPI memory subsystem is used, and the upper flash
-	memory is optional. Total address space is 32 MB with a 25-bit
-	address. In IO mode, the MSB of the address is defined by
-	U_PAGE which is located at bit 28 of register 0xA0 . In Linear
-	address mode, AXI address bit 24 determines the upper or lower
-	memory page. All of the commands will be executed by the device
-	selected by U_PAGE in I/O mode and address bit 24 in linear
-	mode."
-
-Anyway, you may decide to go down the "pure software" route, which is
-probably easier from an implementation perspective, but means you're
-gonna have to argue -again- in favor of the representation of a purely
-virtual device that is not hardware.
-
-Cheers,
-Miqu=C3=A8l
+Kind regards,
+Czarek

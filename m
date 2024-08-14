@@ -2,87 +2,162 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6636951B58
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 15:05:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52E7D951C0E
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 15:41:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEB72236A;
-	Wed, 14 Aug 2024 15:05:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEB72236A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFA1C27AA;
+	Wed, 14 Aug 2024 15:41:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA1C27AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723640739;
-	bh=/Fnx8Y5nhqPcK9Nfc3bO6zeYZ7dh7PtJbYQ6H77206E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1723642907;
+	bh=Exo1mofpZR8sZHUca839qVhpqiUggeT62P2f84zvL+E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R2npSmuoYe4nXzG21vbuRjFxWDPmDD5Q0YwrvwrucDKeVPSOfen+/8SnkeMBUd3Mu
-	 BJIKaTmF5JMQssDv7mIDWGNro84jM153Vde6N9X+0wjpGcDdVOQdnaPPckcrIGfjc5
-	 tOhwen96sJsCpdB/1oYLt/njNlIVn6urKGi1jN54=
+	b=Lgfx99g68OSTtyk7nhm/6qNvTpW/o7MuZjR/IIKctje1+Zhu/1pfqzoT7bz1/dEqN
+	 DHIVx4zRsUkXlhdvlSmFV/FlPbWFYro7Q37OXH60FsSMaI4yEuXodUdRp6NyKG5rG5
+	 pGZtCuPS4xIP11hvZJRrHRBWbIEcF78VxTQTUd9s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF89DF8058C; Wed, 14 Aug 2024 15:05:07 +0200 (CEST)
+	id 8AE8AF805B3; Wed, 14 Aug 2024 15:41:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DD14F805AF;
-	Wed, 14 Aug 2024 15:05:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DAC3F805B0;
+	Wed, 14 Aug 2024 15:41:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C203EF80423; Wed, 14 Aug 2024 15:04:49 +0200 (CEST)
+	id E0050F80423; Wed, 14 Aug 2024 15:41:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 70601F8016E
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 15:04:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70601F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35828F800B0
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 15:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35828F800B0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Ye0Te/Ue
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 1804FCE194E;
-	Wed, 14 Aug 2024 13:04:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCEADC32786;
-	Wed, 14 Aug 2024 13:04:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723640675;
-	bh=/Fnx8Y5nhqPcK9Nfc3bO6zeYZ7dh7PtJbYQ6H77206E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ye0Te/UeybODxpQTaIWo1lpYJy4JnUeOdxTjfQK9Tv1j7aQsDVxj45xWzgUemE/iz
-	 3Sz9p4hgU9z+OuwY3rSCQAlXvbdraw2GTHpGgP9aZ+Vo/IsBYrBkrlH1uMQIm32ojw
-	 yIYMXFcKlU0x7VFCyKebvdjbjePhqIv5+a+YYxLR0mJdtYq/8iRPMIEPFenR6j+5uu
-	 BXrR6UEx6dFHVtxEnya+saegnK6plfHSIa7SS3tCsfwaqGS9MqeRp5yt2Hk2FGYAWf
-	 raDsbte2NQMH2W3iNAcyKTzBNtL0OspaQyMKNWtt9p3ydflz8tvD8joxgwlwmy63xJ
-	 bGl7Jnf74hxBA==
-Date: Wed, 14 Aug 2024 14:04:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ki-Seok Jo <kiseok.jo@irondevice.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-Subject: Re: FW: [PATCH 1/2] ASoC: sma1307: Add driver for Iron Device SMA1307
-Message-ID: <33576ed9-abe6-4c6b-a3a3-0ae775601aa2@sirena.org.uk>
-References: <20240813052609.56527-1-kiseok.jo@irondevice.com>
- <20240813052609.56527-2-kiseok.jo@irondevice.com>
- <66113ea5-11a7-41a9-8e28-af0394d7ded7@sirena.org.uk>
- <SL2P216MB233758C3649FAF0ACDCCB8898C872@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TTZ7pARm+F/j3sYW"
-Content-Disposition: inline
-In-Reply-To: 
- <SL2P216MB233758C3649FAF0ACDCCB8898C872@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
-X-Cookie: The second best policy is dishonesty.
-Message-ID-Hash: 72IWXCSPEHMBSPPMZR6VZARONRZ2JOHR
-X-Message-ID-Hash: 72IWXCSPEHMBSPPMZR6VZARONRZ2JOHR
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=ONWs1ty3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=XmLbRoFk;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Yyy5cdXD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=RKNbi6LG
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E55051F7F4;
+	Wed, 14 Aug 2024 13:40:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1723642854;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rg5JKtkkkM33EZLC6zyWrtvhK6J3/MeJhS520JXiFI8=;
+	b=ONWs1ty3GOMoEopyoQA8dbkJzIZkDHeGtQ8SvimAQqwzEUaEnuG6kYMAx14BnSydPdsGy8
+	TsweywaeSGZuf16jdx1smwRTwoPWOjo8AqH5DoTH2wnQaMt9eQCIuhCycGLcVPDmarG6aZ
+	W2TtDdkv4BbKSn/NzIgMlA8KME6l+AY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1723642854;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rg5JKtkkkM33EZLC6zyWrtvhK6J3/MeJhS520JXiFI8=;
+	b=XmLbRoFkR7B1gIrTE4YvJ1Oaea2g5fWnpQB8vgNevOboMe56TMjtZMlsKN4Z5WXinH9KPs
+	c3QGOJmeVi0x9qCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1723642853;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rg5JKtkkkM33EZLC6zyWrtvhK6J3/MeJhS520JXiFI8=;
+	b=Yyy5cdXDsYNV3Be7nryYyuXujKJlBSYOCP9qaMm7bGjJwyK/EhNZYg36fO+s8BAakJ0Oy3
+	HGgkz7ysMUGa/W31W+PZjRdmddIhmFwFdtW7aAjM71t8BplSIuvekwi+bfVjEpJ9B3h4X8
+	9CikvX8bnY6yWkvOYQZLyVffRBx1fUo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1723642853;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rg5JKtkkkM33EZLC6zyWrtvhK6J3/MeJhS520JXiFI8=;
+	b=RKNbi6LGwmFer1K3pYr3PzMXCSbvrD7mFZZtLrpNbqI5M99ys38VP8TZyXeNSVynjXizbL
+	H22VpVSYnC+NN7BQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7CCA51348F;
+	Wed, 14 Aug 2024 13:40:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id EUo0HeWzvGbJRAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Aug 2024 13:40:53 +0000
+Date: Wed, 14 Aug 2024 15:41:33 +0200
+Message-ID: <87o75vjk6q.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: <broonie@kernel.org>,
+	<andriy.shevchenko@linux.intel.com>,
+	<lgirdwood@gmail.com>,
+	<perex@perex.cz>,
+	<pierre-louis.bossart@linux.intel.com>,
+	<13564923607@139.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<liam.r.girdwood@intel.com>,
+	<cameron.berkenpas@gmail.com>,
+	<baojun.xu@ti.com>,
+	<soyer@irl.hu>,
+	<Baojun.Xu@fpt.com>,
+	<robinchen@ti.com>
+Subject: Re: [PATCH v1] ALSA: hda: tas2563: mark const variables as
+ __maybe_unused
+In-Reply-To: <20240814122043.1731-1-shenghao-ding@ti.com>
+References: <20240814122043.1731-1-shenghao-ding@ti.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FREEMAIL_ENVRCPT(0.00)[139.com,gmail.com];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,gmail.com,perex.cz,139.com,alsa-project.org,vger.kernel.org,intel.com,ti.com,irl.hu,fpt.com];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+Message-ID-Hash: FA6FRLDW4ZNO7FBKOKH36DNOHRDWMCWD
+X-Message-ID-Hash: FA6FRLDW4ZNO7FBKOKH36DNOHRDWMCWD
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +169,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/72IWXCSPEHMBSPPMZR6VZARONRZ2JOHR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FA6FRLDW4ZNO7FBKOKH36DNOHRDWMCWD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,129 +178,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 14 Aug 2024 14:20:42 +0200,
+Shenghao Ding wrote:
+> 
+> From: Baojun Xu <baojun.xu@ti.com>
+> 
+> An earlier patch changed the DECLARE_TLV_DB_SCALE declaration, but
+> now there are additional static const variables that cause
+> the same build warnings:
+> 
+> In file included from sound/pci/hda/tas2781_hda_i2c.c:23:
+> include/sound/tas2563-tlv.h:21:28: error: 'tas2563_dvc_table' defined but not used [-Werror=unused-const-variable=]
+>    21 | static const unsigned char tas2563_dvc_table[][4] = {
+>       |                            ^~~~~~~~~~~~~~~~~                                 ^~~~~~~~~~~~~~~
+> 
+> Mark it as unused as well.
+> 
+> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
---TTZ7pARm+F/j3sYW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This isn't found in my tree, maybe found only in Mark's tree?
 
-On Wed, Aug 14, 2024 at 05:54:19AM +0000, Ki-Seok Jo wrote:
+In anyway, you should put Fixes tag.
 
-> > > +		return false;
-> > > +	}
-> > > +	sma1307_regmap_update_bits(sma1307, SMA1307_00_SYSTEM_CTRL,
-> > > +				   SMA1307_RESET_MASK, SMA1307_RESET_ON);
-> > > +	sma1307_reset(component);
 
-> > This is a very unusual thing to support - what's the motivation for it?
-> > If we were going to support it then we'd need to handle what happens to
-> > the controls, either generating events saying where they've changed or
-> > rsyncing existing values.
+Takashi
 
-> The 'sma1307_reset' function is responsible for configuring the amplifier to operate properly.
-> Sometimes users may want to reset the mixer control to its initial state after having used it.
-> I have added a reset control for this purpose.
-> Will it be problematic to initialize the chip values and return it to a usable state?
-
-Yeah, so we don't usually have a control for that - most drivers could
-have one after all.  The usual thing with ALSA would be to do this at
-the userspace level, saving the configuration on startup and then
-rewriting the controls from that saved configuration to reset everything
-back to the initial state.  I guess you're partly using this to reload
-the configuration from firmware?
-
-> > > +static int sma1307_register_write(struct snd_kcontrol *kcontrol,
-> > > +				  struct snd_ctl_elem_value *ucontrol) {
-
-> > Again, this seems better provided by the regmap debugging features.
-
-> Occasionally, regmap writes are restricted in debugfs, so I added it.
-> (Reading is still allowed, so a read function shouldn't be necessary.)
-
-Yes, the regmap debugfs interface requires modification of the kernel to
-support writes which is generally fine for that application where you're
-doing things during development.  Do you have a use case for this in
-normal operation?
-
-> > > +	/* HEADER */
-> > > +	sma1307->set.header_size = SMA1307_SETTING_HEADER_SIZE;
-> > > +	sma1307->set.checksum = data[sma1307->set.header_size - 2];
-> > > +	sma1307->set.num_mode = data[sma1307->set.header_size - 1];
-
-> > We didn't verify that the firmware is big enough to contain the header (eg,
-> > if there's some filesystem corruption) or any of the other sizes or counts.
-
-> The file format is fixed.
-> The size isn't very large, but up to what extent is it acceptable?
-> The header size is predefined, and the header contains the file size value.
-
-It's just about making sure that we're not reading beyond the end of the
-data we got from request_firmware(), or doing something like
-dereferencing a NULL pointer.  The main issue is being robust against
-loading a corrupted firmware file, so no real need to enforce specific
-limits other than what's needed to make sure that reads are in bounds.
-Consider what would happen if there were a 0 byte file instead of an
-actual firmware for example.
-
-> > > +	/* Register Initial Value Setting */
-> > > +	switch (sma1307->amp_set) {
-> > > +	case SMA1307_DEFAULT_SET:
-> > > +		sma1307_set_default(component);
-> > > +		break;
-
-> > Why aren't we just using the chip defaults here?
-
-> The values input to this function are the default values for the chip to operate.
-> The chip won't function with just power applied; it requires specific values to be provided to operate.
-
-Sure, but IIRC some of them looked like things which would normally be
-runtime configured through ALSA controls rather than fixed at startup -
-for ALSA controls we generally leave them at chip defaults and let each
-userspace pick what makes sense for it.  This is just a way of making
-sure that we don't have issues with different userspaces wanting
-different configurations, the hardware provides a convenient default.
-
-> > > +	case SMA1307_BINARY_FILE_SET:
-> > > +		sma1307_setting_loaded(sma1307, setting_file);
-> > > +		if (sma1307->set.status) {
-> > > +			sma1307_set_binary(component);
-> > > +		} else {
-> > > +			sma1307->force_mute_status = true;
-> > > +			sma1307_set_default(component);
-> > > +		}
-> > > +		break;
-
-> > What's this for?  Usually any default setup would just be done through the
-> > usual control interface.
-
-> Generally, the amplifier operates correctly with default settings.
-> Occasionally, when users want different output levels, we provide a binary file to adjust the settings.
-
-> Since the settings may vary depending on the speakers used and other external factors, and because these settings cannot be adjusted by the user, the purpose is to provide a configuration file upon request.
-
-So really this is loading a firmware file with parameters?  That's
-probably fine.  It might be better to just try to load the firmware
-unconditionally and then fall back to defaults if there's no firmware,
-though possibly there's safety issues.
-
-The setting_file should probably be named based on the machine
-compatible or something, that way people can ship a single firmware
-image with multiple machines supported.  Possibly also with an option
-for extra configuration if it's at all plausible that there might be
-more than one of these devices in a single system.
-
---TTZ7pARm+F/j3sYW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma8q14ACgkQJNaLcl1U
-h9CSuAf/Vy/pX6hgSnMKf5Z3timCWGt1jEg38/44dfm308zhOtmw5egoPlTN1sIT
-iIrOb8A5yfUfNOPt4prihyqmh5GR2jMAKohQXWT1wjsglAWHSPzkD2RQewZgd5w2
-waiiVl0CYd88EuYeaWbEC9bM5fAV/rPME97T4WoFlC6hK1kjho3ArDgjo2CviYXe
-lg2rPLPyPbVkenFHiokP4PJtaYEPvvSoS+YCj632wjfrKBDCrjNhxq/UnSWVBWdY
-a/p/keQx2/Sa7oYwDfsedMkkN9FbhZKJVUz/dZDsRcyOJsK6p37DPRKPjeOVL7w3
-CbeTzZRnkurD+lVSGfjmgEEnsDoHWw==
-=T5o+
------END PGP SIGNATURE-----
-
---TTZ7pARm+F/j3sYW--
+> 
+> ---
+> v1:
+> ---
+>  include/sound/tas2563-tlv.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/sound/tas2563-tlv.h b/include/sound/tas2563-tlv.h
+> index faa3e194f73b..bb269b21f460 100644
+> --- a/include/sound/tas2563-tlv.h
+> +++ b/include/sound/tas2563-tlv.h
+> @@ -18,7 +18,7 @@
+>  static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
+>  
+>  /* pow(10, db/20) * pow(2,30) */
+> -static const unsigned char tas2563_dvc_table[][4] = {
+> +static const __maybe_unused unsigned char tas2563_dvc_table[][4] = {
+>  	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
+>  	{ 0X00, 0X00, 0X03, 0XBC }, /* -121.0db */
+>  	{ 0X00, 0X00, 0X03, 0XF5 }, /* -120.5db */
+> -- 
+> 2.43.0
+> 

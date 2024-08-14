@@ -2,82 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB181951A8D
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 14:07:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEBFC951ABC
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 14:21:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C39F2BA4;
-	Wed, 14 Aug 2024 14:07:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C39F2BA4
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC5322BAB;
+	Wed, 14 Aug 2024 14:21:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC5322BAB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723637277;
-	bh=Do+vRqFk3k2SU3SkNGODxn8srvn9XYlrm53yrCnGCYk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=eHfbaY0kg1iR7171Rs+SFVavQ8gNjdbPJ9vqKFrr0bAqXDcNkgHrwR/yCUJ8MV2sJ
-	 BIiC+wOzfJDKn+rBWBoIvNl9KFAT2CVUBwbqs9yVLecy/kB02L0owR0Mej+rLMZ+7P
-	 cCRyKMRgubiBHHHBtmCButWRHNIis1GZqwtu6J3A=
+	s=default; t=1723638106;
+	bh=oc7pCqgTDJhaq2i36boZtpB4yaoA7PKtJV+APNsDq0s=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Xek+w/tqKnc2SgwPDIaJNiIC+Wq51THX5kVT0gfiy1eEdr+6EwK4eovwE66wZug50
+	 aAgO0ja8cE5KOKWnC6imRzq/qDMvjtw1WdoFfOuoj+Vzh3rqPnXutkjOvXXH8WtmZg
+	 mUIvSw9cR1unb3WlnOOT7YPtPMuvC6t3v5VktdbM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB764F80301; Wed, 14 Aug 2024 14:07:26 +0200 (CEST)
+	id D4C16F805B0; Wed, 14 Aug 2024 14:21:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FD04F805AE;
-	Wed, 14 Aug 2024 14:07:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 446F7F805AD;
+	Wed, 14 Aug 2024 14:21:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E656AF805BF; Wed, 14 Aug 2024 14:02:16 +0200 (CEST)
+	id 003AFF80423; Wed, 14 Aug 2024 14:21:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F296F8016E
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 14:02:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F296F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 45333F8016E
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 14:20:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45333F8016E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Xdrgwd6z
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id E8F92611BB;
-	Wed, 14 Aug 2024 12:02:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513C3C4AF0E;
-	Wed, 14 Aug 2024 12:02:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723636922;
-	bh=Do+vRqFk3k2SU3SkNGODxn8srvn9XYlrm53yrCnGCYk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xdrgwd6zr79yfP4OByUaHduLcIvB3bdIICl9FbDrag03yrzRMnwdkn7r1Uyol6uwm
-	 v3jPydlL9du1u1OLjWgjKLILO59DLhG+gwp5YbkumAEJ26HboOTdyY8y+tcWQOEcYR
-	 NdfQQYWqynAXHKi4nLiXB2QKcw+oXluACYXjJZ7ULfs2COFDG94Y50f+k5Y6UQOikf
-	 5jslKifX0nKNs89yg3hDdgAxlBqJyoRk9xx/f1i2rrKrUFQG9mnMUicawoFCtRM1Ge
-	 RdW0xUDyAoCQ5VJeUL1xP0Z5idh/K8lcLXY15/BBlqA7lo9eSYlJ6rmzg20TKIlvDV
-	 3qvZ6zZkIPr/w==
-Date: Wed, 14 Aug 2024 13:01:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Zhang Yi <zhangyi@everest-semi.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com, yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com
-Subject: Re: [PATCH v1] ASoC: codecs: ES8326: Adjust buttons
-Message-ID: <ab3067b0-ac75-46e6-9761-f69fa9bf0482@sirena.org.uk>
-References: <20240814060921.2521-1-zhangyi@everest-semi.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=PpQ1vpEy
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 47ECKrOt096773;
+	Wed, 14 Aug 2024 07:20:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1723638053;
+	bh=EqkHqqKAoc8Djpm1ZElzO9BtZimR5uXL+u0mCRMQBbU=;
+	h=From:To:CC:Subject:Date;
+	b=PpQ1vpEyIo586XmYMoCfXjUUPEYiiYtnvGO889Pf3vinjOp+boBKNGL1n+Ec55jnf
+	 6kuWLF5y/RpCIc0wsEdkAIMYy8Fsd1x/NxnVEEumiR0dkXFAM65YwSkYE3Yb2aH/ML
+	 SfXR8JYyibjUydB7RtbY2l5WuuzX4J9ETp+xfnhs=
+Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 47ECKr29030477
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 14 Aug 2024 07:20:53 -0500
+Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE115.ent.ti.com
+ (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 14
+ Aug 2024 07:20:53 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE104.ent.ti.com
+ (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Wed, 14 Aug 2024 07:20:53 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.152])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 47ECKlf7049558;
+	Wed, 14 Aug 2024 07:20:48 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13564923607@139.com>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <liam.r.girdwood@intel.com>,
+        <cameron.berkenpas@gmail.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
+        <soyer@irl.hu>, <Baojun.Xu@fpt.com>, <robinchen@ti.com>,
+        Shenghao Ding
+	<shenghao-ding@ti.com>
+Subject: [PATCH v1] ALSA: hda: tas2563: mark const variables as __maybe_unused
+Date: Wed, 14 Aug 2024 20:20:42 +0800
+Message-ID: <20240814122043.1731-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TIYwVcJFUGUDFnue"
-Content-Disposition: inline
-In-Reply-To: <20240814060921.2521-1-zhangyi@everest-semi.com>
-X-Cookie: The second best policy is dishonesty.
-Message-ID-Hash: MHQ2WB23FGNLNNZLR43RQQVSEDPLGQTH
-X-Message-ID-Hash: MHQ2WB23FGNLNNZLR43RQQVSEDPLGQTH
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: T43LQK254WQHRCANLRCAG6EIH7ZM3S4Y
+X-Message-ID-Hash: T43LQK254WQHRCANLRCAG6EIH7ZM3S4Y
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MHQ2WB23FGNLNNZLR43RQQVSEDPLGQTH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T43LQK254WQHRCANLRCAG6EIH7ZM3S4Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,51 +108,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Baojun Xu <baojun.xu@ti.com>
 
---TIYwVcJFUGUDFnue
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+An earlier patch changed the DECLARE_TLV_DB_SCALE declaration, but
+now there are additional static const variables that cause
+the same build warnings:
 
-On Wed, Aug 14, 2024 at 02:09:21PM +0800, Zhang Yi wrote:
+In file included from sound/pci/hda/tas2781_hda_i2c.c:23:
+include/sound/tas2563-tlv.h:21:28: error: 'tas2563_dvc_table' defined but not used [-Werror=unused-const-variable=]
+   21 | static const unsigned char tas2563_dvc_table[][4] = {
+      |                            ^~~~~~~~~~~~~~~~~                                 ^~~~~~~~~~~~~~~
 
-> To adapt to chrome, we have adjusted the buttons to match the system.
+Mark it as unused as well.
 
-This needs a bit more of a commit log explaining what's going on.
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-> +#if IS_ENABLED(CONFIG_SND_SOC_MT8188_MT6359)
-> +	const int hs_keys[] = {
-> +		SND_JACK_BTN_0, SND_JACK_BTN_2, SND_JACK_BTN_3
-> +	};
-> +#else
-> +	const int hs_keys[] = {
-> +		SND_JACK_BTN_0, SND_JACK_BTN_1, SND_JACK_BTN_2
-> +	};
-> +#endif
+---
+v1:
+---
+ include/sound/tas2563-tlv.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This will remap the buttons no matter what system we're running on so
-while it's a bit better it's still going to cause issues.  We could use
-a per board approach like this but it needs to be at runtime, based on
-the machine compatible rather than a build time selection.
+diff --git a/include/sound/tas2563-tlv.h b/include/sound/tas2563-tlv.h
+index faa3e194f73b..bb269b21f460 100644
+--- a/include/sound/tas2563-tlv.h
++++ b/include/sound/tas2563-tlv.h
+@@ -18,7 +18,7 @@
+ static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2563_dvc_tlv, -12150, 50, 1);
+ 
+ /* pow(10, db/20) * pow(2,30) */
+-static const unsigned char tas2563_dvc_table[][4] = {
++static const __maybe_unused unsigned char tas2563_dvc_table[][4] = {
+ 	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
+ 	{ 0X00, 0X00, 0X03, 0XBC }, /* -121.0db */
+ 	{ 0X00, 0X00, 0X03, 0XF5 }, /* -120.5db */
+-- 
+2.43.0
 
-The support for this device was added in e794a894427b1d ("ASoC:
-mediatek: mt8188-mt6359: add es8326 support") which was added in v6.8
-so this would also be a potential issue in mainline, given that this is
-likely only used by Chromebooks and didn't make it to a LTS yet we could
-possibly give it a go but we might have to revert.
-
---TIYwVcJFUGUDFnue
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma8nLUACgkQJNaLcl1U
-h9CIBQf+NR4j93SkZs8iU+hbVLOQ9+qlGp5LoJOOBWFQ2w69EszdTGgFbERSMJj2
-Qzzmdicurmrh1N3pDHBfjakwttxiZRBjR6YCT6eW9Rb5cZQ26AJZCeQwjldqY5mW
-v+DGjy3Ql5x0c0q3OXtFycasatfzvvNZayzCytzuUvifRelpNb+J6Yg2bz1aBpMQ
-bw7CilHIehfNgb7ipG7aEj1S4bwHjwgqRAPo6yyaeRWjYU+Dqm4DpN88Tc/mZ0uV
-ddZ7xpPZ49epopEAB9Mt1k4Bz/ZHo5yV1o4SjELjgHr0jA6u+TaGVtmwfre4miYB
-r3IhnlCdoOyrEq2WZ7DfGS5Yl/uV3A==
-=y2+5
------END PGP SIGNATURE-----
-
---TIYwVcJFUGUDFnue--

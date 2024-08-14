@@ -2,91 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5262952061
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 18:50:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E064C9520C1
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 19:13:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 736D9238B;
-	Wed, 14 Aug 2024 18:50:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 736D9238B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20B2822AF;
+	Wed, 14 Aug 2024 19:12:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20B2822AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723654213;
-	bh=meqvXO3+nmuZ5AIXtSVgg8WAYFetsdNizUtH8eryubs=;
+	s=default; t=1723655585;
+	bh=0SnaGwuuwdhAmGTBrhF6fl3MkbG/FdzPfWPhS4PDvUI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cYPrLStH5GlQfrFaTVjzzxhQsEkFuoTCYywf2nkZsb8LWujKthEuQdkc2AZ96JqFu
-	 JLeitSsDltU7H5qF46PYVeNwybqBXIObYIe9wKKrAQgZJYR2Rbg78k9w9khBlVPOWE
-	 4Ei6UPHWXehpaQyEBa2Ylyai82A+zznvk6cNzKxA=
+	b=KKRom8INLrKqa4Wq1gqSV7w1arI6CJUyaO9CMpfYT1PVQr2cqearSSfekzWXWPLYa
+	 +PUKd2Et6J4+yUu1c/h/qV3sePapE8vNM0mhZvKzeXNBqlA2zpi7BaMasiuXF+1jT0
+	 R85bqetJpgJw/Kt6Vp+3ltLRxqeFzey3bGP+Wm4c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48B4AF805AB; Wed, 14 Aug 2024 18:49:52 +0200 (CEST)
+	id 09B37F8057A; Wed, 14 Aug 2024 19:12:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3BD7F80423;
-	Wed, 14 Aug 2024 18:49:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7711EF805A8;
+	Wed, 14 Aug 2024 19:12:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3305F80107; Wed, 14 Aug 2024 18:49:45 +0200 (CEST)
+	id 6475CF80423; Wed, 14 Aug 2024 19:12:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B5891F80107
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 18:49:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5891F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4CC84F800B0
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 19:12:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CC84F800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KYHIl4Bl
+ header.s=k20201202 header.b=BR10n7Uz
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0DD9D61A5C;
-	Wed, 14 Aug 2024 16:49:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCAEBC116B1;
-	Wed, 14 Aug 2024 16:49:26 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id E321ACE18EA;
+	Wed, 14 Aug 2024 17:12:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E98C116B1;
+	Wed, 14 Aug 2024 17:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723654172;
-	bh=meqvXO3+nmuZ5AIXtSVgg8WAYFetsdNizUtH8eryubs=;
+	s=k20201202; t=1723655540;
+	bh=0SnaGwuuwdhAmGTBrhF6fl3MkbG/FdzPfWPhS4PDvUI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KYHIl4Blh/i77OC9N5FoMY//D7bQrsyMvbhheGmNID6geQzGDJhyX7DUmhvA9V1HF
-	 tDY3heh+p+JbGaZ839bp7GA2+lM0r8oAKIv/iVnVZTDju+OaKOx8ZOPeJt9w1P6sjD
-	 d+RH8EEzxly1Soxm/s5yjeh3m6oFqDs+aehkqgQWtoY7OZYqc02KqBPyRIFtueDLR3
-	 WQtGxzHr/TKvETyuutYRO9UTjVQElN3zSyuBfpvSgTu3h62KeZkp72bW1sO62TKXvR
-	 sGQMKkXvavl3cJUSW6xrvs57Mqchsgn6V/Rf6x6O4IVQQik3GBN7DzDCIjx9w+krD9
-	 y3E+zKNE1I85g==
-Date: Wed, 14 Aug 2024 17:49:23 +0100
+	b=BR10n7UzYZ/Y/4KBXz8/jl+rwVIYLXmy4wUc9bDvaw/L/m/t3UxRwT9YodWIm+q+y
+	 1gtXAPVK0Y7f5tcX4/zRmNPVxcvH8H2K4f4GPoGTHYYpaZduMIAPANZyOaxzVuk0dX
+	 mrdrlfJnXv0vXxpQyQKPK2Yg5W2PS+gEWnbQlWDs6Uumte11vpcGseBvUo+UbWjK8k
+	 Px2YNGJIQLGrC2XSMtss171VQekqb+mqMR2uBOcTv5PWoHpKwqN8lNBADyRbib0K+c
+	 UnVMC5DgXFHqEIjf485UJRmRY/ozTxHIIC73lPJ+BlzQ5fQ5UKXWe6hshObfEBkj9D
+	 /xVzBG8ol81yw==
+Date: Wed, 14 Aug 2024 18:12:15 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
-	zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
-	linux-kernel@vger.kernel.org, j-chadha@ti.com,
-	liam.r.girdwood@intel.com, jaden-yue@ti.com,
-	yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
-	henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, soyer@irl.hu,
-	Baojun.Xu@fpt.com, judyhsiao@google.com, navada@ti.com,
-	cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
-	savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com,
-	jesse-ji@ti.com, darren.ye@mediatek.com, antheas.dk@gmail.com,
-	Jerry2.Huang@lcfuturecenter.com
-Subject: Re: [PATCH v1] ASoc: tas2781: Add Calibration Kcontrols for
- Chromebook
-Message-ID: <97275835-fff5-49ac-bd15-c6b6c6e89fe0@sirena.org.uk>
-References: <20240726084757.369-1-shenghao-ding@ti.com>
+To: jau@free.fr
+Cc: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: sti: add missing probe entry for player and reader
+Message-ID: <d761c2e4-5b75-4306-b33b-c71b7c132a05@sirena.org.uk>
+References: <d85590f2-88b3-4bc2-b7b8-9f96a5d5bb17@sirena.org.uk>
+ <1474761635.17820466.1721651484902.JavaMail.root@zimbra60-e10.priv.proxad.net>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QnAnomE4bcSDKfDc"
+	protocol="application/pgp-signature"; boundary="R/+/yIv+8uVKHw9G"
 Content-Disposition: inline
-In-Reply-To: <20240726084757.369-1-shenghao-ding@ti.com>
+In-Reply-To: 
+ <1474761635.17820466.1721651484902.JavaMail.root@zimbra60-e10.priv.proxad.net>
 X-Cookie: The second best policy is dishonesty.
-Message-ID-Hash: PPRNJV6CHUSYV7BMKSWANCJW6JCVTSZG
-X-Message-ID-Hash: PPRNJV6CHUSYV7BMKSWANCJW6JCVTSZG
+Message-ID-Hash: FUGL42KDAKLN5UXLASK3DQR64SGMUXCF
+X-Message-ID-Hash: FUGL42KDAKLN5UXLASK3DQR64SGMUXCF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PPRNJV6CHUSYV7BMKSWANCJW6JCVTSZG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FUGL42KDAKLN5UXLASK3DQR64SGMUXCF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,120 +103,31 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---QnAnomE4bcSDKfDc
+--R/+/yIv+8uVKHw9G
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 26, 2024 at 04:47:55PM +0800, Shenghao Ding wrote:
-> Add calibration related kcontrol for speaker impedance calibration and
-> speaker leakage check for Chromebook
+On Mon, Jul 22, 2024 at 02:31:24PM +0200, jau@free.fr wrote:
+> Thanks for the review!
+>=20
+> See updated changlog, if ok for you, I will send a V2
 
-This is pretty hard to understand, it feels like there's a bunch of
-cleanup work in here along with the actual control addition and there's
-nothing really saying anything concrete about the actual controls to
-check that the controls do the right thing.  It's hard to do anything
-but the most superficial review here since I don't really understand
-what the changes are trying to accomplish.
+Yes, that's fine.
 
-> -/* pow(10, db/20) * pow(2,30) */
-> -static const unsigned char tas2563_dvc_table[][4] =3D {
-> -	{ 0X00, 0X00, 0X00, 0X00 }, /* -121.5db */
-
-For example moving this to the header could be done separately (though
-perhaps it should just be exported rather than placed in the header)?
-
-> @@ -64,8 +64,8 @@ static int tasdevice_change_chn_book(struct tasdevice_p=
-riv *tas_priv,
->  			 */
->  			ret =3D regmap_write(map, TASDEVICE_PAGE_SELECT, 0);
->  			if (ret < 0) {
-> -				dev_err(tas_priv->dev, "%s, E=3D%d\n",
-> -					__func__, ret);
-> +				dev_err(tas_priv->dev, "%s, E=3D%d channel:%d\n",
-> +					__func__, ret, chn);
->  				goto out;
->  			}
->  		}
-
-This is another example of a random cleanup.
-
->  static void tasdev_load_calibrated_data(struct tasdevice_priv *priv, int=
- i)
->  {
-> +	struct tasdevice_fw *cal_fmw =3D priv->tasdevice[i].cali_data_fmw;
-> +	struct calidata *cali_data =3D &priv->cali_data;
-> +	unsigned char *data =3D &cali_data->data[1];
->  	struct tasdevice_calibration *cal;
-> -	struct tasdevice_fw *cal_fmw;
-> +	int k =3D i * (cali_data->cali_dat_sz + 1);
-> +	int j, rc;
-> =20
-> -	cal_fmw =3D priv->tasdevice[i].cali_data_fmw;
-> +	/* Load the calibrated data from cal bin file */
-> +	if (!priv->is_user_space_calidata && cal_fmw) {
-> +		cal =3D cal_fmw->calibrations;
-> =20
-> -	/* No calibrated data for current devices, playback will go ahead. */
-> -	if (!cal_fmw)
-> +		if (cal)
-> +			load_calib_data(priv, &cal->dev_data);
->  		return;
-
-It feels like there's an abstraction problem with the different ways to
-get calibration data.  Perhaps each way of loading calibration data
-should parse the data into a standard format on load and then the rest
-of the code doesn't need to worry about where it came from?
-
-> @@ -67,8 +215,13 @@ static int tas2781_digital_getvol(struct snd_kcontrol=
- *kcontrol,
->  	struct tasdevice_priv *tas_priv =3D snd_soc_component_get_drvdata(codec=
-);
->  	struct soc_mixer_control *mc =3D
->  		(struct soc_mixer_control *)kcontrol->private_value;
-> +	int rc;
-> +
-> +	mutex_lock(&tas_priv->codec_lock);
-> +	rc =3D tasdevice_digital_getvol(tas_priv, ucontrol, mc);
-> +	mutex_unlock(&tas_priv->codec_lock);
-> =20
-> -	return tasdevice_digital_getvol(tas_priv, ucontrol, mc);
-> +	return rc;
->  }
-> =20
-
-Why all these locking changes?  Could they be split out into a
-praparatory change?
-
-> +static int tasdevice_get_chip_id(struct snd_kcontrol *kcontrol,
-> +			struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *codec =3D snd_soc_kcontrol_component(kcontrol=
-);
-> +	struct tasdevice_priv *tas_priv =3D snd_soc_component_get_drvdata(codec=
-);
-> +
-> +	ucontrol->value.integer.value[0] =3D tas_priv->chip_id;
-> +
-> +	return 0;
-> +}
-
-Should these chip ID controls be done separately?  They don't seem super
-related.
-
---QnAnomE4bcSDKfDc
+--R/+/yIv+8uVKHw9G
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma84BIACgkQJNaLcl1U
-h9D5yQf/S2RGcP8shc2wriIE+yF1lZjsRkb33r0Lhu8jdZM2AkDS7vB7WgX5Yq/S
-VLHewFCklL8gQF2tyLEBNsjt+nSzE0JBN65sGlLYnebPBb/stXw5Ld2H7j74+mLi
-muB6v7LvP77hImPyOFDusq0T3swIU3MNqGpzWFaK428KnD7JOL7uZYuzt7GnKwOj
-dJfX7xxOFpV66cwB8SBhY91y6ybBDC/qwC1N+kkSWAwWP6Z62c8bbVeI3rWx8dMq
-e7Kq0m6cC2Xp9Xbm5MAvZPxzmrxMWtf6p/ALvDfjM2tEKTADXKYLX6foZK1lSZ62
-wl3RVYwBq8rx0rLVJpF6ttXYc3Swhg==
-=pFim
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma85W4ACgkQJNaLcl1U
+h9BiBQf+LNCJki3pIICvAn44DfIbYhpt5xch7PprJjws3hbz5qlLtHgElYrh0Sc/
+A8TjvkmpTO+4AF3WJ7nfqyWBDdjn/g+Keh+jl08EshrcwP9PGexpYAi0xIvAngWV
+APLx1czpzGjXj4AAwFVrL509W0BDtAJDWVAw4wFUVh+Sr8oBsJFlyqMfLHnwdXvL
+az04rWqTZI/SfFlL7y57Fqr63sgpIvJudIC6L7ahPm1ZbwLKX0TIwEcYCZZWKvrl
+/7Ifr+Himsr3DSRvuNm9NtTI1weUaRxXW3HIWS9uosDbmQrbcou9tGoe3l2hIWwg
+o8kUoguDJBoM3RyFbKoSHzxDW1DGJw==
+=yoSn
 -----END PGP SIGNATURE-----
 
---QnAnomE4bcSDKfDc--
+--R/+/yIv+8uVKHw9G--

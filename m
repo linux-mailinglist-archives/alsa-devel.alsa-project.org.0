@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D053F951966
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 12:53:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DAED95196A
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 12:53:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C60F12344;
-	Wed, 14 Aug 2024 12:53:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C60F12344
+	by alsa0.perex.cz (Postfix) with ESMTPS id 507A821DE;
+	Wed, 14 Aug 2024 12:53:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 507A821DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723632813;
-	bh=GNGjIlgW4kApnwQA/RclUH088CvETCCFQ/gS7I5AZa0=;
+	s=default; t=1723632833;
+	bh=KR2P02tqa1uVrxOd2SpOSR7EgGbuXbE7mVj+k2FgrHY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=esGXsAjeeoPtQUP7lcDXxTDDCgoChRnFyTIRX6L5u6Vb6Fxpag9q2UAe6ndpsc9z8
-	 e/scAPi/U6LmhHNcSW+3yYsWuRWI4+vcFO09lDHo2qZDaA75gPzBxRLyI4TL6dyTmy
-	 6PXkKa5yiIydpVKKj9YXQnG6/lWzLxdcU0CyJI6Q=
+	b=IKZiyWfZtfpdTA8ZBWBMU4pQG3Ce8A1XQQeE9C2v0CXzm03MaVil4pmCqoxT6ZsQU
+	 k6n7rgYAVQtfBrV3wPK66VQBQZWuXPD7CXHlrJikV677b2niYdIMSnNaiFMPZ3gUtT
+	 bcOyLI6sHl9olCbg6ag/FpkcCxBY8Xv5eSuELfFA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79BECF805B5; Wed, 14 Aug 2024 12:53:02 +0200 (CEST)
+	id 04F43F805EE; Wed, 14 Aug 2024 12:53:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63EEFF805AC;
-	Wed, 14 Aug 2024 12:53:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0DD5F805ED;
+	Wed, 14 Aug 2024 12:53:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F7DEF8047C; Wed, 14 Aug 2024 10:41:20 +0200 (CEST)
+	id 19DD8F80423; Wed, 14 Aug 2024 10:41:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4F675F8049C
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 10:40:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F675F8049C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4595CF80517
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 10:40:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4595CF80517
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=oGvpBStx
+ header.s=Intel header.b=RNihPWG6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723624813; x=1755160813;
+  t=1723624816; x=1755160816;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=GNGjIlgW4kApnwQA/RclUH088CvETCCFQ/gS7I5AZa0=;
-  b=oGvpBStxHuT86EJypkOYJ4iFa9C2kJZO4ij0LHmjzC6Srvgmarr7zkFl
-   nAizFMQ2mbsu9MyjHR32ESvXa70zL1QK955l8nWxN21HsQ+5qQ2iiPuuV
-   KMTTlyiGMCAoZdNbco9exdEvpusaOv97s2Ywcv+hVqqXg70VmpTSVq3iS
-   Mx0XrruCEtmVwZGDTBfL7TTGLkhz55fsrlbyND/LH4VMYowiNdWhrXSEt
-   WkaO3b2tCtDCPHe40KyipEaCLaGJII293QQIFBZm8Sr3ZZ6RDtz7hh3H2
-   fVxlJz6wE9qpApHBbvWqHr0sC5UgS9yGlzHAIMty8643XUpWWshMPmmpQ
-   Q==;
-X-CSE-ConnectionGUID: OW+GwEjMTY60h1UnEispTw==
-X-CSE-MsgGUID: c9c23zVPQVaqJLo2cn+lRw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11163"; a="24735147"
+  bh=KR2P02tqa1uVrxOd2SpOSR7EgGbuXbE7mVj+k2FgrHY=;
+  b=RNihPWG6TFt6NkTREfYlR5PsUrdr1N+1yVsGP8KfUgARAdTr3QsxDA37
+   k1Mf+kBdnG9QSS2zjzYDNBPfll8llL82pHju96rufK0Mul2OCkpjLi/zx
+   nfzri330y/B9IpWrMkFJWSYtYvBt813+9W2HXVIPGpZKHumw7kr4XsqBv
+   4Bksvv70B1TJ8OMjR+qwj5IDlG/bX8hDisFg+j5jytTPhnR9Wo22uVd/h
+   49tX5uykw1rtx81IC1jWP2nrs/BIzo6QK0omYa0jt+2dvoDSjQm0ct7LU
+   y7J73llBRSJ7m6KNHEmqC4rk3CqKP/Q0PzwAdMLSIntnFyBJ7/3HSgeG6
+   A==;
+X-CSE-ConnectionGUID: a2O06/DRRwO5/auSTzGU/g==
+X-CSE-MsgGUID: uOATlesdQfK5UGGWLZPpcw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11163"; a="24735158"
 X-IronPort-AV: E=Sophos;i="6.09,288,1716274800";
-   d="scan'208";a="24735147"
+   d="scan'208";a="24735158"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 01:40:10 -0700
-X-CSE-ConnectionGUID: w62Mrhm5TMeFVy81OA9ZNg==
-X-CSE-MsgGUID: dsmOPKmDRcSngj56UlqGkQ==
+ 14 Aug 2024 01:40:13 -0700
+X-CSE-ConnectionGUID: xxkrXRnLRMK8Me/bHTx3yQ==
+X-CSE-MsgGUID: OQG7Yt5oT82PGIUbnskOLQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.09,288,1716274800";
-   d="scan'208";a="63867935"
+   d="scan'208";a="63867951"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
-  by orviesa004.jf.intel.com with ESMTP; 14 Aug 2024 01:40:06 -0700
+  by orviesa004.jf.intel.com with ESMTP; 14 Aug 2024 01:40:09 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: broonie@kernel.org
 Cc: alsa-devel@alsa-project.org,
@@ -84,17 +84,17 @@ Cc: alsa-devel@alsa-project.org,
 	cujomalainey@chromium.org,
 	lmajczak@google.com,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH v2 04/14] ASoC: Intel: Remove bxt_da7219_max98357a board
+Subject: [PATCH v2 05/14] ASoC: Intel: Remove kbl_rt5663_rt5514_max98927 board
  driver
-Date: Wed, 14 Aug 2024 10:39:19 +0200
-Message-Id: <20240814083929.1217319-5-cezary.rojewski@intel.com>
+Date: Wed, 14 Aug 2024 10:39:20 +0200
+Message-Id: <20240814083929.1217319-6-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240814083929.1217319-1-cezary.rojewski@intel.com>
 References: <20240814083929.1217319-1-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OL6MJEX23NP3UCUQQ4QU4FAHCZSY66QG
-X-Message-ID-Hash: OL6MJEX23NP3UCUQQ4QU4FAHCZSY66QG
+Message-ID-Hash: RAW2UQZZWLWCOSMDJYAI6DX6T2WSBQRO
+X-Message-ID-Hash: RAW2UQZZWLWCOSMDJYAI6DX6T2WSBQRO
 X-MailFrom: cezary.rojewski@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OL6MJEX23NP3UCUQQ4QU4FAHCZSY66QG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RAW2UQZZWLWCOSMDJYAI6DX6T2WSBQRO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,79 +119,83 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 The driver has no users.
 
 Succeeded by:
-- avs_da7219 (./intel/avs/boards/da7219.c)
-- avs_max98357a (./intel/avs/boards/max98357a.c)
+- avs_rt5514 (./intel/avs/boards/rt5514.c)
+- avs_rt5663 (./intel/avs/boards/rt5663.c)
+- avs_max98927 (./intel/avs/boards/max98927.c)
 
 Acked-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/boards/Kconfig                |  16 -
+ sound/soc/intel/boards/Kconfig                |  17 -
  sound/soc/intel/boards/Makefile               |   2 -
- sound/soc/intel/boards/bxt_da7219_max98357a.c | 720 ------------------
- 3 files changed, 738 deletions(-)
- delete mode 100644 sound/soc/intel/boards/bxt_da7219_max98357a.c
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c | 869 ------------------
+ 3 files changed, 888 deletions(-)
+ delete mode 100644 sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
 
 diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 0892f2c19ade..fb1da74451c1 100644
+index fb1da74451c1..245a12427132 100644
 --- a/sound/soc/intel/boards/Kconfig
 +++ b/sound/soc/intel/boards/Kconfig
-@@ -305,22 +305,6 @@ config SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
- 	select SND_SOC_HDAC_HDMI
- 	select SND_SOC_INTEL_HDA_DSP_COMMON
+@@ -338,23 +338,6 @@ config SND_SOC_INTEL_KBL_RT5663_MAX98927_MACH
+ 	  Say Y or m if you have such a device. This is a recommended option.
+ 	  If unsure select "N".
  
--if SND_SOC_INTEL_APL
--
--config SND_SOC_INTEL_BXT_DA7219_MAX98357A_MACH
--	tristate "Broxton with DA7219 and MAX98357A in I2S Mode"
+-config SND_SOC_INTEL_KBL_RT5663_RT5514_MAX98927_MACH
+-	tristate "KBL with RT5663, RT5514 and MAX98927 in I2S Mode"
 -	depends on I2C && ACPI
 -	depends on MFD_INTEL_LPSS || COMPILE_TEST
--	depends on SND_HDA_CODEC_HDMI
--	select SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
+-	depends on SPI
+-	select SND_SOC_RT5663
+-	select SND_SOC_RT5514
+-	select SND_SOC_RT5514_SPI
+-	select SND_SOC_MAX98927
+-	select SND_SOC_HDAC_HDMI
+-	select SND_SOC_INTEL_SKYLAKE_SSP_CLK
 -	help
--	   This adds support for ASoC machine driver for Broxton-P platforms
--	   with DA7219 + MAX98357A I2S audio codec.
--	   Say Y or m if you have such a device. This is a recommended option.
--	   If unsure select "N".
+-	  This adds support for ASoC Onboard Codec I2S machine driver. This will
+-	  create an alsa sound card for RT5663 + RT5514 + MAX98927.
+-	  Say Y or m if you have such a device. This is a recommended option.
+-	  If unsure select "N".
 -
--endif ## SND_SOC_INTEL_APL
--
- if SND_SOC_SOF_APOLLOLAKE
- 
- config SND_SOC_INTEL_SOF_WM8804_MACH
+ config SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH
+ 	tristate "KBL with DA7219 and MAX98357A in I2S Mode"
+ 	depends on I2C && ACPI
 diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index ae758a8aa61d..a1d53d1eac13 100644
+index a1d53d1eac13..dbdb5292c296 100644
 --- a/sound/soc/intel/boards/Makefile
 +++ b/sound/soc/intel/boards/Makefile
-@@ -3,7 +3,6 @@ snd-soc-hsw-rt5640-y := hsw_rt5640.o
- snd-soc-sst-bdw-rt5650-mach-y := bdw-rt5650.o
- snd-soc-sst-bdw-rt5677-mach-y := bdw-rt5677.o
- snd-soc-bdw-rt286-y := bdw_rt286.o
--snd-soc-sst-bxt-da7219_max98357a-y := bxt_da7219_max98357a.o
- snd-soc-sst-sof-pcm512x-y := sof_pcm512x.o
- snd-soc-sst-sof-wm8804-y := sof_wm8804.o
- snd-soc-sst-bytcr-rt5640-y := bytcr_rt5640.o
-@@ -41,7 +40,6 @@ obj-$(CONFIG_SND_SOC_INTEL_SOF_ES8336_MACH) += snd-soc-sof_es8336.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_NAU8825_MACH) += snd-soc-sof_nau8825.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_DA7219_MACH) += snd-soc-sof_da7219.o
- obj-$(CONFIG_SND_SOC_INTEL_HASWELL_MACH) += snd-soc-hsw-rt5640.o
--obj-$(CONFIG_SND_SOC_INTEL_BXT_DA7219_MAX98357A_MACH) += snd-soc-sst-bxt-da7219_max98357a.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_PCM512x_MACH) += snd-soc-sst-sof-pcm512x.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_WM8804_MACH) += snd-soc-sst-sof-wm8804.o
- obj-$(CONFIG_SND_SOC_INTEL_BROADWELL_MACH) += snd-soc-bdw-rt286.o
-diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+@@ -24,7 +24,6 @@ snd-soc-sof_da7219-y := sof_da7219.o
+ snd-soc-kbl_da7219_max98357a-y := kbl_da7219_max98357a.o
+ snd-soc-kbl_da7219_max98927-y := kbl_da7219_max98927.o
+ snd-soc-kbl_rt5663_max98927-y := kbl_rt5663_max98927.o
+-snd-soc-kbl_rt5663_rt5514_max98927-y := kbl_rt5663_rt5514_max98927.o
+ snd-soc-kbl_rt5660-y := kbl_rt5660.o
+ snd-soc-skl_rt286-y := skl_rt286.o
+ snd-soc-skl_hda_dsp-y := skl_hda_dsp_generic.o skl_hda_dsp_common.o
+@@ -59,7 +58,6 @@ obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH) += snd-soc-sst-byt-cht-nocodec.
+ obj-$(CONFIG_SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH) += snd-soc-kbl_da7219_max98357a.o
+ obj-$(CONFIG_SND_SOC_INTEL_KBL_DA7219_MAX98927_MACH) += snd-soc-kbl_da7219_max98927.o
+ obj-$(CONFIG_SND_SOC_INTEL_KBL_RT5663_MAX98927_MACH) += snd-soc-kbl_rt5663_max98927.o
+-obj-$(CONFIG_SND_SOC_INTEL_KBL_RT5663_RT5514_MAX98927_MACH) += snd-soc-kbl_rt5663_rt5514_max98927.o
+ obj-$(CONFIG_SND_SOC_INTEL_KBL_RT5660_MACH) += snd-soc-kbl_rt5660.o
+ obj-$(CONFIG_SND_SOC_INTEL_SKL_RT286_MACH) += snd-soc-skl_rt286.o
+ obj-$(CONFIG_SND_SOC_INTEL_SKL_NAU88L25_MAX98357A_MACH) += snd-skl_nau88l25_max98357a.o
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
 deleted file mode 100644
-index e1082bfe5ca9..000000000000
---- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
+index a32ce8f972f3..000000000000
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
 +++ /dev/null
-@@ -1,720 +0,0 @@
+@@ -1,869 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0-only
 -/*
-- * Intel Broxton-P I2S Machine Driver
+- * Intel Kabylake I2S Machine Driver with MAXIM98927
+- * RT5514 and RT5663 Codecs
 - *
-- * Copyright (C) 2016, Intel Corporation
+- * Copyright (C) 2017, Intel Corporation
 - *
 - * Modified from:
-- *   Intel Skylake I2S Machine driver
+- *   Intel Kabylake I2S Machine driver supporting MAXIM98927 and
+- *   RT5663 codecs
 - */
 -
 -#include <linux/input.h>
@@ -203,132 +207,130 @@ index e1082bfe5ca9..000000000000
 -#include <sound/pcm_params.h>
 -#include <sound/soc.h>
 -#include <sound/soc-acpi.h>
+-#include "../../codecs/rt5514.h"
+-#include "../../codecs/rt5663.h"
 -#include "../../codecs/hdac_hdmi.h"
--#include "../../codecs/da7219.h"
--#include "../common/soc-intel-quirks.h"
--#include "hda_dsp_common.h"
+-#include <linux/clk.h>
+-#include <linux/clk-provider.h>
+-#include <linux/clkdev.h>
 -
--#define BXT_DIALOG_CODEC_DAI	"da7219-hifi"
--#define BXT_MAXIM_CODEC_DAI	"HiFi"
--#define DUAL_CHANNEL		2
--#define QUAD_CHANNEL		4
+-#define KBL_REALTEK_CODEC_DAI "rt5663-aif"
+-#define KBL_REALTEK_DMIC_CODEC_DAI "rt5514-aif1"
+-#define KBL_MAXIM_CODEC_DAI "max98927-aif1"
+-#define MAXIM_DEV0_NAME "i2c-MX98927:00"
+-#define MAXIM_DEV1_NAME "i2c-MX98927:01"
+-#define RT5514_DEV_NAME "i2c-10EC5514:00"
+-#define RT5663_DEV_NAME "i2c-10EC5663:00"
+-#define RT5514_AIF1_BCLK_FREQ (48000 * 8 * 16)
+-#define RT5514_AIF1_SYSCLK_FREQ 12288000
+-#define NAME_SIZE 32
 -
--static struct snd_soc_jack broxton_headset;
--static struct snd_soc_jack broxton_hdmi[3];
+-#define DMIC_CH(p) p->list[p->count-1]
 -
--struct bxt_hdmi_pcm {
+-
+-static struct snd_soc_card kabylake_audio_card;
+-static const struct snd_pcm_hw_constraint_list *dmic_constraints;
+-
+-struct kbl_hdmi_pcm {
 -	struct list_head head;
 -	struct snd_soc_dai *codec_dai;
 -	int device;
 -};
 -
--struct bxt_card_private {
+-struct kbl_codec_private {
+-	struct snd_soc_jack kabylake_headset;
 -	struct list_head hdmi_pcm_list;
--	bool common_hdmi_codec_drv;
+-	struct snd_soc_jack kabylake_hdmi[2];
+-	struct clk *mclk;
+-	struct clk *sclk;
 -};
 -
 -enum {
--	BXT_DPCM_AUDIO_PB = 0,
--	BXT_DPCM_AUDIO_CP,
--	BXT_DPCM_AUDIO_HS_PB,
--	BXT_DPCM_AUDIO_REF_CP,
--	BXT_DPCM_AUDIO_DMIC_CP,
--	BXT_DPCM_AUDIO_HDMI1_PB,
--	BXT_DPCM_AUDIO_HDMI2_PB,
--	BXT_DPCM_AUDIO_HDMI3_PB,
+-	KBL_DPCM_AUDIO_PB = 0,
+-	KBL_DPCM_AUDIO_CP,
+-	KBL_DPCM_AUDIO_HS_PB,
+-	KBL_DPCM_AUDIO_ECHO_REF_CP,
+-	KBL_DPCM_AUDIO_DMIC_CP,
+-	KBL_DPCM_AUDIO_RT5514_DSP,
+-	KBL_DPCM_AUDIO_HDMI1_PB,
+-	KBL_DPCM_AUDIO_HDMI2_PB,
+-};
+-
+-static const struct snd_kcontrol_new kabylake_controls[] = {
+-	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+-	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+-	SOC_DAPM_PIN_SWITCH("Left Spk"),
+-	SOC_DAPM_PIN_SWITCH("Right Spk"),
+-	SOC_DAPM_PIN_SWITCH("DMIC"),
 -};
 -
 -static int platform_clock_control(struct snd_soc_dapm_widget *w,
--	struct snd_kcontrol *k, int  event)
+-			struct snd_kcontrol *k, int  event)
 -{
--	int ret = 0;
 -	struct snd_soc_dapm_context *dapm = w->dapm;
 -	struct snd_soc_card *card = dapm->card;
--	struct snd_soc_dai *codec_dai;
+-	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
+-	int ret = 0;
 -
--	codec_dai = snd_soc_card_get_codec_dai(card, BXT_DIALOG_CODEC_DAI);
--	if (!codec_dai) {
--		dev_err(card->dev, "Codec dai not found; Unable to set/unset codec pll\n");
--		return -EIO;
+-	/*
+-	 * MCLK/SCLK need to be ON early for a successful synchronization of
+-	 * codec internal clock. And the clocks are turned off during
+-	 * POST_PMD after the stream is stopped.
+-	 */
+-	switch (event) {
+-	case SND_SOC_DAPM_PRE_PMU:
+-		/* Enable MCLK */
+-		ret = clk_set_rate(priv->mclk, 24000000);
+-		if (ret < 0) {
+-			dev_err(card->dev, "Can't set rate for mclk, err: %d\n",
+-				ret);
+-			return ret;
+-		}
+-
+-		ret = clk_prepare_enable(priv->mclk);
+-		if (ret < 0) {
+-			dev_err(card->dev, "Can't enable mclk, err: %d\n", ret);
+-			return ret;
+-		}
+-
+-		/* Enable SCLK */
+-		ret = clk_set_rate(priv->sclk, 3072000);
+-		if (ret < 0) {
+-			dev_err(card->dev, "Can't set rate for sclk, err: %d\n",
+-				ret);
+-			clk_disable_unprepare(priv->mclk);
+-			return ret;
+-		}
+-
+-		ret = clk_prepare_enable(priv->sclk);
+-		if (ret < 0) {
+-			dev_err(card->dev, "Can't enable sclk, err: %d\n", ret);
+-			clk_disable_unprepare(priv->mclk);
+-		}
+-		break;
+-	case SND_SOC_DAPM_POST_PMD:
+-		clk_disable_unprepare(priv->mclk);
+-		clk_disable_unprepare(priv->sclk);
+-		break;
+-	default:
+-		return 0;
 -	}
 -
--	if (SND_SOC_DAPM_EVENT_OFF(event)) {
--		ret = snd_soc_dai_set_pll(codec_dai, 0,
--			DA7219_SYSCLK_MCLK, 0, 0);
--		if (ret)
--			dev_err(card->dev, "failed to stop PLL: %d\n", ret);
--	} else if(SND_SOC_DAPM_EVENT_ON(event)) {
--		ret = snd_soc_dai_set_pll(codec_dai, 0,
--			DA7219_SYSCLK_PLL_SRM, 0, DA7219_PLL_FREQ_OUT_98304);
--		if (ret)
--			dev_err(card->dev, "failed to start PLL: %d\n", ret);
--	}
--
--	return ret;
+-	return 0;
 -}
 -
--static const struct snd_kcontrol_new broxton_controls[] = {
--	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
--	SOC_DAPM_PIN_SWITCH("Headset Mic"),
--	SOC_DAPM_PIN_SWITCH("Line Out"),
--	SOC_DAPM_PIN_SWITCH("Spk"),
--};
--
--static const struct snd_soc_dapm_widget broxton_widgets[] = {
+-static const struct snd_soc_dapm_widget kabylake_widgets[] = {
 -	SND_SOC_DAPM_HP("Headphone Jack", NULL),
 -	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_LINE("Line Out", NULL),
--	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
+-	SND_SOC_DAPM_SPK("Left Spk", NULL),
+-	SND_SOC_DAPM_SPK("Right Spk", NULL),
+-	SND_SOC_DAPM_MIC("DMIC", NULL),
 -	SND_SOC_DAPM_SPK("HDMI1", NULL),
 -	SND_SOC_DAPM_SPK("HDMI2", NULL),
--	SND_SOC_DAPM_SPK("HDMI3", NULL),
 -	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
--			platform_clock_control,	SND_SOC_DAPM_POST_PMD|SND_SOC_DAPM_PRE_PMU),
--	SND_SOC_DAPM_SPK("Spk", NULL),
--};
+-			platform_clock_control, SND_SOC_DAPM_PRE_PMU |
+-			SND_SOC_DAPM_POST_PMD),
 -
--static const struct snd_soc_dapm_route audio_map[] = {
--	/* HP jack connectors - unknown if we have jack detection */
--	{"Headphone Jack", NULL, "HPL"},
--	{"Headphone Jack", NULL, "HPR"},
--
--	/* other jacks */
--	{"MIC", NULL, "Headset Mic"},
--
--	/* digital mics */
--	{"DMic", NULL, "SoC DMIC"},
--
--	/* CODEC BE connections */
--	{"HDMI1", NULL, "hif5-0 Output"},
--	{"HDMI2", NULL, "hif6-0 Output"},
--	{"HDMI2", NULL, "hif7-0 Output"},
--
--	{"hifi3", NULL, "iDisp3 Tx"},
--	{"iDisp3 Tx", NULL, "iDisp3_out"},
--	{"hifi2", NULL, "iDisp2 Tx"},
--	{"iDisp2 Tx", NULL, "iDisp2_out"},
--	{"hifi1", NULL, "iDisp1 Tx"},
--	{"iDisp1 Tx", NULL, "iDisp1_out"},
--
--	/* DMIC */
--	{"dmic01_hifi", NULL, "DMIC01 Rx"},
--	{"DMIC01 Rx", NULL, "DMIC AIF"},
--
--	{ "Headphone Jack", NULL, "Platform Clock" },
--	{ "Headset Mic", NULL, "Platform Clock" },
--	{ "Line Out", NULL, "Platform Clock" },
--
--	/* speaker */
--	{"Spk", NULL, "Speaker"},
--
--	{"HiFi Playback", NULL, "ssp5 Tx"},
--	{"ssp5 Tx", NULL, "codec0_out"},
--
--	{"Playback", NULL, "ssp1 Tx"},
--	{"ssp1 Tx", NULL, "codec1_out"},
--
--	{"codec0_in", NULL, "ssp1 Rx"},
--	{"ssp1 Rx", NULL, "Capture"},
 -};
 -
 -static struct snd_soc_jack_pin jack_pins[] = {
@@ -340,89 +342,128 @@ index e1082bfe5ca9..000000000000
 -		.pin    = "Headset Mic",
 -		.mask   = SND_JACK_MICROPHONE,
 -	},
+-};
+-
+-static const struct snd_soc_dapm_route kabylake_map[] = {
+-	/* Headphones */
+-	{ "Headphone Jack", NULL, "Platform Clock" },
+-	{ "Headphone Jack", NULL, "HPOL" },
+-	{ "Headphone Jack", NULL, "HPOR" },
+-
+-	/* speaker */
+-	{ "Left Spk", NULL, "Left BE_OUT" },
+-	{ "Right Spk", NULL, "Right BE_OUT" },
+-
+-	/* other jacks */
+-	{ "Headset Mic", NULL, "Platform Clock" },
+-	{ "IN1P", NULL, "Headset Mic" },
+-	{ "IN1N", NULL, "Headset Mic" },
+-
+-	/* CODEC BE connections */
+-	{ "Left HiFi Playback", NULL, "ssp0 Tx" },
+-	{ "Right HiFi Playback", NULL, "ssp0 Tx" },
+-	{ "ssp0 Tx", NULL, "spk_out" },
+-
+-	{ "AIF Playback", NULL, "ssp1 Tx" },
+-	{ "ssp1 Tx", NULL, "codec1_out" },
+-
+-	{ "hs_in", NULL, "ssp1 Rx" },
+-	{ "ssp1 Rx", NULL, "AIF Capture" },
+-
+-	{ "codec1_in", NULL, "ssp0 Rx" },
+-	{ "ssp0 Rx", NULL, "AIF1 Capture" },
+-
+-	/* IV feedback path */
+-	{ "codec0_fb_in", NULL, "ssp0 Rx"},
+-	{ "ssp0 Rx", NULL, "Left HiFi Capture" },
+-	{ "ssp0 Rx", NULL, "Right HiFi Capture" },
+-
+-	/* DMIC */
+-	{ "DMIC1L", NULL, "DMIC" },
+-	{ "DMIC1R", NULL, "DMIC" },
+-	{ "DMIC2L", NULL, "DMIC" },
+-	{ "DMIC2R", NULL, "DMIC" },
+-
+-	{ "hifi2", NULL, "iDisp2 Tx" },
+-	{ "iDisp2 Tx", NULL, "iDisp2_out" },
+-	{ "hifi1", NULL, "iDisp1 Tx" },
+-	{ "iDisp1 Tx", NULL, "iDisp1_out" },
+-};
+-
+-static struct snd_soc_codec_conf max98927_codec_conf[] = {
 -	{
--		.pin    = "Line Out",
--		.mask   = SND_JACK_LINEOUT,
+-		.dlc = COMP_CODEC_CONF(MAXIM_DEV0_NAME),
+-		.name_prefix = "Right",
+-	},
+-	{
+-		.dlc = COMP_CODEC_CONF(MAXIM_DEV1_NAME),
+-		.name_prefix = "Left",
 -	},
 -};
 -
--static int broxton_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
--			struct snd_pcm_hw_params *params)
+-
+-static int kabylake_rt5663_fe_init(struct snd_soc_pcm_runtime *rtd)
 -{
--	struct snd_interval *rate = hw_param_interval(params,
--			SNDRV_PCM_HW_PARAM_RATE);
--	struct snd_interval *chan = hw_param_interval(params,
--			SNDRV_PCM_HW_PARAM_CHANNELS);
--	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+-	struct snd_soc_dapm_context *dapm;
+-	struct snd_soc_component *component = snd_soc_rtd_to_cpu(rtd, 0)->component;
+-	int ret;
 -
--	/* The ADSP will convert the FE rate to 48k, stereo */
--	rate->min = rate->max = 48000;
--	chan->min = chan->max = DUAL_CHANNEL;
+-	dapm = snd_soc_component_get_dapm(component);
+-	ret = snd_soc_dapm_ignore_suspend(dapm, "Reference Capture");
+-	if (ret)
+-		dev_err(rtd->dev, "Ref Cap -Ignore suspend failed = %d\n", ret);
 -
--	/* set SSP to 24 bit */
--	snd_mask_none(fmt);
--	snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
--
--	return 0;
+-	return ret;
 -}
 -
--static int broxton_da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+-static int kabylake_rt5663_codec_init(struct snd_soc_pcm_runtime *rtd)
 -{
 -	int ret;
--	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(rtd->card);
 -	struct snd_soc_component *component = snd_soc_rtd_to_codec(rtd, 0)->component;
--	int clk_freq;
--
--	/* Configure sysclk for codec */
--	clk_freq = 19200000;
--
--	ret = snd_soc_dai_set_sysclk(codec_dai, DA7219_CLKSRC_MCLK, clk_freq,
--				     SND_SOC_CLOCK_IN);
--
--	if (ret) {
--		dev_err(rtd->dev, "can't set codec sysclk configuration\n");
--		return ret;
--	}
+-	struct snd_soc_jack *jack;
 -
 -	/*
 -	 * Headset buttons map to the google Reference headset.
 -	 * These can be configured by userspace.
 -	 */
--	ret = snd_soc_card_jack_new_pins(rtd->card, "Headset Jack",
+-	ret = snd_soc_card_jack_new_pins(&kabylake_audio_card, "Headset Jack",
 -					 SND_JACK_HEADSET | SND_JACK_BTN_0 | SND_JACK_BTN_1 |
--					 SND_JACK_BTN_2 | SND_JACK_BTN_3 | SND_JACK_LINEOUT,
--					 &broxton_headset,
+-					 SND_JACK_BTN_2 | SND_JACK_BTN_3,
+-					 &ctx->kabylake_headset,
 -					 jack_pins,
 -					 ARRAY_SIZE(jack_pins));
 -	if (ret) {
--		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+-		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
 -		return ret;
 -	}
 -
--	snd_jack_set_key(broxton_headset.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
--	snd_jack_set_key(broxton_headset.jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
--	snd_jack_set_key(broxton_headset.jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
--	snd_jack_set_key(broxton_headset.jack, SND_JACK_BTN_3,
--			 KEY_VOICECOMMAND);
+-	jack = &ctx->kabylake_headset;
+-	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+-	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+-	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+-	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
 -
--	snd_soc_component_set_jack(component, &broxton_headset, NULL);
+-	snd_soc_component_set_jack(component, &ctx->kabylake_headset, NULL);
 -
--	snd_soc_dapm_ignore_suspend(&rtd->card->dapm, "SoC DMIC");
+-	ret = snd_soc_dapm_ignore_suspend(&rtd->card->dapm, "DMIC");
+-	if (ret)
+-		dev_err(rtd->dev, "DMIC - Ignore suspend failed = %d\n", ret);
 -
 -	return ret;
 -}
 -
--static int broxton_hdmi_init(struct snd_soc_pcm_runtime *rtd)
+-static int kabylake_hdmi_init(struct snd_soc_pcm_runtime *rtd, int device)
 -{
--	struct bxt_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+-	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(rtd->card);
 -	struct snd_soc_dai *dai = snd_soc_rtd_to_codec(rtd, 0);
--	struct bxt_hdmi_pcm *pcm;
+-	struct kbl_hdmi_pcm *pcm;
 -
 -	pcm = devm_kzalloc(rtd->card->dev, sizeof(*pcm), GFP_KERNEL);
 -	if (!pcm)
 -		return -ENOMEM;
 -
--	pcm->device = BXT_DPCM_AUDIO_HDMI1_PB + dai->id;
+-	pcm->device = device;
 -	pcm->codec_dai = dai;
 -
 -	list_add_tail(&pcm->head, &ctx->hdmi_pcm_list);
@@ -430,15 +471,14 @@ index e1082bfe5ca9..000000000000
 -	return 0;
 -}
 -
--static int broxton_da7219_fe_init(struct snd_soc_pcm_runtime *rtd)
+-static int kabylake_hdmi1_init(struct snd_soc_pcm_runtime *rtd)
 -{
--	struct snd_soc_dapm_context *dapm;
--	struct snd_soc_component *component = snd_soc_rtd_to_cpu(rtd, 0)->component;
+-	return kabylake_hdmi_init(rtd, KBL_DPCM_AUDIO_HDMI1_PB);
+-}
 -
--	dapm = snd_soc_component_get_dapm(component);
--	snd_soc_dapm_ignore_suspend(dapm, "Reference Capture");
--
--	return 0;
+-static int kabylake_hdmi2_init(struct snd_soc_pcm_runtime *rtd)
+-{
+-	return kabylake_hdmi_init(rtd, KBL_DPCM_AUDIO_HDMI2_PB);
 -}
 -
 -static const unsigned int rates[] = {
@@ -452,7 +492,7 @@ index e1082bfe5ca9..000000000000
 -};
 -
 -static const unsigned int channels[] = {
--	DUAL_CHANNEL,
+-	2,
 -};
 -
 -static const struct snd_pcm_hw_constraint_list constraints_channels = {
@@ -461,17 +501,7 @@ index e1082bfe5ca9..000000000000
 -	.mask = 0,
 -};
 -
--static const unsigned int channels_quad[] = {
--	QUAD_CHANNEL,
--};
--
--static const struct snd_pcm_hw_constraint_list constraints_channels_quad = {
--	.count = ARRAY_SIZE(channels_quad),
--	.list = channels_quad,
--	.mask = 0,
--};
--
--static int bxt_fe_startup(struct snd_pcm_substream *substream)
+-static int kbl_fe_startup(struct snd_pcm_substream *substream)
 -{
 -	struct snd_pcm_runtime *runtime = substream->runtime;
 -
@@ -482,7 +512,7 @@ index e1082bfe5ca9..000000000000
 -	 * 16 bit audio
 -	 */
 -
--	runtime->hw.channels_max = DUAL_CHANNEL;
+-	runtime->hw.channels_max = 2;
 -	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
 -					   &constraints_channels);
 -
@@ -495,74 +525,181 @@ index e1082bfe5ca9..000000000000
 -	return 0;
 -}
 -
--static const struct snd_soc_ops broxton_da7219_fe_ops = {
--	.startup = bxt_fe_startup,
+-static const struct snd_soc_ops kabylake_rt5663_fe_ops = {
+-	.startup = kbl_fe_startup,
 -};
 -
--static int broxton_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
--			struct snd_pcm_hw_params *params)
+-static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+-					struct snd_pcm_hw_params *params)
 -{
+-	struct snd_interval *rate = hw_param_interval(params,
+-			SNDRV_PCM_HW_PARAM_RATE);
 -	struct snd_interval *chan = hw_param_interval(params,
--						SNDRV_PCM_HW_PARAM_CHANNELS);
--	if (params_channels(params) == 2)
+-			SNDRV_PCM_HW_PARAM_CHANNELS);
+-	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+-	struct snd_soc_dpcm *dpcm, *rtd_dpcm = NULL;
+-
+-	/*
+-	 * The following loop will be called only for playback stream
+-	 * In this platform, there is only one playback device on every SSP
+-	 */
+-	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_PLAYBACK, dpcm) {
+-		rtd_dpcm = dpcm;
+-		break;
+-	}
+-
+-	/*
+-	 * This following loop will be called only for capture stream
+-	 * In this platform, there is only one capture device on every SSP
+-	 */
+-	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_CAPTURE, dpcm) {
+-		rtd_dpcm = dpcm;
+-		break;
+-	}
+-
+-	if (!rtd_dpcm)
+-		return -EINVAL;
+-
+-	/*
+-	 * The above 2 loops are mutually exclusive based on the stream direction,
+-	 * thus rtd_dpcm variable will never be overwritten
+-	 */
+-
+-	/*
+-	 * The ADSP will convert the FE rate to 48k, stereo, 24 bit
+-	 */
+-	if (!strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Port") ||
+-	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Headset Playback") ||
+-	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Capture Port")) {
+-		rate->min = rate->max = 48000;
 -		chan->min = chan->max = 2;
--	else
--		chan->min = chan->max = 4;
+-		snd_mask_none(fmt);
+-		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
+-	} else if (!strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio DMIC cap")) {
+-		if (params_channels(params) == 2 ||
+-				DMIC_CH(dmic_constraints) == 2)
+-			chan->min = chan->max = 2;
+-		else
+-			chan->min = chan->max = 4;
+-	}
+-	/*
+-	 * The speaker on the SSP0 supports S16_LE and not S24_LE.
+-	 * thus changing the mask here
+-	 */
+-	if (!strcmp(rtd_dpcm->be->dai_link->name, "SSP0-Codec"))
+-		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
 -
 -	return 0;
 -}
 -
--static int broxton_dmic_startup(struct snd_pcm_substream *substream)
+-static int kabylake_rt5663_hw_params(struct snd_pcm_substream *substream,
+-	struct snd_pcm_hw_params *params)
+-{
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+-	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	int ret;
+-
+-	/* use ASRC for internal clocks, as PLL rate isn't multiple of BCLK */
+-	rt5663_sel_asrc_clk_src(codec_dai->component,
+-			RT5663_DA_STEREO_FILTER | RT5663_AD_STEREO_FILTER,
+-			RT5663_CLK_SEL_I2S1_ASRC);
+-
+-	ret = snd_soc_dai_set_sysclk(codec_dai,
+-			RT5663_SCLK_S_MCLK, 24576000, SND_SOC_CLOCK_IN);
+-	if (ret < 0)
+-		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
+-
+-	return ret;
+-}
+-
+-static const struct snd_soc_ops kabylake_rt5663_ops = {
+-	.hw_params = kabylake_rt5663_hw_params,
+-};
+-
+-static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+-	struct snd_pcm_hw_params *params)
+-{
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+-	struct snd_soc_dai *codec_dai;
+-	int ret = 0, j;
+-
+-	for_each_rtd_codec_dais(rtd, j, codec_dai) {
+-		if (!strcmp(codec_dai->component->name, RT5514_DEV_NAME)) {
+-			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0xF, 0, 8, 16);
+-			if (ret < 0) {
+-				dev_err(rtd->dev, "set TDM slot err:%d\n", ret);
+-				return ret;
+-			}
+-
+-			ret = snd_soc_dai_set_sysclk(codec_dai,
+-				RT5514_SCLK_S_MCLK, 24576000, SND_SOC_CLOCK_IN);
+-			if (ret < 0) {
+-				dev_err(rtd->dev, "set sysclk err: %d\n", ret);
+-				return ret;
+-			}
+-		}
+-		if (!strcmp(codec_dai->component->name, MAXIM_DEV0_NAME)) {
+-			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x30, 3, 8, 16);
+-			if (ret < 0) {
+-				dev_err(rtd->dev, "DEV0 TDM slot err:%d\n", ret);
+-				return ret;
+-			}
+-		}
+-
+-		if (!strcmp(codec_dai->component->name, MAXIM_DEV1_NAME)) {
+-			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0xC0, 3, 8, 16);
+-			if (ret < 0) {
+-				dev_err(rtd->dev, "DEV1 TDM slot err:%d\n", ret);
+-				return ret;
+-			}
+-		}
+-	}
+-	return ret;
+-}
+-
+-static const struct snd_soc_ops kabylake_ssp0_ops = {
+-	.hw_params = kabylake_ssp0_hw_params,
+-};
+-
+-static const unsigned int channels_dmic[] = {
+-	4,
+-};
+-
+-static const struct snd_pcm_hw_constraint_list constraints_dmic_channels = {
+-	.count = ARRAY_SIZE(channels_dmic),
+-	.list = channels_dmic,
+-	.mask = 0,
+-};
+-
+-static const unsigned int dmic_2ch[] = {
+-	2,
+-};
+-
+-static const struct snd_pcm_hw_constraint_list constraints_dmic_2ch = {
+-	.count = ARRAY_SIZE(dmic_2ch),
+-	.list = dmic_2ch,
+-	.mask = 0,
+-};
+-
+-static int kabylake_dmic_startup(struct snd_pcm_substream *substream)
 -{
 -	struct snd_pcm_runtime *runtime = substream->runtime;
 -
--	runtime->hw.channels_min = runtime->hw.channels_max = QUAD_CHANNEL;
+-	runtime->hw.channels_max = DMIC_CH(dmic_constraints);
 -	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
--			&constraints_channels_quad);
+-			dmic_constraints);
+-
+-	runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
+-	snd_pcm_hw_constraint_msbits(runtime, 0, 16, 16);
 -
 -	return snd_pcm_hw_constraint_list(substream->runtime, 0,
 -			SNDRV_PCM_HW_PARAM_RATE, &constraints_rates);
 -}
 -
--static const struct snd_soc_ops broxton_dmic_ops = {
--	.startup = broxton_dmic_startup,
+-static const struct snd_soc_ops kabylake_dmic_ops = {
+-	.startup = kabylake_dmic_startup,
 -};
 -
--static const unsigned int rates_16000[] = {
--	16000,
--};
--
--static const struct snd_pcm_hw_constraint_list constraints_16000 = {
--	.count = ARRAY_SIZE(rates_16000),
--	.list  = rates_16000,
--};
--
--static const unsigned int ch_mono[] = {
--	1,
--};
--
--static const struct snd_pcm_hw_constraint_list constraints_refcap = {
--	.count = ARRAY_SIZE(ch_mono),
--	.list  = ch_mono,
--};
--
--static int broxton_refcap_startup(struct snd_pcm_substream *substream)
--{
--	substream->runtime->hw.channels_max = 1;
--	snd_pcm_hw_constraint_list(substream->runtime, 0,
--				   SNDRV_PCM_HW_PARAM_CHANNELS,
--				   &constraints_refcap);
--
--	return snd_pcm_hw_constraint_list(substream->runtime, 0,
--			SNDRV_PCM_HW_PARAM_RATE,
--			&constraints_16000);
--};
--
--static const struct snd_soc_ops broxton_refcap_ops = {
--	.startup = broxton_refcap_startup,
--};
--
--/* broxton digital audio interface glue - connects codec <--> CPU */
 -SND_SOC_DAILINK_DEF(dummy,
 -	DAILINK_COMP_ARRAY(COMP_DUMMY()));
 -
@@ -572,8 +709,13 @@ index e1082bfe5ca9..000000000000
 -SND_SOC_DAILINK_DEF(system2,
 -	DAILINK_COMP_ARRAY(COMP_CPU("System Pin2")));
 -
--SND_SOC_DAILINK_DEF(reference,
--	DAILINK_COMP_ARRAY(COMP_CPU("Reference Pin")));
+-SND_SOC_DAILINK_DEF(echoref,
+-	DAILINK_COMP_ARRAY(COMP_CPU("Echoref Pin")));
+-
+-SND_SOC_DAILINK_DEF(spi_cpu,
+-	DAILINK_COMP_ARRAY(COMP_CPU("spi-PRP0001:00")));
+-SND_SOC_DAILINK_DEF(spi_platform,
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("spi-PRP0001:00")));
 -
 -SND_SOC_DAILINK_DEF(dmic,
 -	DAILINK_COMP_ARRAY(COMP_CPU("DMIC Pin")));
@@ -584,30 +726,18 @@ index e1082bfe5ca9..000000000000
 -SND_SOC_DAILINK_DEF(hdmi2,
 -	DAILINK_COMP_ARRAY(COMP_CPU("HDMI2 Pin")));
 -
--SND_SOC_DAILINK_DEF(hdmi3,
--	DAILINK_COMP_ARRAY(COMP_CPU("HDMI3 Pin")));
--
-- /* Back End DAI */
--SND_SOC_DAILINK_DEF(ssp5_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("SSP5 Pin")));
--SND_SOC_DAILINK_DEF(ssp5_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("MX98357A:00",
--				      BXT_MAXIM_CODEC_DAI)));
+-SND_SOC_DAILINK_DEF(ssp0_pin,
+-	DAILINK_COMP_ARRAY(COMP_CPU("SSP0 Pin")));
+-SND_SOC_DAILINK_DEF(ssp0_codec,
+-	DAILINK_COMP_ARRAY(
+-	/* Left */ COMP_CODEC(MAXIM_DEV0_NAME, KBL_MAXIM_CODEC_DAI),
+-	/* Right */COMP_CODEC(MAXIM_DEV1_NAME, KBL_MAXIM_CODEC_DAI),
+-	/* dmic */ COMP_CODEC(RT5514_DEV_NAME, KBL_REALTEK_DMIC_CODEC_DAI)));
 -
 -SND_SOC_DAILINK_DEF(ssp1_pin,
 -	DAILINK_COMP_ARRAY(COMP_CPU("SSP1 Pin")));
 -SND_SOC_DAILINK_DEF(ssp1_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-DLGS7219:00",
--				      BXT_DIALOG_CODEC_DAI)));
--
--SND_SOC_DAILINK_DEF(dmic_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
--
--SND_SOC_DAILINK_DEF(dmic16k_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("DMIC16k Pin")));
--
--SND_SOC_DAILINK_DEF(dmic_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
+-	DAILINK_COMP_ARRAY(COMP_CODEC(RT5663_DEV_NAME, KBL_REALTEK_CODEC_DAI)));
 -
 -SND_SOC_DAILINK_DEF(idisp1_pin,
 -	DAILINK_COMP_ARRAY(COMP_CPU("iDisp1 Pin")));
@@ -617,241 +747,246 @@ index e1082bfe5ca9..000000000000
 -SND_SOC_DAILINK_DEF(idisp2_pin,
 -	DAILINK_COMP_ARRAY(COMP_CPU("iDisp2 Pin")));
 -SND_SOC_DAILINK_DEF(idisp2_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2",
--				      "intel-hdmi-hifi2")));
--
--SND_SOC_DAILINK_DEF(idisp3_pin,
--	DAILINK_COMP_ARRAY(COMP_CPU("iDisp3 Pin")));
--SND_SOC_DAILINK_DEF(idisp3_codec,
--	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2",
--				      "intel-hdmi-hifi3")));
+-	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi2")));
 -
 -SND_SOC_DAILINK_DEF(platform,
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("0000:00:0e.0")));
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("0000:00:1f.3")));
 -
--static struct snd_soc_dai_link broxton_dais[] = {
+-/* kabylake digital audio interface glue - connects codec <--> CPU */
+-static struct snd_soc_dai_link kabylake_dais[] = {
 -	/* Front End DAI links */
--	[BXT_DPCM_AUDIO_PB] =
--	{
--		.name = "Bxt Audio Port",
+-	[KBL_DPCM_AUDIO_PB] = {
+-		.name = "Kbl Audio Port",
 -		.stream_name = "Audio",
 -		.dynamic = 1,
 -		.nonatomic = 1,
--		.init = broxton_da7219_fe_init,
+-		.init = kabylake_rt5663_fe_init,
 -		.trigger = {
 -			SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
 -		.dpcm_playback = 1,
--		.ops = &broxton_da7219_fe_ops,
+-		.ops = &kabylake_rt5663_fe_ops,
 -		SND_SOC_DAILINK_REG(system, dummy, platform),
 -	},
--	[BXT_DPCM_AUDIO_CP] =
--	{
--		.name = "Bxt Audio Capture Port",
+-	[KBL_DPCM_AUDIO_CP] = {
+-		.name = "Kbl Audio Capture Port",
 -		.stream_name = "Audio Record",
 -		.dynamic = 1,
 -		.nonatomic = 1,
 -		.trigger = {
 -			SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
 -		.dpcm_capture = 1,
--		.ops = &broxton_da7219_fe_ops,
+-		.ops = &kabylake_rt5663_fe_ops,
 -		SND_SOC_DAILINK_REG(system, dummy, platform),
 -	},
--	[BXT_DPCM_AUDIO_HS_PB] = {
--		.name = "Bxt Audio Headset Playback",
--		.stream_name = "Headset Playback",
--		.dynamic = 1,
--		.nonatomic = 1,
--		.trigger = {
--			SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-	[KBL_DPCM_AUDIO_HS_PB] = {
+-		.name = "Kbl Audio Headset Playback",
+-		.stream_name = "Headset Audio",
 -		.dpcm_playback = 1,
--		.ops = &broxton_da7219_fe_ops,
+-		.nonatomic = 1,
+-		.dynamic = 1,
 -		SND_SOC_DAILINK_REG(system2, dummy, platform),
 -	},
--	[BXT_DPCM_AUDIO_REF_CP] =
--	{
--		.name = "Bxt Audio Reference cap",
--		.stream_name = "Refcap",
+-	[KBL_DPCM_AUDIO_ECHO_REF_CP] = {
+-		.name = "Kbl Audio Echo Reference cap",
+-		.stream_name = "Echoreference Capture",
 -		.init = NULL,
 -		.dpcm_capture = 1,
 -		.nonatomic = 1,
--		.dynamic = 1,
--		.ops = &broxton_refcap_ops,
--		SND_SOC_DAILINK_REG(reference, dummy, platform),
+-		SND_SOC_DAILINK_REG(echoref, dummy, platform),
 -	},
--	[BXT_DPCM_AUDIO_DMIC_CP] =
--	{
--		.name = "Bxt Audio DMIC cap",
+-	[KBL_DPCM_AUDIO_RT5514_DSP] = {
+-		.name = "rt5514 dsp",
+-		.stream_name = "Wake on Voice",
+-		SND_SOC_DAILINK_REG(spi_cpu, dummy, spi_platform),
+-	},
+-	[KBL_DPCM_AUDIO_DMIC_CP] = {
+-		.name = "Kbl Audio DMIC cap",
 -		.stream_name = "dmiccap",
 -		.init = NULL,
 -		.dpcm_capture = 1,
 -		.nonatomic = 1,
 -		.dynamic = 1,
--		.ops = &broxton_dmic_ops,
+-		.ops = &kabylake_dmic_ops,
 -		SND_SOC_DAILINK_REG(dmic, dummy, platform),
 -	},
--	[BXT_DPCM_AUDIO_HDMI1_PB] =
--	{
--		.name = "Bxt HDMI Port1",
+-	[KBL_DPCM_AUDIO_HDMI1_PB] = {
+-		.name = "Kbl HDMI Port1",
 -		.stream_name = "Hdmi1",
 -		.dpcm_playback = 1,
 -		.init = NULL,
+-		.trigger = {
+-			SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
 -		.nonatomic = 1,
 -		.dynamic = 1,
 -		SND_SOC_DAILINK_REG(hdmi1, dummy, platform),
 -	},
--	[BXT_DPCM_AUDIO_HDMI2_PB] =
--	{
--		.name = "Bxt HDMI Port2",
+-	[KBL_DPCM_AUDIO_HDMI2_PB] = {
+-		.name = "Kbl HDMI Port2",
 -		.stream_name = "Hdmi2",
 -		.dpcm_playback = 1,
 -		.init = NULL,
+-		.trigger = {
+-			SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
 -		.nonatomic = 1,
 -		.dynamic = 1,
 -		SND_SOC_DAILINK_REG(hdmi2, dummy, platform),
 -	},
--	[BXT_DPCM_AUDIO_HDMI3_PB] =
--	{
--		.name = "Bxt HDMI Port3",
--		.stream_name = "Hdmi3",
--		.dpcm_playback = 1,
--		.init = NULL,
--		.nonatomic = 1,
--		.dynamic = 1,
--		SND_SOC_DAILINK_REG(hdmi3, dummy, platform),
--	},
 -	/* Back End DAI links */
+-	/* single Back end dai for both max speakers and dmic */
 -	{
--		/* SSP5 - Codec */
--		.name = "SSP5-Codec",
+-		/* SSP0 - Codec */
+-		.name = "SSP0-Codec",
 -		.id = 0,
 -		.no_pcm = 1,
--		.dai_fmt = SND_SOC_DAIFMT_I2S |
+-		.dai_fmt = SND_SOC_DAIFMT_DSP_B |
 -			SND_SOC_DAIFMT_NB_NF |
 -			SND_SOC_DAIFMT_CBC_CFC,
 -		.ignore_pmdown_time = 1,
--		.be_hw_params_fixup = broxton_ssp_fixup,
+-		.be_hw_params_fixup = kabylake_ssp_fixup,
 -		.dpcm_playback = 1,
--		SND_SOC_DAILINK_REG(ssp5_pin, ssp5_codec, platform),
+-		.dpcm_capture = 1,
+-		.ops = &kabylake_ssp0_ops,
+-		SND_SOC_DAILINK_REG(ssp0_pin, ssp0_codec, platform),
 -	},
 -	{
--		/* SSP1 - Codec */
 -		.name = "SSP1-Codec",
 -		.id = 1,
 -		.no_pcm = 1,
--		.init = broxton_da7219_codec_init,
+-		.init = kabylake_rt5663_codec_init,
 -		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
 -			SND_SOC_DAIFMT_CBC_CFC,
 -		.ignore_pmdown_time = 1,
--		.be_hw_params_fixup = broxton_ssp_fixup,
+-		.be_hw_params_fixup = kabylake_ssp_fixup,
+-		.ops = &kabylake_rt5663_ops,
 -		.dpcm_playback = 1,
 -		.dpcm_capture = 1,
 -		SND_SOC_DAILINK_REG(ssp1_pin, ssp1_codec, platform),
 -	},
 -	{
--		.name = "dmic01",
--		.id = 2,
--		.ignore_suspend = 1,
--		.be_hw_params_fixup = broxton_dmic_fixup,
--		.dpcm_capture = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(dmic_pin, dmic_codec, platform),
--	},
--	{
 -		.name = "iDisp1",
 -		.id = 3,
--		.init = broxton_hdmi_init,
 -		.dpcm_playback = 1,
+-		.init = kabylake_hdmi1_init,
 -		.no_pcm = 1,
 -		SND_SOC_DAILINK_REG(idisp1_pin, idisp1_codec, platform),
 -	},
 -	{
 -		.name = "iDisp2",
 -		.id = 4,
--		.init = broxton_hdmi_init,
+-		.init = kabylake_hdmi2_init,
 -		.dpcm_playback = 1,
 -		.no_pcm = 1,
 -		SND_SOC_DAILINK_REG(idisp2_pin, idisp2_codec, platform),
 -	},
--	{
--		.name = "iDisp3",
--		.id = 5,
--		.init = broxton_hdmi_init,
--		.dpcm_playback = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(idisp3_pin, idisp3_codec, platform),
--	},
--	{
--		.name = "dmic16k",
--		.id = 6,
--		.be_hw_params_fixup = broxton_dmic_fixup,
--		.dpcm_capture = 1,
--		.no_pcm = 1,
--		SND_SOC_DAILINK_REG(dmic16k_pin, dmic_codec, platform),
--	},
 -};
 -
--#define NAME_SIZE	32
--static int bxt_card_late_probe(struct snd_soc_card *card)
+-static int kabylake_set_bias_level(struct snd_soc_card *card,
+-	struct snd_soc_dapm_context *dapm, enum snd_soc_bias_level level)
 -{
--	struct bxt_card_private *ctx = snd_soc_card_get_drvdata(card);
--	struct bxt_hdmi_pcm *pcm;
+-	struct snd_soc_component *component = dapm->component;
+-	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
+-	int ret = 0;
+-
+-	if (!component || strcmp(component->name, RT5514_DEV_NAME))
+-		return 0;
+-
+-	if (IS_ERR(priv->mclk))
+-		return 0;
+-
+-	/*
+-	 * It's required to control mclk directly in the set_bias_level
+-	 * function for rt5514 codec or the recording function could
+-	 * break.
+-	 */
+-	switch (level) {
+-	case SND_SOC_BIAS_PREPARE:
+-		if (dapm->bias_level == SND_SOC_BIAS_ON) {
+-			if (!__clk_is_enabled(priv->mclk))
+-				return 0;
+-			dev_dbg(card->dev, "Disable mclk");
+-			clk_disable_unprepare(priv->mclk);
+-		} else {
+-			dev_dbg(card->dev, "Enable mclk");
+-			ret = clk_set_rate(priv->mclk, 24000000);
+-			if (ret) {
+-				dev_err(card->dev, "Can't set rate for mclk, err: %d\n",
+-					ret);
+-				return ret;
+-			}
+-
+-			ret = clk_prepare_enable(priv->mclk);
+-			if (ret) {
+-				dev_err(card->dev, "Can't enable mclk, err: %d\n",
+-					ret);
+-
+-				/* mclk is already enabled in FW */
+-				ret = 0;
+-			}
+-		}
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return ret;
+-}
+-
+-static int kabylake_card_late_probe(struct snd_soc_card *card)
+-{
+-	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
+-	struct kbl_hdmi_pcm *pcm;
 -	struct snd_soc_component *component = NULL;
 -	int err, i = 0;
 -	char jack_name[NAME_SIZE];
 -
--	if (list_empty(&ctx->hdmi_pcm_list))
--		return -EINVAL;
--
--	if (ctx->common_hdmi_codec_drv) {
--		pcm = list_first_entry(&ctx->hdmi_pcm_list, struct bxt_hdmi_pcm,
--				       head);
--		component = pcm->codec_dai->component;
--		return hda_dsp_hdmi_build_controls(card, component);
--	}
--
 -	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
 -		component = pcm->codec_dai->component;
 -		snprintf(jack_name, sizeof(jack_name),
--			"HDMI/DP, pcm=%d Jack", pcm->device);
+-			"HDMI/DP,pcm=%d Jack", pcm->device);
 -		err = snd_soc_card_jack_new(card, jack_name,
--					SND_JACK_AVOUT, &broxton_hdmi[i]);
+-				SND_JACK_AVOUT, &ctx->kabylake_hdmi[i]);
 -
 -		if (err)
 -			return err;
--
 -		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
--						&broxton_hdmi[i]);
+-						&ctx->kabylake_hdmi[i]);
 -		if (err < 0)
 -			return err;
--
 -		i++;
 -	}
+-
+-	if (!component)
+-		return -EINVAL;
 -
 -	return hdac_hdmi_jack_port_init(component, &card->dapm);
 -}
 -
--/* broxton audio machine driver for SPT + da7219 */
--static struct snd_soc_card broxton_audio_card = {
--	.name = "bxtda7219max",
+-/*
+- * kabylake audio machine driver for  MAX98927 + RT5514 + RT5663
+- */
+-static struct snd_soc_card kabylake_audio_card = {
+-	.name = "kbl-r5514-5663-max",
 -	.owner = THIS_MODULE,
--	.dai_link = broxton_dais,
--	.num_links = ARRAY_SIZE(broxton_dais),
--	.controls = broxton_controls,
--	.num_controls = ARRAY_SIZE(broxton_controls),
--	.dapm_widgets = broxton_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(broxton_widgets),
--	.dapm_routes = audio_map,
--	.num_dapm_routes = ARRAY_SIZE(audio_map),
+-	.dai_link = kabylake_dais,
+-	.num_links = ARRAY_SIZE(kabylake_dais),
+-	.set_bias_level = kabylake_set_bias_level,
+-	.controls = kabylake_controls,
+-	.num_controls = ARRAY_SIZE(kabylake_controls),
+-	.dapm_widgets = kabylake_widgets,
+-	.num_dapm_widgets = ARRAY_SIZE(kabylake_widgets),
+-	.dapm_routes = kabylake_map,
+-	.num_dapm_routes = ARRAY_SIZE(kabylake_map),
+-	.codec_conf = max98927_codec_conf,
+-	.num_configs = ARRAY_SIZE(max98927_codec_conf),
 -	.fully_routed = true,
 -	.disable_route_checks = true,
--	.late_probe = bxt_card_late_probe,
+-	.late_probe = kabylake_card_late_probe,
 -};
 -
--static int broxton_audio_probe(struct platform_device *pdev)
+-static int kabylake_audio_probe(struct platform_device *pdev)
 -{
--	struct bxt_card_private *ctx;
+-	struct kbl_codec_private *ctx;
 -	struct snd_soc_acpi_mach *mach;
--	const char *platform_name;
 -	int ret;
 -
 -	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
@@ -860,50 +995,66 @@ index e1082bfe5ca9..000000000000
 -
 -	INIT_LIST_HEAD(&ctx->hdmi_pcm_list);
 -
--	broxton_audio_card.dev = &pdev->dev;
--	snd_soc_card_set_drvdata(&broxton_audio_card, ctx);
+-	kabylake_audio_card.dev = &pdev->dev;
+-	snd_soc_card_set_drvdata(&kabylake_audio_card, ctx);
 -
--	/* override platform name, if required */
 -	mach = pdev->dev.platform_data;
--	platform_name = mach->mach_params.platform;
+-	if (mach)
+-		dmic_constraints = mach->mach_params.dmic_num == 2 ?
+-			&constraints_dmic_2ch : &constraints_dmic_channels;
 -
--	ret = snd_soc_fixup_dai_links_platform_name(&broxton_audio_card,
--						    platform_name);
--	if (ret)
+-	ctx->mclk = devm_clk_get(&pdev->dev, "ssp1_mclk");
+-	if (IS_ERR(ctx->mclk)) {
+-		ret = PTR_ERR(ctx->mclk);
+-		if (ret == -ENOENT) {
+-			dev_info(&pdev->dev,
+-				"Failed to get ssp1_mclk, defer probe\n");
+-			return -EPROBE_DEFER;
+-		}
+-
+-		dev_err(&pdev->dev, "Failed to get ssp1_mclk with err:%d\n",
+-								ret);
 -		return ret;
+-	}
 -
--	ctx->common_hdmi_codec_drv = mach->mach_params.common_hdmi_codec_drv;
+-	ctx->sclk = devm_clk_get(&pdev->dev, "ssp1_sclk");
+-	if (IS_ERR(ctx->sclk)) {
+-		ret = PTR_ERR(ctx->sclk);
+-		if (ret == -ENOENT) {
+-			dev_info(&pdev->dev,
+-				"Failed to get ssp1_sclk, defer probe\n");
+-			return -EPROBE_DEFER;
+-		}
 -
--	return devm_snd_soc_register_card(&pdev->dev, &broxton_audio_card);
+-		dev_err(&pdev->dev, "Failed to get ssp1_sclk with err:%d\n",
+-								ret);
+-		return ret;
+-	}
+-
+-	return devm_snd_soc_register_card(&pdev->dev, &kabylake_audio_card);
 -}
 -
--static const struct platform_device_id bxt_board_ids[] = {
--	{ .name = "bxt_da7219_mx98357a" },
+-static const struct platform_device_id kbl_board_ids[] = {
+-	{ .name = "kbl_r5514_5663_max" },
 -	{ }
 -};
--MODULE_DEVICE_TABLE(platform, bxt_board_ids);
+-MODULE_DEVICE_TABLE(platform, kbl_board_ids);
 -
--static struct platform_driver broxton_audio = {
--	.probe = broxton_audio_probe,
+-static struct platform_driver kabylake_audio = {
+-	.probe = kabylake_audio_probe,
 -	.driver = {
--		.name = "bxt_da7219_max98357a",
+-		.name = "kbl_r5514_5663_max",
 -		.pm = &snd_soc_pm_ops,
 -	},
--	.id_table = bxt_board_ids,
+-	.id_table = kbl_board_ids,
 -};
--module_platform_driver(broxton_audio)
+-
+-module_platform_driver(kabylake_audio)
 -
 -/* Module information */
--MODULE_DESCRIPTION("Audio Machine driver-DA7219 & MAX98357A in I2S mode");
--MODULE_AUTHOR("Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>");
--MODULE_AUTHOR("Rohit Ainapure <rohit.m.ainapure@intel.com>");
+-MODULE_DESCRIPTION("Audio Machine driver-RT5663 RT5514 & MAX98927");
 -MODULE_AUTHOR("Harsha Priya <harshapriya.n@intel.com>");
--MODULE_AUTHOR("Conrad Cooke <conrad.cooke@intel.com>");
--MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
--MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
--MODULE_AUTHOR("Brent Lu <brent.lu@intel.com>");
 -MODULE_LICENSE("GPL v2");
--MODULE_IMPORT_NS(SND_SOC_INTEL_HDA_DSP_COMMON);
 -- 
 2.25.1
 

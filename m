@@ -2,116 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C0179520F2
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 19:18:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B519520F5
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 19:20:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A204823CC;
-	Wed, 14 Aug 2024 19:18:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A204823CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 597162353;
+	Wed, 14 Aug 2024 19:20:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 597162353
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723655936;
-	bh=rEu6m51mLJsHkqucNBcJN52s3Hg6hddb6JHwXoo14DE=;
+	s=default; t=1723656036;
+	bh=MRuKsfYE029aDUzFxAJ1nRusLJGC4npUqxNCC0PetL0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oQ3ZwTGHaKa/1i9aHyY2mTRoAB4frspTbh9gInncfzWiO0wsrEyOS1mVevty2/235
-	 DeznCPy9Wbl4SauZhjhcE8MaBnfyDvHxvND8jodwhTwq3tg0gVNwr3h7dvsFD3Pofq
-	 GpopB9J1ehLfU2O3q1Tc+THLlWR+jrwNr588ezdo=
+	b=vPsG3/bKMgm4cL64nlQjJgG/ytAvoT3YU+QHz6FxhyQeeTfjdJmI2GYSUPLGhKIht
+	 ZCJ11/wOxvSnvzHzvtaI4gDdMzeZr3n/Ts9CQOJA40fRfLkHK35iQRw0Uf/fXV1lYW
+	 FA143Y0UoaOhgPXdqVqkOlUgXX7Jv5/sZANWrBTo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 70153F805B2; Wed, 14 Aug 2024 19:18:25 +0200 (CEST)
+	id 761E9F8016E; Wed, 14 Aug 2024 19:20:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5C79F805AF;
-	Wed, 14 Aug 2024 19:18:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D407FF8016E;
+	Wed, 14 Aug 2024 19:20:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FE04F80423; Wed, 14 Aug 2024 19:18:21 +0200 (CEST)
+	id 36E8DF80423; Wed, 14 Aug 2024 19:20:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AF2FDF800B0
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 19:17:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF2FDF800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6D538F800B0
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 19:19:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D538F800B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HX0XUif2
+ header.s=k20201202 header.b=KV1z4Ghk
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id A427D61B3B;
-	Wed, 14 Aug 2024 17:17:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D792C116B1;
-	Wed, 14 Aug 2024 17:17:42 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id B5D3ACE1A2F;
+	Wed, 14 Aug 2024 17:19:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04A2C116B1;
+	Wed, 14 Aug 2024 17:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723655869;
-	bh=rEu6m51mLJsHkqucNBcJN52s3Hg6hddb6JHwXoo14DE=;
+	s=k20201202; t=1723655995;
+	bh=MRuKsfYE029aDUzFxAJ1nRusLJGC4npUqxNCC0PetL0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HX0XUif2hk6qIfYgBbAgNWpnkg2Dw79rOq1FwuSNt565wB2DozWNVihe5nxgx5MI5
-	 /QE40/IiQ6Vuj0TQlv37+ICQZmbYjAxhAqgh0jPedSbqra8pdx2201iy30Y7oIkEBJ
-	 f1503gFLBO1xDTwP1MsxMoDT4XxLnoM8GKBONT0SjiDBU23dS0Q3H8HvIAI3ExuFum
-	 dWOxMSJ/EMAILVRIgDZgTalVPXpRm8XyDq2zrV1dCiEitot4djogaPg4DGs++YJNqJ
-	 az2LKk8+OF3y7HWGQDB09aLV/btb3gDguHfXlqPU4WA04ZXvmBtK+3XJ+spgxCT6fz
-	 wcLguZYUd4IpQ==
-Date: Wed, 14 Aug 2024 18:17:39 +0100
+	b=KV1z4Ghk9Ln2hSxNnIxOWuByLuGQBKsGi5AkmuPPSblV5jMUsWL2vCCJ2/1ZdkJ9M
+	 BwSM/kEHon5F70j5qu9Dd1wfUl980Qi4iucP63jy3toooqhYPxubPVMxqjMUf8865z
+	 7VnfIotxRsLUfprzp3Q0ZiBngJ3vjVlpLR7r9YH34XEEypXwWxZqr0uxYpjPfJkaCr
+	 0uelh8enWI06rbMCiS0LGLFdkClGxeK/ezgE2qMIIDvwR/2y0re7MqsE/9PDLCvwiY
+	 FMxjNx2FZyEijLakrRH4KffArvx/HWHyNatt4SPHce5vkNgo7KPye2xQVMyl6toPj9
+	 I3xae9euQAPNA==
+Date: Wed, 14 Aug 2024 18:19:52 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: =?utf-8?B?IkFtYWRldXN6IFPFgmF3acWEc2tpIg==?=
- <amadeuszx.slawinski@linux.intel.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Alper Nebi Yasak <alpernebiyasak@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Brent Lu <brent.lu@intel.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Jerome Brunet <jbrunet@baylibre.com>, Jiawei Wang <me@jwang.link>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Maso Huang <maso.huang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org,
-	imx@lists.linux.dev, linux-doc@vger.kernel.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] ASoC: Intel: sof_sdw: use playback/capture_only
- flags
-Message-ID: <ee24e5e3-06e6-4b74-bdbc-2127ca3f181e@sirena.org.uk>
-References: <87cymvlmki.wl-kuninori.morimoto.gx@renesas.com>
- <877cd3lmid.wl-kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH] ASoC: soc-pcm: remove
+ snd_soc_dpcm_stream_lock_irqsave_nested()
+Message-ID: <717aa5e4-a857-4877-af8a-a336409d76c2@sirena.org.uk>
+References: <874j87ll7k.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HvPVidfg2tXyw8uc"
+	protocol="application/pgp-signature"; boundary="3itBwtoSQzGNTh6y"
 Content-Disposition: inline
-In-Reply-To: <877cd3lmid.wl-kuninori.morimoto.gx@renesas.com>
-X-Cookie: Disks travel in packs.
-Message-ID-Hash: HVI37WTLCWJ6X55CZ4J67GUCVUQOSDLG
-X-Message-ID-Hash: HVI37WTLCWJ6X55CZ4J67GUCVUQOSDLG
+In-Reply-To: <874j87ll7k.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: Truth can wait
+Message-ID-Hash: BUQRQURSAMCECITTWMSVMLLZAQO4FHUX
+X-Message-ID-Hash: BUQRQURSAMCECITTWMSVMLLZAQO4FHUX
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -124,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVI37WTLCWJ6X55CZ4J67GUCVUQOSDLG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BUQRQURSAMCECITTWMSVMLLZAQO4FHUX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,32 +98,31 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---HvPVidfg2tXyw8uc
+--3itBwtoSQzGNTh6y
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 30, 2024 at 01:03:07AM +0000, Kuninori Morimoto wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->=20
-> Prepare for removal of dpcm_playback and dpcm_capture flags in
-> dailinks.
+On Tue, Jul 30, 2024 at 01:31:11AM +0000, Kuninori Morimoto wrote:
+> soc-pcm.c has snd_soc_dpcm_stream_lock_irqsave_nested() /
+> snd_soc_dpcm_stream_unlock_irqrestore()  helper function,
+> but it is almost nothing help. It just makes a code complex.
+> Let's remove it.
 
-This seems like it needs a rebase against my current tree.
+This doesn't apply against current code, please check and resend.
 
---HvPVidfg2tXyw8uc
+--3itBwtoSQzGNTh6y
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma85rIACgkQJNaLcl1U
-h9BNpwf/R/W2jVheMM7Go8zARx5qE9ZAxy04R0yuJIsXG9C42Qyw/FnB0k9GMFY5
-vf3an9eEz6BQD5f6P6XZtqVzkugi9vqxI780U1xY1M7+FLqGmrGho6owrVZTirvP
-wU1zMfj/KP5uXD5L3bLdirMAtr42gdV37iMetexlscKe/ldia8BLlxj+33FPbqU5
-zXZ7wt0ywVjJ8tRIqBqJ2i30kw7BLuh0nsEdEVrESTxHJExY/iMRJh3MnjGGvo73
-UKhTKqkaypgB0xqP+8uQs8Q3YIZD4l9xqmAB7NmihOPsIPTE8zqpUid1f63gh7jq
-gi4ZnZChkxWlvL7qOVO73UpVl/L7hw==
-=4IqZ
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma85zcACgkQJNaLcl1U
+h9Ba8Qf9Hawr1UP9o4IKHFH/yXsj5N0/q3hhLNjxOssM/6q0Kt68mkhABYGdIu2Z
+wtydO2XmRz9oKEbCycHLxvj34aZukrLFithTbOv7z8DG0Tcn6cH/q8F4W1HqDob6
+kBlrHrBwldCTq/V9JQD2IdWZjPPhJMlf8PIpWDqvDMPDWb8CihQjdBkcl2CqzsF2
+0jDJTRQ4lAoFwMd2CggW0eOs0iSGO+J+N/EVGO86N4HSPyq6fWLlRAi9DWEAW8nP
+uzUE72l3nrGDWALeNWHe1vsH8xGbJVLWBLLIE1L0O2G4jEmbApCzEJ9m9oWfj2DB
+hGBhVcX1Xa2kxPNuNRZZsRCa3bpWCg==
+=c1ph
 -----END PGP SIGNATURE-----
 
---HvPVidfg2tXyw8uc--
+--3itBwtoSQzGNTh6y--

@@ -2,115 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D316951A83
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 14:02:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB181951A8D
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2024 14:07:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21B9E2972;
-	Wed, 14 Aug 2024 14:02:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21B9E2972
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C39F2BA4;
+	Wed, 14 Aug 2024 14:07:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C39F2BA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723636959;
-	bh=pT803Kq6Wz6RBK3l5cGSiRM04ieGhjqvtUpKHRYq2bU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1723637277;
+	bh=Do+vRqFk3k2SU3SkNGODxn8srvn9XYlrm53yrCnGCYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iTiiXoSp+Dv8avYVh+AFJreVTIiIRy5f1h04a9RqcPQ7wFhPWUhbqXxOjd+t/JFwM
-	 7pMIDWoXBc+1q6C2CDGM1TYsqniIlZppotFtDPM4otrrGGqn/pCYp0NtWDFrkQKZz+
-	 KY7oYOT9q+V1NDbv0aMSzX6od9mOqMCwV0p+882g=
+	b=eHfbaY0kg1iR7171Rs+SFVavQ8gNjdbPJ9vqKFrr0bAqXDcNkgHrwR/yCUJ8MV2sJ
+	 BIiC+wOzfJDKn+rBWBoIvNl9KFAT2CVUBwbqs9yVLecy/kB02L0owR0Mej+rLMZ+7P
+	 cCRyKMRgubiBHHHBtmCButWRHNIis1GZqwtu6J3A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 843DAF805BD; Wed, 14 Aug 2024 14:02:08 +0200 (CEST)
+	id BB764F80301; Wed, 14 Aug 2024 14:07:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDCEDF80301;
-	Wed, 14 Aug 2024 14:02:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FD04F805AE;
+	Wed, 14 Aug 2024 14:07:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E517CF80423; Wed, 14 Aug 2024 13:58:41 +0200 (CEST)
+	id E656AF805BF; Wed, 14 Aug 2024 14:02:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 54DF3F80107
-	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 13:58:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54DF3F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F296F8016E
+	for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2024 14:02:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F296F8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dWELGEgu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723636713; x=1755172713;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=pT803Kq6Wz6RBK3l5cGSiRM04ieGhjqvtUpKHRYq2bU=;
-  b=dWELGEguOqDQkdEY0SfZi8hupLO2Xu98OTOFXpy0EA8OTAoO8u92Nli0
-   nYkgaY1j/WDL+WzD6EIppwwqPeQGO2J+4BT8j+JIlmxuvRzrPZYrqp8My
-   22RxJCKsTq49Z6yDQ9d5f4fusReAnsBW8T3iGzprv4y8rCdQdYLTXVdEF
-   GyZYAqtmfW9/v6D5lMTlUW5pzJbliJBQBKeMQRukiRxw7BnftWjnza2MC
-   1U4Nb+vRUtPYlRAsTe1FzM6W1rj1uudx+k1rGMfVtuorTlenCDvYVkS4I
-   908V6SSbUoNPchvyuRLSUBl5pasb8Y5Pts3WYZxx5raIo/oiOFlpK5xsR
-   w==;
-X-CSE-ConnectionGUID: JPQPVsbNTvSozJ40zyMS9w==
-X-CSE-MsgGUID: TtBRiObLTGe2VtirEAQEIw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11163"; a="32470835"
-X-IronPort-AV: E=Sophos;i="6.09,145,1716274800";
-   d="scan'208";a="32470835"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 04:58:28 -0700
-X-CSE-ConnectionGUID: NpMJ2d0JRAuj66NXJE42xw==
-X-CSE-MsgGUID: p7bfGS0/Tvae6Eglw6n09Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.09,145,1716274800";
-   d="scan'208";a="58956636"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.246.67])
- ([10.245.246.67])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2024 04:58:24 -0700
-Message-ID: <55a82ba3-1c33-4d1b-9f5f-8af33d76222f@linux.intel.com>
-Date: Wed, 14 Aug 2024 13:58:21 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Xdrgwd6z
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id E8F92611BB;
+	Wed, 14 Aug 2024 12:02:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513C3C4AF0E;
+	Wed, 14 Aug 2024 12:02:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1723636922;
+	bh=Do+vRqFk3k2SU3SkNGODxn8srvn9XYlrm53yrCnGCYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Xdrgwd6zr79yfP4OByUaHduLcIvB3bdIICl9FbDrag03yrzRMnwdkn7r1Uyol6uwm
+	 v3jPydlL9du1u1OLjWgjKLILO59DLhG+gwp5YbkumAEJ26HboOTdyY8y+tcWQOEcYR
+	 NdfQQYWqynAXHKi4nLiXB2QKcw+oXluACYXjJZ7ULfs2COFDG94Y50f+k5Y6UQOikf
+	 5jslKifX0nKNs89yg3hDdgAxlBqJyoRk9xx/f1i2rrKrUFQG9mnMUicawoFCtRM1Ge
+	 RdW0xUDyAoCQ5VJeUL1xP0Z5idh/K8lcLXY15/BBlqA7lo9eSYlJ6rmzg20TKIlvDV
+	 3qvZ6zZkIPr/w==
+Date: Wed, 14 Aug 2024 13:01:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Zhang Yi <zhangyi@everest-semi.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com, yangxiaohua@everest-semi.com,
+	zhuning@everest-semi.com
+Subject: Re: [PATCH v1] ASoC: codecs: ES8326: Adjust buttons
+Message-ID: <ab3067b0-ac75-46e6-9761-f69fa9bf0482@sirena.org.uk>
+References: <20240814060921.2521-1-zhangyi@everest-semi.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/6] ALSA: compress: add Sample Rate Converter codec
- support
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- vkoul@kernel.org, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
- lgirdwood@gmail.com, broonie@kernel.org, linuxppc-dev@lists.ozlabs.org
-References: <1722940003-20126-1-git-send-email-shengjiu.wang@nxp.com>
- <e89a56bf-c377-43d8-bba8-6a09e571ed64@linux.intel.com>
- <CAA+D8AN9JXJr-BZf8aY7d4rB6M60pXS_DG=qv=P6=2r1A18ATA@mail.gmail.com>
- <ffa85004-8d86-4168-b278-afd24d79f9d8@linux.intel.com>
- <116041ee-7139-4b77-89be-3a68f699c01b@perex.cz>
- <930bb152-860a-4ec5-9ef0-1c96f554f365@linux.intel.com>
- <c9039808-cd04-452d-9f6c-f91811088456@perex.cz>
- <ed1192e0-00e7-4739-a687-c96dc2d62898@linux.intel.com>
- <CAA+D8AMOh=G7W5-dYw_=Xx-s0PqEu2suKYorscoWku86Rn-=+A@mail.gmail.com>
- <542d47c5-7ce3-4c17-8c0a-3a2b2a9e6c6a@linux.intel.com>
- <c3b8f7b8-fc5e-4285-bee8-7edd448a405d@perex.cz>
- <CAA+D8ANg7C7vuxU44mAG8EnmcZjB_te5N_=4M4v_-Q9ZyPZ49g@mail.gmail.com>
- <2be4303e-58e1-4ad7-92cf-f06fa6fa0f08@perex.cz>
- <7dc039db-ecce-4650-8eb7-96d0cfde09a2@linux.intel.com>
- <CAA+D8AMv=tHV3b-Rfo9Pjqs0bX5SVschD=WD06qxjJOk5zQmiQ@mail.gmail.com>
- <3cdb2041-59d4-4d43-ac4d-39d7f9640cef@linux.intel.com>
- <CAA+D8APSrH_pum6Cm0YxDzWMs4Roi=h1hkBjPMfXocXt7z4oVA@mail.gmail.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: 
- <CAA+D8APSrH_pum6Cm0YxDzWMs4Roi=h1hkBjPMfXocXt7z4oVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BLHMEL4WDWAQXMTQ2H55XEMOAHHYSUTH
-X-Message-ID-Hash: BLHMEL4WDWAQXMTQ2H55XEMOAHHYSUTH
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="TIYwVcJFUGUDFnue"
+Content-Disposition: inline
+In-Reply-To: <20240814060921.2521-1-zhangyi@everest-semi.com>
+X-Cookie: The second best policy is dishonesty.
+Message-ID-Hash: MHQ2WB23FGNLNNZLR43RQQVSEDPLGQTH
+X-Message-ID-Hash: MHQ2WB23FGNLNNZLR43RQQVSEDPLGQTH
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BLHMEL4WDWAQXMTQ2H55XEMOAHHYSUTH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MHQ2WB23FGNLNNZLR43RQQVSEDPLGQTH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,62 +99,50 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--TIYwVcJFUGUDFnue
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 8/14/24 13:12, Shengjiu Wang wrote:
-> On Wed, Aug 14, 2024 at 5:40 PM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
->>
->>
->>> Yes, to go further, I think we can use SND_AUDIOCODEC_PCM, then
->>> the SRC type will be dropped.
->>
->> sounds good.
->>
->>> But my understanding of the control means the .set_metadata() API, right?
->>> As I said, the output rate, output format, and ratio modifier are applied to
->>> the instances of ASRC,  which is the snd_compr_stream in driver.
->>> so only the .set_metadata() API can be used for these purposes.
->>
->> Humm, this is more controversial.
->>
->> The term 'metadata' really referred to known information present in
->> headers or additional ID3 tags and not in the compressed file itself.
->> The .set_metadata was assumed to be called ONCE before decoding.
->>
->> But here you have a need to update the ratio modifier on a regular basis
->> to compensate for the drift. This isn't what this specific callback was
->> designed for. We could change and allow this callback to be used
->> multiple times, but then this could create problems for existing
->> implementations which cannot deal with modified metadata on the fly.
-> 
-> .set_metadata can be called multi times now, no need to change currently.
+On Wed, Aug 14, 2024 at 02:09:21PM +0800, Zhang Yi wrote:
 
-Not really, this set_metadata() callback is used only for gapless
-transitions between tracks, see fcplay.c in tinycompress.
+> To adapt to chrome, we have adjusted the buttons to match the system.
 
-And now I am really confused because tinycompress uses an IOCTL directly:
+This needs a bit more of a commit log explaining what's going on.
 
-	metadata.key = SNDRV_COMPRESS_ENCODER_PADDING;
-	metadata.value[0] = mdata->encoder_padding;
-	if (ioctl(compress->fd, SNDRV_COMPRESS_SET_METADATA, &metadata))
+> +#if IS_ENABLED(CONFIG_SND_SOC_MT8188_MT6359)
+> +	const int hs_keys[] = {
+> +		SND_JACK_BTN_0, SND_JACK_BTN_2, SND_JACK_BTN_3
+> +	};
+> +#else
+> +	const int hs_keys[] = {
+> +		SND_JACK_BTN_0, SND_JACK_BTN_1, SND_JACK_BTN_2
+> +	};
+> +#endif
 
-Whereas you want to use the ops callback directly from the control layer?
+This will remap the buttons no matter what system we're running on so
+while it's a bit better it's still going to cause issues.  We could use
+a per board approach like this but it needs to be at runtime, based on
+the machine compatible rather than a build time selection.
 
-What would present a userspace program from using the ioctl directly
-then? In that case, why do we need the control? I must be missing something.
+The support for this device was added in e794a894427b1d ("ASoC:
+mediatek: mt8188-mt6359: add es8326 support") which was added in v6.8
+so this would also be a potential issue in mainline, given that this is
+likely only used by Chromebooks and didn't make it to a LTS yet we could
+possibly give it a go but we might have to revert.
 
+--TIYwVcJFUGUDFnue
+Content-Type: application/pgp-signature; name="signature.asc"
 
->> And then there's the problem of defining a 'key' for the metadata. the
->> definition of the key is a u32, so there's plenty of space for different
->> implementations, but a collision is possible. We'd need an agreement on
->> how to allocate keys to different solutions without changing the header
->> file for every implementation.
-> 
-> Can we define a private space for each case?   For example the key larger
-> than 0x80000000 is private, each driver can define it by themself?
+-----BEGIN PGP SIGNATURE-----
 
-that would be a possibility indeed - provided that the opens above are
-straightened out.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAma8nLUACgkQJNaLcl1U
+h9CIBQf+NR4j93SkZs8iU+hbVLOQ9+qlGp5LoJOOBWFQ2w69EszdTGgFbERSMJj2
+Qzzmdicurmrh1N3pDHBfjakwttxiZRBjR6YCT6eW9Rb5cZQ26AJZCeQwjldqY5mW
+v+DGjy3Ql5x0c0q3OXtFycasatfzvvNZayzCytzuUvifRelpNb+J6Yg2bz1aBpMQ
+bw7CilHIehfNgb7ipG7aEj1S4bwHjwgqRAPo6yyaeRWjYU+Dqm4DpN88Tc/mZ0uV
+ddZ7xpPZ49epopEAB9Mt1k4Bz/ZHo5yV1o4SjELjgHr0jA6u+TaGVtmwfre4miYB
+r3IhnlCdoOyrEq2WZ7DfGS5Yl/uV3A==
+=y2+5
+-----END PGP SIGNATURE-----
 
->> It sounds like we'd need a 'runtime params' callback - unless there's a
->> better trick to tie the control and compress layers?
+--TIYwVcJFUGUDFnue--

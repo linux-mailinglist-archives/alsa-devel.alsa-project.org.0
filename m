@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43134953894
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 18:50:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A56095389C
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 18:54:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 449B52BAF;
-	Thu, 15 Aug 2024 18:49:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 449B52BAF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D4252BB1;
+	Thu, 15 Aug 2024 18:53:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D4252BB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723740608;
-	bh=tFpXS3GuOZgmyhYlErFt6pCIn0BCfVCnojKLEo1Xp0s=;
+	s=default; t=1723740847;
+	bh=8gp1z00XUPBPK/2A5YWOe/yOJ5ggrhQmUd1FrjV9OlE=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=uxqAP5F/xGOaTmvP6XsHReA2hDSWhkGbzB3a8ofjbdHUZfEprCwlsH7im9XaYlr+O
-	 m5ZIvTHBB7vrnXgO/Bko4uh6nNPlIhHS5HBJfjeh65Ca0BIzAm+vrjr4uT6XLGDutv
-	 bJO8gtcoZtn2UjWqzLZgUQk0QkOcw9N9vIr92M1g=
+	b=T/WhrGLOnal3TxNJk6/edjMYDpstDYZWHkxdfArnQgdA2qLuRteYis8rajBUT50ut
+	 VTsjguM1rY4uOkqQq24N+1zzDlAWn0UX3L7VTf0Nu4rMySc+i5Ywo7ONTi4chARsKM
+	 KHQ6oAC832K19PhtEZih8PDC1FbYjy7ZgU0wzH7Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C6A1F805B0; Thu, 15 Aug 2024 18:49:35 +0200 (CEST)
+	id 540EEF800BF; Thu, 15 Aug 2024 18:53:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A48F8F805AF;
-	Thu, 15 Aug 2024 18:49:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB077F805AE;
+	Thu, 15 Aug 2024 18:53:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 920CAF80423; Thu, 15 Aug 2024 18:49:16 +0200 (CEST)
+	id 98CC8F80423; Thu, 15 Aug 2024 18:53:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D1AC3F800B0
-	for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2024 18:49:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1AC3F800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3496F800BF
+	for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2024 18:53:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3496F800BF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=j2kI4fPc
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-428163f7635so8205705e9.2
+ header.s=google header.b=eycIRhGZ
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a7d89bb07e7so138833766b.3
         for <alsa-devel@alsa-project.org>;
- Thu, 15 Aug 2024 09:49:08 -0700 (PDT)
+ Thu, 15 Aug 2024 09:53:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1723740548; x=1724345348;
+        d=linaro.org; s=google; t=1723740807; x=1724345607;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+Y6ZvBDWCoaIRtuHQSX0AStS65o7NOQvjseSgluHUkE=;
-        b=j2kI4fPcqtD+cSia39cNg/WQ8bmXnU2CGbZgFRaBvMWp56pZbNuc4CSe2kHDVYWiNr
-         i3uhFc4PDWPANzo0kbZ18MecOSrKWaR3QFLiZ9s6wDQEZMuRcirvtAeO6xfgWfROa/zc
-         y8ws8cwDQoqWG3mL2bqePA5v+EIuVKosIBxx0l8qat1409OfT6QAeTkXrr6nsdWhLt2N
-         X356SUD43JTEorbX9l0sJskfAGhcLbLjcnRRqJRY59H2wG7oooilinBxoZTMLyTNQqWq
-         5Zp812b0gliv3WUFodChlNWgYuNyIyhrDh7OxoXWlRipwxaHje3Fj/3VhYoPqI06FqWP
-         +rLQ==
+        bh=iY0vaXx2PRLW4vzBLW/cAdjdL4sP5M2yeIYGKZKArlc=;
+        b=eycIRhGZeI2C3zZyvcKfvsg0utZiwltE0il12VzOYXyy6LRgFIaA1WkwTrQ/fAOzmZ
+         I0peffS6zcrY1vFbF95DhHxUktpE5k6mz8KEoE3zp9tQlRut7USPNdxBNXLf0QXjjUBN
+         pAUEKytykVHb/6Gpdsco6X9ZyV+OmIQZoeURIE4JEpRPoFVhtoV4yqkLEQOafZ2+fdDT
+         wwsWnKCCmdmcDzH1tGwohEh8RIUTU7kpNpaluaalJzpoWYNtcVZxKLAIG8aUwpy4bYcw
+         InLJRIWIPCrYlVAugeyHQpxe9rc0UDmkssec7jOHBZPt9n8WM6N5XSjYUFxwdDhIQUxa
+         vJVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1723740548; x=1724345348;
+        d=1e100.net; s=20230601; t=1723740807; x=1724345607;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=+Y6ZvBDWCoaIRtuHQSX0AStS65o7NOQvjseSgluHUkE=;
-        b=PjoKLFeLdqIWwiaM8lwxCMjq2cbgICUUdQTvP4T9rJ9ynJRj3l5awvDSZp2vOmC1iS
-         +DqSYqegVNfTzJ3kTSOxQKqvPZofRvFWBwm31ElqX6h5FHwn02JU3J9RS84um+h9suZ4
-         mP9fhCFCcEI+W1iEe5dqyQPCMSZ4VB8xAaZk9g2hmpNkA2145zsvJ+l63D1yvG7xL9HT
-         qlK9V25C8KPx0Yjucvf7Hp0Gs8mWdhWkpuHydLGvwcG0aVqM5OzXM1lxnzaJZTnXjBRJ
-         n4TOhucNGXdGswCSMxnWHlWTY1C8RCFUTlz6vqu3B0xqxlvLkQI/fUQg7wygPuswpBOw
-         57zA==
+        bh=iY0vaXx2PRLW4vzBLW/cAdjdL4sP5M2yeIYGKZKArlc=;
+        b=LQ8Fh6HGfZYPwa1V1x/maTzUDPi5pOMg4UaCg3634Oxdb0kGQaZvfR9ztj/dEnGYUs
+         m62XkhxdL3AStNhIqOb7mOO4uNDtd22xdBDlslDWpcY+eRfLMyjCyrL2yFUtI8YcVHpe
+         D10PLgJyyN0o/ZSvDOPcfQ6YKMYp4E4R15N4K4cOWzyMNJR2Gcu5OAsNmob/t02R8VGu
+         x4nWsjuUL1kdalO6tRKTEVtLBHfv8W+S3Cke58fZ1TU0ZsPXiZ61zqoRHDbw3j3YmfLh
+         pJMwM5FgdEit8B6Uo3somVLyvpHJyakf54l1z48C5DhGfD7ayv1D5tf/6Q0qO4cm5UPl
+         jeqA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVHVjE5NNCp/xSoXFSzcRhMjL52ZyF97k+2t/8qZM1OFp2KJlbJtuKdUv4oA3TS4QitHRKZHU13YIe/7JAomYFsAnHyn58kZa3MgTY=
-X-Gm-Message-State: AOJu0YzPPyZUm97QX7sA3TUJRPfvzyaN5cnAkQvNEE7v5k8BL1aLsjoT
-	BTzkV/HMIduxFtB3GMrrwRoixBcZ5us2Adsi0IQLpNTPFymXHifyfBhqF6ahxu4=
+ AJvYcCXSI6xE82tYmSS+NU+Su7ZcgsSckLPKju0EPORhYwyL1UNekFVbjKPxtQglmbx05HDL7mEgwCL6bOO4ugZd1ZDuPrRiNPyJINxii4Q=
+X-Gm-Message-State: AOJu0YytUdtAmNTJa47GsZT/lgm9RWmMAH1D5qynCK7y66JAURpL8zvc
+	7yGpAQKEWTLgky50CIaG3jg/ekpRZNJqAPdHo9Gy/+DU7aqK0O0K+5av4WVeGfs=
 X-Google-Smtp-Source: 
- AGHT+IEBnZLAf9YOI60yg1r6SCUktEL5+20HiBAaC6yEF9ZLknx9q0499kEGmstkp3oNB17v8y2TrA==
-X-Received: by 2002:a05:600c:3108:b0:426:61e8:fb3b with SMTP id
- 5b1f17b1804b1-429dd264e92mr45940385e9.27.1723740547705;
-        Thu, 15 Aug 2024 09:49:07 -0700 (PDT)
+ AGHT+IEbjcVOtpHdIaM4cUOULDHg+UWaORWQ5CopRakSABxr3jeAy3+Ctzkl4nqMncrj5XJRSdxb/Q==
+X-Received: by 2002:a17:907:3fa4:b0:a83:62c2:6d5e with SMTP id
+ a640c23a62f3a-a8392a15b40mr11146166b.45.1723740806958;
+        Thu, 15 Aug 2024 09:53:26 -0700 (PDT)
 Received: from localhost.localdomain ([5.133.47.210])
         by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-37189896bf0sm1940718f8f.73.2024.08.15.09.49.06
+ a640c23a62f3a-a8383947b86sm126736266b.187.2024.08.15.09.53.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Aug 2024 09:49:06 -0700 (PDT)
+        Thu, 15 Aug 2024 09:53:26 -0700 (PDT)
 From: srinivas.kandagatla@linaro.org
 To: broonie@kernel.org
 Cc: perex@perex.cz,
@@ -96,16 +96,20 @@ Cc: perex@perex.cz,
 	linux-kernel@vger.kernel.org,
 	amit.pundir@linaro.org,
 	dmitry.baryshkov@linaro.org,
+	devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
 	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH] ASoC: codecs: lpass-va-macro: set the default codec version
- for sm8250
-Date: Thu, 15 Aug 2024 17:49:03 +0100
-Message-Id: <20240815164903.18400-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH] ASoC: dt-bindings: qcom,lpass-wsa-macro: correct clocks on
+ SM8250
+Date: Thu, 15 Aug 2024 17:53:20 +0100
+Message-Id: <20240815165320.18836-1-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: AWKQCXFKCGXJXC5D55MZ4KQLIKKU5XTE
-X-Message-ID-Hash: AWKQCXFKCGXJXC5D55MZ4KQLIKKU5XTE
+Message-ID-Hash: BWBTJHLNBQIMPUQNR274CPYXRBIBAYP5
+X-Message-ID-Hash: BWBTJHLNBQIMPUQNR274CPYXRBIBAYP5
 X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AWKQCXFKCGXJXC5D55MZ4KQLIKKU5XTE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BWBTJHLNBQIMPUQNR274CPYXRBIBAYP5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,55 +133,65 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-sm8250 and sc7280 have lpass codec version 1.0, as these are very old
-platforms, they do not have a reliable way to get the codec version
-from core_id registers.
+we seems to have ended up with duplicate clocks for frame-sync on sm8250,
+it has both va and fsgen which are exactly same things. Remove the redundant
+va clock and make it align with other SoCs.
 
-Add the version info into of_data, so that it does not need to use
-core_id registers to get version number.
+Codec driver does not even handle va clock, so remove this from the
+bindings and examples to avoid any confusion.
 
-Fixes: 378918d59181 ("ASoC: codecs: lpass-macro: add helpers to get codec version")
-Fixes: dbacef05898d ("ASoC: codec: lpass-rx-macro: prepare driver to accomdate new codec versions")
-Fixes: 727de4fbc546 ("ASoC: codecs: lpass-wsa-macro: Correct support for newer v2.5 version")
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/codecs/lpass-va-macro.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ .../bindings/sound/qcom,lpass-wsa-macro.yaml  | 22 ++-----------------
+ 1 file changed, 2 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index 8454193ed22a..e95d1f29ef18 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -228,11 +228,13 @@ struct va_macro {
- struct va_macro_data {
- 	bool has_swr_master;
- 	bool has_npl_clk;
-+	int version;
- };
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
+index 06b5f7be3608..6f5644a89feb 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-wsa-macro.yaml
+@@ -64,6 +64,7 @@ allOf:
+         compatible:
+           enum:
+             - qcom,sc7280-lpass-wsa-macro
++            - qcom,sm8250-lpass-wsa-macro
+             - qcom,sm8450-lpass-wsa-macro
+             - qcom,sc8280xp-lpass-wsa-macro
+     then:
+@@ -79,24 +80,6 @@ allOf:
+             - const: dcodec
+             - const: fsgen
  
- static const struct va_macro_data sm8250_va_data = {
- 	.has_swr_master = false,
- 	.has_npl_clk = false,
-+	.version = LPASS_CODEC_VERSION_1_0,
- };
- 
- static const struct va_macro_data sm8450_va_data = {
-@@ -1587,7 +1589,14 @@ static int va_macro_probe(struct platform_device *pdev)
- 			goto err_npl;
- 	}
- 
--	va_macro_set_lpass_codec_version(va);
-+	/**
-+	 * old version of codecs do not have a reliable way to determine the
-+	 * version from registers, get them from soc specific data
-+	 */
-+	if (data->version)
-+		lpass_macro_set_codec_version(data->version);
-+	else /* read version from register */
-+		va_macro_set_lpass_codec_version(va);
- 
- 	if (va->has_swr_master) {
- 		/* Set default CLK div to 1 */
+-  - if:
+-      properties:
+-        compatible:
+-          enum:
+-            - qcom,sm8250-lpass-wsa-macro
+-    then:
+-      properties:
+-        clocks:
+-          minItems: 6
+-        clock-names:
+-          items:
+-            - const: mclk
+-            - const: npl
+-            - const: macro
+-            - const: dcodec
+-            - const: va
+-            - const: fsgen
+-
+   - if:
+       properties:
+         compatible:
+@@ -130,8 +113,7 @@ examples:
+                <&audiocc 0>,
+                <&q6afecc LPASS_HW_MACRO_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
+                <&q6afecc LPASS_HW_DCODEC_VOTE LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
+-               <&aoncc LPASS_CDC_VA_MCLK>,
+                <&vamacro>;
+-      clock-names = "mclk", "npl", "macro", "dcodec", "va", "fsgen";
++      clock-names = "mclk", "npl", "macro", "dcodec", "fsgen";
+       clock-output-names = "mclk";
+     };
 -- 
 2.25.1
 

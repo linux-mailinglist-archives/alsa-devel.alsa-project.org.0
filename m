@@ -2,103 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF40C952E23
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 14:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4551952E24
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 14:16:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50EAA2B9E;
-	Thu, 15 Aug 2024 14:16:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50EAA2B9E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB902BD4;
+	Thu, 15 Aug 2024 14:16:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB902BD4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723724184;
-	bh=7w2WAn9we+FD6ex2wl3Xn3ZqIPU69CfzpP3JIvlQ1uA=;
+	s=default; t=1723724196;
+	bh=yHydkaB7mV0to4o1OlyyrC234NnyXN2FRI8n4mFL3ds=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QAaXMQV2imrjcs6LQz47z30hLTPBnL4Kuzevdx13GEHZfXXcKuPNrJppPmcGw79M1
-	 bxxU97KnICCyXQDnkYgNVVGkcqm8516yBv/UvmWg/eS1UW70RuAcdZ3ZIdelHCdBZD
-	 xPUS4WpjkscyRtA0+eZFAyP8mnNs8tirJcNMpDHw=
+	b=SfoEuo4IRO7ENdNcBX4z+JzPiyPRIgqLp28hSIzDtRiQePTjNEwfq/o8TneZeZ6ZU
+	 4CgHP4j5sr3mP/5w9GmIuRqCsSCpnwsUKFadzjhvmmd2QbA6p+VGQnGzG13piGUEuj
+	 Lozd4b9Lat1w713w1+QU7sEAWe3pivZ8gV7qEyjs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA852F805AE; Thu, 15 Aug 2024 14:15:53 +0200 (CEST)
+	id A727AF805D4; Thu, 15 Aug 2024 14:15:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66DC4F805AD;
-	Thu, 15 Aug 2024 14:15:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D31B4F805B1;
+	Thu, 15 Aug 2024 14:15:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB733F8049C; Thu, 15 Aug 2024 14:06:11 +0200 (CEST)
+	id A1A59F80423; Thu, 15 Aug 2024 14:06:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CFE70F800BF
-	for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2024 14:02:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFE70F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3456F8047C
+	for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2024 14:04:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3456F8047C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=JIMQZKUN
+ header.s=Intel header.b=UrhG4lHr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723723344; x=1755259344;
+  t=1723723473; x=1755259473;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=7w2WAn9we+FD6ex2wl3Xn3ZqIPU69CfzpP3JIvlQ1uA=;
-  b=JIMQZKUNSTm5WgrRmbyANrnd96zuD3jfk/InzgGhW6PblqQki3I1b4Q6
-   qi/Q1JVcB9J//V4lHkCTac9W9ejBJv6F8up3Z91mwIB0CbPLn3L4EpU3E
-   i9RYQAJdbIcQJO5hRbMHL4O5FcGez18PFIIqionV9ZT+mmtnSPFTcYcOR
-   dCXAyxgEDQT5tPFPMBzNVcRqCxtsVoFn5GmvxDIWIvJfePdD0zrDo6hnu
-   B7Kbd06Z+Mnwqjbk6j+B3M398zpFmYoASGZQwJOls8bIpjES716xDJpZS
-   qphAhxJjfEMWIvPcDHz3nlupPRzNnN14taKqfdrydvQvCW1vFawfTCsxJ
-   Q==;
-X-CSE-ConnectionGUID: bOtskXJAQUS9n6/9a3kzFQ==
-X-CSE-MsgGUID: pSJUanJRRH+7y9qsEXt7Sw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="22108613"
+  bh=yHydkaB7mV0to4o1OlyyrC234NnyXN2FRI8n4mFL3ds=;
+  b=UrhG4lHrdWNKemHi2vjKIn1TN6/TL73vN4mMtHRY5ib0yst4WhDS8P1V
+   oWS5SFolEMsPWl3WZOwPz611qaPe4DydIwG25WVljmHohy0pmYMKw4UWC
+   2Vuo1p7R02dJ/uITvo2NrSxbYhoaSSzZKSCVDmwS0x+VqvhAemDipsaze
+   Eai+NjzfJbahXVZ0VmMbCNCzC4pZfWPxnJSRt/fm1v9wJvKfF9PDHu6vc
+   ObiKb4EXejVQ24v1F9H8x3gZcKQBk8u6I0nM/Uj7CBEH5yNnsF/GTH1qg
+   E/0JdQVSxTnTvEUm17Xcc7vN05E7klUj3JVmurduZXranP5dd6h0uo4kV
+   w==;
+X-CSE-ConnectionGUID: jFyLuXf/SZiZpVK11YT8/A==
+X-CSE-MsgGUID: DhbeY0liSKq9i6ntkpSb7Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11164"; a="32608988"
 X-IronPort-AV: E=Sophos;i="6.10,148,1719903600";
-   d="scan'208";a="22108613"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2024 05:02:20 -0700
-X-CSE-ConnectionGUID: 7EqQnAK0TomwmR2fczP8uA==
-X-CSE-MsgGUID: lRRRWmGbRk6GO2DkjkO1QA==
+   d="scan'208";a="32608988"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2024 05:04:29 -0700
+X-CSE-ConnectionGUID: eLkWGLmqR+yANPMnofdrxQ==
+X-CSE-MsgGUID: DTybqODiTZWVCd6mzcTxvQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.10,148,1719903600";
-   d="scan'208";a="82533379"
+   d="scan'208";a="96852637"
 Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2024 05:02:15 -0700
+  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2024 05:04:22 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.98)
 	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1seZBD-0000000FXmp-2vKJ;
-	Thu, 15 Aug 2024 15:02:11 +0300
-Date: Thu, 15 Aug 2024 15:02:11 +0300
+	id 1seZDG-0000000FXp8-0mub;
+	Thu, 15 Aug 2024 15:04:18 +0300
+Date: Thu, 15 Aug 2024 15:04:17 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Baojun Xu <baojun.xu@ti.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
-	Hans de Goede <hdegoede@redhat.com>, robh+dt@kernel.org,
-	lgirdwood@gmail.com, perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com, kevin-lu@ti.com,
-	shenghao-ding@ti.com, navada@ti.com, 13916275206@139.com,
-	v-hampiholi@ti.com, v-po@ti.com, niranjan.hy@ti.com,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	liam.r.girdwood@intel.com, yung-chuan.liao@linux.intel.com,
-	broonie@kernel.org, soyer@irl.hu
-Subject: Re: [PATCH v11] ALSA: hda/tas2781: Add tas2781 hda SPI driver
-Message-ID: <Zr3uQ7jdtxqF1FlB@smile.fi.intel.com>
-References: <20240727085048.1092-1-baojun.xu@ti.com>
- <87ikw25f11.wl-tiwai@suse.de>
+To: "Ding, Shenghao" <shenghao-ding@ti.com>
+Cc: "broonie@kernel.org" <broonie@kernel.org>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"perex@perex.cz" <perex@perex.cz>,
+	"pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>,
+	"13916275206@139.com" <13916275206@139.com>,
+	"zhourui@huaqin.com" <zhourui@huaqin.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"Salazar, Ivan" <i-salazar@ti.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Chadha, Jasjot Singh" <j-chadha@ti.com>,
+	"liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
+	"Yue, Jaden" <jaden-yue@ti.com>,
+	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+	"Rao, Dipa" <dipa@ti.com>,
+	"yuhsuan@google.com" <yuhsuan@google.com>,
+	"Lo, Henry" <henry.lo@ti.com>, "tiwai@suse.de" <tiwai@suse.de>,
+	"Xu, Baojun" <baojun.xu@ti.com>, "soyer@irl.hu" <soyer@irl.hu>,
+	"Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
+	"judyhsiao@google.com" <judyhsiao@google.com>,
+	"Navada Kanyana, Mukund" <navada@ti.com>,
+	"cujomalainey@google.com" <cujomalainey@google.com>,
+	"Kutty, Aanya" <aanya@ti.com>,
+	"Mahmud, Nayeem" <nayeem.mahmud@ti.com>,
+	"savyasanchi.shukla@netradyne.com" <savyasanchi.shukla@netradyne.com>,
+	"flaviopr@microsoft.com" <flaviopr@microsoft.com>,
+	"Ji, Jesse" <jesse-ji@ti.com>,
+	"darren.ye@mediatek.com" <darren.ye@mediatek.com>,
+	"antheas.dk@gmail.com" <antheas.dk@gmail.com>,
+	"Jerry2.Huang@lcfuturecenter.com" <Jerry2.Huang@lcfuturecenter.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: Rename dai_driver name
+ to unify the name between TAS2563 and TAS2781
+Message-ID: <Zr3uwfNLtTdJWrz4@smile.fi.intel.com>
+References: <20240803032717.175-1-shenghao-ding@ti.com>
+ <ZrovmRCPN7pc0n40@smile.fi.intel.com>
+ <9ec30bafdec441078828cb0d7be93342@ti.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87ikw25f11.wl-tiwai@suse.de>
+In-Reply-To: <9ec30bafdec441078828cb0d7be93342@ti.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: FJIER3KYUIQAVO4QKQJ57QJAZG2T3HFA
-X-Message-ID-Hash: FJIER3KYUIQAVO4QKQJ57QJAZG2T3HFA
+Message-ID-Hash: 3NHADDP4PZPSEZNI5OLD6TGOOWFRN2HO
+X-Message-ID-Hash: 3NHADDP4PZPSEZNI5OLD6TGOOWFRN2HO
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +134,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FJIER3KYUIQAVO4QKQJ57QJAZG2T3HFA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NHADDP4PZPSEZNI5OLD6TGOOWFRN2HO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,47 +143,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Aug 15, 2024 at 11:08:58AM +0200, Takashi Iwai wrote:
-> On Sat, 27 Jul 2024 10:50:48 +0200,
-> Baojun Xu wrote:
-> > 
-> > This patch was used to add TAS2781 devices on SPI support in sound/pci/hda.
-> > It use ACPI node descript about parameters of TAS2781 on SPI, it like:
-> >     Scope (_SB.PC00.SPI0)
-> >     {
-> >         Device (GSPK)
-> >         {
-> >             Name (_HID, "TXNW2781")  // _HID: Hardware ID
-> >             Method (_CRS, 0, NotSerialized)
-> >             {
-> >                 Name (RBUF, ResourceTemplate ()
-> >                 {
-> >                     SpiSerialBusV2 (...)
-> >                     SpiSerialBusV2 (...)
-> >                 }
-> >             }
-> >         }
-> >     }
-> > 
-> > And in platform/x86/serial-multi-instantiate.c, those spi devices will be
-> > added into system as a single SPI device, so TAS2781 SPI driver will
-> > probe twice for every single SPI device. And driver will also parser
-> > mono DSP firmware binary and RCA binary for itself.
-> > The code support Realtek as the primary codec.
-> > In patch version-10, add multi devices firmware binary support,
-> > to compatble with windows driver, they can share same firmware binary.
+On Thu, Aug 15, 2024 at 03:02:01AM +0000, Ding, Shenghao wrote:
+> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Sent: Monday, August 12, 2024 11:52 PM
+> > On Sat, Aug 03, 2024 at 11:27:14AM +0800, Shenghao Ding wrote:
 
-> Now it's v11, and I'd love to move this forward finally, instead of
-> hanging forever.
-> 
-> The HD-audio part looks more or less OK, but I'd need acks for the
-> ACPI and serial-multi-instance parts below.
-> 
-> Put ACPI and serial-multi-instance maintainers to Cc.
-> Rafael, Hans, let me know if that looks OK to take.
+...
 
-FWIW, the ACPI ID part is legit, if the requirement to include it to those
-tables, it looks good.
+> > > +	strscpy(name, "Speaker Profile Id",
+> > SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
+> > 
+> > > +	strscpy(prog_name, "Speaker Program Id",
+> > > +		SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
+> > 
+> > > +	strscpy(conf_name, "Speaker Config Id",
+> > > +SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
+> > 
+> > Why not 2-parameter strscpy()?
+> strscpy seemed not support 2 params. Do you mean strcpy? 
+
+1. It does.
+2. No, I meant strscpy().
 
 -- 
 With Best Regards,

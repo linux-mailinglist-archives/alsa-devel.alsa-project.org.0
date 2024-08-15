@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AB6C953B9E
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 22:42:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F08953BA4
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2024 22:42:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1DF642BDF;
-	Thu, 15 Aug 2024 22:41:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DF642BDF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 472742BBD;
+	Thu, 15 Aug 2024 22:42:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 472742BBD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723754520;
-	bh=zLGOMGoKwUCFDdiXn3enjJ0O9mURCn4+cOCpMaC8Qy8=;
+	s=default; t=1723754542;
+	bh=99puEiYfn5q/7K01azkENGMe1+O/ZL9Ew0Yw9gh+GPY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=L9tdQ7JqjbcyjHMFlil9Q6kHGZq6IAAvmu5U10oyT38Kv5/5P1xyQ+ywXrv1/8f+X
-	 Cv6lgkstAoe035Msijf4Mbcp0n+17adPnVz4UDA4nhbyNFoxp4DgqEePbuG013dikT
-	 e3GSJ5HpJwIkBUl1JePk/SSgVV+gAoJ67i798Z74=
+	b=nCZyKwR9oii5xALj9s+l3ARIrWK5KEWdB7rf9O7JDFkdnHN76rGx5l0JtdaczbZaO
+	 yreByxzunWfue1+QSsUYVev8dWgwX8KNbLo73sSjebSCi4J0rcLg+/04z3xxTLFrXt
+	 GtkqHJwZVstVwE0MafHc30/63+KSNqHcwyVTwR6Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46BC2F805B3; Thu, 15 Aug 2024 22:41:27 +0200 (CEST)
+	id CCF66F805AB; Thu, 15 Aug 2024 22:41:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF201F8059F;
-	Thu, 15 Aug 2024 22:41:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E009DF805C1;
+	Thu, 15 Aug 2024 22:41:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C5D5F80423; Thu, 15 Aug 2024 22:41:22 +0200 (CEST)
+	id C433BF80107; Thu, 15 Aug 2024 22:41:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,55 +33,64 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 03ACEF800BF
-	for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2024 22:41:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03ACEF800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id B93B0F8057A
+	for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2024 22:41:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B93B0F8057A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Pj0bRWdl
+ header.s=k20201202 header.b=WwtYg+Fr
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 3447561FE5;
-	Thu, 15 Aug 2024 20:41:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B5D7C4AF14;
-	Thu, 15 Aug 2024 20:41:13 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id E950BCE1E05;
+	Thu, 15 Aug 2024 20:41:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30CCBC4AF14;
+	Thu, 15 Aug 2024 20:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1723754474;
-	bh=zLGOMGoKwUCFDdiXn3enjJ0O9mURCn4+cOCpMaC8Qy8=;
+	s=k20201202; t=1723754500;
+	bh=99puEiYfn5q/7K01azkENGMe1+O/ZL9Ew0Yw9gh+GPY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Pj0bRWdlmEwx7zvGEBSxn0Aw8qM2P8v0okGRFRsdybaTbLg2B6hrwn3ziBRbmQxuu
-	 Zgefx9+PkwrZ9DT1Clo5UlZqjp17rqVTIsNsN2khziIp/Lsj0CYwciKPk8LIwlvCF3
-	 RhqKuIMTJYlQqmoq+TIFiKKaO8UzK8B65BydIarUDzwm5/c3LZwIPP//vsjmdMVafj
-	 37cQCONun48HfZLuRjoaRApD8dSL4dKuehOiR46+iaRxTrcmydRKI/m1QR/aNOAXfJ
-	 g7y/IDja9PG/RkzZJLevsH4SpWzcjK5KE/MxC4r3qho8rgruwLkzBj7MPbncAHwfp1
-	 1OMiRKewIPI/g==
+	b=WwtYg+FrmwJ1+DtOJDq3tvnd71xwf0r16EnhnCSqlvCBkpyEBVsN+xmdEnv50Ngcw
+	 5Bufav1hT6I9bQiDJdtOlhPvGAmjix33qvhrIW15J+dmsdT9owDmux31NiGYIgwTgF
+	 ZwYKnK+14wvp/+vVpgmJ0lvnHMw3xS4Rvy49W/I1yRPowy9jASbPXLVsWM506/+n1k
+	 ayYE29z+4koutxE/Fj3Cirsy8mLBwkQel9Xkbf0nXvjRKI+fDEzNWcK5T80LN96PYX
+	 /7Zi8tbsz+y9vy+9x1elt2otYPZyTFAqly+bpg93Nrq7N/aLTEqlzxGyJCIJJFcOqo
+	 Fx5naxR4U4nAg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
+To: Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/6] soc: qcom: use scoped device node handling to
- simplify error paths
-Date: Thu, 15 Aug 2024 15:40:29 -0500
-Message-ID: <172375444834.1011236.2412246368890909822.b4-ty@kernel.org>
+	srinivas.kandagatla@linaro.org
+Cc: linux-arm-msm@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Manikantan R <quic_manrav@quicinc.com>
+Subject: Re: (subset) [PATCH v2 0/6] ASoC: codecs: wsa88xx: add support for
+ static port mapping.
+Date: Thu, 15 Aug 2024 15:40:50 -0500
+Message-ID: <172375444802.1011236.13810877795338662540.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: 
- <20240813-b4-cleanup-h-of-node-put-other-v1-0-cfb67323a95c@linaro.org>
-References: 
- <20240813-b4-cleanup-h-of-node-put-other-v1-0-cfb67323a95c@linaro.org>
+In-Reply-To: <20240626-port-map-v2-0-6cc1c5608cdd@linaro.org>
+References: <20240626-port-map-v2-0-6cc1c5608cdd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CUT5ZZPZWZK4MCYCQW7I7P6NGZCE36OA
-X-Message-ID-Hash: CUT5ZZPZWZK4MCYCQW7I7P6NGZCE36OA
+Message-ID-Hash: GWQCP4B7IS5LBM5C3YWXY3SCQ2WUS7W6
+X-Message-ID-Hash: GWQCP4B7IS5LBM5C3YWXY3SCQ2WUS7W6
 X-MailFrom: andersson@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CUT5ZZPZWZK4MCYCQW7I7P6NGZCE36OA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GWQCP4B7IS5LBM5C3YWXY3SCQ2WUS7W6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,28 +113,26 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-On Tue, 13 Aug 2024 15:09:46 +0200, Krzysztof Kozlowski wrote:
-> Use cleanup.h/scope on device nodes to get rid of of_node_put(). Code is
-> a bit simpler.
+On Thu, 27 Jun 2024 15:44:37 +0100, srinivas.kandagatla@linaro.org wrote:
+> Existing way of allocating soundwire master ports on Qualcommm platforms is
+> dynamic, and in linear order starting from 1 to MAX_PORTS.
+> This will work as long as soundwire device ports are 1:1 mapped
+> linearly. However on most Qcom SoCs like SM8550, SM8650, x1e80100, these
+> are NOT mapped in that order.
 > 
-> Best regards,
-> Krzysztof
+> The result of this is that only one speaker among the pair of speakers
+> is always silent, With recent changes for WSA codec to support codec
+> versions and along with these patches we are able to get all speakers
+> working on these SoCs.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/6] soc: qcom: apr: simplify with scoped for each OF child loop
-      commit: 6c26d9c764c62343722d6ea6c9e4c7e65989f634
-[2/6] soc: qcom: aoss: simplify with scoped for each OF child loop
-      commit: c50203cbba1573546f115330530d24382fc53f09
-[3/6] soc: qcom: ice: use scoped device node handling to simplify error paths
-      commit: 877840f13bcc96e05aca2e1e6cc0f957afb788a4
-[4/6] soc: qcom: ocmem: use scoped device node handling to simplify error paths
-      commit: f4c1c19f5c0e5cf2870df91dedc6b40400fd9c8a
-[5/6] soc: qcom: pbs: use scoped device node handling to simplify error paths
-      commit: a29e97bdc160aaa27187c7be3bcd052af66c027a
-[6/6] soc: qcom: smp2p: use scoped device node handling to simplify error paths
-      commit: f728778272242c84d36682c0aabbb845195e745d
+[5/6] arm64: dts: x1e80100-crd: fix wsa soundwire port mapping
+      commit: d374fafd8972895eba01ebd69c993cc7d80c084b
+[6/6] arm64: dts: x1e80100-qcp: fix wsa soundwire port mapping
+      commit: 6e229f9118438af09b4ac6a96313c32f33027e5a
 
 Best regards,
 -- 

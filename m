@@ -2,129 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42ABD954D03
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2024 16:52:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D9B954D5F
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2024 17:11:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43A172BEB;
-	Fri, 16 Aug 2024 16:51:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43A172BEB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C74F42BF8;
+	Fri, 16 Aug 2024 17:11:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C74F42BF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723819928;
-	bh=pRyHlCh8aSYYzHXx34WfX5hxoAw8zCK3wnS3r5G3XYI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1723821089;
+	bh=/gWJGAAYEWysus8W/MIeKMY6Sfi3VK0jLdw6jlTOx2Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HChkjkg/iMdIU2KE7IWvTynfnTxEHeW903CJjm7cfe9DRRqyjX4GUZuIuucpODvUQ
-	 BqqA8ZFxt/YgeEhDq+EEP7AIZ6sIBtOqQx5jwbzLba99AvgTs+1A+JnXMqUPoalXGZ
-	 VkTZzjCsoLsZCJRCXphUegF9b7Eu9y1xWyHTeVyQ=
+	b=tawsO/ixZYZi7H2KbQb8Oh6B1bq5xA5XKe2DaW80gIVO7SwT0O2+imC4N5qnV3qiY
+	 l67pgwJCAYTyn8OfbRngG9XgAkmY/j4DLuY+xXa0lkO8WlRKXl0k+ldHGI4dcCcqPH
+	 4RJn63AyC5ty0rFiBX3rT6GAKOhpqtxGkpxu6gnA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08F73F8057A; Fri, 16 Aug 2024 16:51:36 +0200 (CEST)
+	id 64FEEF80589; Fri, 16 Aug 2024 17:10:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16D0EF80423;
-	Fri, 16 Aug 2024 16:51:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96206F80579;
+	Fri, 16 Aug 2024 17:10:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D826CF80423; Fri, 16 Aug 2024 16:51:32 +0200 (CEST)
+	id AD68EF80423; Fri, 16 Aug 2024 17:10:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1CD6FF80107
-	for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2024 16:51:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CD6FF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8250F8016E
+	for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2024 17:10:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8250F8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=jHGZp1ds
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1723819887; x=1755355887;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pRyHlCh8aSYYzHXx34WfX5hxoAw8zCK3wnS3r5G3XYI=;
-  b=jHGZp1dskQpupaWu6DRfxle4wlyoZGChdMuA8E5SiNMnNBZTF96ru+D+
-   WJbftZuP/96PK+Xgke5xNTjRALOIFoXhHl3DTWPxdfhgb+5k/+nM0Wlf/
-   e0zGV6kXE1p8rpci1K//aLmg8LtQgtE6U1SwPXDhmOPf1hmxGww9uM7qv
-   XrrOftvZc9AQgIhEv92c4cz411xiXqKQhLyT2+ODq6byP+FO99t56JSkV
-   BjjAr6UXW/qYDmR4K4SVqC4sraxh5E8kxVRcZKSuyYAok/tL8XhNk3cgf
-   YR46BxrU8GdnU/Tq27ItnIdEtOW3UOO75gUWEOM0RJpgf6/bOm7nKvQec
-   Q==;
-X-CSE-ConnectionGUID: 4Ae2RdP/RNKwncj6MaGwwQ==
-X-CSE-MsgGUID: rEG4i1n/SAyH5kIbjnacVw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11166"; a="33503187"
-X-IronPort-AV: E=Sophos;i="6.10,152,1719903600";
-   d="scan'208";a="33503187"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2024 07:51:19 -0700
-X-CSE-ConnectionGUID: 2WEn18WyQweCjl5zF3pxQw==
-X-CSE-MsgGUID: 2rLDsdYBTRmn7nLy7PzoaQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,152,1719903600";
-   d="scan'208";a="64529984"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2024 07:51:12 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1seyIF-0000000FwGC-40M2;
-	Fri, 16 Aug 2024 17:51:07 +0300
-Date: Fri, 16 Aug 2024 17:51:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Ding, Shenghao" <shenghao-ding@ti.com>
-Cc: "broonie@kernel.org" <broonie@kernel.org>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
-	"13916275206@139.com" <13916275206@139.com>,
-	"zhourui@huaqin.com" <zhourui@huaqin.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"Salazar, Ivan" <i-salazar@ti.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Chadha, Jasjot Singh" <j-chadha@ti.com>,
-	"liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
-	"Yue, Jaden" <jaden-yue@ti.com>,
-	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
-	"Rao, Dipa" <dipa@ti.com>,
-	"yuhsuan@google.com" <yuhsuan@google.com>,
-	"Lo, Henry" <henry.lo@ti.com>, "tiwai@suse.de" <tiwai@suse.de>,
-	"Xu, Baojun" <baojun.xu@ti.com>,
-	"Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
-	"judyhsiao@google.com" <judyhsiao@google.com>,
-	"Navada Kanyana, Mukund" <navada@ti.com>,
-	"cujomalainey@google.com" <cujomalainey@google.com>,
-	"Kutty, Aanya" <aanya@ti.com>,
-	"Mahmud, Nayeem" <nayeem.mahmud@ti.com>,
-	"savyasanchi.shukla@netradyne.com" <savyasanchi.shukla@netradyne.com>,
-	"flaviopr@microsoft.com" <flaviopr@microsoft.com>,
-	"Ji, Jesse" <jesse-ji@ti.com>,
-	"darren.ye@mediatek.com" <darren.ye@mediatek.com>,
-	"antheas.dk@gmail.com" <antheas.dk@gmail.com>,
-	"Jerry2.Huang@lcfuturecenter.com" <Jerry2.Huang@lcfuturecenter.com>
-Subject: Re: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: Rename dai_driver name
- to unify the name between TAS2563 and TAS2781
-Message-ID: <Zr9nW-rIA0TpmYVj@smile.fi.intel.com>
-References: <20240803032717.175-1-shenghao-ding@ti.com>
- <ZrovmRCPN7pc0n40@smile.fi.intel.com>
- <9ec30bafdec441078828cb0d7be93342@ti.com>
- <Zr3uwfNLtTdJWrz4@smile.fi.intel.com>
- <2a4f9f583b5e4495b9fb50a446c2c949@ti.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=oodnuVxp
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 60981CE1DF8;
+	Fri, 16 Aug 2024 15:10:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BFEC4AF09;
+	Fri, 16 Aug 2024 15:10:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1723821043;
+	bh=/gWJGAAYEWysus8W/MIeKMY6Sfi3VK0jLdw6jlTOx2Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=oodnuVxpVNOYj+ABas+W/M+19tvVVV+ISJz+iKdFYy9YEApNewhCJ00ZAh/50+lAY
+	 tmlAzPJNOXd/hajPrV8kBc5aE7ylNySspFB1d5OYmagTLhQvqcBSREVbW5uDQ0sm3M
+	 T+uptJTFkwuZU1aqeVoIu+4VSazi9qIq+SZ3GYgTSUTxiOH8bY3snCfEKEHMIJFkHh
+	 3i8mNIQ3Z326OplFFNVWRkFESALBdtGMFKlCoYkLc+0tpdQVoZCCCTc5u63Nj5I4xq
+	 MWAzhARvX0JlhmBuK64ydTWVy01WyU6UNLG4i7+IrlKymkyNHNub+uJupS3zgYcV4D
+	 iVDcBpYk4tD3A==
+From: Mark Brown <broonie@kernel.org>
+To: srinivas.kandagatla@linaro.org
+Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amit.pundir@linaro.org,
+ dmitry.baryshkov@linaro.org, devicetree@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20240815165320.18836-1-srinivas.kandagatla@linaro.org>
+References: <20240815165320.18836-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: qcom,lpass-wsa-macro: correct
+ clocks on SM8250
+Message-Id: <172382104064.70235.8442859739541696689.b4-ty@kernel.org>
+Date: Fri, 16 Aug 2024 16:10:40 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2a4f9f583b5e4495b9fb50a446c2c949@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: YJQIW2ZOIFUXGZMF2HSSX46QTTIZGGGW
-X-Message-ID-Hash: YJQIW2ZOIFUXGZMF2HSSX46QTTIZGGGW
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-37811
+Message-ID-Hash: VYLV32KYF7KUWAESQUDS6WB6G5SWZYFA
+X-Message-ID-Hash: VYLV32KYF7KUWAESQUDS6WB6G5SWZYFA
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YJQIW2ZOIFUXGZMF2HSSX46QTTIZGGGW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VYLV32KYF7KUWAESQUDS6WB6G5SWZYFA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,40 +100,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Aug 16, 2024 at 01:41:46PM +0000, Ding, Shenghao wrote:
-> > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Sent: Thursday, August 15, 2024 8:04 PM
-> > To: Ding, Shenghao <shenghao-ding@ti.com>
-> > On Thu, Aug 15, 2024 at 03:02:01AM +0000, Ding, Shenghao wrote:
-> > > > From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > > > Sent: Monday, August 12, 2024 11:52 PM On Sat, Aug 03, 2024 at
-> > > > 11:27:14AM +0800, Shenghao Ding wrote:
+On Thu, 15 Aug 2024 17:53:20 +0100, srinivas.kandagatla@linaro.org wrote:
+> we seems to have ended up with duplicate clocks for frame-sync on sm8250,
+> it has both va and fsgen which are exactly same things. Remove the redundant
+> va clock and make it align with other SoCs.
+> 
+> Codec driver does not even handle va clock, so remove this from the
+> bindings and examples to avoid any confusion.
+> 
+> [...]
 
-...
+Applied to
 
-> > > > > +	strscpy(name, "Speaker Profile Id",
-> > > > SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
-> > > >
-> > > > > +	strscpy(prog_name, "Speaker Program Id",
-> > > > > +		SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
-> > > >
-> > > > > +	strscpy(conf_name, "Speaker Config Id",
-> > > > > +SNDRV_CTL_ELEM_ID_NAME_MAXLEN);
-> > > >
-> > > > Why not 2-parameter strscpy()?
-> > > strscpy seemed not support 2 params. Do you mean strcpy?
-> > 
-> > 1. It does.
-> > 2. No, I meant strscpy().
-> I have tried 2-parameter strscpy(), and occurred compiling issue.
-> The first parameter of strscpy, *dst, must be array, but in this code
-> prog_name and conf_name are points to the memories applied by
-> devm_kcalloc.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Okay, I'm not sure why devm_kasprintf() is not used for these cases.
+Thanks!
 
--- 
-With Best Regards,
-Andy Shevchenko
+[1/1] ASoC: dt-bindings: qcom,lpass-wsa-macro: correct clocks on SM8250
+      commit: d08ea4193a72c5e3090240872ff7ed60a70716e6
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

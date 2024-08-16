@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AFEE95478D
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2024 13:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0B0C954785
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2024 13:09:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9E392C0F;
-	Fri, 16 Aug 2024 13:10:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9E392C0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C52B2C00;
+	Fri, 16 Aug 2024 13:09:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C52B2C00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723806632;
-	bh=2SMCZU5LBJKXYfuPakXf2C//9G91D9i5Pc7TBGmm3M0=;
+	s=default; t=1723806596;
+	bh=G6B1/BrdV5xtz9U9lJX6IlnXxyM5OmUZ0gZB6H4vRFU=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=Rq0mFsMb5S76S/z6Y4GhY0PM4CZ71cjfjvF6YVCXqOX02JYPNZaVqtUH1jlzGWoqO
-	 EpayesTn/LXeX7pAQYVGNEpGcFvJIiI4+RUXtAlDmGUxHLDrBQxWq6Uw7/mQHN6C2t
-	 ZSNqBK6jz/jyumvKJ9Mu5UI0PAwpThDvSUzIO1Ps=
+	b=OOI5qmzrqyENbnr2hgb2r31EsAPx94pe+7Sd5HfbKeSIj1Ohcu6XjWh2dPS+tCeTR
+	 DvMGtiX5bNtPLi1DkKPNyTyQfu+u9R6uAKz64PDUoBUZ43ovalapQZvy65nxtPp7Zp
+	 Y4lud9afAaeep4uk0++iLZX62xIAeJAJsocV3dPg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B439F80641; Fri, 16 Aug 2024 13:08:55 +0200 (CEST)
+	id 05F8CF805F2; Fri, 16 Aug 2024 13:08:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BDB5F80641;
-	Fri, 16 Aug 2024 13:08:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79BA6F805B4;
+	Fri, 16 Aug 2024 13:08:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EFE9F8016E; Fri, 16 Aug 2024 13:04:49 +0200 (CEST)
+	id 445A7F80579; Fri, 16 Aug 2024 13:03:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0
-	tests=RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B7A3EF8047C
-	for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2024 13:03:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7A3EF8047C
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id F23A01A1529;
-	Fri, 16 Aug 2024 13:03:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E4A8F800B0
+	for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2024 13:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E4A8F800B0
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B3932202CFD;
+	Fri, 16 Aug 2024 13:03:19 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com
  (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A55EA1A1525;
-	Fri, 16 Aug 2024 13:03:17 +0200 (CEST)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 688D1200713;
+	Fri, 16 Aug 2024 13:03:19 +0200 (CEST)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 43FBF181D0FD;
-	Fri, 16 Aug 2024 19:03:16 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 6FF0D1800318;
+	Fri, 16 Aug 2024 19:03:17 +0800 (+08)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: vkoul@kernel.org,
 	perex@perex.cz,
@@ -63,15 +63,15 @@ To: vkoul@kernel.org,
 	lgirdwood@gmail.com,
 	broonie@kernel.org,
 	linuxppc-dev@lists.ozlabs.org
-Subject: [RFC PATCH v2 5/6] ASoC: fsl_asrc: register m2m platform device
-Date: Fri, 16 Aug 2024 18:42:38 +0800
-Message-Id: <1723804959-31921-6-git-send-email-shengjiu.wang@nxp.com>
+Subject: [RFC PATCH v2 6/6] ASoC: fsl_easrc: register m2m platform device
+Date: Fri, 16 Aug 2024 18:42:39 +0800
+Message-Id: <1723804959-31921-7-git-send-email-shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1723804959-31921-1-git-send-email-shengjiu.wang@nxp.com>
 References: <1723804959-31921-1-git-send-email-shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Message-ID-Hash: LHRWUGF2OCRP5M6Q23PX627DTGMHEKIC
-X-Message-ID-Hash: LHRWUGF2OCRP5M6Q23PX627DTGMHEKIC
+Message-ID-Hash: U6K3F7D6ILBXQNMCMBXRFOX3I2WNCIHB
+X-Message-ID-Hash: U6K3F7D6ILBXQNMCMBXRFOX3I2WNCIHB
 X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -84,7 +84,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LHRWUGF2OCRP5M6Q23PX627DTGMHEKIC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U6K3F7D6ILBXQNMCMBXRFOX3I2WNCIHB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,23 +93,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Register m2m platform device, that user can
+Register m2m platform device,that user can
 use M2M feature.
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/soc/fsl/fsl_asrc.c | 37 +++++++++++++++++++++++++++++++++----
- 1 file changed, 33 insertions(+), 4 deletions(-)
+ sound/soc/fsl/fsl_easrc.c | 33 +++++++++++++++++++++++++++++++--
+ 1 file changed, 31 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 01e3af5b1bea..5d88abd905a5 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -1381,6 +1381,12 @@ static int fsl_asrc_probe(struct platform_device *pdev)
- 		goto err_pm_get_sync;
+diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
+index 959a8e2dd716..98adbae082fa 100644
+--- a/sound/soc/fsl/fsl_easrc.c
++++ b/sound/soc/fsl/fsl_easrc.c
+@@ -2202,6 +2202,12 @@ static int fsl_easrc_probe(struct platform_device *pdev)
+ 		goto err_pm_disable;
  	}
  
-+	ret = fsl_asrc_m2m_init(asrc);
++	ret = fsl_asrc_m2m_init(easrc);
 +	if (ret) {
 +		dev_err(&pdev->dev, "failed to init m2m device %d\n", ret);
 +		return ret;
@@ -117,60 +117,50 @@ index 01e3af5b1bea..5d88abd905a5 100644
 +
  	return 0;
  
- err_pm_get_sync:
-@@ -1393,6 +1399,10 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ err_pm_disable:
+@@ -2211,6 +2217,10 @@ static int fsl_easrc_probe(struct platform_device *pdev)
  
- static void fsl_asrc_remove(struct platform_device *pdev)
+ static void fsl_easrc_remove(struct platform_device *pdev)
  {
-+	struct fsl_asrc *asrc = dev_get_drvdata(&pdev->dev);
++	struct fsl_asrc *easrc = dev_get_drvdata(&pdev->dev);
 +
-+	fsl_asrc_m2m_exit(asrc);
++	fsl_asrc_m2m_exit(easrc);
 +
  	pm_runtime_disable(&pdev->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
- 		fsl_asrc_runtime_suspend(&pdev->dev);
-@@ -1494,10 +1504,29 @@ static int fsl_asrc_runtime_suspend(struct device *dev)
- 	return 0;
  }
  
-+static int fsl_asrc_suspend(struct device *dev)
+@@ -2311,10 +2321,29 @@ static int fsl_easrc_runtime_resume(struct device *dev)
+ 	return ret;
+ }
+ 
++static int fsl_easrc_suspend(struct device *dev)
 +{
-+	struct fsl_asrc *asrc = dev_get_drvdata(dev);
++	struct fsl_asrc *easrc = dev_get_drvdata(dev);
 +	int ret;
 +
-+	fsl_asrc_m2m_suspend(asrc);
++	fsl_asrc_m2m_suspend(easrc);
 +	ret = pm_runtime_force_suspend(dev);
 +	return ret;
 +}
 +
-+static int fsl_asrc_resume(struct device *dev)
++static int fsl_easrc_resume(struct device *dev)
 +{
-+	struct fsl_asrc *asrc = dev_get_drvdata(dev);
++	struct fsl_asrc *easrc = dev_get_drvdata(dev);
 +	int ret;
 +
 +	ret = pm_runtime_force_resume(dev);
-+	fsl_asrc_m2m_resume(asrc);
++	fsl_asrc_m2m_resume(easrc);
 +	return ret;
 +}
 +
- static const struct dev_pm_ops fsl_asrc_pm = {
--	SET_RUNTIME_PM_OPS(fsl_asrc_runtime_suspend, fsl_asrc_runtime_resume, NULL)
+ static const struct dev_pm_ops fsl_easrc_pm_ops = {
+ 	RUNTIME_PM_OPS(fsl_easrc_runtime_suspend, fsl_easrc_runtime_resume, NULL)
 -	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
 -				pm_runtime_force_resume)
-+	RUNTIME_PM_OPS(fsl_asrc_runtime_suspend, fsl_asrc_runtime_resume, NULL)
-+	SYSTEM_SLEEP_PM_OPS(fsl_asrc_suspend, fsl_asrc_resume)
++	SYSTEM_SLEEP_PM_OPS(fsl_easrc_suspend, fsl_easrc_resume)
  };
  
- static const struct fsl_asrc_soc_data fsl_asrc_imx35_data = {
-@@ -1535,7 +1564,7 @@ static struct platform_driver fsl_asrc_driver = {
- 	.driver = {
- 		.name = "fsl-asrc",
- 		.of_match_table = fsl_asrc_ids,
--		.pm = &fsl_asrc_pm,
-+		.pm = pm_ptr(&fsl_asrc_pm),
- 	},
- };
- module_platform_driver(fsl_asrc_driver);
+ static struct platform_driver fsl_easrc_driver = {
 -- 
 2.34.1
 

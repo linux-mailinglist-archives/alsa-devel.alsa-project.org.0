@@ -2,55 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F222A955184
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2024 21:34:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5564195528D
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2024 23:40:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D91052BFE;
-	Fri, 16 Aug 2024 21:34:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D91052BFE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97FA42C14;
+	Fri, 16 Aug 2024 23:40:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97FA42C14
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723836881;
-	bh=PPUDLNnUS7NmibQ8p+tlGE3GGqDftp8F7ZQdqSEsWGE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=aHccFbLXa7sIL51DY15H95rXgOwCTUua7rV1b7jhPUgXJqcD42k9FDtadhwSkDtBz
-	 4HnDIslD9wREZ8rJ2KgGsyJsDyFl94KBP/uuwxM+y03JOvbP+uAqm8Q2JZj/IpesuJ
-	 +txmctHUxtPuZOZIkcVsQKVjJbogyHumY6h4ByVY=
+	s=default; t=1723844447;
+	bh=E5pRy/NZev7CQ+5MeoeycTawER7eb3a9BUaFoSbrWzQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=GFBhRZ+RXkF8HXlY+WmnupOg8ZzE1vYR539SV5xJVo/WeAfqqaE8VVsU54oBXa83f
+	 NSCQs6DzDHd//mQkfyzhc5HR/O8RWVgzwPbbFm8iBVOKe56416JgD8krah4ISvtD4b
+	 kgHzwfaN2bmXco7xGiREqKA1h0zDxzxCvxexCrLg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F9A4F805A9; Fri, 16 Aug 2024 21:34:10 +0200 (CEST)
+	id 484F7F80588; Fri, 16 Aug 2024 23:40:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A40EBF80580;
-	Fri, 16 Aug 2024 21:34:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B96FCF805AF;
+	Fri, 16 Aug 2024 23:40:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA197F80423; Fri, 16 Aug 2024 21:33:58 +0200 (CEST)
+	id DE3F6F80423; Fri, 16 Aug 2024 23:35:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A235F80107
-	for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2024 21:33:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A235F80107
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 94F05F800B0
+	for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2024 23:35:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94F05F800B0
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=cU+b8xGw
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id 39B06CE2016;
+	Fri, 16 Aug 2024 21:35:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457D4C32782;
+	Fri, 16 Aug 2024 21:35:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1723844123;
+	bh=E5pRy/NZev7CQ+5MeoeycTawER7eb3a9BUaFoSbrWzQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cU+b8xGwPB2wjrNZN58g5rTTZ0K8gy2cVElnvOdNBJS+eRW2cTS6lty9cFaxEA1GE
+	 nvwA8ZyQBoB9dS/JEHAfNUt28/UrQsNEIS2kzi3Al7cI1Ioji8cazLDcD+iPAYZWnO
+	 6h2rmgQwXmGs/xssJ8nxyDCA/zRx1SVbFTtP6WXIDgjH8trJzxo+3p26PbZ5jjF5db
+	 r5P3sixRrT+GaLUTRd2uX+eNfMF9bMLPOh/F/kKCPJ3PKicBeQajp9fkZtNS0CsYOE
+	 LcaAZFcJXdh6W8bSCeUip+QLDhD9hqjKMG4y9TBsEelvDyR/V2v0oXSoSXe66tO1Yf
+	 56BQ2GZJ3jCdA==
+Date: Fri, 16 Aug 2024 15:35:22 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
+	alsa-devel@alsa-project.org, Kevin Lu <kevin-lu@ti.com>,
+	linux-sound@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, Shenghao Ding <shenghao-ding@ti.com>,
+	Mark Brown <broonie@kernel.org>, Baojun Xu <baojun.xu@ti.com>
+Subject: Re: [PATCH 1/1] ASoC: dt-bindings: convert tlv320aic31xx.txt to yaml
+Message-ID: <172384412184.2291163.5262701563861623648.robh@kernel.org>
+References: <20240814174422.4026100-1-Frank.Li@nxp.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1723836834548673868-webhooks-bot@alsa-project.org>
-References: <1723836834548673868-webhooks-bot@alsa-project.org>
-Subject: ASUS Maximus Z790 Hero (ALC4082) - USB Audio 5.1 speakers assigned
- incorrectly and subwoofer not working
-Message-Id: <20240816193358.CA197F80423@alsa1.perex.cz>
-Date: Fri, 16 Aug 2024 21:33:58 +0200 (CEST)
-Message-ID-Hash: EBPMH5GTEW2R7IDMTAIFFY2SXDS6DLZO
-X-Message-ID-Hash: EBPMH5GTEW2R7IDMTAIFFY2SXDS6DLZO
-X-MailFrom: github@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240814174422.4026100-1-Frank.Li@nxp.com>
+Message-ID-Hash: 2H4AO7W2YCGS6QDQX4J3L4V6H4AOSMSC
+X-Message-ID-Hash: 2H4AO7W2YCGS6QDQX4J3L4V6H4AOSMSC
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EBPMH5GTEW2R7IDMTAIFFY2SXDS6DLZO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2H4AO7W2YCGS6QDQX4J3L4V6H4AOSMSC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,39 +100,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #437 was opened from Gess79:
 
-I hope I'm correct to post this here. Still new to things Linux.
+On Wed, 14 Aug 2024 13:44:20 -0400, Frank Li wrote:
+> Convert binding doc tlv320aic31xx.txt to yaml format.
+> Additional change:
+> - add i2c node in example.
+> - replace MICBIAS_OFF with MICBIAS_2_0v in example because MICBIAS_OFF have
+> been defined in header file.
+> - add ref to dai-common.yaml.
+> - add #sound-dai-cells.
+> 
+> Fix below warning:
+> arch/arm64/boot/dts/freescale/imx8mq-zii-ultra-rmb3.dtb: /soc@0/bus@30800000/i2c@30a30000/codec@18:
+> 	failed to match any schema with compatible: ['ti,tlv320dac3100']
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  .../bindings/sound/ti,tlv320dac3100.yaml      | 127 ++++++++++++++++++
+>  .../bindings/sound/tlv320aic31xx.txt          |  77 -----------
+>  2 files changed, 127 insertions(+), 77 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320dac3100.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
+> 
 
-**Situation**
-OS: Kubuntu 24.04
-Mainboard = ASUS ROG Maximus Z790 Hero
-USB Audio = 0b05:1a53 ASUSTek Computer, Inc. USB Audio
-Speakers = Logitech Z906 Surround
-Kernel = 6.8.0-40-generic
-Alsa version = 1.2.9
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-**Issue**
-The speakers seem to be assigned incorrectly and the subwoofer isn't working. I'm testing the speakers through pulseaudio as follows:
-
-![image](https://github.com/user-attachments/assets/8bf65600-63ad-46cc-af68-d51ab6d4a7e6)
-
-I'm listing the results below in three categories:
-- The icon clicked within pulseaudio
-- The soundfile played
-- The speaker the sound is actually output to
-
-_Icon clicked - Soundfile played - Physical speaker output_
-Front Left - Front Left - Front Left
-Front Center - Front Center - Rear Left
-Front Right - Front Right - Front Right
-Rear Left - Rear Left - Front Center
-Subwoofer - Rear Center - Rear Right
-Rear Right - (nothing) - (nothing)
-
-I've had a lengthy discussion on Reddit but I couldn't find a fix for it so far: https://www.reddit.com/r/linux4noobs/comments/1980uv1/comment/kieqsor/
-
-I'm happy to provide all information necessary to pinpoint the issue and fix it.
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/437
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf

@@ -2,156 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D043955640
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Aug 2024 09:46:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB89B9558B5
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Aug 2024 17:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89F862BD2;
-	Sat, 17 Aug 2024 09:46:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89F862BD2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9724238F;
+	Sat, 17 Aug 2024 17:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9724238F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723880802;
-	bh=RUGGfYatZRZnk1U5MFvj0Gi0/PMuhb/Y/mXABqQp25s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1723909109;
+	bh=4W/Y6BiJMxSnwgO47spVbAk5tyI3nap6YIH8p8Sxih8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Gb+4cTbKpu6+3jIZetdDmjg447sxWFIINNc0efln9DmQuBXoUVBTdEOubWqeBaB1X
-	 lvI9RaIYgncZKtrlfXFJ0Z5i3j70jKsRQhghNPQ+m7EeGY/eG6cSl1VzYa8bnajHZ1
-	 w5pVF5jo9tK81UkMpJ9Eqy+pqhAc+X3SUA+eXpvA=
+	b=ZmN3GGh/oqHngdeYsteXxD0MwtMh/MrxG8ZMcxZJYUq1icJT4lzpeqMS6z8g4o7QZ
+	 zJ1+iaVXQ/S1MiqR+aL8X+QZY9wWQMxDAOhOwbUu5ovT3XxJ0dhcnExIqQLaIfZL9r
+	 fe6xIMQx7GZuL5AsTQwdtx9JAUiazavLY6PxGutE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98147F805B3; Sat, 17 Aug 2024 09:46:10 +0200 (CEST)
+	id 0B1E1F805A9; Sat, 17 Aug 2024 17:37:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCE90F800BF;
-	Sat, 17 Aug 2024 09:46:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D005BF8016E;
+	Sat, 17 Aug 2024 17:37:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74E3BF80423; Sat, 17 Aug 2024 09:44:30 +0200 (CEST)
+	id 7D5FCF80423; Sat, 17 Aug 2024 17:34:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ua1-x92f.google.com (mail-ua1-x92f.google.com
+ [IPv6:2607:f8b0:4864:20::92f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A9B4BF800B0
-	for <alsa-devel@alsa-project.org>; Sat, 17 Aug 2024 09:44:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9B4BF800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08107F800B0
+	for <alsa-devel@alsa-project.org>; Sat, 17 Aug 2024 17:34:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08107F800B0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=zH4NIzWl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=b8w8rr4v;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=zH4NIzWl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=b8w8rr4v
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A9D3F201FA;
-	Sat, 17 Aug 2024 07:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1723880660;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/xvEPZkP2VnIptCsRFeWqaIcY7nBLVjS1F7Cu9JUa8k=;
-	b=zH4NIzWlGMNXD6Wd/79QeJW5jr5hZKKTmGBeGP5MgBSMY4BKaDjmnX9YdpLlZuSTj5itxL
-	IC088rMyyqbG9CcX3KAVt5BKcsGBcEoEmKiP3fErlqRUGfFOcv0tF3v6IBQZkxTy5Z1Q/Y
-	vbA4kKimZoLwWDwC/8mNQZf3Cay3hT8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1723880660;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/xvEPZkP2VnIptCsRFeWqaIcY7nBLVjS1F7Cu9JUa8k=;
-	b=b8w8rr4vb3LzgHjxmGAdiGHSf5weSzFPxe0jNZrObamM8yK7ehvDivyZBtLU+nXLrtkOop
-	QsuZODJ+haUgt6BA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1723880660;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/xvEPZkP2VnIptCsRFeWqaIcY7nBLVjS1F7Cu9JUa8k=;
-	b=zH4NIzWlGMNXD6Wd/79QeJW5jr5hZKKTmGBeGP5MgBSMY4BKaDjmnX9YdpLlZuSTj5itxL
-	IC088rMyyqbG9CcX3KAVt5BKcsGBcEoEmKiP3fErlqRUGfFOcv0tF3v6IBQZkxTy5Z1Q/Y
-	vbA4kKimZoLwWDwC/8mNQZf3Cay3hT8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1723880660;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/xvEPZkP2VnIptCsRFeWqaIcY7nBLVjS1F7Cu9JUa8k=;
-	b=b8w8rr4vb3LzgHjxmGAdiGHSf5weSzFPxe0jNZrObamM8yK7ehvDivyZBtLU+nXLrtkOop
-	QsuZODJ+haUgt6BA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5944C13991;
-	Sat, 17 Aug 2024 07:44:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id EBqEFNRUwGaEfgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 17 Aug 2024 07:44:20 +0000
-Date: Sat, 17 Aug 2024 09:45:01 +0200
-Message-ID: <87y14v1tky.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	tiwai@suse.com,
-	perex@perex.cz,
-	amadeuszx.slawinski@linux.intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	hdegoede@redhat.com,
-	andriy.shevchenko@linux.intel.com,
-	cujomalainey@chromium.org,
-	lmajczak@google.com
-Subject: Re: [PATCH v2 01/14] ALSA: hda: Move SST device entries to AVS
-In-Reply-To: <ef967f55-fd8e-4491-84f6-76808d839dae@sirena.org.uk>
-References: <20240814083929.1217319-1-cezary.rojewski@intel.com>
-	<20240814083929.1217319-2-cezary.rojewski@intel.com>
-	<ef967f55-fd8e-4491-84f6-76808d839dae@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.994];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
-Message-ID-Hash: JRHCIWFATLLPERVLSVXEJ6CQGTSJKXKD
-X-Message-ID-Hash: JRHCIWFATLLPERVLSVXEJ6CQGTSJKXKD
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=zs4JISDn
+Received: by mail-ua1-x92f.google.com with SMTP id
+ a1e0cc1a2514c-8430fdf256bso301882241.0
+        for <alsa-devel@alsa-project.org>;
+ Sat, 17 Aug 2024 08:34:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1723908862; x=1724513662;
+ darn=alsa-project.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z8eoWHKmZrDuz5TVj5RFNMVS0TvpziubW752S/ws51A=;
+        b=zs4JISDntVgQqwlHrFnGaLrMGRGjalizsd0Xfmp2FqSaqqrCtrJmqHxDzCxyR1A39b
+         uUpyzHeW6v6LAHshCwGI9eHOpus+RrvseD608dsszIKc+pm5IlpJMhVxLQgjrp6dk+7Z
+         mfMtbS509rC00IPXEJWmqnA1NQnakqZdEIBhJAX0CnVAVVBjOQz657CiZ5kzDTaxsC1X
+         a+qhCokroLhEsHuNMJgVpccJeIHOql4f9PbG+ke8HUdAYvSPp2AKEXiJf8jls6I9E2Yn
+         jMCDnuHmZEuoryFOokzSm0r1K+nyLRUqim7F/ruwKyL/xyjE66IwmhEQuIxi7TAZjLRw
+         a+8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1723908862; x=1724513662;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Z8eoWHKmZrDuz5TVj5RFNMVS0TvpziubW752S/ws51A=;
+        b=xTMipID4fhjPHL+rH97mc3rzAH8nUaVlZnq37yIsY73WWidzobCefWsJKI3KN/1PHH
+         XgFLlDO4Ru6GvFuz9xDi2YM8BDRh3uATMsuyLAhj0HWtMMtk+GwSO3bO6mT01OdNgRo3
+         bZeG9NWk0WtUyrSp3QBDylJrQjPBeFJP3QSCTyIPWAgVEg0f7I7OfwRQjFlCkldKchvh
+         hVHDJH+4qv+Nlqwv0kcXyUUQ9q+hbQFxuVIcpSk0qz1Avm1WMHFuxsw2IA4YcYhD3Kwe
+         2tZONJYkr5/SShEqP2QvW0bEDaqXasn1rd6eOkce9UG8nXpWMTMC9JDDXDHPsREdoKg4
+         HzJw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV0GmLiJErAEW9B7QKNOZXqGw/XIWSBcF9JnMXZTvqSc6HkEeWmdduBC3/1ZfcGeKUjpzHkE8NaSqq6nNMPwvDyeZww4Phbsgw5D+w=
+X-Gm-Message-State: AOJu0YxDwZPGBq/bb0ZiS+f+EUsXdHUMRiunQ7QeHu2i9OZ3D23Mb74T
+	mD+Sr22kVXIho4U8IRiWYXMVN7ztsQaoq1boYDbCXdE/MVP5QhbQ6mFTv3xhH5g8oXh+zfRu/UY
+	F34oD1AkZjXnK3zY/vymvGApxlwK+f29WOIz2wA==
+X-Google-Smtp-Source: 
+ AGHT+IGryT/KxWwiBHtKufxRiy8ES1KCnuo4booGpak6/PFr/3xYW4X3k+uP5qw9d5dQpPL/X2iClWn1D103V2/VYxE=
+X-Received: by 2002:a05:6102:304d:b0:48f:8ead:7b7 with SMTP id
+ ada2fe7eead31-4977997fc1fmr7556666137.21.1723908862208; Sat, 17 Aug 2024
+ 08:34:22 -0700 (PDT)
+MIME-Version: 1.0
+References: <20240816091210.50172-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20240816091210.50172-1-srinivas.kandagatla@linaro.org>
+From: Amit Pundir <amit.pundir@linaro.org>
+Date: Sat, 17 Aug 2024 21:03:46 +0530
+Message-ID: 
+ <CAMi1Hd1bYgmnL5O946rxVK2k8ygYm1ur2nCe3KNpmYHnvPa+hQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: codecs: lpass-va-macro: set the default codec
+ version for sm8250
+To: srinivas.kandagatla@linaro.org
+Cc: broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dmitry.baryshkov@linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: TYHNCSR3YWBFF5DDCUSMICHV3ZMAPJ46
+X-Message-ID-Hash: TYHNCSR3YWBFF5DDCUSMICHV3ZMAPJ46
+X-MailFrom: amit.pundir@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -163,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JRHCIWFATLLPERVLSVXEJ6CQGTSJKXKD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TYHNCSR3YWBFF5DDCUSMICHV3ZMAPJ46/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,22 +121,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 17 Aug 2024 00:06:15 +0200,
-Mark Brown wrote:
-> 
-> On Wed, Aug 14, 2024 at 10:39:16AM +0200, Cezary Rojewski wrote:
-> > The avs-driver succeeds the skylake-driver. It suppots all
-> > configurations of its predecessor and more. Reflect that in the existing
-> > selection table.
-> 
-> Takashi, are you OK with this?
+On Fri, 16 Aug 2024 at 14:42, <srinivas.kandagatla@linaro.org> wrote:
+>
+> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>
+> sm8250 and sc7280 have lpass codec version 1.0, as these are very old
+> platforms, they do not have a reliable way to get the codec version
+> from core_id registers.
+>
+> On codec versions below 2.0, even though the core_id registers are
+> available to read, the values of these registers are not unique to be
+> able to determine the version of the codec dynamically.
+>
+> Add the version info into of_data, so that driver does not need to use
+> core_id registers to get version number for such situations.
+>
 
-Sorry, I overlooked.
+Thank you Srini for this patch. This (along with the DT patch [1])
+fixes the HDMI audio regression on RB5.
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Tested-by: Amit Pundir <amit.pundir@linaro.org>
 
+[1] https://lore.kernel.org/all/20240815170542.20754-1-srinivas.kandagatla@linaro.org/
 
-thanks,
-
-Takashi
-
+> Fixes: 378918d59181 ("ASoC: codecs: lpass-macro: add helpers to get codec version")
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+> Changes since v1:
+>         - updated commit text to add more details
+>
+>  sound/soc/codecs/lpass-va-macro.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+> index 8454193ed22a..e95d1f29ef18 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+> @@ -228,11 +228,13 @@ struct va_macro {
+>  struct va_macro_data {
+>         bool has_swr_master;
+>         bool has_npl_clk;
+> +       int version;
+>  };
+>
+>  static const struct va_macro_data sm8250_va_data = {
+>         .has_swr_master = false,
+>         .has_npl_clk = false,
+> +       .version = LPASS_CODEC_VERSION_1_0,
+>  };
+>
+>  static const struct va_macro_data sm8450_va_data = {
+> @@ -1587,7 +1589,14 @@ static int va_macro_probe(struct platform_device *pdev)
+>                         goto err_npl;
+>         }
+>
+> -       va_macro_set_lpass_codec_version(va);
+> +       /**
+> +        * old version of codecs do not have a reliable way to determine the
+> +        * version from registers, get them from soc specific data
+> +        */
+> +       if (data->version)
+> +               lpass_macro_set_codec_version(data->version);
+> +       else /* read version from register */
+> +               va_macro_set_lpass_codec_version(va);
+>
+>         if (va->has_swr_master) {
+>                 /* Set default CLK div to 1 */
+> --
+> 2.25.1
+>

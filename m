@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F3A8955CE0
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Aug 2024 16:06:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D37B955D0B
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Aug 2024 16:55:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B23A5210C;
-	Sun, 18 Aug 2024 16:05:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B23A5210C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 966BB19E7;
+	Sun, 18 Aug 2024 16:54:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 966BB19E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1723989963;
-	bh=rJ5wcr16i6zszL/h7oSXrSftUfb2GBcq2p70QZwyNx8=;
+	s=default; t=1723992906;
+	bh=TLUbRgpQUa9LD327FD5LS2y2/eR35Iugg+VodLrN6fA=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=HX9ysbBm6JWwG+v+IvLhZBI/IwZcSsazA4m0McdF05/+WTdDn5twSNnaZVaQdoQGU
-	 YyO46sJLPN814d5sZ49OZpBDaWu8SV6QopYOcofvo/9JHvtXAwgQjFKSfYvJcLaWRV
-	 7W44r+JLs+eclWgv9O8n5yfAXXH/Vn+wk6SCW5PQ=
+	b=FQHIHgZyTLufjjv8HKrrG312JtTu7XUt2Q6W3maB70BSt4+CLtaoPrGQHUl6XO1Al
+	 iLFPeiTQhiHt8N2+WX0tpp3Tt4ISAQgFdIaiObwcBOoB3xivG8YJGISC+mW5/MmmkR
+	 78q2eRyEqQvZpKU0cfPq4cUc5o9IFR2yftjw6SSU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCC61F805B3; Sun, 18 Aug 2024 16:05:31 +0200 (CEST)
+	id E9600F80107; Sun, 18 Aug 2024 16:54:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0600F8025E;
-	Sun, 18 Aug 2024 16:05:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 719DBF80589;
+	Sun, 18 Aug 2024 16:54:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6015F80494; Sun, 18 Aug 2024 16:01:41 +0200 (CEST)
+	id AF880F80494; Sun, 18 Aug 2024 16:54:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D5B7F8016E
-	for <alsa-devel@alsa-project.org>; Sun, 18 Aug 2024 16:01:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D5B7F8016E
+	by alsa1.perex.cz (Postfix) with ESMTP id EA130F80107
+	for <alsa-devel@alsa-project.org>; Sun, 18 Aug 2024 16:54:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA130F80107
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1723989696882387638-webhooks-bot@alsa-project.org>
-References: <1723989696882387638-webhooks-bot@alsa-project.org>
-Subject: Add persistent ID's for soundcards and midi devices (like coreaudio)
-Message-Id: <20240818140141.C6015F80494@alsa1.perex.cz>
-Date: Sun, 18 Aug 2024 16:01:41 +0200 (CEST)
-Message-ID-Hash: FRYPQPGK2QVALAGBUUOIH3LKIAPZ3RRU
-X-Message-ID-Hash: FRYPQPGK2QVALAGBUUOIH3LKIAPZ3RRU
+In-Reply-To: <1723992861242682219-webhooks-bot@alsa-project.org>
+References: <1723992861242682219-webhooks-bot@alsa-project.org>
+Subject: Port API coverage reporting to Python 3 and adapt to current doxygen
+ output
+Message-Id: <20240818145424.AF880F80494@alsa1.perex.cz>
+Date: Sun, 18 Aug 2024 16:54:24 +0200 (CEST)
+Message-ID-Hash: AKM6T7YO7Y3POSRB2I2TWFJTT3CRT4EJ
+X-Message-ID-Hash: AKM6T7YO7Y3POSRB2I2TWFJTT3CRT4EJ
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FRYPQPGK2QVALAGBUUOIH3LKIAPZ3RRU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKM6T7YO7Y3POSRB2I2TWFJTT3CRT4EJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,17 +70,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #407 was opened from sjomae:
+alsa-project/alsa-python pull request #15 was opened from tormodvolden:
 
-"This is something where macOS' Coreaudio/MIDI shines. Unlike macOS 
-Linux/ALSA has no persistent unique IDs for soundcards or MIDI devices. 
-ALSA supports hotplug, and first come first server sequential numeric 
-IDs. The best you^Wpipewire can do is keep track of cards by name.
+Tested by comparing the new output from alsa-python-coverage.py with the old COVERAGE file.
 
-So this is not something pipewire can reliably address, until ALSA get 
-support to identify cards by vendor and serial-number, and provide a UUID."
+For transparency and easier review there are multiple commits for the Python 3 fixups, but this can be squashed if desired.
 
-https://lists.linuxaudio.org/hyperkitty/list/linux-audio-dev@lists.linuxaudio.org/thread/OV63UFHRZ2LQYUDADZCUHC2MRA4JWPCU/
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/407
-Repository URL: https://github.com/alsa-project/alsa-lib
+Request URL   : https://github.com/alsa-project/alsa-python/pull/15
+Patch URL     : https://github.com/alsa-project/alsa-python/pull/15.patch
+Repository URL: https://github.com/alsa-project/alsa-python

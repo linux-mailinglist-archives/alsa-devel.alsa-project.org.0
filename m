@@ -2,97 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CBCD956506
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2024 09:53:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 637AD956A2D
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2024 14:00:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CE70227B;
-	Mon, 19 Aug 2024 09:53:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CE70227B
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD8DD1908;
+	Mon, 19 Aug 2024 14:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD8DD1908
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724054003;
-	bh=XhaDNYPtumre+DlT/8KrzFiXd1NiecHLNyAbKknf9t4=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=a/iJjyy8G7b3ZM/CYJojAOL4ObjAYiwwki+pp0E6YnJE4EVHFIY2p01GpzhdeEfX9
-	 jCNLspZVGq4WYbxEMPdal6Khkghb+ro4P6W86CwzKjRRg+YU/k7dewybyrVxC6nS3f
-	 8EknzGu+IJrWkk0nHZCLTQAD9pbzlQtAAaWc5uhk=
+	s=default; t=1724068842;
+	bh=ZRnKHej5GGCo7GDzgFRFP9GZMsIsKF0Y8yAgNCG2Ef4=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Fl8qGGGJXNmBp2llzf4BPNoVoJQbaDIg7xlME3IPiB2vRn1kR+/nBvGMgXe51ZLAo
+	 vXsJkRI4Ziy65gjWBuKR0Hv3E4Vuw1ivcNRnRQWdpUVtoD1Y7sS5RVqVEmkDMXwC0/
+	 aXPYmwOQggk/S1w3i3bVb2zrJeQqSBUuXu/cqCE0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AB05CF805C7; Mon, 19 Aug 2024 09:52:40 +0200 (CEST)
+	id C9835F80107; Mon, 19 Aug 2024 14:00:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C034F805D7;
-	Mon, 19 Aug 2024 09:52:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD179F805AF;
+	Mon, 19 Aug 2024 14:00:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 210BCF80494; Mon, 19 Aug 2024 09:47:49 +0200 (CEST)
+	id 3C063F80494; Mon, 19 Aug 2024 13:45:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0
-	tests=RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [208.88.110.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47328F8014C
-	for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2024 09:42:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47328F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC66BF8014C
+	for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2024 13:43:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC66BF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=JuK6lRS7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1724053324; x=1755589324;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=XhaDNYPtumre+DlT/8KrzFiXd1NiecHLNyAbKknf9t4=;
-  b=JuK6lRS7T9J3MeYKunrX333KRtDbcYqz+j7koDGC2leOxcLGsxL5lrP2
-   uBNSQ6MFZPi0Qf0aQTHXssrFQM6x/lhBEaiszl5dtjBMNdN9em3sbUsvr
-   25pcxVel61iKgpdeG0/xhbvmv5HVjOg4pCBiE8M5IEk758TlzpIrAQsxj
-   gd4TuC3Ym6kT948lTzlQL0BuQ03sZiV9AeShsGIb4BAaXZsK2/jy4HTh6
-   ruH3gErkM7LqnPrE45irLIsb/Jt+E5bsQwe7AH71NxIuviTpOBDVCyejZ
-   aMAjO/rZy8SUHozAFv5adfcNsSGPc/LnM93wgoURO4lE3XPqPjI6jBvri
-   g==;
-X-CSE-ConnectionGUID: tEinDpq3Sdysd3LkZzsJzA==
-X-CSE-MsgGUID: KBQw4KgtRYS+XUh6xJPClA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11168"; a="26079149"
-X-IronPort-AV: E=Sophos;i="6.10,158,1719903600";
-   d="scan'208";a="26079149"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2024 00:42:01 -0700
-X-CSE-ConnectionGUID: 319Dz4XwQjqHxkKp+UQMeA==
-X-CSE-MsgGUID: PrS+ec61QxCHcWL8Trew/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,158,1719903600";
-   d="scan'208";a="64677106"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.246.57])
- ([10.245.246.57])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2024 00:41:57 -0700
-Message-ID: <6d83cd58-5f02-414b-b627-a0022e071052@linux.intel.com>
-Date: Mon, 19 Aug 2024 08:42:32 +0200
+ unprotected) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com
+ header.a=rsa-sha256 header.s=DFC430D2-D198-11EC-948E-34200CB392D2
+ header.b=AaMIVeoU
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 41B869C5BDF;
+	Mon, 19 Aug 2024 07:43:31 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id l0-j1zBEH9ZD; Mon, 19 Aug 2024 07:43:30 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 4D1A09C5F74;
+	Mon, 19 Aug 2024 07:43:30 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 4D1A09C5F74
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1724067810; bh=g3AsLUqBfKMisCl4I03Q1DAj0/8iriOUEYeW7RNSf2s=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=AaMIVeoUp0XGvy58oS1QXH6phQNWz5ic5K/PnB2LvOWK38amBy7c5YOWrudkWD0Vp
+	 o4RmMP9VB8zhaet1baBcMCZUWWGHuBnA+M6SZDaP61Bp+yNSalbzTgvVPUV4LN1PQz
+	 92OLI92ya8VTtQA1BtmYKMyxy+AzdNKjXsxi8XldIYouc91GD+WFFtf5a6uxySlY50
+	 vv5ntTjj6Z8w3hFYFimazNvrJEd52F1UpVF2e2BPIx6iEvyvQrZaAwVyuEKVbVEMTm
+	 e9cmcUFdt5RoVKhg6s+8b2NJCjQLLQg3JTAUXTNse/Qgb0DWgXWQ/qd5p64rZ65VOR
+	 WSPSc2oOYP2Yg==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id G2C6bNsOuPV7; Mon, 19 Aug 2024 07:43:30 -0400 (EDT)
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com
+ [192.168.48.237])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id E8A2E9C5BDF;
+	Mon, 19 Aug 2024 07:43:29 -0400 (EDT)
+Date: Mon, 19 Aug 2024 07:43:29 -0400 (EDT)
+From: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+To: Shawn Guo <shawnguo2@yeah.net>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	shengjiu wang <shengjiu.wang@gmail.com>,
+	Xiubo Lee <Xiubo.Lee@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	linux-sound <linux-sound@vger.kernel.org>,
+	devicetree <devicetree@vger.kernel.org>, imx <imx@lists.linux.dev>,
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	alsa-devel <alsa-devel@alsa-project.org>,
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+	Philip-Dylan Gleonec <philip-dylan.gleonec@savoirfairelinux.com>
+Message-ID: 
+ <905560330.155045.1724067809890.JavaMail.zimbra@savoirfairelinux.com>
+In-Reply-To: <Zq+QrxKFb3U1IEv/@dragon>
+References: <20240627083104.123357-1-elinor.montmasson@savoirfairelinux.com>
+ <20240627083104.123357-7-elinor.montmasson@savoirfairelinux.com>
+ <Zq+QrxKFb3U1IEv/@dragon>
+Subject: Re: [PATCH v6 6/7] arm64: dts: imx8m: update spdif sound card node
+ properties
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 4/6] ASoC: fsl_asrc_m2m: Add memory to memory
- function
-To: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, perex@perex.cz,
- tiwai@suse.com, alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, nicoleotsuka@gmail.com, lgirdwood@gmail.com,
- broonie@kernel.org, linuxppc-dev@lists.ozlabs.org
-References: <1723804959-31921-1-git-send-email-shengjiu.wang@nxp.com>
- <1723804959-31921-5-git-send-email-shengjiu.wang@nxp.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <1723804959-31921-5-git-send-email-shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: NEIGXPGWP4IUMDAD7TNODOQZPEVNGZK4
-X-Message-ID-Hash: NEIGXPGWP4IUMDAD7TNODOQZPEVNGZK4
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-Mailer: Zimbra 8.8.15_GA_4581 (ZimbraWebClient - GC112
+ (Linux)/8.8.15_GA_4581)
+Thread-Topic: arm64: dts: imx8m: update spdif sound card node properties
+Thread-Index: LseD1k2NMHpDg9FbVlB5JHSqjmcCfQ==
+Message-ID-Hash: G62JZWNYV3OWDQMQ6G3GQD5O6OKZGUKG
+X-Message-ID-Hash: G62JZWNYV3OWDQMQ6G3GQD5O6OKZGUKG
+X-MailFrom: elinor.montmasson@savoirfairelinux.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NEIGXPGWP4IUMDAD7TNODOQZPEVNGZK4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G62JZWNYV3OWDQMQ6G3GQD5O6OKZGUKG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,101 +137,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 8/16/24 12:42, Shengjiu Wang wrote:
-> Implement the ASRC memory to memory function using
-> the compress framework, user can use this function with
-> compress ioctl interface.
+> From: "Shawn Guo" <shawnguo2@yeah.net>
+> Sent: Sunday, 4 August, 2024 16:31:11
+> On Thu, Jun 27, 2024 at 10:31:03AM +0200, Elinor Montmasson wrote:
+>> The merge of imx-spdif driver into fsl-asoc-card brought
+>> new DT properties that can be used with the "fsl,imx-audio-spdif"
+>> compatible:
+>> * The "spdif-controller" property from imx-spdif is named "audio-cpu"
+>>   in fsl-asoc-card.
+>> * fsl-asoc-card uses codecs explicitly declared in DT
+>>   with "audio-codec".
+>>   With an S/PDIF, codec drivers spdif_transmitter and
+>>   spdif_receiver should be used.
+>>   Driver imx-spdif used instead the dummy codec and a pair of
+>>   boolean properties, "spdif-in" and "spdif-out".
+>> 
+>> While backward compatibility is kept to support properties
+>> "spdif-controller", "spdif-in" and "spdif-out", using new properties has
+>> several benefits:
+>> * "audio-cpu" and "audio-codec" are more generic names reflecting
+>>   that the fsl-asoc-card driver supports multiple hardware.
+>>   They are properties already used by devices using the
+>>   fsl-asoc-card driver.
+>>   They are also similar to properties of simple-card: "cpu" and "codec".
+>> * "spdif-in" and "spdif-out" imply the use of the dummy codec in the
+>>   driver. However, there are already two codec drivers for the S/PDIF,
+>>   spdif_transmitter and spdif_receiver.
+>>   It is better to declare S/PDIF Tx and Rx devices in a DT, and then
+>>   reference them with "audio-codec" than using the dummy codec.
+>> 
+>> For those reasons, this commit updates in-tree DTs to use the new
+>> properties:
+>> * Rename "spdif-controller" property to "audio-cpu".
+>> * Declare S/PDIF transmitter and/or receiver devices, and use them with
+>>   the "audio-codec" property instead of "spdif-out" and/or "spdif-in".
+>> 
+>> These modifications were tested only on an imx8mn-evk board.
+>> 
+>> Note that out-of-tree and old DTs are still supported.
+>> 
+>> Signed-off-by: Elinor Montmasson <elinor.montmasson@savoirfairelinux.com>
+>> ---
+>>  arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi | 15 +++++++++---
+>>  arch/arm64/boot/dts/freescale/imx8mn-evk.dtsi | 15 +++++++++---
+>>  arch/arm64/boot/dts/freescale/imx8mq-evk.dts  | 24 +++++++++++++++----
+>>  3 files changed, 43 insertions(+), 11 deletions(-)
+>> 
+>> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi
+>> b/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi
+>> index 90d1901df2b1..348855a41852 100644
+>> --- a/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi
+>> +++ b/arch/arm64/boot/dts/freescale/imx8mm-evk.dtsi
+>> @@ -180,12 +180,21 @@ cpu {
+>>  		};
+>>  	};
+>>  
+>> +	spdif_out: spdif-out {
+>> +		#sound-dai-cells = <0>;
+>> +		compatible = "linux,spdif-dit";
 > 
-> Define below private metadata key value for output
-> format, output rate and ratio modifier configuration.
-> ASRC_OUTPUT_FORMAT 0x80000001
-> ASRC_OUTPUT_RATE   0x80000002
-> ASRC_RATIO_MOD     0x80000003
+> It's recommended that the property list begins with 'compatible'.  Could
+> you flip them?
+> 
 
-Can the output format/rate change at run-time?
+Yes I'll will do this quickly, thank you.
 
-If no, then these parameters should be moved somewhere else - e.g.
-hw_params or something.
-
-I am still not very clear on the expanding the SET_METADATA ioctl to
-deal with the ratio changes. This isn't linked to the control layer as
-suggested before, and there's no precedent of calling it multiple times
-during streaming.
-
-I also wonder how it was tested since tinycompress does not support this?
-
-
-> +static int fsl_asrc_m2m_fill_codec_caps(struct fsl_asrc *asrc,
-> +					struct snd_compr_codec_caps *codec)
-> +{
-> +	struct fsl_asrc_m2m_cap cap;
-> +	__u32 rates[MAX_NUM_BITRATES];
-> +	snd_pcm_format_t k;
-> +	int i = 0, j = 0;
-> +	int ret;
-> +
-> +	ret = asrc->m2m_get_cap(&cap);
-> +	if (ret)
-> +		return -EINVAL;
-> +
-> +	if (cap.rate_in & SNDRV_PCM_RATE_5512)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_5512);
-
-this doesn't sound compatible with the patch2 definitions?
-
-cap->rate_in = SNDRV_PCM_RATE_8000_768000;
-
-> +	if (cap.rate_in & SNDRV_PCM_RATE_8000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_8000);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_11025)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_11025);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_16000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_16000);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_22050)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_22050);
-
-missing 24 kHz
-
-> +	if (cap.rate_in & SNDRV_PCM_RATE_32000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_32000);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_44100)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_44100);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_48000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_48000);
-
-missing 64kHz
-
-> +	if (cap.rate_in & SNDRV_PCM_RATE_88200)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_88200);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_96000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_96000);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_176400)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_176400);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_192000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_192000);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_352800)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_352800);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_384000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_384000);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_705600)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_705600);
-> +	if (cap.rate_in & SNDRV_PCM_RATE_768000)
-> +		rates[i++] = snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_768000);
-> +
-> +	pcm_for_each_format(k) {
-> +		if (pcm_format_to_bits(k) & cap.fmt_in) {
-> +			codec->descriptor[j].max_ch = cap.chan_max;
-> +			memcpy(codec->descriptor[j].sample_rates, rates, i * sizeof(__u32));
-> +			codec->descriptor[j].num_sample_rates = i;
-> +			codec->descriptor[j].formats = k;
-> +			j++;
-> +		}
-> +	}
-> +
-> +	codec->codec = SND_AUDIOCODEC_PCM;
-> +	codec->num_descriptors = j;
-> +	return 0;
-
-
+Regards,
+Elinor Montmasson

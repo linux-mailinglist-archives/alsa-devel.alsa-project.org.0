@@ -2,111 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6747B955E16
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Aug 2024 19:31:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CF729560C5
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2024 03:15:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C08FF20C5;
-	Sun, 18 Aug 2024 19:31:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C08FF20C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EB18190B;
+	Mon, 19 Aug 2024 03:14:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EB18190B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724002283;
-	bh=eZxyfFWiOMWgxzgfMrHHDe1GsJVaWTRUphozkk0Nczs=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1724030099;
+	bh=LSCupG02/Ed1bshuLVvTpK2bckvj19gdlUMYDUdV7EA=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=DFbeFrROIShhaTt2gwsuBQhULV3YgHiZxuURXhCacW3CcKoa93J/TiOhX/xDgIKFt
-	 BqF9axwCCrlZtiAt7b7t034DVpWz1xCASxsVWODgrthxFhQ6igrRzOmjNDHDbNUmzE
-	 NG2Gb43GG/wesGPfqOscSlkz8IwGaJZIqDLDoeTU=
+	b=kU+aU044CPpeYBZEcgQzr6phc9PaQV2/VTuLoPKf0ZvZEYn2voOLown2raczuiSg8
+	 mAzeguInwInSD+FlBCBxaQF833JTMrYx6ceTqZngmLPU/ev4hfse8V6Cc3AS3JL6KJ
+	 +XWBDTaVa9YoPU5BYau4I43gNxb6Vmn0497AQI0A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23F8EF805BA; Sun, 18 Aug 2024 19:30:51 +0200 (CEST)
+	id 1952BF8057A; Mon, 19 Aug 2024 03:14:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3075F805B0;
-	Sun, 18 Aug 2024 19:30:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7230DF805AD;
+	Mon, 19 Aug 2024 03:14:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7247DF80494; Sun, 18 Aug 2024 19:30:44 +0200 (CEST)
+	id EB7F7F8016E; Mon, 19 Aug 2024 03:03:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,RCVD_IN_SBL_CSS,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	TIME_LIMIT_EXCEEDED,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable version=3.4.6
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 442D6F800F0
-	for <alsa-devel@alsa-project.org>; Sun, 18 Aug 2024 19:30:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 442D6F800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8628DF8016E
+	for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2024 02:58:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8628DF8016E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Jb7vlZHL
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-428ec6c190eso29576645e9.1
-        for <alsa-devel@alsa-project.org>;
- Sun, 18 Aug 2024 10:30:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1724002240; x=1724607040;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hze/nH6p6tvHNE8D/sjNOf2elLJDjNOnQCuybaofysA=;
-        b=Jb7vlZHLT3YlR+n7arpqrmyvTU0F5WJ4nrBR0TipfuH47WIKc88k7Sz75N7KpUQTPi
-         PW5KJIeb72rPwQbcscTAD8bjraWXPwxeQmb7I30cpMI8tR/heXb1wqJJFR0T+l0RVwtE
-         +FP14iHZM8/bFswNtFJVjc8Lp9DRB7dNmY5fECuJWmoNGdG5M4MzLwCRQYT9B5GWoaWm
-         KYCR6aBr58dnSS0lIXQJPV+YCFCplz4axf/8RLaUVpC/3wejP9hOA/m1FuRAmi2x8+4u
-         vK2cTGB/FVUBQQiLm1elRqQKBqlfmWZqysUWpC+lqxETkmjkjiELJfnuVIYtLE6FGRiv
-         1mgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724002240; x=1724607040;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hze/nH6p6tvHNE8D/sjNOf2elLJDjNOnQCuybaofysA=;
-        b=FHR5vDbhzTtE/r2ggOw7Mr34Q+X4SYvejWbku5c5A53+gvIaiJciYPVsapVQMQhf1h
-         r1Rqp0Ix9WCcjtkTozu2RER6ZKNC7E1Iz57BzpnF0+f/egfmUxUprwGA3PTXIIOWpfAv
-         uoGXxFQ4plMKO9PaN1PZhV1TlAUWlBbdqnKBqtk5vDZjbZREyf8Hkl3dw654R8GYZUgD
-         jCNncJcEefvTek8HBdJRcUSKFXyq+1XC7AUpQoYIf79j4KpGkccjfUMrkNHEDdv2GJ63
-         D031AIr8XE6hCHD/X8Wa2Y49SmXy46lwOlxNHDW4nNlA8yinyUKcUJ9dgZvIiwf+Hxor
-         qMLA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWNgTDtjSHf001Wdm5wGTgEmrIa0km28FnBApdiMNROeRxawWOVZ25vRZm5lD+c/GT6iayKZ6tCtBOXh3N92vH/X8BvHmSqEf3vXcQ=
-X-Gm-Message-State: AOJu0Yw3V6eM1fwj5tZbXfVVxEeWN7kgVSxaAWHvDM+ukaIOd8mMAh0/
-	DrKxRiROxeJUHQ+F+FiTzAwkwtmF7RK6mAUADzdZSDQLh2IoO7yyJHEnPO/T770=
-X-Google-Smtp-Source: 
- AGHT+IEHHk1AWmAyr7jcxzOjPyrSWQ9wN+5ntefeNwrp3Cysr3LtJPZ7XWcf0YS+yO+S+WhnHLleiA==
-X-Received: by 2002:a05:600c:4683:b0:428:1694:bd8c with SMTP id
- 5b1f17b1804b1-42aa8276727mr29780845e9.37.1724002240500;
-        Sun, 18 Aug 2024 10:30:40 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.215.209])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-429ded1813dsm139020545e9.7.2024.08.18.10.30.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Aug 2024 10:30:40 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH] ASoC: dt-bindings: samsung,odroid: drop stale clocks
-Date: Sun, 18 Aug 2024 19:30:37 +0200
-Message-ID: <20240818173037.122152-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=ZBKR9tgc
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 47J0vvQZ113347;
+	Sun, 18 Aug 2024 19:57:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1724029077;
+	bh=9+/19Ub1ffFb/UmWr5MbbU+vVXKmn/RVnVeApWiejbM=;
+	h=From:To:CC:Subject:Date;
+	b=ZBKR9tgcZEs9QX7CNiFDAm3o+r7MUadXJLGVFqBMnPISDN89O8lW5cdn8F/M+fXgt
+	 pxmI5U1mNQvjMUNYUTyB8RXyJeM9Ef+aqj4y7HkHh0R9/97MS44b3zys+bh92uRq/A
+	 SElKSC4e/AA4B+iGt7GwlxLJsZ30ChJ4fd3SBAA0=
+Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 47J0vvDS004375
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 18 Aug 2024 19:57:57 -0500
+Received: from DFLE106.ent.ti.com (10.64.6.27) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Sun, 18
+ Aug 2024 19:57:56 -0500
+Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Sun, 18 Aug 2024 19:57:56 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.152])
+	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 47J0vsTp057724;
+	Sun, 18 Aug 2024 19:57:54 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <linux-kernel@vger.kernel.org>
+CC: <baojun.xu@ti.com>, <13564923607@139.com>, <robinchen@ti.com>,
+        <alsa-devel@alsa-project.org>, Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v3] MAINTAINERS: update entries in TEXAS INSTRUMENTS
+ LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) DRIVERS and add entries for
+ haptic driver
+Date: Mon, 19 Aug 2024 08:57:49 +0800
+Message-ID: <20240819005750.173-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MGWOWU2LVHK7YMCG7L6FSP7S6MT2MO3N
-X-Message-ID-Hash: MGWOWU2LVHK7YMCG7L6FSP7S6MT2MO3N
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Message-ID-Hash: 76WKQTHHPKKLYC234KWPLMHQACDROWFB
+X-Message-ID-Hash: 76WKQTHHPKKLYC234KWPLMHQACDROWFB
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGWOWU2LVHK7YMCG7L6FSP7S6MT2MO3N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76WKQTHHPKKLYC234KWPLMHQACDROWFB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,33 +103,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Clocks property was present only to allow usage of assigned-clocks in
-the sound card node, however in upstream DTS the assigned-clocks were
-moved in commit 4afb06afd768 ("ARM: dts: exynos: move assigned-clock*
-properties to i2s0 node in Odroid XU4") to respective I2S nodes.  Linux
-drivers never parsed "clocks" so it can be safely dropped.
+Due to internal re-org, Kevin is no longer mnaintaining audio driver.
+Due to job change, drop entries for the audio converter and add
+entries for both haptics drivers and middle-power audio amplifier
+drivers. Add audio converter, set the Status as Supported. So far, the
+Software maintainer has not been confirmed. Once the maintainer was
+confimred, the guy will update his mail into audio converter section.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+
 ---
- Documentation/devicetree/bindings/sound/samsung,odroid.yaml | 5 -----
- 1 file changed, 5 deletions(-)
+v3:
+ - Add Audio converter section
+ - Set the section of LOW/MIDDLE-POWER AUDIO AMPLIFIER as Supported
+v2:
+ - Add the detailed information of the maintained drivers.
+---
+ MAINTAINERS | 33 ++++++++++++++++++++++++---------
+ 1 file changed, 24 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-index b77284e3e26a..c3dea852cc8d 100644
---- a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-+++ b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
-@@ -27,11 +27,6 @@ properties:
-       - const: samsung,odroid-xu4-audio
-         deprecated: true
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f328373463b0..32954c5a63c3 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22569,26 +22569,42 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+ F:	sound/soc/ti/
  
--  assigned-clock-parents: true
--  assigned-clock-rates: true
--  assigned-clocks: true
--  clocks: true
--
-   cpu:
-     type: object
-     additionalProperties: false
+-TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS
++TEXAS INSTRUMENTS LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) & HAPTICS DRIVERS
+ M:	Shenghao Ding <shenghao-ding@ti.com>
+-M:	Kevin Lu <kevin-lu@ti.com>
+ M:	Baojun Xu <baojun.xu@ti.com>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+-S:	Maintained
++S:	Supported
++F:	Documentation/devicetree/bindings/input/ti,drv260x.yaml
++F:	Documentation/devicetree/bindings/input/ti,drv266x.yaml
+ F:	Documentation/devicetree/bindings/sound/tas2552.txt
++F:	Documentation/devicetree/bindings/sound/tas5720.txt
+ F:	Documentation/devicetree/bindings/sound/ti,tas2562.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas2770.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas27xx.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas5086.txt
++F:	Documentation/devicetree/bindings/sound/ti,tas57xx.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas5805m.yaml
++F:	Documentation/devicetree/bindings/sound/tpa6130a2.txt
++F:	drivers/input/misc/drv2*.c
++F:	include/sound/tas2*.h
++F:	include/sound/tas5086.h
++F:	include/sound/tpa6130a2-plat.h
++F:	sound/pci/hda/tas2781_hda_i2c.c
++F:	sound/soc/codecs/tas2*.*
++F:	sound/soc/codecs/tas5*.*
++F:	sound/soc/codecs/tpa6130a2.*
++
++TEXAS INSTRUMENTS AUDIO Converter (ASoC) DRIVERS
++L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
++S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
++F:	Documentation/devicetree/bindings/sound/ti,pcm6240.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tlv320*.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tlv320adcx140.yaml
+ F:	Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
+-F:	Documentation/devicetree/bindings/sound/tpa6130a2.txt
+-F:	include/sound/tas2*.h
+ F:	include/sound/tlv320*.h
+-F:	include/sound/tpa6130a2-plat.h
+-F:	sound/pci/hda/tas2781_hda_i2c.c
+ F:	sound/soc/codecs/pcm1681.c
+ F:	sound/soc/codecs/pcm1789*.*
+ F:	sound/soc/codecs/pcm179x*.*
+@@ -22598,9 +22614,8 @@ F:	sound/soc/codecs/pcm3060*.*
+ F:	sound/soc/codecs/pcm3168a*.*
+ F:	sound/soc/codecs/pcm5102a.c
+ F:	sound/soc/codecs/pcm512x*.*
+-F:	sound/soc/codecs/tas2*.*
++F:	sound/soc/codecs/pcm6240.*
+ F:	sound/soc/codecs/tlv320*.*
+-F:	sound/soc/codecs/tpa6130a2.*
+ 
+ TEXAS INSTRUMENTS DMA DRIVERS
+ M:	Peter Ujfalusi <peter.ujfalusi@gmail.com>
 -- 
-2.43.0
+2.34.1
 

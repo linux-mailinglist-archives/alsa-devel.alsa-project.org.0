@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 879CA956FD6
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2024 18:10:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D86957349
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2024 20:31:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AEE914E8;
-	Mon, 19 Aug 2024 18:10:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AEE914E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2946084D;
+	Mon, 19 Aug 2024 20:31:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2946084D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724083812;
-	bh=5Om3gjqk4hxEfZBnBv+uVakUDnbUBmo7IWUSURM1tUk=;
+	s=default; t=1724092296;
+	bh=P/L3NgyYytfwnB4TlqzeCccYfyAfsEKejKjDYh6MX/Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RsNPnRXdwEzDzJWKmMt1oC/GJZSC+5+eXp8C9tTiLSj4cCFSk8ZQstIVzR3zVfiOZ
-	 BuR5kSXC941dk/enkn/TQj+K2T8aaW0njcdIH6Upy3UXGnt4GGFGbhJACt5Xyz/RsA
-	 r43VK8YttyDq58gq6Gui08lBssRgc6/PXmtDAyPg=
+	b=kiE6gWFZ1OL2rpqXhIKN7R3JpjuHIw3zz0hoxHgcxFLM6YBGWI94hxt5LfyL6pEm5
+	 MwuVHwPFRabJ7GGxPMxedmJah0Ei4QvHxllBiAuWnr4sgObY+rG8FT9d+4bxnzTxjJ
+	 Zezy73ag5JHNWk392/T9DM8ez8nSdOWIP+PwmBL8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDD48F805B4; Mon, 19 Aug 2024 18:09:39 +0200 (CEST)
+	id 6B824F80496; Mon, 19 Aug 2024 20:31:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D39BF80589;
-	Mon, 19 Aug 2024 18:09:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF513F8058C;
+	Mon, 19 Aug 2024 20:31:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48DE2F80494; Mon, 19 Aug 2024 18:07:32 +0200 (CEST)
+	id 6A034F80494; Mon, 19 Aug 2024 20:30:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -38,55 +38,47 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 53D43F8016E
-	for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2024 18:07:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53D43F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5DF53F8014C
+	for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2024 20:28:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF53F8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=p6CXqNn0
+ header.s=k20201202 header.b=VKzQTHGS
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 5C7DC60C6D;
-	Mon, 19 Aug 2024 16:07:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF5DC32782;
-	Mon, 19 Aug 2024 16:07:17 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 7F35860C71;
+	Mon, 19 Aug 2024 18:28:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA196C32782;
+	Mon, 19 Aug 2024 18:28:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724083643;
-	bh=5Om3gjqk4hxEfZBnBv+uVakUDnbUBmo7IWUSURM1tUk=;
+	s=k20201202; t=1724092129;
+	bh=P/L3NgyYytfwnB4TlqzeCccYfyAfsEKejKjDYh6MX/Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=p6CXqNn0XIp2Oq/2aepEjbTmjZMDcIsRi9P3pycUsrx/+6+ackP9c2YljRW+wDb//
-	 qc8A0tljB/ty4kwMc7BDvuBDFGenWU3hxwUQmzipGkR/65w6mzYwFimNGo90nVdB6g
-	 8sbgtg5mh/Ub+0fySBl5rxgZBX5ssnN3Gwb8eFbVIeuy06Y/CrBtcNvBizztzYdvxU
-	 farUsHRwn3pZwUA1gIHLWWNDc2WwypXqslF2YbiheqWDi0P1hL8LQwnwELRO4mTkZC
-	 WGbVqoDlcCeVedyqP8gMgKIHX2jvnHfi7ZYqLIKjCRmNKNGiEcvmnKw1GJ/RMW5Z6D
-	 vTnVkM6TOFW0w==
-Date: Mon, 19 Aug 2024 17:07:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
-	zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
-	liam.r.girdwood@intel.com, jaden-yue@ti.com,
-	yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
-	henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, Baojun.Xu@fpt.com,
-	j-chadha@ti.com, judyhsiao@google.com, navada@ti.com,
-	cujomalainey@google.com, aanya@ti.com, nayeem.mahmud@ti.com,
-	savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com,
-	jesse-ji@ti.com, darren.ye@mediatek.com, antheas.dk@gmail.com,
-	Jerry2.Huang@lcfuturecenter.com, jim.shil@goertek.com
-Subject: Re: [PATCH v1] ASoc: tas2781: fixed the issue that the chip do not
- shutdown immediatly after aplay stopped
-Message-ID: <06667a01-32ee-403b-8c59-1ee37d2ef192@sirena.org.uk>
-References: <20240819141017.502-1-shenghao-ding@ti.com>
+	b=VKzQTHGS2YGCeP0P8MP0bRGqWkR+/F2JGntV29VBmI4XfPMTUZY5lZ6uj7ZNBvaPD
+	 rI032Y/PaqT15K7kKMDPXP5E5w8/S6ohD6U4xgvC/haIp0waXk/ZgGo+rzxUoUFSEW
+	 oaRmGe+66VLkbM4AcPI65pN70FOPfEyE9UOiIX6gFo5df3GqH4m5icj3dIAX0Tllyn
+	 hJ9ABt4cWjNSXnfs50e/dhyUN3AzCVAKgMt9I+52mGTghDfper+Nd8M69Ma40w70AN
+	 r8qXB4YnK+0AEE3DJC1UVbK1de5Oxa8aKcY55QAKYUe1skL0E9zmEAk5wXJmoe+9We
+	 Mts2jeg7PaMzw==
+Date: Mon, 19 Aug 2024 12:28:47 -0600
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	alsa-devel@alsa-project.org, Conor Dooley <conor+dt@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: samsung,odroid: drop stale clocks
+Message-ID: <172409212644.2046966.8530485462629543956.robh@kernel.org>
+References: <20240818173037.122152-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OMtkBlhr516N0cDG"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240819141017.502-1-shenghao-ding@ti.com>
-X-Cookie: Interchangeable parts won't.
-Message-ID-Hash: ZWECRMMRT27PHNOJQ5QXEWNMKWNNTNK4
-X-Message-ID-Hash: ZWECRMMRT27PHNOJQ5QXEWNMKWNNTNK4
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20240818173037.122152-1-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: IDTV7MOT6X2IGCT5J3F34PME7EEBTDOU
+X-Message-ID-Hash: IDTV7MOT6X2IGCT5J3F34PME7EEBTDOU
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZWECRMMRT27PHNOJQ5QXEWNMKWNNTNK4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDTV7MOT6X2IGCT5J3F34PME7EEBTDOU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,42 +100,18 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---OMtkBlhr516N0cDG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Sun, 18 Aug 2024 19:30:37 +0200, Krzysztof Kozlowski wrote:
+> Clocks property was present only to allow usage of assigned-clocks in
+> the sound card node, however in upstream DTS the assigned-clocks were
+> moved in commit 4afb06afd768 ("ARM: dts: exynos: move assigned-clock*
+> properties to i2s0 node in Odroid XU4") to respective I2S nodes.  Linux
+> drivers never parsed "clocks" so it can be safely dropped.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/sound/samsung,odroid.yaml | 5 -----
+>  1 file changed, 5 deletions(-)
+> 
 
-On Mon, Aug 19, 2024 at 10:10:12PM +0800, Shenghao Ding wrote:
-> Issue reported from customer that the chip do not shutdown after aplay
-> stopped until 6 mins later. Drop tasdevice_dapm_event and implement
-> .stream_mute in the tasdevice_dai_ops.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Six minutes sounds like a usersrpace issue with userspace sitting
-playing silence for a long time rather than a driver issue.  By default
-DAPM does defer powerdown, but only by seconds not minutes.
-
-> -	/* Codec Lock Release*/
-> -	mutex_unlock(&tas_priv->codec_lock);
-> +	/* Codec Lock/UnLock */
-> +	guard(mutex)(&tas_priv->codec_lock);
-> +	tasdevice_tuning_switch(tas_priv, mute);
-
-This is a much heavier weight operation than we're expecting for a mute,
-it should usually just be literally muting - one or two register writes,
-not a power up/down sequence
-
---OMtkBlhr516N0cDG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbDbbEACgkQJNaLcl1U
-h9C2Ywf9GOLN3tl9f60QFHfZxFzbDbI7u4NHZKInpUph0BTXbQ4mu0rnp44z1TsX
-w/gs5eZcaxMDLaP5h5w8aWiqwOhPwMItVZN2psMOk+R0/7L6kW2PHrthurJ4Hc9c
-tbSgoJzTLFt78psFbn8+phW5OhOqyZFURKhxGM2Cmg9h1sRYPAYSI4leNfinHxoG
-98W6EaukIPMhR2llc/iHDPITw/jEDjaTPges1O6QQBfWt/DsoCOmBqV2pox8XGlw
-nsmTQCi02YCZHzCjWT3nOUxo+jGyCxFslGmKZXk4ThEZrWsFylrKguVwND4137AL
-xL29jks6WandKgEIXUdOIikunIOrAQ==
-=RC26
------END PGP SIGNATURE-----
-
---OMtkBlhr516N0cDG--

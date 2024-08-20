@@ -2,84 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DA3F9588E9
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 16:20:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9368958A74
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 16:59:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B12F37F8;
-	Tue, 20 Aug 2024 16:20:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B12F37F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 665D97F8;
+	Tue, 20 Aug 2024 16:59:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 665D97F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724163622;
-	bh=PbOxquV5o7WuWMJBCMJR6LWOsyiINGnqBTBjqgFyKq0=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Uz3ih8fxy+YWp7IEEej9rzmdIgfmrDCC0GmCwt+/dtkoifUcPn2Zx5/Cebfq8cnuy
-	 goCCHgZJRwgxiJhLg/li8UOV85Q2aCdL8S5VUbHK9MFNBJQ4KQoOTwwCNcPjYYJrKf
-	 yBiD4niE9qjopk3lD/gKryg0V0hZTdFLHHk3pi4A=
+	s=default; t=1724165970;
+	bh=3nlRWUUx0+APZmAWni+foivbTUtkLG+44ynTv/C+yYk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=SH5ppJIjmYnmt/ejITFyTFpObNV7TiEGsy/HBwZauaHiEPBKSCOkpY54Qbg+Jk0D9
+	 i1/sygMINef6wYRQk8tsrB6J6dKI122clTJ3MjkD5ZgGDlBEUfCqAZ4cWm7k06Mn8M
+	 XlV+BVqtok1TVOFT+JtbIVnP+EmNK4kcCPYr3sOk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 620ABF805AD; Tue, 20 Aug 2024 16:19:50 +0200 (CEST)
+	id 3986AF805AE; Tue, 20 Aug 2024 16:58:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD03DF80579;
-	Tue, 20 Aug 2024 16:19:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AABA2F805AE;
+	Tue, 20 Aug 2024 16:58:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5366FF80494; Tue, 20 Aug 2024 16:19:44 +0200 (CEST)
+	id C929DF80494; Tue, 20 Aug 2024 16:58:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EF080F800F0
-	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 16:19:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF080F800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id DC59BF8014C
+	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 16:58:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC59BF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kteWXbtl
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 7707BCE0A1D;
-	Tue, 20 Aug 2024 14:19:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E398AC4AF0F;
-	Tue, 20 Aug 2024 14:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724163565;
-	bh=PbOxquV5o7WuWMJBCMJR6LWOsyiINGnqBTBjqgFyKq0=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=kteWXbtl1ef/jQEYZ17TOZN1lPRRWuqUDxz6PNHGeA9Qqaz7kanUc9groVf6l24CK
-	 suHYMXrdSowWba4mkX6BsYIcVVYQOEU81BCPM3p+sV/AwMCHvo1+meutTMLYVFh2Q6
-	 Bqhyeqe8G2A9xbchzDQ9e6gUo5LPB41XqFfr8tqPkFdiCL8b8Z7FKYbkD+Qjvt5w2l
-	 ruGh0O9buFp1BQfSr8snHhcp5KmQPGkOGOw4bJ2GuV2WsXgr4fytbS5PqpiCn8Wz8/
-	 k+zKjp4ME40doeNmANH+ZpPMdVAIToAM7FT2z+cisp1W3eVu0/jceqORtyw4xhbBN/
-	 LCyy8B+zLew5A==
-From: Mark Brown <broonie@kernel.org>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20240818173037.122152-1-krzysztof.kozlowski@linaro.org>
-References: <20240818173037.122152-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: samsung,odroid: drop stale clocks
-Message-Id: <172416356364.261879.10105106383289811025.b4-ty@kernel.org>
-Date: Tue, 20 Aug 2024 15:19:23 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ZKQLkS/C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1724165926; x=1755701926;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=3nlRWUUx0+APZmAWni+foivbTUtkLG+44ynTv/C+yYk=;
+  b=ZKQLkS/C40fovlmO6ilYRg6hihKLD7Olzd4/l37AFSYKpG939/7TKGXg
+   o+JRB59+zr/eYSXIjbqL8F17KpbISul9yDsqQhzxuT0vQoFE/mnZYGmyV
+   JMkljEYfHzncn7fYwbCQWTRIctAl6WccTNeDnzTWDXRWCUPCPNmFiHNPx
+   wziSnFCNi1IE2LgTVcn2X4UvEPJxix6HfJoO213GmvTDKP6QlzmJnAYtC
+   /EkAcRtEdEAmJqCImel9L0G42TYQDa3HdN/luPNv9NsNlpnKBxv6fudmJ
+   g81wPH+TfC5cOqt232ew+sEKBbzTpaAoUKLm9ulgh52vAMMZ0M2IyyjLB
+   g==;
+X-CSE-ConnectionGUID: XF4g12VnSu6yIe2W+p7cKw==
+X-CSE-MsgGUID: +a1tsv3oROaR15dwrmbeLQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11170"; a="22328665"
+X-IronPort-AV: E=Sophos;i="6.10,162,1719903600";
+   d="scan'208";a="22328665"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 07:58:40 -0700
+X-CSE-ConnectionGUID: 03bGcDz6TpGOHvi9j1Qmvw==
+X-CSE-MsgGUID: 4U8UvY+bR0qIOucEK51hSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,162,1719903600";
+   d="scan'208";a="61064699"
+Received: from fdefranc-mobl3.ger.corp.intel.com (HELO [10.245.246.176])
+ ([10.245.246.176])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2024 07:58:33 -0700
+Message-ID: <fe930297-a6f6-43cb-86cf-d49939dc5090@linux.intel.com>
+Date: Tue, 20 Aug 2024 16:58:30 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 01/16] Documentation: driver: add SoundWire BRA
+ description
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.de,
+ vinod.koul@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, srinivas.kandagatla@linaro.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ vijendar.mukunda@amd.com, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Shuming Fan <shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ Oder Chiou <oder_chiou@realtek.com>
+References: <20231207222944.663893-1-pierre-louis.bossart@linux.intel.com>
+ <20231207222944.663893-2-pierre-louis.bossart@linux.intel.com>
+ <38d0c1c9-d60c-4ddd-b2ee-091d1717a377@sirena.org.uk>
+ <be277abb-af6c-470f-8237-17f45bd990b8@linux.intel.com>
+ <09a5b041-62a8-4c85-9885-045079db796f@sirena.org.uk>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <09a5b041-62a8-4c85-9885-045079db796f@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: FXDCEKFDXYRHLS42LNHFKCRVL55CLBKK
-X-Message-ID-Hash: FXDCEKFDXYRHLS42LNHFKCRVL55CLBKK
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: AYLH6N7VOYINQWKYNYF55IJYNPDJZ6IY
+X-Message-ID-Hash: AYLH6N7VOYINQWKYNYF55IJYNPDJZ6IY
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FXDCEKFDXYRHLS42LNHFKCRVL55CLBKK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AYLH6N7VOYINQWKYNYF55IJYNPDJZ6IY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,41 +122,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 18 Aug 2024 19:30:37 +0200, Krzysztof Kozlowski wrote:
-> Clocks property was present only to allow usage of assigned-clocks in
-> the sound card node, however in upstream DTS the assigned-clocks were
-> moved in commit 4afb06afd768 ("ARM: dts: exynos: move assigned-clock*
-> properties to i2s0 node in Odroid XU4") to respective I2S nodes.  Linux
-> drivers never parsed "clocks" so it can be safely dropped.
+
+
+On 8/20/24 13:53, Mark Brown wrote:
+> On Tue, Aug 20, 2024 at 09:48:05AM +0200, Pierre-Louis Bossart wrote:
 > 
+>>> This feels a lot like it could map onto the regmap async interface, it
+>>> would need a bit of a rework (mainly that currently they provide
+>>> ordering guarantees with respect to both each other and sync I/O) but
+>>> those could be removed with some care) but it's got the "here's a list
+>>> of I/O, here's another call to ensure it's all actually happened" thing.
+>>> It sounds very much like how I was thinking of the async API when I was
+>>> writing it and the initial users.
 > 
-> [...]
+>>> It's this bit that really got me thinking it could fit well into regmap.
+> 
+>> Do I get this right that these async capabilities could be used to
+>> enable this faster SoundWire protocol, but the regular regmap_write()
+>> could still happen in parallel with these async transfers? This could be
+>> useful if e.g. there's a jack detection while downloading firmware for
+>> another function.
+> 
+> As far as the regmap core is concerned, yes - with SPI we do wind up
+> with ordering but that's because the SPI sync API is a thin wrapper
+> around the SPI async API rather than anything regmap does.
 
-Applied to
+ok. I am struggling a bit to adjust the plumbing that was obviously
+defined for SPI.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+The regmap async_write() doesn't have any wait, but there's a notifier
+that needs to be called by *something* that waits. I think the SPI layer
+has a set of kthreads but in our case we could just rely on a a
+workqueue after 1ms or something and do the wait then for the DMAs to
+complete and finally call the notifier to wake-up the regmap stuff.
 
-Thanks!
+>> The only thing that would need to be extended is that we'd need
+>> additional callbacks to check if the protocol is supported on a given
+>> hardware/firmware platform, and if there's no audio stream. In these
+>> cases the async writes would be demoted to regular writes. Otherwise the
+>> bus would be locked to make sure no reconfiguration takes place while
+>> the firmware download happens, and unlocked when the transfer ends.
+> 
+> Those callbacks seem reasonable.  We already do the demotion to sync for
+> buses that don't have async, it'd just need to be made dynamic.
 
-[1/1] ASoC: dt-bindings: samsung,odroid: drop stale clocks
-      commit: e6c1d9068295796e34d59ef08fa80f6ff8f3530a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+sounds good.
 

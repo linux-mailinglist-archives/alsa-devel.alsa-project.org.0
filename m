@@ -2,109 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E365957BD2
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 05:11:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A0B957C86
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 06:46:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E9A320C;
-	Tue, 20 Aug 2024 05:11:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E9A320C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AA39210;
+	Tue, 20 Aug 2024 06:46:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AA39210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724123499;
-	bh=nG26NZ3S/KuNQ2SHcuxORshAwbQgT5QZdIv23N6ZCqw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1724129204;
+	bh=E6RA2VLMwYa/hqZwfRMs5aBTRNjucjcCCGj/5lya6QM=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SiH5d5lS0E+19kJCtNPfFfo9RBnGfFld439UevE/dYbq5MIeHyFad+sz/qrD/TIQb
-	 ckmUDQjNBfXqPwtWduyTKmODYURAGhQL8cCxTy1bnpQw1OLcvc0kZ3jxkVGCGUjLb/
-	 dD+GbDwQjjuXEDNc7hxY53FvoMvGHfc1hIJi1BBI=
+	b=MKUfYey5bEu3faUFQ3woKtlVw4CmLNOD3X9C+tY2l5PssOmEwodqbLuNXyUOjT7R8
+	 O/MY6BcnkBINmIZeX0TkDzDn/7Ni6XKhfpr2KJ3OySdJ9VQNXAZx0Tf7+rhrk4aJlR
+	 7COdb6kUBx2hlXcPasAV+EZaJxyAv46UkVonLZfE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84905F805A9; Tue, 20 Aug 2024 05:11:06 +0200 (CEST)
+	id 83CE4F805A8; Tue, 20 Aug 2024 06:46:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59669F805AE;
-	Tue, 20 Aug 2024 05:11:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C43BF805AD;
+	Tue, 20 Aug 2024 06:46:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81DF6F80494; Tue, 20 Aug 2024 05:00:01 +0200 (CEST)
+	id 8C9E5F80107; Tue, 20 Aug 2024 06:39:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FROM,SPF_HELO_NONE,
-	TIME_LIMIT_EXCEEDED shortcircuit=no autolearn=unavailable version=3.4.6
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,TIME_LIMIT_EXCEEDED,URIBL_BLOCKED
+	shortcircuit=no autolearn=unavailable version=3.4.6
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4A98FF80107
-	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 04:53:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A98FF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D0ADF80107
+	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 06:34:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D0ADF80107
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=hHz7gq7T
-Received: by mail-il1-x132.google.com with SMTP id
- e9e14a558f8ab-39d22965434so13177505ab.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 19 Aug 2024 19:53:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724122401; x=1724727201;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fT6vSqFxRxEeg2TyE8vAmieBZnT3qlYo8e/6USKHH/E=;
-        b=hHz7gq7TNEJ9TlmFH9n7VgLLCMk7vlryhHAB/t8WLxom3RMpAMvH3EefCnLIAzEap7
-         fEVd5AdgAG/+5aiJEzRyKJWyoRqYuYzPN2I5V/Zjmp6qiGxW0tFrzNDh+RqduCefEPeO
-         X9AjIADn5wWGZGyBVb8wfX9dGtBsbvKpQv+2cwyZk4ixBcRiwR3pHQ712kW8KktDeVq8
-         c4YioHKWomr1OBSYrwlmnHEz+AYdPpkHYGUPV6Dvuc/s3Ink5fnz0jr/jsipC347Ra3d
-         htypplKu/yR/w2nRUuUY7e362HTT2qmfdOh3Pae9LuvsUP8IwO+6NkCmX+L/LOmPuMlk
-         S0ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724122401; x=1724727201;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fT6vSqFxRxEeg2TyE8vAmieBZnT3qlYo8e/6USKHH/E=;
-        b=icEcUz2ILSiK5j8ECQTxBZPd/vLrsrgoNZNTw4Jkjn/bURL9L6MNXXfB7Kcu130Ql/
-         bLaDa7wmEu+uhQHvgUwgco7GFOB9kQHrvsGjlk82rzK6LuDGv2Y5CVih2sI3p0ZxJAX4
-         dgfv9aJussbwxvXtqvcVA6RrQ41t/lNwQNFtY7we6tIVgszJDvZdEmAuqtcbJXHHA/Y5
-         Oxxrzo78Bg14xBix5PI6G2v0uPg+DwDaFAHYKA+reJuOgGjLTSRQlAhhsczfyj3MU1uJ
-         aaM8aScn2y3G+8EvuYM7x/cbapi4zmEQE2HGstEz0Hsfk1RuMk5S0lmqu1DJKx+uTUir
-         PGMw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVY/wt2EMyNPGE8qNx8ifWwys/Gp6Xylr83A6Im8ALQ1G0XFlvJfkM8Eh2p4TT1P5fzxRZwJ0TqwAYT@alsa-project.org
-X-Gm-Message-State: AOJu0YxYfb7XCB/M+lZrqDnr6i4cUPKEz4SafkPHiVXRUlKuxs5Vewr9
-	dbriLoF5H27u9KVuePYGq9aaMo8XFlgkuI7z6tZSEM7Q0x1HIkaGqSCueSVetQ21YIZkm9zaoFJ
-	bLk5qWUod9QkEdJVHcvtEHO8aGJ8=
-X-Google-Smtp-Source: 
- AGHT+IGl4gRPN5RAOxKXugMK43Dh6VHASCDS5Twf9YsdPNqPWrRzvf3PhVgc7lqQMpYhRDm7MWOvnuVY3lUtLNY/Lo4=
-X-Received: by 2002:a05:6e02:20cb:b0:39d:4d2d:d0de with SMTP id
- e9e14a558f8ab-39d56dd773emr21812545ab.3.1724122401038; Mon, 19 Aug 2024
- 19:53:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <1723804959-31921-1-git-send-email-shengjiu.wang@nxp.com>
- <1723804959-31921-5-git-send-email-shengjiu.wang@nxp.com>
- <6d83cd58-5f02-414b-b627-a0022e071052@linux.intel.com>
-In-Reply-To: <6d83cd58-5f02-414b-b627-a0022e071052@linux.intel.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Tue, 20 Aug 2024 10:53:10 +0800
-Message-ID: 
- <CAA+D8ANDAxS42=9zOLQY_h_ihvJCmaXzE+_iZyxbSuikqt1CBw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 4/6] ASoC: fsl_asrc_m2m: Add memory to memory
- function
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, perex@perex.cz,
- tiwai@suse.com,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=TnES/Jj8
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 47K4Y1Yc009626;
+	Mon, 19 Aug 2024 23:34:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1724128441;
+	bh=kwuz4qOqqHseaWVy+3dqN7fB1KqUTBhzPcnNfG3cDF0=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=TnES/Jj8zZtfnlgC+al7DB3hc8smiGQc7PPfH+z6Er055IyLrQ5zyqY3bibd3f2kV
+	 msNfFr0utzQUHGV3P+9Y4wwzWVFqSwdAP5y5oadAQG5sYcSKAwgGGRwtoU4y3ClReL
+	 S+Rk5cbPAXC4pMWAsZuKDObG8Ti208Y5fV+ebk/g=
+Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
+	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 47K4Y15k121851
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 19 Aug 2024 23:34:01 -0500
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 19
+ Aug 2024 23:34:00 -0500
+Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
+ DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
+ 15.01.2507.023; Mon, 19 Aug 2024 23:34:00 -0500
+From: "Ding, Shenghao" <shenghao-ding@ti.com>
+To: Mark Brown <broonie@kernel.org>
+CC: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "pierre-louis.bossart@linux.intel.com"
+	<pierre-louis.bossart@linux.intel.com>,
+        "13916275206@139.com"
+	<13916275206@139.com>,
+        "zhourui@huaqin.com" <zhourui@huaqin.com>,
+        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "Salazar, Ivan"
+	<i-salazar@ti.com>,
+        "liam.r.girdwood@intel.com" <liam.r.girdwood@intel.com>,
+        "Yue, Jaden" <jaden-yue@ti.com>,
+        "yung-chuan.liao@linux.intel.com"
+	<yung-chuan.liao@linux.intel.com>,
+        "Rao, Dipa" <dipa@ti.com>, "yuhsuan@google.com" <yuhsuan@google.com>,
+        "Lo, Henry" <henry.lo@ti.com>, "tiwai@suse.de" <tiwai@suse.de>,
+        "Xu, Baojun" <baojun.xu@ti.com>,
+        "Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
+        "Chadha, Jasjot Singh"
+	<j-chadha@ti.com>,
+        "judyhsiao@google.com" <judyhsiao@google.com>,
+        "Navada
+ Kanyana, Mukund" <navada@ti.com>,
+        "cujomalainey@google.com"
+	<cujomalainey@google.com>,
+        "Kutty, Aanya" <aanya@ti.com>,
+        "Mahmud, Nayeem"
+	<nayeem.mahmud@ti.com>,
+        "savyasanchi.shukla@netradyne.com"
+	<savyasanchi.shukla@netradyne.com>,
+        "flaviopr@microsoft.com"
+	<flaviopr@microsoft.com>,
+        "Ji, Jesse" <jesse-ji@ti.com>,
+        "darren.ye@mediatek.com" <darren.ye@mediatek.com>,
+        "antheas.dk@gmail.com"
+	<antheas.dk@gmail.com>,
+        "Jerry2.Huang@lcfuturecenter.com"
+	<Jerry2.Huang@lcfuturecenter.com>,
+        "jim.shil@goertek.com"
+	<jim.shil@goertek.com>
+Subject: RE: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: fixed the issue that the
+ chip do not shutdown immediatly after aplay stopped
+Thread-Topic: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: fixed the issue that
+ the chip do not shutdown immediatly after aplay stopped
+Thread-Index: AQHa8kGOtRTlQDXzQESRAjzcG5OhSbIvEwQAgAB8O8A=
+Date: Tue, 20 Aug 2024 04:34:00 +0000
+Message-ID: <03a3979be8af486f9911277172725d8b@ti.com>
+References: <20240819141017.502-1-shenghao-ding@ti.com>
+ <06667a01-32ee-403b-8c59-1ee37d2ef192@sirena.org.uk>
+In-Reply-To: <06667a01-32ee-403b-8c59-1ee37d2ef192@sirena.org.uk>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.85.14.152]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: T62TWNFT7OSD4AK7ZODAPYWTAJAWPZF6
-X-Message-ID-Hash: T62TWNFT7OSD4AK7ZODAPYWTAJAWPZF6
-X-MailFrom: shengjiu.wang@gmail.com
+MIME-Version: 1.0
+Message-ID-Hash: QUEZBFG57HS5KVPL72PCNHQUUQMQWIL7
+X-Message-ID-Hash: QUEZBFG57HS5KVPL72PCNHQUUQMQWIL7
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T62TWNFT7OSD4AK7ZODAPYWTAJAWPZF6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QUEZBFG57HS5KVPL72PCNHQUUQMQWIL7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,157 +148,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Aug 19, 2024 at 3:42=E2=80=AFPM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
->
-> On 8/16/24 12:42, Shengjiu Wang wrote:
-> > Implement the ASRC memory to memory function using
-> > the compress framework, user can use this function with
-> > compress ioctl interface.
-> >
-> > Define below private metadata key value for output
-> > format, output rate and ratio modifier configuration.
-> > ASRC_OUTPUT_FORMAT 0x80000001
-> > ASRC_OUTPUT_RATE   0x80000002
-> > ASRC_RATIO_MOD     0x80000003
->
-> Can the output format/rate change at run-time?
+Hi Broonie
 
-Seldom I think.
-
->
-> If no, then these parameters should be moved somewhere else - e.g.
-> hw_params or something.
-
-This means I will do some changes in compress_params.h, add
-output format and output rate definition, follow Jaroslav's example
-right?
-
-
->
-> I am still not very clear on the expanding the SET_METADATA ioctl to
-> deal with the ratio changes. This isn't linked to the control layer as
-> suggested before, and there's no precedent of calling it multiple times
-> during streaming.
-
-Which control layer? if you means the snd_kcontrol_new?  it is bound
-with sound card,  but in my case,  I need to the control bind with
-the snd_compr_stream to support multi streams/instances.
-
->
-> I also wonder how it was tested since tinycompress does not support this?
-
-I wrote a unit test to test these ASRC M2M functions.
-
->
->
-> > +static int fsl_asrc_m2m_fill_codec_caps(struct fsl_asrc *asrc,
-> > +                                     struct snd_compr_codec_caps *code=
-c)
-> > +{
-> > +     struct fsl_asrc_m2m_cap cap;
-> > +     __u32 rates[MAX_NUM_BITRATES];
-> > +     snd_pcm_format_t k;
-> > +     int i =3D 0, j =3D 0;
-> > +     int ret;
-> > +
-> > +     ret =3D asrc->m2m_get_cap(&cap);
-> > +     if (ret)
-> > +             return -EINVAL;
-> > +
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_5512)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_55=
-12);
->
-> this doesn't sound compatible with the patch2 definitions?
->
-> cap->rate_in =3D SNDRV_PCM_RATE_8000_768000;
-
-This ASRC M2M driver is designed for two kinds of hw ASRC modules.
-
-one cap is : cap->rate_in =3D SNDRV_PCM_RATE_8000_192000 | SNDRV_PCM_RATE_5=
-512;
-another is : cap->rate_in =3D SNDRV_PCM_RATE_8000_768000;
-they are in patch2 and patch3
-
-
->
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_8000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_80=
-00);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_11025)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_11=
-025);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_16000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_16=
-000);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_22050)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_22=
-050);
->
-> missing 24 kHz
-
-There is no SNDRV_PCM_RATE_24000 in ALSA.
-
->
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_32000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_32=
-000);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_44100)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_44=
-100);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_48000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_48=
-000);
->
-> missing 64kHz
-
-Yes, will add it.
-
-Best regards
-Shengjiu Wang
-
->
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_88200)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_88=
-200);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_96000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_96=
-000);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_176400)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_17=
-6400);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_192000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_19=
-2000);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_352800)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_35=
-2800);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_384000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_38=
-4000);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_705600)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_70=
-5600);
-> > +     if (cap.rate_in & SNDRV_PCM_RATE_768000)
-> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_76=
-8000);
-> > +
-> > +     pcm_for_each_format(k) {
-> > +             if (pcm_format_to_bits(k) & cap.fmt_in) {
-> > +                     codec->descriptor[j].max_ch =3D cap.chan_max;
-> > +                     memcpy(codec->descriptor[j].sample_rates, rates, =
-i * sizeof(__u32));
-> > +                     codec->descriptor[j].num_sample_rates =3D i;
-> > +                     codec->descriptor[j].formats =3D k;
-> > +                     j++;
-> > +             }
-> > +     }
-> > +
-> > +     codec->codec =3D SND_AUDIOCODEC_PCM;
-> > +     codec->num_descriptors =3D j;
-> > +     return 0;
->
->
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: Tuesday, August 20, 2024 12:07 AM
+> To: Ding, Shenghao <shenghao-ding@ti.com>
+> Cc: andriy.shevchenko@linux.intel.com; lgirdwood@gmail.com;
+> perex@perex.cz; pierre-louis.bossart@linux.intel.com;
+> 13916275206@139.com; zhourui@huaqin.com; alsa-devel@alsa-project.org;
+> Salazar, Ivan <i-salazar@ti.com>; liam.r.girdwood@intel.com; Yue, Jaden
+> <jaden-yue@ti.com>; yung-chuan.liao@linux.intel.com; Rao, Dipa
+> <dipa@ti.com>; yuhsuan@google.com; Lo, Henry <henry.lo@ti.com>;
+> tiwai@suse.de; Xu, Baojun <baojun.xu@ti.com>; Baojun.Xu@fpt.com; Chadha,
+> Jasjot Singh <j-chadha@ti.com>; judyhsiao@google.com; Navada Kanyana,
+> Mukund <navada@ti.com>; cujomalainey@google.com; Kutty, Aanya
+> <aanya@ti.com>; Mahmud, Nayeem <nayeem.mahmud@ti.com>;
+> savyasanchi.shukla@netradyne.com; flaviopr@microsoft.com; Ji, Jesse <jess=
+e-
+> ji@ti.com>; darren.ye@mediatek.com; antheas.dk@gmail.com;
+> Jerry2.Huang@lcfuturecenter.com; jim.shil@goertek.com
+> Subject: [EXTERNAL] Re: [PATCH v1] ASoc: tas2781: fixed the issue that th=
+e
+> chip do not shutdown immediatly after aplay stopped
+>=20
+> On Mon, Aug 19, 2024 at 10:10:12PM +0800, Shenghao Ding wrote:
+> > Issue reported from customer that the chip do not shutdown after aplay
+> > stopped until 6 mins later. Drop tasdevice_dapm_event and implement
+> > .stream_mute in the tasdevice_dai_ops.
+>=20
+> Six minutes sounds like a usersrpace issue with userspace sitting playing=
+ silence
+> for a long time rather than a driver issue.  By default DAPM does defer
+> powerdown, but only by seconds not minutes.
+>=20
+> > -	/* Codec Lock Release*/
+> > -	mutex_unlock(&tas_priv->codec_lock);
+> > +	/* Codec Lock/UnLock */
+> > +	guard(mutex)(&tas_priv->codec_lock);
+> > +	tasdevice_tuning_switch(tas_priv, mute);
+>=20
+> This is a much heavier weight operation than we're expecting for a mute, =
+it
+> should usually just be literally muting - one or two register writes, not=
+ a power
+> up/down sequence
+Can the power on is still kept in DAMP, and move the power off(Only set the=
+ register 0x2 to 0xe)=20
+into the .mute_stream?

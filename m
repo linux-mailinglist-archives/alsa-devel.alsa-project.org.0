@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F16DE958DC2
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 20:04:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9BA1958DDF
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 20:19:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A25983E8;
-	Tue, 20 Aug 2024 20:04:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A25983E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED860822;
+	Tue, 20 Aug 2024 20:19:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED860822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724177068;
-	bh=puNTaviJaIe5l57uc3KyTjdZ/dte2zQ+D4ZC0RIIOhQ=;
+	s=default; t=1724177961;
+	bh=j39p8v3Kemq1L00i10J4aauTEUR68m7EeDEctPrI3WU=;
 	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Wwnsp/oywVnC546zGLNELb2Y+qrac5GTt+YHmjivBDBoothpOJozrZWOo/klxZhOH
-	 iQEzGXVHOHQR7KrfBND8nbfB7mDSb2v2Z9yV5JPbujXtVXr2Tz4bJsJJehBmboGPCo
-	 ehgSXS9pwHbQcC5N3uZ/Tn3TZkc1jsOi2U/bddf8=
+	b=Vq7rj87TZ5AzuK6jE+Q7iFPrnXjm56M0BiYtyGVcUHALDNnTS69/++wbF1uYexYIf
+	 Gx/9iecTvRw+/yzAKXMDmx0YdhNGeo4zo6gY0iTPQXhztJmr8Ra1IYFjNMPvFpfYR1
+	 OYquw9SGtshwu2uyS6dIr1Ip0XyKKbIKhxwJmF1U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78FECF805AB; Tue, 20 Aug 2024 20:03:57 +0200 (CEST)
+	id AE7C3F805B3; Tue, 20 Aug 2024 20:18:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F9B6F80517;
-	Tue, 20 Aug 2024 20:03:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70B7FF805AE;
+	Tue, 20 Aug 2024 20:18:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 255BCF80494; Tue, 20 Aug 2024 20:03:50 +0200 (CEST)
+	id E1F37F80494; Tue, 20 Aug 2024 20:18:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A119DF80107
-	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 20:03:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A119DF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id B3137F8014C
+	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 20:18:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3137F8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=ALv6+/Bs
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=lqHXDsSj
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 47KG49cK026263;
-	Tue, 20 Aug 2024 18:03:38 GMT
+ 47KEhB2H022324;
+	Tue, 20 Aug 2024 18:18:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	puNTaviJaIe5l57uc3KyTjdZ/dte2zQ+D4ZC0RIIOhQ=; b=ALv6+/BsQ0hJFV+S
-	CUQPgHIcV8cSccNqMKrEjJD+CwyPj1IdwuzTWEEvkKeOPqsUlDEmWzpn1jhbRkHN
-	uBFS8fbVZ4qlY5pCvwV1cEOi8vzz5N1N/chcg+vdn9NP0FIyUGjOZ/PzbdryMN83
-	H+hLk4Es4zv2QndJu/Iz2gT7/gchg89+dpWmgx1KOP3uW2/EEQhtq5iphVcCY3d5
-	ePpZlve5CGVnFFPyWr4n9kqkpKgCDFbOAUsZOGLJG4bGabwISmzZ1JbAJ2pEnOzT
-	FY5cgF0ACXd6vK70kB+18L5BYQqmvoz26mtDwEFq0/wu0VJphX3FCgFyIeTVpVBm
-	gnnjSA==
+	j39p8v3Kemq1L00i10J4aauTEUR68m7EeDEctPrI3WU=; b=lqHXDsSjqyfYdNzw
+	NYjBORsCyc/5LiAxJkqJp28M9V+iLKY9ZRIMCpjVnrqI2HmFWZ0lzoeDcBQnH/6+
+	azU2SnDvGNZFNrxoC0mly4GJd2R4oGVrGHxOQuZ2SL5uMyQieT1Riab99VZnABbY
+	l/Rwj3kVj22kx7kZWwIbFCmkjodVfEKTDK1yt1ZX+f+WMISpa+1/kMoOKuQ7RKri
+	wGs6g2gLgEBZKx64ON+yYzZnPIuyaArNAJPQpFUAlbA7JG/eyXV18n/jHRC0FaSY
+	H/kN4UD7sSElwIc68vS//hKhcN4Fan5M/8ey12GyTWOsHbLPxFFE55XI16+OzWFJ
+	kzSPbA==
 Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 414xb9g9jg-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 414pdm9uqt-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Aug 2024 18:03:37 +0000 (GMT)
+	Tue, 20 Aug 2024 18:18:21 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
 	by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 47KI3ap4030929
+ 47KIIJR3018538
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Aug 2024 18:03:36 GMT
+	Tue, 20 Aug 2024 18:18:19 GMT
 Received: from [10.110.70.123] (10.80.80.8) by nalasex01b.na.qualcomm.com
  (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 20 Aug
- 2024 11:03:36 -0700
-Message-ID: <f7e54095-c667-4195-988f-4450c533cfa2@quicinc.com>
-Date: Tue, 20 Aug 2024 11:03:35 -0700
+ 2024 11:18:18 -0700
+Message-ID: <638d5561-4fa0-4e14-a852-9905956445e4@quicinc.com>
+Date: Tue, 20 Aug 2024 11:18:18 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 03/34] xhci: sideband: add initial api to register a
- sideband entity
+Subject: Re: [PATCH v24 05/34] usb: host: xhci-mem: Cleanup pending secondary
+ event ring events
 To: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
 	<amadeuszx.slawinski@linux.intel.com>,
         <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
@@ -88,14 +88,13 @@ To: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
 CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
         <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>,
-        Mathias Nyman <mathias.nyman@linux.intel.com>
+        <alsa-devel@alsa-project.org>
 References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-4-quic_wcheng@quicinc.com>
- <1a80c749-1cbc-4ad9-ac14-dec660bd7f8b@linux.intel.com>
+ <20240801011730.4797-6-quic_wcheng@quicinc.com>
+ <b8e67410-49a0-4ee8-a0a5-4b7ba03483c8@linux.intel.com>
 Content-Language: en-US
 From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <1a80c749-1cbc-4ad9-ac14-dec660bd7f8b@linux.intel.com>
+In-Reply-To: <b8e67410-49a0-4ee8-a0a5-4b7ba03483c8@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-Originating-IP: [10.80.80.8]
@@ -104,19 +103,19 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-GUID: FStADRAA5-hParYeCmegweSox3NlqBjV
-X-Proofpoint-ORIG-GUID: FStADRAA5-hParYeCmegweSox3NlqBjV
+X-Proofpoint-GUID: UWkYDDgbhQPhqEUQs4fcxqcxFpTWYE2z
+X-Proofpoint-ORIG-GUID: UWkYDDgbhQPhqEUQs4fcxqcxFpTWYE2z
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-20_13,2024-08-19_03,2024-05-17_01
+ definitions=2024-08-20_14,2024-08-19_03,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 mlxscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 suspectscore=0 mlxlogscore=999 spamscore=0
+ mlxlogscore=999 spamscore=0
+ suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501 mlxscore=0
+ impostorscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2407110000
- definitions=main-2408200134
-Message-ID-Hash: 4Y2TP7QC4HI3FITSLVJ7TSKFKDWL3FUQ
-X-Message-ID-Hash: 4Y2TP7QC4HI3FITSLVJ7TSKFKDWL3FUQ
+ definitions=main-2408200136
+Message-ID-Hash: BOH2JWP6P277XNYCGHWLPW36XNI7FX3H
+X-Message-ID-Hash: BOH2JWP6P277XNYCGHWLPW36XNI7FX3H
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -129,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4Y2TP7QC4HI3FITSLVJ7TSKFKDWL3FUQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BOH2JWP6P277XNYCGHWLPW36XNI7FX3H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,210 +139,88 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Hi Amadeusz,
 
-On 8/6/2024 7:49 AM, Amadeusz Sławiński wrote:
-> On 8/1/2024 3:16 AM, Wesley Cheng wrote:
->> From: Mathias Nyman <mathias.nyman@linux.intel.com>
->>
->> Introduce XHCI sideband, which manages the USB endpoints being requested by
->> a client driver.  This is used for when client drivers are attempting to
->> offload USB endpoints to another entity for handling USB transfers.  XHCI
->> sideband will allow for drivers to fetch the required information about the
->> transfer ring, so the user can submit transfers independently.  Expose the
->> required APIs for drivers to register and request for a USB endpoint and to
->> manage XHCI secondary interrupters.
->>
->> Multiple ring segment page linking, proper endpoint clean up, and allowing
->> module compliation added by Wesley Cheng to complete original concept code
->> by Mathias Nyman.
->>
->> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
->> Co-developed-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>   drivers/usb/host/Kconfig          |   9 +
->>   drivers/usb/host/Makefile         |   2 +
->>   drivers/usb/host/xhci-sideband.c  | 419 ++++++++++++++++++++++++++++++
->>   drivers/usb/host/xhci.h           |   4 +
->>   include/linux/usb/xhci-sideband.h |  68 +++++
->>   5 files changed, 502 insertions(+)
->>   create mode 100644 drivers/usb/host/xhci-sideband.c
->>   create mode 100644 include/linux/usb/xhci-sideband.h
->>
->> diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
->> index 4448d0ab06f0..6135603c5dc4 100644
->> --- a/drivers/usb/host/Kconfig
->> +++ b/drivers/usb/host/Kconfig
->> @@ -104,6 +104,15 @@ config USB_XHCI_RZV2M
->>         Say 'Y' to enable the support for the xHCI host controller
->>         found in Renesas RZ/V2M SoC.
->>   +config USB_XHCI_SIDEBAND
->> +    tristate "xHCI support for sideband"
->> +    help
->> +      Say 'Y' to enable the support for the xHCI sideband capability.
->> +      provide a mechanism for a sideband datapath for payload associated
->
-> Sentence should start from capital letter, so provide -> Provide
-Sorry for the late reply.  Been going through addressing the other comments.  Will fix.
->
->
->> +      with audio class endpoints. This allows for an audio DSP to use
->> +      xHCI USB endpoints directly, allowing CPU to sleep while playing
->> +      audio
->
-> Missing '.' at the end of sentence.
-Same.
->
-> (...)
->
->> +/**
->> + * xhci_sideband_remove_endpoint - remove endpoint from sideband access list
->> + * @sb: sideband instance for this usb device
->> + * @host_ep: usb host endpoint
->> + *
->> + * Removes an endpoint from the list of sideband accessed endpoints for this usb
->> + * device.
->> + * sideband client should no longer touch the endpoint transfer buffer after
->> + * calling this.
->> + *
->> + * Return: 0 on success, negative error otherwise.
->> + */
->> +int
->> +xhci_sideband_remove_endpoint(struct xhci_sideband *sb,
->> +                  struct usb_host_endpoint *host_ep)
->> +{
->> +    struct xhci_virt_ep *ep;
->> +    unsigned int ep_index;
->> +
->> +    mutex_lock(&sb->mutex);
->> +    ep_index = xhci_get_endpoint_index(&host_ep->desc);
->> +    ep = sb->eps[ep_index];
->> +
->> +    if (!ep || !ep->sideband) {
->> +        mutex_unlock(&sb->mutex);
->> +        return -ENODEV;
->> +    }
->> +
->> +    __xhci_sideband_remove_endpoint(sb, ep);
->> +    xhci_initialize_ring_info(ep->ring, 1);
->> +    mutex_unlock(&sb->mutex);
->> +
->> +    return 0;
->> +}
->> +EXPORT_SYMBOL_GPL(xhci_sideband_remove_endpoint);
->> +
->> +int
->> +xhci_sideband_stop_endpoint(struct xhci_sideband *sb,
->> +                struct usb_host_endpoint *host_ep)
->> +{
->> +    struct xhci_virt_ep *ep;
->> +    unsigned int ep_index;
->> +
->> +    ep_index = xhci_get_endpoint_index(&host_ep->desc);
->> +    ep = sb->eps[ep_index];
->> +
->> +    if (!ep || ep->sideband != sb)
->
-> Any reason why we check if ep->sideband != sb only on stop but not on remove above?
->
-I'll add the needed checks across all the APIs you've pointed out.  There wasn't a specific reason for leaving this check out.
->> +        return -EINVAL;
->> +
->> +    return xhci_stop_endpoint_sync(sb->xhci, ep, 0, GFP_KERNEL);
->> +}
->> +EXPORT_SYMBOL_GPL(xhci_sideband_stop_endpoint);
->> +
->> +/**
->> + * xhci_sideband_get_endpoint_buffer - gets the endpoint transfer buffer address
->> + * @sb: sideband instance for this usb device
->> + * @host_ep: usb host endpoint
->> + *
->> + * Returns the address of the endpoint buffer where xHC controller reads queued
->> + * transfer TRBs from. This is the starting address of the ringbuffer where the
->> + * sideband client should write TRBs to.
->> + *
->> + * Caller needs to free the returned sg_table
->> + *
->> + * Return: struct sg_table * if successful. NULL otherwise.
->> + */
->> +struct sg_table *
->> +xhci_sideband_get_endpoint_buffer(struct xhci_sideband *sb,
->> +                  struct usb_host_endpoint *host_ep)
->> +{
->> +    struct xhci_virt_ep *ep;
->> +    unsigned int ep_index;
->> +
->> +    ep_index = xhci_get_endpoint_index(&host_ep->desc);
->> +    ep = sb->eps[ep_index];
->> +
->> +    if (!ep)
->
-> And here there is none of checks done in above 2 functions? Seems bit weird.
->
->> +        return NULL;
->> +
->> +    return xhci_ring_to_sgtable(sb, ep->ring);
->> +}
->> +EXPORT_SYMBOL_GPL(xhci_sideband_get_endpoint_buffer);
->> +
->
-> (...)
->
->> +MODULE_DESCRIPTION("XHCI sideband driver for secondary interrupter management");
+On 8/6/2024 7:50 AM, Amadeusz Sławiński wrote:
+> On 8/1/2024 3:17 AM, Wesley Cheng wrote:
+>> As part of xHCI bus suspend, the XHCI is halted.  However, if there are
 >
 > XHCI -> xHCI
 >
-Fixed.
->> +MODULE_LICENSE("GPL");
->> diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
->> index efbd1f651da4..9232c53d204a 100644
->> --- a/drivers/usb/host/xhci.h
->> +++ b/drivers/usb/host/xhci.h
->> @@ -693,6 +693,8 @@ struct xhci_virt_ep {
->>       int            next_frame_id;
->>       /* Use new Isoch TRB layout needed for extended TBC support */
->>       bool            use_extended_tbc;
->> +    /* set if this endpoint is controlled via sideband access*/
->> +    struct xhci_sideband            *sideband;
->>   };
->>     enum xhci_overhead_type {
->> @@ -755,6 +757,8 @@ struct xhci_virt_device {
->>       u16                current_mel;
->>       /* Used for the debugfs interfaces. */
->>       void                *debugfs_private;
->> +    /* set if this device is registered for sideband access */
->> +    struct xhci_sideband            *sideband;
->>   };
->>     /*
->> diff --git a/include/linux/usb/xhci-sideband.h b/include/linux/usb/xhci-sideband.h
->> new file mode 100644
->> index 000000000000..1035dae43cee
->> --- /dev/null
->> +++ b/include/linux/usb/xhci-sideband.h
->> @@ -0,0 +1,68 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * xHCI host controller sideband support
->> + *
->> + * Copyright (c) 2023, Intel Corporation.
->> + *
->> + * Author: Mathias Nyman <mathias.nyman@linux.intel.com>
->> + */
->> +
->> +#ifndef __LINUX_XHCI_SIDEBAND_H
->> +#define __LINUX_XHCI_SIDEBAND_H
->> +
->> +#include <linux/scatterlist.h>
->> +#include <linux/usb.h>
->> +
->> +#define    EP_CTX_PER_DEV        31    /* FIMXME defined twice, from xhci.h */
+Got it.
+>> pending events in the secondary event ring, it is observed that the xHCI
+>> controller stops responding to further commands upon host or device
+>> initiated bus resume.  Iterate through all pending events and update the
+>> dequeue pointer to the beginning of the event ring.
+>>
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> ---
+>>   drivers/usb/host/xhci-mem.c  |  7 ++++++-
+>>   drivers/usb/host/xhci-ring.c | 33 ++++++++++++++++++++++++++++++++-
+>>   drivers/usb/host/xhci.c      |  2 +-
+>>   drivers/usb/host/xhci.h      |  6 ++++++
+>>   4 files changed, 45 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
+>> index 2ca5937b73f4..60dfc59260d8 100644
+>> --- a/drivers/usb/host/xhci-mem.c
+>> +++ b/drivers/usb/host/xhci-mem.c
+>> @@ -1816,7 +1816,7 @@ xhci_remove_interrupter(struct xhci_hcd *xhci, struct xhci_interrupter *ir)
+>>           tmp &= ERST_SIZE_MASK;
+>>           writel(tmp, &ir->ir_set->erst_size);
+>>   -        xhci_write_64(xhci, ERST_EHB, &ir->ir_set->erst_dequeue);
+>> +        xhci_update_erst_dequeue(xhci, ir, true);
+>>       }
+>>   }
+>>   @@ -1859,6 +1859,11 @@ void xhci_remove_secondary_interrupter(struct usb_hcd *hcd, struct xhci_interrup
+>>           return;
+>>       }
+>>   +    /*
+>> +     * Cleanup secondary interrupter to ensure there are no pending events.
+>> +     * This also updates event ring dequeue pointer back to the start.
+>> +     */
+>> +    xhci_skip_sec_intr_events(xhci, ir->event_ring, ir);
+>>       intr_num = ir->intr_num;
+>>         xhci_remove_interrupter(xhci, ir);
+>> diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
+>> index 80dca780317a..a012ddf94fb5 100644
+>> --- a/drivers/usb/host/xhci-ring.c
+>> +++ b/drivers/usb/host/xhci-ring.c
+>> @@ -3012,7 +3012,7 @@ static int xhci_handle_event_trb(struct xhci_hcd *xhci, struct xhci_interrupter
+>>    * - When all events have finished
+>>    * - To avoid "Event Ring Full Error" condition
+>>    */
+>> -static void xhci_update_erst_dequeue(struct xhci_hcd *xhci,
+>> +void xhci_update_erst_dequeue(struct xhci_hcd *xhci,
+>>                        struct xhci_interrupter *ir,
+>>                        bool clear_ehb)
+>>   {
+>> @@ -3112,6 +3112,37 @@ static int xhci_handle_events(struct xhci_hcd *xhci, struct xhci_interrupter *ir
+>>       return 0;
+>>   }
+>>   +/*
+>> + * Move the event ring dequeue pointer to skip events kept in the secondary
+>> + * event ring.  This is used to ensure that pending events in the ring are
+>> + * acknowledged, so the XHCI HCD can properly enter suspend/resume.  The
 >
-> If it is left for later, FIMXME -> FIXME
-
-Ack.
+> XHCI -> xHCI
+>
+Will fix.
+>> + * secondary ring is typically maintained by an external component.
+>> + */
+>> +void xhci_skip_sec_intr_events(struct xhci_hcd *xhci,
+>> +    struct xhci_ring *ring,    struct xhci_interrupter *ir)
+>> +{
+>> +    union xhci_trb *current_trb;
+>> +    u64 erdp_reg;
+>> +    dma_addr_t deq;
+>> +
+>> +    /* disable irq, ack pending interrupt and ack all pending events */
+>> +    xhci_disable_interrupter(ir);
+>
+> That seems like a bit weird place to disable interrupter? Perhaps suspend and resume functions should be updated to handle more interrupters instead?
+>
+At least in the current implementation that we have, during cases where autosuspend is enabled, we obviously have to ensure that the audio offload path is fully stopped before we can have the HCD suspend the bus.  We don't want to run into a situation where the audio DSP is trying to execute audio transfers over the link while we're suspending.  So in short, the xhci_skip_sec_intr_events() is currently only used for cases where we are cleaning up the secondary interrupter. (due to the stopping of the audio offload session)  This will ensure that if the audio DSP didn't clean up the event ring properly, we'll just skip the pending events, since they will be stale once the audio stream is restarted at a later time.
 
 Thanks
 
 Wesley Cheng
 
->
-> (...)

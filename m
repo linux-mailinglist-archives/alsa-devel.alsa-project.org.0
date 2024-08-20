@@ -2,121 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A399B957BA6
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 04:52:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E365957BD2
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2024 05:11:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37351741;
-	Tue, 20 Aug 2024 04:51:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37351741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E9A320C;
+	Tue, 20 Aug 2024 05:11:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E9A320C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724122328;
-	bh=EX7m7E4uVFpmQxuytLHn8Izj+uT6XzL1vKALGH1360A=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1724123499;
+	bh=nG26NZ3S/KuNQ2SHcuxORshAwbQgT5QZdIv23N6ZCqw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=S+85ZfzqBO1KuQ+m+4LGuC05TKMoqrS8H1FRG36OlWPZL9t3a8v9B4nYe+3z0R0C7
-	 J7LNJdpyPxbXzDGZtZEHlMyqyMyW2GYnp+j01SBEhSODp8j9/vhvkFRl1Hp5WU1hdx
-	 +06jbspEcbkMkDnRP7PYzIoUT99LPTftrVX1iCyU=
+	b=SiH5d5lS0E+19kJCtNPfFfo9RBnGfFld439UevE/dYbq5MIeHyFad+sz/qrD/TIQb
+	 ckmUDQjNBfXqPwtWduyTKmODYURAGhQL8cCxTy1bnpQw1OLcvc0kZ3jxkVGCGUjLb/
+	 dD+GbDwQjjuXEDNc7hxY53FvoMvGHfc1hIJi1BBI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B8ADF805B4; Tue, 20 Aug 2024 04:51:44 +0200 (CEST)
+	id 84905F805A9; Tue, 20 Aug 2024 05:11:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E30CF805AD;
-	Tue, 20 Aug 2024 04:51:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59669F805AE;
+	Tue, 20 Aug 2024 05:11:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D193F80494; Tue, 20 Aug 2024 04:34:11 +0200 (CEST)
+	id 81DF6F80494; Tue, 20 Aug 2024 05:00:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FROM,SPF_HELO_NONE,
+	TIME_LIMIT_EXCEEDED shortcircuit=no autolearn=unavailable version=3.4.6
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 48E91F800F0
-	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 04:33:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48E91F800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A98FF80107
+	for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2024 04:53:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A98FF80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=dDiqdbHN
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 47K2C282012421;
-	Tue, 20 Aug 2024 02:33:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NdvKqTI0IYHL1eLLYyhx4z9hi6k3a2+Z/kg0NhcHBQQ=; b=dDiqdbHNDfh0A2B2
-	7lcKjF3MXhfcotG6OaBzKeZoe7WZxVfzkm79PzCip8UaoCzPB9YLLlydhq7ZhFOU
-	xhgdFt8cipELYl7AaoRAT7wRs8y4xYjXdNmXVNzcfOK9d6evn2ejqfrfvj6ugDl8
-	jGiFdwxeNPgQs24oWUKuLRULkxucJDdBnJFub23pNnAuoSoa2h6eb0iTwflXrwlY
-	cpysxvpIFaGTZKiJZ06/YUekpzMq16Wq5CD43hniELuKbiuqKhd57R96+mQGr308
-	NYNy7RTmP4oAzOgpI4eMAtuIXsmOcIerUif6sdc/z5y8NguzGWc0RuoWojG/nozR
-	2/dpog==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 414j5701bh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Aug 2024 02:33:50 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 47K2Xmw2030765
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Aug 2024 02:33:48 GMT
-Received: from [10.110.70.123] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 19 Aug
- 2024 19:33:47 -0700
-Message-ID: <58043166-c494-42db-b7d3-575991e43e8b@quicinc.com>
-Date: Mon, 19 Aug 2024 19:33:47 -0700
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=hHz7gq7T
+Received: by mail-il1-x132.google.com with SMTP id
+ e9e14a558f8ab-39d22965434so13177505ab.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 19 Aug 2024 19:53:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1724122401; x=1724727201;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fT6vSqFxRxEeg2TyE8vAmieBZnT3qlYo8e/6USKHH/E=;
+        b=hHz7gq7TNEJ9TlmFH9n7VgLLCMk7vlryhHAB/t8WLxom3RMpAMvH3EefCnLIAzEap7
+         fEVd5AdgAG/+5aiJEzRyKJWyoRqYuYzPN2I5V/Zjmp6qiGxW0tFrzNDh+RqduCefEPeO
+         X9AjIADn5wWGZGyBVb8wfX9dGtBsbvKpQv+2cwyZk4ixBcRiwR3pHQ712kW8KktDeVq8
+         c4YioHKWomr1OBSYrwlmnHEz+AYdPpkHYGUPV6Dvuc/s3Ink5fnz0jr/jsipC347Ra3d
+         htypplKu/yR/w2nRUuUY7e362HTT2qmfdOh3Pae9LuvsUP8IwO+6NkCmX+L/LOmPuMlk
+         S0ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724122401; x=1724727201;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fT6vSqFxRxEeg2TyE8vAmieBZnT3qlYo8e/6USKHH/E=;
+        b=icEcUz2ILSiK5j8ECQTxBZPd/vLrsrgoNZNTw4Jkjn/bURL9L6MNXXfB7Kcu130Ql/
+         bLaDa7wmEu+uhQHvgUwgco7GFOB9kQHrvsGjlk82rzK6LuDGv2Y5CVih2sI3p0ZxJAX4
+         dgfv9aJussbwxvXtqvcVA6RrQ41t/lNwQNFtY7we6tIVgszJDvZdEmAuqtcbJXHHA/Y5
+         Oxxrzo78Bg14xBix5PI6G2v0uPg+DwDaFAHYKA+reJuOgGjLTSRQlAhhsczfyj3MU1uJ
+         aaM8aScn2y3G+8EvuYM7x/cbapi4zmEQE2HGstEz0Hsfk1RuMk5S0lmqu1DJKx+uTUir
+         PGMw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVY/wt2EMyNPGE8qNx8ifWwys/Gp6Xylr83A6Im8ALQ1G0XFlvJfkM8Eh2p4TT1P5fzxRZwJ0TqwAYT@alsa-project.org
+X-Gm-Message-State: AOJu0YxYfb7XCB/M+lZrqDnr6i4cUPKEz4SafkPHiVXRUlKuxs5Vewr9
+	dbriLoF5H27u9KVuePYGq9aaMo8XFlgkuI7z6tZSEM7Q0x1HIkaGqSCueSVetQ21YIZkm9zaoFJ
+	bLk5qWUod9QkEdJVHcvtEHO8aGJ8=
+X-Google-Smtp-Source: 
+ AGHT+IGl4gRPN5RAOxKXugMK43Dh6VHASCDS5Twf9YsdPNqPWrRzvf3PhVgc7lqQMpYhRDm7MWOvnuVY3lUtLNY/Lo4=
+X-Received: by 2002:a05:6e02:20cb:b0:39d:4d2d:d0de with SMTP id
+ e9e14a558f8ab-39d56dd773emr21812545ab.3.1724122401038; Mon, 19 Aug 2024
+ 19:53:21 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 29/34] ALSA: usb-audio: qcom: Add USB offload route
- kcontrol
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <broonie@kernel.org>, <lgirdwood@gmail.com>, <krzk+dt@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>, <tiwai@suse.com>,
-        <gregkh@linuxfoundation.org>, <robh@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>
-References: <20240801011730.4797-1-quic_wcheng@quicinc.com>
- <20240801011730.4797-30-quic_wcheng@quicinc.com>
- <4d5fe3f8-d7ba-4647-8dd7-22656ec2fde5@linux.intel.com>
-Content-Language: en-US
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <4d5fe3f8-d7ba-4647-8dd7-22656ec2fde5@linux.intel.com>
+References: <1723804959-31921-1-git-send-email-shengjiu.wang@nxp.com>
+ <1723804959-31921-5-git-send-email-shengjiu.wang@nxp.com>
+ <6d83cd58-5f02-414b-b627-a0022e071052@linux.intel.com>
+In-Reply-To: <6d83cd58-5f02-414b-b627-a0022e071052@linux.intel.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 20 Aug 2024 10:53:10 +0800
+Message-ID: 
+ <CAA+D8ANDAxS42=9zOLQY_h_ihvJCmaXzE+_iZyxbSuikqt1CBw@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 4/6] ASoC: fsl_asrc_m2m: Add memory to memory
+ function
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, perex@perex.cz,
+ tiwai@suse.com,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+	linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: kHPYq0DIRqcezxG483IwCovOPnBE9jat
-X-Proofpoint-GUID: kHPYq0DIRqcezxG483IwCovOPnBE9jat
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
- definitions=2024-08-19_16,2024-08-19_03,2024-05-17_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- priorityscore=1501 clxscore=1015 bulkscore=0 phishscore=0 impostorscore=0
- adultscore=0 suspectscore=0 mlxscore=0 spamscore=0 lowpriorityscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408200018
-Message-ID-Hash: BG5W3ZP5IJSO5XYSHAL433OW6UAZA7NQ
-X-Message-ID-Hash: BG5W3ZP5IJSO5XYSHAL433OW6UAZA7NQ
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: T62TWNFT7OSD4AK7ZODAPYWTAJAWPZF6
+X-Message-ID-Hash: T62TWNFT7OSD4AK7ZODAPYWTAJAWPZF6
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BG5W3ZP5IJSO5XYSHAL433OW6UAZA7NQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T62TWNFT7OSD4AK7ZODAPYWTAJAWPZF6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,138 +125,157 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Pierre,
-
-On 8/1/2024 2:02 AM, Pierre-Louis Bossart wrote:
+On Mon, Aug 19, 2024 at 3:42=E2=80=AFPM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
 >
->> +ifneq ($(CONFIG_SND_USB_QC_OFFLOAD_MIXER),)
->> +snd-usb-audio-qmi-objs += mixer_usb_offload.o
->> +endif
->> \ No newline at end of file
-> add one?
 >
->> diff --git a/sound/usb/qcom/mixer_usb_offload.c b/sound/usb/qcom/mixer_usb_offload.c
->> new file mode 100644
->> index 000000000000..c00770400c67
->> --- /dev/null
->> +++ b/sound/usb/qcom/mixer_usb_offload.c
->> @@ -0,0 +1,101 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->> + */
->> +
->> +#include <linux/usb.h>
->> +
->> +#include <sound/core.h>
->> +#include <sound/control.h>
->> +#include <sound/soc-usb.h>
->> +
->> +#include "../card.h"
->> +#include "../mixer.h"
->> +#include "../usbaudio.h"
->> +
->> +#include "mixer_usb_offload.h"
->> +
->> +#define PCM_IDX(n)  (n & 0xffff)
->> +#define CARD_IDX(n) (n >> 16)
->> +
->> +static int
->> +snd_usb_offload_route_get(struct snd_kcontrol *kcontrol,
->> +		      struct snd_ctl_elem_value *ucontrol)
->> +{
->> +	struct device *sysdev = snd_kcontrol_chip(kcontrol);
->> +	int card;
->> +	int pcm;
->> +
->> +	card = soc_usb_get_offload_device(sysdev, CARD_IDX(kcontrol->private_value),
->> +					  PCM_IDX(kcontrol->private_value),
->> +					  SND_SOC_USB_KCTL_CARD_ROUTE);
->> +
->> +	pcm = soc_usb_get_offload_device(sysdev, CARD_IDX(kcontrol->private_value),
->> +					 PCM_IDX(kcontrol->private_value),
->> +					 SND_SOC_USB_KCTL_PCM_ROUTE);
->> +	if (card < 0 || pcm < 0) {
->> +		card = -1;
->> +		pcm = -1;
->> +	}
->> +
->> +	ucontrol->value.integer.value[0] = card;
->> +	ucontrol->value.integer.value[1] = pcm;
->> +
->> +	return 0;
->> +}
-> see my earlier comment, should those two calls be collapsed to return
-> all the information in one shot?
 >
->> +
->> +static int snd_usb_offload_route_info(struct snd_kcontrol *kcontrol,
->> +			      struct snd_ctl_elem_info *uinfo)
->> +{
->> +	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
->> +	uinfo->count = 2;
->> +	uinfo->value.integer.min = -1;
->> +	/* Arbitrary max value, as there is no 'limit' on number of PCM devices */
->> +	uinfo->value.integer.max = 0xff;
->> +
->> +	return 0;
->> +}
->> +
->> +static struct snd_kcontrol_new snd_usb_offload_mapped_ctl = {
->> +	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
->> +	.access = SNDRV_CTL_ELEM_ACCESS_READ,
->> +	.info = snd_usb_offload_route_info,
->> +	.get = snd_usb_offload_route_get,
->> +};
->> +
->> +/**
->> + * snd_usb_offload_create_ctl() - Add USB offload bounded mixer
->> + * @chip - USB SND chip device
->> + *
->> + * Creates a sound control for a USB audio device, so that applications can
->> + * query for if there is an available USB audio offload path, and which
->> + * card is managing it.
->> + */
->> +int snd_usb_offload_create_ctl(struct snd_usb_audio *chip)
->> +{
->> +	struct usb_device *udev = chip->dev;
->> +	struct snd_kcontrol_new *chip_kctl;
->> +	struct snd_usb_stream *as;
->> +	char ctl_name[37];
->> +	int ret;
->> +
->> +	list_for_each_entry(as, &chip->pcm_list, list) {
->> +		chip_kctl = &snd_usb_offload_mapped_ctl;
->> +		chip_kctl->count = 1;
->> +		/*
->> +		 * Store the associated USB SND card number and PCM index for
->> +		 * the kctl.
->> +		 */
->> +		chip_kctl->private_value = as->pcm_index |
->> +					  chip->card->number << 16;
->> +		sprintf(ctl_name, "USB Offload Playback Route PCM#%d",
->> +			as->pcm_index);
->> +		chip_kctl->name = ctl_name;
->> +		ret = snd_ctl_add(chip->card, snd_ctl_new1(chip_kctl,
->> +				  udev->bus->sysdev));
->> +		if (ret < 0)
->> +			break;
->> +	}
->> +
->> +	return ret;
-Hi Pierre,
-> None of this looks Qualcomm-specific, shouldn't this be part of the
-> soc_usb framework instead of being added in the qcom/ stuff?
+> On 8/16/24 12:42, Shengjiu Wang wrote:
+> > Implement the ASRC memory to memory function using
+> > the compress framework, user can use this function with
+> > compress ioctl interface.
+> >
+> > Define below private metadata key value for output
+> > format, output rate and ratio modifier configuration.
+> > ASRC_OUTPUT_FORMAT 0x80000001
+> > ASRC_OUTPUT_RATE   0x80000002
+> > ASRC_RATIO_MOD     0x80000003
+>
+> Can the output format/rate change at run-time?
 
-Started working on this particular comment, and there are some things that needs to be considered if we moved this into SOC USB:
+Seldom I think.
 
-1.  We do save the reference to the USB BE DAI link within the USB DT node, which can be fetched/referenced based on sysdev.  However, I'm not sure if everyone would potentially follow that way.
+>
+> If no, then these parameters should be moved somewhere else - e.g.
+> hw_params or something.
 
-2.  I tried a few implementations of adding a new SOC USB API, and the argument list was a bit long, because I didn't want to directly reference the usb_chip.
+This means I will do some changes in compress_params.h, add
+output format and output rate definition, follow Jaroslav's example
+right?
 
-Sorry for the delay, but I wanted to give a good stab at implementing this before bringing up the implications.  It is possible, but definitely not as clean as how we have it now IMO.
 
-Thanks
+>
+> I am still not very clear on the expanding the SET_METADATA ioctl to
+> deal with the ratio changes. This isn't linked to the control layer as
+> suggested before, and there's no precedent of calling it multiple times
+> during streaming.
 
-Wesley Cheng
+Which control layer? if you means the snd_kcontrol_new?  it is bound
+with sound card,  but in my case,  I need to the control bind with
+the snd_compr_stream to support multi streams/instances.
 
+>
+> I also wonder how it was tested since tinycompress does not support this?
+
+I wrote a unit test to test these ASRC M2M functions.
+
+>
+>
+> > +static int fsl_asrc_m2m_fill_codec_caps(struct fsl_asrc *asrc,
+> > +                                     struct snd_compr_codec_caps *code=
+c)
+> > +{
+> > +     struct fsl_asrc_m2m_cap cap;
+> > +     __u32 rates[MAX_NUM_BITRATES];
+> > +     snd_pcm_format_t k;
+> > +     int i =3D 0, j =3D 0;
+> > +     int ret;
+> > +
+> > +     ret =3D asrc->m2m_get_cap(&cap);
+> > +     if (ret)
+> > +             return -EINVAL;
+> > +
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_5512)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_55=
+12);
+>
+> this doesn't sound compatible with the patch2 definitions?
+>
+> cap->rate_in =3D SNDRV_PCM_RATE_8000_768000;
+
+This ASRC M2M driver is designed for two kinds of hw ASRC modules.
+
+one cap is : cap->rate_in =3D SNDRV_PCM_RATE_8000_192000 | SNDRV_PCM_RATE_5=
+512;
+another is : cap->rate_in =3D SNDRV_PCM_RATE_8000_768000;
+they are in patch2 and patch3
+
+
+>
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_8000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_80=
+00);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_11025)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_11=
+025);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_16000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_16=
+000);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_22050)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_22=
+050);
+>
+> missing 24 kHz
+
+There is no SNDRV_PCM_RATE_24000 in ALSA.
+
+>
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_32000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_32=
+000);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_44100)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_44=
+100);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_48000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_48=
+000);
+>
+> missing 64kHz
+
+Yes, will add it.
+
+Best regards
+Shengjiu Wang
+
+>
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_88200)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_88=
+200);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_96000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_96=
+000);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_176400)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_17=
+6400);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_192000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_19=
+2000);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_352800)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_35=
+2800);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_384000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_38=
+4000);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_705600)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_70=
+5600);
+> > +     if (cap.rate_in & SNDRV_PCM_RATE_768000)
+> > +             rates[i++] =3D snd_pcm_rate_bit_to_rate(SNDRV_PCM_RATE_76=
+8000);
+> > +
+> > +     pcm_for_each_format(k) {
+> > +             if (pcm_format_to_bits(k) & cap.fmt_in) {
+> > +                     codec->descriptor[j].max_ch =3D cap.chan_max;
+> > +                     memcpy(codec->descriptor[j].sample_rates, rates, =
+i * sizeof(__u32));
+> > +                     codec->descriptor[j].num_sample_rates =3D i;
+> > +                     codec->descriptor[j].formats =3D k;
+> > +                     j++;
+> > +             }
+> > +     }
+> > +
+> > +     codec->codec =3D SND_AUDIOCODEC_PCM;
+> > +     codec->num_descriptors =3D j;
+> > +     return 0;
+>
+>

@@ -2,61 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AEB695AF54
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2024 09:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C8C795AF5C
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2024 09:33:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DD05845;
-	Thu, 22 Aug 2024 09:32:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DD05845
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9B78843;
+	Thu, 22 Aug 2024 09:33:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9B78843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724311936;
-	bh=SdzzK5ESTsrf2b+s0cNEeMQxEP25YRTv9jY6URGt0FQ=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JhIfqrxOiyopFQM0Gxamw94A1uc9670MFAGAwp1pzRaT+Fv4lP3V5QZhdBVaTrF85
-	 VFQV3ZaH7Pu3rfQwT9PmRx8MW3WBsKeWIHtfNTi1Ivb+rPhDIt7V8DIqYpO/+XPyF3
-	 HbozxIejRbUGsqnNDQSnxG8ZBT3JMuOK7bookVIs=
+	s=default; t=1724312008;
+	bh=SQkqoBKvU+aRtrqUw/uCMiX+22wVRYDVIAcM73b2/sQ=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=iMyJT0jPwxAcyvQWn3ekJQKEF83IOv0Bg0zdj0Vcuzxh5FzJG3XsguzjDz+SOalwa
+	 3o43dur3yR7UUJrkJCW7r3HZbHbQAsid9eTL3H9MRqITZC89owV+4jdqLG/y60EQ+1
+	 aqZuXFubZ3tHnRk4rUtroF+MboahcasIQ4uqaD4A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 273D0F805C3; Thu, 22 Aug 2024 09:31:33 +0200 (CEST)
+	id 2B86AF806B9; Thu, 22 Aug 2024 09:31:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23F4CF805C9;
-	Thu, 22 Aug 2024 09:31:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E711F80630;
+	Thu, 22 Aug 2024 09:31:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25226F8016E; Wed, 21 Aug 2024 09:00:53 +0200 (CEST)
+	id 8AC2AF805A1; Wed, 21 Aug 2024 09:03:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B424CF8016E
-	for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2024 09:00:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B424CF8016E
-Received: from mail.maildlp.com (unknown [172.19.88.194])
-	by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Wpcfb5J1dzyRC9;
-	Wed, 21 Aug 2024 15:00:23 +0800 (CST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id D178CF8049C
+	for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2024 09:00:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D178CF8049C
+Received: from mail.maildlp.com (unknown [172.19.163.48])
+	by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4WpcYd2jgfz5y94;
+	Wed, 21 Aug 2024 14:56:05 +0800 (CST)
 Received: from dggpeml500022.china.huawei.com (unknown [7.185.36.66])
-	by mail.maildlp.com (Postfix) with ESMTPS id 394441401E0;
-	Wed, 21 Aug 2024 15:00:46 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 4D5CB18006C;
+	Wed, 21 Aug 2024 15:00:47 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by dggpeml500022.china.huawei.com
  (7.185.36.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Wed, 21 Aug
- 2024 15:00:46 +0800
+ 2024 15:00:47 +0800
 From: Hongbo Li <lihongbo22@huawei.com>
 To: <peter.ujfalusi@gmail.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
 	<perex@perex.cz>, <tiwai@suse.com>
 CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
 	<lihongbo22@huawei.com>
-Subject: [PATCH -next 0/5] sound/soc: fix some macro definitions and usages
-Date: Wed, 21 Aug 2024 15:08:10 +0800
-Message-ID: <20240821070815.2326534-1-lihongbo22@huawei.com>
+Subject: [PATCH -next 1/5] sound/soc: fix macro definition on
+ TWL4030_OUTPUT_PGA
+Date: Wed, 21 Aug 2024 15:08:11 +0800
+Message-ID: <20240821070815.2326534-2-lihongbo22@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240821070815.2326534-1-lihongbo22@huawei.com>
+References: <20240821070815.2326534-1-lihongbo22@huawei.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -69,15 +73,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZZF625ZEAE62DSIOUKJVLT7KPY72M24Y
-X-Message-ID-Hash: ZZF625ZEAE62DSIOUKJVLT7KPY72M24Y
-X-Mailman-Approved-At: Thu, 22 Aug 2024 07:28:19 +0000
+Message-ID-Hash: XLZ6PJHWLJ7C4LNRVNSJBUO6OKKQBFPK
+X-Message-ID-Hash: XLZ6PJHWLJ7C4LNRVNSJBUO6OKKQBFPK
+X-Mailman-Approved-At: Thu, 22 Aug 2024 07:28:29 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZF625ZEAE62DSIOUKJVLT7KPY72M24Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XLZ6PJHWLJ7C4LNRVNSJBUO6OKKQBFPK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,24 +90,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Many variable in macro are not used as we used macro_check
-script to detect and mamually check, let us address these
-issues.
+The @mask is not used in TWL4030_OUTPUT_PGA, so we can remove
+it and simplify its usage.
 
-Hongbo Li (5):
-  sound/soc: fix macro definition on TWL4030_OUTPUT_PGA
-  sound/soc remove unused substream in macro soc_component_mark_pop
-  sound/soc remove unused substream in macro soc_dai_mark_pop
-  sound/soc remove unused substream in macro soc_link_mark_pop
-  sound/soc: fix macro definition on STM_SAI_HAS_EXT_SYNC
+Signed-off-by: Hongbo Li <lihongbo22@huawei.com>
+---
+ sound/soc/codecs/twl4030.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
- sound/soc/codecs/twl4030.c    | 12 ++++++------
- sound/soc/soc-component.c     | 14 +++++++-------
- sound/soc/soc-dai.c           | 10 +++++-----
- sound/soc/soc-link.c          | 10 +++++-----
- sound/soc/stm/stm32_sai_sub.c |  2 +-
- 5 files changed, 24 insertions(+), 24 deletions(-)
-
+diff --git a/sound/soc/codecs/twl4030.c b/sound/soc/codecs/twl4030.c
+index 9c50ac356c89..e3782762139f 100644
+--- a/sound/soc/codecs/twl4030.c
++++ b/sound/soc/codecs/twl4030.c
+@@ -555,7 +555,7 @@ static const struct snd_kcontrol_new twl4030_dapm_dbypassv_control =
+  * On unmute: restore the register content from the reg_cache
+  * Outputs handled in this way:  Earpiece, PreDrivL/R, CarkitL/R
+  */
+-#define TWL4030_OUTPUT_PGA(pin_name, reg, mask)				\
++#define TWL4030_OUTPUT_PGA(pin_name, reg)				\
+ static int pin_name##pga_event(struct snd_soc_dapm_widget *w,		\
+ 			       struct snd_kcontrol *kcontrol, int event) \
+ {									\
+@@ -575,11 +575,11 @@ static int pin_name##pga_event(struct snd_soc_dapm_widget *w,		\
+ 	return 0;							\
+ }
+ 
+-TWL4030_OUTPUT_PGA(earpiece, TWL4030_REG_EAR_CTL, TWL4030_EAR_GAIN);
+-TWL4030_OUTPUT_PGA(predrivel, TWL4030_REG_PREDL_CTL, TWL4030_PREDL_GAIN);
+-TWL4030_OUTPUT_PGA(predriver, TWL4030_REG_PREDR_CTL, TWL4030_PREDR_GAIN);
+-TWL4030_OUTPUT_PGA(carkitl, TWL4030_REG_PRECKL_CTL, TWL4030_PRECKL_GAIN);
+-TWL4030_OUTPUT_PGA(carkitr, TWL4030_REG_PRECKR_CTL, TWL4030_PRECKR_GAIN);
++TWL4030_OUTPUT_PGA(earpiece, TWL4030_REG_EAR_CTL);
++TWL4030_OUTPUT_PGA(predrivel, TWL4030_REG_PREDL_CTL);
++TWL4030_OUTPUT_PGA(predriver, TWL4030_REG_PREDR_CTL);
++TWL4030_OUTPUT_PGA(carkitl, TWL4030_REG_PRECKL_CTL);
++TWL4030_OUTPUT_PGA(carkitr, TWL4030_REG_PRECKR_CTL);
+ 
+ static void handsfree_ramp(struct snd_soc_component *component, int reg, int ramp)
+ {
 -- 
 2.34.1
 

@@ -2,79 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B83E95A163
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2024 17:29:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4979695A526
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2024 21:12:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A39293E7;
-	Wed, 21 Aug 2024 17:29:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A39293E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38AF03E7;
+	Wed, 21 Aug 2024 21:12:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38AF03E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724254156;
-	bh=M665HueVgPzh28EhOJPEFMc+8owqWigN/ofPohf5Uvw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tEykm/MFy5p9v67JQwIIkhMm8yZF/JyxA2aXIDe8WDY1uHWbX7/lP3zZhiqHnLZP0
-	 UK7+gPJU2GXBfIUe90o6DzCAszrx6ogrSDPBsjK1nRkFFoReNCnkw95i691CaapElS
-	 CJkMlKJQMWloTnuyJF8pD+OdJKfaaxc+H8XxL3a0=
+	s=default; t=1724267565;
+	bh=SxWEWx4TinLZrxno5ALgxrwD74WG09ZwCxUcPqSBUc8=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=FytAwDeDbaNHC3kIMSatd1I4tSzTqj+aWF2ImP0hewg7og25x2VQ+sa2erCDdMfGg
+	 djFtKRY9Kut8jDOcNZzoITBRS1unkbqBzBX3YwMey866w4cOUFRVUesB9dcG3jRUt8
+	 n5qfR9GSZbgagzkbG4XL8nm/xwYSXXw5Snj+6ht8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF7F6F80608; Wed, 21 Aug 2024 17:28:20 +0200 (CEST)
+	id C4DB9F80580; Wed, 21 Aug 2024 21:12:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A331BF805FC;
-	Wed, 21 Aug 2024 17:28:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34477F805A9;
+	Wed, 21 Aug 2024 21:12:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3DCCDF80496; Wed, 21 Aug 2024 17:25:14 +0200 (CEST)
+	id BC015F80496; Wed, 21 Aug 2024 21:12:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EEC8CF8049C
-	for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2024 17:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEC8CF8049C
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bMVM2d2t
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 8A1FD61086;
-	Wed, 21 Aug 2024 15:24:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7645C4AF10;
-	Wed, 21 Aug 2024 15:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724253894;
-	bh=M665HueVgPzh28EhOJPEFMc+8owqWigN/ofPohf5Uvw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=bMVM2d2tKTtQEjC6Ag28LIYd0DeD+nYlSCbcIAG6cNjx5hxuCpsp/gWY3mBCL/tqH
-	 tdfgxZKj79cHnoKRkJKBKH+FlAjkEnFaIDiPrqevkgrwMDgY7zPl1hRf2WEJhr7M4L
-	 fkdwjWZvn9oTWrbL3YspCZvZ7EF0133tRnwMD8PH1hKEyOwHsLMEoe1D0NphVB38id
-	 w8secT5JbltWiB9ezhu/bYOsxuu3DALsZifylMMCdt2Qnoq6xa5eagHseMPIbnu/5E
-	 fFp6lrThs8IkSU6mEGKyX3ktqbKU2ZV5iIhf7qzDxTJ29JMgptBrsoY/Q7mjHL1MxC
-	 xogosdWa2vcyQ==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-In-Reply-To: <87msl6aa2c.wl-kuninori.morimoto.gx@renesas.com>
-References: <87msl6aa2c.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2] ASoC: soc-pcm: remove
- snd_soc_dpcm_stream_lock_irqsave_nested()
-Message-Id: <172425389361.1704682.3861870798647569294.b4-ty@kernel.org>
-Date: Wed, 21 Aug 2024 16:24:53 +0100
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id BE62EF800F0
+	for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2024 21:12:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE62EF800F0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: XNULZ7FM57LG45AMVCJL7AFL3RUB7CNP
-X-Message-ID-Hash: XNULZ7FM57LG45AMVCJL7AFL3RUB7CNP
-X-MailFrom: broonie@kernel.org
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1724267534578495026-webhooks-bot@alsa-project.org>
+References: <1724267534578495026-webhooks-bot@alsa-project.org>
+Subject: No sound from XonarDX
+Message-Id: <20240821191219.BC015F80496@alsa1.perex.cz>
+Date: Wed, 21 Aug 2024 21:12:19 +0200 (CEST)
+Message-ID-Hash: X4L37PMRDRUGPUSIJCOU47CO2VPLHEXV
+X-Message-ID-Hash: X4L37PMRDRUGPUSIJCOU47CO2VPLHEXV
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -86,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XNULZ7FM57LG45AMVCJL7AFL3RUB7CNP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X4L37PMRDRUGPUSIJCOU47CO2VPLHEXV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,39 +70,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 21 Aug 2024 02:23:07 +0000, Kuninori Morimoto wrote:
-> soc-pcm.c has snd_soc_dpcm_stream_lock_irqsave_nested() /
-> snd_soc_dpcm_stream_unlock_irqrestore()  helper function,
-> but it is almost nothing help. It just makes a code complex.
-> Let's remove it.
-> 
-> 
+alsa-project/alsa-lib issue #408 was opened from 3bitbrain:
 
-Applied to
+No matter what wiki or advice I try, no sound at all from a known good Xonar DX card.
+Distro : Gentoo, fresh install.
+Always un-muted everything in the console alsamixer.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+alsa-lib version 1.2.11
 
-Thanks!
+[alsa.txt](https://github.com/user-attachments/files/16697602/alsa.txt)
 
-[1/1] ASoC: soc-pcm: remove snd_soc_dpcm_stream_lock_irqsave_nested()
-      commit: 2d3b218d383e24623070f4439a0af64d200eb740
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/408
+Repository URL: https://github.com/alsa-project/alsa-lib

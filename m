@@ -2,169 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE29E9592E5
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2024 04:29:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3A1959514
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2024 08:51:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5D40839;
-	Wed, 21 Aug 2024 04:29:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5D40839
+	by alsa0.perex.cz (Postfix) with ESMTPS id B69D7820;
+	Wed, 21 Aug 2024 08:51:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B69D7820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724207395;
-	bh=zIaNtsMOHeUUGN1oP7AezTBOKzD5+O2snnv/zzXjooQ=;
-	h=To:Cc:In-Reply-To:References:From:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=W1b6CxxDJ5gztQ6OWEInjYoalxHg2M/DlQyOuPBdfmGtyvuwSaWYDk8M9M6sWyLlz
-	 LFfba06TF7tvJJRjxbx2VoA7IquDwynFaWmAo9MPuXKeaIVgh2h3rZkw08Mxte5rqY
-	 3+B30UTnzVtdnYOPY4RmnvKRxBnrAXkicZZBmR+o=
+	s=default; t=1724223097;
+	bh=ieV+xBrhkWPYSpApUkwfDqYXotPUkyJV9b3CxxMkmO0=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KPDBdVAMbKmXLg4gzNzHDIZGk5vkHzJbD3D57lQd5/J13Mr5ZduzLzJPiw5+9JVMY
+	 F0fccvp9v2VOdYAvKJSlGdHPGHNv/xK3WQ3md4odwF7ekrJar78BkR4u+E+uwE0hQ5
+	 jEP73B05zAPWyPfZFoIl5CKbyeUJVprSRDkzn/Cc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAA96F805E1; Wed, 21 Aug 2024 04:29:27 +0200 (CEST)
+	id 11EB5F80589; Wed, 21 Aug 2024 08:51:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18388F805C9;
-	Wed, 21 Aug 2024 04:29:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31289F8016E;
+	Wed, 21 Aug 2024 08:51:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D3D2F805AB; Wed, 21 Aug 2024 04:29:21 +0200 (CEST)
+	id 37CC9F80494; Wed, 21 Aug 2024 08:47:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazlp170100001.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:c406::1])
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20629.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2414::629])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B84DFF800F0
-	for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2024 04:29:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B84DFF800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3F9DCF800F0
+	for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2024 08:47:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F9DCF800F0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=Fwfiw+9D
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=BO/zCZcE
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ohY90jVTR8wDYB4U5zPX1AgUCKuWOdatkfjh78pRhmJTHALNnGik+7vKsmnmQp8dSjOYQZdoWX5wzo6FI0VPh0ID6+VNSprUVOQXmXsKs9IxXlmQpLdp+RkU8d7qZ2B2tLdoKzQvnS5VbsES6an5kTwGqNgIWcNixtNKwin+91T6UWVek59dPZJM/UonhZRMIbPvkoXiOWoKAPqlr6tB2ggXC04Sr9Nmt6w7rnxO6PLVrQ0XsL0y6+gL0EDPnl1pAjkS4TBSCuEE0mOk7uPFEoKmjTQSobiU4jqqRMypZCiyNM5trN//v0dRJRvAgr7e9MQdKBo708dd3YzKcR9qqw==
+ b=WGimCxElGtL5O9YEYsSntUuez+ILkQoibrlUOqx1CSA/n11SaS+KkXBFqHZx/b7HzwYhXCC4jr8LLBVkyGOpgwHv5N42ApCXflhFLvXcEZxiIZO2CbwgCyWqose8belyfqJU1ZSH0C9PHFbsv1JmxPzWzRK4Zo9O+vPFr3HumnATEz94oZVJJJDRU+mHrmGhniw+dFfsGsJ/l11C0IhbT8pfSw1JiCqmXf6Plxbrc5wCn4RNEmZLiEjQRB/V20mh7ToGwaZe5njFv1uImQoJ5MTYsdMFlEGitvDpt0C6SbBlMG9DxaarIv3hgQQyvqEftHO4cwfTOOL9LsSGUKpNcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9N7URJglFcbRKOp8/FDpjNEuwFAq7K8FHljQGHY2XC4=;
- b=Oa5SMgKdJCnTqszeKWed8gdZFx55i/vfT3wfLo+yyWAAfnHzZ/Eae5z1eJyDEyjXMWwpTkZ7GD+d2Y96xZStTDhdV4Dif5k0ibVv+tZy1dm9h997FFsDTbam3jDMgFRvmakILAikzcnDg0rHbxyCaVv7r+vaovs1l361ZxxKMrGo1e0gzkdEwHIVlqPfoyAcgw+/UN2rww6ND8XRDxa4p1dV6IdQrS8zzH6NWamYL3agFT0+xSlsBCoAFHbkSM6ZCYq/DNwFJlylaF33IEkNA8XaY0w4JzzeAIXhoPzBwMjVSgo6za7GfNfCEX9CAclw3yKeQSgUTBJokSfBgJxFEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
+ bh=sxkBInJSWtS/+2b8sbBeUAK9a3OMWSIdNo6kSvk5wFo=;
+ b=s3z7Uss7lIrQNnyok5SrD0HTgNOs4fPJ/Y4bIdc1+h575gzrwaurJi8nfin05CGl1tHFEB7tYu+vbWHTGyfIqfAl+dB14gka1F3CayCPgCiOl70Rv38Z5TrCNZ+gfY1o163Gwi766X1MPKnk2AICK1RCo0efKXoOM+fWSfm6bykmpJJyDB7iaQvyDzlQbuYAXBZqweiT8Sw7KU3dDf56mpqv2QlwSMPlbw+gJE2KFUni2pPxu78uyuC+R7CcRFeLhubOd8wzMeAgwIw447Kcrl3Rmr8DasKkbGzT9BpTyAssc8K1fmFF1nhUSYcDKyAdeqf7Bo5wMReghaFVYBPawA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9N7URJglFcbRKOp8/FDpjNEuwFAq7K8FHljQGHY2XC4=;
- b=Fwfiw+9DngRSJSR4+KnZAEkMZ53l/7frco38t7MZG01dhY201Vk2LRPIZhc+cnLZu89G0SbE+KBaaamXgCNKuqmpVqvi6jG/Vz6X4JINq12348kGetEKEpl1G17rdiVywjXh2tsOC5SUdZ1+yzD4VDOTKHElMU9Rbz2wzXfdE3g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYRPR01MB12156.jpnprd01.prod.outlook.com
- (2603:1096:405:ff::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.19; Wed, 21 Aug
- 2024 02:29:04 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11%5]) with mapi id 15.20.7875.016; Wed, 21 Aug 2024
- 02:29:04 +0000
-Message-ID: <87ikvua9sf.wl-kuninori.morimoto.gx@renesas.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-In-Reply-To: <87le0qa9tc.wl-kuninori.morimoto.gx@renesas.com>
-References: <87le0qa9tc.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 2/2] ASoC: soc-pcm: makes snd_soc_dpcm_can_be_xxx() local
- function
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 21 Aug 2024 02:29:04 +0000
-X-ClientProxiedBy: TYCP286CA0221.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c5::7) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+ bh=sxkBInJSWtS/+2b8sbBeUAK9a3OMWSIdNo6kSvk5wFo=;
+ b=BO/zCZcEtyP3DVYjJoSltNHpJyGEv7W8RxzlgHX3yUrCEUfuM32/wrhqp8o7G6vJXSVyyXgg8K1PA5W04xcJTe/orK+ZRx9BKH+6dMNLWvrlkfG+MqbTbHxSmPMH0+yZpaFaiNVYwPig7kaiSz/uAO+AkjXp1Ggvii4X1xrbB/A=
+Received: from BN1PR12CA0010.namprd12.prod.outlook.com (2603:10b6:408:e1::15)
+ by BY5PR12MB4082.namprd12.prod.outlook.com (2603:10b6:a03:212::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7897.16; Wed, 21 Aug
+ 2024 06:47:08 +0000
+Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
+ (2603:10b6:408:e1:cafe::b3) by BN1PR12CA0010.outlook.office365.com
+ (2603:10b6:408:e1::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.25 via Frontend
+ Transport; Wed, 21 Aug 2024 06:47:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7897.11 via Frontend Transport; Wed, 21 Aug 2024 06:47:07 +0000
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 21 Aug 2024 01:47:03 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
+	<yung-chuan.liao@linux.intel.com>, <ranjani.sridharan@linux.intel.com>,
+	<lgirdwood@gmail.com>, <perex@perex.cz>, <tiwai@suse.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<venkataprasad.potturu@amd.com>, <cristian.ciocaltea@collabora.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
+ Mukunda" <Vijendar.Mukunda@amd.com>
+Subject: [PATCH] ASoC: SOF: amd: remove unused variable from sof_amd_acp_desc
+ structure
+Date: Wed, 21 Aug 2024 12:16:50 +0530
+Message-ID: <20240821064650.2850310-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYRPR01MB12156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 141bab90-ad87-476c-a786-08dcc18906a1
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|BY5PR12MB4082:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2a72b80-ef03-43a3-4933-08dcc1ad135f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|366016|52116014|1800799024|376014|38350700014;
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|7416014|376014;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?dL2d37kUGLyWDTuiyixCfJM3tGdb4hlPErpCkA6CyYbEeJQUh5b1c7wYLHTs?=
- =?us-ascii?Q?MlgXkiIC4dmg3jr/rXLKVhKZuhPXmNfClIKyl2t+4gr4EPZesoo4C1mBD6CE?=
- =?us-ascii?Q?rtes391+kjEighqXFSScyUsizjRiGzSgTwq3Vj/eeobJ9bzYr2r4BYos7ie0?=
- =?us-ascii?Q?xa74YhfSkigK6fn5w7Feh5hVXooM0CvezsB5KVXU3c1Y/Yf1r7RJxn49hwVc?=
- =?us-ascii?Q?nqB6LvN89LTYkVmgQECseMKsU12Eb7KtPhsQjbBw2u8+hOLeWwCXBX9K3ioU?=
- =?us-ascii?Q?loOik/wAkqWYllymR7hC1ZmmuDuaRy5i1H5b8QC+PfiXSSDBskskJ8KT+0/e?=
- =?us-ascii?Q?zJWQ+/znwtVWExSLY1KZ0BA/pvqCTEOvqpJ8fHNSDe5tk67e2tKw8ITTaR+v?=
- =?us-ascii?Q?2eLAu49Wbueiv6lXmPLFI/K0ndLahF+kAkL1ltiAeik528xa/amArThqxuzv?=
- =?us-ascii?Q?41OyI3O7RfiZVKqexqOnFRQ5tgN2VeGbV9b3xZAdocQ9o8NC1nPRsiaMrJj7?=
- =?us-ascii?Q?r69wqzBRD6xPIe84e+id+aRNPiiRXNl88lqQhCzGveOfJpL65Puwtw1tUo/c?=
- =?us-ascii?Q?fZ3qbsx/rH4hvybF6NwgNV7no2D8HwxgxYVt7EChopO1GIbymRZVQj0iKjL3?=
- =?us-ascii?Q?fd+YFPC8157KVcNngzuaUiAy+pPP/pcdX7yu0A0K13gy1nAAoS740YA3UNTR?=
- =?us-ascii?Q?0UD9g2tzDX2hx7ylNnkMH8jckOrn1By4OunWrbntbf77v5P+kubO5J4ZJBbi?=
- =?us-ascii?Q?YJ9WrmLeBbrdRbDp+fsDcjU/939hlr/E4D5ZGiAxIPiu+eV6HiWBLUClBzsG?=
- =?us-ascii?Q?nMHvXJw/MvAxK/L4qjSq+NsYp8aD5y4NmOrvG/1LkdWquLeYwHj6az2bE0Lp?=
- =?us-ascii?Q?4d8vHBCYJlCuzGR7BmAcp+m+8PMtp7StneX2AqWuMMexcUvWgduu2TeGYaLu?=
- =?us-ascii?Q?uNycu8W1ompVUO+VNOW2ZhDvr7ecH1yo23AAYT/lJeWcOBbgh0Uc1v5Kc0/B?=
- =?us-ascii?Q?xX9wNHTM8AkzYSV9DEPepDpplT4Vbbmi5i/LfYh4BRCX9LPr+te7GmKWxcgn?=
- =?us-ascii?Q?5o6hrGcRRK5RMdkIsGgfagKzhvGs9P2XALJemuEDXl8rAg37FWZE9baSh1Wi?=
- =?us-ascii?Q?k+BM91aelAFGmcESxP7OAWQH3EPEM/EVEVugY0mAcSqy/yAwTy9unP295U6S?=
- =?us-ascii?Q?KoSo5JsBvJD5Al0sjqE3HQqEgkGLBNKSDlVh3GQHHzO+4e2HraabJaUb6j6S?=
- =?us-ascii?Q?8+gGmxmkZAxwOuzp4biP70Wny6I5tGVqHvwaulu0kibfEN2YJ+89HPVZ0CjO?=
- =?us-ascii?Q?Hd0M6vZ4POvxzaRBPtd2qj8JznQC8By8ixKgTTu5JRr+A199eQl8i5zq2RvB?=
- =?us-ascii?Q?MCb8L7IfWRBg46Yz+v4M8gdUg02KMyTwaoGbtJfTcA8+SKxRHg=3D=3D?=
+	=?us-ascii?Q?wIePXeEmyD+ER/2vcI5hLEpHTJdHm3x8BxicVC+NHBk00pQYUVNQu+Q24HW2?=
+ =?us-ascii?Q?qLd98aSRdO2es6MeUkTI/pr+EslonDShz4RTEp0DYoV/oNLOatDi7x6PTOPF?=
+ =?us-ascii?Q?xOk1dToD7HujAq2StoH5L0feIJq5/USvsUvaevcqsknIuclqavfuZlYbvsVE?=
+ =?us-ascii?Q?jnfzin73lQSkh01TKIQW3PBnkJJreAvDo04HPSTJNbqapsB/RqOY4qI5LzSz?=
+ =?us-ascii?Q?8BWp0sgr5912HrXbQmXjNO5wYKAPrtIiZ17evxpTs/N4OcGVPxxPMEeRf4aK?=
+ =?us-ascii?Q?0ePQpSF4Vu8i6Fow8DKqw16b6j/EwzcVpZCUyY1dSaguUMsG9UWIcSjLO2Db?=
+ =?us-ascii?Q?uY45usoW62yDqPFl/Tfk0LHuKDDklEnoVHtyN7+BBp+eCcR+tu/oZDn3Jz8O?=
+ =?us-ascii?Q?y1vbJM4T2HY39cKsDYEFPC72kGi9p3C7i9zAZOYcH3D7C92n3bjXWoh19sA0?=
+ =?us-ascii?Q?sbUxLoQopf/ji5sYV0sWXLiMoV3cHkJbo6gNWHqxowuJb/kRL3TR2DkclL5v?=
+ =?us-ascii?Q?FJz4wOdO/QQV/Z9BnYuv8hxejrqh/Dy70p8iCOc78NZPY+hj0ptiNdAkwO3a?=
+ =?us-ascii?Q?tZDm9HN5O5girQcKOjEEPqFvLiiqbTiodESLrAgyrgW8yyKgRRt2UO8oLcXn?=
+ =?us-ascii?Q?ARa8NMK4DD3n6SH6GeTTmEk9xQlGf5tMaNeOOQHWRfI8J0DFAAL89IRBCg0C?=
+ =?us-ascii?Q?kGVh+7SE8Afve0g0oxg+ZcyfWY+64sBTbRgPsPpudc2bHNbBX9iJYPTXe3iy?=
+ =?us-ascii?Q?LJxknYJRAIDQzNY5aTOi6BmKLmUJpmxqBdJQmGROUVQ7Sg+d5rhkRRntDikB?=
+ =?us-ascii?Q?WnOor/yeHduHxY5WY+vnZLswp7STxNGc5yk8j/U/SLHf+kBKXyIWJL7SmgwW?=
+ =?us-ascii?Q?zovGZTPpKBbOfyBOWJDX/XQsVmHFIGbNovJyYKN+G8QeJttY+q4CVcGYkf6P?=
+ =?us-ascii?Q?++WqIyoIkynYPanERLdEo3Zah3LhopEIxVx9dxF8nBmR8w2ohpQxuNevA/pS?=
+ =?us-ascii?Q?LWYRqsIuRJxGbL86yu9tMdA/4BoXLnbQc4EHm6DfOabG7eX7T0471Rij+TEa?=
+ =?us-ascii?Q?ljc6vhnW92XnsDa8D3C+Bev4R+iq0i4FROPzTVTOXBp7q3+RPrAbOcgLOHXw?=
+ =?us-ascii?Q?AiWpfsI+hPiVOOispEX3Yx+A/gl6OJSfz3wWQbRJHpC6i61cmM7aZoTU/7GC?=
+ =?us-ascii?Q?TgufKXY6VXgjIPS12kbD0OVCcgSpY/+MGPzW0+0d23C8/rQbRdkTIYtSPXT6?=
+ =?us-ascii?Q?BFj/0/VjU9Hxe0+yUpDR1AogEeg5l/RGBCyg5leCL64MsTfRIuIRKOZh5Y3/?=
+ =?us-ascii?Q?tnXlI0dhv4O14p56VxVk6YOWrx2Q6CVR/4qk8YiTbWVe6p6DSHAv+gVPlLuD?=
+ =?us-ascii?Q?qTFsJa6EUf9an6VZKkmm0ipfIms3ZWyEPQ9+HQPeEmTi64bHbIub/GQ6R9KH?=
+ =?us-ascii?Q?hgJokvSlBR0dRlmGZpiexuEa50y5cspx?=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(1800799024)(376014)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?S+NIGggjS0p5YokkVDj3PhBdAaJno0UT+dVFnU9CnaeeBOBKU3e0+AS7fbah?=
- =?us-ascii?Q?6md9d5PQcU4PACOQsNKyl9TyMdKJhKZyym1qi7Bh7anvW51KuDQcTFX68OtC?=
- =?us-ascii?Q?EtG5GyoVoJjVDiQPfQe7t1/J4e6Hu+LG7l9IFTwc4wwpIOAVBK54R0tMkz+X?=
- =?us-ascii?Q?fVLxfQ2u+FBYSP6bmM/m+Sg9oiu4mO33J/psJT8NjWbz9YON1rZeB/h/duRu?=
- =?us-ascii?Q?wtSn/wamEMFrkqdrifCM7fAwhS5YNdd3GCsWIRLe8KOla35jRVFuxqSkzJzd?=
- =?us-ascii?Q?QptUg+f2/vKdDhbZEcwaUtDzo/+YYvTY/QPK5pz05orvJw1EHB4DGGM1VssH?=
- =?us-ascii?Q?jqKKt7TfzuDPogXlBltV8kbqXvhfVKlr7VnwuY51T5SFXyQreUTjCMYiTHT/?=
- =?us-ascii?Q?DQ1YDfGZfOM9hpT3Lch/LbNvJMMxiu51q3FWVwG/p0vF7pPN+MJx1u9juTE/?=
- =?us-ascii?Q?gj/sJy34KfwexI/f+5HRCzx+Dnjbt2zkVeMEBtCJ+9o79HXNul4dlJW3rfJc?=
- =?us-ascii?Q?jPjBmh7C2gTaArPz/lNC6ZbtRntFWowjgVcw+RY0xJlP3oOkB+xfh0WOX91H?=
- =?us-ascii?Q?MilzwduTGTnPLm2AfXDrTII4cj4zeChoVMOy0syPfIA0/tjpXvvcmCc+MN6L?=
- =?us-ascii?Q?WhD+KpSSFURF/WzKJ4lBHvUzGDtO/fV637jMleQca0dBIPmw+qGtMjoQvMTx?=
- =?us-ascii?Q?NePTrBHn2DxOFLcD5nGmSf3vKOaehz/oS9wShKiYMO9+AXgJk5BKt644/AEH?=
- =?us-ascii?Q?l+cm5Gcu07AeHA8RLfTX6AkMR//kXLC42CyVU73GfFkthP3Y6kTbnvRmcxfU?=
- =?us-ascii?Q?dCaV2S2094UwXirUYIubLgDah9RKWIAFYMum4Tov44MLnLjOlUgoyQwGHstc?=
- =?us-ascii?Q?8RC9Y2HOjq6sOwkE8n/KqhlW2K/KJjySd1h4y542kuMyyaUMe6kwFlRvyHo1?=
- =?us-ascii?Q?BUkPs8vikv0BkLZVin+Vz3fJIcG7ru6YKCLKO+TnO18UyR3TtCgaMHT1BpXT?=
- =?us-ascii?Q?Kw6T39hVKmB8wXtl71/FPXZjAn1nJ8F5v4ce6lAgvuPMapIyBY5iCR43SMEi?=
- =?us-ascii?Q?LKG9dnm7rVitY5lskylL28aervp8wqO7SDEHTwMbVryg3LDn82pbUlFNamZJ?=
- =?us-ascii?Q?fmaGyRYI5TOHdUdApT+4IhfqNkn2q8f5MN0olPDW505eLTOFZ20UHTO8adhX?=
- =?us-ascii?Q?0LhUvxsG/HC/6mpJfKK3Bs/mmEklI2/hCMPJf9J5zCqGGXwC9+iVd1arvtfv?=
- =?us-ascii?Q?gnBQM1j/ajKUO3Xk5o0v5HvVdtn/S0r7nf+sr1NqpoamxKxgakab99w7qr4n?=
- =?us-ascii?Q?pMR0fuRpYwIjHkJiRHTUZLEOuVH8IkP0Xz3hXbhG/GCAoBjBeAkclv1m8ai9?=
- =?us-ascii?Q?/EH8Jw+kD7AElR/eeAi0m3lzK1PsYz7MZoE/hD8SCmMVPNjPZbeiCKD3nzAw?=
- =?us-ascii?Q?vYa9K+iSLPshz+iTkN+5xKgbEwiRa9Wta90yV6/fQgVjL+T7a45Q6Al658fc?=
- =?us-ascii?Q?XhmRHbmeWRhtJyTgW0MnvkGjhbntAqBAV4M86Ci89i2/usI+PnscB10QoViG?=
- =?us-ascii?Q?7i7z0Dh31bS657edVY0k0qI9BeV4hZE99nrbFj6AS/bvgszRt3SPSDMUEYRQ?=
- =?us-ascii?Q?j4NKp6A9yaukpg7z8+jzXS8=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 141bab90-ad87-476c-a786-08dcc18906a1
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2024 02:29:04.6430
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(7416014)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2024 06:47:07.7501
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- lAM5KxSYNGqZng0fBVKTrHyeKOHEoUvtm3wUbIGHQuvQ6WynB3+WsdKpE84fhgjb63BsMZcC5lB5bDMPCdm4upIQCzQ+roKcIZ+I6bRsOGws03TQp3C3CPKr4n28OwM4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB12156
-Message-ID-Hash: 4I2XMG4F2U2OX3HUOBSFUJGERVYT42VY
-X-Message-ID-Hash: 4I2XMG4F2U2OX3HUOBSFUJGERVYT42VY
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ c2a72b80-ef03-43a3-4933-08dcc1ad135f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	BL6PEPF00020E61.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4082
+Message-ID-Hash: 3TT47WKH6QZQAUG57XBVUXLEICTJAPX4
+X-Message-ID-Hash: 3TT47WKH6QZQAUG57XBVUXLEICTJAPX4
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -176,7 +165,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4I2XMG4F2U2OX3HUOBSFUJGERVYT42VY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TT47WKH6QZQAUG57XBVUXLEICTJAPX4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -185,132 +174,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-No driver is calling snd_soc_dpcm_can_be_xxx() functions. We don't need
-to have EXPORT_SYMBOL_GPL() for them. Let's makes it static function.
-One note is that snd_soc_dpcm_fe_can_update() is not used in upstream.
-Use #if-endif and keep it for future support.
+Remove unused structure member 'rev' from sof_amd_acp_desc structure.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/soc-dpcm.h | 18 ------------------
- sound/soc/soc-pcm.c      | 23 ++++++++++-------------
- 2 files changed, 10 insertions(+), 31 deletions(-)
+ sound/soc/sof/amd/acp.h         | 1 -
+ sound/soc/sof/amd/pci-acp63.c   | 1 -
+ sound/soc/sof/amd/pci-rmb.c     | 1 -
+ sound/soc/sof/amd/pci-rn.c      | 1 -
+ sound/soc/sof/amd/pci-vangogh.c | 1 -
+ 5 files changed, 5 deletions(-)
 
-diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
-index 773f2db8c31c..c6fb350b4b06 100644
---- a/include/sound/soc-dpcm.h
-+++ b/include/sound/soc-dpcm.h
-@@ -113,24 +113,6 @@ struct snd_soc_dpcm_runtime {
- #define for_each_dpcm_be_rollback(fe, stream, _dpcm)			\
- 	list_for_each_entry_continue_reverse(_dpcm, &(fe)->dpcm[stream].be_clients, list_be)
+diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
+index 321c40cc6d50..11def07efc0f 100644
+--- a/sound/soc/sof/amd/acp.h
++++ b/sound/soc/sof/amd/acp.h
+@@ -190,7 +190,6 @@ struct acp_dsp_stream {
+ };
  
--/* can this BE stop and free */
--int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
--		struct snd_soc_pcm_runtime *be, int stream);
--
--/* can this BE perform a hw_params() */
--int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
--		struct snd_soc_pcm_runtime *be, int stream);
--
--/* can this BE perform prepare */
--int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
--				 struct snd_soc_pcm_runtime *be, int stream);
--
--/* is the current PCM operation for this FE ? */
--int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream);
--
--/* is the current PCM operation for this BE ? */
--int snd_soc_dpcm_be_can_update(struct snd_soc_pcm_runtime *fe,
--		struct snd_soc_pcm_runtime *be, int stream);
+ struct sof_amd_acp_desc {
+-	unsigned int rev;
+ 	const char *name;
+ 	unsigned int host_bridge_id;
+ 	u32 pgfsm_base;
+diff --git a/sound/soc/sof/amd/pci-acp63.c b/sound/soc/sof/amd/pci-acp63.c
+index e90658ba2bd7..b54ed61b79ed 100644
+--- a/sound/soc/sof/amd/pci-acp63.c
++++ b/sound/soc/sof/amd/pci-acp63.c
+@@ -28,7 +28,6 @@
+ #define ACP6x_REG_END			0x125C000
  
- /* get the substream for this BE */
- struct snd_pcm_substream *
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 667d8dff1314..c421eb663a3c 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -50,16 +50,17 @@ static inline int _soc_pcm_ret(struct snd_soc_pcm_runtime *rtd,
- }
+ static const struct sof_amd_acp_desc acp63_chip_info = {
+-	.rev		= 6,
+ 	.host_bridge_id = HOST_BRIDGE_ACP63,
+ 	.pgfsm_base	= ACP6X_PGFSM_BASE,
+ 	.ext_intr_enb = ACP6X_EXTERNAL_INTR_ENB,
+diff --git a/sound/soc/sof/amd/pci-rmb.c b/sound/soc/sof/amd/pci-rmb.c
+index a366f904e6f3..c45256bf4fda 100644
+--- a/sound/soc/sof/amd/pci-rmb.c
++++ b/sound/soc/sof/amd/pci-rmb.c
+@@ -28,7 +28,6 @@
+ #define ACP6X_FUTURE_REG_ACLK_0	0x1854
  
- /* is the current PCM operation for this FE ? */
--int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream)
-+#if 0
-+static int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream)
- {
- 	if (fe->dpcm[stream].runtime_update == SND_SOC_DPCM_UPDATE_FE)
- 		return 1;
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(snd_soc_dpcm_fe_can_update);
-+#endif
+ static const struct sof_amd_acp_desc rembrandt_chip_info = {
+-	.rev		= 6,
+ 	.host_bridge_id = HOST_BRIDGE_RMB,
+ 	.pgfsm_base	= ACP6X_PGFSM_BASE,
+ 	.ext_intr_stat	= ACP6X_EXT_INTR_STAT,
+diff --git a/sound/soc/sof/amd/pci-rn.c b/sound/soc/sof/amd/pci-rn.c
+index 2b7c53470ce8..386a0f1e7ee0 100644
+--- a/sound/soc/sof/amd/pci-rn.c
++++ b/sound/soc/sof/amd/pci-rn.c
+@@ -28,7 +28,6 @@
+ #define ACP3X_FUTURE_REG_ACLK_0	0x1860
  
- /* is the current PCM operation for this BE ? */
--int snd_soc_dpcm_be_can_update(struct snd_soc_pcm_runtime *fe,
-+static int snd_soc_dpcm_be_can_update(struct snd_soc_pcm_runtime *fe,
- 			       struct snd_soc_pcm_runtime *be, int stream)
- {
- 	if ((fe->dpcm[stream].runtime_update == SND_SOC_DPCM_UPDATE_FE) ||
-@@ -68,7 +69,6 @@ int snd_soc_dpcm_be_can_update(struct snd_soc_pcm_runtime *fe,
- 		return 1;
- 	return 0;
- }
--EXPORT_SYMBOL_GPL(snd_soc_dpcm_be_can_update);
+ static const struct sof_amd_acp_desc renoir_chip_info = {
+-	.rev		= 3,
+ 	.host_bridge_id = HOST_BRIDGE_CZN,
+ 	.pgfsm_base	= ACP3X_PGFSM_BASE,
+ 	.ext_intr_stat	= ACP3X_EXT_INTR_STAT,
+diff --git a/sound/soc/sof/amd/pci-vangogh.c b/sound/soc/sof/amd/pci-vangogh.c
+index eba580840100..cb845f81795e 100644
+--- a/sound/soc/sof/amd/pci-vangogh.c
++++ b/sound/soc/sof/amd/pci-vangogh.c
+@@ -26,7 +26,6 @@
+ #define ACP5X_FUTURE_REG_ACLK_0 0x1864
  
- static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
- 				    struct snd_soc_pcm_runtime *be,
-@@ -103,8 +103,8 @@ static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
-  * We can only hw_free, stop, pause or suspend a BE DAI if any of it's FE
-  * are not running, paused or suspended for the specified stream direction.
-  */
--int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
--				  struct snd_soc_pcm_runtime *be, int stream)
-+static int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
-+					 struct snd_soc_pcm_runtime *be, int stream)
- {
- 	const enum snd_soc_dpcm_state state[] = {
- 		SND_SOC_DPCM_STATE_START,
-@@ -114,14 +114,13 @@ int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
- 
- 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
- }
--EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_free_stop);
- 
- /*
-  * We can only change hw params a BE DAI if any of it's FE are not prepared,
-  * running, paused or suspended for the specified stream direction.
-  */
--int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
--			       struct snd_soc_pcm_runtime *be, int stream)
-+static int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
-+				      struct snd_soc_pcm_runtime *be, int stream)
- {
- 	const enum snd_soc_dpcm_state state[] = {
- 		SND_SOC_DPCM_STATE_START,
-@@ -132,14 +131,13 @@ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 
- 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
- }
--EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_params);
- 
- /*
-  * We can only prepare a BE DAI if any of it's FE are not prepared,
-  * running or paused for the specified stream direction.
-  */
--int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
--				 struct snd_soc_pcm_runtime *be, int stream)
-+static int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
-+					struct snd_soc_pcm_runtime *be, int stream)
- {
- 	const enum snd_soc_dpcm_state state[] = {
- 		SND_SOC_DPCM_STATE_START,
-@@ -149,7 +147,6 @@ int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
- 
- 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
- }
--EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_prepared);
- 
- #define DPCM_MAX_BE_USERS	8
- 
+ static const struct sof_amd_acp_desc vangogh_chip_info = {
+-	.rev		= 5,
+ 	.name		= "vangogh",
+ 	.host_bridge_id = HOST_BRIDGE_VGH,
+ 	.pgfsm_base	= ACP5X_PGFSM_BASE,
 -- 
-2.43.0
+2.34.1
 

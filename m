@@ -2,84 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37EE695BC81
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2024 18:54:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1839295C102
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2024 00:45:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45573829;
-	Thu, 22 Aug 2024 18:54:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45573829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AA6C826;
+	Fri, 23 Aug 2024 00:45:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AA6C826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724345663;
-	bh=zCL8BOiSor2S8krSkSQzSMg+Yl4KUmp/Mikep+pQtUY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1724366718;
+	bh=nby6NWEBHz0kldiD4Q3r2GYBLGenjWviTDtS0NIzTDE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vSzzgrkBe6U7qwPDc45SuNRaewgb2U+BmVh49MiGwcoXy9VsvAG4/pMZxMVGq5n2f
-	 HU8uK7vcEbudBl1wjvDvFxTCjxVnBcl7coikACdLdE68eNJoJ+yW6b6znV3WdrTQ7r
-	 r0qP6ZJhGSlCiyAqWJaoeDW5LR1gNrZ71pwy/U1o=
+	b=VhLOG1sEP11DxOk5G4kzDeNwQ5m85emC44E9bSit+R6/sNrogSC3TqihC2P8BW2Ql
+	 3IsegHHyJNOQSu67QCbQ9lTMY+LRA44Zdo23xHXs4bNUtWd/1/03o9yNn3s/ZyAwJk
+	 hiXERFuf3DJQ0pVBbosw3by3hyXDaxi0OLePDW9w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79F08F805B6; Thu, 22 Aug 2024 18:53:51 +0200 (CEST)
+	id 858DDF805AC; Fri, 23 Aug 2024 00:44:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C835CF800F0;
-	Thu, 22 Aug 2024 18:53:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A26EDF80588;
+	Fri, 23 Aug 2024 00:44:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E267AF80496; Thu, 22 Aug 2024 18:51:33 +0200 (CEST)
+	id F00F2F80496; Fri, 23 Aug 2024 00:44:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8336AF80107
-	for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2024 18:51:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8336AF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5CDF5F8016E
+	for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2024 00:44:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CDF5F8016E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kLxVX1/v
+ header.s=k20201202 header.b=Nm2EOj7f
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 04D9CCE0FD9;
-	Thu, 22 Aug 2024 16:51:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA897C4AF0B;
-	Thu, 22 Aug 2024 16:51:19 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id BA79BCE1072;
+	Thu, 22 Aug 2024 22:44:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B694C32782;
+	Thu, 22 Aug 2024 22:44:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724345480;
-	bh=zCL8BOiSor2S8krSkSQzSMg+Yl4KUmp/Mikep+pQtUY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kLxVX1/vRZz/4rqoFjsDSvYl8RsXq96QiCjjD9XZUXZo/In85No6he3E+9oP06x6F
-	 se4YOv3BJ/05XmDOJpH3AIZZmw94qpo/Xhh3DB1csE/72LUWu4NAxS1gFyTkDdZ8kW
-	 m42koYM3qlU7yLMOSda6htbXZgasyk7cspvl6hXx8Z98ZuqQrtSHovwYMXp48QgSAI
-	 nmz0CxC6lLcQBq6/Mb7t6ZsmepYqKoDTe0Ldzm6QOWUJ5XJW6HbTyRWHJke6UbPtrz
-	 tuS/7uP7ISDLoZh2nose8/9GVjkRFkKAU0iiwmMN2MoqsgfYopWQ0gh2nToSRZp2Ih
-	 JDfSya0EHs1oQ==
-Date: Thu, 22 Aug 2024 17:51:16 +0100
+	s=k20201202; t=1724366663;
+	bh=nby6NWEBHz0kldiD4Q3r2GYBLGenjWviTDtS0NIzTDE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Nm2EOj7fh9RLIYhKN5wkFMBJYGfu+IzeJw5xNcgeMV/D2XVcPkXjqumeOr1vGTLrV
+	 Fu0OUHvVC3s2+KHFt0O8wUOdhZc9P32nSXH06kJvPVRWHHbI7fKKLZxj8zBz9TNaSj
+	 dGUZM5GnPqVZQdivOQQ3Xroo+of1oiQt9nLyoU85B6KBab5ER415CwSGmUYqFze+of
+	 76D5y7jLvNotdyE57Bo5R+Vwk+4aJEHn30GMUyuQrW+iXlC8wMn7Q4n11bAgFmLc6L
+	 Lc66T3xOYyX6hwgPtm5AgYK9bE26iYhF7GUa7AtYaAWDf/Z4vCFXhTslZjuWpDDy74
+	 b+9yLacrc52uw==
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
-	hdegoede@redhat.com
-Subject: Re: [PATCH] [RFC] ASoC: Conditional PCM support
-Message-ID: <ZsdshATQbagl5x-x@finisterre.sirena.org.uk>
-References: <20240821101816.1494541-1-cezary.rojewski@intel.com>
- <83f81553-6dfa-46a3-9ca2-d42f54295eb1@linux.intel.com>
- <d5db8a15-64c9-45be-8f8c-977fd5ed282b@intel.com>
+To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
+ Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maso Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
+ Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+In-Reply-To: <87ttfeaaif.wl-kuninori.morimoto.gx@renesas.com>
+References: <87ttfeaaif.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v8 0/4] ASoC: grace time for DPCM cleanup
+Message-Id: <172436665530.825985.3481759967594111541.b4-ty@kernel.org>
+Date: Thu, 22 Aug 2024 23:44:15 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1//dFWn0m5G98Ntw"
-Content-Disposition: inline
-In-Reply-To: <d5db8a15-64c9-45be-8f8c-977fd5ed282b@intel.com>
-X-Cookie: Your love life will be... interesting.
-Message-ID-Hash: 7ZAUFMMM2IUUJAK3HHHF4DR25CZA2PLT
-X-Message-ID-Hash: 7ZAUFMMM2IUUJAK3HHHF4DR25CZA2PLT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-37811
+Message-ID-Hash: 3K24X4WOVP7ZKBLHWTARKAJUGHK5MWTP
+X-Message-ID-Hash: 3K24X4WOVP7ZKBLHWTARKAJUGHK5MWTP
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ZAUFMMM2IUUJAK3HHHF4DR25CZA2PLT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3K24X4WOVP7ZKBLHWTARKAJUGHK5MWTP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,47 +123,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 21 Aug 2024 02:13:29 +0000, Kuninori Morimoto wrote:
+> Cc each ASoC driver maintainer
+> 
+> This is v8 of DPCM cleanup
+> 
+> As we discussed in [1], we don't need to use dpcm_playback/capture flag,
+> so we remove it. But we have been using it for 10 years, some driver might
+> get damage. The most likely case is that the device/driver can use both
+> playback/capture, but have only one flag, and not using xxx_only flag.
+> [1/3] patch indicates warning in such case.
+> 
+> [...]
 
---1//dFWn0m5G98Ntw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Aug 22, 2024 at 03:57:22PM +0200, Cezary Rojewski wrote:
-> On 2024-08-21 2:43 PM, Pierre-Louis Bossart wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > The point about dependencies between capture/playback usages is
-> > certainly valid, and we've faced it multiple times for SOF - and even
-> > before in the mobile phone days. I am not convinced however that the
-> > graph management suggested here solves the well-known DPCM routing
-> > problems? See notes in no specific order below.
+Thanks!
 
-> While at it, do we (Mark perhaps?) have some kind of a list with major
-> problems troubling ASoC? I keep seeing "DPCM is problematic" on the
-> mailing-list. If DPCM is indeed in such bad state, perhaps we should address
-> this sooner rather than later.
+[1/4] ASoC: soc-pcm: Indicate warning if dpcm_playback/capture were used for availability limition
+      commit: fd69dfe6789f4ed46d1fdb52e223cff83946d997
+[2/4] ASoC: remove snd_soc_dai_link_set_capabilities()
+      commit: 12806510481497a01d01edd64d7bb53a4d9ec28d
+[3/4] ASoC: amlogic: do not use dpcm_playback/capture flags
+      commit: 46fb727a28d8c7195f915150a669d927d463069b
+[4/4] ASoC: Intel: sof_sdw: use playback/capture_only flags
+      commit: 61e1f74f739546415570ccc1ac14e1b26afe4705
 
-Honestly I think DPCM is the only major problem we've got.  The problem
-is that addressing it is very non-trivial, we've had a rough design for
-what we want to do for about a decade (look for some of Lars-Peter's ELC
-presentations for some summaries) but what we're missing is someone with
-the required combination of time and enthusiasm to actually implement
-it.  A lot of the refactorings that Morimoto-san has been doing which
-move everything to be a component rather than distinct CODEC, CPU or
-platform types has been preparatory to the main refactoring.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---1//dFWn0m5G98Ntw
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbHbIQACgkQJNaLcl1U
-h9APRwf/aFPJucbWjf/SZvqRf3Ve0/qKoi4XbIuSlNg7yRapIByAwfLNdp8q2unc
-zofsQT/GXQ+52+J+a1dS3MYpbJycIBshgCjO6hJxPPNbB+Jv8V31JGKgdIbAvsqn
-AYRDZj7sovpxDhcG1tFx7324pILM4duKfQ7SvLVkh6WXvV69YEGzfaHjjbo1KEC/
-p8lUOSCJ9Q1FNtuL/auA6lML8ISYGXtxpsmklBHep7B0I3Xs/egVE2TOsUH1KrGk
-dQspA5MtfaJ+g2d/D8SypbIT1/2eQJr623DaFAPS6ynwhRo/kuru5h/fy9sB8qNB
-tjHjXnfyw3MQRsqj0azCkVzQipDkDQ==
-=EvG7
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---1//dFWn0m5G98Ntw--
+Thanks,
+Mark
+

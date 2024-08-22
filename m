@@ -2,106 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1839295C102
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2024 00:45:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3899F95C121
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2024 00:50:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AA6C826;
-	Fri, 23 Aug 2024 00:45:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AA6C826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37F3D827;
+	Fri, 23 Aug 2024 00:50:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37F3D827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724366718;
-	bh=nby6NWEBHz0kldiD4Q3r2GYBLGenjWviTDtS0NIzTDE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=VhLOG1sEP11DxOk5G4kzDeNwQ5m85emC44E9bSit+R6/sNrogSC3TqihC2P8BW2Ql
-	 3IsegHHyJNOQSu67QCbQ9lTMY+LRA44Zdo23xHXs4bNUtWd/1/03o9yNn3s/ZyAwJk
-	 hiXERFuf3DJQ0pVBbosw3by3hyXDaxi0OLePDW9w=
+	s=default; t=1724367041;
+	bh=SnP+p7B2K/jsXcPIXgKabjOTm7gWb3UxAWuZDgAsclw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FaRzuDWKIP7NDC0TQ3HgRTfoZ5oV4qK7fc6Il6/rya0zdJ+/53G6tCO2mGlPxggZF
+	 ZYXGv1ORQXBjoHRGFjTSPXopGvyqzku1pyhbxoqWJzOVk3cwFbAkBsRYw1AD1hZFcW
+	 FcDCW7suFNblXJaWr+jpGqnn4faR1E+0c2QOcuDE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 858DDF805AC; Fri, 23 Aug 2024 00:44:45 +0200 (CEST)
+	id 8949CF80580; Fri, 23 Aug 2024 00:50:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A26EDF80588;
-	Fri, 23 Aug 2024 00:44:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 933E8F805AF;
+	Fri, 23 Aug 2024 00:50:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F00F2F80496; Fri, 23 Aug 2024 00:44:37 +0200 (CEST)
+	id 67F43F80496; Fri, 23 Aug 2024 00:50:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PP_MIME_FAKE_ASCII_TEXT,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5CDF5F8016E
-	for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2024 00:44:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CDF5F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2D489F80107
+	for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2024 00:49:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D489F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Nm2EOj7f
+ header.s=k20201202 header.b=WPWnlEAG
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id BA79BCE1072;
-	Thu, 22 Aug 2024 22:44:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B694C32782;
-	Thu, 22 Aug 2024 22:44:15 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 62398A41DBF;
+	Thu, 22 Aug 2024 22:49:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13B8CC32782;
+	Thu, 22 Aug 2024 22:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724366663;
-	bh=nby6NWEBHz0kldiD4Q3r2GYBLGenjWviTDtS0NIzTDE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Nm2EOj7fh9RLIYhKN5wkFMBJYGfu+IzeJw5xNcgeMV/D2XVcPkXjqumeOr1vGTLrV
-	 Fu0OUHvVC3s2+KHFt0O8wUOdhZc9P32nSXH06kJvPVRWHHbI7fKKLZxj8zBz9TNaSj
-	 dGUZM5GnPqVZQdivOQQ3Xroo+of1oiQt9nLyoU85B6KBab5ER415CwSGmUYqFze+of
-	 76D5y7jLvNotdyE57Bo5R+Vwk+4aJEHn30GMUyuQrW+iXlC8wMn7Q4n11bAgFmLc6L
-	 Lc66T3xOYyX6hwgPtm5AgYK9bE26iYhF7GUa7AtYaAWDf/Z4vCFXhTslZjuWpDDy74
-	 b+9yLacrc52uw==
+	s=k20201202; t=1724366993;
+	bh=SnP+p7B2K/jsXcPIXgKabjOTm7gWb3UxAWuZDgAsclw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WPWnlEAGBx2Lv0QCV7BeE0UtHcx5pPtYbOfSm6euv2mITdSiPAA/0NHCZ9Z8eoTvN
+	 oTREiwrDW8+cMLBk52459ZyAYxg+VOtVoaz9XW0FmZW8KzaHzt8rjZbXyjZoWnGppJ
+	 vBwduhlE0X+xvY+cO9lh7djaIB4l4G1i8a6H3pgRrkyKsI3X8aOpliD0t6X2gJgDQq
+	 9rZslunyl3CVkEyTNCCo/4qYmbi02291TBcnhGkD/PmN3lKEs1x2HHb7X+ojebF1rg
+	 /G5GW5pFaagR/fVAlhqkBlXuPChuT8TyrSGDpongMofG3QROuSCeVPqWmCXOHGQAH5
+	 H8/nhspKbv7vg==
+Message-ID: <9bc5cbb9307d2b9bb73ea897f34867f2.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-In-Reply-To: <87ttfeaaif.wl-kuninori.morimoto.gx@renesas.com>
-References: <87ttfeaaif.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v8 0/4] ASoC: grace time for DPCM cleanup
-Message-Id: <172436665530.825985.3481759967594111541.b4-ty@kernel.org>
-Date: Thu, 22 Aug 2024 23:44:15 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: 3K24X4WOVP7ZKBLHWTARKAJUGHK5MWTP
-X-Message-ID-Hash: 3K24X4WOVP7ZKBLHWTARKAJUGHK5MWTP
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.11-rc3
+Date: Thu, 22 Aug 2024 23:47:29 +0100
+Message-ID-Hash: BHWFZMV5SFL6N6H4A6M3SX3RKNCBGIJV
+X-Message-ID-Hash: BHWFZMV5SFL6N6H4A6M3SX3RKNCBGIJV
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,7 +80,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3K24X4WOVP7ZKBLHWTARKAJUGHK5MWTP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BHWFZMV5SFL6N6H4A6M3SX3RKNCBGIJV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,50 +89,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 21 Aug 2024 02:13:29 +0000, Kuninori Morimoto wrote:
-> Cc each ASoC driver maintainer
-> 
-> This is v8 of DPCM cleanup
-> 
-> As we discussed in [1], we don't need to use dpcm_playback/capture flag,
-> so we remove it. But we have been using it for 10 years, some driver might
-> get damage. The most likely case is that the device/driver can use both
-> playback/capture, but have only one flag, and not using xxx_only flag.
-> [1/3] patch indicates warning in such case.
-> 
-> [...]
+The following changes since commit 72776774b55bb59b7b1b09117e915a5030110304:
 
-Applied to
+  ASoC: cs35l56: Patch CS35L56_IRQ1_MASK_18 to the default value (2024-08-08 20:34:56 +0100)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.11-rc3
 
-[1/4] ASoC: soc-pcm: Indicate warning if dpcm_playback/capture were used for availability limition
-      commit: fd69dfe6789f4ed46d1fdb52e223cff83946d997
-[2/4] ASoC: remove snd_soc_dai_link_set_capabilities()
-      commit: 12806510481497a01d01edd64d7bb53a4d9ec28d
-[3/4] ASoC: amlogic: do not use dpcm_playback/capture flags
-      commit: 46fb727a28d8c7195f915150a669d927d463069b
-[4/4] ASoC: Intel: sof_sdw: use playback/capture_only flags
-      commit: 61e1f74f739546415570ccc1ac14e1b26afe4705
+for you to fetch changes up to bb4485562f5907708f1c218b5d70dce04165d1e1:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: cs-amp-lib: Ignore empty UEFI calibration entries (2024-08-22 17:52:26 +0100)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.11
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+A relatively large collection of fixes here, all driver specific and
+none of them particularly major, plus one MAINTAINERS update.  There's
+been a bunch of work on module autoloading from several people.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Albert Jakieła (1):
+      ASoC: SOF: mediatek: Add missing board compatible
 
-Thanks,
-Mark
+Dmitry Baryshkov (2):
+      ASoC: codecs: lpass-macro: fix version strings returned for 1.x codecs
+      ASoC: codecs: lpass-va-macro: warn on unknown version
 
+Hongbo Li (2):
+      ASoC: allow module autoloading for table db1200_pids
+      ASoC: allow module autoloading for table board_ids
+
+Krzysztof Kozlowski (2):
+      ASoC: MAINTAINERS: Drop Banajit Goswami from Qualcomm sound drivers
+      ASoC: codecs: wcd937x: Fix missing de-assert of reset GPIO
+
+Mark Brown (1):
+      ASoC: codecs: warn on unknown codec version
+
+Richard Fitzgerald (2):
+      ASoC: cs-amp-lib-test: Force test calibration blob entries to be valid
+      ASoC: cs-amp-lib: Ignore empty UEFI calibration entries
+
+Vijendar Mukunda (3):
+      ASoC: SOF: amd: move iram-dram fence register programming sequence
+      ASoC: SOF: amd: Fix for incorrect acp error register offsets
+      ASoC: SOF: amd: Fix for acp init sequence
+
+YR Yang (1):
+      ASoC: mediatek: mt8188: Mark AFE_DAC_CON0 register as volatile
+
+Yuntao Liu (1):
+      ASoC: amd: acp: fix module autoloading
+
+ MAINTAINERS                                |  1 -
+ sound/soc/amd/acp/acp-legacy-mach.c        |  2 ++
+ sound/soc/amd/acp/acp-sof-mach.c           |  2 ++
+ sound/soc/au1x/db1200.c                    |  1 +
+ sound/soc/codecs/cs-amp-lib-test.c         |  9 ++++++
+ sound/soc/codecs/cs-amp-lib.c              |  7 +++-
+ sound/soc/codecs/lpass-macro-common.h      |  6 ++++
+ sound/soc/codecs/lpass-va-macro.c          |  4 +++
+ sound/soc/codecs/wcd937x.c                 |  5 ++-
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c |  1 +
+ sound/soc/sof/amd/acp-dsp-offset.h         |  6 ++--
+ sound/soc/sof/amd/acp.c                    | 52 ++++++++++++++++++++----------
+ sound/soc/sof/amd/acp.h                    |  9 ++++--
+ sound/soc/sof/amd/pci-acp63.c              |  2 ++
+ sound/soc/sof/amd/pci-rmb.c                |  2 ++
+ sound/soc/sof/amd/pci-rn.c                 |  2 ++
+ sound/soc/sof/mediatek/mt8195/mt8195.c     |  3 ++
+ 17 files changed, 88 insertions(+), 26 deletions(-)

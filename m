@@ -2,159 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D49295C57B
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2024 08:31:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE0E95C6E4
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2024 09:45:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 671606C1;
-	Fri, 23 Aug 2024 08:31:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 671606C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96B28826;
+	Fri, 23 Aug 2024 09:45:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96B28826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724394673;
-	bh=ERZXqSa7U1grsRj2FpXE33O0oRrIwNOfJFpVNmEyUsc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=g4uBMO9xrgE83J5VFZsk701GYvlkb/xhJnEDo0UcV5kdNDtqV9P1W8hhq3Cjz+0Ct
-	 uoEn7K4w8T05mpNuPp6ugJkk+KF+f5QUW53q4oXJcWOPQ1OYSaHIXe0chKQT81Mjqc
-	 rvwaPIFPRZGB0m76n5oS/WusS/Mo9j8dcDF421Xs=
+	s=default; t=1724399128;
+	bh=waVdNaNcgv1cpAt/y+iIT5qsRqBFEt6gHy5JDQfJvWU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=CREnUD/7f6EoaErvU5C+uEnTuqTF/vMqyFoTTReNr8rgovjinhGINggLK+ZrZiNG+
+	 O+oeTE91cYuV1siLKbRmAc3Gkclkf2wavgJRD3jBPu/zlMcq6QVs0NKId0WmIrzhpX
+	 WiUJ6WnexNS9ou4QLms73e5WaDQSgayxqXzxT1ME=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 641A9F805B2; Fri, 23 Aug 2024 08:30:41 +0200 (CEST)
+	id F12A7F8016E; Fri, 23 Aug 2024 09:44:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0410AF805AC;
-	Fri, 23 Aug 2024 08:30:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27908F805AF;
+	Fri, 23 Aug 2024 09:44:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 657F7F80496; Fri, 23 Aug 2024 08:30:33 +0200 (CEST)
+	id 12A4EF80494; Fri, 23 Aug 2024 09:42:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B95FBF80107
-	for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2024 08:30:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B95FBF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1B2F1F8025E
+	for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2024 09:42:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B2F1F8025E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=hMfg0x/W;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=RxE2nqNa;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=hMfg0x/W;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=RxE2nqNa
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
+ header.s=mimecast20190719 header.b=ZjtWANKi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1724398948;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=i5EJL4/rXMHM8SIGbQ/xMlr0QEf1hlyt7Qs6lkj+jhw=;
+	b=ZjtWANKipNkLBYXgKHM14muNrSbR59DKThFU/lyDRjgB37GHOxvn1PTJDJsgk5c8tNRGbL
+	PTlJ7MQWdcNPnye/2KYLnGDy1nlra05shEbY0fOWsyE824hHZ7GdDmUKO+22iBpx75oIUf
+	4X3/G07/zS/o3/d9Su9Zrjq2hegItME=
+Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-44-Zo5Tv5mKMAuTqU6enX5_xg-1; Fri,
+ 23 Aug 2024 03:42:24 -0400
+X-MC-Unique: Zo5Tv5mKMAuTqU6enX5_xg-1
+Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 45D41202D0;
-	Fri, 23 Aug 2024 06:30:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1724394622;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OEhoqNPqPv1IGbBIjXPOYKC5GlwL9vYVyE7p16jnMrQ=;
-	b=hMfg0x/WiX4G10jr1Nmn4WIyqkw88Tpy67+TtsykRUh2j9Y1UMrd4XEIVRbMiBd4QuG1yV
-	zZyimWQscD18o9o2gA4ck/nwDU3taDd6Yz+Id/Khnq4yJEiYFeOX8lkI74IQ/+Mdls/yL3
-	/SS0d5ElvqZD4f3hlofFW4Gnju5gx9g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1724394622;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OEhoqNPqPv1IGbBIjXPOYKC5GlwL9vYVyE7p16jnMrQ=;
-	b=RxE2nqNaRPzwlfhFiAtVAu+STaDiNfDBTCYtWBuG9nFbEUsSTKBvc+yesN9QFjxtRLoKdE
-	nEqynYP3p1PPanAA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="hMfg0x/W";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=RxE2nqNa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1724394622;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OEhoqNPqPv1IGbBIjXPOYKC5GlwL9vYVyE7p16jnMrQ=;
-	b=hMfg0x/WiX4G10jr1Nmn4WIyqkw88Tpy67+TtsykRUh2j9Y1UMrd4XEIVRbMiBd4QuG1yV
-	zZyimWQscD18o9o2gA4ck/nwDU3taDd6Yz+Id/Khnq4yJEiYFeOX8lkI74IQ/+Mdls/yL3
-	/SS0d5ElvqZD4f3hlofFW4Gnju5gx9g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1724394622;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OEhoqNPqPv1IGbBIjXPOYKC5GlwL9vYVyE7p16jnMrQ=;
-	b=RxE2nqNaRPzwlfhFiAtVAu+STaDiNfDBTCYtWBuG9nFbEUsSTKBvc+yesN9QFjxtRLoKdE
-	nEqynYP3p1PPanAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 224E21333E;
-	Fri, 23 Aug 2024 06:30:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id CY8aB34syGZOZwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 23 Aug 2024 06:30:22 +0000
-Date: Fri, 23 Aug 2024 08:31:05 +0200
-Message-ID: <878qwnn42e.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.11-rc3
-In-Reply-To: <9bc5cbb9307d2b9bb73ea897f34867f2.broonie@kernel.org>
-References: <9bc5cbb9307d2b9bb73ea897f34867f2.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 45D41202D0
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-5.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	DWL_DNSWL_MED(-2.00)[suse.de:dkim];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: 6R3XNHCRPCNI552DWW5MUEZTQ6Z4IN6Z
-X-Message-ID-Hash: 6R3XNHCRPCNI552DWW5MUEZTQ6Z4IN6Z
-X-MailFrom: tiwai@suse.de
+	by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 062F21956048;
+	Fri, 23 Aug 2024 07:42:22 +0000 (UTC)
+Received: from shalem.redhat.com (unknown [10.39.192.144])
+	by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 41E4919560AA;
+	Fri, 23 Aug 2024 07:42:18 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Hans de Goede <hdegoede@redhat.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 6.11 regression fix] ASoC: Intel: Boards: Fix NULL pointer
+ deref in BYT/CHT boards harder
+Date: Fri, 23 Aug 2024 09:42:17 +0200
+Message-ID: <20240823074217.14653-1-hdegoede@redhat.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+Message-ID-Hash: WWDDM2GSY4J7KSZWUWW336UEDVCA6SZ6
+X-Message-ID-Hash: WWDDM2GSY4J7KSZWUWW336UEDVCA6SZ6
+X-MailFrom: hdegoede@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6R3XNHCRPCNI552DWW5MUEZTQ6Z4IN6Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WWDDM2GSY4J7KSZWUWW336UEDVCA6SZ6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,29 +115,176 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 23 Aug 2024 00:47:29 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 72776774b55bb59b7b1b09117e915a5030110304:
-> 
->   ASoC: cs35l56: Patch CS35L56_IRQ1_MASK_18 to the default value (2024-08-08 20:34:56 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.11-rc3
-> 
-> for you to fetch changes up to bb4485562f5907708f1c218b5d70dce04165d1e1:
-> 
->   ASoC: cs-amp-lib: Ignore empty UEFI calibration entries (2024-08-22 17:52:26 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.11
-> 
-> A relatively large collection of fixes here, all driver specific and
-> none of them particularly major, plus one MAINTAINERS update.  There's
-> been a bunch of work on module autoloading from several people.
+Since commit 13f58267cda3 ("ASoC: soc.h: don't create dummy Component
+via COMP_DUMMY()") dummy codecs declared like this:
 
-Thanks, pulled now.
+SND_SOC_DAILINK_DEF(dummy,
+        DAILINK_COMP_ARRAY(COMP_DUMMY()));
 
+expand to:
 
-Takashi
+static struct snd_soc_dai_link_component dummy[] = {
+};
+
+Which means that dummy is a zero sized array and thus dais[i].codecs should
+not be dereferenced *at all* since it points to the address of the next
+variable stored in the data section as the "dummy" variable has an address
+but no size, so even dereferencing dais[0] is already an out of bounds
+array reference.
+
+Which means that the if (dais[i].codecs->name) check added in
+commit 7d99a70b6595 ("ASoC: Intel: Boards: Fix NULL pointer deref
+in BYT/CHT boards") relies on that the part of the next variable which
+the name member maps to just happens to be NULL.
+
+Which apparently so far it usually is, except when it isn't
+and then it results in crashes like this one:
+
+[   28.795659] BUG: unable to handle page fault for address: 0000000000030011
+...
+[   28.795780] Call Trace:
+[   28.795787]  <TASK>
+...
+[   28.795862]  ? strcmp+0x18/0x40
+[   28.795872]  0xffffffffc150c605
+[   28.795887]  platform_probe+0x40/0xa0
+...
+[   28.795979]  ? __pfx_init_module+0x10/0x10 [snd_soc_sst_bytcr_wm5102]
+
+Really fix things this time around by checking dais.num_codecs != 0.
+
+Fixes: 7d99a70b6595 ("ASoC: Intel: Boards: Fix NULL pointer deref in BYT/CHT boards")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/bxt_rt298.c      | 2 +-
+ sound/soc/intel/boards/bytcht_cx2072x.c | 2 +-
+ sound/soc/intel/boards/bytcht_da7213.c  | 2 +-
+ sound/soc/intel/boards/bytcht_es8316.c  | 2 +-
+ sound/soc/intel/boards/bytcr_rt5640.c   | 2 +-
+ sound/soc/intel/boards/bytcr_rt5651.c   | 2 +-
+ sound/soc/intel/boards/bytcr_wm5102.c   | 2 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c | 2 +-
+ sound/soc/intel/boards/cht_bsw_rt5672.c | 2 +-
+ 9 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
+index dce6a2086f2a..6da1517c53c6 100644
+--- a/sound/soc/intel/boards/bxt_rt298.c
++++ b/sound/soc/intel/boards/bxt_rt298.c
+@@ -605,7 +605,7 @@ static int broxton_audio_probe(struct platform_device *pdev)
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(broxton_rt298_dais); i++) {
+-		if (card->dai_link[i].codecs->name &&
++		if (card->dai_link[i].num_codecs &&
+ 		    !strncmp(card->dai_link[i].codecs->name, "i2c-INT343A:00",
+ 			     I2C_NAME_SIZE)) {
+ 			if (!strncmp(card->name, "broxton-rt298",
+diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
+index c014d85a08b2..df3c2a7b64d2 100644
+--- a/sound/soc/intel/boards/bytcht_cx2072x.c
++++ b/sound/soc/intel/boards/bytcht_cx2072x.c
+@@ -241,7 +241,7 @@ static int snd_byt_cht_cx2072x_probe(struct platform_device *pdev)
+ 
+ 	/* fix index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(byt_cht_cx2072x_dais); i++) {
+-		if (byt_cht_cx2072x_dais[i].codecs->name &&
++		if (byt_cht_cx2072x_dais[i].num_codecs &&
+ 		    !strcmp(byt_cht_cx2072x_dais[i].codecs->name,
+ 			    "i2c-14F10720:00")) {
+ 			dai_index = i;
+diff --git a/sound/soc/intel/boards/bytcht_da7213.c b/sound/soc/intel/boards/bytcht_da7213.c
+index f4ac3ddd148b..08c598b7e1ee 100644
+--- a/sound/soc/intel/boards/bytcht_da7213.c
++++ b/sound/soc/intel/boards/bytcht_da7213.c
+@@ -245,7 +245,7 @@ static int bytcht_da7213_probe(struct platform_device *pdev)
+ 
+ 	/* fix index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(dailink); i++) {
+-		if (dailink[i].codecs->name &&
++		if (dailink[i].num_codecs &&
+ 		    !strcmp(dailink[i].codecs->name, "i2c-DLGS7213:00")) {
+ 			dai_index = i;
+ 			break;
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index 2fcec2e02bb5..77b91ea4dc32 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -546,7 +546,7 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
+ 
+ 	/* fix index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(byt_cht_es8316_dais); i++) {
+-		if (byt_cht_es8316_dais[i].codecs->name &&
++		if (byt_cht_es8316_dais[i].num_codecs &&
+ 		    !strcmp(byt_cht_es8316_dais[i].codecs->name,
+ 			    "i2c-ESSX8316:00")) {
+ 			dai_index = i;
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index a64d1989e28a..db4a33680d94 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -1677,7 +1677,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+ 
+ 	/* fix index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(byt_rt5640_dais); i++) {
+-		if (byt_rt5640_dais[i].codecs->name &&
++		if (byt_rt5640_dais[i].num_codecs &&
+ 		    !strcmp(byt_rt5640_dais[i].codecs->name,
+ 			    "i2c-10EC5640:00")) {
+ 			dai_index = i;
+diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
+index 80c841b000a3..8514b79f389b 100644
+--- a/sound/soc/intel/boards/bytcr_rt5651.c
++++ b/sound/soc/intel/boards/bytcr_rt5651.c
+@@ -910,7 +910,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
+ 
+ 	/* fix index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(byt_rt5651_dais); i++) {
+-		if (byt_rt5651_dais[i].codecs->name &&
++		if (byt_rt5651_dais[i].num_codecs &&
+ 		    !strcmp(byt_rt5651_dais[i].codecs->name,
+ 			    "i2c-10EC5651:00")) {
+ 			dai_index = i;
+diff --git a/sound/soc/intel/boards/bytcr_wm5102.c b/sound/soc/intel/boards/bytcr_wm5102.c
+index cccb5e90c0fe..e5a7cc606aa9 100644
+--- a/sound/soc/intel/boards/bytcr_wm5102.c
++++ b/sound/soc/intel/boards/bytcr_wm5102.c
+@@ -605,7 +605,7 @@ static int snd_byt_wm5102_mc_probe(struct platform_device *pdev)
+ 
+ 	/* find index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(byt_wm5102_dais); i++) {
+-		if (byt_wm5102_dais[i].codecs->name &&
++		if (byt_wm5102_dais[i].num_codecs &&
+ 		    !strcmp(byt_wm5102_dais[i].codecs->name,
+ 			    "wm5102-codec")) {
+ 			dai_index = i;
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index eb41b7115d01..1da9ceee4d59 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -569,7 +569,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 
+ 	/* set correct codec name */
+ 	for (i = 0; i < ARRAY_SIZE(cht_dailink); i++)
+-		if (cht_dailink[i].codecs->name &&
++		if (cht_dailink[i].num_codecs &&
+ 		    !strcmp(cht_dailink[i].codecs->name,
+ 			    "i2c-10EC5645:00")) {
+ 			dai_index = i;
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index be2d1a8dbca8..d68e5bc755de 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -466,7 +466,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 
+ 	/* find index of codec dai */
+ 	for (i = 0; i < ARRAY_SIZE(cht_dailink); i++) {
+-		if (cht_dailink[i].codecs->name &&
++		if (cht_dailink[i].num_codecs &&
+ 		    !strcmp(cht_dailink[i].codecs->name, RT5672_I2C_DEFAULT)) {
+ 			dai_index = i;
+ 			break;
+-- 
+2.46.0
+

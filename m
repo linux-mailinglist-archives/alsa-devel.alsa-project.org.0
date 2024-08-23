@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D8A595D70C
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2024 22:08:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91A0295D701
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2024 22:08:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 105E2823;
-	Fri, 23 Aug 2024 22:08:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 105E2823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19C417F8;
+	Fri, 23 Aug 2024 22:08:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19C417F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724443735;
-	bh=u1dWUqIEca7XH/A4ra7W55fG56soe/paLClrACCbIY0=;
+	s=default; t=1724443710;
+	bh=1hjYfBhQ6OZ7B4Q3EKa6vQ8VNZoVr5qJloknITFQF/w=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G1BQ/DFcpMP8uCauvPqmK/P0yev7LhOx4hmrWJIsVShINHcZDHsJ7+JQUJc95SI10
-	 4EYP805tVMvmBZWEpONFngXg4e1/wZBJXTbtCt8rxzoMsf2R17tMfvDWRZLMpMbnG2
-	 hiv2Ql/u9i9DlnjofTQIHaxyodmr36x3ji/RGM14=
+	b=SfV9+ARZAxzmobA+DgjZ+it/JhjgaEtqdceElp+imZ789/vpN42wvhFsATkDKUc7p
+	 ssNjMPz+4VIWDDFk93XYzU3cuRVHBBLkVy9cgJU5ESfaiSxZpRo6EKpMuxGtSLQFnA
+	 sKLLTOP4dHxvvm49SSYnypGfW1oCp4QWDyBECz+0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40DF2F805BD; Fri, 23 Aug 2024 22:05:56 +0200 (CEST)
+	id C09A5F806FC; Fri, 23 Aug 2024 22:05:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 816D0F807CA;
-	Fri, 23 Aug 2024 22:05:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24B3AF806F9;
+	Fri, 23 Aug 2024 22:05:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3DBE6F80517; Fri, 23 Aug 2024 22:02:31 +0200 (CEST)
+	id A85ACF80580; Fri, 23 Aug 2024 22:02:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 91942F805A9
-	for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2024 22:01:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91942F805A9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5C7DFF805A8
+	for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2024 22:01:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C7DFF805A8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=fvb8GXrJ
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=OYgwiEqN
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 47NEFXn8011175;
-	Fri, 23 Aug 2024 20:01:20 GMT
+ 47NEx2Z5018214;
+	Fri, 23 Aug 2024 20:01:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ouBODxkb/nIv7zI5SdwMqKG6
-	w7PPLR6pL5rn8EaKM/g=; b=fvb8GXrJPENxEKUplc7ITobT2mOKqJKGkrIJIRlm
-	aUp6hwTi/WhNJZfBsSjt3Ve0pG86oEYy1c1aY0pCkQ58keBMSIK53d+vhHPONvU8
-	dwqhGoQRR/TntqRTkN2/HlsfxemnIJA8prYw4qS0dfsWsYRxzLd3QFlner25yoUK
-	L8SpzmMIkgPQZ1ZAcQ4G/dkGd9jHW7nPWeNZjMC4CdujDGrr52SGtj3GtXAhxjTp
-	6ejeBLwoapydophjwwSByr4Nib+lIciAu5YGM+1jKh/tC8fDpaAx2Gl5Q9ltntPU
-	bJIyR++1gbpmRkPdDcZg9LoeQ49TdVDaIDdhPCl27lHcOg==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+	:references:subject:to; s=qcppdkim1; bh=BCECqi0Kh7pKNJmpMfebINOu
+	kTeD856OBuL+DamaEr0=; b=OYgwiEqNg2A65OmKhwj8S/q3YT8l5wTI3vEb3KDO
+	yHfNx+6inZfr4n5FClLlBusnlxbtAJYY6JBBesJ39KFvyy6bQjqumuoXZTgqh06p
+	dRlNJW2kamzc0oE1IsHTTPe9yhBky9nEKdfn3qkXrW991KVQ1/pjbkZ9g1ble553
+	4I5t7lqb55gi+OyuOi86aASgJVad5Lop1wHtJnaBovtTrkJfOokKDShiYLgmIqtX
+	VrL4zaf3NRhxxfbuMSoYhOd+qzfkk/olR86bBTaN/meQo2XG8j7qeONqcAvEtOyo
+	hp5n0z+OQUWlT6hS/F6UlI+yspgFQnOSYtIGg0KOzI0S4A==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 416mnma6ph-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 416vntgk9d-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 23 Aug 2024 20:01:19 +0000 (GMT)
+	Fri, 23 Aug 2024 20:01:18 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 47NK1H85021606
+	by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 47NK1IvM001668
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Fri, 23 Aug 2024 20:01:18 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
@@ -85,10 +85,9 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>,
         Wesley Cheng
 	<quic_wcheng@quicinc.com>
-Subject: [PATCH v25 15/33] ASoC: usb: Fetch ASoC card and pcm device
- information
-Date: Fri, 23 Aug 2024 13:00:43 -0700
-Message-ID: <20240823200101.26755-16-quic_wcheng@quicinc.com>
+Subject: [PATCH v25 16/33] ASoC: doc: Add documentation for SOC USB
+Date: Fri, 23 Aug 2024 13:00:44 -0700
+Message-ID: <20240823200101.26755-17-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20240823200101.26755-1-quic_wcheng@quicinc.com>
 References: <20240823200101.26755-1-quic_wcheng@quicinc.com>
@@ -100,19 +99,19 @@ X-ClientProxiedBy: nalasex01a.na.qualcomm.com (10.47.209.196) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: THJe7NmAbX_cbvNhgG_MGAcRBlDuMDk_
-X-Proofpoint-GUID: THJe7NmAbX_cbvNhgG_MGAcRBlDuMDk_
+X-Proofpoint-GUID: n1bLbP1bcPoMyjdJbMhh6VUXk_li4xTm
+X-Proofpoint-ORIG-GUID: n1bLbP1bcPoMyjdJbMhh6VUXk_li4xTm
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.28.16
  definitions=2024-08-23_16,2024-08-23_01,2024-05-17_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 mlxscore=0
- adultscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- mlxlogscore=926 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2407110000 definitions=main-2408230147
-Message-ID-Hash: SUXVRF2BRDASRLQYYO2TKY5ZO67R6KOF
-X-Message-ID-Hash: SUXVRF2BRDASRLQYYO2TKY5ZO67R6KOF
+ suspectscore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 adultscore=0
+ malwarescore=0 spamscore=0 impostorscore=0 mlxscore=0 bulkscore=0
+ clxscore=1015 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2407110000 definitions=main-2408230147
+Message-ID-Hash: FMGAX27YLEZDXMREY6ZVLOSPPT5G6TDH
+X-Message-ID-Hash: FMGAX27YLEZDXMREY6ZVLOSPPT5G6TDH
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -125,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SUXVRF2BRDASRLQYYO2TKY5ZO67R6KOF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FMGAX27YLEZDXMREY6ZVLOSPPT5G6TDH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,100 +133,460 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-USB SND needs to know how the USB offload path is being routed.  This would
-allow for applications to open the corresponding sound card and pcm device
-when it wants to take the audio offload path.  This callback should return
-the mapped indexes based on the USB SND device information.
+With the introduction of the soc-usb driver, add documentation highlighting
+details on how to utilize the new driver and how it interacts with
+different components in USB SND and ASoC.  It provides examples on how to
+implement the drivers that will need to be introduced in order to enable
+USB audio offloading.
 
 Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 ---
- include/sound/soc-usb.h | 12 ++++++++++++
- sound/soc/soc-usb.c     | 31 +++++++++++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
+ Documentation/sound/soc/index.rst |   1 +
+ Documentation/sound/soc/usb.rst   | 429 ++++++++++++++++++++++++++++++
+ 2 files changed, 430 insertions(+)
+ create mode 100644 Documentation/sound/soc/usb.rst
 
-diff --git a/include/sound/soc-usb.h b/include/sound/soc-usb.h
-index 3ad15e9b8e15..34cd2860df86 100644
---- a/include/sound/soc-usb.h
-+++ b/include/sound/soc-usb.h
-@@ -36,6 +36,7 @@ struct snd_soc_usb_device {
-  * @list - list head for SND SOC struct list
-  * @component - reference to ASoC component
-  * @connection_status_cb - callback to notify connection events
-+ * @update_offload_route_info - callback to fetch mapped ASoC device
-  * @priv_data - driver data
-  **/
- struct snd_soc_usb {
-@@ -43,6 +44,9 @@ struct snd_soc_usb {
- 	struct snd_soc_component *component;
- 	int (*connection_status_cb)(struct snd_soc_usb *usb,
- 			struct snd_soc_usb_device *sdev, bool connected);
+diff --git a/Documentation/sound/soc/index.rst b/Documentation/sound/soc/index.rst
+index e57df2dab2fd..8bed8f8f48da 100644
+--- a/Documentation/sound/soc/index.rst
++++ b/Documentation/sound/soc/index.rst
+@@ -18,3 +18,4 @@ The documentation is spilt into the following sections:-
+    jack
+    dpcm
+    codec-to-codec
++   usb
+diff --git a/Documentation/sound/soc/usb.rst b/Documentation/sound/soc/usb.rst
+new file mode 100644
+index 000000000000..bd3d9eb86b07
+--- /dev/null
++++ b/Documentation/sound/soc/usb.rst
+@@ -0,0 +1,429 @@
++================
++ASoC USB support
++================
++
++Overview
++========
++In order to leverage the existing USB sound device support in ALSA, the
++ASoC USB APIs are introduced to allow for the entities to communicate
++with one another.
++
++One potential use case would be to support USB audio offloading, which is
++an implementation that allows for an external DSP on the SoC to handle the
++transfer of audio data over the USB bus.  This would let the main
++processor to stay in lower power modes for longer duration.  The following
++is an example design of how the ASoC and ALSA pieces can be connected
++together to achieve this:
++
++::
++
++               USB                   |            ASoC
++                                     |  _________________________
++                                     | |   ASoC Platform card    |
++                                     | |_________________________|
++                                     |         |           |
++                                     |      ___V____   ____V____
++                                     |     |ASoC BE | |ASoC FE  |
++                                     |     |DAI LNK | |DAI LNK  |
++                                     |     |________| |_________|
++                                     |         ^  ^        ^
++                                     |         |  |________|
++                                     |      ___V____    |
++                                     |     |SOC-USB |   |
++     ________       ________               |        |   |
++    |USB SND |<--->|USBSND  |<------------>|________|   |
++    |(card.c)|     |offld   |<----------                |
++    |________|     |________|___     | |                |
++        ^               ^       |    | |    ____________V_________
++        |               |       |    | |   |IPC                   |
++     __ V_______________V_____  |    | |   |______________________|
++    |USB SND (endpoint.c)     | |    | |              ^
++    |_________________________| |    | |              |
++                ^               |    | |   ___________V___________
++                |               |    | |->|audio DSP              |
++     ___________V_____________  |    |    |_______________________|
++    |XHCI HCD                 |<-    |
++    |_________________________|      |
++
++
++SOC USB driver
++==============
++Structures
++----------
++``struct snd_soc_usb``
++
++  - ``list``: list head for SND SOC struct list
++  - ``component``: reference to ASoC component
++  - ``connection_status_cb``: callback to notify connection events
++  - ``update_offload_route_info``: callback to fetch selected USB sound card/PCM
++    device
++  - ``priv_data``: driver data
++
++The snd_soc_usb structure can be referenced using the ASoC platform card
++device, or a USB device (udev->dev).  This is created by the ASoC BE DAI
++link, and the USB sound entity will be able to pass information to the
++ASoC BE DAI link using this structure.
++
++``struct snd_soc_usb_device``
++
++  - ``card_idx``: sound card index associated with USB sound device
++  - ``chip_idx``: USB sound chip array index
++  - ``cpcm_idx``: capture pcm device indexes associated with the USB sound device
++  - ``ppcm_idx``: playback pcm device indexes associated with the USB sound device
++  - ``num_playback``: number of playback streams
++  - ``num_capture``: number of capture streams
++  - ``list``: list head for the USB sound device list
++
++The struct snd_soc_usb_device is created by the USB sound offload driver.
++This will carry basic parameters/limitations that will be used to
++determine the possible offloading paths for this USB audio device.
++
++Functions
++---------
++.. code-block:: rst
++
++	int snd_soc_usb_find_supported_format(int card_idx,
++			struct snd_pcm_hw_params *params, int direction)
++..
++
++  - ``card_idx``: the index into the USB sound chip array.
++  - ``params``: Requested PCM parameters from the USB DPCM BE DAI link
++  - ``direction``: capture or playback
++
++**snd_soc_usb_find_supported_format()** ensures that the requested audio profile
++being requested by the external DSP is supported by the USB device.
++
++Returns 0 on success, and -EOPNOTSUPP on failure.
++
++.. code-block:: rst
++
++	int snd_soc_usb_connect(struct device *usbdev, struct snd_soc_usb_device *sdev)
++..
++
++  - ``usbdev``: the usb device that was discovered
++  - ``sdev``: capabilities of the device
++
++**snd_soc_usb_connect()** notifies the ASoC USB DCPM BE DAI link of a USB
++audio device detection.  This can be utilized in the BE DAI
++driver to keep track of available USB audio devices.  This is intended
++to be called by the USB offload driver residing in USB SND.
++
++Returns 0 on success, negative error code on failure.
++
++.. code-block:: rst
++
++	int snd_soc_usb_disconnect(struct device *usbdev, struct snd_soc_usb_device *sdev)
++..
++
++  - ``usbdev``: the usb device that was removed
++  - ``sdev``: capabilities to free
++
++**snd_soc_usb_disconnect()** notifies the ASoC USB DCPM BE DAI link of a USB
++audio device removal.  This is intended to be called by the USB offload
++driver that resides in USB SND.
++
++.. code-block:: rst
++
++	void *snd_soc_usb_find_priv_data(struct device *usbdev)
++..
++
++  - ``usbdev``: the usb device to reference to find private data
++
++**snd_soc_usb_find_priv_data()** fetches the private data saved to the SOC USB
++device.
++
++Returns pointer to priv_data on success, NULL on failure.
++
++.. code-block:: rst
++
++	int snd_soc_usb_setup_offload_jack(struct snd_soc_component *component,
++					struct snd_soc_jack *jack)
++..
++
++  - ``component``: ASoC component to add the jack
++  - ``jack``: jack component to populate
++
++**snd_soc_usb_setup_offload_jack()** is a helper to add a sound jack control to
++the platform sound card.  This will allow for consistent naming to be used on
++designs that support USB audio offloading.
++
++Returns 0 on success, negative otherwise.
++
++.. code-block:: rst
++
++	int snd_soc_usb_disable_offload_jack(struct snd_soc_component *component)
++..
++
++  - ``component``: ASoC component to disable the jack
++
++**snd_soc_usb_disable_offload_jack()** is a helper to disable a sound jack control
++on the platform sound card.
++
++Returns 0 on success, negative otherwise.
++
++.. code-block:: rst
++
++	int snd_soc_usb_update_offload_route(struct device *dev, int card, int pcm,
++					     int direction, long *route)
++..
++
++  - ``dev``: USB device to look up offload path mapping
++  - ``card``: USB sound card index
++  - ``pcm``: USB sound PCM device index
++  - ``direction``: direction to fetch offload routing information
++  - ``route``: mapping of sound card and pcm indexes for the offload path
++
++**snd_soc_usb_update_offload_route()** calls a registered callback to the USB BE DAI
++link to fetch the information about the mapped ASoC devices for executing USB audio
++offload for the device. ``route`` may be a pointer to a kcontrol value output array,
++which carries values when the kcontrol is read.
++
++Returns 0 on success, negative otherwise.
++
++.. code-block:: rst
++
++	struct snd_soc_usb *snd_soc_usb_allocate_port(struct snd_soc_component *component,
++			void *data);
++..
++
++  - ``component``: DPCM BE DAI link component
++  - ``data``: private data
++
++**snd_soc_usb_allocate_port()** allocates a SOC USB device and populates standard
++parameters that is used for further operations.
++
++Returns a pointer to struct soc_usb on success, negative on error.
++
++.. code-block:: rst
++
++	void snd_soc_usb_free_port(struct snd_soc_usb *usb);
++..
++
++  - ``usb``: SOC USB device to free
++
++**snd_soc_usb_free_port()** frees a SOC USB device.
++
++.. code-block:: rst
++
++	void snd_soc_usb_add_port(struct snd_soc_usb *usb);
++..
++
++  - ``usb``: SOC USB device to add
++
++**snd_soc_usb_add_port()** add an allocated SOC USB device to the SOC USB framework.
++Once added, this device can be referenced by further operations.
++
++.. code-block:: rst
++
++	void snd_soc_usb_remove_port(struct snd_soc_usb *usb);
++..
++
++  - ``usb``: SOC USB device to remove
++
++**snd_soc_usb_remove_port()** removes a SOC USB device from the SOC USB framework.
++After removing a device, any SOC USB operations would not be able to reference the
++device removed.
++
++How to Register to SOC USB
++--------------------------
++The ASoC DPCM USB BE DAI link is the entity responsible for allocating and
++registering the SOC USB device on the component bind.  Likewise, it will
++also be responsible for freeing the allocated resources.  An example can
++be shown below:
++
++.. code-block:: rst
++
++	static int q6usb_component_probe(struct snd_soc_component *component)
++	{
++		...
++		data->usb = snd_soc_usb_allocate_port(component, 1, &data->priv);
++		if (!data->usb)
++			return -ENOMEM;
++
++		usb->connection_status_cb = q6usb_alsa_connection_cb;
++
++		ret = snd_soc_usb_add_port(usb);
++		if (ret < 0) {
++			dev_err(component->dev, "failed to add usb port\n");
++			goto free_usb;
++		}
++		...
++	}
++
++	static void q6usb_component_remove(struct snd_soc_component *component)
++	{
++		...
++		snd_soc_usb_remove_port(data->usb);
++		snd_soc_usb_free_port(data->usb);
++	}
++
++	static const struct snd_soc_component_driver q6usb_dai_component = {
++		.probe = q6usb_component_probe,
++		.remove = q6usb_component_remove,
++		.name = "q6usb-dai-component",
++		...
++	};
++..
++
++BE DAI links can pass along vendor specific information as part of the
++call to allocate the SOC USB device.  This will allow any BE DAI link
++parameters or settings to be accessed by the USB offload driver that
++resides in USB SND.
++
++USB Audio Device Connection Flow
++--------------------------------
++USB devices can be hotplugged into the USB root hub at any point in time.
++The BE DAI link should be aware of the current state of the physical USB
++port, i.e. if there are any USB devices with audio interface(s) connected.
++connection_status_cb() can be used to notify the BE DAI link of any change.
++
++This is called whenever there is a USB SND interface bind or remove event,
++using snd_soc_usb_connect() or snd_soc_usb_disconnect():
++
++.. code-block:: rst
++
++	static void qc_usb_audio_offload_probe(struct snd_usb_audio *chip)
++	{
++		...
++		snd_soc_usb_connect(usb_get_usb_backend(udev), sdev);
++		...
++	}
++
++	static void qc_usb_audio_offload_disconnect(struct snd_usb_audio *chip)
++	{
++		...
++		snd_soc_usb_disconnect(usb_get_usb_backend(chip->dev), dev->sdev);
++		...
++	}
++..
++
++In order to account for conditions where driver or device existence is
++not guaranteed, USB SND exposes snd_usb_rediscover_devices() to resend the
++connect events for any identified USB audio interfaces.  Consider the
++the following situation:
++
++	**usb_audio_probe()**
++	  | --> USB audio streams allocated and saved to usb_chip[]
++	  | --> Propagate connect event to USB offload driver in USB SND
++	  | --> **snd_soc_usb_connect()** exits as USB BE DAI link is not ready
++
++	BE DAI link component probe
++	  | --> DAI link is probed and SOC USB port is allocated
++	  | --> The USB audio device connect event is missed
++
++To ensure connection events are not missed, **snd_usb_rediscover_devices()**
++is executed when the SOC USB device is registered.  Now, when the BE DAI
++link component probe occurs, the following highlights the sequence:
++
++	BE DAI link component probe
++	  | --> DAI link is probed and SOC USB port is allocated
++	  | --> SOC USB device added, and **snd_usb_rediscover_devices()** runs
++
++	**snd_usb_rediscover_devices()**
++	  | --> Traverses through usb_chip[] and for non-NULL entries issue
++	  |     **connection_status_cb()**
++
++In the case where the USB offload driver is unbound, while USB SND is ready,
++the **snd_usb_rediscover_devices()** is called during module init.  This allows
++for the offloading path to also be enabled with the following flow:
++
++	**usb_audio_probe()**
++	  | --> USB audio streams allocated and saved to usb_chip[]
++	  | --> Propagate connect event to USB offload driver in USB SND
++	  | --> USB offload driver **NOT** ready!
++
++	BE DAI link component probe
++	  | --> DAI link is probed and SOC USB port is allocated
++	  | --> No USB connect event due to missing USB offload driver
++
++	USB offload driver probe
++	  | --> **qc_usb_audio_offload_init()**
++	  | --> Calls **snd_usb_rediscover_devices()** to notify of devices
++
++USB Offload Related Kcontrols
++=============================
++Details
++-------
++A set of kcontrols can be utilized by applications to help select the proper sound
++devices to enable USB audio offloading.  SOC USB exposes the get_offload_dev()
++callback that designs can use to ensure that the proper indices are returned to the
++application.
++
++Implementation
++--------------
++
++**Example:**
++
++  **Sound Cards**:
++
++	::
++
++	  0 [SM8250MTPWCD938]: sm8250 - SM8250-MTP-WCD9380-WSA8810-VA-D
++						SM8250-MTP-WCD9380-WSA8810-VA-DMIC
++	  1 [Seri           ]: USB-Audio - Plantronics Blackwire 3225 Seri
++						Plantronics Plantronics Blackwire
++						3225 Seri at usb-xhci-hcd.1.auto-1.1,
++						full sp
++	  2 [C320M          ]: USB-Audio - Plantronics C320-M
++                      Plantronics Plantronics C320-M at usb-xhci-hcd.1.auto-1.2, full speed
++
++  **USB Sound Card** - card#1:
++
++	::
++
++	  USB Offload Playback Route PCM#0        -1, -1 (range -1->255)
++
++  **USB Sound Card** - card#2:
++
++	::
++
++	  USB Offload Playback Route PCM#0        0, 1 (range -1->255)
++
++The above example shows a scenario where the system has one ASoC platform card
++(card#0) and two USB sound devices connected (card#1 and card#2).  When reading
++the available kcontrols for each USB audio device, the following kcontrol lists
++the mapped offload path for the specific device:
++
++	``USB Offload Playback Route#*``
++
++The kcontrol is indexed, because a USB audio device could potentially have
++several PCM devices.  The above kcontrols are defined as:
++
++  - ``USB Offload Playback Route PCM`` **(R)**: Returns the ASoC platform sound
++    card and PCM device index.  The output **"0, 1"** (card index, PCM device index)
++    signifies that there is an available offload path for the USB SND device
++    through card#0 - PCM device#1.  If **"-1, -1"** is seen, then no offload path is
++    available for the USB SND device.
++
++USB Offload Playback Route Kcontrol
++-----------------------------------
++In order to allow for vendor specific implementations on audio offloading device
++selection, the SOC USB layer exposes the following:
++
++.. code-block:: rst
++
 +	int (*update_offload_route_info)(struct snd_soc_component *component,
-+					 int card, int pcm, int direction,
-+					 long *route);
- 	void *priv_data;
- };
- 
-@@ -57,6 +61,8 @@ void *snd_soc_usb_find_priv_data(struct device *dev);
- int snd_soc_usb_setup_offload_jack(struct snd_soc_component *component,
- 					struct snd_soc_jack *jack);
- int snd_soc_usb_disable_offload_jack(struct snd_soc_component *component);
-+int snd_soc_usb_update_offload_route(struct device *dev, int card, int pcm,
-+				     int direction, long *route);
- 
- struct snd_soc_usb *snd_soc_usb_allocate_port(struct snd_soc_component *component,
- 					      void *data);
-@@ -99,6 +105,12 @@ static inline int snd_soc_usb_disable_offload_jack(struct snd_soc_component *com
- 	return 0;
- }
- 
-+static int snd_soc_usb_update_offload_route(struct device *dev, int card, int pcm,
-+					    int direction, long *route)
-+{
-+	return -ENODEV;
-+}
++				int card, int pcm, long *route);
++..
 +
- static inline struct snd_soc_usb *snd_soc_usb_allocate_port(
- 					      struct snd_soc_component *component,
- 					      void *data)
-diff --git a/sound/soc/soc-usb.c b/sound/soc/soc-usb.c
-index 90266fd7a7ff..81de64884817 100644
---- a/sound/soc/soc-usb.c
-+++ b/sound/soc/soc-usb.c
-@@ -117,6 +117,37 @@ int snd_soc_usb_disable_offload_jack(struct snd_soc_component *component)
- }
- EXPORT_SYMBOL_GPL(snd_soc_usb_disable_offload_jack);
- 
-+/**
-+ * snd_soc_usb_update_offload_route - Find active USB offload path
-+ * @dev - USB device to get offload status
-+ * @card - USB card index
-+ * @pcm - USB PCM device index
-+ * @direction - playback or capture direction
-+ * @route - pointer to route output array
-+ *
-+ * Fetch the current status for the USB SND card and PCM device indexes
-+ * specified.
-+ */
-+int snd_soc_usb_update_offload_route(struct device *dev, int card, int pcm,
-+				     int direction, long *route)
-+{
-+	struct snd_soc_usb *ctx;
-+	int ret;
++These are specific for the **USB Offload Playback Route PCM#** kcontrol.
 +
-+	ctx = snd_soc_find_usb_ctx(dev);
-+	if (!ctx)
-+		return -ENODEV;
++When users issue get calls to the kcontrol, the registered SOC USB callbacks will
++execute the registered function calls to the DPCM BE DAI link.
 +
-+	mutex_lock(&ctx_mutex);
-+	if (ctx && ctx->update_offload_route_info)
-+		ret = ctx->update_offload_route_info(ctx->component, card, pcm,
-+						     direction, route);
-+	mutex_unlock(&ctx_mutex);
++**Callback Registration:**
 +
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_usb_update_offload_route);
++.. code-block:: rst
 +
- /**
-  * snd_soc_usb_find_priv_data() - Retrieve private data stored
-  * @dev: device reference
++	static int q6usb_component_probe(struct snd_soc_component *component)
++	{
++	...
++	usb = snd_soc_usb_allocate_port(component, 1, &data->priv);
++	if (IS_ERR(usb))
++		return -ENOMEM;
++
++	usb->connection_status_cb = q6usb_alsa_connection_cb;
++	usb->update_offload_route_info = q6usb_get_offload_dev;
++
++	ret = snd_soc_usb_add_port(usb);
++..

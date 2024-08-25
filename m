@@ -2,113 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CB0195E2D6
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Aug 2024 11:03:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E59595E4AF
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Aug 2024 20:22:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 928B983B;
-	Sun, 25 Aug 2024 11:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 928B983B
+	by alsa0.perex.cz (Postfix) with ESMTPS id B13EA829;
+	Sun, 25 Aug 2024 20:22:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B13EA829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724576591;
-	bh=1J6BWW2PKL0LZoDDixa5BAHxaPBO3B1K4JK5Epy75ZY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1724610162;
+	bh=F17+/l4/y3fXnmO2FEWxquut7fnPo/TcqdjxqQVqIh4=;
+	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VaXQju5kJPSvmZXShTHUMRm5d4yHA7onzKmPOeJ3Ib6OEl7I0paqrGlHRGxgzBsnQ
-	 830+h/GA0zV4z5auTUrnS59YOedrTDZrR+HaPtRHqwC16xILrq3UCCSX9OX9ymoHY0
-	 4dfb2dyv+4YJ9IHtqR48WVHbHJ/IXu8wasJK6Qf0=
+	b=edRzhNIEfXzZ6Ii9t1U7syZuNOcds0MUTIj97MoX5BfYi0eK5ACkFqhjOYYpK4PGe
+	 BnS7H67vCJbKOglyTe5HZAautBhBZ/62O6O7A7Y8O7Tu5Q/BEwWoEgiqzW80rEPUmG
+	 Z1mAhkvoyllCVt/skszR08AprZiU6bPsRMCjyLIw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC8E0F805AC; Sun, 25 Aug 2024 11:02:39 +0200 (CEST)
+	id 342A3F805B0; Sun, 25 Aug 2024 20:22:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9E8FF805A0;
-	Sun, 25 Aug 2024 11:02:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29F3AF805AE;
+	Sun, 25 Aug 2024 20:22:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3EC13F80423; Sun, 25 Aug 2024 10:59:12 +0200 (CEST)
+	id 136EEF80423; Sun, 25 Aug 2024 20:16:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C1A52F800AC
-	for <alsa-devel@alsa-project.org>; Sun, 25 Aug 2024 10:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1A52F800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0D099F800AC
+	for <alsa-devel@alsa-project.org>; Sun, 25 Aug 2024 20:16:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D099F800AC
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=NOj44ar9
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-428e09ee91eso4097695e9.3
-        for <alsa-devel@alsa-project.org>;
- Sun, 25 Aug 2024 01:57:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1724576269; x=1725181069;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RJtwn4ZxojcRke0143CcWqq6cxB8ohpeltqblKHrcIk=;
-        b=NOj44ar9bv+y2bs2aJtYfgdEk4ogOb/cl+Y40iDGxpx72KBJj/kYOmn6Wuzo8ZMuX9
-         SvEp58RfqXavKfD0L9RTuiJ3qq6Uvbkv7dTrA+C518AiZaSvXvX9k03wN/sUjhnqQfIY
-         kvKGTEqaVIQ1HeL+wkX9sSpPSV0xxiDnQe7OvkkC8pdDc+CjNdCG0uO5hzNcZR6gt/1t
-         fQW1SO++hYWUpVp/vWi4zINVBrx2qn+FxYzcazvuO0A9Sg+WvT3n69epZTh8+EECsOG6
-         m6FhrjZDG9uaDDbpWf/6vNNwgKuyi709wkmR60JTINMtrQtlaR6L6Fwg38AItl4xtpTK
-         NPQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724576269; x=1725181069;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RJtwn4ZxojcRke0143CcWqq6cxB8ohpeltqblKHrcIk=;
-        b=kIxtwqseGc4RWvGsbO5glf+Yifg7e0+8XTRfIfv5iSn2vS08nd/Z6jgGsT3Q3GFtY7
-         uHjG1TVZfn7N+rCJRKWwFgG0S2RQEUZdhJ4gLFxLl3DP6+GfqWj+1E5CgDTOHfK4SUTJ
-         g1BLjXbPqlrtljO+2MaC0bgFCac5EiFEURAI2SHfSHsy6mRa2XT4xWNVcmLQvL1HbkS2
-         3xn2cnXWlT1x8jvcfGlEdrDD5ljmn85XZDx36ogM782Xvn7Juxcfi2ildMJq+jd5dIpP
-         oo7sAckKUxHHHcvavIBxXHq0MTvLStkYwBaog36m1GFuXiZsGHYszpm47SxhwvV1nSxN
-         Y6rg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW68yc3+ftHm2GuCPBwdt18AaKHUzRg/v5iwBZVWlzBYqKQ9aAjkPpvGF/bYvRirAyDlmEC92u57rCr@alsa-project.org
-X-Gm-Message-State: AOJu0Yx4a5bqDjmLz0+SS56k6yKDpuhLDQwHmzUsGQuMEsAoHahza8Bm
-	lQrgJEMpnxbCOw7gK46UWo/rNsYq6HrVGEOBZvKfr+X8SpI2xZsMoldghl/LPmU=
-X-Google-Smtp-Source: 
- AGHT+IH2giCB6AK7UOeGgPjHxZzeVMkrTX0peXsvssYIaa3ZOlWUGHmwGDlXFRjxw2dLm3mN2IDBOQ==
-X-Received: by 2002:a05:600c:3b8b:b0:426:67e0:3aa with SMTP id
- 5b1f17b1804b1-42acc8d50f1mr30009775e9.1.1724576269155;
-        Sun, 25 Aug 2024 01:57:49 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.222.82])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-42b8a351d3asm57432765e9.13.2024.08.25.01.57.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Aug 2024 01:57:48 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH] ASoC: MAINTAINERS: Drop incorrect tlv320aic31xx.txt path
-Date: Sun, 25 Aug 2024 10:57:45 +0200
-Message-ID: <20240825085745.21668-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
+ header.s=mail header.b=TEyFl95r;
+	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.a=rsa-sha256 header.s=mail header.b=TEyFl95r
+Received: from localhost (localhost [127.0.0.1])
+	by smtp.ivitera.com (Postfix) with ESMTP id A2CA817E9A9;
+	Sun, 25 Aug 2024 20:16:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+	t=1724609805; bh=F17+/l4/y3fXnmO2FEWxquut7fnPo/TcqdjxqQVqIh4=;
+	h=Date:From:To:Subject:From;
+	b=TEyFl95r6aRNLfV/qiIzkuhrDrMvkiy1YN+DaXsNLnl9PNNzYGTQ5PHWmH8dLpuRT
+	 g2KLcMgcwy0nR3qFBGw5tAlvNwjexOL9f4oKnfeTIYqCmZLC/Y7Wb9Uc5SmngbX4/6
+	 RXw5TbmeQvEQcACcKBTDtKfFPoKHLLkifRkbr0wo=
+Received: from smtp.ivitera.com ([127.0.0.1])
+	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 8YKazOk5yo6r; Sun, 25 Aug 2024 20:16:45 +0200 (CEST)
+Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
+	(Authenticated sender: pavel)
+	by smtp.ivitera.com (Postfix) with ESMTPSA id 2A4B217E9A8;
+	Sun, 25 Aug 2024 20:16:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+	t=1724609805; bh=F17+/l4/y3fXnmO2FEWxquut7fnPo/TcqdjxqQVqIh4=;
+	h=Date:From:To:Subject:From;
+	b=TEyFl95r6aRNLfV/qiIzkuhrDrMvkiy1YN+DaXsNLnl9PNNzYGTQ5PHWmH8dLpuRT
+	 g2KLcMgcwy0nR3qFBGw5tAlvNwjexOL9f4oKnfeTIYqCmZLC/Y7Wb9Uc5SmngbX4/6
+	 RXw5TbmeQvEQcACcKBTDtKfFPoKHLLkifRkbr0wo=
+Message-ID: <24c2052b-607d-3f2a-8733-0aa67bcde874@ivitera.com>
+Date: Sun, 25 Aug 2024 20:16:41 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: POR4WHQWKOWVQU2UIEXXGUABDNLPNLE6
-X-Message-ID-Hash: POR4WHQWKOWVQU2UIEXXGUABDNLPNLE6
-X-MailFrom: krzysztof.kozlowski@linaro.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Jaroslav Kysela <perex@perex.cz>
+Subject: Specifying supported hw params (channels, format, etc.) by the plug
+ plugin in alsa config?
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: PGTPMJHWW42WVM43EUTPWL26HKZEPZPG
+X-Message-ID-Hash: PGTPMJHWW42WVM43EUTPWL26HKZEPZPG
+X-MailFrom: pavel.hofman@ivitera.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/POR4WHQWKOWVQU2UIEXXGUABDNLPNLE6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGTPMJHWW42WVM43EUTPWL26HKZEPZPG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,30 +104,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tlv320aic31xx.txt was converted to DT schema (YAML) and new file is
-already matched by wildcard.  This fixes get_maintainers.pl self-test
-warning:
+Hi,
 
-  ./MAINTAINERS:22739: warning: no file matches	F:	Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
+Please is it possible to restrict the hw params space for the plug
+plugin by some alsa configuration, so that it reports/accepts only a
+specific number of channels/specific sample format? I was not able to
+figure it out, I apologize if it's trivial :-)
 
-Fixes: e486feb7b8ec ("ASoC: dt-bindings: convert tlv320aic31xx.txt to yaml")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- MAINTAINERS | 1 -
- 1 file changed, 1 deletion(-)
+Thanks a lot.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6574b4910f8a..028186bb4e8d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22736,7 +22736,6 @@ F:	Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
- F:	Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
- F:	Documentation/devicetree/bindings/sound/ti,tlv320*.yaml
- F:	Documentation/devicetree/bindings/sound/ti,tlv320adcx140.yaml
--F:	Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
- F:	include/sound/tas2*.h
- F:	include/sound/tlv320*.h
- F:	include/sound/tpa6130a2-plat.h
--- 
-2.43.0
+With regards,
 
+Pavel.

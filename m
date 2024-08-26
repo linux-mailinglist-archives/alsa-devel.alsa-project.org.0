@@ -2,92 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6696895E86F
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Aug 2024 08:21:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B51395F022
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Aug 2024 13:49:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8D333E7;
-	Mon, 26 Aug 2024 08:21:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8D333E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DAD0836;
+	Mon, 26 Aug 2024 13:49:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DAD0836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724653296;
-	bh=waGqCk9mOj70KmWruIse7BdZwqMFjuomaEGG9ogzjHk=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=s4tpdacwTaADupwUR9W1dXrix32N/EGkwAoYvwSVxBw/4kUWY39ngpyc2FFyaymbf
-	 6f6IZkwkxuNVZOQlFfwrkUkGyFhgRhqcc/00HTIsKwp7NagXQbRJMjA2ZCOBuj10G2
-	 S6e/IF7qbv36KIDcw0UwQBNqNtEe1UZ9mdG8AkTM=
+	s=default; t=1724672964;
+	bh=hLsfUSzR0HEhVpFfdXscTD8zyuZTM22+rpebelyMh1E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KoDSNGef11rhXP8R4AyqxETocLv5TcR3+DgrXrtLc4mpWD6U39R2CkWdJAXrusuSS
+	 LhLzUcGzrYCiFgSXt76kCIvhOhzbvTEBV5Lq3bkdSBNyyTwg9RmG0ZFWVrgP/N9Mq2
+	 8q28u4RiRpVOsapWLxOnMfrpAmdKMP0hPHgqboDk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 298ADF8059F; Mon, 26 Aug 2024 08:21:09 +0200 (CEST)
+	id 2125EF8059F; Mon, 26 Aug 2024 13:48:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 903E5F805AE;
-	Mon, 26 Aug 2024 08:21:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2C1AF805AF;
+	Mon, 26 Aug 2024 13:48:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5388FF80423; Mon, 26 Aug 2024 08:17:30 +0200 (CEST)
+	id AFA0AF805A0; Mon, 26 Aug 2024 13:39:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp.ivitera.com (smtp.ivitera.com [88.101.85.59])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	URIBL_BLOCKED shortcircuit=no autolearn=unavailable version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DF069F80087
-	for <alsa-devel@alsa-project.org>; Mon, 26 Aug 2024 08:17:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF069F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id AA7E4F80494
+	for <alsa-devel@alsa-project.org>; Mon, 26 Aug 2024 12:34:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA7E4F80494
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ivitera.com header.i=@ivitera.com header.a=rsa-sha256
- header.s=mail header.b=hsdbjkoN;
-	dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.a=rsa-sha256 header.s=mail header.b=HnOPnet3
-Received: from localhost (localhost [127.0.0.1])
-	by smtp.ivitera.com (Postfix) with ESMTP id 3748A17EF9B;
-	Mon, 26 Aug 2024 08:17:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1724653038; bh=waGqCk9mOj70KmWruIse7BdZwqMFjuomaEGG9ogzjHk=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=hsdbjkoNUHBT2t61pb+6GBUIOQHHqgInsnBQUSURDEgTr2gqDBwssMfu3vwG8IE3o
-	 p8nE0DTPShlsiiTeBT7qoju5p8KXB/qnRansKm06qSKgYv+bYTJEQMNPJSq+vjYTyq
-	 zUcAUoQ6xC9O2oL+XFXZLOimlGwQH3G8WfgURAhw=
-Received: from smtp.ivitera.com ([127.0.0.1])
-	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 6T6LcdYwb87z; Mon, 26 Aug 2024 08:17:17 +0200 (CEST)
-Received: from [192.168.105.22] (dustin.pilsfree.net [81.201.58.138])
-	(Authenticated sender: pavel)
-	by smtp.ivitera.com (Postfix) with ESMTPSA id 9591A17F574;
-	Mon, 26 Aug 2024 08:17:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
-	t=1724653037; bh=waGqCk9mOj70KmWruIse7BdZwqMFjuomaEGG9ogzjHk=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=HnOPnet3VNvFauJUFIzDv7nRwaLmYKDR/EWFq6JM7Ddxm7eS0h82hiUuJmonCmEMX
-	 /prjLxI4iucz2dIkWLOtnIDEn9ukaZNBa32XioWU+Azxv6oSnffcnMqSa8qBcz19p+
-	 5KD8so7O/HhIvQlz9wrSCJdUwKi5W5pBQz4yV6Z4=
-Message-ID: <42070a30-18e1-373e-aff6-9dbab9a5241f@ivitera.com>
-Date: Mon, 26 Aug 2024 08:17:12 +0200
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=XGTDfyCs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1724668580; x=1756204580;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=hLsfUSzR0HEhVpFfdXscTD8zyuZTM22+rpebelyMh1E=;
+  b=XGTDfyCsWd8XYKtMnM5KOfcOISYpJH+awvElgSONujRMvkhnTIfEBin3
+   fFJuuPyITOYYant6eORSNN465oyU9wENdfKv7UT9BtobAcaC/YrbWZp4o
+   R7t+T0z1Rw/aLkXcsy9cUpxs3/baZXCp2PEi5bnXC1mJqiV2YwbHuYiPS
+   qAVncjJjWx2oPgGC6FlNSy2sng+2Da6H3ylhyaTyOV1qme8VQnYjnDgU/
+   qlmX9NMbQR70NZYEc3YyZk+NRxRBFOIxV8HOEiDNpuHZKzr5N3OySgnbY
+   vxDhPM0o/a6otJyry0V43j/9pIJJnG3Cxx1uKzxkzTyyXrxRnyD1TvQT6
+   w==;
+X-CSE-ConnectionGUID: rUReJ3cGRkuCIaLM5wo7ig==
+X-CSE-MsgGUID: c11mRmD4RvyYR4v9i0Y7tA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11175"; a="25967081"
+X-IronPort-AV: E=Sophos;i="6.10,177,1719903600";
+   d="scan'208";a="25967081"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2024 02:33:02 -0700
+X-CSE-ConnectionGUID: GheEIs6PTFaDrqiKV0o3lA==
+X-CSE-MsgGUID: ftyAxPLYSzyC0hc4jGqEmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,177,1719903600";
+   d="scan'208";a="62134683"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO [10.245.246.121])
+ ([10.245.246.121])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2024 02:32:56 -0700
+Message-ID: <4149884a-7c60-40d8-848b-8876f16d6d7f@linux.intel.com>
+Date: Mon, 26 Aug 2024 11:09:08 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: Specifying supported hw params (channels, format, etc.) by the
- plug plugin in alsa config?
-To: Jaroslav Kysela <perex@perex.cz>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <24c2052b-607d-3f2a-8733-0aa67bcde874@ivitera.com>
- <2b9a0040-960a-4dbb-b8de-13b5c271dac1@perex.cz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v25 31/33] ALSA: usb-audio: Add USB offload route kcontrol
+To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
+ mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
+ dmitry.torokhov@gmail.com, corbet@lwn.net, broonie@kernel.org,
+ lgirdwood@gmail.com, tiwai@suse.com, krzk+dt@kernel.org,
+ Thinh.Nguyen@synopsys.com, bgoswami@quicinc.com, robh@kernel.org,
+ gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-doc@vger.kernel.org, alsa-devel@alsa-project.org
+References: <20240823200101.26755-1-quic_wcheng@quicinc.com>
+ <20240823200101.26755-32-quic_wcheng@quicinc.com>
 Content-Language: en-US
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-In-Reply-To: <2b9a0040-960a-4dbb-b8de-13b5c271dac1@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20240823200101.26755-32-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FOIPUQM7TJKM475C5H7F7HTRSERQZA6V
-X-Message-ID-Hash: FOIPUQM7TJKM475C5H7F7HTRSERQZA6V
-X-MailFrom: pavel.hofman@ivitera.com
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 3BKWVGAXXX5MWUVCJ2JOS76IT7P4A5G7
+X-Message-ID-Hash: 3BKWVGAXXX5MWUVCJ2JOS76IT7P4A5G7
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FOIPUQM7TJKM475C5H7F7HTRSERQZA6V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BKWVGAXXX5MWUVCJ2JOS76IT7P4A5G7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,88 +116,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Jaroslav,
-
-On 25. 08. 24 20:28, Jaroslav Kysela wrote:
-> On 25. 08. 24 20:16, Pavel Hofman wrote:
->> Hi,
->>
->> Please is it possible to restrict the hw params space for the plug
->> plugin by some alsa configuration, so that it reports/accepts only a
->> specific number of channels/specific sample format? I was not able to
->> figure it out, I apologize if it's trivial :-)
-> 
-> Hi,
-> 
->     here's a quick example:
-> 
-> ===
-> pcm.hubcap {
->   type plug
->   slave {
->     pcm "hw:Loopback,1,0"
->     rate 48000
->     format S16_LE
->   }
-> }
-> ===
-> 
-> Documentation:
-> https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html
-> 
 
 
+> +config SND_USB_OFFLOAD_MIXER
+> +	tristate "Qualcomm USB Audio Offload mixer control"
+> +	help
+> +	 Say Y to enable the Qualcomm USB audio offloading mixer controls.
+> +	 This exposes an USB offload capable kcontrol to signal to
+> +	 applications about which platform sound card can support USB
+> +	 audio offload.  This can potentially be used to fetch further
+> +	 information about the offloading status from the platform sound
+> +	 card.
 
-Thanks a lot for your quick response. IIUC this config specifies params
-for the slave, but the plug's input hw params remain unrestricted:
+I would remove reference to Qualcomm for this Kconfig, all the code
+seems generic to me? Probably a left-over from the previous version.
 
-
-aplay -v --dump-hw-params  -D hubcap /dev/zero
-HW Params of device "hubcap":
---------------------
-ACCESS:  MMAP_INTERLEAVED MMAP_NONINTERLEAVED MMAP_COMPLEX
-RW_INTERLEAVED RW_NONINTERLEAVED
-FORMAT:  S8 U8 S16_LE S16_BE U16_LE U16_BE S24_LE S24_BE U24_LE U24_BE
-S32_LE S32_BE U32_LE U32_BE FLOAT_LE FLOAT_BE FLOAT64_LE FLOAT64_BE
-MU_LAW A_LAW IMA_ADPCM S20_LE S20_BE U20_LE U20_BE S24_3LE S24_3BE
-U24_3LE U24_3BE S20_3LE S20_3BE U20_3LE U20_3BE S18_3LE S18_3BE U18_3LE
-U18_3BE
-SUBFORMAT:  STD
-SAMPLE_BITS: [4 64]
-FRAME_BITS: [4 640000]
-CHANNELS: [1 10000]
-RATE: [4000 4294967295)
-PERIOD_TIME: (20 10922667)
-PERIOD_SIZE: (0 4294967295)
-PERIOD_BYTES: (0 4294967295)
-PERIODS: (0 4294967295]
-BUFFER_TIME: [1 4294967295]
-BUFFER_SIZE: [1 4294967294]
-BUFFER_BYTES: [1 4294967295]
-TICK_TIME: ALL
---------------------
-Plug PCM: Rate conversion PCM (48000, sformat=S16_LE)
-...
-
-I am looking for restricting the params offered by the plug plugin to
-upstream.
-
-Sometimes it's useful to fix the input channels or sample format, while
-keeping the plug conversion capabilities. An example is the a52 plugin
-which accepts only non-interleaved access. For clients which support
-only interleaved access (e.g. java alsa interface), the plug will do the
-conversion, but will also obscure the fact that a52 works with 6
-channels and S16_LE, runs preferrably at 48kHz, etc. Yes, it will any of
-the conversions necessary, but sometimes the client would prefer knowing
-the optimal format instead.
-
-I tried wrapping the plug with empty plugin which according to the docs
-should be able to limit the plug input format
-https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html#pcm_plugins_empty
-but those slave params format/channels were refused by snd config.
-
-Thanks a lot for any help.
-
-With regards,
-
-Pavel.

@@ -2,101 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D7C796295C
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Aug 2024 15:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE36296295E
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Aug 2024 15:55:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3296486F;
-	Wed, 28 Aug 2024 15:54:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3296486F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E603A844;
+	Wed, 28 Aug 2024 15:54:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E603A844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724853283;
-	bh=W2qT+nbE+KGIf64JgDj7bPJT7KbQfb1ZNolRePACrmA=;
-	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=AT1AwnIAGgAsrqYqHEr8A3QwYJ+JXDq3EQ0nYWweIeMdkIeOtpE7//E8mwA3uaEFP
-	 n6KzmTRUl7g1y9zp/ss5UDsKr2nP0AOoz/TmV0uL7Vl86lVp4ERkOLKW2vn7UqhVxQ
-	 SwDDWP0PWp0z7f32OTcmFHhGs2YMdNoDi5/Ip9EM=
+	s=default; t=1724853301;
+	bh=H1c4ha+5GYzDLEbE4i1lNMGNdBCv90PmwIHjIeK7TAo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=UUFqPCyUYae+ahhA2iV9JVkvK/oB/ygBbbHCF/INgJKaItCrtciBa5z6fsswHaqGb
+	 JvJowGmTbSCeul0wOoIXiKEjCn4fh0evQoK9i7F9BCUydeQ3bSZGZXR5vCQcuGtZAY
+	 FsRtn1D0afZZgqtC10APp6ktZVK2VAsJSRx+pMxA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA883F805AE; Wed, 28 Aug 2024 15:54:11 +0200 (CEST)
+	id A6AC8F805DF; Wed, 28 Aug 2024 15:54:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AF7BF805A0;
-	Wed, 28 Aug 2024 15:54:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B500CF805DF;
+	Wed, 28 Aug 2024 15:54:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6FC76F80528; Wed, 28 Aug 2024 15:54:04 +0200 (CEST)
+	id 6CB32F80568; Wed, 28 Aug 2024 15:54:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 87650F8025E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23CA2F80087
 	for <alsa-devel@alsa-project.org>; Wed, 28 Aug 2024 15:54:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87650F8025E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23CA2F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=oGhiyTXU
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3719398eafcso3923573f8f.1
+ header.s=google header.b=yMvZcliQ
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-42816ca797fso61244755e9.2
         for <alsa-devel@alsa-project.org>;
  Wed, 28 Aug 2024 06:54:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1724853241; x=1725458041;
+        d=linaro.org; s=google; t=1724853242; x=1725458042;
  darn=alsa-project.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PsWzKaC8r3z3iwI7ze5w6BhtUaD0ABZEzQQaTYtnZn4=;
-        b=oGhiyTXU3yME5VQUKdQLivhUdk1gkoBNwnlMozPeHUe7gfprysUuexRg/4YGVeDXfy
-         irirJy1giEbxy+lWFRdKVZB7oppZyHwXvGSHqVTbvDKhAkHPRcd4mREazbFhrxgHmFFm
-         UgTJtZRXcKFhFYJMK3CReTI+6T++9pPadgsDKL0oTfsTofRHzhwpOZ4d6gqGDuzXGTJh
-         p9zMkq7WLbs3WBu8z60XgNUNCXiMrXk9sPtan8u0752ejZsS30YTO7AeZ8vIfXe+6Gy9
-         KbM3rMejAWL7ysg2B3Ffvyt+UPsnOYVus3HgOwB+cZ69Ky23n0rjhzeALuUjQ6I6Fgha
-         xgpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724853241; x=1725458041;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=PsWzKaC8r3z3iwI7ze5w6BhtUaD0ABZEzQQaTYtnZn4=;
-        b=deE5gAPUyauzhvf9CkQ2sb4/NVLj5PokrD3r6KaoSbeHPKPJLLvK4LLLZ9TFoJrLu5
-         YtRfqtsw+c9QkW44C4PDAngfhTQ0ABCuzq+6LyT1jKaLpfXn6+V3+DStnJxmiFIQHz28
-         NYGimUlhXP2Tg0a/y61wAT+zXoup0XhUVndMUSwidBA7XB1KGGH2WMV1N/1/Dbr+AtUx
-         +4twAKfo6ssKj58DgVOyKCDOv1okUiiuuwZXkkn0oOHKZuRHaAkwDywweAxvYzFoaW/S
-         XKgNBzd0bhYj0iPJ0iz614sSIEapytyRyG2R/MVmgGId+gK6dmNQJhAIOwNw9xa67WyK
-         /qiA==
-X-Gm-Message-State: AOJu0YxpBtCtzCea8rEV2Oz7Ago9IjuDQUrzuh6iBIGDFEMJJnNDR8BZ
-	79KisMbKsvqusAhisChT8abt7jOpzjdeVfhDxEOA5IGOAwXvjhYVYCyFmSTQWrM=
+        bh=DKFmLO3/lL3Nmg2MZkLt12OObockGDaQF70Wv4NVfcg=;
+        b=yMvZcliQz/ZX4EGf6Yjql/rHoeHgy9VQlSk+3BeY4xn2u/Cn8MDgZZH1BP/JcdOen3
+         jnF1EQmmDQ8hTIS86tZaL+NyVG/dUFtUGxJ7Ud2RkKC2mFM8rQhn87EY/iSmS2lzUpSr
+         ViGMQA4Yee118YHQbKS9t+ZSozwzycCObjqU796r6hVPJhWCIiqvdlsjhVfdude74XZE
+         4DO9C4QP8JJt+q3dthN0+zt2nSnLbxWmv2jqTXsy18JGzznyh68M7Ujx6o3pcO5nIa4I
+         hQAJtEG7Hhff5fq08ndZWJFMrZP6f1Q0qGN7VjVW9zI5RA3fHtG9WLuiK2Xt25csc33O
+         uvhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724853242; x=1725458042;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DKFmLO3/lL3Nmg2MZkLt12OObockGDaQF70Wv4NVfcg=;
+        b=qH9oylVvzL4zZ7M18u78xvA8f/DXuv+C5+pv1UydrXkijwt2t4EMd0KlZDQZA1vHVY
+         zlhYJe2YwXLu4PmQqRgO/Ton1mcDwzGxFG5P6Qh4XYWjPosJjRgkPOV52NUdtThZ6Lho
+         4DDLBngk/wVbN/eR1Wxs3ItppjsIjpVkKPmsGvpldVeMWoFgq3O/6FpORko85PFZ27IE
+         f739karrO5/po71uGqAw903LL5wc0rsAxnDnUzseWqGsr7Cp88PatI8nkEEk+/4nzkN1
+         U/tPzlq1blQ8Gs6XT1JO/+oA9xBbSPFP7cbxAbfCsDXgTjWlJ72pc3SVaTg6zmeb8oHJ
+         JRlA==
+X-Gm-Message-State: AOJu0Yw2uOhwl3ms5ARfD0wLb+Wzd5T0thdMCD6BHG2Z4Hfp/IH/QFy1
+	imHNX6wF4XeWxPpz3WtsaoKHHF/xe45SvuRVsJCg+M3IbEoCTFCKP+fHDlvvg+Y=
 X-Google-Smtp-Source: 
- AGHT+IGYNhcSsHhA50Pc1ZE3GvXf2OgkY55sS2VidB4C2ZkfpkxCDxWyLcO8SIagveLtAqlTErYVvQ==
-X-Received: by 2002:a5d:6111:0:b0:371:a844:d331 with SMTP id
- ffacd0b85a97d-373118fc172mr10240865f8f.62.1724853240598;
-        Wed, 28 Aug 2024 06:54:00 -0700 (PDT)
+ AGHT+IHSwoWHMFDjpKFcK9pcwJPtwmfEIa1A/D9/8Z2Dvd6+CqPWbqEAoRbKZE5vSyxTCHeL3rK7vw==
+X-Received: by 2002:a05:600c:19d2:b0:427:9a8f:9717 with SMTP id
+ 5b1f17b1804b1-42ba64c2453mr17313295e9.0.1724853241539;
+        Wed, 28 Aug 2024 06:54:01 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
         by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3730813c44asm15613395f8f.34.2024.08.28.06.53.59
+ ffacd0b85a97d-3730813c44asm15613395f8f.34.2024.08.28.06.54.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Aug 2024 06:54:00 -0700 (PDT)
+        Wed, 28 Aug 2024 06:54:01 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH v2 0/3] ASoC: dt-bindings: amlogic-sound-cards: document
+Date: Wed, 28 Aug 2024 15:53:54 +0200
+Subject: [PATCH v2 1/3] ASoC: dt-bindings: amlogic,axg-sound-card: document
  clocks property
-Date: Wed, 28 Aug 2024 15:53:53 +0200
-Message-Id: 
- <20240828-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v2-0-58159abf0779@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPErz2YC/6WOQQ6CMBREr2K69pu2VhRX3sOwqO2n/ARa0g9EQ
- 7i7lSu4mrzJZGZWwZgJWdwPq8i4EFOKBfTxIFxnY0AgX1hoqY2slIEpjeTADn0KReeRp4x2gBd
- FTzEwtPRGBjt7SsDRg7PZg3aV0c75oihK9Zhxz5XmZ1O4I55S/uwvFvVz/xxcFEio28vV1yjV7
- WwePUWb0ynlIJpt275XTao2+QAAAA==
+Message-Id: 
+ <20240828-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v2-1-58159abf0779@linaro.org>
+References: 
+ <20240828-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v2-0-58159abf0779@linaro.org>
+In-Reply-To: 
+ <20240828-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v2-0-58159abf0779@linaro.org>
 To: Jerome Brunet <jbrunet@baylibre.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -107,24 +109,24 @@ Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5950;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1726;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=W2qT+nbE+KGIf64JgDj7bPJT7KbQfb1ZNolRePACrmA=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBmzyv1/ZMuhoHR5pewIyF5Gq+f8UGw7T/m3E0Pig6d
- v47cuCGJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZs8r9QAKCRB33NvayMhJ0fnGD/
- wLvs8Egp00XPNWKHBIC7q7bcXodhwunPgAOFqpH1cksGb0adPigFWPnTjhBvqwGGGhOJgriDhoRAGb
- 1woPAgTxo96yPq4y/rOUeYrDphxqx1JrATxTausbPL90AyGRCD0kUMfk/RrnLy69k5xWohubgGA7fD
- nT+qmhS1Krsub6kIvmu6KMX6AJctbDhBXDxCBY/hEIkmVWSoTlA9uBYBYQw0PVSP5+QuaIwEGAlA3+
- ka0JH8r1kSa4pLYwgrulUHpSS4xtUX49o+krg25UcEbWwr4fVcebHkCILobKPdcs1W1zbK7Okl0c4u
- XrJzhrUcnK6wWuPaLy/NGi1l9+eFP4wSYm+v2t32Q2OzTZruBpI90pTUCpmoAd9RU/zAKctieznRQg
- U8Ss+nck4wPHvbUN84+uY+6mny4pnIfE30uezrObARDrMwHc9Hdl9XDX+kPXGK9zyOXNSAkgpXQmws
- TL4VoO5Hnr7I7SzygZhESUanUjzbwAAVFu3ujUkgUfUworJRpTejrKHjip2S3BUjE1TWq7kkGflz4F
- gMCH9XdPE/ix4Osjkw1SIs/vONUpn5MsV83r5SoaeYX5SFz71RtFuk+RmhioViGTCg66piwhgE1J7H
- AuQTT9amtEy4KQ4/kHU5kwamsatOXJulV86VZ9vNbOpLdsv63fmrqMCDvzVA==
+ bh=H1c4ha+5GYzDLEbE4i1lNMGNdBCv90PmwIHjIeK7TAo=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBmzyv2DUmjHipIUmDw1VvFv3gYyKSp37htJ4T7g7y2
+ Yy5W4c+JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZs8r9gAKCRB33NvayMhJ0UQcD/
+ wM1sahnvh7BlHNGmJyn8QxdB0ucze7tbl3ftwdIlJoqnyAF9V5NGDbe15HkoR1MXxiIICMBEVrKl/8
+ +q1dz5aZMfphY7lHShsY/MdZ6lNm7kSOSU8kM9L40Nd2XOTkr5PU8mfaONDidmxwC/jFiPHE7ilFpQ
+ C5uYMvoa84cRrhXVk4uMPnkA8w2qybW+LfxiEUvlt5fNv5CkDlRdogs14syofwQdCNe9ezW8UR5pLY
+ ivKIGzTSD3CBNUsmnzRx3w2wFgQ9ZJ8Aca9D2feC1G/3c3CRbWUzvs9WkzKYY+XEYtECJRoWJEx9Ot
+ 8yZT/colrVm615sewPkKOMszEzWfm3Rc+bojYiiIJTIvdAQDv/VUvt+BFXdfkdqdIyvLhVvAhp5+Hu
+ ch01cknvRXXb5EPJ0lu+sKGMnJ7KWrs20e2kJRp6HLRkIhKpvDrJCWL6Kj/FWdJcBh3B7TRqbDuycr
+ BVLF/PYIv6xGoCzxwKihusUc0faG2WzwlJybQkrBoxdkM2lYyR90TlII0fuBYAGEcunlDs2Nfs5JTB
+ 2FFrFaM/spiPI9vvfhI5tr/4jk+Z1qIXo7lQ6PLam6VRz2jnhGMs+fsjnuxYibONBgsQ7T8nprvCkz
+ wYDlC5p2qBePzz82BZ9ZopTxv1KqASLS4YV4Khg06DsRsXdmrk1Co7mrATag==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Message-ID-Hash: R3TJPE6JSEZ3HSS4WRIT7NHJDCZPTHFO
-X-Message-ID-Hash: R3TJPE6JSEZ3HSS4WRIT7NHJDCZPTHFO
+Message-ID-Hash: VUJKO2YRC5UZO7QY65HLFQPMOKDY3D6W
+X-Message-ID-Hash: VUJKO2YRC5UZO7QY65HLFQPMOKDY3D6W
 X-MailFrom: neil.armstrong@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -137,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R3TJPE6JSEZ3HSS4WRIT7NHJDCZPTHFO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VUJKO2YRC5UZO7QY65HLFQPMOKDY3D6W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,96 +148,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Following an off-list discution with Jerome about fixing the following
-DTBs check errors:
-    sound: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
-        from schema $id: http://devicetree.org/schemas/sound/amlogic,axg-sound-card.yaml#
-    sound: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
-        from schema $id: http://devicetree.org/schemas/sound/amlogic,gx-sound-card.yaml#
-    sound: 'anyOf' conditional failed, one must be fixed:
-        'clocks' is a required property
-        '#clock-cells' is a required property
-        from schema $id: http://devicetree.org/schemas/clock/clock.yaml#
+The sound card design is based on reference PLL frequencies that
+are the root of all clock rates calculations.
 
-It has been agreed documenting the clock in the sound card is a better solution
-than moving them to a random clock controller or consumer node which is not
-related to the actual meaning of those root frequencies.
+Today, those frequencies are currently specified in DT via assigned-clocks,
+because they correspond to the basic audio use-case.
 
-The patchset adds the clocks proprty to the bindings and finally adds the
-properties to the DT files.
+It makes no sense to setup clock rates for a sound card without
+referencing the clocks for the sound card, mainly because at
+some point more complex audio use cases will be supported
+and those root rates would need to change.
+
+To solve this situation, let's legitimize the presence of assigned-clocks
+in the sound card by documenting those clocks, as it describes a true
+dependency of the sound card and paths the way of more complex
+audio uses-cases involving those root frequencies.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Changes in v2:
-- drop clock-names in bindings & commit messages
-- fix new boards
-- drop RFS
-- Link to v1: https://lore.kernel.org/r/20240614-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v1-0-9f57d9e01834@linaro.org
-
----
-Neil Armstrong (3):
-      ASoC: dt-bindings: amlogic,axg-sound-card: document clocks property
-      ASoC: dt-bindings: amlogic,gx-sound-card: document clocks property
-      arm64: dts: amlogic: add clock and clock-names to sound cards
-
  .../devicetree/bindings/sound/amlogic,axg-sound-card.yaml          | 7 +++++++
- Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml | 7 +++++++
- arch/arm64/boot/dts/amlogic/meson-axg-s400.dts                     | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12a-fbx8am.dts                  | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12a-radxa-zero.dts              | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12a-sei510.dts                  | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12a-u200.dts                    | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12a-x96-max.dts                 | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-bananapi-cm4-cm4io.dts      | 4 ++++
- .../arm64/boot/dts/amlogic/meson-g12b-bananapi-cm4-mnt-reform2.dts | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-bananapi.dtsi               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-dreambox.dtsi               | 6 ++++++
- arch/arm64/boot/dts/amlogic/meson-g12b-gsking-x.dts                | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-gtking-pro.dts              | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-gtking.dts                  | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-odroid-go-ultra.dts         | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-odroid-n2.dtsi              | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-odroid-n2l.dts              | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-radxa-zero2.dts             | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-g12b-ugoos-am6.dts               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gx-libretech-pc.dtsi             | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gx-p23x-q20x.dtsi                | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-kii-pro.dts                 | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-nanopi-k2.dts               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-nexbox-a95x.dts             | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts                | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-p200.dts                    | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-p201.dts                    | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-vega-s95.dtsi               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-wetek-hub.dts               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxbb-wetek-play2.dts             | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxl-s805x-libretech-ac.dts       | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxl-s805x-p241.dts               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxl-s905x-khadas-vim.dts         | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxl-s905x-libretech-cc-v2.dts    | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxl-s905x-libretech-cc.dts       | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxl-s905x-p212.dts               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxl-s905x-vero4k.dts             | 5 +++++
- arch/arm64/boot/dts/amlogic/meson-gxm-khadas-vim2.dts              | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxm-nexbox-a1.dts                | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-gxm-rbox-pro.dts                 | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-khadas-vim3.dtsi                 | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-libretech-cottonwood.dtsi        | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-a95xf3-air-gbit.dts          | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-a95xf3-air.dts               | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-bananapi-m2-pro.dts          | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-bananapi-m5.dts              | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-h96-max.dts                  | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi                  | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-sei610.dts                   | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-x96-air-gbit.dts             | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-sm1-x96-air.dts                  | 4 ++++
- 52 files changed, 217 insertions(+)
----
-base-commit: cb2361c78068ec47c3a6222d71f664b67665550e
-change-id: 20240614-topic-amlogic-upstream-bindings-fixes-audio-snd-card-2c642ccd2c6e
+ 1 file changed, 7 insertions(+)
 
-Best regards,
+diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml b/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+index 5db718e4d0e7..4f13e8ab50b2 100644
+--- a/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
++++ b/Documentation/devicetree/bindings/sound/amlogic,axg-sound-card.yaml
+@@ -26,6 +26,13 @@ properties:
+       A list off component DAPM widget. Each entry is a pair of strings,
+       the first being the widget type, the second being the widget name
+ 
++  clocks:
++    minItems: 1
++    maxItems: 3
++    description:
++      Base PLL clocks of audio susbsytem, used to configure base clock
++      frequencies for different audio use-cases.
++
+ patternProperties:
+   "^dai-link-[0-9]+$":
+     type: object
+
 -- 
-Neil Armstrong <neil.armstrong@linaro.org>
+2.34.1
 

@@ -2,106 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A6FF962DE0
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Aug 2024 18:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B440962EA0
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Aug 2024 19:37:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE88ADEC;
-	Wed, 28 Aug 2024 18:48:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE88ADEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 296AB868;
+	Wed, 28 Aug 2024 19:36:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 296AB868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724863702;
-	bh=EIyUsxVuPHc/tqcz0RsaQ8+ITlHog5y4TAfKd9yah2s=;
+	s=default; t=1724866623;
+	bh=Ipfd1MvAJqgFMf2pYYTe8CSQDsZ7Q06QhFMYtJy3JP4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sF+9iKdUNd+mWZMudfkh7Q5VjxaIcnjPbpld82lmfeSmhOk+fAdErBo7e6VbbdB2W
-	 qUN3BLlA1vsDaqaSa8fW803KF9M0be/BU0Kw6CWP4qdE+yWhFODEkAlBL2F5Ovd0Sv
-	 0W8Y8kYLplc5WU9pTxU2B0MDnvFkJZG3DIc5dpWM=
+	b=cTj+3A1T/UXspgXB3IQo+p1tEuBApnM5HsVGrWpvh8CYDoEKQ2rwsh/t6r5qzNK9a
+	 TyihCum758NG2+cicSr6OsZiLPZibDqRrJgmE8qjrwlABaRJxlcaJOdiFCDOhulJsH
+	 Nn/M4k/38/5A55KCFRVqYNdl3Xhcx97qWNOwfPGw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5433CF805EC; Wed, 28 Aug 2024 18:47:38 +0200 (CEST)
+	id 35BC8F805A0; Wed, 28 Aug 2024 19:36:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CD3AF805E0;
-	Wed, 28 Aug 2024 18:47:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3721EF805A8;
+	Wed, 28 Aug 2024 19:36:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDC01F80528; Wed, 28 Aug 2024 18:47:28 +0200 (CEST)
+	id 66BACF80528; Wed, 28 Aug 2024 19:36:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F6C0F80107
-	for <alsa-devel@alsa-project.org>; Wed, 28 Aug 2024 18:47:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F6C0F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3D1B3F80087
+	for <alsa-devel@alsa-project.org>; Wed, 28 Aug 2024 19:36:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D1B3F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DvgpUUY+
+ header.s=k20201202 header.b=aQjYMt2R
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 745B4A426FA;
-	Wed, 28 Aug 2024 16:47:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9C7C4FEAD;
-	Wed, 28 Aug 2024 16:30:04 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 40B71A426BC;
+	Wed, 28 Aug 2024 17:36:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0F9C4CEC0;
+	Wed, 28 Aug 2024 17:36:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724862614;
-	bh=EIyUsxVuPHc/tqcz0RsaQ8+ITlHog5y4TAfKd9yah2s=;
+	s=k20201202; t=1724866582;
+	bh=Ipfd1MvAJqgFMf2pYYTe8CSQDsZ7Q06QhFMYtJy3JP4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=DvgpUUY+kYyFG1F8v+X3525YnuA0c4vSYiwiq7vpmtkvnZ4ysuCzYA2rp7hB5qhKw
-	 jhQwAuncRZerJ8XdHI3LnWcUEWL6T3ritlIS9lP43+gZtJRAajLBfuTrpt1l0NjdGT
-	 vKFv4L2AFial1S9wKaZwU7pWe8B/WcpMpd9lndcpadRMySaU97DFIiBJ1NfY6ottQE
-	 F0uJ51F7F9/F/X28GIOaxBxtsYAdEx8gTMhyGhYobww1gWCCL9rMxsxsqRMjDHDcfJ
-	 sIxyr6EOkX+sXhcuozZN8z/QgpMCvFbxQDf3EjPOfRwzRX3IRHcZnFS/xSbxgzwlfS
-	 6Nx7vMXjealRg==
+	b=aQjYMt2RV+301uRWwFPXqgxK33MrRo723noY5EFMtxUDhDrEmjgf5SbfNZ5wJQXgT
+	 WAL06En1fe9QXyj3V6pLdMorrH+NLRg/dVfw3yiGhvsNp9nJVFKb9soxpgdXKsUp1J
+	 Ho9W3OHnT6Ag24I9qUyCeTn0unHvnhaUqlsFt4+uDmF28AY5sdleCNGrUxT9t9wJTb
+	 RgSyax/4y3cGmBRbBXLEvb8TobCOFFrfjRLDFDp/YUT2yOqhkyXImiuIjZhC9K6W8r
+	 0qCOUUloVrS9MELOuG82iscTj8aF0yzjOnTsIi6CN1/WLdEKrRxVVjwKbK/2Rxq3rF
+	 Os5vHW/A04WoA==
 From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Jiawei Wang <me@jwang.link>, Jonathan Corbet <corbet@lwn.net>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org, imx@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-sound@vger.kernel.org
-In-Reply-To: <87cymvlmki.wl-kuninori.morimoto.gx@renesas.com>
-References: <87cymvlmki.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v7 0/4] ASoC: grace time for DPCM cleanup
-Message-Id: <172486260397.92851.15087271444395174116.b4-ty@kernel.org>
-Date: Wed, 28 Aug 2024 17:30:03 +0100
+To: linux-sound@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de
+In-Reply-To: <20240527193552.165567-1-pierre-louis.bossart@linux.intel.com>
+References: <20240527193552.165567-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 00/18] ASoC: Intel: boards: updates for 6.11
+Message-Id: <172486658149.355291.13919555062040611045.b4-ty@kernel.org>
+Date: Wed, 28 Aug 2024 18:36:21 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: XTRVNY6Q7QXXQL2G77GLJFWSK3L7CHSJ
-X-Message-ID-Hash: XTRVNY6Q7QXXQL2G77GLJFWSK3L7CHSJ
+Message-ID-Hash: 3I7YF26C6VW4HO4G634G33MRHZWAZZMR
+X-Message-ID-Hash: 3I7YF26C6VW4HO4G634G33MRHZWAZZMR
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XTRVNY6Q7QXXQL2G77GLJFWSK3L7CHSJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3I7YF26C6VW4HO4G634G33MRHZWAZZMR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,16 +96,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 30 Jul 2024 01:01:49 +0000, Kuninori Morimoto wrote:
-> Cc each ASoC driver maintainer
+On Mon, 27 May 2024 14:35:34 -0500, Pierre-Louis Bossart wrote:
+> More simplifications from Brent Lu for Chromebooks, Bard Liao for
+> SoundWire, and support for new Dell SKUs w/ Cirrus Logic codecs added
+> by Charles Keepax.
 > 
-> This is v7 of DPCM cleanup
-> 
-> As we discussed in [1], we don't need to use dpcm_playback/capture flag,
-> so we remove it. But we have been using it for 10 years, some driver might
-> get damage. The most likely case is that the device/driver can use both
-> playback/capture, but have only one flag, and not using xxx_only flag.
-> [1/3] patch indicates warning in such case.
+> Bard Liao (7):
+>   ASoC: Intel: sof_sdw_cs42l42: use dai parameter
+>   ASoC: Intel: sof_sdw_rt711: use dai parameter
+>   ASoC: Intel: sof_sdw_rt5682: use dai parameter
+>   ASoC: Intel: sof_sdw_rt700: use dai parameter
+>   ASoC: Intel: sof_sdw_rt_dmic: use from dai parameter
+>   ASoC: Intel: sof_sdw_rt_sdca_jack_common: use dai parameter
+>   ASoC: Intel: sof_sdw: remove get_codec_dai_by_name
 > 
 > [...]
 
@@ -142,14 +118,42 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: soc-pcm: Indicate warning if dpcm_playback/capture were used for availability limition
-      commit: fd69dfe6789f4ed46d1fdb52e223cff83946d997
-[2/4] ASoC: remove snd_soc_dai_link_set_capabilities()
-      commit: 12806510481497a01d01edd64d7bb53a4d9ec28d
-[3/4] ASoC: amlogic: do not use dpcm_playback/capture flags
-      commit: 46fb727a28d8c7195f915150a669d927d463069b
-[4/4] ASoC: Intel: sof_sdw: use playback/capture_only flags
-      commit: 61e1f74f739546415570ccc1ac14e1b26afe4705
+[01/18] ASoC: Intel: sof_sdw_cs42l42: use dai parameter
+        (no commit info)
+[02/18] ASoC: Intel: sof_sdw_rt711: use dai parameter
+        (no commit info)
+[03/18] ASoC: Intel: sof_sdw_rt5682: use dai parameter
+        (no commit info)
+[04/18] ASoC: Intel: sof_sdw_rt700: use dai parameter
+        (no commit info)
+[05/18] ASoC: Intel: sof_sdw_rt_dmic: use from dai parameter
+        (no commit info)
+[06/18] ASoC: Intel: sof_sdw_rt_sdca_jack_common: use dai parameter
+        (no commit info)
+[07/18] ASoC: Intel: sof_sdw: remove get_codec_dai_by_name
+        (no commit info)
+[08/18] ASoC: Intel: sof_sdw: Add missing controls for cs42l43/cs35l56
+        (no commit info)
+[09/18] ASoC: Intel: soc-acpi: Add match entries for some cs42l43 laptops
+        (no commit info)
+[10/18] ASoC: Intel: sof_sdw: Add quirks for some new Dell laptops
+        (no commit info)
+[11/18] ASoC: Intel: sof_sdw: Add quirks from some new Dell laptops
+        commit: 9307694f340e518cac0e007f39dd9ff0736e6144
+[12/18] ASoC: SOF: sof-audio: rename dai clock setting query function
+        (no commit info)
+[13/18] ASoC: SOF: sof-audio: add sof_dai_get_tdm_slots function
+        (no commit info)
+[14/18] ASoC: SOF: ipc3-topology: support tdm slot number query
+        (no commit info)
+[15/18] ASoC: SOF: ipc4-topology: support tdm slot number query
+        (no commit info)
+[16/18] ASoC: Intel: maxim-common: rewrite max_98373_hw_params function
+        (no commit info)
+[17/18] ASoC: Intel: sof_da7219: remove local max98373 ops
+        (no commit info)
+[18/18] ASoC: Intel: sof_da7219: disable max98373 speaker pins in late_probe
+        (no commit info)
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

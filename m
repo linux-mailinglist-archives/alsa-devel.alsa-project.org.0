@@ -2,64 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 439B9962DDF
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Aug 2024 18:48:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6FF962DE0
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Aug 2024 18:48:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37C1DDF6;
-	Wed, 28 Aug 2024 18:47:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37C1DDF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE88ADEC;
+	Wed, 28 Aug 2024 18:48:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE88ADEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724863686;
-	bh=j4jLeDpIzPZKbskW68/+PpTVh0tjaeer4IOaG6DDChY=;
+	s=default; t=1724863702;
+	bh=EIyUsxVuPHc/tqcz0RsaQ8+ITlHog5y4TAfKd9yah2s=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=a9ohlCN67sjjeHzI7U1TGLsU7DWGHHlpkmgaRitWGpdTM4TxAvVQ/ohp23Vka3lvH
-	 rge7uGOphBAnLt+qdMCXGLsfOjNlGK59eYstOS4++bslpGKkRYSE3MP74iZCBzo0jm
-	 Aci8RNZMYkqAjz7xSqX9Wj0HtF/qBNlZOWeBid/w=
+	b=sF+9iKdUNd+mWZMudfkh7Q5VjxaIcnjPbpld82lmfeSmhOk+fAdErBo7e6VbbdB2W
+	 qUN3BLlA1vsDaqaSa8fW803KF9M0be/BU0Kw6CWP4qdE+yWhFODEkAlBL2F5Ovd0Sv
+	 0W8Y8kYLplc5WU9pTxU2B0MDnvFkJZG3DIc5dpWM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 128A0F805B1; Wed, 28 Aug 2024 18:47:34 +0200 (CEST)
+	id 5433CF805EC; Wed, 28 Aug 2024 18:47:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBDAEF805B2;
-	Wed, 28 Aug 2024 18:47:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CD3AF805E0;
+	Wed, 28 Aug 2024 18:47:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 33EEAF80568; Wed, 28 Aug 2024 18:47:28 +0200 (CEST)
+	id DDC01F80528; Wed, 28 Aug 2024 18:47:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7B3AF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F6C0F80107
 	for <alsa-devel@alsa-project.org>; Wed, 28 Aug 2024 18:47:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7B3AF80087
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F6C0F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=oZkPS99P
+ header.s=k20201202 header.b=DvgpUUY+
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 82D13A42547;
-	Wed, 28 Aug 2024 16:47:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50236C4FEA7;
-	Wed, 28 Aug 2024 16:29:56 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 745B4A426FA;
+	Wed, 28 Aug 2024 16:47:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9C7C4FEAD;
+	Wed, 28 Aug 2024 16:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1724862603;
-	bh=j4jLeDpIzPZKbskW68/+PpTVh0tjaeer4IOaG6DDChY=;
+	s=k20201202; t=1724862614;
+	bh=EIyUsxVuPHc/tqcz0RsaQ8+ITlHog5y4TAfKd9yah2s=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=oZkPS99PMjSQDlmejYO5DOcf0J3MZYC6EnN2Zr6EL6r2frkfw+sOqhNkQxVgAz9pg
-	 qn0oMddBruo3l7QFyqNFw3zET4JnpwOuAoVc3lf0QRdSisREGea6eSAbEPr78wfqku
-	 tUF1pHngBz7YASQgcya4e+3DZGy5g8czchAMrwZX90O3khwNU4jTA7M/e9Mx4uS9Xh
-	 pMAksliy4Q3mCZVMEZJxuq3Yf4Vo+atWiwCMzVfZG57a4GIci6M8lddceEAkH7IUiO
-	 iv3MFi7T9DwTwyVMYhr7dotfhQjE6lPKxdnwvgwxfJEkF3NPoqIuldShLB9GEqa6/x
-	 aIQxdccnE40Ww==
+	b=DvgpUUY+kYyFG1F8v+X3525YnuA0c4vSYiwiq7vpmtkvnZ4ysuCzYA2rp7hB5qhKw
+	 jhQwAuncRZerJ8XdHI3LnWcUEWL6T3ritlIS9lP43+gZtJRAajLBfuTrpt1l0NjdGT
+	 vKFv4L2AFial1S9wKaZwU7pWe8B/WcpMpd9lndcpadRMySaU97DFIiBJ1NfY6ottQE
+	 F0uJ51F7F9/F/X28GIOaxBxtsYAdEx8gTMhyGhYobww1gWCCL9rMxsxsqRMjDHDcfJ
+	 sIxyr6EOkX+sXhcuozZN8z/QgpMCvFbxQDf3EjPOfRwzRX3IRHcZnFS/xSbxgzwlfS
+	 6Nx7vMXjealRg==
 From: Mark Brown <broonie@kernel.org>
 To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>,
@@ -92,17 +91,17 @@ To: =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Cc: alsa-devel@alsa-project.org, imx@lists.linux.dev,
  linux-doc@vger.kernel.org, linux-sound@vger.kernel.org
-In-Reply-To: <87r0ctwzr4.wl-kuninori.morimoto.gx@renesas.com>
-References: <87r0ctwzr4.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v6 0/4] ASoC: grace time for DPCM cleanup
-Message-Id: <172486259605.92851.6497771216257265041.b4-ty@kernel.org>
-Date: Wed, 28 Aug 2024 17:29:56 +0100
+In-Reply-To: <87cymvlmki.wl-kuninori.morimoto.gx@renesas.com>
+References: <87cymvlmki.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v7 0/4] ASoC: grace time for DPCM cleanup
+Message-Id: <172486260397.92851.15087271444395174116.b4-ty@kernel.org>
+Date: Wed, 28 Aug 2024 17:30:03 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: BTV4OLXXQR5UWHHR77I6NMVY7YJCUGDA
-X-Message-ID-Hash: BTV4OLXXQR5UWHHR77I6NMVY7YJCUGDA
+Message-ID-Hash: XTRVNY6Q7QXXQL2G77GLJFWSK3L7CHSJ
+X-Message-ID-Hash: XTRVNY6Q7QXXQL2G77GLJFWSK3L7CHSJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -115,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTV4OLXXQR5UWHHR77I6NMVY7YJCUGDA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XTRVNY6Q7QXXQL2G77GLJFWSK3L7CHSJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,10 +123,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 19 Jun 2024 00:19:11 +0000, Kuninori Morimoto wrote:
+On Tue, 30 Jul 2024 01:01:49 +0000, Kuninori Morimoto wrote:
 > Cc each ASoC driver maintainer
 > 
-> This is resend of v6 of DPCM cleanup
+> This is v7 of DPCM cleanup
 > 
 > As we discussed in [1], we don't need to use dpcm_playback/capture flag,
 > so we remove it. But we have been using it for 10 years, some driver might

@@ -2,113 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BC37963F71
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2024 11:04:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFFF09643FA
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2024 14:10:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38FE8105F;
-	Thu, 29 Aug 2024 11:04:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38FE8105F
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDD8AFAA;
+	Thu, 29 Aug 2024 14:10:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDD8AFAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1724922290;
-	bh=Q9bYj/5f0M7H1HvllWqBlYFk/0euewRtVGILkmAMdCE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1724933428;
+	bh=KgMvNg9vlrPlxz4c1NDG/hOTZD1lYa/I+MSvbr8Ecyk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aQzATQLUaDBTxSyG/qVKGr7iqwxjxraxJhSOR9d5U7yjEMIMxNYpxR4TRNBRDX5Sd
-	 koP9l5UW1u2W6teljYZL6SkzmwdoDp5Vy9Lf4SjQ+nSGbE1MWTGuo6kuCg0EGKaCZs
-	 TsiS0mogdvda3uWH3cmikuWtgg0WgnnLjRAJrjhU=
+	b=EjokG3g7hMcsnh6ZTDnsX8jFsORN+ExAQthHjgxSEfavz9+Pxfo7Q1C4ANZNfrg27
+	 AYdA4ugUPVYbOi9MNtAtPIPo0O21OhX8pQurdS1G8dxuVQjSuCnmOgBkyCNfzK9j3f
+	 aM3xlb+O5x+puKQ5ZLBuISxZIDJSbg7j61iymOc4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6486EF805BF; Thu, 29 Aug 2024 11:04:18 +0200 (CEST)
+	id 3E27AF805BB; Thu, 29 Aug 2024 14:09:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A0B3F80518;
-	Thu, 29 Aug 2024 11:04:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A01EF805AB;
+	Thu, 29 Aug 2024 14:09:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D338EF80518; Thu, 29 Aug 2024 11:04:12 +0200 (CEST)
+	id 2A393F80518; Thu, 29 Aug 2024 14:09:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F2E0BF8025E
-	for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2024 11:04:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2E0BF8025E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 24EF9F800AC
+	for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2024 14:09:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24EF9F800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=IJL4zcga
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2f4f8742138so4800431fa.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 29 Aug 2024 02:04:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1724922249; x=1725527049;
- darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=LQhYCSAf0lZ9zTdJ5ehTCVXsoJJBlJOqEhmha6ZTv8Y=;
-        b=IJL4zcgaAV18oeNR/zUJRUGHVpc60HFVr0yW+lCeJhJdTZgvkMQELuXiJaQG1ZoOuU
-         HCB8Hj1aVWO+5xVsD9F5iuaC//xk8VMetJuBtMzu+9i/sv14UZOaJQfIHcBfPyCM2P+v
-         lKc4Qc7ZxASCtEQtkzfu19wgdk51bIGpH9KQLRe/oUZt1Zyo48sPCo9kDRv0JMGq51El
-         HVe6BzgipUiSvaZLw8vqY2LQrpFn1Tz8aV/T3DN1XY61gSJGvhk9h3oSigo8oir+ZE0z
-         QyZ0YC9majz+i55ShOZAy3I8fjFlOO5LjiFH27IKIRQUR7/0Z0zJt9MVjNXGLi6xCyMe
-         n+SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724922249; x=1725527049;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LQhYCSAf0lZ9zTdJ5ehTCVXsoJJBlJOqEhmha6ZTv8Y=;
-        b=LrNeHBaYxFDy3Y6Dq+0k8OcBhw5ItbFojAU6SNyjpYZcp7HlRxvMzB05vsTNiTP4Pm
-         OYtchMteX9tb50MmKGsiSukR+Vfm10FUHRI8kM6i3oKj0lToYFLPpl8AektBO08a0MSc
-         nOjycoYDsVv7QOP1l+jqXIBKDWp2a+TRFoesU/8fczWToe7fiIBfKtCKS2QJePG6LDOQ
-         c/Y6JbF4ScgMZf+kMY0wL+8GKXXQMchV35NjkdLfVxfZKT+FbW7WsVgJv5izdnLp9EqM
-         EygHDs4LTAXiwGUmFggiYion7kOGB049J4cInyd/F7DamIuKle1FuMHzFV0gVZ9+fcww
-         xFYA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXdLVM04UIwxr61llk1ba3+7ooclOxEheJVK3YcImYaYZEILE8fJV/v7YK3Cx0QzY51RmR9BATKOxs6@alsa-project.org
-X-Gm-Message-State: AOJu0YzgegdhdGXtcofZVT6NdPL343HLt/ZFfNteHOrUHMJulbA6eSAv
-	ZpTH5szEzQablGzS2z1WHNzYDqFOQ3BsfabZwl8P6qTjAAuxzSdGbU3TskEDvIM=
-X-Google-Smtp-Source: 
- AGHT+IE/qXx2q84dxT76THTRzMY5sKyc3VDj8MyI+BTpt6oDqkE11zyAxjt+tBhXkDbZgXuT7jScDg==
-X-Received: by 2002:a05:6512:31d4:b0:52e:fdeb:9381 with SMTP id
- 2adb3069b0e04-5353e5acb08mr1393344e87.43.1724922248778;
-        Thu, 29 Aug 2024 02:04:08 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
-        by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5354079b729sm100734e87.49.2024.08.29.02.04.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Aug 2024 02:04:08 -0700 (PDT)
-Date: Thu, 29 Aug 2024 12:04:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jens Reidel <adrian@travitia.xyz>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org,
-	linux@mainlining.org
-Subject: Re: [PATCH 1/1] ASoC: qcom: sm8250: enable primary mi2s
-Message-ID: <egicpgs2l4wkthb72hp2clleh2yajhjrkmuceok5hbjnfbbqft@64aendbltnls>
-References: <20240826134920.55148-1-adrian@travitia.xyz>
- <20240826134920.55148-2-adrian@travitia.xyz>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=JWMFSx4I
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 04A8AA41DAC;
+	Thu, 29 Aug 2024 12:09:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA357C4CEC1;
+	Thu, 29 Aug 2024 12:09:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1724933383;
+	bh=KgMvNg9vlrPlxz4c1NDG/hOTZD1lYa/I+MSvbr8Ecyk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=JWMFSx4IDvgUncCaUB0GiDrKqA+pDhQd8T6uKPpnmuEmfBAb6uxdtxrrzxk550CWM
+	 FpNolle7pSas6JKoeXJpaklPQxnfwu8LFBNg0x/kKRAyEdyUbnv9TITxjj4ku0r/kc
+	 MKLbKEa97IZG5YxzbAi/tqrIRTnvROfT5FmCleYI+QxFvcwJS5sQQrMeXpTCHwSOkx
+	 c9foLEHOHWN7AVoNjayjI6zYnPx9Spt2l+GPc3hoAR53TrP9hjaypP4661GytO38Gd
+	 d/vyNuNAaiE53LO1f4NrIOxmHpJDbVcKalvBwpI4OoZxJs4h+9XAAiico70fBC7SIt
+	 jyvjixqwqGosA==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, angelogioacchino.delregno@collabora.com,
+ Zhang Yi <zhangyi@everest-semi.com>
+Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
+ linux-mediatek@lists.infradead.org, yangxiaohua@everest-semi.com,
+ zhuning@everest-semi.com
+In-Reply-To: <20240816114921.48913-1-zhangyi@everest-semi.com>
+References: <20240816114921.48913-1-zhangyi@everest-semi.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8188-mt6359: Modify key
+Message-Id: <172493338155.25837.14171784732486140029.b4-ty@kernel.org>
+Date: Thu, 29 Aug 2024 13:09:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240826134920.55148-2-adrian@travitia.xyz>
-Message-ID-Hash: O7HDZNIGYI66XF4X3WBIPDNTXVYBJZS6
-X-Message-ID-Hash: O7HDZNIGYI66XF4X3WBIPDNTXVYBJZS6
-X-MailFrom: dmitry.baryshkov@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-37811
+Message-ID-Hash: KMI2D6TEI356SWJJUMWCIKD3VMCFVISJ
+X-Message-ID-Hash: KMI2D6TEI356SWJJUMWCIKD3VMCFVISJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O7HDZNIGYI66XF4X3WBIPDNTXVYBJZS6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KMI2D6TEI356SWJJUMWCIKD3VMCFVISJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,19 +98,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Aug 26, 2024 at 03:49:20PM GMT, Jens Reidel wrote:
-> When using primary mi2s on sm8250-compatible SoCs, the correct clock
-> needs to get enabled to be able to use the mi2s interface.
+On Fri, 16 Aug 2024 19:49:21 +0800, Zhang Yi wrote:
+> In order to get the correct keys when using the ES8326.We will associate
+> SND_JACK_BTN_1 to KEY_VOLUMEUP and SND_JACK_BTN_2 to KEY_VOLUMEDOWN
+> when the ES8326 flag is recognized.
 > 
-> Signed-off-by: Jens Reidel <adrian@travitia.xyz>
-> ---
->  sound/soc/qcom/sm8250.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
--- 
-With best wishes
-Dmitry
+Thanks!
+
+[1/1] ASoC: mediatek: mt8188-mt6359: Modify key
+      commit: 5325b96769a5b282e330023e1d0881018e89e266
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

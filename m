@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF27D965E38
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:14:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B38C965E3D
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:14:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D7B8832;
-	Fri, 30 Aug 2024 12:14:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D7B8832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C83C851;
+	Fri, 30 Aug 2024 12:14:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C83C851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725012873;
-	bh=pc1q714dbUikwMjGYuDlSj2kVYqhqeoRjzc/gcNeW2o=;
+	s=default; t=1725012891;
+	bh=3I2S+/y3zRWREP8+H0SqebmdItXfXZ9zPC2+cYey4Qw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=e+ZoZ8JR0J+SGfQ+82tsGqIxPymhY48OEbtUWPArBxA+IxpwjYC/jqS2NhDcA4ULF
-	 ghJ3zWv143zueIEPFznWzm/RqRpttIrzfTcdh2ibbapxzs16rLilRXt3a24kur4ups
-	 IqLRmrhxmQRc/x+hOuUuOXXj8wx6mt80GV0hlotU=
+	b=h+g95jruSBzI5dHGYGwOO+34lf9e248/9N7JvZu6RgBt7XTJeXbI6o/DRMV5yN89H
+	 cdCEeRMhKZqliE6QQCAwy+UWdtO/41kAmXwVxJ56NglCjq8gisXlNaOcOPkZf9evd9
+	 91ASq+QOkntOdTSZqKTipY8GQBusGl5FMLs2dg6g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1521AF806C9; Fri, 30 Aug 2024 12:12:31 +0200 (CEST)
+	id 9C25AF805FE; Fri, 30 Aug 2024 12:12:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49ED8F806BD;
-	Fri, 30 Aug 2024 12:12:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BE9EF806DC;
+	Fri, 30 Aug 2024 12:12:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEF24F805D4; Fri, 30 Aug 2024 12:12:24 +0200 (CEST)
+	id E5624F805F2; Fri, 30 Aug 2024 12:12:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,48 +36,49 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CAF5CF805CA
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAF5CF805CA
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7207F805ED
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7207F805ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XqhjvCOs
+ header.s=Intel header.b=bVR9zy+q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725012744; x=1756548744;
+  t=1725012755; x=1756548755;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=pc1q714dbUikwMjGYuDlSj2kVYqhqeoRjzc/gcNeW2o=;
-  b=XqhjvCOsxF7rpy38ZUU1lmIeu+rvXZQ5vOwjrx/SLQ4+jiBwnb8WVxDN
-   +2lyH4GySr8HKV2o4UmOOULEgkhJEVYvy9qT3VkojytmX8c91+Y3fuJfm
-   gVGtT4XeTnTdKpPVWhfVLVv1uhSDYm7INjQ77EBtbIpYz2hGdprsD51KO
-   L3m+RxMLvPJ3ZS7I2kmjCLcwvKo95GXuQ42zmrQxytF8InoNslIiCYPlD
-   EpqtzWC4uc8aF4wSXTSsVo4rIiCnKkeCFbcrET6wWVATA4LzBf3moTnTw
-   9C2TGmEeggecdPfR+2RbdU9G6rVR6nW2t30cTbUalxKAsMevo/bcHatVV
-   g==;
-X-CSE-ConnectionGUID: jeptiyCFQHq+qBSihyxKLg==
-X-CSE-MsgGUID: s+q5V9oLQMe+8Hh6CYUrgg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218860"
+  bh=3I2S+/y3zRWREP8+H0SqebmdItXfXZ9zPC2+cYey4Qw=;
+  b=bVR9zy+qR/RoEl5+z8DYnyVggbXFtqwDbTiMAh2+pYqCbOFMu9YLl9J6
+   +7HA0FNTrO6W0nMuHKfjECRU1T37o5Z/zNR90WNN2ApytnT3RVhwRa2Gx
+   uE5q4IEcMXpRJT6JbznEWyWP/has9q6SkKllSsTP8uvXIUjL3v/OlUxXw
+   ecx1xcm6KZXDmWwrmaQNzL+MTsa5j668pmunacWUxwUHZPjkaavcSBntz
+   M+A+JP7CaojbfwzOyla77/vftihuCu6SwWOoDepjCAUEYvNcAEZPszdIb
+   mjaMyrFRdNVJRpTtzT7OHtf78l55WYh591nK3nC0v7CsCFUZbbaflJXFA
+   w==;
+X-CSE-ConnectionGUID: DtchkNOOSBCzFGVx4dum6g==
+X-CSE-MsgGUID: anZQRBpYQ2mfaRg3avX+aA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218877"
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="34218860"
+   d="scan'208";a="34218877"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:22 -0700
-X-CSE-ConnectionGUID: Oq/VD6neQaOi23JKF17flA==
-X-CSE-MsgGUID: toAB1mXCROuwmz0s55/uLw==
+ 30 Aug 2024 03:12:31 -0700
+X-CSE-ConnectionGUID: gtK2iHKfSeuDG2GH68lbnw==
+X-CSE-MsgGUID: tIZC8KOQQ4uGb8DXCiEqOA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="63481679"
+   d="scan'208";a="63481724"
 Received: from ltuz-desk.ger.corp.intel.com (HELO [10.245.246.101])
  ([10.245.246.101])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:16 -0700
-Message-ID: <edf2eb3b-e573-465c-b6d0-58bcca5079db@linux.intel.com>
-Date: Fri, 30 Aug 2024 11:13:08 +0200
+ 30 Aug 2024 03:12:25 -0700
+Message-ID: <afe37014-8ec5-4808-bc24-09ac0f2d93b6@linux.intel.com>
+Date: Fri, 30 Aug 2024 11:21:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v26 20/33] ASoC: qcom: qdsp6: q6afe: Increase APR timeout
+Subject: Re: [PATCH v26 21/33] ASoC: qcom: qdsp6: Add USB backend ASoC driver
+ for Q6
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com, corbet@lwn.net, broonie@kernel.org,
@@ -89,14 +90,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-doc@vger.kernel.org, alsa-devel@alsa-project.org
 References: <20240829194105.1504814-1-quic_wcheng@quicinc.com>
- <20240829194105.1504814-21-quic_wcheng@quicinc.com>
+ <20240829194105.1504814-22-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240829194105.1504814-21-quic_wcheng@quicinc.com>
+In-Reply-To: <20240829194105.1504814-22-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: G3OZI6PPLBWVYX7NHO5FZXQH5LHRQSHB
-X-Message-ID-Hash: G3OZI6PPLBWVYX7NHO5FZXQH5LHRQSHB
+Message-ID-Hash: 7MNHBZLZ4HMM73B5PZA3PHJ5TMBSSNXB
+X-Message-ID-Hash: 7MNHBZLZ4HMM73B5PZA3PHJ5TMBSSNXB
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3OZI6PPLBWVYX7NHO5FZXQH5LHRQSHB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7MNHBZLZ4HMM73B5PZA3PHJ5TMBSSNXB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,33 +122,95 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 8/29/24 21:40, Wesley Cheng wrote:
-> For USB offloading situations, the AFE port start command will result in a
-> QMI handshake between the Q6DSP and the main processor.  Depending on if
-> the USB bus is suspended, this routine would require more time to complete,
-> as resuming the USB bus has some overhead associated with it.  Increase the
-> timeout to 3s to allow for sufficient time for the USB QMI stream enable
-> handshake to complete.
+> Create a USB BE component that will register a new USB port to the ASoC USB
+> framework.  This will handle determination on if the requested audio
+> profile is supported by the USB device currently selected.
 > 
-> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Check for if the PCM format is supported during the hw_params callback.  If
+> the profile is not supported then the userspace ALSA entity will receive an
+> error, and can take further action.
+> 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
 > ---
->  sound/soc/qcom/qdsp6/q6afe.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  include/sound/q6usboffload.h  |  20 +++
+>  sound/soc/qcom/Kconfig        |  10 ++
+>  sound/soc/qcom/qdsp6/Makefile |   1 +
+>  sound/soc/qcom/qdsp6/q6usb.c  | 246 ++++++++++++++++++++++++++++++++++
+>  4 files changed, 277 insertions(+)
+>  create mode 100644 include/sound/q6usboffload.h
+>  create mode 100644 sound/soc/qcom/qdsp6/q6usb.c
 > 
-> diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-> index 3ee6ff8a6bc3..b5b2af2ce50c 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe.c
-> @@ -366,7 +366,7 @@
->  #define AFE_API_VERSION_SLOT_MAPPING_CONFIG	1
->  #define AFE_API_VERSION_CODEC_DMA_CONFIG	1
->  
-> -#define TIMEOUT_MS 1000
-> +#define TIMEOUT_MS 3000
->  #define AFE_CMD_RESP_AVAIL	0
->  #define AFE_CMD_RESP_NONE	1
->  #define AFE_CLK_TOKEN		1024
+> diff --git a/include/sound/q6usboffload.h b/include/sound/q6usboffload.h
+> new file mode 100644
+> index 000000000000..49ab2c34b84c
+> --- /dev/null
+> +++ b/include/sound/q6usboffload.h
+> @@ -0,0 +1,20 @@
+> +/* SPDX-License-Identifier: GPL-2.0
+> + *
+> + * linux/sound/q6usboffload.h -- QDSP6 USB offload
+
+not sure about the linux/ prefix?
+
+> + *
+> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +
+> +/**
+> + * struct q6usb_offload
+> + * @dev - dev handle to usb be
+> + * @sid - streamID for iommu
+> + * @intr_num - usb interrupter number
+> + * @domain - allocated iommu domain
+> + **/
+> +struct q6usb_offload {
+> +	struct device *dev;
+> +	long long sid;
+> +	u16 intr_num;
+> +	struct iommu_domain *domain;
+> +};
+
+consider reordering to avoid holes/alignment issues, e.g. all pointers
+first, then long long then u16
+
+
+> +static int q6usb_hw_params(struct snd_pcm_substream *substream,
+> +			   struct snd_pcm_hw_params *params,
+> +			   struct snd_soc_dai *dai)
+> +{
+> +	struct q6usb_port_data *data = dev_get_drvdata(dai->dev);
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+> +	int direction = substream->stream;
+> +	struct q6afe_port *q6usb_afe;
+> +	struct snd_soc_usb_device *sdev;
+> +	int ret = -EINVAL;
+> +
+> +	mutex_lock(&data->mutex);
+> +
+> +	/* No active chip index */
+> +	if (list_empty(&data->devices))
+> +		goto out;
+
+-ENODEV for the default return value>?
+
+> +
+> +	sdev = list_last_entry(&data->devices, struct snd_soc_usb_device, list);
+> +
+> +	ret = snd_soc_usb_find_supported_format(sdev->chip_idx, params, direction);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	q6usb_afe = q6afe_port_get_from_id(cpu_dai->dev, USB_RX);
+> +	if (IS_ERR(q6usb_afe))
+> +		goto out;
+> +
+> +	/* Notify audio DSP about the devices being offloaded */
+> +	ret = afe_port_send_usb_dev_param(q6usb_afe, sdev->card_idx,
+> +					  sdev->ppcm_idx[sdev->num_playback - 1]);
+
+don't you need a symmetrical notification upon hw_free()?
+
+Also what happens if there are multiple calls to hw_params, which is
+quite legit in ALSA/ASoC?
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC4F59667C3
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 19:15:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 272FA9669CB
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 21:31:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 005BF3E7;
-	Fri, 30 Aug 2024 19:14:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 005BF3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 685CF3E7;
+	Fri, 30 Aug 2024 21:30:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 685CF3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725038104;
-	bh=ajZD+MTyKZARFyIT3+mQii7dHcoc5L9nz2SJ3VG7Ms0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1725046267;
+	bh=rz8KDKw3aTWGQcJdgAqnxUa0Kv/DBZMxKlXY8HtiKFw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QhkRnBnFodw96XlQX00fjJR17STpVyRFhV/VH1lZWPGXiP/7kdGbiffxVoXVzhGHW
-	 ds1LXHJU1rx3jLyLs2eHMfHtpJa3HcQtNLGeAkeIdEkqHhaYYCyDeoND7MqcUAd4iO
-	 IBtLNjATPp5yF1nOgyqtJ9oOvinA/YYTTqC9vtLg=
+	b=Yv6A4Oh3fSBFQk9vg9DAuPM6KlUfS0KBaOKW/JAAvn1dcBMMcQlPBYkRruQzIp9JW
+	 mi18I5v5iIQHHSQlVVr9VIJ+y1OVeHuMTJhCGAA5B0WFNP40j63eaUnB+Le8DZgByB
+	 GvC0BKXmvIaacp5rxSdI8SqhUv9RujOy/CyElS98=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E72C5F80588; Fri, 30 Aug 2024 19:14:31 +0200 (CEST)
+	id 18F05F805AC; Fri, 30 Aug 2024 21:30:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A4E8F805AC;
-	Fri, 30 Aug 2024 19:14:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F53CF80528;
+	Fri, 30 Aug 2024 21:30:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C612F80518; Fri, 30 Aug 2024 19:14:24 +0200 (CEST)
+	id 798BCF80518; Fri, 30 Aug 2024 21:30:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -38,92 +38,47 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 191A6F80087
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 19:14:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 191A6F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6BE36F8025E
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 21:30:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE36F8025E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=G451Q+L3
+ header.s=k20201202 header.b=jXcp/9+s
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0FFFC5C10EF;
-	Fri, 30 Aug 2024 17:14:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93311C4CEC7;
-	Fri, 30 Aug 2024 17:14:14 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 8F2DB5C2726;
+	Fri, 30 Aug 2024 19:30:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC793C4CEC2;
+	Fri, 30 Aug 2024 19:30:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725038059;
-	bh=ajZD+MTyKZARFyIT3+mQii7dHcoc5L9nz2SJ3VG7Ms0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=G451Q+L3fByFCqoi3F0vPAlPFRbTw3iilXQr+lEQFLb1SjJTCo91RhE68KbEKjhbv
-	 VyjhiO+Ch8RNUkgKJ7l+g1pWVPL3Ie8dkzvhHySp8jMFFqG9QQG9UrzWTZIkYuIpNS
-	 Axt4O1u3gktuY4rc1oGerNkUopQB/YItBVjK9IZCXb7cjnT/1ww3twzjcBbWRiV+Rc
-	 59LnVtVNjhDr6hYpzAM74Sa4mV/kLOkD927aw3v+Ydpra7nKkbtkXnvM3FIypg8YSg
-	 h3LfHhLcPphBzr9nlQKWlAlA4C+BxS16wUboVGpPblnVbhU+2JyDywjt2DZdTp4+Ai
-	 ARmXqrm1kkiDQ==
-Message-ID: <b1d1f523-6852-4877-be73-85cb6728d9a8@kernel.org>
-Date: Fri, 30 Aug 2024 19:14:12 +0200
+	s=k20201202; t=1725046236;
+	bh=rz8KDKw3aTWGQcJdgAqnxUa0Kv/DBZMxKlXY8HtiKFw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=jXcp/9+snMJHOYEgWuq8md6a8c055bh4zmF5ps27aLwFi5MpxHT10AitTZKkvZbt1
+	 nZFxYsO+Fqko0Vbwu+1leQo9D2jZhOMqBc2e0U+9zYp9EpLGswwYBMXk6ycolf74zO
+	 Mpn0hr/CtxZOBues2jY7VaWFauXfq0RBk8QH7nbKS6+p5tiZ0aCnLiKO2FOYNOjp7q
+	 +vzCwlLJL27xEPOQCp3P8/eWnlyiNa/Qb+xwKM/VXKk78JbZSbUWTxByHlQaM0yWxt
+	 wIciwVXClMWc8zuJzvVN4MtAVXK/SXDrcKA7Ic5taHyccl63gIsgN44tV8xq0IAHId
+	 tdLYhOGEMgNnw==
+From: Mark Brown <broonie@kernel.org>
+To: srinivas.kandagatla@linaro.org
+Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amit.pundir@linaro.org,
+ dmitry.baryshkov@linaro.org
+In-Reply-To: <20240816091210.50172-1-srinivas.kandagatla@linaro.org>
+References: <20240816091210.50172-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v2] ASoC: codecs: lpass-va-macro: set the default codec
+ version for sm8250
+Message-Id: <172504623446.461126.12391681424311035210.b4-ty@kernel.org>
+Date: Fri, 30 Aug 2024 20:30:34 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] ASoC: codecs: Switch to use dev_err_probe()
-To: Yang Ruibin <11162571@vivo.com>, Lars-Peter Clausen <lars@metafoo.de>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: opensource.kernel@vivo.com
-References: <20240830014733.3467006-1-11162571@vivo.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
- QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
- gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
- /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
- iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
- VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
- 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
- xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
- eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
- AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
- MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
- Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
- ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
- vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
- oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
- lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
- t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
- uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
- 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
- 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240830014733.3467006-1-11162571@vivo.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: FFFBIPVVFZV6KA5ZBMH5LO6CURHOT6JC
-X-Message-ID-Hash: FFFBIPVVFZV6KA5ZBMH5LO6CURHOT6JC
-X-MailFrom: krzk@kernel.org
+X-Mailer: b4 0.15-dev-37811
+Message-ID-Hash: EYLOKMNLNQODWBYOPBPCBITCVQPDZY6Y
+X-Message-ID-Hash: EYLOKMNLNQODWBYOPBPCBITCVQPDZY6Y
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -135,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FFFBIPVVFZV6KA5ZBMH5LO6CURHOT6JC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EYLOKMNLNQODWBYOPBPCBITCVQPDZY6Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,38 +99,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 30/08/2024 03:47, Yang Ruibin wrote:
-> Using dev_err_probe() instead of dev_err() in probe() simplifies
-> the error path and standardizes the format of the error code.
+On Fri, 16 Aug 2024 10:12:10 +0100, srinivas.kandagatla@linaro.org wrote:
+> sm8250 and sc7280 have lpass codec version 1.0, as these are very old
+> platforms, they do not have a reliable way to get the codec version
+> from core_id registers.
 > 
-> Signed-off-by: Yang Ruibin <11162571@vivo.com>
-> ---
->  sound/soc/codecs/ad1980.c   |  8 +++-----
->  sound/soc/codecs/adau1701.c | 19 +++++++------------
->  sound/soc/codecs/ssm2602.c  |  6 ++----
->  3 files changed, 12 insertions(+), 21 deletions(-)
+> On codec versions below 2.0, even though the core_id registers are
+> available to read, the values of these registers are not unique to be
+> able to determine the version of the codec dynamically.
 > 
+> [...]
 
-...
+Applied to
 
-> diff --git a/sound/soc/codecs/ssm2602.c b/sound/soc/codecs/ssm2602.c
-> index c29324403..153eb55a3 100644
-> --- a/sound/soc/codecs/ssm2602.c
-> +++ b/sound/soc/codecs/ssm2602.c
-> @@ -605,10 +605,8 @@ static int ssm260x_component_probe(struct snd_soc_component *component)
->  	int ret;
->  
->  	ret = regmap_write(ssm2602->regmap, SSM2602_RESET, 0);
-> -	if (ret < 0) {
-> -		dev_err(component->dev, "Failed to issue reset: %d\n", ret);
-> -		return ret;
-> -	}
-> +	if (ret < 0)
-> +		return dev_err_probe(component->dev, ret, "Failed to issue reset\n");
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-After quick look, I think this might not be a probe path, thus the code
-might not be correct.
+Thanks!
 
-Best regards,
-Krzysztof
+[1/1] ASoC: codecs: lpass-va-macro: set the default codec version for sm8250
+      commit: 77212f300bfd6fb3edaabd1daf863cabb521854a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

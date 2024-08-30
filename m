@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52F25965E47
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:15:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3496965E4F
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:15:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9B24B71;
-	Fri, 30 Aug 2024 12:15:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9B24B71
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34CF6B70;
+	Fri, 30 Aug 2024 12:15:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34CF6B70
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725012925;
-	bh=HrgdFRv+lXfslsvbcAXp5fBoNUyY1o8RZhx3C1do6Qk=;
+	s=default; t=1725012947;
+	bh=UfcqtMrsI4yLwUepfMAYwVCdjBub/4R778PIbcvRnyM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fq3e7SwcTha6bMdJcwHr5DNouf2bY5NJuyAp0G3OnIBouII8Tjj09bR/ifs28mjhG
-	 gXr0RJQKPx9ZsqtX5NYDZSWcuHN5fz/wf1ctUE5EPpB8J3JqIJEh/D4H4bXsKwf4l8
-	 OWN8GW+gVAsw7GzqdS2JtVuh+WXC8pHmF/jOMYXQ=
+	b=KYCFoKq1gvQQ7KcMCS+mWwOJ3SeZm7WpFtsiDuqOeB/0dhdHB6fShcq2dD0CblxHV
+	 qPfVfxCTiUo/qrYOHhOJZohyQUDHKcqYv+T+pnRuTqGtFCgxBnau+96zyOo7JRsBn4
+	 7TEs+oy1SUgvtQyZYIOH8V9O1PwIwJoON5mnPNi0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C10BF80717; Fri, 30 Aug 2024 12:12:55 +0200 (CEST)
+	id D777AF8074D; Fri, 30 Aug 2024 12:13:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18FEEF80713;
-	Fri, 30 Aug 2024 12:12:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CAC0F80752;
+	Fri, 30 Aug 2024 12:13:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF0D8F8060A; Fri, 30 Aug 2024 12:12:47 +0200 (CEST)
+	id CE686F8071C; Fri, 30 Aug 2024 12:12:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,49 +36,49 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D915BF805D3
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D915BF805D3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 875A5F80616
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 875A5F80616
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IcVo+YfU
+ header.s=Intel header.b=QdeRVD8S
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725012766; x=1756548766;
+  t=1725012773; x=1756548773;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=HrgdFRv+lXfslsvbcAXp5fBoNUyY1o8RZhx3C1do6Qk=;
-  b=IcVo+YfUsV31UE8MXafk0Z7NNf8rzZOP9bXMa5/7RzXB30POEkZ5JrlM
-   fAjvly/1NG9krtWMHFL7lK2coiUPrFRBxW3Zbr7+9u+GVAXn7H29y94W4
-   4l9Pz1QyAmUTiAGMTRQR35SJx/Tpf52D6r+3bYkf/XqD7Pfw3YanvJlHK
-   cz5kUIj1VO/d0L5bSy/GSDyNlm+QyFWdghGYJ0qY982UENWBKhQi0DcfT
-   VNPh+EyN5dgXq4kAAPKzHK59dGxujhniHL9FMlUAcVvV5NL5iQd+lDb/Q
-   UAyiN5eDJuy6NPp+JEP7kBcIU+eqK6VhexsRQBXl04hLI+6Sz8USu/lJe
-   g==;
-X-CSE-ConnectionGUID: Vr9HUTAgTQec7qLNVfP8Dw==
-X-CSE-MsgGUID: 4jWqt3VBTfWN/cOi2MkX8Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218916"
+  bh=UfcqtMrsI4yLwUepfMAYwVCdjBub/4R778PIbcvRnyM=;
+  b=QdeRVD8SekrDvBBN6d+3+OsSNTOYuExTGAP18KmiruHcFAY7MJIYEXcC
+   2qtgpV0MQbQSgDVKtO68V2OjOsQrFZEgp1QwLddKZfYJ19rYK0at32ShB
+   U3UjavFmCPczhi2CeK++2cNOuzJ58oRuo6jm45nglwmj+NtWVYuqp5ri8
+   hIR8EmwwGKyPudKcut7Cj+fuQ5pc9+Jt5aVh6BTr/0fJr7QAgyUBsvOoQ
+   w9rS+/L+sZt31tBDSAHgj1aYaepuhX5/cYVzORh/iW2weu45kb7NDFNOs
+   iGG5wm1kQmDInSXNvnKseWUzmMjUduIxgaxvi1VzQ8f3dyVG0DgdFlRda
+   w==;
+X-CSE-ConnectionGUID: TOZzERxSRl6dPZdTrTRcpA==
+X-CSE-MsgGUID: JlXKal3zQsmPzoMvNaI9pA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218939"
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="34218916"
+   d="scan'208";a="34218939"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:45 -0700
-X-CSE-ConnectionGUID: J6GSR4NpT1qMEUGftZCY8Q==
-X-CSE-MsgGUID: dJ64kR0dS4GsEAj7TzWY6A==
+ 30 Aug 2024 03:12:51 -0700
+X-CSE-ConnectionGUID: VE0a1kFVQkKbDhFTrHBt/w==
+X-CSE-MsgGUID: p8MSDibSS+Shu+kAlIzg8g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="63481807"
+   d="scan'208";a="63481829"
 Received: from ltuz-desk.ger.corp.intel.com (HELO [10.245.246.101])
  ([10.245.246.101])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:38 -0700
-Message-ID: <87b06b92-8e58-414d-ba53-db7c88ac525a@linux.intel.com>
-Date: Fri, 30 Aug 2024 11:34:10 +0200
+ 30 Aug 2024 03:12:45 -0700
+Message-ID: <63b679c8-48f1-4251-8b7e-d38b605e5089@linux.intel.com>
+Date: Fri, 30 Aug 2024 11:38:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v26 23/33] ASoC: qcom: qdsp6: Fetch USB offload mapped
- card and PCM device
+Subject: Re: [PATCH v26 24/33] ALSA: usb-audio: Introduce USB SND platform op
+ callbacks
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com, corbet@lwn.net, broonie@kernel.org,
@@ -90,14 +90,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-doc@vger.kernel.org, alsa-devel@alsa-project.org
 References: <20240829194105.1504814-1-quic_wcheng@quicinc.com>
- <20240829194105.1504814-24-quic_wcheng@quicinc.com>
+ <20240829194105.1504814-25-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240829194105.1504814-24-quic_wcheng@quicinc.com>
+In-Reply-To: <20240829194105.1504814-25-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UKKY65V3E3IIS4DGRPT32HUSDDS64P2I
-X-Message-ID-Hash: UKKY65V3E3IIS4DGRPT32HUSDDS64P2I
+Message-ID-Hash: G5UT37WVG4M3WE2ES452N3DNUO7VPDWB
+X-Message-ID-Hash: G5UT37WVG4M3WE2ES452N3DNUO7VPDWB
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UKKY65V3E3IIS4DGRPT32HUSDDS64P2I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G5UT37WVG4M3WE2ES452N3DNUO7VPDWB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,118 +122,129 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 8/29/24 21:40, Wesley Cheng wrote:
-> The USB SND path may need to know how the USB offload path is routed, so
-> that applications can open the proper sound card and PCM device.  The
-> implementation for the QC ASoC design has a "USB Mixer" kcontrol for each
-> possible FE (Q6ASM) DAI, which can be utilized to know which front end link
-> is enabled.
-> 
-> When an application/userspace queries for the mapped offload devices, the
-> logic will lookup the USB mixer status though the following path:
-> 
-> MultiMedia* <-> MM_DL* <-> USB Mixer*
-> 
-> The "USB Mixer" is a DAPM widget, and the q6routing entity will set the
-> DAPM connect status accordingly if the USB mixer is enabled.  If enabled,
-> the Q6USB backend link can fetch the PCM device number from the FE DAI
-> link (Multimedia*).  With respects to the card number, that is
-> straightforward, as the ASoC components have direct references to the ASoC
-> platform sound card.
-> 
-> An example output can be shown below:
-> 
-> Number of controls: 9
-> name                                    value
-> Capture Channel Map                     0, 0 (range 0->36)
-> Playback Channel Map                    0, 0 (range 0->36)
-> Headset Capture Switch                  On
-> Headset Capture Volume                  1 (range 0->4)
-> Sidetone Playback Switch                On
-> Sidetone Playback Volume                4096 (range 0->8192)
-> Headset Playback Switch                 On
-> Headset Playback Volume                 20, 20 (range 0->24)
-> USB Offload Playback Route PCM#0        0, 1 (range -1->255)
-> 
-> The "USB Offload Playback Route PCM#*" kcontrol will signify the
-> corresponding card and pcm device it is offload to. (card#0 pcm - device#1)
-> If the USB SND device supports multiple audio interfaces, then it will
-> contain several PCM streams, hence in those situations, it is expected
-> that there will be multiple playback route kcontrols created.
+> Allow for different platforms to be notified on USB SND connect/disconnect
+> sequences.  This allows for platform USB SND modules to properly initialize
+> and populate internal structures with references to the USB SND chip
+> device.
 > 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 > ---
->  sound/soc/qcom/qdsp6/q6usb.c | 104 +++++++++++++++++++++++++++++++++++
->  1 file changed, 104 insertions(+)
+>  sound/usb/card.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++++
+>  sound/usb/card.h | 10 +++++++++
+>  2 files changed, 63 insertions(+)
 > 
-> diff --git a/sound/soc/qcom/qdsp6/q6usb.c b/sound/soc/qcom/qdsp6/q6usb.c
-> index 10337d70eb27..c2fc0dedf430 100644
-> --- a/sound/soc/qcom/qdsp6/q6usb.c
-> +++ b/sound/soc/qcom/qdsp6/q6usb.c
-> @@ -132,6 +132,109 @@ static int q6usb_audio_ports_of_xlate_dai_name(struct snd_soc_component *compone
->  	return ret;
->  }
->  
-> +static int q6usb_get_pcm_id_from_widget(struct snd_soc_dapm_widget *w)
+> diff --git a/sound/usb/card.c b/sound/usb/card.c
+> index 1f9dfcd8f336..7f120aa006c0 100644
+> --- a/sound/usb/card.c
+> +++ b/sound/usb/card.c
+> @@ -118,6 +118,42 @@ MODULE_PARM_DESC(skip_validation, "Skip unit descriptor validation (default: no)
+>  static DEFINE_MUTEX(register_mutex);
+>  static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
+>  static struct usb_driver usb_audio_driver;
+> +static struct snd_usb_platform_ops *platform_ops;
+> +
+> +/*
+> + * Register platform specific operations that will be notified on events
+> + * which occur in USB SND.  The platform driver can utilize this path to
+> + * enable features, such as USB audio offloading, which allows for audio data
+> + * to be queued by an audio DSP.
+> + *
+> + * Only one set of platform operations can be registered to USB SND.  The
+> + * platform register operation is protected by the register_mutex.
+> + */
+> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
 > +{
-> +	struct snd_soc_pcm_runtime *rtd;
-> +	struct snd_soc_dai *dai;
+> +	guard(mutex)(&register_mutex);
+> +	if (platform_ops)
+> +		return -EEXIST;
 > +
-> +	for_each_card_rtds(w->dapm->card, rtd) {
-> +		dai = snd_soc_rtd_to_cpu(rtd, 0);
-> +		/*
-> +		 * Only look for playback widget. RTD number carries the assigned
-> +		 * PCM index.
-> +		 */
-> +		if (dai->stream[0].widget == w)
-> +			return rtd->num;
-> +	}
-> +
-> +	return -1;
+> +	platform_ops = ops;
+> +	return 0;
 > +}
+> +EXPORT_SYMBOL_GPL(snd_usb_register_platform_ops);
 > +
-> +static int q6usb_usb_mixer_enabled(struct snd_soc_dapm_widget *w)
+> +/*
+> + * Unregisters the current set of platform operations.  This allows for
+
+Unregister?
+
+> + * a new set to be registered if required.
+> + *
+> + * The platform unregister operation is protected by the register_mutex.
+> + */
+> +int snd_usb_unregister_platform_ops(void)
 > +{
-> +	struct snd_soc_dapm_path *p;
-> +
-> +	/* Checks to ensure USB path is enabled/connected */
-> +	snd_soc_dapm_widget_for_each_sink_path(w, p)
-> +		if (!strcmp(p->sink->name, "USB Mixer") && p->connect)
-> +			return 1;
+> +	guard(mutex)(&register_mutex);
+> +	platform_ops = NULL;
 > +
 > +	return 0;
 > +}
+> +EXPORT_SYMBOL_GPL(snd_usb_unregister_platform_ops);
+>  
+>  /*
+>   * Checks to see if requested audio profile, i.e sample rate, # of
+> @@ -946,7 +982,11 @@ static int usb_audio_probe(struct usb_interface *intf,
+>  	chip->num_interfaces++;
+>  	usb_set_intfdata(intf, chip);
+>  	atomic_dec(&chip->active);
 > +
-> +static int q6usb_get_pcm_id(struct snd_soc_component *component)
-> +{
-> +	struct snd_soc_dapm_widget *w;
-> +	struct snd_soc_dapm_path *p;
-> +	int pidx;
+> +	if (platform_ops && platform_ops->connect_cb)
+> +		platform_ops->connect_cb(chip);
+>  	mutex_unlock(&register_mutex);
 > +
-> +	/*
-> +	 * Traverse widgets to find corresponding FE widget.  The DAI links are
-> +	 * built like the following:
-> +	 *    MultiMedia* <-> MM_DL* <-> USB Mixer*
-> +	 */
-> +	for_each_card_widgets(component->card, w) {
-> +		if (!strncmp(w->name, "MultiMedia", 10)) {
-> +			/*
-> +			 * Look up all paths associated with the FE widget to see if
-> +			 * the USB BE is enabled.  The sink widget is responsible to
-> +			 * link with the USB mixers.
-> +			 */
-> +			snd_soc_dapm_widget_for_each_sink_path(w, p) {
-> +				if (q6usb_usb_mixer_enabled(p->sink)) {
-> +					pidx = q6usb_get_pcm_id_from_widget(w);
-> +					return pidx;
-> +				}
-> +			}
+>  	return 0;
+>  
+>   __error:
+> @@ -983,6 +1023,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
+>  	card = chip->card;
+>  
+>  	mutex_lock(&register_mutex);
+> +	if (platform_ops && platform_ops->disconnect_cb)
+> +		platform_ops->disconnect_cb(chip);
+> +
+>  	if (atomic_inc_return(&chip->shutdown) == 1) {
+>  		struct snd_usb_stream *as;
+>  		struct snd_usb_endpoint *ep;
+> @@ -1130,6 +1173,11 @@ static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
+>  		chip->system_suspend = chip->num_suspended_intf;
+>  	}
+>  
+> +	mutex_lock(&register_mutex);
+> +	if (platform_ops && platform_ops->suspend_cb)
+> +		platform_ops->suspend_cb(intf, message);
+> +	mutex_unlock(&register_mutex);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1170,6 +1218,11 @@ static int usb_audio_resume(struct usb_interface *intf)
+>  
+>  	snd_usb_midi_v2_resume_all(chip);
+>  
+> +	mutex_lock(&register_mutex);
+> +	if (platform_ops && platform_ops->resume_cb)
+> +		platform_ops->resume_cb(intf);
+> +	mutex_unlock(&register_mutex);
+> +
+>   out:
+>  	if (chip->num_suspended_intf == chip->system_suspend) {
+>  		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D0);
+> diff --git a/sound/usb/card.h b/sound/usb/card.h
+> index 4f4f3f39b7fa..23d9e6fc69e7 100644
+> --- a/sound/usb/card.h
+> +++ b/sound/usb/card.h
+> @@ -207,7 +207,17 @@ struct snd_usb_stream {
+>  	struct list_head list;
+>  };
+>  
+> +struct snd_usb_platform_ops {
+> +	void (*connect_cb)(struct snd_usb_audio *chip);
+> +	void (*disconnect_cb)(struct snd_usb_audio *chip);
+> +	void (*suspend_cb)(struct usb_interface *intf, pm_message_t message);
+> +	void (*resume_cb)(struct usb_interface *intf);
+> +};
 
-Humm, there should be a note that the design assumes that the USB
-offload path exposes a single PCM per endpoints - same as the
-non-offloaded path. If the ASoC card has multiple PCMs for each
-endpoint, possibly with different processing on each PCM, then the
-mapping would fail.
 
-The other question is whether you need to walk in the DAPM graph, in
-theory DPCM has helpers to find which FEs are connected to which BE.
+You're using the same mutex to protect all four callbacks, so how would
+things work if e.g. you disconnected a device during the resume operation?
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3496965E4F
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:15:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E35965E52
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:15:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34CF6B70;
-	Fri, 30 Aug 2024 12:15:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34CF6B70
+	by alsa0.perex.cz (Postfix) with ESMTPS id B96AB847;
+	Fri, 30 Aug 2024 12:15:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B96AB847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725012947;
-	bh=UfcqtMrsI4yLwUepfMAYwVCdjBub/4R778PIbcvRnyM=;
+	s=default; t=1725012957;
+	bh=DC3LXGuTao39AQVcPXtfcXzKlQsgne9NUz/tj0oabTc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KYCFoKq1gvQQ7KcMCS+mWwOJ3SeZm7WpFtsiDuqOeB/0dhdHB6fShcq2dD0CblxHV
-	 qPfVfxCTiUo/qrYOHhOJZohyQUDHKcqYv+T+pnRuTqGtFCgxBnau+96zyOo7JRsBn4
-	 7TEs+oy1SUgvtQyZYIOH8V9O1PwIwJoON5mnPNi0=
+	b=AK1vMTpKTldR5vWWU7/rUMmVRCos/Jt0tkRLhPs7MDttJSC4BXcO8qWw8rKyTrShj
+	 iqiusTSjNmFuxHd+bztESl0pNbHQZcgWnHH/h+MBo/S9nIVpl5mEOKKOH1fvZZC4ay
+	 qH+y1g0VZF+cB6O7QayRkyvgpKfBUeQwoEsuNdhY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D777AF8074D; Fri, 30 Aug 2024 12:13:02 +0200 (CEST)
+	id 4D911F80630; Fri, 30 Aug 2024 12:13:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CAC0F80752;
-	Fri, 30 Aug 2024 12:13:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14B5EF80765;
+	Fri, 30 Aug 2024 12:13:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE686F8071C; Fri, 30 Aug 2024 12:12:56 +0200 (CEST)
+	id 44ACCF8071C; Fri, 30 Aug 2024 12:13:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,49 +36,49 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 875A5F80616
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 875A5F80616
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2659EF80618
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2659EF80618
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=QdeRVD8S
+ header.s=Intel header.b=Ca6rjUdB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725012773; x=1756548773;
+  t=1725012779; x=1756548779;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=UfcqtMrsI4yLwUepfMAYwVCdjBub/4R778PIbcvRnyM=;
-  b=QdeRVD8SekrDvBBN6d+3+OsSNTOYuExTGAP18KmiruHcFAY7MJIYEXcC
-   2qtgpV0MQbQSgDVKtO68V2OjOsQrFZEgp1QwLddKZfYJ19rYK0at32ShB
-   U3UjavFmCPczhi2CeK++2cNOuzJ58oRuo6jm45nglwmj+NtWVYuqp5ri8
-   hIR8EmwwGKyPudKcut7Cj+fuQ5pc9+Jt5aVh6BTr/0fJr7QAgyUBsvOoQ
-   w9rS+/L+sZt31tBDSAHgj1aYaepuhX5/cYVzORh/iW2weu45kb7NDFNOs
-   iGG5wm1kQmDInSXNvnKseWUzmMjUduIxgaxvi1VzQ8f3dyVG0DgdFlRda
-   w==;
-X-CSE-ConnectionGUID: TOZzERxSRl6dPZdTrTRcpA==
-X-CSE-MsgGUID: JlXKal3zQsmPzoMvNaI9pA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218939"
+  bh=DC3LXGuTao39AQVcPXtfcXzKlQsgne9NUz/tj0oabTc=;
+  b=Ca6rjUdBaR8asT9Ks8mYA2NEeyAG2wNf/V9PE+X1aJ6xkqGtbM4bEGG7
+   HVl2wn2cDOXqpMYVhpU3b7mAdxyAkhaWQGnHELomsvbYG6Lj/4N2qh252
+   q8QXSQ8mtrFBEYNC2RdvwE7Z69irUufbV7eZuFc1e0lPAUtQdeJbFSA9h
+   1yXj3C0f17eyWA2K5Ndhu1Xh/Fl3J3i2nph4YlVap9w6vlhWQoI42Cun5
+   ob7MO8h+eC2H/eozFNJiacN37ddkkIMYV/NuAg/a4Qdfz+yk2SrUwYetu
+   1PBH6ipd0eSv37+07OxHzX3A7llCibnhRJq6x8uWFYM1Vs/ozhTRUCoXa
+   A==;
+X-CSE-ConnectionGUID: bDUxTh5/QJ2HUCTzwUz+Aw==
+X-CSE-MsgGUID: WZKIltX2QxypS1kpHc1pjA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218955"
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="34218939"
+   d="scan'208";a="34218955"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:51 -0700
-X-CSE-ConnectionGUID: VE0a1kFVQkKbDhFTrHBt/w==
-X-CSE-MsgGUID: p8MSDibSS+Shu+kAlIzg8g==
+ 30 Aug 2024 03:12:58 -0700
+X-CSE-ConnectionGUID: f+KwzfvnTy+ypwHptN16vQ==
+X-CSE-MsgGUID: OEvPd9KaS7i+oM6Yt80u3g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="63481829"
+   d="scan'208";a="63481844"
 Received: from ltuz-desk.ger.corp.intel.com (HELO [10.245.246.101])
  ([10.245.246.101])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:45 -0700
-Message-ID: <63b679c8-48f1-4251-8b7e-d38b605e5089@linux.intel.com>
-Date: Fri, 30 Aug 2024 11:38:53 +0200
+ 30 Aug 2024 03:12:52 -0700
+Message-ID: <b8700e13-2b61-4888-8b7d-c6ab7d713198@linux.intel.com>
+Date: Fri, 30 Aug 2024 11:42:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v26 24/33] ALSA: usb-audio: Introduce USB SND platform op
- callbacks
+Subject: Re: [PATCH v26 25/33] ALSA: usb-audio: Save UAC sample size
+ information
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com, corbet@lwn.net, broonie@kernel.org,
@@ -90,14 +90,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-doc@vger.kernel.org, alsa-devel@alsa-project.org
 References: <20240829194105.1504814-1-quic_wcheng@quicinc.com>
- <20240829194105.1504814-25-quic_wcheng@quicinc.com>
+ <20240829194105.1504814-26-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240829194105.1504814-25-quic_wcheng@quicinc.com>
+In-Reply-To: <20240829194105.1504814-26-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: G5UT37WVG4M3WE2ES452N3DNUO7VPDWB
-X-Message-ID-Hash: G5UT37WVG4M3WE2ES452N3DNUO7VPDWB
+Message-ID-Hash: LXNF35VD6PHPJ5VI3TQXT3JWR3RE4DZN
+X-Message-ID-Hash: LXNF35VD6PHPJ5VI3TQXT3JWR3RE4DZN
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G5UT37WVG4M3WE2ES452N3DNUO7VPDWB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LXNF35VD6PHPJ5VI3TQXT3JWR3RE4DZN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,129 +122,49 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 8/29/24 21:40, Wesley Cheng wrote:
-> Allow for different platforms to be notified on USB SND connect/disconnect
-> sequences.  This allows for platform USB SND modules to properly initialize
-> and populate internal structures with references to the USB SND chip
-> device.
+> Within the UAC descriptor, there is information describing the size of a
+> sample (bSubframeSize/bSubslotSize) and the number of relevant bits
+> (bBitResolution).  Currently, fmt_bits carries only the bit resolution,
+> however, some offloading entities may also require the overall size of the
+> sample.  Save this information in a separate parameter, as depending on the
+> UAC format type, the sample size can not easily be decoded from other
+> existing parameters.
 > 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 > ---
->  sound/usb/card.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++++
->  sound/usb/card.h | 10 +++++++++
->  2 files changed, 63 insertions(+)
+>  sound/usb/card.h   | 1 +
+>  sound/usb/format.c | 1 +
+>  2 files changed, 2 insertions(+)
 > 
-> diff --git a/sound/usb/card.c b/sound/usb/card.c
-> index 1f9dfcd8f336..7f120aa006c0 100644
-> --- a/sound/usb/card.c
-> +++ b/sound/usb/card.c
-> @@ -118,6 +118,42 @@ MODULE_PARM_DESC(skip_validation, "Skip unit descriptor validation (default: no)
->  static DEFINE_MUTEX(register_mutex);
->  static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
->  static struct usb_driver usb_audio_driver;
-> +static struct snd_usb_platform_ops *platform_ops;
-> +
-> +/*
-> + * Register platform specific operations that will be notified on events
-> + * which occur in USB SND.  The platform driver can utilize this path to
-> + * enable features, such as USB audio offloading, which allows for audio data
-> + * to be queued by an audio DSP.
-> + *
-> + * Only one set of platform operations can be registered to USB SND.  The
-> + * platform register operation is protected by the register_mutex.
-> + */
-> +int snd_usb_register_platform_ops(struct snd_usb_platform_ops *ops)
-> +{
-> +	guard(mutex)(&register_mutex);
-> +	if (platform_ops)
-> +		return -EEXIST;
-> +
-> +	platform_ops = ops;
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(snd_usb_register_platform_ops);
-> +
-> +/*
-> + * Unregisters the current set of platform operations.  This allows for
-
-Unregister?
-
-> + * a new set to be registered if required.
-> + *
-> + * The platform unregister operation is protected by the register_mutex.
-> + */
-> +int snd_usb_unregister_platform_ops(void)
-> +{
-> +	guard(mutex)(&register_mutex);
-> +	platform_ops = NULL;
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(snd_usb_unregister_platform_ops);
->  
->  /*
->   * Checks to see if requested audio profile, i.e sample rate, # of
-> @@ -946,7 +982,11 @@ static int usb_audio_probe(struct usb_interface *intf,
->  	chip->num_interfaces++;
->  	usb_set_intfdata(intf, chip);
->  	atomic_dec(&chip->active);
-> +
-> +	if (platform_ops && platform_ops->connect_cb)
-> +		platform_ops->connect_cb(chip);
->  	mutex_unlock(&register_mutex);
-> +
->  	return 0;
->  
->   __error:
-> @@ -983,6 +1023,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
->  	card = chip->card;
->  
->  	mutex_lock(&register_mutex);
-> +	if (platform_ops && platform_ops->disconnect_cb)
-> +		platform_ops->disconnect_cb(chip);
-> +
->  	if (atomic_inc_return(&chip->shutdown) == 1) {
->  		struct snd_usb_stream *as;
->  		struct snd_usb_endpoint *ep;
-> @@ -1130,6 +1173,11 @@ static int usb_audio_suspend(struct usb_interface *intf, pm_message_t message)
->  		chip->system_suspend = chip->num_suspended_intf;
->  	}
->  
-> +	mutex_lock(&register_mutex);
-> +	if (platform_ops && platform_ops->suspend_cb)
-> +		platform_ops->suspend_cb(intf, message);
-> +	mutex_unlock(&register_mutex);
-> +
->  	return 0;
->  }
->  
-> @@ -1170,6 +1218,11 @@ static int usb_audio_resume(struct usb_interface *intf)
->  
->  	snd_usb_midi_v2_resume_all(chip);
->  
-> +	mutex_lock(&register_mutex);
-> +	if (platform_ops && platform_ops->resume_cb)
-> +		platform_ops->resume_cb(intf);
-> +	mutex_unlock(&register_mutex);
-> +
->   out:
->  	if (chip->num_suspended_intf == chip->system_suspend) {
->  		snd_power_change_state(chip->card, SNDRV_CTL_POWER_D0);
 > diff --git a/sound/usb/card.h b/sound/usb/card.h
-> index 4f4f3f39b7fa..23d9e6fc69e7 100644
+> index 23d9e6fc69e7..15cda1730076 100644
 > --- a/sound/usb/card.h
 > +++ b/sound/usb/card.h
-> @@ -207,7 +207,17 @@ struct snd_usb_stream {
->  	struct list_head list;
->  };
+> @@ -15,6 +15,7 @@ struct audioformat {
+>  	unsigned int channels;		/* # channels */
+>  	unsigned int fmt_type;		/* USB audio format type (1-3) */
+>  	unsigned int fmt_bits;		/* number of significant bits */
+> +	unsigned int fmt_sz;		/* overall audio sub frame/slot size */
+>  	unsigned int frame_size;	/* samples per frame for non-audio */
+>  	unsigned char iface;		/* interface number */
+>  	unsigned char altsetting;	/* corresponding alternate setting */
+> diff --git a/sound/usb/format.c b/sound/usb/format.c
+> index 3b45d0ee7693..5fde543536a8 100644
+> --- a/sound/usb/format.c
+> +++ b/sound/usb/format.c
+> @@ -80,6 +80,7 @@ static u64 parse_audio_format_i_type(struct snd_usb_audio *chip,
+>  	}
 >  
-> +struct snd_usb_platform_ops {
-> +	void (*connect_cb)(struct snd_usb_audio *chip);
-> +	void (*disconnect_cb)(struct snd_usb_audio *chip);
-> +	void (*suspend_cb)(struct usb_interface *intf, pm_message_t message);
-> +	void (*resume_cb)(struct usb_interface *intf);
-> +};
+>  	fp->fmt_bits = sample_width;
+> +	fp->fmt_sz = sample_bytes;
+>  
+>  	if ((pcm_formats == 0) &&
+>  	    (format == 0 || format == (1 << UAC_FORMAT_TYPE_I_UNDEFINED))) {
 
+Should this patch be added first? I mean, I don't see any dependency on
+USB offload
 
-You're using the same mutex to protect all four callbacks, so how would
-things work if e.g. you disconnected a device during the resume operation?
+I am actually confused as to how the regular USB audio path deals with
+format, this must be inferred somewhere from the fmt_bits. Probably a
+question for Takashi :-)
 

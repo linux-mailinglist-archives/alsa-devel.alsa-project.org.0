@@ -2,89 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC3999662DF
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 15:26:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC4F59667C3
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 19:15:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1C6E832;
-	Fri, 30 Aug 2024 15:26:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1C6E832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 005BF3E7;
+	Fri, 30 Aug 2024 19:14:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 005BF3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725024392;
-	bh=yNTgcxt0Jvmr1cytFFcqGGu1C6A7n+7i6AMHuwra94s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1725038104;
+	bh=ajZD+MTyKZARFyIT3+mQii7dHcoc5L9nz2SJ3VG7Ms0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Mavwr1szsmZ+LVurIMJq3rL/9Bu3529Rm+uNA8/5MNI8i6Lu+q3JUJ7bY3O38MhSO
-	 40VeDgUCZYYEahPUDv8jYp7wtCHLmtjJM84uSeEUQjw4kHNRzzKi6SHqGT8JsH/iDd
-	 BXjECf2VPVCMJkWXSFzW4rnrV67Nz3QX8AHCbW2c=
+	b=QhkRnBnFodw96XlQX00fjJR17STpVyRFhV/VH1lZWPGXiP/7kdGbiffxVoXVzhGHW
+	 ds1LXHJU1rx3jLyLs2eHMfHtpJa3HcQtNLGeAkeIdEkqHhaYYCyDeoND7MqcUAd4iO
+	 IBtLNjATPp5yF1nOgyqtJ9oOvinA/YYTTqC9vtLg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25C4FF805B5; Fri, 30 Aug 2024 15:26:11 +0200 (CEST)
+	id E72C5F80588; Fri, 30 Aug 2024 19:14:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48072F80528;
-	Fri, 30 Aug 2024 15:26:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A4E8F805AC;
+	Fri, 30 Aug 2024 19:14:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5625BF80518; Fri, 30 Aug 2024 15:26:06 +0200 (CEST)
+	id 3C612F80518; Fri, 30 Aug 2024 19:14:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BF962F80087
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 15:26:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF962F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 191A6F80087
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 19:14:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 191A6F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BI+ILC2W
+ header.s=k20201202 header.b=G451Q+L3
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 7B056A4476E;
-	Fri, 30 Aug 2024 13:25:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73574C4CEC2;
-	Fri, 30 Aug 2024 13:25:57 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 0FFFC5C10EF;
+	Fri, 30 Aug 2024 17:14:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93311C4CEC7;
+	Fri, 30 Aug 2024 17:14:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725024360;
-	bh=yNTgcxt0Jvmr1cytFFcqGGu1C6A7n+7i6AMHuwra94s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=BI+ILC2WBeJTDWqQrcORGhSJsg6K2Pz+RbA7txVBNCZbIFbJGr1sLhCKonLQQsV9L
-	 VvITUft3oYcXxBAYx158mDpAeIJW1LzwZeXXDjLwltTWiLfAAj28T9sJo3vXsG4ZiI
-	 TPxCvcnL4dwMiVPDPcFIZKyWXgSpEqQ1RdArVD/Y1JOh6uPrgIlEBvI9pCTsMW5vuf
-	 P+8dAXUHiBMNlDsNZphv+FSnM+U9s0vEkLCaAr6bIYV9plDFnVsUZbEu60htGMAcnY
-	 wTOtyqUK4vXhSIO1g8dlRiNt4JNg7YiNYa1hgKGKLucL90XuPxT321iwazF/agsdeI
-	 lJa6oh9ZKcY2A==
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
-In-Reply-To: 
- <20240828-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v2-0-58159abf0779@linaro.org>
-References: 
- <20240828-topic-amlogic-upstream-bindings-fixes-audio-snd-card-v2-0-58159abf0779@linaro.org>
-Subject: Re: (subset) [PATCH v2 0/3] ASoC: dt-bindings:
- amlogic-sound-cards: document clocks property
-Message-Id: <172502435719.145062.8812088921353096920.b4-ty@kernel.org>
-Date: Fri, 30 Aug 2024 14:25:57 +0100
+	s=k20201202; t=1725038059;
+	bh=ajZD+MTyKZARFyIT3+mQii7dHcoc5L9nz2SJ3VG7Ms0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=G451Q+L3fByFCqoi3F0vPAlPFRbTw3iilXQr+lEQFLb1SjJTCo91RhE68KbEKjhbv
+	 VyjhiO+Ch8RNUkgKJ7l+g1pWVPL3Ie8dkzvhHySp8jMFFqG9QQG9UrzWTZIkYuIpNS
+	 Axt4O1u3gktuY4rc1oGerNkUopQB/YItBVjK9IZCXb7cjnT/1ww3twzjcBbWRiV+Rc
+	 59LnVtVNjhDr6hYpzAM74Sa4mV/kLOkD927aw3v+Ydpra7nKkbtkXnvM3FIypg8YSg
+	 h3LfHhLcPphBzr9nlQKWlAlA4C+BxS16wUboVGpPblnVbhU+2JyDywjt2DZdTp4+Ai
+	 ARmXqrm1kkiDQ==
+Message-ID: <b1d1f523-6852-4877-be73-85cb6728d9a8@kernel.org>
+Date: Fri, 30 Aug 2024 19:14:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] ASoC: codecs: Switch to use dev_err_probe()
+To: Yang Ruibin <11162571@vivo.com>, Lars-Peter Clausen <lars@metafoo.de>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: opensource.kernel@vivo.com
+References: <20240830014733.3467006-1-11162571@vivo.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <20240830014733.3467006-1-11162571@vivo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-37811
-Message-ID-Hash: LU4SKH3BJRWUFT3LH7D6JHYR4EFIZV5S
-X-Message-ID-Hash: LU4SKH3BJRWUFT3LH7D6JHYR4EFIZV5S
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: FFFBIPVVFZV6KA5ZBMH5LO6CURHOT6JC
+X-Message-ID-Hash: FFFBIPVVFZV6KA5ZBMH5LO6CURHOT6JC
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LU4SKH3BJRWUFT3LH7D6JHYR4EFIZV5S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FFFBIPVVFZV6KA5ZBMH5LO6CURHOT6JC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,47 +144,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 28 Aug 2024 15:53:53 +0200, Neil Armstrong wrote:
-> Following an off-list discution with Jerome about fixing the following
-> DTBs check errors:
->     sound: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
->         from schema $id: http://devicetree.org/schemas/sound/amlogic,axg-sound-card.yaml#
->     sound: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
->         from schema $id: http://devicetree.org/schemas/sound/amlogic,gx-sound-card.yaml#
->     sound: 'anyOf' conditional failed, one must be fixed:
->         'clocks' is a required property
->         '#clock-cells' is a required property
->         from schema $id: http://devicetree.org/schemas/clock/clock.yaml#
+On 30/08/2024 03:47, Yang Ruibin wrote:
+> Using dev_err_probe() instead of dev_err() in probe() simplifies
+> the error path and standardizes the format of the error code.
 > 
-> [...]
+> Signed-off-by: Yang Ruibin <11162571@vivo.com>
+> ---
+>  sound/soc/codecs/ad1980.c   |  8 +++-----
+>  sound/soc/codecs/adau1701.c | 19 +++++++------------
+>  sound/soc/codecs/ssm2602.c  |  6 ++----
+>  3 files changed, 12 insertions(+), 21 deletions(-)
+> 
 
-Applied to
+...
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> diff --git a/sound/soc/codecs/ssm2602.c b/sound/soc/codecs/ssm2602.c
+> index c29324403..153eb55a3 100644
+> --- a/sound/soc/codecs/ssm2602.c
+> +++ b/sound/soc/codecs/ssm2602.c
+> @@ -605,10 +605,8 @@ static int ssm260x_component_probe(struct snd_soc_component *component)
+>  	int ret;
+>  
+>  	ret = regmap_write(ssm2602->regmap, SSM2602_RESET, 0);
+> -	if (ret < 0) {
+> -		dev_err(component->dev, "Failed to issue reset: %d\n", ret);
+> -		return ret;
+> -	}
+> +	if (ret < 0)
+> +		return dev_err_probe(component->dev, ret, "Failed to issue reset\n");
 
-Thanks!
+After quick look, I think this might not be a probe path, thus the code
+might not be correct.
 
-[1/3] ASoC: dt-bindings: amlogic,axg-sound-card: document clocks property
-      commit: 4b1d9019b26fd654ebc2d0d2e100ed56ef1821f0
-[2/3] ASoC: dt-bindings: amlogic,gx-sound-card: document clocks property
-      commit: f189c972f86b00318cf2547b62e461cb98374e34
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards,
+Krzysztof
 

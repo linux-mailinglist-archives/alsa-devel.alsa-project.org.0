@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6DA4965E1B
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866BF965E1D
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:12:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54C7185D;
-	Fri, 30 Aug 2024 12:12:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54C7185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAB17857;
+	Fri, 30 Aug 2024 12:12:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAB17857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725012743;
-	bh=ua6iHb2IsSlmaZf5LZNpVADheaj2qxDuHc6BnNLIYyo=;
+	s=default; t=1725012760;
+	bh=WjrGopvfWBwqadCF5AMZbTn86mU67OhWuakpxI4+ldA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ingAvOMch4lATr6c69g+hBHJ2QTF0K/bhrcyptZUszsb1JBEOHKnbMlGmdGiB0Lpv
-	 EDPqBD72W8oeP7FRD+aNSSZkK1xbUj0jllhzLoasI29KQC0a2r/1a1a/H9F8aRtqLj
-	 64I1diPAJh4jO4ql27qiU5LJol3SYmuOgmRK/lQw=
+	b=rhB4ADhzDht7mQNyR63k11f1cZnQXXtHTzWE29uS1IkTDKhYeAxQ7peYArV6rmX7d
+	 sO+3FH2PDz41DwDvJ0LXfdCyhi8hAb4LI7s86eMoCHYRquEWGdzayLAGLOO0/CwxyM
+	 2Hdq54fqrP+qKg6IyxgWbdY8GglEitcTHFUhGEA8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F19EF805D5; Fri, 30 Aug 2024 12:11:40 +0200 (CEST)
+	id 4ECC9F805AD; Fri, 30 Aug 2024 12:11:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03A46F80589;
-	Fri, 30 Aug 2024 12:11:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A25E6F805E8;
+	Fri, 30 Aug 2024 12:11:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D559F80518; Fri, 30 Aug 2024 12:11:29 +0200 (CEST)
+	id 8D799F805D3; Fri, 30 Aug 2024 12:11:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,49 +36,49 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 707A0F80107
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:11:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 707A0F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 75506F80087
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75506F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RS9sZmq3
+ header.s=Intel header.b=edk/qeRS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725012689; x=1756548689;
+  t=1725012695; x=1756548695;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=ua6iHb2IsSlmaZf5LZNpVADheaj2qxDuHc6BnNLIYyo=;
-  b=RS9sZmq3XiB5PDPvG6Aok0AcyvZsKS0kwG8k+F4dHl/uRe1YpDP9xk5s
-   QYNSmlK6yRCz1UIBGoeUw+/xHtDaDrMlu/TLGbS6CfCCcFUzs5I/BRN29
-   lhF+IpOiYpQhOjgh4RzDUmqhZiqgu3KtvTsTUDiD0O6oWUmWfRbe+wSml
-   zyf+dA81IOOUFFu4E9xS7sEJwgY4Ncwsh0ZEls4K3dDzFoElRVtTl2yqA
-   rl780XlpAxxmY5UZnWCgnXUxwIXRZZDoVcdQvlNGpRL9ZOVCVYH/WlK+d
-   E8iy+JhSuzDPZATF5hbZKQXSnvn6D9Im/WHy1MYBl42Hec8x12yIGVsec
+  bh=WjrGopvfWBwqadCF5AMZbTn86mU67OhWuakpxI4+ldA=;
+  b=edk/qeRSpRocz+zvk5XqqwMqIzrfhVkjq/nAwrs5rjOYFFqcndCn0u7V
+   Bq74etYRJFQxIcYybgCMWCFqV6DqywYsUNBm7HwsaPKn9pJ3qNTGYT02f
+   1nQfDdawJJoHrnFOYL4OM8CGwzbVzLP8ViIYp8d+YW2ksdYBofGbONrko
+   DKu+kH/VxzAeyWO+BUTP7I1FoQPCiBqd0NSV+vYZvDTetQpdSDRJYHu/b
+   DJBsl9zQlkuYRB4lzEFhjJtNw3oZyMoTszDiiyttXwnwP0iceMbxoHzqe
+   CrZTngZRl4dH6UNslPpa7rCJwKsEgdCZgHZLv4fMUgQzfQAHbFpDVPMne
    g==;
-X-CSE-ConnectionGUID: AzReI4JUT2qviSBuQhxKCg==
-X-CSE-MsgGUID: oc3obGHjRH+K7bvTFyvwrA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218704"
+X-CSE-ConnectionGUID: iDxhPETETpSomAuzWE9eJg==
+X-CSE-MsgGUID: 0qm+jqDHSgGpYjufHdt+Lw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218721"
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="34218704"
+   d="scan'208";a="34218721"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:11:27 -0700
-X-CSE-ConnectionGUID: Wz/y45B2RJqKptUFmsGXnQ==
-X-CSE-MsgGUID: VUy1r+MtSniUz1ZM8Ut4sQ==
+ 30 Aug 2024 03:11:33 -0700
+X-CSE-ConnectionGUID: fdk8jU+yTuSP5Li9jQhozA==
+X-CSE-MsgGUID: iX//HswMRjeENxKXJX8Byw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="63481306"
+   d="scan'208";a="63481353"
 Received: from ltuz-desk.ger.corp.intel.com (HELO [10.245.246.101])
  ([10.245.246.101])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:11:19 -0700
-Message-ID: <c5508a0a-faa4-4548-87cb-7255d7a5e7b7@linux.intel.com>
-Date: Fri, 30 Aug 2024 10:33:07 +0200
+ 30 Aug 2024 03:11:27 -0700
+Message-ID: <fedfc810-fcc2-49fa-9165-34003b111fc5@linux.intel.com>
+Date: Fri, 30 Aug 2024 10:34:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v26 10/33] ALSA: usb-audio: Export USB SND APIs for
- modules
+Subject: Re: [PATCH v26 11/33] ALSA: usb-audio: Check for support for
+ requested audio format
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com, corbet@lwn.net, broonie@kernel.org,
@@ -90,14 +90,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-doc@vger.kernel.org, alsa-devel@alsa-project.org
 References: <20240829194105.1504814-1-quic_wcheng@quicinc.com>
- <20240829194105.1504814-11-quic_wcheng@quicinc.com>
+ <20240829194105.1504814-12-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240829194105.1504814-11-quic_wcheng@quicinc.com>
+In-Reply-To: <20240829194105.1504814-12-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: D3UBEA6MM7LW32EQGWHL7JV54IPQYBSZ
-X-Message-ID-Hash: D3UBEA6MM7LW32EQGWHL7JV54IPQYBSZ
+Message-ID-Hash: EJDGZRO2JPOBA256PCHBGL6WUP2QHLEB
+X-Message-ID-Hash: EJDGZRO2JPOBA256PCHBGL6WUP2QHLEB
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D3UBEA6MM7LW32EQGWHL7JV54IPQYBSZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EJDGZRO2JPOBA256PCHBGL6WUP2QHLEB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,11 +122,11 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 8/29/24 21:40, Wesley Cheng wrote:
-> Some vendor modules will utilize useful parsing and endpoint management
-> APIs to start audio playback/capture.
+> Allow for checks on a specific USB audio device to see if a requested PCM
+> format is supported.  This is needed for support when playback is
+> initiated by the ASoC USB backend path.
 > 
 > Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
 
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
 

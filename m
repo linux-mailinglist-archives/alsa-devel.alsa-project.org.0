@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90AAB965E2C
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:14:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3440965E32
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:14:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47C10843;
-	Fri, 30 Aug 2024 12:13:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47C10843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F1629F6;
+	Fri, 30 Aug 2024 12:14:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F1629F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725012840;
-	bh=bKLtZa3cKoK9TzUa9TB+LglNmjaV03FoQ0yzMmzbFmc=;
+	s=default; t=1725012859;
+	bh=eyXJHGcT/Na/c2SdMzGXJF5Dzkg07Jkb8wsmfvC9SWI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RKpQiRlBjAaDiOQkycDJN+5CInZpqQ0jcXe5/sM2xeSMVW7BeTFNfcbx3BFT5sIei
-	 eGK/TS/7gaZzxQ4YAc/cKgnOFep5SesgaVv9SqoU1dfiNwEWULzQ7XLNawjsHC0VcP
-	 bQ+zAn/iT9d8IoZDM6uSN1JyO9ysPLXe8A6jEUDo=
+	b=kCAP8wp+0rhCkdpMUkOvJT1Qwm8px7nWUqYRF+T+u86PThJhWwa5t0cbbWAmUlbtm
+	 QzmKJDuMlh8/PlMJCrqBorFUA2p3RJEXz/+7ZT5jvBkw6zm/2Fu6MVukJtgtY50juD
+	 G9426jXRqMvBbco0QQfQDZlhvTBo24bL44SpzbaQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F227F806A3; Fri, 30 Aug 2024 12:12:20 +0200 (CEST)
+	id 5E59EF806B0; Fri, 30 Aug 2024 12:12:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5C94F806A7;
-	Fri, 30 Aug 2024 12:12:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1E26F806A8;
+	Fri, 30 Aug 2024 12:12:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C20DF805B4; Fri, 30 Aug 2024 12:12:12 +0200 (CEST)
+	id 081C5F80693; Fri, 30 Aug 2024 12:12:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,48 +36,49 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6E470F80631
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E470F80631
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13E65F80692
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:12:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13E65F80692
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=cRyn3hAU
+ header.s=Intel header.b=H8XyMz5c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725012731; x=1756548731;
+  t=1725012737; x=1756548737;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=bKLtZa3cKoK9TzUa9TB+LglNmjaV03FoQ0yzMmzbFmc=;
-  b=cRyn3hAUqcB+PkMYJflg3ckuuZczy4cc+MoGmbRdTsaIik0ZPaMGdYoY
-   Zxx5oEdXY+fI9UgogQi/c49bLW9zPfMRH6kNeFvmt1oB27owysKQr2tnQ
-   oxnw7vAelKZakhGe7VW/yDPimwvZ42UwR5e8NtAsEmb/p7YsO6JFiMh90
-   knHB+I/hEdMXf986qGVnUa5SMW4ko6iEmmZjVeeVmBWhZFshALiwfR0o2
-   annNfwBQe8hckwCmb3SpmDCE6jpZWwLelEZIq9pvIHUZHXMhnoHX2iEYl
-   5u7vzVieVTmfeLPVNGXkU3lvEpm3ps5SU9F6txk69lk0R5/ADnahH0qKN
-   Q==;
-X-CSE-ConnectionGUID: X7Zqok+YTaearfIQiI1U+g==
-X-CSE-MsgGUID: DAM9TwqSRy+1peNAyv4WYw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218819"
+  bh=eyXJHGcT/Na/c2SdMzGXJF5Dzkg07Jkb8wsmfvC9SWI=;
+  b=H8XyMz5cq87ktTIOoVhC8VOSoRkFlpWLtp5T/cTjMYn06+cOkZVn4Yly
+   R9R8QN7s6oENeZW+PfUb7A59+R6Jxzvmdpz3IzVyetHq03mX1hF0G4KfP
+   RcOcADpBlWfMotwxEfzqkoFKaTvYkAUJgHuK8oQFjQo8W92b6TE1tXZTk
+   zoXDR66hHQWaerAqHXcSKlYOkySR3dgWp2LpaPKTFLHhDC7YO2w1gfUUG
+   bM1chcpXJ/92g4mLviLMrWC6VuaECVLzkK/WHW7P7Mfjtdg2HKg4usXs+
+   /PXNeXxEUy1T24Tay4qmjOTsc3ea9FGYHgje6xUv6Uc5zWbKr+GHNB0gg
+   w==;
+X-CSE-ConnectionGUID: /vM3nIEhQ7e1tfubVBHATg==
+X-CSE-MsgGUID: agZiM/0IR5Seg8S1kSP22w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11179"; a="34218840"
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="34218819"
+   d="scan'208";a="34218840"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
   by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:09 -0700
-X-CSE-ConnectionGUID: g37nUHMuRiqbqJGTAPN68Q==
-X-CSE-MsgGUID: kFlenFfcQeuihxmEkU1Y9w==
+ 30 Aug 2024 03:12:16 -0700
+X-CSE-ConnectionGUID: TB+bsB5SSDG33pLIuWM/ug==
+X-CSE-MsgGUID: bxrL9ko3S02EoTU7hzfgYQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.10,188,1719903600";
-   d="scan'208";a="63481580"
+   d="scan'208";a="63481618"
 Received: from ltuz-desk.ger.corp.intel.com (HELO [10.245.246.101])
  ([10.245.246.101])
   by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Aug 2024 03:12:03 -0700
-Message-ID: <522dd841-2060-4e7c-b8ce-7e9ea2fa8498@linux.intel.com>
-Date: Fri, 30 Aug 2024 11:03:16 +0200
+ 30 Aug 2024 03:12:09 -0700
+Message-ID: <ae0ae5f0-a3e9-49b4-95ba-524975d70659@linux.intel.com>
+Date: Fri, 30 Aug 2024 11:12:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v26 16/33] ASoC: doc: Add documentation for SOC USB
+Subject: Re: [PATCH v26 19/33] ASoC: qcom: qdsp6: Introduce USB AFE port to
+ q6dsp
 To: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
  mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com, corbet@lwn.net, broonie@kernel.org,
@@ -89,14 +90,14 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-doc@vger.kernel.org, alsa-devel@alsa-project.org
 References: <20240829194105.1504814-1-quic_wcheng@quicinc.com>
- <20240829194105.1504814-17-quic_wcheng@quicinc.com>
+ <20240829194105.1504814-20-quic_wcheng@quicinc.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20240829194105.1504814-17-quic_wcheng@quicinc.com>
+In-Reply-To: <20240829194105.1504814-20-quic_wcheng@quicinc.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: JAV3OLTZI6KBOEKLPXCMHPWQUHGE5FT5
-X-Message-ID-Hash: JAV3OLTZI6KBOEKLPXCMHPWQUHGE5FT5
+Message-ID-Hash: AQYLAMNDWGOEDCIVJK5K7JJFBHBMZOIW
+X-Message-ID-Hash: AQYLAMNDWGOEDCIVJK5K7JJFBHBMZOIW
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JAV3OLTZI6KBOEKLPXCMHPWQUHGE5FT5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AQYLAMNDWGOEDCIVJK5K7JJFBHBMZOIW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,70 +120,52 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-> diff --git a/Documentation/sound/soc/index.rst b/Documentation/sound/soc/index.rst
-> index e57df2dab2fd..8bed8f8f48da 100644
-> --- a/Documentation/sound/soc/index.rst
-> +++ b/Documentation/sound/soc/index.rst
-> @@ -18,3 +18,4 @@ The documentation is spilt into the following sections:-
->     jack
->     dpcm
->     codec-to-codec
-> +   usb
-> diff --git a/Documentation/sound/soc/usb.rst b/Documentation/sound/soc/usb.rst
-> new file mode 100644
-> index 000000000000..bd3d9eb86b07
-> --- /dev/null
-> +++ b/Documentation/sound/soc/usb.rst
-> @@ -0,0 +1,429 @@
-> +================
-> +ASoC USB support
-> +================
-> +
-> +Overview
-> +========
-> +In order to leverage the existing USB sound device support in ALSA, the
-> +ASoC USB APIs are introduced to allow for the entities to communicate
-> +with one another.
 
-nit-pick: entities is rather vague and an overloaded term in USB audio.
-Maybe "allow the subsystems to exchange configuration information"
+On 8/29/24 21:40, Wesley Cheng wrote:
+> The QC ADSP is able to support USB playback endpoints, so that the main
+> application processor can be placed into lower CPU power modes.  This adds
+> the required AFE port configurations and port start command to start an
+> audio session.
+> 
+> Specifically, the QC ADSP can support all potential endpoints that are
+> exposed by the audio data interface.  This includes, feedback endpoints
+> (both implicit and explicit) as well as the isochronous (data) endpoints.
 
-> +One potential use case would be to support USB audio offloading, which is
-> +an implementation that allows for an external DSP on the SoC to handle the
+I think you meant
 
-nit-pick: not sure about the reference to an 'external DSP'. "external"
-would usually to a stand-alone device and there's no real need for DSP
-capabilities for USB offload, e.g. a regular embedded core would do just
-fine.
+"
+this includes isochronous data endpoints, in either synchronous mode or
+asynchronous mode. In the latter case both implicit or explicit feedback
+endpoints are supported.
+"
 
-maybe "allows for an alternate power-optimized path in the audio
-subsystem to handle the transfer of audio data over the USB bus"
+And now I don't remember how *controls* are handled.
 
-> +transfer of audio data over the USB bus.  This would let the main
-> +processor to stay in lower power modes for longer duration.  The following
-> +is an example design of how the ASoC and ALSA pieces can be connected
-> +together to achieve this:
+Is this the case that all controls exposed by endpoint zero are visible
+in both the regular USB-audio card AND the offloaded card, with changes
+mirrored?
 
-> +	int snd_soc_usb_update_offload_route(struct device *dev, int card, int pcm,
-> +					     int direction, long *route)
-> +..
-> +
-> +  - ``dev``: USB device to look up offload path mapping
-> +  - ``card``: USB sound card index
-> +  - ``pcm``: USB sound PCM device index
-> +  - ``direction``: direction to fetch offload routing information
-> +  - ``route``: mapping of sound card and pcm indexes for the offload path
-
-nit-pick: again explain how the card and pcm indices are handled.
+It's important to explain so that the volumes are consistent no matter
+which path is used. This should be added to the documentation.
 
 
-> +--------------------------------
-> +USB devices can be hotplugged into the USB root hub at any point in time.
+> +static const struct snd_soc_dai_ops q6afe_usb_ops = {
+> +	.probe		= msm_dai_q6_dai_probe,
+> +	.prepare	= q6afe_dai_prepare,
+> +	.hw_params	= q6afe_usb_hw_params,
+> +	/*
+> +	 * Shutdown callback required to stop the USB AFE port, which is enabled
+> +	 * by the prepare() stage.  This stops the audio traffic on the USB AFE
+> +	 * port on the Q6DSP.
+> +	 */
+> +	.shutdown	= q6afe_dai_shutdown,
+> +	/*
+> +	 * Startup callback not needed, as AFE port start command passes the PCM
+> +	 * parameters within the AFE command, which is provided by the PCM core
+> +	 * during the prepare() stage.
+> +	 */
 
-"root hub" really?
-
-Is this really required? I would think the entire framework would work
-just fine if the device is connected to any hub at any level, not just
-"the" root hub.
+Humm, now this is a bit confusing. Why would you need a shutdown, can't
+you use the hw_free() callback for symmetry with prepare()?
 
 

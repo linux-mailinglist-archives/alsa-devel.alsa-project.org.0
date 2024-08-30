@@ -2,111 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EDB0965FB6
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 12:57:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A231966152
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2024 14:04:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75DA1839;
-	Fri, 30 Aug 2024 12:56:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75DA1839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 075A384C;
+	Fri, 30 Aug 2024 14:04:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 075A384C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725015423;
-	bh=0yNkwl+K5/f2VBOn0wh/xwNfO68u56iaPDTBCQB+eAs=;
+	s=default; t=1725019496;
+	bh=DdRKUn8XwQaRBA2QJjhwZmsgTvHCLSZzlyvCDcLymps=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JGRuLJvRzL2fPPUVmzuuyokGRD9wTMShTwp1JvG6N0YVLwb5qrp8VUVHlR6J1s/rF
-	 m2gUYo4oV8CirKEwCt2gsxnttZEF1pX4CVTNkZ5GPIc9D2RLUIgqKSN2jbOMcslZkM
-	 cDgp3lcmw0WpXZXDMYWr/kKZ/TKGcaPraLUoLBDI=
+	b=KHAWf2a0YzPIqipGNU7+cnuh4CKCEwRTk3tdqdi9Fbqsgn4GpMd6tEoTLWZ/oNBcy
+	 IwaiNp2UcaanhqH0+qFqTn8/A0CEqp2UB9dXQfmegTAWA7zNCA1Q9LH+iuyeRUvwe4
+	 rKlpe4BmltNe8smxxsxoJLh8umcgeZbe5c2IhAEE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BAB4F805B1; Fri, 30 Aug 2024 12:56:31 +0200 (CEST)
+	id 3F0E2F805AF; Fri, 30 Aug 2024 14:04:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D89DF805B1;
-	Fri, 30 Aug 2024 12:56:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AB05F805A9;
+	Fri, 30 Aug 2024 14:04:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03D78F80518; Fri, 30 Aug 2024 12:56:25 +0200 (CEST)
+	id A7209F80518; Fri, 30 Aug 2024 14:04:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B6C4CF80087
-	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 12:56:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6C4CF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id BDC49F80087
+	for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2024 14:04:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDC49F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=U6lA0A/k
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-5334c018913so1500557e87.0
-        for <alsa-devel@alsa-project.org>;
- Fri, 30 Aug 2024 03:56:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1725015381; x=1725620181;
- darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0gKyKcoJ3TdGstuho5BLbj3dZPw1dj82Fy+eFXEsXQM=;
-        b=U6lA0A/k6nCM+g7h23D9oPfBQ6Q68OLwYyb7DwtD6r9mnWv0W6swWDusUBrlZqYSEs
-         y1kT/mQaz3ttSOyffUN0Uq8NH62yIJ2KJ7ywy9rWKzyPHqcwLi/Yf1Ey9F9jBxzVEoFt
-         vf5KVzQ0m/xoNBzv5cHJ2kui4dtUg2NjlHG4bCNQ1xzpG0MM3SycjiPXlxmAnL3dVj9W
-         t2knXzEN3jZcowyo0a2+C4BMQZBIsEBfXlI0aWv2t21rXkoa+pqK8wPbXjchRHAj0epS
-         YjNPShZCq7Cm8jkF3/LZv1ji2c+K+dmryOyRVfNxvMa3v2qm4SZSY/ZbGekBDrODXMgZ
-         A3Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725015381; x=1725620181;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0gKyKcoJ3TdGstuho5BLbj3dZPw1dj82Fy+eFXEsXQM=;
-        b=TJNwLvFI46dC3yRGYz6DnFXaMVnhzp7lRtY/QiBd99Osb91sp5VKuEpAzW7oHDz0tm
-         1EfQku3LQMMDVI2LnlHngV4MBD3Yv5oDK554gy00QkOKd885bpETDKPdUnErCrmpExLr
-         GR8kCGsfxn3QQ/yxJmN4+3w5P/edTvYyTz+QDMUNdT5vF1BeB/5ylbwq8lCok4QvdXUO
-         8ErraJBqTZ7ne3/OsWuz6mgDkYbtE+2M1hXsXf7cXiWGACGeSRm5BlQxreoBGn6OQsKU
-         VKG+F7xRmSCcW8DSlpzdok/sIlzVKdlSps6/CdS531ZFGDenIHde5H7yB5PkKNUrK/Zu
-         ONpQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU9g/3Y7ebE1Ec7/3sdEV7l9gONHxoiF6IdSiMI8ysEeT7Uj/FhWLa5OKL2zeUWhi97To9eLR1aTHnk@alsa-project.org
-X-Gm-Message-State: AOJu0YxwCuqBBqwabWty5fGt5mqI2zyHQcEjAVQoIjcBqeGAxjssM2gf
-	30zcPjkHUmdFMQTjbJ2IJOKQh4OfPN9x6cQXEqwe/tGFaTcLxsxv+KgwCXgKzGw=
-X-Google-Smtp-Source: 
- AGHT+IFhQ6PoGmrOUr14jdbBRUr38XMXRb64j/1OyzzvHshRezk/QL3UWUvUtUOcTCJicKZk+oUx6A==
-X-Received: by 2002:a05:6512:2309:b0:52e:98f6:c21f with SMTP id
- 2adb3069b0e04-53546b0b111mr1274057e87.16.1725015380724;
-        Fri, 30 Aug 2024 03:56:20 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
-        by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53540827a11sm545340e87.162.2024.08.30.03.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Aug 2024 03:56:20 -0700 (PDT)
-Date: Fri, 30 Aug 2024 13:56:18 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Bryan O'Donoghue <pure.logic@nexus-software.ie>
-Cc: srinivas.kandagatla@linaro.org, broonie@kernel.org, perex@perex.cz,
-	tiwai@suse.com, alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- amit.pundir@linaro.org
-Subject: Re: [PATCH v2] ASoC: codecs: lpass-va-macro: set the default codec
- version for sm8250
-Message-ID: <7tzmorkxuaiztz4vabjvfclv6s5vu2dtlfd6vzlnz66jhg6y2p@msgesiuficec>
-References: <20240816091210.50172-1-srinivas.kandagatla@linaro.org>
- <0fcd3421-8086-44bc-b24f-7fb2262a675c@nexus-software.ie>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=OAhQBAs+
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sin.source.kernel.org (Postfix) with ESMTP id D8AEACE1DF3;
+	Fri, 30 Aug 2024 12:04:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB85C4CEC2;
+	Fri, 30 Aug 2024 12:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1725019451;
+	bh=DdRKUn8XwQaRBA2QJjhwZmsgTvHCLSZzlyvCDcLymps=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OAhQBAs+5rpjkIOu7qr1HQslAadhD92UAuv3MiihqB0qndiA+3bs3NeQjuzveY/Oe
+	 DhGwfhApPiTor0ecSCkoBplN5dG96PbEAB9eDWuZvYqAnyugxkhXRIabbYodWuVJ3T
+	 w6/UOwPxq0MrKcdDsa/7y3BWyYgcqpFw9GUgzdLjrCMLvoQjc/ZCRPqFCZbQJmZPw9
+	 mSa05gpHxHzEvHJNy9Q8zHcCjrEShq8JYhZF6ZBvAHru+1gD5bbbAr7A0q+/f4bxqB
+	 7+NB5aVL4P/KU0dHsqIg1xS6PJGOwLKdb2L5rjQvUE7XUTOZRbzxFymxbzrNnY5oAw
+	 KFLWOt94UztRQ==
+Date: Fri, 30 Aug 2024 13:04:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: How to handle complex Codec2Codec
+Message-ID: <31fb2975-4a27-43e5-b9cb-37db3206f5f3@sirena.org.uk>
+References: <8734moq6ca.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mBq8xMY20aqYhrjl"
 Content-Disposition: inline
-In-Reply-To: <0fcd3421-8086-44bc-b24f-7fb2262a675c@nexus-software.ie>
-Message-ID-Hash: IFR5NZUMMVJZDUI52XFPAZS534RBQBE3
-X-Message-ID-Hash: IFR5NZUMMVJZDUI52XFPAZS534RBQBE3
-X-MailFrom: dmitry.baryshkov@linaro.org
+In-Reply-To: <8734moq6ca.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: for ARTIFICIAL FLAVORING!!
+Message-ID-Hash: MBMTWK55YBRCU46ASOTXRP3KDDRO6RNJ
+X-Message-ID-Hash: MBMTWK55YBRCU46ASOTXRP3KDDRO6RNJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IFR5NZUMMVJZDUI52XFPAZS534RBQBE3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MBMTWK55YBRCU46ASOTXRP3KDDRO6RNJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,30 +96,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Aug 30, 2024 at 09:37:39AM GMT, Bryan O'Donoghue wrote:
-> On 16/08/2024 10:12, srinivas.kandagatla@linaro.org wrote:
-> > From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> > 
-> > sm8250 and sc7280 have lpass codec version 1.0, as these are very old
-> > platforms, they do not have a reliable way to get the codec version
-> > from core_id registers.
-> > 
-> > On codec versions below 2.0, even though the core_id registers are
-> > available to read, the values of these registers are not unique to be
-> > able to determine the version of the codec dynamically.
-> > 
-> > Add the version info into of_data, so that driver does not need to use
-> > core_id registers to get version number for such situations.
-> > 
-> > Fixes: 378918d59181 ("ASoC: codecs: lpass-macro: add helpers to get codec version")
-> > Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> 
-> Seems to be fixing the reset I've been seeing on rb5
 
-Let's hope this patch can find its way into v6.11
+--mBq8xMY20aqYhrjl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Tested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On Thu, Aug 29, 2024 at 04:51:49AM +0000, Kuninori Morimoto wrote:
 
--- 
-With best wishes
-Dmitry
+> This is OK, but how to handle below ?
+>=20
+> 	+----------------------+
+> 	|CPU                   |     +------+
+> 	|  +--[rate convert]<--| <-- |Codec1| <--
+> 	|  |                   |     +------+
+> 	|  |                   |     +------+
+> 	|  +------------------>| --> |Codec2| -->
+> 	+----------------------+     +------+
+
+> I think there are 2 issues.
+> 	(1) How to handle [CPU] part     on Codec2Codec ?
+> 	(2) How to handle [rate convert] on Codec2Codec ?
+
+At the minute this would be a DPCM thing.  I've never actively worked on
+a system with DPCM so I'm not as up to speed as I could be but with my
+current understanding I'd expect the rate conversion to be done as a
+backend fixup on the DAI link for the first CODEC and just a straight
+pass through for the second.
+
+> I think (2) [rate convert] needs DPCM connection,
+> but how to use it with Codec2Codec ?
+
+The whole thing is a bit fragile so I don't know how well those two play
+together.  Though your picture doesn't look like it's actually doing a
+codec2codec link?  It probably should ideally (with the SRC being a
+CODEC in the graph) but not right now.
+
+--mBq8xMY20aqYhrjl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbRtTYACgkQJNaLcl1U
+h9Cw7AgAg9my904+qiAj3dlc99cnqUpa/EE7bvzGKKPYRCbLfGer/3MK+KHFzccb
+fN0/oepep1UHiqtSZXzafbP2lSAvufCSJEUs1Gs5OF3k2f02KeqokInuQOLGVml5
+h/WSLqqqv0qn1L44ffjqKVXTPNXjVdoI7hFeJlIClqXnqhcsd0zSuPjMR1KiXBki
+TlBB0XclpiRux6Z3mI/duTSBhoVcn2uvbpi3tI67tCmJWpDX0nilxN+3cNslgVaF
+uBXpVrreHxXKutqyBW/eTuodTSSNMCwSBSG8aZdSDvj1z6fIDj2NyMWN93yIOdC+
+eljdJCflsssZFkudif1P1PoF6SuXXA==
+=s1fV
+-----END PGP SIGNATURE-----
+
+--mBq8xMY20aqYhrjl--

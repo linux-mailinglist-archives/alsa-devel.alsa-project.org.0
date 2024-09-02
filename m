@@ -2,94 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7213967CE3
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2024 02:02:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 547A0967E49
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2024 05:49:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C92A4825;
-	Mon,  2 Sep 2024 02:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C92A4825
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCF7A82B;
+	Mon,  2 Sep 2024 05:49:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCF7A82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725235330;
-	bh=hkU0QnkrHN8XnN5ikBgPv0IBCmQ5g53WU/xnLLTb+Mk=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=OZFaKGzDzQglg4FWSahY4SDHPaaCLWo3G4jwC+mP4KEm69FjDp07Lnu3H5v2cPvcx
-	 Qub0m6xR7XgxpDKAli02hA2ljvhkZley1V3UCq0BcqFjQEqNxGmoPYOXay9Y8gH0wQ
-	 GjL7IDZMUJMKGZEP1V5S8u/q+LeFnaJiWyZYd4jo=
+	s=default; t=1725248960;
+	bh=5Eddywa3/H8kfhmAVIRPUj04OjSS55ABaCz7kGwiRPM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AVtcHMQwwEAXa6ZgwcEzvKWxHx+mRM1NJP4GMkrx4myNlyWZu28DDzFDnYyD1rRin
+	 I5tvMd8Kmzd7fscTLzNu/sh7+iZKgUxyyPZfD/CQCl//UG9ZC5F/5mMdsEUveottR/
+	 hHzGxWm9kH6Ln2oqAtzyKwTzQQ5NV/HqTsR1hZ+Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0829EF805AE; Mon,  2 Sep 2024 02:01:39 +0200 (CEST)
+	id 0174CF805B4; Mon,  2 Sep 2024 05:48:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D91CF80217;
-	Mon,  2 Sep 2024 02:01:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B65B3F805AB;
+	Mon,  2 Sep 2024 05:48:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8664DF80217; Mon,  2 Sep 2024 02:01:32 +0200 (CEST)
+	id CB7ABF80217; Mon,  2 Sep 2024 05:48:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazlp170100001.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:c405::1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E59EFF800F0
-	for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2024 02:01:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E59EFF800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4601F800F0
+	for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2024 05:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4601F800F0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Saj662am
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725235291; x=1756771291;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=hkU0QnkrHN8XnN5ikBgPv0IBCmQ5g53WU/xnLLTb+Mk=;
-  b=Saj662amQvO+zLaS3pkhO0Yp6OMcoEi+ti0twwAi/KEPPAC/pi36znnb
-   eICKEKuv3QyQ8GyRATyPSpUy4OhYMjTHXdsa3vNJy7uLMZuyTCbnN2JZk
-   yCwjfa86q+qON3wzq0AaqjrfLyVYPMHrNYviLaIgHzqMs3vwsn+Am2vT7
-   f3L9UGEprTqDzNQEfRN1krMFa6HL8XNQiXSySupLm1JFZhfVSRWgbVwfK
-   /i3++rYJ+1Ps+3IqAdolOkLAQJ9nG9tQcfHs1bymzhbtanLIwsMHEXzzg
-   /nTyEVmBmOSG9tS70Dd78FArCuPrh7t2jwB6P+U5IR22qVbEYnhRUYSCM
-   w==;
-X-CSE-ConnectionGUID: 90/vVBPBR6qvpgerAh16Sg==
-X-CSE-MsgGUID: y+gFEnqlQEuhSTzuD3pMVQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11182"; a="27566842"
-X-IronPort-AV: E=Sophos;i="6.10,194,1719903600";
-   d="scan'208";a="27566842"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2024 17:01:24 -0700
-X-CSE-ConnectionGUID: 14sbK2nBTIKXrow3iqONAA==
-X-CSE-MsgGUID: Yr0h0m8AQUOWLnHcGZpvVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,194,1719903600";
-   d="scan'208";a="64128607"
-Received: from lkp-server01.sh.intel.com (HELO 9c6b1c7d3b50) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 01 Sep 2024 17:01:22 -0700
-Received: from kbuild by 9c6b1c7d3b50 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1skuVU-0004zK-0W;
-	Mon, 02 Sep 2024 00:01:20 +0000
-Date: Mon, 2 Sep 2024 08:00:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	alsa-devel@alsa-project.org
-Subject: [tiwai-sound:for-next 12/12] sound/core/pcm_memory.c:218:29:
- warning: format specifies type 'size_t' (aka 'unsigned int') but the
- argument has type 'unsigned long'
-Message-ID: <202409020722.T2ymGxmq-lkp@intel.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=e1gUQtki
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PToygzhsaEHEz3SZOyBbUiUZT0vMs70SLLU0kR1sf3vj6OS+uRKlWe0Pv7WxNiA86Nd9m8vpIk8m+cQA3zdX1euomJ9OaY4QTykeOkY1BR7yVEj82+XkBJ0AxFvmJkSOP/n9BDwLwhTXbCY4CUrj0fYYTfoZR+mDAOZGaDuoppWQQEdytOjjUb2FkFUS1TBnAqf/+38/lRGxp1vKobJCGZ6NNqnrKVnSm1I3xdhaMrrPi6UhuBRX/hFjIFs6eDNcsoQcc8QF00R9Y0ZhwY8qOB7+Uei9DendlIVPi7ABnlN7Srx/AaXB1PP1wmQIdLWBdVO/tMjiK3+Ttw/FUdUWYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uJAC9IvqvS6d7GONfJwzMTHTow3q7/rR1hZn51mdLtU=;
+ b=lwlciJBpE42YNqSs+qAy2kL88AaeFCO2atTMH0q+lp7VpHJy6KxaPKuJSU9tA9hqgUoYixR3n9irCI9F3Emxpq0VYn6x+dz8I9av2CBqNMuBl2u7hkcTo/dVxToYY7eXWV5gFSRUX6RqZRY3HUKg851HduB8m+oBtXp4PZf2VhiywPoFDqFcb5qPQE2wCeKqeePaU+Vzti3ZmGd1cSBZ+d1G7EU+b255ws/X54R4rkzs9LqXDQwDa37S6lIhk8xtMmpHaNgXcBUJuuHvPMkygZnti/AvBbPxWpnJ4T+mrwbWJZpGbiEbuAWHQvQGUqBf59LjCu9fnsn8DTLZ+zP5Cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uJAC9IvqvS6d7GONfJwzMTHTow3q7/rR1hZn51mdLtU=;
+ b=e1gUQtkixVR6Sh8YZ0osICUgfjqBaeUzjPSblCwhXvY8Wtmnav+HyjS54gGDerE9hp8NBpBYZ526bd50U41ex/8k7M1mILGJCjcKWJysFwYd0e2YMsQ0AwMXyheSzLJ2VYRKIwCcDMBIYnXtdyDpXtaYUAF+Oj+21XS6J5Y/X3g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by OSZPR01MB7114.jpnprd01.prod.outlook.com
+ (2603:1096:604:119::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.24; Mon, 2 Sep
+ 2024 03:48:27 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::c568:1028:2fd1:6e11%5]) with mapi id 15.20.7918.020; Mon, 2 Sep 2024
+ 03:48:27 +0000
+Message-ID: <87ed62ogvp.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: How to handle complex Codec2Codec
+In-Reply-To: <31fb2975-4a27-43e5-b9cb-37db3206f5f3@sirena.org.uk>
+References: <8734moq6ca.wl-kuninori.morimoto.gx@renesas.com>
+	<31fb2975-4a27-43e5-b9cb-37db3206f5f3@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Mon, 2 Sep 2024 03:48:27 +0000
+X-ClientProxiedBy: TYWPR01CA0042.jpnprd01.prod.outlook.com
+ (2603:1096:400:17f::13) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OOODA2DNZQGMP3YGCS3MVWEVYADIJRMB
-X-Message-ID-Hash: OOODA2DNZQGMP3YGCS3MVWEVYADIJRMB
-X-MailFrom: lkp@intel.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OSZPR01MB7114:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f1913f5-5e42-48bc-37b9-08dccb021a48
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|376014|52116014|1800799024|366016|38350700014;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?ybJN7f9kWLw+BWz8FN/T3lTZNoKPnyQeRfQxoonsrDbOwFuQbuujVsX9FNHk?=
+ =?us-ascii?Q?EKNu0OqlW4irntQbv+JjKWbeSSGjCU1UfI5dw5nYu0runLHxKjLqF8imiufH?=
+ =?us-ascii?Q?tS/s2l1scTlfs6gIVEAeS0qFbWwL2kiBNtKw7w5TwP+fzHI4IdQsKGib/zyC?=
+ =?us-ascii?Q?M7RDV36n7bbtS9jrnNlrN7hKtb8atW+h9hXPrXAuB324ltLsLxeQlo6QR+P2?=
+ =?us-ascii?Q?mag40HyYLZ2XeX80rE3iAI/Z7w2fxUK4H7nM5uC/73sB1iS5ZMEnLUH/G8YN?=
+ =?us-ascii?Q?Ce9lnsAxSUwcIe52r8vm9r71FSTrNwXNK+dE8P2XlhvMZ965Zc9EGJJ3TcH0?=
+ =?us-ascii?Q?Nds6O+GUZWiMoyWi3y67TzEC0HiPaFujDumqLJJtTaByd5Bi7tGqhNLiqFFJ?=
+ =?us-ascii?Q?7JPMXfdQMgMslHDa6ETrHHRoYgNJ3Oa+c0aaM0kJjWrmSehiPuy5Yt4Xg4oJ?=
+ =?us-ascii?Q?3KOfmOFMWMX05rN04T9aZvYsotFVgPepKnhT9zFEgPamSo3qoFD03w2P7EQm?=
+ =?us-ascii?Q?e9pslNdQp0R4XJU4Wi4s+PRc2gjw1ESyFKUlMoHitXPWI5Pj5PkYbHA8YFlG?=
+ =?us-ascii?Q?XmdhdQYBidTc843/gVckGQz93AuHyz2RRPB/U41zHOakOJcMN361Slu5gEnX?=
+ =?us-ascii?Q?/7wOqDH1ozyfluAXmStZ2sdVuqV/nuEtZjZDTsu6c/mwG7ZetpWYzls1CXYf?=
+ =?us-ascii?Q?mthcFJyXLepHXQyePVR7Kzg9zgq1JUwU+do/aSuqO1D/eyTaIRsShyJ9LRXF?=
+ =?us-ascii?Q?qdKasdD5w3Ezin3j7Lu8rH8I8xBXEXfVOOiMeP3Hr2yjOQ2NS5atU3NkBYc5?=
+ =?us-ascii?Q?RhCg/+fQd7k5PuHOygPkpOmnFE8v7dJXrbU/ZXqGD5qPilBopH7XqMqIMuQm?=
+ =?us-ascii?Q?LYEoy2FHtxOhwShKc3FbPCb2cAIZk+5q/SYa2gf75HieWq95SlweVfboS6AJ?=
+ =?us-ascii?Q?VCdRpvADKnU3dnSIZmgPUzEf9soMUd8lHcnRCzlzVcPRYzg596SaAb9hZuzB?=
+ =?us-ascii?Q?XA++CB+7TMk90HNXN/dVQa7jRlsOceJR15Uk//JXdTkAMrGCpurF6IqQzv/i?=
+ =?us-ascii?Q?qYb/5/iQ5nIMIJ5hE97N5TyBG4Ap55sVtGECnd242azqcFWFirr0qxEGNeCB?=
+ =?us-ascii?Q?XGtp+YcgQVfAkd9RJaXMZetSdpYpKEQWqDn/WVbFxKtBTddBlbxbNallG0u/?=
+ =?us-ascii?Q?AJiP2f+Wq4MWKLFasqKXHXvOKiDxPaP04W350wCHqb+8OcJRAmQnSDOt9UKR?=
+ =?us-ascii?Q?Kv8H8G7nPO0PqTgRU5vbh5Kw+ZzZMKphy5FntPg2VfW2tR/EHM0JIIH/AoSm?=
+ =?us-ascii?Q?rOBt7iGkSUFURrO6EYcTxG+MqGW369opPRo0z9p2DR1I+8/kGlUHAhQPuTb5?=
+ =?us-ascii?Q?RZqDUy9OwBjWG3Ng6X+emmGIWALcz8eMWEKMZtU39I1MqwNnSg=3D=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(366016)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?thH5JDseyn2ABBy+OHCDrb6/4j6gj8qTO6s0iw8NwX8zXJtffTXjT3RU5F+R?=
+ =?us-ascii?Q?KE6TcXooq9xzScPulnpZ0t7J9/AHvFjYUc5ZW0n0ad81xUe341z8rx4zea/e?=
+ =?us-ascii?Q?iKW334a3MOstFxWNGgunWIVvI6n97hmMKdP9QUzOuBeQQuDbFuOkfve+Zsg1?=
+ =?us-ascii?Q?A5q/mX6//juNmOx0FIJbtT4lMsIAZlmx9lf4nW62TyCs9BwlLdTdDhaiDg0n?=
+ =?us-ascii?Q?0UUV8aeYkpGTB/gm8gIuJxpNbnuXSW4zM6T5FsNdtR4Qz29tgRnhjPm/aDB8?=
+ =?us-ascii?Q?RibghkjBf//IaRImcolBAycxRZmmFzhJK4X9mZkiK2HgID110nZzS1ggqPwa?=
+ =?us-ascii?Q?KGnMJj1rIc0d0Mvznd8iHWXWWdesCs/K8J1m5DMHP9FGeqJ1NY64Kf9LUIZn?=
+ =?us-ascii?Q?B70p+XZ1V+hPXsxqweB863LerdDYqDenmP+R+40vKHwa3Z+SNspBIm2AfDoV?=
+ =?us-ascii?Q?h/yONGMS0nMLPgwtyeOpgkyVLDWexioNu4qsgQEf9LBJ2OYeVOPdFSk4sCeS?=
+ =?us-ascii?Q?HGhZMKcpfyzX5eGD7auh0X7d/J8dZgKVpw1FRrm8JVJZ4UCdG2Eorx6B7obG?=
+ =?us-ascii?Q?b8+7laA8RB/MsYsVURS3BxWRgsmwHSKDCgHfzoljc3WnEABDvOaIrLMS9gIy?=
+ =?us-ascii?Q?zhFEPsaq8Rgs/hEUQgGHyhi4fvsSsvRlSnBYcuEIVeKi/fkLFciqktV9aJGr?=
+ =?us-ascii?Q?m147zA2byheRHcmiM1EA8KIVY1RpsXtnvZWIg4AgtlpXP/VetiIGZHleIUnb?=
+ =?us-ascii?Q?5WFLpgGVva+xTWyzTTnW9LOEn28wLd8wB1WZvt14qwhC04T+4kj9JLxSCK2z?=
+ =?us-ascii?Q?lk4a9g1rplhuy/cKZh69HGBmzShA0HMZrQ2Efj8TiVw+tQRTAcquwNSDarGx?=
+ =?us-ascii?Q?pWYmw/0RlWwExFucWbeaaZMvIrBizwEP/JUy3lUNA6H7N+cjLcuqju/4U2lk?=
+ =?us-ascii?Q?azETeSfVv+iBUnIsqLIWs93AG5Umncg7bocae/SiZznKCXzMxHSIBjXcLKdC?=
+ =?us-ascii?Q?jg4bNnteIbseCkh068Lr0Y783UU+/Rk+ig0tQJmdXcPiVPjlWaoJ3RzmmNmK?=
+ =?us-ascii?Q?ZErJl2SQwqDPHUBQWP5xv84NxJR2PkQXjjkWkeRsSzH2dTGYklTcv38vpv1B?=
+ =?us-ascii?Q?JwzewKsfInjGq2xQEelks1ITtdiLz40EJdVMuYVhbr6bkeN7Ln1E6dINZTc4?=
+ =?us-ascii?Q?tnCz2yf0RyZKGZyph1hLAvAsLZpR6JBNPaHpYyyvOyr9Q6gBBLkbgum8xHjm?=
+ =?us-ascii?Q?AU5NQWKvr3cVuSFwOkwnEL0Fql7qnt9P/hHpOTrayMyGrortRhpcQv0EZm1Q?=
+ =?us-ascii?Q?P1RfEi+gJqYKqSwqFtyLmsyKabETbxtEcrrPSRatKG0mbLCCu5HG5s5L6psj?=
+ =?us-ascii?Q?q5/SIGRtzmkH5Ib+qoix4/HK5JnAbjQK+dFIu6kqHi4nxwG3yOtqCeLgjavR?=
+ =?us-ascii?Q?rpcvlukbXrNxNWbY1Mf1PM/oNI8xWYD96DutDwd6wsO1bSCTkGlp982Wp1Tb?=
+ =?us-ascii?Q?bg5SVWvbil05cTIsIyMjHFHIUEuzlxqqBNV6/FfigiCy0pGeJjCPQ7lw82Sx?=
+ =?us-ascii?Q?AO7b5R6hMVK4P68XAcrzn/fh1napxawHk95TskTu5k1Lvt/6iAgQPtgjPdks?=
+ =?us-ascii?Q?fiDk2783B3UMbSdsKDQSKfg=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 5f1913f5-5e42-48bc-37b9-08dccb021a48
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2024 03:48:27.2066
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ JejX8GJ2CU2fk0n/LQplxHOUtoOTV12IAUpGV2YWkpDWA5anRCHAKrJ33okE27hpLioXpv6L3a+TETs/6Kg9M4hPN5BobZpAwUeJuoKDJu+IEbirKz4THGVkqlt2YL9U
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB7114
+Message-ID-Hash: 3PQAUGFO5CQWUGYHST365KSZQTNSHQBQ
+X-Message-ID-Hash: 3PQAUGFO5CQWUGYHST365KSZQTNSHQBQ
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +176,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOODA2DNZQGMP3YGCS3MVWEVYADIJRMB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3PQAUGFO5CQWUGYHST365KSZQTNSHQBQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,105 +185,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-head:   43b42ed438bfff6bb5a51cc27a1658c03cd223fd
-commit: 43b42ed438bfff6bb5a51cc27a1658c03cd223fd [12/12] ALSA: pcm: Fix the previous conversion to kstrtoul()
-config: i386-buildonly-randconfig-002-20240902 (https://download.01.org/0day-ci/archive/20240902/202409020722.T2ymGxmq-lkp@intel.com/config)
-compiler: clang version 18.1.5 (https://github.com/llvm/llvm-project 617a15a9eac96088ae5e9134248d8236e34b91b1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240902/202409020722.T2ymGxmq-lkp@intel.com/reproduce)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202409020722.T2ymGxmq-lkp@intel.com/
+Hi Mark
 
-All warnings (new ones prefixed by >>):
+Thank you for your feedback
 
->> sound/core/pcm_memory.c:218:29: warning: format specifies type 'size_t' (aka 'unsigned int') but the argument has type 'unsigned long' [-Wformat]
-     215 |                                 pr_debug("ALSA pcmC%dD%d%c,%d:%s: cannot preallocate for size %zu\n",
-         |                                                                                               ~~~
-         |                                                                                               %lu
-     216 |                                          substream->pcm->card->number, substream->pcm->device,
-     217 |                                          substream->stream ? 'c' : 'p', substream->number,
-     218 |                                          substream->pcm->name, size);
-         |                                                                ^~~~
-   include/linux/printk.h:595:38: note: expanded from macro 'pr_debug'
-     595 |         no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
-         |                                     ~~~     ^~~~~~~~~~~
-   include/linux/printk.h:133:18: note: expanded from macro 'no_printk'
-     133 |                 _printk(fmt, ##__VA_ARGS__);            \
-         |                         ~~~    ^~~~~~~~~~~
-   1 warning generated.
+> > 	+----------------------+
+> > 	|CPU                   |     +------+
+> > 	|  +--[rate convert]<--| <-- |Codec1| <--
+> > 	|  |                   |     +------+
+> > 	|  |                   |     +------+
+> > 	|  +------------------>| --> |Codec2| -->
+> > 	+----------------------+     +------+
+> 
+> > I think there are 2 issues.
+> > 	(1) How to handle [CPU] part     on Codec2Codec ?
+> > 	(2) How to handle [rate convert] on Codec2Codec ?
+> 
+> At the minute this would be a DPCM thing.  I've never actively worked on
+> a system with DPCM so I'm not as up to speed as I could be but with my
+> current understanding I'd expect the rate conversion to be done as a
+> backend fixup on the DAI link for the first CODEC and just a straight
+> pass through for the second.
+> 
+> > I think (2) [rate convert] needs DPCM connection,
+> > but how to use it with Codec2Codec ?
+> 
+> The whole thing is a bit fragile so I don't know how well those two play
+> together.  Though your picture doesn't look like it's actually doing a
+> codec2codec link?  It probably should ideally (with the SRC being a
+> CODEC in the graph) but not right now.
 
+I think we can learn how Codec2Codec is working, and apply it to DPCM
+somehow. Then, if we can handle above via DPCM, I guess normal Codec2Codec
+also can be handled via DPCM ?
 
-vim +218 sound/core/pcm_memory.c
+Thank you for your help !!
 
-c7132aeb72ad11 Jaroslav Kysela    2006-10-06  174  
-^1da177e4c3f41 Linus Torvalds     2005-04-16  175  /*
-^1da177e4c3f41 Linus Torvalds     2005-04-16  176   * write callback for prealloc proc file
-^1da177e4c3f41 Linus Torvalds     2005-04-16  177   *
-^1da177e4c3f41 Linus Torvalds     2005-04-16  178   * accepts the preallocation size in kB.
-^1da177e4c3f41 Linus Torvalds     2005-04-16  179   */
-877211f5e1b119 Takashi Iwai       2005-11-17  180  static void snd_pcm_lib_preallocate_proc_write(struct snd_info_entry *entry,
-877211f5e1b119 Takashi Iwai       2005-11-17  181  					       struct snd_info_buffer *buffer)
-^1da177e4c3f41 Linus Torvalds     2005-04-16  182  {
-877211f5e1b119 Takashi Iwai       2005-11-17  183  	struct snd_pcm_substream *substream = entry->private_data;
-d4cfb30fce0309 Takashi Iwai       2020-01-20  184  	struct snd_card *card = substream->pcm->card;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  185  	char line[64], str[64];
-43b42ed438bfff Takashi Iwai       2024-09-01  186  	unsigned long size;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  187  	struct snd_dma_buffer new_dmab;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  188  
-dd0da75b9a2768 Takashi Iwai       2024-02-27  189  	guard(mutex)(&substream->pcm->open_mutex);
-^1da177e4c3f41 Linus Torvalds     2005-04-16  190  	if (substream->runtime) {
-^1da177e4c3f41 Linus Torvalds     2005-04-16  191  		buffer->error = -EBUSY;
-dd0da75b9a2768 Takashi Iwai       2024-02-27  192  		return;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  193  	}
-^1da177e4c3f41 Linus Torvalds     2005-04-16  194  	if (!snd_info_get_line(buffer, line, sizeof(line))) {
-^1da177e4c3f41 Linus Torvalds     2005-04-16  195  		snd_info_get_str(str, line, sizeof(str));
-61bc4deff03318 Hongbo Li          2024-08-31  196  		buffer->error = kstrtoul(str, 10, &size);
-61bc4deff03318 Hongbo Li          2024-08-31  197  		if (buffer->error != 0)
-61bc4deff03318 Hongbo Li          2024-08-31  198  			return;
-61bc4deff03318 Hongbo Li          2024-08-31  199  		size *= 1024;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  200  		if ((size != 0 && size < 8192) || size > substream->dma_max) {
-^1da177e4c3f41 Linus Torvalds     2005-04-16  201  			buffer->error = -EINVAL;
-dd0da75b9a2768 Takashi Iwai       2024-02-27  202  			return;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  203  		}
-^1da177e4c3f41 Linus Torvalds     2005-04-16  204  		if (substream->dma_buffer.bytes == size)
-dd0da75b9a2768 Takashi Iwai       2024-02-27  205  			return;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  206  		memset(&new_dmab, 0, sizeof(new_dmab));
-^1da177e4c3f41 Linus Torvalds     2005-04-16  207  		new_dmab.dev = substream->dma_buffer.dev;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  208  		if (size > 0) {
-d4cfb30fce0309 Takashi Iwai       2020-01-20  209  			if (do_alloc_pages(card,
-d4cfb30fce0309 Takashi Iwai       2020-01-20  210  					   substream->dma_buffer.dev.type,
-^1da177e4c3f41 Linus Torvalds     2005-04-16  211  					   substream->dma_buffer.dev.dev,
-a25684a956468e Takashi Iwai       2021-10-17  212  					   substream->stream,
-^1da177e4c3f41 Linus Torvalds     2005-04-16  213  					   size, &new_dmab) < 0) {
-^1da177e4c3f41 Linus Torvalds     2005-04-16  214  				buffer->error = -ENOMEM;
-dc85fc9d05d235 Amadeusz Sławiński 2021-03-18  215  				pr_debug("ALSA pcmC%dD%d%c,%d:%s: cannot preallocate for size %zu\n",
-dc85fc9d05d235 Amadeusz Sławiński 2021-03-18  216  					 substream->pcm->card->number, substream->pcm->device,
-dc85fc9d05d235 Amadeusz Sławiński 2021-03-18  217  					 substream->stream ? 'c' : 'p', substream->number,
-dc85fc9d05d235 Amadeusz Sławiński 2021-03-18 @218  					 substream->pcm->name, size);
-dd0da75b9a2768 Takashi Iwai       2024-02-27  219  				return;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  220  			}
-^1da177e4c3f41 Linus Torvalds     2005-04-16  221  			substream->buffer_bytes_max = size;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  222  		} else {
-^1da177e4c3f41 Linus Torvalds     2005-04-16  223  			substream->buffer_bytes_max = UINT_MAX;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  224  		}
-^1da177e4c3f41 Linus Torvalds     2005-04-16  225  		if (substream->dma_buffer.area)
-d4cfb30fce0309 Takashi Iwai       2020-01-20  226  			do_free_pages(card, &substream->dma_buffer);
-^1da177e4c3f41 Linus Torvalds     2005-04-16  227  		substream->dma_buffer = new_dmab;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  228  	} else {
-^1da177e4c3f41 Linus Torvalds     2005-04-16  229  		buffer->error = -EINVAL;
-^1da177e4c3f41 Linus Torvalds     2005-04-16  230  	}
-^1da177e4c3f41 Linus Torvalds     2005-04-16  231  }
-^1da177e4c3f41 Linus Torvalds     2005-04-16  232  
-
-:::::: The code at line 218 was first introduced by commit
-:::::: dc85fc9d05d23591ddfde400c817413765611ec7 ALSA: pcm: Add debug print on memory allocation failure
-
-:::::: TO: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-:::::: CC: Takashi Iwai <tiwai@suse.de>
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards
+---
+Kuninori Morimoto

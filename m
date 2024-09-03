@@ -2,86 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBB5A96A642
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 20:13:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2FCD96A9E2
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 23:19:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3CEA84D;
-	Tue,  3 Sep 2024 20:13:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3CEA84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF99F857;
+	Tue,  3 Sep 2024 23:19:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF99F857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725387206;
-	bh=WtdrVLhuX7QUBk5Q47adV0XQCHtkPufPeUe4K0O64aM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1725398357;
+	bh=U1ukEr8EN1FDDvS4Y7RULLGTH93cVAvfVFqw0l1CRb8=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ocqdlelYHVtdvHPMMFGfV1JUrq8Ofz5ju2G8us/tlORuU6PSW/57ntRb53KsQFuBS
-	 2BpHd7LKsieqhsPoFu5G5TxpzPlojJyG5ZsF1myFM2VhONzfpqFCmAu9Redg2S+zZv
-	 Ieug4sirRVnbHK/WUR/vNJYV2WelwxiBaRJoHMOI=
+	b=tEeD7g89U6zBtROl2mXjImfcMrY9OsTUGGHSZtLdTipE6++QyLhB9UX/uqTxi+JFP
+	 5tFy8M/p4MO+ezdmyUYvbKwV7raoHEmXylZa7e8qRyTK30tggrQpl9vhRot6ZYHrue
+	 XJq+f/JhW/Y247s71CSE55muf1veQbQrDPLojveg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73F90F805B2; Tue,  3 Sep 2024 20:12:54 +0200 (CEST)
+	id B018BF805B6; Tue,  3 Sep 2024 23:18:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9150F80199;
-	Tue,  3 Sep 2024 20:12:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B81DF805AC;
+	Tue,  3 Sep 2024 23:18:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9FAD4F80199; Tue,  3 Sep 2024 20:12:50 +0200 (CEST)
+	id DE10AF80199; Tue,  3 Sep 2024 23:18:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D5FBF80116
-	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 20:12:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D5FBF80116
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3D1BF800E9
+	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 23:18:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D1BF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cYYRKIC0
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id ABE615C59E4;
-	Tue,  3 Sep 2024 18:12:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCFEC4CEC4;
-	Tue,  3 Sep 2024 18:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725387165;
-	bh=WtdrVLhuX7QUBk5Q47adV0XQCHtkPufPeUe4K0O64aM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cYYRKIC0PbeYkpAoBfKETGfYGQ0LkNUp+ev/UcyIb9LpQmDreWObr9PnkNt+sy9PT
-	 jzj+cqp4CujQcDOtRQbvAwui8NF6oUgteIozgzxQHaBTAsbvuEGeoUshhrxRnuND4B
-	 ILgNTkyZmyuIrf6zdsLpZSxiF9QIHpQ6ktOuD0i1OCJGzXW13d8mv1gIvY1xEeOlEX
-	 taDPcHxKO/cqwE6A0avt38rWJjeny0ubHRxtKFupn+SYRMFkU38QoCWi5CP85Xhvvk
-	 DC8gLjsJYTroOTvJF3nZ8tL9QV1xD/gStbSTKKkiuFz11gX0FCKA0Rgl5G3r6MfCbH
-	 nW9NVgsYqYYow==
-Date: Tue, 3 Sep 2024 19:12:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kiseok Jo <kiseok.jo@irondevice.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	application@irondevice.com
-Subject: Re: [PATCH v2 1/3] ASoC: sma1307: Add driver for Iron Device SMA1307
-Message-ID: <51e05109-049f-4efa-b923-60943fe82777@sirena.org.uk>
-References: <20240903054435.2659-1-kiseok.jo@irondevice.com>
- <20240903054435.2659-2-kiseok.jo@irondevice.com>
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=Bx4JhlQN
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 483D99Pm014645;
+	Tue, 3 Sep 2024 21:18:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ccVhMBdxEk5S4mL0cUcGF7PalslkLp70MYvdg4jGv40=; b=Bx4JhlQNp4Mr4rRu
+	3MWe1AssFm+F4CHy5VhRZ3BjpoN2yB3csvRBWkLkprI/xAQGZJbPNWhx0AaZIrIm
+	mAfwCKFSfYoLcoJnaXt/yaZXcEgvmUigyRylvKtghA2K9O9No8LHrpGk8Fdzyfka
+	qrLgeZnbAvN/k7+VxkPC8Hmmrh3sZreo7ZweNA9ilpFqlQRHIJASugyOtXzrtoZ8
+	+GeYzosmCwLSIDTRYE5eviuKd4dKB7wyBQDOgfY7UJHlYf2VL8ZolXkhmrrZwj4u
+	JzePcTc+ZynZsxZTSdX1mziwIu9x45dj/QazjTSIJ4edSo+329AexEcIyL0s90be
+	dbmR/g==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41dt69avfe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Sep 2024 21:18:38 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 483LIbs9019044
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 3 Sep 2024 21:18:37 GMT
+Received: from [10.71.114.155] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 3 Sep 2024
+ 14:18:36 -0700
+Message-ID: <5b23cbaf-05e2-4310-aad0-7e5bd01c9d3b@quicinc.com>
+Date: Tue, 3 Sep 2024 14:18:36 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LRv0xbwjrHfLtCHo"
-Content-Disposition: inline
-In-Reply-To: <20240903054435.2659-2-kiseok.jo@irondevice.com>
-X-Cookie: Words must be weighed, not counted.
-Message-ID-Hash: 2FPAY4T4OCQTDCRXYUMUA7FK4I7VY6GF
-X-Message-ID-Hash: 2FPAY4T4OCQTDCRXYUMUA7FK4I7VY6GF
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v26 21/33] ASoC: qcom: qdsp6: Add USB backend ASoC driver
+ for Q6
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <conor+dt@kernel.org>, <dmitry.torokhov@gmail.com>,
+        <corbet@lwn.net>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
+        <tiwai@suse.com>, <krzk+dt@kernel.org>, <Thinh.Nguyen@synopsys.com>,
+        <bgoswami@quicinc.com>, <robh@kernel.org>,
+        <gregkh@linuxfoundation.org>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <linux-input@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>
+References: <20240829194105.1504814-1-quic_wcheng@quicinc.com>
+ <20240829194105.1504814-22-quic_wcheng@quicinc.com>
+ <afe37014-8ec5-4808-bc24-09ac0f2d93b6@linux.intel.com>
+Content-Language: en-US
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <afe37014-8ec5-4808-bc24-09ac0f2d93b6@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: zJj5FS5k0LAWrU0MGLzu1kKo2bkGDL1O
+X-Proofpoint-ORIG-GUID: zJj5FS5k0LAWrU0MGLzu1kKo2bkGDL1O
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-03_09,2024-09-03_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ suspectscore=0 bulkscore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 malwarescore=0 adultscore=0 spamscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2409030171
+Message-ID-Hash: KBEQRQYEN6C3EEB7VPAWWZKZDVAKKNCW
+X-Message-ID-Hash: KBEQRQYEN6C3EEB7VPAWWZKZDVAKKNCW
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2FPAY4T4OCQTDCRXYUMUA7FK4I7VY6GF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBEQRQYEN6C3EEB7VPAWWZKZDVAKKNCW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,204 +138,102 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Pierre,
 
---LRv0xbwjrHfLtCHo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 8/30/2024 2:21 AM, Pierre-Louis Bossart wrote:
+>
+> On 8/29/24 21:40, Wesley Cheng wrote:
+>> Create a USB BE component that will register a new USB port to the ASoC USB
+>> framework.  This will handle determination on if the requested audio
+>> profile is supported by the USB device currently selected.
+>>
+>> Check for if the PCM format is supported during the hw_params callback.  If
+>> the profile is not supported then the userspace ALSA entity will receive an
+>> error, and can take further action.
+>>
+>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>> ---
+>>  include/sound/q6usboffload.h  |  20 +++
+>>  sound/soc/qcom/Kconfig        |  10 ++
+>>  sound/soc/qcom/qdsp6/Makefile |   1 +
+>>  sound/soc/qcom/qdsp6/q6usb.c  | 246 ++++++++++++++++++++++++++++++++++
+>>  4 files changed, 277 insertions(+)
+>>  create mode 100644 include/sound/q6usboffload.h
+>>  create mode 100644 sound/soc/qcom/qdsp6/q6usb.c
+>>
+>> diff --git a/include/sound/q6usboffload.h b/include/sound/q6usboffload.h
+>> new file mode 100644
+>> index 000000000000..49ab2c34b84c
+>> --- /dev/null
+>> +++ b/include/sound/q6usboffload.h
+>> @@ -0,0 +1,20 @@
+>> +/* SPDX-License-Identifier: GPL-2.0
+>> + *
+>> + * linux/sound/q6usboffload.h -- QDSP6 USB offload
+> not sure about the linux/ prefix?
+>
+>> + *
+>> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+>> + */
+>> +
+>> +/**
+>> + * struct q6usb_offload
+>> + * @dev - dev handle to usb be
+>> + * @sid - streamID for iommu
+>> + * @intr_num - usb interrupter number
+>> + * @domain - allocated iommu domain
+>> + **/
+>> +struct q6usb_offload {
+>> +	struct device *dev;
+>> +	long long sid;
+>> +	u16 intr_num;
+>> +	struct iommu_domain *domain;
+>> +};
+> consider reordering to avoid holes/alignment issues, e.g. all pointers
+> first, then long long then u16
+>
+Will fix these.
+>> +static int q6usb_hw_params(struct snd_pcm_substream *substream,
+>> +			   struct snd_pcm_hw_params *params,
+>> +			   struct snd_soc_dai *dai)
+>> +{
+>> +	struct q6usb_port_data *data = dev_get_drvdata(dai->dev);
+>> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
+>> +	int direction = substream->stream;
+>> +	struct q6afe_port *q6usb_afe;
+>> +	struct snd_soc_usb_device *sdev;
+>> +	int ret = -EINVAL;
+>> +
+>> +	mutex_lock(&data->mutex);
+>> +
+>> +	/* No active chip index */
+>> +	if (list_empty(&data->devices))
+>> +		goto out;
+> -ENODEV for the default return value>?
+Sure.
+>> +
+>> +	sdev = list_last_entry(&data->devices, struct snd_soc_usb_device, list);
+>> +
+>> +	ret = snd_soc_usb_find_supported_format(sdev->chip_idx, params, direction);
+>> +	if (ret < 0)
+>> +		goto out;
+>> +
+>> +	q6usb_afe = q6afe_port_get_from_id(cpu_dai->dev, USB_RX);
+>> +	if (IS_ERR(q6usb_afe))
+>> +		goto out;
+>> +
+>> +	/* Notify audio DSP about the devices being offloaded */
+>> +	ret = afe_port_send_usb_dev_param(q6usb_afe, sdev->card_idx,
+>> +					  sdev->ppcm_idx[sdev->num_playback - 1]);
+> don't you need a symmetrical notification upon hw_free()?
+>
+> Also what happens if there are multiple calls to hw_params, which is
+> quite legit in ALSA/ASoC?
 
-On Tue, Sep 03, 2024 at 02:44:33PM +0900, Kiseok Jo wrote:
+The afe_port_send_usb_dev_param() is meant to just update the device selected for offload on the audio DSP end, and this won't be referenced until our Q6AFE DAI sends the port start command in its prepare() callback.  Don't think we need to handle anything specific in the hw_free() case.  As long as the hw_params() callback is called before any audio session is started, then we'll ensure that the device selected is always updated to the audio DSP.
 
-This looks basically fine, there's some mostly minor or stylistic things
-below but nothing too major.
+Thanks
 
-> +static int sma1307_regmap_write(struct sma1307_priv *sma1307,
-> +				unsigned int reg, unsigned int val)
-> +{
-> +	int ret = 0;
-> +	int cnt = sma1307->retry_cnt;
-> +
-> +	while (cnt--) {
-> +		ret = regmap_write(sma1307->regmap, reg, val);
-> +		if (ret == 0)
-> +			break;
-> +	}
+Wesley Cheng
 
-If the hardware is actually stable we probably shouldn't bother with
-these wrappers.  If they really are needed then we might want to
-consider having regmap support doing retries.
-
-> +	if (sma1307->force_mute_status == val)
-> +		change = false;
-> +	else {
-> +		change = true;
-> +		sma1307->force_mute_status = val;
-> +	}
-
-If one side of the if has {} both sides should.
-
-> +	} else {
-> +		dev_err(sma1307->dev, "%s: Invalid Control ID - %s\n",
-> +			__func__, kcontrol->id.name);
-> +		return -EINVAL;
-> +	}
-
-We shouldn't log errors that userspace can easily trigger like this, it
-lets people DoS the logs - just return the error code (a bunch of the
-other controls have this).
-
-> +static int sma1307_reset_put(struct snd_kcontrol *kcontrol,
-> +			     struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =
-> +	    snd_soc_kcontrol_component(kcontrol);
-> +	struct sma1307_priv *sma1307 = snd_soc_component_get_drvdata(component);
-> +	bool val = (bool)ucontrol->value.integer.value[0];
-> +
-> +	if (sma1307->reset == val)
-> +		return false;
-> +
-> +	sma1307->reset = val;
-> +	if (ucontrol->value.integer.value[0] != 0
-> +	    && ucontrol->value.integer.value[0] != 1) {
-> +		dev_err(sma1307->dev, "%s: Invalid value\n", __func__);
-> +		return false;
-> +	}
-
-You probably don't need to store a value here, you can just always read
-0 for the control.  It's how other similar one shot controls work IIRC.
-
-> +	sma1307_regmap_update_bits(sma1307, SMA1307_00_SYSTEM_CTRL,
-> +				   SMA1307_RESET_MASK, SMA1307_RESET_ON);
-> +	sma1307_reset(component);
-
-This should really generate a change notification for all the controls
-with non-default values (or all the controls would be easier and
-probably fine, it's not like this is going to be a particularly pretty
-process for userspace whatever happens).  snd_ctl_notify() does this.
-
-It'd also be good to have a comment about why we've got this.
-
-> +static int sma1307_dapm_amp_enable_put(struct snd_kcontrol *kcontrol,
-> +				       struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_dapm_context *dapm =
-> +	    snd_soc_dapm_kcontrol_dapm(kcontrol);
-> +	struct sma1307_priv *sma1307 =
-> +	    snd_soc_component_get_drvdata(dapm->component);
-> +	int val = (int)ucontrol->value.integer.value[0];
-> +	bool change;
-> +
-> +	if ((val < 0) || (val > 1)) {
-> +		dev_err(sma1307->dev, "%s: Out of range\n", __func__);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (sma1307->dapm_amp_en != val) {
-> +		change = true;
-> +		sma1307->dapm_amp_en = val;
-
-I didn't manage to find what reads this value - do we need this control
-at all, I'm not clear what it does?  If it's for stopping the amp from
-coming on the normal approach is for the board to register a
-_PIN_SWITCH() DAPM control attached to whatever the end output is for
-the path, that will cause DAPM to not power anything in the output path
-up.
-
-A similar thing is true for at least the binary_mode control, I can't
-see where the written value is read.
-
-> +static void sma1307_check_fault_worker(struct work_struct *work)
-> +{
-
-> +	ret = sma1307_regmap_read(sma1307, SMA1307_FA_STATUS1, &status1_val);
-> +	if (ret != 0) {
-> +		dev_err(sma1307->dev,
-> +			"%s: failed to read SMA1307_FA_STATUS1 : %d\n",
-> +			__func__, ret);
-> +		return;
-> +	}
-> +
-> +	ret = sma1307_regmap_read(sma1307, SMA1307_FB_STATUS2, &status2_val);
-> +	if (ret != 0) {
-> +		dev_err(sma1307->dev,
-> +			"%s: failed to read SMA1307_FB_STATUS2 : %d\n",
-> +			__func__, ret);
-> +		return;
-> +	}
-
-If we manage to read one of the registers should we perhaps soldier on
-and try to report any errors it shows?  Probably a bit academic.
-
-> +	if (~status1_val & SMA1307_OT1_OK_STATUS) {
-> +		dev_crit(sma1307->dev,
-> +			 "%s: OT1(Over Temperature Level 1)\n", __func__);
-> +		if (sma1307->sw_ot1_prot) {
-> +			/* Volume control (Current Volume -3dB) */
-> +			if ((sma1307->cur_vol + 6) <= 0xFA)
-> +				sma1307_regmap_write(sma1307,
-> +						     SMA1307_0A_SPK_VOL,
-> +						     sma1307->cur_vol + 6);
-> +		}
-> +		sma1307->tsdw_cnt++;
-
-This is changing a user visible control so it should really generate an
-event, although given that it should never happen it's not the end of
-the world.  Given that a lot of other speaker drivers have a similar
-setup with warning and critical temperature alerts I actually wonder if
-we should consider factoring this out as a helper other things can use,
-that's definitely a separate thing though and you don't need to do it
-right now.
-
-> +static DEVICE_ATTR_RW(check_fault_period);
-
-Any reason the fault stuff isn't an ALSA control?
-
-> +static const struct regmap_config sma_i2c_regmap = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +
-> +	.max_register = SMA1307_FF_DEVICE_INDEX,
-> +	.readable_reg = sma1307_readable_register,
-> +	.writeable_reg = sma1307_writeable_register,
-> +	.volatile_reg = sma1307_volatile_register,
-> +
-> +	.cache_type = REGCACHE_NONE,
-
-_NONE is the default, although given that you've described the volatile
-registers I don't see why you wouldn't just enable _MAPLE.  There's
-regcache_drop_region() which can be used to throw away cached values
-during reset if you want to do that.  Most drivers use a cache to help
-make suspend/resume easier to implement - if the device looses power you
-can just write the cache contents back to it to restore most userspace
-visible things.
-
-Not doing a cache (or suspend/resume) is also OK though, it can always
-be implemented when needed.
-
-> +++ b/sound/soc/codecs/sma1307.h
-> @@ -0,0 +1,454 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later
-> + * sma1307.h -- sma1307 ALSA SoC Audio driver
-> + *
-> + * r005,
-> + *
-> + * Copyright 2023 Iron Device Corporation
-
-2024 now!
-
---LRv0xbwjrHfLtCHo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbXUZcACgkQJNaLcl1U
-h9CzIQf+Ji9zGTJET0wedIKT9B8Otdn4R1QZjLksm9TywNQGsBi2nvw4lJMRgdUu
-wtuG013UE2v3QR0R0RWXxKnFkkmMJgh++av9IfG9EG9ffi4Fz6LwBCgYcwhwgQeV
-Xh/VYpeivVjMWz6Kzy0xo/7K/uj+JYmc/WW0ARtt8MwkkzKAUrc1PdYU0e70gYUG
-eJa6Yf89C8VrfqGN/uQxKXgrJGd9DfGPqzDeoYIucgN0O0Gxs0z3RoKcrn1qDWum
-uIRvam4KIDqcncCyRfKKIFmpDYE1EH64jvMej+vojhDLk3GziB03lxvAuxHa/KlK
-Ql/ZdjGsnzSywYQdD2KVqB57+T0ScQ==
-=yskV
------END PGP SIGNATURE-----
-
---LRv0xbwjrHfLtCHo--

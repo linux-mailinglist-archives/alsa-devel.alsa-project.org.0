@@ -2,129 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D5F396945C
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 08:59:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B45D9695B5
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 09:35:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70DAD84A;
-	Tue,  3 Sep 2024 08:58:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70DAD84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1E4C86F;
+	Tue,  3 Sep 2024 09:35:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1E4C86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725346746;
-	bh=yv/Z0GEpB1+sbSxl+VXAqeLadyLb/CPg1AGYZ65fzDo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1725348937;
+	bh=4AJT32GBtfUx0n4zgp7GIkKvAN6ljEoZ5TCSEJ6nLVE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QWz1kg0FzyALxmnopicBaWWR2GcfbWleWO8MzEaX6gJ62PTNeLOBUVecvHogiQIQ6
-	 RrQcuWktRNtJjozHaC4ZqsbZmVB3lYWW+rxxpL+MwHHSJZ1EM3YAKWapIYDjPvLsXu
-	 tlzQ3n0q/lZXK+JzssKo7eMzdfeSEVnUQHSV/imw=
+	b=RpgHJ8Kb0+y03me+q87/EQazHuig27yJPtuJmkjZVQK4NXtRo2SRYTp76BUNBcbxj
+	 I889grjRhuDzmoEsz9ZT9tade9kyIgFH9sJbelBYtlvjiicdEW7HqSjpCh72VYO/Yx
+	 PBl+ysYBJPb8SIjX3cXjaOhM+j41mPv18t2OxNYA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E082F805BF; Tue,  3 Sep 2024 08:58:34 +0200 (CEST)
+	id BF578F805AE; Tue,  3 Sep 2024 09:35:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF4DFF805B4;
-	Tue,  3 Sep 2024 08:58:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFB79F805B2;
+	Tue,  3 Sep 2024 09:35:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F0B9F80199; Tue,  3 Sep 2024 08:58:30 +0200 (CEST)
+	id EFF09F800E9; Tue,  3 Sep 2024 09:35:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B6A7BF80107
-	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 08:58:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A7BF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3FD4CF80107
+	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 09:34:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FD4CF80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mkvo63dq
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 0E91AA41489;
-	Tue,  3 Sep 2024 06:58:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1B4C4CEC5;
-	Tue,  3 Sep 2024 06:58:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725346706;
-	bh=yv/Z0GEpB1+sbSxl+VXAqeLadyLb/CPg1AGYZ65fzDo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=mkvo63dqBMJKVB9b+/8kDPPkMo4Z6t0vzxa1D2OJIC0zpOSg2kGzb+Cs9uXidVwRP
-	 a9XYJcc6ZYLXj6iguycEwHvSeTR1sD7aOu10RhRRaHbMg3/RjD04Phya8hmCM+8lHK
-	 4smx0zhrtdHDvwTYxd2oqmImvZMfmkii1Rd2kaTYfhL5dBRSEGDjjDf5foXMl9u/jH
-	 JIeBsUKXtm1jkkljlKYKiq7Fc7I0PZMNG5AD48zfJNiv0EUF+uuqFpLRYr1k1PxcaG
-	 KprkOr+542F2pUfmPE3SEyL2lF4z+P+xUZNHIBP4ydeHza5DUamFA+XyLwO4iZQZv1
-	 EKrGEM0bESZiw==
-Message-ID: <6648b7d3-3883-4d48-9b71-b8394a84fda5@kernel.org>
-Date: Tue, 3 Sep 2024 08:58:19 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=kXpNPX8c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1725348899; x=1756884899;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=4AJT32GBtfUx0n4zgp7GIkKvAN6ljEoZ5TCSEJ6nLVE=;
+  b=kXpNPX8cptcMBIQRWwU2Zfa6SY0xBvELgmJvDy82MNibdH3O2kW7jXTG
+   m46NW7BukZkffnR6yG7O+oEtBwdUdukOq3TkXIjITP7owdwxGZiyewRWB
+   rVzjtpAWV82KE0KmgnCprxvbSHVhvFiZw642WnRUyJe7k22aK2kRkuBlw
+   u6++Q7J5A1intnaaAxR+pnCUmobJEhtwM48MupGXNzc4cwf30eRHKCjAP
+   A4mULMekrRlUgWRc1KjYrBcyyrVtexQhs/0H5RCneqsAGkurjCVHF3VQY
+   l7fnaLPNaUVFge1e70iO3RSf+roMclzSv8rGvPeFIWnpIjJxPJonzfmS7
+   A==;
+X-CSE-ConnectionGUID: mj3cbFk4R8+p92V1Oxa4SQ==
+X-CSE-MsgGUID: SfVLXL+pRCSIW2yG6liZ9w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11183"; a="23444569"
+X-IronPort-AV: E=Sophos;i="6.10,198,1719903600";
+   d="scan'208";a="23444569"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2024 00:34:54 -0700
+X-CSE-ConnectionGUID: +XoVRmVvSsWR30tLGOqOMg==
+X-CSE-MsgGUID: UBzXbGaXRDqEI5fW6GMADQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,198,1719903600";
+   d="scan'208";a="95623507"
+Received: from yungchua-mobl2.ccr.corp.intel.com (HELO [10.246.104.225])
+ ([10.246.104.225])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2024 00:34:51 -0700
+Message-ID: <b6c75eee-761d-44c8-8413-2a5b34ee2f98@linux.intel.com>
+Date: Tue, 3 Sep 2024 15:34:39 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] ASoC: sma1307: Add driver for Iron Device SMA1307
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kiseok Jo <kiseok.jo@irondevice.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- application@irondevice.com
-References: <20240903054435.2659-1-kiseok.jo@irondevice.com>
- <20240903054435.2659-2-kiseok.jo@irondevice.com>
- <3gu6u7euavq272kaf2znmyn5p3rd3vupvqldvfxnq7nh5ul6jx@apwfcxvgkoyj>
+Subject: Re: [PATCH] soundwire: stream: fix programming slave ports for
+ non-continous port maps
+To: Vinod Koul <vkoul@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, Shreyas NC <shreyas.nc@intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, bard.liao@intel.com
+References: <20240729140157.326450-1-krzysztof.kozlowski@linaro.org>
+ <095d7119-8221-450a-9616-2df6a0df4c77@linux.intel.com>
+ <ZqngD56bXkx6vGma@matsya>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <3gu6u7euavq272kaf2znmyn5p3rd3vupvqldvfxnq7nh5ul6jx@apwfcxvgkoyj>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: SE3N4GYV3NTP3WNYWRE4XVEBKWKYRTXA
-X-Message-ID-Hash: SE3N4GYV3NTP3WNYWRE4XVEBKWKYRTXA
-X-MailFrom: krzk@kernel.org
+From: "Liao, Bard" <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <ZqngD56bXkx6vGma@matsya>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: BDR53AZ4MSUZ2VYH3Y2EBM4FPRJB5USC
+X-Message-ID-Hash: BDR53AZ4MSUZ2VYH3Y2EBM4FPRJB5USC
+X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SE3N4GYV3NTP3WNYWRE4XVEBKWKYRTXA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BDR53AZ4MSUZ2VYH3Y2EBM4FPRJB5USC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,31 +116,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 03/09/2024 08:57, Krzysztof Kozlowski wrote:
-> On Tue, Sep 03, 2024 at 02:44:33PM +0900, Kiseok Jo wrote:
->> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
->> ---
->>  sound/soc/codecs/Kconfig   |    8 +
 
-...
+On 7/31/2024 2:56 PM, Vinod Koul wrote:
+> On 29-07-24, 16:25, Pierre-Louis Bossart wrote:
+>>
+>> On 7/29/24 16:01, Krzysztof Kozlowski wrote:
+>>> Two bitmasks in 'struct sdw_slave_prop' - 'source_ports' and
+>>> 'sink_ports' - define which ports to program in
+>>> sdw_program_slave_port_params().  The masks are used to get the
+>>> appropriate data port properties ('struct sdw_get_slave_dpn_prop') from
+>>> an array.
+>>>
+>>> Bitmasks can be non-continuous or can start from index different than 0,
+>>> thus when looking for matching port property for given port, we must
+>>> iterate over mask bits, not from 0 up to number of ports.
+>>>
+>>> This fixes allocation and programming slave ports, when a source or sink
+>>> masks start from further index.
+>>>
+>>> Fixes: f8101c74aa54 ("soundwire: Add Master and Slave port programming")
+>>> Cc: <stable@vger.kernel.org>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> This is a valid change to optimize how the port are accessed.
+>>
+>> But the commit message is not completely clear, the allocation in
+>> mipi_disco.c is not modified and I don't think there's anything that
+>> would crash. If there are non-contiguous ports, we will still allocate
+>> space that will not be initialized/used.
+>>
+>> 	/* Allocate memory for set bits in port lists */
+>> 	nval = hweight32(prop->source_ports);
+>> 	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
+>> 					  sizeof(*prop->src_dpn_prop),
+>> 					  GFP_KERNEL);
+>> 	if (!prop->src_dpn_prop)
+>> 		return -ENOMEM;
+>>
+>> 	/* Read dpn properties for source port(s) */
+>> 	sdw_slave_read_dpn(slave, prop->src_dpn_prop, nval,
+>> 			   prop->source_ports, "source");
+>>
+>> IOW, this is a valid change, but it's an optimization, not a fix in the
+>> usual sense of 'kernel oops otherwise'.
+>>
+>> Am I missing something?
+>>
+>> BTW, the notion of DPn is that n > 0. DP0 is a special case with
+>> different properties, BIT(0) cannot be set for either of the sink/source
+>> port bitmask.
+> The fix seems right to me, we cannot have assumption that ports are
+> contagious, so we need to iterate over all valid ports and not to N
+> ports which code does now!
 
-> 
->> +	if (ret) {
->> +		dev_err(&client->dev, "%s: failed to register component\n",
->> +			__func__);
->> +
->> +		return ret;
->> +	}
->> +
->> +	sma1307->attr_grp = &sma1307_attr_group;
->> +	ret = sysfs_create_group(sma1307->kobj, sma1307->attr_grp);
-> 
-> Where is sysfs ABI documented?
-> 
 
-Ah, now I see your sysfs ABI documentation, but you ordered patches
-incorrectly. Documentation comes before its usage.
+Sorry to jump in after the commit was applied. But, it breaks my test.
 
-Best regards,
-Krzysztof
+The point is that dpn_prop[i].num where the i is the array index, and
 
+num is the port number. So, `for (i = 0; i < num_ports; i++)` will iterate
+
+over all valid ports.
+
+We can see in below drivers/soundwire/mipi_disco.c
+
+         nval = hweight32(prop->sink_ports);
+
+         prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
+
+sizeof(*prop->sink_dpn_prop),
+
+                                            GFP_KERNEL);
+
+And sdw_slave_read_dpn() set data port properties one by one.
+
+`for_each_set_bit(i, &mask, 32)` will break the system when port numbers
+
+are not continuous. For example, a codec has source port number = 1 and 3,
+
+then dpn_prop[0].num = 1 and dpn_prop[1].num = 3. And we need to go
+
+throuth dpn_prop[0] and dpn_prop[1] instead of dpn_prop[1] and dpn_prop[3].
+
+
+>
+>>
+>>> ---
+>>>   drivers/soundwire/stream.c | 8 ++++----
+>>>   1 file changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+>>> index 7aa4900dcf31..f275143d7b18 100644
+>>> --- a/drivers/soundwire/stream.c
+>>> +++ b/drivers/soundwire/stream.c
+>>> @@ -1291,18 +1291,18 @@ struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
+>>>   					    unsigned int port_num)
+>>>   {
+>>>   	struct sdw_dpn_prop *dpn_prop;
+>>> -	u8 num_ports;
+>>> +	unsigned long mask;
+>>>   	int i;
+>>>   
+>>>   	if (direction == SDW_DATA_DIR_TX) {
+>>> -		num_ports = hweight32(slave->prop.source_ports);
+>>> +		mask = slave->prop.source_ports;
+>>>   		dpn_prop = slave->prop.src_dpn_prop;
+>>>   	} else {
+>>> -		num_ports = hweight32(slave->prop.sink_ports);
+>>> +		mask = slave->prop.sink_ports;
+>>>   		dpn_prop = slave->prop.sink_dpn_prop;
+>>>   	}
+>>>   
+>>> -	for (i = 0; i < num_ports; i++) {
+>>> +	for_each_set_bit(i, &mask, 32) {
+>>>   		if (dpn_prop[i].num == port_num)
+>>>   			return &dpn_prop[i];
+>>>   	}

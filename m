@@ -2,100 +2,187 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B45D9695B5
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 09:35:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B922C96964E
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 09:58:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1E4C86F;
-	Tue,  3 Sep 2024 09:35:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1E4C86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52E7CB6A;
+	Tue,  3 Sep 2024 09:58:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52E7CB6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725348937;
-	bh=4AJT32GBtfUx0n4zgp7GIkKvAN6ljEoZ5TCSEJ6nLVE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1725350298;
+	bh=B+otdV5CyD/JthSQf4Fp0UZHo6c1JGC8sULe79Rp1hA=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RpgHJ8Kb0+y03me+q87/EQazHuig27yJPtuJmkjZVQK4NXtRo2SRYTp76BUNBcbxj
-	 I889grjRhuDzmoEsz9ZT9tade9kyIgFH9sJbelBYtlvjiicdEW7HqSjpCh72VYO/Yx
-	 PBl+ysYBJPb8SIjX3cXjaOhM+j41mPv18t2OxNYA=
+	b=CvNUnxXdu0XGki2Hev5ObxQRJbu+RJH16s5bVfHszVaYpSppgu4RvXMocosfzU6a6
+	 DNmqN+lNuiJ8O7Yq79xPeCUCDz9fI1xSXAeauXH6CITrZxvEQkoyTQ1v4zvx24/Ta9
+	 w2b6BMJi2xGbrkUkFu+8gIe7moFMEmrxJihi8E8s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF578F805AE; Tue,  3 Sep 2024 09:35:06 +0200 (CEST)
+	id 26A28F805A0; Tue,  3 Sep 2024 09:57:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFB79F805B2;
-	Tue,  3 Sep 2024 09:35:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE42CF804F3;
+	Tue,  3 Sep 2024 09:57:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFF09F800E9; Tue,  3 Sep 2024 09:35:00 +0200 (CEST)
+	id 59DF1F80199; Tue,  3 Sep 2024 09:57:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from PUWP216CU001.outbound.protection.outlook.com
+ (mail-koreasouthazlp170100001.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:c410::1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3FD4CF80107
-	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 09:34:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FD4CF80107
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=kXpNPX8c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725348899; x=1756884899;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=4AJT32GBtfUx0n4zgp7GIkKvAN6ljEoZ5TCSEJ6nLVE=;
-  b=kXpNPX8cptcMBIQRWwU2Zfa6SY0xBvELgmJvDy82MNibdH3O2kW7jXTG
-   m46NW7BukZkffnR6yG7O+oEtBwdUdukOq3TkXIjITP7owdwxGZiyewRWB
-   rVzjtpAWV82KE0KmgnCprxvbSHVhvFiZw642WnRUyJe7k22aK2kRkuBlw
-   u6++Q7J5A1intnaaAxR+pnCUmobJEhtwM48MupGXNzc4cwf30eRHKCjAP
-   A4mULMekrRlUgWRc1KjYrBcyyrVtexQhs/0H5RCneqsAGkurjCVHF3VQY
-   l7fnaLPNaUVFge1e70iO3RSf+roMclzSv8rGvPeFIWnpIjJxPJonzfmS7
-   A==;
-X-CSE-ConnectionGUID: mj3cbFk4R8+p92V1Oxa4SQ==
-X-CSE-MsgGUID: SfVLXL+pRCSIW2yG6liZ9w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11183"; a="23444569"
-X-IronPort-AV: E=Sophos;i="6.10,198,1719903600";
-   d="scan'208";a="23444569"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2024 00:34:54 -0700
-X-CSE-ConnectionGUID: +XoVRmVvSsWR30tLGOqOMg==
-X-CSE-MsgGUID: UBzXbGaXRDqEI5fW6GMADQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,198,1719903600";
-   d="scan'208";a="95623507"
-Received: from yungchua-mobl2.ccr.corp.intel.com (HELO [10.246.104.225])
- ([10.246.104.225])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2024 00:34:51 -0700
-Message-ID: <b6c75eee-761d-44c8-8413-2a5b34ee2f98@linux.intel.com>
-Date: Tue, 3 Sep 2024 15:34:39 +0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7FE26F800E9
+	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 09:57:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FE26F800E9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NpJd8Cfk0d/u5OSeCouBnRCPnqVpBcOF7tpPe0/eImXqccp6qCTW1tgjhD607O8tzJt7aq+29anHoFoSLtYvaHpBYK0hHKfLydraFERPdXpZCmV1YegnpUl2Mfgy+LG5mbPiKTXfTOfIHm3NozS7fYayZ11Dq3WvIU9NTg9xHrmqRXepr3X7Yz3M8rO/oOvO4S9xL/qQnmDovvJ8+QervqJDKsZPbHk1+pDKaZz/D4ovG/MK5I9TJdMXiklhIUW4IXSlHw3rxhspjT5fgKjYRBOM5F/GzNdkUFW+P9/P0hKKfppx4wQCHgt1U4NFxX1+pDDIeZQ8Y54kytPsO61vOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B+otdV5CyD/JthSQf4Fp0UZHo6c1JGC8sULe79Rp1hA=;
+ b=xVNW2FIvGW3fjwPK2AojyQTrOwFMIgNNINPm8utnnMXc9NQ6JShIke4/i5Fc/GwyqTymG47rLyNwLyr+2WSr/DEwbIY6rslByEHr7XklGh/57q5Ugsj9+Hfot4ZCX2cX/PyI2UZdumAxMW2HImZBi3PpaL6d/Xk3/IPuQWZZLgIf3paIi2bhKVSS0X3yNdi6VXB23pCt3k6FwpIksNPVEKDgzb6NnWrTxgO8LcmSVKeG4fcMWW1UyHe8W4D/gexvuJFYVO1YTZRfJ6mBdy9HHdEpoYLMqjCTCxVoYDZYkxrX/4L7S3cva+20Tk4q7GZh+oFC9yCcgAAhfUKqv9sOfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=irondevice.com; dmarc=pass action=none
+ header.from=irondevice.com; dkim=pass header.d=irondevice.com; arc=none
+Received: from SL2P216MB2337.KORP216.PROD.OUTLOOK.COM (2603:1096:101:14c::11)
+ by SE1P216MB2173.KORP216.PROD.OUTLOOK.COM (2603:1096:101:161::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.25; Tue, 3 Sep
+ 2024 07:57:30 +0000
+Received: from SL2P216MB2337.KORP216.PROD.OUTLOOK.COM
+ ([fe80::7e8d:9550:c46b:2756]) by SL2P216MB2337.KORP216.PROD.OUTLOOK.COM
+ ([fe80::7e8d:9550:c46b:2756%3]) with mapi id 15.20.7918.024; Tue, 3 Sep 2024
+ 07:57:30 +0000
+From: Ki-Seok Jo <kiseok.jo@irondevice.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, Application <application@irondevice.com>
+Subject: Re: [PATCH v2 1/3] ASoC: sma1307: Add driver for Iron Device SMA1307
+Thread-Topic: [PATCH v2 1/3] ASoC: sma1307: Add driver for Iron Device SMA1307
+Thread-Index: AQHa/cRjERJUfF8g1keevq2iDIPRt7JFoWwAgAAAW4CAABCKsA==
+Date: Tue, 3 Sep 2024 07:57:30 +0000
+Message-ID: 
+ <SL2P216MB2337A6B3A699EF3C08A3A2D08C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+References: <20240903054435.2659-1-kiseok.jo@irondevice.com>
+ <20240903054435.2659-2-kiseok.jo@irondevice.com>
+ <3gu6u7euavq272kaf2znmyn5p3rd3vupvqldvfxnq7nh5ul6jx@apwfcxvgkoyj>
+ <6648b7d3-3883-4d48-9b71-b8394a84fda5@kernel.org>
+In-Reply-To: <6648b7d3-3883-4d48-9b71-b8394a84fda5@kernel.org>
+Accept-Language: ko-KR, en-US
+Content-Language: ko-KR
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=irondevice.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SL2P216MB2337:EE_|SE1P216MB2173:EE_
+x-ms-office365-filtering-correlation-id: 6f45e302-fbdb-4668-9ef2-08dccbee0fc3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: 
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700018;
+x-microsoft-antispam-message-info: 
+ =?utf-8?B?ZVRvVnVOblJzdTkwUkVSRXFTTWN6WFFTbGhWdlRxK3lpSHNwZE5BaWFRV0Zp?=
+ =?utf-8?B?bzdYN3VvNWVyTXU0WENYTFlzQlhNRXgwVThuN29jRUlaaTJxemVzOTRhK0Js?=
+ =?utf-8?B?R1NHcFNrRXBOTVVZbSs0TCsxZHNCWC9zSXFTK0RBN1l6STh3RVJqdXFZNld6?=
+ =?utf-8?B?elpxSzdXcFdISm5hTmJ0MjlxQUV1T01MOFdMWEh6UmF0aDI0NVhkVGEwVEho?=
+ =?utf-8?B?SkZEQVBhVHM1bzhwWDVkQUlTVnViN3ZabHp0ck8rblFhRzV0SzBmUkYzUU9Q?=
+ =?utf-8?B?RnVITldDR3krTGZISytDekNtOGJTVXE2cjFRK1FXMkc1MTdzLzJJcldreGJE?=
+ =?utf-8?B?b2x6UW9nNEFQL1hnM0QwdHU4YkxFM29tTkV4MlA0eGVxQmRkdGxMZnloT0JU?=
+ =?utf-8?B?UGJLZjVTRCtMMUs5WW9lelZlZFh0TnVIL2Q4WUJCMTUveWpleXZDakdoN2Fq?=
+ =?utf-8?B?a29obXltRnRWRDIzQ2hxMElrYVhHTmEyK3ord0NRRm9Lb1FaVyt2SHR3SUdv?=
+ =?utf-8?B?N3U2T3JFczYyMVdoRWdvZUFzTGZLWGNPN0lvM0gwRlE2WWVHdU51d1NMemxP?=
+ =?utf-8?B?VGE5dlh2SHA3SkR0Sk15cTVRZWRuSzF6Q3pjYkpGNjhEL08yL2F0dXh6YVdB?=
+ =?utf-8?B?RVp1SjUyYitMUDlmSmdtalV4eXZTeXdJT3dMK281Z0VTcTVKWW9Nd0xVVVdW?=
+ =?utf-8?B?ZkUvbGJ3TEtHMUorKzhRZUFCdWdSSnBMbEM0N0Z2TkZCdlB1WFVHOEpmanA5?=
+ =?utf-8?B?Qk5hU3haM0VybVl1YXN0eisxSlRGQjFLR1dDdlFtK05vNS9oZk5vb1d0dkNj?=
+ =?utf-8?B?TWs1c2JsNDgxSkhRci8yUlZtaC9sZ3htVkNkTUQ3QXFQQ2hMb2J3RWtSWFhL?=
+ =?utf-8?B?aUZDT3Bwb3BmQ3RtOEwvYm1US05NY1ZTa0J4Q2ZQdDB3Y1I5SDk2YWpEWEMv?=
+ =?utf-8?B?V2F0MGd0Ujc0RmlOSEI1WVpBeUFBTWlsbFRZN1YrVGRrRUhUMjZGcytLNnRw?=
+ =?utf-8?B?UWxSR0tPTDRhcTErMkhQbjhWY2FlaDJUM0x3L0ViT0xEL3BzSFB1WEdXR0Ru?=
+ =?utf-8?B?Z0g3Z2RoaTA3MnJaL2h5R3lqV2xrZG5xam9KdHlpYmhjbnM3QUVQRTIyQThM?=
+ =?utf-8?B?bVJETHcwa1pVY09odEVyazd6Zk51VnZMK2NCZzdoWUVNZ2FCeWVSalN5YkJW?=
+ =?utf-8?B?cTFJUEZ3M2p0V3FoVEV4T3N6TU1YbU1KZ2Uwa1JhZlBZSzhoQTZTUDhMaDEw?=
+ =?utf-8?B?d1VjQktOdnNUdXpTZ1o5cmtXVDRGNzJpWS9USUZBSnFhb1NBSHRGNGw1bGl1?=
+ =?utf-8?B?ZFBHQSt3b2R6aGswNGhHclRzL2lleWdpRGFRZnJZbXRvMTVQU3hjTUxOcWho?=
+ =?utf-8?B?VjNVYVdoWTNqU2JrNjVsUnRabUFpSTluQnkvWjBoVXhiM3pLTk5uQzcxdmtk?=
+ =?utf-8?B?QnUzczliS0VsbjJEYTJBTHo0azRVUHhFc3VkWDdoVUpzbFpuVTl3TmZXejRo?=
+ =?utf-8?B?b0JOd3hva3RsK0dpOGJaMVFDR3daN1pUUmNCSks3NHJEdDVsbUtjQ3BDWXZ4?=
+ =?utf-8?B?QnR1bERBUlpWMUc4UWNSbDN6R2szNnJPRVp1V25nS2hJWGYvV0NTQm9EZUJ6?=
+ =?utf-8?B?V2tOOFg4VEg3Mmt4V0R6c3RjWTViNzdSbG5VaWF1K3JmZUhzSUJqMVdURFVH?=
+ =?utf-8?B?blhOWEYvakdzTkxFTDdNRmNMWFRWdE5aak1pUGRpTG9iekpEdDM2b2cwMEVN?=
+ =?utf-8?B?a2JkRy9kZHRQOXd1cFc1NkJ1UFB2VERudC9ocUxYaXlFdS9Cam1qRDVOUmpj?=
+ =?utf-8?B?cjhvRzIzNWdLN1Ezck1xS1pCWXcwUDBlcVorUy9ucmlsNHhXdWZRRFFrLy9k?=
+ =?utf-8?B?cE5pRGRpdS92Z3h6YXc4ZXFLdFU2OGF1SlExTGVDRzArWWc9PQ==?=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:ko;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2337.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700018);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?V3E0SEEvOFJ0OXlKd1lRRkkxVTNmWEZvTVFRSzNBVlZnNGVweVRPRndVSnZP?=
+ =?utf-8?B?QkE2Y0hLMGl1ODByQ09zSFFHVzJpbHZmOXMzKzVWL2VFSld2bWV5SFVyWlpk?=
+ =?utf-8?B?RHE0QTNGS3laTkZsTXhKWVNCYWk3V0t6SUpna0dmQzJKZUllaXppb0hyeFRy?=
+ =?utf-8?B?V1ZuTFo5MXhENVlxc0txZytuN3Y3ZG10OC9BNUlIYmtvNlZFdFF4M2VXRUJN?=
+ =?utf-8?B?ZlZjZzBNa0tBdEdJZmFHZUlQSnBiV3pqY1NaakQ3ZnNCRlZnbnJnRzdRWkpy?=
+ =?utf-8?B?SnNOU3FETGU4ekV0MFZpQU9mcisxa3p6cWdmUVZxdyt6cGMySVB0ejVFbWdD?=
+ =?utf-8?B?c2VENjhnNjRHeHdWZUxyYzliNEVTNjkyVWlVbVZJOG1pR3BBdUJySk1Db3gr?=
+ =?utf-8?B?U2lNWmRLUFcyOHJhNE1jRXg2WENTTi91R0wzeVdNZnZ3YWNXQ1RLaUx1NGFY?=
+ =?utf-8?B?ODE4elc1UWQxSzBIaWZidEc2QTBYQ01lT0d1bS9xTUJSdDdDWkF5QTYwRDFO?=
+ =?utf-8?B?TVpVZWZCZDkxQTlxM1dVMDVHb2cyYy9nd0ZuSit0ajFmT01SZEdrV2xadE0v?=
+ =?utf-8?B?K0hQS3RiYVVFelV5Ni92aDFXVm5zbTBTMjNCcmlOUzNzVmJ5WnR4K1Zuak9k?=
+ =?utf-8?B?MGV4MFcvalB3M1lMQmwySXFrU1dFTzlybVhLNVIrQ01qK2kxekEzRy9XSTV2?=
+ =?utf-8?B?bWZLY01kYzhRZ2d5ZkhTWTVJTW5FQ3FHbGthcUFnUUJjSFcvNUJpL0JaaVda?=
+ =?utf-8?B?bnZDdmhXRjdyR2V5ZlZqUWVCT1RPUVU5b2Rxb2g2RXBMTkNaNnpXeTJXTFNQ?=
+ =?utf-8?B?TG92NFVtOHRXSXk1NTdlQzVpTmh0WkdFSXFrajdXRTJySkYrejRLVmtQcmdL?=
+ =?utf-8?B?a0wybW9tcW1pNEt1c2h3Z25rSUREWC82OFBMTUE5Y3FqWjRwS21UOFlxejJl?=
+ =?utf-8?B?blZVT29nS0xYOEE4bHBaQlJCS1JldWRWOGFaaUx1cmpKeDlTK0pJQ1pHVkFr?=
+ =?utf-8?B?R2wxd0UvOVgrcW1TT0dnZEhkRHdWOUI5dmdTWTdra2RJZjUwbWN1S3hoSFpt?=
+ =?utf-8?B?dUI0enZyb0wxR2ZhNkJSWE9RQkV4bDVRd1ZQbTNQSHVoRHNNSlQzdWtBdFF4?=
+ =?utf-8?B?eHFJK1FDQ3VpWmZTSE00NmJLejVOMEVSbUFaK0szM3lpbnNmZEVwcUFRT0FG?=
+ =?utf-8?B?RTNubU5LNlJKd1RCamlCOThsNFRLbzJMV0hmbzBUU3NnNmRZd1J2dEE2VDNS?=
+ =?utf-8?B?WWlrM3BxdzZNK2htMXh6V2RsRm5mZWQ0MzlHQXdZUUtpUWxVL0RxcHV4MkFm?=
+ =?utf-8?B?dytoTnhqOVpNQUV2SmN1U3hNUmFUeTk1cWR0dVV1UHZ4U21DR0xucG1DVG5I?=
+ =?utf-8?B?ZjNiamUxVExVbSt1QzVYRlJzRktjSWkyOXZqTmV1K3V2d3lsZkE2Qm5FTm42?=
+ =?utf-8?B?dnhEZzB6aTgvQUh4SW5peHE2K3ZVUnpVa2pJa09pa3BwRzJ0anhQQmxuSE53?=
+ =?utf-8?B?WEMzVkxkYmZYZlQ3L3FscFllejRrWmNxUlREZkJ0ZlByZ2dtbGZZSDZxZlhL?=
+ =?utf-8?B?cFF1dE1rUEdZaVJiZ0NYcGpCQUg1UklPSXp2dnpTZVk2OFMxN3ZBc0M3azZq?=
+ =?utf-8?B?eGk4SkRqREJEbmIxdkJFMTZkeFVTRSthSi9vOVBEU2lMY1Ewenlxdk8zRG5E?=
+ =?utf-8?B?ZGh0NGFUZW01d1RneHRxdFJDbVhkQ1pUbmh2d1ExUFVaK2J5dEpiaEZRS0ZC?=
+ =?utf-8?B?N1Yzc1E1cXlPdnc3amRFRTFncXRRblF4SFpnbzRqTmNiTGUyS3hYYkl4RHVM?=
+ =?utf-8?B?eFE5cFlLN0w1R3ZDcUc1bTE4Qko5Qy9jYm1uNTlnNmJBeURXL1JFTEt0Zm0v?=
+ =?utf-8?B?a3E2WmNCbkNoY2krYWozRzdWK0QzUUxDa3lkN3hVVEhMYUduNU9PZnJPcC96?=
+ =?utf-8?B?TVFIS05SU1c0bDYwVG11clVETTd3WU4yYmVmdUl4ckZWcXI0UjYzd1kzL2pH?=
+ =?utf-8?B?RDh1anlHTUV6TVhXaktlcnA3em4vWnV6ODNTVFJQa2diVDZvR20xY251NWMr?=
+ =?utf-8?B?dlBxdTVMdXBkUmtYYUNZRy9sYkFPbmhBdG1vanRXV01INkI3SGRPMmVQNXE1?=
+ =?utf-8?Q?5BGO6PBIOHN+crNyQTLC/er1P?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soundwire: stream: fix programming slave ports for
- non-continous port maps
-To: Vinod Koul <vkoul@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Sanyog Kale <sanyog.r.kale@intel.com>, Shreyas NC <shreyas.nc@intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, bard.liao@intel.com
-References: <20240729140157.326450-1-krzysztof.kozlowski@linaro.org>
- <095d7119-8221-450a-9616-2df6a0df4c77@linux.intel.com>
- <ZqngD56bXkx6vGma@matsya>
-Content-Language: en-US
-From: "Liao, Bard" <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <ZqngD56bXkx6vGma@matsya>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BDR53AZ4MSUZ2VYH3Y2EBM4FPRJB5USC
-X-Message-ID-Hash: BDR53AZ4MSUZ2VYH3Y2EBM4FPRJB5USC
-X-MailFrom: yung-chuan.liao@linux.intel.com
+X-OriginatorOrg: irondevice.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2337.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 6f45e302-fbdb-4668-9ef2-08dccbee0fc3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2024 07:57:30.6500
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ lcdsaQ6L259lq+511Bt5MNAan1AyuGlRdryEH/tqs58FFK2OnG7bAyJsplGGrnVqQxjHP4kdyYbC7eBJJM0wh+dUUhlN7012mw0+NyLpv6w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE1P216MB2173
+Message-ID-Hash: NU2XOTCG6VSOHMRPZT73XVWGZHXSS3WR
+X-Message-ID-Hash: NU2XOTCG6VSOHMRPZT73XVWGZHXSS3WR
+X-MailFrom: kiseok.jo@irondevice.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +194,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BDR53AZ4MSUZ2VYH3Y2EBM4FPRJB5USC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2D4OUIFZZAN652SP7OP73AZGUXDOLJWM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,118 +203,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On 7/31/2024 2:56 PM, Vinod Koul wrote:
-> On 29-07-24, 16:25, Pierre-Louis Bossart wrote:
->>
->> On 7/29/24 16:01, Krzysztof Kozlowski wrote:
->>> Two bitmasks in 'struct sdw_slave_prop' - 'source_ports' and
->>> 'sink_ports' - define which ports to program in
->>> sdw_program_slave_port_params().  The masks are used to get the
->>> appropriate data port properties ('struct sdw_get_slave_dpn_prop') from
->>> an array.
->>>
->>> Bitmasks can be non-continuous or can start from index different than 0,
->>> thus when looking for matching port property for given port, we must
->>> iterate over mask bits, not from 0 up to number of ports.
->>>
->>> This fixes allocation and programming slave ports, when a source or sink
->>> masks start from further index.
->>>
->>> Fixes: f8101c74aa54 ("soundwire: Add Master and Slave port programming")
->>> Cc: <stable@vger.kernel.org>
->>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->> This is a valid change to optimize how the port are accessed.
->>
->> But the commit message is not completely clear, the allocation in
->> mipi_disco.c is not modified and I don't think there's anything that
->> would crash. If there are non-contiguous ports, we will still allocate
->> space that will not be initialized/used.
->>
->> 	/* Allocate memory for set bits in port lists */
->> 	nval = hweight32(prop->source_ports);
->> 	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
->> 					  sizeof(*prop->src_dpn_prop),
->> 					  GFP_KERNEL);
->> 	if (!prop->src_dpn_prop)
->> 		return -ENOMEM;
->>
->> 	/* Read dpn properties for source port(s) */
->> 	sdw_slave_read_dpn(slave, prop->src_dpn_prop, nval,
->> 			   prop->source_ports, "source");
->>
->> IOW, this is a valid change, but it's an optimization, not a fix in the
->> usual sense of 'kernel oops otherwise'.
->>
->> Am I missing something?
->>
->> BTW, the notion of DPn is that n > 0. DP0 is a special case with
->> different properties, BIT(0) cannot be set for either of the sink/source
->> port bitmask.
-> The fix seems right to me, we cannot have assumption that ports are
-> contagious, so we need to iterate over all valid ports and not to N
-> ports which code does now!
-
-
-Sorry to jump in after the commit was applied. But, it breaks my test.
-
-The point is that dpn_prop[i].num where the i is the array index, and
-
-num is the port number. So, `for (i = 0; i < num_ports; i++)` will iterate
-
-over all valid ports.
-
-We can see in below drivers/soundwire/mipi_disco.c
-
-         nval = hweight32(prop->sink_ports);
-
-         prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
-
-sizeof(*prop->sink_dpn_prop),
-
-                                            GFP_KERNEL);
-
-And sdw_slave_read_dpn() set data port properties one by one.
-
-`for_each_set_bit(i, &mask, 32)` will break the system when port numbers
-
-are not continuous. For example, a codec has source port number = 1 and 3,
-
-then dpn_prop[0].num = 1 and dpn_prop[1].num = 3. And we need to go
-
-throuth dpn_prop[0] and dpn_prop[1] instead of dpn_prop[1] and dpn_prop[3].
-
-
->
->>
->>> ---
->>>   drivers/soundwire/stream.c | 8 ++++----
->>>   1 file changed, 4 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
->>> index 7aa4900dcf31..f275143d7b18 100644
->>> --- a/drivers/soundwire/stream.c
->>> +++ b/drivers/soundwire/stream.c
->>> @@ -1291,18 +1291,18 @@ struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
->>>   					    unsigned int port_num)
->>>   {
->>>   	struct sdw_dpn_prop *dpn_prop;
->>> -	u8 num_ports;
->>> +	unsigned long mask;
->>>   	int i;
->>>   
->>>   	if (direction == SDW_DATA_DIR_TX) {
->>> -		num_ports = hweight32(slave->prop.source_ports);
->>> +		mask = slave->prop.source_ports;
->>>   		dpn_prop = slave->prop.src_dpn_prop;
->>>   	} else {
->>> -		num_ports = hweight32(slave->prop.sink_ports);
->>> +		mask = slave->prop.sink_ports;
->>>   		dpn_prop = slave->prop.sink_dpn_prop;
->>>   	}
->>>   
->>> -	for (i = 0; i < num_ports; i++) {
->>> +	for_each_set_bit(i, &mask, 32) {
->>>   		if (dpn_prop[i].num == port_num)
->>>   			return &dpn_prop[i];
->>>   	}
+PiBPbiAwMy8wOS8yMDI0IDA4OjU3LCBLcnp5c3p0b2YgS296bG93c2tpIHdyb3RlOg0KPiA+IE9u
+IFR1ZSwgU2VwIDAzLCAyMDI0IGF0IDAyOjQ0OjMzUE0gKzA5MDAsIEtpc2VvayBKbyB3cm90ZToN
+Cj4gPj4gU2lnbmVkLW9mZi1ieTogS2lzZW9rIEpvIDxraXNlb2suam9AaXJvbmRldmljZS5jb20+
+DQo+ID4+IC0tLQ0KPiA+PiAgc291bmQvc29jL2NvZGVjcy9LY29uZmlnICAgfCAgICA4ICsNCj4g
+DQo+IC4uLg0KPiANCj4gPg0KPiA+PiArCWlmIChyZXQpIHsNCj4gPj4gKwkJZGV2X2VycigmY2xp
+ZW50LT5kZXYsICIlczogZmFpbGVkIHRvIHJlZ2lzdGVyIGNvbXBvbmVudFxuIiwNCj4gPj4gKwkJ
+CV9fZnVuY19fKTsNCj4gPj4gKw0KPiA+PiArCQlyZXR1cm4gcmV0Ow0KPiA+PiArCX0NCj4gPj4g
+Kw0KPiA+PiArCXNtYTEzMDctPmF0dHJfZ3JwID0gJnNtYTEzMDdfYXR0cl9ncm91cDsNCj4gPj4g
+KwlyZXQgPSBzeXNmc19jcmVhdGVfZ3JvdXAoc21hMTMwNy0+a29iaiwgc21hMTMwNy0+YXR0cl9n
+cnApOw0KPiA+DQo+ID4gV2hlcmUgaXMgc3lzZnMgQUJJIGRvY3VtZW50ZWQ/DQo+ID4NCj4gDQo+
+IEFoLCBub3cgSSBzZWUgeW91ciBzeXNmcyBBQkkgZG9jdW1lbnRhdGlvbiwgYnV0IHlvdSBvcmRl
+cmVkIHBhdGNoZXMNCj4gaW5jb3JyZWN0bHkuIERvY3VtZW50YXRpb24gY29tZXMgYmVmb3JlIGl0
+cyB1c2FnZS4NCj4gDQo+IEJlc3QgcmVnYXJkcywNCj4gS3J6eXN6dG9mDQoNCg0KT2theSENCkkg
+aGF2ZSBjdXJyZW50bHkgc3VibWl0dGVkIDMgcGF0Y2hlcyBpbiB0aGUgZm9sbG93aW5nIG9yZGVy
+OiANCmZpcnN0LCBJIHJlZ2lzdGVyZWQgdGhlIGRldmljZSBkcml2ZXIsIHRoZW4gdGhlIGR0LWJp
+bmRpbmcsIGFuZCBmaW5hbGx5IHRoZSBzeXNmcyBBQkkgZG9jdW1lbnRhdGlvbi4NCg0KSSdsbCBz
+dWJtaXQgdGhlIEFCSSBkb2N1bWVudGF0aW9uIGZpcnN0LiBTaG91bGQgdGhlIGR0LWJpbmRpbmcg
+YWxzbyBiZSBzdWJtaXR0ZWQgYmVmb3JlIHRoZSBkcml2ZXI/DQoNClRoYW5rIHlvdSBmb3IgeW91
+ciBmZWVkYmFjayENCg==

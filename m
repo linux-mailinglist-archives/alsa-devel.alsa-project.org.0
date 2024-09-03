@@ -2,187 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17E0196975C
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 10:39:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC60F9697D3
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 10:51:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2354A4A;
-	Tue,  3 Sep 2024 10:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2354A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1699FA4D;
+	Tue,  3 Sep 2024 10:51:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1699FA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725352796;
-	bh=FuCICBh8tF9D0cul77gcMeOJGS0KFdmVMoBvfMA+m18=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1725353518;
+	bh=3BhA1rUCIQmh3+A+y5PlZ1SLcJ4ELnvZ0aDzwq6YqKY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vGVykhJpLVyfY2++s6aWTNGge1Fm3aa3e2a6aGGMPov4ATHcakKQzZT2YD76rGnE7
-	 2VNYw7KJ+Taok041Rg30oPkZNjt8d6ZRbcE2/jJeykQOEdFyh1R+T5ZUp/rLjxzmn/
-	 TE9CAr+SvGo36TdLSm5bSbObU1KpT+xzzz3qfBGc=
+	b=PkSyJQkrwx7i21J70XYkuW8c86vOmNCokstwemnRHo5V+YYXD1kp7gAuOjudMaiJ4
+	 z1sgIDsKeQbL9EscjSgZFkST9QX4u3EKYz+kE+WufP8974K5qMI1TBnhEYJrOlOhrr
+	 NGPAidGv1bJphumvmX/gzopuogF5/rvDI82WHc3U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67D7AF805B4; Tue,  3 Sep 2024 10:39:26 +0200 (CEST)
+	id E5C27F805B5; Tue,  3 Sep 2024 10:51:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DA67F800E9;
-	Tue,  3 Sep 2024 10:39:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03F96F805AC;
+	Tue,  3 Sep 2024 10:51:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04693F80116; Tue,  3 Sep 2024 10:39:22 +0200 (CEST)
+	id 4E4E4F80199; Tue,  3 Sep 2024 10:51:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from SLXP216CU001.outbound.protection.outlook.com
- (mail-koreacentralazlp170100000.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:c40f::])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0A25F80116
-	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 10:39:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0A25F80116
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bfGXxHGCyTBpaZ/e00eapeaS10MWovgX0lByzV/p54vkPw55vSYrvCZ2yHhSl6UncfV777JrF2CNPWZZwpln5dUeLhiMKxFclNjiFL2K2/vRFuSVyhYQYLb9F5a2J5PhtWVJGSpjWDqr+yt2O44YIKUl1kUxq0ZlnUdRaz6bNXAlX7R429tcGfBJQemH998Kdi4TfFophFf0GL52+R0YCftO+xEJkRGZXC9Rs80t5iMCnqr+wkMsFuKL3x6LbSIUchun3MmFaSV1EC7BDI74M63K18ThDf4u6aRTzUWbSX1CL+zMaIbKeWRV7yvBZPcNb66KIQEsac4iNgUS18eR4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FuCICBh8tF9D0cul77gcMeOJGS0KFdmVMoBvfMA+m18=;
- b=OBtEmzxymi5WDdHCaWvxAGE3EFSNA7PqLuSDEJiDL0q6XZVyrnBAoGc/hw7lOXlkcEn7RE62N4zB+N+VlI33T4KlRYihWpTh76FxnWl8b2dRTatArbDAjAf3d6u9dFAZ8qspzfQ+JICI6aoweOy2Cvo2INRYKPP8qDuaCRX+eJtCvXdpijjWhZkHfJjKB4PnWFkd5tf6YVkuqpNrlP5hPLvjsYPe1jCRc1ijjujrCHy90QBfdPu4RNsz7MJdOD/Z9F9WNZsiAVddhwPY71PoxVMcqRmmLthgC9QZNMSK4eQLdM1SsOOwmkSfxVS3Z/MN24crCTCz/uRL9cg/Qf0shw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=irondevice.com; dmarc=pass action=none
- header.from=irondevice.com; dkim=pass header.d=irondevice.com; arc=none
-Received: from SL2P216MB2337.KORP216.PROD.OUTLOOK.COM (2603:1096:101:14c::11)
- by SL2P216MB2887.KORP216.PROD.OUTLOOK.COM (2603:1096:101:282::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7918.25; Tue, 3 Sep
- 2024 08:39:13 +0000
-Received: from SL2P216MB2337.KORP216.PROD.OUTLOOK.COM
- ([fe80::7e8d:9550:c46b:2756]) by SL2P216MB2337.KORP216.PROD.OUTLOOK.COM
- ([fe80::7e8d:9550:c46b:2756%3]) with mapi id 15.20.7918.024; Tue, 3 Sep 2024
- 08:39:13 +0000
-From: Ki-Seok Jo <kiseok.jo@irondevice.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, Application <application@irondevice.com>
-Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: irondevice,sma1307: Add initial
- DT binding
-Thread-Topic: [PATCH v2 2/3] ASoC: dt-bindings: irondevice,sma1307: Add
- initial DT binding
-Thread-Index: AQHa/cRmlR7aKhMVCUyKAPBkIGiSDLJFn0aAgAAeskA=
-Date: Tue, 3 Sep 2024 08:39:13 +0000
-Message-ID: 
- <SL2P216MB2337D3255ABE335E9AE8CB378C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
-References: <20240903054435.2659-1-kiseok.jo@irondevice.com>
- <20240903054435.2659-3-kiseok.jo@irondevice.com>
- <afb4bwvowfjjrkdh63wx7afz3gyydz7tpuhz2i6g6ahubat3vy@7t5vciiv2yp7>
-In-Reply-To: <afb4bwvowfjjrkdh63wx7afz3gyydz7tpuhz2i6g6ahubat3vy@7t5vciiv2yp7>
-Accept-Language: ko-KR, en-US
-Content-Language: ko-KR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=irondevice.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SL2P216MB2337:EE_|SL2P216MB2887:EE_
-x-ms-office365-filtering-correlation-id: b5e055f9-3d0b-4bb6-4cd1-08dccbf3e34f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: 
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700018;
-x-microsoft-antispam-message-info: 
- =?utf-8?B?NzdrcFZXUENVaGVFRS9aSXlYaGlWc3ZsNkdTSHBzYWRLU2JldDA4SEtWczRy?=
- =?utf-8?B?K0pUQ2xUeG1GQm1yOCtlSHpDWGV5clB6Tzk5RWU5UkpFN0pYVmFsZjJaVXVv?=
- =?utf-8?B?LzNwWER2dFc5ZHJMR09jWFJwd3NCS1hlSWtXOUQ3TE4zWWovYzlWOVJaRkZ6?=
- =?utf-8?B?QkNZVm15ZjBqcnNWMG5Gd0UyMHJrN1hwNFM4Y0IyWVhMY3VrU3F3Y3E3K0Vr?=
- =?utf-8?B?dVpmL1c4Mmg1MVdVZGVLeDlLNG5oZlBvRFU4b0ozYThKdjV6QitqTHZDUDAw?=
- =?utf-8?B?NGlSMkF0Wm5IeW96d1BROVBUNkN1L1ZLK3lRMDM5WXJlc3NQRDE1RGJPL1lu?=
- =?utf-8?B?TE9HZ2hKSjc3aG5qYVRUcDNQeUJua0JrNXgrbmdVcW0zQ3kxTjZMNWxsdy9G?=
- =?utf-8?B?OTFKTXFwcXpheXBRNTZkY1J4QTBRV1h4Mk1LTzllVU5rbXlLZ2lwdGNmZDIx?=
- =?utf-8?B?RVl3akh2ZXFJNUh0RDNWQXU5TW5xN3ptTC9PVFE5R2lBemVreEJ2N1lXRWd6?=
- =?utf-8?B?b1BlRnpENk1LSTNKVVRxUGZXU3JtRkM4N0k0YlE3anBxZ2dsb1l3MU5hNzRZ?=
- =?utf-8?B?bHlTY21yTVUvRFM0M2tTYjJXb2JSSStwQ2dLWTkvYnE0NWdRL1hEWWpYeFp2?=
- =?utf-8?B?R21JYUZWSXVxa08wMzdXbkc0aStzNHJPV045eHFFQVI0VjBZK0ZRbWJhdExm?=
- =?utf-8?B?c2Y1eStrNk9ZcjlNMitQQ3IwMFlES1ZOSkltclFrbHk3UHR5R1JBY2N3b0xm?=
- =?utf-8?B?eFplZHZLWHdKaFIyQkFHMzU1RytEd0o5MW05ZEJyelF1OFJUNlNkMThINlBZ?=
- =?utf-8?B?YjdLRDlDV3pjM050dHVTeXBBNk9Rek43WUt1MzV0Rm1FcWp0YUQ3R3ZBL1Ni?=
- =?utf-8?B?Q0dLYzk5OVZnUVVYenEwL2RiR2M3VzRDUWVFcW5mQU1aRUEyZSt3WnA0R0xy?=
- =?utf-8?B?Sm1wdUlGM01iV1RWT0VUVjVKUFAvYUVMdVJ2dWJ4c3lYdTMvSmk2K1dtOFdt?=
- =?utf-8?B?OVhDR3hFTEhENnpvTWhlVHMxYnJkQWFuQmRPbzNZTjZDL0VoZVA0UWFLTCs1?=
- =?utf-8?B?eVpqUnBYQ0tJWk5ObEtvT3hyVjMrRVNBc0xPNXVsQjlsL3B6U0tob1Z6UHRK?=
- =?utf-8?B?dW9iRXhGSmwvNS8xanNaamdvekN4Q0I2SjBzTzcyWnhrRUZJNnRFVWh6MXV3?=
- =?utf-8?B?b2d4Y2VXazVlRkk0WVBhTHhOcTB4NWY1eVJKY0p5eENxT3VUTlptYjlGY2pN?=
- =?utf-8?B?bEJhNzhLcHdYTFU1Nm5OSncyaEZ2YjArejBhYWZodkxNdStuMzI4ZzZzcERp?=
- =?utf-8?B?WVpyYWtMYWRJcy9vK3M2SG5hclc1ZlBQTktPMzExdjArcUE1V2ZjY0d1L2Rz?=
- =?utf-8?B?QkFmUFFvYW5TelQ3U2lIRHgrV2t6dTBMelVnZ0dUOGRqSTRzNmJaOVZyUS9D?=
- =?utf-8?B?emcrdTM0VVY1bDlrdHlDamZPUG1JdzkzeUZCTGxzVnBqMFlZOGY5M01NZzNY?=
- =?utf-8?B?K2xMdE1kY2Y3T2pIcmxHWkppZjFLbVl6T1JOTTgyK3JyZG9EWXRpYkg5NzJI?=
- =?utf-8?B?eDhYYVU5RnNqZWdJRC9zbjBYRU5oWGJCeGtxOUtML1dBNnJQVEZXRVdXb2VP?=
- =?utf-8?B?a2svaWVVNWVVb3duZVlGeTQydldnWDNYTlUzTXhlWEkzcVVENmlUUUZvYTZu?=
- =?utf-8?B?TUNGcDhkalVLb2l4bFNEYUZ0cTVZdkJ3S3JLdExDNGJDV1M0b0hyOVJrcHIy?=
- =?utf-8?B?YWF5MVZNM2dzdmgrVGw3MEpNY0o1NEVoZGQyTU9JRlY2MFB3U2Fjdm8zZG5W?=
- =?utf-8?Q?eQsvwiuSv/pwJy0EwPXIfzAvmEQPYN25D+mZU=3D?=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:ko;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2337.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700018);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?K3A0cmRzZlVCNHVqOTNLcFgrY2lWQVd6czMrcUNCZE9nSHVjR0hYbUY0TXQy?=
- =?utf-8?B?bUtURWY3QXRIS2xyRmhYcm9QOFAvTHJQTDBGVEFBNVJWNFRrWXpKSWx2TnN3?=
- =?utf-8?B?SjlJcExZdlE4U1J2eHAvOUlXakQzOU1reUNETE1zVHg4ejJKTDErWktma1dk?=
- =?utf-8?B?OWtWUmcxT3NnNTByaC8xUXZwOGpCSGtvSVBrOE1kMnBmc0RYOGtJZ092b3Rm?=
- =?utf-8?B?bjBzenByUDY5MFU4d29Ib1FtV1cyWEp0NzlzaTQrSzE2VWM3OHBtdWhyb21k?=
- =?utf-8?B?dzF0M0F5aGFsNTRHVDBmRGQ5THc1Uk5xTlBZS1lYMVl3TU1KZEVQZWp3bmI5?=
- =?utf-8?B?cHUwaFRVdCtTQ1MxMW5zeDFLSjI5OXZ6NFVwYysvZmlaOUVCMEhENmdKQ29Y?=
- =?utf-8?B?M1pnVEdicUhjOTVyczE1TnZ1OXpHSWgyRXl0S2xiVm43NndueFlMc01sdWZa?=
- =?utf-8?B?bFlaL3hRc1NvQitoK0pNTmZFYmYvZG1kMUUvL1cwOFQweHhGT1BtWm9halZ6?=
- =?utf-8?B?dCtjZFNNNzNNMk85ckl0NnZJeHc2dEZoeFpueXg1U2hYaEkrVTZTcUlKYnhz?=
- =?utf-8?B?OWg0SWkwa21vQnV6VHZEazlmQlhqdm8wQkdjT0taNDVsYU1EeTdxSEV3SmUv?=
- =?utf-8?B?RW05eElRbEg5NVlubHFFWWNNUXdUenVsalI4d2JaM2djQVRPdEZGa2dKbHJW?=
- =?utf-8?B?SVNzUm9MeG5pcHVpQlozVmdta3FWUHoxRmJzVjlIVkJnOEdvT3pUMjJpQlRq?=
- =?utf-8?B?Z1YzK2FsNG5SaDJDYzU5NXlCWTg1OGQwUWJXclFwcHpnV2w5Wm5DVU1ZNXA3?=
- =?utf-8?B?L1ZiZWNiaVdTRHdOcmZWTzJiQktVMysvSEp4Z0NGWE9lZkE4d3ExM1JzUHBB?=
- =?utf-8?B?ZTJ6bFVwT3ZsRnlJdkd5ejJvNmZ5a0lyRTJYUnRaUDkrMUx6TWVId041Vzg3?=
- =?utf-8?B?VWxFMSsvQXJ6M2ZIUGhBUGU2eEJUaXJ1UzJEMTVlanRzR1NaUmR2NWNkalgv?=
- =?utf-8?B?LzkzeXgzeGZFS3hNVWRmeDk4QlVKL01LL1EvQ2Z2KzBVQzZZc2xOZGttOGx6?=
- =?utf-8?B?SHFwT29lL1Z6RTAza1JvK09GeVNlbjczcGFFMTZMTWdHSWhDSGFSVDdRdEZD?=
- =?utf-8?B?UUVTKzIxUmZSaGV3Y1ovS3NZWWozYWR4VXQ4REZ0TmQ2eTZydXJaSmhzU3o4?=
- =?utf-8?B?S3grS0REWTFwOG4wQmswQXE2SkhIQVV4c29xelA4NEZ0bHdkVjZmc3F5T043?=
- =?utf-8?B?S2psVHpxeVBIbDdLRitFVHhGbEN5YktCYU5tQlJBUnRCNVlyK2U0MmZ1N1I3?=
- =?utf-8?B?aTBkQ2tybjEzSzJNWDhrZDJsNUpNd3NTK2w1MS9rK01ieERkbzdRbGZ6T2d4?=
- =?utf-8?B?WnRJYTNudVd3UVJVaWVIbUo2VGJJTTBuemIxK0NhV1dtaC9nT3RjL2FkU2p3?=
- =?utf-8?B?ZS85anhKYk0rN1Zsd0gzQldMeWRHMVhjTGNFOFdpQngraGVocStkS1BITzJW?=
- =?utf-8?B?Q2dmNG5UZGNYUCt5L2tlM2pKUUxXRjExemJvVzdIU0s2VXpwQXRFblZmWTFk?=
- =?utf-8?B?Qlg5YmFNSUdnVFZRcWM5VzM0cDltbFE2Y1pDaThTeGJVK2EzNnVXbVRMVHpM?=
- =?utf-8?B?aWtvNUdOSUtMOFMxankzbkVTSnpPL2NCYXU3NXpUQkN1Z3ZiSlBDSzBxWStX?=
- =?utf-8?B?Wmg5a2V2T3ZtVjIzREZMaFN0VGJBdko1Zk0yK2hUTERRNnQ4NlhMcmp0NW9O?=
- =?utf-8?B?bVpHYlFrNVVOUk56MTM0SW53bVI4WnhpcmZQbHhiRjlhWFFqV3hLRS9Jd3VR?=
- =?utf-8?B?YnZNYVRNTG9mck4wTGxudnhFYS8xakZYWWVJem5ZQytzamRFanNmT1lKN1Qw?=
- =?utf-8?B?L3JpbW9YVDFPZzkxc1FzRklHTDFJTWVUT0d4QTQwVmVpMFJrcGt0NWxObzls?=
- =?utf-8?B?a1dyMXB3SndaSEpkRUp0NzRVVFV1VGVsc0UyYWpPZDFCa1ZlSngyeGhGeG1u?=
- =?utf-8?B?eHh6RG5Nd0grM0JmWkVkMVBjRzJyY3o0Mk9VUTNpeDVGMUd2N0dEYzV1ZlhL?=
- =?utf-8?B?KzBxWjVaQitQazFxaHY0UVIxQmNIbzF5enliNWpkaEhWL3NYUm4yOTc3Yzd2?=
- =?utf-8?Q?mvQZ+4OoxQqgIoAk0XyLe+bfV?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B8CFF80116
+	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 10:51:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B8CFF80116
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=CKNr5SWz
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 94694A41DBE;
+	Tue,  3 Sep 2024 08:51:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD01C4CECA;
+	Tue,  3 Sep 2024 08:51:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1725353477;
+	bh=3BhA1rUCIQmh3+A+y5PlZ1SLcJ4ELnvZ0aDzwq6YqKY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CKNr5SWz3oRZU3sg7YygWaAp+wbO1WURD7BBs8zYFV43M8vZBB1Eyp2PyT5vssNZW
+	 Ss4g10eJRsC6C4tFRC1eC3XjNyXuQrjLDID9coGIo7rBGAoIW3i6nVbZT794gs4hhy
+	 71uus5W+UmfGbGfDqXbapcY9jrGMvL+tsyNq6o8Qi5lnm9XZdYTHi93rzkesji/9fh
+	 ohghaOey9NRH1q6pOQD2u5CR4waYgk6q354RqiZoFuJTOYghBAmjOTpUznn5s/8MUf
+	 9zRf+oYHC6WejJ/MTRhXyuKsivEefOTdhrFWrt62KpK561iRMNYiiE+N8YdhVMTynG
+	 EX4fZsGYIDFsw==
+Message-ID: <07d039e1-4f68-4f0a-94a0-a6389c545e89@kernel.org>
+Date: Tue, 3 Sep 2024 10:51:10 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: irondevice.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2337.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b5e055f9-3d0b-4bb6-4cd1-08dccbf3e34f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2024 08:39:13.0507
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b4849faa-3337-494e-a76a-cb25a3b3d7d1
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- rdFOl6ME+r5ald5KZAkKC+gRmRazQLMwnsxTmo7LA2ixT3iTXaearfELNaU9iDB77KV+YEnCXojkcy66zx5t7vWtcbmfDJNw+JPh1MTkAhM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2P216MB2887
-Message-ID-Hash: ZLLAG4PYETXG7JROET7L36EQSNBVIOB2
-X-Message-ID-Hash: ZLLAG4PYETXG7JROET7L36EQSNBVIOB2
-X-MailFrom: kiseok.jo@irondevice.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] ASoC: sma1307: Add driver for Iron Device SMA1307
+To: Ki-Seok Jo <kiseok.jo@irondevice.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Application <application@irondevice.com>
+References: <20240903054435.2659-1-kiseok.jo@irondevice.com>
+ <20240903054435.2659-2-kiseok.jo@irondevice.com>
+ <3gu6u7euavq272kaf2znmyn5p3rd3vupvqldvfxnq7nh5ul6jx@apwfcxvgkoyj>
+ <SL2P216MB23372552D5345013CDEB43318C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
+ QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
+ gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
+ /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
+ iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
+ VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
+ 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
+ xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
+ eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
+ AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
+ MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
+ Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
+ ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
+ vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
+ oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
+ lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
+ t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
+ uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
+ 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
+ 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
+In-Reply-To: 
+ <SL2P216MB23372552D5345013CDEB43318C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: LTLVHCWMFSVFXBYSISCW7XS2OBDSAROF
+X-Message-ID-Hash: LTLVHCWMFSVFXBYSISCW7XS2OBDSAROF
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -194,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SBUTEL3NSMYL77LSU6E6IZRHONPC55K4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LTLVHCWMFSVFXBYSISCW7XS2OBDSAROF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -203,49 +149,139 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-PiANCj4gT24gVHVlLCBTZXAgMDMsIDIwMjQgYXQgMDI6NDQ6MzRQTSArMDkwMCwgS2lzZW9rIEpv
-IHdyb3RlOg0KPiA+IFNpZ25lZC1vZmYtYnk6IEtpc2VvayBKbyA8a2lzZW9rLmpvQGlyb25kZXZp
-Y2UuY29tPg0KPiANCj4gRW1wdHkgY29tbWl0PyBSZWFkIHN1Ym1pdHRpbmctcGF0Y2hlcy4NCj4g
-DQoNCk9rYXkgSSdsbCBhZGQgbmV4dCBwYXRjaC4NCg0KDQo+IFBsZWFzZSBydW4gc2NyaXB0cy9j
-aGVja3BhdGNoLnBsIGFuZCBmaXggcmVwb3J0ZWQgd2FybmluZ3MuIFRoZW4gcGxlYXNlIHJ1bg0K
-PiBhbmQgKHByb2JhYmx5KSBmaXggbW9yZSB3YXJuaW5ncy4NCj4gU29tZSB3YXJuaW5ncyBjYW4g
-YmUgaWdub3JlZCwgZXNwZWNpYWxseSBmcm9tIC0tc3RyaWN0IHJ1biwgYnV0IHRoZSBjb2RlIGhl
-cmUNCj4gbG9va3MgbGlrZSBpdCBuZWVkcyBhIGZpeC4gRmVlbCBmcmVlIHRvIGdldCBpbiB0b3Vj
-aCBpZiB0aGUgd2FybmluZyBpcyBub3QNCj4gY2xlYXIuDQo+IA0KDQpXaGVuIEkgY2hlY2tlZCwg
-SSBkaWRuJ3QgZW5jb3VudGVyIGFueSBlcnJvcnMgb3Igd2FybmluZ3Mgd2hlbiB1c2luZyAnY2hl
-Y2twYXRjaC5wbCcuDQpXaGF0IG9wdGlvbnMgbWlnaHQgYmUgbmVlZGVkPw0KDQoNCj4gPiAtLS0N
-Cj4gDQo+IFdoZXJlIGlzIHRoZSBjaGFuZ2Vsb2c/IFdoYXQgaGFwcGVuZWQgaW4gdjI/IFdoeSBh
-cmUgeW91IHNlbmRpbmcgdGhlIHNhbWUNCj4gcGF0Y2g/DQo+IA0KDQpJIHVuZGVyc3RhbmQgdGhh
-dCB0aGUgZmlsZSBoYXMgbm90IGJlZW4gYXBwbGllZCB5ZXQsIHNvIGl0IG5lZWRzIHRvIGJlIHJl
-d3JpdHRlbiBhZ2FpbiB1bnRpbCBhcHBsaWVkLg0KDQoNCj4gPiAgLi4uL2JpbmRpbmdzL3NvdW5k
-L2lyb25kZXZpY2Usc21hMTMwNy55YW1sICAgIHwgNTQgKysrKysrKysrKysrKysrKysrKw0KPiA+
-ICAxIGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKQ0KPiA+ICBjcmVhdGUgbW9kZSAxMDA2
-NDQNCj4gPiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvaXJvbmRldmlj
-ZSxzbWExMzA3LnlhbWwNCj4gPg0KPiA+IGRpZmYgLS1naXQNCj4gPiBhL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9pcm9uZGV2aWNlLHNtYTEzMDcueWFtbA0KPiA+IGIv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL2lyb25kZXZpY2Usc21hMTMw
-Ny55YW1sDQo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4gPiBpbmRleCAwMDAwMDAwMDAuLjBi
-YjRlZTY2NA0KPiA+IC0tLSAvZGV2L251bGwNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3Mvc291bmQvaXJvbmRldmljZSxzbWExMzA3LnlhbWwNCj4gPiBAQCAtMCww
-ICsxLDU0IEBADQo+ID4gKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wLW9ubHkg
-T1IgQlNELTItQ2xhdXNlKSAlWUFNTCAxLjINCj4gPiArLS0tDQo+ID4gKyRpZDogaHR0cDovL2Rl
-dmljZXRyZWUub3JnL3NjaGVtYXMvc291bmQvaXJvbmRldmljZSxzbWExMzA3LnlhbWwjDQo+ID4g
-KyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIw0K
-PiA+ICsNCj4gPiArdGl0bGU6IElyb24gRGV2aWNlIFNNQTEzMDcgQXVkaW8gQW1wbGlmaWVyDQo+
-ID4gKw0KPiA+ICttYWludGFpbmVyczoNCj4gPiArICAtIEtpc2VvayBKbyA8a2lzZW9rLmpvQGly
-b25kZXZpY2UuY29tPg0KPiA+ICsNCj4gPiArZGVzY3JpcHRpb246DQo+ID4gKyAgU01BMTMwNyBi
-b29zdGVkIGRpZ2l0YWwgc3BlYWtlciBhbXBsaWZpZXINCj4gPiArICB3aXRoIGZlZWRiYWNrLWxv
-b3AuDQo+ID4gKw0KPiA+ICthbGxPZjoNCj4gPiArICAtICRyZWY6IGRhaS1jb21tb24ueWFtbCMN
-Cj4gPiArDQo+ID4gK3Byb3BlcnRpZXM6DQo+ID4gKyAgY29tcGF0aWJsZToNCj4gPiArICAgIGVu
-dW06DQo+ID4gKyAgICAgIC0gaXJvbmRldmljZSxzbWExMzA3YQ0KPiA+ICsgICAgICAtIGlyb25k
-ZXZpY2Usc21hMTMwN2FxDQo+ID4gKyAgICBkZXNjcmlwdGlvbjoNCj4gPiArICAgICAgSWYgYSAn
-cScgaXMgYWRkZWQsIGl0IGluZGljYXRlZCB0aGUgcHJvZHVjdCBpcyBBRUMtUTEwMA0KPiA+ICsg
-ICAgICBxdWFsaWZpZWQgZm9yIGF1dG9tb3RpdmUgYXBwbGljYXRpb25zLiBTTUExMzA3QSBzdXBw
-b3J0cw0KPiA+ICsgICAgICBib3RoIFdMQ1NQIGFuZCBRRk4gcGFja2FnZXMuIEhvd2V2ZXIsIFNN
-QTEzMDdBUSBvbmx5DQo+ID4gKyAgICAgIHN1cHBvcnRzIHRoZSBRRk4gcGFja2FnZS4NCj4gDQo+
-IERpZmZlcmVuY2UgaXMgb25seSBpbiBwYWNrYWdlIGJpbj8gVGhhdCBkb2VzIG5vdCB3YXJyYW50
-IG5ldyBjb21wYXRpYmxlLg0KPiANCg0KTm8sIHRoZXkgYXJlIGRpZmZlcmVudCBjaGlwcywgc28g
-ZGlmZmVyZW50IHNldHRpbmdzLg0KVGhlIHNldHRpbmdzIGFyZSBhdXRvbWF0aWNhbGx5IGNvbmZp
-Z3VyZWQgYWNjb3JkaW5nIHRvIGVhY2ggY2hpcC4NCg0KDQo+IEJlc3QgcmVnYXJkcywNCj4gS3J6
-eXN6dG9mDQoNClRoYW5rIHlvdSBmb3IgeW91ciBkZXRhaWxlZCByZXZpZXcuIEl0IGhhcyBiZWVu
-IHZlcnkgaGVscGZ1bCENCg0K
+On 03/09/2024 10:33, Ki-Seok Jo wrote:
+>> On Tue, Sep 03, 2024 at 02:44:33PM +0900, Kiseok Jo wrote:
+>>> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+>>> ---
+>>>  sound/soc/codecs/Kconfig   |    8 +
+>>>  sound/soc/codecs/Makefile  |    2 +
+>>>  sound/soc/codecs/sma1307.c | 2191
+>>> ++++++++++++++++++++++++++++++++++++
+>>>  sound/soc/codecs/sma1307.h |  454 ++++++++
+>>>  4 files changed, 2655 insertions(+)
+>>>  create mode 100644 sound/soc/codecs/sma1307.c  create mode 100644
+>>> sound/soc/codecs/sma1307.h
+>>>
+>>
+>> What are the differences against sm1303? Why it cannot be merged there?
+>> You have entire commit msg to explain this instead of just sending empty
+>> commit.
+> 
+> I will add a commit message in the next version of the patch.
+
+and where is the changelog? Why do you send the same code as v2?
+
+> 
+> 
+>>> +	unsigned int tsdw_cnt;
+>>> +};
+>>> +
+>>> +static struct sma1307_pll_match sma1307_pll_matches[] = {
+>>
+>> const
+> 
+> Okay! 
+> 
+>>> +
+>>> +/* DB scale conversion of speaker volume */ static const
+>>> +DECLARE_TLV_DB_SCALE(sma1307_spk_tlv, -6000, 50, 0);
+>>> +
+>>> +static int sma1307_regmap_write(struct sma1307_priv *sma1307,
+>>> +				unsigned int reg, unsigned int val) {
+>>> +	int ret = 0;
+>>> +	int cnt = sma1307->retry_cnt;
+>>> +
+>>> +	while (cnt--) {
+>>
+>> Sorry, but why? What is so broken in this hardware that it requires such
+>> retries? Maybe just youro board is broken, not this codec?
+>>
+> 
+> Generally, if there are no issues, retries shold not occur and it should execute only once.
+> Could this be a problem?
+> 
+> I included the retries because there might be issues with the connection.
+
+Write code in uniform style to the rest of the kernel. If there is a
+problem, fix not only your but other users (BTW, might be already fixed
+in regmap). Therefore if you do not see any other regmap I2C drivers
+users doing this, that's a nice hint you are doing something maybe
+unnecessary.
+
+> 
+> 
+>>> +
+>>> +static void sma1307_remove(struct snd_soc_component *component) {
+>>> +	struct sma1307_priv *sma1307 =
+>>> +snd_soc_component_get_drvdata(component);
+>>> +
+>>> +	cancel_delayed_work_sync(&sma1307->check_fault_work);
+>>
+>> Why do you cancel work in two different places?
+> 
+> 
+> 
+>>> +
+>>> +	sma1307 = devm_kzalloc(&client->dev,
+>>> +			       sizeof(struct sma1307_priv), GFP_KERNEL);
+>>
+>> sizeof(*)
+>>
+> 
+> Sorry. What does it mean?
+
+
+Adjust to existing kernel style. git grep kzalloc. It means use
+dereference here.
+
+> 
+> 
+>>> +
+>>> +	ret = devm_snd_soc_register_component(&client->dev,
+>>> +					      &sma1307_component, sma1307_dai,
+>>> +					      1);
+>>> +
+>>
+>> Drop blank line
+> 
+> Okay, When using 'Lindent', line breaks like this.
+> I'll review and fix this.
+> Thanks!
+> 
+> 
+>>> +
+>>> +static const struct i2c_device_id sma1307_i2c_id[] = {
+>>> +	{ "sma1307", 0 },
+>>> +	{ }
+>>> +};
+>>> +
+>>> +MODULE_DEVICE_TABLE(i2c, sma1307_i2c_id);
+>>> +
+>>> +static const struct of_device_id sma1307_of_match[] = {
+>>> +	{.compatible = "irondevice,sma1307a", },
+>>> +	{.compatible = "irondevice,sma1307aq", },	//AEC-Q100 Qualificated
+>>
+>> Drop, useless. Also does not match your I2C ID table.
+> 
+> The SMA1307A and SMA1307AQ are different chips with different device settings.
+> Therefore, when registering in the devicetree, I intended to register the specific product and
+> Cofigure the device settings accordingly.
+
+Then why match data is the same? If it is the same, then most likely it
+is pointless. Otherwise why the differences are not visible in match
+data or usage of compatible? If devices are compatible, make them so and
+drop it.
+
+> 
+> I set the I2C ID table to just 'sma1307' as shown.
+> So, should I change it to 'sma1307a' and 'sma1307aq instead?
+> 
+>> Anyway, bindings are before their users.
+
+Here you have answer to your other question.
+
+
+
+Best regards,
+Krzysztof
+

@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC60F9697D3
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 10:51:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E329697F1
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2024 10:56:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1699FA4D;
-	Tue,  3 Sep 2024 10:51:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1699FA4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EF3DBC0;
+	Tue,  3 Sep 2024 10:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EF3DBC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725353518;
-	bh=3BhA1rUCIQmh3+A+y5PlZ1SLcJ4ELnvZ0aDzwq6YqKY=;
+	s=default; t=1725353760;
+	bh=cTedcZ8hlk8BBeNA32IaZRluSOfswXpiyNdSYI5HIJ8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PkSyJQkrwx7i21J70XYkuW8c86vOmNCokstwemnRHo5V+YYXD1kp7gAuOjudMaiJ4
-	 z1sgIDsKeQbL9EscjSgZFkST9QX4u3EKYz+kE+WufP8974K5qMI1TBnhEYJrOlOhrr
-	 NGPAidGv1bJphumvmX/gzopuogF5/rvDI82WHc3U=
+	b=hvo5Q4rV3xxAC8szX7LDO2ds6HPBWiNQQ15usrjSyuH5ctB80o451kFJUM+qdbfkf
+	 lLY/EZgtoPhiEUgN8GlNt80TCgmVh2x1DxJGWZ6jd94xpd+lZf9pGQuGBtcYPy0KNp
+	 EfkBB8h1ALHAquNZ/UJQdNmMWfRvj0TXN49uvw/g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5C27F805B5; Tue,  3 Sep 2024 10:51:27 +0200 (CEST)
+	id 38431F805BE; Tue,  3 Sep 2024 10:55:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03F96F805AC;
-	Tue,  3 Sep 2024 10:51:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E65B4F805B3;
+	Tue,  3 Sep 2024 10:55:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E4E4F80199; Tue,  3 Sep 2024 10:51:22 +0200 (CEST)
+	id 6759CF80199; Tue,  3 Sep 2024 10:55:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from nyc.source.kernel.org (nyc.source.kernel.org
  [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B8CFF80116
-	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 10:51:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B8CFF80116
+	by alsa1.perex.cz (Postfix) with ESMTPS id B63E6F800E9
+	for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2024 10:55:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B63E6F800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=CKNr5SWz
+ header.s=k20201202 header.b=nWUNW2WB
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 94694A41DBE;
-	Tue,  3 Sep 2024 08:51:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FD01C4CECA;
-	Tue,  3 Sep 2024 08:51:12 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id EC339A41F4E;
+	Tue,  3 Sep 2024 08:55:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4997CC4CEC4;
+	Tue,  3 Sep 2024 08:55:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725353477;
-	bh=3BhA1rUCIQmh3+A+y5PlZ1SLcJ4ELnvZ0aDzwq6YqKY=;
+	s=k20201202; t=1725353719;
+	bh=cTedcZ8hlk8BBeNA32IaZRluSOfswXpiyNdSYI5HIJ8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CKNr5SWz3oRZU3sg7YygWaAp+wbO1WURD7BBs8zYFV43M8vZBB1Eyp2PyT5vssNZW
-	 Ss4g10eJRsC6C4tFRC1eC3XjNyXuQrjLDID9coGIo7rBGAoIW3i6nVbZT794gs4hhy
-	 71uus5W+UmfGbGfDqXbapcY9jrGMvL+tsyNq6o8Qi5lnm9XZdYTHi93rzkesji/9fh
-	 ohghaOey9NRH1q6pOQD2u5CR4waYgk6q354RqiZoFuJTOYghBAmjOTpUznn5s/8MUf
-	 9zRf+oYHC6WejJ/MTRhXyuKsivEefOTdhrFWrt62KpK561iRMNYiiE+N8YdhVMTynG
-	 EX4fZsGYIDFsw==
-Message-ID: <07d039e1-4f68-4f0a-94a0-a6389c545e89@kernel.org>
-Date: Tue, 3 Sep 2024 10:51:10 +0200
+	b=nWUNW2WBCFDTREqMTT7FFOwqI0aosNJccxCLAK3hxH59k5F2/5Jel1DSLc4LvxoQv
+	 fk+PJv+8tEO1VY+ouAMI6qMZEZS8vvzFNg55t05n7GMev745qqd0A4+5SAohsLKUNm
+	 FuFcWng/uIZODlSOTljW5yh0FYT+bYl4wS+HCu2ywdalev1wQdfplqtkVtKQgEpZku
+	 3ALy4Y+WVbGsMLW8D0hzih7xAGrrV0klxH+hCxY9si3xtvfHBD6pDr1RJ79qjEiWhg
+	 Bx8afM+pAUd+Ut+dHvDW84j4DI+Ldg0fT82wlgD+Uw0g2QNMBTaTLgv2AR0+/SELys
+	 ZY188AbGbibWA==
+Message-ID: <db829bd7-e26b-44ed-b813-c1ccfd30c687@kernel.org>
+Date: Tue, 3 Sep 2024 10:55:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] ASoC: sma1307: Add driver for Iron Device SMA1307
+Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: irondevice,sma1307: Add initial
+ DT binding
 To: Ki-Seok Jo <kiseok.jo@irondevice.com>
 Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -74,9 +75,9 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  Application <application@irondevice.com>
 References: <20240903054435.2659-1-kiseok.jo@irondevice.com>
- <20240903054435.2659-2-kiseok.jo@irondevice.com>
- <3gu6u7euavq272kaf2znmyn5p3rd3vupvqldvfxnq7nh5ul6jx@apwfcxvgkoyj>
- <SL2P216MB23372552D5345013CDEB43318C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+ <20240903054435.2659-3-kiseok.jo@irondevice.com>
+ <afb4bwvowfjjrkdh63wx7afz3gyydz7tpuhz2i6g6ahubat3vy@7t5vciiv2yp7>
+ <SL2P216MB2337D3255ABE335E9AE8CB378C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -123,11 +124,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
 In-Reply-To: 
- <SL2P216MB23372552D5345013CDEB43318C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+ <SL2P216MB2337D3255ABE335E9AE8CB378C932@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: LTLVHCWMFSVFXBYSISCW7XS2OBDSAROF
-X-Message-ID-Hash: LTLVHCWMFSVFXBYSISCW7XS2OBDSAROF
+Message-ID-Hash: TK36AQ5F2GLDCOL3DHVI5BSOPZWFNY6U
+X-Message-ID-Hash: TK36AQ5F2GLDCOL3DHVI5BSOPZWFNY6U
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -140,7 +141,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LTLVHCWMFSVFXBYSISCW7XS2OBDSAROF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TK36AQ5F2GLDCOL3DHVI5BSOPZWFNY6U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,138 +150,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 03/09/2024 10:33, Ki-Seok Jo wrote:
->> On Tue, Sep 03, 2024 at 02:44:33PM +0900, Kiseok Jo wrote:
+On 03/09/2024 10:39, Ki-Seok Jo wrote:
+>>
+>> On Tue, Sep 03, 2024 at 02:44:34PM +0900, Kiseok Jo wrote:
 >>> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+>>
+>> Empty commit? Read submitting-patches.
+>>
+> 
+> Okay I'll add next patch.
+> 
+> 
+>> Please run scripts/checkpatch.pl and fix reported warnings. Then please run
+>> and (probably) fix more warnings.
+>> Some warnings can be ignored, especially from --strict run, but the code here
+>> looks like it needs a fix. Feel free to get in touch if the warning is not
+>> clear.
+>>
+> 
+> When I checked, I didn't encounter any errors or warnings when using 'checkpatch.pl'.
+> What options might be needed?
+
+That's not true and I am not happy that I need to prove to you obvious
+thing. You do not need any options. Look:
+
+WARNING: Missing commit description - Add an appropriate one
+
+You could at least now double check if reviewer pointed it out instead
+of immediately disagreeing with review.
+
+> 
+> 
 >>> ---
->>>  sound/soc/codecs/Kconfig   |    8 +
->>>  sound/soc/codecs/Makefile  |    2 +
->>>  sound/soc/codecs/sma1307.c | 2191
->>> ++++++++++++++++++++++++++++++++++++
->>>  sound/soc/codecs/sma1307.h |  454 ++++++++
->>>  4 files changed, 2655 insertions(+)
->>>  create mode 100644 sound/soc/codecs/sma1307.c  create mode 100644
->>> sound/soc/codecs/sma1307.h
->>>
 >>
->> What are the differences against sm1303? Why it cannot be merged there?
->> You have entire commit msg to explain this instead of just sending empty
->> commit.
-> 
-> I will add a commit message in the next version of the patch.
-
-and where is the changelog? Why do you send the same code as v2?
-
-> 
-> 
->>> +	unsigned int tsdw_cnt;
->>> +};
->>> +
->>> +static struct sma1307_pll_match sma1307_pll_matches[] = {
->>
->> const
-> 
-> Okay! 
-> 
->>> +
->>> +/* DB scale conversion of speaker volume */ static const
->>> +DECLARE_TLV_DB_SCALE(sma1307_spk_tlv, -6000, 50, 0);
->>> +
->>> +static int sma1307_regmap_write(struct sma1307_priv *sma1307,
->>> +				unsigned int reg, unsigned int val) {
->>> +	int ret = 0;
->>> +	int cnt = sma1307->retry_cnt;
->>> +
->>> +	while (cnt--) {
->>
->> Sorry, but why? What is so broken in this hardware that it requires such
->> retries? Maybe just youro board is broken, not this codec?
+>> Where is the changelog? What happened in v2? Why are you sending the same
+>> patch?
 >>
 > 
-> Generally, if there are no issues, retries shold not occur and it should execute only once.
-> Could this be a problem?
+> I understand that the file has not been applied yet, so it needs to be rewritten again until applied.
 > 
-> I included the retries because there might be issues with the connection.
 
-Write code in uniform style to the rest of the kernel. If there is a
-problem, fix not only your but other users (BTW, might be already fixed
-in regmap). Therefore if you do not see any other regmap I2C drivers
-users doing this, that's a nice hint you are doing something maybe
-unnecessary.
-
-> 
-> 
->>> +
->>> +static void sma1307_remove(struct snd_soc_component *component) {
->>> +	struct sma1307_priv *sma1307 =
->>> +snd_soc_component_get_drvdata(component);
->>> +
->>> +	cancel_delayed_work_sync(&sma1307->check_fault_work);
->>
->> Why do you cancel work in two different places?
-> 
-> 
-> 
->>> +
->>> +	sma1307 = devm_kzalloc(&client->dev,
->>> +			       sizeof(struct sma1307_priv), GFP_KERNEL);
->>
->> sizeof(*)
->>
-> 
-> Sorry. What does it mean?
-
-
-Adjust to existing kernel style. git grep kzalloc. It means use
-dereference here.
-
-> 
-> 
->>> +
->>> +	ret = devm_snd_soc_register_component(&client->dev,
->>> +					      &sma1307_component, sma1307_dai,
->>> +					      1);
->>> +
->>
->> Drop blank line
-> 
-> Okay, When using 'Lindent', line breaks like this.
-> I'll review and fix this.
-> Thanks!
-> 
-> 
->>> +
->>> +static const struct i2c_device_id sma1307_i2c_id[] = {
->>> +	{ "sma1307", 0 },
->>> +	{ }
->>> +};
->>> +
->>> +MODULE_DEVICE_TABLE(i2c, sma1307_i2c_id);
->>> +
->>> +static const struct of_device_id sma1307_of_match[] = {
->>> +	{.compatible = "irondevice,sma1307a", },
->>> +	{.compatible = "irondevice,sma1307aq", },	//AEC-Q100 Qualificated
->>
->> Drop, useless. Also does not match your I2C ID table.
-> 
-> The SMA1307A and SMA1307AQ are different chips with different device settings.
-> Therefore, when registering in the devicetree, I intended to register the specific product and
-> Cofigure the device settings accordingly.
-
-Then why match data is the same? If it is the same, then most likely it
-is pointless. Otherwise why the differences are not visible in match
-data or usage of compatible? If devices are compatible, make them so and
-drop it.
-
-> 
-> I set the I2C ID table to just 'sma1307' as shown.
-> So, should I change it to 'sma1307a' and 'sma1307aq instead?
-> 
->> Anyway, bindings are before their users.
-
-Here you have answer to your other question.
-
-
+Read submitting patches.
 
 Best regards,
 Krzysztof

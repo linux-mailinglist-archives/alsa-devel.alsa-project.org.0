@@ -2,107 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E1196C14E
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2024 16:53:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FA896C1C4
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2024 17:08:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDD08846;
-	Wed,  4 Sep 2024 16:53:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD08846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12D38DFA;
+	Wed,  4 Sep 2024 17:07:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12D38DFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725461601;
-	bh=voyOYZWjEblOB0Gzb74raxPK2rOaJWiesmUXjO3gSkg=;
-	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=bAar3jnOdHv0DciswyWCHUV3S+gTjU+a6zJgjVcMEXm3YYUO6PcIiR3hOb1FNotSA
-	 SBH+j5uyqYrT2Pzq47t8cgunACL3ekJkWSTNQA9HwwPE1jgjGvnDa4wwe5v0UKvR+K
-	 Qkb4Q6WhYAfJAhV3D/gMUVWAeljqPvK7Z5lSJ9Ws=
+	s=default; t=1725462481;
+	bh=tORFVMwcIg00iudga/PE27wgMqLVRP07F1UvBKluATo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=fErMAt3PxU88SQXblEIQ7qjpykWWs/1ReDEV1aAv5J+nUwJtgVNlbkFyKCn1uVIbP
+	 5i2l1OzMg93azUGVGEV/xZqtBtQrnFGwYy7L5K25Tq+aC6dREIMaHfKcIzDfwPoHBE
+	 qEGpVb2C/gJ2dP60wjLICNlqP/TAZ+uz+aK2eTjA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B7FFF805A9; Wed,  4 Sep 2024 16:52:50 +0200 (CEST)
+	id D6804F805A1; Wed,  4 Sep 2024 17:07:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 772E5F8059F;
-	Wed,  4 Sep 2024 16:52:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54B10F805B2;
+	Wed,  4 Sep 2024 17:07:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2286FF80199; Wed,  4 Sep 2024 16:52:46 +0200 (CEST)
+	id 706DEF80199; Wed,  4 Sep 2024 17:07:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4218BF800E9
-	for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2024 16:52:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4218BF800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9C3A8F80027
+	for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2024 17:07:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C3A8F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=EvGT+svx
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-42bbd3bed1bso7464775e9.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 04 Sep 2024 07:52:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1725461563; x=1726066363;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MbOpSXNYVcQhcvwtIzrMQlGRTGRRC7rPZsCeaAArmmk=;
-        b=EvGT+svx9ey/AfoKtelWXh1TJu7vFoC03rdBQbHw1+Dy7k9bpLBct2odMEJ2qRJCnq
-         2LKf3qCUNcu2wc0DaxSsCcv37STCtb+uigIj0E2FZ6u+lS03Q6wJid72nQ4A+pNUDRsj
-         gLlzQdYQLcRp7y4fb2wRFV40L0PhfCu4FDtPVB9fTiwbm2pN0xM7gIO3v2X89gdRnfs5
-         rCwnK3qpuWWRzGkNgBTf+x64f1L8Dke549YHnjWDr6E/bRiVtBQhzomJKYq1T2Yse49M
-         mcEqMI+JYogq8KheKQEj7JV4PTo99do9i11SN2I7r3GatvdNG0CqZh55S8kwmj7n3V0x
-         K7SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725461563; x=1726066363;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MbOpSXNYVcQhcvwtIzrMQlGRTGRRC7rPZsCeaAArmmk=;
-        b=TbBVcbElYBlzkPWGGEldJ/7CJTr4PeL4QonrnIlzCFWaJxqWRN3MG5lOYcW8cBi9MZ
-         KWqb4r+AV/iLC4YCNhJlg2/60ZtZNv+NgUlPz8jMmU3EmlIP7FtYvikC5ow5tAP1qbyv
-         +qw0TlhskojT2WKHpfn70bTtJVArgvjAlkuJGMZP6xTAFMLdkxM2l3xA8GPgMWEK5yPq
-         kdyQdDMThQ5AR72vL45x12pFVp8BDoGSwCW09ENfL9Gy9cKsda6Q0parfZHS4jWOTJWS
-         lQH2yCmBXbVDikbrCpmh8qhGsmJHfIdfUHI9el7x1I/Aw00pQrQknSJXv2TxorZPDN68
-         9qMg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWi6raEMHOuWvfVK/vpjllVtW7PdNgVSzJerqA36xAPVs2LDHiLcUs82EsWCwxNyW+fsRmpv7P4htd4@alsa-project.org
-X-Gm-Message-State: AOJu0YxfaZYOI9d4sa4YoD6v0nEfrBSvkG96WdT3N/9fKGKd7uCfRbJO
-	e9fAeurvt9AbjQxiAHM80xYIKNYzikaJyLpUyWWFMv4/lPtcvEdzYoAcDLwtUdE=
-X-Google-Smtp-Source: 
- AGHT+IFigIDgeK0AYS1NHvcazhvwSBWTvpXPKjRSJmmszC2cebhtjsf44CObPbChB6ovhvnuWTp5LA==
-X-Received: by 2002:a5d:64c8:0:b0:374:c800:dc3d with SMTP id
- ffacd0b85a97d-374c800df1amr4487507f8f.1.1725461562709;
-        Wed, 04 Sep 2024 07:52:42 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.222.82])
-        by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-374c03595fcsm11963357f8f.98.2024.09.04.07.52.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Sep 2024 07:52:42 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] soundwire: stream: Revert "soundwire: stream: fix programming
- slave ports for non-continous port maps"
-Date: Wed,  4 Sep 2024 16:52:28 +0200
-Message-ID: <20240904145228.289891-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MlUXSwtR
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 48B73A44405;
+	Wed,  4 Sep 2024 15:07:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0E3C4CEC2;
+	Wed,  4 Sep 2024 15:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1725462441;
+	bh=tORFVMwcIg00iudga/PE27wgMqLVRP07F1UvBKluATo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MlUXSwtRBr1UUgTUUtu429ZkGjdhdcsJ/+QFfcxI1BzjZ9IVctLIKNGct4I+Oo3GS
+	 oXFrqjtFHvPrAZdwbSB+/xjh7Jxy4JXV7DaYgTiu1dZp9HmPJdOIQN0DUxhRU3yip5
+	 Fg0HSp8ooH0OCEFSRxksMM/zML0o3awp0qkG55Od6Bug6Mog5JRDW9/iNemqmWW5th
+	 JeSScqgWPRpyfTRXAHqMH48qsUAWB24aw2tpCoLfCHx9rvfz2iwXs/lcwaXxYfRpqe
+	 YRQUnpFeHodyTafVNBA6IMkPIXJQD+aacP+36XJtFoOSuz1rrSDbQfBwHnW5ufNcDj
+	 i7YtWC+SY282Q==
+Date: Wed, 4 Sep 2024 10:07:20 -0500
+From: Rob Herring <robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Mark Brown <broonie@kernel.org>, Saravana Kannan <saravanak@google.com>,
+	Linux-ALSA <alsa-devel@alsa-project.org>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: renesas,rsnd: add post-init-providers
+ property
+Message-ID: <20240904150720.GA2578755-robh@kernel.org>
+References: <87cylj7ul2.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 3S2YJOQXT6R3ZEHR6NLUZWZRB42JNESM
-X-Message-ID-Hash: 3S2YJOQXT6R3ZEHR6NLUZWZRB42JNESM
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87cylj7ul2.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID-Hash: 3HZ7J4J2UK4UH2GXCY2BDNP6IYTJCI5X
+X-Message-ID-Hash: 3HZ7J4J2UK4UH2GXCY2BDNP6IYTJCI5X
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3S2YJOQXT6R3ZEHR6NLUZWZRB42JNESM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3HZ7J4J2UK4UH2GXCY2BDNP6IYTJCI5X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,54 +97,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This reverts commit ab8d66d132bc8f1992d3eb6cab8d32dda6733c84 because it
-breaks codecs using non-continuous masks in source and sink ports.  The
-commit missed the point that port numbers are not used as indices for
-iterating over prop.sink_ports or prop.source_ports.
+On Wed, Sep 04, 2024 at 07:21:14AM +0000, Kuninori Morimoto wrote:
+> sometimes, fwnode dependency cycles can be broken, and in such case,
+> rsnd driver will never be probed. To avoid such case, we would like to
+> use post-init-providers to avoid it.
+> Enable post-init-providers property on rsnd.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> index 07ec6247d9def..cb44478d9e420 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> @@ -112,6 +112,10 @@ properties:
+>      description: List of necessary clock names.
+>      # details are defined below
+>  
+> +  post-init-providers:
+> +    description: ignore fw_devlink dependency cycles and avoid driver probe dead-lock
 
-Soundwire core and existing codecs expect that the array passed as
-prop.sink_ports and prop.source_ports is continuous.  The port mask still
-might be non-continuous, but that's unrelated.
+Drop. Don't need to describe (again) what a common property is. If you 
+want to say what your dependency cycle is, that would be good.
 
-Reported-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Closes: https://lore.kernel.org/all/b6c75eee-761d-44c8-8413-2a5b34ee2f98@linux.intel.com/
-Fixes: ab8d66d132bc ("soundwire: stream: fix programming slave ports for non-continous port maps")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
 
----
+Already has a type, don't define one again.
 
-I will need to fix my codec drivers, but that's independent.
----
- drivers/soundwire/stream.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+What you need, if you know, is how many entries (maxItems).
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index f275143d7b18..7aa4900dcf31 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -1291,18 +1291,18 @@ struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
- 					    unsigned int port_num)
- {
- 	struct sdw_dpn_prop *dpn_prop;
--	unsigned long mask;
-+	u8 num_ports;
- 	int i;
- 
- 	if (direction == SDW_DATA_DIR_TX) {
--		mask = slave->prop.source_ports;
-+		num_ports = hweight32(slave->prop.source_ports);
- 		dpn_prop = slave->prop.src_dpn_prop;
- 	} else {
--		mask = slave->prop.sink_ports;
-+		num_ports = hweight32(slave->prop.sink_ports);
- 		dpn_prop = slave->prop.sink_dpn_prop;
- 	}
- 
--	for_each_set_bit(i, &mask, 32) {
-+	for (i = 0; i < num_ports; i++) {
- 		if (dpn_prop[i].num == port_num)
- 			return &dpn_prop[i];
- 	}
--- 
-2.43.0
-
+Rob

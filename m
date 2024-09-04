@@ -2,126 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2439B96B6A7
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2024 11:29:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F9FE96B78A
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2024 11:57:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 412B5A4D;
-	Wed,  4 Sep 2024 11:29:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 412B5A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A730B70;
+	Wed,  4 Sep 2024 11:57:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A730B70
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725442191;
-	bh=3DYh1e2GuK4obzNV7376qpnjHHx8i2d0t9UfuJpCnq4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1725443871;
+	bh=/4F4jCsOnN9cUIlBqMZOqaOFslH5cm0T64+c72G1cS4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=O0v613Dh3cpOo1DlO0R1IMITRcYIxsrujTNi6VbIpJBeliY+vWUvgIwWtilDveV2x
-	 nuQM/b3cZtKwg8ANnOTCvM3QhUmLppDGoBXXYOZo2sSIcfZJqi9qyDDLqgvLaSz7tQ
-	 Zp8o52Ux76O3oy5ovSYmIklpDHqZEfKL4Wyouc80=
+	b=ZbSLiOZeYa79nJvSxje0so4ezFQvw74kWUu39BixXGh5Ic6j5hGicnOBbQvqwKL9F
+	 2n5ZrYPY8ztsfs9QVgkFBSQUROMMUJxxJ4fBQKLWqCNhKSR78C2+6/alp2cE4CDVn/
+	 9p5fpepqGx9OSddrURzUL9Udt5CC4XpU0n/l3LhY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E28DF805B5; Wed,  4 Sep 2024 11:29:19 +0200 (CEST)
+	id 5549FF80027; Wed,  4 Sep 2024 11:57:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8EEEF805A0;
-	Wed,  4 Sep 2024 11:29:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16069F805AF;
+	Wed,  4 Sep 2024 11:57:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CB1EF80199; Wed,  4 Sep 2024 11:29:14 +0200 (CEST)
+	id AE125F80199; Wed,  4 Sep 2024 11:57:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DECB7F80027
-	for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2024 11:29:11 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 14D382EB9;
-	Wed,  4 Sep 2024 11:29:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 14D382EB9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1725442150; bh=u6W8y2ZiH4biuWfjJrGxEW01U4Sjv0XzXI3J43x/O5o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=rM1SrenwfwHqyhwqccNr3DQdWL/3qY4sAiYsVqWNBEgKbugx8OJydxTaYO6ND2e/x
-	 cpm3cDx2CBDkszlVMV4/+FRRfjZSBoHgehMChA25h61jZViF2Ltei1jyWp8nLXyyJf
-	 Y/vF7JcN+DEQ8tvRInDyyBKYs+cB88vCtTRl2HHw=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5DBF5F80107
+	for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2024 11:57:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DBF5F80107
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=tZB/iJrn;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=VXS3XCmZ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=tZB/iJrn;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=VXS3XCmZ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed,  4 Sep 2024 11:29:05 +0200 (CEST)
-Message-ID: <403ab960-ee4f-404a-81ab-e63d4a7f7ef9@perex.cz>
-Date: Wed, 4 Sep 2024 11:29:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Suspend/resume Issue on pcm_dmix.c in alsa-lib
-To: Chancel Liu <chancel.liu@nxp.com>, Takashi Iwai <tiwai@suse.de>
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3CBCD1F7B4;
+	Wed,  4 Sep 2024 09:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1725443830;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nUK7Oq25vYqwVhgfLnjPAoWdMfgveyiNuGkEE9Vw62o=;
+	b=tZB/iJrn75ZS3FGvWxQzFil0gpnPO2dw7qupj5YIDjnjTZGX/GgXwiKl8cchqjch/tu0K/
+	cZ/ZgVceigf78KzEPFh7tkk7TZKpL+LgTfQj8Lx+yiPx6R9ns5mJKIp3unln4VSHH03w73
+	coUIInzA2Z4i1AXJ75oEfKKq8b5cp2c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1725443830;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nUK7Oq25vYqwVhgfLnjPAoWdMfgveyiNuGkEE9Vw62o=;
+	b=VXS3XCmZlkCh+k6pbcbLFmcvaDPLfgyEk05c/V5xW4+rBBVSKq/HVC0WJ4z9iVxVhCnvEe
+	AGJZ9ADswSwhJuAw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="tZB/iJrn";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VXS3XCmZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1725443830;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nUK7Oq25vYqwVhgfLnjPAoWdMfgveyiNuGkEE9Vw62o=;
+	b=tZB/iJrn75ZS3FGvWxQzFil0gpnPO2dw7qupj5YIDjnjTZGX/GgXwiKl8cchqjch/tu0K/
+	cZ/ZgVceigf78KzEPFh7tkk7TZKpL+LgTfQj8Lx+yiPx6R9ns5mJKIp3unln4VSHH03w73
+	coUIInzA2Z4i1AXJ75oEfKKq8b5cp2c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1725443830;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nUK7Oq25vYqwVhgfLnjPAoWdMfgveyiNuGkEE9Vw62o=;
+	b=VXS3XCmZlkCh+k6pbcbLFmcvaDPLfgyEk05c/V5xW4+rBBVSKq/HVC0WJ4z9iVxVhCnvEe
+	AGJZ9ADswSwhJuAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 19576139D2;
+	Wed,  4 Sep 2024 09:57:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id a774BPYu2Gb4HgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 04 Sep 2024 09:57:10 +0000
+Date: Wed, 04 Sep 2024 11:57:56 +0200
+Message-ID: <877cbrkafv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Chancel Liu <chancel.liu@nxp.com>
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "S.J. Wang" <shengjiu.wang@nxp.com>
-References: 
- <DB9PR04MB94988752ED7C43B399E0BC00E3942@DB9PR04MB9498.eurprd04.prod.outlook.com>
- <87msky1bqh.wl-tiwai@suse.de>
- <DB9PR04MB9498F7BBF2688256DEE7D5F2E39C2@DB9PR04MB9498.eurprd04.prod.outlook.com>
-Content-Language: en-US
-From: Jaroslav Kysela <perex@perex.cz>
-Autocrypt: addr=perex@perex.cz; keydata=
- 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
+	Jaroslav
+ Kysela <perex@perex.cz>,
+	"S.J. Wang" <shengjiu.wang@nxp.com>
+Subject: Re: Suspend/resume Issue on pcm_dmix.c in alsa-lib
 In-Reply-To: 
  <DB9PR04MB9498F7BBF2688256DEE7D5F2E39C2@DB9PR04MB9498.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: 
+ <DB9PR04MB94988752ED7C43B399E0BC00E3942@DB9PR04MB9498.eurprd04.prod.outlook.com>
+	<87msky1bqh.wl-tiwai@suse.de>
+	<DB9PR04MB9498F7BBF2688256DEE7D5F2E39C2@DB9PR04MB9498.eurprd04.prod.outlook.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6HEBI45X5XBXHUGHFLWP7LYAQPFE52RJ
-X-Message-ID-Hash: 6HEBI45X5XBXHUGHFLWP7LYAQPFE52RJ
-X-MailFrom: perex@perex.cz
+X-Rspamd-Queue-Id: 3CBCD1F7B4
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Message-ID-Hash: 7V5CJKCMEJK3MC2H43DBFJWGSK4TLWFT
+X-Message-ID-Hash: 7V5CJKCMEJK3MC2H43DBFJWGSK4TLWFT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -133,7 +172,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6HEBI45X5XBXHUGHFLWP7LYAQPFE52RJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7V5CJKCMEJK3MC2H43DBFJWGSK4TLWFT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,10 +181,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 04. 09. 24 11:07, Chancel Liu wrote:
+On Wed, 04 Sep 2024 11:07:30 +0200,
+Chancel Liu wrote:
+> 
 > Hi Takashi,
 > 
-> Thanks for your reply and suggestions. Finally we have found the root cause.
+> Thanks for your reply and suggestions. Finally we have found the root cause. 
 > Seems it's related to both drivers and alsa-lib.
 > 
 > When two dmix clients run in parallel we get two direct dmix instances.
@@ -167,41 +208,179 @@ On 04. 09. 24 11:07, Chancel Liu wrote:
 > in snd_pcm_direct_slave_recover(). Because 1st dmix->spcm->info has
 > SND_PCM_INFO_RESUME，snd_pcm_resume(direct->spcm) can be called correctly to
 > resume slave pcm.
-> 
+
+... and immediately stop the stream, then prepare and restart as a
+usual restart.
+
 > However if 2nd dmix instance resumes firstly, snd_pcm_resume(direct->spcm) will
 > not be called because it's spcm->info doesn't has SND_PCM_INFO_RESUME flag. The
 > 1st dmix instance assumes someone else already did recovery so
 > snd_pcm_resume(direct->spcm) won't be called neither. In result the slave pcm
 > fails to resume.
 
-The snd_pcm_direct_slave_recover() function should be called for both dmix 
-instances. It calls snd_pcm_prepare() for the "driver" PCM, so the driver 
-should recover from suspend in this case, too.
+Something wrong happening here, then.
 
-See the "some buggy drivers" comment in snd_pcm_direct_slave_recover(). It 
-looks like a driver issue, the "resume" flag mangling is just a workaround.
+In dmix, there is no hardware resume at all, but it's always a restart
+of the stream.  The call of snd_pcm_resume() is only temporarily for
+inconsistencies that can be a problem on some drivers (IIRC dmaengine
+stuff).  That said, dmix does a kind of fake resume, stops and
+restarts the stream cleanly on the first instance.  On the second
+instance, it's already recovered, hence it bails out.
+
+If poll() hangs on the second instance, there can be some other
+problem.  Maybe the resume -> stop -> restart sequence doesn't work
+with your driver well?
 
 > SND_PCM_INFO_RESUME flag has impact on the flow of dmix resume. In my opinion
 > the first resumed dmix instance should make sure slave pcm can be recovered
-> properly no matter it's the first opened instance or secondary opened instance.
+> properly no matter it's the first opened instance or secondary opened instance
+.
+
+The snd_pcm_resume() gets called no matter which instance, just the
+first one who tries to recover the suspended state.  (And it's called
+internally at updating the various state, not necessarily an explicit
+recovery call.)
+
 > Do you know why the secondary opened instance clear the SND_PCM_INFO_RESUME
 > flag? Can we do the following modification?
 > 
 > diff --git a/src/pcm/pcm_direct.c b/src/pcm/pcm_direct.c
 > @@ -1183,8 +1226,6 @@ static void save_slave_setting(snd_pcm_direct_t *dmix, snd_pcm_t *spcm)
->          COPY_SLAVE(buffer_time);
->          COPY_SLAVE(sample_bits);
->          COPY_SLAVE(frame_bits);
+>         COPY_SLAVE(buffer_time);
+>         COPY_SLAVE(sample_bits);
+>         COPY_SLAVE(frame_bits);
 > -
 > -       dmix->shmptr->s.info &= ~SND_PCM_INFO_RESUME;
 
-Another option is to fix the buggy drivers and remove the workround (or make 
-it configurable) from alsa-lib (revert commit 
-6d1d620eadf32c6d963468ce56ff52cc3a2f32e2).
+I don't think so.  The clearance of the RESUME flag here is correct.
+dmix doesn't support the hardware resume feature.  It does its own.
+(And this flag is merely a info for apps, which isn't really evaluated
+except for the code in dmix workaround there.)
 
-						Jaroslav
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi
 
+> 
+> Regards, 
+> Chancel Liu
+> 
+> > [ it seems that my previous post didn't go out properly, so resent;
+> >   if you've seen already the same, please disregard ]
+> > 
+> > On Tue, 27 Aug 2024 09:06:39 +0200,
+> > Chancel Liu wrote:
+> > >
+> > >
+> > > Hi Takashi Iwai, Jaroslav Kysela
+> > >
+> > > We found an issue on dmix in alsa-lib when do suspend and resume. It
+> > > can be easily reproduced by following steps:
+> > >
+> > > 1. Run two dmix clients in parallel. (Only one client doesnʼt has such
+> > > issue)
+> > >
+> > > ~# aplay xxx1.wav &
+> > >
+> > > ~# aplay xxx2.wav &
+> > >
+> > > Here I attach the asound.conf we're using.
+> > >
+> > > ~# cat /etc/asound.conf
+> > >
+> > > defaults.pcm.rate_converter "linear"
+> > >
+> > > pcm.dmix_44100{
+> > >
+> > >     type dmix
+> > >
+> > >     ipc_key 5678293
+> > >
+> > >     ipc_key_add_uid yes
+> > >
+> > >     slave{
+> > >
+> > >         pcm "hw:0,0"
+> > >
+> > >         period_time 40000
+> > >
+> > >         format S16_LE
+> > >
+> > >         rate 44100
+> > >
+> > >         }
+> > >
+> > > }
+> > >
+> > > pcm.asymed{
+> > >
+> > >     type asym
+> > >
+> > >     playback.pcm "dmix_44100"
+> > >
+> > >     capture.pcm "dsnoop_44100"
+> > >
+> > > }
+> > >
+> > > pcm.!default{
+> > >
+> > >     type plug
+> > >
+> > >     route_policy "average"
+> > >
+> > >     slave.pcm "asymed"
+> > >
+> > > }
+> > >
+> > > 2. Let linux enter into suspend and then resume(Repeat this step if
+> > > not
+> > > reproduced)
+> > >
+> > > 3. After resume, aplay will get stuck in snd_pcm_wait(). The GDB shows:
+> > >
+> > > (gdb) bt
+> > >
+> > > #0  0x0000fffff7da9264 in __GI___poll (fds=fds@entry=0xfffffffff480,
+> > > nfds= nfds@entry=1, timeout=timeout@entry=240)
+> > >
+> > >     at /usr/src/debug/glibc/2.39+git/sysdeps/unix/sysv/linux/poll.c:41
+> > >
+> > > #1  0x0000fffff7edf468 in poll (__timeout=240, __nfds=1,
+> > > __fds=0xfffffffff480)
+> > >
+> > > #2  snd1_pcm_wait_nocheck (pcm=pcm@entry=0xaaaaaaad2cb0,
+> > timeout=240,
+> > > timeout@entry=-10001) at pcm.c:2993
+> > >
+> > > #3  0x0000fffff7ee54a0 in snd1_pcm_write_areas
+> > > (pcm=pcm@entry=0xaaaaaaad2cb0, areas=areas@entry=0xfffffffff560,
+> > > offset=<optimized out>, offset@entry=0, size =<optimized out>,
+> > >
+> > >     size@entry=1768, func=func@entry=0xfffff7ef5190
+> > > <snd_pcm_plugin_write_areas>) at pcm.c:7699
+> > >
+> > > #4  0x0000fffff7ef5020 in snd_pcm_plugin_writei (pcm=0xaaaaaaad2cb0,
+> > > buffer= <optimized out>, size=1768) at pcm_plugin.c:354
+> > >
+> > > It seems that sometimes after suspend and resume there's no available
+> > > space for data written into buffer. Then aplay keeps stuck in
+> > > snd_pcm_wait(). I checked the hw_ptr of dmix and found that hw_ptr is
+> > always 0 after resume.
+> > >
+> > > I don't have a solution now so I turn to you for help. The version of
+> > > alsa-lib is v1.2.11. Could you please help check it?
+> > 
+> > I tried your setup but I couldn't reproduce the issue locally with my laptop and
+> > HD-audio device.  Possibly depending on the kernel driver?
+> > 
+> > In the case of dmix, it's a poll() against the PCM slave timer.  So it doesn't take
+> > care of suspend/resume state unlike the real PCM device.  OTOH, the timer
+> > device should send notification events at suspend/resume, and it should trigger
+> > the poll wakeup, too.
+> > 
+> > Does poll() return after the suspend/resume once but falls into a loop due to
+> > revents being unset?  Or it's stuck and never returns at suspend/resume?
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi

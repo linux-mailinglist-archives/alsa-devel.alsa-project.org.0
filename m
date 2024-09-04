@@ -2,121 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD4A96AD1B
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2024 01:52:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BAB096AFA5
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2024 06:11:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B60D9845;
-	Wed,  4 Sep 2024 01:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B60D9845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5428A868;
+	Wed,  4 Sep 2024 06:11:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5428A868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725407568;
-	bh=0XKmHDlWBsUkyTDYuieq/MwUxV+7GE7dgLDzIXruJtM=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1725423106;
+	bh=cZ0+WnAbadAz+U3QcvyDL8L866ErHNN4WkzgIUNH5IA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=K+Nmw5iWUVEs8o+ufxdu6Wf7AvmOqp40RFNc8g7eAlD/UGU/rTClxGYlC7lu+Db0k
-	 CGBaldaOLlKu2/XS+moe/qNcugpUniHEqwBCKoK5sHVUYmCvnbiHYXYMmHVjoMn0KJ
-	 q3VJi5Fd8UnBJbZIRITF9lxlneB98A7UdVJ+M9CY=
+	b=ZeGaVrKI9gWFqUvND2IxfYFi24Luy+TQaFQw36OLNlDZRbxEg8fufzv3JDLf2MY5q
+	 MDn7t8Du1ydWvYOPdrf4fWhFm7DgtzyirFIft6chQyVpMN4cxKy/CUED056V79LOM5
+	 C7MprR4/dv1zLdcA9ipznJybzGgSpd/WEV6cGE98=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81CA5F805BD; Wed,  4 Sep 2024 01:52:17 +0200 (CEST)
+	id ED224F805B4; Wed,  4 Sep 2024 06:11:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4C07F805AE;
-	Wed,  4 Sep 2024 01:52:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15DE5F804FC;
+	Wed,  4 Sep 2024 06:11:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34B67F80199; Wed,  4 Sep 2024 01:52:11 +0200 (CEST)
+	id 0F17AF80199; Wed,  4 Sep 2024 06:11:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CE30FF80107
-	for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2024 01:52:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE30FF80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id DFD8FF80027
+	for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2024 06:11:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD8FF80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=pdBZZnyX
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 483LVZEv000810;
-	Tue, 3 Sep 2024 23:52:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	95BPSr22aNtxxkLKJOon+5nTrYaFWvyv57TrPyiflHg=; b=pdBZZnyXcGnQglde
-	fWf/+6lf+TZ68nyFbs+mysF7ei+KL7kFUW395VCuDyNQ9aIQjVpf+rWYgeLtYUQ6
-	IOhEbSXwzAxZvQ0ka+f2vlyrvHVJ0Lo/08zPyw+Gjoq2XFzLgApKF7xy7OHGa6T9
-	pMpmb0fljYLgrq58pKqfOZekWDg5GMoxfhuBR9g5sR9jTBtq5akM0mIBtrRemCbo
-	6LrSZZFG5JbpdsJIxiMU2gtHhDSpvN7dND4Hd9ZqU5OS032AFyDqAncjrjI7muZ7
-	LYQ9cuM1TgGxyqlFsYmIoher/++bfhof3VW2EghL9oMx0Kt9qCrYnLXOat92buc3
-	kBoQrg==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41drqe39ux-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 03 Sep 2024 23:52:06 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 483Nq4Mt002628
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 3 Sep 2024 23:52:04 GMT
-Received: from [10.71.114.155] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 3 Sep 2024
- 16:52:04 -0700
-Message-ID: <02cbf2a1-f8e6-4d5a-9d46-5c21f593bcdd@quicinc.com>
-Date: Tue, 3 Sep 2024 16:52:03 -0700
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20230601 header.b=wFlJHFyL
+Received: by mail-pg1-x535.google.com with SMTP id
+ 41be03b00d2f7-7d4fa972cbeso747339a12.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 03 Sep 2024 21:11:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1725423065; x=1726027865;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2RmBH1X6Hy8Ny7eEgPGP8rtFggO6Gx2dLIra+M316Z0=;
+        b=wFlJHFyLyX3rqzY/cckWfcU/eBOV8qUSqJDIU0lNk7YzY3sDJpOt2Jb4aMNLrn4ruu
+         doHf6eZiPio9VFFgnDbH4Ula0LNUgrtyNI1B2FBmugnt6XBgYnzHR6aZQFrLZ+3Icuez
+         Bp1Ux4/B2CnPxfIGNSQDt1Y3HQSwJkyUzi/zXNoiZUmkTTbw81ReR3bSJ5oQpEIeljTk
+         wsSezx+IO/WdK9sDyMqktMsbGRvAj7DnigBviAl50JxDRANsHS6xQab2m2hR+e9br1SC
+         9xB+1s0SUEymq/1zNQaxqcD738x2vmyPtRGQo3wysHvH6e7h7zl1wcE17c5BBzF6t5DG
+         TFuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725423065; x=1726027865;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=2RmBH1X6Hy8Ny7eEgPGP8rtFggO6Gx2dLIra+M316Z0=;
+        b=fUhPhG1OXsnOf8sWfA7SzEUhH3ZbaLdindNjpGIe1V/izM03jfuqAKkWJNSCBlpHIb
+         52ivHbgnaW0idqIzGIY5aWT+cuag55mgmcPcpw7s9YoOy8AWGyQsahHA/Kacn+Gh/D5g
+         ZuB9YRcEWnx3kPw43KnXbkWMkckehJLua8s4qNIj7eqYFMK9AQN2T9YXGv3FnmEsGVoE
+         Kq7L+RgSocph2OoZB7nLAe8Nat5TU9mF1Z41REKPLDtNjOWlUNdCcS//70JlHqg+uiaa
+         XoYszNkt2wOkHMoRJITFfzoQjf5jivvt/gn8FIJwF+jHE//XWmLkrsj5TuoJJ0X77ZVG
+         NgIA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXiWWZjpNukYXx81L2z7J50fKP/GLXDQK92lXCvFdqmWTPlsj8rXvvTarGKifTdRHnS4zaBkX0XD9r2@alsa-project.org
+X-Gm-Message-State: AOJu0Yx8quHjFJ4zhzlTrkjru4C04Fjf0eSaHKcN5fzXH9tthB/kaEwK
+	C+pKmSVirAnwz33t5m5gzgHUrnHlzC3oFMGkM/+Rgz+JmiXyciEfUrrqrX7fNLZ1Z+Qj6aU86mc
+	s0RUORyOFx1wpXyfbgFrTibwXlik+yDPcwYU4
+X-Google-Smtp-Source: 
+ AGHT+IHy4mkCxTnlDdfRTGmoRH1KEN5Mwh3pT5x35vBXHapXCxmrlcRmijPvQkHj15C9J0FJOAgThW0avjYZ2quG07Q=
+X-Received: by 2002:a17:902:db08:b0:205:8b9e:964b with SMTP id
+ d9443c01a7336-2058b9e9afamr98711815ad.39.1725423064609; Tue, 03 Sep 2024
+ 21:11:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v26 31/33] ALSA: usb-audio: Add USB offload route kcontrol
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <dmitry.torokhov@gmail.com>,
-        <corbet@lwn.net>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
-        <tiwai@suse.com>, <krzk+dt@kernel.org>, <Thinh.Nguyen@synopsys.com>,
-        <bgoswami@quicinc.com>, <robh@kernel.org>,
-        <gregkh@linuxfoundation.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-input@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>
-References: <20240829194105.1504814-1-quic_wcheng@quicinc.com>
- <20240829194105.1504814-32-quic_wcheng@quicinc.com>
- <b682bd8f-2743-42cf-b51f-1444faf4635f@linux.intel.com>
-Content-Language: en-US
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <b682bd8f-2743-42cf-b51f-1444faf4635f@linux.intel.com>
+References: <878qwaoa10.wl-kuninori.morimoto.gx@renesas.com>
+ <877cbuo9l6.wl-kuninori.morimoto.gx@renesas.com>
+ <20240902070746.GA11534@pendragon.ideasonboard.com>
+ <CAMuHMdXqRQz22rjPs8LG__ow-B50bhgXQ14jkfM0HSFn99F_2Q@mail.gmail.com>
+ <87y149bg8v.wl-kuninori.morimoto.gx@renesas.com>
+ <CAMuHMdUVqojaz=bRSWV-SRqcZ9zEpw2=ooFaBFqJq6k_C0RYQw@mail.gmail.com>
+ <87bk148g3v.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87bk148g3v.wl-kuninori.morimoto.gx@renesas.com>
+From: Saravana Kannan <saravanak@google.com>
+Date: Tue, 3 Sep 2024 21:10:28 -0700
+Message-ID: 
+ <CAGETcx8nhCQRJdP3s+ZLuBFoneb4kA4yf93_JB8mNrfc9KE+iA@mail.gmail.com>
+Subject: Re: Qestion: of property has dead-lock to call .probe()
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Rob Herring <robh@kernel.org>, Mark Brown <broonie@kernel.org>,
+	Linux-DT <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+	Laurent <laurent.pinchart@ideasonboard.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 2RrMypqgf7f696ke8lsoslZaflVIykZD
-X-Proofpoint-ORIG-GUID: 2RrMypqgf7f696ke8lsoslZaflVIykZD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-03_11,2024-09-03_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 mlxscore=0
- phishscore=0 adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- impostorscore=0 spamscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2407110000
- definitions=main-2409030190
-Message-ID-Hash: UMHU6BI5CMZ4RZ6CBUDF5FNHRO6U6CQ7
-X-Message-ID-Hash: UMHU6BI5CMZ4RZ6CBUDF5FNHRO6U6CQ7
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: YP5KFUNUR3LORQPPD6AVQV7TNPX6SPKA
+X-Message-ID-Hash: YP5KFUNUR3LORQPPD6AVQV7TNPX6SPKA
+X-MailFrom: saravanak@google.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UMHU6BI5CMZ4RZ6CBUDF5FNHRO6U6CQ7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YP5KFUNUR3LORQPPD6AVQV7TNPX6SPKA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,254 +130,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Pierre,
-
-On 8/30/2024 3:05 AM, Pierre-Louis Bossart wrote:
+On Tue, Sep 3, 2024 at 4:36=E2=80=AFPM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
 >
-> On 8/29/24 21:41, Wesley Cheng wrote:
->> In order to allow userspace/applications know about USB offloading status,
->> expose a sound kcontrol that fetches information about which sound card
->> and PCM index the USB device is mapped to for supporting offloading.  In
->> the USB audio offloading framework, the ASoC BE DAI link is the entity
->> responsible for registering to the SOC USB layer.
->>
->> It is expected for the USB SND offloading driver to add the kcontrol to the
->> sound card associated with the USB audio device.  An example output would
->> look like:
-> this is very odd, the offloading driver adds a control to another card?
 >
-> That seems like a rather important layering violation.
+> Hi Saravana, Rob
+> Cc Mark/ALSA-ML, Geert, Laurent
 >
-> I thought it was done the other way, the USB audio card created a
-> control that would point to the other card/device.
-The USB SND offloading vendor driver (qc_audio_offload), which technically co-exists with USB SND core, is the entity that will add the offload kcontrol to the USB audio device's sound card.  Initially, I had the kcontrol creation as part of the USB SND mixer, but I believe Takashi preferred if the vendor driver did it instead.
+> I got dead-lock issue on drivers/of/property.c to call .probe()
+> I'm now using v6.11-rc5.
 >
->> tinymix -D 1 get 'USB Offload Playback Route PCM#0'
->> -1, -1 (range -1->255)
->>
->> This example signifies that there is no mapped ASoC path available for the
->> USB SND device.
-> but that control would not even exist if the ASoC-based driver isn't probed.
+> I'm using 3 devices, and these are connected via OF-Graph.
+> These are connected like this so far. Let's call it as [Style-A]
 >
-> It's become really hard to follow, I've been on all this for 1.5hrs and
-> losing track of the design.
+> [Style-A]
+>         +---+  +---+
+>         |(A)+--+   |
+>         +-+-+  |   |
+>           |    |(B)|
+>         +-+-+  |   |
+>         |(C)+--+   |
+>         +---+  +---+
+>
+> These are using port/endpoint to connect. It works well for now,
+> no issue I have so far.
+>
+> (B) is connector for (A)-(C) data, thus, (A) and (C) should
+> be probed first, and (B) needs probe later
+> (For ALSA member, this (B) is Audio Graph Card2).
+>
+> Here, (A)-(C) can connect directly for some data.
+> Now it is using both data connection (=3D (A)-(B)-(C) and (A)-(C))
+>
+> Now, I want to disconnect (A)-(C) connection, like below
+> Let's call it as [Style-B]
+>
+> [Style-B]
+>         +---+  +---+
+>         |(A)+--+   |
+>         +---+  |   |
+>                |(B)|
+>         +---+  |   |
+>         |(C)+--+   |
+>         +---+  +---+
+>
+> Then, it seems dead-lock happen.
+>
+> In my debug, it seems...
+>         - (B) is handled as supplier for (A).
+>         - (B) probe() is called, but it needs (A) info which is not yet
+>           probed. So it returns -EPROBE_DEFER.
+>         - Because (B) is not probed, (A) probe() never called
+>
+> In [Style-A], it seems __fwnode_link_cycle() is called for (A)-(B)
+> connection, so the dead-lock will be solved.
+> But it is not called for [Style-B]. Because of that (B) is always handled
+> as supplier for (A).
+>
+> If I used below patch, and use "non-supplier" property on (B), this
+> dead-lock issue was solved. But I know this is not a good solution.
+>
+> I think it is very normal connection, not super special.
+> How can I solve this issue on correct way ? Or how can I indicate you
+> my issue more detail ?
+> I can add debug patch and test it if you can indicate it to me.
 
-Hence why it probably is a good idea to leave it within the USB offload vendor driver.  There are checks to ensure that the ASoC based driver is probed/available before the kcontrols are created for a device.  If there are devices that were identified before the ASoC components were probed, then the snd_usb_rediscover_devices() is triggered as part of soc-usb, and that would call the connect_cb() callback to the USB SND vendor offload driver to create the kcontrol.
+Kinda swamped, so skimmed your diagram. Looks like you are making up a
+"non-supplier" property?
 
-Thanks
+Anyway, I solved this recently in a general way. Use
+"post-init-providers" property in the node of "A" and point it to "B".
+This tells fw_devlink that B is not needed for A to probe.
 
-Wesley Cheng
+So, NACK to this patch, but hope my response helps.
 
->> tinymix -D 1 get 'USB Offload Playback Route PCM#0'
->> 0, 0 (range -1->255)
->>
->> This example signifies that the offload path is available over ASoC sound
->> card index#0 and PCM device#0.
->>
->> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->> ---
->>  sound/usb/Kconfig                 |  10 +++
->>  sound/usb/Makefile                |   2 +
->>  sound/usb/mixer_usb_offload.c     | 102 ++++++++++++++++++++++++++++++
->>  sound/usb/mixer_usb_offload.h     |  17 +++++
->>  sound/usb/qcom/Makefile           |   2 +-
->>  sound/usb/qcom/qc_audio_offload.c |   2 +
->>  6 files changed, 134 insertions(+), 1 deletion(-)
->>  create mode 100644 sound/usb/mixer_usb_offload.c
->>  create mode 100644 sound/usb/mixer_usb_offload.h
->>
->> diff --git a/sound/usb/Kconfig b/sound/usb/Kconfig
->> index 5cc3eaf53e6b..e3fbf9541d0b 100644
->> --- a/sound/usb/Kconfig
->> +++ b/sound/usb/Kconfig
->> @@ -176,10 +176,20 @@ config SND_BCD2000
->>  	  To compile this driver as a module, choose M here: the module
->>  	  will be called snd-bcd2000.
->>  
->> +config SND_USB_OFFLOAD_MIXER
->> +	tristate "USB Audio Offload mixer control"
->> +	help
->> +	 Say Y to enable the USB audio offloading mixer controls.  This
->> +	 exposes an USB offload capable kcontrol to signal to applications
->> +	 about which platform sound card can support USB audio offload.
->> +	 The returning values specify the mapped ASoC card and PCM device
->> +	 the USB audio device is associated to.
->> +
->>  config SND_USB_AUDIO_QMI
->>  	tristate "Qualcomm Audio Offload driver"
->>  	depends on QCOM_QMI_HELPERS && SND_USB_AUDIO && USB_XHCI_SIDEBAND && SND_SOC_USB
->>  	select SND_PCM
->> +	select SND_USB_OFFLOAD_MIXER
->>  	help
->>  	  Say Y here to enable the Qualcomm USB audio offloading feature.
->>  
->> diff --git a/sound/usb/Makefile b/sound/usb/Makefile
->> index 54a06a2f73ca..2f19f854944c 100644
->> --- a/sound/usb/Makefile
->> +++ b/sound/usb/Makefile
->> @@ -36,3 +36,5 @@ obj-$(CONFIG_SND_USB_US122L) += snd-usbmidi-lib.o
->>  
->>  obj-$(CONFIG_SND) += misc/ usx2y/ caiaq/ 6fire/ hiface/ bcd2000/ qcom/
->>  obj-$(CONFIG_SND_USB_LINE6)	+= line6/
->> +
->> +obj-$(CONFIG_SND_USB_OFFLOAD_MIXER) += mixer_usb_offload.o
->> diff --git a/sound/usb/mixer_usb_offload.c b/sound/usb/mixer_usb_offload.c
->> new file mode 100644
->> index 000000000000..16e2fd634684
->> --- /dev/null
->> +++ b/sound/usb/mixer_usb_offload.c
->> @@ -0,0 +1,102 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->> + */
->> +
->> +#include <linux/usb.h>
->> +
->> +#include <sound/core.h>
->> +#include <sound/control.h>
->> +#include <sound/soc-usb.h>
->> +
->> +#include "usbaudio.h"
->> +#include "card.h"
->> +#include "helper.h"
->> +#include "mixer.h"
->> +
->> +#include "mixer_usb_offload.h"
->> +
->> +#define PCM_IDX(n)  ((n) & 0xffff)
->> +#define CARD_IDX(n) ((n) >> 16)
->> +
->> +static int
->> +snd_usb_offload_route_get(struct snd_kcontrol *kcontrol,
->> +			  struct snd_ctl_elem_value *ucontrol)
->> +{
->> +	struct device *sysdev = snd_kcontrol_chip(kcontrol);
->> +	int ret;
->> +
->> +	ret = snd_soc_usb_update_offload_route(sysdev,
->> +					       CARD_IDX(kcontrol->private_value),
->> +					       PCM_IDX(kcontrol->private_value),
->> +					       SNDRV_PCM_STREAM_PLAYBACK,
->> +					       ucontrol->value.integer.value);
->> +	if (ret < 0) {
->> +		ucontrol->value.integer.value[0] = -1;
->> +		ucontrol->value.integer.value[1] = -1;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int snd_usb_offload_route_info(struct snd_kcontrol *kcontrol,
->> +				      struct snd_ctl_elem_info *uinfo)
->> +{
->> +	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
->> +	uinfo->count = 2;
->> +	uinfo->value.integer.min = -1;
->> +	/* Arbitrary max value, as there is no 'limit' on number of PCM devices */
->> +	uinfo->value.integer.max = 0xff;
->> +
->> +	return 0;
->> +}
->> +
->> +static struct snd_kcontrol_new snd_usb_offload_mapped_ctl = {
->> +	.iface = SNDRV_CTL_ELEM_IFACE_CARD,
->> +	.access = SNDRV_CTL_ELEM_ACCESS_READ,
->> +	.info = snd_usb_offload_route_info,
->> +	.get = snd_usb_offload_route_get,
->> +};
->> +
->> +/**
->> + * snd_usb_offload_create_ctl() - Add USB offload bounded mixer
->> + * @chip - USB SND chip device
->> + *
->> + * Creates a sound control for a USB audio device, so that applications can
->> + * query for if there is an available USB audio offload path, and which
->> + * card is managing it.
->> + */
->> +int snd_usb_offload_create_ctl(struct snd_usb_audio *chip)
->> +{
->> +	struct usb_device *udev = chip->dev;
->> +	struct snd_kcontrol_new *chip_kctl;
->> +	struct snd_usb_substream *subs;
->> +	struct snd_usb_stream *as;
->> +	char ctl_name[37];
->> +	int ret;
->> +
->> +	list_for_each_entry(as, &chip->pcm_list, list) {
->> +		subs = &as->substream[SNDRV_PCM_STREAM_PLAYBACK];
->> +		if (!subs->ep_num)
->> +			continue;
->> +
->> +		chip_kctl = &snd_usb_offload_mapped_ctl;
->> +		chip_kctl->count = 1;
->> +		/*
->> +		 * Store the associated USB SND card number and PCM index for
->> +		 * the kctl.
->> +		 */
->> +		chip_kctl->private_value = as->pcm_index |
->> +					  chip->card->number << 16;
->> +		sprintf(ctl_name, "USB Offload Playback Route PCM#%d",
->> +			as->pcm_index);
->> +		chip_kctl->name = ctl_name;
->> +		ret = snd_ctl_add(chip->card, snd_ctl_new1(chip_kctl,
->> +				  udev->bus->sysdev));
->> +		if (ret < 0)
->> +			break;
->> +	}
->> +
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_GPL(snd_usb_offload_create_ctl);
->> diff --git a/sound/usb/mixer_usb_offload.h b/sound/usb/mixer_usb_offload.h
->> new file mode 100644
->> index 000000000000..3f6e2a8b19c8
->> --- /dev/null
->> +++ b/sound/usb/mixer_usb_offload.h
->> @@ -0,0 +1,17 @@
->> +/* SPDX-License-Identifier: GPL-2.0
->> + *
->> + * Copyright (c) 2022-2024 Qualcomm Innovation Center, Inc. All rights reserved.
->> + */
->> +
->> +#ifndef __USB_OFFLOAD_MIXER_H
->> +#define __USB_OFFLOAD_MIXER_H
->> +
->> +#if IS_ENABLED(CONFIG_SND_USB_OFFLOAD_MIXER)
->> +int snd_usb_offload_create_ctl(struct snd_usb_audio *chip);
->> +#else
->> +static inline int snd_usb_offload_create_ctl(struct snd_usb_audio *chip)
->> +{
->> +	return 0;
->> +}
->> +#endif
->> +#endif /* __USB_OFFLOAD_MIXER_H */
->> diff --git a/sound/usb/qcom/Makefile b/sound/usb/qcom/Makefile
->> index a81c9b28d484..4005e8391ab9 100644
->> --- a/sound/usb/qcom/Makefile
->> +++ b/sound/usb/qcom/Makefile
->> @@ -1,2 +1,2 @@
->>  snd-usb-audio-qmi-objs := usb_audio_qmi_v01.o qc_audio_offload.o
->> -obj-$(CONFIG_SND_USB_AUDIO_QMI) += snd-usb-audio-qmi.o
->> \ No newline at end of file
->> +obj-$(CONFIG_SND_USB_AUDIO_QMI) += snd-usb-audio-qmi.o
->> diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
->> index a7ad15404fd1..5b9262a116be 100644
->> --- a/sound/usb/qcom/qc_audio_offload.c
->> +++ b/sound/usb/qcom/qc_audio_offload.c
->> @@ -36,6 +36,7 @@
->>  #include "../helper.h"
->>  #include "../pcm.h"
->>  #include "../power.h"
->> +#include "../mixer_usb_offload.h"
->>  
->>  #include "usb_audio_qmi_v01.h"
->>  
->> @@ -1703,6 +1704,7 @@ static void qc_usb_audio_offload_probe(struct snd_usb_audio *chip)
->>  		sdev->card_idx = chip->card->number;
->>  		sdev->chip_idx = chip->index;
->>  
->> +		snd_usb_offload_create_ctl(chip);
->>  		snd_soc_usb_connect(usb_get_usb_backend(udev), sdev);
->>  	}
->>  
+-Saravana
+
+>
+> -----------------------------------------------
+> diff --git a/drivers/of/property.c b/drivers/of/property.c
+> index def152c61049..2f08210c2ea4 100644
+> --- a/drivers/of/property.c
+> +++ b/drivers/of/property.c
+> @@ -1502,11 +1502,22 @@ static struct device_node *parse_remote_endpoint(=
+struct device_node *np,
+>                                                  const char *prop_name,
+>                                                  int index)
+>  {
+> +       struct device_node *node;
+> +
+>         /* Return NULL for index > 0 to signify end of remote-endpoints. =
+*/
+>         if (index > 0 || strcmp(prop_name, "remote-endpoint"))
+>                 return NULL;
+>
+> -       return of_graph_get_remote_port_parent(np);
+> +       node =3D of_graph_get_remote_port_parent(np);
+> +
+> +       /*
+> +        * There is clearly non-supplier node which is connected via "rem=
+ote-endpoint".
+> +        * Ignore it, otherwise dead-lock might occur
+> +        */
+> +       if (of_property_present(node, "non-supplier"))
+> +               return NULL;
+> +
+> +       return node;
+>  }
+> -----------------------------------------------
+>
+>
+> Thank you for your help !!
+>
+> Best regards
+> ---
+> Kuninori Morimoto

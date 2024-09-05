@@ -2,139 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB65C96DB7C
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2024 16:17:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B680796DB85
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2024 16:18:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73DA2B65;
-	Thu,  5 Sep 2024 16:17:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73DA2B65
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4478E80;
+	Thu,  5 Sep 2024 16:17:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4478E80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725545852;
-	bh=HGKKWuwE3+8ouI0WFbu/VAtPy+LRBtX+ATMaNod25ho=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	s=default; t=1725545886;
+	bh=VqQy8KfKmVgPTGbG8DNpb8zbYk8Nc0D2lgFnKi69kn8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cywdtPrJt02JC1uDG3d4LPlE0ssCpTruflhe/m9MnJe1dEzvzuJ7QHBlTKfLcyu17
-	 WfIGOrRiHah044w042GFN4ITaTX4OGCJ65pckHf8xaoaLKRVzFVTj+j0TLy3odt3Sl
-	 QbVNKupZxazso+QYQynwX1WcgQxx/wjNgVu9KpAM=
+	b=V5nzwLyknOayfMI2KShbNJBGeDoJOVOw9YfoMA8vFzye0c8GGaQubs0mKnNeU8Zkt
+	 GF+LQBK4UhFf+Z3rKEgoohlf8lX+eIVWU9PJ93sANzfKYydYtLQyeHFFgKY0K8XUrl
+	 stfjGKkEd2kcGjZrr/QlmCW3FdQwfitGIzzqWkCw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BFB9F8080A; Thu,  5 Sep 2024 16:14:17 +0200 (CEST)
+	id 0CCCEF805BD; Thu,  5 Sep 2024 16:17:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65776F8081B;
-	Thu,  5 Sep 2024 16:14:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F827F805AE;
+	Thu,  5 Sep 2024 16:17:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 06E49F805B4; Thu,  5 Sep 2024 16:13:51 +0200 (CEST)
+	id 2EE85F8016C; Thu,  5 Sep 2024 16:17:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BED1DF80605
-	for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2024 16:13:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BED1DF80605
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F9D5F80027
+	for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2024 16:17:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F9D5F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20230601.gappssmtp.com
- header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=YX2fyYEv
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-42c94e59b93so11220435e9.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 05 Sep 2024 07:13:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1725545627;
- x=1726150427; darn=alsa-project.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=u3kylnJVXfNp6rw3d/1irQrhp19zNyQdKhcZsUU9cnk=;
-        b=YX2fyYEv0upITTzImTQT1efT7HQ8Il7VAp9BL7+Qg/AD5JsdNiffxctheHi9/epwCw
-         doSrwX9wpyGFefP9zzggt/AZenvN7VaZK5ELAexxLUb885L/8jBn4sHWOwQeoD5R8EnQ
-         CU5nH2qFjODYyTJQRaWdMtMpIu2GyfwB7dtA85l4NJn3nJLFhxaoVpFdI1Gpi0HgRjaR
-         iEPHS0IFL0J69hlozoFf0eMzIbsaHdEYLPGiHvS8nkpfKV2zT3s+aWh4kwUkNIpJMyZf
-         dKMneABU5LxkqEkZPFxUK+XdF7lcWaT/ciMKZkJ6W+5cLqc9oHzrjbK/FUhriz9jx3YP
-         +mww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725545627; x=1726150427;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=u3kylnJVXfNp6rw3d/1irQrhp19zNyQdKhcZsUU9cnk=;
-        b=Voqf6ofPHZWJEjslold2g6PTUujUGSn/ZprphMhjWwb1sNeIDznJqYxFmx45fCrpGK
-         TJHpYjLdKybEp7t1/MKcK6fY0OKJ2aN8RmIeLbwEuj7d5yPbJUulQI3V/NwqKW8jvB2v
-         qpa43GjwfDz+3qtjNd4tpNGWc1b6hiF3NArxDi61HL7lUTBBwzpOJN+WUDbdmHtVOCn8
-         y8+etg9gyiwN8M52FoSs4729T7X5hZFe5e+E9W/8uqW4aDQrjYQ8F5MtPw0GukAG2h/G
-         bsLg4V7PuVIjYXUbj6yI6/yg7Fivz21VyYApoDQ2tu+PApf4bCN2Jv3pQE2CGG0B0/SR
-         yZOA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVzASSVWwFh85tAmQ+taU5azodhiVlyK9OZnvo45vpc9s+TPF+zPc0vCpzwEmxhIFH8KMM/fjUAvZcD@alsa-project.org
-X-Gm-Message-State: AOJu0YwyCikOS9yDt9N4vJ1nD27+3raC58olS5itpr+cIXJ8k/ejIQ/0
-	CPhXz6E22GH9teQDGyyr1GrktdQLGzEgs4CBvieyiVZbO3VabkRxzSSSqb7Jt/o=
-X-Google-Smtp-Source: 
- AGHT+IFM7C/kDhVKsqo8gQ6poeqRmyyUiqotKRoAB2OwlkxpEQHF6JubaidKOiZBM8wLmGV88wvgwA==
-X-Received: by 2002:adf:f745:0:b0:374:bd00:d1e with SMTP id
- ffacd0b85a97d-377998aafbcmr3833233f8f.3.1725545626528;
-        Thu, 05 Sep 2024 07:13:46 -0700 (PDT)
-Received: from toaster.baylibre.com ([2a01:e0a:3c5:5fb1:4763:343b:23f3:f45])
-        by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3749ef81146sm19514621f8f.82.2024.09.05.07.13.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Sep 2024 07:13:46 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 05 Sep 2024 16:13:04 +0200
-Subject: [PATCH 13/13] ASoC: spdif: extend supported rates to 768kHz
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20240905-alsa-12-24-128-v1-13-8371948d3921@baylibre.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=andDZzaP
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 4B402A44C64;
+	Thu,  5 Sep 2024 14:17:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A541AC4CEC3;
+	Thu,  5 Sep 2024 14:17:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1725545857;
+	bh=VqQy8KfKmVgPTGbG8DNpb8zbYk8Nc0D2lgFnKi69kn8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=andDZzaPhYZMZgV6Ut5i5Ns/LKGNLi/g7c0Ojq5UbJczxdxaq9euO+qT/qKkPg9PI
+	 5Q7JN9ERfhEAwiEnTLxOYYdapOFegv4+6hOlgMYYNE03nYfIWP4zyvVB/SsygAwgoh
+	 OyhO7Tp72ejapkrrhVTspxSs4mjaIqVlNxgNWE6FNvOPCq7L1bQlyQiqzTLBXURZia
+	 5tgem0TV6DR1XucnCmJK4KEptn+HnrM21FHLVbxpdRSKvpnUZ6IfnMB/d+1H7NBhGF
+	 KXxEwPniE54XJKJcpbjR3RUCe+xQQ0zp2uoWz8gLmR5ToYn3C+ORfLnAnh3xak1pU5
+	 /uJJyQFjNk67Q==
+Date: Thu, 5 Sep 2024 15:17:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH 00/13] ALSA: update sample rate definitions
+Message-ID: <81e3d628-cfca-43b0-9af6-de2a3c606a39@sirena.org.uk>
 References: <20240905-alsa-12-24-128-v1-0-8371948d3921@baylibre.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uuNJXLNXUva0AK+X"
+Content-Disposition: inline
 In-Reply-To: <20240905-alsa-12-24-128-v1-0-8371948d3921@baylibre.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1441; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=HGKKWuwE3+8ouI0WFbu/VAtPy+LRBtX+ATMaNod25ho=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBm2byIdu+85ezuHy93WyoVP+yWVeGiEH5uiklbm
- ulYpPtqetGJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCZtm8iAAKCRDm/A8cN/La
- hSFOD/9TXxTKB/AmL9i5/scP75UlZWF2gxl0FZzdSxtB9odmLY4QtohIVqBLWKF/m10g5rOpk+x
- eUR9f+9WMuTP6Ya1RfwSxUydN9Vc/CGtInW+6uPNAQq9ucANTIRbu/ZwEjpoyraXshUAXjaq6ky
- i0TlxG4s7qKuY/0ZLoQLKSylnqxgUEqxPMGe/ys5q6eqbJAF8Z5wmgu0efKW+a2HPZsFkATOaUA
- HNR5J4aoEDZ+YlNh79i9yFG5Cfv0BuZp2s7wKrE6/xbN5pe7STe2mPjnaLtLzjJunezCPpgOR5g
- zFXVHXXxuS518z0uYjIp1Lu8LsE+Hok0Yy+1hMNvd+jctg0iQWNxZ9Y8YflraJ8/HnSpZPeQJgr
- ajQDDm9amsoB6wGM7YpsQiE7GTN+cA0QMRlp30521hVu/6yeCEDqZyW+8qkdtDIt1EJb3JhMsx4
- VzLTkeMEdHtWZ2GXKlfNvNaWYnksLfi6q2C7T08h05VzXkohE8jSmP9WHeoPMFtMG8rnjXN9Rrx
- 6mwyHNApsEomVX5gx0JcJxBDpXKKW5Ny6b6KTDXQus4C+j+lF1E3NndGyGbZX2uDtBDEERybCRF
- 4Rpja3xmwdlmvg31mLCavX9pnnV9xJGyiSS0z6e4s/b2yBf/m7IIBNzHuKZY6LpRt186CTo7+ze
- OH0S7WtKYhGB5nQ==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
-Message-ID-Hash: 4OA353ZCW66IGR72ZRNCNE2O6N2CNNM3
-X-Message-ID-Hash: 4OA353ZCW66IGR72ZRNCNE2O6N2CNNM3
-X-MailFrom: jbrunet@baylibre.com
+X-Cookie: The horror... the horror!
+Message-ID-Hash: LKK76FC7XXI2QDZFKN3M2FN5Y5IZNHVR
+X-Message-ID-Hash: LKK76FC7XXI2QDZFKN3M2FN5Y5IZNHVR
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -146,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OA353ZCW66IGR72ZRNCNE2O6N2CNNM3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LKK76FC7XXI2QDZFKN3M2FN5Y5IZNHVR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,44 +113,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-IEC958-3 defines sampling rate up to 768 kHz.
-Such rates maybe used with high bandwidth IEC958 links, such as eARC.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- sound/soc/codecs/spdif_receiver.c    | 3 ++-
- sound/soc/codecs/spdif_transmitter.c | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+--uuNJXLNXUva0AK+X
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/codecs/spdif_receiver.c b/sound/soc/codecs/spdif_receiver.c
-index 862e0b654a1c..310123d2bb5f 100644
---- a/sound/soc/codecs/spdif_receiver.c
-+++ b/sound/soc/codecs/spdif_receiver.c
-@@ -28,7 +28,8 @@ static const struct snd_soc_dapm_route dir_routes[] = {
- 	{ "Capture", NULL, "spdif-in" },
- };
- 
--#define STUB_RATES	SNDRV_PCM_RATE_8000_192000
-+#define STUB_RATES	(SNDRV_PCM_RATE_8000_768000 | \
-+			 SNDRV_PCM_RATE_128000)
- #define STUB_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
- 			SNDRV_PCM_FMTBIT_S20_3LE | \
- 			SNDRV_PCM_FMTBIT_S24_LE  | \
-diff --git a/sound/soc/codecs/spdif_transmitter.c b/sound/soc/codecs/spdif_transmitter.c
-index 736518921555..db51a46e689d 100644
---- a/sound/soc/codecs/spdif_transmitter.c
-+++ b/sound/soc/codecs/spdif_transmitter.c
-@@ -21,7 +21,8 @@
- 
- #define DRV_NAME "spdif-dit"
- 
--#define STUB_RATES	SNDRV_PCM_RATE_8000_192000
-+#define STUB_RATES	(SNDRV_PCM_RATE_8000_768000 | \
-+			 SNDRV_PCM_RATE_128000)
- #define STUB_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
- 			SNDRV_PCM_FMTBIT_S20_3LE | \
- 			SNDRV_PCM_FMTBIT_S24_LE  | \
+On Thu, Sep 05, 2024 at 04:12:51PM +0200, Jerome Brunet wrote:
+> This patchset adds rate definitions for 12kHz, 24kHz and 128kHz.
+>=20
+> It is follow-up on the series/discussion [0] about adding 128kHz for
+> spdif/eARC support. The outcome was to add 12kHz and 24kHz as well and
+> clean up the drivers that no longer require custom rules to allow these
+> rates.
 
--- 
-2.45.2
+Acked-by: Mark Brown <broonie@kernel.org>
 
+--uuNJXLNXUva0AK+X
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbZvXkACgkQJNaLcl1U
+h9Dcdgf/ZQoGyidIWQUnoePm2VX00vw06P9W9aOo2sqjGlu4flrG6fH5N+tv92vc
+hX0ctx0G6C1f4iafWkIPCjHVecaWETi2yb/hpKpSPTy0nFrEBN06Zl02mDSa3jfs
+ngxTVhHYUMoS2ZMRR9dAy3XgnVgZS9Lccvvq52mEYaxh1G+hzi3HEDgM5oWZPEaI
+CcqzVwxRaRokIAZO3prOKdX4rMXG+Nz7kSFb/Hx9/K9H4jYwgwFyKJ2TV3H7fVYM
+767vMvyA1T3nKRZ1yiZfYWYYIf2rs0h7iQxgjH4Gzb9575MFPOiqAk4/pIYcvVKj
+hf1swcI9kcYqQrgoLzqE82HPkErNaQ==
+=WnP9
+-----END PGP SIGNATURE-----
+
+--uuNJXLNXUva0AK+X--

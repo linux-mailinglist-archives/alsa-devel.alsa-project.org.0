@@ -2,96 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B680796DB85
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2024 16:18:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 988B896DC34
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2024 16:44:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4478E80;
-	Thu,  5 Sep 2024 16:17:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4478E80
+	by alsa0.perex.cz (Postfix) with ESMTPS id D67B7B65;
+	Thu,  5 Sep 2024 16:44:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D67B7B65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725545886;
-	bh=VqQy8KfKmVgPTGbG8DNpb8zbYk8Nc0D2lgFnKi69kn8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1725547469;
+	bh=kn8IWovie9Ztxca1VoLhrlCB8UCzsBhW/erL0/lsOR0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=V5nzwLyknOayfMI2KShbNJBGeDoJOVOw9YfoMA8vFzye0c8GGaQubs0mKnNeU8Zkt
-	 GF+LQBK4UhFf+Z3rKEgoohlf8lX+eIVWU9PJ93sANzfKYydYtLQyeHFFgKY0K8XUrl
-	 stfjGKkEd2kcGjZrr/QlmCW3FdQwfitGIzzqWkCw=
+	b=Z9Dt6JdClWZxvttfPlwRQUOhJmWQgwzb7ucVoyC1F/9Rw9OXgM2PCLte7cIVo3hln
+	 toSuuEbTOtrKoK9udsi9Cj7iS6a4Ll1ljWORh2QfyOXydNvsYfqgd7fQz9Ju3s8MGT
+	 pJtkPF+VBQRhXh+8z4UALK9GVLFF1uXP3I8KWd2U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CCCEF805BD; Thu,  5 Sep 2024 16:17:45 +0200 (CEST)
+	id 48E14F804F3; Thu,  5 Sep 2024 16:43:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F827F805AE;
-	Thu,  5 Sep 2024 16:17:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C6D7F80536;
+	Thu,  5 Sep 2024 16:43:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EE85F8016C; Thu,  5 Sep 2024 16:17:41 +0200 (CEST)
+	id 8E483F8016C; Thu,  5 Sep 2024 16:43:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F9D5F80027
-	for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2024 16:17:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F9D5F80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8EE3CF80027
+	for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2024 16:43:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EE3CF80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=andDZzaP
+ header.s=k20201202 header.b=Ipggf7NM
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 4B402A44C64;
-	Thu,  5 Sep 2024 14:17:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A541AC4CEC3;
-	Thu,  5 Sep 2024 14:17:32 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 3AAB5A440A2;
+	Thu,  5 Sep 2024 14:43:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1682C4CEC3;
+	Thu,  5 Sep 2024 14:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725545857;
-	bh=VqQy8KfKmVgPTGbG8DNpb8zbYk8Nc0D2lgFnKi69kn8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=andDZzaPhYZMZgV6Ut5i5Ns/LKGNLi/g7c0Ojq5UbJczxdxaq9euO+qT/qKkPg9PI
-	 5Q7JN9ERfhEAwiEnTLxOYYdapOFegv4+6hOlgMYYNE03nYfIWP4zyvVB/SsygAwgoh
-	 OyhO7Tp72ejapkrrhVTspxSs4mjaIqVlNxgNWE6FNvOPCq7L1bQlyQiqzTLBXURZia
-	 5tgem0TV6DR1XucnCmJK4KEptn+HnrM21FHLVbxpdRSKvpnUZ6IfnMB/d+1H7NBhGF
-	 KXxEwPniE54XJKJcpbjR3RUCe+xQQ0zp2uoWz8gLmR5ToYn3C+ORfLnAnh3xak1pU5
-	 /uJJyQFjNk67Q==
-Date: Thu, 5 Sep 2024 15:17:29 +0100
+	s=k20201202; t=1725547429;
+	bh=kn8IWovie9Ztxca1VoLhrlCB8UCzsBhW/erL0/lsOR0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Ipggf7NMKyUa/gAxukpHjiOqsOBpLq7Jr6bB/MxdWWIbIOjvD9nncsI3w2WXZdm7n
+	 pcHUoUCa8P2rsqn7WTUt4mXns1WL6SK6aj56QutJMsrWjLAbWocqUKHBXwDtNzesRJ
+	 7OgGrJTvVOUSbWi1fSSX3KrT5w8y0Z5q2UdSIc02o/ULQk4vFG/6b5ZcK4CH1sHyyd
+	 Lc14fSRbkCF8wD9jyfWnYasN7C+crdc/9r8z2xj/u6i6xvEwvMKofNAAcPOa6VmWqv
+	 bYaq7tD0I7XOQXDltDwq2OL8rM6emZl+9z0sOlAdBgK4aFTeL4vS0D9rbl/RGq7p8L
+	 swC3rjCUEhwzg==
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Chen-Yu Tsai <wens@csie.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
-	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH 00/13] ALSA: update sample rate definitions
-Message-ID: <81e3d628-cfca-43b0-9af6-de2a3c606a39@sirena.org.uk>
-References: <20240905-alsa-12-24-128-v1-0-8371948d3921@baylibre.com>
+To: claudiu.beznea@tuxon.dev, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ Andrei Simion <andrei.simion@microchip.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+In-Reply-To: <20240905095633.113784-1-andrei.simion@microchip.com>
+References: <20240905095633.113784-1-andrei.simion@microchip.com>
+Subject: Re: [PATCH] ASoC: atmel: mchp-i2s-mcc: Improve maxburst
+ calculation for better performance
+Message-Id: <172554742664.49204.15446673448032504147.b4-ty@kernel.org>
+Date: Thu, 05 Sep 2024 15:43:46 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uuNJXLNXUva0AK+X"
-Content-Disposition: inline
-In-Reply-To: <20240905-alsa-12-24-128-v1-0-8371948d3921@baylibre.com>
-X-Cookie: The horror... the horror!
-Message-ID-Hash: LKK76FC7XXI2QDZFKN3M2FN5Y5IZNHVR
-X-Message-ID-Hash: LKK76FC7XXI2QDZFKN3M2FN5Y5IZNHVR
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-99b12
+Message-ID-Hash: FM54M4VPOHYN5LG53YSNYZWMLR5BWJPB
+X-Message-ID-Hash: FM54M4VPOHYN5LG53YSNYZWMLR5BWJPB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LKK76FC7XXI2QDZFKN3M2FN5Y5IZNHVR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FM54M4VPOHYN5LG53YSNYZWMLR5BWJPB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,35 +100,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, 05 Sep 2024 12:56:33 +0300, Andrei Simion wrote:
+> The period size represents the size of the DMA descriptor. To ensure all
+> DMA descriptors start from a well-aligned address, the period size must
+> be divided by (sample size * maxburst), not just by maxburst.
+> This adjustment allows for computing a higher maxburst value, thereby
+> increasing the performance of the DMA transfer.
+> Previously, snd_pcm_lib_period_bytes() returned 0 because the runtime HW
+> parameters are computed after the hw_params() callbacks are used.
+> To address this, we now use params_*() functions to compute the period
+> size accurately. This change optimizes the DMA transfer performance by
+> ensuring proper alignment and efficient use of maxburst values.
+> 
+> [...]
 
---uuNJXLNXUva0AK+X
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Thu, Sep 05, 2024 at 04:12:51PM +0200, Jerome Brunet wrote:
-> This patchset adds rate definitions for 12kHz, 24kHz and 128kHz.
->=20
-> It is follow-up on the series/discussion [0] about adding 128kHz for
-> spdif/eARC support. The outcome was to add 12kHz and 24kHz as well and
-> clean up the drivers that no longer require custom rules to allow these
-> rates.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Thanks!
 
---uuNJXLNXUva0AK+X
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/1] ASoC: atmel: mchp-i2s-mcc: Improve maxburst calculation for better performance
+      commit: 03667e3d4fbcaf6228fd642464467366f0b693de
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbZvXkACgkQJNaLcl1U
-h9Dcdgf/ZQoGyidIWQUnoePm2VX00vw06P9W9aOo2sqjGlu4flrG6fH5N+tv92vc
-hX0ctx0G6C1f4iafWkIPCjHVecaWETi2yb/hpKpSPTy0nFrEBN06Zl02mDSa3jfs
-ngxTVhHYUMoS2ZMRR9dAy3XgnVgZS9Lccvvq52mEYaxh1G+hzi3HEDgM5oWZPEaI
-CcqzVwxRaRokIAZO3prOKdX4rMXG+Nz7kSFb/Hx9/K9H4jYwgwFyKJ2TV3H7fVYM
-767vMvyA1T3nKRZ1yiZfYWYYIf2rs0h7iQxgjH4Gzb9575MFPOiqAk4/pIYcvVKj
-hf1swcI9kcYqQrgoLzqE82HPkErNaQ==
-=WnP9
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---uuNJXLNXUva0AK+X--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

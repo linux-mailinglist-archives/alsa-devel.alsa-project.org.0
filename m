@@ -2,85 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459C396E232
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2024 20:43:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6681196E5A1
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Sep 2024 00:09:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B48AA4A;
-	Thu,  5 Sep 2024 20:43:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B48AA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E65BAB65;
+	Fri,  6 Sep 2024 00:09:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E65BAB65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725561792;
-	bh=rhLETavs68nGr7DS1KdS0ob2HrU49NpqTqneiCZMjeY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=r/OMA+qiSaIdof7ySFLVkSTX7F4R68xwIOwROG8R7aNWAJbXismzfSQVK9NpORVFL
-	 5wnHaOxPzWP+hwSRURLSn/F8RSA6lj4Egy+7eF2YW5SHs3IWi2QwAMUE+IfVWexW1/
-	 8y2NqqS7qO/q8gcZjj9ZUKTpA11iy/zZQs4mOQd0=
+	s=default; t=1725574197;
+	bh=6kNlnheKdMstyM4OfoA/4QxBGUSDvvEf9bzCFXyO7Rw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DU8JnSJI2AK4fNhUdF9PP35voNOI+oAU5aKnF99z327ffS2yRXUPe9+kixmmsR68n
+	 qYBkGDghmZWK5jk6DQgR87g1ZEGpBgjSqj/MqvDFeXfTTBinprEWb8wmZrAvNVn6d2
+	 JTT9mwBUI5TFrSaIggmfnyvvYGJn/1aUrpCXxsDg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 048F8F805BB; Thu,  5 Sep 2024 20:42:41 +0200 (CEST)
+	id DE767F805B3; Fri,  6 Sep 2024 00:09:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47F69F805B1;
-	Thu,  5 Sep 2024 20:42:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F362F805AF;
+	Fri,  6 Sep 2024 00:09:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79F77F8016C; Thu,  5 Sep 2024 20:42:34 +0200 (CEST)
+	id 151FDF8016C; Fri,  6 Sep 2024 00:09:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6E877F800E9
-	for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2024 20:42:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E877F800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 10FF7F80107
+	for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2024 00:09:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10FF7F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=CPHiGNUV
+ header.s=k20201202 header.b=jUqMbX7b
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 260F8A44EE3;
-	Thu,  5 Sep 2024 18:42:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74B29C4CEC6;
-	Thu,  5 Sep 2024 18:42:27 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id D82AB5C5818;
+	Thu,  5 Sep 2024 22:09:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B1DC4CEC3;
+	Thu,  5 Sep 2024 22:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725561750;
-	bh=rhLETavs68nGr7DS1KdS0ob2HrU49NpqTqneiCZMjeY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=CPHiGNUVos7zRIzXMZegnHHn8Zqg5wxbD4ahHAyvJi3GZV/1cjWYe/5lF7orR4hE6
-	 9hiTPcdq3Nd6nHAtEqvam8TKEnwfORxqhmPp9cVsKUC/TAc/jgvxFO67uO+LFd0r6N
-	 o+5NTbmNslEqiaj84SQ+2SMgGDbXNaNZoIEixgkv1YX+kic8JRDKLwmm5NELcQzBBx
-	 1Ud9kwEIZufEtiTuIyfEcXUihnhGiVYiRC2aytuORl9flnV7ap9h0rMb5diCcEoVj6
-	 60Bt0fK6FPPruH2bUnUlJlwQdyNy4NTuB9onIL4mJ5+DoGRxROBEXmEIytg5i4cssQ
-	 ucagn5YQK+JiQ==
+	s=k20201202; t=1725574158;
+	bh=6kNlnheKdMstyM4OfoA/4QxBGUSDvvEf9bzCFXyO7Rw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=jUqMbX7bGKKxSJa+dfiAN/dBsdgqSBXc3MkqfxMxgOMx78wd1+OpB2qlLL4BxIAqN
+	 TMAY0Q9rFNiiNYvHSEd9KpgBZMgLlfKyhkvwHbuM6SeAcNs8BAJ1fZh2kZ4D7qoF1+
+	 e9eppnC4vfTiGRgPLmVD/NpXHR0KGYWz1Ml6BPtDww+mCuD4OvEe6JgwwpecXpikp2
+	 Vibjgbo2erp71kwupPVnHe8ZgJHQqb0TUbQUBCZDzG6QO5cg7akdwror8DT/sVUxO2
+	 Is7sEuMWFhzf1smHs/8DwJ0lX6o48n8HuL8YAmT1CEaJBMeEd8Xnygk2GUyYitk6K2
+	 7mqV9PCscg0hw==
+Message-ID: <47c362275f856d07f7c24f59f4309399.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: cezary.rojewski@intel.com, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, perex@perex.cz, tiwai@suse.com,
- brent.lu@intel.com, kuninori.morimoto.gx@renesas.com,
- Chen Ni <nichen@iscas.ac.cn>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20240905022017.1642550-1-nichen@iscas.ac.cn>
-References: <20240905022017.1642550-1-nichen@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: Intel: skl_hda_dsp_generic: convert comma to
- semicolon
-Message-Id: <172556174721.65454.13363391345780291618.b4-ty@kernel.org>
-Date: Thu, 05 Sep 2024 19:42:27 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-99b12
-Message-ID-Hash: 562PAFO7R7LHF3CQZP2CYLHHZCQRWZZP
-X-Message-ID-Hash: 562PAFO7R7LHF3CQZP2CYLHHZCQRWZZP
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.11-rc6
+Date: Thu, 05 Sep 2024 23:09:10 +0100
+Message-ID-Hash: 5MTNSUPMD7U4FOFD42FM56NOUK2FNMHJ
+X-Message-ID-Hash: 5MTNSUPMD7U4FOFD42FM56NOUK2FNMHJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +80,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/562PAFO7R7LHF3CQZP2CYLHHZCQRWZZP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5MTNSUPMD7U4FOFD42FM56NOUK2FNMHJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,44 +89,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 05 Sep 2024 10:20:17 +0800, Chen Ni wrote:
-> Replace comma between expressions with semicolons.
-> 
-> Using a ',' in place of a ';' can have unintended side effects.
-> Although that is not the case here, it is seems best to use ';'
-> unless ',' is intended.
-> 
-> Found by inspection.
-> No functional change intended.
-> Compile tested only.
-> 
-> [...]
+The following changes since commit bb4485562f5907708f1c218b5d70dce04165d1e1:
 
-Applied to
+  ASoC: cs-amp-lib: Ignore empty UEFI calibration entries (2024-08-22 17:52:26 +0100)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.11-rc6
 
-[1/1] ASoC: Intel: skl_hda_dsp_generic: convert comma to semicolon
-      commit: 813751eaec93bfeb6236aaed99607a44c01b3110
+for you to fetch changes up to 77212f300bfd6fb3edaabd1daf863cabb521854a:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: codecs: lpass-va-macro: set the default codec version for sm8250 (2024-08-30 13:54:24 +0100)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.11
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+A larger set of fixes than I'd like at this point, but mainly due to
+people working on fixing module autoloading by adding missing exports of
+ID tables rather than anything particularly concerning.  There are some
+other runtime fixes and quirks, and a tweak to the ABI definition for
+SOF which ensures that a struct layout doesn't vary depending on the
+architecture of the host.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Chen-Yu Tsai (1):
+      ASoc: SOF: topology: Clear SOF link platform name upon unload
 
-Thanks,
-Mark
+Hans de Goede (2):
+      ASoC: Intel: Boards: Fix NULL pointer deref in BYT/CHT boards harder
+      ASoC: Intel: soc-acpi-cht: Make Lenovo Yoga Tab 3 X90F DMI match less strict
 
+Laurentiu Mihalcea (1):
+      ASoC: SOF: ipc: replace "enum sof_comp_type" field with "uint32_t"
+
+Liao Chen (4):
+      ASoC: intel: fix module autoloading
+      ASoC: google: fix module autoloading
+      ASoC: tda7419: fix module autoloading
+      ASoC: fix module autoloading
+
+Mark Brown (1):
+      ASoC: fix module autoloading
+
+Markuss Broks (1):
+      ASoC: amd: yc: Add a quirk for MSI Bravo 17 (D7VEK)
+
+Matteo Martelli (1):
+      ASoC: sunxi: sun4i-i2s: fix LRCLK polarity in i2s mode
+
+Mohan Kumar (1):
+      ASoC: tegra: Fix CBB error during probe()
+
+Srinivas Kandagatla (1):
+      ASoC: codecs: lpass-va-macro: set the default codec version for sm8250
+
+Zhang Yi (1):
+      ASoC: mediatek: mt8188-mt6359: Modify key
+
+robelin (1):
+      ASoC: dapm: Fix UAF for snd_soc_pcm_runtime object
+
+ include/sound/sof/topology.h                      |   2 +-
+ include/uapi/sound/sof/abi.h                      |   2 +-
+ sound/soc/amd/yc/acp6x-mach.c                     |   7 ++
+ sound/soc/codecs/chv3-codec.c                     |   1 +
+ sound/soc/codecs/lpass-va-macro.c                 |  11 +-
+ sound/soc/codecs/tda7419.c                        |   1 +
+ sound/soc/google/chv3-i2s.c                       |   1 +
+ sound/soc/intel/boards/bxt_rt298.c                |   2 +-
+ sound/soc/intel/boards/bytcht_cx2072x.c           |   2 +-
+ sound/soc/intel/boards/bytcht_da7213.c            |   2 +-
+ sound/soc/intel/boards/bytcht_es8316.c            |   2 +-
+ sound/soc/intel/boards/bytcr_rt5640.c             |   2 +-
+ sound/soc/intel/boards/bytcr_rt5651.c             |   2 +-
+ sound/soc/intel/boards/bytcr_wm5102.c             |   2 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c           |   2 +-
+ sound/soc/intel/boards/cht_bsw_rt5672.c           |   2 +-
+ sound/soc/intel/common/soc-acpi-intel-cht-match.c |   1 -
+ sound/soc/intel/keembay/kmb_platform.c            |   1 +
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c         |  17 ++-
+ sound/soc/soc-dapm.c                              |   1 +
+ sound/soc/sof/topology.c                          |   2 +
+ sound/soc/sunxi/sun4i-i2s.c                       | 143 +++++++++++-----------
+ sound/soc/tegra/tegra210_ahub.c                   |  10 +-
+ 23 files changed, 127 insertions(+), 91 deletions(-)

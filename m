@@ -2,85 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42C2B971F07
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 18:24:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40474971F0B
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 18:24:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EE37836;
-	Mon,  9 Sep 2024 18:23:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EE37836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 389E8B60;
+	Mon,  9 Sep 2024 18:24:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 389E8B60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725899048;
-	bh=WRwiIPHmTeJtjKiM0uEFDyOO1OuvjK+ZW7u4+BlRtL4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1725899063;
+	bh=0Rh4KmqChPzqTEwbrGqXfSqb6i9rs9C8GBy9+jQDHQw=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eVhv40WIXX9Ng4gaRdcGwiErm3W0x2mA0oNiEggjnX3OUxIespYpRZbBHOIx1hxni
-	 UCAFbxmw2fMHlZ4uFA2oMUzkpGlPSGQtsYyW0MsCCV4fFQOARYR0LRw6Jo0S+SpUe8
-	 hX+MV7ZsOzXQO5YNVdFAokqNzLNgQ6ovNsJ7HI70=
+	b=bE/k4Dyud/+iFYNnKHkmTGIKYAZ0yvVXNOKfwhufB0+GjkT9Nu0fgcGYTKw5THYmf
+	 HGRHnxLGEjHJjtiUMi6SywnKeekXPx7Rv3ygYu1IjqkOprnPrWNZHv93Lc3yzVikFZ
+	 Ly0EuCvrGcF1z1hPSOPef4ssCJrHzl3Wr0l4pxZE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F24BF805A9; Mon,  9 Sep 2024 18:23:40 +0200 (CEST)
+	id BEC6CF805B6; Mon,  9 Sep 2024 18:24:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D685F8010B;
-	Mon,  9 Sep 2024 18:23:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A701F805B2;
+	Mon,  9 Sep 2024 18:24:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B4DDF801F5; Mon,  9 Sep 2024 18:23:37 +0200 (CEST)
+	id 6FB22F80272; Mon,  9 Sep 2024 18:24:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 513DCF8010B
-	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 18:23:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 513DCF8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 67502F8019B
+	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 18:24:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67502F8019B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=BGd443is
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id A2D78A4168E;
-	Mon,  9 Sep 2024 16:23:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C65C4CEC7;
-	Mon,  9 Sep 2024 16:23:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1725899012;
-	bh=WRwiIPHmTeJtjKiM0uEFDyOO1OuvjK+ZW7u4+BlRtL4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BGd443is2ZWEkDiDKn/Cu0D8OJTtiCl8vRfF8REtAROexcxqmZZ/bwuz3AcVcnwwL
-	 xU2YvsX7V/xRi9GrYQDmd/Bh2aLGKg4irR00Jt7MUt7GNUxClmt/cMrjwG5R8tson0
-	 giyrOqVMWMaN7y4j1lzV3o0Chbxj9d4fXYkVqhQs=
-Date: Mon, 9 Sep 2024 18:23:28 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH] soundwire: stream: Revert "soundwire: stream: fix
- programming slave ports for non-continous port maps"
-Message-ID: <2024090943-retiree-print-14ba@gregkh>
-References: <20240904145228.289891-1-krzysztof.kozlowski@linaro.org>
- <Zt8H530FkqBMiYX+@opensource.cirrus.com>
- <8462d322-a40a-4d6c-99c5-3374d7f3f3a0@linux.intel.com>
- <adb3d03f-0cd2-47a7-9696-bc2e28d0e587@linaro.org>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=YpBd1XgC
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4896dwsf001006;
+	Mon, 9 Sep 2024 11:24:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=iJQ6QpbXlFmFTrokEH
+	XawRi6AwzM3shtaMUFaKsiIKQ=; b=YpBd1XgCh84u0CRKwzEoYhHgOoOwIEDlal
+	jr2P0DnO2t4R5SevDkUDcYEfZ3/j91BxhkTD1qLELjfgfN9bLIc71ky5vwlcmKj9
+	9Ymufg2t5/hM+zQm2iocLgLwCG3YjC8XprR6IfO12n7a3ZUkPqZdAfR1bCdRgyak
+	1w5Ky2tZDqCFyGIO+CXxdO4pyPnth8nKnlHN6aKhh9MDbhcTcRHse9bE7oQy4AfD
+	kLNZsqMVGsUYKBEeVGF3eB00me34r+z7FmYMc6aN9s5y7m48rHkLS+jmpc7Ymqv8
+	rRrQwm0hudv2tbDIgC1cadkZjyzBRxrHsMdYgcgUUXVa+HOhevMg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 41gm7x1uny-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Sep 2024 11:24:03 -0500 (CDT)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Sep 2024
+ 17:24:01 +0100
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1544.9 via Frontend Transport; Mon, 9 Sep 2024 17:24:01 +0100
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 8DEA0820249;
+	Mon,  9 Sep 2024 16:24:01 +0000 (UTC)
+Date: Mon, 9 Sep 2024 17:24:00 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        "David
+ Rhodes" <david.rhodes@cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+	<broonie@kernel.org>,
+        Cezary Rojewski <cezary.rojewski@intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        Liam Girdwood
+	<liam.r.girdwood@linux.intel.com>,
+        Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>,
+        Bard Liao
+	<yung-chuan.liao@linux.intel.com>,
+        Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>,
+        Kai Vehmanen
+	<kai.vehmanen@linux.intel.com>,
+        Srinivas Kandagatla
+	<srinivas.kandagatla@linaro.org>,
+        Chen-Yu Tsai <wens@csie.org>,
+        "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>,
+        Samuel Holland <samuel@sholland.org>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <linux-arm-msm@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>
+Subject: Re: [PATCH 06/13] ASoC: cs35l36: drop SNDRV_PCM_RATE_KNOT
+Message-ID: <Zt8hIGzvPIsmZho/@opensource.cirrus.com>
+References: <20240905-alsa-12-24-128-v1-0-8371948d3921@baylibre.com>
+ <20240905-alsa-12-24-128-v1-6-8371948d3921@baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <adb3d03f-0cd2-47a7-9696-bc2e28d0e587@linaro.org>
-Message-ID-Hash: TMWLDLUIRYZTFE6TIDPGXLGYILY57QAG
-X-Message-ID-Hash: TMWLDLUIRYZTFE6TIDPGXLGYILY57QAG
-X-MailFrom: gregkh@linuxfoundation.org
+In-Reply-To: <20240905-alsa-12-24-128-v1-6-8371948d3921@baylibre.com>
+X-Proofpoint-GUID: YzC5zK9-HLCkV04WUzI1FtnUinHTtgDV
+X-Proofpoint-ORIG-GUID: YzC5zK9-HLCkV04WUzI1FtnUinHTtgDV
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 2UAXMELYCCVQIJMXECX6PE3Y2CN5OLA4
+X-Message-ID-Hash: 2UAXMELYCCVQIJMXECX6PE3Y2CN5OLA4
+X-MailFrom: prvs=698262c8fd=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TMWLDLUIRYZTFE6TIDPGXLGYILY57QAG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UAXMELYCCVQIJMXECX6PE3Y2CN5OLA4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,42 +135,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Sep 09, 2024 at 06:08:14PM +0200, Krzysztof Kozlowski wrote:
-> On 09/09/2024 17:45, Pierre-Louis Bossart wrote:
-> > 
-> > 
-> > On 9/9/24 16:36, Charles Keepax wrote:
-> >> On Wed, Sep 04, 2024 at 04:52:28PM +0200, Krzysztof Kozlowski wrote:
-> >>> This reverts commit ab8d66d132bc8f1992d3eb6cab8d32dda6733c84 because it
-> >>> breaks codecs using non-continuous masks in source and sink ports.  The
-> >>> commit missed the point that port numbers are not used as indices for
-> >>> iterating over prop.sink_ports or prop.source_ports.
-> >>>
-> >>> Soundwire core and existing codecs expect that the array passed as
-> >>> prop.sink_ports and prop.source_ports is continuous.  The port mask still
-> >>> might be non-continuous, but that's unrelated.
-> >>>
-> >>> Reported-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> >>> Closes: https://lore.kernel.org/all/b6c75eee-761d-44c8-8413-2a5b34ee2f98@linux.intel.com/
-> >>> Fixes: ab8d66d132bc ("soundwire: stream: fix programming slave ports for non-continous port maps")
-> >>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >>>
-> >>> ---
-> >>
-> >> Would be good to merge this as soon as we can, this is causing
-> >> soundwire regressions from rc6 onwards.
-> > 
-> > the revert also needs to happen in -stable. 6.10.8 is broken as well.
+On Thu, Sep 05, 2024 at 04:12:57PM +0200, Jerome Brunet wrote:
+> The custom rate constraint list was necessary to support 12kHz and 24kHz.
+> These rates are now available through SNDRV_PCM_RATE_12000 and
+> SNDRV_PCM_RATE_24000.
 > 
-> It will happen. You do not need to Cc-stable (and it will not help, will
-> not be picked), because this is marked as fix for existing commit.
+> Use them and drop the custom rate constraint rule.
+> 
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+> ---
 
-No, "Fixes:" tags only do not guarantee anything going to stable, you
-have to explicitly tag it Cc: stable to do so, as per the documentation.
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Yes, we often pick up "Fixes:" only tags, when we have the time, but
-again, never guaranteed at all.
-
-thanks,
-
-greg k-h
+Thanks,
+Charles

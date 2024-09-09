@@ -2,92 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B374971DA4
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 17:11:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55433971E02
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 17:26:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1ADA844;
-	Mon,  9 Sep 2024 17:11:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1ADA844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7142982C;
+	Mon,  9 Sep 2024 17:25:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7142982C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725894677;
-	bh=+iq8ZuR0xNfhMb6f8AZQy5xUVme4rLtghqLGlbhb6LE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1725895567;
+	bh=MIKdoKY9HPtUI+xHCAreYgaguY2PdY3ciM6mEnUBWR4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FQx1QbiIq3Dio1+ZXHbNCTSkkr25lBkZ6hNMbKI08xlpPqOTdV9I7eOHS6L+HpqOy
-	 3df0t9V147NoC1d56/weVYwFvqfe6OWTynxdl/pCmxr4Qo3vuUzVfdp/WOxiKC0qal
-	 w9xde/+1sRWylrGdGGl6Apevr+L18ILQgMsFsQUU=
+	b=iiHnSpEZBoq5HlDbOeu55zfvKmnMFATF3mE2A57jDaI1AhRN0xd1J83apvfU2Gnqf
+	 koGL55hFl87iWtsP3wtBrDrC4cAdCHTGBBJrBj09e5JsgPsgv62Jndrl/nEVNcBbtI
+	 zXOFCRIO3lUODYbQZcqvQW1f5RapcHIHvDQrzy2I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54315F805B2; Mon,  9 Sep 2024 17:10:45 +0200 (CEST)
+	id 80A96F805B5; Mon,  9 Sep 2024 17:25:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 640EEF805B2;
-	Mon,  9 Sep 2024 17:10:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16F45F805B3;
+	Mon,  9 Sep 2024 17:25:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13BF4F8026D; Mon,  9 Sep 2024 17:10:40 +0200 (CEST)
+	id A05B0F801F5; Mon,  9 Sep 2024 17:25:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 40243F8019B
-	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 17:10:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40243F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id CCF5DF80107
+	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 17:25:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCF5DF80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pi0osoIL
+ header.s=k20201202 header.b=SCg67G8z
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id B127DA43D35;
-	Mon,  9 Sep 2024 15:10:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0608C4CEC7;
-	Mon,  9 Sep 2024 15:10:31 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id E51745C01D8;
+	Mon,  9 Sep 2024 15:25:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43928C4CEC7;
+	Mon,  9 Sep 2024 15:25:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725894635;
-	bh=+iq8ZuR0xNfhMb6f8AZQy5xUVme4rLtghqLGlbhb6LE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pi0osoILqDfQAZmIUTrsSAIV/aKtDdNvbWcXzcx7nl3NC0WX+PYB075uPOwwRS1hR
-	 VYWy/gqeeF3XYKLdYaHZTCVuwJSWVsxbLidm8thp+q6OqltvvYt0NjsjIjrN52IlKO
-	 GJtcyIQiWegtjExazp3FS3oP6u8QKDJ+S9nTOPw1e61kj1tKEodXVHnPfvk5bOJjXV
-	 DDGTSGQPCbGn620sFJGLJPQeQ790MpHBwE1vgiyuLGlYzZBjamAlG4hdJrOz5oSr1Z
-	 82TaHkrqlFCeajdf94jPTmc9rNbsh6TF7wZDcZSG/wYwH1J1/okQlijxvMl3ou0llk
-	 G9qKJtWhURwYg==
-Date: Mon, 9 Sep 2024 16:10:28 +0100
+	s=k20201202; t=1725895537;
+	bh=MIKdoKY9HPtUI+xHCAreYgaguY2PdY3ciM6mEnUBWR4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=SCg67G8z9mcmkKa8Nm9HOgp2EWU+jwUpxS+20djTzCFZ8m+hkH7ncvwCPUO3HMpDy
+	 oHdKkRz6WM0kwKQOEk2F+MTAZQx13FEzG0GTS+2WEHIM2DsmZuaRwBH6zKdrPOTzFS
+	 FywRGVepE81ssQO/fx8Btu9gGCPgSY9nsQQonOnw/hmdnMBNU06X7UZKf4vf+luEgB
+	 VTkP81Y5l2wpMvblDFCCBcbs2u9qRwJ81AuqaQPBciwSp4krkd3aO8FNZW0+SmyKlh
+	 AV23gNNseTG1br2kS6m3sNu3j6XAmunXcj0tw+/I5eOc07li3lUIX9ruvG4GN3u5s1
+	 XdUh8ga4DhzHg==
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Mohammad Rafi Shaik <quic_mohs@quicinc.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, quic_rohkumar@quicinc.com,
-	kernel@quicinc.com, quic_pkumpatl@quicinc.com
-Subject: Re: [PATCH v1 0/4] Add static channel mapping between soundwire
- master and slave
-Message-ID: <fb137d59-c8ef-4e02-89f6-9abf8a3f12e5@sirena.org.uk>
-References: <20240909105547.2691015-1-quic_mohs@quicinc.com>
- <Zt8LC4IY7DGq8Qom@opensource.cirrus.com>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: andriy.shevchenko@linux.intel.com, lgirdwood@gmail.com, perex@perex.cz,
+ pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
+ zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
+ liam.r.girdwood@intel.com, jaden-yue@ti.com,
+ yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
+ henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, Baojun.Xu@fpt.com,
+ judyhsiao@google.com, navada@ti.com, cujomalainey@google.com, aanya@ti.com,
+ nayeem.mahmud@ti.com, savyasanchi.shukla@netradyne.com,
+ flaviopr@microsoft.com, jesse-ji@ti.com, darren.ye@mediatek.com,
+ antheas.dk@gmail.com, Jerry2.Huang@lcfuturecenter.com, jim.shil@goertek.com,
+ jeep.wang@goertek.com, will-wang@ti.com
+In-Reply-To: <20240907001540.944-1-shenghao-ding@ti.com>
+References: <20240907001540.944-1-shenghao-ding@ti.com>
+Subject: Re: [PATCH] ASoC: tas2781: fix to save the dsp bin file name into
+ the correct array in case name_prefix is not NULL
+Message-Id: <172589552753.1703200.14047607230068401137.b4-ty@kernel.org>
+Date: Mon, 09 Sep 2024 16:25:27 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0VQUlaAE/r6Fm+ww"
-Content-Disposition: inline
-In-Reply-To: <Zt8LC4IY7DGq8Qom@opensource.cirrus.com>
-X-Cookie: Anything is possible, unless it's not.
-Message-ID-Hash: P7RLHRJ5LDAEKCPI4NYFJKDI36F65TOZ
-X-Message-ID-Hash: P7RLHRJ5LDAEKCPI4NYFJKDI36F65TOZ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-99b12
+Message-ID-Hash: PZD5XBNJPXWKOAJAYFJWZQOTJN6CPCKT
+X-Message-ID-Hash: PZD5XBNJPXWKOAJAYFJWZQOTJN6CPCKT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P7RLHRJ5LDAEKCPI4NYFJKDI36F65TOZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PZD5XBNJPXWKOAJAYFJWZQOTJN6CPCKT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,49 +106,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Sat, 07 Sep 2024 08:15:36 +0800, Shenghao Ding wrote:
+> fix to save the dsp bin file name into the correct array, coef_binaryname,
+> instead of rca_binaryname, in case name_prefix is not NULL.
+> 
+> 
 
---0VQUlaAE/r6Fm+ww
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Mon, Sep 09, 2024 at 03:49:47PM +0100, Charles Keepax wrote:
-> On Mon, Sep 09, 2024 at 04:25:43PM +0530, Mohammad Rafi Shaik wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > Add static channel map support between soundwire master and slave.
-> > This patch series will resolve channel mask mismatch between master and=
- slave.
+Thanks!
 
-=2E..
+[1/1] ASoC: tas2781: fix to save the dsp bin file name into the correct array in case name_prefix is not NULL
+      commit: af5e317175858603f950e51fe6377027fdd6eb79
+[1/1] ASoc: tas2781: Remove unnecessary line feed and space
+      (no commit info)
 
-> > For AMIC2 usecase, The Slave need to configure TX2 Port with channel ma=
-sk 1 and
-> > for Master required PORT1 with channel mask 2,
-> >=20
-> > In existing design master and slave configured with same channel mask, =
-it will fail
-> > AMIC2 usecase.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> Apologies but I am not really following what exactly the issue is
-> here? How do these ports map to DAI links? It looks like you are
-> attempting to have AMIC2 produced by one DAI link, but consumed
-> by another?
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Yes, and it's also not clear to me why this is device specific.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---0VQUlaAE/r6Fm+ww
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
+Mark
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbfD+AACgkQJNaLcl1U
-h9Au7wf/U9b5eAsInNOjUnuTMx81qHdkNyxcwOyRGo9BnLIEeY6WEzH5BIgSkVVj
-kHf250hHlRGglWrR8zCVesc1yH0X66KZ9+rTH+7cW4SH/V9CiWHy1Z69VZie2N3Z
-wi8TPB6W+Zq9m2BrIu+8BUs+UBuwMuVfAkZnrkZhclRJceOkm/wL2dHXSJ+xfFdJ
-cFFYNNsri7IJ4M/+DtefOnrEcvvYEy9mWAO2tEvIYEYT+6pk1wy5Hbeqv9s9BF62
-Mj1DoIUb3iRlKGk/717jqIEXSHoR7Hx9UDphrXZAumPxb0uw5rWYI2l8dmqwKpxL
-wc9eUX2wlWjnRnKGP+2G8j/lMSa/4g==
-=eard
------END PGP SIGNATURE-----
-
---0VQUlaAE/r6Fm+ww--

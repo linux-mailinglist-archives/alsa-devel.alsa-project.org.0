@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E96CE9715CE
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 12:57:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4167B9715D6
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 12:58:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EE14829;
-	Mon,  9 Sep 2024 12:57:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EE14829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05E291CE;
+	Mon,  9 Sep 2024 12:58:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05E291CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725879471;
-	bh=FwGWC34J0BSS9eRkEcPVl6s6DaKQBtK3urjmjwtiixQ=;
+	s=default; t=1725879490;
+	bh=8Vd/OSojNgrcBBDFLqFIisQRt6JC3d7ABI1zc+MA35w=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ug/YC7rMArn7VohIdscM/nkzER4bO+dLBG08EXLd0Nfm/bqYYIFlVfAAKMOYU/Qes
-	 JjrCIV2IVB0Yy5mdv5UMpnjDAQQS3Pjl9RyoaP2hSBBkBtwESn68E45pmsnghxMc3N
-	 0XQzhZRWtXpwXPcAUTeMomJCVkbBsKk0wmSqF5ik=
+	b=KQrmFgNd4NVJW6e+GbAmklDUjPxulRK+gQ0ZOi7q2XIqt0PXDN53FqVsuK+X0FDZP
+	 w6St8qChJ0jDQFHEytoj9tL5CXaOgAEbGasxVmK3tRbNjWGTh1RQKwWrp4ibRGZy3S
+	 SCCUelHzHxWnwzlyuVMdN1Vh9YTJ1uKUoihaY7wA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 124CBF8060B; Mon,  9 Sep 2024 12:56:57 +0200 (CEST)
+	id 2120EF80618; Mon,  9 Sep 2024 12:57:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88F68F8019B;
-	Mon,  9 Sep 2024 12:56:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65A49F804FC;
+	Mon,  9 Sep 2024 12:57:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 33CCEF805E9; Mon,  9 Sep 2024 12:56:53 +0200 (CEST)
+	id E19A3F8060D; Mon,  9 Sep 2024 12:57:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,46 +33,46 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 35889F805E6
-	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 12:56:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35889F805E6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0CA34F80536
+	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 12:57:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CA34F80536
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=Le7RifJl
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=NuzOYVSp
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4899JpMZ026363;
-	Mon, 9 Sep 2024 10:56:49 GMT
+ 4899K7pu031036;
+	Mon, 9 Sep 2024 10:57:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ox0BgJVMaAfBw4Bd5/ID1MmEDGKGCNbq2C5Vj0HEJa4=; b=Le7RifJlBrKI0VJf
-	pc9wbWZIY++0CeTkTP7m4F5sl/GTKBFE+UEd2N5Sk7XVQPo5KOzeEF7zWNx4lGbO
-	WMEv1ZofVGDauPqTUxOoxxcObtfOjOEe/Uq7JkycvAuf1kfrhKEV+BcM9b98NegV
-	J8GVlk7VRKWR31m8vyFFiCLlX7SF2pEuRH2yfoYgi9CyHd29dgadBLm957f2nXcJ
-	/liYWCGKGkeJDrp42BrgEGnDYGLgiB7Un4yRfVvcyBiGG/f22usu3CavJuP/K0VX
-	ik0/s4gQCY4PLBs8Oizzam9vGNUJXGv2kxWLLvt0ii6mu2pxxqzMZbeoBrt4fGa+
-	4Xzeow==
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+	ihbuH8ZE0WoVokeOq+71+6Vox3J6l793D//UVXzSd8A=; b=NuzOYVSpSghN7evz
+	wxYLZeyDXCrIAiAHYMyAbH8UlsNkAJfjNtwZhOk+mgOTCUIAdmGvu22Ls9OJFms/
+	uSh5JRcaukSvycxrWQsylSgtNVGDKQV9kuClttUmRVEWDEAQIz7nCX6lOq3waafB
+	7Vnkim53nk8obFLdOPjX1PzqgVOX/J/4NJPkDiucXYjhR+JZoH7kscKUcInlwuKZ
+	Mkhm3Z/MO34/kDa0Am1pBijYAuD38UBPsGA+M3kzrcMNlkd6Dsuyg89JUhh05UQV
+	ySpBN/Gt8uHfPYiC0pzoF5A7y0lzMRy6+vQ4pUOMa7bvLQzbPNzN7TZeL+XmRITb
+	T/6lQw==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41he5dsr6y-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gy5rahf5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Sep 2024 10:56:49 +0000 (GMT)
+	Mon, 09 Sep 2024 10:56:59 +0000 (GMT)
 Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
  [10.45.79.139])
-	by NASANPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 489AumZx003371
+	by NASANPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 489Auwvv016942
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 9 Sep 2024 10:56:48 GMT
+	Mon, 9 Sep 2024 10:56:58 GMT
 Received: from hu-mohs-hyd.qualcomm.com (10.80.80.8) by
  nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Mon, 9 Sep 2024 03:56:40 -0700
+ 15.2.1544.9; Mon, 9 Sep 2024 03:56:50 -0700
 From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
         Liam Girdwood
@@ -94,10 +94,10 @@ CC: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
         <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
         <kernel@quicinc.com>, <quic_pkumpatl@quicinc.com>,
         Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Subject: [PATCH v1 2/4] soundwire: stream: Add set_master_channel_map() to set
- static channel mapping
-Date: Mon, 9 Sep 2024 16:25:45 +0530
-Message-ID: <20240909105547.2691015-3-quic_mohs@quicinc.com>
+Subject: [PATCH v1 3/4] soundwire: qcom: Add static channel mapping support in
+ soundwire master
+Date: Mon, 9 Sep 2024 16:25:46 +0530
+Message-ID: <20240909105547.2691015-4-quic_mohs@quicinc.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240909105547.2691015-1-quic_mohs@quicinc.com>
 References: <20240909105547.2691015-1-quic_mohs@quicinc.com>
@@ -110,19 +110,19 @@ X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: LepE_-l8i2T62ysaYHDJqI7Qz8TRRY31
-X-Proofpoint-GUID: LepE_-l8i2T62ysaYHDJqI7Qz8TRRY31
+X-Proofpoint-GUID: 2N1-ngBqMyy-wj7nDpgNQfaJBVAndt6B
+X-Proofpoint-ORIG-GUID: 2N1-ngBqMyy-wj7nDpgNQfaJBVAndt6B
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 impostorscore=0
- malwarescore=0 mlxscore=0 phishscore=0 bulkscore=0 adultscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409090086
-Message-ID-Hash: TUBMTKEWIJ2EZ6S5JHULI72WVRJJZDQS
-X-Message-ID-Hash: TUBMTKEWIJ2EZ6S5JHULI72WVRJJZDQS
+ suspectscore=0 phishscore=0
+ clxscore=1015 malwarescore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ mlxscore=0 impostorscore=0 priorityscore=1501 mlxlogscore=999 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2408220000
+ definitions=main-2409090087
+Message-ID-Hash: FQXRUBKCXBZPDDC6WBCF7ILCDTK4P45Y
+X-Message-ID-Hash: FQXRUBKCXBZPDDC6WBCF7ILCDTK4P45Y
 X-MailFrom: quic_mohs@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -135,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TUBMTKEWIJ2EZ6S5JHULI72WVRJJZDQS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FQXRUBKCXBZPDDC6WBCF7ILCDTK4P45Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,69 +144,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add set_master_channel_map() to set the static channel map between
-master and slave. Patch change will resolve the channel mask mismatch
-between the master and slave.
-
-The sdw_set_channel_map_stream() will triggered by a slave with active
-port number and channel mask.
+Add static channel mapping support in soundwire master.
+The qcom_swrm_set_channel_map() will update the master channel mask
+based on master port number.
 
 Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
 ---
- drivers/soundwire/stream.c    | 16 ++++++++++++++++
- include/linux/soundwire/sdw.h |  5 +++++
- 2 files changed, 21 insertions(+)
+ drivers/soundwire/qcom.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index f275143d7b18..8cfea2ccb5bd 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -1972,6 +1972,22 @@ int sdw_stream_remove_master(struct sdw_bus *bus,
- }
- EXPORT_SYMBOL(sdw_stream_remove_master);
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index aed57002fd0e..65ed1ff7888f 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -156,6 +156,7 @@ struct qcom_swrm_port_config {
+ 	u8 word_length;
+ 	u8 blk_group_count;
+ 	u8 lane_control;
++	u8 ch_mask;
+ };
  
-+int sdw_set_channel_map_stream(struct sdw_stream_runtime *stream,
-+			       int *ch_mask, unsigned int active_port_num)
-+{
-+	struct sdw_master_runtime *m_rt;
-+	struct sdw_bus *bus;
+ /*
+@@ -1048,8 +1049,14 @@ static int qcom_swrm_port_enable(struct sdw_bus *bus,
+ {
+ 	u32 reg = SWRM_DP_PORT_CTRL_BANK(enable_ch->port_num, bank);
+ 	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
++	struct qcom_swrm_port_config *pcfg;
+ 	u32 val;
+ 
++	pcfg = &ctrl->pconfig[enable_ch->port_num];
 +
-+	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
-+		bus = m_rt->bus;
-+		if (bus->ops->set_master_channel_map)
-+			bus->ops->set_master_channel_map(bus, ch_mask, active_port_num);
-+	}
++	if (pcfg->ch_mask != SWR_INVALID_PARAM && pcfg->ch_mask != 0)
++		enable_ch->ch_mask = pcfg->ch_mask;
++
+ 	ctrl->reg_read(ctrl, reg, &val);
+ 
+ 	if (enable_ch->enable)
+@@ -1060,6 +1067,16 @@ static int qcom_swrm_port_enable(struct sdw_bus *bus,
+ 	return ctrl->reg_write(ctrl, reg, val);
+ }
+ 
++static int qcom_swrm_set_channel_map(struct sdw_bus *bus, int *ch_mask, unsigned int port_num)
++{
++	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
++
++	if (ch_mask && port_num)
++		ctrl->pconfig[port_num].ch_mask = ch_mask[port_num];
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL(sdw_set_channel_map_stream);
 +
- /**
-  * sdw_stream_add_slave() - Allocate and add master/slave runtime to a stream
-  *
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index 5e0dd47a0412..264450763bab 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -857,6 +857,8 @@ struct sdw_master_ops {
- 			(struct sdw_bus *bus);
- 	int (*set_bus_conf)(struct sdw_bus *bus,
- 			struct sdw_bus_params *params);
-+	int (*set_master_channel_map)(struct sdw_bus *bus, int *ch_mask,
-+				      unsigned int port_num);
- 	int (*pre_bank_switch)(struct sdw_bus *bus);
- 	int (*post_bank_switch)(struct sdw_bus *bus);
- 	u32 (*read_ping_status)(struct sdw_bus *bus);
-@@ -1049,6 +1051,9 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus);
- int sdw_compare_devid(struct sdw_slave *slave, struct sdw_slave_id id);
- void sdw_extract_slave_id(struct sdw_bus *bus, u64 addr, struct sdw_slave_id *id);
+ static const struct sdw_master_port_ops qcom_swrm_port_ops = {
+ 	.dpn_set_port_params = qcom_swrm_port_params,
+ 	.dpn_set_port_transport_params = qcom_swrm_transport_params,
+@@ -1070,6 +1087,7 @@ static const struct sdw_master_ops qcom_swrm_ops = {
+ 	.read_prop = qcom_swrm_read_prop,
+ 	.xfer_msg = qcom_swrm_xfer_msg,
+ 	.pre_bank_switch = qcom_swrm_pre_bank_switch,
++	.set_master_channel_map = qcom_swrm_set_channel_map,
+ };
  
-+int sdw_set_channel_map_stream(struct sdw_stream_runtime *stream,
-+			       int *ch_mask, unsigned int active_port_num);
-+
- #if IS_ENABLED(CONFIG_SOUNDWIRE)
- 
- int sdw_stream_add_slave(struct sdw_slave *slave,
+ static int qcom_swrm_compute_params(struct sdw_bus *bus)
 -- 
 2.25.1
 

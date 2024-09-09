@@ -2,82 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD481972416
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 23:02:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8335697241A
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 23:02:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20D911EB;
-	Mon,  9 Sep 2024 23:02:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20D911EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FD8CA4A;
+	Mon,  9 Sep 2024 23:02:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FD8CA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725915749;
-	bh=gxpWwUlAxibrNDTItu3pZrMMyq790BK/xTGjxMPNjSo=;
+	s=default; t=1725915760;
+	bh=fk1O36vP6EYATpW7zFnE0wBAJf09Xs8FlL14jwq2K04=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hoE3S6sDxEeWBl6yPnGjnySyYBzt9ZjEwujWdI67sMjVxR9ijQXVAHT8Q1oddperg
-	 VbCeN9cGLfoPOp6JW6Np8+WMATVEqy0GC7gSHo1Q713Z+KKw2pacCiUEmNBlKjqCzo
-	 kX6tRuuVuhqaupXRFr1Ya5f67473h7fxbns4KPiA=
+	b=YL7PdUCqDbENBbrEoP+nN0uSBnHeT/445sY4dW2TpK1HOY4qVXPysBCr2q2hlpwiV
+	 Q9I/iq3QmNNII7JypUj3z5iaqRvw6hAo2qv7GUtgZXNHLECYBqU4zsKUCM8gKk3UFo
+	 aR7rTr/VepQTTSqnvnkcok0trDBsRYwA+8kq5WhI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26BD4F805B2; Mon,  9 Sep 2024 23:01:57 +0200 (CEST)
+	id A7DB7F805D3; Mon,  9 Sep 2024 23:02:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AD3EF805B2;
-	Mon,  9 Sep 2024 23:01:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47073F805DA;
+	Mon,  9 Sep 2024 23:02:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6D12F801F5; Mon,  9 Sep 2024 23:01:52 +0200 (CEST)
+	id 38714F80272; Mon,  9 Sep 2024 23:01:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB238F8010B
-	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 23:01:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB238F8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0FD20F8010B;
+	Mon,  9 Sep 2024 23:01:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FD20F8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=nPMy7l+L
+ header.s=k20201202 header.b=U83w8q4v
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id D7FF35C0617;
+	by nyc.source.kernel.org (Postfix) with ESMTP id C4484A419D0;
 	Mon,  9 Sep 2024 21:01:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657FFC4CEC6;
-	Mon,  9 Sep 2024 21:01:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DBDC4CEC5;
+	Mon,  9 Sep 2024 21:01:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1725915708;
-	bh=gxpWwUlAxibrNDTItu3pZrMMyq790BK/xTGjxMPNjSo=;
+	s=k20201202; t=1725915712;
+	bh=fk1O36vP6EYATpW7zFnE0wBAJf09Xs8FlL14jwq2K04=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=nPMy7l+L6WYCWGVQKxQKHLjLqXT8/BCh/FuCF2mBHpNHTRnaxu5seKmImEg2ziE70
-	 dJV4Xby/qBTMkF8Iwr12lhphfLorktn7JBo2m35SNnopkQbvQ9cm253Xw2DagDvwG+
-	 KsTFR99gH1yCrD/YV1WNJl/2M8bGjyWg1yx0Z0ysTBqp5pknfK5i54kXnQkn/EYuub
-	 8qlwc4xEt08vHUvoiW4A7AmZhGj0fhKe3iC/k26cGSUxUUFJXVgkAjwZSPiasqS389
-	 aI6MW3Q0wZk7kV9uAPazZRAFzEUE6IvMFG641gxJFUHXhgaGbyQbEtslvArKthbKtu
-	 lSMX6b1cChiKQ==
+	b=U83w8q4vmWuUNWWa8wp6WXXICFHNrWHnRAOLoFaJwf+YGIhqaA4++V14XBYpETLmz
+	 Rrd3E+kOLKplgGDfpABUQym08RyIiH3l4jAbmyk5bBAK0s0gOBxgw2KpqYkk67k29Q
+	 bB2annXHCrM4S5XPhPdfW+/6Ff0w15aInu8EqGFqDTaWc6XH5oDKdHJJFazQNbDIc4
+	 p3AukalcGRDrdrFRfFF1YtRIBR9v1CMyNI+juVxM1lxCtHvdKIJ/p3GvzmaDqMOg0z
+	 e01KB1mHz9lEzQnWY0Dh6JJLHfYFid95AQrKjY5TyB7IUFJ0wwiByyCgketuPB89UX
+	 ftt0aAFvxLWog==
 From: Mark Brown <broonie@kernel.org>
-To: claudiu.beznea@tuxon.dev, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- Andrei Simion <andrei.simion@microchip.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20240909083530.14695-1-andrei.simion@microchip.com>
-References: <20240909083530.14695-1-andrei.simion@microchip.com>
-Subject: Re: (subset) [PATCH 0/2] Adjust Stream Name and DT Bindings
- Updates
-Message-Id: <172591570513.136248.18212360068719293673.b4-ty@kernel.org>
-Date: Mon, 09 Sep 2024 22:01:45 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: linux-sound@vger.kernel.org, asahi@lists.linux.dev,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ patches@opensource.cirrus.com, linux-arm-msm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev,
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, sound-open-firmware@alsa-project.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org
+In-Reply-To: <20240909151230.909818-2-u.kleine-koenig@baylibre.com>
+References: <20240909151230.909818-2-u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH] ASoC: Switch back to struct platform_driver::remove()
+Message-Id: <172591570834.136248.17412626468486255591.b4-ty@kernel.org>
+Date: Mon, 09 Sep 2024 22:01:48 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.15-dev-99b12
-Message-ID-Hash: WFFMAFLWP5CEWMRN4SQFQ5DQ4QBDWVJU
-X-Message-ID-Hash: WFFMAFLWP5CEWMRN4SQFQ5DQ4QBDWVJU
+Message-ID-Hash: VJPAVQIXUE6DV2IS6APEQGAGKKEQZSPX
+X-Message-ID-Hash: VJPAVQIXUE6DV2IS6APEQGAGKKEQZSPX
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WFFMAFLWP5CEWMRN4SQFQ5DQ4QBDWVJU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VJPAVQIXUE6DV2IS6APEQGAGKKEQZSPX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,16 +103,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 09 Sep 2024 11:35:28 +0300, Andrei Simion wrote:
-> This patch set proposes the following changes to improve the flexibility
-> and configurability of the mchp-i2s-mcc driver by allowing the interface
-> name to be set through the device tree and by introducing a new property to
-> better manage multiple interfaces.
+On Mon, 09 Sep 2024 17:12:30 +0200, Uwe Kleine-König wrote:
+> After commit 0edb555a65d1 ("platform: Make platform_driver::remove()
+> return void") .remove() is (again) the right callback to implement for
+> platform drivers.
 > 
-> Codrin Ciubotariu (2):
->   ASoC: atmel: mchp-i2s-mcc: Remove interface name from stream_name
->   ASoC: dt-bindings: microchip,sama7g5-i2smcc: Add 'sound-name-prefix'
->     property
+> Convert all drivers below sound/soc to use .remove(), with the eventual
+> goal to drop struct platform_driver::remove_new(). As .remove() and
+> .remove_new() have the same prototypes, conversion is done by just
+> changing the structure member name in the driver initializer.
 > 
 > [...]
 
@@ -118,8 +121,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: atmel: mchp-i2s-mcc: Remove interface name from stream_name
-      commit: b09c71f3e8413ac0a9749f9d0d06f6f0d0b2cc65
+[1/1] ASoC: Switch back to struct platform_driver::remove()
+      commit: 130af75b5c05eef4ecd8593371f3e924bcd41241
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

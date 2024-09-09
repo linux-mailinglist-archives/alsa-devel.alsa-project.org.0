@@ -2,107 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF0F4971506
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 12:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958A49715C6
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 12:57:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC26B847;
-	Mon,  9 Sep 2024 12:14:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC26B847
+	by alsa0.perex.cz (Postfix) with ESMTPS id D24A0823;
+	Mon,  9 Sep 2024 12:57:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D24A0823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725876871;
-	bh=0qaf774Cn9lQMh3dCkUVu4M+B2D5wF4dcVecxNAZd4U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SPLnGzNaNUhqLY199SXu0S8bnS7Qwd0qa4XfvAroqiLZon/YV0tgm3kLlLKD1Fwnu
-	 9EHASfrZsrtt7FDSFzztT/3bOkl+xvQADYERqDN+BbP/nKHiRHpew/pPnmk8z3BR7g
-	 ipeOGLO4h+rO3i3ZRZjRVzViaK8o7toQjT01srl8=
+	s=default; t=1725879435;
+	bh=SZKP8xg/qyZzQnZu6J7kE/Q1QRLNmUJGqGxHhrxB+wg=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=rpo2sk9nMIqrkgK+ppAYVSYG9Q1B5kmKIDidpBYQh0FhaSBp0jKR5Or1k9IyoYSsA
+	 pk6SD8Q+1dOONoyZyIDYEUCP9+NBe3BJedBuNAhzlPIPjrdcSJwUHEPZWI+70EmVU/
+	 P3UpVVysnwv/Ve1UMB59SMIv+Or/gpne7zNqDkN0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DCB07F805B5; Mon,  9 Sep 2024 12:13:59 +0200 (CEST)
+	id A1CFCF80527; Mon,  9 Sep 2024 12:56:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC500F805AC;
-	Mon,  9 Sep 2024 12:13:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B100F805B2;
+	Mon,  9 Sep 2024 12:56:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8AFB7F801F5; Mon,  9 Sep 2024 12:13:55 +0200 (CEST)
+	id 05319F801F5; Mon,  9 Sep 2024 12:56:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 04B4DF8010B
-	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 12:13:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04B4DF8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 737DCF800E9
+	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 12:56:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 737DCF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=b+Y/jMmM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725876834; x=1757412834;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0qaf774Cn9lQMh3dCkUVu4M+B2D5wF4dcVecxNAZd4U=;
-  b=b+Y/jMmMtosXRdGV5WlzfxGovGtiKVMnWF1+6qmF9cwRG/W6R2xwcqlD
-   8uXYgS2YWc3Q7B/5q93Ik4/KNUJUzihpiKnAIO4wf0Xqk2yN5M3wzfexo
-   fVjOofXXGK02pbdf5gIZ8xT2KkQDD+2rLbxO93BEB+yniRKNk13ALE5GU
-   kY/0eMMUSe3zSddIf3au6e6bJH/sIUGyqbRS0arUb6NTx43zUYkITeJyK
-   axKbE1cXLc8chfpwDR+H/T4UbPxZI5OV+yEVkWtwJYG851qhRUodM9ufL
-   4VwWSuGoIDDWXwPpzW0Am3g3ecNaxLb6UQj4Es7TxNgbPjXOIBHHRz2g5
-   Q==;
-X-CSE-ConnectionGUID: 9XGJytOpTPu/6XB5OHAnIg==
-X-CSE-MsgGUID: xM6epcYKStm8NoHDYv+Qig==
-X-IronPort-AV: E=McAfee;i="6700,10204,11189"; a="27486531"
-X-IronPort-AV: E=Sophos;i="6.10,214,1719903600";
-   d="scan'208";a="27486531"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2024 03:13:48 -0700
-X-CSE-ConnectionGUID: EA75E6NuQA6zvQXfbfQytg==
-X-CSE-MsgGUID: EJRX5hTeQoK8CXj0VzM4TA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,214,1719903600";
-   d="scan'208";a="66259315"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2024 03:13:42 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1snbOb-00000006kQD-401Z;
-	Mon, 09 Sep 2024 13:13:21 +0300
-Date: Mon, 9 Sep 2024 13:13:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com, 13916275206@139.com,
-	zhourui@huaqin.com, alsa-devel@alsa-project.org, i-salazar@ti.com,
-	liam.r.girdwood@intel.com, jaden-yue@ti.com,
-	yung-chuan.liao@linux.intel.com, dipa@ti.com, yuhsuan@google.com,
-	henry.lo@ti.com, tiwai@suse.de, baojun.xu@ti.com, Baojun.Xu@fpt.com,
-	judyhsiao@google.com, navada@ti.com, cujomalainey@google.com,
-	aanya@ti.com, nayeem.mahmud@ti.com,
-	savyasanchi.shukla@netradyne.com, flaviopr@microsoft.com,
-	jesse-ji@ti.com, darren.ye@mediatek.com, antheas.dk@gmail.com,
-	Jerry2.Huang@lcfuturecenter.com, jim.shil@goertek.com,
-	jeep.wang@goertek.com, will-wang@ti.com
-Subject: Re: [PATCH] ASoc: tas2781: Remove unnecessary line feed and space
-Message-ID: <Zt7KQcEOBfCaDNbS@smile.fi.intel.com>
-References: <20240907001540.944-1-shenghao-ding@ti.com>
- <20240907001540.944-2-shenghao-ding@ti.com>
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=VieqZ832
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4899JpWi029477;
+	Mon, 9 Sep 2024 10:56:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=B74tMf/CUUzR3FTBRoD1ZT
+	xOcnNObTJ8iLOoR7N3lnc=; b=VieqZ832dfbAdjYmo0cOvi2V28Ob0uw2BCQSWO
+	AT3148mJ34iU69ns6bfOKAjAF/SNUZtIOwIMrGvM+3Gia2zo3aYC9NySmdvkuvfB
+	zesbrA0Wo9Z8Tjl3062BQARSCKC4OggsSbnOINDlX9VSZr+XJXxc5BmASVB9mFw0
+	DVA1X60gdiU5flqz1iwnISLJ/l2bCgvqDQJBqPskv2h44dFFhY5aKyiWAbhnhnRp
+	vgObJgUt5Z/2HDqPluUhb8Z89AHIAO2tCCAdldKJhjmg7aHc/vMBIefbO4BVhow2
+	AKoQstXWJ/Dv7+qxBzkFDGbCv6Vq+U+sYRywrL78JANfoZKg==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gybpjjdc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Sep 2024 10:56:34 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+	by NASANPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 489AuXQ4007051
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 9 Sep 2024 10:56:33 GMT
+Received: from hu-mohs-hyd.qualcomm.com (10.80.80.8) by
+ nasanex01c.na.qualcomm.com (10.45.79.139) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.9; Mon, 9 Sep 2024 03:56:25 -0700
+From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+        Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Bard Liao
+	<yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>
+CC: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        Sanyog Kale
+	<sanyog.r.kale@intel.com>,
+        <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
+        <kernel@quicinc.com>, <quic_pkumpatl@quicinc.com>,
+        Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+Subject: [PATCH v1 0/4] Add static channel mapping between soundwire master
+ and slave
+Date: Mon, 9 Sep 2024 16:25:43 +0530
+Message-ID: <20240909105547.2691015-1-quic_mohs@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240907001540.944-2-shenghao-ding@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: RTDI7ACMAZKLHTIJ47Q2RX27OVQOURUE
-X-Message-ID-Hash: RTDI7ACMAZKLHTIJ47Q2RX27OVQOURUE
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01c.na.qualcomm.com (10.45.79.139)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: cHttXC1flPaM2E5vZPuw3jjaJlUBj-fV
+X-Proofpoint-GUID: cHttXC1flPaM2E5vZPuw3jjaJlUBj-fV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 spamscore=0 adultscore=0
+ lowpriorityscore=0 mlxlogscore=999 clxscore=1011 bulkscore=0
+ impostorscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2408220000 definitions=main-2409090087
+Message-ID-Hash: NQ2PEL2FXXEX7YAFU2OLOYPTOCH7FKOO
+X-Message-ID-Hash: NQ2PEL2FXXEX7YAFU2OLOYPTOCH7FKOO
+X-MailFrom: quic_mohs@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RTDI7ACMAZKLHTIJ47Q2RX27OVQOURUE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NQ2PEL2FXXEX7YAFU2OLOYPTOCH7FKOO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,19 +140,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, Sep 07, 2024 at 08:15:37AM +0800, Shenghao Ding wrote:
-> Remove unnecessary line feed for tasdevice_dsp_create_ctrls,
-> and remove two unnecessary spaces in tas2563_digital_gain_get
-> and tas2563_digital_gain_put.
+Add static channel map support between soundwire master and slave.
+This patch series will resolve channel mask mismatch between master and slave.
 
-FWIW, we refer to the functions as func(). The above will be
+Scenario: wcd937x AMIC2 usecase
 
-Remove unnecessary line feed for tasdevice_dsp_create_ctrls(),
-and remove two unnecessary spaces in tas2563_digital_gain_get()
-and tas2563_digital_gain_put().
+                          Master                 Slave (wcd937x)
+                     +--------------+           +--------------+
+                     |  +--------+  |           |  +--------+  |
+         AMIC1 ----->|  | PORT1  |  |           |  |   TX1  |  |<-----------AMIC1
+         AMIC2 ----->|  |        |  |           |  |        |  |
+                     |  +--------+  |           |  +--------+  |
+                     |              |           |              |
+         AMIC3 ----->|  +--------+  |           |  +--------+  |
+                     |  |  PORT2 |  |           |  |   TX2  |  |<-----------AMIC2
+                     |  |        |  |           |  |        |  |<-----------AMIC3
+                     |  +--------+  |           |  +--------+  |
+                     |              |           |              |
+                     |  +--------+  |           |  +--------+  |
+ DMIC0...DMIC3------>|  |  PORT3 |  |           |  |   TX3  |  |<-----------DMIC0...DMIC3
+                     |  |        |  |           |  |        |  |<-----------MBHC
+                     |  +--------+  |           |  +--------+  |
+                     |              |           |              |
+                     |  +--------+  |           |  +--------+  |
+ DMIC4...DMIC37----->|  |  PORT4 |  |           |  |   TX4  |  |<-----------DMIC4...DMIC7
+                     |  |        |  |           |  |        |  |
+                     |  +--------+  |           |  +--------+  |
+                     |              |           |              |
+                     +------------- +           +--------------+
 
+For AMIC2 usecase, The Slave need to configure TX2 Port with channel mask 1 and
+for Master required PORT1 with channel mask 2,
+
+In existing design master and slave configured with same channel mask, it will fail
+AMIC2 usecase.
+
+The New design will help to configure channel mapping between master and slave from
+device tree.
+
+Mohammad Rafi Shaik (4):
+  ASoC: dt-bindings: wcd938x-sdw: Add static channel mapping support
+  soundwire: stream: Add set_master_channel_map() to set static channel
+    mapping
+  soundwire: qcom: Add static channel mapping support in soundwire
+    master
+  ASoC: codecs: wcd937x: Add static channel mapping support in
+    wcd937x-sdw
+
+ .../bindings/sound/qcom,wcd937x-sdw.yaml      | 28 ++++++++++
+ drivers/soundwire/qcom.c                      | 18 +++++++
+ drivers/soundwire/stream.c                    | 16 ++++++
+ include/linux/soundwire/sdw.h                 |  5 ++
+ sound/soc/codecs/wcd937x-sdw.c                | 52 ++++++++++++++++---
+ sound/soc/codecs/wcd937x.c                    | 12 ++++-
+ sound/soc/codecs/wcd937x.h                    |  6 ++-
+ 7 files changed, 126 insertions(+), 11 deletions(-)
+
+
+base-commit: 9aaeb87ce1e966169a57f53a02ba05b30880ffb8
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.25.1
 

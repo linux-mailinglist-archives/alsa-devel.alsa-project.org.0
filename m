@@ -2,98 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90D90971CBB
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 16:37:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89402971D1F
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2024 16:50:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEC92836;
-	Mon,  9 Sep 2024 16:36:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEC92836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E61E1E0;
+	Mon,  9 Sep 2024 16:50:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E61E1E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725892626;
-	bh=2p1aBZqsUmCuXQ3jiGz0sZlXSSmxwwNLGq3tOI53ZZA=;
+	s=default; t=1725893444;
+	bh=zYUb39rxLloRBDzZo4+kzlIgM65YSGPIz0TgH8WfP6g=;
 	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nAvoYRYvthJwFwTBPvfPdYVQeezcTPOQ/V+Iqwfk80pZk3FesXCIe4CUepzVtKvfI
-	 Hz5La06Eo0CnaivzJwI+Z9r8HyFyEL6+qWfPvGqsaRz21wH5DtcEwBRjoqSUrTDNrr
-	 G3pg0O73x7TZiatituGZmT+PvJBzk2fvVR3hcqaE=
+	b=KtfS8mR1OYUvyVujNvq12NU6xWabSvfHGp7kZd8fvIwk1OoC+OL3vVmNuoutfZQjZ
+	 JRFDle7pKCCX0AkfBJlQGKpITICk2GGAtTBdcVyzZ0EGUHFMlSL1GlHoDshwIQSVVA
+	 c/xWCtdCYmk+pYyF2o+ORj/ocpBF88fPOm6QYUFI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2552F805A0; Mon,  9 Sep 2024 16:36:35 +0200 (CEST)
+	id 9D9DBF805A9; Mon,  9 Sep 2024 16:50:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 401FDF805B2;
-	Mon,  9 Sep 2024 16:36:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C04A0F805B3;
+	Mon,  9 Sep 2024 16:50:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9374F801F5; Mon,  9 Sep 2024 16:36:30 +0200 (CEST)
+	id 5A147F801F5; Mon,  9 Sep 2024 16:50:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7CE55F8010B
-	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 16:36:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CE55F8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E2E5F800E9
+	for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2024 16:50:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E2E5F800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Ye20z4xF
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4895bCw5012744;
-	Mon, 9 Sep 2024 09:36:26 -0500
+ header.s=PODMain02222019 header.b=aEb/jlSX
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 4894kdKO029438;
+	Mon, 9 Sep 2024 09:50:05 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
 	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=9tHyNH/L4dVK8ecBDE
-	2nZgXN5xeNAU1JDx+oAdHfNpw=; b=Ye20z4xFy8uOsE9ahafBpm8JfZKh5Nui/K
-	oLuSts1jvOi2YDbruSgNoMn4X4tMkADO2gDYdsK/3BF20y5Vz5iVevIJOzkiD84W
-	C1COTjSiM/rvARPNit0Je9225+X9jafXgHi96GsLCMlW10OvaD42Z+B1cWBBnEUc
-	HMI9yd85llVYl0kZCe6M8+RqAD+4C/3Et/K4LFHlDS98smjAPF8LDQtdaTt5ZoMZ
-	j86sjBTBCe38VrZ5NpUveqADJWDA0ChMTprWzAx0c2oCWTgT/BeNFOcufGRRV+Rr
-	9xkHuXYHNsSI/Xz6cRtVVGTkNx+gh48hYLJE5yOQKFE6Cd9m5S3Q==
+	:references:subject:to; s=PODMain02222019; bh=7H3hIEPlOVkieGvBf2
+	c0DYfFeVzq19u7SSW0qmjXnjY=; b=aEb/jlSXCbHQwhREJ7dfRikrM9wtb0MIQR
+	dCpj/YRqATTCq7HNraKv1bdCEN9NkoXzlUg9+0nTzQb4MNv1kXC69nv0AJ7md5jJ
+	OaAMvxFIIXS7hcLmWLy3Um2yW6xZcKcdQpwRWqt/lcDmk5xWVAkov9EbUAXSoUft
+	wkpyA4aLmufarwAX+WwPPhzlwRkxySUcNtJuO3zwEZ4CCpCRbuSTvH3kPVWd4A2V
+	TLXmd2BYYz9bUCKRZgUjoI6JY8jX7WBTlwHT0sLHLK19ZzmK0azR6RtMMaWWbLo7
+	0dsJ6jgrQJL31mHGKrBfC6HflOIeP8zeaDWihcVMCryDYz809wEA==
 Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 41gm7x1qcb-1
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 41gk8hstw1-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Sep 2024 09:36:26 -0500 (CDT)
+	Mon, 09 Sep 2024 09:50:05 -0500 (CDT)
 Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 9 Sep 2024
- 15:36:24 +0100
+ 15:49:48 +0100
 Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
  anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.9 via Frontend Transport; Mon, 9 Sep 2024 15:36:24 +0100
+ 15.2.1544.9 via Frontend Transport; Mon, 9 Sep 2024 15:49:48 +0100
 Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 9B557820249;
-	Mon,  9 Sep 2024 14:36:24 +0000 (UTC)
-Date: Mon, 9 Sep 2024 15:36:23 +0100
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id D332F820249;
+	Mon,  9 Sep 2024 14:49:48 +0000 (UTC)
+Date: Mon, 9 Sep 2024 15:49:47 +0100
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-CC: Vinod Koul <vkoul@kernel.org>,
+To: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
+CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+        Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
         Bard Liao
 	<yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>,
         Pierre-Louis Bossart
 	<pierre-louis.bossart@linux.intel.com>,
         Sanyog Kale
-	<sanyog.r.kale@intel.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] soundwire: stream: Revert "soundwire: stream: fix
- programming slave ports for non-continous port maps"
-Message-ID: <Zt8H530FkqBMiYX+@opensource.cirrus.com>
-References: <20240904145228.289891-1-krzysztof.kozlowski@linaro.org>
+	<sanyog.r.kale@intel.com>,
+        <linux-arm-msm@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <quic_rohkumar@quicinc.com>,
+        <kernel@quicinc.com>, <quic_pkumpatl@quicinc.com>
+Subject: Re: [PATCH v1 0/4] Add static channel mapping between soundwire
+ master and slave
+Message-ID: <Zt8LC4IY7DGq8Qom@opensource.cirrus.com>
+References: <20240909105547.2691015-1-quic_mohs@quicinc.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20240904145228.289891-1-krzysztof.kozlowski@linaro.org>
-X-Proofpoint-GUID: UWsB2DbKv8vFLqSDML-G28WGcjBtvHa_
-X-Proofpoint-ORIG-GUID: UWsB2DbKv8vFLqSDML-G28WGcjBtvHa_
+In-Reply-To: <20240909105547.2691015-1-quic_mohs@quicinc.com>
+X-Proofpoint-GUID: qG5DD1sdYl7BYNL1JLvRQwR3HMwgcMJo
+X-Proofpoint-ORIG-GUID: qG5DD1sdYl7BYNL1JLvRQwR3HMwgcMJo
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: EVQH6XM4AFSF77GOHV3ZMIN6IBICX4AG
-X-Message-ID-Hash: EVQH6XM4AFSF77GOHV3ZMIN6IBICX4AG
+Message-ID-Hash: CXAICSB6F3YDBHTGFHDDHVDHJNF5LE4Y
+X-Message-ID-Hash: CXAICSB6F3YDBHTGFHDDHVDHJNF5LE4Y
 X-MailFrom: prvs=698262c8fd=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EVQH6XM4AFSF77GOHV3ZMIN6IBICX4AG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CXAICSB6F3YDBHTGFHDDHVDHJNF5LE4Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,27 +127,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Sep 04, 2024 at 04:52:28PM +0200, Krzysztof Kozlowski wrote:
-> This reverts commit ab8d66d132bc8f1992d3eb6cab8d32dda6733c84 because it
-> breaks codecs using non-continuous masks in source and sink ports.  The
-> commit missed the point that port numbers are not used as indices for
-> iterating over prop.sink_ports or prop.source_ports.
+On Mon, Sep 09, 2024 at 04:25:43PM +0530, Mohammad Rafi Shaik wrote:
+> Add static channel map support between soundwire master and slave.
+> This patch series will resolve channel mask mismatch between master and slave.
 > 
-> Soundwire core and existing codecs expect that the array passed as
-> prop.sink_ports and prop.source_ports is continuous.  The port mask still
-> might be non-continuous, but that's unrelated.
+> Scenario: wcd937x AMIC2 usecase
 > 
-> Reported-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Closes: https://lore.kernel.org/all/b6c75eee-761d-44c8-8413-2a5b34ee2f98@linux.intel.com/
-> Fixes: ab8d66d132bc ("soundwire: stream: fix programming slave ports for non-continous port maps")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>                           Master                 Slave (wcd937x)
+>                      +--------------+           +--------------+
+>                      |  +--------+  |           |  +--------+  |
+>          AMIC1 ----->|  | PORT1  |  |           |  |   TX1  |  |<-----------AMIC1
+>          AMIC2 ----->|  |        |  |           |  |        |  |
+>                      |  +--------+  |           |  +--------+  |
+>                      |              |           |              |
+>          AMIC3 ----->|  +--------+  |           |  +--------+  |
+>                      |  |  PORT2 |  |           |  |   TX2  |  |<-----------AMIC2
+>                      |  |        |  |           |  |        |  |<-----------AMIC3
+>                      |  +--------+  |           |  +--------+  |
+>                      |              |           |              |
+>                      |  +--------+  |           |  +--------+  |
+>  DMIC0...DMIC3------>|  |  PORT3 |  |           |  |   TX3  |  |<-----------DMIC0...DMIC3
+>                      |  |        |  |           |  |        |  |<-----------MBHC
+>                      |  +--------+  |           |  +--------+  |
+>                      |              |           |              |
+>                      |  +--------+  |           |  +--------+  |
+>  DMIC4...DMIC37----->|  |  PORT4 |  |           |  |   TX4  |  |<-----------DMIC4...DMIC7
+>                      |  |        |  |           |  |        |  |
+>                      |  +--------+  |           |  +--------+  |
+>                      |              |           |              |
+>                      +------------- +           +--------------+
 > 
-> ---
+> For AMIC2 usecase, The Slave need to configure TX2 Port with channel mask 1 and
+> for Master required PORT1 with channel mask 2,
+> 
+> In existing design master and slave configured with same channel mask, it will fail
+> AMIC2 usecase.
 
-Would be good to merge this as soon as we can, this is causing
-soundwire regressions from rc6 onwards.
-
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Apologies but I am not really following what exactly the issue is
+here? How do these ports map to DAI links? It looks like you are
+attempting to have AMIC2 produced by one DAI link, but consumed
+by another?
 
 Thanks,
 Charles

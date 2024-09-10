@@ -2,95 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B867C973830
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2024 15:03:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A13097383D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2024 15:05:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29AFFE7F;
-	Tue, 10 Sep 2024 15:03:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29AFFE7F
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF565E97;
+	Tue, 10 Sep 2024 15:05:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF565E97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1725973397;
-	bh=nOKLnXy/12xJXPE117m27o4YsYnM7APsdPBMXFqYyfc=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1725973558;
+	bh=e5dl7rhTvT8U88gO91GvPckWYrls1EUDpHm65XSFRHE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FQAVy00IoPh0xYS4lbHYnXNMeSD3fnnuagkrfKWW4Ygauue7+oACCaW/fcs7NJMyz
-	 rVtSeoi5egksHDrMw4twfJ8IlY2/gxYH9xU9nptp0FStRX7UtzD+iHD3ezpR48sH9p
-	 LicsNJy2a+Q68IQn940TqWSqF6mE2b6JC7uIsJWM=
+	b=hW+6sN+4IjgTHEbKbb+KuTlxelDD7U2AlkwudEwijneKJwRXaltJICKsGw8nWunzx
+	 y70XQOeFM3R8WUfE+U4GYep7fzHn9S2MMpiaxPuUrUfDyIA/58e9pNN3ynp3Y8cyIa
+	 LlYD18F06Nhq0kAl1s+JPrKiY+iPbk3QQBhgmYSo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D674EF805B4; Tue, 10 Sep 2024 15:02:45 +0200 (CEST)
+	id 93AEAF8019B; Tue, 10 Sep 2024 15:05:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DA15F805AD;
-	Tue, 10 Sep 2024 15:02:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03133F805A0;
+	Tue, 10 Sep 2024 15:05:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 00903F801F5; Tue, 10 Sep 2024 15:02:40 +0200 (CEST)
+	id 97414F801F5; Tue, 10 Sep 2024 15:05:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9089DF80027
-	for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2024 15:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9089DF80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id CD328F800E9
+	for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2024 15:05:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD328F800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Bjjtiw1G
+ header.s=Intel header.b=BZzh9oqT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725973359; x=1757509359;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=nOKLnXy/12xJXPE117m27o4YsYnM7APsdPBMXFqYyfc=;
-  b=Bjjtiw1GS+1SC4MrjAh4zE1xBDdCybGsmMVusR3d/SaXKKxcRA50OBGk
-   piKR+1nnknvH9NuDkKjUQe+ZZqEl5vLKHIs9YOz0vVYvXNU9Ph1XjpibO
-   p5FBf05kOrOn6o2iSuDFe3gy0rgA9B8r9X3Sv6dTlVcHsRiRd19CW4WUa
-   AgE/n/PIAwI6iNbO6cxKi5FyU0+ZGdbD7VJE4XX/IA8k7W2yTUOq/ptq2
-   cG9ArsArxnw+hz7KQb3K//cYlSCHiK9jxurR0HpISsB1lTKbi/nsehE6p
-   3iM4EbNyIRKFu2zbnZdoKJYsHqZobCeAn+OjaGvwaLtqfbepPhDy4Eloy
+  t=1725973521; x=1757509521;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=e5dl7rhTvT8U88gO91GvPckWYrls1EUDpHm65XSFRHE=;
+  b=BZzh9oqTU/Zf2+tXUDhQck0nCFXxs4K4DeWoHaTvCvWpTB//itg11O/1
+   Wn31E2vGGkn7ppwt83noC8wIEdP71Xju1HB2WfDSgE4UALcfSsorM0IAf
+   /J8uY9Hu8VwMH0aWzhpFn0PAkdT+rg2RtzG1VwGFcPMbR7Hs2kXdYuMKB
+   rtrGrbi3jDmqrwQyRKIdGYCYKTGWEih5NUu4bg8/OKoc4tOxCb5qOcMME
+   w/WqEA8VM/ianeZWIYvdIEafgATB1TA6W0i2TBIEvEPQ1v8vlZWOwH26S
+   b+663MUZoTJsbzTnB+IPryI7NNacvS8BQU05V3aPJPNlCDgQHU2/JrI5C
    A==;
-X-CSE-ConnectionGUID: uwLnVsQ5QPSZTfBrFixR1A==
-X-CSE-MsgGUID: UYszfDgjT0+yUlN5Pc/53A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11191"; a="24875800"
+X-CSE-ConnectionGUID: JZAZj8WLQcCUAx1o2gh78A==
+X-CSE-MsgGUID: afKCgUsWTx2TZzJtJQKk5Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11191"; a="42191320"
 X-IronPort-AV: E=Sophos;i="6.10,217,1719903600";
-   d="scan'208";a="24875800"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2024 06:02:34 -0700
-X-CSE-ConnectionGUID: p6uZ63ssRYC6RLYXfUtKeA==
-X-CSE-MsgGUID: TCV1IGEEQ7KFYH0evY94gA==
+   d="scan'208";a="42191320"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2024 06:05:16 -0700
+X-CSE-ConnectionGUID: Xd9L7Gp2RNCKe72KRzKOpA==
+X-CSE-MsgGUID: 5TgIvzSPQWua0RSpn/N0xA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.10,217,1719903600";
-   d="scan'208";a="67070218"
+   d="scan'208";a="67547864"
 Received: from maurocar-mobl2.ger.corp.intel.com (HELO [10.245.245.155])
  ([10.245.245.155])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2024 06:02:32 -0700
-Message-ID: <febaa630-7bf4-4bb8-8bcf-a185f1b2ed65@linux.intel.com>
-Date: Tue, 10 Sep 2024 16:02:29 +0300
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Sep 2024 06:05:13 -0700
+Message-ID: <568137f5-4e4f-4df7-8054-011977077098@linux.intel.com>
+Date: Tue, 10 Sep 2024 16:05:20 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH stable-6.10 regression] Revert "soundwire: stream: fix
+Subject: Re: [PATCH RESEND] soundwire: stream: Revert "soundwire: stream: fix
  programming slave ports for non-continous port maps"
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>, stable@vger.kernel.org
+References: <20240909164746.136629-1-krzysztof.kozlowski@linaro.org>
 From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-To: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, krzysztof.kozlowski@linaro.org
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, gregkh@linuxfoundation.org
-References: <20240910124009.10183-1-peter.ujfalusi@linux.intel.com>
 Content-Language: en-US
-In-Reply-To: <20240910124009.10183-1-peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20240909164746.136629-1-krzysztof.kozlowski@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MUXPNXXT5JGTUDPA4X5INAEOJYW6V5JY
-X-Message-ID-Hash: MUXPNXXT5JGTUDPA4X5INAEOJYW6V5JY
+Message-ID-Hash: DXZLX5NRM3WIP3L6OST7LSDOIMWXUROD
+X-Message-ID-Hash: DXZLX5NRM3WIP3L6OST7LSDOIMWXUROD
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MUXPNXXT5JGTUDPA4X5INAEOJYW6V5JY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DXZLX5NRM3WIP3L6OST7LSDOIMWXUROD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,51 +114,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
 
-On 10/09/2024 15:40, Peter Ujfalusi wrote:
-> The prop->src_dpn_prop and prop.sink_dpn_prop is allocated for the _number_
-> of ports and it is forced as 0 index based.
-> 
-> The original code was correct while the change to walk the bits and use
-> their position as index into the arrays is not correct.
-> 
-> For exmple we can have the prop.source_ports=0x2, which means we have one
-> port, but the prop.src_dpn_prop[1] is accessing outside of the allocated
-> memory.
-> 
-> This reverts commit 6fa78e9c41471fe43052cd6feba6eae1b0277ae3.
 
-I just noticed that Krzysztof already sent the revert patch but it is
-not picked up for stable-6.10.y
+On 09/09/2024 19:47, Krzysztof Kozlowski wrote:
+> This reverts commit ab8d66d132bc8f1992d3eb6cab8d32dda6733c84 because it
+> breaks codecs using non-continuous masks in source and sink ports.  The
+> commit missed the point that port numbers are not used as indices for
+> iterating over prop.sink_ports or prop.source_ports.
+> 
+> Soundwire core and existing codecs expect that the array passed as
+> prop.sink_ports and prop.source_ports is continuous.  The port mask still
+> might be non-continuous, but that's unrelated.
+> 
+> Reported-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Closes: https://lore.kernel.org/all/b6c75eee-761d-44c8-8413-2a5b34ee2f98@linux.intel.com/
+> Fixes: ab8d66d132bc ("soundwire: stream: fix programming slave ports for non-continous port maps")
+> Acked-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-https://lore.kernel.org/lkml/20240909164746.136629-1-krzysztof.kozlowski@linaro.org/
+Tested-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
 > 
-> Cc: stable@vger.kernel.org # 6.10.y
-> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 > ---
-> Hi,
 > 
-> The reverted patch causes major regression on soundwire causing all audio
-> to fail.
-> Interestingly the patch is only in 6.10.8 and 6.10.9, not in mainline or linux-next.
-> 
-> soundwire sdw-master-0-1: Program transport params failed: -22
-> soundwire sdw-master-0-1: Program params failed: -22
-> SDW1-Playback: ASoC: error at snd_soc_link_prepare on SDW1-Playback: -22
-> 
-> Regards,
-> Peter 
-> 
+> Resending with Ack/Rb tags and missing Cc-stable.
+> ---
 >  drivers/soundwire/stream.c | 8 ++++----
 >  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
 > diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index 00191b1d2260..4e9e7d2a942d 100644
+> index f275143d7b18..7aa4900dcf31 100644
 > --- a/drivers/soundwire/stream.c
 > +++ b/drivers/soundwire/stream.c
-> @@ -1286,18 +1286,18 @@ struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
+> @@ -1291,18 +1291,18 @@ struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
 >  					    unsigned int port_num)
 >  {
 >  	struct sdw_dpn_prop *dpn_prop;

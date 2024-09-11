@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 761A89757DF
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Sep 2024 18:03:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD4F97595F
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Sep 2024 19:28:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F74FB70;
-	Wed, 11 Sep 2024 18:03:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F74FB70
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6205F828;
+	Wed, 11 Sep 2024 19:28:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6205F828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726070616;
-	bh=CkGJc0b0X6zqDALs7FLOySvP17G4aTD64zilKSbV7LI=;
+	s=default; t=1726075711;
+	bh=O4UKe6XumuijGy0HK00KGL/iMsCdMCkQHmtMALUoTHQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AKkyarssjH636d+8eDQC/eTHOBhpVTEW4bbBuNrQqLrFlWBcy6+6/r63CpkwAElrz
-	 6E86Y13D+7CUphQQw8DV9oDSvtQim5tLOJ/LgFCgEfmCqkFXtDeXtPzsKUnBoLKCrj
-	 riEDwpC24ON9GYxA+D6FREwU5SZsUYAz6cb64AU0=
+	b=jaqRnHHZKjcMYaBw7B+E9Rnrja/Nhnzz7WCh7I2eaQz4hRLlVdwqbTHoeusKy/KGf
+	 wfZDd5fOVcDaBpoLF8m9WyYmi22AR7gRaBCjru4p7zZOUslkyT2VMKM/jPN8qmchfI
+	 2l+lVab9pq/6zjNUL5iF0cxyZfNi4wVGAPSVS68A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 219E0F805D9; Wed, 11 Sep 2024 18:02:55 +0200 (CEST)
+	id 66DC9F805AE; Wed, 11 Sep 2024 19:28:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B509F805D9;
-	Wed, 11 Sep 2024 18:02:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 934D6F805AA;
+	Wed, 11 Sep 2024 19:28:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37E65F801F5; Wed, 11 Sep 2024 18:02:50 +0200 (CEST)
+	id 0720BF801F5; Wed, 11 Sep 2024 19:27:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,52 +33,53 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 69D20F80107
-	for <alsa-devel@alsa-project.org>; Wed, 11 Sep 2024 18:02:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69D20F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id B44F0F8010B
+	for <alsa-devel@alsa-project.org>; Wed, 11 Sep 2024 19:27:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B44F0F8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=josjBkr5
+ header.s=k20201202 header.b=o3DiFh9u
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 5BD035C0756;
-	Wed, 11 Sep 2024 16:02:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08369C4CEC0;
-	Wed, 11 Sep 2024 16:02:43 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 3BEFCA44EF3;
+	Wed, 11 Sep 2024 17:27:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C8AC4CEC0;
+	Wed, 11 Sep 2024 17:27:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726070566;
-	bh=CkGJc0b0X6zqDALs7FLOySvP17G4aTD64zilKSbV7LI=;
+	s=k20201202; t=1726075670;
+	bh=O4UKe6XumuijGy0HK00KGL/iMsCdMCkQHmtMALUoTHQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=josjBkr5qnkyctiBzWFJaMcf9muNS9pRLhpzWMG4VBmqrB7AQ+cGx5JpGZOtJIzSV
-	 4E4wslQ6Jwd/3yCyoU4AyR1eNbb6wHFdd1Ws+JscdMWZqcbBftOzixHKUejCuA6XYD
-	 wQTv6OCKPMc0ZpVm9JVCmqJ3/x+ahCu/MRTv1m2syTPSZbrzdeIQX/76m+QoiqYIVI
-	 pxb46e7Inc2bUkY4dP+oJBU2wn6ozLGM1CzXcg3ZkrFjncYJ9XxjEY5N96iVDvtpqr
-	 oo8Y63OnITgN0BZQFpiQxbBxYxM2pgjy0+bEUiaXFfHCbRTfPqK0nDc1m2UlpOsc/i
-	 W4yeGGm2k4ZYg==
+	b=o3DiFh9urvSHpnRKQGRLzHjbD4JimIJi8AjKMdYtO+6Djt8sIVcw4pvCX/UsiGRxY
+	 dL8S89MNs1XwtqbMNxqjNs2FDS3fd4hDzQJJX8RV/x7BNgK98o8vFbT2zDtmciuWCp
+	 dZzn8+1R40vdwfzyzVjUuG2F6T4R+zduGfE4bdEXP8YCT/FAJGwSny/4836qWqn6xU
+	 uZBDCQXf5EbBkNnVxADqtnK0Vr7GlwAAioMNCgunl2E6BvUSBF56t+PHEj6DU9qJLp
+	 PO+9naUed9L8oA5ITltkU0QlWi055HnZLVxi6NLJz1/y1nEEtFpFeZP/fVAxDWAtF0
+	 5bneWz7hkHXFw==
 From: Mark Brown <broonie@kernel.org>
-To: herve.codina@bootlin.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, nathan@kernel.org, ndesaulniers@google.com,
- morbo@google.com, justinstitt@google.com, Su Hui <suhui@nfschina.com>
+To: claudiu.beznea@tuxon.dev, lgirdwood@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, nicolas.ferre@microchip.com,
+ codrin.ciubotariu@microchip.com,
+ Andrei Simion <andrei.simion@microchip.com>
 Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- kernel-janitors@vger.kernel.org
-In-Reply-To: <20240911115448.277828-1-suhui@nfschina.com>
-References: <20240911115448.277828-1-suhui@nfschina.com>
-Subject: Re: [PATCH] ASoC: codecs: avoid possible garbage value in
- peb2466_reg_read()
-Message-Id: <172607056375.105227.14107234534010047644.b4-ty@kernel.org>
-Date: Wed, 11 Sep 2024 17:02:43 +0100
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20240910082202.45972-1-andrei.simion@microchip.com>
+References: <20240910082202.45972-1-andrei.simion@microchip.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: microchip,sama7g5-spdifrx: Add
+ common DAI reference
+Message-Id: <172607566773.120511.17439915869917323050.b4-ty@kernel.org>
+Date: Wed, 11 Sep 2024 18:27:47 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-99b12
-Message-ID-Hash: WERB6OWRGRDOZKBYBYPFYR4QI7AAJD5X
-X-Message-ID-Hash: WERB6OWRGRDOZKBYBYPFYR4QI7AAJD5X
+Message-ID-Hash: MLOJ5DKIK3BGRRZVOPVSTRF7CIF542YD
+X-Message-ID-Hash: MLOJ5DKIK3BGRRZVOPVSTRF7CIF542YD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WERB6OWRGRDOZKBYBYPFYR4QI7AAJD5X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MLOJ5DKIK3BGRRZVOPVSTRF7CIF542YD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,17 +101,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 11 Sep 2024 19:54:50 +0800, Su Hui wrote:
-> Clang static checker (scan-build) warning:
-> sound/soc/codecs/peb2466.c:232:8:
-> Assigned value is garbage or undefined [core.uninitialized.Assign]
->   232 |                 *val = tmp;
->       |                      ^ ~~~
+On Tue, 10 Sep 2024 11:22:03 +0300, Andrei Simion wrote:
+> Update the spdifrx yaml file to reference the dai-common.yaml schema,
+> enabling the use of the 'sound-name-prefix' property
 > 
-> When peb2466_read_byte() fails, 'tmp' will have a garbage value.
-> Add a judgemnet to avoid this problem.
 > 
-> [...]
 
 Applied to
 
@@ -118,8 +113,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: avoid possible garbage value in peb2466_reg_read()
-      commit: 38cc0334baabc5baf08a1db753de521e016c0432
+[1/1] ASoC: dt-bindings: microchip,sama7g5-spdifrx: Add common DAI reference
+      commit: 448aa89af07b83be84a58155c60001743342fca0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

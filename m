@@ -2,108 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AB93977E53
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 13:15:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79CC4977E57
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 13:16:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 631D0162C;
-	Fri, 13 Sep 2024 13:15:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 631D0162C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD60516B7;
+	Fri, 13 Sep 2024 13:15:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD60516B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726226132;
-	bh=PiygWBMWWgmiBJlhMmEQ0JypGcuuZJZ1K9IpKWur6s8=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tnh260RcXevPvN09Y8J7Jj/U6mvj8B0o+xUv8RZydXLQ7wPW66phfiMsfoBlFH3gM
-	 yDqiK8uyk1Mc5lTnBTxmrbrydaLR9TE4sKpQNezBSyuk5LHo9IqMnalrEz+4VNx9Lp
-	 FSL+8aqNTmredDRkdgbgeBC+IqZ/rpKAW11vaUo0=
+	s=default; t=1726226168;
+	bh=mhxuXK5oDGsGAu3XHYbYrKUrBOU8HZeBBb4negYcy78=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=EhEjsGpi4MeaXLwtWN+ds3fglTFjSmGz0QhVPenU/mn+Mi50LfdL8vk07uRHCpFhY
+	 qtLUC+3B/rHexWHxCsgovsz2Aq4b6eDd13bh7/coczEV5m2sWYMz4wDmY8ICAyoi/o
+	 q91qhryDN/SpVBX+bUYaL40TN5E51BsfRYv2+pVU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51E2AF80631; Fri, 13 Sep 2024 13:12:55 +0200 (CEST)
+	id 6DE50F80651; Fri, 13 Sep 2024 13:13:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E45A2F8062F;
-	Fri, 13 Sep 2024 13:12:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 811A2F80814;
+	Fri, 13 Sep 2024 13:13:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DFC2F801F5; Wed, 11 Sep 2024 14:30:04 +0200 (CEST)
+	id 9800AF801F5; Wed, 11 Sep 2024 16:37:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.sberdevices.ru (mx1.sberdevices.ru [37.18.73.165])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5282F80107
-	for <alsa-devel@alsa-project.org>; Wed, 11 Sep 2024 14:30:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5282F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91160F80107
+	for <alsa-devel@alsa-project.org>; Wed, 11 Sep 2024 16:37:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91160F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=xqtxpnb7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1726057803; x=1757593803;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=PiygWBMWWgmiBJlhMmEQ0JypGcuuZJZ1K9IpKWur6s8=;
-  b=xqtxpnb7k4yNICQLyb0HBUpqE38bIzlGC226uPNaUA7/tId0dr5pGD9o
-   SZyX/k1+UNECZzy7kmnSOjAu/7/BBAwhyzwYphFIU2pH8PrNnyQTPdcI4
-   vVu2tIaSOCfcrlxDymq3NypuZwTsCuf3wFpNEQMqYxtRRgb1bGGMQ1nor
-   3yOt7N4D5J2xO9YnSIRDu0eTk19mDqpp1g5d7rT36JD0TpCPW6GRlXJEj
-   R+t/dWsi2FTD1EOtq5BJtpEH5dYDucjgR7gBxkvDFN6YOsCYYfXps1VhQ
-   TAjAT+UyV+tY7OyBp/OiHL03WK1xuwmeT4ziwKK6xNqU3f1ooDHgol7SB
-   A==;
-X-CSE-ConnectionGUID: 9vUpuscIQ26YBlU3BRadaQ==
-X-CSE-MsgGUID: rcOEGGVATUaFBm20lYIsUg==
-X-IronPort-AV: E=Sophos;i="6.10,219,1719903600";
-   d="scan'208";a="32269432"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 11 Sep 2024 05:29:58 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Wed, 11 Sep 2024 05:29:23 -0700
-Received: from ROB-ULT-M76677.microchip.com (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.35 via Frontend Transport; Wed, 11 Sep 2024 05:29:20 -0700
-From: Andrei Simion <andrei.simion@microchip.com>
-To: <claudiu.beznea@tuxon.dev>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
-	<perex@perex.cz>, <tiwai@suse.com>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, Andrei Simion
-	<andrei.simion@microchip.com>
-Subject: [PATCH 3/3] ASoC: atmel: mchp-pdmc: Retain Non-Runtime Controls
-Date: Wed, 11 Sep 2024 15:29:09 +0300
-Message-ID: <20240911122909.133399-4-andrei.simion@microchip.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240911122909.133399-1-andrei.simion@microchip.com>
-References: <20240911122909.133399-1-andrei.simion@microchip.com>
+ unprotected) header.d=salutedevices.com header.i=@salutedevices.com
+ header.a=rsa-sha256 header.s=mail header.b=UOOIYef9
+Received: from p-infra-ksmg-sc-msk01.sberdevices.ru (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 413E210000A;
+	Wed, 11 Sep 2024 17:37:45 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 413E210000A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=mail; t=1726065465;
+	bh=0dnO4ujw+BJRKMFo8HSTMVWw4DKX/FH3odzibY6SRUU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
+	b=UOOIYef9Ea7pItfRX8SY/YX5hW0eCKocGsAguBcE7UTwsGMvb+SoGYpjqDHF0Dr6N
+	 5N7Nqp+L6i+9mQLE/uX/IdK3KxT5EKOKnO38X/wcmD2jgseFDiAFXBElasgNay6tPJ
+	 wSVC4+nZPAfHIXHB+m1Q3BmJsky6X7MsIRn0gU/YD26PtPZGkST8HraejoFmB7t13J
+	 HicSEiitim/pGuWwJYZzigS+bHN1rgE5w80V8h2n9wwCebtRtj7de0nKjxOVKZJqkC
+	 ERGITL2vfK8PIS2QzstmxquMzTS9zYcJz175h6Sddn4gOudrFVY0ymfHkdIJGfNFms
+	 Sai1VkOk3MwBA==
+Received: from smtp.sberdevices.ru (p-i-exch-sc-m02.sberdevices.ru
+ [172.16.192.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.sberdevices.ru (Postfix) with ESMTPS;
+	Wed, 11 Sep 2024 17:37:45 +0300 (MSK)
+From: Arseniy Krasnov <avkrasnov@salutedevices.com>
+To: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>, "Kevin
+ Hilman" <khilman@baylibre.com>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, <alsa-devel@alsa-project.org>,
+	<linux-sound@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <kernel@sberdevices.ru>, <oxffffaa@gmail.com>,
+	<avkrasnov@salutedevices.com>, <Stable@vger.kernel.org>
+Subject: [PATCH v1] ASoC: meson: axg-card: fix 'use-after-free'
+Date: Wed, 11 Sep 2024 17:24:25 +0300
+Message-ID: <20240911142425.598631-1-avkrasnov@salutedevices.com>
+X-Mailer: git-send-email 2.35.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-MailFrom: prvs=977ab1c01=Andrei.Simion@microchip.com
+X-Originating-IP: [172.28.161.232]
+X-ClientProxiedBy: p-i-exch-a-m1.sberdevices.ru (172.24.196.116) To
+ p-i-exch-a-m1.sberdevices.ru (172.24.196.116)
+X-KSMG-Rule-ID: 10
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 187687 [Sep 11 2024]
+X-KSMG-AntiSpam-Version: 6.1.1.5
+X-KSMG-AntiSpam-Envelope-From: avkrasnov@salutedevices.com
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 32 0.3.32
+ 766319f57b3d5e49f2c79a76e7d7087b621090df,
+ {Tracking_from_domain_doesnt_match_to},
+ salutedevices.com:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;smtp.sberdevices.ru:5.0.1,7.1.1,
+ FromAlignment: s
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/09/11 13:00:00 #26553614
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-MailFrom: avkrasnov@salutedevices.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: IOL73OV2VZAJGB3BVRITL2MRUTFSJYAG
-X-Message-ID-Hash: IOL73OV2VZAJGB3BVRITL2MRUTFSJYAG
-X-Mailman-Approved-At: Fri, 13 Sep 2024 11:12:47 +0000
+Message-ID-Hash: X3VGSD3BUPVWJFSD7M3HYJ4QOMDD4PL7
+X-Message-ID-Hash: X3VGSD3BUPVWJFSD7M3HYJ4QOMDD4PL7
+X-Mailman-Approved-At: Fri, 13 Sep 2024 11:12:48 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IOL73OV2VZAJGB3BVRITL2MRUTFSJYAG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X3VGSD3BUPVWJFSD7M3HYJ4QOMDD4PL7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,178 +126,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Buffer 'card->dai_link' is reallocated in 'meson_card_reallocate_links()',
+so move 'pad' pointer initialization after this function when memory is
+already reallocated.
 
-Avoid removing these controls, as doing so can cause issues if the stream
-is initiated from another control. Ensure these controls remain intact when
-the stream is started or finished. Instead of removing them, return an
--EBUSY error code to indicate that the controller is busy, especially when
-the audio filter and the SINC filter are in use.
+Kasan bug report:
 
-[andrei.simion@microchip.com: Reword the commit title and the commit
-message. Adapt the code from kernel v6.1 -> v6.6 -> latest kernel version.]
+==================================================================
+BUG: KASAN: slab-use-after-free in axg_card_add_link+0x76c/0x9bc
+Read of size 8 at addr ffff000000e8b260 by task modprobe/356
 
-Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Signed-off-by: Andrei Simion <andrei.simion@microchip.com>
+CPU: 0 PID: 356 Comm: modprobe Tainted: G O 6.9.12-sdkernel #1
+Call trace:
+ dump_backtrace+0x94/0xec
+ show_stack+0x18/0x24
+ dump_stack_lvl+0x78/0x90
+ print_report+0xfc/0x5c0
+ kasan_report+0xb8/0xfc
+ __asan_load8+0x9c/0xb8
+ axg_card_add_link+0x76c/0x9bc [snd_soc_meson_axg_sound_card]
+ meson_card_probe+0x344/0x3b8 [snd_soc_meson_card_utils]
+ platform_probe+0x8c/0xf4
+ really_probe+0x110/0x39c
+ __driver_probe_device+0xb8/0x18c
+ driver_probe_device+0x108/0x1d8
+ __driver_attach+0xd0/0x25c
+ bus_for_each_dev+0xe0/0x154
+ driver_attach+0x34/0x44
+ bus_add_driver+0x134/0x294
+ driver_register+0xa8/0x1e8
+ __platform_driver_register+0x44/0x54
+ axg_card_pdrv_init+0x20/0x1000 [snd_soc_meson_axg_sound_card]
+ do_one_initcall+0xdc/0x25c
+ do_init_module+0x10c/0x334
+ load_module+0x24c4/0x26cc
+ init_module_from_file+0xd4/0x128
+ __arm64_sys_finit_module+0x1f4/0x41c
+ invoke_syscall+0x60/0x188
+ el0_svc_common.constprop.0+0x78/0x13c
+ do_el0_svc+0x30/0x40
+ el0_svc+0x38/0x78
+ el0t_64_sync_handler+0x100/0x12c
+ el0t_64_sync+0x190/0x194
+
+Fixes: 7864a79f37b5 ("ASoC: meson: add axg sound card support")
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Arseniy Krasnov <avkrasnov@salutedevices.com>
 ---
- sound/soc/atmel/mchp-pdmc.c | 78 ++++++++++++++++---------------------
- 1 file changed, 34 insertions(+), 44 deletions(-)
+ sound/soc/meson/axg-card.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
-index d97d153ee375..758b3c550b97 100644
---- a/sound/soc/atmel/mchp-pdmc.c
-+++ b/sound/soc/atmel/mchp-pdmc.c
-@@ -14,6 +14,7 @@
- #include <linux/of.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-+#include <linux/spinlock.h>
- 
- #include <sound/core.h>
- #include <sound/dmaengine_pcm.h>
-@@ -113,6 +114,7 @@ struct mchp_pdmc_chmap {
- 
- struct mchp_pdmc {
- 	struct mic_map channel_mic_map[MCHP_PDMC_MAX_CHANNELS];
-+	spinlock_t busy_lock;		/* lock protecting busy */
- 	struct device *dev;
- 	struct snd_dmaengine_dai_dma_data addr;
- 	struct regmap *regmap;
-@@ -124,6 +126,7 @@ struct mchp_pdmc {
- 	int mic_no;
- 	int sinc_order;
- 	bool audio_filter_en;
-+	u8 busy:1;
- };
- 
- static const char *const mchp_pdmc_sinc_filter_order_text[] = {
-@@ -167,10 +170,19 @@ static int mchp_pdmc_sinc_order_put(struct snd_kcontrol *kcontrol,
- 		return -EINVAL;
- 
- 	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
--	if (val == dd->sinc_order)
-+
-+	spin_lock(&dd->busy_lock);
-+	if (dd->busy) {
-+		spin_unlock((&dd->busy_lock));
-+		return -EBUSY;
-+	}
-+	if (val == dd->sinc_order) {
-+		spin_unlock((&dd->busy_lock));
- 		return 0;
-+	}
- 
- 	dd->sinc_order = val;
-+	spin_unlock((&dd->busy_lock));
- 
- 	return 1;
- }
-@@ -193,10 +205,18 @@ static int mchp_pdmc_af_put(struct snd_kcontrol *kcontrol,
- 	struct mchp_pdmc *dd = snd_soc_component_get_drvdata(component);
- 	bool af = uvalue->value.integer.value[0] ? true : false;
- 
--	if (dd->audio_filter_en == af)
-+	spin_lock(&dd->busy_lock);
-+	if (dd->busy) {
-+		spin_unlock((&dd->busy_lock));
-+		return -EBUSY;
-+	}
-+	if (dd->audio_filter_en == af) {
-+		spin_unlock((&dd->busy_lock));
- 		return 0;
-+	}
- 
- 	dd->audio_filter_en = af;
-+	spin_unlock((&dd->busy_lock));
- 
- 	return 1;
- }
-@@ -379,52 +399,10 @@ static const struct snd_kcontrol_new mchp_pdmc_snd_controls[] = {
- 	},
- };
- 
--static int mchp_pdmc_close(struct snd_soc_component *component,
--			   struct snd_pcm_substream *substream)
--{
--	return snd_soc_add_component_controls(component, mchp_pdmc_snd_controls,
--					      ARRAY_SIZE(mchp_pdmc_snd_controls));
--}
--
--static int mchp_pdmc_open(struct snd_soc_component *component,
--			  struct snd_pcm_substream *substream)
--{
--	int i;
--
--	/* remove controls that can't be changed at runtime */
--	for (i = 0; i < ARRAY_SIZE(mchp_pdmc_snd_controls); i++) {
--		const struct snd_kcontrol_new *control = &mchp_pdmc_snd_controls[i];
--		struct snd_ctl_elem_id id;
--		int err;
--
--		if (component->name_prefix)
--			snprintf(id.name, sizeof(id.name), "%s %s", component->name_prefix,
--				 control->name);
--		else
--			strscpy(id.name, control->name, sizeof(id.name));
--
--		id.numid = 0;
--		id.iface = control->iface;
--		id.device = control->device;
--		id.subdevice = control->subdevice;
--		id.index = control->index;
--		err = snd_ctl_remove_id(component->card->snd_card, &id);
--		if (err < 0)
--			dev_err(component->dev, "%d: Failed to remove %s\n", err,
--				control->name);
--	}
--
--	return 0;
--}
--
- static const struct snd_soc_component_driver mchp_pdmc_dai_component = {
- 	.name = "mchp-pdmc",
- 	.controls = mchp_pdmc_snd_controls,
- 	.num_controls = ARRAY_SIZE(mchp_pdmc_snd_controls),
--	.open = &mchp_pdmc_open,
--	.close = &mchp_pdmc_close,
--	.legacy_dai_naming = 1,
--	.trigger_start = SND_SOC_TRIGGER_ORDER_LDC,
- };
- 
- static const unsigned int mchp_pdmc_1mic[] = {1};
-@@ -587,6 +565,13 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
- 			cfgr_val |= MCHP_PDMC_CFGR_BSSEL(i);
- 	}
- 
-+	/*
-+	 * from these point forward, we consider the controller busy, so the
-+	 * audio filter and SINC order can't be changed
-+	 */
-+	spin_lock(&dd->busy_lock);
-+	dd->busy = 1;
-+	spin_unlock((&dd->busy_lock));
- 	for (osr_start = dd->audio_filter_en ? 64 : 8;
- 	     osr_start <= 256 && best_diff_rate; osr_start *= 2) {
- 		long round_rate;
-@@ -1099,6 +1084,7 @@ static int mchp_pdmc_probe(struct platform_device *pdev)
- 	 */
- 	dd->audio_filter_en = true;
- 	dd->sinc_order = 3;
-+	spin_lock_init(&dd->busy_lock);
- 
- 	dd->addr.addr = (dma_addr_t)res->start + MCHP_PDMC_RHR;
- 	platform_set_drvdata(pdev, dd);
-@@ -1143,6 +1129,10 @@ static void mchp_pdmc_remove(struct platform_device *pdev)
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index 8c5605c1e34e8..eb0302f207407 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -104,7 +104,7 @@ static int axg_card_add_tdm_loopback(struct snd_soc_card *card,
+ 				     int *index)
  {
- 	struct mchp_pdmc *dd = platform_get_drvdata(pdev);
+ 	struct meson_card *priv = snd_soc_card_get_drvdata(card);
+-	struct snd_soc_dai_link *pad = &card->dai_link[*index];
++	struct snd_soc_dai_link *pad;
+ 	struct snd_soc_dai_link *lb;
+ 	struct snd_soc_dai_link_component *dlc;
+ 	int ret;
+@@ -114,6 +114,7 @@ static int axg_card_add_tdm_loopback(struct snd_soc_card *card,
+ 	if (ret)
+ 		return ret;
  
-+	spin_lock(&dd->busy_lock);
-+	dd->busy = 0;
-+	spin_unlock((&dd->busy_lock));
-+
- 	if (!pm_runtime_status_suspended(dd->dev))
- 		mchp_pdmc_runtime_suspend(dd->dev);
++	pad = &card->dai_link[*index];
+ 	lb = &card->dai_link[*index + 1];
  
+ 	lb->name = devm_kasprintf(card->dev, GFP_KERNEL, "%s-lb", pad->name);
 -- 
-2.34.1
+2.30.1
 

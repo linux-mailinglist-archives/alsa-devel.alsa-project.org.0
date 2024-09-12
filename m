@@ -2,85 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCCBE976625
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2024 11:57:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79ABA9767A7
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2024 13:23:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51C8D86E;
-	Thu, 12 Sep 2024 11:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51C8D86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C4AA1E8;
+	Thu, 12 Sep 2024 13:23:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C4AA1E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726135027;
-	bh=/TleOWHZP4whem8IIAIpC+gQ6k0D0xz6bxVum5AFqms=;
+	s=default; t=1726140231;
+	bh=wi4eh6Bhf9065g9IPgV5aYCLO5OYDMz5Y4IF0FbnzQM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fS6n75X32XkoTBZyKludtPP99TEE1u6/p9t7OMTLpd99FCMKMWS0s+H8bXlOyjvQK
-	 r5Z0cVRhgAqzqnrGXMl9sfJFRf/QA31Hoa4/9P6Fk2okVyftH/tJHmjOu8k5VcD6B4
-	 3tth5KWkUKsDS6FG4H178zpgxWpKux2rvVIaSSJE=
+	b=PlpticvDmKEBYNQDnK7F6BtDvNJm5P72xrXBJHjMw6fwQL+PrQLhsno9+bgCJthKR
+	 U9eQefqt0Ey10PtY3ppZHjmtE7LOTOrRSw7RA5tneAhTvPYpSNDdkNUdBMbe5KzBA7
+	 sXBIVD5adiUKPzcAgaNWyoV/SmeuGDYE8r+Z8WGY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10FB1F805B3; Thu, 12 Sep 2024 11:56:36 +0200 (CEST)
+	id 094D1F805AD; Thu, 12 Sep 2024 13:23:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42641F801F5;
-	Thu, 12 Sep 2024 11:56:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 233AEF80107;
+	Thu, 12 Sep 2024 13:23:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A66A6F801F5; Thu, 12 Sep 2024 11:56:30 +0200 (CEST)
+	id 86D60F801F5; Thu, 12 Sep 2024 13:23:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4C756F80107
-	for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2024 11:56:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C756F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4D30F80074
+	for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2024 13:23:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4D30F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=infradead.org header.i=@infradead.org
- header.a=rsa-sha256 header.s=bombadil.20210309 header.b=fHMCmL+p
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Transfer-Encoding
-	:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=Af3UiaSTtvVMACXrK0RDN/VWI8LBjfOwA+0RWsQXywA=; b=fHMCmL+pKkST2F0FEKk/v7OOnu
-	Bm48g9MMpH1gSWUkkXNGRh5k3O+rIGF2s8OAE2hKBo0g8airQVuEy61YSkhOuZuQyvgFYNsDHMYGv
-	2p0hR4owi+Z2Qif4yYLar44mrEkdEVxExkPJAd/C9f37trPokE8zd1QPQ8udfLjkUEwLLxAqvP2rl
-	/Qde/eks7Q581sLcIVgyMvx2sjeLbAdoAqAsz6I5zzkyYzIk2hDd6tqE4uoHsj7Ak6Q3OZ2PYMOB0
-	DL9zBeN+bv1kYjMtr7LaESfVxQSOp+nnDXOR0br8XurQdFgVuvEvbrDlJ43y7DqLwDQvhF6ccwziq
-	UoMLHNPA==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux))
-	id 1sogYn-0000000Cc97-3iuE;
-	Thu, 12 Sep 2024 09:56:21 +0000
-Date: Thu, 12 Sep 2024 02:56:21 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Takashi Iwai <tiwai@suse.de>, Ariadne Conill <ariadne@ariadne.space>,
-	xen-devel@lists.xenproject.org, alsa-devel@alsa-project.org,
-	stable@vger.kernel.org, Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH] Revert "ALSA: memalloc: Workaround for Xen PV"
-Message-ID: <ZuK6xcmAE4sngFqk@infradead.org>
-References: <20240906184209.25423-1-ariadne@ariadne.space>
- <877cbnewib.wl-tiwai@suse.de>
- <9eda21ac-2ce7-47d5-be49-65b941e76340@citrix.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=LYypDVPT
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 0FD22A45253;
+	Thu, 12 Sep 2024 11:23:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED17C4CEC3;
+	Thu, 12 Sep 2024 11:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1726140190;
+	bh=wi4eh6Bhf9065g9IPgV5aYCLO5OYDMz5Y4IF0FbnzQM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LYypDVPT/2O7zA+CCnkJJI/4Q7dXlEtC2dhiM+Rt92Ia/bpG9WzM9uZNT5tvAGl0g
+	 zq8dhAIlzsM1ewm8TpYnGXK6uZ8kUC3baxoy/Tou8ZTlcFdeLqwYSxrqf964KMOhJJ
+	 LhFmZcfrTglZfOJY1522QVD6F9zNsynbB9BgBxf9o/+HmGdpQjOMaACLLli//2IVdO
+	 1K7kfjz5ArCKl1tflR6Xn1WCqOXx+WpjMEK4Kq7fMK3P0SRSjU7J5bqywXR/WaptEr
+	 torRixbRVxncJa7DlZVz/SBpkXoLg4ma7GoEMM8paT0J7IxFnH2A1XesgYLHuWPADc
+	 Cmq4cbc5xxuKg==
+Date: Thu, 12 Sep 2024 12:23:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ki-Seok Jo <kiseok.jo@irondevice.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Application <application@irondevice.com>
+Subject: Re: [PATCH v2 1/3] ASoC: sma1307: Add driver for Iron Device SMA1307
+Message-ID: <9c672897-3470-4994-8f22-3e1911ef3c36@sirena.org.uk>
+References: <20240903054435.2659-1-kiseok.jo@irondevice.com>
+ <20240903054435.2659-2-kiseok.jo@irondevice.com>
+ <51e05109-049f-4efa-b923-60943fe82777@sirena.org.uk>
+ <SL2P216MB23371B88485C16DF14A274058C642@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wUoJipqS0jGmv+Ga"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9eda21ac-2ce7-47d5-be49-65b941e76340@citrix.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Message-ID-Hash: CMAOVHHT36XO7YZYMPJJITIW3IW2KMF7
-X-Message-ID-Hash: CMAOVHHT36XO7YZYMPJJITIW3IW2KMF7
-X-MailFrom: 
- BATV+78b913441a3cb29668e4+7690+infradead.org+hch@bombadil.srs.infradead.org
+In-Reply-To: 
+ <SL2P216MB23371B88485C16DF14A274058C642@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+X-Cookie: Happiness is the greatest good.
+Message-ID-Hash: Z5T2GOUJUF6LLWUKW3OVB6CZ4A2ALDDK
+X-Message-ID-Hash: Z5T2GOUJUF6LLWUKW3OVB6CZ4A2ALDDK
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CMAOVHHT36XO7YZYMPJJITIW3IW2KMF7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5T2GOUJUF6LLWUKW3OVB6CZ4A2ALDDK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,29 +106,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, Sep 07, 2024 at 11:38:50AM +0100, Andrew Cooper wrote:
-> Individual subsystems ought not to know or care about XENPV; it's a
-> layering violation.
 
-Agreed.
+--wUoJipqS0jGmv+Ga
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> If the main APIs don't behave properly, then it probably means we've got
-> a bug at a lower level (e.g. Xen SWIOTLB is a constant source of fun)
-> which is probably affecting other subsystems too.
-> 
-> I think we need to re-analyse the original bug.  Right now, the
-> behaviour resulting from 53466ebde is worse than what it was trying to fix.
+On Thu, Sep 12, 2024 at 08:35:05AM +0000, Ki-Seok Jo wrote:
 
-53466ebde looks bogus to me, and the commit message doesn't even
-try to explain what bad behavior it works around.  I'd also like to
-state once again that if you think something is broken about dma
-allocation or mapping helpers please Cc me and the iommu list.
+> > > +static DEVICE_ATTR_RW(check_fault_period);
 
-Most of the time it's actually the drivers doing something invalid, but
-sometimes it is a core dma layer bug or something that needs a proper
-API.
+> > Any reason the fault stuff isn't an ALSA control?
 
-Also while looking at the above commit I noticed the broken fallback
-code in snd_dma_noncontig_alloc - get_dma_ops is not for driver use,
-and starting with the code queued up for 6.12 will also return NULL
-when using dma-iommu for example.
+> I'm planning to change it to ALSA control as per the feedback.
+> Could you please let me know how to set the default value for a control?
+> For example, I would like to set it to a value of 60.
+> (For controls with a boolean value, I would like to initialize it with a true value.)
+
+For something like this which isn't coming from the register map you can
+just pick a value and set wherever the data is stored during the CODEC
+init function.
+
+--wUoJipqS0jGmv+Ga
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbizxUACgkQJNaLcl1U
+h9BTLgf/Ua7Ov5hjGscJFUzYbRL9HCfAEC0w6vw+uu7adii69RTeDHc70LFCy/zq
+gFNQ3oXSfwTCwFMiTBdEibyni2fbNWeAvQIT0ouGOcx5q2UOIko5tPMRexboNcQN
+5OCDh+8AMjcgrk4btDzwhGCZPbU0/XatSVGFZheCbXkfp4rsERSfemTEE4zRz0B0
+eexOHmpqLOM0Mp480ZhgEXdd7WffkZtfHWF8iStuIJquqlnON+CF5Ie+U2e8B/bs
+WTae7DVRD0R+gm3jgn2RpcTdooqY460vicDEU1AhbQRG3FJ+ThRJIRFsxR+xwBJd
+d+o632wkwU7kga9nFeME0oZCw2PiFQ==
+=rA+w
+-----END PGP SIGNATURE-----
+
+--wUoJipqS0jGmv+Ga--

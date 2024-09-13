@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C94B09785CE
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 18:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9194D978645
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 18:55:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8BD5B76;
-	Fri, 13 Sep 2024 18:32:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8BD5B76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AF12DEE;
+	Fri, 13 Sep 2024 18:55:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AF12DEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726245177;
-	bh=BcbLsJ+E0JCcewxIt4ozfn2rIALLXnWZgLE5/Mkax7Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1726246532;
+	bh=2KDVnb1mVoYZypPCGHyU3wETUgQJZHVz0zgPgKiRHYk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IpcB55/opUFHofiHUdyqr/mT6hwt36E2ximiVGPcebRWynCy3Y5lxWu8+8fVS+980
-	 jG7DE1beBfk0rwK6Pv+8gdo0Imq3zECHF9pv6MPJxOzmoGzBYNwlNc5i39I7Mw0amg
-	 iQ6wGW/whaVI+qpFF0ky/8rmeV6jxAuDu7zQKrxc=
+	b=gIcZlr+GDrNE2dD+ChnD2TIZzB5C7OaMzBkDxnpBeKQrjYVaE5djuVDW4rDtZf0ET
+	 3Kjovlc9pZouS1IWnf4CKgJaSLOBLg6iF7i8RxWhhJzXFfdU6xKCf+IY6zYjuSeMf2
+	 IDXtMD2mbKAVjOYXtB23+M37ZmpAZ5aOw1ddtn/k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9FC32F805B3; Fri, 13 Sep 2024 18:32:26 +0200 (CEST)
+	id 72071F805B5; Fri, 13 Sep 2024 18:55:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5EEDF805AA;
-	Fri, 13 Sep 2024 18:32:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97126F8019B;
+	Fri, 13 Sep 2024 18:54:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3D94F801F5; Fri, 13 Sep 2024 18:32:21 +0200 (CEST)
+	id 658A0F801F5; Fri, 13 Sep 2024 18:54:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3B2BF80074
-	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 18:32:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B2BF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 97AFDF800E9
+	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 18:54:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97AFDF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tjATxHBV
+ header.s=k20201202 header.b=odY/Np3c
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 37B40A43283;
-	Fri, 13 Sep 2024 16:32:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BF5C4CEC0;
-	Fri, 13 Sep 2024 16:32:15 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 740F35C59E2;
+	Fri, 13 Sep 2024 16:54:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7245C4CEC0;
+	Fri, 13 Sep 2024 16:54:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726245137;
-	bh=BcbLsJ+E0JCcewxIt4ozfn2rIALLXnWZgLE5/Mkax7Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tjATxHBVDxX6BFEQdu/QTEge+COGQBoOOFhOUsAaglrBJ95DVy3eflJjZhfHpFIpf
-	 uj/81u+s24kIpdQjkJ8vl2o9eROynDxKV7P7q3l2rQ+l1BC1/gA/WEAAZVPH4bx334
-	 aLB2PBqQo/H4PAm7QPapKIMpkYi0e3cVBSE42+1xbSCYaJrQdogyFcg6XeSSGC2tjj
-	 X7lYh/DmvbEpd4GTUNLK0oXOnszPIZhZDdqxg0yXberL+pSwGQuKAKD65SeWm6hO7T
-	 Z66QSGyW989N3IHJwufPnMYt4uAI/86EKHIHCa6LsGxd98DdPFdb738X6GkpHbpUcX
-	 hzvjTwchuZfKg==
-Date: Fri, 13 Sep 2024 17:32:12 +0100
+	s=k20201202; t=1726246489;
+	bh=2KDVnb1mVoYZypPCGHyU3wETUgQJZHVz0zgPgKiRHYk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=odY/Np3c3Gzd5x2Q4jugOAU9hIffgYQcI2j9IIqzDC8hh6KoiETUl68HWd79j6pTd
+	 jf+XSs8AMJl7JCqaVsBC4AuibrZegs4eh6O+YO7LttAEBJtuk8siM7PcJwfOqav3kP
+	 Vw6Jtn2R39G6rg0vr6KY2XAIJ9rTtprH1uZ4BuKsBxCTLhZdeVz4ujmh6Gs4Xhgbmx
+	 bNsT04YbJFCKajSiVNpIJtqL46m28JNiEgoQ6NFBORi8Wydiqcl+atlcFCzMsbB3D+
+	 4V+Gss6CVxBhiYNYiLdvsZs/1ORfbCEiLguYNw8qa8Tzjo2cM3syClFO2GKpjS1dyG
+	 gpEsAtXK4UqaQ==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
-	hdegoede@redhat.com,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] [RFC] ASoC: Conditional PCM support
-Message-ID: <cce327f2-03dd-4c6f-9218-e54aa76a78e7@sirena.org.uk>
-References: <20240821101816.1494541-1-cezary.rojewski@intel.com>
- <83f81553-6dfa-46a3-9ca2-d42f54295eb1@linux.intel.com>
- <d5db8a15-64c9-45be-8f8c-977fd5ed282b@intel.com>
- <2ac45376-5df6-44e9-83d6-cdea49eea916@sirena.org.uk>
- <b95e8c62-db61-4678-8c2d-2224dfb1dd60@intel.com>
- <67b30310-6fbc-4d1d-926b-f4cc7bf68896@linux.intel.com>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ venkataprasad.potturu@amd.com, kai.vehmanen@linux.intel.com,
+ ckeepax@opensource.cirrus.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20240913090631.1834543-1-Vijendar.Mukunda@amd.com>
+References: <20240913090631.1834543-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 0/5] AMD SoundWire machine driver code refactor
+Message-Id: <172624648667.60960.3648714524641692495.b4-ty@kernel.org>
+Date: Fri, 13 Sep 2024 17:54:46 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UaELuzA42Q0pL3aG"
-Content-Disposition: inline
-In-Reply-To: <67b30310-6fbc-4d1d-926b-f4cc7bf68896@linux.intel.com>
-X-Cookie: In space, no one can hear you fart.
-Message-ID-Hash: 4SEIUPG5FFKMLXHZWAEXEY3EZI4JSW62
-X-Message-ID-Hash: 4SEIUPG5FFKMLXHZWAEXEY3EZI4JSW62
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-99b12
+Message-ID-Hash: Z3T6XSZO476PHGPO5JVCYFUUJ7P4STWB
+X-Message-ID-Hash: Z3T6XSZO476PHGPO5JVCYFUUJ7P4STWB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4SEIUPG5FFKMLXHZWAEXEY3EZI4JSW62/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z3T6XSZO476PHGPO5JVCYFUUJ7P4STWB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,70 +101,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 13 Sep 2024 14:36:26 +0530, Vijendar Mukunda wrote:
+> This patch series moves common Soundwire endpoint parsing and dai
+> creation logic to common placeholder from Intel generic SoundWire
+> machine driver code to make it generic. AMD SoundWire machine driver
+> code is refactored to use these functions for SoundWire endpoint
+> parsing and dai creation logic.
+> 
+> Link: https://github.com/thesofproject/linux/pull/5171
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> 
+> [...]
 
---UaELuzA42Q0pL3aG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Fri, Sep 13, 2024 at 01:53:41PM +0200, Pierre-Louis Bossart wrote:
-> On 9/13/24 12:59, Cezary Rojewski wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > Instead, I'd suggest to have a second, separate DPCM implementation
-> > present next to the existing one and have users opt in during a so-
-> > called deprecation period of the existing one. Once certain amount of
-> > time passes, switch all of them. Clean slide also makes it easier for a
-> > developer to be creative.
+Thanks!
 
-> > Do you view the second option as viable?
+[1/5] ASoC: intel: sof_sdw: rename soundwire endpoint and dailink structures
+      commit: f5c05fd7e9d20a3a8f3401b467fec2d24f49ea5a
+[2/5] ASoC: intel: sof_sdw: rename soundwire parsing helper functions
+      commit: 23f020bd607b7aec5f301699227ed196430fbc40
+[3/5] ASoC: sdw_util/intel: move soundwire endpoint and dai link structures
+      commit: 7860df5b29945cfab40dd667f576af31401d7c43
+[4/5] ASoC: sdw_utils/intel: move soundwire endpoint parsing helper functions
+      commit: 13b24f84782d6c0373f62eb645353883d94d1dcd
+[5/5] ASoC: amd: acp: refactor SoundWire machine driver code
+      commit: 6d8348ddc56ed43ba39d1e8adda13299201f32ed
 
-> Classic problem without a good solution. In practice new features or
-> corrections get added to the 'old' framework and the new one is not used
-> by anyone just yet so it keeps running behind in terms of
-> features/maturity. And due to limited validation resources or limited
-> access to a wide variety of hardware, no one is quite ready to enable
-> the new framework on 'old' platforms because that would break quite a
-> few devices.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Yeah, there's no idea way of doing things here.  I do think that keeping
-things going in parallel is probably the most viable way of doing
-things.  You'd need at least one lead platform using the new stuff, and
-probably each platform would have a flag day to transition.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-I'm a little more optimistic than Pierre about making progress,
-hopefully things would be sufficiently nicer that once there's something
-to build on it'd start to get more attractive to do the incremental
-investments needed in the core to enable more platforms, and reduced
-maintainance costs get more appealing.  This approach has worked for
-other things (regmap springs to mind, and if you look at some of the way
-API transitions are done in the memory management and arch code there's
-a bunch of this going on) though it's rarely fast.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> The other problem is that the 'switch' would mean a compatible solution,
-> but the problem is to get rid of the very notion of front- and
-> back-ends. Existing users of DPCM have undocumented hard-coded
-> dependencies on the order in which callbacks are handled, it's not easy
-> at all to change the routing engine.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Each platform is going to need to be pretty careful with the conversion
-and validating that things work.  There are some simpler ones which will
-probably have an easier time of it, though.  There's some of them like
-Kirkwood that are just at the lower end of needing DPCM support at all,
-and others that didn't upstream so much stuff yet so there's less
-knowledge embedded in the upstream code.
+Thanks,
+Mark
 
---UaELuzA42Q0pL3aG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbkaQsACgkQJNaLcl1U
-h9DYCAf7Br1R0ar6NcUU7odqkM+D7kigPVpmNj6OaA2+A+yQqjOs5phzcAFsvJXG
-ku4ARFeur1jhko/+VUEtnXtfmvm90RjLoGAS3VSaewUT5Yv7hHoAOCmYUsxUSJTE
-Z3CeZb1sWyPkV8HRkRGiJ44Q9neD37veiDjnngebHwoMXW1eeOY7O8ESvhmw4dxB
-VnDheeUpCJ8SER51whR8bou2zo7ztjeihCYJ9+wNsoElsqPVUcYUg5OOv2xboRnH
-6ZGPxIrK6oWFvZq2oUs5qIdK6j52usbyZpcedvtTzOnwKURk9le+JiPPsEWwU1sf
-8vhiTGJCBJbKGwqIcl17Bvh87LoSfw==
-=5j+R
------END PGP SIGNATURE-----
-
---UaELuzA42Q0pL3aG--

@@ -2,105 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7953397C9CB
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2024 15:13:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A50CC97C9CD
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2024 15:13:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB38B85D;
-	Thu, 19 Sep 2024 15:13:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB38B85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC255E64;
+	Thu, 19 Sep 2024 15:13:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC255E64
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726751591;
-	bh=V6u2eHa/w9HQk3WWvCdMr/y/+BoQMgcZ+Nl2/14uCeA=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=IdfSdlsuTpcoXmQDW46lRB6hr0yN97rjcNLhV/S4b8Pjxm0DJa4XVl7sJ00pTVq45
-	 tfVQRu5Cw9/8XUIVADmBdLmW/dixTeK0IHftsfokqCwBAfCb48CfIADOCPEpJt3vcb
-	 j8CXnmlSEPa9JBnoLz1Fd8gukPKlk9RxSc0mWAHE=
+	s=default; t=1726751603;
+	bh=0xNKdqrsLXQKQZnBLgIZjeVOFe5bD8eJYgL3IYNp/mE=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=nNQe20wh6K/Y06+8GVayTEn2pulHiAGp7OjW5N9ysGNy5/uciGY+QE0cL8CF0Kq8J
+	 mnsgRm5roob/AOqffdfo7hO4qQvJHvdaZmNkWdZlDHopst+z09CX1TSAvbbZCUFHtL
+	 ZOWfjKe7/ziQeC7Gul3DfXLpm7HkvbDDP5KJTupk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59238F805AD; Thu, 19 Sep 2024 15:12:41 +0200 (CEST)
+	id A28D4F805BA; Thu, 19 Sep 2024 15:12:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E91C0F8059F;
-	Thu, 19 Sep 2024 15:12:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B30CF805C4;
+	Thu, 19 Sep 2024 15:12:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0FB65F801F5; Fri, 13 Sep 2024 14:07:41 +0200 (CEST)
+	id 9AE9CF801F5; Fri, 13 Sep 2024 23:12:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A5DAAF800E9
-	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 14:07:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5DAAF800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id BC2EBF8010B
+	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 23:12:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC2EBF8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=DsWd7aJR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1726229260; x=1757765260;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=V6u2eHa/w9HQk3WWvCdMr/y/+BoQMgcZ+Nl2/14uCeA=;
-  b=DsWd7aJRQIDd6KEj1jZ1g5LxvNGfbxSQe7YWCaLVFp0N3Weh6+5y+JOo
-   qOcFKe6jAPy21UAUNJAsehiAioiaktxZE+idpk2fEBVEorLGqKI7XfL7k
-   NAxmJumq14M6wWGQNBjX9EM0OrCJdPLfGrkrFupY3I65Tf+qqxqZMJz6v
-   irFr0u3JoEDz+uDZGKpFBuiFpYEBFHG5/sfSYQ6SFfKgoOtuMmWRKPm8H
-   r29HxBtyTAP7YXGrP9RQZtekepP/cTeosKTnT+l8RJRKU34SOyM43q7HJ
-   2EPE7u0kE6xOj459qoZu92fed6eMhJG/+WVJ6yMMHZ6U6Ph4GBx0ycbmT
-   w==;
-X-CSE-ConnectionGUID: ap9aDqYYRZ2h/RrZKGCbqA==
-X-CSE-MsgGUID: FyIGOBtkRr+rtkG0jt9EvA==
-X-IronPort-AV: E=Sophos;i="6.10,225,1719903600";
-   d="scan'208";a="31749888"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 13 Sep 2024 05:07:36 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Fri, 13 Sep 2024 05:07:25 -0700
-Received: from ROB-ULT-M76677.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.35 via Frontend Transport; Fri, 13 Sep 2024 05:07:21 -0700
-From: Andrei Simion <andrei.simion@microchip.com>
-To: <claudiu.beznea@tuxon.dev>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
-	<perex@perex.cz>, <tiwai@suse.com>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>
-CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, Andrei Simion
-	<andrei.simion@microchip.com>
-Subject: [PATCH v2] ASoC: atmel: mchp-pdmc: Retain Non-Runtime Controls
-Date: Fri, 13 Sep 2024 15:06:22 +0300
-Message-ID: <20240913120621.79088-1-andrei.simion@microchip.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=R8hSWV3H
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-374c4d4f219so1692260f8f.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 13 Sep 2024 14:12:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726261962; x=1726866762;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=QP4N0jFbDkKOuN4zodu72FSNgcwkeZYI9qprlris/e8=;
+        b=R8hSWV3H8hK3Id6OldrPLGYpZRphns3E6TcHfeK7i2vCkyo/Ik3sljuybeDiFPz5qj
+         0W8nV1BdDx7Ru/hKr5it7/XXrxkfx9Hq1VBYVPRFgUVS0DI0G4wyokfJxp9gyIP55IUT
+         U1x/aQ2k9zRrpFwWk4fKPgdkgXq+CaKUQKgjSrPpuAQBJ/Rv+iUAfdIgHM5jJcFjF+zl
+         tx15hKTtiihWUtPotszbyKMgAqhtvtLNirDihTCIq7gA3Edd0zT0gV/WWpMj4w8tYriM
+         m6DTUX0GmcunNvhW5rY4QTLaCx1pesYpG0eRv7pJZ8IyU5vu8QGIIiueFfokrL+fqSxr
+         2d9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726261962; x=1726866762;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QP4N0jFbDkKOuN4zodu72FSNgcwkeZYI9qprlris/e8=;
+        b=a6x0OjLAcErkBbS7rVqNH6TtYGN0oLaqz9CEKCG4AFGU59jPdEZfPUbvVinepCgXZL
+         tze6xh95zgGzkLstw53DHYXzVajMPlfdBHU5Y9M/u+q3IrDlt2nS3t6FjCorMDD7XBlZ
+         KWXt47K0l6mHWzd0J6Id5K8qiUckWrCbIagw8+yYuLI5CL0CXwkVjW6i7GYesckEpBjR
+         iWHXkjuDqOYw+GF+4gVU3sOXOjAV7137Oz4p/X2JOTsuwWHg3ODAamp6fIYXYTUZ4uQ7
+         KeVE5c9MqhaL/Kd/5OhyK3jfqfu7sz9tD9VGhVyYX4TvzIYNoUOuDEOTmNsHBQS9gns3
+         WTgA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUY84tb6KoWwz7MOfdfWQhQ7DzfoAu0L0gjM0si5wmqpATaJfQoVv1SrOk6zjqBhPh2E0iGYsXt56uw@alsa-project.org
+X-Gm-Message-State: AOJu0YxKn+4BvRh6oYeVbNXWROMNhlfqOAoOu6/QRFCz0T7bWtUeYR9H
+	dt5I/sJFt6NJm0K+dAYPk0CzLpzeaVGwnNBUGFt24oxz24XttMNh
+X-Google-Smtp-Source: 
+ AGHT+IGfcJE76v+t0nq/ngpBNhAyG0Jx8lYj7L8r7xRuQaBHUsh5Vps4FAmFOnjokTlsatC8O0jocw==
+X-Received: by 2002:a5d:6781:0:b0:374:c2e9:28b8 with SMTP id
+ ffacd0b85a97d-378c2d065cemr4370850f8f.18.1726261961510;
+        Fri, 13 Sep 2024 14:12:41 -0700 (PDT)
+Received: from ?IPV6:2a02:8010:6606:0:24fa:de0f:fe08:38e3?
+ ([2a02:8010:6606:0:24fa:de0f:fe08:38e3])
+        by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-378e780ddebsm101457f8f.112.2024.09.13.14.12.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Sep 2024 14:12:41 -0700 (PDT)
+Message-ID: <9b0a0cd8-0994-4235-9823-37f0da1a751d@gmail.com>
+Date: Fri, 13 Sep 2024 22:12:39 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MailFrom: prvs=97946740d=Andrei.Simion@microchip.com
+User-Agent: Mozilla Thunderbird
+From: Hugh Cole-Baker <sigmaris@gmail.com>
+Subject: Re: [RESEND PATCH v2] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit if
+ hardware supports it
+To: Geraldo Nascimento <geraldogabriel@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ ALSA-devel <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+References: <Y01E5MvrnmVhnekO@geday>
+Content-Language: en-GB
+In-Reply-To: <Y01E5MvrnmVhnekO@geday>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-MailFrom: sigmaris@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BSUJ622NZFMBZSOESMUHX6GCWIUXV5N2
-X-Message-ID-Hash: BSUJ622NZFMBZSOESMUHX6GCWIUXV5N2
-X-Mailman-Approved-At: Thu, 19 Sep 2024 13:12:34 +0000
+Message-ID-Hash: 3TOHLHSTHYOJU7TJZ6UGM5A4I5GFLW3L
+X-Message-ID-Hash: 3TOHLHSTHYOJU7TJZ6UGM5A4I5GFLW3L
+X-Mailman-Approved-At: Thu, 19 Sep 2024 13:12:35 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BSUJ622NZFMBZSOESMUHX6GCWIUXV5N2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TOHLHSTHYOJU7TJZ6UGM5A4I5GFLW3L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,137 +129,114 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Hi Geraldo, and apologies for resurrecting a 2 year old thread...
 
-Avoid removing these controls, as doing so can cause issues if the stream
-is initiated from another control. Ensure these controls remain intact when
-the stream is started or finished. Instead of removing them, return an
--EBUSY error code to indicate that the controller is busy, especially when
-the audio filter and the SINC filter are in use.
+On 17/10/2022 13:04, Geraldo Nascimento wrote:
+> Hi Mark, resending this as it failed to apply in my last submission. Added
+> Neil Armstrong to Cc: as hopefully he will be able to better review this.
+> 
+> Thanks,
+> Geraldo Nascimento
+> 
+> ---
+> 
+> Starting with version 2.10a of Synopsys DesignWare HDMI controller the
+> insert_pcuv bit was introduced. On RK3399pro SoM (Radxa Rock Pi N10),
+> for example, if we neglect to set this bit and proceed to enable hdmi_sound
+> and i2s2 on the device tree there will be extreme clipping of sound
+> output, to the point that music sounds like white noise. Problem
+> could also manifest as just mild cracking depending of HDMI audio
+> implementation of sink. Setting insert_pcuv bit (bit 2 of
+> aud_conf2 Audio Sample register) fixes this.
+> 
+> Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-[andrei.simion@microchip.com: Reword the commit title and the commit
-message. Replace spinlock and busy variable with atomic_t busy_stream.]
+I also had the HDMI audio clipping issue described here, on a RK3399. This was
+on a 6.1.23 kernel based on the one used by LibreELEC.tv with their out-of-tree
+patches for video decoding, 4k HDMI support, etc. When testing this patch I
+also updated my kernel tree to 6.10.3, and found that even without this patch,
+on 6.10.3 the problem no longer happens.
 
-Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Signed-off-by: Andrei Simion <andrei.simion@microchip.com>
----
-v1 -> v2:
-- drop spinlock and u8 busy:1;
-- use atomic_t variable busy_stream
-- use atomic_read, atomic_set
----
- sound/soc/atmel/mchp-pdmc.c | 57 ++++++++++---------------------------
- 1 file changed, 15 insertions(+), 42 deletions(-)
+I added printk to show the value of AUD_CONF2, and found that on 6.1.23, the
+value is 0 before the code in this patch sets the insert_pcuv bit. On 6.10.3
+the value is 4, i.e. insert_pcuv is already set.
 
-diff --git a/sound/soc/atmel/mchp-pdmc.c b/sound/soc/atmel/mchp-pdmc.c
-index d97d153ee375..939cd44ebc8a 100644
---- a/sound/soc/atmel/mchp-pdmc.c
-+++ b/sound/soc/atmel/mchp-pdmc.c
-@@ -124,6 +124,7 @@ struct mchp_pdmc {
- 	int mic_no;
- 	int sinc_order;
- 	bool audio_filter_en;
-+	atomic_t busy_stream;
- };
- 
- static const char *const mchp_pdmc_sinc_filter_order_text[] = {
-@@ -167,6 +168,10 @@ static int mchp_pdmc_sinc_order_put(struct snd_kcontrol *kcontrol,
- 		return -EINVAL;
- 
- 	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
-+
-+	if (atomic_read(&dd->busy_stream))
-+		return -EBUSY;
-+
- 	if (val == dd->sinc_order)
- 		return 0;
- 
-@@ -193,6 +198,9 @@ static int mchp_pdmc_af_put(struct snd_kcontrol *kcontrol,
- 	struct mchp_pdmc *dd = snd_soc_component_get_drvdata(component);
- 	bool af = uvalue->value.integer.value[0] ? true : false;
- 
-+	if (atomic_read(&dd->busy_stream))
-+		return -EBUSY;
-+
- 	if (dd->audio_filter_en == af)
- 		return 0;
- 
-@@ -379,52 +387,10 @@ static const struct snd_kcontrol_new mchp_pdmc_snd_controls[] = {
- 	},
- };
- 
--static int mchp_pdmc_close(struct snd_soc_component *component,
--			   struct snd_pcm_substream *substream)
--{
--	return snd_soc_add_component_controls(component, mchp_pdmc_snd_controls,
--					      ARRAY_SIZE(mchp_pdmc_snd_controls));
--}
--
--static int mchp_pdmc_open(struct snd_soc_component *component,
--			  struct snd_pcm_substream *substream)
--{
--	int i;
--
--	/* remove controls that can't be changed at runtime */
--	for (i = 0; i < ARRAY_SIZE(mchp_pdmc_snd_controls); i++) {
--		const struct snd_kcontrol_new *control = &mchp_pdmc_snd_controls[i];
--		struct snd_ctl_elem_id id;
--		int err;
--
--		if (component->name_prefix)
--			snprintf(id.name, sizeof(id.name), "%s %s", component->name_prefix,
--				 control->name);
--		else
--			strscpy(id.name, control->name, sizeof(id.name));
--
--		id.numid = 0;
--		id.iface = control->iface;
--		id.device = control->device;
--		id.subdevice = control->subdevice;
--		id.index = control->index;
--		err = snd_ctl_remove_id(component->card->snd_card, &id);
--		if (err < 0)
--			dev_err(component->dev, "%d: Failed to remove %s\n", err,
--				control->name);
--	}
--
--	return 0;
--}
--
- static const struct snd_soc_component_driver mchp_pdmc_dai_component = {
- 	.name = "mchp-pdmc",
- 	.controls = mchp_pdmc_snd_controls,
- 	.num_controls = ARRAY_SIZE(mchp_pdmc_snd_controls),
--	.open = &mchp_pdmc_open,
--	.close = &mchp_pdmc_close,
--	.legacy_dai_naming = 1,
--	.trigger_start = SND_SOC_TRIGGER_ORDER_LDC,
- };
- 
- static const unsigned int mchp_pdmc_1mic[] = {1};
-@@ -587,6 +553,11 @@ static int mchp_pdmc_hw_params(struct snd_pcm_substream *substream,
- 			cfgr_val |= MCHP_PDMC_CFGR_BSSEL(i);
- 	}
- 
-+	/*
-+	 * from these point forward, we consider the controller busy, so the
-+	 * audio filter and SINC order can't be changed
-+	 */
-+	atomic_set(&dd->busy_stream, 1);
- 	for (osr_start = dd->audio_filter_en ? 64 : 8;
- 	     osr_start <= 256 && best_diff_rate; osr_start *= 2) {
- 		long round_rate;
-@@ -1143,6 +1114,8 @@ static void mchp_pdmc_remove(struct platform_device *pdev)
- {
- 	struct mchp_pdmc *dd = platform_get_drvdata(pdev);
- 
-+	atomic_set(&dd->busy_stream, 0);
-+
- 	if (!pm_runtime_status_suspended(dd->dev))
- 		mchp_pdmc_runtime_suspend(dd->dev);
- 
+According to the RK3399 TRM, the value-after-reset of the insert_pcuv bit is 1,
+so apparently on the 6.1.23 kernel something is clearing the bit after HW reset
+but before this driver sets the hw_params, and this patch sets it back to the
+correct value. On 6.10.3 the bit is not cleared, i.e. this patch is seemingly
+no longer necessary (but is a harmless no-op).
 
-base-commit: 5acd9952f95fb4b7da6d09a3be39195a80845eb6
--- 
-2.34.1
+> 
+> ---
+> 
+> v1->v2: SoC->SoM on description, better commenting, minor style changes,
+> 	conditional application of fix for L-PCM only
+> 
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio-20221017.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio-20221017.c
+> @@ -42,6 +42,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+>  	struct dw_hdmi *hdmi = audio->hdmi;
+>  	u8 conf0 = 0;
+>  	u8 conf1 = 0;
+> +	u8 conf2 = 0;
+>  	u8 inputclkfs = 0;
+>  
+>  	/* it cares I2S only */
+> @@ -101,6 +102,28 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+>  		return -EINVAL;
+>  	}
+>  
+> +	/*
+> +	 * dw-hdmi introduced insert_pcuv bit in
+> +	 * version 2.10a.
+> +	 *
+> +	 * This single bit (bit 2 of HDMI_AUD_CONF2)
+> +	 * when set to 1 will enable the insertion of the PCUV
+> +	 * (Parity, Channel Status, User bit and Validity)
+> +	 * bits on the incoming audio stream.
+> +	 * 
+> +	 * Support is limited to Linear PCM audio. If
+> +	 * neglected, the lack of valid PCUV bits
+> +	 * on L-PCM streams will cause anything from
+> +	 * mild cracking to full blown extreme
+> +	 * clipping depending on the HDMI audio
+> +	 * implementation of the sink.
+> +	 *
+> +	 */
+> +
+> +	if (hdmi_read(audio, HDMI_DESIGN_ID) >= 0x21 &&
+> +			!(hparms->iec.status[0] & IEC958_AES0_NONAUDIO))
+> +		conf2 = HDMI_AUD_CONF2_INSERT_PCUV;
+> +
+>  	dw_hdmi_set_sample_rate(hdmi, hparms->sample_rate);
+>  	dw_hdmi_set_channel_status(hdmi, hparms->iec.status);
+>  	dw_hdmi_set_channel_count(hdmi, hparms->channels);
+> @@ -109,6 +120,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+>  	hdmi_write(audio, inputclkfs, HDMI_AUD_INPUTCLKFS);
+>  	hdmi_write(audio, conf0, HDMI_AUD_CONF0);
+>  	hdmi_write(audio, conf1, HDMI_AUD_CONF1);
+> +	hdmi_write(audio, conf2, HDMI_AUD_CONF2);
+>  
+>  	return 0;
+>  }
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-20221017.h
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-20221017.h
 
+btw, this patch doesn't apply without edits as these filenames are incorrect.
+
+> @@ -931,6 +931,11 @@ enum {
+>  	HDMI_AUD_CONF1_WIDTH_16 = 0x10,
+>  	HDMI_AUD_CONF1_WIDTH_24 = 0x18,
+>  
+> +/* AUD_CONF2 field values */
+> +	HDMI_AUD_CONF2_HBR = 0x01,
+> +	HDMI_AUD_CONF2_NLPCM = 0x02,
+> +	HDMI_AUD_CONF2_INSERT_PCUV = 0x04,
+> +
+>  /* AUD_CTS3 field values */
+>  	HDMI_AUD_CTS3_N_SHIFT_OFFSET = 5,
+>  	HDMI_AUD_CTS3_N_SHIFT_MASK = 0xe0,
+
+Best regards,
+Hugh

@@ -2,82 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF9E978550
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 18:00:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C94B09785CE
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 18:32:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A41CDEC;
-	Fri, 13 Sep 2024 18:00:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A41CDEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8BD5B76;
+	Fri, 13 Sep 2024 18:32:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8BD5B76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726243219;
-	bh=2THK3Qa5hpEcl3liEPlYzjlcVVBqTpMJPQbdU/7/h9U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1726245177;
+	bh=BcbLsJ+E0JCcewxIt4ozfn2rIALLXnWZgLE5/Mkax7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gIIF6mnItL+Swp5vzKGj+N/4ECY/b+pektZgswtTfef5XE1aITnFHO6Y3nCTpOc7v
-	 oMfjsIhJjPNJ9fpcv9feXGi2VK5uLxyNNXR7eumR6rr6zj3Qjb+9yF44si5qYZ3Jv0
-	 ue5NmlBRHjOjRaRus+6MFAWSuvwKq1gva7gBjzGM=
+	b=IpcB55/opUFHofiHUdyqr/mT6hwt36E2ximiVGPcebRWynCy3Y5lxWu8+8fVS+980
+	 jG7DE1beBfk0rwK6Pv+8gdo0Imq3zECHF9pv6MPJxOzmoGzBYNwlNc5i39I7Mw0amg
+	 iQ6wGW/whaVI+qpFF0ky/8rmeV6jxAuDu7zQKrxc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A850F805AE; Fri, 13 Sep 2024 17:59:46 +0200 (CEST)
+	id 9FC32F805B3; Fri, 13 Sep 2024 18:32:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A373F805B1;
-	Fri, 13 Sep 2024 17:59:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5EEDF805AA;
+	Fri, 13 Sep 2024 18:32:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 33B0FF801F5; Fri, 13 Sep 2024 17:59:40 +0200 (CEST)
+	id A3D94F801F5; Fri, 13 Sep 2024 18:32:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4755CF80074
-	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 17:59:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4755CF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id B3B2BF80074
+	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 18:32:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B2BF80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AnObwBVf
+ header.s=k20201202 header.b=tjATxHBV
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 70CDE5C014B;
-	Fri, 13 Sep 2024 15:59:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70384C4CEC7;
-	Fri, 13 Sep 2024 15:59:33 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 37B40A43283;
+	Fri, 13 Sep 2024 16:32:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BF5C4CEC0;
+	Fri, 13 Sep 2024 16:32:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1726243175;
-	bh=2THK3Qa5hpEcl3liEPlYzjlcVVBqTpMJPQbdU/7/h9U=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AnObwBVflScon9QfWYEcU32GDZMJ/dBFoVVdVeTuCUEe5Q+wc0fft7Z8BToDIrAXc
-	 JQCl0rYbrZAmjZElmSKpq2icTT1ELjl4ilB/O+K8yc8CO7Ce0DFPZPiYHuhFgX518Y
-	 GsYLNttJWk0A25LjyxO0/9nNo7aRWhZHRR0TnouG9z9HDeTFiNWvA+Faok6rE37s1s
-	 LvgqZ3G35/yltWXmiwzZpe1F1vJUz5gL3XL9A7IAeAc3k3s1cG0zTJ936Wa/ISalmY
-	 mIiS6FomPAwVYA7XMHe+J+7cQ5NP6QAdkkxUkD72tfeGxrc8XRG2EdZsFp5aYdbdgf
-	 GDCZcA9W+3A8w==
+	s=k20201202; t=1726245137;
+	bh=BcbLsJ+E0JCcewxIt4ozfn2rIALLXnWZgLE5/Mkax7Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tjATxHBVDxX6BFEQdu/QTEge+COGQBoOOFhOUsAaglrBJ95DVy3eflJjZhfHpFIpf
+	 uj/81u+s24kIpdQjkJ8vl2o9eROynDxKV7P7q3l2rQ+l1BC1/gA/WEAAZVPH4bx334
+	 aLB2PBqQo/H4PAm7QPapKIMpkYi0e3cVBSE42+1xbSCYaJrQdogyFcg6XeSSGC2tjj
+	 X7lYh/DmvbEpd4GTUNLK0oXOnszPIZhZDdqxg0yXberL+pSwGQuKAKD65SeWm6hO7T
+	 Z66QSGyW989N3IHJwufPnMYt4uAI/86EKHIHCa6LsGxd98DdPFdb738X6GkpHbpUcX
+	 hzvjTwchuZfKg==
+Date: Fri, 13 Sep 2024 17:32:12 +0100
 From: Mark Brown <broonie@kernel.org>
-To: claudiu.beznea@tuxon.dev, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- Andrei Simion <andrei.simion@microchip.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-In-Reply-To: <20240913120621.79088-1-andrei.simion@microchip.com>
-References: <20240913120621.79088-1-andrei.simion@microchip.com>
-Subject: Re: [PATCH v2] ASoC: atmel: mchp-pdmc: Retain Non-Runtime Controls
-Message-Id: <172624317318.45716.11241819837265266294.b4-ty@kernel.org>
-Date: Fri, 13 Sep 2024 16:59:33 +0100
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	tiwai@suse.com, perex@perex.cz, amadeuszx.slawinski@linux.intel.com,
+	hdegoede@redhat.com,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] [RFC] ASoC: Conditional PCM support
+Message-ID: <cce327f2-03dd-4c6f-9218-e54aa76a78e7@sirena.org.uk>
+References: <20240821101816.1494541-1-cezary.rojewski@intel.com>
+ <83f81553-6dfa-46a3-9ca2-d42f54295eb1@linux.intel.com>
+ <d5db8a15-64c9-45be-8f8c-977fd5ed282b@intel.com>
+ <2ac45376-5df6-44e9-83d6-cdea49eea916@sirena.org.uk>
+ <b95e8c62-db61-4678-8c2d-2224dfb1dd60@intel.com>
+ <67b30310-6fbc-4d1d-926b-f4cc7bf68896@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-99b12
-Message-ID-Hash: D6JJCS4J4QYNC7QV7CWVJJROD7CIRGHU
-X-Message-ID-Hash: D6JJCS4J4QYNC7QV7CWVJJROD7CIRGHU
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UaELuzA42Q0pL3aG"
+Content-Disposition: inline
+In-Reply-To: <67b30310-6fbc-4d1d-926b-f4cc7bf68896@linux.intel.com>
+X-Cookie: In space, no one can hear you fart.
+Message-ID-Hash: 4SEIUPG5FFKMLXHZWAEXEY3EZI4JSW62
+X-Message-ID-Hash: 4SEIUPG5FFKMLXHZWAEXEY3EZI4JSW62
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D6JJCS4J4QYNC7QV7CWVJJROD7CIRGHU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4SEIUPG5FFKMLXHZWAEXEY3EZI4JSW62/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,43 +104,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 13 Sep 2024 15:06:22 +0300, Andrei Simion wrote:
-> Avoid removing these controls, as doing so can cause issues if the stream
-> is initiated from another control. Ensure these controls remain intact when
-> the stream is started or finished. Instead of removing them, return an
-> -EBUSY error code to indicate that the controller is busy, especially when
-> the audio filter and the SINC filter are in use.
-> 
-> [andrei.simion@microchip.com: Reword the commit title and the commit
-> message. Replace spinlock and busy variable with atomic_t busy_stream.]
-> 
-> [...]
 
-Applied to
+--UaELuzA42Q0pL3aG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Sep 13, 2024 at 01:53:41PM +0200, Pierre-Louis Bossart wrote:
+> On 9/13/24 12:59, Cezary Rojewski wrote:
 
-Thanks!
+> > Instead, I'd suggest to have a second, separate DPCM implementation
+> > present next to the existing one and have users opt in during a so-
+> > called deprecation period of the existing one. Once certain amount of
+> > time passes, switch all of them. Clean slide also makes it easier for a
+> > developer to be creative.
 
-[1/1] ASoC: atmel: mchp-pdmc: Retain Non-Runtime Controls
-      commit: 2ed1a4a5c0058dfd78f5037576d668a37d0ec609
+> > Do you view the second option as viable?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Classic problem without a good solution. In practice new features or
+> corrections get added to the 'old' framework and the new one is not used
+> by anyone just yet so it keeps running behind in terms of
+> features/maturity. And due to limited validation resources or limited
+> access to a wide variety of hardware, no one is quite ready to enable
+> the new framework on 'old' platforms because that would break quite a
+> few devices.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Yeah, there's no idea way of doing things here.  I do think that keeping
+things going in parallel is probably the most viable way of doing
+things.  You'd need at least one lead platform using the new stuff, and
+probably each platform would have a flag day to transition.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+I'm a little more optimistic than Pierre about making progress,
+hopefully things would be sufficiently nicer that once there's something
+to build on it'd start to get more attractive to do the incremental
+investments needed in the core to enable more platforms, and reduced
+maintainance costs get more appealing.  This approach has worked for
+other things (regmap springs to mind, and if you look at some of the way
+API transitions are done in the memory management and arch code there's
+a bunch of this going on) though it's rarely fast.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> The other problem is that the 'switch' would mean a compatible solution,
+> but the problem is to get rid of the very notion of front- and
+> back-ends. Existing users of DPCM have undocumented hard-coded
+> dependencies on the order in which callbacks are handled, it's not easy
+> at all to change the routing engine.
 
-Thanks,
-Mark
+Each platform is going to need to be pretty careful with the conversion
+and validating that things work.  There are some simpler ones which will
+probably have an easier time of it, though.  There's some of them like
+Kirkwood that are just at the lower end of needing DPCM support at all,
+and others that didn't upstream so much stuff yet so there's less
+knowledge embedded in the upstream code.
 
+--UaELuzA42Q0pL3aG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbkaQsACgkQJNaLcl1U
+h9DYCAf7Br1R0ar6NcUU7odqkM+D7kigPVpmNj6OaA2+A+yQqjOs5phzcAFsvJXG
+ku4ARFeur1jhko/+VUEtnXtfmvm90RjLoGAS3VSaewUT5Yv7hHoAOCmYUsxUSJTE
+Z3CeZb1sWyPkV8HRkRGiJ44Q9neD37veiDjnngebHwoMXW1eeOY7O8ESvhmw4dxB
+VnDheeUpCJ8SER51whR8bou2zo7ztjeihCYJ9+wNsoElsqPVUcYUg5OOv2xboRnH
+6ZGPxIrK6oWFvZq2oUs5qIdK6j52usbyZpcedvtTzOnwKURk9le+JiPPsEWwU1sf
+8vhiTGJCBJbKGwqIcl17Bvh87LoSfw==
+=5j+R
+-----END PGP SIGNATURE-----
+
+--UaELuzA42Q0pL3aG--

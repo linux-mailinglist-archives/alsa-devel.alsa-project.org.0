@@ -2,121 +2,174 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF20D977260
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2024 21:48:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB381977670
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 03:36:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09DFCE7D;
-	Thu, 12 Sep 2024 21:48:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09DFCE7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3656EA4D;
+	Fri, 13 Sep 2024 03:36:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3656EA4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726170516;
-	bh=prnyaP8xdPvgf7lPSdgoOnTFSQEEfdLilloaJUXm1RE=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1726191379;
+	bh=NBk2uiwnNJIx7FelyJcBoTy2O0pvHqJbptNBrBBJ4nk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cObl3nOxES53PbL1tnGcQdTgTl1Q3Rfvz/DB+7mY1WAwuBXZL3cML5uO/90THykMB
-	 z/cJEk7bIyMAcbrGEieG8RvFdaT0DYjZEyalbG0LcL6NcJV3ZnG3swuJnmKh6ntrJL
-	 0Lb7v5/Lclwp7PjPXY/m24hntZBpVB/MJR2GetoE=
+	b=m2/wzrmmxmy0iWvGZ5BHfgDbxQr937O2Q3931drxXuUWXWEvYZXAG6YiVAPz8eix6
+	 VNVtiXEtHTlwQAAwwM1Cfknf6x4SF++EsQwXWCOh79J+TrZkCjMJ2OhI8S0Ub4O//A
+	 o6EZCI0gZJBcMkmlW2bYjnxmAQUhwGC0UEre3isM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C3FFF897F5; Thu, 12 Sep 2024 21:41:42 +0200 (CEST)
+	id ADF4DF8058C; Fri, 13 Sep 2024 03:35:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 821B1F8067A;
-	Thu, 12 Sep 2024 21:41:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00DCFF8058C;
+	Fri, 13 Sep 2024 03:35:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD535F80715; Thu, 12 Sep 2024 21:40:41 +0200 (CEST)
+	id 1E445F801F5; Fri, 13 Sep 2024 03:35:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazlp170100001.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:c405::1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A46AFF805B4
-	for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2024 21:39:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A46AFF805B4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D0A7F800E9
+	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 03:35:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D0A7F800E9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=R3pxgM5d
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 48CHtE53009379;
-	Thu, 12 Sep 2024 19:39:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IHuzCQGYpXyTPH0RihFbQD623zcQRcB8CUdC3cqWdMA=; b=R3pxgM5dNh9T2Az8
-	PZ5ac24L2Q8WQ/2fKUD/e/lochroPqS9LGXSO1VmS1fyup/qE+XRUPYUt4seyEum
-	P82YhN689vuOSeFV3Er0e1JvIoh8/cSEmjeDUHztrw2sJyqVv2i22TC/wqS6sBZf
-	W1d+vrhDiD4du2Idr2ppYi4i3MMLWEiivJu9VMcGcYSvw+pBtYQBVUqEfxoovTkJ
-	XYfRRLZayzK8+6wHQTr9IvC7cKepQSmbrR6pMhnJnBwnTWP1NSlZ+nE19fjAvj+t
-	NzO8OeZfTtbu9v/bB4gnZQ9r+g9pq7RGzXqXKHWmcbCFDXxFT0Brsh1fsU6sV9as
-	IrPD/Q==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gy6peeyj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Sep 2024 19:39:56 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 48CJdubu006060
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 12 Sep 2024 19:39:56 GMT
-Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 12 Sep 2024 12:39:55 -0700
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-To: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <dmitry.torokhov@gmail.com>,
-        <corbet@lwn.net>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
-        <tiwai@suse.com>, <krzk+dt@kernel.org>,
-        <pierre-louis.bossart@linux.intel.com>, <Thinh.Nguyen@synopsys.com>,
-        <bgoswami@quicinc.com>, <robh@kernel.org>,
-        <gregkh@linuxfoundation.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-input@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        Wesley Cheng
-	<quic_wcheng@quicinc.com>
-Subject: [PATCH v27 32/32] ASoC: usb: Rediscover USB SND devices on USB port
- add
-Date: Thu, 12 Sep 2024 12:39:35 -0700
-Message-ID: <20240912193935.1916426-33-quic_wcheng@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240912193935.1916426-1-quic_wcheng@quicinc.com>
-References: <20240912193935.1916426-1-quic_wcheng@quicinc.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=Vdsk9KJD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iQxnG1Tx+4auWXGg8pYeCRa+Jg9UnHHhlJY9qVwvKU2bKpaFnkQO6aUeZxg5Ow0NuTdbs0O7E4knR14vg0mRE+YaWR8vqxRFnmuTRX4EuWHIjrvC6AKQPmuwTJFrn1++7B+4TFnfQZl3a85+I/tusIPNaNExY4cKa+1b32RdnbqOOsWaUZxsXuc9D5AzFCS69J3vwBeB+xppDq6gBGjO0Dao6AdaSdl8zX+DjA/ZT8zFV82lPb4GPHAxwC4MBwhf17rmMYTiA8s50RMUTJe7WMI3bGGDbEQdYCWdnY3lbLYvzoN41FuNLGrJEIqSzR68p9zd5gFOwiAIHlNOMOeo9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=te9sWae/08K0VBiL6lyj6qk7Dtis2dP12nE4yKCNlNo=;
+ b=byHgpq5eucw00Bn9olkK5/3zsFc2JFtWOFNf3seqNS/e+dA1QdlLKe8Vr7PMycUsZiX1ff6mCUo/rY8rpoDjjyurvq6gV2KSA523iCNyE+ZXl5O2lTI5QxrDdH4DsoTPewUcPldA4RVEarPWeylPzeg7Ez8ghp8HqQxW1DickZyHW5tWk90b0C5QrFkAqEFsXVIRcRLy/1KTkgpjU1zPzhFteGK6ad61wvwYns7fNewq6DIQH9VSoB58TZJ9OyAhjjIS/x0UD0FQlvWjZC/DnxDXaHMrFkHeNQfhFrqySRsz+PYxG5KLt4Yx/hGqCme1c9ReHInMh35OCUir6KpCvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=te9sWae/08K0VBiL6lyj6qk7Dtis2dP12nE4yKCNlNo=;
+ b=Vdsk9KJDt3iN0leRKq+qb6nk3/HoovNMBXtij7f3P7DYctLuNfa+YILRbEZyGmBqTCO46aKQfhPqZmQA3GAkmEWVE8tLex3Af0CE+oSO2CTnng2hU19b3PG7QdCJinDyFF4Gt+CBPVHIAyL/oFkdQd9tphtdp7jlEWBnoiwN2QY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by OSZPR01MB8733.jpnprd01.prod.outlook.com
+ (2603:1096:604:15c::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7962.19; Fri, 13 Sep
+ 2024 01:35:29 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::c568:1028:2fd1:6e11%5]) with mapi id 15.20.7962.018; Fri, 13 Sep 2024
+ 01:35:28 +0000
+Message-ID: <87ed5o8hen.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>
+Cc: Linux-USB <linux-usb@vger.kernel.org>,
+	Linux-ALSA <alsa-devel@alsa-project.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH 000/113] ALSA: add snd_pcm_is_playback/capture() macro
+In-Reply-To: <46b37ef3-047c-4b1b-a79b-37187a46754a@sirena.org.uk>
+References: <874j7z3j1a.wl-kuninori.morimoto.gx@renesas.com>
+	<d6e47194-a708-4dfe-96c8-aba9391e4496@perex.cz>
+	<46b37ef3-047c-4b1b-a79b-37187a46754a@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 13 Sep 2024 01:35:28 +0000
+X-ClientProxiedBy: TYCP286CA0331.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38e::10) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: ogiyPitW642ue2kmpSl3oPFemrvuiZ_P
-X-Proofpoint-GUID: ogiyPitW642ue2kmpSl3oPFemrvuiZ_P
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0
- bulkscore=0 lowpriorityscore=0 mlxlogscore=999 spamscore=0 phishscore=0
- impostorscore=0 suspectscore=0 mlxscore=0 malwarescore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409120144
-Message-ID-Hash: GNDY4A6YUT3C5O3DNQ3X22YNNCMAMHR4
-X-Message-ID-Hash: GNDY4A6YUT3C5O3DNQ3X22YNNCMAMHR4
-X-MailFrom: quic_wcheng@quicinc.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OSZPR01MB8733:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51555bce-59bf-47d6-7653-08dcd394591c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|52116014|376014|1800799024|366016|38350700014;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?X1vY3nM2IuQBbwR4l6EKT47yjr3WrBvUPDWRCbq4o5u7ZjV0jWQqOUAhAYq+?=
+ =?us-ascii?Q?fAbpaY6V2Uf5r0eJ038tbTt4JIRc6iOpoZaP+q+6JFApP1ARH6xUKxxfB+p7?=
+ =?us-ascii?Q?7LQroC2dymMOvRXGVLB7IpNm/4UQOCg30n2VlkHvO4QLa+YaGhphoAqejGOs?=
+ =?us-ascii?Q?eeIERp5c+8aImbmOPcxDfVJiCxnRVwh3AJLuYDj4asnFn55gbqsxopuCrefu?=
+ =?us-ascii?Q?p439r0BYDv67o3XvJMCjz1iRQs+wrcbd1qi9V2T/jIZ0m7UNkLygbTbqOiXW?=
+ =?us-ascii?Q?/u9GwyY/+HccllHDzOHag6ixtJ9S89rNNPOuc5TLbfX0GJaFfc4OkaraNmhy?=
+ =?us-ascii?Q?v9fVvFKpjgn2D1Ry9DgJTLrpme87G5n8Xkr0nV/ticx3wJ1A/H0pZ8PXO2SF?=
+ =?us-ascii?Q?EZdBpuOpCKdRjWsxVsnUuNMUnKeJo2BTF1xE9WbQ9ECOiLiyvoeJnzxbGLSg?=
+ =?us-ascii?Q?CD2GV8OQTXtVJcYqmYpRMtBuOE0iNnTAAZBHad7ydlWwHnuEv3yir9LA+31g?=
+ =?us-ascii?Q?taVb3ziuc0ez+MiGX5zSZE+EcDHBuI7mrif2zPis7FRGiVHcSBHMWXxz+dI7?=
+ =?us-ascii?Q?/HEA63bS0osJy7sW65MX0BF3KcLBDVxNKXDaVeWZsliDcScSpwR03Pa42T58?=
+ =?us-ascii?Q?vgbgktLWRQpueqfj2yRc5p9cho6q1NtKwxlNVU6kFCJSXjx9Cu7dsn3rrdyx?=
+ =?us-ascii?Q?6sGyGl+AZjyHqR9ecJWRx7xUjmqa0/p1kFBOCH4/IXy5dVb4RLiS5Qbzeiwf?=
+ =?us-ascii?Q?aCnBvDxIO20grxxdMGb3h875bYB4Q5METifbRg0i/11jEBHygQt1CW+7QoOF?=
+ =?us-ascii?Q?Fm1HrfE6Ffg1Ubl2lCPSf7WqC6u/wqOtH8kmTWVCsrFi6AdgEl+bCNkwFYFA?=
+ =?us-ascii?Q?dD0XnZgh0Il+xNe+VORKnki5yQjcc1qo4QtUFBNQbR2tAkyHGaFrTVC9Aq4N?=
+ =?us-ascii?Q?/dJsRTVnqdDK0Y3XgfZnfSjC7IUjC4rMz2sLG9IbYfhA8BUE8NDABtiPBii8?=
+ =?us-ascii?Q?FVj9uXLXlqRexT7kkKP0S9ASxfaEq3OlWmCNV1C/QMY7iOBEt9LolIGDa2Z+?=
+ =?us-ascii?Q?TK6/vbxXhMV8cvX+pwWqFdm2PbKppQBSSOQNGdHk7PVeuU5vL00Zc2Xnoexm?=
+ =?us-ascii?Q?GvASWG8ZYKpgQOmmRM3okN/y7agtH/2R3SA7Vy1ABME79wnC646OEetsSeyw?=
+ =?us-ascii?Q?6fqjVMWMmQeeXx9BGhf5rpeotry8XDBnXrKY+xJh7Co2DUjo/Ao8Yk/VE2Q6?=
+ =?us-ascii?Q?rlglZdIv5t4e3dx1xrmok4y65XgrjWkHFMbEoZzlvkzWOOb4rTlPCqYw09MS?=
+ =?us-ascii?Q?GuO8S8G22AbZoZK60JXHdrC7N5jaZDmUcgOCAPwsm5H0FmdafzFpD5OMmIeO?=
+ =?us-ascii?Q?FTaRa1IIFAkvEGM2RbF4uXTmkabrQhWtAEFJrF3Cz16C5Q6Q4Q=3D=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?5xpgxHBTbwvgb7Qfbf2ZwBlnqTGyRfDhNiqbUQl6xdjxuTf50zMYJ51Qrvsz?=
+ =?us-ascii?Q?PwKEx4v6L4Ig/d32cn+HsE0x4tbfV7wT3QwXMYFwIfJagGhSJ1QD/VhknmP0?=
+ =?us-ascii?Q?v3YXfmiRdDQnXcel55zrMFCffUq8F4H/e5QWxEp94tBK4nKD30WTVxcq9qjU?=
+ =?us-ascii?Q?1645b3mC5A+PACyRs2G0LXrkolC+wAQLmIK3WCPoBhIyoSwNOritkELvvVLv?=
+ =?us-ascii?Q?w6z1GZ70IHxRWICMkoe3MrHa5s1QXN3m9MuFgVUyHvtKP95gqs40l4to3ZM7?=
+ =?us-ascii?Q?9PiOkYfdNqlyBrJW7pYNW9kTd41uooKig6INcSJSQk0Kn7K3h6Xzhq2kntdD?=
+ =?us-ascii?Q?WxJ2zWBOmrDxSQiTqsARGN1XBQTm7QSX52xN0jZnrmPX5J5RCve07Ak61TWe?=
+ =?us-ascii?Q?4m9BPUcDsHOtNlGtAElbhMXA4sLuer3DPBRuaxKfhEv9A83UL8Trd+lBbuCC?=
+ =?us-ascii?Q?TZS3uxv8ibtOUTmiUyl4BoqVCsrybQktLdZyIYX+TFBeefwqG6vIPgpC8jBp?=
+ =?us-ascii?Q?0mPM2bzNuWauB2JpEGkxUThc/yZH8QtXE5eLrl6eFNGEMuYCmci9MHDet9tY?=
+ =?us-ascii?Q?aAyVmdKKsjjbXYVnNHl6Bxb7dzs58X7Ctp1ZEy8q2UyVm/2p2GQsfwg4cKPy?=
+ =?us-ascii?Q?+brYDwUdgQZJXrvaVSaqoXFleWM4In/rjmQ3yU9PJGQSTuBYR8vvhB+4pomC?=
+ =?us-ascii?Q?l+SaSNmHLLlF4Fsr+F6sWy/uad/jzsMzrhW2/ZNk5eMAbchWrvg4v6rHyQQI?=
+ =?us-ascii?Q?moDCMIei9R3IWj+qLu3GQNAdMoF2Vsj4B7iYOXrAVXeChbQ5wXa9Kgvx8Geu?=
+ =?us-ascii?Q?H1WKSUBCyB3MZ+fsbVB3/bbb1fBg63vX4+z98lcys6qoFcVU6v76ddOvYv0E?=
+ =?us-ascii?Q?Iqli+gT3OF0arNZECG/83yc9CKGOShHpAvIiK3HIRkclAkK9lGdcG7rtT3nV?=
+ =?us-ascii?Q?9J+Ecyz8iDqRbvqWgkwEuVEwAM7pl/bpfGVo6jxdY1yjRfTyowkaSKwpACNe?=
+ =?us-ascii?Q?6d6wAYiBKPN46H3kmA4pSRpgRDF5y7g7XC3nKzyHjGk2WhrAOK3YHhl2AnQI?=
+ =?us-ascii?Q?Pi2bnYG3j72uhZPws5kJyfEf+IwPagaHiJf4Rq0B2vN7AFbcLZEZ9FImnxXB?=
+ =?us-ascii?Q?KJINo+9LueurecD26FS/GME1Fqk8kmQ1kcWi8ldvJvNIgpcnNek2KD40icxg?=
+ =?us-ascii?Q?YF4HTdeW2ZqD0es9Oh6vQZX7IJRhCW5iNwMWjQR3fgjTq9ND3QcYddd0+sJn?=
+ =?us-ascii?Q?N3ywLIexn97mphJ3aCpJGfjZldurTJSKQ2FRU+2xqmFQMVm2XlNX9/xdW3iY?=
+ =?us-ascii?Q?BrNTEkUkxNMVoGmMQY/j65kM/Cj8ZDbjsvuc3k0M7N5E5t5TZPoa5vF8xeCz?=
+ =?us-ascii?Q?prtO4LyKjmYSTOQpx41JEDZ2dfhbWk5UqZJ1fz6kqiB8QtTBh9VBIOdwP+3a?=
+ =?us-ascii?Q?hl2qxgd97BfGlxRbR+ggjjjMjlptcZxDeUHUEjypx+ZZAp4AzoYaFAabIKgg?=
+ =?us-ascii?Q?HO6KS/GiE5CpK62mnRBExwNnB+p+//xq6qxHCigfk2bBqRuW4YSOGfzSf8ns?=
+ =?us-ascii?Q?7DNRZqvh5qz6OtrqfrYcQ+hREpYqCAtP8AsDe9N4IcJRNnu0k6YEkEA01Blk?=
+ =?us-ascii?Q?Gj12oKBPpi4Y/MUhsQM6t/E=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 51555bce-59bf-47d6-7653-08dcd394591c
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2024 01:35:28.4478
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ AWSp8iLPZo4gSqSfj3E7OIkPvOQTEJdHxnRX6VXcO7x/NhjCX4vGjlX7Z3s8m8dk7WVUpPVjJ0ISdQhhTngfXnB1Qlvh8XTIeIgxMJPNhrVsTyAC9pn1gLQ/qnuhpero
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8733
+Message-ID-Hash: 5SB7CM4LXSFU5MHKHWAZO4AFWNZFXZGC
+X-Message-ID-Hash: 5SB7CM4LXSFU5MHKHWAZO4AFWNZFXZGC
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +181,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GNDY4A6YUT3C5O3DNQ3X22YNNCMAMHR4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5SB7CM4LXSFU5MHKHWAZO4AFWNZFXZGC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,52 +190,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In case the USB backend device has not been initialized/probed, USB SND
-device connections can still occur.  When the USB backend is eventually
-made available, previous USB SND device connections are not communicated to
-the USB backend.  Call snd_usb_rediscover_devices() to generate the connect
-callbacks for all USB SND devices connected.  This will allow for the USB
-backend to be updated with the current set of devices available.
 
-The chip array entries are all populated and removed while under the
-register_mutex, so going over potential race conditions:
+Hi Takashi, Mark, Jaroslav
 
-Thread#1:
-  q6usb_component_probe()
-    --> snd_soc_usb_add_port()
-      --> snd_usb_rediscover_devices()
-        --> mutex_lock(register_mutex)
+This is the reply for very old patch (almost 2 month ago).
 
-Thread#2
-  --> usb_audio_disconnect()
-    --> mutex_lock(register_mutex)
+> > > Many drivers are using below code to know the Sound direction.
+> 
+> > > 	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
+> 
+> > > This patch-set add snd_pcm_is_playback/capture() macro to handle it.
+> 
+> > NAK from my side (overdesign, no improved readability). The defines
+> > (SNDRV_PCM_STREAM_*) are enough to check the stream type value correctly.
+> 
+> I have to say I do remember this being a little bit of a confusing idiom
+> when I first stated looking at ALSA stuff, especially for capture only
+> cases.
 
-So either thread#1 or thread#2 will complete first.  If
+This patch-set got both Ack and Nack.
+I wonder can I re-post this after merge-window again ?
+I'm asking because this is very huge patch-set.
 
-Thread#1 completes before thread#2:
-  SOC USB will notify DPCM backend of the device connection.  Shortly
-  after, once thread#2 runs, we will get a disconnect event for the
-  connected device.
+Thank you for your help !!
 
-Thread#2 completes before thread#1:
-  Then during snd_usb_rediscover_devices() it won't notify of any
-  connection for that particular chip index.
-
-Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+Best regards
 ---
- sound/soc/soc-usb.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/soc/soc-usb.c b/sound/soc/soc-usb.c
-index f88ccf90df32..3457bb51a0a1 100644
---- a/sound/soc/soc-usb.c
-+++ b/sound/soc/soc-usb.c
-@@ -252,6 +252,8 @@ void snd_soc_usb_add_port(struct snd_soc_usb *usb)
- 	mutex_lock(&ctx_mutex);
- 	list_add_tail(&usb->list, &usb_ctx_list);
- 	mutex_unlock(&ctx_mutex);
-+
-+	snd_usb_rediscover_devices();
- }
- EXPORT_SYMBOL_GPL(snd_soc_usb_add_port);
- 
+Kuninori Morimoto

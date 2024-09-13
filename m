@@ -2,71 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BE20977BD5
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 11:07:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83B4D977BD9
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2024 11:07:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70079851;
-	Fri, 13 Sep 2024 11:07:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70079851
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB9AC950;
+	Fri, 13 Sep 2024 11:07:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB9AC950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726218459;
-	bh=s+VhX4Y+V+2fgGsKjB4s9ozjvyX13QLU7T5XxdXhOSs=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=gX4ScPw9kWLMZBpxvQtUPIf/EXBX1sVrYte9etk50YJPA5sihMnBP8e3Cv+U+djAk
-	 TZV7ErZ7ZRnWod9Stsrey7/sZO9EFhcKJSdRUNacbm5vyNAjBReSPN4ifXoMf5tgI7
-	 uMtGm5hH1WaafSa0XJ7sMocBSQ83BG3MFQQpR514=
+	s=default; t=1726218473;
+	bh=67QgmAMHmco+n8LJcc8yjIzjhmMa7X+JYsIcl4wRFZw=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=qrkVO69vZ+x9Xuk1pgH2mlaglx5zKM0eDXnrI8gjwQYYWAw03Bvl6DX09Gn9q1Db3
+	 ut7JODcQigZ4Wkes8U8Q697nqI8EdfXIYhQ0vECRUQgzllrIqVc/66R/ta4wtbT5fh
+	 WL3eMGwZWIcTlCONrvW2EJMBRzpF9bvTHU8L9xRA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13967F80527; Fri, 13 Sep 2024 11:07:08 +0200 (CEST)
+	id 2218CF805EA; Fri, 13 Sep 2024 11:07:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE8CCF80301;
-	Fri, 13 Sep 2024 11:07:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A998BF805E9;
+	Fri, 13 Sep 2024 11:07:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23D66F801F5; Fri, 13 Sep 2024 11:07:02 +0200 (CEST)
+	id 41469F805BF; Fri, 13 Sep 2024 11:07:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20629.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2414::629])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20621.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2407::621])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EEB61F800E9
-	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 11:06:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEB61F800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B74AF800E9
+	for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2024 11:07:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B74AF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Tcua7b/I
+ header.s=selector1 header.b=G5n5S/Am
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KmVpGe2uMorBZVr2ptphWEsUHWQM0c4vSzHh3R1PMdvReYz7hL8FXKMZcoWSpxVOyz0h369Ndao3psjGPqgCZKTHi5GWffSpB8WV++39LjwBBXW87SkKH2H7VlQulflBML8XEJ84xmEb2UJRt7mlthlaIaTyWR5nUS/RgIR8n009HhdCEJqzYXImYElf2Q4tYTGyoo7szYDTVBNPCgMiWeTb12XnvhTvY+pGK3XpubBJbe7skzxx6jZV70SPweRu6XOMmrAsuJPp2IE0RtBMGWKRBULsb8015mRoIOiIrCINUNgTKCrWlPgUsTPmFyfm96nxBDm8zz1UvokdT2SgoA==
+ b=or27utf2W9jqaIcFxB2w8Ox9Kh6KNEZiyXvjAO02mQRAYp3Ii6deoFrqFIUOxValu1xumGh3GpGlLQFpfy3YI1RfViUJocIkZv2yy5Xl8HU7B/aVKmr0GDaUzrtjVA9iKbq0rF/81cFV7j9pInqU/CKlX3jBuMrBrzj7UjnbWVxJoGMx+r60HP5Ss6q9tAPWdy2F37cmPu0G7upH7jBihrmzKtjJC7gyMga8Qu6DVyy/z9uyd7qmBb19HOttf5txZFjnw2nXv03cgCXPSUdFrxICiIVm4Gz9fpigU0eEr+3lIyoafy2+jwNAG/IF2Zj7oECpNwAdJI9MGEb7jkPkxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZLTUZRjT5uMw5UviRA/8kmrACc/K4fmleBLLYEYwNgw=;
- b=K5H3ak83p/gakxNg8pRh0tJJeXSCBiu3lMPb9REtRpOWgLQq0I5dWXz7E4tELLf//ReJkaA1pJSKu+TrAQ++btXknbBGoc+cxOAbYXHKiCnD5zPWPgN9x+55HLak94zuzQHRIR9nenHqqdXUWlPgYencuzZ2KO2lk49wTGefEUPLN4494n3a7rACy64a2G689xsj69q/Vck6NOlqXyBSxK6b16oXKyPrMxz9vd4blFFnCzG4ABk2iQDvOg5a3nH2ggXvthCRwJuXl9XJaM/Myxf1xeki37OrNYdZpdmh1dRWiM2In17Hm9FjKEFqCLp04tFVszBWuqShVchMFhkUXg==
+ bh=JKJRG52gtc3gAAXgs1/Xvt5aYJVV5qg7RqE2NMVaod4=;
+ b=XPlGT8tbTekcW9biWT/U1DzpJq0rr9C9nwB0Xs+ah1dgH0iHm5jjHvSurb25Ud7FPO8IM7plo7x1PvH6omrJBzDSOAzHs6lgwORTUv1CQpMrHyT6dFKSTepMJY4njt9QEC071fsLq61Yf302FQbsgcM1qno6UYWggj86WYLRQCWx9v4e4lIwSVu1FfCDgN0vUkUf4wfItfELFxp3uxLcKoj9RQPLLpaChelAv24iq+XmgHfavgXxpJ5pdi2SwlS73ImvpBio437cbNpheiOpZiDqKeDoW06hylU7aam8beKzjdOitMw/gffwSUWnFXUUm2oolm1lR9qwi6AcCH5wbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZLTUZRjT5uMw5UviRA/8kmrACc/K4fmleBLLYEYwNgw=;
- b=Tcua7b/IooZtRhhhY1s3Ydp5YXloBYWaIVcbY0pip90NWyImmAntC7QjLuzr9o5FMKXjGv9kUceNegmC6rq0RBswfimIMHDjhgvTGzFYKhIPNFhivsbjad/7pfpNrNMsO8dGYbDOnUaUB/NXktcojUcv/3knEJ2Mh6rVCDAKl4Y=
-Received: from CY5PR16CA0012.namprd16.prod.outlook.com (2603:10b6:930:10::20)
- by DS7PR12MB8289.namprd12.prod.outlook.com (2603:10b6:8:d8::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7962.18; Fri, 13 Sep 2024 09:06:54 +0000
-Received: from CY4PEPF0000EE32.namprd05.prod.outlook.com
- (2603:10b6:930:10:cafe::28) by CY5PR16CA0012.outlook.office365.com
- (2603:10b6:930:10::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.24 via Frontend
- Transport; Fri, 13 Sep 2024 09:06:54 +0000
+ bh=JKJRG52gtc3gAAXgs1/Xvt5aYJVV5qg7RqE2NMVaod4=;
+ b=G5n5S/Amguqc8m2gZKn2yX125AzI373DGDTk9qlax0YDQ3krCoNsRxXh9A7+8SaXyFALUFrHwWHc/nhXYJCIvBTannBHUWf5mkGAekzn4L/kjdD6FRAYIDOtGy/zcHNj4HkFWAjrpsLZjpmQpDJFxvcarHCX7x7AV1ZOOpMHV/M=
+Received: from PH7P222CA0029.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:33a::31)
+ by CY8PR12MB9034.namprd12.prod.outlook.com (2603:10b6:930:76::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.22; Fri, 13 Sep
+ 2024 09:06:58 +0000
+Received: from CY4PEPF0000EE34.namprd05.prod.outlook.com
+ (2603:10b6:510:33a:cafe::41) by PH7P222CA0029.outlook.office365.com
+ (2603:10b6:510:33a::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7939.29 via Frontend
+ Transport; Fri, 13 Sep 2024 09:06:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -74,13 +76,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE32.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ CY4PEPF0000EE34.mail.protection.outlook.com (10.167.242.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7918.13 via Frontend Transport; Fri, 13 Sep 2024 09:06:54 +0000
+ 15.20.7918.13 via Frontend Transport; Fri, 13 Sep 2024 09:06:58 +0000
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 13 Sep 2024 04:06:48 -0500
+ 15.1.2507.39; Fri, 13 Sep 2024 04:06:52 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
@@ -90,10 +92,13 @@ CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
 	<venkataprasad.potturu@amd.com>, <kai.vehmanen@linux.intel.com>,
 	<ckeepax@opensource.cirrus.com>, <linux-sound@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: [PATCH 0/5] AMD SoundWire machine driver code refactor
-Date: Fri, 13 Sep 2024 14:36:26 +0530
-Message-ID: <20240913090631.1834543-1-Vijendar.Mukunda@amd.com>
+Subject: [PATCH 1/5] ASoC: intel: sof_sdw: rename soundwire endpoint and
+ dailink structures
+Date: Fri, 13 Sep 2024 14:36:27 +0530
+Message-ID: <20240913090631.1834543-2-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240913090631.1834543-1-Vijendar.Mukunda@amd.com>
+References: <20240913090631.1834543-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -102,55 +107,55 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE32:EE_|DS7PR12MB8289:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cff6f72-66e8-46ac-9c1b-08dcd3d369ac
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|CY8PR12MB9034:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7ba93d4-9eb8-4e09-5fc9-08dcd3d36bed
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|376014|7416014|1800799024|36860700013|82310400026;
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014|7416014;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?ZGODSzpwY//Fz4bFyHc2G49BHcKm3eZJQYcjHUJuUVmUCdAaoTcTf3dKD0w3?=
- =?us-ascii?Q?cBraINg0U88BUtd+r1BYTvZtRcrcrlDCRS5l3VjWDlFWrLzaCjtn8FYY43Q2?=
- =?us-ascii?Q?ualyDQicpD6g2FvT6s/Ggt5Dei1dS0u4wNp893bnXFREC3F4ls6s1CDvTjbH?=
- =?us-ascii?Q?14raeJzM2BIFMCuVk2WqfS5X3bmzwH3A/TaxbHSLo9ysF4f8mgDRfJD7984P?=
- =?us-ascii?Q?5KsPg/RgENiJpN871JSnJM2BCDUXRof70DpM+AgSRUkcFIbomnQMsQA/ztH6?=
- =?us-ascii?Q?B9fRWvEQG9K3zV+2UqicjnV916q9amTauvrnvtgivbQ+QouzJqb3LbsXtHg4?=
- =?us-ascii?Q?olQ6HKGvo48rbUqilyzW2vLkwK65h3WbBgk0ixHUnQHo8HZtaYzkmpfq6U8L?=
- =?us-ascii?Q?CHyy9ch7QhZ2+mYkxqLbQwT7NSukuXbXEwVgj3vsntOyCpDHhgnZnKaoazFS?=
- =?us-ascii?Q?/pLJovDoFY1gCkj6+bLpM0NNrZG+z1s23jeS5hmM6Mb8NG6nCxoa0QWUDF8s?=
- =?us-ascii?Q?GfGkvl6iCaFwVtOCxp8RmxrrflJkj59G1Jh0ubzJOa342cBaxw3qVwn+xcMZ?=
- =?us-ascii?Q?M/Gyx80pIjMzI3NHi5BBbxJMZU6MAm+LzoBAMgaYnTRc1Yq8duwrc6eyOXIN?=
- =?us-ascii?Q?QhS6rERSgMr4Xp/5LK1KJoOZPWvHidfdxp+IPJuzLSID9JdW8x/9wFm/Q4bP?=
- =?us-ascii?Q?hoLfgIsFM3S658Gxp4vNk/4OjeIQxMpjBkoJieadtY2rnAsauR31YLCQiGRS?=
- =?us-ascii?Q?l+c8OddIAXxpiZ6VdvJkn74VAS7MzsyNvAYcUmnNq2NbbpcyRRfzkHCzqD0V?=
- =?us-ascii?Q?8BQLC+gJdyQupAeHCL0P3CL044hcEMrQebq8+wQfOburqDErIgMZj6BBuSaj?=
- =?us-ascii?Q?3IVES/Zx1awREnTHIG9SkFHDWAn0p+SashIEpCsyHf8B00Nde9RUCCWq2dpq?=
- =?us-ascii?Q?Ug/G8JqP/2VqpWhDeXR0Fldin80MBCOIAEeD7/xq8NHbBRXg+/k+hkwJpQWd?=
- =?us-ascii?Q?nbioZZbMMptZBGVs/NKJPMYxKPoX/vsdizgIWLbuTVJNwctwTYrC1bS0kMPe?=
- =?us-ascii?Q?rPQ83YTQDS04UOR9ikPXnPsUAG1fgECE1Z8fhsJ14UKTpUPgPLJrSE47bh2M?=
- =?us-ascii?Q?tVkC33i6aHJY/1eWsr1VmSDV/Gb2ORU9LQOkr8VDNLRIaVWgXCwHgBQKBTSG?=
- =?us-ascii?Q?Xv+hblxkvS3PJMd5mogqLctQSfE7Zf0Qh585WwpmGJl4ajD+Xe5ttu2zLJkw?=
- =?us-ascii?Q?lsZNO6FE63ktXLUaloBU1Lze7W7gxgrvJWFIh8vJE5e3sI6stHXrsaiv/+GQ?=
- =?us-ascii?Q?tocMSK0VS56+YOySjUwllmhIWtRejXrVQmk7vZLD03ivgTKeYRB5X9ir91lz?=
- =?us-ascii?Q?N0pZkjSVakhggzUfpq9+pRsg0DoKjbBgklYk7ZItz9F9j+WW5bo9qKP2P8fS?=
- =?us-ascii?Q?xZnEvBFo+O94FRwMfoM1XPAkQ4zU5eH2?=
+	=?us-ascii?Q?x2ilpS4krt+Lgryks0dV0g8YiGDtxsjuDXCqUGgtKbM0JStbb4uliPiMNC0E?=
+ =?us-ascii?Q?iLbrZ+dV3avmy57L30bOrbrUEhmBdRzPGJr4a/WRXqv9CTJ4wPt3kq4UTeW1?=
+ =?us-ascii?Q?QrXEmSB3f2WvaZSn2gnkxWiFb8tpzC/fRLZBk++veMpuzrLu8iw1lZtyN38x?=
+ =?us-ascii?Q?T8LkhQPc1eMG8DSJaUztnle2zpkX9qbG14eF0czX7xwSFKvHNyVBdzFd7KKC?=
+ =?us-ascii?Q?wA7LqBpidNAvhL4Y1ZESOkXC/hEGFG8R1mLiRafidkJDD89692JjjgTJEbu7?=
+ =?us-ascii?Q?gUmOAXHMgXNPO+o9Nkfc+npW0YuzefFhUeTccryvLQYx3oI9UJSMEddUkZct?=
+ =?us-ascii?Q?lNC6hdPCZhzSWnqRtsysvxgD+L9h0A8Ov5Owiz5V0QbkaOrhsqSYrVdNJYPR?=
+ =?us-ascii?Q?0SgCQf3klxFXHnwLw38Jzbwl/4g5rq1beklKGm9gDrx6Wvk93/Sm3O6WCPVd?=
+ =?us-ascii?Q?xA/sVfwQvgh0TfvJ4n2XFulMM1D4mZCC87ukX8ZLYIryjuIjY48e3wjeHtKO?=
+ =?us-ascii?Q?xbX+i2uqOUjT0208P3b2n9/1SMa83zGyN91k2uX02npfNOnlz2XBf6iVL6lW?=
+ =?us-ascii?Q?BR8OeeGFVyiGD/7yTBUM0H9fv6+w+QQ7urK+gOIASsQmgNJf6UxigPnfYZWP?=
+ =?us-ascii?Q?Zz7htTr2Y2mCivgT2eWJ3jcjAK8QB4Hv4BqIgNm2dF2N0oAgZU0ztFnLaLAC?=
+ =?us-ascii?Q?6scxb4+qqR76hdsUDYSNuiX0INGKQghpj/imc7pHso+majHngR/2sx9476V/?=
+ =?us-ascii?Q?YAQZAzFdJC6lnWiMiv3wnAFkjCI8BYM9hVXkR0zyKCxtTXsl5lCvfmySZMbd?=
+ =?us-ascii?Q?Nwx0sa5WToOLPsUjUlG1uuPmqWW1D4IuoZ6Vj7tdyniA/lgEwFYegf2pIzaW?=
+ =?us-ascii?Q?k02zANi4bA5BGDFztzSrHyHe5O+FHXv4zRXTVW5lI0u5XuRZY3lDFPNZbg0U?=
+ =?us-ascii?Q?3dTU76hqAmUDkoLX4e0MiQOKDlTWr9qaLJM/yY28tcZkmD9hhCqUc1mxJF5s?=
+ =?us-ascii?Q?iMvszkkEGkTJ0YodtexP7+Sn17um1kgxc5X4+wsv5jnHDwxyYR1Ban1sRdj7?=
+ =?us-ascii?Q?gc7wpe5u6IZDdOgZu6MyT/NzqiIPGykIekUmreMzy+cS4hmARC3/4R19xZWX?=
+ =?us-ascii?Q?iui/hrI55ixjyTEPKJg/cZYVnFmB6hv+HPTvmkSQ0x0JY3NhynfkhNLfP3Lc?=
+ =?us-ascii?Q?eYhZYG2s5Vk2k0NCFVZ1tzRhLorGU10AbKQb2oxAYOZuwV6eEEf27aC74W74?=
+ =?us-ascii?Q?ulORvtZdgHbLUYFkv82Uo8olTlJZZUIfhCIOl6PcqRqXFf0z2OETDY5Xn4Gx?=
+ =?us-ascii?Q?0AtN4457USrYrFtMqpn57tpwDO1LkZEgAVqbilZ3MSUtCXofAtCnkpr+A4mL?=
+ =?us-ascii?Q?nS2GPTvsJtvilNrpmRSh86KKPpsZVjEy73WMfdX8UqNaR9VbpG/wTw86dDLg?=
+ =?us-ascii?Q?ucNQeNwYB0JREujJk5GPG7Fcx4n75VVn?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7416014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2024 09:06:54.2372
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2024 09:06:58.0171
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 0cff6f72-66e8-46ac-9c1b-08dcd3d369ac
+ c7ba93d4-9eb8-4e09-5fc9-08dcd3d36bed
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
  TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	CY4PEPF0000EE32.namprd05.prod.outlook.com
+	CY4PEPF0000EE34.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8289
-Message-ID-Hash: QMGJWDK6DAAR3TGHSLX5A3M5IWZMPYIC
-X-Message-ID-Hash: QMGJWDK6DAAR3TGHSLX5A3M5IWZMPYIC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9034
+Message-ID-Hash: VDJL47XQGAIEKIJOP4IKVOX6BCPQABHD
+X-Message-ID-Hash: VDJL47XQGAIEKIJOP4IKVOX6BCPQABHD
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -163,7 +168,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QMGJWDK6DAAR3TGHSLX5A3M5IWZMPYIC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VDJL47XQGAIEKIJOP4IKVOX6BCPQABHD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -172,29 +177,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch series moves common Soundwire endpoint parsing and dai
-creation logic to common placeholder from Intel generic SoundWire
-machine driver code to make it generic. AMD SoundWire machine driver
-code is refactored to use these functions for SoundWire endpoint
-parsing and dai creation logic.
+Rename SoundWire endpoint and dai link structures with asoc tag to make it
+generic.
 
-Link: https://github.com/thesofproject/linux/pull/5171
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ sound/soc/intel/boards/sof_sdw.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-Vijendar Mukunda (5):
-  ASoC: intel: sof_sdw: rename soundwire endpoint and dailink structures
-  ASoC: intel: sof_sdw: rename soundwire parsing helper functions
-  ASoC: sdw_util/intel: move soundwire endpoint and dai link structures
-  ASoC: sdw_utils/intel: move soundwire endpoint parsing helper
-    functions
-  ASoC: amd: acp: refactor SoundWire machine driver code
-
- include/sound/soc_sdw_utils.h        |  31 ++
- sound/soc/amd/acp/acp-sdw-sof-mach.c | 540 ++++++++-------------------
- sound/soc/intel/boards/sof_sdw.c     | 195 +---------
- sound/soc/sdw_utils/soc_sdw_utils.c  | 161 ++++++++
- 4 files changed, 354 insertions(+), 573 deletions(-)
-
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index f10ed95770ea..6eeddced1f6f 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -617,7 +617,7 @@ static const struct snd_soc_ops sdw_ops = {
+ 	.shutdown = asoc_sdw_shutdown,
+ };
+ 
+-struct sof_sdw_endpoint {
++struct asoc_sdw_endpoint {
+ 	struct list_head list;
+ 
+ 	u32 link_mask;
+@@ -629,7 +629,7 @@ struct sof_sdw_endpoint {
+ 	const struct asoc_sdw_dai_info *dai_info;
+ };
+ 
+-struct sof_sdw_dailink {
++struct asoc_sdw_dailink {
+ 	bool initialised;
+ 
+ 	u8 group_id;
+@@ -660,8 +660,8 @@ static int count_sdw_endpoints(struct snd_soc_card *card, int *num_devs, int *nu
+ 	return 0;
+ }
+ 
+-static struct sof_sdw_dailink *find_dailink(struct sof_sdw_dailink *dailinks,
+-					    const struct snd_soc_acpi_endpoint *new)
++static struct asoc_sdw_dailink *find_dailink(struct asoc_sdw_dailink *dailinks,
++					     const struct snd_soc_acpi_endpoint *new)
+ {
+ 	while (dailinks->initialised) {
+ 		if (new->aggregated && dailinks->group_id == new->group_id)
+@@ -678,8 +678,8 @@ static struct sof_sdw_dailink *find_dailink(struct sof_sdw_dailink *dailinks,
+ }
+ 
+ static int parse_sdw_endpoints(struct snd_soc_card *card,
+-			       struct sof_sdw_dailink *sof_dais,
+-			       struct sof_sdw_endpoint *sof_ends,
++			       struct asoc_sdw_dailink *sof_dais,
++			       struct asoc_sdw_endpoint *sof_ends,
+ 			       int *num_devs)
+ {
+ 	struct device *dev = card->dev;
+@@ -687,7 +687,7 @@ static int parse_sdw_endpoints(struct snd_soc_card *card,
+ 	struct snd_soc_acpi_mach *mach = dev_get_platdata(dev);
+ 	struct snd_soc_acpi_mach_params *mach_params = &mach->mach_params;
+ 	const struct snd_soc_acpi_link_adr *adr_link;
+-	struct sof_sdw_endpoint *sof_end = sof_ends;
++	struct asoc_sdw_endpoint *sof_end = sof_ends;
+ 	int num_dais = 0;
+ 	int i, j;
+ 	int ret;
+@@ -738,7 +738,7 @@ static int parse_sdw_endpoints(struct snd_soc_card *card,
+ 			for (j = 0; j < adr_dev->num_endpoints; j++) {
+ 				const struct snd_soc_acpi_endpoint *adr_end;
+ 				const struct asoc_sdw_dai_info *dai_info;
+-				struct sof_sdw_dailink *sof_dai;
++				struct asoc_sdw_dailink *sof_dai;
+ 				int stream;
+ 
+ 				adr_end = &adr_dev->endpoints[j];
+@@ -799,14 +799,14 @@ static int parse_sdw_endpoints(struct snd_soc_card *card,
+ }
+ 
+ static int create_sdw_dailink(struct snd_soc_card *card,
+-			      struct sof_sdw_dailink *sof_dai,
++			      struct asoc_sdw_dailink *sof_dai,
+ 			      struct snd_soc_dai_link **dai_links,
+ 			      int *be_id, struct snd_soc_codec_conf **codec_conf)
+ {
+ 	struct device *dev = card->dev;
+ 	struct asoc_sdw_mc_private *ctx = snd_soc_card_get_drvdata(card);
+ 	struct intel_mc_ctx *intel_ctx = (struct intel_mc_ctx *)ctx->private;
+-	struct sof_sdw_endpoint *sof_end;
++	struct asoc_sdw_endpoint *sof_end;
+ 	int stream;
+ 	int ret;
+ 
+@@ -845,7 +845,7 @@ static int create_sdw_dailink(struct snd_soc_card *card,
+ 			continue;
+ 
+ 		sof_end = list_first_entry(&sof_dai->endpoints,
+-					   struct sof_sdw_endpoint, list);
++					   struct asoc_sdw_endpoint, list);
+ 
+ 		*be_id = sof_end->dai_info->dailink[stream];
+ 		if (*be_id < 0) {
+@@ -936,7 +936,7 @@ static int create_sdw_dailink(struct snd_soc_card *card,
+ 
+ static int create_sdw_dailinks(struct snd_soc_card *card,
+ 			       struct snd_soc_dai_link **dai_links, int *be_id,
+-			       struct sof_sdw_dailink *sof_dais,
++			       struct asoc_sdw_dailink *sof_dais,
+ 			       struct snd_soc_codec_conf **codec_conf)
+ {
+ 	struct asoc_sdw_mc_private *ctx = snd_soc_card_get_drvdata(card);
+@@ -1104,8 +1104,8 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
+ 	struct snd_soc_acpi_mach_params *mach_params = &mach->mach_params;
+ 	struct snd_soc_codec_conf *codec_conf;
+ 	struct asoc_sdw_codec_info *ssp_info;
+-	struct sof_sdw_endpoint *sof_ends;
+-	struct sof_sdw_dailink *sof_dais;
++	struct asoc_sdw_endpoint *sof_ends;
++	struct asoc_sdw_dailink *sof_dais;
+ 	int num_devs = 0;
+ 	int num_ends = 0;
+ 	struct snd_soc_dai_link *dai_links;
 -- 
 2.34.1
 

@@ -2,122 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18A3D978B48
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Sep 2024 00:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 120EF978C66
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Sep 2024 03:17:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 443BF86F;
-	Sat, 14 Sep 2024 00:14:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 443BF86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id F25C8DF9;
+	Sat, 14 Sep 2024 03:17:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F25C8DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726265674;
-	bh=T9DzavKcLabQzYB5iHOUE1B4T8eJcT1KtWWq6NbNHbU=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1726276670;
+	bh=Wfge6eyOyWowGGwlBzoydllj/FaN2+7DG8PF61qxw70=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OWJXOlUS+OEGK+P2ob35OinU0yIGGPeZ3S9aIQ4XysP590Hz+YzP0bYZAH/TPLVjE
-	 xGQ+W0H9pyBJIIHA7fZYCMEru7HMrJ65hENcuWq0xIEBVhxKRlmidRaKtWp7rQ/IVv
-	 IKGJE5MrazRR/8VXur6mfVC8AZ8f4Jw+hwB7Uleo=
+	b=KnaiiHHn8r65rf/hlicdA/NJwLuZmhhpbdrjmeUhpJUBRD5pM0Reb/hLgsQQds2r6
+	 zmb7SlzzNg7npxaRVwk/1xdNJ/WKr8mt38CjYWKQJ6kbyb+KKhoigljjBW0+sxVnHr
+	 q+PJOUXe+opOvYIHmynDfMhW8WwOQ0cmv4hVXzaY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDCB2F8019B; Sat, 14 Sep 2024 00:14:12 +0200 (CEST)
+	id 3B751F805B3; Sat, 14 Sep 2024 03:17:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92270F8019B;
-	Sat, 14 Sep 2024 00:14:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D74AF805B1;
+	Sat, 14 Sep 2024 03:17:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E419F801F5; Sat, 14 Sep 2024 00:14:08 +0200 (CEST)
+	id 9AC32F801F5; Sat, 14 Sep 2024 03:17:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3B79BF800E9
-	for <alsa-devel@alsa-project.org>; Sat, 14 Sep 2024 00:14:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B79BF800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC6D3F800E9
+	for <alsa-devel@alsa-project.org>; Sat, 14 Sep 2024 03:17:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC6D3F800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=fZG6TdZe
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 48DAslFN003394;
-	Fri, 13 Sep 2024 22:14:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kYznQ95DJKtpP23L3CyjW0yB9e5K+e0VQ0yg2e7udL4=; b=fZG6TdZeibjZMWYK
-	4Mt/59sDFfv10g+Db8d9cdogdKEVpypoqkZtb7P/n5k9khLdFne5/VJWZTIRGMJ/
-	9s3GtW5PrrSJrBsD3XErYs5B6p8FnCksHW3MRrBjtAOI8ltcv4XF9zzf+oqrcYz6
-	aIPlvPiJoUntoqtiUkRrqJiCWghTukFk1qjf0gQ9nfNvaE12j1Bemy7kgU/KAXGX
-	vbiEYMh/+LJSGlvKq3glDDMn1lOD4AMtaYAOyai4WTG8xv0EP/B8Ot5fPD0sXjem
-	ZspgBYRJapjUa022af8m/KZVV38YY57G2LAUvqTWFvLsLik7FVqOoi+Yi3r2dQMF
-	CtDwnQ==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41gybq1xjd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 13 Sep 2024 22:14:02 +0000 (GMT)
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
-	by NASANPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 48DME1BI022104
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 13 Sep 2024 22:14:01 GMT
-Received: from [10.71.114.155] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Fri, 13 Sep
- 2024 15:14:01 -0700
-Message-ID: <a9dcaa5a-4f5d-451a-93aa-7457798fc243@quicinc.com>
-Date: Fri, 13 Sep 2024 15:14:00 -0700
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=mBNvu4j0
+Received: by mail-pj1-x102b.google.com with SMTP id
+ 98e67ed59e1d1-2d89dbb60bdso2021586a91.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 13 Sep 2024 18:17:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726276630; x=1726881430;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=PTN/Iyx1fmNv4bUuNCbr/8MD5bSrQHUUXAacttKOu3k=;
+        b=mBNvu4j0JdurLYGazAeWFXu5NBdpNfcmnhvkr34n/6o6HNjHfwUzY5zBY8NbwR2qeR
+         4sn8zPh19D/oW0jNGqLHiSk6OIhTyVq+6MN21UlFlU0ILVALP8Rev3mkORVr3es3Dfb8
+         iUwsgHM0Arq3Kr7R24wmRoatYomt112/INGdNQDwcI0Kc/llPteMj8UcfONj0Y/VEUeY
+         Dg1onguVnUsQwXLxUVhtfabvwXe7bM4dKNMoRqllbMpQ89kU3ZAAw0mEjhpugViE5oc5
+         VcLQbkc7qxdYJ0VLwbWjTEOtlOWXFNZIEszQVg3cB2R9bBX+vaNra/uDxqBSt8eBEJFj
+         PErg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726276630; x=1726881430;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PTN/Iyx1fmNv4bUuNCbr/8MD5bSrQHUUXAacttKOu3k=;
+        b=DqdyUsSjvA2IO0ZeS6IhZuFnZ5Xw2YayIEROdaZLKrcxHo1C41xwH70jXyy0xfc+0j
+         DjD9UAHSTlTMplpmzROyPULwD7nfy0IFKr7JQRC2eX+vVSMZcJYNImr/MLiAlinh7g4s
+         xS0We08eHxShyRB0RIZ/23Te/LedYRTng4uf2QhaYu3dpFuZaptJagmnYIV3iK/viZdV
+         udbGUTNlCWakHDbFDg1YctdIuyPc78reAtaSmqKdpL4bJx/3VaCczQOGML772VEELMN7
+         cZHyjX76lwf+kd5c7kmvkMU8PK5vBtRKy+yTjRf8IYnZDF6MiZbS1bgcfIW+pzbhLHYQ
+         WpSg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXHpZyEsz5SMl8mj6nR4M6B5tDFdgzvZcR/8gfDiaAOgo0wx+3YZ0LacuabRkv3IbrSMPx4rwdDKyAl@alsa-project.org
+X-Gm-Message-State: AOJu0YwHk5DbZ69oa89P8S177kdCHQH827JA7ZsutHSgWf6fNvQDOcjM
+	ty/6ushZO0zXl8Efo6KovYfdgvVa86X41D/HSYoiiPcaVhMmCM3C
+X-Google-Smtp-Source: 
+ AGHT+IGMf7gnqJVZSKs42t/gcn1+j6/nD/tGqsbkcOn8iLdJLkWkWIxDqgRtg60Y5HjYECc6+vcQVA==
+X-Received: by 2002:a17:90a:d346:b0:2d8:dd14:79ed with SMTP id
+ 98e67ed59e1d1-2dba0048e18mr8253613a91.31.1726276629951;
+        Fri, 13 Sep 2024 18:17:09 -0700 (PDT)
+Received: from geday ([2804:7f2:8006:9f55:654b:622b:2859:2848])
+        by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2dbb9ccb87dsm2460726a91.32.2024.09.13.18.17.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Sep 2024 18:17:09 -0700 (PDT)
+Date: Fri, 13 Sep 2024 22:17:00 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Mark Brown <broonie@kernel.org>, Hugh Cole-Baker <sigmaris@gmail.com>,
+	ALSA-devel <alsa-devel@alsa-project.org>,
+	dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: [RESEND PATCH v2] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit
+ if hardware supports it
+Message-ID: <ZuTkDMx4qalIFKdH@geday>
+References: <Y01E5MvrnmVhnekO@geday>
+ <9b0a0cd8-0994-4235-9823-37f0da1a751d@gmail.com>
+ <ZuSufaLavkdMdsSL@geday>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v27 01/32] xhci: add helper to stop endpoint and wait for
- completion
-To: =?UTF-8?Q?Micha=C5=82_Pecio?= <michal.pecio@gmail.com>,
-        <mathias.nyman@linux.intel.com>
-CC: <Thinh.Nguyen@synopsys.com>, <alsa-devel@alsa-project.org>,
-        <bgoswami@quicinc.com>, <broonie@kernel.org>, <conor+dt@kernel.org>,
-        <corbet@lwn.net>, <devicetree@vger.kernel.org>,
-        <dmitry.torokhov@gmail.com>, <gregkh@linuxfoundation.org>,
-        <krzk+dt@kernel.org>, <lgirdwood@gmail.com>,
-        <linux-arm-msm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-        <mathias.nyman@intel.com>, <perex@perex.cz>,
-        <pierre-louis.bossart@linux.intel.com>, <robh@kernel.org>,
-        <srinivas.kandagatla@linaro.org>, <tiwai@suse.com>
-References: <20240913103237.2f5dc796@foxbook>
-Content-Language: en-US
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <20240913103237.2f5dc796@foxbook>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Ea9Dy7IqYhLusQtkdmuC5WmSVcZRbLXp
-X-Proofpoint-GUID: Ea9Dy7IqYhLusQtkdmuC5WmSVcZRbLXp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 spamscore=0 adultscore=0
- lowpriorityscore=0 mlxlogscore=999 clxscore=1011 bulkscore=0
- impostorscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409130157
-Message-ID-Hash: PAIRONREBERFH5OZNOUMAXJ252CYCCYY
-X-Message-ID-Hash: PAIRONREBERFH5OZNOUMAXJ252CYCCYY
-X-MailFrom: quic_wcheng@quicinc.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZuSufaLavkdMdsSL@geday>
+Message-ID-Hash: IRPM4PJ4CBBLYVOLR6XCJCIFNETLCYEG
+X-Message-ID-Hash: IRPM4PJ4CBBLYVOLR6XCJCIFNETLCYEG
+X-MailFrom: geraldogabriel@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PAIRONREBERFH5OZNOUMAXJ252CYCCYY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IRPM4PJ4CBBLYVOLR6XCJCIFNETLCYEG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,28 +126,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Michal,
+On Fri, Sep 13, 2024 at 06:28:34PM -0300, Geraldo Nascimento wrote:
+> On Fri, Sep 13, 2024 at 10:12:39PM +0100, Hugh Cole-Baker wrote:
+> > I added printk to show the value of AUD_CONF2, and found that on 6.1.23, the
+> > value is 0 before the code in this patch sets the insert_pcuv bit. On 6.10.3
+> > the value is 4, i.e. insert_pcuv is already set.
+> > 
+> > According to the RK3399 TRM, the value-after-reset of the insert_pcuv bit is 1,
+> > so apparently on the 6.1.23 kernel something is clearing the bit after HW reset
+> > but before this driver sets the hw_params, and this patch sets it back to the
+> > correct value. On 6.10.3 the bit is not cleared, i.e. this patch is seemingly
+> > no longer necessary (but is a harmless no-op).
+> 
+> Hi Hugh,
+> 
+> Thank you for your extensive testing. It seems then there's no action we
+> need to take for mainline, as it's already fixed there.
 
-On 9/13/2024 1:32 AM, Michał Pecio wrote:
-> Hi,
->
->> Expose xhci_stop_endpoint_sync() which is a synchronous variant of
->> xhci_queue_stop_endpoint().  This is useful for client drivers that are
->> using the secondary interrupters, and need to stop/clean up the current
->> session.  The stop endpoint command handler will also take care of
->> cleaning up the ring.
-> I'm not entirely sure what you meant by "cleaning up the ring" (maybe a
-> comment would be in order?), but I see nothing being done here after the
-> command completes and FYI xhci-ring.c will not run the default handler if
-> the command is queued with a completion, like here.
->
-> At least that's the case for certain command types and there is probably
-> a story behind each of them. I know that xhci_stop_device() queues a
-> Stop EP with completion (and also a few without(?)). Maybe it's a bug...
+Unless Neil wants to pick-up it up for Stable? Neil, although not a
+regression, this is definitely a show-stopper for sound on RK3399
+for older, still supported kernels. And thanks to Hugh detailed
+report we now have confirmation that this happens on vanilla
+RK3399 and is not a quirk of my Rock Pi N10 board or sink.
 
-Maybe the last sentence is not needed.  When we are using the secondary interrupters, at least in the offload use case that I've verified with, the XHCI is completely unaware of what TDs have been queued, etc...  So technically, even if we did call the default handler (ie xhci_handle_cmd_stop_ep), most of the routines to invalidate TDs are going to be no-ops.
-
-Thanks
-
-Wesley Cheng
-
+Thanks,
+Geraldo Nascimento

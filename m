@@ -2,122 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E54897C2AC
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2024 03:45:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 954C597C9F0
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2024 15:16:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8536B65;
-	Thu, 19 Sep 2024 03:45:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8536B65
+	by alsa0.perex.cz (Postfix) with ESMTPS id 267CC857;
+	Thu, 19 Sep 2024 15:16:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 267CC857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1726710322;
-	bh=gOX2Efoo6f2Mn2ISU9WRaKt7vI3dsEcG5PIE8Whds9c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=eW8gOwMV3gRAUj92IPxbShU4pddFMzuFUNypA+B4XYIX8o60ngRkHoIkcnZQtHOmM
-	 jL8p5ItYX07p7OHDgzXFzM7tAagGlsdpQHRxw46HF/SuKVfw0d6cemTYoLb/XPRtiB
-	 moBYuHdHqN+YffY9AsUUoupFoEvXtqoNTgcaUp0Y=
+	s=default; t=1726751807;
+	bh=oB0IG1FZpNX8qGHKBepB0vaYITM6YVeiaNw0chda+lY=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tHiV0qgKLsN2Qbt1koDbr/cb52hKThrBLiQmhv81JIk6JDzjnnAub8I/QvNz4chJP
+	 4qPHEI2S5T49U6RdDqloWARG5q+VoJH1thrN+hgo7lxVAf0kAf+bcM2txxkyjgbkIO
+	 e+gdj2Uhq2eFe9DZl6mnP92ztfvLwqgxlLxaDth0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F968F805B3; Thu, 19 Sep 2024 03:44:51 +0200 (CEST)
+	id D1F9EF80518; Thu, 19 Sep 2024 15:14:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66899F805B0;
-	Thu, 19 Sep 2024 03:44:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9549F80518;
+	Thu, 19 Sep 2024 15:14:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88369F8020D; Thu, 19 Sep 2024 03:44:46 +0200 (CEST)
+	id 89CC9F8020D; Thu, 19 Sep 2024 09:58:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6ECA8F800D0
-	for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2024 03:44:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ECA8F800D0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 07A59F80074
+	for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2024 09:58:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07A59F80074
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=mXbZjcwq
-Received: by mail-il1-x136.google.com with SMTP id
- e9e14a558f8ab-3a0979cc639so1536225ab.2
-        for <alsa-devel@alsa-project.org>;
- Wed, 18 Sep 2024 18:44:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1726710282; x=1727315082;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DX8B0AVGc1Jcf/sZuX/Lm5rKGNOWSa7SVLWhBKf+5LU=;
-        b=mXbZjcwqYYAYE5XV+1pw1cHy2dsyT96mlBGBcdMsIQxKfa7GcRRut9lPbbDMDezUih
-         TkTGHgsIZEiZoJiinW8pVsE4CrZM/dgYHvBA5xy5+vp0KjBwR1FnJg4dX5RVib4B9Ep1
-         4c/iD6wuDw3wuiP4V34TbDkCRbM4tqnknB7/UGLts7PHPGFcgPpOXlRVMjsK0M1MMC3G
-         WR0+Oony7ZLP2mqtljl0dQAIVzl1rdonGmHBPjxWEsG13k6t0lyzSTlagNZpL9PRNRpc
-         qTMLaoHOZjfqOxW4/Eod2/pN8u6upLJSjf/L94B6v0Y/gAk/N7Ri9hCbkifC0dWJWTr4
-         LcOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726710282; x=1727315082;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DX8B0AVGc1Jcf/sZuX/Lm5rKGNOWSa7SVLWhBKf+5LU=;
-        b=F6xSZzy/q0CXzAqeZQkgc0Kw6p95xRG0rI5r0iN7VyoCHP0KED7Iz2UGFFF+HpK4dj
-         mmD07nfNzHGTYD3UKRoX8H+NCKumSXZvQr2PQNcugMFPDCII8L7sE2RZLXwvKA9b03Yr
-         oUB/rLMqKA2SFm1nGMrxJbrnALWVeZvDcUvUGGqpW6WTVI1b57bIcBxcLS/mqb7Fbnsj
-         mRK/kupDNVH1rNvgKT0od6F0oQ9dg6Vc7cPyXjKZCj1LzQXw8S/8/LpWJX9T8eBX7otJ
-         R9ueAuLqHs+quIiE+Y9yz2WWDzN4BoyTDMPi458sLU0ZfA3yUluJ7YNTwSps1W/EDuf0
-         QI3w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWVyYGHnxk+UANi8Fow5/xnYITSphT/ys6uaZkrIbeI7BQMs8HXpSf4ZtVk+nFw+OCMd0snx7nFPCu/@alsa-project.org
-X-Gm-Message-State: AOJu0YxYL8uy1kFirxpAjuBMw0h5WAWB9ytnPiNhfdbasbkpPJ/qndYk
-	OdZqs7W56Ywg4mmj2Xog7ItDN6lEqau4gDYi3VEe6BGa55k6e8BPRIocNq3InYeSL4pQ8tXO85z
-	QY+L4CDqHGEkxSxgUqFZecY5X7Iw=
-X-Google-Smtp-Source: 
- AGHT+IFvWrciDr6mTn/0jLlxcfQLFJaLJCVtLl6E6HMysiz+7fvxdv5D3t/y67xbPvsZHZCxSp+6BBa6yDCK4/1bo5U=
-X-Received: by 2002:a05:6e02:13a2:b0:39f:6180:afca with SMTP id
- e9e14a558f8ab-3a08491196bmr275534325ab.13.1726710282105; Wed, 18 Sep 2024
- 18:44:42 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=nnx1t/bc
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 48J7wLn0102849;
+	Thu, 19 Sep 2024 02:58:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1726732701;
+	bh=WBIO8ghc5BO7KnE+trij/v76xdOBbr/wF5H+L5REiYE=;
+	h=From:To:CC:Subject:Date;
+	b=nnx1t/bcQYPkrA4tunXM4zqVESCEy26aFKQKmlfh8B/axDHTA+l7sQClWczyxdSW5
+	 anwzA+Jv1M7nicjfnOIQ+nlF6y1ICSilQLVxtlZtUYcnb/68iCpPnXnk/nrWbDUNKE
+	 Hqc4coqdJY1oDhRlqSeKk4RdbaKBC7FD6ir3iTOM=
+Received: from DFLE102.ent.ti.com (dfle102.ent.ti.com [10.64.6.23])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTP id 48J7wLmt052629;
+	Thu, 19 Sep 2024 02:58:21 -0500
+Received: from DFLE103.ent.ti.com (10.64.6.24) by DFLE102.ent.ti.com
+ (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 19
+ Sep 2024 02:58:20 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE103.ent.ti.com
+ (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Thu, 19 Sep 2024 02:58:20 -0500
+Received: from lelvsmtp5.itg.ti.com ([10.250.165.138])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 48J7w8aB122919;
+	Thu, 19 Sep 2024 02:58:09 -0500
+From: Baojun Xu <baojun.xu@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <lgirdwood@gmail.com>,
+        <perex@perex.cz>, <pierre-louis.bossart@linux.intel.com>,
+        <13916275206@139.com>, <zhourui@huaqin.com>,
+        <alsa-devel@alsa-project.org>, <i-salazar@ti.com>,
+        <liam.r.girdwood@intel.com>, <jaden-yue@ti.com>,
+        <yung-chuan.liao@linux.intel.com>, <dipa@ti.com>,
+ <yuhsuan@google.com>,
+        <henry.lo@ti.com>, <tiwai@suse.de>, <baojun.xu@ti.com>,
+        <Baojun.Xu@fpt.com>, <judyhsiao@google.com>, <navada@ti.com>,
+        <cujomalainey@google.com>, <aanya@ti.com>, <nayeem.mahmud@ti.com>,
+        <savyasanchi.shukla@netradyne.com>, <flaviopr@microsoft.com>,
+        <jesse-ji@ti.com>, <darren.ye@mediatek.com>, <antheas.dk@gmail.com>,
+        <Jerry2.Huang@lcfuturecenter.com>, <jim.shil@goertek.com>
+Subject: [PATCH v1] ALSA: hda/tas2781: Add new quirk for Lenovo Y990 Laptop
+Date: Thu, 19 Sep 2024 15:57:43 +0800
+Message-ID: <20240919075743.259-1-baojun.xu@ti.com>
+X-Mailer: git-send-email 2.43.0.windows.1
 MIME-Version: 1.0
-References: <1725615837-24872-1-git-send-email-shengjiu.wang@nxp.com>
- <CAA+D8AOkQOanya6RViXfk_=CmNmCWx-N3cb-0SjMhSy0AA7LeA@mail.gmail.com>
-In-Reply-To: 
- <CAA+D8AOkQOanya6RViXfk_=CmNmCWx-N3cb-0SjMhSy0AA7LeA@mail.gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 19 Sep 2024 09:44:31 +0800
-Message-ID: 
- <CAA+D8ANFn6yD=gV+uMYXyQ_7TmOoBnmJtMZ70qPOS_dHn8OkPA@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 0/6] ASoC: fsl: add memory to memory function for
- ASRC
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Cc: vkoul@kernel.org, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: NJ6XJXP7HLMCL25WAI4TCBZBS2NDMQLC
-X-Message-ID-Hash: NJ6XJXP7HLMCL25WAI4TCBZBS2NDMQLC
-X-MailFrom: shengjiu.wang@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-MailFrom: baojun.xu@ti.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: QUW5Q3O2EDEM2ETONMNUKWZLBORY5RRQ
+X-Message-ID-Hash: QUW5Q3O2EDEM2ETONMNUKWZLBORY5RRQ
+X-Mailman-Approved-At: Thu, 19 Sep 2024 13:14:03 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJ6XJXP7HLMCL25WAI4TCBZBS2NDMQLC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QUW5Q3O2EDEM2ETONMNUKWZLBORY5RRQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,96 +112,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Jaroslav
+Add new vendor_id and subsystem_id in quirk for Lenovo Y990 Laptop.
 
-On Fri, Sep 13, 2024 at 10:29=E2=80=AFAM Shengjiu Wang <shengjiu.wang@gmail=
-.com> wrote:
->
-> On Fri, Sep 6, 2024 at 6:05=E2=80=AFPM Shengjiu Wang <shengjiu.wang@nxp.c=
-om> wrote:
-> >
-> > This function is base on the accelerator implementation
-> > for compress API:
-> > https://patchwork.kernel.org/project/alsa-devel/patch/20240731083843.59=
-911-1-perex@perex.cz/
->
-> Hi Jaroslav
->
->     Shall I add this patch to my patch set next time? Last time I
-> reported an issue
-> about "list_for_each_entry_safe_reverse", I can help to add it.  or
-> will you send
-> another version by yourself?
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-A gentle reminder, look forward to your reply.
-Thanks.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 480e82df7a4c..4f69fd30fdce 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -10612,6 +10612,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x38cd, "Y790 VECO DUAL", ALC287_FIXUP_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x38d2, "Lenovo Yoga 9 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
+ 	SND_PCI_QUIRK(0x17aa, 0x38d7, "Lenovo Yoga 9 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
++	SND_PCI_QUIRK(0x17aa, 0x38df, "Y990 YG DUAL", ALC287_FIXUP_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x38f9, "Thinkbook 16P Gen5", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x38fa, "Thinkbook 16P Gen5", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+-- 
+2.43.0
 
-Best regards
-Shengjiu Wang
-
->
-> Best regards
-> Shengjiu Wang
->
-> >
-> > Audio signal processing also has the requirement for memory to
-> > memory similar as Video.
-> >
-> > This asrc memory to memory (memory ->asrc->memory) case is a non
-> > real time use case.
-> >
-> > User fills the input buffer to the asrc module, after conversion, then =
-asrc
-> > sends back the output buffer to user. So it is not a traditional ALSA p=
-layback
-> > and capture case.
-> >
-> > Because we had implemented the "memory -> asrc ->i2s device-> codec"
-> > use case in ALSA.  Now the "memory->asrc->memory" needs
-> > to reuse the code in asrc driver, so the patch 1 and patch 2 is for ref=
-ining
-> > the code to make it can be shared by the "memory->asrc->memory"
-> > driver.
-> >
-> > Other change is to add memory to memory support for two kinds of i.MX A=
-SRC
-> > modules.
-> >
-> > changes in v3:
-> > - use Jaroslav's suggestion for header file compress_params.h (PATCH 01=
-)
-> > - remove the ASRC_OUTPUT_FORMAT/ASRC_OUTPUT_RATE definition
-> > - remove ASRC_RATIO_MOD in this version because it uses .set_metadata()
-> >   Will wait Jaroslav's update or other better method in the future.
-> > - Address some comments from Pierre.
-> >
-> > changes in v2:
-> > - Remove the changes in compress API
-> > - drop the SNDRV_COMPRESS_SRC_RATIO_MOD
-> > - drop the SND_AUDIOCODEC_SRC and struct snd_dec_src
-> > - define private metadata key value
-> >   ASRC_OUTPUT_FORMAT/ASRC_OUTPUT_RATE/ASRC_RATIO_MOD
-> >
-> > Shengjiu Wang (6):
-> >   ALSA: compress: Add output rate and output format support
-> >   ASoC: fsl_asrc: define functions for memory to memory usage
-> >   ASoC: fsl_easrc: define functions for memory to memory usage
-> >   ASoC: fsl_asrc_m2m: Add memory to memory function
-> >   ASoC: fsl_asrc: register m2m platform device
-> >   ASoC: fsl_easrc: register m2m platform device
-> >
-> >  include/uapi/sound/compress_params.h |  23 +-
-> >  sound/soc/fsl/Kconfig                |   1 +
-> >  sound/soc/fsl/Makefile               |   2 +-
-> >  sound/soc/fsl/fsl_asrc.c             | 179 ++++++-
-> >  sound/soc/fsl/fsl_asrc.h             |   2 +
-> >  sound/soc/fsl/fsl_asrc_common.h      |  70 +++
-> >  sound/soc/fsl/fsl_asrc_m2m.c         | 727 +++++++++++++++++++++++++++
-> >  sound/soc/fsl/fsl_easrc.c            | 261 +++++++++-
-> >  sound/soc/fsl/fsl_easrc.h            |   4 +
-> >  9 files changed, 1260 insertions(+), 9 deletions(-)
-> >  create mode 100644 sound/soc/fsl/fsl_asrc_m2m.c
-> >
-> > --
-> > 2.34.1
-> >

@@ -2,105 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C20984545
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Sep 2024 13:55:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A5519845A5
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Sep 2024 14:11:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3ADB9857;
-	Tue, 24 Sep 2024 13:55:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ADB9857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21A9A857;
+	Tue, 24 Sep 2024 14:11:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21A9A857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727178920;
-	bh=zPpowtiMeZs2MRYrDOYh8WY0kE7Xn3H5ocfIVsSQsu0=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1727179919;
+	bh=qspKubqS3d7ymXRdj2L5RA86RBJTk9T+B0dlwUVY4pM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nzEpLVUM7fRVsTthF2ILe6A0Z7Oi3i7/cPlsMYA+8SNxQBeDUGB6X62WSCFPCMO+z
-	 VnhcnK/evIQdL049fZLN8mhfL98AUO1YziEvzqUnsvVl4nzGB7iBiYLWMdgRR+DXkL
-	 pOz/hpb5vyqG4BtL9v7JE0qTpUIphMshHRR72i/s=
+	b=e+lKiFDG1QJWSaex8Gg8OzA+MAdOzbnJoo2XfkxNdnHzAWTNJcM8pXqjY7XF2cKuD
+	 /bGdw1M5tVyLmYsKeqF/0ZTbM94sTJFZ9nHLq+Qhs74sEnDjNv/EHozbM26peQn5VL
+	 geePzjMyueRyJ0Wxif7C7+/O15p5cS5+pzxWcs2s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73ADFF805AC; Tue, 24 Sep 2024 13:54:48 +0200 (CEST)
+	id 6FBCFF805AC; Tue, 24 Sep 2024 14:11:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9656F805B1;
-	Tue, 24 Sep 2024 13:54:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63486F802DB;
+	Tue, 24 Sep 2024 14:11:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2DA7F802DB; Tue, 24 Sep 2024 13:54:41 +0200 (CEST)
+	id CA845F802DB; Tue, 24 Sep 2024 14:11:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B872DF8010B
-	for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2024 13:54:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B872DF8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id A25BEF80107
+	for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2024 14:11:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A25BEF80107
 Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=Zy1B+7Lr
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 48OBsQpeD2906159,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1727178866; bh=zPpowtiMeZs2MRYrDOYh8WY0kE7Xn3H5ocfIVsSQsu0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Zy1B+7Lrojz5zSZ30Kl7TDYLkRZe8Nvxf4ztDINV2njyZavWc818oV4/nJcLXkU9Q
-	 u9liWvVUCLjOyFJyKi0TzkOhZSTy0oPfPhC/X++8rrxQ7dId+q5HEZA7rgYw8YONOu
-	 Q4fXBpzmiWnEydACFakbZGS2FqNhKwk5XCt3k+EWkSG8Gk9gscNiVWnI4KW0DJI+i2
-	 ikiye5jjQz+yXe1K/KUdhdkZKd1J4cdvtfl7x0RoTmX68ozs6Yx/jOmL9r+Co0gCAL
-	 oF1UQK+xQO+LoFBXk6x+GmaueIRr+o/rbb/etiTI31BENqgZyA8RypZGoHGaLgpJxf
-	 oaSUnVSXn3q3Q==
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/3.05/5.92) with ESMTPS id 48OBsQpeD2906159
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 24 Sep 2024 19:54:26 +0800
-Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Tue, 24 Sep 2024 19:54:26 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Tue, 24 Sep 2024 19:54:25 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
- RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
- 15.01.2507.035; Tue, 24 Sep 2024 19:54:25 +0800
-From: Jack Yu <jack.yu@realtek.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?=
-	<shumingf@realtek.com>,
-        =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?=
-	<derek.fang@realtek.com>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: RE: [PATCH v2] ASoC: rt721-sdca: Add RT721 SDCA driver
-Thread-Topic: [PATCH v2] ASoC: rt721-sdca: Add RT721 SDCA driver
-Thread-Index: AdsOYJgS4lsvgVNrTTKQijbK34dyeP//gwcA//9Y1QA=
-Date: Tue, 24 Sep 2024 11:54:25 +0000
-Message-ID: <1297b09d51654ecfbec2d000175a2c78@realtek.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=QRlE6KTM
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 8C9F2A41AE7;
+	Tue, 24 Sep 2024 12:11:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76391C4CEC4;
+	Tue, 24 Sep 2024 12:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1727179878;
+	bh=qspKubqS3d7ymXRdj2L5RA86RBJTk9T+B0dlwUVY4pM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QRlE6KTMOYgDLztndHCipu8scsc8zUgffgl0rO1xbonlyQuqFbyO3oJT6R8S+TbaF
+	 DQoTAsg04esw3WJMUNO89feV6nTFtPBEXZJJcOxp3Fo51QQkFAYQdWJ19zgZ14WDzH
+	 7Z+uMgYAaB4U31SnKHUxtSpX7VBlgcAIaKWS/AAchA7+xi3YW5Bb0Y+VfzcnqVvWYZ
+	 b4WMyFW1LKOiDUzhND5EuSd39jUsRSL1HdYeSsOpgZS5pfMwr8PdvpoEhxwkmt7uZf
+	 /QYqv8bffSQUCNrlnOuDUGHa9AfUCAK2uwRfBmY/gBKw8ovs+AEfn9/vlSDk4b3BPd
+	 ssuB0iI6mbw1w==
+Date: Tue, 24 Sep 2024 14:11:13 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Jack Yu <jack.yu@realtek.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"lars@metafoo.de" <lars@metafoo.de>,
+	"Flove(HsinFu)" <flove@realtek.com>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
+	Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: rt721-sdca: Add RT721 SDCA driver
+Message-ID: <ZvKsYUXJ42UZ_bhm@finisterre.sirena.org.uk>
 References: <1538ca2e1df042a7b771cc387b438710@realtek.com>
  <65339ec1-ee9d-40cb-acd2-b6cfa0445c7e@linux.intel.com>
-In-Reply-To: <65339ec1-ee9d-40cb-acd2-b6cfa0445c7e@linux.intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-x-originating-ip: [172.21.6.42]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ <1297b09d51654ecfbec2d000175a2c78@realtek.com>
 MIME-Version: 1.0
-Message-ID-Hash: BZCLXNVV72T7S4UDY4AGQMTRW6FM7CGO
-X-Message-ID-Hash: BZCLXNVV72T7S4UDY4AGQMTRW6FM7CGO
-X-MailFrom: jack.yu@realtek.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="N+4mV6cwsVVu6vM6"
+Content-Disposition: inline
+In-Reply-To: <1297b09d51654ecfbec2d000175a2c78@realtek.com>
+X-Cookie: Editing is a rewording activity.
+Message-ID-Hash: 3WXTHFUVCIP546W3O6DQVQGH32GPZO24
+X-Message-ID-Hash: 3WXTHFUVCIP546W3O6DQVQGH32GPZO24
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BZCLXNVV72T7S4UDY4AGQMTRW6FM7CGO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3WXTHFUVCIP546W3O6DQVQGH32GPZO24/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,302 +106,233 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFBpZXJyZS1Mb3VpcyBCb3Nz
-YXJ0IDxwaWVycmUtbG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5jb20+DQo+IFNlbnQ6IFR1ZXNk
-YXksIFNlcHRlbWJlciAyNCwgMjAyNCA1OjM2IFBNDQo+IFRvOiBKYWNrIFl1IDxqYWNrLnl1QHJl
-YWx0ZWsuY29tPjsgYnJvb25pZUBrZXJuZWwub3JnOw0KPiBsZ2lyZHdvb2RAZ21haWwuY29tDQo+
-IENjOiBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7IGxhcnNAbWV0YWZvby5kZTsgRmxvdmUo
-SHNpbkZ1KQ0KPiA8ZmxvdmVAcmVhbHRlay5jb20+OyBPZGVyIENoaW91IDxvZGVyX2NoaW91QHJl
-YWx0ZWsuY29tPjsgU2h1bWluZyBb6IyD5pu4DQo+IOmKmF0gPHNodW1pbmdmQHJlYWx0ZWsuY29t
-PjsgRGVyZWsgW+aWueW+t+e+qV0gPGRlcmVrLmZhbmdAcmVhbHRlay5jb20+Ow0KPiBCYXJkIExp
-YW8gPHl1bmctY2h1YW4ubGlhb0BsaW51eC5pbnRlbC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFU
-Q0ggdjJdIEFTb0M6IHJ0NzIxLXNkY2E6IEFkZCBSVDcyMSBTRENBIGRyaXZlcg0KPiANCj4gDQo+
-IEV4dGVybmFsIG1haWwuDQo+IA0KPiANCj4gDQo+IE9uIDkvMjQvMjQgMTE6MDMsIEphY2sgWXUg
-d3JvdGU6DQo+ID4gVGhpcyBpcyB0aGUgaW5pdGlhbCBjb2RlYyBkcml2ZXIgZm9yIHJ0NzIxLXNk
-Y2EuDQo+IA0KPiBJIHdvdWxkbid0IGh1cnQgdG8gcHJvdmlkZSBhIHNob3J0IGRlc2NyaXB0aW9u
-LiA3MjIgaGFzIDMgZnVuY3Rpb25zLCB3aGF0IGFib3V0DQo+IDcyMT8NCg0KT2theSwgSSdsbCBh
-ZGQgc2hvcnQgZGVzY3JpcHRpb24gaGVyZSBpbiBuZXh0IHYzLXBhdGNoLg0KPiANCj4gDQo+ID4g
-KyAgICAgY2FzZSBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fSkFDS19DT0RFQywNCj4gUlQ3MjFfU0RD
-QV9FTlRfVVNFUl9GVTA1LCBSVDcyMV9TRENBX0NUTF9GVV9WT0xVTUUsDQo+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgIENIX0wpOg0KPiA+ICsgICAgIGNhc2UgU0RXX1NEQ0FfQ1RMKEZVTkNfTlVN
-X0pBQ0tfQ09ERUMsDQo+IFJUNzIxX1NEQ0FfRU5UX1VTRVJfRlUwNSwgUlQ3MjFfU0RDQV9DVExf
-RlVfVk9MVU1FLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBDSF9SKToNCj4gPiArICAgICBj
-YXNlIFNEV19TRENBX0NUTChGVU5DX05VTV9KQUNLX0NPREVDLA0KPiBSVDcyMV9TRENBX0VOVF9V
-U0VSX0ZVMEYsIFJUNzIxX1NEQ0FfQ1RMX0ZVX1ZPTFVNRSwNCj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgQ0hfTCk6DQo+ID4gKyAgICAgY2FzZSBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fSkFDS19D
-T0RFQywNCj4gUlQ3MjFfU0RDQV9FTlRfVVNFUl9GVTBGLCBSVDcyMV9TRENBX0NUTF9GVV9WT0xV
-TUUsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIENIX1IpOg0KPiA+ICsgICAgIGNhc2UgU0RX
-X1NEQ0FfQ1RMKEZVTkNfTlVNX0pBQ0tfQ09ERUMsDQo+IFJUNzIxX1NEQ0FfRU5UX1BMQVRGT1JN
-X0ZVNDQsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIFJUNzIxX1NEQ0FfQ1RMX0ZVX0NIX0dB
-SU4sIENIX0wpOg0KPiA+ICsgICAgIGNhc2UgU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX0pBQ0tfQ09E
-RUMsDQo+IFJUNzIxX1NEQ0FfRU5UX1BMQVRGT1JNX0ZVNDQsDQo+ID4gKyAgICAgICAgICAgICAg
-ICAgICAgIFJUNzIxX1NEQ0FfQ1RMX0ZVX0NIX0dBSU4sIENIX1IpOg0KPiA+ICsgICAgIGNhc2Ug
-U0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwNCj4gUlQ3MjFfU0RDQV9FTlRfVVNFUl9G
-VTFFLCBSVDcyMV9TRENBX0NUTF9GVV9WT0xVTUUsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-IENIXzAxKToNCj4gPiArICAgICBjYXNlIFNEV19TRENBX0NUTChGVU5DX05VTV9NSUNfQVJSQVks
-DQo+IFJUNzIxX1NEQ0FfRU5UX1VTRVJfRlUxRSwgUlQ3MjFfU0RDQV9DVExfRlVfVk9MVU1FLA0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICBDSF8wMik6DQo+ID4gKyAgICAgY2FzZSBTRFdfU0RD
-QV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBSVDcyMV9TRENBX0VOVF9VU0VSX0ZVMUUsIFJU
-NzIxX1NEQ0FfQ1RMX0ZVX1ZPTFVNRSwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgQ0hfMDMp
-Og0KPiA+ICsgICAgIGNhc2UgU0RXX1NEQ0FfQ1RMKEZVTkNfTlVNX01JQ19BUlJBWSwNCj4gUlQ3
-MjFfU0RDQV9FTlRfVVNFUl9GVTFFLCBSVDcyMV9TRENBX0NUTF9GVV9WT0xVTUUsDQo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgIENIXzA0KToNCj4gPiArICAgICBjYXNlIFNEV19TRENBX0NUTChG
-VU5DX05VTV9BTVAsDQo+IFJUNzIxX1NEQ0FfRU5UX1VTRVJfRlUwNiwgUlQ3MjFfU0RDQV9DVExf
-RlVfVk9MVU1FLCBDSF9MKToNCj4gPiArICAgICBjYXNlIFNEV19TRENBX0NUTChGVU5DX05VTV9B
-TVAsDQo+IFJUNzIxX1NEQ0FfRU5UX1VTRVJfRlUwNiwgUlQ3MjFfU0RDQV9DVExfRlVfVk9MVU1F
-LCBDSF9SKToNCj4gPiArICAgICAgICAgICAgIHJldHVybiB0cnVlOw0KPiANCj4gVGhhdCB0ZWxs
-cyB1cyBpdCBoYXMgMyBmdW5jdGlvbnMgKGphY2ssIG1pYywgYW1wKSwgc28gd2hhdCdzIGRpZmZl
-cmVudCB0byBSVDcyMj8NCj4gY291bGQgd2UgaGF2ZSBhIHNpbmdsZSBkcml2ZXIgZm9yIGJvdGgg
-cGFydHM/IEEgbG90IG9mIHRoaXMgZHJpdmVyIHNlZW1zDQo+IGNvcHktcGFzdGVkLXJlbmFtZWQu
-DQo+IA0KUlQ3MjEgaGFzIDMgZnVuY3Rpb25zIGp1c3QgbGlrZSBSVDcyMiwgYnV0IGl0J3Mgc3Rp
-bGwgYSBkaWZmZXJlbnQgY29kZWMgYW5kIGZyb20gaW50ZXJuYWwgZGlzY3Vzc2lvbiwNCndlIHRo
-aW5rIGl0J3MgYmV0dGVyIHRvIHNlcGFyYXRlIHRoZSBkcml2ZXIgZm9yIGZ1dHVyZSBjb2RlIG1h
-bmFnZW1lbnQuDQoNCj4gPiArc3RhdGljIGludCBydDcyMV9zZGNhX3JlYWRfcHJvcChzdHJ1Y3Qg
-c2R3X3NsYXZlICpzbGF2ZSkgew0KPiA+ICsgICAgIHN0cnVjdCBzZHdfc2xhdmVfcHJvcCAqcHJv
-cCA9ICZzbGF2ZS0+cHJvcDsNCj4gPiArICAgICBpbnQgbnZhbDsNCj4gPiArICAgICBpbnQgaSwg
-ajsNCj4gPiArICAgICB1MzIgYml0Ow0KPiA+ICsgICAgIHVuc2lnbmVkIGxvbmcgYWRkcjsNCj4g
-PiArICAgICBzdHJ1Y3Qgc2R3X2Rwbl9wcm9wICpkcG47DQo+ID4gKw0KPiA+ICsgICAgIHNkd19z
-bGF2ZV9yZWFkX3Byb3Aoc2xhdmUpOw0KPiANCj4gSSB0aG91Z2h0IHdlIGFncmVlZCB0byB1c2Ug
-YSBoZWxwZXIgdG8gcmVhZCBvbmx5IHRoZSBudW1iZXIgb2YgbGFuZXMgZnJvbQ0KPiBwbGF0Zm9y
-bSBmaXJtd2FyZT8NCj4gDQo+IEJhcmQsIGRpZCB5b3Ugc2hhcmUgdGhpcyBhbHJlYWR5Pw0KPiAN
-Cj4gPiArICAgICBwcm9wLT5zY3BfaW50MV9tYXNrID0gU0RXX1NDUF9JTlQxX0JVU19DTEFTSCB8
-DQo+IFNEV19TQ1BfSU5UMV9QQVJJVFk7DQo+ID4gKyAgICAgcHJvcC0+cXVpcmtzID0gU0RXX1NM
-QVZFX1FVSVJLU19JTlZBTElEX0lOSVRJQUxfUEFSSVRZOw0KPiA+ICsNCj4gPiArICAgICBwcm9w
-LT5wYWdpbmdfc3VwcG9ydCA9IHRydWU7DQo+ID4gKw0KPiA+ICsgICAgIC8qDQo+ID4gKyAgICAg
-ICogcG9ydCA9IDEgZm9yIGhlYWRwaG9uZSBwbGF5YmFjaw0KPiA+ICsgICAgICAqIHBvcnQgPSAy
-IGZvciBoZWFkc2V0LW1pYyBjYXB0dXJlDQo+ID4gKyAgICAgICogcG9ydCA9IDMgZm9yIHNwZWFr
-ZXIgcGxheWJhY2sNCj4gPiArICAgICAgKiBwb3J0ID0gNiBmb3IgZGlnaXRhbC1taWMgY2FwdHVy
-ZQ0KPiA+ICsgICAgICAqLw0KPiA+ICsgICAgIHByb3AtPnNvdXJjZV9wb3J0cyA9IEJJVCg2KSB8
-IEJJVCgyKTsgLyogQklUTUFQOiAwMTAwMDEwMCAqLw0KPiA+ICsgICAgIHByb3AtPnNpbmtfcG9y
-dHMgPSBCSVQoMykgfCBCSVQoMSk7IC8qIEJJVE1BUDogIDAwMDAxMDEwICovDQo+ID4gKw0KPiA+
-ICsgICAgIG52YWwgPSBod2VpZ2h0MzIocHJvcC0+c291cmNlX3BvcnRzKTsNCj4gPiArICAgICBw
-cm9wLT5zcmNfZHBuX3Byb3AgPSBkZXZtX2tjYWxsb2MoJnNsYXZlLT5kZXYsIG52YWwsDQo+ID4g
-KyAgICAgICAgICAgICBzaXplb2YoKnByb3AtPnNyY19kcG5fcHJvcCksIEdGUF9LRVJORUwpOw0K
-PiA+ICsgICAgIGlmICghcHJvcC0+c3JjX2Rwbl9wcm9wKQ0KPiA+ICsgICAgICAgICAgICAgcmV0
-dXJuIC1FTk9NRU07DQo+ID4gKw0KPiA+ICsgICAgIGkgPSAwOw0KPiA+ICsgICAgIGRwbiA9IHBy
-b3AtPnNyY19kcG5fcHJvcDsNCj4gPiArICAgICBhZGRyID0gcHJvcC0+c291cmNlX3BvcnRzOw0K
-PiA+ICsgICAgIGZvcl9lYWNoX3NldF9iaXQoYml0LCAmYWRkciwgMzIpIHsNCj4gPiArICAgICAg
-ICAgICAgIGRwbltpXS5udW0gPSBiaXQ7DQo+ID4gKyAgICAgICAgICAgICBkcG5baV0udHlwZSA9
-IFNEV19EUE5fRlVMTDsNCj4gPiArICAgICAgICAgICAgIGRwbltpXS5zaW1wbGVfY2hfcHJlcF9z
-bSA9IHRydWU7DQo+ID4gKyAgICAgICAgICAgICBkcG5baV0uY2hfcHJlcF90aW1lb3V0ID0gMTA7
-DQo+ID4gKyAgICAgICAgICAgICBpKys7DQo+ID4gKyAgICAgfQ0KPiA+ICsNCj4gPiArICAgICAv
-KiBkbyB0aGlzIGFnYWluIGZvciBzaW5rIG5vdyAqLw0KPiA+ICsgICAgIG52YWwgPSBod2VpZ2h0
-MzIocHJvcC0+c2lua19wb3J0cyk7DQo+ID4gKyAgICAgcHJvcC0+c2lua19kcG5fcHJvcCA9IGRl
-dm1fa2NhbGxvYygmc2xhdmUtPmRldiwgbnZhbCwNCj4gPiArICAgICAgICAgICAgIHNpemVvZigq
-cHJvcC0+c2lua19kcG5fcHJvcCksIEdGUF9LRVJORUwpOw0KPiA+ICsgICAgIGlmICghcHJvcC0+
-c2lua19kcG5fcHJvcCkNCj4gPiArICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOw0KPiA+ICsN
-Cj4gPiArICAgICBqID0gMDsNCj4gPiArICAgICBkcG4gPSBwcm9wLT5zaW5rX2Rwbl9wcm9wOw0K
-PiA+ICsgICAgIGFkZHIgPSBwcm9wLT5zaW5rX3BvcnRzOw0KPiA+ICsgICAgIGZvcl9lYWNoX3Nl
-dF9iaXQoYml0LCAmYWRkciwgMzIpIHsNCj4gPiArICAgICAgICAgICAgIGRwbltqXS5udW0gPSBi
-aXQ7DQo+ID4gKyAgICAgICAgICAgICBkcG5bal0udHlwZSA9IFNEV19EUE5fRlVMTDsNCj4gPiAr
-ICAgICAgICAgICAgIGRwbltqXS5zaW1wbGVfY2hfcHJlcF9zbSA9IHRydWU7DQo+ID4gKyAgICAg
-ICAgICAgICBkcG5bal0uY2hfcHJlcF90aW1lb3V0ID0gMTA7DQo+ID4gKyAgICAgICAgICAgICBq
-Kys7DQo+ID4gKyAgICAgfQ0KPiA+ICsNCj4gPiArICAgICAvKiBzZXQgdGhlIHRpbWVvdXQgdmFs
-dWVzICovDQo+ID4gKyAgICAgcHJvcC0+Y2xrX3N0b3BfdGltZW91dCA9IDIwMDsNCj4gPiArDQo+
-ID4gKyAgICAgLyogd2FrZS11cCBldmVudCAqLw0KPiA+ICsgICAgIHByb3AtPndha2VfY2FwYWJs
-ZSA9IDE7DQo+ID4gKw0KPiA+ICsgICAgIC8qIFRocmVlIGRhdGEgbGFuZXMgYXJlIHN1cHBvcnRl
-ZCBieSBydDcyMS1zZGNhIGNvZGVjICovDQo+ID4gKyAgICAgcHJvcC0+bGFuZV9jb250cm9sX3N1
-cHBvcnQgPSB0cnVlOw0KPiANCj4gdGhpcyBkb2Vzbid0IHNlZW0gbmVlZGVkIGlmIHdlIGFscmVh
-ZHkgcmVhZCBpbmZvcm1hdGlvbiBvbiBsYW5lIHN1cHBvcnQuDQoNCkl0IHNlZW1zIHdlIHN0aWxs
-IG5lZWQgaXQgdG8gYmUgc2V0IGFzIGxhdGVzdCB1cHN0ZWFtIGNvZGUgc3RpbGwgbmVlZCBpdC4g
-DQpJZiB0aGUgdXBzdHJlYW0gY29kZSBpcyB1cGRhdGVkIHJlZ2FyZGluZyB0byB0aGlzLCB3ZSds
-bCBkbyB0aGUgbW9kaWZpY2F0aW9uIHRvIGl0Lg0KDQo+IA0KPiA+ICtzdGF0aWMgdm9pZCBydDcy
-MV9zZGNhX2RtaWNfcHJlc2V0KHN0cnVjdCBydDcyMV9zZGNhX3ByaXYgKnJ0NzIxKSB7DQo+ID4g
-KyAgICAgLyogUG93ZXIgZG93biBncm91cDEvMi8zX21pY19wZGIgKi8NCj4gPiArICAgICBydDcy
-MV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9WRU5ET1JfQU5BX0NUTCwNCj4gPiArICAg
-ICAgICAgICAgIFJUNzIxX01JU0NfUE9XRVJfQ1RMMzEsIDB4ODAwMCk7DQo+ID4gKyAgICAgLyog
-VlJFRl9IVl9FTl9BVVRPX0ZBU1QgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRl
-KHJ0NzIxLCBSVDcyMV9BTkFfUE9XX1BBUlQsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9WUkVG
-MV9IVl9DVFJMMSwgMHhlMDAwKTsNCj4gPiArICAgICAvKiBQb3dlciB1cCBncm91cDEvMi8zX21p
-Y19wZGIgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9W
-RU5ET1JfQU5BX0NUTCwNCj4gPiArICAgICAgICAgICAgIFJUNzIxX01JU0NfUE9XRVJfQ1RMMzEs
-IDB4ODAwNyk7DQo+ID4gKyAgICAgLyogU2V0IEFEMDcvMDggcG93ZXIgZW50aXR5IGZsb2F0aW5n
-IGNvbnRyb2wgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcy
-MV9IREFfU0RDQV9GTE9BVCwNCj4gPiArICAgICAgICAgICAgIFJUNzIxX0VOVF9GTE9BVF9DVEw5
-LCAweDJhMmEpOw0KPiA+ICsgICAgIC8qIFNldCBBRDEwIHBvd2VyIGVudGl0eSBmbG9hdGluZyBj
-b250cm9sICovDQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwgUlQ3MjFf
-SERBX1NEQ0FfRkxPQVQsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9FTlRfRkxPQVRfQ1RMMTAs
-IDB4MmEwMCk7DQo+ID4gKyAgICAgLyogU2V0IERNSUMxL0RNSUMyIHBvd2VyIGVudGl0eSBmbG9h
-dGluZyBjb250cm9sICovDQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwg
-UlQ3MjFfSERBX1NEQ0FfRkxPQVQsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9FTlRfRkxPQVRf
-Q1RMNiwgMHgyYTJhKTsNCj4gPiArICAgICAvKiBTZXQgRE1JQzEvRE1JQzIgSVQgZW50aXR5IGZs
-b2F0aW5nIGNvbnRyb2wgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIx
-LCBSVDcyMV9IREFfU0RDQV9GTE9BVCwNCj4gPiArICAgICAgICAgICAgIFJUNzIxX0VOVF9GTE9B
-VF9DVEw1LCAweDI2MjYpOw0KPiA+ICsgICAgIC8qIFNldCBBRDEwIEZVIGVudGl0eSBmbG9hdGlu
-ZyBjb250cm9sICovDQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwgUlQ3
-MjFfSERBX1NEQ0FfRkxPQVQsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9FTlRfRkxPQVRfQ1RM
-OCwgMHgxZTAwKTsNCj4gPiArICAgICAvKiBTZXQgRE1JQzEvRE1JQzIgRlUgaW5wdXQgZ2FpbiBm
-bG9hdGluZyBjb250cm9sICovDQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcy
-MSwgUlQ3MjFfSERBX1NEQ0FfRkxPQVQsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9FTlRfRkxP
-QVRfQ1RMNywgMHgxNTE1KTsNCj4gPiArICAgICAvKiBTZXQgRE1JQzIgRlUgaW5wdXQgZ2FpbiBj
-aGFubmVsIGZsb2F0aW5nIGNvbnRyb2wgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dy
-aXRlKHJ0NzIxLCBSVDcyMV9IREFfU0RDQV9GTE9BVCwNCj4gPiArICAgICAgICAgICAgIFJUNzIx
-X0NIX0ZMT0FUX0NUTDMsIDB4MDMwNCk7DQo+ID4gKyAgICAgLyogU2V0IEFEMTAgRlUgY2hhbm5l
-bCBmbG9hdGluZyBjb250cm9sICovDQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShy
-dDcyMSwgUlQ3MjFfSERBX1NEQ0FfRkxPQVQsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9DSF9G
-TE9BVF9DVEw0LCAweDAzMDQpOw0KPiA+ICsgICAgIC8qIHZmNzFmX3IxMl8wN18wNiBhbmQgdmY3
-MWZfcjEzXzA3XzA2ID0gMuKAmWIwMCAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3Jp
-dGUocnQ3MjEsIFJUNzIxX0hEQV9TRENBX0ZMT0FULA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFf
-SERBX0xFR0FDWV9DVEwxLCAweDAwMDApOw0KPiA+ICsgICAgIC8qIEVuYWJsZSB2ZjcwN19yMTJf
-MDUvdmY3MDdfcjEzXzA1ICovDQo+ID4gKyAgICAgcmVnbWFwX3dyaXRlKHJ0NzIxLT5yZWdtYXAs
-DQo+ID4gKyAgICAgICAgICAgICBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fTUlDX0FSUkFZLA0KPiBS
-VDcyMV9TRENBX0VOVF9JVDI2LA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBSVDcyMV9TRENB
-X0NUTF9WRU5ET1JfREVGLCAwKSwgMHgwMSk7DQo+ID4gKyAgICAgLyogU2V0IHVzZF9mbGFnX3Nl
-bCwgdXNkX2luX3NlbCAqLw0KPiA+ICsgICAgIHJlZ21hcF93cml0ZShydDcyMS0+bWJxX3JlZ21h
-cCwgMHg1OTEwMDA5LCAweDJlMDEpOw0KPiA+ICsgICAgIC8qIFNldCBSQyBjYWxpYnJhdGlvbiAg
-Ki8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9SQ19DQUxJ
-Ql9DVFJMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfUkNfQ0FMSUJfQ1RSTDAsIDB4MGIwMCk7
-DQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwgUlQ3MjFfUkNfQ0FMSUJf
-Q1RSTCwNCj4gPiArICAgICAgICAgICAgIFJUNzIxX1JDX0NBTElCX0NUUkwwLCAweDBiNDApOw0K
-PiA+ICsgICAgIC8qIEZpbmUgdHVuZSBQREUyQSBsYXRlbmN5ICovDQo+ID4gKyAgICAgcmVnbWFw
-X3dyaXRlKHJ0NzIxLT5yZWdtYXAsIDB4MmY1YywgMHgyNSk7IH0NCj4gDQo+IEh1bW0sIGlzbid0
-IGFsbCB0aGlzIHN1cHBvc2VkIHRvIGJlIGhhbmRsZWQgd2l0aCBibGluZCB3cml0ZXM/IEl0IHNl
-ZW1zIG9kZCB0bw0KPiBoYXJkLWNvZGUgYWxsIHRoaXMsIG5vPw0KDQpJdCBzZWVtcyB0aGVyZSBp
-cyBubyBhcGkgb3IgZnVuY3Rpb24gdG8gc3VwcG9ydCBibGluZCB3cml0ZSBmcm9tIEFDUEkgZnJv
-bSBsYXRlc3QgdXBzdHJlYW0gY29kZSwNCmFuZCB3ZSB0aGluayBpdCdzIGVhc2llciBmb3IgdXMg
-dG8gbWFuYWdlIHRoZSBkaWZmZXJlbnQgZnVuY3Rpb24ncyBibGluZCB3cml0ZS4NCg0KPiANCj4g
-PiArc3RhdGljIHZvaWQgcnQ3MjFfc2RjYV9hbXBfcHJlc2V0KHN0cnVjdCBydDcyMV9zZGNhX3By
-aXYgKnJ0NzIxKSB7Ow0KPiA+ICsgICAgIC8qIFBvd2VyIGRvd24gZ3JvdXAxLzIvM19taWNfcGRi
-ICAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX1ZFTkRP
-Ul9BTkFfQ1RMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfTUlTQ19QT1dFUl9DVEwzMSwgMHg4
-MDAwKTsNCj4gPiArICAgICAvKiBWUkVGX0hWX0VOX0FVVE9fRkFTVCAqLw0KPiA+ICsgICAgIHJ0
-NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX0FOQV9QT1dfUEFSVCwNCj4gPiArICAg
-ICAgICAgICAgIFJUNzIxX1ZSRUYxX0hWX0NUUkwxLCAweGUwMDApOw0KPiA+ICsgICAgIC8qIFBv
-d2VyIHVwIGdyb3VwMS8yLzNfbWljX3BkYiAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhf
-d3JpdGUocnQ3MjEsIFJUNzIxX1ZFTkRPUl9BTkFfQ1RMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3
-MjFfTUlTQ19QT1dFUl9DVEwzMSwgMHg4MDA3KTsNCj4gPiArICAgICAvKiBSZXNldCBkY19jYWxf
-dG9wICovDQo+ID4gKyAgICAgcmVnbWFwX3dyaXRlKHJ0NzIxLT5tYnFfcmVnbWFwLCAweDU4MTAw
-MDAsIDB4NjQyMCk7DQo+ID4gKyAgICAgLyogVHVybiBiYWNrIHRvIG5vcm1hbCBkY19jYWxfdG9w
-ICovDQo+ID4gKyAgICAgcmVnbWFwX3dyaXRlKHJ0NzIxLT5tYnFfcmVnbWFwLCAweDU4MTAwMDAs
-IDB4NjQyMSk7DQo+ID4gKyAgICAgLyogVzFDIFRyaWdnZXIgQ2FsaWJyYXRpb24gKi8NCj4gPiAr
-ICAgICByZWdtYXBfd3JpdGUocnQ3MjEtPm1icV9yZWdtYXAsIDB4NTgxMDAwMCwgMHhlNDIxKTsN
-Cj4gPiArICAgICAvKiBEQUMwNCBGVSBlbnRpdHkgZmxvYXRpbmcgY29udHJvbCAgKi8NCj4gPiAr
-ICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9IREFfU0RDQV9GTE9BVCwN
-Cj4gPiArICAgICAgICAgICAgIFJUNzIxX0NIX0ZMT0FUX0NUTDYsIDB4NTU2MSk7DQo+ID4gKyAg
-ICAgLyogU2V0IEVBUEQgaGlnaCAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUo
-cnQ3MjEsIFJUNzIxX1ZFTkRPUl9SRUcsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9HUElPX1BB
-RF9DVFJMNSwgMHg4MDAzKTsNCj4gPiArICAgICAvKiBFbmFibGUgdmY3MDdfcjE0ICovDQo+ID4g
-KyAgICAgcmVnbWFwX3dyaXRlKHJ0NzIxLT5yZWdtYXAsDQo+ID4gKyAgICAgICAgICAgICBTRFdf
-U0RDQV9DVEwoRlVOQ19OVU1fQU1QLA0KPiBSVDcyMV9TRENBX0VOVF9PVDIzLA0KPiA+ICsgICAg
-ICAgICAgICAgICAgICAgICBSVDcyMV9TRENBX0NUTF9WRU5ET1JfREVGLCAwKSwgMHgwNCk7DQo+
-ID4gKyAgICAgLyogRlUgMjMgU1BLIG11dGUgY29udHJvbCAtIEwgKi8NCj4gPiArICAgICByZWdt
-YXBfd3JpdGUocnQ3MjEtPnJlZ21hcCwNCj4gPiArICAgICAgICAgICAgIFNEV19TRENBX0NUTChG
-VU5DX05VTV9BTVAsDQo+IFJUNzIxX1NEQ0FfRU5UX1BERTIzLA0KPiA+ICsgICAgICAgICAgICAg
-ICAgICAgICBSVDcyMV9TRENBX0NUTF9GVV9NVVRFLCBDSF8wMSksIDB4MDApOw0KPiA+ICsgICAg
-IC8qIEZVIDIzIFNQSyBtdXRlIGNvbnRyb2wgLSBSICovDQo+ID4gKyAgICAgcmVnbWFwX3dyaXRl
-KHJ0NzIxLT5yZWdtYXAsDQo+ID4gKyAgICAgICAgICAgICBTRFdfU0RDQV9DVEwoRlVOQ19OVU1f
-QU1QLA0KPiBSVDcyMV9TRENBX0VOVF9QREUyMywNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
-UlQ3MjFfU0RDQV9DVExfRlVfTVVURSwgQ0hfMDIpLCAweDAwKTsNCj4gPiArICAgICAvKiBGVSA1
-NSBEQUMwNCBtdXRlIGNvbnRyb2wgLSBMICovDQo+ID4gKyAgICAgcmVnbWFwX3dyaXRlKHJ0NzIx
-LT5yZWdtYXAsDQo+ID4gKyAgICAgICAgICAgICBTRFdfU0RDQV9DVEwoRlVOQ19OVU1fQU1QLA0K
-PiBSVDcyMV9TRENBX0VOVF9GVTU1LA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBSVDcyMV9T
-RENBX0NUTF9GVV9NVVRFLCBDSF8wMSksIDB4MDApOw0KPiA+ICsgICAgIC8qIEZVIDU1IERBQzA0
-IG11dGUgY29udHJvbCAtIFIgKi8NCj4gPiArICAgICByZWdtYXBfd3JpdGUocnQ3MjEtPnJlZ21h
-cCwNCj4gPiArICAgICAgICAgICAgIFNEV19TRENBX0NUTChGVU5DX05VTV9BTVAsDQo+IFJUNzIx
-X1NEQ0FfRU5UX0ZVNTUsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIFJUNzIxX1NEQ0FfQ1RM
-X0ZVX01VVEUsIENIXzAyKSwgMHgwMCk7IH0NCj4gPiArDQo+ID4gK3N0YXRpYyB2b2lkIHJ0NzIx
-X3NkY2FfamFja19wcmVzZXQoc3RydWN0IHJ0NzIxX3NkY2FfcHJpdiAqcnQ3MjEpIHsNCj4gPiAr
-ICAgICAvKiBQb3dlciBkb3duIGdyb3VwMS8yLzNfbWljX3BkYiAgKi8NCj4gPiArICAgICBydDcy
-MV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9WRU5ET1JfQU5BX0NUTCwNCj4gPiArICAg
-ICAgICAgICAgIFJUNzIxX01JU0NfUE9XRVJfQ1RMMzEsIDB4ODAwMCk7DQo+ID4gKyAgICAgLyog
-VlJFRl9IVl9FTl9BVVRPX0ZBU1QgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRl
-KHJ0NzIxLCBSVDcyMV9BTkFfUE9XX1BBUlQsDQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9WUkVG
-MV9IVl9DVFJMMSwgMHhlMDAwKTsNCj4gPiArICAgICAvKiBQb3dlciB1cCBncm91cDEvMi8zX21p
-Y19wZGIgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9W
-RU5ET1JfQU5BX0NUTCwNCj4gPiArICAgICAgICAgICAgIFJUNzIxX01JU0NfUE9XRVJfQ1RMMzEs
-IDB4ODAwNyk7DQo+ID4gKyAgICAgLyogR0UwIG1vZGUgcmVsYXRlZCBjb250cm9sICovDQo+ID4g
-KyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwgUlQ3MjFfSERBX1NEQ0FfRkxPQVQs
-DQo+ID4gKyAgICAgICAgICAgICBSVDcyMV9HRV9SRUxfQ1RSTDEsIDB4ODAxMSk7DQo+ID4gKyAg
-ICAgLyogQnV0dG9uIEEsIEIsIEMsIEQgYnlwYXNzIG1vZGUgKi8NCj4gPiArICAgICBydDcyMV9z
-ZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9IREFfU0RDQV9GTE9BVCwNCj4gPiArICAgICAg
-ICAgICAgIFJUNzIxX1VNUF9ISURfQ1RSTDMsIDB4Y2YwMCk7DQo+ID4gKyAgICAgLyogSElEMSBz
-bG90IGVuYWJsZSAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJU
-NzIxX0hEQV9TRENBX0ZMT0FULA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfVU1QX0hJRF9DVFJM
-NCwgMHgwMDBmKTsNCj4gPiArICAgICAvKiBSZXBvcnQgSUQgZm9yIEhJRDEgICovDQo+ID4gKyAg
-ICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwgUlQ3MjFfSERBX1NEQ0FfRkxPQVQsDQo+
-ID4gKyAgICAgICAgICAgICBSVDcyMV9VTVBfSElEX0NUUkwxLCAweDExMDApOw0KPiA+ICsgICAg
-IC8qIE9TQy9PT0MgZm9yIHNsb3QgMiwgMyAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhf
-d3JpdGUocnQ3MjEsIFJUNzIxX0hEQV9TRENBX0ZMT0FULA0KPiA+ICsgICAgICAgICAgICAgUlQ3
-MjFfVU1QX0hJRF9DVFJMNSwgMHgwYzEyKTsNCj4gPiArICAgICAvKiBTZXQgSkQgZGUtYm91bmNl
-IGNsb2NrIGNvbnRyb2wgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIx
-LCBSVDcyMV9KRF9DVFJMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfSkRfMVBJTl9HQVRfQ1RS
-TDIsIDB4YzAwMik7DQo+ID4gKyAgICAgLyogUkMgY2FsaWJyYXRpb24gLTEgKi8NCj4gPiArICAg
-ICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9SQ19DQUxJQl9DVFJMLA0KPiA+
-ICsgICAgICAgICAgICAgUlQ3MjFfUkNfQ0FMSUJfQ1RSTDAsIDB4MGIwMCk7DQo+ID4gKyAgICAg
-LyogUkMgY2FsaWJyYXRpb24gLTIgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRl
-KHJ0NzIxLCBSVDcyMV9SQ19DQUxJQl9DVFJMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfUkNf
-Q0FMSUJfQ1RSTDAsIDB4MGI0MCk7DQo+ID4gKyAgICAgLyogcG93X2Nsa18xMnAyODhtaHpfZHJl
-MDMgY2hhbmdlIHRvIHJlZ2lzdGVyIG1vZGUgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4
-X3dyaXRlKHJ0NzIxLCBSVDcyMV9WRU5ET1JfQU5BX0NUTCwNCj4gPiArICAgICAgICAgICAgIFJU
-NzIxX1VBSl9UT1BfVENPTjE0LCAweDMzMzMpOw0KPiA+ICsgICAgIC8qIFR1bmUgY2FsaWJyYXRp
-b24gdGltaW5nIGNvbnRyb2wgKi8NCj4gPiArICAgICByZWdtYXBfd3JpdGUocnQ3MjEtPm1icV9y
-ZWdtYXAsIDB4NTgxMDAzNSwgMHgwMDM2KTsNCj4gPiArICAgICAvKiBjYWxpYnJhdGlvbiBIUCBh
-bXAgb3V0cHV0IHNlbGVjdCBjb250cm9sIGZyb20gRWZ1c2UgKi8NCj4gPiArICAgICByZWdtYXBf
-d3JpdGUocnQ3MjEtPm1icV9yZWdtYXAsIDB4NTgxMDAzMCwgMHhlZTAwKTsNCj4gPiArICAgICAv
-KiBGU00gcmVsYXRlZCBjb250cm9sICovDQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0
-ZShydDcyMSwgUlQ3MjFfQ0FQX1BPUlRfQ1RSTCwNCj4gPiArICAgICAgICAgICAgIFJUNzIxX0hQ
-X0FNUF8yQ0hfQ0FMMSwgMHgwMTQwKTsNCj4gPiArICAgICAvKiBIUCBjYWxpYnJhdGlvbiByZWxh
-dGVkIGNvbnRyb2wgKi8NCj4gPiArICAgICByZWdtYXBfd3JpdGUocnQ3MjEtPm1icV9yZWdtYXAs
-IDB4NTgxMDAwMCwgMHgwMDIxKTsNCj4gPiArICAgICAvKiBXMUMgSFAgY2FsaWJyYXRpb24qLw0K
-PiA+ICsgICAgIHJlZ21hcF93cml0ZShydDcyMS0+bWJxX3JlZ21hcCwgMHg1ODEwMDAwLCAweDgw
-MjEpOw0KPiA+ICsgICAgIC8qIHJlZ19zZWxfY2luX2hwXzAwMTAvMDAxMSAqLw0KPiA+ICsgICAg
-IHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX0NBUF9QT1JUX0NUUkwsDQo+ID4g
-KyAgICAgICAgICAgICBSVDcyMV9IUF9BTVBfMkNIX0NBTDE4LCAweDU1MjIpOw0KPiA+ICsgICAg
-IHJlZ21hcF93cml0ZShydDcyMS0+bWJxX3JlZ21hcCwgMHg1YjEwMDA3LCAweDIwMDApOw0KPiA+
-ICsgICAgIC8qIHNlbF9zZW5zaW5nX2xyX2hwICovDQo+ID4gKyAgICAgcmVnbWFwX3dyaXRlKHJ0
-NzIxLT5tYnFfcmVnbWFwLCAweDVCMTAwMTcsIDB4MWIwZik7DQo+ID4gKyAgICAgLyogUmVsZWFz
-ZSBIUC1KRCAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIx
-X0NCSl9DVFJMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfQ0JKX0EwX0dBVF9DVFJMMSwgMHgy
-YTAyKTsNCj4gPiArICAgICAvKiBlbl9vc3cgZ2F0aW5nIGF1dG8gZG9uZSBiaXQgKi8NCj4gPiAr
-ICAgICBydDcyMV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9DQVBfUE9SVF9DVFJMLA0K
-PiA+ICsgICAgICAgICAgICAgUlQ3MjFfSFBfQU1QXzJDSF9DQUw0LCAweGExMDUpOw0KPiA+ICsg
-ICAgIC8qIHBvd19jbGtfZW5fc3dfYW1wX2RldGVjdF9zZWwgdG8gcmVnaXN0ZXIgbW9kZSAqLw0K
-PiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX1ZFTkRPUl9BTkFf
-Q1RMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfVUFKX1RPUF9UQ09OMTQsIDB4M2IzMyk7DQo+
-ID4gKyAgICAgLyogY3Bfc3dfaHAgdG8gYXV0byBtb2RlICovDQo+ID4gKyAgICAgcmVnbWFwX3dy
-aXRlKHJ0NzIxLT5tYnFfcmVnbWFwLCAweDMxMDQwMCwgMHgzMDIzKTsNCj4gPiArICAgICAvKiBw
-b3dfY2xrX2VuX3N3X2FtcF9kZXRlY3QgcG93ZXIgdXAgKi8NCj4gPiArICAgICBydDcyMV9zZGNh
-X2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9WRU5ET1JfQU5BX0NUTCwNCj4gPiArICAgICAgICAg
-ICAgIFJUNzIxX1VBSl9UT1BfVENPTjE0LCAweDNmMzMpOw0KPiA+ICsgICAgIHJ0NzIxX3NkY2Ff
-aW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX1ZFTkRPUl9BTkFfQ1RMLA0KPiA+ICsgICAgICAgICAg
-ICAgUlQ3MjFfVUFKX1RPUF9UQ09OMTMsIDB4NjA0OCk7DQo+ID4gKyAgICAgLyogc3dpdGNoIHNp
-emUgZGV0ZWN0IHRocmVzaG9sZCAqLw0KPiA+ICsgICAgIHJlZ21hcF93cml0ZShydDcyMS0+bWJx
-X3JlZ21hcCwgMHgzMTA0MDEsIDB4MzAwMCk7DQo+ID4gKyAgICAgcmVnbWFwX3dyaXRlKHJ0NzIx
-LT5tYnFfcmVnbWFwLCAweDMxMDQwMiwgMHgxYjAwKTsNCj4gPiArICAgICAvKiBlbl9ocF9hbXBf
-ZGV0ZWN0IGF1dG8gbW9kZSAqLw0KPiA+ICsgICAgIHJlZ21hcF93cml0ZShydDcyMS0+bWJxX3Jl
-Z21hcCwgMHgzMTAzMDAsIDB4MDAwZik7DQo+ID4gKyAgICAgLyogYW1wIGRldGVjdCB0aHJlc2hv
-bGQgKi8NCj4gPiArICAgICByZWdtYXBfd3JpdGUocnQ3MjEtPm1icV9yZWdtYXAsIDB4MzEwMzAx
-LCAweDMwMDApOw0KPiA+ICsgICAgIHJlZ21hcF93cml0ZShydDcyMS0+bWJxX3JlZ21hcCwgMHgz
-MTAzMDIsIDB4MWIwMCk7DQo+ID4gKyAgICAgLyogZ2F0aW5nX3Nkd19saW5rX3JzdF9uXzFfY2Jq
-X3JlZyAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX1ZF
-TkRPUl9BTkFfQ1RMLA0KPiA+ICsgICAgICAgICAgICAgUlQ3MjFfVUFKX1RPUF9UQ09OMTcsIDB4
-MDAwOCk7DQo+ID4gKyAgICAgLyogQ0tYRU5fU0RBQyBjaG9wcGVyIGZ1bmN0aW9uICovDQo+ID4g
-KyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwgUlQ3MjFfREFDX0NUUkwsDQo+ID4g
-KyAgICAgICAgICAgICBSVDcyMV9EQUNfMkNIX0NUUkwzLCAweDU1ZmYpOw0KPiA+ICsgICAgIC8q
-IENLWFNFTF9TREFDIGNob3BwZXIgZnJlcXVlbmN5ICovDQo+ID4gKyAgICAgcnQ3MjFfc2RjYV9p
-bmRleF93cml0ZShydDcyMSwgUlQ3MjFfREFDX0NUUkwsDQo+ID4gKyAgICAgICAgICAgICBSVDcy
-MV9EQUNfMkNIX0NUUkw0LCAweGNjMDApOw0KPiA+ICsgICAgIC8qIEJpYXMgY3VycmVudCBmb3Ig
-U0RBQyAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX0FO
-QV9QT1dfUEFSVCwNCj4gPiArICAgICAgICAgICAgIFJUNzIxX01CSUFTX0xWX0NUUkwyLCAweDY2
-NzcpOw0KPiA+ICsgICAgIC8qIFZSRUYyIGxldmVsIHNlbGVjdGlvbiAqLw0KPiA+ICsgICAgIHJ0
-NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX0FOQV9QT1dfUEFSVCwNCj4gPiArICAg
-ICAgICAgICAgIFJUNzIxX1ZSRUYyX0xWX0NUUkwxLCAweDc2MDApOw0KPiA+ICsgICAgIC8qIEFE
-QzA5L01JQzIgcG93ZXIgZW50aXR5IGZsb2F0aW5nIGNvbnRyb2wgKi8NCj4gPiArICAgICBydDcy
-MV9zZGNhX2luZGV4X3dyaXRlKHJ0NzIxLCBSVDcyMV9IREFfU0RDQV9GTE9BVCwNCj4gPiArICAg
-ICAgICAgICAgIFJUNzIxX0VOVF9GTE9BVF9DVEwyLCAweDEyMzQpOw0KPiA+ICsgICAgIC8qIExJ
-TkUyIHBvd2VyIGVudGl0eSBmbG9hdGluZyBjb250cm9sICovDQo+ID4gKyAgICAgcnQ3MjFfc2Rj
-YV9pbmRleF93cml0ZShydDcyMSwgUlQ3MjFfSERBX1NEQ0FfRkxPQVQsDQo+ID4gKyAgICAgICAg
-ICAgICBSVDcyMV9FTlRfRkxPQVRfQ1RMMywgMHgzNTEyKTsNCj4gPiArICAgICAvKiBEQUMwMy9I
-UCBwb3dlciBlbnRpdHkgZmxvYXRpbmcgY29udHJvbCAqLw0KPiA+ICsgICAgIHJ0NzIxX3NkY2Ff
-aW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX0hEQV9TRENBX0ZMT0FULA0KPiA+ICsgICAgICAgICAg
-ICAgUlQ3MjFfRU5UX0ZMT0FUX0NUTDEsIDB4NDA0MCk7DQo+ID4gKyAgICAgLyogQURDMjcgcG93
-ZXIgZW50aXR5IGZsb2F0aW5nIGNvbnRyb2wgKi8NCj4gPiArICAgICBydDcyMV9zZGNhX2luZGV4
-X3dyaXRlKHJ0NzIxLCBSVDcyMV9IREFfU0RDQV9GTE9BVCwNCj4gPiArICAgICAgICAgICAgIFJU
-NzIxX0VOVF9GTE9BVF9DVEw0LCAweDEyMDEpOw0KPiA+ICsgICAgIC8qIEZpbmUgdHVuZSBQREU0
-MCBsYXRlbmN5ICovDQo+ID4gKyAgICAgcmVnbWFwX3dyaXRlKHJ0NzIxLT5yZWdtYXAsIDB4MmY1
-OCwgMHgwNyk7IH0NCj4gDQo+IHNhbWUgaGVyZSwgc2hvdWxkbid0IHRoaXMgY29tZSBmcm9tIEFD
-UEkvYmxpbmQgd3JpdGUgdGFibGVzPw0KPiANClNhbWUgcmVwbHkgYXMgYWJvdmUgb25lLg0KDQo+
-ID4gK2VudW0gcnQ3MjFfc2RjYV9qZF9zcmMgew0KPiA+ICsgICAgIFJUNzIxX0pEX05VTEwsDQo+
-ID4gKyAgICAgUlQ3MjFfSkQxLA0KPiA+ICsgICAgIFJUNzIxX0pEMiwNCj4gPiArfTsNCj4gDQo+
-IGlzIHRoaXMgc3VwcG9ydGVkIGluIFNEQ0E/IEkgY2FuJ3QgcmVjYWxsIHNlZWluZyB0aGlzIGZv
-ciBvdGhlciBkcml2ZXJzLg0KSSdsbCByZW1vdmUgdGhpcyBpbiBuZXh0IHBhdGNoLg0K
+
+--N+4mV6cwsVVu6vM6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Sep 24, 2024 at 11:54:25AM +0000, Jack Yu wrote:
+
+> > That tells us it has 3 functions (jack, mic, amp), so what's different =
+to RT722?
+> > could we have a single driver for both parts? A lot of this driver seems
+> > copy-pasted-renamed.
+
+> RT721 has 3 functions just like RT722, but it's still a different codec a=
+nd from internal discussion,
+> we think it's better to separate the driver for future code management.
+
+As I mentioned with the events it's possible there's some room for
+factoring out some of the code for the common bits that are shared
+between multiple devices.  Look at how Cirrus' Arizona drivers for
+example, each chip has specific support in a separate driver but there's
+a lot of shared code.
+
+> > > +     /* Set RC calibration  */
+> > > +     rt721_sdca_index_write(rt721, RT721_RC_CALIB_CTRL,
+> > > +             RT721_RC_CALIB_CTRL0, 0x0b00);
+> > > +     rt721_sdca_index_write(rt721, RT721_RC_CALIB_CTRL,
+> > > +             RT721_RC_CALIB_CTRL0, 0x0b40);
+> > > +     /* Fine tune PDE2A latency */
+> > > +     regmap_write(rt721->regmap, 0x2f5c, 0x25); }
+
+> > Humm, isn't all this supposed to be handled with blind writes? It seems=
+ odd to
+> > hard-code all this, no?
+
+> It seems there is no api or function to support blind write from ACPI fro=
+m latest upstream code,
+> and we think it's easier for us to manage the different function's blind =
+write.
+
+It's always possible for you to add shared code for things like parsing
+ACPI tables (any references to the spec for blind writes here?).
+
+>=20
+> >=20
+> > > +static void rt721_sdca_amp_preset(struct rt721_sdca_priv *rt721) {;
+> > > +     /* Power down group1/2/3_mic_pdb  */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_MISC_POWER_CTL31, 0x8000);
+> > > +     /* VREF_HV_EN_AUTO_FAST */
+> > > +     rt721_sdca_index_write(rt721, RT721_ANA_POW_PART,
+> > > +             RT721_VREF1_HV_CTRL1, 0xe000);
+> > > +     /* Power up group1/2/3_mic_pdb */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_MISC_POWER_CTL31, 0x8007);
+> > > +     /* Reset dc_cal_top */
+> > > +     regmap_write(rt721->mbq_regmap, 0x5810000, 0x6420);
+> > > +     /* Turn back to normal dc_cal_top */
+> > > +     regmap_write(rt721->mbq_regmap, 0x5810000, 0x6421);
+> > > +     /* W1C Trigger Calibration */
+> > > +     regmap_write(rt721->mbq_regmap, 0x5810000, 0xe421);
+> > > +     /* DAC04 FU entity floating control  */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_CH_FLOAT_CTL6, 0x5561);
+> > > +     /* Set EAPD high */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_REG,
+> > > +             RT721_GPIO_PAD_CTRL5, 0x8003);
+> > > +     /* Enable vf707_r14 */
+> > > +     regmap_write(rt721->regmap,
+> > > +             SDW_SDCA_CTL(FUNC_NUM_AMP,
+> > RT721_SDCA_ENT_OT23,
+> > > +                     RT721_SDCA_CTL_VENDOR_DEF, 0), 0x04);
+> > > +     /* FU 23 SPK mute control - L */
+> > > +     regmap_write(rt721->regmap,
+> > > +             SDW_SDCA_CTL(FUNC_NUM_AMP,
+> > RT721_SDCA_ENT_PDE23,
+> > > +                     RT721_SDCA_CTL_FU_MUTE, CH_01), 0x00);
+> > > +     /* FU 23 SPK mute control - R */
+> > > +     regmap_write(rt721->regmap,
+> > > +             SDW_SDCA_CTL(FUNC_NUM_AMP,
+> > RT721_SDCA_ENT_PDE23,
+> > > +                     RT721_SDCA_CTL_FU_MUTE, CH_02), 0x00);
+> > > +     /* FU 55 DAC04 mute control - L */
+> > > +     regmap_write(rt721->regmap,
+> > > +             SDW_SDCA_CTL(FUNC_NUM_AMP,
+> > RT721_SDCA_ENT_FU55,
+> > > +                     RT721_SDCA_CTL_FU_MUTE, CH_01), 0x00);
+> > > +     /* FU 55 DAC04 mute control - R */
+> > > +     regmap_write(rt721->regmap,
+> > > +             SDW_SDCA_CTL(FUNC_NUM_AMP,
+> > RT721_SDCA_ENT_FU55,
+> > > +                     RT721_SDCA_CTL_FU_MUTE, CH_02), 0x00); }
+> > > +
+> > > +static void rt721_sdca_jack_preset(struct rt721_sdca_priv *rt721) {
+> > > +     /* Power down group1/2/3_mic_pdb  */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_MISC_POWER_CTL31, 0x8000);
+> > > +     /* VREF_HV_EN_AUTO_FAST */
+> > > +     rt721_sdca_index_write(rt721, RT721_ANA_POW_PART,
+> > > +             RT721_VREF1_HV_CTRL1, 0xe000);
+> > > +     /* Power up group1/2/3_mic_pdb */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_MISC_POWER_CTL31, 0x8007);
+> > > +     /* GE0 mode related control */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_GE_REL_CTRL1, 0x8011);
+> > > +     /* Button A, B, C, D bypass mode */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_UMP_HID_CTRL3, 0xcf00);
+> > > +     /* HID1 slot enable */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_UMP_HID_CTRL4, 0x000f);
+> > > +     /* Report ID for HID1  */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_UMP_HID_CTRL1, 0x1100);
+> > > +     /* OSC/OOC for slot 2, 3 */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_UMP_HID_CTRL5, 0x0c12);
+> > > +     /* Set JD de-bounce clock control */
+> > > +     rt721_sdca_index_write(rt721, RT721_JD_CTRL,
+> > > +             RT721_JD_1PIN_GAT_CTRL2, 0xc002);
+> > > +     /* RC calibration -1 */
+> > > +     rt721_sdca_index_write(rt721, RT721_RC_CALIB_CTRL,
+> > > +             RT721_RC_CALIB_CTRL0, 0x0b00);
+> > > +     /* RC calibration -2 */
+> > > +     rt721_sdca_index_write(rt721, RT721_RC_CALIB_CTRL,
+> > > +             RT721_RC_CALIB_CTRL0, 0x0b40);
+> > > +     /* pow_clk_12p288mhz_dre03 change to register mode */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_UAJ_TOP_TCON14, 0x3333);
+> > > +     /* Tune calibration timing control */
+> > > +     regmap_write(rt721->mbq_regmap, 0x5810035, 0x0036);
+> > > +     /* calibration HP amp output select control from Efuse */
+> > > +     regmap_write(rt721->mbq_regmap, 0x5810030, 0xee00);
+> > > +     /* FSM related control */
+> > > +     rt721_sdca_index_write(rt721, RT721_CAP_PORT_CTRL,
+> > > +             RT721_HP_AMP_2CH_CAL1, 0x0140);
+> > > +     /* HP calibration related control */
+> > > +     regmap_write(rt721->mbq_regmap, 0x5810000, 0x0021);
+> > > +     /* W1C HP calibration*/
+> > > +     regmap_write(rt721->mbq_regmap, 0x5810000, 0x8021);
+> > > +     /* reg_sel_cin_hp_0010/0011 */
+> > > +     rt721_sdca_index_write(rt721, RT721_CAP_PORT_CTRL,
+> > > +             RT721_HP_AMP_2CH_CAL18, 0x5522);
+> > > +     regmap_write(rt721->mbq_regmap, 0x5b10007, 0x2000);
+> > > +     /* sel_sensing_lr_hp */
+> > > +     regmap_write(rt721->mbq_regmap, 0x5B10017, 0x1b0f);
+> > > +     /* Release HP-JD */
+> > > +     rt721_sdca_index_write(rt721, RT721_CBJ_CTRL,
+> > > +             RT721_CBJ_A0_GAT_CTRL1, 0x2a02);
+> > > +     /* en_osw gating auto done bit */
+> > > +     rt721_sdca_index_write(rt721, RT721_CAP_PORT_CTRL,
+> > > +             RT721_HP_AMP_2CH_CAL4, 0xa105);
+> > > +     /* pow_clk_en_sw_amp_detect_sel to register mode */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_UAJ_TOP_TCON14, 0x3b33);
+> > > +     /* cp_sw_hp to auto mode */
+> > > +     regmap_write(rt721->mbq_regmap, 0x310400, 0x3023);
+> > > +     /* pow_clk_en_sw_amp_detect power up */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_UAJ_TOP_TCON14, 0x3f33);
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_UAJ_TOP_TCON13, 0x6048);
+> > > +     /* switch size detect threshold */
+> > > +     regmap_write(rt721->mbq_regmap, 0x310401, 0x3000);
+> > > +     regmap_write(rt721->mbq_regmap, 0x310402, 0x1b00);
+> > > +     /* en_hp_amp_detect auto mode */
+> > > +     regmap_write(rt721->mbq_regmap, 0x310300, 0x000f);
+> > > +     /* amp detect threshold */
+> > > +     regmap_write(rt721->mbq_regmap, 0x310301, 0x3000);
+> > > +     regmap_write(rt721->mbq_regmap, 0x310302, 0x1b00);
+> > > +     /* gating_sdw_link_rst_n_1_cbj_reg */
+> > > +     rt721_sdca_index_write(rt721, RT721_VENDOR_ANA_CTL,
+> > > +             RT721_UAJ_TOP_TCON17, 0x0008);
+> > > +     /* CKXEN_SDAC chopper function */
+> > > +     rt721_sdca_index_write(rt721, RT721_DAC_CTRL,
+> > > +             RT721_DAC_2CH_CTRL3, 0x55ff);
+> > > +     /* CKXSEL_SDAC chopper frequency */
+> > > +     rt721_sdca_index_write(rt721, RT721_DAC_CTRL,
+> > > +             RT721_DAC_2CH_CTRL4, 0xcc00);
+> > > +     /* Bias current for SDAC */
+> > > +     rt721_sdca_index_write(rt721, RT721_ANA_POW_PART,
+> > > +             RT721_MBIAS_LV_CTRL2, 0x6677);
+> > > +     /* VREF2 level selection */
+> > > +     rt721_sdca_index_write(rt721, RT721_ANA_POW_PART,
+> > > +             RT721_VREF2_LV_CTRL1, 0x7600);
+> > > +     /* ADC09/MIC2 power entity floating control */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_ENT_FLOAT_CTL2, 0x1234);
+> > > +     /* LINE2 power entity floating control */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_ENT_FLOAT_CTL3, 0x3512);
+> > > +     /* DAC03/HP power entity floating control */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_ENT_FLOAT_CTL1, 0x4040);
+> > > +     /* ADC27 power entity floating control */
+> > > +     rt721_sdca_index_write(rt721, RT721_HDA_SDCA_FLOAT,
+> > > +             RT721_ENT_FLOAT_CTL4, 0x1201);
+> > > +     /* Fine tune PDE40 latency */
+> > > +     regmap_write(rt721->regmap, 0x2f58, 0x07); }
+> >=20
+> > same here, shouldn't this come from ACPI/blind write tables?
+> >=20
+> Same reply as above one.
+>=20
+> > > +enum rt721_sdca_jd_src {
+> > > +     RT721_JD_NULL,
+> > > +     RT721_JD1,
+> > > +     RT721_JD2,
+> > > +};
+> >=20
+> > is this supported in SDCA? I can't recall seeing this for other drivers.
+> I'll remove this in next patch.
+
+--N+4mV6cwsVVu6vM6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbyrGAACgkQJNaLcl1U
+h9A5Wwf/eSzT3FSFioNh28wBOpbXbC6SXY54purhNq/vxE7aBCEwY/g4d5BHkLSN
+dNoBtBOIawkVFjxUrybpWBla2MU8PlvauFp1jvKg5W5T/eRpcI9vspucrT16uiq5
+/RAbJYYjd1Cz8K03f74MjCzFOVDgdfVzSNK7HjmGkTGfUJF8db/4IkQ+dIH8Llz+
+bELfLmRYFijujwu+s4ZvXKhjVKFl6aWwiGHxnSHWVFsnLHN0iqdzZXlKc7iH8r0L
+FayQHOqHAW+FnpHrue+kNpgGpTIS8kJMelBDJEthY/fcxe/bYuixrm60Loj2SNEQ
+cpR1P0CH5SeHpCeWpUUYtUZYDRFeiw==
+=tj4q
+-----END PGP SIGNATURE-----
+
+--N+4mV6cwsVVu6vM6--

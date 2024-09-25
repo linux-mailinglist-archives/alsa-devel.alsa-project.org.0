@@ -2,107 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE7E898533A
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 08:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D609985395
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 09:18:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69DD9857;
-	Wed, 25 Sep 2024 08:50:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69DD9857
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3E35857;
+	Wed, 25 Sep 2024 09:18:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3E35857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727247018;
-	bh=kk0Mt/+Hyj4BQOBJfxHEcKPbnwRr+BiwB73GhiBhJzc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=RaKVH1uCcGT39bRekkaRe4PuVOdTfwoThkdLDZHLsVyuvDqzWC/1ULzGR7n+COSL+
-	 tga8jknKIPj2U0jOJXB6VHVbCvmtYDyd1ZLb8O48nWXM+TNSOAW0p6HSPAuJ35jZLy
-	 9fv/R6N76UUYxatnkU05//4Fu9os1QUQ3mQC72pg=
+	s=default; t=1727248712;
+	bh=JlqzkcI1dW2ynQ75PjrYYS6kdHiITrvjuZiQki7W53g=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Asd68f6T3U3h87XULDZtycfI9w+M8VUEZifAIlKsz6l93jYYuOSu8ZceodRtDcOqf
+	 ynFPTdZ7+j5WdD9a/R+Eejj+R99wEoBMG7Gx3LUtOz/jlDKNS9FBYQhrb1S7xImhXn
+	 mNilmsDdhypRaAc7Js8xAtIxt5yYFTAiWHQkrZv8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 16A29F805B6; Wed, 25 Sep 2024 08:49:47 +0200 (CEST)
+	id AF459F805AA; Wed, 25 Sep 2024 09:18:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F9ACF805B0;
-	Wed, 25 Sep 2024 08:49:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F5A1F80107;
+	Wed, 25 Sep 2024 09:18:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2BF0F802DB; Wed, 25 Sep 2024 08:49:39 +0200 (CEST)
+	id B5BB4F802DB; Wed, 25 Sep 2024 09:17:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EA4B5F80107
-	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 08:49:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA4B5F80107
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=YUqwk3Zb
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5c721803a89so307742a12.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 24 Sep 2024 23:49:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727246977; x=1727851777;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kk0Mt/+Hyj4BQOBJfxHEcKPbnwRr+BiwB73GhiBhJzc=;
-        b=YUqwk3ZbcQdHoMUPcDgqYW/zGFAijEjdGsTB7wqt0HCWqPOsP4RZ90fesbz/8mQmHD
-         SYA1XNZ21I6CQsqg8WjCNdBqhF7IP1nU8ibG57lliMgFAP1XPIS0KyS0gMWgUJ1UhWoz
-         MEwR41o6WpyU25lCasWgDLnxorO9apcn+l9HoVCNjYb3iHWClCqVRNVpt+jtmi9TYQVO
-         xo3goA4+owURoUoQaX2xO7PkprhhyQRjcTbKeCdBjLP8UYDZnCLE1AyD+oVM9eHGzg5r
-         S/SGYV342gcWa4WN45IkPDloJ+uVMcVaKKncDIIxb3KsqYYHyqx/r9/AQ+P+JOlge9SY
-         Uvyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727246977; x=1727851777;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kk0Mt/+Hyj4BQOBJfxHEcKPbnwRr+BiwB73GhiBhJzc=;
-        b=leConBkTMkLguwfhARgVCxajYDIIJPOVYXd9cIKFuGgRm66TW2HmX14Gvnpzd7ux5g
-         atm0npfO5yWhHN+iXmvRDJhb7i8H47dFxgLPN8CWAFQiQbZa/cQPESByerL43AHmjzde
-         TSCr24Ea28gO9KeZsK4jN1cJ+sOa2UYh9POrX3q+4uZ2x0NSHTB/X9p5rwWx/0x8A6oC
-         x4cIDv/6xGnsN/iAb4/tilcM9ILlCBiHGd5Iw5/WgP0adtY2g8AIIg4t4M1tioLVnqjv
-         7mQfEWYpuLbvtLfihsWi3pXtHbFszX7lMwCWuXd8yZON3N1AadAbBFAkgLqWBGidoK3J
-         e64g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVsbgUHniW9ESq/yCOBTd046zJ2WhXCpnBdwmYIZZogiqg/2pYJUoNKo8RHpIen1/4YzcVeSgIakOkX@alsa-project.org
-X-Gm-Message-State: AOJu0YyjhZovmy4uqOcXg4N8CWnfB6nITxrOpTee0edr3+GUWXZyjVzV
-	TmQ/Lc4H99OspCm70sOXPAOhXUMBXZRG0bvlG9bUJ1YVrCawpHxjbi3dhgIhU2EXQPUDBmqJNTA
-	IgpkW/5pCsdwtO67oslyIl/IAH8Q=
-X-Google-Smtp-Source: 
- AGHT+IG4EhVNx4ZXTlcmLKwxSpAi+1Cc6wEcJlS0M5tzYd1bPulq0A8B/RQMJgdldFEu+s5xV1faX8OGR4qz9F9spEc=
-X-Received: by 2002:a17:907:c7d5:b0:a86:86d7:2890 with SMTP id
- a640c23a62f3a-a93a05d6507mr137992666b.50.1727246976510; Tue, 24 Sep 2024
- 23:49:36 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id E8360F80107
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 09:17:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8360F80107
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 0FA491A038D;
+	Wed, 25 Sep 2024 09:17:49 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id CB8DC1A0056;
+	Wed, 25 Sep 2024 09:17:48 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 2B8AF183AD44;
+	Wed, 25 Sep 2024 15:17:47 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: vkoul@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH v4 0/7] ASoC: fsl: add memory to memory function for ASRC
+Date: Wed, 25 Sep 2024 14:55:09 +0800
+Message-Id: <1727247316-16156-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20240924-asoc-imx-maple-v1-1-8b993901f71e@kernel.org>
-In-Reply-To: <20240924-asoc-imx-maple-v1-1-8b993901f71e@kernel.org>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 25 Sep 2024 09:50:35 +0300
-Message-ID: 
- <CAEnQRZBde3AV7Dvu-jtXCTbZnBg60COdp7eheSdyfE_6mP9GQw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl: Use maple tree register cache
-To: Mark Brown <broonie@kernel.org>
-Cc: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: HONJ4YOE4UWTIMLAFAUPY7MLDDKXD7B4
-X-Message-ID-Hash: HONJ4YOE4UWTIMLAFAUPY7MLDDKXD7B4
-X-MailFrom: daniel.baluta@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
+Message-ID-Hash: N2JJ6BFZJKTULLT2OVLHAN34HOYBDIPE
+X-Message-ID-Hash: N2JJ6BFZJKTULLT2OVLHAN34HOYBDIPE
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +84,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HONJ4YOE4UWTIMLAFAUPY7MLDDKXD7B4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N2JJ6BFZJKTULLT2OVLHAN34HOYBDIPE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,17 +93,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Sep 24, 2024 at 4:59=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> Several of the NXP drivers use regmaps with a rbtree register cache. Sinc=
-e
-> the maple tree cache is uisng a generally more modern data structure whic=
-h
-> makes implementation choices more suitable for modern systems let's conve=
-rt
-> these drivers to it. This should have no practical impact.
->
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+This function is base on the accelerator implementation
+for compress API:
+https://patchwork.kernel.org/project/alsa-devel/patch/20240731083843.59911-1-perex@perex.cz/
+Add it to this patch set.
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Audio signal processing also has the requirement for memory to
+memory similar as Video.
+
+This asrc memory to memory (memory ->asrc->memory) case is a non
+real time use case.
+
+User fills the input buffer to the asrc module, after conversion, then asrc
+sends back the output buffer to user. So it is not a traditional ALSA playback
+and capture case.
+
+Because we had implemented the "memory -> asrc ->i2s device-> codec"
+use case in ALSA.  Now the "memory->asrc->memory" needs
+to reuse the code in asrc driver, so the patch 1 and patch 2 is for refining
+the code to make it can be shared by the "memory->asrc->memory"
+driver.
+
+Other change is to add memory to memory support for two kinds of i.MX ASRC
+modules.
+
+changes in v4:
+- remove the RFC tag, no comments receive in v3
+- Add Jaroslav Kysela's patch in this patch set. because it may be
+  better for reviewing in a full patch set.
+- Fix the list_for_each_entry_reverse to list_for_each_entry_safe_reverse
+- Fix some coding style issues in Jaroslav Kysela's patch
+
+changes in v3:
+- use Jaroslav's suggestion for header file compress_params.h (PATCH 01)
+- remove the ASRC_OUTPUT_FORMAT/ASRC_OUTPUT_RATE definition
+- remove ASRC_RATIO_MOD in this version because it uses .set_metadata()
+  Will wait Jaroslav's update or other better method in the future.
+- Address some comments from Pierre.
+
+changes in v2:
+- Remove the changes in compress API
+- drop the SNDRV_COMPRESS_SRC_RATIO_MOD
+- drop the SND_AUDIOCODEC_SRC and struct snd_dec_src
+- define private metadata key value
+  ASRC_OUTPUT_FORMAT/ASRC_OUTPUT_RATE/ASRC_RATIO_MOD
+
+Jaroslav Kysela (1):
+  ALSA: compress_offload: introduce accel operation mode
+
+Shengjiu Wang (6):
+  ALSA: compress: Add output rate and output format support
+  ASoC: fsl_asrc: define functions for memory to memory usage
+  ASoC: fsl_easrc: define functions for memory to memory usage
+  ASoC: fsl_asrc_m2m: Add memory to memory function
+  ASoC: fsl_asrc: register m2m platform device
+  ASoC: fsl_easrc: register m2m platform device
+
+ .../sound/designs/compress-accel.rst          | 136 ++++
+ include/sound/compress_driver.h               |  46 ++
+ include/uapi/sound/compress_offload.h         |  63 +-
+ include/uapi/sound/compress_params.h          |  23 +-
+ sound/core/Kconfig                            |   3 +
+ sound/core/compress_offload.c                 | 351 ++++++++-
+ sound/soc/fsl/Kconfig                         |   1 +
+ sound/soc/fsl/Makefile                        |   2 +-
+ sound/soc/fsl/fsl_asrc.c                      | 179 ++++-
+ sound/soc/fsl/fsl_asrc.h                      |   2 +
+ sound/soc/fsl/fsl_asrc_common.h               |  70 ++
+ sound/soc/fsl/fsl_asrc_m2m.c                  | 727 ++++++++++++++++++
+ sound/soc/fsl/fsl_easrc.c                     | 261 ++++++-
+ sound/soc/fsl/fsl_easrc.h                     |   4 +
+ 14 files changed, 1851 insertions(+), 17 deletions(-)
+ create mode 100644 Documentation/sound/designs/compress-accel.rst
+ create mode 100644 sound/soc/fsl/fsl_asrc_m2m.c
+
+-- 
+2.34.1
+

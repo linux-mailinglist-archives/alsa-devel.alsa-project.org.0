@@ -2,106 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD72985138
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 05:08:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78EA49851C2
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 06:04:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97FF686F;
-	Wed, 25 Sep 2024 05:08:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97FF686F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95A2D1E8;
+	Wed, 25 Sep 2024 06:04:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95A2D1E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727233707;
-	bh=4fPZFq9GucltM9qF4rscl7ftDfoWZ+wWMtPS0pSK47E=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Qw25kt+I3nb3J0fu9SIfNhGPXRw+5PaZTyoJE8tnfDCuU7nQlUOXne76u1EPsh4VE
-	 2Efw2WbWa/KFE6WV+bdL8Msl4gfUtJvE8a7kwBPHJXLoDxHUBQEJzOd3GMEZQiH2Ma
-	 upv/XJHif4giyUSDOWiIxXRnD/NoVINT2zebC/G8=
+	s=default; t=1727237068;
+	bh=fawwK7zfaCm1KJ+R3xI8q/VAgHa3aYPaaHiWAjv05U4=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Eew2wD75ueY98PBbsZ00omgY7/Ixpo8Dn51jnxwPT5JKAVKymIOi58ANLINKuwfQt
+	 oGARcerKnYX1FYfYu50v1vIm3oyh7kxwk2QI/DKlrpt2TGwX2K+0IN7XjAoKHi63jY
+	 CJCBa/VnTsv2HkWqejKA2PNSGx8kAQ56D8cusX9E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E22BF805B6; Wed, 25 Sep 2024 05:07:56 +0200 (CEST)
+	id 3DDEEF805BB; Wed, 25 Sep 2024 06:03:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E77D4F805B1;
-	Wed, 25 Sep 2024 05:07:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39A33F8049C;
+	Wed, 25 Sep 2024 06:03:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3483DF802DB; Wed, 25 Sep 2024 05:07:47 +0200 (CEST)
+	id 9E674F802DB; Wed, 25 Sep 2024 06:03:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ua1-x936.google.com (mail-ua1-x936.google.com
- [IPv6:2607:f8b0:4864:20::936])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A7403F80107
-	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 05:07:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7403F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6A9AF8010B
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 06:03:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6A9AF8010B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=ZGv1/902
-Received: by mail-ua1-x936.google.com with SMTP id
- a1e0cc1a2514c-84e8bb409b6so7979241.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 24 Sep 2024 20:07:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727233662; x=1727838462;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=EYpCc4I8glQ7ck+nhqJAvbOoAL+loG6airV9nPgLSA0=;
-        b=ZGv1/902YyoWwDoUc5sbGkYs3E5mwMQpJQ/rBXpfRMsnCsmMD9wU5xqk4766+ZlR5Y
-         dJWScY0/fQPs9uK7TgXxiJfaYejFHu6Lk7GT/XA9xd1NY9jv+JEtV1aVTW98QsF7Ikh4
-         0pXNdYhceFK57rrH287BytHdof+2hH02dxr3Aglh6PvhwWkfgxAHO2S4CBHaqjxiEY5v
-         uDuyEaUeNtl31P0W2GSTI+tBqQSkjMK5DIPwQTgZXnYj7WHuxL9kLAl/NREjXqGxzFJ1
-         nxYDYRm4zUyovkVzWU+OWnbRaYFfG7q0i6BoQJ4e2T/+6aW3ZIEH1t7e4Vybj0LL78+Q
-         +d2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727233662; x=1727838462;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EYpCc4I8glQ7ck+nhqJAvbOoAL+loG6airV9nPgLSA0=;
-        b=g6emCX/PtId7iCyK2ImxFRXwSs5Nc1HjgImfAKK0hYjRTmzKgbGj1vwpibikkd8UYZ
-         Dcmf1W+63qqmkMraMExbT6lPT/VTr0Yqdv6Fb8xLsJNOY7pEr0cYZswnvYWDqwAAiYu5
-         9QTn7be8ogn2nzU9JgO2REanIEXs5oU35RdDnlkbkTfxKtire6FtFdWze2/BVGua4KYn
-         33fG8Ff/Q0qLyoyX5EcvQcnyIRXQFrqQHaas3vc5ni+KD9T/Jn71WgqxdpcVBtWp73nV
-         d/3PL+9jeBo4zr+46X/7l02RaynUxPdK4/vizVLfjNGS3NTxZNGTQY8K76O7kbDsA/08
-         F1Rg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVSKR2YfIDDlzyGdUwrjn86YXQjOtOGocGni+QD+3JDRpFPCCmy5xOd0Oq9Nnz4n1Xo92tbfC0hYhBl@alsa-project.org
-X-Gm-Message-State: AOJu0Yw80O2gXiJj4QP7IzQYZj+nut2amgHSt3EDICSNSEnylwG3TDP8
-	WHUEqSQdATWFhDsuAfJyLN1RsvPcCCtlXrywhfvWl5zJTpreFLCK
-X-Google-Smtp-Source: 
- AGHT+IGHX3YR1tSYTG2yld904TImUX4Wt8i0FOff6GYl4zX2IlhtyXZHmm+gjvhabOxGdIUccbGoNA==
-X-Received: by 2002:a05:6102:c11:b0:49b:c5df:ced6 with SMTP id
- ada2fe7eead31-4a15dc958c9mr1771357137.10.1727233662222;
-        Tue, 24 Sep 2024 20:07:42 -0700 (PDT)
-Received: from lenovoKubuntu.. ([2800:150:11c:b79:f1b0:792c:c69:ad52])
-        by smtp.googlemail.com with ESMTPSA id
- a1e0cc1a2514c-84e73d22f77sm1272575241.33.2024.09.24.20.07.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Sep 2024 20:07:41 -0700 (PDT)
-Sender: =?UTF-8?Q?Hans_Peter_M=C3=B6ller?= <hmoller@gmail.com>
-From: Hans P Moller <hmoller@uc.cl>
-To: tiwai@suse.com,
-	perex@perex.cz,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Cc: Hans P Moller <hmoller@uc.cl>
-Subject: [PATCH] ALSA: line6: add hw monitor volume control to POD HD500X
-Date: Wed, 25 Sep 2024 00:05:54 -0300
-Message-ID: <20240925030554.31829-1-hmoller@uc.cl>
-X-Mailer: git-send-email 2.43.0
+	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=H3JdcNSa
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 48P43Z6F04000124,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
+	t=1727237015; bh=fawwK7zfaCm1KJ+R3xI8q/VAgHa3aYPaaHiWAjv05U4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=H3JdcNSal3aQ38dPrDHbJBElg1ZL3LXiatnqCKwd1P/ibZugWwW/zeVhYBBfsuaFq
+	 v4FZP48yQKp8kaYdH5mq6UuWpP2HctALI0fUpbM3B/48u35rz8oHZl6W72hypvuv9f
+	 CTe/JxdyLQe5KSefpqYaZetO7thzMo8RraNPvNUW3GuNrx4luWAcuG1AOr0kdA6yo6
+	 HFPcEElA3p8fE+pyiZYiehdx2ks24wE1rD66Wl3UZYxfIXhYrABFW6GYtzt0voBnip
+	 su+332wYG90HoY4kloupnDCwps8Kar2CHP3Ezo8yZd2w+2AXwpWyI62jTn4MJdgmUH
+	 gQdcJyA8fB4FA==
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/3.05/5.92) with ESMTPS id 48P43Z6F04000124
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 25 Sep 2024 12:03:35 +0800
+Received: from RTEXDAG02.realtek.com.tw (172.21.6.101) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 25 Sep 2024 12:03:36 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG02.realtek.com.tw (172.21.6.101) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 25 Sep 2024 12:03:35 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
+ RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
+ 15.01.2507.035; Wed, 25 Sep 2024 12:03:35 +0800
+From: Jack Yu <jack.yu@realtek.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        Mark Brown
+	<broonie@kernel.org>
+CC: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>,
+        "lars@metafoo.de" <lars@metafoo.de>,
+        "Flove(HsinFu)" <flove@realtek.com>,
+        Oder Chiou <oder_chiou@realtek.com>,
+        =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+        =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+        Bard Liao
+	<yung-chuan.liao@linux.intel.com>,
+        Charles Keepax
+	<ckeepax@opensource.cirrus.com>
+Subject: RE: [PATCH v2] ASoC: rt721-sdca: Add RT721 SDCA driver
+Thread-Topic: [PATCH v2] ASoC: rt721-sdca: Add RT721 SDCA driver
+Thread-Index: AdsOYJgS4lsvgVNrTTKQijbK34dyeP//gwcA//9Y1QCAANKJgIAANpoA//6zkiA=
+Date: Wed, 25 Sep 2024 04:03:35 +0000
+Message-ID: <20ba8146539441f7a2d1011b49fc5a37@realtek.com>
+References: <1538ca2e1df042a7b771cc387b438710@realtek.com>
+ <65339ec1-ee9d-40cb-acd2-b6cfa0445c7e@linux.intel.com>
+ <1297b09d51654ecfbec2d000175a2c78@realtek.com>
+ <ZvKsYUXJ42UZ_bhm@finisterre.sirena.org.uk>
+ <12d2ef42-694e-47fc-af85-ab2b27dd8afa@linux.intel.com>
+In-Reply-To: <12d2ef42-694e-47fc-af85-ab2b27dd8afa@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+x-originating-ip: [172.21.6.42]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LYILUZSYG5CZSNE4R76ZVGMFDFU4SCTH
-X-Message-ID-Hash: LYILUZSYG5CZSNE4R76ZVGMFDFU4SCTH
-X-MailFrom: hmoller@gmail.com
+Message-ID-Hash: 5A3RCGYM7IPMW36LEI6EH36OZ53ODL35
+X-Message-ID-Hash: 5A3RCGYM7IPMW36LEI6EH36OZ53ODL35
+X-MailFrom: jack.yu@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LYILUZSYG5CZSNE4R76ZVGMFDFU4SCTH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5A3RCGYM7IPMW36LEI6EH36OZ53ODL35/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,27 +126,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add hw monitor volume control for POD HD500X. This is done adding
-LINE6_CAP_HWMON_CTL to the capabilities
-
-Signed-off-by: Hans P. Moller <hmoller@uc.cl>
----
- sound/usb/line6/podhd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/usb/line6/podhd.c b/sound/usb/line6/podhd.c
-index ffd8c157a281..70de08635f54 100644
---- a/sound/usb/line6/podhd.c
-+++ b/sound/usb/line6/podhd.c
-@@ -507,7 +507,7 @@ static const struct line6_properties podhd_properties_table[] = {
- 	[LINE6_PODHD500X] = {
- 		.id = "PODHD500X",
- 		.name = "POD HD500X",
--		.capabilities	= LINE6_CAP_CONTROL
-+		.capabilities	= LINE6_CAP_CONTROL | LINE6_CAP_HWMON_CTL
- 				| LINE6_CAP_PCM | LINE6_CAP_HWMON,
- 		.altsetting = 1,
- 		.ep_ctrl_r = 0x81,
--- 
-2.43.0
-
+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFBpZXJyZS1Mb3VpcyBCb3Nz
+YXJ0IDxwaWVycmUtbG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5jb20+DQo+IFNlbnQ6IFR1ZXNk
+YXksIFNlcHRlbWJlciAyNCwgMjAyNCAxMToyNyBQTQ0KPiBUbzogTWFyayBCcm93biA8YnJvb25p
+ZUBrZXJuZWwub3JnPjsgSmFjayBZdSA8amFjay55dUByZWFsdGVrLmNvbT4NCj4gQ2M6IGxnaXJk
+d29vZEBnbWFpbC5jb207IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsgbGFyc0BtZXRhZm9v
+LmRlOw0KPiBGbG92ZShIc2luRnUpIDxmbG92ZUByZWFsdGVrLmNvbT47IE9kZXIgQ2hpb3UgPG9k
+ZXJfY2hpb3VAcmVhbHRlay5jb20+Ow0KPiBTaHVtaW5nIFvojIPmm7jpiphdIDxzaHVtaW5nZkBy
+ZWFsdGVrLmNvbT47IERlcmVrIFvmlrnlvrfnvqldDQo+IDxkZXJlay5mYW5nQHJlYWx0ZWsuY29t
+PjsgQmFyZCBMaWFvIDx5dW5nLWNodWFuLmxpYW9AbGludXguaW50ZWwuY29tPjsNCj4gQ2hhcmxl
+cyBLZWVwYXggPGNrZWVwYXhAb3BlbnNvdXJjZS5jaXJydXMuY29tPg0KPiBTdWJqZWN0OiBSZTog
+W1BBVENIIHYyXSBBU29DOiBydDcyMS1zZGNhOiBBZGQgUlQ3MjEgU0RDQSBkcml2ZXINCj4gDQo+
+IA0KPiBFeHRlcm5hbCBtYWlsLg0KPiANCj4gDQo+IA0KPiA+Pj4gVGhhdCB0ZWxscyB1cyBpdCBo
+YXMgMyBmdW5jdGlvbnMgKGphY2ssIG1pYywgYW1wKSwgc28gd2hhdCdzIGRpZmZlcmVudCB0bw0K
+PiBSVDcyMj8NCj4gPj4+IGNvdWxkIHdlIGhhdmUgYSBzaW5nbGUgZHJpdmVyIGZvciBib3RoIHBh
+cnRzPyBBIGxvdCBvZiB0aGlzIGRyaXZlcg0KPiA+Pj4gc2VlbXMgY29weS1wYXN0ZWQtcmVuYW1l
+ZC4NCj4gPg0KPiA+PiBSVDcyMSBoYXMgMyBmdW5jdGlvbnMganVzdCBsaWtlIFJUNzIyLCBidXQg
+aXQncyBzdGlsbCBhIGRpZmZlcmVudA0KPiA+PiBjb2RlYyBhbmQgZnJvbSBpbnRlcm5hbCBkaXNj
+dXNzaW9uLCB3ZSB0aGluayBpdCdzIGJldHRlciB0byBzZXBhcmF0ZSB0aGUNCj4gZHJpdmVyIGZv
+ciBmdXR1cmUgY29kZSBtYW5hZ2VtZW50Lg0KPiA+DQo+ID4gQXMgSSBtZW50aW9uZWQgd2l0aCB0
+aGUgZXZlbnRzIGl0J3MgcG9zc2libGUgdGhlcmUncyBzb21lIHJvb20gZm9yDQo+ID4gZmFjdG9y
+aW5nIG91dCBzb21lIG9mIHRoZSBjb2RlIGZvciB0aGUgY29tbW9uIGJpdHMgdGhhdCBhcmUgc2hh
+cmVkDQo+ID4gYmV0d2VlbiBtdWx0aXBsZSBkZXZpY2VzLiAgTG9vayBhdCBob3cgQ2lycnVzJyBB
+cml6b25hIGRyaXZlcnMgZm9yDQo+ID4gZXhhbXBsZSwgZWFjaCBjaGlwIGhhcyBzcGVjaWZpYyBz
+dXBwb3J0IGluIGEgc2VwYXJhdGUgZHJpdmVyIGJ1dA0KPiA+IHRoZXJlJ3MgYSBsb3Qgb2Ygc2hh
+cmVkIGNvZGUuDQo+ID4NCj4gPj4+PiArICAgICAvKiBTZXQgUkMgY2FsaWJyYXRpb24gICovDQo+
+ID4+Pj4gKyAgICAgcnQ3MjFfc2RjYV9pbmRleF93cml0ZShydDcyMSwgUlQ3MjFfUkNfQ0FMSUJf
+Q1RSTCwNCj4gPj4+PiArICAgICAgICAgICAgIFJUNzIxX1JDX0NBTElCX0NUUkwwLCAweDBiMDAp
+Ow0KPiA+Pj4+ICsgICAgIHJ0NzIxX3NkY2FfaW5kZXhfd3JpdGUocnQ3MjEsIFJUNzIxX1JDX0NB
+TElCX0NUUkwsDQo+ID4+Pj4gKyAgICAgICAgICAgICBSVDcyMV9SQ19DQUxJQl9DVFJMMCwgMHgw
+YjQwKTsNCj4gPj4+PiArICAgICAvKiBGaW5lIHR1bmUgUERFMkEgbGF0ZW5jeSAqLw0KPiA+Pj4+
+ICsgICAgIHJlZ21hcF93cml0ZShydDcyMS0+cmVnbWFwLCAweDJmNWMsIDB4MjUpOyB9DQo+ID4N
+Cj4gPj4+IEh1bW0sIGlzbid0IGFsbCB0aGlzIHN1cHBvc2VkIHRvIGJlIGhhbmRsZWQgd2l0aCBi
+bGluZCB3cml0ZXM/IEl0DQo+ID4+PiBzZWVtcyBvZGQgdG8gaGFyZC1jb2RlIGFsbCB0aGlzLCBu
+bz8NCj4gPg0KPiA+PiBJdCBzZWVtcyB0aGVyZSBpcyBubyBhcGkgb3IgZnVuY3Rpb24gdG8gc3Vw
+cG9ydCBibGluZCB3cml0ZSBmcm9tIEFDUEkNCj4gPj4gZnJvbSBsYXRlc3QgdXBzdHJlYW0gY29k
+ZSwgYW5kIHdlIHRoaW5rIGl0J3MgZWFzaWVyIGZvciB1cyB0byBtYW5hZ2UgdGhlDQo+IGRpZmZl
+cmVudCBmdW5jdGlvbidzIGJsaW5kIHdyaXRlLg0KPiANCj4gVGhlIHByb2JsZW0gaXMgdGhhdCB0
+aG9zZSBibGluZCB3cml0ZXMgYXJlIHN1cHBvc2VkIHRvIGJlIHNrdS1zcGVjaWZpYywgc28gaXQn
+cw0KPiBub3QgZ3JlYXQgdG8gZW5jb2RlIGEgYmVoYXZpb3IgaW4gYSBnZW5lcmljIGNvZGVjIGRy
+aXZlci4NCj4gDQo+IEl0J3MgbXkgdW5kZXJzdGFuZGluZyB0aGF0IHRoZSBXaW5kb3dzIGRyaXZl
+ciB3aWxsIHJlbHkgb24gYmxpbmQgd3JpdGVzLCBpdCdkDQo+IHNlZW0gbmF0dXJhbCB0byB1c2Ug
+dGhlIHNhbWUgaW5pdGlhbGl6YXRpb24gcGFyYW1ldGVycywgbm8/DQo+IA0KPiA+IEl0J3MgYWx3
+YXlzIHBvc3NpYmxlIGZvciB5b3UgdG8gYWRkIHNoYXJlZCBjb2RlIGZvciB0aGluZ3MgbGlrZQ0K
+PiA+IHBhcnNpbmcgQUNQSSB0YWJsZXMgKGFueSByZWZlcmVuY2VzIHRvIHRoZSBzcGVjIGZvciBi
+bGluZCB3cml0ZXMgaGVyZT8pLg0KPiANCj4gWWVzLCB0aGUgY29kZSBpcyBhbHJlYWR5IGF2YWls
+YWJsZSBpbiBhIHByb3RvdHlwZSwgc2VlIHRoZSBpbml0aWFsIGNvZGUNCj4gaGVyZToNCj4gaHR0
+cHM6Ly9naXRodWIuY29tL3RoZXNvZnByb2plY3QvbGludXgvcHVsbC81MDEwL2NvbW1pdHMvM2U0
+ZmY4NDI0MmRiYjc3Nw0KPiA0YmJlZDc4NTM3MWQyN2MzYWZjMTBhOTYNCj4gDQoNClllcywgSSB1
+bmRlcnN0YW5kIHRoZXJlIGlzIGFscmVhZHkgYSBwcm90b3R5cGUgaW4gZ2l0aHViLCBidXQgaXQg
+aGFzbid0IGJlZW4gbWVyZ2VkIGludG8gdXBzdHJlYW0gDQphbmQgdGhlIGN1c3RvbWVyIHJlcXVl
+c3RlZCBSZWFsdGVrIHRvIHVwc3RyZWFtIHRoZSBmaXJzdCB2ZXJzaW9uIHdoaWNoIGFscmVhZHkg
+YmVlbiB2ZXJpZmllZC4gDQpXZSdsbCBzdXJlIGZvbGxvdyB0aGlzIHRvIGRvIHRoZSBibGluZCB3
+cml0ZSBvbiBsYXRlciBjb2RlYyBkcml2ZXIgb25jZSB0aGlzIFBSIG1lcmdlZCBpbnRvIHVwc3Ry
+ZWFtLg0KDQoNCj4gVGhlIGdvYWwgd2FzIHRvIGFkZCBhIHNvdW5kL3NvYy9zZGNhIGxpYnJhcnkg
+dG8gcGFyc2UgQUNQSSBmdW5jdGlvbg0KPiBpbmZvcm1hdGlvbiwgZXh0cmFjdCBpbml0aWFsaXph
+dGlvbiB0YWJsZXMsIGRlYWwgd2l0aCBpbnRlcnJ1cHRzLCBjcmVhdGUgY29udHJvbHMsDQo+IGV0
+Yy4NCj4gDQo+IFRoYXQgc2FpZCwgaXQncyBwcm9iYWJseSBiZXN0IGlmIEJhcmQgYW5kL29yIENo
+YXJsZXMgdGFrZSBvdmVyIHNpbmNlIEkgd29uJ3QgYmUNCj4gYWJsZSB0byB3b3JrIG9uIHRoaXMg
+c2hvcnQtdGVybS4NCj4gDQo+IE9uZSBvZiB0aGUgYmlnIG9wZW5zIGlzIGhvdyB3ZSBkZWFsIHdp
+dGggcmVnbWFwLiBJbiB0aGVvcnkgZWFjaCBTRENBDQo+IGZ1bmN0aW9uIGlzIGluZGVwZW5kZW50
+IGZyb20gb3RoZXJzLCBidXQgaW4gcHJhY3RpY2UgdGhleSBhbGwgc2hhcmUgYSBjb21tb24NCj4g
+Y29udHJvbCBjaGFubmVsIGFuZCBpbnRlcnJ1cHQgbWVjaGFuaXNtLg0KPiANCj4gSSBpbml0aWFs
+bHkgdGhvdWdodCB3ZSBjb3VsZCBoYXZlIG9uZSByZWdtYXAgZm9yIGVhY2ggZnVuY3Rpb24sIGJ1
+dCBDaGFybGVzIGhhZA0KPiBhIGRpZmZlcmVudCBpZGVhIHRoYXQgd2Ugc2hvdWxkIGhhbmRsZSBy
+ZWdtYXAgYXQgdGhlIGRldmljZSBsZXZlbC4gQm90aCBvcHRpb25zDQo+IGhhdmUgbWVyaXRzIGFu
+ZCBpc3N1ZXMsIHdlIGRpZG4ndCByZWFsbHkgcmVhY2ggYSBjb25jbHVzaW9uIG9uIHRoaXMuDQo+
+IA0KPiBPbmUgb2YgdGhlIG90aGVyIG9wZW5zIGlzIGFsc28gcmVsYXRlZCB0byByZWdtYXAsIHdl
+IG5vdyBoYXZlIHR3byB0eXBlcyBvZg0KPiByZWdtYXAgZm9yIFNvdW5kV2lyZSAoc2R3LSBhbmQg
+c2R3LW1icSksIGJ1dCB0aGVyZSBhcmUgcGFydHMgb2YgQVNvQyB3aGVyZQ0KPiBjb21wb25lbnRz
+IGFyZSBhc3N1bWVkIHRvIGhhdmUgYSBzaW5nbGUgcmVnbWFwLg0KDQo=

@@ -2,113 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF46E985579
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 10:28:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6B089855D1
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 10:46:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B2BD1F4;
-	Wed, 25 Sep 2024 10:28:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B2BD1F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E3DE86F;
+	Wed, 25 Sep 2024 10:46:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E3DE86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727252917;
-	bh=nF0sfFBbFYVla7AI5yaRpMtwDZALqbKLpYtZvnb2IXI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1727254016;
+	bh=xKL4aaFY4RmnNb3f+W1zkmXNIxHXpZYbk2lZXvhOuPs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jmCJISR//FVys2P/hfSsHrd+MxFAgidkkxwh4eILmXCAb7JbkI15i4pAaO0SARzQz
-	 EFht9rqjdwn34iA60x+Edh0D8xKUD08NBi0InPm9XVX/wyi/ttcwJsypYCuL4PbtUs
-	 f7P6UYJ+HkZu3SjBo12Qz7a0Ue9cTTm5OeyWvPn0=
+	b=UnMGVQBAGvWH8bvX2FctSqEYiIqvPYLb1nqe1Q0ltjyPzmwIvxrUP5B4Abd4Xc9Z7
+	 GxRxx0ZlQAwuQxGfBHO+PUKMTlWwyauSRjLFzSDpGIzgNdVxbG0AqhwGSvGAWsDgd1
+	 QAewOy+T0oLMQjI6xC8otjVaU2G+uD6wJ105pOFo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B919F80508; Wed, 25 Sep 2024 10:28:06 +0200 (CEST)
+	id B0760F8049C; Wed, 25 Sep 2024 10:46:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B368BF802DB;
-	Wed, 25 Sep 2024 10:28:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73FA2F8049C;
+	Wed, 25 Sep 2024 10:46:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2461AF802DB; Wed, 25 Sep 2024 10:28:01 +0200 (CEST)
+	id B33B6F802DB; Wed, 25 Sep 2024 10:46:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61B63F80074
-	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 10:27:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61B63F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74CC0F80074
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 10:46:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74CC0F80074
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=MpUiOg10
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-53568ffc525so7589114e87.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 25 Sep 2024 01:27:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1727252878; x=1727857678;
- darn=alsa-project.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=hOKdJS1KLSJlTg0CCP5JjFGsRZQRYkLqZ4DmWczY9nM=;
-        b=MpUiOg10Zs2ZwTOkqDYtGM8bi7ZbKXaVcWeS+fDAGOCu1cQd+aZ0aJ2MjnjPiVR5tw
-         Vh7c2qZOk1goELGeAI5ckHAt/sSb80UnHvdLDhJXxIIq/Z8lk4CqIWSp/XFRwl92UQaW
-         g0Nkrng0jyHZIhwa9ba4xeuFn0nBMOGf3NlRw78Vg40K2BFeoWvKUp4hNLY/azrGXgvW
-         ZSyhcWUVxqCtyxzSzbMBQoZU/zgnzoJs+b297S0vejQoKjW5QLg/a3vD3GAGuoq34qnJ
-         g+/Lxmml6zzd/STI+uJED+oI51/c7iTTOSjbM0bdMdDQC3OVq5CDehj+jJmyK50YjxiC
-         RWFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727252878; x=1727857678;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hOKdJS1KLSJlTg0CCP5JjFGsRZQRYkLqZ4DmWczY9nM=;
-        b=Q0lB85o/EF/32odWBUyZZxriWm8NTJbJiKjl0QNCD87ZEzCmj1QP4TZzyjmYONF5Wm
-         tLTtW3iBb3F947xVPSg/7VgFaqfHz6eLAjLey78s52P2cZnK1UJZYVf18EwHEX2ATnaT
-         Hgvc4G7IJh1y7p2VqUZ9A5UkzAU1Sa0siCikb2D/P9rUe1dZoevF0KVM2TJUuzVYag1s
-         O9T4ZURdoYiyNoERnrXVb5nvprELl6iOnb3dTxD1SErGGVsYer5f46V5V9BcLmNXlsko
-         6OkTcHzAjtN2bqyyiayR3fvdDUv/GCbbnxgHYHFJh6IzAVA3XzaTx+4j1GikAsRFIwrY
-         55vA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUbX8q7oGZcE3c75uD/V3hg3ZkxY1FjnXRhHS1ennvLYavp0joseLXH81lyLrAjrL9gChM5ujC9gWXO@alsa-project.org
-X-Gm-Message-State: AOJu0YzYL3Nzo/4Z6DWbLzRi6LBIqXp6EGj8BIdHmZRd29FnUk8rGHeA
-	Np5va0C9lO7I7CQXVcDBPB5+DqWNoqU8JVM9fjXMSNdp32u/Orj+Z83vaawm1ik=
-X-Google-Smtp-Source: 
- AGHT+IEyNLlNKNPuzVS6L2iBVgd1PBFlzz4yy5yLc0ujoQhajP1DHMelGTZ6NiiUvdGv3ibmtbdefA==
-X-Received: by 2002:a05:6512:1101:b0:52e:eacd:bc05 with SMTP id
- 2adb3069b0e04-538801ac047mr976428e87.61.1727252877875;
-        Wed, 25 Sep 2024 01:27:57 -0700 (PDT)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
-        by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-537a85e5c0bsm452613e87.82.2024.09.25.01.27.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Sep 2024 01:27:56 -0700 (PDT)
-Date: Wed, 25 Sep 2024 11:27:54 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: srinivas.kandagatla@linaro.org, a39.skl@gmail.com,
-	linux-sound@vger.kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz,
-	tiwai@suse.com, alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, krzysztof.kozlowski@linaro.org,
- vkoul@kernel.org,
-	klimov.linux@gmail.com
-Subject: Re: [PATCH REVIEW 1/2] ASoC: codecs: lpass-rx-macro: fix RXn(rx,n)
- macro for DSM_CTL and SEC7 regs
-Message-ID: <czlx4thp7thnb6jrauilpbtzgbq637rmnwlpifxq5b5jfa3lqm@toyy3b2viscr>
-References: <20240925043823.520218-1-alexey.klimov@linaro.org>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bLD449KE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1727253978; x=1758789978;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=xKL4aaFY4RmnNb3f+W1zkmXNIxHXpZYbk2lZXvhOuPs=;
+  b=bLD449KEJGESReTvSlZV0M1bWU7q0iWkqjQSdg2I5Eeywm0quqJ/pMX7
+   hq3tXa/vT3Ni1isA5Xm3gsOFwemcEp8ggq++eOaLzU6hoKRXVrLB4cTya
+   FOstsPBCrpHpmw7hNRoB/3jYsbiJtSAI+AJCNO9a52DlAildR7M4NhtMX
+   IES4y4titr9X8q4ASDky/ArtoaAKcagFyHGMDG9MCe+cqTio1cy95ZwC0
+   3y689oTTg10x3lc6KzjFWx4bKtKr3F1jUAjA+epaW+d78Kx6+DuWqFfI9
+   reh36Tv4k27EpqWV5nKpRdVjfS2unCjlKOWRxzURT0fE0SDWflYjmsC90
+   Q==;
+X-CSE-ConnectionGUID: ZhhKaXmRTka9tNApCIhB+Q==
+X-CSE-MsgGUID: PBIftfxjTWGiKDW7jyIz1w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11205"; a="30079167"
+X-IronPort-AV: E=Sophos;i="6.10,256,1719903600";
+   d="scan'208";a="30079167"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2024 01:46:15 -0700
+X-CSE-ConnectionGUID: 2JP7K0g9RHWi3KLwhIZrOA==
+X-CSE-MsgGUID: BQZ2JySuSzWRKK8r8IpEwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.10,256,1719903600";
+   d="scan'208";a="71787690"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.246.30])
+ ([10.245.246.30])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2024 01:46:11 -0700
+Message-ID: <814913ab-903a-4395-bfb9-5fcbb9d3a5f2@linux.intel.com>
+Date: Wed, 25 Sep 2024 10:46:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240925043823.520218-1-alexey.klimov@linaro.org>
-Message-ID-Hash: LHMTGZ6GT2IMKHAUZSAS4SIRP6W6RUAL
-X-Message-ID-Hash: LHMTGZ6GT2IMKHAUZSAS4SIRP6W6RUAL
-X-MailFrom: dmitry.baryshkov@linaro.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: intel: sof_sdw: Add check devm_kasprintf() returned
+ value
+To: Charles Han <hanchunchao@inspur.com>, yung-chuan.liao@linux.intel.com,
+ ckeepax@opensource.cirrus.com
+Cc: alsa-devel@alsa-project.org, liam.r.girdwood@linux.intel.com,
+ peter.ujfalusi@linux.intel.com, broonie@kernel.org, tiwai@suse.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20240925080030.11262-1-hanchunchao@inspur.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20240925080030.11262-1-hanchunchao@inspur.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: IEWR5CDTGWSQJKEN4NLB7MBGTMPYYYQ5
+X-Message-ID-Hash: IEWR5CDTGWSQJKEN4NLB7MBGTMPYYYQ5
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LHMTGZ6GT2IMKHAUZSAS4SIRP6W6RUAL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IEWR5CDTGWSQJKEN4NLB7MBGTMPYYYQ5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,57 +113,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Sep 25, 2024 at 05:38:22AM GMT, Alexey Klimov wrote:
-> Turns out some registers of pre-2.5 version of rxmacro codecs are not
-> located at the expected offsets but 0xc further away in memory.
-> So far the detected registers are CDC_RX_RX2_RX_PATH_SEC7 and
-> CDC_RX_RX2_RX_PATH_DSM_CTL.
+
+
+On 9/25/24 10:00, Charles Han wrote:
+> devm_kasprintf() can return a NULL pointer on failure but this
+> returned value is not checked.
 > 
-> CDC_RX_RXn_RX_PATH_DSM_CTL(rx, n) macro incorrectly generates the address
-> 0x540 for RX2 but it should be 0x54C and it also overwrites
-> CDC_RX_RX2_RX_PATH_SEC7 which is located at 0x540.
-> The same goes for CDC_RX_RXn_RX_PATH_SEC7(rx, n).
-> 
-> Fix this by introducing additional rxn_reg_stride2 offset. For 2.5 version
-> and above this offset will be equal to 0.
-> With such change the corresponding RXn() macros will generate the same
-> values for 2.5 codec version for all RX paths and the same old values
-> for pre-2.5 version for RX0 and RX1. However for the latter case with RX2 path
-> it will also add 2 * rxn_reg_stride2 on top.
-> 
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> Fixes: b359760d95ee ("ASoC: intel: sof_sdw: Add simple DAI link creation helper")
+> Signed-off-by: Charles Han <hanchunchao@inspur.com>
 > ---
->  sound/soc/codecs/lpass-rx-macro.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+>  sound/soc/intel/boards/sof_sdw.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
-> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-> index 71e0d3bffd3f..9288ddb705fe 100644
-> --- a/sound/soc/codecs/lpass-rx-macro.c
-> +++ b/sound/soc/codecs/lpass-rx-macro.c
-> @@ -202,12 +202,14 @@
->  #define CDC_RX_RXn_RX_PATH_SEC3(rx, n)	(0x042c  + rx->rxn_reg_stride * n)
->  #define CDC_RX_RX0_RX_PATH_SEC4		(0x0430)
->  #define CDC_RX_RX0_RX_PATH_SEC7		(0x0434)
-> -#define CDC_RX_RXn_RX_PATH_SEC7(rx, n)	(0x0434  + rx->rxn_reg_stride * n)
-> +#define CDC_RX_RXn_RX_PATH_SEC7(rx, n)		\
-> +	(0x0434 + rx->rxn_reg_stride * n + n * (n - 1) * rx->rxn_reg_stride2)
+> diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+> index d258728d64cf..26917f6f15cf 100644
+> --- a/sound/soc/intel/boards/sof_sdw.c
+> +++ b/sound/soc/intel/boards/sof_sdw.c
+> @@ -919,6 +919,9 @@ static int create_ssp_dailinks(struct snd_soc_card *card,
+>  		char *cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", i);
+>  		char *codec_name = devm_kasprintf(dev, GFP_KERNEL, "i2c-%s:0%d",
+>  						  ssp_info->acpi_id, j++);
+> +		if (!name || !cpu_dai_name || !codec_name)
+> +			return -ENOMEM;
+> +
 
-This is a nice hack to rule out n=0 and n=1, but maybe we can be more
-obvious here:
+all 3 changes are correct, thanks for the patch. The only nit-pick is
+that I would have moved the devm_ allocation + test lower to be
+consistent with the coding style which avoids mixing code and declarations.
 
-(0x0434 + stride * n + (n > 2) ? stride2 : 0)
+>  		int playback = ssp_info->dais[0].direction[SNDRV_PCM_STREAM_PLAYBACK];
+>  		int capture = ssp_info->dais[0].direction[SNDRV_PCM_STREAM_CAPTURE];
+>  
+> @@ -985,6 +988,9 @@ static int create_hdmi_dailinks(struct snd_soc_card *card,
+>  	for (i = 0; i < hdmi_num; i++) {
+>  		char *name = devm_kasprintf(dev, GFP_KERNEL, "iDisp%d", i + 1);
+>  		char *cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL, "iDisp%d Pin", i + 1);
+> +		if (!name || !cpu_dai_name)
+> +			return -ENOMEM;
+> +
+>  		char *codec_name, *codec_dai_name;
+>  
+>  		if (intel_ctx->hdmi.idisp_codec) {
+> @@ -996,6 +1002,9 @@ static int create_hdmi_dailinks(struct snd_soc_card *card,
+>  			codec_dai_name = "snd-soc-dummy-dai";
+>  		}
+>  
+> +		if (!codec_dai_name)
+> +			return -ENOMEM;
+> +
+>  		ret = asoc_sdw_init_simple_dai_link(dev, *dai_links, be_id, name,
+>  						    1, 0, // HDMI only supports playback
+>  						    cpu_dai_name, platform_component->name,
+> @@ -1019,6 +1028,9 @@ static int create_bt_dailinks(struct snd_soc_card *card,
+>  			SOF_BT_OFFLOAD_SSP_SHIFT;
+>  	char *name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d-BT", port);
+>  	char *cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL, "SSP%d Pin", port);
+> +	if (!name || !cpu_dai_name)
+> +		return -ENOMEM;
+> +
+>  	int ret;
+>  
+>  	ret = asoc_sdw_init_simple_dai_link(dev, *dai_links, be_id, name,
 
->  #define CDC_RX_DSM_OUT_DELAY_SEL_MASK	GENMASK(2, 0)
->  #define CDC_RX_DSM_OUT_DELAY_TWO_SAMPLE	0x2
->  #define CDC_RX_RX0_RX_PATH_MIX_SEC0	(0x0438)
->  #define CDC_RX_RX0_RX_PATH_MIX_SEC1	(0x043C)
-> -#define CDC_RX_RXn_RX_PATH_DSM_CTL(rx, n)	(0x0440  + rx->rxn_reg_stride * n)
-> +#define CDC_RX_RXn_RX_PATH_DSM_CTL(rx, n)	\
-> +	(0x0440 + rx->rxn_reg_stride * n + n * (n - 1) * rx->rxn_reg_stride2)
->  #define CDC_RX_RXn_DSM_CLK_EN_MASK	BIT(0)
->  #define CDC_RX_RX0_RX_PATH_DSM_CTL	(0x0440)
->  #define CDC_RX_RX0_RX_PATH_DSM_DATA1	(0x0444)
-
--- 
-With best wishes
-Dmitry

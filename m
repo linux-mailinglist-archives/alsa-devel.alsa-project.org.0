@@ -2,87 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D57009855E2
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 10:54:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA7098585B
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 13:42:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 858FAB60;
-	Wed, 25 Sep 2024 10:54:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 858FAB60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72A58851;
+	Wed, 25 Sep 2024 13:41:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72A58851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727254483;
-	bh=1zWwlFWmFVwYVAzytW6yvqI5W4QRdh3sKMqwLclSRPM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1727264528;
+	bh=3EBHgI5jWIASh0jFC87Ehq5VX3rMzlLur/2SNTpmArE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=c6NK0usTngqptQus+4ywqdXRICu1q05ffhYwedfcgDj3m2UKZtXsku1avZ7OPxepJ
-	 vqfeXVKRYSvR5tDpxOebtu1X/fxW+jBZWFXuwAqiDS+V2pKR1ZlgHzV4t5lYDAnWyx
-	 sgMa8JGwwkmBNqh9fcmdWzLW6eIt0Q1bSl8anHW0=
+	b=EZhS8nKVb+6+um/2naQFJ6w4dwUe6BJulU1OFPyk7nQ5vG1UyqjvMD0Y20zx4Vams
+	 LxpdbVHRYQHWuzs45EMSg9p8KvN1I9OW5v8X1J2pu1/SvBs3ZXBeBbrb2UjMAXgOr5
+	 ArSePpifcx+/GjFKwgG6rZ9edpEhgFhmLm1whjRA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C68AF805B2; Wed, 25 Sep 2024 10:54:12 +0200 (CEST)
+	id 18020F805AE; Wed, 25 Sep 2024 13:41:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14F1FF805B2;
-	Wed, 25 Sep 2024 10:54:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1520BF80508;
+	Wed, 25 Sep 2024 13:41:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F2D4F802DB; Wed, 25 Sep 2024 10:54:06 +0200 (CEST)
+	id 6F047F802DB; Wed, 25 Sep 2024 13:41:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
 Received: from nyc.source.kernel.org (nyc.source.kernel.org
  [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7680DF80074
-	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 10:54:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7680DF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 72BCDF8010B
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 13:41:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72BCDF8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Evv4akEb
+ header.s=k20201202 header.b=MLdgPZQp
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 18AFAA43D5F;
-	Wed, 25 Sep 2024 08:53:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D1DC4CEC3;
-	Wed, 25 Sep 2024 08:54:00 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 4C8F6A43F2A;
+	Wed, 25 Sep 2024 11:41:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B03C4CEC7;
+	Wed, 25 Sep 2024 11:41:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727254441;
-	bh=1zWwlFWmFVwYVAzytW6yvqI5W4QRdh3sKMqwLclSRPM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Evv4akEbOILJlNV7aFx1NjrXQX5vMFBvUQXuYWx6lTqjoogKLcK+mJ6vpmFUiGPft
-	 hRawpDFDggiD01yqjpHqZKXfhtvKDqcwuwQQoerRyAPAMZVSVHHSlTt2lg7kgZZ3Ol
-	 Rce5zTXOiLYjHyNKybBGR4P3gRB72YoWHCIZwlNLoPSi4Qup1HyTlPZeflgMgXbXJS
-	 WeRgnlgQgdWIP1eQMwsnJPH39XxnDgF+2j7bz83p0z83SIP7tRURML5qYh6RLlivNS
-	 iYlVawl3a0YUDW2dTIRnPi64KNEAwuhrOTc7uvLs5ckmR+bPNnZDwwQls2ADWIARqf
-	 h9feHkD2TSU0Q==
-Date: Wed, 25 Sep 2024 10:53:57 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Alexey Klimov <alexey.klimov@linaro.org>,
-	srinivas.kandagatla@linaro.org, a39.skl@gmail.com,
-	linux-sound@vger.kernel.org, lgirdwood@gmail.com, perex@perex.cz,
-	tiwai@suse.com, alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	krzysztof.kozlowski@linaro.org, vkoul@kernel.org,
-	klimov.linux@gmail.com
-Subject: Re: [PATCH REVIEW 1/2] ASoC: codecs: lpass-rx-macro: fix RXn(rx,n)
- macro for DSM_CTL and SEC7 regs
-Message-ID: <ZvPPpfobvDmmTCfi@finisterre.sirena.org.uk>
-References: <20240925043823.520218-1-alexey.klimov@linaro.org>
- <czlx4thp7thnb6jrauilpbtzgbq637rmnwlpifxq5b5jfa3lqm@toyy3b2viscr>
+	s=k20201202; t=1727264482;
+	bh=3EBHgI5jWIASh0jFC87Ehq5VX3rMzlLur/2SNTpmArE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=MLdgPZQpXDggwSxPt0CnPSuJovxP2A8DpJBL4hWWO/HhzGaLRrySafbJAeUjbJGwr
+	 tMwQlMdgF92rrS6ky/Cicg8/61jkpkXmcHh9RRC4Usb/N6NeVlsQbihMJGi0DnTmmY
+	 OtFYpUD9FkSPVlU/fiDKPzFhLM7OxqbDHD+UmHA9u6mz/rFASbFElOG0m2sX4OORLH
+	 52IQVPw7PXFA+I06ZBYwpnNEyqtHSLcV2530WABsOEWotv4QmL40W8mI7mlIRgm45J
+	 y0o+awoLneVUNYxYf8xap/QMO61xbK3zNM+uR37CGlsF+kgWOYEIEZo/JwHbUuvU/q
+	 +yktBPvmfLSZA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	srinivas.kandagatla@linaro.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.11 098/244] ASoC: codecs: wsa883x: Handle reading
+ version failure
+Date: Wed, 25 Sep 2024 07:25:19 -0400
+Message-ID: <20240925113641.1297102-98-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240925113641.1297102-1-sashal@kernel.org>
+References: <20240925113641.1297102-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="irEqxi+ka1OxLIPG"
-Content-Disposition: inline
-In-Reply-To: <czlx4thp7thnb6jrauilpbtzgbq637rmnwlpifxq5b5jfa3lqm@toyy3b2viscr>
-X-Cookie: Editing is a rewording activity.
-Message-ID-Hash: CV22FG2IPDSVBKDQ5ATPREH2JDPIZHEQ
-X-Message-ID-Hash: CV22FG2IPDSVBKDQ5ATPREH2JDPIZHEQ
-X-MailFrom: broonie@kernel.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.11
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: R5WNSGSQLGUI3CLCNJVOCOROU6CA6GAD
+X-Message-ID-Hash: R5WNSGSQLGUI3CLCNJVOCOROU6CA6GAD
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CV22FG2IPDSVBKDQ5ATPREH2JDPIZHEQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R5WNSGSQLGUI3CLCNJVOCOROU6CA6GAD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,38 +108,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
---irEqxi+ka1OxLIPG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+[ Upstream commit 2fbf16992e5aa14acf0441320033a01a32309ded ]
 
-On Wed, Sep 25, 2024 at 11:27:54AM +0300, Dmitry Baryshkov wrote:
-> On Wed, Sep 25, 2024 at 05:38:22AM GMT, Alexey Klimov wrote:
+If reading version and variant from registers fails (which is unlikely
+but possible, because it is a read over bus), the driver will proceed
+and perform device configuration based on uninitialized stack variables.
+Handle it a bit better - bail out without doing any init and failing the
+update status Soundwire callback.
 
-> > +#define CDC_RX_RXn_RX_PATH_SEC7(rx, n)		\
-> > +	(0x0434 + rx->rxn_reg_stride * n + n * (n - 1) * rx->rxn_reg_stride2)
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Link: https://patch.msgid.link/20240710-asoc-wsa88xx-version-v1-2-f1c54966ccde@linaro.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/codecs/wsa883x.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-> This is a nice hack to rule out n=0 and n=1, but maybe we can be more
-> obvious here:
+diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+index 3e4fdaa3f44fb..53f6de4340548 100644
+--- a/sound/soc/codecs/wsa883x.c
++++ b/sound/soc/codecs/wsa883x.c
+@@ -997,15 +997,19 @@ static const struct reg_sequence reg_init[] = {
+ 	{WSA883X_GMAMP_SUP1, 0xE2},
+ };
+ 
+-static void wsa883x_init(struct wsa883x_priv *wsa883x)
++static int wsa883x_init(struct wsa883x_priv *wsa883x)
+ {
+ 	struct regmap *regmap = wsa883x->regmap;
+-	int variant, version;
++	int variant, version, ret;
+ 
+-	regmap_read(regmap, WSA883X_OTP_REG_0, &variant);
++	ret = regmap_read(regmap, WSA883X_OTP_REG_0, &variant);
++	if (ret)
++		return ret;
+ 	wsa883x->variant = variant & WSA883X_ID_MASK;
+ 
+-	regmap_read(regmap, WSA883X_CHIP_ID0, &version);
++	ret = regmap_read(regmap, WSA883X_CHIP_ID0, &version);
++	if (ret)
++		return ret;
+ 	wsa883x->version = version;
+ 
+ 	switch (wsa883x->variant) {
+@@ -1040,6 +1044,8 @@ static void wsa883x_init(struct wsa883x_priv *wsa883x)
+ 				   WSA883X_DRE_OFFSET_MASK,
+ 				   wsa883x->comp_offset);
+ 	}
++
++	return 0;
+ }
+ 
+ static int wsa883x_update_status(struct sdw_slave *slave,
+@@ -1048,7 +1054,7 @@ static int wsa883x_update_status(struct sdw_slave *slave,
+ 	struct wsa883x_priv *wsa883x = dev_get_drvdata(&slave->dev);
+ 
+ 	if (status == SDW_SLAVE_ATTACHED && slave->dev_num > 0)
+-		wsa883x_init(wsa883x);
++		return wsa883x_init(wsa883x);
+ 
+ 	return 0;
+ }
+-- 
+2.43.0
 
-> (0x0434 + stride * n + (n > 2) ? stride2 : 0)
-
-Yes.  We could also use some brackets to make the + and * precedence
-obvious.
-
---irEqxi+ka1OxLIPG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmbzz6QACgkQJNaLcl1U
-h9BAYQf/YgiwTSgbZyHotiHwyPV5y+CGjF1uCjiLDGpUl6fQvcBBXnFs7kg0zBGn
-awD0JqOtywgMW7B9hdvskzi9mThnJq4ab8sWB39c9RPvYYKswcsaNj10LxURjxfX
-WWmg08RzTKSnqubd5tijYAdg++OfwcAPbU9C8ZxyHs+xPgJOYNveWH9DUDu7p+ga
-tQSZkc5OArWpAtPNiQJR2r3b7Ys6YIk9vOZfrPWy2WGGM/duR8bvy0V2yyndEWo0
-fA3XF+1HQ4BPmHOVcpvqhBrrGqYunoK2VT1dqhdmWJsu9OS9CedPwbXsx9p7WHbt
-FzSoZOaCJJmax5da7Yx2OpdpQjf+XA==
-=Xc1o
------END PGP SIGNATURE-----
-
---irEqxi+ka1OxLIPG--

@@ -2,108 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A2698BC31
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:36:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB61D98BC33
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:37:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F80DDF6;
-	Tue,  1 Oct 2024 14:36:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F80DDF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3796CD8;
+	Tue,  1 Oct 2024 14:37:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3796CD8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727786218;
-	bh=zql0UFyD9e6gEijJF+6zQpiD0eDyWRmtczoPGlBcpfI=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1727786231;
+	bh=gmYT3Xhb1sy7FpiYtJile2lqEnWT1QUgxCz2yd0yloI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nWwtzmQ5HIJ63tUPuBjQqhfyoHJaFZ7kRZl7IAh3iZ3s9iCcCQygFF3BKG33nYW0s
-	 8KSBXFFO0XEUONkdaA2iQOvfvO3TMDrS+aI0R1vm1zVtx31jwjrW/srLXyb3MbRoxl
-	 pXNgJioWUrZ4AgjkuPTOVLUEXqbk2gDe1xowe3+Q=
+	b=aSZX9FhcsEsi1o4BU4gNdex1uC2JiqSI9SoJ4DA58LfTkqfV8jbq1DlDPF/W8bJQh
+	 ito8wnVylo44a9DBya/21qIYnZKUydGCLAEOdnLb5SRqpxQTiwkBnnpg1m2rQjaClD
+	 KJHtITALgPfeGayWvRHut8T3f9bUZdhCWrbGYibU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7BD0F80692; Tue,  1 Oct 2024 14:35:18 +0200 (CEST)
+	id DED51F806AA; Tue,  1 Oct 2024 14:35:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC656F80692;
-	Tue,  1 Oct 2024 14:35:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 368F4F806AA;
+	Tue,  1 Oct 2024 14:35:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90E20F802DB; Tue, 24 Sep 2024 13:28:02 +0200 (CEST)
+	id D8022F802DB; Wed, 25 Sep 2024 02:48:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BC861F8010B
-	for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2024 13:27:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC861F8010B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=XyVcXfuP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1727177281; x=1758713281;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zql0UFyD9e6gEijJF+6zQpiD0eDyWRmtczoPGlBcpfI=;
-  b=XyVcXfuPIrQIWy/XnF0GwKhd+il7Zgv4SKoG7pwoR8PP4MYEqYFw6/3g
-   l5zA7LFiaBd8Svlh99l8+igrm0lBioUrR67ISPgEdZGaHkjwsy3jd9trP
-   eMrLbBVM5Xheettwi9YGs1PLxjhWHiOQTXPlg/GuCsgm2tYpTiN+JeoVq
-   2EpNp7FFsl72dFKpk0qIvEx218i8hxDraYGZpuNTjKYOYMNgmPf42MpeN
-   MMwGZV5d1Uj+ofMzzseP7VzN3/VU4BQfjGYwap2Hn3SVAlcEP9UMpeC1O
-   ddKQYguZupPV6kqIbQD6R5RoV9LgxPRNt6F3lwdg1npO843JcJQ5NkgPY
-   g==;
-X-CSE-ConnectionGUID: gLqVBAZkQqmoxUm1padfyg==
-X-CSE-MsgGUID: ej1v0jdzRl+8yr6Hszmyog==
-X-IronPort-AV: E=Sophos;i="6.10,254,1719903600";
-   d="scan'208";a="32166627"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 24 Sep 2024 04:27:57 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 24 Sep 2024 04:27:27 -0700
-Received: from ROB-ULT-M76677.microchip.com (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.35 via Frontend Transport; Tue, 24 Sep 2024 04:27:24 -0700
-From: Andrei Simion <andrei.simion@microchip.com>
-To: <broonie@kernel.org>
-CC: <alexandre.belloni@bootlin.com>, <alsa-devel@alsa-project.org>,
-	<andrei.simion@microchip.com>, <claudiu.beznea@tuxon.dev>,
-	<lgirdwood@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-sound@vger.kernel.org>,
-	<nicolas.ferre@microchip.com>, <perex@perex.cz>, <tiwai@suse.com>
-Subject: Re: [PATCH] ASoC: atmel: mchp-pdmc: Skip ALSA restoration if
- substream runtime is uninitialized
-Date: Tue, 24 Sep 2024 14:25:44 +0300
-Message-ID: <20240924112542.78321-1-andrei.simion@microchip.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <ZvJ_ZFpIiRpD_uzO@finisterre.sirena.org.uk>
-References: <ZvJ_ZFpIiRpD_uzO@finisterre.sirena.org.uk>
+	by alsa1.perex.cz (Postfix) with ESMTPS id AC220F80107
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 02:48:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC220F80107
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+	by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 48P0mAe2019775
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Tue, 24 Sep 2024 20:48:15 -0400 (EDT)
+	(envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+	by m5p.com (8.18.1/8.15.2/Submit) id 48P0m5gn019774;
+	Tue, 24 Sep 2024 17:48:05 -0700 (PDT)
+	(envelope-from ehem)
+Date: Tue, 24 Sep 2024 17:48:05 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+        Ariadne Conill <ariadne@ariadne.space>,
+ xen-devel@lists.xenproject.org,
+        alsa-devel@alsa-project.org, stable@vger.kernel.org,
+        Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH] Revert "ALSA: memalloc: Workaround for Xen PV"
+Message-ID: <ZvNdxXCNu4Uc5gc_@mattapan.m5p.com>
+References: <20240906184209.25423-1-ariadne@ariadne.space>
+ <877cbnewib.wl-tiwai@suse.de>
+ <9eda21ac-2ce7-47d5-be49-65b941e76340@citrix.com>
+ <Zt9UQJcYT58LtuRV@mattapan.m5p.com>
+ <8734m77o7k.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MailFrom: prvs=99060207b=Andrei.Simion@microchip.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8734m77o7k.wl-tiwai@suse.de>
+X-MailFrom: ehem@m5p.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 2T6D63NUKSIIX6C47MALQVKMVFBDP65V
-X-Message-ID-Hash: 2T6D63NUKSIIX6C47MALQVKMVFBDP65V
-X-Mailman-Approved-At: Tue, 01 Oct 2024 12:34:51 +0000
+Message-ID-Hash: SIITHW743D3YR74PNLMHUM6OPKXJN43O
+X-Message-ID-Hash: SIITHW743D3YR74PNLMHUM6OPKXJN43O
+X-Mailman-Approved-At: Tue, 01 Oct 2024 12:35:05 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2T6D63NUKSIIX6C47MALQVKMVFBDP65V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIITHW743D3YR74PNLMHUM6OPKXJN43O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,39 +91,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 24.09.2024 11:59, Mark Brown wrote:
+On Tue, Sep 10, 2024 at 01:17:03PM +0200, Takashi Iwai wrote:
+> On Mon, 09 Sep 2024 22:02:08 +0200,
+> Elliott Mitchell wrote:
+> > 
+> > On Sat, Sep 07, 2024 at 11:38:50AM +0100, Andrew Cooper wrote:
+> > > 
+> > > Individual subsystems ought not to know or care about XENPV; it's a
+> > > layering violation.
+> > > 
+> > > If the main APIs don't behave properly, then it probably means we've got
+> > > a bug at a lower level (e.g. Xen SWIOTLB is a constant source of fun)
+> > > which is probably affecting other subsystems too.
+> > 
+> > This is a big problem.  Debian bug #988477 (https://bugs.debian.org/988477)
+> > showed up in May 2021.  While some characteristics are quite different,
+> > the time when it was first reported is similar to the above and it is
+> > also likely a DMA bug with Xen.
 > 
+> Yes, some incompatible behavior has been seen on Xen wrt DMA buffer
+> handling, as it seems.  But note that, in the case of above, it was
+> triggered by the change in the sound driver side, hence we needed a
+> quick workaround there.  The result was to move back to the old method
+> for Xen in the end.
 > 
-> On Tue, Sep 24, 2024 at 11:12:38AM +0300, Andrei Simion wrote:
+> As already mentioned in another mail, the whole code was changed for
+> 6.12, and the revert isn't applicable in anyway.
 > 
->> Update the driver to prevent alsa-restore.service from failing when
->> reading data from /var/lib/alsa/asound.state at boot. Ensure that the
->> restoration of ALSA mixer configurations is skipped if substream->runtime
->> is NULL.
->> +++ b/sound/soc/atmel/mchp-pdmc.c
->> @@ -302,6 +302,9 @@ static int mchp_pdmc_chmap_ctl_put(struct snd_kcontrol *kcontrol,
->>	if (!substream)
->>		return -ENODEV;
->>
->> +	if (!substream->runtime)
->> +		return 0; /* just for avoiding error from alsactl restore */
->> +
-> This then means that control writes are just discarded which presumably
-> is going to upset things if they actually saved a value here.  Why is
-> that a good choice, rather than either fixing the race so the card
-> doesn't come up too early or removing the need for the runtime?
+> So I'm going to submit another patch to drop this Xen PV-specific
+> workaround for 6.12.  The new code should work without the workaround
+> (famous last words).  If the problem happens there, I'd rather leave
+> it to Xen people ;)
 
-Ok. I understand. My first intention was to follow the
-https://github.com/torvalds/linux/blob/master/sound/hda/hdmi_chmap.c#L794
-but after your point of view, I intend to return -EAGAIN in V2
-to specify the substream->runtime is not ready.
+I've seen that patch, but haven't seen any other activity related to
+this sound problem.  I'm wondering whether the problem got fixed by
+something else, there is activity on different lists I don't see, versus
+no activity until Qubes OS discovers it is again broken.
 
-I retested: configured pdmc, then reboot the board and the configuration:
-as a result the configuration kept.
 
-alsa-restore.service status success.
+An overview of the other bug which may or may not be the same as this
+sound card bug:
 
-Do you think this solution is enough?
+Both reproductions of the RAID1 bug have been on systems with AMD
+processors.  This may indicate this is distinct, but could also mean only
+people who get AMD processors are wary enough of flash to bother with
+RAID1 on flash devices.  Presently I suspect it is the latter, but not
+very many people are bothering with RAID1 with flash.
 
-Thank you and best regards,
-Andrei Simion
+Only systems with IOMMUv2 (full IOMMU, not merely GART) are effected.
+
+Samsung SATA devices are severely effected.
+
+Crucial/Micron NVMe devices are mildly effected.
+
+Crucial/Micron SATA devices are uneffected.
+
+
+Specifications for Samsung SATA and Crucial/Micron SATA devices are
+fairly similar.  Similar IOps, similar bandwith capabilities.
+
+Crucial/Micron NVMe devices have massively superior specifications to
+the Samsung SATA devices.  Yet the Crucial/Micron NVMe devices are less
+severely effected than the Samsung SATA devices.
+
+
+This seems likely to be a latency issue.  Could be when commands are sent
+to the Samsung SATA devices, they are fast enough to start executing them
+before the IOMMU is ready.
+
+This could match with the sound driver issue.  Since the sound hardware
+is able to execute its first command with minimal latency, that is when
+the problem occurs.  If the first command gets through, the second
+command is likely executed with some delay and the IOMMU is reliably
+ready.
+
+
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+

@@ -2,121 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4F19985041
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 03:09:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CD72985138
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 05:08:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DCBCEDB;
-	Wed, 25 Sep 2024 03:08:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DCBCEDB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97FF686F;
+	Wed, 25 Sep 2024 05:08:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97FF686F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727226544;
-	bh=prnyaP8xdPvgf7lPSdgoOnTFSQEEfdLilloaJUXm1RE=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Mmx7IUUqDy3UF9kFrsCuz7icZcUmk6K9fpFwfrzWej2Tv5UaMpI3bkEA14bsOsa4B
-	 flkXTGqjyOFCDsvgg3bXxWLRuIYy0CGWcQXoSq0D4OpJDmgdpOedj7CJSRrAHF6W//
-	 qTnc+0QZoWGNSVIhb3gSQXPnIgt2Uk6UJMVWDcaQ=
+	s=default; t=1727233707;
+	bh=4fPZFq9GucltM9qF4rscl7ftDfoWZ+wWMtPS0pSK47E=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Qw25kt+I3nb3J0fu9SIfNhGPXRw+5PaZTyoJE8tnfDCuU7nQlUOXne76u1EPsh4VE
+	 2Efw2WbWa/KFE6WV+bdL8Msl4gfUtJvE8a7kwBPHJXLoDxHUBQEJzOd3GMEZQiH2Ma
+	 upv/XJHif4giyUSDOWiIxXRnD/NoVINT2zebC/G8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3B2AF897D6; Wed, 25 Sep 2024 03:02:24 +0200 (CEST)
+	id 8E22BF805B6; Wed, 25 Sep 2024 05:07:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19572F897C4;
-	Wed, 25 Sep 2024 03:02:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E77D4F805B1;
+	Wed, 25 Sep 2024 05:07:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 509B8F80717; Wed, 25 Sep 2024 03:01:13 +0200 (CEST)
+	id 3483DF802DB; Wed, 25 Sep 2024 05:07:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ua1-x936.google.com (mail-ua1-x936.google.com
+ [IPv6:2607:f8b0:4864:20::936])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23B46F805E3
-	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 03:00:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23B46F805E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7403F80107
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 05:07:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7403F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=pjldD4f9
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 48OIJGAj001625;
-	Wed, 25 Sep 2024 01:00:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IHuzCQGYpXyTPH0RihFbQD623zcQRcB8CUdC3cqWdMA=; b=pjldD4f9IXUoQo+6
-	v0DhTrFEJMo29LhW+GBGrrCDkdYe00bE7NcqwI+9FiM4djrz0OYEDpDczfE8hVOS
-	3C4ivw4yDwn+gJEkjIdkLy9uf0kfmgkki+u+Q8lGxIs346X47HAtcOYfwHf6tlii
-	nKkIuAjL9QutcCbd6MiS8pNOBegMxhWwd3107CTRhcnMeL7GXmsi1EwgCvzGSqFL
-	pJODt2TPVDdE4uDtOhKtyhRE+WF1b/32DaW0U275vhBMnKZVfTvwlRmnMyJ4sPut
-	MKHLvDF1hPGGlDdjZ7xTIhQeGkAoIoZft1FFbAoD6XVdMhTnvz8CtXkNMpsfYD/+
-	XpGafg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 41snqyjg40-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 25 Sep 2024 01:00:21 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA03.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 48P10Kac022123
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 25 Sep 2024 01:00:20 GMT
-Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Tue, 24 Sep 2024 18:00:20 -0700
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-To: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <conor+dt@kernel.org>, <dmitry.torokhov@gmail.com>,
-        <corbet@lwn.net>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
-        <tiwai@suse.com>, <krzk+dt@kernel.org>,
-        <pierre-louis.bossart@linux.intel.com>, <Thinh.Nguyen@synopsys.com>,
-        <bgoswami@quicinc.com>, <robh@kernel.org>,
-        <gregkh@linuxfoundation.org>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <linux-input@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        Wesley Cheng
-	<quic_wcheng@quicinc.com>
-Subject: [PATCH v28 32/32] ASoC: usb: Rediscover USB SND devices on USB port
- add
-Date: Tue, 24 Sep 2024 18:00:00 -0700
-Message-ID: <20240925010000.2231406-33-quic_wcheng@quicinc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240925010000.2231406-1-quic_wcheng@quicinc.com>
-References: <20240925010000.2231406-1-quic_wcheng@quicinc.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=ZGv1/902
+Received: by mail-ua1-x936.google.com with SMTP id
+ a1e0cc1a2514c-84e8bb409b6so7979241.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 24 Sep 2024 20:07:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1727233662; x=1727838462;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=EYpCc4I8glQ7ck+nhqJAvbOoAL+loG6airV9nPgLSA0=;
+        b=ZGv1/902YyoWwDoUc5sbGkYs3E5mwMQpJQ/rBXpfRMsnCsmMD9wU5xqk4766+ZlR5Y
+         dJWScY0/fQPs9uK7TgXxiJfaYejFHu6Lk7GT/XA9xd1NY9jv+JEtV1aVTW98QsF7Ikh4
+         0pXNdYhceFK57rrH287BytHdof+2hH02dxr3Aglh6PvhwWkfgxAHO2S4CBHaqjxiEY5v
+         uDuyEaUeNtl31P0W2GSTI+tBqQSkjMK5DIPwQTgZXnYj7WHuxL9kLAl/NREjXqGxzFJ1
+         nxYDYRm4zUyovkVzWU+OWnbRaYFfG7q0i6BoQJ4e2T/+6aW3ZIEH1t7e4Vybj0LL78+Q
+         +d2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727233662; x=1727838462;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EYpCc4I8glQ7ck+nhqJAvbOoAL+loG6airV9nPgLSA0=;
+        b=g6emCX/PtId7iCyK2ImxFRXwSs5Nc1HjgImfAKK0hYjRTmzKgbGj1vwpibikkd8UYZ
+         Dcmf1W+63qqmkMraMExbT6lPT/VTr0Yqdv6Fb8xLsJNOY7pEr0cYZswnvYWDqwAAiYu5
+         9QTn7be8ogn2nzU9JgO2REanIEXs5oU35RdDnlkbkTfxKtire6FtFdWze2/BVGua4KYn
+         33fG8Ff/Q0qLyoyX5EcvQcnyIRXQFrqQHaas3vc5ni+KD9T/Jn71WgqxdpcVBtWp73nV
+         d/3PL+9jeBo4zr+46X/7l02RaynUxPdK4/vizVLfjNGS3NTxZNGTQY8K76O7kbDsA/08
+         F1Rg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVSKR2YfIDDlzyGdUwrjn86YXQjOtOGocGni+QD+3JDRpFPCCmy5xOd0Oq9Nnz4n1Xo92tbfC0hYhBl@alsa-project.org
+X-Gm-Message-State: AOJu0Yw80O2gXiJj4QP7IzQYZj+nut2amgHSt3EDICSNSEnylwG3TDP8
+	WHUEqSQdATWFhDsuAfJyLN1RsvPcCCtlXrywhfvWl5zJTpreFLCK
+X-Google-Smtp-Source: 
+ AGHT+IGHX3YR1tSYTG2yld904TImUX4Wt8i0FOff6GYl4zX2IlhtyXZHmm+gjvhabOxGdIUccbGoNA==
+X-Received: by 2002:a05:6102:c11:b0:49b:c5df:ced6 with SMTP id
+ ada2fe7eead31-4a15dc958c9mr1771357137.10.1727233662222;
+        Tue, 24 Sep 2024 20:07:42 -0700 (PDT)
+Received: from lenovoKubuntu.. ([2800:150:11c:b79:f1b0:792c:c69:ad52])
+        by smtp.googlemail.com with ESMTPSA id
+ a1e0cc1a2514c-84e73d22f77sm1272575241.33.2024.09.24.20.07.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Sep 2024 20:07:41 -0700 (PDT)
+Sender: =?UTF-8?Q?Hans_Peter_M=C3=B6ller?= <hmoller@gmail.com>
+From: Hans P Moller <hmoller@uc.cl>
+To: tiwai@suse.com,
+	perex@perex.cz,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Cc: Hans P Moller <hmoller@uc.cl>
+Subject: [PATCH] ALSA: line6: add hw monitor volume control to POD HD500X
+Date: Wed, 25 Sep 2024 00:05:54 -0300
+Message-ID: <20240925030554.31829-1-hmoller@uc.cl>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: vKi0Sn_XlvQ3aFwyj_s_nRXk2lodc4I0
-X-Proofpoint-ORIG-GUID: vKi0Sn_XlvQ3aFwyj_s_nRXk2lodc4I0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- impostorscore=0 adultscore=0 bulkscore=0 phishscore=0 mlxlogscore=999
- spamscore=0 lowpriorityscore=0 clxscore=1015 mlxscore=0 malwarescore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2408220000 definitions=main-2409250005
-Message-ID-Hash: WS25T7QW6CHU2G44HCIXMSBHZKCPHOQE
-X-Message-ID-Hash: WS25T7QW6CHU2G44HCIXMSBHZKCPHOQE
-X-MailFrom: quic_wcheng@quicinc.com
+Message-ID-Hash: LYILUZSYG5CZSNE4R76ZVGMFDFU4SCTH
+X-Message-ID-Hash: LYILUZSYG5CZSNE4R76ZVGMFDFU4SCTH
+X-MailFrom: hmoller@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WS25T7QW6CHU2G44HCIXMSBHZKCPHOQE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LYILUZSYG5CZSNE4R76ZVGMFDFU4SCTH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,52 +122,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In case the USB backend device has not been initialized/probed, USB SND
-device connections can still occur.  When the USB backend is eventually
-made available, previous USB SND device connections are not communicated to
-the USB backend.  Call snd_usb_rediscover_devices() to generate the connect
-callbacks for all USB SND devices connected.  This will allow for the USB
-backend to be updated with the current set of devices available.
+Add hw monitor volume control for POD HD500X. This is done adding
+LINE6_CAP_HWMON_CTL to the capabilities
 
-The chip array entries are all populated and removed while under the
-register_mutex, so going over potential race conditions:
-
-Thread#1:
-  q6usb_component_probe()
-    --> snd_soc_usb_add_port()
-      --> snd_usb_rediscover_devices()
-        --> mutex_lock(register_mutex)
-
-Thread#2
-  --> usb_audio_disconnect()
-    --> mutex_lock(register_mutex)
-
-So either thread#1 or thread#2 will complete first.  If
-
-Thread#1 completes before thread#2:
-  SOC USB will notify DPCM backend of the device connection.  Shortly
-  after, once thread#2 runs, we will get a disconnect event for the
-  connected device.
-
-Thread#2 completes before thread#1:
-  Then during snd_usb_rediscover_devices() it won't notify of any
-  connection for that particular chip index.
-
-Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+Signed-off-by: Hans P. Moller <hmoller@uc.cl>
 ---
- sound/soc/soc-usb.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/usb/line6/podhd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-usb.c b/sound/soc/soc-usb.c
-index f88ccf90df32..3457bb51a0a1 100644
---- a/sound/soc/soc-usb.c
-+++ b/sound/soc/soc-usb.c
-@@ -252,6 +252,8 @@ void snd_soc_usb_add_port(struct snd_soc_usb *usb)
- 	mutex_lock(&ctx_mutex);
- 	list_add_tail(&usb->list, &usb_ctx_list);
- 	mutex_unlock(&ctx_mutex);
-+
-+	snd_usb_rediscover_devices();
- }
- EXPORT_SYMBOL_GPL(snd_soc_usb_add_port);
- 
+diff --git a/sound/usb/line6/podhd.c b/sound/usb/line6/podhd.c
+index ffd8c157a281..70de08635f54 100644
+--- a/sound/usb/line6/podhd.c
++++ b/sound/usb/line6/podhd.c
+@@ -507,7 +507,7 @@ static const struct line6_properties podhd_properties_table[] = {
+ 	[LINE6_PODHD500X] = {
+ 		.id = "PODHD500X",
+ 		.name = "POD HD500X",
+-		.capabilities	= LINE6_CAP_CONTROL
++		.capabilities	= LINE6_CAP_CONTROL | LINE6_CAP_HWMON_CTL
+ 				| LINE6_CAP_PCM | LINE6_CAP_HWMON,
+ 		.altsetting = 1,
+ 		.ep_ctrl_r = 0x81,
+-- 
+2.43.0
+

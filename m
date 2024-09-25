@@ -2,128 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F05098BC3E
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:38:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 804E798BC40
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:38:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3087DFA;
-	Tue,  1 Oct 2024 14:38:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3087DFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F6C4E8E;
+	Tue,  1 Oct 2024 14:38:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F6C4E8E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727786315;
-	bh=YhBxDPpYQH4YqwY+Xz5yX4fHNoiBzWpOpC0HAJ/BbGk=;
-	h=Date:Cc:Subject:From:To:References:In-Reply-To:List-Id:
+	s=default; t=1727786329;
+	bh=mWoPMcI7ji8ZME18L6ZMT3RlitxSf5eGF1zuPbBA8hQ=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gGMetq0LyNaY3d0Mfh1hcp9UF+vTKuxbq7o6UngrIdb3pZAYT31bEyZK9eV9GorgK
-	 tWiTIovzIbTQlQ5+qcQ8OvSZoccTfYxIfbctrE4EvcGxxipdpeABxyD1Bjdk2hR/je
-	 oQUvmiZ6n1lRS6IKD3gBnwMYdF9rC7uWuC3L6gHM=
+	b=ZuRppOA1JS2aJrQcWTVXVjJd9ILihp6CFI6M21VamUkCq6V2VtyGE0DXS+N+Kk9ql
+	 XnCztrDEfBfirGXOYSzE6WLhhTQQhbmE3aS+YTet7kgJAdpKxxDwj5UNxXlG6HR2GH
+	 Zr/HX6M3+XD5RYa3rdXLyR+7aC9xMyA3YXBksDDg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E60EEF8076F; Tue,  1 Oct 2024 14:35:45 +0200 (CEST)
+	id 969D3F807D1; Tue,  1 Oct 2024 14:35:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13F2DF8076C;
-	Tue,  1 Oct 2024 14:35:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22AD2F80798;
+	Tue,  1 Oct 2024 14:35:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21286F802DB; Wed, 25 Sep 2024 14:41:25 +0200 (CEST)
+	id 4E2BCF802DB; Wed, 25 Sep 2024 15:52:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21849F80074
-	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 14:41:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21849F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id AA510F8010B
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 15:51:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA510F8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=g7wQuJi4
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a90188ae58eso842652666b.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 25 Sep 2024 05:41:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1727268082; x=1727872882;
- darn=alsa-project.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Izurz+PMZmOHAHw9NMc4dqCu2H1VhQy7BJX6+wDdt9M=;
-        b=g7wQuJi4sWBruI4uT+CQjZKUFNtsJezP/vDHWRpTYQv/Y5/rLYOipSMocyeS1MfTyU
-         gjgQ8Xja5oo7VUkud9nov9qpG+X90q0owfVAVXM5VN+as6c4RsRxIsoP/3AoPawv0WUw
-         qaNfkfewKc9QZcB8nPtYCsxU7oF/yE7wZaWjTzckzS7rJVApWv4quv575sMLCdoWiu+a
-         imFz0dEewGtMS5DXKNDU15mO7tzvGIK0opnvfW5V1mG1kCiq+Z4juMePvRgAf3pxvgPY
-         M7aSudrMYnmFppXisbhuBGmzJQVk1xDIEBRQdjWqXwz6WrNK1qKLprYyW6JaJ1W4EQ3X
-         alJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727268082; x=1727872882;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Izurz+PMZmOHAHw9NMc4dqCu2H1VhQy7BJX6+wDdt9M=;
-        b=fJYh/FgRc1ca3uHwKKncK5xL7NJNO67LuN61VG18tzMfQB/RbQU/eStytUCvnND1E+
-         6PmlzjBMSlLvFFxe0VjXlRa0nGsC1MWh9K2XN5QJThRsodQr1+urhYryukMmDbH3O8s7
-         zzhpSjOoTS9uX5IrjU7jrDAaA3Jm7TR74A9oj9VRHQliPhz7qgGt4lbdjUoGiVM0bil+
-         X8NWWKTgoCGyYpW8RZ4Vg2W7Ha8sLYyyq8e1mLovPeMXsG08EKSgNNPTrCRHC1xHje2D
-         LRAKxEn3wxtaCSDsxL+zUEi1fl6Xrd06piZJ1w12ucSem1LgL98ZXQ09LO2JO1RcJTdD
-         oL7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWXY2shXxnK5tX5G8n9pzJFkOO/VP95tK4zIi/dVTBpHdLjc4Gk7A1iSige4ZkaGi6Hr43U102NvEgc@alsa-project.org
-X-Gm-Message-State: AOJu0YwBHMO/DxMF6WYnKFuqOd6k74ilKhhy/Vmy5dDK78SwlFo9gKOO
-	3GwT/NQzoKZ0fDgH7dUJdgVafoyZQFB0OOHUSVrvnvVx0Fo4PCnbeB1dqxYU7JU=
-X-Google-Smtp-Source: 
- AGHT+IGWq/qS81LG8YAeWtGigBWFGSY2KUCD3wh8z6b4HsLNJ/KmQuRXg4EvkhlOqLo8SJiXSmkn7w==
-X-Received: by 2002:a17:907:94cc:b0:a86:8f8f:4761 with SMTP id
- a640c23a62f3a-a93a035ff85mr249552166b.25.1727268081819;
-        Wed, 25 Sep 2024 05:41:21 -0700 (PDT)
-Received: from localhost ([2a00:2381:fd67:101:6c39:59e6:b76d:825])
-        by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93930cae0fsm204615666b.120.2024.09.25.05.41.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Sep 2024 05:41:21 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 25 Sep 2024 13:41:20 +0100
-Message-Id: <D4FDFLNQVSLD.3GSWD0IK7Q4FK@linaro.org>
-Cc: <srinivas.kandagatla@linaro.org>, <a39.skl@gmail.com>,
- <linux-sound@vger.kernel.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
- <tiwai@suse.com>, <alsa-devel@alsa-project.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <krzysztof.kozlowski@linaro.org>, <vkoul@kernel.org>,
- <klimov.linux@gmail.com>
-Subject: Re: [PATCH REVIEW 1/2] ASoC: codecs: lpass-rx-macro: fix RXn(rx,n)
- macro for DSM_CTL and SEC7 regs
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Mark Brown" <broonie@kernel.org>, "Dmitry Baryshkov"
- <dmitry.baryshkov@linaro.org>
-X-Mailer: aerc 0.18.2
-References: <20240925043823.520218-1-alexey.klimov@linaro.org>
- <czlx4thp7thnb6jrauilpbtzgbq637rmnwlpifxq5b5jfa3lqm@toyy3b2viscr>
- <ZvPPpfobvDmmTCfi@finisterre.sirena.org.uk>
-In-Reply-To: <ZvPPpfobvDmmTCfi@finisterre.sirena.org.uk>
-X-MailFrom: alexey.klimov@linaro.org
-X-Mailman-Rule-Hits: nonmember-moderation
+ unprotected) header.d=microchip.com header.i=@microchip.com
+ header.a=rsa-sha256 header.s=mchp header.b=ceJu4ly1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1727272319; x=1758808319;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=mWoPMcI7ji8ZME18L6ZMT3RlitxSf5eGF1zuPbBA8hQ=;
+  b=ceJu4ly1CW1JuObjQfO6+s7fj50gTCJyMZs4PfilRC6sAwNqIB73fzeL
+   dIHadUQxDAL4ImulcagtLdHE+OUO20ni2J0itZzQwodKpuIDOAY/eU7qy
+   esoM5pzTZnrX5zGPA8yw0iLW6nH4HRUjtrj5tet36ERJh37VYCJBDxcPi
+   NLhUxWBKCJw8r7TLD3HyAPeE8lRPtitMjlSmzNVbLrzd5t9Sls9e2dDHr
+   u1jjbIRLEahXdXwnGJT0qMvn40D0uFgeyLt5j4Qxa0Q11nHnop1LZM93O
+   nYZreBIoeHsMXo7grTGFLkc/h13fratlfS9Sk0AJqxmpSSQw/+P/W6Ca5
+   A==;
+X-CSE-ConnectionGUID: /Z2CJI2IQbCM1FLnYGXUpw==
+X-CSE-MsgGUID: NVKkHTY8TyWYrWAdKupnQg==
+X-IronPort-AV: E=Sophos;i="6.10,257,1719903600";
+   d="scan'208";a="263245828"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 25 Sep 2024 06:51:55 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 25 Sep 2024 06:51:26 -0700
+Received: from [10.171.248.56] (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 25 Sep 2024 06:51:24 -0700
+Message-ID: <1f1f22de-692c-4428-a754-0aa625294bbd@microchip.com>
+Date: Wed, 25 Sep 2024 15:51:40 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] MAINTAINERS: Update maintainer list for MICROCHIP
+ ASOC, SSC and MCP16502 drivers
+Content-Language: en-US, fr-FR
+To: Andrei Simion <andrei.simion@microchip.com>, <claudiu.beznea@tuxon.dev>
+CC: <linux-kernel@vger.kernel.org>, <cristian.birsan@microchip.com>, "Mark
+ Brown" <broonie@kernel.org>, alsa-devel <alsa-devel@alsa-project.org>
+References: <20240925130711.122950-1-andrei.simion@microchip.com>
+From: Nicolas Ferre <nicolas.ferre@microchip.com>
+Organization: microchip
+In-Reply-To: <20240925130711.122950-1-andrei.simion@microchip.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: prvs=99191a9c0=Nicolas.Ferre@microchip.com
+X-Mailman-Rule-Hits: implicit-dest
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: VJAZZ43QXKMU2GP4G3XUTI7MINS2XTIG
-X-Message-ID-Hash: VJAZZ43QXKMU2GP4G3XUTI7MINS2XTIG
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; max-recipients; max-size; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: I65WTMQESEARY2UGW5RJVIDYG6TBBHX5
+X-Message-ID-Hash: I65WTMQESEARY2UGW5RJVIDYG6TBBHX5
 X-Mailman-Approved-At: Tue, 01 Oct 2024 12:35:34 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VJAZZ43QXKMU2GP4G3XUTI7MINS2XTIG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I65WTMQESEARY2UGW5RJVIDYG6TBBHX5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,35 +113,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed Sep 25, 2024 at 9:53 AM BST, Mark Brown wrote:
-> On Wed, Sep 25, 2024 at 11:27:54AM +0300, Dmitry Baryshkov wrote:
-> > On Wed, Sep 25, 2024 at 05:38:22AM GMT, Alexey Klimov wrote:
->
-> > > +#define CDC_RX_RXn_RX_PATH_SEC7(rx, n)		\
-> > > +	(0x0434 + rx->rxn_reg_stride * n + n * (n - 1) * rx->rxn_reg_stride=
-2)
->
-> > This is a nice hack to rule out n=3D0 and n=3D1, but maybe we can be mo=
-re
-> > obvious here:
->
-> > (0x0434 + stride * n + (n > 2) ? stride2 : 0)
->
-> Yes.  We could also use some brackets to make the + and * precedence
-> obvious.
+(adding Mark and alsa-devel to the thread)
 
-Yeah, sure. If this approach with stride2 works then I can update to:
-(0x0434 + (rx->rxn_reg_stride * n) + ((n > 1) ? rx->rxn_reg_stride2 : 0))
-and update stride2 to 0xc.
+On 25/09/2024 at 15:07, Andrei Simion wrote:
+> To help Claudiu and offload the work, add myself to the maintainer list for
+> those drivers.
+> 
+> Acked-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 
-Looks like I can also remove:
-	if (j =3D=3D INTERP_AUX)
-		dsm_reg =3D CDC_RX_RXn_RX_PATH_DSM_CTL(rx, 2);
-from rx_macro_digital_mute() since INTERP_AUX =3D 2 and this if-check was t=
-here
-to handle special offset of DSM_CTL for RX2. If RXn() will generate correct
-addresses then this no longer needed. Or such kind of clean-up should go
-into separate patch.
+Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
 
-BR,
-Alexey
+Thanks a lot to both of you to continue this work.
+
+Best regards,
+   Nicolas
+
+> Signed-off-by: Andrei Simion <andrei.simion@microchip.com>
+> ---
+> v1 -> v2:
+> - add acked-by tag
+> - adjust commit title
+> - update maintainer list for MICROCHIP SSC DRIVER
+> ---
+>   MAINTAINERS | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 09d0f09c36cc..12e6777bb6b4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15088,6 +15088,7 @@ F:	drivers/spi/spi-at91-usart.c
+>   
+>   MICROCHIP AUDIO ASOC DRIVERS
+>   M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> +M:	Andrei Simion <andrei.simion@microchip.com>
+>   L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+>   S:	Supported
+>   F:	Documentation/devicetree/bindings/sound/atmel*
+> @@ -15196,6 +15197,7 @@ F:	include/video/atmel_lcdc.h
+>   
+>   MICROCHIP MCP16502 PMIC DRIVER
+>   M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> +M:	Andrei Simion <andrei.simion@microchip.com>
+>   L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+>   S:	Supported
+>   F:	Documentation/devicetree/bindings/regulator/microchip,mcp16502.yaml
+> @@ -15327,6 +15329,7 @@ F:	drivers/spi/spi-atmel.*
+>   
+>   MICROCHIP SSC DRIVER
+>   M:	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> +M:	Andrei Simion <andrei.simion@microchip.com>
+>   L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+>   S:	Supported
+>   F:	Documentation/devicetree/bindings/misc/atmel-ssc.txt
+> 
+> base-commit: 2b7275670032a98cba266bd1b8905f755b3e650f
+

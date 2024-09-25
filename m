@@ -2,90 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 775639859E8
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 14:03:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C6629859F5
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2024 14:03:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11DDF86E;
-	Wed, 25 Sep 2024 14:02:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11DDF86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6453C827;
+	Wed, 25 Sep 2024 14:03:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6453C827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727265781;
-	bh=lkXxB/YjIjrqCNz9gdjyXC7KTuV69ONi+VaZy64n8X0=;
+	s=default; t=1727265831;
+	bh=DtkkKUYmMlHP2TuazWt4IZv+jxsp3Z3kbXQDu7abOYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UZmar0YJzNcxKMXkTJkRr1D0KUo7WM9nga1x2uublEfcrVagz84PD4XHmQP3Btc6u
-	 VcfKjLi3WpMSKvbNSpuebDyUOtUXGYOBIyp7iBVkjVfHpl7Eh1CgT1jhWYNOggkIfm
-	 Cu4WZ5pw0wA1xh4VIM9QnwexbaJneMXoRop4C2BM=
+	b=tJc1C8cDDvqyZGiIZzjDyS3IYTu04P8LluEKLyaAE8PGUpl6nUnICumU4G81h74TQ
+	 14QQ75ICQi/R3Ej/QbqYU3gDACCB0TFgv7XOSteWe3y+b4zL27MRAsnpU1m8OPUcc8
+	 4MhoAHJW2s3Dkr27eT7JdjgFfS46ZJUANlkwJYNQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF031F80527; Wed, 25 Sep 2024 14:02:29 +0200 (CEST)
+	id A49A4F805AC; Wed, 25 Sep 2024 14:03:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1FE6F80527;
-	Wed, 25 Sep 2024 14:02:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49E29F80107;
+	Wed, 25 Sep 2024 14:03:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D177F802DB; Wed, 25 Sep 2024 14:02:25 +0200 (CEST)
+	id 2EB25F802DB; Wed, 25 Sep 2024 14:03:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8DE73F8010B
-	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 14:02:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DE73F8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1C6F6F8010B
+	for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2024 14:03:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C6F6F8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cQa7ZvGb
+ header.s=k20201202 header.b=cogH9ler
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 6F9555C558D;
-	Wed, 25 Sep 2024 12:02:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF7CC4CEC7;
-	Wed, 25 Sep 2024 12:02:19 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 07ED5A440C6;
+	Wed, 25 Sep 2024 12:03:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14619C4CEC7;
+	Wed, 25 Sep 2024 12:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727265741;
-	bh=lkXxB/YjIjrqCNz9gdjyXC7KTuV69ONi+VaZy64n8X0=;
+	s=k20201202; t=1727265787;
+	bh=DtkkKUYmMlHP2TuazWt4IZv+jxsp3Z3kbXQDu7abOYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cQa7ZvGbudG8VOzDytwkW+T+NyRkjnDjd7UjbETfJhgl8AWuDN78woxFpW00U9lfR
-	 g0yCIAylKKYNKiK4rz9kG8edy21pZ//VFMS4/X3arTZ4ViArGeTPEKhBySZz1zyDsJ
-	 4b7vUCr2GBA6Bu00Prj/0SiL9H3WcLEJhZJT1J7Kn4ugI6OUZvc0Lx26qgcbvpvuKO
-	 4E75fQq+8/k/ATgUKDhCBIZRoMRbLIl0JSaFIPrCHDgfQFu3t8UWAvihalKLYKlh8O
-	 +j/Wu9L14vzn3GfQHa+PJCVLjKjYaGcSok8urAQVUp2STEyL8EwwQdFSfGGGM9miK9
-	 AbVg8qr+06hww==
+	b=cogH9lerd0ZDTpvOr0O9GCCc+h9ki98jIr7hoW+3TXrToa/Xd/YuEhMHn8IhnK3rc
+	 U1h8sAYif4yakqfUCIPpsuxw1C5UpG1zRL1icUG5n6saUYk5mw0WhbvbLZ+sGKG5Ki
+	 1Z/FMSkBu47Gqg7r+AUpvdb66JlTMA5T1IkruZrqaQE8LTgGWzlFy5SGKA6w4aChdA
+	 MgSs1IE1wdugUUTDzz24PcTIp2ICF60Y0Pd5mBUSNDGmvwcd9zePftoHw9VWaLYaZm
+	 gJnBfPxTmv2ex+Qrq50Q3cMK+0YTXoylgzRn0b22Ctjp+CBQNiJ+YhZCEEqOj93jQh
+	 rhu6haElna95w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	srinivas.kandagatla@linaro.org,
-	lgirdwood@gmail.com,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	pierre-louis.bossart@linux.dev,
+	hdegoede@redhat.com,
+	kuninori.morimoto.gx@renesas.com,
+	tomlohave@gmail.com,
+	alban.boye@protonmail.com,
+	chao.song@linux.intel.com,
+	christophe.jaillet@wanadoo.fr,
 	alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.10 082/197] ASoC: codecs: wsa883x: Handle reading
- version failure
-Date: Wed, 25 Sep 2024 07:51:41 -0400
-Message-ID: <20240925115823.1303019-82-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.10 095/197] ASoC: Intel: boards: always check the
+ result of acpi_dev_get_first_match_dev()
+Date: Wed, 25 Sep 2024 07:51:54 -0400
+Message-ID: <20240925115823.1303019-95-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240925115823.1303019-1-sashal@kernel.org>
 References: <20240925115823.1303019-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.10.11
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6HLDGL2PTOAEE7TNUMVHXPAXVGH6IG2D
-X-Message-ID-Hash: 6HLDGL2PTOAEE7TNUMVHXPAXVGH6IG2D
+Message-ID-Hash: 7B56LH55LZ6UCIPPYQBUVYW2UYQ2ONEI
+X-Message-ID-Hash: 7B56LH55LZ6UCIPPYQBUVYW2UYQ2ONEI
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6HLDGL2PTOAEE7TNUMVHXPAXVGH6IG2D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7B56LH55LZ6UCIPPYQBUVYW2UYQ2ONEI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,70 +119,168 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit 2fbf16992e5aa14acf0441320033a01a32309ded ]
+[ Upstream commit 14e91ddd5c02d8c3e5a682ebfa0546352b459911 ]
 
-If reading version and variant from registers fails (which is unlikely
-but possible, because it is a read over bus), the driver will proceed
-and perform device configuration based on uninitialized stack variables.
-Handle it a bit better - bail out without doing any init and failing the
-update status Soundwire callback.
+The code seems mostly copy-pasted, with some machine drivers
+forgetting to test if the 'adev' result is NULL.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Link: https://patch.msgid.link/20240710-asoc-wsa88xx-version-v1-2-f1c54966ccde@linaro.org
+Add this check when missing, and use -ENOENT consistently as an error
+code.
+
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Closes: https://lore.kernel.org/alsa-devel/918944d2-3d00-465e-a9d1-5d57fc966113@stanley.mountain/T/#u
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://patch.msgid.link/20240827123215.258859-4-yung-chuan.liao@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wsa883x.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ sound/soc/intel/boards/bytcht_cx2072x.c | 4 ++++
+ sound/soc/intel/boards/bytcht_da7213.c  | 4 ++++
+ sound/soc/intel/boards/bytcht_es8316.c  | 2 +-
+ sound/soc/intel/boards/bytcr_rt5640.c   | 2 +-
+ sound/soc/intel/boards/bytcr_rt5651.c   | 2 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c | 4 ++++
+ sound/soc/intel/boards/cht_bsw_rt5672.c | 4 ++++
+ sound/soc/intel/boards/sof_es8336.c     | 2 +-
+ sound/soc/intel/boards/sof_wm8804.c     | 4 ++++
+ 9 files changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
-index 2169d93989841..1831d4487ba9d 100644
---- a/sound/soc/codecs/wsa883x.c
-+++ b/sound/soc/codecs/wsa883x.c
-@@ -998,15 +998,19 @@ static const struct reg_sequence reg_init[] = {
- 	{WSA883X_GMAMP_SUP1, 0xE2},
- };
- 
--static void wsa883x_init(struct wsa883x_priv *wsa883x)
-+static int wsa883x_init(struct wsa883x_priv *wsa883x)
- {
- 	struct regmap *regmap = wsa883x->regmap;
--	int variant, version;
-+	int variant, version, ret;
- 
--	regmap_read(regmap, WSA883X_OTP_REG_0, &variant);
-+	ret = regmap_read(regmap, WSA883X_OTP_REG_0, &variant);
-+	if (ret)
-+		return ret;
- 	wsa883x->variant = variant & WSA883X_ID_MASK;
- 
--	regmap_read(regmap, WSA883X_CHIP_ID0, &version);
-+	ret = regmap_read(regmap, WSA883X_CHIP_ID0, &version);
-+	if (ret)
-+		return ret;
- 	wsa883x->version = version;
- 
- 	switch (wsa883x->variant) {
-@@ -1041,6 +1045,8 @@ static void wsa883x_init(struct wsa883x_priv *wsa883x)
- 				   WSA883X_DRE_OFFSET_MASK,
- 				   wsa883x->comp_offset);
+diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
+index df3c2a7b64d23..8c2b4ab764bba 100644
+--- a/sound/soc/intel/boards/bytcht_cx2072x.c
++++ b/sound/soc/intel/boards/bytcht_cx2072x.c
+@@ -255,7 +255,11 @@ static int snd_byt_cht_cx2072x_probe(struct platform_device *pdev)
+ 		snprintf(codec_name, sizeof(codec_name), "i2c-%s",
+ 			 acpi_dev_name(adev));
+ 		byt_cht_cx2072x_dais[dai_index].codecs->name = codec_name;
++	} else {
++		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
++		return -ENOENT;
  	}
 +
-+	return 0;
- }
+ 	acpi_dev_put(adev);
  
- static int wsa883x_update_status(struct sdw_slave *slave,
-@@ -1049,7 +1055,7 @@ static int wsa883x_update_status(struct sdw_slave *slave,
- 	struct wsa883x_priv *wsa883x = dev_get_drvdata(&slave->dev);
+ 	/* override platform name, if required */
+diff --git a/sound/soc/intel/boards/bytcht_da7213.c b/sound/soc/intel/boards/bytcht_da7213.c
+index 08c598b7e1eee..9178bbe8d9950 100644
+--- a/sound/soc/intel/boards/bytcht_da7213.c
++++ b/sound/soc/intel/boards/bytcht_da7213.c
+@@ -258,7 +258,11 @@ static int bytcht_da7213_probe(struct platform_device *pdev)
+ 		snprintf(codec_name, sizeof(codec_name),
+ 			 "i2c-%s", acpi_dev_name(adev));
+ 		dailink[dai_index].codecs->name = codec_name;
++	} else {
++		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
++		return -ENOENT;
+ 	}
++
+ 	acpi_dev_put(adev);
  
- 	if (status == SDW_SLAVE_ATTACHED && slave->dev_num > 0)
--		wsa883x_init(wsa883x);
-+		return wsa883x_init(wsa883x);
+ 	/* override platform name, if required */
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index 77b91ea4dc32c..3539c9ff0fd2c 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -562,7 +562,7 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
+ 		byt_cht_es8316_dais[dai_index].codecs->name = codec_name;
+ 	} else {
+ 		dev_err(dev, "Error cannot find '%s' dev\n", mach->id);
+-		return -ENXIO;
++		return -ENOENT;
+ 	}
  
- 	return 0;
- }
+ 	codec_dev = acpi_get_first_physical_node(adev);
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index db4a33680d948..4479825c08b5e 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -1693,7 +1693,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+ 		byt_rt5640_dais[dai_index].codecs->name = byt_rt5640_codec_name;
+ 	} else {
+ 		dev_err(dev, "Error cannot find '%s' dev\n", mach->id);
+-		return -ENXIO;
++		return -ENOENT;
+ 	}
+ 
+ 	codec_dev = acpi_get_first_physical_node(adev);
+diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
+index 8514b79f389bb..1f54da98aacf4 100644
+--- a/sound/soc/intel/boards/bytcr_rt5651.c
++++ b/sound/soc/intel/boards/bytcr_rt5651.c
+@@ -926,7 +926,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
+ 		byt_rt5651_dais[dai_index].codecs->name = byt_rt5651_codec_name;
+ 	} else {
+ 		dev_err(dev, "Error cannot find '%s' dev\n", mach->id);
+-		return -ENXIO;
++		return -ENOENT;
+ 	}
+ 
+ 	codec_dev = acpi_get_first_physical_node(adev);
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index 1da9ceee4d593..ac23a8b7cafca 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -582,7 +582,11 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 		snprintf(cht_rt5645_codec_name, sizeof(cht_rt5645_codec_name),
+ 			 "i2c-%s", acpi_dev_name(adev));
+ 		cht_dailink[dai_index].codecs->name = cht_rt5645_codec_name;
++	} else {
++		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
++		return -ENOENT;
+ 	}
++
+ 	/* acpi_get_first_physical_node() returns a borrowed ref, no need to deref */
+ 	codec_dev = acpi_get_first_physical_node(adev);
+ 	acpi_dev_put(adev);
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index d68e5bc755dee..c6c469d51243e 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -479,7 +479,11 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 		snprintf(drv->codec_name, sizeof(drv->codec_name),
+ 			 "i2c-%s", acpi_dev_name(adev));
+ 		cht_dailink[dai_index].codecs->name = drv->codec_name;
++	}  else {
++		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
++		return -ENOENT;
+ 	}
++
+ 	acpi_dev_put(adev);
+ 
+ 	/* Use SSP0 on Bay Trail CR devices */
+diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
+index c1fcc156a5752..809532238c44f 100644
+--- a/sound/soc/intel/boards/sof_es8336.c
++++ b/sound/soc/intel/boards/sof_es8336.c
+@@ -681,7 +681,7 @@ static int sof_es8336_probe(struct platform_device *pdev)
+ 			dai_links[0].codecs->dai_name = "ES8326 HiFi";
+ 	} else {
+ 		dev_err(dev, "Error cannot find '%s' dev\n", mach->id);
+-		return -ENXIO;
++		return -ENOENT;
+ 	}
+ 
+ 	codec_dev = acpi_get_first_physical_node(adev);
+diff --git a/sound/soc/intel/boards/sof_wm8804.c b/sound/soc/intel/boards/sof_wm8804.c
+index 4cb0d463bf404..9c5b3f8f09f36 100644
+--- a/sound/soc/intel/boards/sof_wm8804.c
++++ b/sound/soc/intel/boards/sof_wm8804.c
+@@ -270,7 +270,11 @@ static int sof_wm8804_probe(struct platform_device *pdev)
+ 		snprintf(codec_name, sizeof(codec_name),
+ 			 "%s%s", "i2c-", acpi_dev_name(adev));
+ 		dailink[dai_index].codecs->name = codec_name;
++	} else {
++		dev_err(&pdev->dev, "Error cannot find '%s' dev\n", mach->id);
++		return -ENOENT;
+ 	}
++
+ 	acpi_dev_put(adev);
+ 
+ 	snd_soc_card_set_drvdata(card, ctx);
 -- 
 2.43.0
 

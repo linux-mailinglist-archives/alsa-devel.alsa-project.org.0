@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F46498855A
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:44:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 752A2988550
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:43:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9CC0E80;
-	Fri, 27 Sep 2024 14:44:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9CC0E80
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB0A184C;
+	Fri, 27 Sep 2024 14:43:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB0A184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727441058;
-	bh=CIM20nnnU7Jhf6dFh8JPiIIE/fCG4cgWx70W9ajo49Y=;
+	s=default; t=1727441033;
+	bh=H04kX0shIMHo/Br80lC188m3VFriBQiy/Kjtvzl6jHs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Rm/VCh7j7JYCzpYEa7GSuKimSouFxU8utqPavyqDw6QJyFo2I6iP/rqolYa3vzSfz
-	 I2Y5KdN7JBwGfYK4UNMfRiiT8dN0SUphHtk0eUJO3ByASuht1dUfXBWsnV3G3i2qdF
-	 QBE5MiT7NCqwAomQrktMEpkYVcSPPQOEYtuqppX8=
+	b=eUmm4nsBNLVjPjxyY4QkDV0n+fH1Xg7IEbsupccGTqOGVcLi3eMiLYu2Dkn5Vu27F
+	 AaKqyoUmIrFrG7CkUYjfvOhDUXMNdk3cvdTeBNTc33LApJlZKXVrAUPvG4GoX5+1Im
+	 g3KVCGFVCV95Kgmfk0guh3AYJB0Q+IZlYelzbm4g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0426F805FB; Fri, 27 Sep 2024 14:43:19 +0200 (CEST)
+	id 10199F805C0; Fri, 27 Sep 2024 14:43:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6455BF805F9;
-	Fri, 27 Sep 2024 14:43:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C692F805B0;
+	Fri, 27 Sep 2024 14:43:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 33654F8059F; Fri, 27 Sep 2024 14:43:07 +0200 (CEST)
+	id 551C3F805A1; Fri, 27 Sep 2024 14:43:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	SPF_HELO_PASS,SPF_NONE shortcircuit=no autolearn=no autolearn_force=no
 	version=3.4.6
-Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:14])
+Received: from andre.telenet-ops.be (andre.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AC007F80518
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8EF39F80074
 	for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2024 14:43:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC007F80518
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EF39F80074
 Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed80:b47d:fd74:3975:15b7])
-	by xavier.telenet-ops.be with cmsmtp
-	id HQic2D0093BfLyr01QicD3; Fri, 27 Sep 2024 14:43:02 +0200
+	by andre.telenet-ops.be with cmsmtp
+	id HQic2D0043BfLyr01Qicie; Fri, 27 Sep 2024 14:43:02 +0200
 Received: from rox.of.borg ([192.168.97.57])
 	by ramsan.of.borg with esmtp (Exim 4.95)
 	(envelope-from <geert@linux-m68k.org>)
-	id 1suAIj-000fPw-HG;
+	id 1suAIj-000fPx-HO;
 	Fri, 27 Sep 2024 14:42:31 +0200
 Received: from geert by rox.of.borg with local (Exim 4.95)
 	(envelope-from <geert@linux-m68k.org>)
-	id 1suAIp-008IDv-2h;
+	id 1suAIp-008IDy-3S;
 	Fri, 27 Sep 2024 14:42:31 +0200
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -86,17 +86,17 @@ Cc: linux-sound@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH treewide 07/11] arm64: dts: rockchip: Switch to hp-det-gpios
-Date: Fri, 27 Sep 2024 14:42:22 +0200
+Subject: [PATCH treewide 08/11] arm64: dts: uniphier: Switch to hp-det-gpios
+Date: Fri, 27 Sep 2024 14:42:23 +0200
 Message-Id: 
- <717e7c9527139c3a3e5246dd367a3ad98c5c81b6.1727438777.git.geert+renesas@glider.be>
+ <b14b8512181c2a3b0744698e8a21b4e16451d7b3.1727438777.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1727438777.git.geert+renesas@glider.be>
 References: <cover.1727438777.git.geert+renesas@glider.be>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6B4CKVNBVFCQI6AQHG25KOJHLSG3SQKQ
-X-Message-ID-Hash: 6B4CKVNBVFCQI6AQHG25KOJHLSG3SQKQ
+Message-ID-Hash: KU33QA7J4YLRL2KGDUE6QJOGVQY5EZAX
+X-Message-ID-Hash: KU33QA7J4YLRL2KGDUE6QJOGVQY5EZAX
 X-MailFrom: geert@linux-m68k.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6B4CKVNBVFCQI6AQHG25KOJHLSG3SQKQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KU33QA7J4YLRL2KGDUE6QJOGVQY5EZAX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,136 +119,40 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Replace the deprecated "hp-det-gpio" property by "hp-det-gpios" in Audio
-Graph Card and Realtek RT5651 Audio Codec device nodes.
+Graph Card device nodes.
 
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
- arch/arm64/boot/dts/rockchip/rk3368-lba3368.dts            | 2 +-
- arch/arm64/boot/dts/rockchip/rk3399-eaidk-610.dts          | 2 +-
- arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4a-plus.dts    | 2 +-
- arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b-plus.dts    | 2 +-
- arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4c.dts         | 2 +-
- arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts | 2 +-
- arch/arm64/boot/dts/rockchip/rk3588-armsom-sige7.dts       | 2 +-
- arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts         | 2 +-
- arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts            | 2 +-
- 9 files changed, 9 insertions(+), 9 deletions(-)
+ arch/arm64/boot/dts/socionext/uniphier-ld11-global.dts | 2 +-
+ arch/arm64/boot/dts/socionext/uniphier-ld20-global.dts | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3368-lba3368.dts b/arch/arm64/boot/dts/rockchip/rk3368-lba3368.dts
-index e0cc4da7f392daf9..c08687df326ddc21 100644
---- a/arch/arm64/boot/dts/rockchip/rk3368-lba3368.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3368-lba3368.dts
-@@ -47,7 +47,7 @@ button-recovery {
- 	analog-sound {
- 		compatible = "audio-graph-card";
- 		dais = <&i2s_8ch_p0>;
--		hp-det-gpio = <&gpio0 RK_PC7 GPIO_ACTIVE_HIGH>;
-+		hp-det-gpios = <&gpio0 RK_PC7 GPIO_ACTIVE_HIGH>;
- 		label = "alc5640";
- 		routing = "Mic Jack", "MICBIAS1",
- 			  "IN1P", "Mic Jack",
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-eaidk-610.dts b/arch/arm64/boot/dts/rockchip/rk3399-eaidk-610.dts
-index 4feb78797982baa5..8c46bee077f3cfc2 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-eaidk-610.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-eaidk-610.dts
-@@ -545,7 +545,7 @@ rt5651: audio-codec@1a {
- 		reg = <0x1a>;
- 		clocks = <&cru SCLK_I2S_8CH_OUT>;
- 		clock-names = "mclk";
--		hp-det-gpio = <&gpio4 RK_PD4 GPIO_ACTIVE_LOW>;
-+		hp-det-gpios = <&gpio4 RK_PD4 GPIO_ACTIVE_LOW>;
- 		spk-con-gpio = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
- 		#sound-dai-cells = <0>;
+diff --git a/arch/arm64/boot/dts/socionext/uniphier-ld11-global.dts b/arch/arm64/boot/dts/socionext/uniphier-ld11-global.dts
+index a251c4343548f477..de219570bbc933e3 100644
+--- a/arch/arm64/boot/dts/socionext/uniphier-ld11-global.dts
++++ b/arch/arm64/boot/dts/socionext/uniphier-ld11-global.dts
+@@ -61,7 +61,7 @@ &i2s_port3
+ 			&i2s_port4
+ 			&spdif_port0
+ 			&comp_spdif_port0>;
+-		hp-det-gpio = <&gpio UNIPHIER_GPIO_IRQ(0) GPIO_ACTIVE_LOW>;
++		hp-det-gpios = <&gpio UNIPHIER_GPIO_IRQ(0) GPIO_ACTIVE_LOW>;
  	};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4a-plus.dts b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4a-plus.dts
-index 725ac3c1f6f6501d..4fc9c13dbec12390 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4a-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4a-plus.dts
-@@ -21,5 +21,5 @@ &es8316 {
- };
  
- &sound {
--	hp-det-gpio = <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
-+	hp-det-gpios = <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
- };
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b-plus.dts b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b-plus.dts
-index 682e8b7297c180b6..9c741d1a3047e758 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b-plus.dts
-@@ -39,7 +39,7 @@ brcmf: wifi@1 {
- };
- 
- &sound {
--	hp-det-gpio = <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
-+	hp-det-gpios = <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
- };
- 
- &uart0 {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4c.dts b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4c.dts
-index 82ad2ca6b5c2fc92..5dc5505b58e2ee10 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4c.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4c.dts
-@@ -40,7 +40,7 @@ brcmf: wifi@1 {
- };
- 
- &sound {
--	hp-det-gpio = <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
-+	hp-det-gpios = <&gpio1 RK_PA0 GPIO_ACTIVE_HIGH>;
- };
- 
- &spi1 {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts b/arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts
-index 31ea3d0182c062ef..fdaa8472b7a72075 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-sapphire-excavator.dts
-@@ -167,7 +167,7 @@ rt5651: rt5651@1a {
- 		reg = <0x1a>;
- 		clocks = <&cru SCLK_I2S_8CH_OUT>;
- 		clock-names = "mclk";
--		hp-det-gpio = <&gpio4 RK_PC4 GPIO_ACTIVE_LOW>;
-+		hp-det-gpios = <&gpio4 RK_PC4 GPIO_ACTIVE_LOW>;
- 		spk-con-gpio = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
- 		#sound-dai-cells = <0>;
+ 	spdif-out {
+diff --git a/arch/arm64/boot/dts/socionext/uniphier-ld20-global.dts b/arch/arm64/boot/dts/socionext/uniphier-ld20-global.dts
+index 79f6db2455c1726f..20e5fb724fae39f1 100644
+--- a/arch/arm64/boot/dts/socionext/uniphier-ld20-global.dts
++++ b/arch/arm64/boot/dts/socionext/uniphier-ld20-global.dts
+@@ -61,7 +61,7 @@ &i2s_port3
+ 			&i2s_port4
+ 			&spdif_port0
+ 			&comp_spdif_port0>;
+-		hp-det-gpio = <&gpio UNIPHIER_GPIO_IRQ(0) GPIO_ACTIVE_LOW>;
++		hp-det-gpios = <&gpio UNIPHIER_GPIO_IRQ(0) GPIO_ACTIVE_LOW>;
  	};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-armsom-sige7.dts b/arch/arm64/boot/dts/rockchip/rk3588-armsom-sige7.dts
-index c667704ba985e463..aefa0d376dd8af20 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-armsom-sige7.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-armsom-sige7.dts
-@@ -23,7 +23,7 @@ analog-sound {
- 		compatible = "audio-graph-card";
- 		dais = <&i2s0_8ch_p0>;
- 		label = "rk3588-es8316";
--		hp-det-gpio = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&hp_detect>;
- 		routing = "MIC2", "Mic Jack",
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
-index d0b922b8d67e85a0..e4e6c23c66845066 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
-@@ -46,7 +46,7 @@ analog-sound {
- 		compatible = "audio-graph-card";
- 		label = "rk3588-es8316";
- 		dais = <&i2s0_8ch_p0>;
--		hp-det-gpio = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&hp_detect>;
- 		routing = "MIC2", "Mic Jack",
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-index 966bbc582d89b89c..8d3bbfd996560289 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
-@@ -32,7 +32,7 @@ analog-sound {
- 			  "Headphones", "HPOR";
  
- 		dais = <&i2s0_8ch_p0>;
--		hp-det-gpio = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&hp_detect>;
- 	};
+ 	spdif-out {
 -- 
 2.34.1
 

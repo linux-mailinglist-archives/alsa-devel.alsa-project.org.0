@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FAA59885E6
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:58:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3D4B9885EC
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:59:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F50814E2;
-	Fri, 27 Sep 2024 14:58:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F50814E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23023162C;
+	Fri, 27 Sep 2024 14:59:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23023162C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727441937;
-	bh=3o4fcobnibIMMpM5lQE5ZT/RahfbRrro/dIs+3l8D8k=;
+	s=default; t=1727441959;
+	bh=ThOGsAC897mAjTVFOnXYfj72JoKDcjnwuB5ZDYoObJ8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G1sNja1Np5XTXeC3sPYk6qZSHfwmO72kaHwqp5Vh+1/gLEZJD0WvL+P9z1ZKzdjBh
-	 +k2NmBRpFPRvDWJ6sgvkRRg9bco1zN+K1I3hwk/7d3BY1hK+Va5dYk0RwjIhtWrOtb
-	 S8Qzs71kWmXJ1XDfhfOVDtf/2pXOM1EQaNz87n6Y=
+	b=oCgKLzkeq7FsLLedV+4JPYqD/dGcsYcix3kjtDxn0GlCmhjOKxesKN22AXdQG6YzQ
+	 OzmuEDr9v2MkHUOv3LdQ/FLLExLhLZcxXt0AM9CdfPDBRP2Np3uKQROPjT6j014uH9
+	 Vl/Zk9p63lCLnp+gjxPDny5kIyep2cL8VcijSX1U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9BAD7F805AF; Fri, 27 Sep 2024 14:58:25 +0200 (CEST)
+	id 34464F80074; Fri, 27 Sep 2024 14:58:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87B97F805AC;
-	Fri, 27 Sep 2024 14:58:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67D69F805D6;
+	Fri, 27 Sep 2024 14:58:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCD43F802DB; Fri, 27 Sep 2024 14:58:21 +0200 (CEST)
+	id A2C4AF80527; Fri, 27 Sep 2024 14:58:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C8D98F80107
-	for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2024 14:58:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8D98F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18E63F80107
+	for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2024 14:58:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18E63F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=LaWMJ7Qp
+ header.s=k20201202 header.b=Vj8+eZzT
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 346DDA43558;
-	Fri, 27 Sep 2024 12:58:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F45C4CEC4;
-	Fri, 27 Sep 2024 12:58:09 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 8AE97A452DE;
+	Fri, 27 Sep 2024 12:58:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2096FC4CEC4;
+	Fri, 27 Sep 2024 12:58:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727441898;
-	bh=3o4fcobnibIMMpM5lQE5ZT/RahfbRrro/dIs+3l8D8k=;
+	s=k20201202; t=1727441921;
+	bh=ThOGsAC897mAjTVFOnXYfj72JoKDcjnwuB5ZDYoObJ8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LaWMJ7Qp/JWiEHnW7zVri4xObJWcri+NBh1sMKMH4PLx4H5+wHB3edfFdMeRmIP/6
-	 ygWT+/W2aV2C6boUQwJUmz+Gl2PU5Te6xaZR8GYDnkD/xNvd/FnZ+7L6bIyIe1JYoO
-	 so6xZkqD8Qug9tM5OCMqm89naa50lj6jT7GaFw13nAm8J0oOVw+Vtt5mSb/PHt3MBD
-	 YXKfdngzYfOWI8bJEGxMLTx6Ah0cy+uj5hZBz6jDBbghQzhGHQsLnchcpJiUWP9R7h
-	 Q2KfN6hd28eJudjCgk72nj/nYGXEe9xQHV02msTegCO5V7663vkHoYW1euhq7NszGe
-	 5mYu9WL3emADA==
-Message-ID: <04cb87fd-592e-4ddf-8b3b-99f065a061d1@kernel.org>
-Date: Fri, 27 Sep 2024 14:58:08 +0200
+	b=Vj8+eZzTMj1Qfq5HPUpkQ9Dpq8+Mae+kmweTcqt21nT3rCMLao9tPRhlTIJ8Yc4Gj
+	 arewTLjnUnoxgbYQsuvxWIl8DAl4a7ITVo9hzfVYtCeu3yYoJFrLhunGOVbG7otDUo
+	 Sz62L2ogyDKARc5K+VEaTHICVmrSrjGcr1C4cjgl1FQsKIzOHJxu57pxUyR35p0RB8
+	 IQiY6vrxOuaNgOP/38+AZTwj0GgdRPlngr7RLokzd/GBBtOdBfV88QGo4u2EkMfux6
+	 kfZ0Mq+kWyc+CPW1dmvWZe4KRS22AQiUjW1fiBUeSl6cWYslWRLYfzyTM5Ia6X4Fv0
+	 WzIACXSmMzjyQ==
+Message-ID: <ec1b2700-ed30-4c83-85c2-55f1be97c2b5@kernel.org>
+Date: Fri, 27 Sep 2024 14:58:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH treewide 08/11] arm64: dts: uniphier: Switch to
- hp-det-gpios
+Subject: Re: [PATCH treewide 09/11] mips: dts: ingenic: Switch to
+ simple-audio-card,hp-det-gpios
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -87,7 +86,7 @@ Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  linux-mips@vger.kernel.org, alsa-devel@alsa-project.org,
  linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 References: <cover.1727438777.git.geert+renesas@glider.be>
- <b14b8512181c2a3b0744698e8a21b4e16451d7b3.1727438777.git.geert+renesas@glider.be>
+ <0466c746d6276842d6993fae41efb315188e1f3f.1727438777.git.geert+renesas@glider.be>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -134,11 +133,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
 In-Reply-To: 
- <b14b8512181c2a3b0744698e8a21b4e16451d7b3.1727438777.git.geert+renesas@glider.be>
+ <0466c746d6276842d6993fae41efb315188e1f3f.1727438777.git.geert+renesas@glider.be>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OXU7T2B7GLLTHXUBDZSU3YHPT4KXFXPY
-X-Message-ID-Hash: OXU7T2B7GLLTHXUBDZSU3YHPT4KXFXPY
+Message-ID-Hash: 6YMN6KSLV4KM4QJE57ZEDQSVMHQ3BJYF
+X-Message-ID-Hash: 6YMN6KSLV4KM4QJE57ZEDQSVMHQ3BJYF
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -151,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OXU7T2B7GLLTHXUBDZSU3YHPT4KXFXPY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6YMN6KSLV4KM4QJE57ZEDQSVMHQ3BJYF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,8 +160,8 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 27/09/2024 14:42, Geert Uytterhoeven wrote:
-> Replace the deprecated "hp-det-gpio" property by "hp-det-gpios" in Audio
-> Graph Card device nodes.
+> Replace the deprecated "simple-audio-card,hp-det-gpio" property by
+> "simple-audio-card,hp-det-gpios" in Simple Audio Card device nodes.
 > 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---

@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C4798857E
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:50:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64B0F98859E
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:53:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D2F3EDB;
-	Fri, 27 Sep 2024 14:50:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D2F3EDB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59374EC1;
+	Fri, 27 Sep 2024 14:52:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59374EC1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727441450;
-	bh=MCRmT1tGikliogFhH3yZwzjHEvydH6PJYBw/yBG7KAg=;
+	s=default; t=1727441589;
+	bh=Ati7ltRTr0dBEahzGT8SahX4/Ft/qcZsy9dxOLyFn5s=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=opEHABGdn1howRSlPAspFmyOYucG9l6epTEgiiQQe5CWKUec4FSyYSzC6uRRx+9Jw
-	 2VYJzlMVeNbRAxAQZKcA/gUi8/Vxm+WYLrZTnfZPkRuts3H2OZcFtTaijdiKOF9g6C
-	 YevKMY33b8kUoiJnKzxC+yaL6eCPlOdxS84dTiQg=
+	b=XaEDGNDorMkwZhraeefDWNyYyNFNq7CbSz0h+D/qyHihmV2CvqAMkHYFCbN0yOmmY
+	 3TRTF/tuKP2g96m3k2tbCfGC6AZSUwJEA4Kl2+gE+ndr4OgXqozKXbXDA5QOfu5Jvx
+	 hJThwKOcY+YzA6C2dmn9i9J6a50muLOq2geVB5Wk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A52A6F805A0; Fri, 27 Sep 2024 14:50:17 +0200 (CEST)
+	id 84725F802DB; Fri, 27 Sep 2024 14:52:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 929DBF805B1;
-	Fri, 27 Sep 2024 14:50:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF8C5F805B3;
+	Fri, 27 Sep 2024 14:52:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90F0FF802DB; Fri, 27 Sep 2024 14:50:13 +0200 (CEST)
+	id 128A3F802DB; Fri, 27 Sep 2024 14:52:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 68FAEF80074
-	for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2024 14:49:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68FAEF80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 25978F80107
+	for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2024 14:52:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25978F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=flDQBek5
+ header.s=k20201202 header.b=Y0qd0MyZ
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 4C5645C5709;
-	Fri, 27 Sep 2024 12:49:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C8AC4CEC4;
-	Fri, 27 Sep 2024 12:49:43 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 74CB5A456F3;
+	Fri, 27 Sep 2024 12:52:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9312C4CEC6;
+	Fri, 27 Sep 2024 12:52:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727441392;
-	bh=MCRmT1tGikliogFhH3yZwzjHEvydH6PJYBw/yBG7KAg=;
+	s=k20201202; t=1727441559;
+	bh=Ati7ltRTr0dBEahzGT8SahX4/Ft/qcZsy9dxOLyFn5s=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=flDQBek5H0nrQVY2wzHF5fik3K/4q+/JtPLkVU9sbL6EWn6/r7q+gvRm0DugHHuiG
-	 CZnSvpxLuIt+X0XsHK4sWBy96+X6UJEk/FUI8mQ8Q7Vg9Lhy/TFGuJgFxGzSbxfCEV
-	 BwrwwXeI12yfItXhaa9bwctvBLAMZNcf51V/S5uZwARtM4r9iz/Fw/E3a1pj9vS3ps
-	 SFTtbHR8PcoIcJ8J3py05ocTf7gHbobcfw//4QZJSaqIt/Vn23sAvLXZVpKv/Mvm/e
-	 bPrRSEeq8uJ4ky0rHgyWW2olf+V969wY+0tW2TtbOTaUOFEIBEFUeb7MJHotuDhdqt
-	 hVSNDv1Yja76g==
-Message-ID: <baf065b7-c164-42c8-b4d0-c81653a71ef8@kernel.org>
-Date: Fri, 27 Sep 2024 14:49:41 +0200
+	b=Y0qd0MyZYG0sNHe8M7wGiuh6Kf0HQajZ97k+2AjHC9QJY/CHwOjzKzuf9hWOEDY3/
+	 IgqDA655fgXL3ObhCKT3sn3oaC4mxSCtj7ITI86v5cHJPtRWswotntYWfY2lpoW3OM
+	 wIcVVXxAKy6HVAzJsIvj3dM9tzB46stT6bpGDqlqFEcxelRwj4WNeJ3fFSbuPLt2/+
+	 haGqwPFeBS4tllJAVvKnSjhSo+bUpu94lNUAEPWL1v3eCNIsCI7jBzQpEbmi+yY/g2
+	 wcm3ByS3hJcpype6XriJ/1T6tui4ZDvZTQ/YJffJtTlt1Wjuf7C5Mt1ju3Ofc1V4Uu
+	 fkfH+qGJthe2A==
+Message-ID: <ea708e46-25d4-4d8a-bea7-82a2908f999b@kernel.org>
+Date: Fri, 27 Sep 2024 14:52:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH treewide 01/11] ASoC: fsl-asoc-card: Add missing handling
- of {hp,mic}-dt-gpios
+Subject: Re: [PATCH treewide 02/11] ASoC: dt-bindings: Deprecate
+ {hp,mic}-det-gpio
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -87,7 +87,7 @@ Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  linux-mips@vger.kernel.org, alsa-devel@alsa-project.org,
  linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 References: <cover.1727438777.git.geert+renesas@glider.be>
- <dbcb5bfea005a468ec6dc38374fe6d02bc693c22.1727438777.git.geert+renesas@glider.be>
+ <833d5d9560339bf39a125914225c9a0930e134cc.1727438777.git.geert+renesas@glider.be>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -134,11 +134,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
 In-Reply-To: 
- <dbcb5bfea005a468ec6dc38374fe6d02bc693c22.1727438777.git.geert+renesas@glider.be>
+ <833d5d9560339bf39a125914225c9a0930e134cc.1727438777.git.geert+renesas@glider.be>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: NVAD3ILYRRB5EC5HTUISCU4B2AFEMUO4
-X-Message-ID-Hash: NVAD3ILYRRB5EC5HTUISCU4B2AFEMUO4
+Message-ID-Hash: R33ACG2FLGHVVWVUHUTUQDAOHRB7M4B3
+X-Message-ID-Hash: R33ACG2FLGHVVWVUHUTUQDAOHRB7M4B3
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -151,7 +151,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NVAD3ILYRRB5EC5HTUISCU4B2AFEMUO4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R33ACG2FLGHVVWVUHUTUQDAOHRB7M4B3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,21 +161,16 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 27/09/2024 14:42, Geert Uytterhoeven wrote:
-> The DT bindings deprecated the "hp-det-gpio" and "mic-det-gpio"
-> properties in favor of "hp-det-gpios" and "mic-det-gpios", but the
-> driver was never updated to support the latter.
+> Commit 2071d0968e564b4b ("Documentation: gpio: guidelines for bindings")
+> deprecated the "gpio" suffix for GPIO consumers in favor of the "gpios"
+> suffix.  Update the Audio Graph and Simple Audio Card DT bindings to
+> reflect this.
 > 
-> Even before, there existed users of "hp-det-gpios" and "mic-det-gpios".
-> While this may have been handled fine by the ASoC core, this was missed
-> by the Freescale-specific part.
-> 
-> Fixes: 4189b54220e5af15 ("ASoC: dt-bindings: fsl-asoc-card: convert to YAML")
-> Fixes: 40ba2eda0a7b727f ("arm64: dts: imx8mm-nitrogen-r2: add audio")
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---
-> Noticed accidentally.
-> Compile-tested only.
-
+> No driver changes needed, as gpiod_get_optional() as called from
+> simple_util_init_jack() tries all suffixes.
+> ---
 
 Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
 

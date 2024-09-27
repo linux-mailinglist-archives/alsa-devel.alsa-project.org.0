@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AEEA988571
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:46:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01431988570
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 14:46:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC740EB6;
-	Fri, 27 Sep 2024 14:46:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC740EB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E4F0E65;
+	Fri, 27 Sep 2024 14:46:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E4F0E65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727441195;
-	bh=hMSQBIK69XhiQuKN80DdfClsFEKyUwfCRw2R5VKzLTU=;
+	s=default; t=1727441177;
+	bh=gJF6Vp8OyXRl1gBpDJQDv5Bh3hk35GPxQbTUGGKRpag=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uEa5dFTwvKRiAmzRwNfHi832w6aRD7cdAvpszGeubp+sMMzWwPjqEmrgds8g3ZzD8
-	 VsLe7lE5R0C1ih8IG6kuz1Ra/5jG+OSBQ6a2Vaa3hyT54zYoTNaLW8C3qMn/Ei9TU8
-	 s+NVrGTkpjGMxjQ35BM/0z+msDZ2GpymMmxO8vqs=
+	b=Tytt+aDffcVm9kIB8wqIj2J6I4d4A39FzAQtfZSDwdqVcHD/vpjnDsDTCwJX8rHHn
+	 9pceVg+QbCw1AsdmN5mniz56mfid6mLBR5SIxELwXm5KzpePlwBzXKBMKO+3y7HqdN
+	 AJLqSXnad1e6GXISmduH5wjXbP+9M2RskoVP/dWU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6836F80759; Fri, 27 Sep 2024 14:43:49 +0200 (CEST)
+	id 833BCF805BB; Fri, 27 Sep 2024 14:43:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64161F8074D;
-	Fri, 27 Sep 2024 14:43:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7169F80724;
+	Fri, 27 Sep 2024 14:43:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5DB7F802DB; Fri, 27 Sep 2024 14:43:10 +0200 (CEST)
+	id CDA71F8047C; Fri, 27 Sep 2024 14:43:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	SPF_HELO_PASS,SPF_NONE shortcircuit=no autolearn=no autolearn_force=no
 	version=3.4.6
-Received: from michel.telenet-ops.be (michel.telenet-ops.be
- [IPv6:2a02:1800:110:4::f00:18])
+Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BCED0F8058C
+	by alsa1.perex.cz (Postfix) with ESMTPS id BBEF1F80536
 	for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2024 14:43:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCED0F8058C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBEF1F80536
 Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed80:b47d:fd74:3975:15b7])
-	by michel.telenet-ops.be with cmsmtp
-	id HQic2D00L3BfLyr06Qicqj; Fri, 27 Sep 2024 14:43:02 +0200
+	by baptiste.telenet-ops.be with cmsmtp
+	id HQic2D00E3BfLyr01Qicjw; Fri, 27 Sep 2024 14:43:02 +0200
 Received: from rox.of.borg ([192.168.97.57])
 	by ramsan.of.borg with esmtp (Exim 4.95)
 	(envelope-from <geert@linux-m68k.org>)
-	id 1suAIj-000fPv-HG;
+	id 1suAIj-000fPr-HE;
 	Fri, 27 Sep 2024 14:42:31 +0200
 Received: from geert by rox.of.borg with local (Exim 4.95)
 	(envelope-from <geert@linux-m68k.org>)
-	id 1suAIo-008IDd-UI;
+	id 1suAIo-008IDg-V7;
 	Fri, 27 Sep 2024 14:42:30 +0200
 From: Geert Uytterhoeven <geert+renesas@glider.be>
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -86,18 +86,17 @@ Cc: linux-sound@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH treewide 01/11] ASoC: fsl-asoc-card: Add missing handling of
- {hp,mic}-dt-gpios
-Date: Fri, 27 Sep 2024 14:42:16 +0200
+Subject: [PATCH treewide 02/11] ASoC: dt-bindings: Deprecate {hp,mic}-det-gpio
+Date: Fri, 27 Sep 2024 14:42:17 +0200
 Message-Id: 
- <dbcb5bfea005a468ec6dc38374fe6d02bc693c22.1727438777.git.geert+renesas@glider.be>
+ <833d5d9560339bf39a125914225c9a0930e134cc.1727438777.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1727438777.git.geert+renesas@glider.be>
 References: <cover.1727438777.git.geert+renesas@glider.be>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JK22SPEUMCABPOHDZMM2YPK5QIAXAT5D
-X-Message-ID-Hash: JK22SPEUMCABPOHDZMM2YPK5QIAXAT5D
+Message-ID-Hash: R2E2LPRNZIM664S47NPCDWCVIB4NGXI7
+X-Message-ID-Hash: R2E2LPRNZIM664S47NPCDWCVIB4NGXI7
 X-MailFrom: geert@linux-m68k.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JK22SPEUMCABPOHDZMM2YPK5QIAXAT5D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R2E2LPRNZIM664S47NPCDWCVIB4NGXI7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,56 +118,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The DT bindings deprecated the "hp-det-gpio" and "mic-det-gpio"
-properties in favor of "hp-det-gpios" and "mic-det-gpios", but the
-driver was never updated to support the latter.
+Commit 2071d0968e564b4b ("Documentation: gpio: guidelines for bindings")
+deprecated the "gpio" suffix for GPIO consumers in favor of the "gpios"
+suffix.  Update the Audio Graph and Simple Audio Card DT bindings to
+reflect this.
 
-Even before, there existed users of "hp-det-gpios" and "mic-det-gpios".
-While this may have been handled fine by the ASoC core, this was missed
-by the Freescale-specific part.
-
-Fixes: 4189b54220e5af15 ("ASoC: dt-bindings: fsl-asoc-card: convert to YAML")
-Fixes: 40ba2eda0a7b727f ("arm64: dts: imx8mm-nitrogen-r2: add audio")
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
-Noticed accidentally.
-Compile-tested only.
+No driver changes needed, as gpiod_get_optional() as called from
+simple_util_init_jack() tries all suffixes.
 ---
- sound/soc/fsl/fsl-asoc-card.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/sound/audio-graph.yaml       |  6 ++++++
+ .../devicetree/bindings/sound/simple-card.yaml       | 12 ++++++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index f6c3aeff0d8eafd7..a0c2ce84c32b1d06 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -1033,14 +1033,15 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	}
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph.yaml b/Documentation/devicetree/bindings/sound/audio-graph.yaml
+index 71f52f7e55f6ce72..9899d9d1958d9d93 100644
+--- a/Documentation/devicetree/bindings/sound/audio-graph.yaml
++++ b/Documentation/devicetree/bindings/sound/audio-graph.yaml
+@@ -37,8 +37,14 @@ properties:
+   pa-gpios:
+     maxItems: 1
+   hp-det-gpio:
++    deprecated: true
++    maxItems: 1
++  hp-det-gpios:
+     maxItems: 1
+   mic-det-gpio:
++    deprecated: true
++    maxItems: 1
++  mic-det-gpios:
+     maxItems: 1
  
- 	/*
--	 * Properties "hp-det-gpio" and "mic-det-gpio" are optional, and
-+	 * Properties "hp-det-gpios" and "mic-det-gpios" are optional, and
- 	 * simple_util_init_jack() uses these properties for creating
- 	 * Headphone Jack and Microphone Jack.
- 	 *
- 	 * The notifier is initialized in snd_soc_card_jack_new(), then
- 	 * snd_soc_jack_notifier_register can be called.
- 	 */
--	if (of_property_read_bool(np, "hp-det-gpio")) {
-+	if (of_property_read_bool(np, "hp-det-gpios") ||
-+	    of_property_read_bool(np, "hp-det-gpio") /* deprecated */) {
- 		ret = simple_util_init_jack(&priv->card, &priv->hp_jack,
- 					    1, NULL, "Headphone Jack");
- 		if (ret)
-@@ -1049,7 +1050,8 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 		snd_soc_jack_notifier_register(&priv->hp_jack.jack, &hp_jack_nb);
- 	}
+ required:
+diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
+index 59ac2d1d1ccfa4ce..533d0a1da56e34eb 100644
+--- a/Documentation/devicetree/bindings/sound/simple-card.yaml
++++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
+@@ -207,8 +207,14 @@ properties:
+   simple-audio-card,pin-switches:
+     $ref: "#/definitions/pin-switches"
+   simple-audio-card,hp-det-gpio:
++    deprecated: true
++    maxItems: 1
++  simple-audio-card,hp-det-gpios:
+     maxItems: 1
+   simple-audio-card,mic-det-gpio:
++    deprecated: true
++    maxItems: 1
++  simple-audio-card,mic-det-gpios:
+     maxItems: 1
  
--	if (of_property_read_bool(np, "mic-det-gpio")) {
-+	if (of_property_read_bool(np, "mic-det-gpios") ||
-+	    of_property_read_bool(np, "mic-det-gpio") /* deprecated */) {
- 		ret = simple_util_init_jack(&priv->card, &priv->mic_jack,
- 					    0, NULL, "Mic Jack");
- 		if (ret)
+ patternProperties:
+@@ -256,8 +262,14 @@ patternProperties:
+       pin-switches:
+         $ref: "#/definitions/pin-switches"
+       hp-det-gpio:
++        deprecated: true
++        maxItems: 1
++      hp-det-gpios:
+         maxItems: 1
+       mic-det-gpio:
++        deprecated: true
++        maxItems: 1
++      mic-det-gpios:
+         maxItems: 1
+ 
+     patternProperties:
 -- 
 2.34.1
 

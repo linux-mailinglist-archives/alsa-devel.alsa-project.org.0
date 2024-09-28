@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17ED988BD8
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2024 23:37:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1EFC9890AB
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Sep 2024 19:12:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9C0FED1;
-	Fri, 27 Sep 2024 23:36:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9C0FED1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41F9614DD;
+	Sat, 28 Sep 2024 19:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41F9614DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727473020;
-	bh=5xqgEfm9H1HE+QGR5POorwiRGEAHqSdUuTHo126n9LA=;
+	s=default; t=1727543532;
+	bh=NrepvDA/E+6kX93/CXxwz5mQWWBQyuYekYTgwwgX5do=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=gvxu08r7jNPtjEtbx16AehhBmTYSQYagnJyKAHKJnVF3PHYr+YsXUkzzwW0bU5I+5
-	 wRlj+t2+9cDb7Hrj7DNoncTUlCp/lnRVEmTPv09RxG6xrkGzErhLyYN6wu4PifNZLt
-	 vsbTi6lNrZwG7PSApl3qj2dVZejwPPFPRJ7otCao=
+	b=Loj4DnGwYKJzOsy+NjkR0vaCfvwe/KFiFfSJo1QfQCGz2YzEak92BcLiXfgKwfQzm
+	 2O+4MeoX04xjty3XPTDigUtE8NpajDGHuqmY4VNHg6r6bbXhxnqhv3Ejp87byzb3HP
+	 GsHTEP+p0aAlAnxQ6lgdGXqZ4OrFAyqPX95uWV5U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 630D9F80536; Fri, 27 Sep 2024 23:36:27 +0200 (CEST)
+	id 578BDF805AF; Sat, 28 Sep 2024 19:11:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B2F2F805B0;
-	Fri, 27 Sep 2024 23:36:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16272F80508;
+	Sat, 28 Sep 2024 19:11:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96C87F802DB; Fri, 27 Sep 2024 23:36:19 +0200 (CEST)
+	id C8D32F802DB; Sat, 28 Sep 2024 19:11:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+	autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9105F8010B
-	for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2024 23:36:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9105F8010B
+	by alsa1.perex.cz (Postfix) with ESMTP id 1EE7AF80107
+	for <alsa-devel@alsa-project.org>; Sat, 28 Sep 2024 19:11:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EE7AF80107
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - reopened <github@alsa-project.org>
+From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1727472977031108379-webhooks-bot@alsa-project.org>
-References: <1727472977031108379-webhooks-bot@alsa-project.org>
-Subject: No sound from XonarDX
-Message-Id: <20240927213619.96C87F802DB@alsa1.perex.cz>
-Date: Fri, 27 Sep 2024 23:36:19 +0200 (CEST)
-Message-ID-Hash: NYKUYSAVEP7BJKYS2BXKQ7KNSRWNEUPJ
-X-Message-ID-Hash: NYKUYSAVEP7BJKYS2BXKQ7KNSRWNEUPJ
+In-Reply-To: <1727543491535635948-webhooks-bot@alsa-project.org>
+References: <1727543491535635948-webhooks-bot@alsa-project.org>
+Subject: Add Roland Bridge Cast V2
+Message-Id: <20240928171133.C8D32F802DB@alsa1.perex.cz>
+Date: Sat, 28 Sep 2024 19:11:33 +0200 (CEST)
+Message-ID-Hash: 5UJG5P67US52HNWL24U2OMJET3IPYOOC
+X-Message-ID-Hash: 5UJG5P67US52HNWL24U2OMJET3IPYOOC
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NYKUYSAVEP7BJKYS2BXKQ7KNSRWNEUPJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5UJG5P67US52HNWL24U2OMJET3IPYOOC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,15 +70,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #408 was reopened from 3bitbrain:
+alsa-project/alsa-ucm-conf pull request #445 was opened from Fumler:
 
-No matter what wiki or advice I try, no sound at all from a known good Xonar DX card.
-Distro : Gentoo, fresh install.
-Always un-muted everything in the console alsamixer.
+Roland Bridge Cast recently had a firmware update which brings in e.g. virtual surround and is dubbed as "V2" and has a separate usb device id than the existing Bridge Cast in the repo. This PR adds the changes needed for the new firmware to be mapped correctly, as a new USB audio device.
 
-alsa-lib version 1.2.11
+Changelog: https://www.roland.com/global/support/by_product/bridge_cast/updates_drivers/7e9b7ea2-2c20-4749-a423-0ff28709cdac/
 
-[alsa.txt](https://github.com/user-attachments/files/16697602/alsa.txt)
+Thanks to [geoffreybennett](https://old.reddit.com/user/geoffreybennett) on reddit for helping me understand how to debug this stuff. Thread: https://old.reddit.com/r/linuxaudio/comments/1fq06z8/roland_bridge_cast_no_longer_having_separate/?cache-bust=1727469957022
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/408
-Repository URL: https://github.com/alsa-project/alsa-lib
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/445
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/445.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

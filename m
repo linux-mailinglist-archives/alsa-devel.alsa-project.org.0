@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1EFC9890AB
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Sep 2024 19:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D8B9890BA
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Sep 2024 19:19:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41F9614DD;
-	Sat, 28 Sep 2024 19:12:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41F9614DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id C13D6EF2;
+	Sat, 28 Sep 2024 19:18:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C13D6EF2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727543532;
-	bh=NrepvDA/E+6kX93/CXxwz5mQWWBQyuYekYTgwwgX5do=;
+	s=default; t=1727543948;
+	bh=v4hTBocrMjj7KzxT5w0peqAqgkDcEiGS8xnyrmOw8H4=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=Loj4DnGwYKJzOsy+NjkR0vaCfvwe/KFiFfSJo1QfQCGz2YzEak92BcLiXfgKwfQzm
-	 2O+4MeoX04xjty3XPTDigUtE8NpajDGHuqmY4VNHg6r6bbXhxnqhv3Ejp87byzb3HP
-	 GsHTEP+p0aAlAnxQ6lgdGXqZ4OrFAyqPX95uWV5U=
+	b=JF/DduQ+2I0/5iGo0h5YM30b7IPgufHjqXfW8yEYzAjYieAumojPh97z3LpTuSARJ
+	 w4A2wFERn7uovQPeuSGdsXPLT0qvWSIklO4HKEoiGpTfg40exVBYcHkQLPB/NgimE2
+	 n+MTRlC1niBQ3OjyNfsqFyYw+avj3+D1fUDGh3M0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 578BDF805AF; Sat, 28 Sep 2024 19:11:40 +0200 (CEST)
+	id 4AC67F80508; Sat, 28 Sep 2024 19:18:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16272F80508;
-	Sat, 28 Sep 2024 19:11:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B176BF8059F;
+	Sat, 28 Sep 2024 19:18:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8D32F802DB; Sat, 28 Sep 2024 19:11:33 +0200 (CEST)
+	id 84CCEF802DB; Sat, 28 Sep 2024 19:18:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EE7AF80107
-	for <alsa-devel@alsa-project.org>; Sat, 28 Sep 2024 19:11:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EE7AF80107
+	by alsa1.perex.cz (Postfix) with ESMTP id DB0DBF80007
+	for <alsa-devel@alsa-project.org>; Sat, 28 Sep 2024 19:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB0DBF80007
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
+From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1727543491535635948-webhooks-bot@alsa-project.org>
-References: <1727543491535635948-webhooks-bot@alsa-project.org>
-Subject: Add Roland Bridge Cast V2
-Message-Id: <20240928171133.C8D32F802DB@alsa1.perex.cz>
-Date: Sat, 28 Sep 2024 19:11:33 +0200 (CEST)
-Message-ID-Hash: 5UJG5P67US52HNWL24U2OMJET3IPYOOC
-X-Message-ID-Hash: 5UJG5P67US52HNWL24U2OMJET3IPYOOC
+In-Reply-To: <1727543909667818308-webhooks-bot@alsa-project.org>
+References: <1727543909667818308-webhooks-bot@alsa-project.org>
+Subject: ucm2: Add Roland Bridge Cast V2
+Message-Id: <20240928171831.84CCEF802DB@alsa1.perex.cz>
+Date: Sat, 28 Sep 2024 19:18:31 +0200 (CEST)
+Message-ID-Hash: KN4XRUIZEH7EZDLFIWB63RB3WUJZENES
+X-Message-ID-Hash: KN4XRUIZEH7EZDLFIWB63RB3WUJZENES
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5UJG5P67US52HNWL24U2OMJET3IPYOOC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KN4XRUIZEH7EZDLFIWB63RB3WUJZENES/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,7 +70,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #445 was opened from Fumler:
+alsa-project/alsa-ucm-conf pull request #445 was edited from Fumler:
 
 Roland Bridge Cast recently had a firmware update which brings in e.g. virtual surround and is dubbed as "V2" and has a separate usb device id than the existing Bridge Cast in the repo. This PR adds the changes needed for the new firmware to be mapped correctly, as a new USB audio device.
 

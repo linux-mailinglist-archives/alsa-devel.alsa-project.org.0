@@ -2,99 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 604D8989DA1
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Sep 2024 11:04:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5981D989EA8
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Sep 2024 11:43:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2E481926;
-	Mon, 30 Sep 2024 11:04:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2E481926
+	by alsa0.perex.cz (Postfix) with ESMTPS id C17E41530;
+	Mon, 30 Sep 2024 11:42:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C17E41530
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727687091;
-	bh=5vfmCoWhJfN9myIJ8um04DTZKKRCmBeNbBVzguOQXMk=;
+	s=default; t=1727689387;
+	bh=uJ8/vpmmGhvXBt7yG9xTuuhyrPbqpKEK19L8FPukiGo=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nErpeeClh2pAcnJi/foeQshKZNTWsLUVJGN/Oqu8BdhpXWvHj/u481Xf8Y52jzq6v
-	 1fAgjC5uUkMT8wcEzMWad5vY1qglowaVeCaRmR3wJMoXD+m/4+QkbX9TB522nOqMxB
-	 K147YPpunKaKP0uA0cEl44hbone1H5IRzenVDzSs=
+	b=ksgC391pMaN/7ZWeLcuDk4rvgjwut2oiz0fjqQWoqanp7JT+7JwaZoWnsrH171KHC
+	 rfANW2Nlw7HzHEqNhUygRXui/gbVAS1YHWnUQhVI3mRHIZfPyrYBJJipQuSN2fA3LZ
+	 rHW+ey3lSNPMKq2uhje66bT0eFSBaGAujc7SEPUo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E999F805A9; Mon, 30 Sep 2024 11:04:21 +0200 (CEST)
+	id 17FCAF805B6; Mon, 30 Sep 2024 11:42:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87638F805AD;
-	Mon, 30 Sep 2024 11:04:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53A45F805B2;
+	Mon, 30 Sep 2024 11:42:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 825B1F80508; Mon, 30 Sep 2024 11:04:18 +0200 (CEST)
+	id 33755F80508; Mon, 30 Sep 2024 11:42:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8BCC5F80007
-	for <alsa-devel@alsa-project.org>; Mon, 30 Sep 2024 11:04:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BCC5F80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4891EF80007
+	for <alsa-devel@alsa-project.org>; Mon, 30 Sep 2024 11:42:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4891EF80007
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=oopwFy97
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 29C2D40009;
-	Mon, 30 Sep 2024 09:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1727687053;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=auWm6bJ4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=nbby8iVJ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=auWm6bJ4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=nbby8iVJ
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2C5101F7F8;
+	Mon, 30 Sep 2024 09:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1727689348;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=I/Yd74SXWwnJNHzkH+B1zGDPYPSWPzutmB3r6NlN8+k=;
-	b=oopwFy97Xs7m4K3UfEGC1hiSSNHKTDyWZt9dJs73tB3PhVekjYUwWjFTpXxO9rhGuwRcmO
-	7EY460BtJoyBI+PszIgN0UqnD7FmeuGdO66U/wzlSL49YKAnVFWxzKZQqg5GViNphID+YS
-	GoW6P4MpEYAGoSwerOwunKoJeKsq5S7j+qpOV5xD/FKvGAzX4OMK2gx61LXZ8CWjDIOEXS
-	+7H8X+m6td/vhZ38an6ytEtNTgQNe8GqLcq3hxsAfAS0En8/N59vH5/z446z+0K/TdOA5Y
-	riEwwRZm+c++1OUJ0NH0ycTAbZzXXGCnsAHUqCs6sQ6pgE8FYRgGMxIkB8Voig==
-Date: Mon, 30 Sep 2024 11:04:08 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, "michael@walle.cc"
- <michael@walle.cc>, "broonie@kernel.org" <broonie@kernel.org>,
- "pratyush@kernel.org" <pratyush@kernel.org>, "richard@nod.at"
- <richard@nod.at>, "vigneshr@ti.com" <vigneshr@ti.com>, Rob Herring
- <robh@kernel.org>, "cornor+dt@kernel.org" <cornor+dt@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "linux-spi@vger.kernel.org"
- <linux-spi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-mtd@lists.infradead.org"
- <linux-mtd@lists.infradead.org>, "nicolas.ferre@microchip.com"
- <nicolas.ferre@microchip.com>, "alexandre.belloni@bootlin.com"
- <alexandre.belloni@bootlin.com>, "claudiu.beznea@tuxon.dev"
- <claudiu.beznea@tuxon.dev>, "Simek, Michal" <michal.simek@amd.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "patches@opensource.cirrus.com"
- <patches@opensource.cirrus.com>, "linux-sound@vger.kernel.org"
- <linux-sound@vger.kernel.org>, "git (AMD-Xilinx)" <git@amd.com>,
- "amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>, Conor Dooley
- <conor.dooley@microchip.com>, "beanhuo@micron.com" <beanhuo@micron.com>
-Subject: Re: Add stacked and parallel memories support in spi-nor
-Message-ID: <20240930110408.6ec43e97@xps-13>
-In-Reply-To: 
- <IA0PR12MB7699B360C7CF59E0A3D095F9DC8D2@IA0PR12MB7699.namprd12.prod.outlook.com>
-References: 
- <IA0PR12MB7699B360C7CF59E0A3D095F9DC8D2@IA0PR12MB7699.namprd12.prod.outlook.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-GND-Sasl: miquel.raynal@bootlin.com
-Message-ID-Hash: 4I6RNOQPLDF565UAAOBRYDNMG4PG6O6I
-X-Message-ID-Hash: 4I6RNOQPLDF565UAAOBRYDNMG4PG6O6I
-X-MailFrom: miquel.raynal@bootlin.com
+	bh=G1seGICz3JPahsuG06QLM3DMJzt/DSNB6Y3TDA5CHFs=;
+	b=auWm6bJ4wF32WSCaEmFGKT0oZfjkEaq45u/aNqEVF/smal3iV5c8NnEkNOyIDKLnSdfJ7H
+	XvXZaFRDSK30yKDOoIEum4DaVNt+Nf4pqnYrZEJTHzf+jg3YFo7fawErxYtihfRMs03hlR
+	LgeVUBrniH05WlHJ6VYslRyFDcIT5H4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1727689348;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G1seGICz3JPahsuG06QLM3DMJzt/DSNB6Y3TDA5CHFs=;
+	b=nbby8iVJp+Lj18crnS5bZtxtPdx0r6FPBfHF4QH6pGz/O+2inkHnxYc1mo9RoGhpdMJAPW
+	WPK3rMPM0W3VsXDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1727689348;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G1seGICz3JPahsuG06QLM3DMJzt/DSNB6Y3TDA5CHFs=;
+	b=auWm6bJ4wF32WSCaEmFGKT0oZfjkEaq45u/aNqEVF/smal3iV5c8NnEkNOyIDKLnSdfJ7H
+	XvXZaFRDSK30yKDOoIEum4DaVNt+Nf4pqnYrZEJTHzf+jg3YFo7fawErxYtihfRMs03hlR
+	LgeVUBrniH05WlHJ6VYslRyFDcIT5H4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1727689348;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G1seGICz3JPahsuG06QLM3DMJzt/DSNB6Y3TDA5CHFs=;
+	b=nbby8iVJp+Lj18crnS5bZtxtPdx0r6FPBfHF4QH6pGz/O+2inkHnxYc1mo9RoGhpdMJAPW
+	WPK3rMPM0W3VsXDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EE1F3136CB;
+	Mon, 30 Sep 2024 09:42:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3MXBOINy+mZrMwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 30 Sep 2024 09:42:27 +0000
+Date: Mon, 30 Sep 2024 11:43:20 +0200
+Message-ID: <87sethiiiv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oder Chiou <oder_chiou@realtek.com>
+Cc: <alsa-devel@alsa-project.org>,
+	<kailang@realtek.com>,
+	<flove@realtek.com>,
+	<jennifer_chen@realtek.com>,
+	<geans_chen@realsil.com.cn>
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix the push button function for the
+ ALC257
+In-Reply-To: <20240930085731.2871700-1-oder_chiou@realtek.com>
+References: <20240930085731.2871700-1-oder_chiou@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+Message-ID-Hash: 6IIFNXKHFPU3SCPWT7YQR3OY36QX3JWX
+X-Message-ID-Hash: 6IIFNXKHFPU3SCPWT7YQR3OY36QX3JWX
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +155,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4I6RNOQPLDF565UAAOBRYDNMG4PG6O6I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6IIFNXKHFPU3SCPWT7YQR3OY36QX3JWX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,83 +164,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Amit,
+On Mon, 30 Sep 2024 10:57:31 +0200,
+Oder Chiou wrote:
+> 
+> The patch "Fix noise from speakers on Lenovo IdeaPad 3 15IAU7" caused
+> that the headset push button cannot work properly in case of ALC257.
+> This patch reverted it to correct the side effect.
 
-> For implementing this the current DT binding[1] [2] [3] need to be update=
-d as follows.
->=20
->=20
->=20
-> stacked-memories DT changes:
->=20
-> - Flash size information can be retrieved directly from the flash, so it =
-has been removed from the DT binding.
->=20
-> - Each stacked flash will have its own flash node. This approach allows f=
-lashes of different makes and sizes to be stacked together, as each flash w=
-ill be probed individually.
->=20
-> -  Each of the flash node will have its own "reg" property that will cont=
-ain its physical CS.
-
-These three first points are just describing the existing bindings for
-non-concatenated situations.
-
-> - The stacked-memories DT bindings will contain the phandles of the flash=
- nodes connected in stacked mode.
->=20
-> - The first flash node will contain the mtd partition that would have the=
- cross over memory staring at a memory location in the first flash and endi=
-ng at some memory location of the 2nd flash
-
-I don't like that much. Describing partitions past the actual device
-sounds wrong. If you look into [1] there is a suggestion from Rob to
-handle this case using a property that tells us there is a
-continuation, so from a software perspective we can easily make the
-link, but on the hardware description side the information are correct.
-
-If this description is accepted, then fine, you can deprecate the=20
-"stacked-memories" property.
-
->  - The new layer will update the mtd->size and other mtd_info parameters =
-after both the flashes are probed and will call mtd_device_register with th=
-e combined information.
-
-Okay, this is back to the mtd-concat thing I initially proposed, but I
-believe it can work.
-
-[...]
-
-> parallel-memories DT changes:
->=20
-> - Flash size information can be retrieved directly from the flash, so it =
-has been removed from the DT binding.
-
-It's not really about the size but more about the fact that two
-memories are in use. If the stacked situation does not require anything
-specific besides the partitions trick, then you can assume that double
-reg flashes are just two flashes and this can be your way to
-discriminate the data organization. But I don't like much this shortcut
-because it is not future proof, and instead I'd keep the stacked-memory
-property. If you don't like the size, I don't really care, just use it
-as a boolean. But I believe we need some naming to tell the OS that the
-data is spread in a specific way inside the memory devices.
-
-> - Each flash connected in parallel mode should be identical and will have=
- one flash node for both the flash devices.
-
-This is already the case.
-
-> - The "reg" prop will contain the physical CS number for both the connect=
-ed flashes.
-
-This is already the case.
-
-> - The new layer will double the mtd-> size and register it with the mtd l=
-ayer.
-
-This is not a DT change.
+If a previous commit caused such a regression, could you point it,
+too?  At best in a form of "Fixes:" tag.
 
 
-Thanks,
-Miqu=C3=A8l
+thanks,
+
+Takashi
+
+> 
+> Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+> ---
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index f787ff4182d4..86db1a4ec24c 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -587,6 +587,7 @@ static void alc_shutup_pins(struct hda_codec *codec)
+>  	switch (codec->core.vendor_id) {
+>  	case 0x10ec0236:
+>  	case 0x10ec0256:
+> +	case 0x10ec0257:
+>  	case 0x19e58326:
+>  	case 0x10ec0283:
+>  	case 0x10ec0285:
+> -- 
+> 2.34.1
+> 

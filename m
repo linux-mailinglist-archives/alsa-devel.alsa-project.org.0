@@ -2,124 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8603598BC58
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B1CB98BC59
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:40:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B93A2E0D;
-	Tue,  1 Oct 2024 14:39:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B93A2E0D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A08C1923;
+	Tue,  1 Oct 2024 14:40:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A08C1923
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727786399;
-	bh=pZBBO8OTpmOP+7nbPeLuWP7ms/KMEjDy++NOOuPuwLk=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1727786416;
+	bh=+WSYWb5zuZ3ce7+vEdasSuujef9LTNe/rREu1EmZRfQ=;
+	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ft6gUgH50Kh5Bk8Ke3KjfR+rhztJqRy17Gd6iGJ0o6d58+ERuxKpaVojN0EBOJ7aM
-	 d/d4/XPGV7XhZFpp6ylaHcEzzOmz8eCdSpPdD0MUE1a4WHbwvoFC+BKdUueJU/C2Qa
-	 TK6F0W45mBx0uYdMLudGrQUKUMYgsIP5tcHxMVVs=
+	b=Zcrvl5q0XGwEpk49GOpU4RA76+gDYeKNat78CZEDQG5OwCr2FmefO267b5zjLmFVF
+	 x6TxhiYAvGQ6Kp3cVr6rFJ0m2woNbysRNYlIBW14DyfRfDkSDI1YIgAjqLK7JPiepU
+	 IFkDqkhMJ0flHlyIwmWws+WIzBJ0rR3nUYi5Ju8A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC02CF8065E; Tue,  1 Oct 2024 14:36:50 +0200 (CEST)
+	id 84F0DF80687; Tue,  1 Oct 2024 14:36:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D088EF80689;
-	Tue,  1 Oct 2024 14:36:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53EFDF80857;
+	Tue,  1 Oct 2024 14:36:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A54B6F80517; Mon, 30 Sep 2024 03:16:03 +0200 (CEST)
+	id A1C35F80517; Mon, 30 Sep 2024 09:16:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mickerik.phytec.de (mickerik.phytec.de [91.26.50.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ADED1F80074
-	for <alsa-devel@alsa-project.org>; Mon, 30 Sep 2024 03:16:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADED1F80074
+	by alsa1.perex.cz (Postfix) with ESMTPS id 65DBFF80007
+	for <alsa-devel@alsa-project.org>; Mon, 30 Sep 2024 09:16:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65DBFF80007
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=Eb2hK5hZ
-Received: by mail-qv1-xf43.google.com with SMTP id
- 6a1803df08f44-6c3603292abso40528236d6.1
-        for <alsa-devel@alsa-project.org>;
- Sun, 29 Sep 2024 18:16:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727658959; x=1728263759;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=XeEoQG+Pvg6ci51SvJDb0G+G8SkJPaDXclm5RHYYhP8=;
-        b=Eb2hK5hZzkRFu5397NnVS9kM0qvmuunSZkFUS02UohTDzWFtZvUpfqMm6kp4mypxLd
-         zeBgEDad9yyO0ZVhiv1I5krGInIRQh/EClKSx7WzMepUd3zlEmnQO2vE0u1EWN6KVL32
-         SswtYn9Z3C6WQLF8L3NXUfFtxCtu5hk7tzZGGsq5iuvLTky8nRE2sZlNp/yie8a0unUR
-         YdnqN64eUYfI1KNebBF8QIhsQTRZSM6F7puTRgAiqvb5aFgKwYQ1SocgJWfhtYn6x7y1
-         rW7JRLGj+eZxiBHnzompQI0LOYkfKSPEnoMd4/eBUHyqZl9+/PEO/Z3ZC3ZmjELrfDSN
-         xVNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727658959; x=1728263759;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XeEoQG+Pvg6ci51SvJDb0G+G8SkJPaDXclm5RHYYhP8=;
-        b=U0G9ZwEHfspXI44oSZHEZgP0huz5eyowJqRCWhUSARNzT8FoTOkIiaXSKa7ioT8bxm
-         UFReTcBQBeTEuigpxgPgCkga1DjMTJPt74FWCodzKZzMH7+be8X6HkoymY0N3ThfyFYP
-         UtQJKZAKOjzMDdiC92TIhl9d6zKBRj2puOuubrCveYfVCwDy9XM0BPPHSgBCD3pKBa8W
-         zLAY9o80o1gB1xos/SXEiQCZDChJOBNmZkBvNoRThtuq0rot4cfc3+FwuiwBt6RIoYDH
-         aCszNO1J5qAMyCGdOAd3WdbVevZzHSJwe2wha2IWmKlRrMfjPKIOv5AJXlen9ZhySbv0
-         rnOA==
-X-Gm-Message-State: AOJu0YxqqmgIuJqT2bwJFaHtQM4czMfaUOI96Q3zQBRd4bM6YBLRad84
-	9nTgxyqSxUXVS3D6zTuUrQmjMiYoDiIq8iDmi1hnLjZua1jrfPzm
-X-Google-Smtp-Source: 
- AGHT+IE1dpA3piB+ipRduIUb/gj93dPastsENChqKZq6mad780d2qFEIKkFKLh/ZJY7o2T7Z/ot/fA==
-X-Received: by 2002:a05:6214:4b11:b0:6c5:ab33:5244 with SMTP id
- 6a1803df08f44-6cb3b630fb0mr160430726d6.31.1727658959474;
-        Sun, 29 Sep 2024 18:15:59 -0700 (PDT)
-Received: from localhost.localdomain (mobile-130-126-255-54.near.illinois.edu.
- [130.126.255.54])
-        by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6cb3b62c057sm35251886d6.60.2024.09.29.18.15.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 29 Sep 2024 18:15:58 -0700 (PDT)
-From: Gax-c <zichenxie0106@gmail.com>
-To: srinivas.kandagatla@linaro.org,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	rohitkr@codeaurora.org
-Cc: alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	Gax-c <zichenxie0106@gmail.com>,
-	Zijie Zhao <zzjas98@gmail.com>,
-	Chenyuan Yang <chenyuan0y@gmail.com>
-Subject: [PATCH] Fix possible NULL Pointer Dereference in
- 'asoc_qcom_lpass_cpu_platform_probe'
-Date: Sun, 29 Sep 2024 20:15:22 -0500
-Message-Id: <20240930011521.26283-1-zichenxie0106@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key,
+ unprotected) header.d=phytec.de header.i=@phytec.de header.a=rsa-sha256
+ header.s=a4 header.b=Q8ZCwIQq
+DKIM-Signature: v=1; a=rsa-sha256; d=phytec.de; s=a4; c=relaxed/simple;
+	q=dns/txt; i=@phytec.de; t=1727680614; x=1730272614;
+	h=From:Sender:Reply-To:Subject:Date:Message-ID:To:CC:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=+WSYWb5zuZ3ce7+vEdasSuujef9LTNe/rREu1EmZRfQ=;
+	b=Q8ZCwIQq1eEP+Z91GDz24IwcglzI4swQbdZWsiYd0d/GeCvLqxz3x8HbwPNJqfQd
+	Bzm7dJs33hSV88gyHPG0dKp4O+XN8K9/ks4RxwuOP3e9gUcWUJz8jkJ71w4RlG4I
+	84gykcIEvNH6zSqsjlSRTmPoysOzOt1JRL06kWGTwIQ=;
+X-AuditID: ac14000a-4577e70000004e2a-9d-66fa506665e9
+Received: from berlix.phytec.de (Unknown_Domain [172.25.0.12])
+	(using TLS with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client did not present a certificate)
+	by mickerik.phytec.de (PHYTEC Mail Gateway) with SMTP id
+ BB.50.20010.6605AF66; Mon, 30 Sep 2024 09:16:54 +0200 (CEST)
+Received: from llp-hahn.hahn.test (172.25.0.11) by Berlix.phytec.de
+ (172.25.0.12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Mon, 30 Sep
+ 2024 09:16:54 +0200
+From: Benjamin Hahn <B.Hahn@phytec.de>
+Date: Mon, 30 Sep 2024 09:16:46 +0200
+Subject: [PATCH] sound: soc: codecs: tlv320aic3x: Fix codec gpio-reset
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: zichenxie0106@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: 
+ <20240930-wip-bhahn-tlv320aic3x_fix_reset-v1-1-c040d86a4b93@phytec.de>
+X-B4-Tracking: v=1; b=H4sIAF1Q+mYC/x2N0QqEIBAAfyX2uQXTHrRfOSI22zsXwgsNC6J/T
+ 3ocBmYuyJyEMwzNBYmLZPnHCl3bgA8Uf4yyVAatdK+cUXjIhnOgEHFfi9GKxJtz+so5Jc68o/f
+ kOku9tW6BWtkSV/kePuN9PyDKxEZxAAAA
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun
+ Xu <baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+	<broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Teresa Remmet <t.remmet@phytec.de>
+CC: <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <upstream@lists.phytec.de>, Benjamin Hahn
+	<B.Hahn@phytec.de>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1727680614; l=1640;
+ i=B.Hahn@phytec.de; s=20240126; h=from:subject:message-id;
+ bh=+WSYWb5zuZ3ce7+vEdasSuujef9LTNe/rREu1EmZRfQ=;
+ b=N+mcYfPSpYdHeYhTnv7KrB/jqd17s0RSTtUYij5tcfS5VbGi3Q86lKNPD+t2+mfRINbKKAMY7
+ l5RO+yHzA7jC0LJE9FpL/POWY3qawyLKed1H1b6o+qCf2TBPPXDDgwP
+X-Developer-Key: i=B.Hahn@phytec.de; a=ed25519;
+ pk=r04clMulHz6S6js6elPBA+U+zVdDAqJyEyoNd8I3pSw=
+X-Originating-IP: [172.25.0.11]
+X-ClientProxiedBy: Florix.phytec.de (172.25.0.13) To Berlix.phytec.de
+ (172.25.0.12)
+X-Brightmail-Tracker: 
+ H4sIAAAAAAAAA+NgFupjkeLIzCtJLcpLzFFi42JZI8nAo5sW8CvN4O0PDYsrFw8xWaw5co7F
+	YurDJ2wWH+7/YLX4dqWDyeLyrjlsFnOfTWG26NzVz2rR1atvseH7WkaL7nfqDtweGz43sXns
+	nHWX3WPTqk42j/7uFlaPfW+XsXms33KVxeP4je1MHp83yQVwRHHZpKTmZJalFunbJXBlrFl6
+	lKngFU/Fg0vSDYxXuLoYOTgkBEwkdhyI72Lk4hASWMIk8eDmWTYI5yGjxNPnz4AcTg42ATWJ
+	XW9es4LYLAKqEo3n28BsYQE3ia1bZrOA2LwCghInZz5hARnKLKApsX6XPkiYWUBeYvvbOcwQ
+	JUES+xbvA5svIbCHUaL/Ugs7iCMiMJlJ4sDFCSwgDrPAIkaJY+e2gbVICAhLfN69hg3C3s0k
+	sfpYNMTZiRI7X8uBhIUEZCVunt8CVSIvMe3ca6jWUIkjm1YzTWAUnoXkvlkI981Cct8CRuZV
+	jEK5mcnZqUWZ2XoFGZUlqcl6KambGEFxJsLAtYOxb47HIUYmDsZDjBIczEoivPcO/UwT4k1J
+	rKxKLcqPLyrNSS0+xCjNwaIkzru6IzhVSCA9sSQ1OzW1ILUIJsvEwSnVwGgfrlBre3Dj9lOM
+	6QdbtYSeVkgzr1dpXnB9Q0+7R/2/VNG/V2p9l/HYzapewDbrm2Lk478XXvdt/RNrXn62amXG
+	z39yize4r3dc9ttC9U2ZCldz9e0ffBuv1CZ1NbM75Hz4zDi1bunE2oi4slviSv4fT2l/vR30
+	0aV41jPboOKL95Sm7FPvPavEUpyRaKjFXFScCAD6+GPKoQIAAA==
+X-MailFrom: B.Hahn@phytec.de
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: E4FZ7ZB6FU5TM545YGX6K465XJ25PO6H
-X-Message-ID-Hash: E4FZ7ZB6FU5TM545YGX6K465XJ25PO6H
+Message-ID-Hash: OPLJNMVKFWVBENSESZEIBXWYJPKIHS6C
+X-Message-ID-Hash: OPLJNMVKFWVBENSESZEIBXWYJPKIHS6C
 X-Mailman-Approved-At: Tue, 01 Oct 2024 12:36:42 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E4FZ7ZB6FU5TM545YGX6K465XJ25PO6H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPLJNMVKFWVBENSESZEIBXWYJPKIHS6C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,33 +126,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-A 'devm_kzalloc' in 'asoc_qcom_lpass_cpu_platform_probe' could possibly return NULL pointer.
-NULL Pointer Dereference may be triggerred in 'asoc_qcom_lpass_cpu_platform_probe' without addtional check.
-Add a null check for the returned pointer.
+The TLV320AIC3007 requires a hardware reset after power-up for proper
+operation. After all power supplies are at their specified values,
+the RESET pin must be driven low for at least 10 ns. Even though the
+datasheet sais min 10ns, I needed more than 10ns when testing this out.
+15ns worked for me.
 
-Fixes: b5022a36d28f ("ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers")
-Signed-off-by: Zichen Xie <zichenxie0106@gmail.com>
-Reported-by: Zichen Xie <zichenxie0106@gmail.com>
-Reported-by: Zijie Zhao <zzjas98@gmail.com>
-Reported-by: Chenyuan Yang <chenyuan0y@gmail.com>
+Signed-off-by: Benjamin Hahn <B.Hahn@phytec.de>
 ---
- sound/soc/qcom/lpass-cpu.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/codecs/tlv320aic3x.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 5a47f661e0c6..a8e56f47f237 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -1243,6 +1243,9 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 	drvdata->i2sctl = devm_kzalloc(&pdev->dev, sizeof(struct lpaif_i2sctl),
- 					GFP_KERNEL);
+diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
+index 56e795a00e22..d002fc0b99b5 100644
+--- a/sound/soc/codecs/tlv320aic3x.c
++++ b/sound/soc/codecs/tlv320aic3x.c
+@@ -1367,8 +1367,11 @@ static int aic3x_regulator_event(struct notifier_block *nb,
+ 		 * Put codec to reset and require cache sync as at least one
+ 		 * of the supplies was disabled
+ 		 */
+-		if (aic3x->gpio_reset)
++		if (aic3x->gpio_reset) {
+ 			gpiod_set_value(aic3x->gpio_reset, 1);
++			ndelay(15);
++			gpiod_set_value(aic3x->gpio_reset, 0);
++		}
+ 		regcache_mark_dirty(aic3x->regmap);
+ 	}
  
-+	if (!drvdata->i2sctl)
-+		return -ENOMEM;
+@@ -1813,6 +1816,10 @@ int aic3x_probe(struct device *dev, struct regmap *regmap, kernel_ulong_t driver
+ 
+ 	gpiod_set_consumer_name(aic3x->gpio_reset, "tlv320aic3x reset");
+ 
++	/* CODEC datasheet says minimum of 10ns */
++	ndelay(15);
++	gpiod_set_value(aic3x->gpio_reset, 0);
 +
- 	/* Initialize bitfields for dai I2SCTL register */
- 	ret = lpass_cpu_init_i2sctl_bitfields(dev, drvdata->i2sctl,
- 						drvdata->lpaif_map);
+ 	for (i = 0; i < ARRAY_SIZE(aic3x->supplies); i++)
+ 		aic3x->supplies[i].supply = aic3x_supply_names[i];
+ 
+
+---
+base-commit: ad46e8f95e931e113cb98253daf6d443ac244cde
+change-id: 20240930-wip-bhahn-tlv320aic3x_fix_reset-cca918a4889d
+
+Best regards,
 -- 
-2.25.1
+Benjamin Hahn <B.Hahn@phytec.de>
 

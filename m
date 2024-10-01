@@ -2,126 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8705298BC60
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:40:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42C1D98BCA2
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 14:49:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8AF51605;
-	Tue,  1 Oct 2024 14:40:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8AF51605
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFD65852;
+	Tue,  1 Oct 2024 14:49:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFD65852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727786448;
-	bh=RR4YJEuiCB+s4fOTHaO2fk03o/BIx9b2dGauH/q9zfI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jD675/1dm69Srlc+P2OP/yz4E96GRQubC+H01ayJyq8CiKQidQ5BCvPD6b7vCigr1
-	 NG2EuGhStKDUlKwobf8NPFzE37MCmDzM3ZrCa5MC10gTFaSGwUPwE/e94oijwE1JfU
-	 DJWSOrYGkhS1g2NWUtSOgkBZYTzAbEw/HT+SErQw=
+	s=default; t=1727786980;
+	bh=C1GxrTMdMgyH4i6ibDNBr8CN76TltxJajy1u/h2xRrY=;
+	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=amr909SeFacUKVtboed5MuF0L0a0ncqKyp1riyDIo3Lyu4nB6K56I+b52a6OBssRy
+	 mXAAVQetG2mS2k+jfMkaoi7pRS/q/+VJqTFPb6ffb9Z/JvLrZOSicvJIX1AWleYk2h
+	 1tl2rRvTi5w/R4ZeDthPjSYZJcYet/zCdvk3cg+U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77977F80699; Tue,  1 Oct 2024 14:37:02 +0200 (CEST)
+	id BF5ABF80527; Tue,  1 Oct 2024 14:49:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AB0CF80C17;
-	Tue,  1 Oct 2024 14:37:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1631BF805B0;
+	Tue,  1 Oct 2024 14:49:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 76CAAF80517; Tue,  1 Oct 2024 02:24:37 +0200 (CEST)
+	id 3DB0FF80517; Tue,  1 Oct 2024 14:49:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06B71F80107
-	for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2024 02:24:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06B71F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 594D1F80107
+	for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2024 14:49:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594D1F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=mucbDSgo
-Received: by mail-qv1-xf43.google.com with SMTP id
- 6a1803df08f44-6c582ca168fso35002736d6.2
-        for <alsa-devel@alsa-project.org>;
- Mon, 30 Sep 2024 17:24:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727742272; x=1728347072;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UXJNocpNHIaneGGPh7u0gkYrjLLyA3SxEfbfZIWZAYE=;
-        b=mucbDSgoAxLwj8ktd8gntaLJaUqr98xBXBbS+9fWfy9Gukf1c8fAB70lCxjYeq8GBh
-         bbhzWQhJo6eT2fVrNNGe5Quj5mRP67eCddEOmQ0oFBFSrtxQHbWXkdiYTSo+CShtlNOc
-         ct+Dw1MhBuh2in0L6Bgad8ck62A7KbiQ0Z5HyokHfIFQ97wfTeWOJq1DYM29tG5QyGWD
-         ZWDpbwjV6d2YfyX2VsKrQC/m1jtPldyHxOpN4cedNMovoU6l6qH2Trz3ttYZ7ESwk+Du
-         H/msqXMf18OziE5lrzpLiFJC6Z1cQnLmrm3mLZ1F34XmXpVArD1KZGeFDlIWE8eivCpr
-         tgPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727742272; x=1728347072;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UXJNocpNHIaneGGPh7u0gkYrjLLyA3SxEfbfZIWZAYE=;
-        b=lWmaVHfKJXKDFa0HVWgOnjA5c+lAlKEJjjcEkYIlGmDb4Qd48kinChWEFrpUvJQInx
-         8pm9qeuUiMrw0RoXbhDpJfuwq9SCQ5VynXRTpF5qNIENVQ0u0dOEq8NCHywazMkkog7n
-         vfq02XWd33KS+/DOO7go38SLRMJ4I8UroA8kIBohpF3ZmGJb56pV6ulqnj35J8rXvTb5
-         iDNFAV3IWOnGoUDnnRpKbOOS7atcWAMl3EWVZn3bmoJP/JxaB6u7LJ7G0e7dSLA7KkT3
-         AHyn0ziVvouOQlduhwZqbeJTtHDcAe7dT2UAJyiI0BDBrX0OdgS534OMNhK/VKnKKEqK
-         EG+Q==
-X-Gm-Message-State: AOJu0YyuWSRhv5BCaMSL68c6/4pR/KPiFtbAlzcYTX84VN+ZzdnwSAW1
-	UAVKR7pZxjOMH73oFJCqef+aGrQewyGPy5g1y7m+J1avK5Myx+c0
-X-Google-Smtp-Source: 
- AGHT+IFqcL3S9UyEKrwwWrFna24JxfP1Qfwil+sI6wQESX1DtQgsUOKRCkTwCI1uJWo3OmH6tjkBtA==
-X-Received: by 2002:a05:6214:4206:b0:6cb:3ba9:b834 with SMTP id
- 6a1803df08f44-6cb3ba9b883mr186213266d6.24.1727742271738;
-        Mon, 30 Sep 2024 17:24:31 -0700 (PDT)
-Received: from localhost.localdomain (mobile-130-126-255-54.near.illinois.edu.
- [130.126.255.54])
-        by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6cb3b66b5a8sm44361256d6.79.2024.09.30.17.24.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Sep 2024 17:24:30 -0700 (PDT)
-From: Gax-c <zichenxie0106@gmail.com>
-To: srinivas.kandagatla@linaro.org,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	rohitkr@codeaurora.org
-Cc: alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Gax-c <zichenxie0106@gmail.com>,
-	Zijie Zhao <zzjas98@gmail.com>,
-	Chenyuan Yang <chenyuan0y@gmail.com>
-Subject: [PATCH] ASoC: qcom: Fix NULL Dereference in
- asoc_qcom_lpass_cpu_platform_probe()
-Date: Mon, 30 Sep 2024 19:24:09 -0500
-Message-Id: <20241001002409.11989-1-zichenxie0106@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ unprotected) header.d=web.de header.i=markus.elfring@web.de
+ header.a=rsa-sha256 header.s=s29768273 header.b=CoqBzj7R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1727786937; x=1728391737; i=markus.elfring@web.de;
+	bh=C1GxrTMdMgyH4i6ibDNBr8CN76TltxJajy1u/h2xRrY=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=CoqBzj7RF2VoyGhF6Is3MZfuwKV/+wjuNAm/NjFvX/Ef6jB75sJSXPTgi7h8ETtY
+	 ggPK6+l/QLd1/333YQUzowyndXa1y3NT59nzeYFKvAR+0uiMxcPKDcDZAiU7HP7ZT
+	 L9hgyNM4EjsURo84UO3dayUxqRLocP1qJlbnh0n/g6Bc3n7KP3rzQpXJmMDAjMzDQ
+	 Z+yAqnUWNfHHG1jibSSjgK+zwbg3W47EWCB/iNulGDTPbAjfvUaL20XWlbbUev0ZP
+	 bbCIwxi/2/9dHC/jyo9yp1w5nI/C0k6SXpUKnMdl0soqUNPE+eXVwAue2v7PBfG7r
+	 STuZD94yY1B34zXuLQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.81.95]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MzCEB-1rzP353xnX-00wkp6; Tue, 01
+ Oct 2024 14:48:57 +0200
+Message-ID: <cf8e2da5-818d-4783-a3c4-bb6aa62088f2@web.de>
+Date: Tue, 1 Oct 2024 14:48:54 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: zichenxie0106@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla Thunderbird
+To: Bjorn Andersson <quic_bjorande@quicinc.com>, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>, Chenyuan Yang
+ <chenyuan0y@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rohit kumar <quic_rohkumar@quicinc.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>, Zichen Xie <zichenxie0106@gmail.com>,
+ Zijie Zhao <zzjas98@gmail.com>
+References: <Zvrb+q28S/C4z2eH@hu-bjorande-lv.qualcomm.com>
+Subject: Re: [PATCH] Fix possible NULL Pointer Dereference in
+ 'asoc_qcom_lpass_cpu_platform_probe'
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <Zvrb+q28S/C4z2eH@hu-bjorande-lv.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:6RS/61IPs8STPgbSd4NjVx+ZRebW5ZZ6w3gCMtCC36jAYYYQHPy
+ WGJRJ7dHAdyvt1qYKNY4G0Vgz2c1/H/wapvItuVoPECFxGVc52jjTtSEfemdRAXiJuZUcS9
+ X8eiLN9QIKE3x0Zgq/USLFN89rhQNZ7eWY0POtD/DGGzKY8UP70KwEShxFhIqMRbyABqxiA
+ 1Zu43/cXWb07oPLWqeslA==
+UI-OutboundReport: notjunk:1;M01:P0:fSEJ+7CUxLE=;V8oHVkOVUPLueYJUsJA7ZHqDo6S
+ iKmS2pGNWbNJ7JpV3XBzizhkYiDL531mqEZg7ZjqSH5Um6H9sGvNlgk9K7Lf4vIL1YvP7l9cd
+ CYbHGlKJRdpmYmKuApz/UIk9d38yh9wUJdCMstv3B7CreVuMjpEoC18Q+Gyv2N/JSouXbRLSD
+ wXoSBTZLsun90IMvnoJm/K3iEpRxuNhKYdcPXMKC7Z+JU8NNNrweXJRkBBxV1iVU4tUHUGlsI
+ HCqVxjSOghRkEhwO9JXXA/AYMfn/25pbkO8HGSV4AtHmj7g4W57ZvJbF9DhLTt9iGZmQyGzwx
+ rnV8iBeevxn+2bdR1sxyqIlTnes8BHCVUoVK7lEzDppMLwRB00eVv2Eud5CUPtB1ZItFK40N1
+ w1f5ngQHugyDmFL0t2ZvGQGNjtQ9rqrac2uxmHHBQYJlmVGOCHrIY7+SsARwWKxAlFeirX22u
+ 1y8k18RtkGQ9kQcA8DPsBjWLhTIc44zpPgbUbAkOOANp6/n+ILJaAVbrFFPaQDdiCkf0BZJq6
+ bvAxpICYvX2Qmvcq6xpG1vDl40L56qVwDmOf+hAOBJGaTKJmAEli/AVYIIjqxUMuSBGu+DCRj
+ oJkjurh9W4HHptU1cFpSBC41GIij9jEG4jZgE1Ct2+Sba5nXK8HBwFAtKks04COjb8nOcdg94
+ KFge43tXotWB952giYgEWPqKVUSslZW656qqPEDEZVSvmvIvTydbBcGrPAv+cUpEzwaTyHQ3C
+ UEiRaGSiE1XyzMtRH7s0wJZj2+tJyFocXWFFuNmc8NveLvhMnwaqqLmfVrkkqnFBqa3Iyfpwt
+ RPzdRyFhYUQk+B+SR0pu6Zxw==
+Message-ID-Hash: 46OYBRIBLUOBY7XWBV7FCRHCTK4BF2XM
+X-Message-ID-Hash: 46OYBRIBLUOBY7XWBV7FCRHCTK4BF2XM
+X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: EB4SQUBBMWNITDPTQJMAXDCVDULAKZUW
-X-Message-ID-Hash: EB4SQUBBMWNITDPTQJMAXDCVDULAKZUW
-X-Mailman-Approved-At: Tue, 01 Oct 2024 12:36:52 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EB4SQUBBMWNITDPTQJMAXDCVDULAKZUW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/46OYBRIBLUOBY7XWBV7FCRHCTK4BF2XM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,33 +123,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-A devm_kzalloc() in asoc_qcom_lpass_cpu_platform_probe() could possibly return NULL pointer.
-NULL Pointer Dereference may be triggerred without addtional check.
-Add a NULL check for the returned pointer.
+> > A 'devm_kzalloc' in 'asoc_qcom_lpass_cpu_platform_probe' could possibl=
+y return NULL pointer.
+> > NULL Pointer Dereference may be triggerred in 'asoc_qcom_lpass_cpu_pla=
+tform_probe' without addtional check.
+> > Add a null check for the returned pointer.
+>
+> Your description and patch looks good to me.
 
-Fixes: b5022a36d28f ("ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers")
-Signed-off-by: Zichen Xie <zichenxie0106@gmail.com>
-Reported-by: Zichen Xie <zichenxie0106@gmail.com>
-Reported-by: Zijie Zhao <zzjas98@gmail.com>
-Reported-by: Chenyuan Yang <chenyuan0y@gmail.com>
----
- sound/soc/qcom/lpass-cpu.c | 3 +++
- 1 file changed, 3 insertions(+)
+Interesting =E2=80=9Cview=E2=80=9D =E2=80=A6
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 5a47f661e0c6..a8e56f47f237 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -1243,6 +1243,9 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 	drvdata->i2sctl = devm_kzalloc(&pdev->dev, sizeof(struct lpaif_i2sctl),
- 					GFP_KERNEL);
- 
-+	if (!drvdata->i2sctl)
-+		return -ENOMEM;
-+
- 	/* Initialize bitfields for dai I2SCTL register */
- 	ret = lpass_cpu_init_i2sctl_bitfields(dev, drvdata->i2sctl,
- 						drvdata->lpaif_map);
--- 
-2.25.1
 
+> But please run git log on the changed file and add a prefix to your
+> subject to match other changes to this file, and please wrap your commit
+> message at 75 characters.
+
+* How does your initial information fit to this patch review advice?
+
+* Would you like to =E2=80=9Ctolerate=E2=80=9D any typos (at the first gla=
+nce)?
+
+
+Regards,
+Markus

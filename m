@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCA2F98C4E4
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 19:55:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F84E98C4E6
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 19:55:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78A13857;
-	Tue,  1 Oct 2024 19:55:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78A13857
+	by alsa0.perex.cz (Postfix) with ESMTPS id A812883E;
+	Tue,  1 Oct 2024 19:55:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A812883E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727805310;
-	bh=rdu8NL5WsUbn5RMyH5goYyYCtyogitFe8oO28rlRcqQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=kRMN/K2sD9vqg7feypYgGNkBoepT3LRplGc1//1tNd7unIEsQyRwOIzzbY4vuiYhB
-	 25qDDs7pD4h4EQ8dqbS+o4qbH4JW2llTdOyoQt744QqVxcRTm72wzlk/Rca1NQzrJ7
-	 9Z//bKOfcpwtpiR/9/ntNUlacIv4oukawKW0UuFI=
+	s=default; t=1727805327;
+	bh=zFUAfX1xGLKWPqysQ2DsF4JQETrYOAYztxgnX54f+SU=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=LQu21i2us96KnlVtiRV3XgZ7jQV1ojFlOWI957OGpOMKNK6ZpvjjAGAEKvx+pSsUQ
+	 gRKuEA5oQt1m+k2ZuxSMJj4UqHNTDOGyghLCMLs2FzxXlEBQiN6SUm7paPUSgO6KYH
+	 khqARRjZtjYEbxR/Jwz2/GtUVzBCVdhj7nFBPkdk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3564EF80684; Tue,  1 Oct 2024 19:53:36 +0200 (CEST)
+	id 8B115F80687; Tue,  1 Oct 2024 19:53:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4776F80672;
-	Tue,  1 Oct 2024 19:53:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAC2DF8059F;
+	Tue,  1 Oct 2024 19:53:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE1FDF80607; Tue,  1 Oct 2024 19:53:26 +0200 (CEST)
+	id D96D0F8063E; Tue,  1 Oct 2024 19:53:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1153DF805FC
-	for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2024 19:53:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1153DF805FC
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0EEAF80620
+	for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2024 19:53:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0EEAF80620
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YPdfC79h
+ header.s=k20201202 header.b=BtTa7fc5
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 2A3235C5540;
-	Tue,  1 Oct 2024 17:53:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2E8C4CED4;
-	Tue,  1 Oct 2024 17:53:20 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 8B6D3A41879;
+	Tue,  1 Oct 2024 17:53:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249B9C4CECD;
+	Tue,  1 Oct 2024 17:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727805201;
-	bh=rdu8NL5WsUbn5RMyH5goYyYCtyogitFe8oO28rlRcqQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=YPdfC79hXynqOy6fqk+1igGWO6rDMl9Qwbgxz+pLRV+KsqlSINpcEXz8AL3o+DrE1
-	 WVjuiPQ7fDK/wT9XH5kFNT6+1uU0JH9eU8U52UbPQ3HGGFL0PsyTvrNf8cCMvAFwvD
-	 GGlraLP/Cskkcw1eOqLOrg6WXfR5xUJMNGj9slMQs/RHwXGeDJT2LO4gAxp94vRln7
-	 7GRv8VPjkJtpdnpiB1u7WE7rkwvF/bsmc8ojt4G+T7VlWUGcOE5n6QHUj5LjS6rPjZ
-	 mcpyesdwEY93ZjPlJIU2Nmw5/0iEprULsI96UVXngjhMqdeqthc06bF/lDwWQpDdKw
-	 p4p8UwV0hAIiA==
+	s=k20201202; t=1727805207;
+	bh=zFUAfX1xGLKWPqysQ2DsF4JQETrYOAYztxgnX54f+SU=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=BtTa7fc5dYV7KmtWiwKcr/Gn5pqBlFp2RlGzO/sBQcWTRxSwnOL/1nFaQPu0bGQYa
+	 fRyrtywXMXiY32M9yj5/ZJamVKXInQm3iPrSUPkzjDltkBUaxMkkG/jSesFL1c8Qqb
+	 Au3Y9+9vqxi/1NkBe5jqUSmtJKKxUrs7pVsUCPAr5L6nGdgP5G0VQh7QUdu1dF/mQW
+	 +KFOJhXVYWU5Am/F2QZSTwgh2goWTcLYZXJaq8BuPQCCwV9b5n7lQjLACvknMYEdJu
+	 CO/9ssjkRPPcp09yrwntnriRrEcAymTysK0Ef3zqUnvLjs7jOZx6gpDoBpXWicNkjD
+	 ejNW3L3AfbqaA==
 From: Mark Brown <broonie@kernel.org>
-To: peter.ujfalusi@gmail.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, Hongbo Li <lihongbo22@huawei.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
-In-Reply-To: <20240821070815.2326534-1-lihongbo22@huawei.com>
-References: <20240821070815.2326534-1-lihongbo22@huawei.com>
-Subject: Re: [PATCH -next 0/5] sound/soc: fix some macro definitions and
- usages
-Message-Id: <172780519925.2298697.9944176143649696918.b4-ty@kernel.org>
-Date: Tue, 01 Oct 2024 18:53:19 +0100
+To: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1727424031-19551-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1727424031-19551-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH 0/3] ASoC: fsl_micfil: fix and improvement
+Message-Id: <172780520382.2298697.5976871562900019910.b4-ty@kernel.org>
+Date: Tue, 01 Oct 2024 18:53:23 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-99b12
-Message-ID-Hash: BLYU34FV2HO5O2M6AIKD7K3CVV52FXND
-X-Message-ID-Hash: BLYU34FV2HO5O2M6AIKD7K3CVV52FXND
+Message-ID-Hash: 4FLUYUXZRBUCGJLU3YXZ5IFFVKKH3QWM
+X-Message-ID-Hash: 4FLUYUXZRBUCGJLU3YXZ5IFFVKKH3QWM
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BLYU34FV2HO5O2M6AIKD7K3CVV52FXND/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4FLUYUXZRBUCGJLU3YXZ5IFFVKKH3QWM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,17 +98,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 21 Aug 2024 15:08:10 +0800, Hongbo Li wrote:
-> Many variable in macro are not used as we used macro_check
-> script to detect and mamually check, let us address these
-> issues.
+On Fri, 27 Sep 2024 16:00:28 +0800, Shengjiu Wang wrote:
+> Fix the usage of regmap_write_bits().
+> Move mclk clock enablement to late stage.
+> Enable the micfil error interrupt.
 > 
-> Hongbo Li (5):
->   sound/soc: fix macro definition on TWL4030_OUTPUT_PGA
->   sound/soc remove unused substream in macro soc_component_mark_pop
->   sound/soc remove unused substream in macro soc_dai_mark_pop
->   sound/soc remove unused substream in macro soc_link_mark_pop
->   sound/soc: fix macro definition on STM_SAI_HAS_EXT_SYNC
+> Shengjiu Wang (3):
+>   ASoC: fsl_micfil: fix regmap_write_bits usage
+>   ASoC: fsl_micfil: Add mclk enable flag
+>   ASoC: fsl_micfil: Enable micfil error interrupt
 > 
 > [...]
 
@@ -116,16 +116,12 @@ Applied to
 
 Thanks!
 
-[1/5] sound/soc: fix macro definition on TWL4030_OUTPUT_PGA
-      commit: ac9fc25f114aec07e7f5348606c9702f8377f44a
-[2/5] sound/soc remove unused substream in macro soc_component_mark_pop
-      commit: 5687851e484bdb22fa565578e0b046a50d502941
-[3/5] sound/soc remove unused substream in macro soc_dai_mark_pop
-      commit: 7215afbd8c090a3254f8cadabb550adf1c00547f
-[4/5] sound/soc remove unused substream in macro soc_link_mark_pop
-      commit: 2f12d0de77b99f0f35755d16efeb12e6f45e5710
-[5/5] sound/soc: fix macro definition on STM_SAI_HAS_EXT_SYNC
-      commit: 7a01e17e42fe944982acde1dd40bdea177372173
+[1/3] ASoC: fsl_micfil: fix regmap_write_bits usage
+      commit: 06df673d20230afb0e383e39235a4fa8b9a62464
+[2/3] ASoC: fsl_micfil: Add mclk enable flag
+      commit: b47024dc624bcffb89d238f4a5b490363cea2a1e
+[3/3] ASoC: fsl_micfil: Enable micfil error interrupt
+      commit: cc3ae21f360bfa375fc3539e24e7adb0e643a9d4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

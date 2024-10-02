@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0413798E1BD
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 19:39:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E2C398E255
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 20:23:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD7F91F8;
-	Wed,  2 Oct 2024 19:38:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD7F91F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BF15836;
+	Wed,  2 Oct 2024 20:23:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BF15836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727890749;
-	bh=PJvobQ+6pW0tnPhodEWxo0BjiswVOyCa1be3irMLxL8=;
+	s=default; t=1727893391;
+	bh=vrEwO142Vt6SPOAdlphqDikIDAg1+nVpkIbjIETDyC4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rxBXGNRMneJqC0Ahd2kGS+foMhnduyPYC3a2ZAmbiPGX+hTbNevyUbCodh7Y1NN8P
-	 NKULV2niD42rvrRBMHNGKSz316ANaDbu699lJEK8a5siP0+cAdIUX5L0qtklixMXqz
-	 EC0L9G4uNTjUR0qM5v210r9hF8zmas+Pjf2VEUZY=
+	b=GE+wJJ7MlXWEFY+oROU+LyblEcKSvezEBaxera8O7eZISIFSKyYv/eDC80bJkSVZ/
+	 OPj/H/CX6R4H+o+xD9CA09qXncFy5fbLlme9yLvaBkgpnMdr24+E7syPb8K3PFUJgu
+	 8o2j9NNiE1XYE+ZjUuKP8zQfVfgpXt+5/JvU8TzI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1800F80601; Wed,  2 Oct 2024 19:38:15 +0200 (CEST)
+	id ADCE5F805B0; Wed,  2 Oct 2024 20:22:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF90AF805FE;
-	Wed,  2 Oct 2024 19:38:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA1C3F805AB;
+	Wed,  2 Oct 2024 20:22:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CFB2F80517; Wed,  2 Oct 2024 19:38:04 +0200 (CEST)
+	id 493FFF80517; Wed,  2 Oct 2024 20:22:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0AE93F80104
-	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 19:38:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AE93F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 709E3F800C9
+	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 20:22:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 709E3F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pkvuwkyB
+ header.s=k20201202 header.b=HeKlvi7Q
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 362D5A427A5;
-	Wed,  2 Oct 2024 17:37:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510A4C4CEC2;
-	Wed,  2 Oct 2024 17:37:58 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 537CCA431C6;
+	Wed,  2 Oct 2024 18:22:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7437CC4CEC2;
+	Wed,  2 Oct 2024 18:22:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727890680;
-	bh=PJvobQ+6pW0tnPhodEWxo0BjiswVOyCa1be3irMLxL8=;
+	s=k20201202; t=1727893351;
+	bh=vrEwO142Vt6SPOAdlphqDikIDAg1+nVpkIbjIETDyC4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=pkvuwkyBuJCFd8uQgXhuDSGlSZeYSm4GGo5umjQNRtfiAg1ZEHX0whAaHOsbGy5SD
-	 oXyXhwOGa6yD2y2cY6mujNlr9c8Xyhcm/HjDsIkzjU4zAB3Ck45flLbtBPwrgIhXJk
-	 19Wz6Z9sdgm778Zf6jRyn2Br9MXPtgYOMcp5zYs53LnKwib/Nj0KTMkaylpQoyh76U
-	 K+eKP/qxW3hLARWchVORnObHdQYYgmbG5OeKLlFf9bG/sr1QyT8vl6DZJtxnY+BdoX
-	 vPbCiXstkzYNx8jT1QolStK3bKpmzsIy5+uxgcAqK5ST4KHrNp7nLOC4SUZzR3BuAF
-	 RI3vt4WSHqFQA==
+	b=HeKlvi7Q7CEwPk/CifDRD2PjgNdtz7KGMKKJHrKkui4OM6lvXfno9FXsyrMCSztTQ
+	 tWKDI2w0xO2Oqy8oaQv31Go61tlIK4NTmS//ms5jcYwEWcAXTdvNY/4PFbfWoOjgeO
+	 Ny1gR62gaQMYvsS8orTxh1pshkKMhtP+gKjQh3bsnaFAT/411n67Jrm9ipZoeaUdHi
+	 uoxZ5KF94bXG9Cmkgzr1kar2dlkD+Xcl2XlXp8gx2BSeTVYRYK4K5VBxeMITs4QIJf
+	 X6ZFjtDiqnDHlmVQJsacmIFN/vQd3jlolht/ECqAnD1SXnjLg1aIMuPnyhTPfbmkvi
+	 VW0e0bIRSRf2Q==
 From: Mark Brown <broonie@kernel.org>
-To: yung-chuan.liao@linux.intel.com, ckeepax@opensource.cirrus.com,
- Charles Han <hanchunchao@inspur.com>
-Cc: alsa-devel@alsa-project.org, liam.r.girdwood@linux.intel.com,
- peter.ujfalusi@linux.intel.com, tiwai@suse.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20240925080030.11262-1-hanchunchao@inspur.com>
-References: <20240925080030.11262-1-hanchunchao@inspur.com>
-Subject: Re: [PATCH] ASoC: intel: sof_sdw: Add check devm_kasprintf()
- returned value
-Message-Id: <172789067806.163279.17671589406788007022.b4-ty@kernel.org>
-Date: Wed, 02 Oct 2024 18:37:58 +0100
+To: linux-sound@vger.kernel.org, srinivas.kandagatla@linaro.org,
+ bgoswami@quicinc.com, lgirdwood@gmail.com,
+ Alexey Klimov <alexey.klimov@linaro.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, perex@perex.cz, tiwai@suse.com,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, dmitry.baryshkov@linaro.org,
+ krzysztof.kozlowski@linaro.org, caleb.connolly@linaro.org,
+ linux-kernel@vger.kernel.org, a39.skl@gmail.com,
+ Konrad Dybcio <konradybcio@kernel.org>, Alex Elder <elder@kernel.org>
+In-Reply-To: <20241002022015.867031-1-alexey.klimov@linaro.org>
+References: <20241002022015.867031-1-alexey.klimov@linaro.org>
+Subject: Re: (subset) [PATCH v2 0/7] qrb4210-rb2: add HDMI audio playback
+ support
+Message-Id: <172789334720.173380.12816331564584587389.b4-ty@kernel.org>
+Date: Wed, 02 Oct 2024 19:22:27 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-dedf8
-Message-ID-Hash: ET3Z66IHRQB72SYLEZHLJL5UCINIZHRU
-X-Message-ID-Hash: ET3Z66IHRQB72SYLEZHLJL5UCINIZHRU
+Message-ID-Hash: KCIW655Q572VRHYR55FBOFM43OD6BGJT
+X-Message-ID-Hash: KCIW655Q572VRHYR55FBOFM43OD6BGJT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ET3Z66IHRQB72SYLEZHLJL5UCINIZHRU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KCIW655Q572VRHYR55FBOFM43OD6BGJT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,11 +103,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 25 Sep 2024 16:00:30 +0800, Charles Han wrote:
-> devm_kasprintf() can return a NULL pointer on failure but this
-> returned value is not checked.
+On Wed, 02 Oct 2024 03:20:08 +0100, Alexey Klimov wrote:
+> Rebased on top of -master, tested.
 > 
+> Changes since v1:
+> -- removed handling of MI2S clock in sm2450_snd_shutdown(): setting clock rate
+>    and disabling it causes audio delay on playback start;
+> -- removed empty sound { } node from sm6115.dtsi as suggested by Krzysztof;
+> -- moved lpi_i2s2_active pins description to qrb423310 board-specific file
+>    as suggested by Dmitry Baryshkov;
+> -- moved q6asmdai DAIs to apr soc node as suggested by Konrad Dybcio;
+> -- lpass_tlmm is not disabled;
+> -- lpass_tlmm node moved to sm4250.dtsi;
+> -- kept MultiMedia DAIs as is, without them the sound card driver doesn't initialise;
+> -- added some reviewed-by tags.
 > 
+> [...]
 
 Applied to
 
@@ -112,8 +126,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: intel: sof_sdw: Add check devm_kasprintf() returned value
-      commit: 2c0b2b484b164072ba6cf52af1bde85158fc75d4
+[1/7] ASoC: dt-bindings: qcom,sm8250: add qrb4210-rb2-sndcard
+      commit: bbd1e5ea66f6ca88624faefe0a153637f53ad15d
+[2/7] ASoC: qcom: sm8250: add qrb4210-rb2-sndcard compatible string
+      commit: b97bc0656a66f89f78098d4d72dc04fa9518ab11
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

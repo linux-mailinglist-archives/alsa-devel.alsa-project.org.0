@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA89799515F
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 16:21:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3C1995160
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 16:21:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07AA5AE8;
-	Tue,  8 Oct 2024 16:21:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07AA5AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13AFA83B;
+	Tue,  8 Oct 2024 16:21:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13AFA83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728397306;
-	bh=/4OzswiX65Sc0g0+jbX5ZOydAN10emdJ5kCChBhnLgc=;
+	s=default; t=1728397318;
+	bh=h+nCwsYfs5sYx3LuwElbokrzjS36O6h6OKiN8mmmqqo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NyxQJFgzDbIDejXEYiKVCVtx5Zbm2VnhEZsmqahZGelIzBGJQ+6C3hNHj93EdTnmE
-	 H8KqDhpkHsh3wrTQM0oRs6rMa7SomzrdbuYMtHqgqE5d8JrOBuRwkMN3cd9NfTTg//
-	 16ohcLo4ocLgCrybJyqsaR2Vsy0L5Ts1lFkNxk/k=
+	b=J7Sxx/h8r+6nE0Xu3GBbbjf63X7LzFCURwdeFoLQ2XPAf+KlYqdl7q9IDIGDWlW5Q
+	 hCiMqZTdZitmNqaclJNOKUUg+l0/TyVLdbxLXNSlV3tq/KnA2VzxWQSPWRe+0Iqkq5
+	 vh6m7xVHxNNgWiqZwuy0aJnpIb/5zpWsN2EODzfU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FB62F805F6; Tue,  8 Oct 2024 16:20:48 +0200 (CEST)
+	id 715F6F80616; Tue,  8 Oct 2024 16:20:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24E99F805F5;
-	Tue,  8 Oct 2024 16:20:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2853F8061A;
+	Tue,  8 Oct 2024 16:20:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BAA6EF80517; Wed,  2 Oct 2024 04:20:23 +0200 (CEST)
+	id 20834F8057A; Wed,  2 Oct 2024 04:20:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [IPv6:2a00:1450:4864:20::62d])
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F18CDF80104
-	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 04:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F18CDF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5AB3EF8001E
+	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 04:20:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AB3EF8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=kimSBLao
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a7a843bef98so893328466b.2
+ header.s=google header.b=yJ2frU3s
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5c42f406e29so8514157a12.2
         for <alsa-devel@alsa-project.org>;
- Tue, 01 Oct 2024 19:20:21 -0700 (PDT)
+ Tue, 01 Oct 2024 19:20:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1727835621; x=1728440421;
+        d=linaro.org; s=google; t=1727835622; x=1728440422;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qULz6qGLbMOUjMR5vVv1AH2Pj+Ui9tcw2zEInfPNef0=;
-        b=kimSBLaoQl7gVdBVrGZc8fGEASyij2M35n63AEBQKs7yc81L5kr6ukBquIRkTpml20
-         blFbkPsICDW0XitlT/fEmz5L5JRmv3XMhMhPBy2FoIJ8euouYqmAacvM+vC/uPUDakwt
-         HkYAnBDF420n9UR/JIUWigdnmc7IkWmJigZuq6KrAwfdmGjtpzhUtyYvSTpUS9FfmwYa
-         qStGP0Ahm7GEEKIK9ve/FmxbQpsm+3zQO7AQl+x3/y4Lryw15lRnQiLyD+ks0OOCRGpY
-         loEGLmrzGXkAKd/H7Q5vsqhybfMWS8ZJgq1vz1AxgQvjPtoQlQpYhii99dILZuWGrRi4
-         9A7w==
+        bh=n9xIAfbz7fjBNidtmDjZcASh4YKSIa46CQvlQ26gYQA=;
+        b=yJ2frU3shbOCLOxvXqZpIcdpd2tasfSRDCGmc8Zv7mZZ+Dre81RpQhgN4XZyLkLBKc
+         c40TEtfa1z8uW3dgAc4/EwIM/YTJgStyUPBf77I6MRYltwPpRWtgWVGCqTqk7B39rS8W
+         rllUrT/PwvaAsQkyCZxKgHSkNvLdw1Qx4ADPdb2vfg042rVNnZ4ZmnUnL8w7HPHxgRuO
+         6HJ4c2d3fYW6GLIp5hphauEgccsj/htMdx71ovU7LxAf7dBNrPbKN4ijv5kK2aNWkx8h
+         PO4Aey/srggjMPqxCjgjwEnt3dZ9fo/+HvAZWetqJ68wg5RR/PVb8tpc5IBOUbFAamie
+         z66g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727835621; x=1728440421;
+        d=1e100.net; s=20230601; t=1727835622; x=1728440422;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qULz6qGLbMOUjMR5vVv1AH2Pj+Ui9tcw2zEInfPNef0=;
-        b=pZAH7FdTYpDSHNBkKniwKnrmkSuqDMR3QdB1t1/OQ0TwJNzugVnC6InKiPslKmZMxP
-         tkjf2pBZGMLChXeeUwKgLkz/Tfmn1w5C1T45WF96gERO8JJ/Qnnxi84god44ncZqJmkH
-         jdphFPdNISr64AAOVXc0rqtt2JDQOLuF90EUeepdjZUg9m9TjWe8/Avxwmef2leMMBHr
-         RvYZdSACbiplrVrKWhZ6YgGeceSulNf9NVoyTKHaPU7Aslr2MFP58tmV8rbe/aMgdHlS
-         bc1FW+oxVWFSwiLA5tWO2NvZiBskrphI0UTCGHQvd22hj/oE+oqZc91ugjyp1tFeXj+Z
-         j6Ew==
+        bh=n9xIAfbz7fjBNidtmDjZcASh4YKSIa46CQvlQ26gYQA=;
+        b=PUBjrbGiKA5LTfd4uwOMQJA4we0GDZ3Ap/Eqn9hNrKRr1uP1yaBXz8xb3+qRH6dHEg
+         qefNnYwgjfO0+tqL0iZbqWm9/RWRIsxti8hYnVHO/9ojJe2FVjEcIFaEurn70hhXUOBl
+         lv/ebGL/IY138IGlbA4ADnFUBUoVvKjM9PhCDCTR5tORHEkR/65JPB7n6Ze8di3qD/Fm
+         4U73UyIeLjYNYsaTmUzzdgzelgh2YbltXKACCHgtmr6SVe3A29Qsjbjkv4Cygcy7QV+2
+         b4Phm98w5GqssOgwCKcnzmPbmWTPrlaf6DKFhcSeBBg+WgUjTqglTw4QVIw4dGYKwoft
+         8mNQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUt/RhMJzqJVk1MAPZDkB7X/gp7B0ucH7aRu61dfwgD42vA4nUoFFTfqeecBenAWOp8uuNUeR8pWSDB@alsa-project.org
-X-Gm-Message-State: AOJu0YxLPxjkL5ImyYUwGB1C7OsGnSeKaui7Kx3T07Yui9VPBcLeOiFa
-	/gc7vPCtwo2xkxXTD1QEtXuAcrnA5NZfQP10+eS+fmTn0qlO9XPpt83hhWP9Bys=
+ AJvYcCV0Cr7CUvXRpYbJlBQBoGq96WekmgeKht0FlRENvqVxgKpc0k0rbDtf3osDesXH2j77JU8F/GG84U0m@alsa-project.org
+X-Gm-Message-State: AOJu0Yw+yzetKPrDLjuCLrJApuxMx7NmFotHTXX0l38aI3EG7cp2i3FM
+	WwQ768wjQuHha3G4dAw3J56+xkqZtsb5io2no1yBcq3FltoGzS0Ekb7N38wdZxo=
 X-Google-Smtp-Source: 
- AGHT+IGE1xKkXbjGlYr68N6L4QY5x/jSLWNeq4c/fQ8oGKGTVtK4Gvl9c5GnBJX1hBRWwC0HCq1myA==
-X-Received: by 2002:a17:907:25cb:b0:a8d:2e3a:5303 with SMTP id
- a640c23a62f3a-a98f8295ed5mr139129766b.39.1727835620710;
-        Tue, 01 Oct 2024 19:20:20 -0700 (PDT)
+ AGHT+IFLmq+2mwLJhF5wcOOkF3bdVL/ltt9sQiXECke/uv9VIlvSNZdfCfyEy1s8dICY8l0J/ILy0A==
+X-Received: by 2002:a17:907:268c:b0:a86:82e2:8c6d with SMTP id
+ a640c23a62f3a-a98f839d3ccmr130606766b.62.1727835622420;
+        Tue, 01 Oct 2024 19:20:22 -0700 (PDT)
 Received: from localhost.localdomain ([2.125.184.148])
         by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2945f2esm787518866b.117.2024.10.01.19.20.18
+ a640c23a62f3a-a93c2945f2esm787518866b.117.2024.10.01.19.20.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Oct 2024 19:20:19 -0700 (PDT)
+        Tue, 01 Oct 2024 19:20:21 -0700 (PDT)
 From: Alexey Klimov <alexey.klimov@linaro.org>
 To: linux-sound@vger.kernel.org,
 	srinivas.kandagatla@linaro.org,
@@ -111,10 +111,10 @@ Cc: robh@kernel.org,
 	linux-kernel@vger.kernel.org,
 	a39.skl@gmail.com,
 	alexey.klimov@linaro.org
-Subject: [PATCH v2 1/7] ASoC: dt-bindings: qcom,sm8250: add
- qrb4210-rb2-sndcard
-Date: Wed,  2 Oct 2024 03:20:09 +0100
-Message-ID: <20241002022015.867031-2-alexey.klimov@linaro.org>
+Subject: [PATCH v2 2/7] ASoC: qcom: sm8250: add qrb4210-rb2-sndcard compatible
+ string
+Date: Wed,  2 Oct 2024 03:20:10 +0100
+Message-ID: <20241002022015.867031-3-alexey.klimov@linaro.org>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241002022015.867031-1-alexey.klimov@linaro.org>
 References: <20241002022015.867031-1-alexey.klimov@linaro.org>
@@ -126,15 +126,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JXAAPKHLMLIFYUB3XDQNBTQGUEQBEJRV
-X-Message-ID-Hash: JXAAPKHLMLIFYUB3XDQNBTQGUEQBEJRV
+Message-ID-Hash: 62C5PGWGNFLDIRU3LTNNAEJMABPYWYRN
+X-Message-ID-Hash: 62C5PGWGNFLDIRU3LTNNAEJMABPYWYRN
 X-Mailman-Approved-At: Tue, 08 Oct 2024 14:20:35 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JXAAPKHLMLIFYUB3XDQNBTQGUEQBEJRV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/62C5PGWGNFLDIRU3LTNNAEJMABPYWYRN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,26 +143,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add adsp-backed soundcard compatible for QRB4210 RB2 platform,
-which as of now looks fully compatible with SM8250.
+Add "qcom,qrb4210-rb2-sndcard" to the list of recognizable
+devices.
 
 Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+ sound/soc/qcom/sm8250.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index 1d3acdc0c733..2e2e01493a5f 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -30,6 +30,7 @@ properties:
-           - qcom,apq8096-sndcard
-           - qcom,qcm6490-idp-sndcard
-           - qcom,qcs6490-rb3gen2-sndcard
-+          - qcom,qrb4210-rb2-sndcard
-           - qcom,qrb5165-rb5-sndcard
-           - qcom,sc7180-qdsp6-sndcard
-           - qcom,sc8280xp-sndcard
+diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
+index 274bab28209a..19adadedc88a 100644
+--- a/sound/soc/qcom/sm8250.c
++++ b/sound/soc/qcom/sm8250.c
+@@ -174,6 +174,7 @@ static int sm8250_platform_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id snd_sm8250_dt_match[] = {
+ 	{.compatible = "qcom,sm8250-sndcard"},
++	{.compatible = "qcom,qrb4210-rb2-sndcard"},
+ 	{.compatible = "qcom,qrb5165-rb5-sndcard"},
+ 	{}
+ };
 -- 
 2.45.2
 

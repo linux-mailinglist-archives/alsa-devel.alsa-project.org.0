@@ -2,99 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D89E98CE4F
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 10:01:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D09AB98CF1E
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 10:43:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C887AE8;
-	Wed,  2 Oct 2024 10:01:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C887AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51C2D846;
+	Wed,  2 Oct 2024 10:43:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51C2D846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727856112;
-	bh=W1/RxTrXILcH4rl7tbA+EuN/c7SpVtjyGNtesYNKmas=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1727858636;
+	bh=VeqJiGZPeoJt/vn3E557Zb7LdzLEwvG5p+tBIW9OoC8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pT/SxDKV1dTfuYZZ4Lp6aU8icRm+rSRKLv5nPHuAKbVe4bvmb/pMKD0aPcFSJTe8W
-	 IGDqRYmrMEKd9RcTUCPYXmL6ZOUp/w3yqpQC8WP8GAarjnhdyzijNeU+A5ICN13aA1
-	 s3KAYNV92JQYOdF9WA01rYC2QmAyiz4NM4Q8dcBA=
+	b=DWy0DMUn0pnQmfA1a7KSBMOL72nw2BaJotHzLuZ2UGTAWyQmK8jEuGf9v08aSL9W7
+	 0G79IRZDw6g+mnwelEHgmatOrVdtbNb9wpeRBhNyrrbQL4AfyQFoYlnyGAARFhmbWZ
+	 O9LuhG5Wp8tA1rqAQihJtF86Uq/lAj7CuNf5jPjs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9D9EF80508; Wed,  2 Oct 2024 10:01:20 +0200 (CEST)
+	id 328EDF805B4; Wed,  2 Oct 2024 10:43:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8B66F805B0;
-	Wed,  2 Oct 2024 10:01:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5884EF8001E;
+	Wed,  2 Oct 2024 10:43:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88D96F80517; Wed,  2 Oct 2024 10:01:15 +0200 (CEST)
+	id 1B24EF80517; Wed,  2 Oct 2024 10:43:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8586F8001E
-	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 10:01:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8586F8001E
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7894F80104
+	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 10:43:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7894F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=I9GuXPsr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1727856073; x=1759392073;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=W1/RxTrXILcH4rl7tbA+EuN/c7SpVtjyGNtesYNKmas=;
-  b=I9GuXPsrwNsvsBApL5Dtm3uUeMF5N7r9TlNIL6lTufi+MHbIkSTmhvjQ
-   c9lf+OJAfmUV0Erm7CUrXGinlghM89DxwLNWqPMGXiVJ3BmJOYjKsxnH9
-   56Oz4XFxpBnIB55VPDJ2Z0wm8u7dX0J1kdfMWX/9whkLhMmKJ28jH/GZr
-   0A2VqxZYfH1+0tSKZQxUpL1Xwz8FFl6+L0TlFovrl5QZDemDtLCITb3XQ
-   0nBn95vu+OuvcUAmHLXO9EWMXkhMdyIn6JWYddUjcBciytgKNg7JyymVr
-   XUP8lCZKM+1UEoH86FBczVo8xLac0GzZ45OWzQsZgH8zNeJganxIiNLPj
-   g==;
-X-CSE-ConnectionGUID: L7Qyb9efTXuLDDExmwRYHA==
-X-CSE-MsgGUID: lcxV55YrSwWljzmldOMC7A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11212"; a="26519370"
-X-IronPort-AV: E=Sophos;i="6.11,171,1725346800";
-   d="scan'208";a="26519370"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2024 01:01:07 -0700
-X-CSE-ConnectionGUID: tMQWD4WwTiartgPgU+hnQA==
-X-CSE-MsgGUID: ypbTPhgIS+Kla3iZ6sevBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,171,1725346800";
-   d="scan'208";a="78673841"
-Received: from lkp-server01.sh.intel.com (HELO 53e96f405c61) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 02 Oct 2024 01:01:04 -0700
-Received: from kbuild by 53e96f405c61 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1svuIA-000RmT-0G;
-	Wed, 02 Oct 2024 08:01:02 +0000
-Date: Wed, 2 Oct 2024 16:00:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Shenghao Ding <shenghao-ding@ti.com>, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, baojun.xu@ti.com, 13564923607@139.com,
-	13916275206@139.com, navada@ti.com, v-hampiholi@ti.com,
-	m-shrivastava1@ti.com, sakshi@ti.com, sandeepk@ti.com,
-	robinchen@ti.com, alsa-devel@alsa-project.org,
-	Shenghao Ding <shenghao-ding@ti.com>
-Subject: Re: [RESEND PATCH v4] MAINTAINERS: update entries in TEXAS
- INSTRUMENTS LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) DRIVERS and add
- entries for haptic driver
-Message-ID: <202410021557.FByBO9Dp-lkp@intel.com>
-References: <20241002011147.1345-1-shenghao-ding@ti.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=OSu7pHtu
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-5399675e14cso3710084e87.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 02 Oct 2024 01:43:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1727858597; x=1728463397;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7nXaZCtHNq7BKKF3CmtoESBg4ulxhWJtDtjqd9cV8Hs=;
+        b=OSu7pHtuBAKfaXUevB0nFFq0JD497Gnx0UEyocrDy3cZbuapS4fx9/kzJZ3D6UBH4X
+         Bpa6lROOPKx31CfwLbiKRlqjgiOglXu94OTZRgbCQ+sPksrAUWdOEBFLZnmObL31w5Pa
+         s9agBmVnHtPqebSI7VNVd2l/xTu0VEEYeS3hkspiaHYEWndCZlPQR4bsTBgePzBV1ucW
+         ASX5DuCPJJn+XSKwJ7NCR/Lab7RcUwRmIe3Buv8PpCbbEyJ21bqbX1Gz9QUU0GUc/CpB
+         SmeCGPgDCvuH9KDGn+1wM0B/bP2PisFh72+ARommsdOtt207IFw3SXyVvlBFakc7u5TL
+         WsdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727858597; x=1728463397;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7nXaZCtHNq7BKKF3CmtoESBg4ulxhWJtDtjqd9cV8Hs=;
+        b=P9idYX30l9UqBKcX+nkJS5dofbw7QFQsig5jtRnl3DxKMArH70xzO+VyZAaCsJ1pSQ
+         WMUOXrJb4g1mTtjWaaf2KQ/3tfYBmARNF28Xdn1s/hBT38q4CP1v+nAOcj8XhChC2WmJ
+         qVE1oLZooWkc/tlsYzFbSYgxnlhIddSRff7Bf6HJCJVrE0kbllI3iflK2ryl3bDNIA/l
+         Hh99waupOw6DDgQoDV1nUwpXSwZX4SfIZaqX0fED0CsFxBh0xW261w2MCr4DOHS0H91Q
+         ZPDWevtU4EMUzn750D9tBg2qqaQKsJo7U7a6Qmeg/rHixLuv7GgkOLPjISPeF0GBCuAi
+         KiZA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpUHNDgtjclx8I+y75IKy/4J3Bksghyi9chbhnCagvVd4qvU9yAc6esm2az4LlD+A2Xi5xfmkgCmG7@alsa-project.org
+X-Gm-Message-State: AOJu0YwrUrRNeIgHHxzeP2s2lNsvVCDHjUTka4SixHswRwz4k49YgpVo
+	q0Tg6qCx3rycCvqLkHLPjL93kfBd7/FJxsFSD/y8jqYekISWO0Uc
+X-Google-Smtp-Source: 
+ AGHT+IGixNj4W4W7revkITaUB2HOY3ocF0+RwQ4hilUEhSgxQLDa+RAmgwv2ziLfVvWZf0H5TVg3HQ==
+X-Received: by 2002:a05:6512:31ca:b0:52e:9e70:d068 with SMTP id
+ 2adb3069b0e04-539a065c507mr1202032e87.4.1727858596239;
+        Wed, 02 Oct 2024 01:43:16 -0700 (PDT)
+Received: from [10.0.0.100] (host-85-29-124-88.kaisa-laajakaista.fi.
+ [85.29.124.88])
+        by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5389fd54746sm1868550e87.29.2024.10.02.01.43.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Oct 2024 01:43:12 -0700 (PDT)
+Message-ID: <a67e031b-5685-48f2-b3b0-5181dd7371f2@gmail.com>
+Date: Wed, 2 Oct 2024 11:43:56 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241002011147.1345-1-shenghao-ding@ti.com>
-Message-ID-Hash: FMW7KSFPDYGZ26IMEDDT4KV3WEXGBYAT
-X-Message-ID-Hash: FMW7KSFPDYGZ26IMEDDT4KV3WEXGBYAT
-X-MailFrom: lkp@intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: dt-bindings: davinci-mcasp: Fix interrupts property
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jayesh Choudhary <j-choudhary@ti.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+References: <20241001204749.390054-1-miquel.raynal@bootlin.com>
+Content-Language: en-US
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@gmail.com>
+In-Reply-To: <20241001204749.390054-1-miquel.raynal@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: E5744HKJYUGZJYDR66EQV3KHF6RMMQCS
+X-Message-ID-Hash: E5744HKJYUGZJYDR66EQV3KHF6RMMQCS
+X-MailFrom: peter.ujfalusi@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FMW7KSFPDYGZ26IMEDDT4KV3WEXGBYAT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E5744HKJYUGZJYDR66EQV3KHF6RMMQCS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,38 +129,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Shenghao,
+Hi,
 
-kernel test robot noticed the following build warnings:
+On 01/10/2024 23:47, Miquel Raynal wrote:
+> My understanding of the interrupts property is that it can either be:
+> 1/ - TX
+> 2/ - TX
+>    - RX
+> 3/ - Common/combined.
+> 
+> There are very little chances that either:
+>    - TX
+>    - Common/combined
+> or even
+>    - TX
+>    - RX
+>    - Common/combined
+> could be a thing.
 
-[auto build test WARNING on linus/master]
-[also build test WARNING on v6.12-rc1 next-20241002]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+For interrupt these are the valid onesÉ
+- Common only
+- TX and RX
+- TX only
+- RX only
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Shenghao-Ding/MAINTAINERS-update-entries-in-TEXAS-INSTRUMENTS-LOW-MIDDLE-POWER-AUDIO-AMPLIFIER-ASoC-HDA-DRIVERS-and-add-entries-for-ha/20241002-091259
-base:   linus/master
-patch link:    https://lore.kernel.org/r/20241002011147.1345-1-shenghao-ding%40ti.com
-patch subject: [RESEND PATCH v4] MAINTAINERS: update entries in TEXAS INSTRUMENTS LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) DRIVERS and add entries for haptic driver
-reproduce: (https://download.01.org/0day-ci/archive/20241002/202410021557.FByBO9Dp-lkp@intel.com/reproduce)
+The driver cuts this through by trying to request all and leaves it for
+DT to specify the correct irqs.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410021557.FByBO9Dp-lkp@intel.com/
+Note: in case of common only, we still have RX+TX, TX only, RX only
+operation, but that is just a side note.
 
-All warnings (new ones prefixed by >>):
-
-   Warning: Documentation/hwmon/g762.rst references a file that doesn't exist: Documentation/devicetree/bindings/hwmon/g762.txt
-   Warning: Documentation/userspace-api/netlink/index.rst references a file that doesn't exist: Documentation/networking/netlink_spec/index.rst
-   Warning: Documentation/userspace-api/netlink/specs.rst references a file that doesn't exist: Documentation/networking/netlink_spec/index.rst
-   Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/reserved-memory/qcom
-   Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt
->> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/sound/tpa6130a2.txt
->> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
-   Using alabaster theme
+> 
+> Looking at the interrupt-names definition (which uses oneOf instead of
+> anyOf), it makes indeed little sense to use anyOf in the interrupts
+> definition. I believe this is just a mistake, hence let's fix it.
+> 
+> Fixes: 8be90641a0bb ("ASoC: dt-bindings: davinci-mcasp: convert McASP bindings to yaml schema")
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+> ---
+>  .../devicetree/bindings/sound/davinci-mcasp-audio.yaml          | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+> index 7735e08d35ba..ab3206ffa4af 100644
+> --- a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+> +++ b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+> @@ -102,7 +102,7 @@ properties:
+>      default: 2
+>  
+>    interrupts:
+> -    anyOf:
+> +    oneOf:
+>        - minItems: 1
+>          items:
+>            - description: TX interrupt
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Péter
+

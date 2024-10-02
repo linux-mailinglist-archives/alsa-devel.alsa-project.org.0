@@ -2,129 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CD3298CDB2
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 09:24:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D89E98CE4F
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 10:01:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16C06B6A;
-	Wed,  2 Oct 2024 09:23:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16C06B6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C887AE8;
+	Wed,  2 Oct 2024 10:01:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C887AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727853844;
-	bh=3a08W0TgqggciiLJe1T08f0RQidcojzfZg/MmmmqjaM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1727856112;
+	bh=W1/RxTrXILcH4rl7tbA+EuN/c7SpVtjyGNtesYNKmas=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GiaRWm4dgOeRGsypZDCVPTU6a0uJnRRJWLtWtuOOeUvEH+/yLE/RANy22XLgHsJKv
-	 RBzOB4zSt/bZMOyg0Xa1f7J6CskWBJMs5K3j0vUBVDqWEJbyOHbd1NB4oappcjtmfd
-	 cmMthUEwGWZcyNK7GWBaG5KsKOAB1uTk+dufgi7Y=
+	b=pT/SxDKV1dTfuYZZ4Lp6aU8icRm+rSRKLv5nPHuAKbVe4bvmb/pMKD0aPcFSJTe8W
+	 IGDqRYmrMEKd9RcTUCPYXmL6ZOUp/w3yqpQC8WP8GAarjnhdyzijNeU+A5ICN13aA1
+	 s3KAYNV92JQYOdF9WA01rYC2QmAyiz4NM4Q8dcBA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82B1DF800C9; Wed,  2 Oct 2024 09:23:31 +0200 (CEST)
+	id C9D9EF80508; Wed,  2 Oct 2024 10:01:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30037F805B1;
-	Wed,  2 Oct 2024 09:23:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8B66F805B0;
+	Wed,  2 Oct 2024 10:01:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1E33F80517; Wed,  2 Oct 2024 09:23:24 +0200 (CEST)
+	id 88D96F80517; Wed,  2 Oct 2024 10:01:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A0638F800C9
-	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 09:23:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0638F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id E8586F8001E
+	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 10:01:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8586F8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=pSGZ6YdY
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id D20675C30E5;
-	Wed,  2 Oct 2024 07:23:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220FEC4CEC5;
-	Wed,  2 Oct 2024 07:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727853799;
-	bh=3a08W0TgqggciiLJe1T08f0RQidcojzfZg/MmmmqjaM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pSGZ6YdYE5P55NWbMhYARSWfcw2Nu82AULaqMmzLyT06EZE0wghSS7zgc/hIE4dkL
-	 DabSR1vBe+UxePCW8HruPB/X6G7TqNtfTAqDtRLYcsXWr7VNjcGTqc2KdOQik4aRuI
-	 E2eZj2BLxLGQQWxYvyoKtD65hXR70AQJQW3xLahAHckyIooZiP3zrI0eMBjy0OAmqp
-	 Wubbzv91IRyWzTZHpCRZBNoILbMeDoNQAsJ7wYfLEBK3DIJPb6QSrQpIPci2JqDu9N
-	 ErFbV6kmG2f35M5iL5XXAeZ4OB7AFHVj81sIlFnjwUJdMINmCagpyx/A++IInHUAd/
-	 tMiHtSsp0/dhw==
-Message-ID: <2f59b15f-06a6-40de-bd94-ef7c8cfa6396@kernel.org>
-Date: Wed, 2 Oct 2024 09:23:12 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=I9GuXPsr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1727856073; x=1759392073;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=W1/RxTrXILcH4rl7tbA+EuN/c7SpVtjyGNtesYNKmas=;
+  b=I9GuXPsrwNsvsBApL5Dtm3uUeMF5N7r9TlNIL6lTufi+MHbIkSTmhvjQ
+   c9lf+OJAfmUV0Erm7CUrXGinlghM89DxwLNWqPMGXiVJ3BmJOYjKsxnH9
+   56Oz4XFxpBnIB55VPDJ2Z0wm8u7dX0J1kdfMWX/9whkLhMmKJ28jH/GZr
+   0A2VqxZYfH1+0tSKZQxUpL1Xwz8FFl6+L0TlFovrl5QZDemDtLCITb3XQ
+   0nBn95vu+OuvcUAmHLXO9EWMXkhMdyIn6JWYddUjcBciytgKNg7JyymVr
+   XUP8lCZKM+1UEoH86FBczVo8xLac0GzZ45OWzQsZgH8zNeJganxIiNLPj
+   g==;
+X-CSE-ConnectionGUID: L7Qyb9efTXuLDDExmwRYHA==
+X-CSE-MsgGUID: lcxV55YrSwWljzmldOMC7A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11212"; a="26519370"
+X-IronPort-AV: E=Sophos;i="6.11,171,1725346800";
+   d="scan'208";a="26519370"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2024 01:01:07 -0700
+X-CSE-ConnectionGUID: tMQWD4WwTiartgPgU+hnQA==
+X-CSE-MsgGUID: ypbTPhgIS+Kla3iZ6sevBg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,171,1725346800";
+   d="scan'208";a="78673841"
+Received: from lkp-server01.sh.intel.com (HELO 53e96f405c61) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 02 Oct 2024 01:01:04 -0700
+Received: from kbuild by 53e96f405c61 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1svuIA-000RmT-0G;
+	Wed, 02 Oct 2024 08:01:02 +0000
+Date: Wed, 2 Oct 2024 16:00:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: Shenghao Ding <shenghao-ding@ti.com>, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, baojun.xu@ti.com, 13564923607@139.com,
+	13916275206@139.com, navada@ti.com, v-hampiholi@ti.com,
+	m-shrivastava1@ti.com, sakshi@ti.com, sandeepk@ti.com,
+	robinchen@ti.com, alsa-devel@alsa-project.org,
+	Shenghao Ding <shenghao-ding@ti.com>
+Subject: Re: [RESEND PATCH v4] MAINTAINERS: update entries in TEXAS
+ INSTRUMENTS LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) DRIVERS and add
+ entries for haptic driver
+Message-ID: <202410021557.FByBO9Dp-lkp@intel.com>
+References: <20241002011147.1345-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: dt-bindings: davinci-mcasp: Fix interrupts property
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jayesh Choudhary <j-choudhary@ti.com>,
- alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-References: <20241001204749.390054-1-miquel.raynal@bootlin.com>
- <7f5wtbnn32l6l76z2yjjfponrysr55yi7hgfmtdegilg7dcc4h@pkupvwap4up4>
- <20241002085604.277d5006@xps-13>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20241002085604.277d5006@xps-13>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: YWKDZOLUXMS3M6DGMAQGFPZRGUVKZLX5
-X-Message-ID-Hash: YWKDZOLUXMS3M6DGMAQGFPZRGUVKZLX5
-X-MailFrom: krzk@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241002011147.1345-1-shenghao-ding@ti.com>
+Message-ID-Hash: FMW7KSFPDYGZ26IMEDDT4KV3WEXGBYAT
+X-Message-ID-Hash: FMW7KSFPDYGZ26IMEDDT4KV3WEXGBYAT
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -136,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YWKDZOLUXMS3M6DGMAQGFPZRGUVKZLX5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FMW7KSFPDYGZ26IMEDDT4KV3WEXGBYAT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,60 +115,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 02/10/2024 08:56, Miquel Raynal wrote:
-> Hi Krzysztof,
-> 
-> krzk@kernel.org wrote on Wed, 2 Oct 2024 08:34:44 +0200:
-> 
->> On Tue, Oct 01, 2024 at 10:47:49PM +0200, Miquel Raynal wrote:
->>> My understanding of the interrupts property is that it can either be:
->>> 1/ - TX
->>> 2/ - TX
->>>    - RX
->>> 3/ - Common/combined.
->>>
->>> There are very little chances that either:
->>>    - TX
->>>    - Common/combined
->>> or even
->>>    - TX
->>>    - RX
->>>    - Common/combined
->>> could be a thing.
->>>
->>> Looking at the interrupt-names definition (which uses oneOf instead of
->>> anyOf), it makes indeed little sense to use anyOf in the interrupts
->>> definition. I believe this is just a mistake, hence let's fix it.
->>>
->>> Fixes: 8be90641a0bb ("ASoC: dt-bindings: davinci-mcasp: convert McASP bindings to yaml schema")
->>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
->>> ---
->>> ---
->>>  .../devicetree/bindings/sound/davinci-mcasp-audio.yaml          | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
->>> index 7735e08d35ba..ab3206ffa4af 100644
->>> --- a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
->>> +++ b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
->>> @@ -102,7 +102,7 @@ properties:
->>>      default: 2
->>>  
->>>    interrupts:
->>> -    anyOf:
->>> +    oneOf:  
->>
->>
->> You need to change interrupt-names as well.
-> 
-> interrupt-names is already using 'oneOf'!
-> 
-> The extended diff looks like that:
+Hi Shenghao,
 
-Indeed.
+kernel test robot noticed the following build warnings:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+[auto build test WARNING on linus/master]
+[also build test WARNING on v6.12-rc1 next-20241002]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Best regards,
-Krzysztof
+url:    https://github.com/intel-lab-lkp/linux/commits/Shenghao-Ding/MAINTAINERS-update-entries-in-TEXAS-INSTRUMENTS-LOW-MIDDLE-POWER-AUDIO-AMPLIFIER-ASoC-HDA-DRIVERS-and-add-entries-for-ha/20241002-091259
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20241002011147.1345-1-shenghao-ding%40ti.com
+patch subject: [RESEND PATCH v4] MAINTAINERS: update entries in TEXAS INSTRUMENTS LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) DRIVERS and add entries for haptic driver
+reproduce: (https://download.01.org/0day-ci/archive/20241002/202410021557.FByBO9Dp-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202410021557.FByBO9Dp-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   Warning: Documentation/hwmon/g762.rst references a file that doesn't exist: Documentation/devicetree/bindings/hwmon/g762.txt
+   Warning: Documentation/userspace-api/netlink/index.rst references a file that doesn't exist: Documentation/networking/netlink_spec/index.rst
+   Warning: Documentation/userspace-api/netlink/specs.rst references a file that doesn't exist: Documentation/networking/netlink_spec/index.rst
+   Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/reserved-memory/qcom
+   Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt
+>> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/sound/tpa6130a2.txt
+>> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
+   Using alabaster theme
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

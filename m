@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C4D98CB5E
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 04:57:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5DEA98CBB6
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 05:52:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A39986E;
-	Wed,  2 Oct 2024 04:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A39986E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72FA7826;
+	Wed,  2 Oct 2024 05:52:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72FA7826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727837879;
-	bh=cQxureHNPMD18RXuzOxmVrs25ScKxLAruO/HtRJl0eU=;
-	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=DYfebLb4Y5G8v54TFkQwBhCf5m6EksSZOrtBPfJUjSb+HnSyFkZ69xunDZp8nhEmO
-	 QzA7vW6MOVvlQpFlh6Pj0cwrFuwG1Dfb5VWY+4WF7jIIAzlLneRNLnl2pvgvI+d69U
-	 R0MAET9iO+FVGxV2hu5RUc+BEVmNEVhFwl7Z67k8=
+	s=default; t=1727841165;
+	bh=JapzRJQo/dhYIW9LtznuJD1ywFRN32NrD4oyGeTZRDM=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AXc2XYaYXmU7+FOvUkgH8+CZXpHLiwZnRbX7V6uJKhnJpHdPfgznuV3l+ztT7ucQy
+	 1bfoMKXCbjg2UkhEc+i6vg06M6u+m3pJwI1JKIpEoxvxYNI4sZHpO7+n773hV0D5Bi
+	 AIQDZSjV/zC0sk6ft/NvyuVWvt7ENMr0LyosaIpQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5DD60F805BB; Wed,  2 Oct 2024 04:57:27 +0200 (CEST)
+	id D82A9F80536; Wed,  2 Oct 2024 05:52:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18D30F80527;
-	Wed,  2 Oct 2024 04:57:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61820F805B0;
+	Wed,  2 Oct 2024 05:52:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85BE1F80517; Wed,  2 Oct 2024 04:57:18 +0200 (CEST)
+	id 29A14F80517; Wed,  2 Oct 2024 05:52:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,54 +33,54 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16058F80104
-	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 04:57:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16058F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6961F8001E
+	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 05:52:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6961F8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=uCKSq/w0
-Received: from hwang4-ThinkPad-T14s-Gen-2a.. (unknown [120.85.104.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 996B33F0E1;
-	Wed,  2 Oct 2024 02:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1727837835;
-	bh=fOcbFN2psEtgjEpNtJy2uV3fiD1cmaNpijGxr2R8lmg=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=uCKSq/w02F0zh4E5rq36wkBEOLI2v4oCA18oRR49CK9LwnM85JaB8pgSgvot9XJoo
-	 b+fcRr1o6TmIkXITyoAl53f/y0TKGOAo3nvEyTAc1sMhccRP6svs6w27JHhd9XuSHs
-	 9MOLjtNc3puFLMjvd9bEAgn+kkcOubKkuXMfVdOXWgsdGs6MjbTRZg6pNrYZnv7nq+
-	 hDJ57air7patY0Hh1NXfdVnJ/hSlKZ+x0JJb2YtbCDMItvvF+zuIzEH2HcrmJs/VjI
-	 33QAeenDKEeMIxPEC3e1hXd/Ysmu+Qu72UwXgujuBcBBHrfuAtbpYhsdbUNG8JbmcI
-	 YlkWPufUAMFRA==
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com
-Subject: [PATCH] ASoC: imx-card: Set card.owner to avoid a warning calltrace
- if SND=m
-Date: Wed,  2 Oct 2024 10:56:59 +0800
-Message-Id: <20241002025659.723544-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gDvJOAnw
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id DB6EB5C5596;
+	Wed,  2 Oct 2024 03:52:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0384C4CECE;
+	Wed,  2 Oct 2024 03:52:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1727841130;
+	bh=JapzRJQo/dhYIW9LtznuJD1ywFRN32NrD4oyGeTZRDM=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+	b=gDvJOAnwo2Fj3T9/SgUzpkIr/jydVEH69C39dZyapfftpiH6AjltLlvD+eE74yZcN
+	 rD1RlqjcqRKRuBPgoL45VAKYFP7Gp9WYaarrRWHbqhUSH8sLp4Xd3Fz2rBLgRz9bCm
+	 LRKXsEYloqhgOj/wkDdpIlVXM4HgIOZLzkykRE/xRLsL3nd6HShe9/1AJkRhC0c5yG
+	 wbUABdNCu+mDQedN8JF+SqY3t8jKOLIgzwnfcAwhG35pF0jJAuOHujSptsxdv4+iwi
+	 5zrmu5+d6+CAEruX2k0Sc+GecpR5I9arX/LBU1idRJxUQh3aQSTcDzibCDNY7kGknl
+	 Z4Ic8bZ4YFWvw==
+Date: Tue, 01 Oct 2024 22:52:09 -0500
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EZMGKSPWGMNZDI7636TE477SFYGB5ESK
-X-Message-ID-Hash: EZMGKSPWGMNZDI7636TE477SFYGB5ESK
-X-MailFrom: hui.wang@canonical.com
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: devicetree@vger.kernel.org, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ krzysztof.kozlowski@linaro.org, linux-arm-msm@vger.kernel.org,
+ lgirdwood@gmail.com, srinivas.kandagatla@linaro.org,
+ konrad.dybcio@linaro.org, elder@linaro.org, dmitry.baryshkov@linaro.org,
+ conor+dt@kernel.org, andersson@kernel.org, broonie@kernel.org,
+ a39.skl@gmail.com, krzk+dt@kernel.org, bgoswami@quicinc.com,
+ linux-sound@vger.kernel.org, perex@perex.cz, caleb.connolly@linaro.org
+In-Reply-To: <20241002022015.867031-1-alexey.klimov@linaro.org>
+References: <20241002022015.867031-1-alexey.klimov@linaro.org>
+Message-Id: <172784025903.526797.17199774017741034406.robh@kernel.org>
+Subject: Re: [PATCH v2 0/7] qrb4210-rb2: add HDMI audio playback support
+Message-ID-Hash: LBB33OJKHINCXZ7PE2J3ZN4D4G2ZUUVV
+X-Message-ID-Hash: LBB33OJKHINCXZ7PE2J3ZN4D4G2ZUUVV
+X-MailFrom: robh@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZMGKSPWGMNZDI7636TE477SFYGB5ESK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LBB33OJKHINCXZ7PE2J3ZN4D4G2ZUUVV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,37 +101,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In most Linux distribution kernels, the SND is set to m, in such a
-case, when booting the kernel on i.MX8MP EVK board, there is a
-warning calltrace like below:
- Call trace:
- snd_card_init+0x484/0x4cc [snd]
- snd_card_new+0x70/0xa8 [snd]
- snd_soc_bind_card+0x310/0xbd0 [snd_soc_core]
- snd_soc_register_card+0xf0/0x108 [snd_soc_core]
- devm_snd_soc_register_card+0x4c/0xa4 [snd_soc_core]
 
-That is because the card.owner is not set, a warning calltrace is
-raised in the snd_card_init() due to it.
+On Wed, 02 Oct 2024 03:20:08 +0100, Alexey Klimov wrote:
+> Rebased on top of -master, tested.
+> 
+> Changes since v1:
+> -- removed handling of MI2S clock in sm2450_snd_shutdown(): setting clock rate
+>    and disabling it causes audio delay on playback start;
+> -- removed empty sound { } node from sm6115.dtsi as suggested by Krzysztof;
+> -- moved lpi_i2s2_active pins description to qrb423310 board-specific file
+>    as suggested by Dmitry Baryshkov;
+> -- moved q6asmdai DAIs to apr soc node as suggested by Konrad Dybcio;
+> -- lpass_tlmm is not disabled;
+> -- lpass_tlmm node moved to sm4250.dtsi;
+> -- kept MultiMedia DAIs as is, without them the sound card driver doesn't initialise;
+> -- added some reviewed-by tags.
+> 
+> This series still keeps "qcom,qrb4210-rb2-sndcard" for sm8250 soundcard. As per
+> off the list discussion with Srini it was suggested to have it since in future it
+> may be required to add clocks, workarounds, quirks, model-specific things based on
+> this compatible. The same as for RB5 compatible in sm8250 snd driver.
+> 
+> This focuses on HDMI audio playback only hence there are no soundwire and dmic pins,
+> for instance. The work to enable playback via wcd+wsa8815 amplifier is in progress (it works)
+> and one of the routes is to merge such two patchsets together.
+> 
+> Link to prev series:
+> https://lore.kernel.org/linux-sound/20240628010715.438471-1-alexey.klimov@linaro.org/
+> 
+> Alexey Klimov (7):
+>   ASoC: dt-bindings: qcom,sm8250: add qrb4210-rb2-sndcard
+>   ASoC: qcom: sm8250: add qrb4210-rb2-sndcard compatible string
+>   ASoC: qcom: sm8250: add handling of secondary MI2S clock
+>   arm64: dts: qcom: sm6115: add apr and its services
+>   arm64: dts: qcom: sm4250: add LPASS LPI pin controller
+>   arm64: dts: qcom: qrb4210-rb2: add description of lpi_i2s2 pins
+>   arm64: dts: qcom: qrb4210-rb2: add HDMI audio playback support
+> 
+>  .../bindings/sound/qcom,sm8250.yaml           |  1 +
+>  arch/arm64/boot/dts/qcom/qrb4210-rb2.dts      | 91 +++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/sm4250.dtsi          | 16 ++++
+>  arch/arm64/boot/dts/qcom/sm6115.dtsi          | 72 +++++++++++++++
+>  sound/soc/qcom/sm8250.c                       |  9 ++
+>  5 files changed, 189 insertions(+)
+> 
+> --
+> 2.45.2
+> 
+> 
+> 
 
-Fixes: aa736700f42f ("ASoC: imx-card: Add imx-card machine driver")
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/soc/fsl/imx-card.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/fsl/imx-card.c b/sound/soc/fsl/imx-card.c
-index 98b37dd2b901..a7215bad6484 100644
---- a/sound/soc/fsl/imx-card.c
-+++ b/sound/soc/fsl/imx-card.c
-@@ -710,6 +710,7 @@ static int imx_card_probe(struct platform_device *pdev)
- 
- 	data->plat_data = plat_data;
- 	data->card.dev = &pdev->dev;
-+	data->card.owner = THIS_MODULE;
- 
- 	dev_set_drvdata(&pdev->dev, &data->card);
- 	snd_soc_card_set_drvdata(&data->card, data);
--- 
-2.34.1
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
+
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
+
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
+
+  pip3 install dtschema --upgrade
+
+
+New warnings running 'make CHECK_DTBS=y qcom/qrb4210-rb2.dtb' for 20241002022015.867031-1-alexey.klimov@linaro.org:
+
+arch/arm64/boot/dts/qcom/qrb4210-rb2.dtb: pinctrl@a7c0000: lpi-i2s2-active-state: 'oneOf' conditional failed, one must be fixed:
+	'pins' is a required property
+	'function' is a required property
+	Unevaluated properties are not allowed ('data-pins', 'ext-mclk1', 'sck-pin', 'ws-pins' were unexpected)
+	'ext-mclk1', 'sck-pin' do not match any of the regexes: '-pins$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/pinctrl/qcom,sm4250-lpass-lpi-pinctrl.yaml#
+
+
+
+
 

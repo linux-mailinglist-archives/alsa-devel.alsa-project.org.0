@@ -2,92 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8355C995163
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 16:22:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 572B3995164
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 16:22:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11DF584A;
-	Tue,  8 Oct 2024 16:22:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11DF584A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D863814C;
+	Tue,  8 Oct 2024 16:22:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D863814C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728397340;
-	bh=LOfadXrLg7ZRoN+A8CWVlfI8ytsXadkatDmRlJNEVAg=;
+	s=default; t=1728397355;
+	bh=KJ/XBCfRYMGGmoGw6pT+HzGpgHNM0HqU+ZU6WmeHwTA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jpw5y4LMeUsGGUp70NAI7F6C68XmiS2b7hm9Sjp8KswVVzOBIRZPfRqvJuLHpja1U
-	 UxqNXztP1OJBCgYXbXTPhNPbVhSL3hMlQtASlbiG7caEtn/EaHt6SdPSowujMg80yT
-	 sMw4iUiFpG7iVzevs3JZbz2PvagytZxXxX99Zx8I=
+	b=A1yClFF1gKIGqtPgx6nK1sfRJrGr1Y4E76IFdevxZkuCVbfYBcqYBn4+gx2h+LgQd
+	 74P/Sc+1HbMIFRyddP3um0juY14I/b7cjw4ZLAtxn5mLihvEc0FtJT+0HTGxAqHqiI
+	 OVxu7PgRCGr90FuYUkbk2dZLmrGYn7iO3gw3RdXw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E06E2F80634; Tue,  8 Oct 2024 16:20:58 +0200 (CEST)
+	id 43CBEF80579; Tue,  8 Oct 2024 16:21:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08607F80638;
-	Tue,  8 Oct 2024 16:20:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6AD4F8068A;
+	Tue,  8 Oct 2024 16:21:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EDC0EF8059F; Wed,  2 Oct 2024 04:20:27 +0200 (CEST)
+	id 8D729F80536; Wed,  2 Oct 2024 04:20:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3BBF6F8057A
-	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 04:20:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BBF6F8057A
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3C3BF8001E
+	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 04:20:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3C3BF8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=D7GanSzY
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5c42f406e29so8514187a12.2
+ header.s=google header.b=eWz0kp9n
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-a8a6d1766a7so106980166b.3
         for <alsa-devel@alsa-project.org>;
- Tue, 01 Oct 2024 19:20:25 -0700 (PDT)
+ Tue, 01 Oct 2024 19:20:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1727835625; x=1728440425;
+        d=linaro.org; s=google; t=1727835627; x=1728440427;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OCYOTM8/0Ug4V9lj8bQNm7elnTCjMFp7xXGYdHTDU3c=;
-        b=D7GanSzY/jcO78RqTyrbiJpvPzwuJBA/n77Um+VD9RDBOtp05W3LhDeGh2GsXijxlh
-         ggZlcJ66kd5lxHqESj6mBnXaUaqUR8gWSl1nEyo2ltWMnRrQd4rEGUWhfnPsATM1C5w0
-         Z1xHWzbrUxnyIz3UchGwmQmGWBSLSeDtS928spmkcJmkP5ATUdzuUIJf/CFf5oDIoM20
-         d8gZ7ikdcy8GFP2BcYI1doLrHgdvseoKanmsdIuOkRq62dvWE4W6N/VSSp2JDTwGC3rc
-         SUz2zTHOQug5fcfr7YA+2pm7DiCqTB1rFJ31LtSvjM6Km/K9PX3EeD7q1Uc0T1pwfX74
-         nXaQ==
+        bh=O6tt3oG2r1wMqarycN8kg/XqfelGZiLqlb3bl/K/iuU=;
+        b=eWz0kp9nzzMqC1uPZpRUmvBq6/tX32XoJh5RdCfwpBzhM4u8yzif1FT5MgARmhyX9j
+         CaD9/NPBsFuLzfeibQbUbrntLQy2e+ypHE8BrrFwyQHbRZjGzyA1t6DOsgc8zdIeNRwW
+         ObSNXB4//HfWLyZgBh7XF65CqU/OKN3TQj9V4GL4UB7stNuK5A6dsRlyQB2o2EuZM9eo
+         W97zTg64ghAzkyR/YniwLBSH61HEMchV/+FbUMHQsIGLoj9MicfRUF1oxpwleDJU0nR8
+         N/lkp5XExTOTr76LXmJ8f0v6+ZLoUmcTzL3papF6I326VGzA8PotuB0B+rj9HAd1J6fN
+         g8pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727835625; x=1728440425;
+        d=1e100.net; s=20230601; t=1727835627; x=1728440427;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=OCYOTM8/0Ug4V9lj8bQNm7elnTCjMFp7xXGYdHTDU3c=;
-        b=wceVcsb+oqJD/7Symqv4qeKLASGUIQofBaixArtkvS2okjIErDc9cqG/XCMlzbwFQm
-         Pp2c4NElXXL94i6MF2g+WklP8QmDONQiABn+lxcxc4E1t7DEkfex9Lp8VT5Y4W4e4PoY
-         Yh1HSyrbnFcQFlDSDq3jI7WM6khnYST/GjpzBfuFcws4KIbwMf2ixi5XWh3mSmOX+Zn0
-         tqZhZPuLws+Y086m5rj1nmPMwHacssn8NE7/OO+eBqYaFFCwm0mRJQD1YjUVH7YDGNt9
-         9UPhRakXr49tMLL1ujxRGfirlWZMdQa0vwk2jOj0a/QhTdC8C09cxkhmtKkkqOXJ0Ugr
-         EWTA==
+        bh=O6tt3oG2r1wMqarycN8kg/XqfelGZiLqlb3bl/K/iuU=;
+        b=Xo0Of7lqo5I5P4B+YwCSX9PdaCs9hAAij+MDyCVcavtgpXBwNtUVruyShqT7gPK6pv
+         05QVG1JEmFEJ/hXsyblj6Kg9cBCIUdS/D2jZOb+kRNlZ5w6uG8q0FDgt64DRkw+EzXMx
+         x4sr1Q/VdnYmbNSso+sjieKHCmYtVuiufklIRatNb3Mo8ZrNSId33XW+3p9wNwSml9YF
+         Jl2oJqSfYstNkXPnYViZYbHnF3X1csphQz8O2hC8sS2K0kRMEWFTR9wui4AyT4hGmINO
+         CMMMGG+xBD3uYvQfTjVYBENFFWMMwmbX9DJiEc0sX5bLKPrQ0lcApU3I1oJoP2CxTfEL
+         HFBQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW9i6HCL4FsdsJkf1WuqYi9ptli4U/6PTJnucJJyhcU9bzmBIrQMw5m7fd/E0HA1YLkB6+St9yXXSlW@alsa-project.org
-X-Gm-Message-State: AOJu0YxQ+GwGMZPF+Dib0tqV1QoXfE1nxBDEWElo/gv+OW31gHX5Kxku
-	E+fysKyjAR9H4ac9WDdJ/fKonO98vjKkVmfeZW3NRMaBPi2t9QcfUa+Hys8oiMU=
+ AJvYcCVrpn4Rukr5B2yfLPvpQg2KEEvUWoD8PKVxYOSYz7LorCQiO8D3YpeFepw97UPnjzPSZ4q7ebj6QrbU@alsa-project.org
+X-Gm-Message-State: AOJu0Yya2Pm/8wUgV5GuR8/HdUGxkVve6dzj7TBHrEHwNTm9KKJ/tl3T
+	wm79EuC1v3auIwgL0UszaA14bvnUIjIj/NNU11j/PbDN5h4FCC9FeSi117+i9hM=
 X-Google-Smtp-Source: 
- AGHT+IG+Q/gURHat1q3AUvb0+GovkmpG4ajTJTbVyAEb1VAT3Jst29VyqLUHNkKFUyiefEeDXTOUcg==
-X-Received: by 2002:a17:906:99c5:b0:a7a:9144:e256 with SMTP id
- a640c23a62f3a-a98f8213366mr125224866b.6.1727835624893;
-        Tue, 01 Oct 2024 19:20:24 -0700 (PDT)
+ AGHT+IF7DSxO6S/zg0dV87J7CmDUxTyQGbSW2llz09R6q945EHLqQDNzRVtWVZkaJVui3r1JoBLxgg==
+X-Received: by 2002:a17:907:848:b0:a7a:b4bd:d0eb with SMTP id
+ a640c23a62f3a-a98f823904amr119175766b.24.1727835627397;
+        Tue, 01 Oct 2024 19:20:27 -0700 (PDT)
 Received: from localhost.localdomain ([2.125.184.148])
         by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a93c2945f2esm787518866b.117.2024.10.01.19.20.22
+ a640c23a62f3a-a93c2945f2esm787518866b.117.2024.10.01.19.20.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Oct 2024 19:20:23 -0700 (PDT)
+        Tue, 01 Oct 2024 19:20:26 -0700 (PDT)
 From: Alexey Klimov <alexey.klimov@linaro.org>
 To: linux-sound@vger.kernel.org,
 	srinivas.kandagatla@linaro.org,
@@ -111,10 +111,9 @@ Cc: robh@kernel.org,
 	linux-kernel@vger.kernel.org,
 	a39.skl@gmail.com,
 	alexey.klimov@linaro.org
-Subject: [PATCH v2 3/7] ASoC: qcom: sm8250: add handling of secondary MI2S
- clock
-Date: Wed,  2 Oct 2024 03:20:11 +0100
-Message-ID: <20241002022015.867031-4-alexey.klimov@linaro.org>
+Subject: [PATCH v2 4/7] arm64: dts: qcom: sm6115: add apr and its services
+Date: Wed,  2 Oct 2024 03:20:12 +0100
+Message-ID: <20241002022015.867031-5-alexey.klimov@linaro.org>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241002022015.867031-1-alexey.klimov@linaro.org>
 References: <20241002022015.867031-1-alexey.klimov@linaro.org>
@@ -126,15 +125,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OPRJ5YDSVRCUE7YV22B4R5K3XC7OVWKC
-X-Message-ID-Hash: OPRJ5YDSVRCUE7YV22B4R5K3XC7OVWKC
+Message-ID-Hash: YOJ7PDBUEXVOH63GI7PNIWLL3KQVUOYC
+X-Message-ID-Hash: YOJ7PDBUEXVOH63GI7PNIWLL3KQVUOYC
 X-Mailman-Approved-At: Tue, 08 Oct 2024 14:20:35 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPRJ5YDSVRCUE7YV22B4R5K3XC7OVWKC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOJ7PDBUEXVOH63GI7PNIWLL3KQVUOYC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,33 +142,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add handling of clock related to secondary MI2S_RX in
-sm8250_snd_startup().
+Add apr (asynchronous packet router) node and its associated services
+required to enable audio on QRB4210 RB2 platform.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
- sound/soc/qcom/sm8250.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm64/boot/dts/qcom/sm6115.dtsi | 72 ++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
-index 19adadedc88a..8776c35a98df 100644
---- a/sound/soc/qcom/sm8250.c
-+++ b/sound/soc/qcom/sm8250.c
-@@ -63,6 +63,14 @@ static int sm8250_snd_startup(struct snd_pcm_substream *substream)
- 		snd_soc_dai_set_fmt(cpu_dai, fmt);
- 		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
- 		break;
-+	case SECONDARY_MI2S_RX:
-+		codec_dai_fmt |= SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
-+		snd_soc_dai_set_sysclk(cpu_dai,
-+			Q6AFE_LPASS_CLK_ID_SEC_MI2S_IBIT,
-+			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
-+		snd_soc_dai_set_fmt(cpu_dai, fmt);
-+		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
-+		break;
- 	case TERTIARY_MI2S_RX:
- 		codec_dai_fmt |= SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_I2S;
- 		snd_soc_dai_set_sysclk(cpu_dai,
+diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+index 41216cc319d6..b211a49982d6 100644
+--- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+@@ -14,6 +14,8 @@
+ #include <dt-bindings/interconnect/qcom,sm6115.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
++#include <dt-bindings/soc/qcom,apr.h>
++#include <dt-bindings/sound/qcom,q6asm.h>
+ #include <dt-bindings/thermal/thermal.h>
+ 
+ / {
+@@ -2701,6 +2703,76 @@ glink-edge {
+ 				qcom,remote-pid = <2>;
+ 				mboxes = <&apcs_glb 8>;
+ 
++				apr {
++					compatible = "qcom,apr-v2";
++					qcom,glink-channels = "apr_audio_svc";
++					qcom,domain = <APR_DOMAIN_ADSP>;
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					service@3 {
++						reg = <APR_SVC_ADSP_CORE>;
++						compatible = "qcom,q6core";
++						qcom,protection-domain = "avs/audio",
++									 "msm/adsp/audio_pd";
++					};
++
++					q6afe: service@4 {
++						compatible = "qcom,q6afe";
++						reg = <APR_SVC_AFE>;
++						qcom,protection-domain = "avs/audio",
++									 "msm/adsp/audio_pd";
++						q6afedai: dais {
++							compatible = "qcom,q6afe-dais";
++							#address-cells = <1>;
++							#size-cells = <0>;
++							#sound-dai-cells = <1>;
++						};
++
++						q6afecc: clock-controller {
++							compatible = "qcom,q6afe-clocks";
++							#clock-cells = <2>;
++						};
++					};
++
++					q6asm: service@7 {
++						compatible = "qcom,q6asm";
++						reg = <APR_SVC_ASM>;
++						qcom,protection-domain = "avs/audio",
++									 "msm/adsp/audio_pd";
++						q6asmdai: dais {
++							compatible = "qcom,q6asm-dais";
++							#address-cells = <1>;
++							#size-cells = <0>;
++							#sound-dai-cells = <1>;
++							iommus = <&apps_smmu 0x1c1 0x0>;
++
++							dai@0 {
++								reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
++							};
++
++							dai@1 {
++								reg = <MSM_FRONTEND_DAI_MULTIMEDIA2>;
++							};
++
++							dai@2 {
++								reg = <MSM_FRONTEND_DAI_MULTIMEDIA3>;
++							};
++						};
++					};
++
++					q6adm: service@8 {
++						compatible = "qcom,q6adm";
++						reg = <APR_SVC_ADM>;
++						qcom,protection-domain = "avs/audio",
++									 "msm/adsp/audio_pd";
++						q6routing: routing {
++							compatible = "qcom,q6adm-routing";
++							#sound-dai-cells = <0>;
++						};
++					};
++				};
++
+ 				fastrpc {
+ 					compatible = "qcom,fastrpc";
+ 					qcom,glink-channels = "fastrpcglink-apps-dsp";
 -- 
 2.45.2
 

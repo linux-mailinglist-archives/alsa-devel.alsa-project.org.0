@@ -2,83 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82EC998C6FB
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2024 22:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94BD598CA77
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2024 03:12:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0B5386F;
-	Tue,  1 Oct 2024 22:48:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0B5386F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC15D868;
+	Wed,  2 Oct 2024 03:12:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC15D868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727815710;
-	bh=JWQmFj28vAA7pfGSgFPser4PWendSu3+yh/XwPZ7QDU=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1727831572;
+	bh=z98NvQKhkw1XBbwZGjWlSpFHs0vVHMhfc0SCYr8TQhU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=MzsvcpuMBNKiZdku9JkVBRd7rX1JSlTKiRBtWk/F1NHM7/42PT1+49ayJzl6l+R5v
-	 UA7z9MPdBSmb7wWhng++hFO9jYqElcF82qP9hGwaktQmzUMZdRcIifDxo0Ss6TpsBx
-	 m7BGHK+AHyWrpx7Ndj7328TghbcH7QEQXrc1RYJM=
+	b=mbmKmOLH5yPgHmUiiulbtJwGppoYP/TseSGJvN/Bsha7Mi+gugMV0409VDZAZ1PxH
+	 wIRAzpPtSJdHo0SdXEX1A+VPXPM1nzcZDcUfL7TxceYv3ltlY5v1WVnBPZk0GPe/0f
+	 tGksRQ295ZD9Bp613v1zN402dXIv4MUe/iPA9iAQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1767DF80528; Tue,  1 Oct 2024 22:47:58 +0200 (CEST)
+	id 92598F805B2; Wed,  2 Oct 2024 03:12:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0C8EF80508;
-	Tue,  1 Oct 2024 22:47:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FF3AF805A0;
+	Wed,  2 Oct 2024 03:12:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 451E9F80517; Tue,  1 Oct 2024 22:47:54 +0200 (CEST)
+	id B6AA1F80517; Wed,  2 Oct 2024 03:12:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F563F80104
-	for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2024 22:47:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F563F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id BACADF80104
+	for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2024 03:12:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BACADF80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=cZEyP7Bf
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 4434420003;
-	Tue,  1 Oct 2024 20:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1727815671;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7K/Eugdwj8fUKd8disrVXoOxjLjfRgm10Zw7MAU2ris=;
-	b=cZEyP7BfbsdDIRYXFoW85KZoxgrkUFjYoHO06PgZTSGhNOxcfza4NwQ+tvIn60v1P7YlSk
-	FaK7AQUpxUHaCEIYq362WRBmmENU7UW1RmZFYiX5AJ+cmTg1lRMagXYAZnFi0z8S4QVNoP
-	ZQFhevSmzKPWpVbGdTQV8Ne8sg2ORASSHX/EtcyPTO49LpaE4wCAWQR5p2/zuffnGqrepS
-	hhzdm+g9DseFRnYFL89H1Ml2RceZPPH/3AybFwLrCld2F2ItzB1aDbT8dUJ4faP9sHmtEm
-	ibOGyHl8vWXd3jbxFbD+YDeHhEg7KZDDIX208FRoEHLXqAZ4iS4EMChD9EpSoA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jayesh Choudhary <j-choudhary@ti.com>,
-	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: [PATCH] ASoC: dt-bindings: davinci-mcasp: Fix interrupts property
-Date: Tue,  1 Oct 2024 22:47:49 +0200
-Message-ID: <20241001204749.390054-1-miquel.raynal@bootlin.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=WFIOe5eU
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 4921Bv5G065362;
+	Tue, 1 Oct 2024 20:11:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1727831517;
+	bh=hcFr96sAOM9Uc9TKipvNfZDwqqAIp8oT1vPCsTcntVA=;
+	h=From:To:CC:Subject:Date;
+	b=WFIOe5eUWJClipKz39A8/ZtTDj+7KgKhlhi8sLwhYJpAWNd0x5EGZ8s8IZKyvmpAE
+	 UkBxjjvRkQWv3GehdDftNMM+OfBWtHLu6NxeZHbPDBC3ESLHtKsAd4f0e1ACjWVPYO
+	 fFj9Wz78/e9LYWkuiYBKp+iqEwamELyVeaei+Ze4=
+Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4921BvDY075420;
+	Tue, 1 Oct 2024 20:11:57 -0500
+Received: from DLEE112.ent.ti.com (157.170.170.23) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 1
+ Oct 2024 20:11:57 -0500
+Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Tue, 1 Oct 2024 20:11:57 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.55])
+	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4921Bqat075695;
+	Tue, 1 Oct 2024 20:11:53 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <linux-kernel@vger.kernel.org>
+CC: <baojun.xu@ti.com>, <13564923607@139.com>, <13916275206@139.com>,
+        <navada@ti.com>, <v-hampiholi@ti.com>, <m-shrivastava1@ti.com>,
+        <sakshi@ti.com>, <sandeepk@ti.com>, <robinchen@ti.com>,
+        <alsa-devel@alsa-project.org>, Shenghao Ding <shenghao-ding@ti.com>
+Subject: [RESEND PATCH v4] MAINTAINERS: update entries in TEXAS INSTRUMENTS
+ LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) DRIVERS and add entries for
+ haptic driver
+Date: Wed, 2 Oct 2024 09:11:47 +0800
+Message-ID: <20241002011147.1345-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: miquel.raynal@bootlin.com
-Message-ID-Hash: FCBEVKV2DV562SVAVW5LGBTJEGFQWP5L
-X-Message-ID-Hash: FCBEVKV2DV562SVAVW5LGBTJEGFQWP5L
-X-MailFrom: miquel.raynal@bootlin.com
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: TOZF6D4ASUTFNHRRROR5WALNJLIEQKXU
+X-Message-ID-Hash: TOZF6D4ASUTFNHRRROR5WALNJLIEQKXU
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCBEVKV2DV562SVAVW5LGBTJEGFQWP5L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TOZF6D4ASUTFNHRRROR5WALNJLIEQKXU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,45 +105,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-My understanding of the interrupts property is that it can either be:
-1/ - TX
-2/ - TX
-   - RX
-3/ - Common/combined.
+Due to internal re-org, Kevin is no longer mnaintaining audio driver.
+Due to job change, drop entries for the audio converter and add
+entries for both haptics drivers and middle-power audio amplifier
+drivers. Add audio converter, set the Status as Supported. So far, the
+Software maintainer has not been confirmed. Once the maintainer was
+confimred, the guy will update his mail into audio converter section.
 
-There are very little chances that either:
-   - TX
-   - Common/combined
-or even
-   - TX
-   - RX
-   - Common/combined
-could be a thing.
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-Looking at the interrupt-names definition (which uses oneOf instead of
-anyOf), it makes indeed little sense to use anyOf in the interrupts
-definition. I believe this is just a mistake, hence let's fix it.
-
-Fixes: 8be90641a0bb ("ASoC: dt-bindings: davinci-mcasp: convert McASP bindings to yaml schema")
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
+v4:
+ - Add Touch Screen support
+v3:
+ - Add Audio converter section
+ - Set the section of LOW/MIDDLE-POWER AUDIO AMPLIFIER as Supported
+v2:
+ - Add the detailed information of the maintained drivers.
 ---
- .../devicetree/bindings/sound/davinci-mcasp-audio.yaml          | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ MAINTAINERS | 35 ++++++++++++++++++++++++++---------
+ 1 file changed, 26 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
-index 7735e08d35ba..ab3206ffa4af 100644
---- a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
-+++ b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
-@@ -102,7 +102,7 @@ properties:
-     default: 2
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c27f3190737f..689cc1ae70b5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22897,25 +22897,43 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+ F:	sound/soc/ti/
  
-   interrupts:
--    anyOf:
-+    oneOf:
-       - minItems: 1
-         items:
-           - description: TX interrupt
+-TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS
++TEXAS INSTRUMENTS LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) & HAPTICS DRIVERS
+ M:	Shenghao Ding <shenghao-ding@ti.com>
+-M:	Kevin Lu <kevin-lu@ti.com>
+ M:	Baojun Xu <baojun.xu@ti.com>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+-S:	Maintained
++S:	Supported
++F:	Documentation/devicetree/bindings/input/ti,drv260x.yaml
++F:	Documentation/devicetree/bindings/input/ti,drv266x.yaml
+ F:	Documentation/devicetree/bindings/sound/tas2552.txt
++F:	Documentation/devicetree/bindings/sound/tas5720.txt
+ F:	Documentation/devicetree/bindings/sound/ti,tas2562.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas2770.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas27xx.yaml
+-F:	Documentation/devicetree/bindings/sound/ti,tpa6130a2.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas5086.txt
++F:	Documentation/devicetree/bindings/sound/ti,tas57xx.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas5805m.yaml
++F:	Documentation/devicetree/bindings/sound/tpa6130a2.txt
++F:	drivers/input/misc/drv2*.c
++F:	include/sound/tas2*.h
++F:	include/sound/tas5086.h
++F:	include/sound/tpa6130a2-plat.h
++F:	sound/pci/hda/tas2781_hda_i2c.c
++F:	sound/soc/codecs/tas2*.*
++F:	sound/soc/codecs/tas5*.*
++F:	sound/soc/codecs/tpa6130a2.*
++
++TEXAS INSTRUMENTS AUDIO Converter (ASoC) and Touch Screen DRIVERS
++L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
++S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
++F:	Documentation/devicetree/bindings/sound/ti,pcm6240.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tlv320*.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tlv320adcx140.yaml
+-F:	include/sound/tas2*.h
++F:	Documentation/devicetree/bindings/sound/tlv320aic31xx.txt
++F:	drivers/input/touchscreen/tsc2*.*
+ F:	include/sound/tlv320*.h
+-F:	include/sound/tpa6130a2-plat.h
+-F:	sound/pci/hda/tas2781_hda_i2c.c
+ F:	sound/soc/codecs/pcm1681.c
+ F:	sound/soc/codecs/pcm1789*.*
+ F:	sound/soc/codecs/pcm179x*.*
+@@ -22925,9 +22943,8 @@ F:	sound/soc/codecs/pcm3060*.*
+ F:	sound/soc/codecs/pcm3168a*.*
+ F:	sound/soc/codecs/pcm5102a.c
+ F:	sound/soc/codecs/pcm512x*.*
+-F:	sound/soc/codecs/tas2*.*
++F:	sound/soc/codecs/pcm6240.*
+ F:	sound/soc/codecs/tlv320*.*
+-F:	sound/soc/codecs/tpa6130a2.*
+ 
+ TEXAS INSTRUMENTS DMA DRIVERS
+ M:	Peter Ujfalusi <peter.ujfalusi@gmail.com>
 -- 
-2.43.0
+2.34.1
 

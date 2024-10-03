@@ -2,80 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB34B98E98E
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Oct 2024 07:55:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0464B98EA3E
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Oct 2024 09:18:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7141D85D;
-	Thu,  3 Oct 2024 07:54:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7141D85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A8F984A;
+	Thu,  3 Oct 2024 09:18:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A8F984A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1727934905;
-	bh=ULDx9MnTQFEQueJG7rMq8r5HkqESyvZYSyaLNLHVDrQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1727939891;
+	bh=pUz7jEzDnK7DyodoQRSKkUqubeYJPWiekNw0BYEEoIk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YaKyuOgZicICYaRT/YOs2Q8ByVHPc/11P6ZyZT4a238GA2InU+MRko/oVIn3TwCy4
-	 9gzIFus7T631/gTRY5MAVqhmmR+Oz0CNEQbnrDFVp/2Rf3cCjlwC6Ro5Mr90rLc9sg
-	 rzhEY/yBeNvPGRM6WpRY+GTdPuFVowLXpfskbJN0=
+	b=UinbrTMgFV5/r098DbbRWPyeCEPjLcYvrINo4T7VJy5sFpQEAJn8mp6Vy0idYa2KV
+	 5CIt5tZWtwLnNzL8fa0mXccWoZOtbeDd0gnDEZUYwYkbo1VfONjhwZncMjnSSTgOQJ
+	 Hps2VQ1GHI7SFAr9nxzi2A+Fynr5nqho36S9RLTk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0AA0F805BA; Thu,  3 Oct 2024 07:54:34 +0200 (CEST)
+	id C3B39F805A0; Thu,  3 Oct 2024 09:17:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA5DBF805A9;
-	Thu,  3 Oct 2024 07:54:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D86DDF80517;
+	Thu,  3 Oct 2024 09:17:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D3C3F80517; Thu,  3 Oct 2024 07:54:26 +0200 (CEST)
+	id 8978AF80517; Thu,  3 Oct 2024 09:17:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EA648F8001E
-	for <alsa-devel@alsa-project.org>; Thu,  3 Oct 2024 07:54:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA648F8001E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23B63F8001E
+	for <alsa-devel@alsa-project.org>; Thu,  3 Oct 2024 09:17:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23B63F8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=cNTZkpj0
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 71014A431B8;
-	Thu,  3 Oct 2024 05:54:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED539C4CEC7;
-	Thu,  3 Oct 2024 05:54:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1727934861;
-	bh=ULDx9MnTQFEQueJG7rMq8r5HkqESyvZYSyaLNLHVDrQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cNTZkpj0XudqaYA3YD3CmJxHLdAiyLCj4ifT7NLBSxTX6yeqp0fK/T+LSbYp1imLD
-	 Stl+9jttR66vaRoP1rmUP+1M5UJqugPsfMzKBLKo1OnihklffW1VH33xfkqs2ct2pb
-	 8cnc5S9AB03XXScJxOCNhwIrqVnV9xDodpYCUnks=
-Date: Thu, 3 Oct 2024 07:54:13 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Gax-c <zichenxie0106@gmail.com>
-Cc: srinivas.kandagatla@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
-	perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
-	alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org, zzjas98@gmail.com,
-	chenyuan0y@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: qcom: Fix NULL Dereference in
- asoc_qcom_lpass_cpu_platform_probe()
-Message-ID: <2024100358-crewmate-headwear-164e@gregkh>
-References: <20241002161233.9172-1-zichenxie0106@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241002161233.9172-1-zichenxie0106@gmail.com>
-Message-ID-Hash: 2C2B6QPQ5ZONLSJTYGDKU6XHDHU4KUUT
-X-Message-ID-Hash: 2C2B6QPQ5ZONLSJTYGDKU6XHDHU4KUUT
-X-MailFrom: gregkh@linuxfoundation.org
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=jwCXJ90l;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=MO6F0T9M;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=jwCXJ90l;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=MO6F0T9M
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3C72521BA5;
+	Thu,  3 Oct 2024 07:17:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1727939848;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ltMrNibS1nysINBf/vSVmDtA5DFhIsFb1aXJJwEx0uw=;
+	b=jwCXJ90lQRmfOCdxiDNtYQdhvNpYGEYqupDC6lcdHq3ECTwClkHTCavp0oQLqcupmugV5X
+	TASAMwcK6orDQJv7MmrSMo1NlAhiaxaAMP0vvcRUvIQg/7rJBeyEFyEpc4+fSjuMJVcV+4
+	zG5hw6YCt87I1GIpxIONrNWWZMZkYMk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1727939848;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ltMrNibS1nysINBf/vSVmDtA5DFhIsFb1aXJJwEx0uw=;
+	b=MO6F0T9MDGeWb6E8PTlhyIGOihQVWOuJZBJsMZcCOmDiC1bKQYhxWClexCOAp6zpxfaexA
+	ARd45+/xfC4D/OBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1727939848;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ltMrNibS1nysINBf/vSVmDtA5DFhIsFb1aXJJwEx0uw=;
+	b=jwCXJ90lQRmfOCdxiDNtYQdhvNpYGEYqupDC6lcdHq3ECTwClkHTCavp0oQLqcupmugV5X
+	TASAMwcK6orDQJv7MmrSMo1NlAhiaxaAMP0vvcRUvIQg/7rJBeyEFyEpc4+fSjuMJVcV+4
+	zG5hw6YCt87I1GIpxIONrNWWZMZkYMk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1727939848;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ltMrNibS1nysINBf/vSVmDtA5DFhIsFb1aXJJwEx0uw=;
+	b=MO6F0T9MDGeWb6E8PTlhyIGOihQVWOuJZBJsMZcCOmDiC1bKQYhxWClexCOAp6zpxfaexA
+	ARd45+/xfC4D/OBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C9B2139CE;
+	Thu,  3 Oct 2024 07:17:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 9jG8BQhF/mZlRAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 03 Oct 2024 07:17:28 +0000
+Date: Thu, 03 Oct 2024 09:18:21 +0200
+Message-ID: <87y135k62q.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.12-rc1
+In-Reply-To: <5f818aaf36b2430322c003fc92b605d3.broonie@kernel.org>
+References: <5f818aaf36b2430322c003fc92b605d3.broonie@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+Message-ID-Hash: 5V6EHRDRMXLLIZI3WPZZWG4JEQYMBVXK
+X-Message-ID-Hash: 5V6EHRDRMXLLIZI3WPZZWG4JEQYMBVXK
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +154,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2C2B6QPQ5ZONLSJTYGDKU6XHDHU4KUUT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5V6EHRDRMXLLIZI3WPZZWG4JEQYMBVXK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,14 +163,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Oct 02, 2024 at 11:12:33AM -0500, Gax-c wrote:
-> A devm_kzalloc() in asoc_qcom_lpass_cpu_platform_probe() could
-> possibly return NULL pointer. NULL Pointer Dereference may be
-> triggerred without addtional check.
-> Add a NULL check for the returned pointer.
+On Wed, 02 Oct 2024 20:32:27 +0200,
+Mark Brown wrote:
 > 
-> Fixes: b5022a36d28f ("ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers")
-> Signed-off-by: Zichen Xie <zichenxie0106@gmail.com>
-> Cc: stable@vger.kernel.org
+> The following changes since commit 9852d85ec9d492ebef56dc5f229416c925758edc:
+> 
+>   Linux 6.12-rc1 (2024-09-29 15:06:19 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.12-rc1
+> 
+> for you to fetch changes up to eb1df4bbf53c29babf68fcb36e80d9c62a345257:
+> 
+>   qrb4210-rb2: add HDMI audio playback support (2024-10-02 18:38:11 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.12
+> 
+> A bunch of fixes here that came in during the merge window and the first
+> week of release, plus some new quirks and device IDs.  There's nothing
+> major here, it's a bit bigger than it might've been due to there being
+> no fixes sent during the merge window due to your vacation.
 
-Your "From:" line does not match your signed-off-by :(
+Thanks, pulled for 6.12-rc2 PR.
+
+
+Takashi

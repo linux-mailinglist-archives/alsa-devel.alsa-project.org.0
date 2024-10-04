@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D5B9906A9
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2024 16:51:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F15E990AEF
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2024 20:20:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42B157F8;
-	Fri,  4 Oct 2024 16:51:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42B157F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E19EC850;
+	Fri,  4 Oct 2024 20:20:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E19EC850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728053475;
-	bh=Yz2WKEs5JKzMFngVQWLTNZ4WwJlmpb/O/oE0G1GqrIQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1728066010;
+	bh=zFGRWmzPjvT+BFrOywJyXmGGGyxxZQ2sKp+3A7Wgg/w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ne/F+dIzUyenY5PiTnlwUGt7gFk0Enq2pXbDgbVchPs1Gu7fwcYr8KZ1Beqda13Yd
-	 T93Uz63l6a9irHxCqJZFoYkuSfPo9oQj7Io1vcQc3Y0gT2XX5OiH0KVxkoqKMR0j6E
-	 9OwI3jGJwe3BPRgvSFqt/HEuyN+5s1mleDSV0UvI=
+	b=WQ9sQc/4Aj7wz2Nn0eH0HWiDLPih6I4MWKzy1wIFMYHKAWU6Tb8qLm2r2z3RzPVr7
+	 eIi5hMYmaSiU+2R0ve0HPZn2PloYgWmLJvztEw0ljDioqgIVqKPVeptZQodSZYkAvG
+	 C9tsE0LtAMGAtFyK6/NYtjMnERox6Yx4ysSKPCwk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0028F80104; Fri,  4 Oct 2024 16:50:44 +0200 (CEST)
+	id D076DF805BA; Fri,  4 Oct 2024 20:19:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39E35F8057A;
-	Fri,  4 Oct 2024 16:50:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFEAFF805B1;
+	Fri,  4 Oct 2024 20:19:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F468F80517; Fri,  4 Oct 2024 16:50:38 +0200 (CEST)
+	id 79949F80517; Fri,  4 Oct 2024 20:19:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 15393F80104
-	for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2024 16:50:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15393F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 26BC0F80107
+	for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2024 20:19:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26BC0F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uBv9TR/E
+ header.s=k20201202 header.b=kxFbClRC
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 843005C5DFD;
-	Fri,  4 Oct 2024 14:50:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB91DC4CEC6;
-	Fri,  4 Oct 2024 14:50:12 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id A47F55C5F43;
+	Fri,  4 Oct 2024 18:19:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F34C4CECD;
+	Fri,  4 Oct 2024 18:19:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1728053415;
-	bh=Yz2WKEs5JKzMFngVQWLTNZ4WwJlmpb/O/oE0G1GqrIQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uBv9TR/ETEp7HCpzqyoseNb7rbm0S+HFDcwnB3a4QkiGRv8O+QTTynNDWYhbKsKMk
-	 CWBtyfNUhD7Yu9/5jVbdKjyicC4u4yzDC7WouyQFladI30nK+a4oBiYXCDjPK7IvSE
-	 lnPwjLrCIpAscRMzk10mUlN/QnUtyipkVoRtAPgZ++TCL+LisGNtRYxg2tWlc3Aipa
-	 ANImvR9OaPdxKvJSPVga2wEkJdyC+YDlEKezP8s/lY1hB5RZRydqVFQJgISB+mUUTG
-	 Ztg8HRaLD7EcskQhBwjvQpnpZkz+wbiELnAh02cUDb32LX+5t+tjexNKV/cqESHW4m
-	 EGTe8XtVAHDWQ==
-Date: Fri, 4 Oct 2024 15:50:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Advait Dhamorikar <advaitdhamorikar@gmail.com>
-Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.orgs, skhan@linuxfoundation.org,
-	anupnewsmail@gmail.com
-Subject: Re: [PATCH] Fix unsigned int compared against 0
-Message-ID: <1bae2b5e-b9fb-4c21-9364-452f9a6a6daa@sirena.org.uk>
-References: <20241004141046.61265-1-advaitdhamorikar@gmail.com>
+	s=k20201202; t=1728065949;
+	bh=zFGRWmzPjvT+BFrOywJyXmGGGyxxZQ2sKp+3A7Wgg/w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kxFbClRC90AiDjR7S2S6xHLPKMKXIqkWqMdKaOD4x8jifqd+J1vKjhu8Zx7dBH3A5
+	 aCMjGhxoT/xh/PaD4jnpjlcQrnHCSPIPXx02dO6dr/DTTfkaOlZd9iqgNzd/0LW6wF
+	 rh7Ibky6hE0WWAryz/FjlRMujc/3c4QYVUMmh1y3qsXH2y09uINVRDfQzuTqMUCAK5
+	 /KjEtTETfEx+ZGQXbTjeyDWUIKFzHYRYxmP34cCUywpisL3UrmUVkPFHF9E0F7dXBE
+	 otTMWOZdXFetUSSSJqMe9XHVSzknXQHNISG59RAitS7ZkxB67xBNU/ohi77VL6OMJ7
+	 rckcslELD1aNg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	alsa-devel@alsa-project.org
+Subject: [PATCH AUTOSEL 6.11 23/76] soundwire: intel_bus_common: enable
+ interrupts before exiting reset
+Date: Fri,  4 Oct 2024 14:16:40 -0400
+Message-ID: <20241004181828.3669209-23-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241004181828.3669209-1-sashal@kernel.org>
+References: <20241004181828.3669209-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+8tEJtJ8YA5fPvdg"
-Content-Disposition: inline
-In-Reply-To: <20241004141046.61265-1-advaitdhamorikar@gmail.com>
-X-Cookie: A bachelor is an unaltared male.
-Message-ID-Hash: AIOKQ5GTNY56BTGNGCAWLSREMEIR45J3
-X-Message-ID-Hash: AIOKQ5GTNY56BTGNGCAWLSREMEIR45J3
-X-MailFrom: broonie@kernel.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.11.2
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: NJ6MLN3SRA6V2UTNCNKISMPFXJVQ4MVA
+X-Message-ID-Hash: NJ6MLN3SRA6V2UTNCNKISMPFXJVQ4MVA
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AIOKQ5GTNY56BTGNGCAWLSREMEIR45J3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJ6MLN3SRA6V2UTNCNKISMPFXJVQ4MVA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,35 +103,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
---+8tEJtJ8YA5fPvdg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+[ Upstream commit 5aedb8d8336b0a0421b58ca27d1b572aa6695b5b ]
 
-On Fri, Oct 04, 2024 at 07:40:46PM +0530, Advait Dhamorikar wrote:
-> An unsigned value held by offset can never be
-> negative, so this test will always evaluate
-> the same way and is therefore redundant.
+The existing code enables the Cadence IP interrupts after the bus
+reset sequence. The problem with this sequence is that it might be
+pre-empted, giving SoundWire devices time to sync and report as
+ATTACHED before the interrupts are enabled. In that case, the Cadence
+IP will not detect a state change and will not throw an interrupt to
+proceed with the enumeration of a Device0.
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+In our overnight stress tests, we observed that a slight
+sub-millisecond delay in enabling interrupts after the reset was
+correlated with detection failures. This problem is more prevalent on
+the LunarLake silicon, likely due to SOC integration changes, but it
+was observed on earlier generations as well.
 
---+8tEJtJ8YA5fPvdg
-Content-Type: application/pgp-signature; name="signature.asc"
+This patch reverts the sequence, with the interrupts enabled before
+performing the bus reset. This removes the race condition and makes
+sure the Cadence IP is able to detect the presence of a Device0 in all
+cases.
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20240805115003.88035-1-yung-chuan.liao@linux.intel.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/soundwire/intel_bus_common.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmcAAKEACgkQJNaLcl1U
-h9DdYgf+KN0f/pQLCvoWXEiRjFWJWeIcRJ+8ruGF7J8U/FvqN/yzJkgJHVTjlMgm
-Y84lmov8Qk9Is+k2Drdnvlve6xY7hoFc56wCvGnh8PMAq48hGedzqddaNJAyAwMR
-seXLfPO/oFjl42ba3e19je68Ws8NyKTEq6OXOoCvqgix72JEUUpVwHiylnb5BC/X
-Fsn0v3dbbojM82yinMH+VHCdI+cpJvEkD5hK5E5QJtvGTDnaPH81xaWjzsfYEZaW
-yLAI6KvAupIoab1WHHXWB5eZU/08bSULLxpTMtQNgen5fDwz6s9TEkmkIiSaoOop
-N4gNlPBFiEhYGOcYXTxxJTCjKB45mg==
-=NvRR
------END PGP SIGNATURE-----
+diff --git a/drivers/soundwire/intel_bus_common.c b/drivers/soundwire/intel_bus_common.c
+index df944e11b9caa..a75e5d7d87154 100644
+--- a/drivers/soundwire/intel_bus_common.c
++++ b/drivers/soundwire/intel_bus_common.c
+@@ -45,15 +45,15 @@ int intel_start_bus(struct sdw_intel *sdw)
+ 		return ret;
+ 	}
+ 
+-	ret = sdw_cdns_exit_reset(cdns);
++	ret = sdw_cdns_enable_interrupt(cdns, true);
+ 	if (ret < 0) {
+-		dev_err(dev, "%s: unable to exit bus reset sequence: %d\n", __func__, ret);
++		dev_err(dev, "%s: cannot enable interrupts: %d\n", __func__, ret);
+ 		return ret;
+ 	}
+ 
+-	ret = sdw_cdns_enable_interrupt(cdns, true);
++	ret = sdw_cdns_exit_reset(cdns);
+ 	if (ret < 0) {
+-		dev_err(dev, "%s: cannot enable interrupts: %d\n", __func__, ret);
++		dev_err(dev, "%s: unable to exit bus reset sequence: %d\n", __func__, ret);
+ 		return ret;
+ 	}
+ 
+@@ -136,15 +136,15 @@ int intel_start_bus_after_reset(struct sdw_intel *sdw)
+ 			return ret;
+ 		}
+ 
+-		ret = sdw_cdns_exit_reset(cdns);
++		ret = sdw_cdns_enable_interrupt(cdns, true);
+ 		if (ret < 0) {
+-			dev_err(dev, "unable to exit bus reset sequence during resume\n");
++			dev_err(dev, "cannot enable interrupts during resume\n");
+ 			return ret;
+ 		}
+ 
+-		ret = sdw_cdns_enable_interrupt(cdns, true);
++		ret = sdw_cdns_exit_reset(cdns);
+ 		if (ret < 0) {
+-			dev_err(dev, "cannot enable interrupts during resume\n");
++			dev_err(dev, "unable to exit bus reset sequence during resume\n");
+ 			return ret;
+ 		}
+ 
+-- 
+2.43.0
 
---+8tEJtJ8YA5fPvdg--

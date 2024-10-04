@@ -2,119 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 014F299517D
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 16:24:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A729995181
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 16:24:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A763F52;
-	Tue,  8 Oct 2024 16:24:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A763F52
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CECAF51;
+	Tue,  8 Oct 2024 16:24:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CECAF51
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728397467;
-	bh=YvVMFtVjvDArRFzL3Hyhs9iR/sAz/FplSkcy0ovY7O8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=hFcmFzY2Cpi0wI2mxXXe3cj2xCys8ghHDa8NEchrPBVZJ6qP8I6ncLavNobVU1ZqR
-	 BM2PgykEpLZlVwqBE27BKBQscZjBEFJxIX/g8iVCCd/w0/+LrsQMCYIifuT5AK/wMm
-	 Vn1XIX7zhaqrvgP7OVn547GzQGZxSqvRVbImCc64=
+	s=default; t=1728397486;
+	bh=FTUE6CHWE75yswv5NHdLIb/r24O+NKCudvFgq8Fh62Y=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=F6pwV1I1/my2+Mn/TAjSk9N5Rs20jKUOlYvdaNDBqCYprBpBhPvSI4L2QtEoAXRcy
+	 idgOxcVcPHf9x25cCvzwtKWsxRBu7wEqWkXwNZKgPM8PaYw5tCNJ4uEHKIZXK/M+uj
+	 kDkRa5nwZTAf3fbb6P5kdo0Pp8j7V4wZTFEtyUzU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F842F8075B; Tue,  8 Oct 2024 16:21:34 +0200 (CEST)
+	id 3EEEDF8080A; Tue,  8 Oct 2024 16:21:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E31BCF80760;
-	Tue,  8 Oct 2024 16:21:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAE9CF80800;
+	Tue,  8 Oct 2024 16:21:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 601CFF80517; Fri,  4 Oct 2024 01:23:49 +0200 (CEST)
+	id F213DF80517; Fri,  4 Oct 2024 16:11:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 882F9F80107
-	for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2024 01:23:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 882F9F80107
+	by alsa1.perex.cz (Postfix) with ESMTPS id 26799F800C9
+	for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2024 16:10:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26799F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=T97g8dru
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2fac187eef2so20510721fa.3
+ header.s=20230601 header.b=iXUHot2p
+Received: by mail-pl1-x62d.google.com with SMTP id
+ d9443c01a7336-20b93887decso18261045ad.3
         for <alsa-devel@alsa-project.org>;
- Thu, 03 Oct 2024 16:23:47 -0700 (PDT)
+ Fri, 04 Oct 2024 07:10:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727997826; x=1728602626;
+        d=gmail.com; s=20230601; t=1728051058; x=1728655858;
  darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=lM6/cRjw24jsdYXllFmZ+qj9mScZSJdtpIdRZX4FPC0=;
-        b=T97g8dru9YX+hIKSbATOo6JcFAo4UzhmgiK9fL5h4wIhrkGtxIGGlV+dIGOKa8czAf
-         wA70etGW7hZzmiMhUr9VpTE+PKGeXJyFMO2rHMf4HdqD2agfg+rMfefeV0MQYrV9orYp
-         Qg43b4GaVDowBUgbw9psw05cjrRI97UIwuHb453cBH/UnD3jsDLQpo5WS4EL3VhRanbh
-         Egp7NuFQpaog3J8q1zfbUTmfoHcLNQfzrTM2IJBpx6+Jk2aReZIoBBBO1e0nLtPZy0UQ
-         png2JaUfGqoaACMrg85xAMZ4JDXd3QgdLYDS5Rvbb1vODO2CpuKilWQL9+PJU6FvraPv
-         7dnA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=G+Gl2fQgPUCtMfHbBwf8K9TjCPojUwKqtER0U4Ha0P4=;
+        b=iXUHot2pHMo7b42D4r/2ehgRBFuVp1PCmyHolhNvGKqeD26B1j8KJdeb/QiXnPO6Wk
+         kcP44AGHxFk1Pxkvsbry77v3XtBUrb6a2xP5PTRWBwodlgkZJVwS5Jetp/gWq//lidWr
+         QV40ivT8el/Oj1HHG2sjhsiNwO2rAzarjdDgYva9tqY1XiCJqkcuzp4Xw14zu9pHIC3t
+         IdjaCtUuFqT7JzkN7icyZbL1AVv3EfkhoRhrPuWC4SV+buV43zWsuPJARiqqG9tQjEhW
+         vaTDKBa2vPqfvFULh5bqa9KRgq4hkYl5cvHLJarnpv9CX+bFoWr8lUcBW4TXHlPDt0U/
+         7jhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727997826; x=1728602626;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1728051058; x=1728655858;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=lM6/cRjw24jsdYXllFmZ+qj9mScZSJdtpIdRZX4FPC0=;
-        b=fenAN/WxPkwIkBbSrETtqTJ2W+gT9+72awgs+IQISLN+LezBSGJYwkQaKI24YFCi1r
-         doUhVEtiXhNDiKPcD6bCpSV71iLZvkusQO7kpp6LMFHqwia+h0t32xS3itCVeX3yqjA2
-         1Vq9+uQcYWGToY1V8gSw145u9ysShU0jTmzcAEGJhETyPdLmmpK+2uI3nL4blXf+o3Rs
-         D9M2uaL27+VKhcCFz0RshVEl5YMymosztvRQMCqvTEwv58IPTqbomkckswVwJrJO8Kbx
-         sMRNjwqrltZAf8IhlkqIcNLpUAQ4H/UmYHrfQleB+lGIW0ARMCkMbMn51w7I32WswYuk
-         8E9Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXXRbfVcYwnLQhROnWjs1ygtpANOAtsTRzldmfyP8fdDpC5kCuU84gdYDQERbyFzey0X/+Oa1uZEBPy@alsa-project.org
-X-Gm-Message-State: AOJu0Yya5RIk8Ae9ecp6k/2HV4jhEMgPTttye1GH+uHBk3G9Lxmdw3mh
-	B1Hps1dhRJ/f3UK8vt7VMzKN1rYQbYlYqQ+4+YzSmUsOguGo7bI3l7I7ygViVrUyHPcU5ij12iK
-	jH8vpeOmqArn4pkX8aW9JaWAZSEI=
+        bh=G+Gl2fQgPUCtMfHbBwf8K9TjCPojUwKqtER0U4Ha0P4=;
+        b=OF8Af21z5qvKWAMkh+p7unlhKZRUa40bWPeYkWYyWGUH3BJxStCqkuB+SeQD2z+fdF
+         TzkUKPB3TS0L89QDhsuxdbia7jwyreYMzXcmMFCUGPLZL7Q4pHj+ul4FAYSYlMZh/ygy
+         8VwZIpGOE0Z9CPkfmneyjqb1o6ICarEWx4N64OErDgOehmzImYbv9UyW3dCUcIm5HnbJ
+         lLlQuDAuWQVf87vsjrz5CcvUeYgZD1P3KGXF6hqAxWKBA6Z/1BUybpaGBfUIMyoz/kc0
+         iSRjTHwP2kpGgAGU/A5YZDlrG80JLjdyc4Qn/farsd0DLGi321G2GjXfTLD0cWe9RU6G
+         uPaQ==
+X-Gm-Message-State: AOJu0Yx7UjLIK6aWSuSHsPiV3k6JEietF7ajAvUYdjLmZogtaLSeYGfX
+	I4VmkYezSfLTw9QZvKEq5C2zPeqF8DmhAFs7bm00y+UdrYw6NG1T
 X-Google-Smtp-Source: 
- AGHT+IF111/avT/ZUgvDlcWF0WgW/Ql5MK8ft68v8OAFkAShZMh8tbH5og4vSOKw69JoYfLYb9feiaYAMK2GTgNEHOU=
-X-Received: by 2002:a05:651c:2211:b0:2fa:ce00:3689 with SMTP id
- 38308e7fff4ca-2faf3c2fe60mr3247111fa.6.1727997825817; Thu, 03 Oct 2024
- 16:23:45 -0700 (PDT)
+ AGHT+IFMvB08uHXQ8m86efriWvwk9rMcme3rK7IGLHYovJhvIAMePJxrcbbbdajwkNzKJclz8GZ9LA==
+X-Received: by 2002:a17:903:1c6:b0:20b:5ea2:e06 with SMTP id
+ d9443c01a7336-20bff1f6a16mr34519425ad.56.1728051057520;
+        Fri, 04 Oct 2024 07:10:57 -0700 (PDT)
+Received: from advait-kdeneon.. ([2405:201:1e:f1d5:cc2a:fef9:63f0:2e09])
+        by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-20bef7074ddsm24480145ad.243.2024.10.04.07.10.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Oct 2024 07:10:56 -0700 (PDT)
+From: Advait Dhamorikar <advaitdhamorikar@gmail.com>
+To: Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.orgs,
+	skhan@linuxfoundation.org,
+	anupnewsmail@gmail.com,
+	Advait Dhamorikar <advaitdhamorikar@gmail.com>
+Subject: [PATCH] Fix unsigned int compared against 0
+Date: Fri,  4 Oct 2024 19:40:46 +0530
+Message-Id: <20241004141046.61265-1-advaitdhamorikar@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240930105039.3473266-1-oder_chiou@realtek.com>
- <87frphgrzw.wl-tiwai@suse.de>
-In-Reply-To: <87frphgrzw.wl-tiwai@suse.de>
-From: parsa poorsh <parsa.poorsh@gmail.com>
-Date: Fri, 4 Oct 2024 02:53:33 +0330
-Message-ID: 
- <CAAqP8TUQ21v0AxSh_e4-GS-i2W=ONyT+hWpEOBMUJW7YQOw24Q@mail.gmail.com>
-Subject: Re: [PATCH v2] ALSA: hda/realtek: Fix the push button function for
- the ALC257
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
-	kailang@realtek.com, flove@realtek.com, jennifer_chen@realtek.com,
-	geans_chen@realsil.com.cn
-X-MailFrom: parsa.poorsh@gmail.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: advaitdhamorikar@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FKYZBVSQ6ZSGV345MVBMUFSNL4MJ3DAQ
-X-Message-ID-Hash: FKYZBVSQ6ZSGV345MVBMUFSNL4MJ3DAQ
+Message-ID-Hash: NSAJA6QLMDXU2SS4G6C2M2UM3EOJGYCQ
+X-Message-ID-Hash: NSAJA6QLMDXU2SS4G6C2M2UM3EOJGYCQ
 X-Mailman-Approved-At: Tue, 08 Oct 2024 14:21:18 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FKYZBVSQ6ZSGV345MVBMUFSNL4MJ3DAQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NSAJA6QLMDXU2SS4G6C2M2UM3EOJGYCQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,34 +127,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-aSBmb3VuZCBvdXQgdGhhdCB1c2luZyB0aGUgZm9sbG93aW5nIGNvbW1hbmQgc3VwcHJlc3NlcyB0
-aGUgbm9pc2UgZm9yIGEgZmV3DQpzZWNvbmRzLCB0aGVuIGl0IGNvbnRpbnVlczoNCiQgY2F0IC9w
-cm9jL2Fzb3VuZC9jYXJkKi9jb2RlYyogfCBncmVwICJWZW5kb3IgSWQiDQpWZW5kb3IgSWQ6IDB4
-MTBlYzAyNTcNClZlbmRvciBJZDogMHg4MDg2MjgxYw0KDQppcyB0aGVyZSBhbnkgc3VnZ2VzdGlv
-bnMgd2hhdCBtaWdodCBiZSB0aGUgcmVhbCBjYXVzZSBvZiBub2lzZT8NCmkgZG9uJ3QgaGF2ZSBt
-dWNoIGV4cGVyaWVuY2UgZG9pbmcga2VybmVsIGRldmVsb3BtZW50LCBzbyBJIHdvdWxkDQphcHBy
-ZWNpYXRlIGl0IGlmIHNvbWVvbmUgZ3VpZGVkIG1lIGluIHRoZSBjb3JyZWN0IGRpcmVjdGlvbiB0
-byBmaXggdGhpcw0KDQpPbiBNb24sIFNlcCAzMCwgMjAyNCwgMTc6MzAgVGFrYXNoaSBJd2FpIDx0
-aXdhaUBzdXNlLmRlPiB3cm90ZToNCg0KPiBPbiBNb24sIDMwIFNlcCAyMDI0IDEyOjUwOjM5ICsw
-MjAwLA0KPiBPZGVyIENoaW91IHdyb3RlOg0KPiA+DQo+ID4gVGhlIGhlYWRzZXQgcHVzaCBidXR0
-b24gY2Fubm90IHdvcmsgcHJvcGVybHkgaW4gY2FzZSBvZiB0aGUgQUxDMjU3Lg0KPiA+IFRoaXMg
-cGF0Y2ggcmV2ZXJ0ZWQgdGhlIHByZXZpb3VzIGNvbW1pdCB0byBjb3JyZWN0IHRoZSBzaWRlIGVm
-ZmVjdC4NCj4gPg0KPiA+IEZpeGVzOiBlZjk3MThiM2Q1NGUgKCJBTFNBOiBoZGEvcmVhbHRlazog
-Rml4IG5vaXNlIGZyb20gc3BlYWtlcnMgb24NCj4gTGVub3ZvIElkZWFQYWQgMyAxNUlBVTciKQ0K
-PiA+IFNpZ25lZC1vZmYtYnk6IE9kZXIgQ2hpb3UgPG9kZXJfY2hpb3VAcmVhbHRlay5jb20+DQo+
-DQo+IEFzIGl0J3MgYSByZWdyZXNzaW9uLCB0aGUgcmV2ZXJ0IGlzIGZpbmUuICBOb3cgYXBwbGll
-ZCB0byBmb3ItbGludXMNCj4gYnJhbmNoLg0KPg0KPiBNZWFud2hpbGUsIHdlJ2QgbmVlZCB0byBm
-aXggZm9yIElkZWFQYWQgMyBpbiBhIGRpZmZlcmVudCB3YXkuDQo+IGUuZy4gYWRkIGEgcXVpcmsg
-ZW50cnkgdG8gc2V0IGFsY19lYXBkX3NodXR1cCBvciBzby4NCj4gQWRkaW5nIFBhcnNhIHRvIENj
-IGZvciB0aGUgZnVydGhlciB3b3JrLg0KPg0KPg0KPiB0aGFua3MsDQo+DQo+IFRha2FzaGkNCj4N
-Cj4gPiAtLS0NCj4gPiAgc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgfCAxICsNCj4gPiAg
-MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvc291
-bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMNCj4gYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0
-ZWsuYw0KPiA+IGluZGV4IGY3ODdmZjQxODJkNC4uODZkYjFhNGVjMjRjIDEwMDY0NA0KPiA+IC0t
-LSBhL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jDQo+ID4gKysrIGIvc291bmQvcGNpL2hk
-YS9wYXRjaF9yZWFsdGVrLmMNCj4gPiBAQCAtNTg3LDYgKzU4Nyw3IEBAIHN0YXRpYyB2b2lkIGFs
-Y19zaHV0dXBfcGlucyhzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykNCj4gPiAgICAgICBzd2l0Y2gg
-KGNvZGVjLT5jb3JlLnZlbmRvcl9pZCkgew0KPiA+ICAgICAgIGNhc2UgMHgxMGVjMDIzNjoNCj4g
-PiAgICAgICBjYXNlIDB4MTBlYzAyNTY6DQo+ID4gKyAgICAgY2FzZSAweDEwZWMwMjU3Og0KPiA+
-ICAgICAgIGNhc2UgMHgxOWU1ODMyNjoNCj4gPiAgICAgICBjYXNlIDB4MTBlYzAyODM6DQo+ID4g
-ICAgICAgY2FzZSAweDEwZWMwMjg1Og0KPiA+IC0tDQo+ID4gMi4zNC4xDQo+ID4NCj4NCg==
+An unsigned value held by offset can never be
+negative, so this test will always evaluate
+the same way and is therefore redundant.
+
+Signed-off-by: Advait Dhamorikar <advaitdhamorikar@gmail.com>
+---
+ sound/soc/codecs/tlv320adc3xxx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/tlv320adc3xxx.c b/sound/soc/codecs/tlv320adc3xxx.c
+index 7073b9d1cda8..868e8a91e05b 100644
+--- a/sound/soc/codecs/tlv320adc3xxx.c
++++ b/sound/soc/codecs/tlv320adc3xxx.c
+@@ -961,7 +961,7 @@ static int adc3xxx_gpio_request(struct gpio_chip *chip, unsigned int offset)
+ 	if (offset >= ADC3XXX_GPIOS_MAX)
+ 		return -EINVAL;
+ 
+-	if (offset >= 0 && offset < ADC3XXX_GPIO_PINS) {
++	if (offset < ADC3XXX_GPIO_PINS) {
+ 		/* GPIO1 is offset 0, GPIO2 is offset 1 */
+ 		/* We check here that the GPIO pins are either not configured
+ 		 * in the DT, or that they purposely are set as outputs.
+-- 
+2.34.1
+

@@ -2,87 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B0C990B52
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2024 20:26:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52824990D98
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2024 21:14:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46A86B6A;
-	Fri,  4 Oct 2024 20:26:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46A86B6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E1CD868;
+	Fri,  4 Oct 2024 21:14:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E1CD868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728066392;
-	bh=mzsbmkV0hCx2JN++0RDlnBmuHV6SBxJB1kzWYjTHHYc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1728069272;
+	bh=LO7IT7YT1qD7yM7AZD5y61ywl5y1t7QTlluAg+gpH6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=N0Vh5pos38DmZj4JIQbqcFMDvK9uDSjJhug05fip2GRshgmfv45ayidODuk3eL4bp
-	 +nLEeImnz1ylkBqVVt0A3uCXw2BfIzc3TDzjmIQiGfZCopxtS7mn3wYdHqawVO4wLx
-	 4PAB3EVffv80zqr2qMXqP0cGU431QjP8lV5TJiqs=
+	b=VawWXixhPB3R5AInavs1vwvDGpmVfTUiDUUiDnQ9eCS/7PGMlLKhzoCUrUcpTS+Sv
+	 7PEoNc1C4Afm+fOSspywKm0fqcqk+rLmRAPqkwcFwbfw7A1IUkE0Ezdd6tlLDh/YH9
+	 050vKAQqs2U1HqdmiIIRralYTwu7FQct2WGYWC4g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53ADFF805C7; Fri,  4 Oct 2024 20:26:12 +0200 (CEST)
+	id A9B81F805B3; Fri,  4 Oct 2024 21:14:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B71A3F805C6;
-	Fri,  4 Oct 2024 20:26:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD247F805B0;
+	Fri,  4 Oct 2024 21:13:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA132F805B0; Fri,  4 Oct 2024 20:26:07 +0200 (CEST)
+	id CD3D7F80517; Fri,  4 Oct 2024 21:13:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CBA2CF805AC
-	for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2024 20:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBA2CF805AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91A23F80107
+	for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2024 21:13:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91A23F80107
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=i/P06Z7C
+ header.s=k20201202 header.b=A4AxrR7i
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id D627E5C04CE;
-	Fri,  4 Oct 2024 18:25:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99D0C4CECC;
-	Fri,  4 Oct 2024 18:26:02 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6E1BF5C59B6;
+	Fri,  4 Oct 2024 19:13:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C786BC4CEC6;
+	Fri,  4 Oct 2024 19:13:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1728066363;
-	bh=mzsbmkV0hCx2JN++0RDlnBmuHV6SBxJB1kzWYjTHHYc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=i/P06Z7C2TYFLaLMED9FXy/DQY3SrSDN7EjhbB0zPd1EN4mFbDTPaQwqShtaypWzM
-	 iLT8bL0Ql95PHLBVeQETsBhfYEQBXAYdgRbzYpjFG3f/DjY/4SnPNcrbwX2UCmZR/w
-	 6RUC+N0LVmvjesPXU0tWnMUEpnO7IjfVTTnDr12Ed60+uofi4YAGkNqIK9shzNp664
-	 naGULd+yJg/JDci8xtB0/UL3cWcvCiyhn41knhE+6R+HAnKL8h8PwRMDdG4+O9wfgy
-	 Tzaq3TmTcjz+cnDImLsGyAQScu0rAkBW15HiKbsb5pYW93biPZobZH8qXKzkbqHWcY
-	 A6n3fyFNhMCDQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.6 34/58] soundwire: cadence: re-check Peripheral
- status with delayed_work
-Date: Fri,  4 Oct 2024 14:24:07 -0400
-Message-ID: <20241004182503.3672477-34-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241004182503.3672477-1-sashal@kernel.org>
-References: <20241004182503.3672477-1-sashal@kernel.org>
+	s=k20201202; t=1728069223;
+	bh=LO7IT7YT1qD7yM7AZD5y61ywl5y1t7QTlluAg+gpH6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=A4AxrR7iqWKCHfmYLaiYLbU/xQvHK4wZ83aSmDGQ7Zn80DJ7NTPhISoM5jxKTN7u5
+	 tFxT9yZ0yQW+Q8tqwIUb4hSWbnUSespXXO5fI1jFl7TGljrRg4H91qqheql/2qCmcd
+	 Towrz29qpcofP54F1gEZ0YM5iuknG0TElu7tLnrbU7zJi8OxKRezkCOBBz/G9I4D+Y
+	 Wl2rPeGl1mn1Il6lzeYwUlKoeG+/yflZrMfW5Ed7+bxNRtHlRe0cCOc/Ve62rJHLF5
+	 q07GPbmfhyOaScGz+4T+1/aMLVFHWSNia4WLPRsrfQHkKIeS+O539yTB36vkrLZNYg
+	 HcPYFmAcYl8mw==
+Date: Fri, 4 Oct 2024 20:13:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: =?utf-8?B?KO+/vdC777+9KSDvv73vv73vv73Ose+/vSAo77+977+9x7vvv73NsO+/vQ==?=
+	=?utf-8?B?77+90LDvv70p?= <ingyujang25@unist.ac.kr>
+Cc: "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+	"hayashi.kunihiko@socionext.com" <hayashi.kunihiko@socionext.com>,
+	"mhiramat@kernel.org" <mhiramat@kernel.org>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] sound: soc: uniphier: Handle regmap_write errors in
+ aio_src_set_param()
+Message-ID: <1fe9cb78-2412-47fd-a0b1-1d3a42385684@sirena.org.uk>
+References: 
+ <SE1P216MB2287F4D575CFBDC9755E896BFD6A2@SE1P216MB2287.KORP216.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.54
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QZRYRJ5WZSAIZK63HOSA4T62VYW6GMM4
-X-Message-ID-Hash: QZRYRJ5WZSAIZK63HOSA4T62VYW6GMM4
-X-MailFrom: sashal@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Z8USiPpMzZodHO/3"
+Content-Disposition: inline
+In-Reply-To: 
+ <SE1P216MB2287F4D575CFBDC9755E896BFD6A2@SE1P216MB2287.KORP216.PROD.OUTLOOK.COM>
+X-Cookie: A bachelor is an unaltared male.
+Message-ID-Hash: XABJCVHCDIESYGMFOG2OPMVCF5SVWSOQ
+X-Message-ID-Hash: XABJCVHCDIESYGMFOG2OPMVCF5SVWSOQ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QZRYRJ5WZSAIZK63HOSA4T62VYW6GMM4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XABJCVHCDIESYGMFOG2OPMVCF5SVWSOQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,202 +108,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit f8c35d61ba01afa76846905c67862cdace7f66b0 ]
+--Z8USiPpMzZodHO/3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The SoundWire peripheral enumeration is entirely based on interrupts,
-more specifically sticky bits tracking state changes.
+On Thu, Sep 26, 2024 at 09:15:18PM +0000, (=EF=BF=BD=D0=BB=EF=BF=BD) =EF=BF=
+=BD=EF=BF=BD=EF=BF=BD=CE=B1=EF=BF=BD (=EF=BF=BD=EF=BF=BD=C7=BB=EF=BF=BD=CD=
+=B0=EF=BF=BD=EF=BF=BD=D0=B0=EF=BF=BD) wrote:
+> From 791716bf359b8540c519810848fd1f8006d7c3c5 Mon Sep 17 00:00:00 2001
+> From: Ingyu Jang <ingyujang25@unist.ac.kr>
+> Date: Thu, 26 Sep 2024 19:40:04 +0900
+> Subject: [PATCH] sound: soc: uniphier: Handle regmap_write errors in
+>  aio_src_set_param()
 
-This patch adds a defensive programming check on the actual status
-reported in PING frames. If for some reason an interrupt was lost or
-delayed, the delayed work would detect a peripheral change of status
-after the bus starts.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-The 100ms defined for the delay is not completely arbitrary, if a
-Peripheral didn't join the bus within that delay then probably the
-hardware link is broken, and conversely if the detection didn't happen
-because of software issues the 100ms is still acceptable in terms of
-user experience.
+--Z8USiPpMzZodHO/3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The overhead of the one-shot workqueue is minimal, and the mutual
-exclusion ensures that the interrupt and delayed work cannot update
-the status concurrently.
+-----BEGIN PGP SIGNATURE-----
 
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20240805114921.88007-1-yung-chuan.liao@linux.intel.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/soundwire/cadence_master.c   | 39 ++++++++++++++++++++++++++--
- drivers/soundwire/cadence_master.h   |  5 ++++
- drivers/soundwire/intel.h            |  2 ++
- drivers/soundwire/intel_auxdevice.c  |  1 +
- drivers/soundwire/intel_bus_common.c | 11 ++++++++
- 5 files changed, 56 insertions(+), 2 deletions(-)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmcAPmIACgkQJNaLcl1U
+h9CViAf/e5GEbzMuPdV1VC3qzLJlu8BlGwAP2eFN0CsIpEOGlvD8UoyDbmG4tHhb
+Hh50h1x8mEF9kLS8pnpP+z137DhTDy4LreUXSGyQywl3r1gn4anWTLzaDy8ed7+E
+1xRO3IXBttz/FVt84rx8PPidcz87NYDpb4+oJmEYnwWdGj3Wf9ADeIJlqcf2c3Mz
+dyQId5XyAJJ8Pf1RAi+TfAMV5wh7gjP5UmQ/tkcFuxSEdc9KqlcsBiYUimnRFaBh
+Qwli+uvo8lelH6m2hj20GfgBt15jviaC3gvovs1odVw1VNakCay9Xsxa5b3rJ0Li
+Fybnn7jTP7DNQYfDu3H03Mo2FEfM5A==
+=eplN
+-----END PGP SIGNATURE-----
 
-diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 3e7cf04aaf2a6..e69982dbd449b 100644
---- a/drivers/soundwire/cadence_master.c
-+++ b/drivers/soundwire/cadence_master.c
-@@ -891,8 +891,14 @@ static int cdns_update_slave_status(struct sdw_cdns *cdns,
- 		}
- 	}
- 
--	if (is_slave)
--		return sdw_handle_slave_status(&cdns->bus, status);
-+	if (is_slave) {
-+		int ret;
-+
-+		mutex_lock(&cdns->status_update_lock);
-+		ret = sdw_handle_slave_status(&cdns->bus, status);
-+		mutex_unlock(&cdns->status_update_lock);
-+		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -989,6 +995,31 @@ irqreturn_t sdw_cdns_irq(int irq, void *dev_id)
- }
- EXPORT_SYMBOL(sdw_cdns_irq);
- 
-+static void cdns_check_attached_status_dwork(struct work_struct *work)
-+{
-+	struct sdw_cdns *cdns =
-+		container_of(work, struct sdw_cdns, attach_dwork.work);
-+	enum sdw_slave_status status[SDW_MAX_DEVICES + 1];
-+	u32 val;
-+	int ret;
-+	int i;
-+
-+	val = cdns_readl(cdns, CDNS_MCP_SLAVE_STAT);
-+
-+	for (i = 0; i <= SDW_MAX_DEVICES; i++) {
-+		status[i] = val & 0x3;
-+		if (status[i])
-+			dev_dbg(cdns->dev, "Peripheral %d status: %d\n", i, status[i]);
-+		val >>= 2;
-+	}
-+
-+	mutex_lock(&cdns->status_update_lock);
-+	ret = sdw_handle_slave_status(&cdns->bus, status);
-+	mutex_unlock(&cdns->status_update_lock);
-+	if (ret < 0)
-+		dev_err(cdns->dev, "%s: sdw_handle_slave_status failed: %d\n", __func__, ret);
-+}
-+
- /**
-  * cdns_update_slave_status_work - update slave status in a work since we will need to handle
-  * other interrupts eg. CDNS_MCP_INT_RX_WL during the update slave
-@@ -1745,7 +1776,11 @@ int sdw_cdns_probe(struct sdw_cdns *cdns)
- 	init_completion(&cdns->tx_complete);
- 	cdns->bus.port_ops = &cdns_port_ops;
- 
-+	mutex_init(&cdns->status_update_lock);
-+
- 	INIT_WORK(&cdns->work, cdns_update_slave_status_work);
-+	INIT_DELAYED_WORK(&cdns->attach_dwork, cdns_check_attached_status_dwork);
-+
- 	return 0;
- }
- EXPORT_SYMBOL(sdw_cdns_probe);
-diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
-index bc84435e420f5..e1d7969ba48ae 100644
---- a/drivers/soundwire/cadence_master.h
-+++ b/drivers/soundwire/cadence_master.h
-@@ -117,6 +117,8 @@ struct sdw_cdns_dai_runtime {
-  * @link_up: Link status
-  * @msg_count: Messages sent on bus
-  * @dai_runtime_array: runtime context for each allocated DAI.
-+ * @status_update_lock: protect concurrency between interrupt-based and delayed work
-+ * status update
-  */
- struct sdw_cdns {
- 	struct device *dev;
-@@ -148,10 +150,13 @@ struct sdw_cdns {
- 	bool interrupt_enabled;
- 
- 	struct work_struct work;
-+	struct delayed_work attach_dwork;
- 
- 	struct list_head list;
- 
- 	struct sdw_cdns_dai_runtime **dai_runtime_array;
-+
-+	struct mutex status_update_lock; /* add mutual exclusion to sdw_handle_slave_status() */
- };
- 
- #define bus_to_cdns(_bus) container_of(_bus, struct sdw_cdns, bus)
-diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
-index 511932c55216c..bb6b1df2d2c20 100644
---- a/drivers/soundwire/intel.h
-+++ b/drivers/soundwire/intel.h
-@@ -91,6 +91,8 @@ static inline void intel_writew(void __iomem *base, int offset, u16 value)
- 
- #define INTEL_MASTER_RESET_ITERATIONS	10
- 
-+#define SDW_INTEL_DELAYED_ENUMERATION_MS	100
-+
- #define SDW_INTEL_CHECK_OPS(sdw, cb)	((sdw) && (sdw)->link_res && (sdw)->link_res->hw_ops && \
- 					 (sdw)->link_res->hw_ops->cb)
- #define SDW_INTEL_OPS(sdw, cb)		((sdw)->link_res->hw_ops->cb)
-diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
-index 93698532deac4..bdfff78ac2f81 100644
---- a/drivers/soundwire/intel_auxdevice.c
-+++ b/drivers/soundwire/intel_auxdevice.c
-@@ -398,6 +398,7 @@ static void intel_link_remove(struct auxiliary_device *auxdev)
- 	 */
- 	if (!bus->prop.hw_disabled) {
- 		sdw_intel_debugfs_exit(sdw);
-+		cancel_delayed_work_sync(&cdns->attach_dwork);
- 		sdw_cdns_enable_interrupt(cdns, false);
- 	}
- 	sdw_bus_master_delete(bus);
-diff --git a/drivers/soundwire/intel_bus_common.c b/drivers/soundwire/intel_bus_common.c
-index 179aa0d85951b..db9cf211671a3 100644
---- a/drivers/soundwire/intel_bus_common.c
-+++ b/drivers/soundwire/intel_bus_common.c
-@@ -60,6 +60,9 @@ int intel_start_bus(struct sdw_intel *sdw)
- 	sdw_cdns_check_self_clearing_bits(cdns, __func__,
- 					  true, INTEL_MASTER_RESET_ITERATIONS);
- 
-+	schedule_delayed_work(&cdns->attach_dwork,
-+			      msecs_to_jiffies(SDW_INTEL_DELAYED_ENUMERATION_MS));
-+
- 	return 0;
- }
- 
-@@ -151,6 +154,9 @@ int intel_start_bus_after_reset(struct sdw_intel *sdw)
- 	}
- 	sdw_cdns_check_self_clearing_bits(cdns, __func__, true, INTEL_MASTER_RESET_ITERATIONS);
- 
-+	schedule_delayed_work(&cdns->attach_dwork,
-+			      msecs_to_jiffies(SDW_INTEL_DELAYED_ENUMERATION_MS));
-+
- 	return 0;
- }
- 
-@@ -184,6 +190,9 @@ int intel_start_bus_after_clock_stop(struct sdw_intel *sdw)
- 
- 	sdw_cdns_check_self_clearing_bits(cdns, __func__, true, INTEL_MASTER_RESET_ITERATIONS);
- 
-+	schedule_delayed_work(&cdns->attach_dwork,
-+			      msecs_to_jiffies(SDW_INTEL_DELAYED_ENUMERATION_MS));
-+
- 	return 0;
- }
- 
-@@ -194,6 +203,8 @@ int intel_stop_bus(struct sdw_intel *sdw, bool clock_stop)
- 	bool wake_enable = false;
- 	int ret;
- 
-+	cancel_delayed_work_sync(&cdns->attach_dwork);
-+
- 	if (clock_stop) {
- 		ret = sdw_cdns_clock_stop(cdns, true);
- 		if (ret < 0)
--- 
-2.43.0
-
+--Z8USiPpMzZodHO/3--

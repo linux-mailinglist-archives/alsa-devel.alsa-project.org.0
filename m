@@ -2,86 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAF80992E66
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2024 16:09:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BFD9992EA1
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2024 16:16:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9CB9857;
-	Mon,  7 Oct 2024 16:09:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9CB9857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7012B828;
+	Mon,  7 Oct 2024 16:16:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7012B828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728310181;
-	bh=h+QeAigkiFQRhspDO81Q8Q3C1f4WKr5wyPAd8JPSXSM=;
+	s=default; t=1728310596;
+	bh=3qD+O+1xzIs6q1p8HC+OxtflwSCDotmRykzLnbi1GN4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=R95cfq//xXIASjnhmeVLEljjdHeAnr+XLmHk+itcx5micxEuXPaCU/Io+PWf2u9Kb
-	 ERAUaUTOh3vU3I9UZAwD4wg9AFNkMokCXJS9VeMmQDkDBh3lOXKb2bnY+pGAmW08IY
-	 PKnF19OeBnMXu+8PLzPxF/OG/CfE0CdgoxdNUewc=
+	b=WMgt8nIzczouXhyRo+8IsKVJy1jueu/Zj4ukiAxMyQIqYeC1YO5ilJrvO25zocURF
+	 5Itl3va2wbPoXzhkoaYAKpP5EzCqtNlwSGlayVEF5yvTG4QV8TsA3tXp++mnvPjtoi
+	 IrpcHvslYFMKV/Nd+quxb+y7PVKN0MEp2XGJvWu0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D970FF805A1; Mon,  7 Oct 2024 16:09:09 +0200 (CEST)
+	id C1902F805BB; Mon,  7 Oct 2024 16:16:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41A58F805AD;
-	Mon,  7 Oct 2024 16:09:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD452F805B0;
+	Mon,  7 Oct 2024 16:16:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DAA49F80528; Mon,  7 Oct 2024 16:09:05 +0200 (CEST)
+	id AD2DBF80528; Mon,  7 Oct 2024 16:15:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 04528F8001E
-	for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2024 16:09:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04528F8001E
+	by alsa1.perex.cz (Postfix) with ESMTPS id CFBB3F8001E
+	for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2024 16:15:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFBB3F8001E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZVjC5sU4
+ header.s=k20201202 header.b=szdMgXzi
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id ABB675C5A6A;
-	Mon,  7 Oct 2024 14:08:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10391C4CECC;
-	Mon,  7 Oct 2024 14:08:59 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 93BEF5C5757;
+	Mon,  7 Oct 2024 14:15:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C138FC4CEC6;
+	Mon,  7 Oct 2024 14:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1728310140;
-	bh=h+QeAigkiFQRhspDO81Q8Q3C1f4WKr5wyPAd8JPSXSM=;
+	s=k20201202; t=1728310555;
+	bh=3qD+O+1xzIs6q1p8HC+OxtflwSCDotmRykzLnbi1GN4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZVjC5sU4qLgo85AqvRlv6YH7zW4GhLZu7uhBROkvpavYti84CDPXd3Wxj8wQr+ErX
-	 Ap7s3Foq4neGNvRAfiFRJOd2EReHcliThmM9cdlZVWsyqcuwPd4l+5Yg9HOgQ2xdWj
-	 yk5ls5Yu0b+rK6k7JwCPpXdSkjEwf3LBH3dB0/DtgxkKeWAQlInDuzFv50nZ1blyOX
-	 DSDO/8VNqDCys35ZuexxxraQhjtSgQSWu+1K42WCqsvA4tL6gqom5iIEPtjx8L6MYu
-	 3J8QrE/X6a2A7cQuMu7+GRWj2rDGzO1mdLyIKD1UJeTFN02lSa6/6gmlwZrbfnPrO5
-	 PRSJtX2LiTKuQ==
-Date: Mon, 7 Oct 2024 15:08:57 +0100
+	b=szdMgXzikN+bR54b3MvHNJnGyR26KH24dNATMHRHRHy+LT2a+ub9a0/ROx5liqzB/
+	 XHWZ75o9QeDCCw9xYTCcxex2wnClosRC4A0g5exxj0Nhdx9JF1ScVihAiapBTEToXV
+	 w9OkYJm5YKii8hDyhJYyiIj4k7Uo+0M0SM4+O1wK+V2hzOx0B4mbK3wpVWfXnPcylr
+	 PFUaevfgiRY2629C9DkdhPNuiEtYKFTecqTPJ6AlnuBAng7IMQyv0/+vfJAxjPcMqv
+	 FK0Cag24V8XoXdhQd+neLGzXMm/KhWU40nrg3uRKpbw1X8ZxDIsAEL3BcqQZLqgdAW
+	 Y5883jWkAdWXw==
+Date: Mon, 7 Oct 2024 15:14:38 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jack Yu <jack.yu@realtek.com>
-Cc: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"lars@metafoo.de" <lars@metafoo.de>,
-	"Flove(HsinFu)" <flove@realtek.com>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
-	Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
-Subject: Re: [PATCH v2] ASoC: rt-sdw-common: Common functions for Realtek
- soundwire driver
-Message-ID: <ZwPreUo4rWyfUocX@finisterre.sirena.org.uk>
-References: <959e8dcb075948459be4463f6a4ca6ee@realtek.com>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: Zichen Xie <zichenxie0106@gmail.com>, alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rohit kumar <quic_rohkumar@quicinc.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Takashi Iwai <tiwai@suse.com>, stable@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	Chenyuan Yang <chenyuan0y@gmail.com>,
+	Zijie Zhao <zzjas98@gmail.com>
+Subject: Re: [v3?] ASoC: qcom: Fix NULL Dereference in
+ asoc_qcom_lpass_cpu_platform_probe()
+Message-ID: <ZwPszt6b5ZzAkskz@finisterre.sirena.org.uk>
+References: <20241006205737.8829-1-zichenxie0106@gmail.com>
+ <bc2f9291-c91d-4e46-bfa9-573eea6a67c2@web.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OVsnpoiqCzYswM3e"
+	protocol="application/pgp-signature"; boundary="B6mD5aEE6D1/oRxA"
 Content-Disposition: inline
-In-Reply-To: <959e8dcb075948459be4463f6a4ca6ee@realtek.com>
+In-Reply-To: <bc2f9291-c91d-4e46-bfa9-573eea6a67c2@web.de>
 X-Cookie: Editing is a rewording activity.
-Message-ID-Hash: ZZXS3VIM6BUA4PMSZH7BR5X3WHMRK7AS
-X-Message-ID-Hash: ZZXS3VIM6BUA4PMSZH7BR5X3WHMRK7AS
+Message-ID-Hash: GJRUIOAP7KZWWAZQLL4CZCV6S2RULHBN
+X-Message-ID-Hash: GJRUIOAP7KZWWAZQLL4CZCV6S2RULHBN
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZXS3VIM6BUA4PMSZH7BR5X3WHMRK7AS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GJRUIOAP7KZWWAZQLL4CZCV6S2RULHBN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,34 +109,38 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---OVsnpoiqCzYswM3e
+--B6mD5aEE6D1/oRxA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 01, 2024 at 09:16:27AM +0000, Jack Yu wrote:
+On Mon, Oct 07, 2024 at 03:40:21PM +0200, Markus Elfring wrote:
 
-> +config SND_SOC_RT_SDW_COMMON
-> +	tristate
-> +	default y if SND_SOC_RT721_SDCA_SDW=y
-> +	default m if SND_SOC_RT721_SDCA_SDW=m
-> +
+> * How do you think about to reconsider the version numbers
+>   a bit more?
+>=20
+> * Would you like to mention the repeated adjustment of
+>   the patch subject?
+>=20
+> * Can a duplicate marker line be replaced by a blank line?
 
-This should really be posted in a series with the patch adding the
-driver, I guess the driver won't build without this.
+Feel free to ignore Markus, he has a long history of sending
+unhelpful review comments and continues to ignore repeated requests
+to stop.
 
---OVsnpoiqCzYswM3e
+--B6mD5aEE6D1/oRxA
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmcD63gACgkQJNaLcl1U
-h9BX+wf+JURPTuH1dcR5SYvWRF1EhL6dm2P09fDAsY5xSQiyZgrO3aDylQ5xYyy4
-1lVG3JWKvlyMOrfo3XAS9wNUPJUSJQIli2FwWrAzpIDatYX/OouPqSuw/b+/OdV9
-Jj2in1Ibr7ab0PDMR3pfLpmUUON2fnfTlr3HgmICWJ7n8QWHPWbUgM2qR9Imd2S8
-t5Cq/Zq4cImez8UOQby8aoKBXmqPJw8gVfzPL7mwZRsJhdgppV+/DqumfoQ28Bnw
-534LKj0bppi/6jgafjgqxK9omhDbxd/oAV9NfCbAnozSM9WUrnwaGulLi30rw0OQ
-KoOSVaNJXjcl1RI71vsvfV1zBxt6zw==
-=68Qv
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmcD7M4ACgkQJNaLcl1U
+h9CFiAf/V5OjgX/m7bDwCQgaPh8iQoD0Z/LMA6OfjNapjpGiIjXiHTnyl4+joeRF
+XZWhKsmHJQ8m2Cm/N73q98LdMxh49L4ocqv+R0V0p8wRBA0K+w409dSIKvrVMMF8
+mBnNAtuqAnzZGzdXWmh8CEuRRj+D7F9bC7rFrappGop4KIJoswGPkRT5XZwAANKK
+P7QW5dwgHMwi90bYR+cIF3R1mKinWnzDEJenxRyGiD1jhvW4zyoshNZ5fbsZSF1O
+RfdTos0jJvJoFQ3mIe5Z8deCL9eCqW+clErOZ3gSEP5zXMuPnsKyLmhEqs7a1oS+
+Oc9ykkgdRC+fn899c+ALAhcckcaLlQ==
+=JWCO
 -----END PGP SIGNATURE-----
 
---OVsnpoiqCzYswM3e--
+--B6mD5aEE6D1/oRxA--

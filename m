@@ -2,102 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BD0A994311
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 10:58:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A050B99433C
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2024 11:02:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E125E208;
-	Tue,  8 Oct 2024 10:58:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E125E208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76C2186E;
+	Tue,  8 Oct 2024 11:01:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76C2186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728377917;
-	bh=swKULQrE+YLS6/i3Nv/hVVQoqmwcDy+ZHSZ5ye/0InY=;
+	s=default; t=1728378124;
+	bh=a2Lka12I+944SR7l+lXTUahOT32pJduQSO1CNn7GJL4=;
 	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ck0lrVC5rb59JzvFj2CHcTT0kYqvv0ymu2VkfTcImJPJAS0nAL6k2OGuAK7yBsl1R
-	 20adzIN3ybiLcOlZtFDayzBQrzaKhi0Kn59a3qLlrO8ygqanVDaQv7jz4+OBdALB96
-	 BY0bhDF05DuNJfYr9qxkSS2WrXvqNce9LfHKMa4E=
+	b=lsoYZm8JnEFl6ZmCTDmM1ESsOG0+RnLymDqprUaWupDeK4dDo3RYO31m0NnqxIR6T
+	 3FnzdBjG6obeLpmsJmDvEGnJUfWtQGPl4vHTFrdlNgYo+KzEH7mofsKfDELdmSlKkW
+	 pxOfBRjLLKLHf5q4gT1bpZj6KusnIQyfIJze8+mM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0CEAF805D5; Tue,  8 Oct 2024 10:57:59 +0200 (CEST)
+	id CDF51F805AC; Tue,  8 Oct 2024 11:01:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73B68F805DF;
-	Tue,  8 Oct 2024 10:57:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81CC1F805B0;
+	Tue,  8 Oct 2024 11:01:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD571F80528; Tue,  8 Oct 2024 10:57:48 +0200 (CEST)
+	id D018BF80528; Tue,  8 Oct 2024 11:01:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8E387F80527
-	for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2024 10:57:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E387F80527
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84A1DF800ED
+	for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2024 11:01:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84A1DF800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=fR+LByy2
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4988vboJ73103585,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1728377857; bh=swKULQrE+YLS6/i3Nv/hVVQoqmwcDy+ZHSZ5ye/0InY=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version;
-	b=fR+LByy24wz8/inc8Fvdf+uggn0njWMo7DqgeXH34l6L23bPsMg70oLMGipA6BEhg
-	 1S5P0R6wnJrdKLiI+EzXt9wM95Bzo/TePNPF4nxm6KWIotDkRgW9/puM2JXteK4ptu
-	 6fShD0J6Ujnz+GX+4BsJJOsJjJ85Nvpq+1vpc7ZUGQ67WPt1LQRrRHS+KFX/YNiA1y
-	 zrNHvVtywLWrR4KE3gIv+cjrD0K9IltWnMC+GFX6OUhV93FeWyErelrlKMsC0v9d2V
-	 +Qgk3fbGay6YPQsB8nPv7p9GoSUs0p/48ZIS38gIhNHTD5iOINyXzRfPCLfSTPlSVr
-	 deHDTtzcL/p+A==
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 4988vboJ73103585
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Oct 2024 16:57:37 +0800
-Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Tue, 8 Oct 2024 16:57:37 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Tue, 8 Oct 2024 16:57:36 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
- RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
- 15.01.2507.035; Tue, 8 Oct 2024 16:57:36 +0800
-Content-Type: multipart/mixed;
-	boundary="_000_065c0b7d84cf47d3a9186235447521c5realtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "bard.liao@intel.com"
-	<bard.liao@intel.com>,
-        "naveen.m@intel.com" <naveen.m@intel.com>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
-        Jack Yu
-	<jack.yu@realtek.com>
-Subject: [PATCH 2/2] ASoC: rt721-sdca: Fix issue of warning message
-Thread-Topic: [PATCH 2/2] ASoC: rt721-sdca: Fix issue of warning message
-Thread-Index: AdsZYB5twYpxAqYfT+6Yl9jzt54Bxg==
-Date: Tue, 8 Oct 2024 08:57:36 +0000
-Message-ID: <065c0b7d84cf47d3a9186235447521c5@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-TNEF-Correlator: <065c0b7d84cf47d3a9186235447521c5@realtek.com>
-x-originating-ip: [172.21.6.42]
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=XFtsB8tI
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 49891J3v120985;
+	Tue, 8 Oct 2024 04:01:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1728378079;
+	bh=0oTotaH4I4rxhhRb8VxxetmOMUWnu5ssBNn0TEWG5w8=;
+	h=From:To:CC:Subject:Date;
+	b=XFtsB8tIqLTiYQz8CAat9Gx2JGzg4Ci93mb9JDPSHni/5bdwABCMtcAJAzIXb9RLd
+	 6Lvp0BN1N0dnz5ocisfR39WpeQYrwmhgs+BO1zv7SzPonAnRuZuQI34f2oKstSVwqg
+	 L2k6wAzY+ytr72qdifi/n+8bjs7TGo0jW/tTu3jE=
+Received: from DFLE104.ent.ti.com (dfle104.ent.ti.com [10.64.6.25])
+	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 49891JDZ004532
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 8 Oct 2024 04:01:19 -0500
+Received: from DFLE108.ent.ti.com (10.64.6.29) by DFLE104.ent.ti.com
+ (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 8
+ Oct 2024 04:01:19 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE108.ent.ti.com
+ (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Tue, 8 Oct 2024 04:01:19 -0500
+Received: from LT5CG31242FY.dhcp.ti.com (lt5cg31242fy.dhcp.ti.com
+ [10.85.14.123])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 49891Fwh069830;
+	Tue, 8 Oct 2024 04:01:15 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <linux-kernel@vger.kernel.org>
+CC: <baojun.xu@ti.com>, <13564923607@139.com>, <13916275206@139.com>,
+        <navada@ti.com>, <v-hampiholi@ti.com>, <m-shrivastava1@ti.com>,
+        <sakshi@ti.com>, <sandeepk@ti.com>, <robinchen@ti.com>,
+        <alsa-devel@alsa-project.org>, Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v5] MAINTAINERS: update entries in TEXAS INSTRUMENTS
+ LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) DRIVERS and add entries for
+ haptic driver
+Date: Tue, 8 Oct 2024 17:01:08 +0800
+Message-ID: <20241008090109.48-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Message-ID-Hash: MSWO6FGSRGJHTHD6B3W4F2MQ3H7GQO7C
-X-Message-ID-Hash: MSWO6FGSRGJHTHD6B3W4F2MQ3H7GQO7C
-X-MailFrom: jack.yu@realtek.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: 4TJFHFQU4BQSOBWA6CAHY3MP6XPYFCTL
+X-Message-ID-Hash: 4TJFHFQU4BQSOBWA6CAHY3MP6XPYFCTL
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MSWO6FGSRGJHTHD6B3W4F2MQ3H7GQO7C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4TJFHFQU4BQSOBWA6CAHY3MP6XPYFCTL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,135 +107,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_000_065c0b7d84cf47d3a9186235447521c5realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+Due to internal re-org, Kevin is no longer mnaintaining audio driver.
+Due to job change, drop entries for the audio converter and add
+entries for both haptics drivers and middle-power audio amplifier
+drivers. Add audio converter, set the Status as Supported. So far, the
+Software maintainer has not been confirmed. Once the maintainer was
+confimred, the guy will update his mail into audio converter section.
 
-Rml4IGlzc3VlIG9mIHdhcm5pbmcgbWVzc2FnZXMgY2F1c2VkIGJ5IHNvbWUgdmFyaWFibGVzLg0K
-DQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KLS0tDQogc291
-bmQvc29jL2NvZGVjcy9ydC1zZHctY29tbW9uLmMgfCAyICstDQogc291bmQvc29jL2NvZGVjcy9y
-dDcyMS1zZGNhLmMgICAgfCA0ICsrLS0NCiAyIGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygr
-KSwgMyBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQtc2R3
-LWNvbW1vbi5jIGIvc291bmQvc29jL2NvZGVjcy9ydC1zZHctY29tbW9uLmMNCmluZGV4IDllZDBl
-OTg1NTY5OS4uYTQyMmRhNmNmNzAyIDEwMDY0NA0KLS0tIGEvc291bmQvc29jL2NvZGVjcy9ydC1z
-ZHctY29tbW9uLmMNCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQtc2R3LWNvbW1vbi5jDQpAQCAt
-MTA4LDcgKzEwOCw3IEBAIEVYUE9SVF9TWU1CT0xfR1BMKHJ0X3NkY2FfaW5kZXhfdXBkYXRlX2Jp
-dHMpOw0KIGludCBydF9zZGNhX2J0bl90eXBlKHVuc2lnbmVkIGNoYXIgKmJ1ZmZlcikNCiB7DQog
-CXU4IGJ0bl90eXBlID0gMDsNCi0JaW50IHJldDsNCisJaW50IHJldCA9IDA7DQogDQogCWJ0bl90
-eXBlIHw9IGJ1ZmZlclswXSAmIDB4ZjsNCiAJYnRuX3R5cGUgfD0gKGJ1ZmZlclswXSA+PiA0KSAm
-IDB4ZjsNCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3J0NzIxLXNkY2EuYyBiL3NvdW5k
-L3NvYy9jb2RlY3MvcnQ3MjEtc2RjYS5jDQppbmRleCAzNjA1NmNiN2EzY2EuLjIwMWNiNjY3Yzhj
-MSAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MjEtc2RjYS5jDQorKysgYi9zb3Vu
-ZC9zb2MvY29kZWNzL3J0NzIxLXNkY2EuYw0KQEAgLTMwLDcgKzMwLDcgQEAgc3RhdGljIHZvaWQg
-cnQ3MjFfc2RjYV9qYWNrX2RldGVjdF9oYW5kbGVyKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykN
-CiB7DQogCXN0cnVjdCBydDcyMV9zZGNhX3ByaXYgKnJ0NzIxID0NCiAJCWNvbnRhaW5lcl9vZih3
-b3JrLCBzdHJ1Y3QgcnQ3MjFfc2RjYV9wcml2LCBqYWNrX2RldGVjdF93b3JrLndvcmspOw0KLQlp
-bnQgYnRuX3R5cGUgPSAwLCByZXQ7DQorCWludCBidG5fdHlwZSA9IDA7DQogDQogCWlmICghcnQ3
-MjEtPmhzX2phY2spDQogCQlyZXR1cm47DQpAQCAtNDIsNyArNDIsNyBAQCBzdGF0aWMgdm9pZCBy
-dDcyMV9zZGNhX2phY2tfZGV0ZWN0X2hhbmRsZXIoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQ0K
-IAlpZiAocnQ3MjEtPnNjcF9zZGNhX3N0YXQxICYgU0RXX1NDUF9TRENBX0lOVF9TRENBXzYpIHsN
-CiAJCXJ0NzIxLT5qYWNrX3R5cGUgPSBydF9zZGNhX2hlYWRzZXRfZGV0ZWN0KHJ0NzIxLT5yZWdt
-YXAsDQogCQkJCQkJCVJUNzIxX1NEQ0FfRU5UX0dFNDkpOw0KLQkJaWYgKHJldCA8IDApDQorCQlp
-ZiAocnQ3MjEtPmphY2tfdHlwZSA8IDApDQogCQkJcmV0dXJuOw0KIAl9DQogDQotLSANCjIuMzQu
-MQ0KDQo=
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
---_000_065c0b7d84cf47d3a9186235447521c5realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+---
+v5:
+ - | Reported-by: kernel test robot <lkp@intel.com>
+   | Closes: https://lore.kernel.org/oe-kbuild-all/202410021557.FByBO9Dp-lkp@intel.com/
+v4:
+ - Add Touch Screen support
+v3:
+ - Add Audio converter section
+ - Set the section of LOW/MIDDLE-POWER AUDIO AMPLIFIER as Supported
+v2:
+ - Add the detailed information of the maintained drivers.
+---
+ MAINTAINERS | 32 ++++++++++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 8 deletions(-)
 
-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
-AFQAUAAAAAAAAgEZDAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkA
-dQAAAFMATQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAf
-AAFdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEA
-AAAfABoAAQAAABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMA
-AAIBCzABAAAAEAAAAIGgK4muQetFpK7rKv9oDnYDABcAAQAAAEAAOQAAgLAeYBnbAUAACDAkdxgf
-YBnbAQsAKQAAAAAAHwDZPwEAAAAAAgAARgBpAHgAIABpAHMAcwB1AGUAIABvAGYAIAB3AGEAcgBu
-AGkAbgBnACAAbQBlAHMAcwBhAGcAZQBzACAAYwBhAHUAcwBlAGQAIABiAHkAIABzAG8AbQBlACAA
-dgBhAHIAaQBhAGIAbABlAHMALgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkAOgAg
-AEoAYQBjAGsAIABZAHUAIAA8AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0A
-PgANAAoALQAtAC0ADQAKACAAcwBvAHUAbgBkAC8AcwBvAGMALwBjAG8AZABlAGMAcwAvAHIAdAAt
-AHMAZAB3AC0AYwBvAG0AbQBvAG4ALgBjACAAfAAgADIAIAArAC0ADQAKACAAcwBvAHUAbgBkAC8A
-cwBvAGMALwBjAG8AZABlAGMAcwAvAHIAdAA3ADIAMQAtAHMAZABjAGEALgBjACAAIAAgACAAfAAg
-ADQAIAArACsALQAtAA0ACgAgADIAIABmAGkAbABlAHMAIABjAGgAYQBuAGcAZQBkACwAIAAzACAA
-aQBuAHMAZQByAHQAaQBvAG4AcwAoACsAKQAsACAAMwAgAGQAZQBsAGUAdABpAG8AbgBzACgALQAp
-AA0ACgANAAoAZABpAGYAZgAgAC0AAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8A
-AICGAwIAAAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAA
-AAEAAAAaAAAAegBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABG
-AQAAADIAAABFAHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAA
-AAAAIAAAAEgAAIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMA
-YQBnAGUASQBkAAAAAACfg8Rz3YirRvI5CNznd0GfHwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAA
-AEMAbABpAGUAbgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMA
-aABhAG4AZwBlAFIAUABDAAAAAAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAAB2
-AAAAWwBQAEEAVABDAEgAIAAyAC8AMgBdACAAQQBTAG8AQwA6ACAAcgB0ADcAMgAxAC0AcwBkAGMA
-YQA6ACAARgBpAHgAIABpAHMAcwB1AGUAIABvAGYAIAB3AGEAcgBuAGkAbgBnACAAbQBlAHMAcwBh
-AGcAZQAAAAAAHwA9AAEAAAACAAAAAAAAAAMANgAAAAAAAgFxAAEAAAAWAAAAAdsZYB5twYpxAqYf
-T+6Yl9jzt54BxgAAHwBwAAEAAAB2AAAAWwBQAEEAVABDAEgAIAAyAC8AMgBdACAAQQBTAG8AQwA6
-ACAAcgB0ADcAMgAxAC0AcwBkAGMAYQA6ACAARgBpAHgAIABpAHMAcwB1AGUAIABvAGYAIAB3AGEA
-cgBuAGkAbgBnACAAbQBlAHMAcwBhAGcAZQAAAAAAHwA1EAEAAABeAAAAPAAwADYANQBjADAAYgA3
-AGQAOAA0AGMAZgA0ADcAZAAzAGEAOQAxADgANgAyADMANQA0ADQANwA1ADIAMQBjADUAQAByAGUA
-YQBsAHQAZQBrAC4AYwBvAG0APgAAAAAAAwDeP7YDAAADABMSAAAAAAIBAIATj/JB9IMUQaWE7tta
-awv/AQAAAC4AAABIAGUAYQBkAGUAcgBCAG8AZAB5AEYAcgBhAGcAbQBlAG4AdABMAGkAcwB0AAAA
-AAABAAAAIgAAAAEACgAAAAQAAAAAAAAAFAAAAAAAAAAAAAAA/////wAAAAAAAAsAAIATj/JB9IMU
-QaWE7ttaawv/AQAAABwAAABIAGEAcwBRAHUAbwB0AGUAZABUAGUAeAB0AAAAAAAAAAsAAIATj/JB
-9IMUQaWE7ttaawv/AQAAACgAAABJAHMAUQB1AG8AdABlAGQAVABlAHgAdABDAGgAYQBuAGcAZQBk
-AAAAAAAAAEAABzCoyA0fYBnbAQIBCwABAAAAEAAAAIGgK4muQetFpK7rKv9oDnYDACYAAAAAAAsA
-BgwAAAAAAgEQMAEAAABGAAAAAAAAANvpxEokoOdBkxsquyuzbUwHAEy3fQ1VoXlEvnOFOWLQAKUA
-AABpYPcAADKvOAVKsE5GgMfHOCK6D1oAAAHXwBUAAAAAAgETMAEAAAAQAAAAwYpxAqYfT+6Yl9jz
-t54BxgIBFDABAAAADAAAAHYAAABfsOawRgAAAB8A+D8BAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAf
-ACJAAQAAAAYAAABFAFgAAAAAAB8AI0ABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8ATwBVAD0A
-RQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBSAE8AVQBQ
-ACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMASQBQAEkA
-RQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfACRAAQAAAAYAAABF
-AFgAAAAAAB8AJUABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABBAE4A
-RwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkARABJ
-AEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAvAEMA
-TgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfADBAAQAAABAAAABKAGEAYwBrACAAWQB1
-AAAAHwAxQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOEABAAAAEAAAAEoAYQBjAGsAIABZAHUA
-AAAfADlAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAAwBZQAAAAAADAFpAAAAAAAMACVkBAAAAHwAK
-XQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AC10BAAAA
-KAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAACAH6TrM6h6LkK+
-e3nhqY5UswEAAAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQAaQBvAG4ASQBuAGQAZQB4AFQAcgBhAGMA
-awBpAG4AZwBFAHgAAAABAAAAJAEAAEkASQA9AFsAQwBJAEQAPQAwADIANwAxADgAYQBjADEALQAx
-AGYAYQA2AC0AZQBlADQAZgAtADkAOAA5ADcALQBkADgAZgAzAGIANwA5AGUAMAAxAGMANgA7AEkA
-RABYAEgARQBBAEQAPQBEAEIAMQA5ADYAMAAxAEUANgBEADsASQBEAFgAQwBPAFUATgBUAD0AMQBd
-ADsAUABTAD0AVQBuAGsAbgBvAHcAbgA7AFYAZQByAHMAaQBvAG4APQBWAGUAcgBzAGkAbwBuACAA
-MQA1AC4AMQAgACgAQgB1AGkAbABkACAAMgA1ADAANwAuADAAKQAsACAAUwB0AGEAZwBlAD0ASAA0
-ADsAVQBQAD0AMQAwADsARABQAD0AMQBDADUAAAALAACACCAGAAAAAADAAAAAAAAARgAAAACChQAA
-AAAAAAMADTT9PwAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAAAHgALQBtAHMALQBoAGEAcwAt
-AGEAdAB0AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIgAAAHgA
-LQBvAHIAaQBnAGkAbgBhAHQAaQBuAGcALQBpAHAAAAAAAAEAAAAcAAAAWwAxADcAMgAuADIAMQAu
-ADYALgA0ADIAXQAAAO2s
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a097afd76ded..ecc987548088 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22901,25 +22901,42 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/davinci-mcasp-audio.yaml
+ F:	sound/soc/ti/
+ 
+-TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS
++TEXAS INSTRUMENTS LOW/MIDDLE-POWER AUDIO AMPLIFIER (ASoC/HDA) & HAPTICS DRIVERS
+ M:	Shenghao Ding <shenghao-ding@ti.com>
+-M:	Kevin Lu <kevin-lu@ti.com>
+ M:	Baojun Xu <baojun.xu@ti.com>
+ L:	linux-sound@vger.kernel.org
+-S:	Maintained
++S:	Supported
++F:	Documentation/devicetree/bindings/input/ti,drv260x.yaml
++F:	Documentation/devicetree/bindings/input/ti,drv266x.yaml
+ F:	Documentation/devicetree/bindings/sound/tas2552.txt
++F:	Documentation/devicetree/bindings/sound/tas5720.txt
+ F:	Documentation/devicetree/bindings/sound/ti,tas2562.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas2770.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas27xx.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas5086.txt
++F:	Documentation/devicetree/bindings/sound/ti,tas57xx.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas5805m.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tpa6130a2.yaml
++F:	drivers/input/misc/drv2*.c
++F:	include/sound/tas2*.h
++F:	include/sound/tas5086.h
++F:	include/sound/tpa6130a2-plat.h
++F:	sound/pci/hda/tas2781_hda_i2c.c
++F:	sound/soc/codecs/tas2*.*
++F:	sound/soc/codecs/tas5*.*
++F:	sound/soc/codecs/tpa6130a2.*
++
++TEXAS INSTRUMENTS AUDIO Converter (ASoC) and Touch Screen DRIVERS
++L:	linux-sound@vger.kernel.org
++S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/ti,pcm1681.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,pcm3168a.yaml
++F:	Documentation/devicetree/bindings/sound/ti,pcm6240.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tlv320*.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tlv320adcx140.yaml
+-F:	include/sound/tas2*.h
++F:	drivers/input/touchscreen/tsc2*.*
+ F:	include/sound/tlv320*.h
+-F:	include/sound/tpa6130a2-plat.h
+-F:	sound/pci/hda/tas2781_hda_i2c.c
+ F:	sound/soc/codecs/pcm1681.c
+ F:	sound/soc/codecs/pcm1789*.*
+ F:	sound/soc/codecs/pcm179x*.*
+@@ -22929,9 +22946,8 @@ F:	sound/soc/codecs/pcm3060*.*
+ F:	sound/soc/codecs/pcm3168a*.*
+ F:	sound/soc/codecs/pcm5102a.c
+ F:	sound/soc/codecs/pcm512x*.*
+-F:	sound/soc/codecs/tas2*.*
++F:	sound/soc/codecs/pcm6240.*
+ F:	sound/soc/codecs/tlv320*.*
+-F:	sound/soc/codecs/tpa6130a2.*
+ 
+ TEXAS INSTRUMENTS DMA DRIVERS
+ M:	Peter Ujfalusi <peter.ujfalusi@gmail.com>
 
---_000_065c0b7d84cf47d3a9186235447521c5realtekcom_--
+base-commit: 87d6aab2389e5ce0197d8257d5f8ee965a67c4cd
+-- 
+2.34.1
+

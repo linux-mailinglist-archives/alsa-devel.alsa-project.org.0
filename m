@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ECBF9997A4
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2024 02:24:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFEE99997A9
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2024 02:25:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7055162E;
-	Fri, 11 Oct 2024 02:24:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7055162E
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1BA6E85;
+	Fri, 11 Oct 2024 02:24:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1BA6E85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728606282;
-	bh=Z2vXdqza1mKzaYCDwoc0E+XwQviWreyyPzXX84kItQs=;
+	s=default; t=1728606303;
+	bh=/3FgR9a4atMgMcG1FVHkH/7gwQAK0PDCtUz89wQjoks=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jOECTP3yEesmxBIYo1loGgPmh1oPsbsIyyKuAnlflPrqfDCVw8SSeo4c0zfEgT5fo
-	 j7mg1QIdnjhTUPR9IHEfQaFGF6bk9IDsgIPZB+QirAPms2Qu9XeAFAVf6aMutPv8pR
-	 gMDAqnIk5H4WxbIpIGjm0xpp55LuYXyhN0zdpkJg=
+	b=BxXOHFdUTfkFqGrtqwvKBOhH8HfBZZtVfde3vZXqqaW8rf9pf+XlVezU0IUC/0eoN
+	 IlNo3Ogni1FuCAlqtMyoP0/y+wZ7kn7fHxA36uf2jEpq7wVJ3pK5wIBEtQwLRAgKlJ
+	 v0QuyfkfwK+zerDrpUIeXyiv+pfO7emYhSmVUTyo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2B12F8085B; Fri, 11 Oct 2024 02:12:03 +0200 (CEST)
+	id 7D884F80864; Fri, 11 Oct 2024 02:12:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48CE0F89A96;
-	Fri, 11 Oct 2024 02:12:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A907F89ABC;
+	Fri, 11 Oct 2024 02:12:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EAB0BF808C8; Fri, 11 Oct 2024 02:08:51 +0200 (CEST)
+	id C8D43F808CA; Fri, 11 Oct 2024 02:08:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,42 +37,42 @@ Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BEE9EF805DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1C53CF805D9
 	for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2024 02:07:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEE9EF805DF
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C53CF805D9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=a69AxnDf
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=WZG3Erma
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 49AAbcpA020040;
+ 49AC8lJo022368;
 	Fri, 11 Oct 2024 00:07:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hhypoh1YkPhSPXaYJ78fwY0e2/AKkzkM+fGnN1dHQGY=; b=a69AxnDfylrYLbGJ
-	lbiijATARxKBHg04hen/lGE4mEoBHyKe3Ibudm4CtzsVxUKoz0F+iBjzXtztHLog
-	n63fuQ9JKNskeGIckf0YnLW7gUxb2R9gki3cdZ7A7td9c08Pzya5v50fxfIIE2u9
-	uIQdJCsGBPVEiYKn+LrdcEZ5jXQnh3plnJlyFFGFBnhcDk6lwHB9rJiMK0lKjuzk
-	yF4KgSsXD9O7YiXfkJV7C0OcL253SRDDI0Fni/n3t5kv5zOhnbS6I3h40QBZngaN
-	SFltf3uzNtHtd2+yLmlCeI9unq1kDDXnB3w5wbnj4GLSWxcQpukr+GtEeg2lly4I
-	fLxZfQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+	yvV7vEHz1MNKFUu/6SHmeQD2H1Q7FMZu9kQZOjwt5jk=; b=WZG3ErmawtbLdv4c
+	40FCBQGIn9QhubtFP46VBsxKMTA/NKVw5On3e7w9hxlb+cYABzUFdtq7UnVN3lKm
+	NmjNTxXin/IavWROS02U6m0LUnOS/6rPzjgsf/yQ1Ts0CGG5OVx4ncKfYhRko+gz
+	yaeSeU/hPOqSA5MBwi4wAO6RzzRzeHKdcnROIRFbyKJ7E4cIRQZA+k45dwA10O9a
+	6SutWlYrXDWFRemOe/d99GwMafRPCUDhsqrY/FUXj9RCG+wEXr0k0NSZU0aLjsss
+	xN4edWYeHyo1v23VzUZMc396JI1+cB7E/o92vQ4FUp5Da/dbinJE5oppmkY6wI9a
+	MR1uCQ==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 426db7hvkb-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 425xptv1f4-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 11 Oct 2024 00:07:20 +0000 (GMT)
+	Fri, 11 Oct 2024 00:07:21 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 49B07KSX020174
+	by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 49B07KoH015391
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Fri, 11 Oct 2024 00:07:20 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
  nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.9; Thu, 10 Oct 2024 17:07:19 -0700
+ 15.2.1544.9; Thu, 10 Oct 2024 17:07:20 -0700
 From: Wesley Cheng <quic_wcheng@quicinc.com>
 To: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
         <perex@perex.cz>, <conor+dt@kernel.org>, <dmitry.torokhov@gmail.com>,
@@ -87,10 +87,10 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>,
         Wesley Cheng
 	<quic_wcheng@quicinc.com>
-Subject: [PATCH v28 31/32] ALSA: usb-audio: Allow for rediscovery of connected
+Subject: [PATCH v28 32/33] ALSA: usb-audio: Allow for rediscovery of connected
  USB SND devices
-Date: Thu, 10 Oct 2024 17:06:47 -0700
-Message-ID: <20241011000650.2585600-63-quic_wcheng@quicinc.com>
+Date: Thu, 10 Oct 2024 17:06:48 -0700
+Message-ID: <20241011000650.2585600-64-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241011000650.2585600-1-quic_wcheng@quicinc.com>
 References: <20241011000650.2585600-1-quic_wcheng@quicinc.com>
@@ -103,19 +103,19 @@ X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: HeEFn5-xjUQPSWcrKDAWd6EOwXWl_L_W
-X-Proofpoint-GUID: HeEFn5-xjUQPSWcrKDAWd6EOwXWl_L_W
+X-Proofpoint-ORIG-GUID: V6TeTQ3KFbkmJXp-GwXefD2C0naDDRMw
+X-Proofpoint-GUID: V6TeTQ3KFbkmJXp-GwXefD2C0naDDRMw
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- priorityscore=1501 impostorscore=0 mlxlogscore=999 bulkscore=0
- malwarescore=0 mlxscore=0 phishscore=0 clxscore=1015 spamscore=0
- adultscore=0 lowpriorityscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2409260000 definitions=main-2410100158
-Message-ID-Hash: ADUNB5RCPWV2XY2ZZ6CJHQLBA7O7X2BG
-X-Message-ID-Hash: ADUNB5RCPWV2XY2ZZ6CJHQLBA7O7X2BG
+ priorityscore=1501
+ adultscore=0 suspectscore=0 spamscore=0 mlxscore=0 bulkscore=0
+ phishscore=0 mlxlogscore=999 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2409260000 definitions=main-2410100159
+Message-ID-Hash: ME3TXISJ3LSHD7AWVZTRMRHPPUKFI6W7
+X-Message-ID-Hash: ME3TXISJ3LSHD7AWVZTRMRHPPUKFI6W7
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -128,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ADUNB5RCPWV2XY2ZZ6CJHQLBA7O7X2BG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ME3TXISJ3LSHD7AWVZTRMRHPPUKFI6W7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -198,10 +198,10 @@ index d8b8522e1613..94404c24d240 100644
 +void snd_usb_rediscover_devices(void);
  #endif /* __USBAUDIO_CARD_H */
 diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
-index 5b9262a116be..2dc651cd3d05 100644
+index c4165fc88fd1..7839be4cbf32 100644
 --- a/sound/usb/qcom/qc_audio_offload.c
 +++ b/sound/usb/qcom/qc_audio_offload.c
-@@ -1929,6 +1929,8 @@ static int __init qc_usb_audio_offload_init(void)
+@@ -1935,6 +1935,8 @@ static int __init qc_usb_audio_offload_init(void)
  	if (ret < 0)
  		goto release_qmi;
  

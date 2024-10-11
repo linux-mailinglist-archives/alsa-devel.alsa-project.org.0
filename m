@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACC8B999703
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2024 02:17:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED06A999713
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2024 02:18:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36EE91060;
-	Fri, 11 Oct 2024 02:17:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36EE91060
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C09AE65;
+	Fri, 11 Oct 2024 02:18:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C09AE65
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728605870;
+	s=default; t=1728605904;
 	bh=2TQXo2YMYhg/mBJxKuqafaOEZef1g+SCKODQN1pqdkU=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NReN+nSSmMnTGO+xzLkc36rjLUw26sEvWjN7Casp47r41hhj53kycAfsyiABD8cKO
-	 O6n8VD7GV4rd39JdaJ9u5+43ZMvk5knCgNKh/ylECxzdZZ3WgB/QecEJg5qwIgJBQ7
-	 IJ039ZWdR9XtsBxU1H5Z9+prOrpFU4VhPC6M7iHQ=
+	b=HqkFsip8+DtWnHrzDmvGRnrczm45sxwdYhWgDIF6XHHnzZgWi19Vfk5LWgrTUaj/m
+	 4eDLaBTmTZ95M/QT707r6vukygFmp7jEDoBx/yVFw7ZDc/69PDkwBV1ieNWOBc9cSI
+	 bn1O4RXFLdfzjYq5U/OCPKgxJztoXbeeGwDxgOIQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1A39F89828; Fri, 11 Oct 2024 02:10:23 +0200 (CEST)
+	id CFE5FF8070D; Fri, 11 Oct 2024 02:10:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8AB7F89827;
-	Fri, 11 Oct 2024 02:10:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95147F89851;
+	Fri, 11 Oct 2024 02:10:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BAEDF806B3; Fri, 11 Oct 2024 02:07:56 +0200 (CEST)
+	id 182A1F806CE; Fri, 11 Oct 2024 02:08:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,40 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 386FAF805BE
-	for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2024 02:07:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 386FAF805BE
+	by alsa1.perex.cz (Postfix) with ESMTPS id B505EF805C0
+	for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2024 02:07:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B505EF805C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=Wu4UslpP
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ header.s=qcppdkim1 header.b=OiJqUPzQ
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
 	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 49ADr2N2030035;
-	Fri, 11 Oct 2024 00:07:14 GMT
+ 49AEeILK006976;
+	Fri, 11 Oct 2024 00:07:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/ZM8SPXr7udKkYr/SDUmnoP1IOgbHf5SfkdSPWJ27XA=; b=Wu4UslpPIPfFR+Vb
-	PIaZjtn7k2eucOw2VD39NmeR9qDo/l4zwGjvONiwr0UEA7x+xWgI0rUiKuIM18R2
-	uPFGjCjRqkyQ1vPWQ8Y+KRnug/XBjQZpSAxJz6CY3dsdBngPVwzNcLUdBQv6518e
-	qOGYReS1qEWUDuG6ru0hEH+ls+O9yx8+aThon/ur0cXkDfIncTvZDDzXyk0TVznB
-	/dvQ4vSneUh+bIIJyqBHiHIzjPcci2hI4tzpLTnH05VqCkW+dWPmJkGRyGw9TFmR
-	HJlwm+jX8Oxa7JT4YWSusocbfFfCNVBSOxWA+dA+PZD9r7Ytx3lhet2KzuNuNqsI
-	DsFvEA==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+	/ZM8SPXr7udKkYr/SDUmnoP1IOgbHf5SfkdSPWJ27XA=; b=OiJqUPzQ+iax4MhJ
+	AH/v/M0ikxiH7Bmx1BoedAG8dpCCCQFQSsRj3mvcElH+DyxphOuQWRforVxSV1VO
+	PpeZlo0/srppjTjuNQJHuJP5rhfBG6ebBs/ziSSb/0mO/Sb6KGT3MZbaIPIpPxmT
+	lN1hG/my0TlqRsze5Y4rusxD3WbfsuP0PVCHG+WJt3Jilf22k4B/qnZPzgHpk2O1
+	6G0tqAHIHPQCBtMSwf3F8Nb7xr9nonXe5kTSV+Zmgs8eLi3Zi2tuRGjwN8Z8P0eT
+	Fzwaor2WSFuIcGzInt9Y6UPDV1o1sYUerbdng9eqIELHxafrtIKmc3HoOUW31x/j
+	xVIAfQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 426g6n9ay7-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 426gw2h8ae-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 11 Oct 2024 00:07:14 +0000 (GMT)
+	Fri, 11 Oct 2024 00:07:15 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
-	by NALASPPMTA01.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
- 49B07Db6020105
+	by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 49B07DLa016379
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Fri, 11 Oct 2024 00:07:13 GMT
 Received: from hu-wcheng-lv.qualcomm.com (10.49.16.6) by
@@ -89,10 +89,10 @@ CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<quic_wcheng@quicinc.com>,
         Krzysztof Kozlowski
 	<krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v28 19/32] ASoC: dt-bindings: qcom,q6dsp-lpass-ports: Add
+Subject: [PATCH v28 20/33] ASoC: dt-bindings: qcom,q6dsp-lpass-ports: Add
  USB_RX port
-Date: Thu, 10 Oct 2024 17:06:23 -0700
-Message-ID: <20241011000650.2585600-39-quic_wcheng@quicinc.com>
+Date: Thu, 10 Oct 2024 17:06:24 -0700
+Message-ID: <20241011000650.2585600-40-quic_wcheng@quicinc.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241011000650.2585600-1-quic_wcheng@quicinc.com>
 References: <20241011000650.2585600-1-quic_wcheng@quicinc.com>
@@ -105,19 +105,19 @@ X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: A1gYZzGFj-PzFwgH5qWE7t8oh5trR1Ja
-X-Proofpoint-GUID: A1gYZzGFj-PzFwgH5qWE7t8oh5trR1Ja
+X-Proofpoint-GUID: BsR_kfq3cD8zjvJ3Pt6ZycPGVowQEV4I
+X-Proofpoint-ORIG-GUID: BsR_kfq3cD8zjvJ3Pt6ZycPGVowQEV4I
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
  definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 impostorscore=0
- mlxlogscore=957 mlxscore=0 spamscore=0 phishscore=0 malwarescore=0
- clxscore=1015 priorityscore=1501 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2409260000 definitions=main-2410100159
-Message-ID-Hash: YHLCMCHCBLE36BK2QGDX2EFQFRXIPVUH
-X-Message-ID-Hash: YHLCMCHCBLE36BK2QGDX2EFQFRXIPVUH
+ mlxscore=0 suspectscore=0
+ mlxlogscore=957 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410100159
+Message-ID-Hash: FSHVZ55EGNBGR4PU46KPSE47Z4T7W6TC
+X-Message-ID-Hash: FSHVZ55EGNBGR4PU46KPSE47Z4T7W6TC
 X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -130,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YHLCMCHCBLE36BK2QGDX2EFQFRXIPVUH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FSHVZ55EGNBGR4PU46KPSE47Z4T7W6TC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

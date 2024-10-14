@@ -2,106 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6216999C688
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2024 11:56:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD54099C691
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2024 11:58:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C0B1DF6;
-	Mon, 14 Oct 2024 11:55:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C0B1DF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id C542184D;
+	Mon, 14 Oct 2024 11:58:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C542184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728899768;
-	bh=3pnjzEqnHdeKsM4OxbaUCFLArrI7hAuSnL6uaj1S11k=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=tpr3bLLMQ4MyMSVvmEzwkkCQ+H1+LYOaKjjU4ZvEG4l62v4+fe62tmnlHS+WoBy+O
-	 n4pHDZrBMm+xBm3rUtOgS+3O0P7YT5yZE2CiTFQAL8gav9KcBnaES4KnxayQxsU+Z1
-	 odWYSHD7R1jeLW2D1gQWQIUESe/+gWXB+DcfKc+A=
+	s=default; t=1728899926;
+	bh=a1C8QOiGSKMALPkwUWCazCMsmtNUhnrxP5wPLkHiByY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=hF/Zhtc6KP2yFdTGktlPclby4AE9I2iluW7Oj/ENcCWGeVzfmiB7Z0SsmxwcdRA64
+	 o29fhwSFvV1acgC/L4/U4OGnF1U+e0kiuJxo9IZJ5zlwMu1gV7fUBiBCo5xK3i0aIZ
+	 wjUZXKFkDh8fv8ZVhIEhYyh7RI7mPE6NSdrlDbGI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7699F805B0; Mon, 14 Oct 2024 11:55:38 +0200 (CEST)
+	id 85EE5F805AC; Mon, 14 Oct 2024 11:58:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B84AF80448;
-	Mon, 14 Oct 2024 11:55:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8648F805AA;
+	Mon, 14 Oct 2024 11:58:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77B0AF80448; Mon, 14 Oct 2024 11:55:32 +0200 (CEST)
+	id 7036DF80448; Mon, 14 Oct 2024 11:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EB93AF80104
-	for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2024 11:55:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB93AF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E6B4F8016B
+	for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2024 11:58:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E6B4F8016B
 Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=Qajyjb+t
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 49E9tKUV13825494,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1728899720; bh=3pnjzEqnHdeKsM4OxbaUCFLArrI7hAuSnL6uaj1S11k=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version;
-	b=Qajyjb+tTCv5a0VECnVLh/fLY0VH8w+l1/g4ehPa+fsVsQdxOaoKNCapk4IFWPheg
-	 G4BFT5ebaK9UgJP/cW/eK0jY8WwU6UjI2riyuqFIHiBm3UgCo+iy/V/hIkwoViNcri
-	 F80lSjQ0x0Gk36rP36PRMBGyA1V5YjdhEhAMDUctY4N6WHXx3CjMpE4r56F48G48Kj
-	 zg3X29o9t5T5JY5RMJ0aGRgVD4sryYx4hkTOVyv4TrY0x7CDcyzTONx+lVLc+AAtKl
-	 9O2cgkEITvZVrkd6UeIFmnY/GNh5RsBLsrIpiTm6drUKmTiwiirZ2j7MVcc77uYvpN
-	 HAeiPDk3THcTQ==
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 49E9tKUV13825494
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 14 Oct 2024 17:55:20 +0800
-Received: from RTEXMBS03.realtek.com.tw (172.21.6.96) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Mon, 14 Oct 2024 17:55:21 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Mon, 14 Oct 2024 17:55:20 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
- RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
- 15.01.2507.035; Mon, 14 Oct 2024 17:55:20 +0800
-Content-Type: multipart/mixed;
-	boundary="_000_8631337239d744088d56caab2d8f39cbrealtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
-	<shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
-	<derek.fang@realtek.com>,
-        Jack Yu <jack.yu@realtek.com>
-Subject: [PATCH v2] ASoC: rt-sdw-common: Enhance switch case to prevent
- uninitialized variable
-Thread-Topic: [PATCH v2] ASoC: rt-sdw-common: Enhance switch case to prevent
- uninitialized variable
-Thread-Index: AdseHy2NODkz69qmQ2aVrL8cSlVHlA==
-Date: Mon, 14 Oct 2024 09:55:20 +0000
-Message-ID: <8631337239d744088d56caab2d8f39cb@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-TNEF-Correlator: <8631337239d744088d56caab2d8f39cb@realtek.com>
-x-originating-ip: [172.21.6.42]
-x-kse-serverinfo: RTEXMBS03.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: 6GT3IRIWOSVASPHP3KFQ67GWJI2KSLYB
-X-Message-ID-Hash: 6GT3IRIWOSVASPHP3KFQ67GWJI2KSLYB
-X-MailFrom: jack.yu@realtek.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=MUn0EyUZ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=xZudp+Ay;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=MUn0EyUZ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=xZudp+Ay
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6238121B93;
+	Mon, 14 Oct 2024 09:58:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1728899888;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rm/Wr/2gNPx8+ogxRf3WizmmX1y6Anj9CFEAe9gX36M=;
+	b=MUn0EyUZ1eE826yyqz8kwqpyhvK9FN8+iWCnIOzHMBQJHpCrbsf8Oz7oP1fQ8nywyptTTR
+	kp6hKQ3J48YvZ9hpSVvPfri7KEtpdgEPixAnzCfMdY9+lQVt6bQlNT51MyTSQEkw12/BYP
+	Qwica8JGFXKJRxxQMOc8cSoRSz1Tn/o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1728899888;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rm/Wr/2gNPx8+ogxRf3WizmmX1y6Anj9CFEAe9gX36M=;
+	b=xZudp+AyBeuL+WCvS3dXauY6RQzt1HVaj2Nl6vBcTPJvsc6ISS03Fcu8oZEl2ilWLJEDqL
+	W3Ye3T7BQ1fNiJAQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=MUn0EyUZ;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xZudp+Ay
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1728899888;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rm/Wr/2gNPx8+ogxRf3WizmmX1y6Anj9CFEAe9gX36M=;
+	b=MUn0EyUZ1eE826yyqz8kwqpyhvK9FN8+iWCnIOzHMBQJHpCrbsf8Oz7oP1fQ8nywyptTTR
+	kp6hKQ3J48YvZ9hpSVvPfri7KEtpdgEPixAnzCfMdY9+lQVt6bQlNT51MyTSQEkw12/BYP
+	Qwica8JGFXKJRxxQMOc8cSoRSz1Tn/o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1728899888;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rm/Wr/2gNPx8+ogxRf3WizmmX1y6Anj9CFEAe9gX36M=;
+	b=xZudp+AyBeuL+WCvS3dXauY6RQzt1HVaj2Nl6vBcTPJvsc6ISS03Fcu8oZEl2ilWLJEDqL
+	W3Ye3T7BQ1fNiJAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3AF8413A51;
+	Mon, 14 Oct 2024 09:58:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id v2yxDDDrDGfmEQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 14 Oct 2024 09:58:08 +0000
+Date: Mon, 14 Oct 2024 11:59:05 +0200
+Message-ID: <87h69fj992.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Seth Poulsen <poulsenseth@yahoo.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>
+Subject: Re: [PATCH] Support for Line 6 TonePort KB37
+In-Reply-To: <572241092.1343790.1728854650969@mail.yahoo.com>
+References: <572241092.1343790.1728854650969.ref@mail.yahoo.com>
+	<572241092.1343790.1728854650969@mail.yahoo.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 6238121B93
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[yahoo.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[yahoo.com];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Message-ID-Hash: 3AYB2S4VSPGTFWMEJYGA5DRVOCF37FFL
+X-Message-ID-Hash: 3AYB2S4VSPGTFWMEJYGA5DRVOCF37FFL
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +172,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6GT3IRIWOSVASPHP3KFQ67GWJI2KSLYB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3AYB2S4VSPGTFWMEJYGA5DRVOCF37FFL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,129 +181,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_000_8631337239d744088d56caab2d8f39cbrealtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On Sun, 13 Oct 2024 23:24:10 +0200,
+Seth Poulsen wrote:
+> 
+> The Line 6 TonePort KB37 is a device with the same ports as the TonePort UX2, but with a MIDI keyboard onboard. 
+> It can use the same driver as the UX2, it just needed to be enabled.
+> -Seth Poulsen
 
-SWYgZGV0X21vZGUgaXMgbm90IDAsIDMgb3IgNSB0aGVuIGZ1bmN0aW9uIHdpbGwgcmV0dXJuDQpq
-YWNrX3R5cGUgd2l0aCBhbiB1bmluaXRpYWx6ZWQgdmFsdWUuDQpFbmhhbmNlIHN3aXRjaCBjYXNl
-IHRvIHByZXZlbnQgdW5pbml0aWFsaXplZCB2YXJpYWJsZSBpc3N1ZS4NCg0KU2lnbmVkLW9mZi1i
-eTogSmFjayBZdSA8amFjay55dUByZWFsdGVrLmNvbT4NCi0tLQ0KIHNvdW5kL3NvYy9jb2RlY3Mv
-cnQtc2R3LWNvbW1vbi5jIHwgNiArKystLS0NCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25z
-KCspLCAzIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9ydC1z
-ZHctY29tbW9uLmMgYi9zb3VuZC9zb2MvY29kZWNzL3J0LXNkdy1jb21tb24uYw0KaW5kZXggYTQy
-MmRhNmNmNzAyLi45ZjUxZmVjMzgzZjkgMTAwNjQ0DQotLS0gYS9zb3VuZC9zb2MvY29kZWNzL3J0
-LXNkdy1jb21tb24uYw0KKysrIGIvc291bmQvc29jL2NvZGVjcy9ydC1zZHctY29tbW9uLmMNCkBA
-IC0xNTAsMTUgKzE1MCwxNSBAQCBpbnQgcnRfc2RjYV9oZWFkc2V0X2RldGVjdChzdHJ1Y3QgcmVn
-bWFwICptYXAsIHVuc2lnbmVkIGludCBlbnRpdHlfaWQpDQogCQlnb3RvIGlvX2Vycm9yOw0KIA0K
-IAlzd2l0Y2ggKGRldF9tb2RlKSB7DQotCWNhc2UgMHgwMDoNCi0JCWphY2tfdHlwZSA9IDA7DQot
-CQlicmVhazsNCiAJY2FzZSAweDAzOg0KIAkJamFja190eXBlID0gU05EX0pBQ0tfSEVBRFBIT05F
-Ow0KIAkJYnJlYWs7DQogCWNhc2UgMHgwNToNCiAJCWphY2tfdHlwZSA9IFNORF9KQUNLX0hFQURT
-RVQ7DQogCQlicmVhazsNCisJZGVmYXVsdDoNCisJCWphY2tfdHlwZSA9IDA7DQorCQlicmVhazsN
-CiAJfQ0KIA0KIAkvKiB3cml0ZSBzZWxlY3RlZF9tb2RlICovDQotLSANCjIuMzQuMQ0KDQo=
+Please give a proper patch with your Signed-off-by tag.  It's a legal
+requirement for upstreaming.  And since recently we expect patches
+submitted to linux-sound ML instead of alsa-devel ML.
 
---_000_8631337239d744088d56caab2d8f39cbrealtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+At best, please resubmit the patch to linux-sound@vger.kernel.org with
+Cc to maintainers (me).
 
-eJ8+Is08AQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADg0NTJCNzY4
-NjEyMTFCNEY5MTg4MjAwMDU0RDg0N0U1ANcGAQ2ABAACAAAAAgACAAEFgAMADgAAAOgHCgAOAAkA
-NwAUAAEAXAEBIIADAA4AAADoBwoADgAJADcAFAABAFwBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAFYAAABbUEFUQ0ggdjJdIEFTb0M6IHJ0LXNkdy1jb21tb246IEVuaGFu
-Y2Ugc3dpdGNoIGNhc2UgdG8gcHJldmVudCB1bmluaXRpYWxpemVkIHZhcmlhYmxlAGceAQuAAQAh
-AAAAODQ1MkI3Njg2MTIxMUI0RjkxODgyMDAwNTREODQ3RTUA1wYBA5AGAFwUAABHAAAAAgF/AAEA
-AAAvAAAAPDg2MzEzMzcyMzlkNzQ0MDg4ZDU2Y2FhYjJkOGYzOWNiQHJlYWx0ZWsuY29tPgAACwAf
-DgAAAAACAQkQAQAAAE4DAABKAwAAcwUAAExaRnX8MQfzYQAKZmJpZAQAAGNjwHBnMTI1MgD+A0Pw
-dGV4dAH3AqQD4wIABGNoCsBzZXQwIO8HbQKDAFARTTIKgAa0AoCWfQqACMg7CWIxOQ7AvwnDFnIK
-MhZxAoAVYioJsHMJ8ASQYXQFsg5QA2Bzom8BgCBFeBHBbhgwXQZSdgSQF7YCEHIAwHR9CFBuGjEQ
-IAXABaAbZGSaIANSIBAiF7JcdgiQ5HdrC4BkNR1TBPAHQA0XcDAKcRfyYmttawZzAZAAICBCTV9C
-4EVHSU59CvwB8QvxkCBJZiABAHRfBGIiIAQAIG5vBUAwLKggMyAFsTUcwGgJ8EEccHVuY3RpAiAg
-bQPwbAMgCXB0CHALkGwVC4BlCoBqANBrX3TceXAZ4APwI3AgA5Ej0NcLgCYgBzF6HFF2B0AKUNIu
-JQVFbhmhYxngA+E2dBHAG9BhEgAcwG8g3nAJcBowAjAmiGknJAchGwJgIkJzJ5glBVNpZwkYUGQt
-GTBmLWJ5CDogSiWBIFl1IMI8JXIueXVACXAHQKcQIC6ABaBtPiUFLTAALyUFKKAIYB3ALxkgYy8T
-BaAFgXMvACAtc2Qsdy0vUQRgbi9AIHywIDYgKzMAMAkxHHD3AxAZ4BmUZCLiC4ASAAAg4SQRcygr
-KSLiAQAecLk1VC0pK/wN4AEgIDAAvmcmICZQMQEw3zHsYjh/HzmOJQUdsRAwJlA0MjIAZGE2Y2Y3
-MDKALi45ZjUxZgWQYDM4M2Y5M9AeoDb8NDQvmDhfO588pjMBOo+TQU88pkBAN/AxNSLQf0XgMvBF
-5UWhC4AFQAAgX0sx8B5QXyOAYWQSAV+TIdEFkHQoH2BydSPwxSSRZwDAcCAqSVEi4D8j0ACQLPJG
-8ynhJiB5X3MN0DbGIGcioCmAJBBfvwSQA2AaUDA2MDcoxCgh1p4pAzAAAC+lKSMweB6g9jovliV4
-PSLATLYtcC7RVmtMt0+GM1AWIFCqUwBORF9KQUNLXwBIRUFEUEhPTm5FTLdSD0+zNVN/VI9TnEVU
-Ve9ChAEBYXUvAN1QFitQr0KTVnxcIEBM3fwvKiRABRAQICigNiEj8HMJgCIEKi8vl002PjAzPDQu
-AFAsCxVCZCAAAB8AQgABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAGUAAQAAACgAAABqAGEAYwBr
-AC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwBkAAEAAAAKAAAAUwBNAFQAUAAAAAAA
-AgFBAAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAAAFMATQBU
-AFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAJdAQAAACgA
-AABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwDlXwEAAAAEAAAAIAAA
-AB8AGgwBAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAB8MAQAAACgAAABqAGEAYwBrAC4AeQB1AEAA
-cgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAeDAEAAAAKAAAAUwBNAFQAUAAAAAAAAgEZDAEAAABa
-AAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAAAFMATQBUAFAAAABqAGEA
-YwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAFdAQAAACgAAABqAGEAYwBr
-AC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEAAAAfABoAAQAAABIAAABJAFAA
-TQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMAAAIBCzABAAAAEAAAAIRSt2hh
-IRtPkYggAFTYR+UDABcAAQAAAEAAOQAAdN8tHx7bAUAACDAyOiguHx7bAQsAKQAAAAAAHwDZPwEA
-AAD+AQAASQBmACAAZABlAHQAXwBtAG8AZABlACAAaQBzACAAbgBvAHQAIAAwACwAIAAzACAAbwBy
-ACAANQAgAHQAaABlAG4AIABmAHUAbgBjAHQAaQBvAG4AIAB3AGkAbABsACAAcgBlAHQAdQByAG4A
-DQAKAGoAYQBjAGsAXwB0AHkAcABlACAAdwBpAHQAaAAgAGEAbgAgAHUAbgBpAG4AaQB0AGkAYQBs
-AHoAZQBkACAAdgBhAGwAdQBlAC4ADQAKAEUAbgBoAGEAbgBjAGUAIABzAHcAaQB0AGMAaAAgAGMA
-YQBzAGUAIAB0AG8AIABwAHIAZQB2AGUAbgB0ACAAdQBuAGkAbgBpAHQAaQBhAGwAaQB6AGUAZAAg
-AHYAYQByAGkAYQBiAGwAZQAgAGkAcwBzAHUAZQAuAA0ACgANAAoAUwBpAGcAbgBlAGQALQBvAGYA
-ZgAtAGIAeQA6ACAASgBhAGMAawAgAFkAdQAgADwAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABl
-AGsALgBjAG8AbQA+AA0ACgAtAC0ALQANAAoAIABzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUA
-YwBzAC8AcgB0AC0AcwBkAHcALQBjAG8AbQBtAG8AbgAuAGMAIAB8ACAANgAgACsAKwArAC0ALQAt
-AAAAAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8AAICGAwIAAAAAAMAAAAAAAABG
-AQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAaAAAAegBoAC0AVABX
-ACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAQAAADIAAABFAHgAYwBoAGEA
-bgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAAAAAAIAAAAEgAAIAIIAYAAAAA
-AMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMAYQBnAGUASQBkAAAAAABaqjwQ
-X1ltTryFCNzsNlCrHwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAAAEMAbABpAGUAbgB0AEkAbgBm
-AG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMAaABhAG4AZwBlAFIAUABDAAAA
-AAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAACsAAAAWwBQAEEAVABDAEgAIAB2
-ADIAXQAgAEEAUwBvAEMAOgAgAHIAdAAtAHMAZAB3AC0AYwBvAG0AbQBvAG4AOgAgAEUAbgBoAGEA
-bgBjAGUAIABzAHcAaQB0AGMAaAAgAGMAYQBzAGUAIAB0AG8AIABwAHIAZQB2AGUAbgB0ACAAdQBu
-AGkAbgBpAHQAaQBhAGwAaQB6AGUAZAAgAHYAYQByAGkAYQBiAGwAZQAAAB8APQABAAAAAgAAAAAA
-AAADADYAAAAAAAIBcQABAAAAFgAAAAHbHh8tjTg5M+vapkNmlay/HEpVR5QAAB8AcAABAAAArAAA
-AFsAUABBAFQAQwBIACAAdgAyAF0AIABBAFMAbwBDADoAIAByAHQALQBzAGQAdwAtAGMAbwBtAG0A
-bwBuADoAIABFAG4AaABhAG4AYwBlACAAcwB3AGkAdABjAGgAIABjAGEAcwBlACAAdABvACAAcABy
-AGUAdgBlAG4AdAAgAHUAbgBpAG4AaQB0AGkAYQBsAGkAegBlAGQAIAB2AGEAcgBpAGEAYgBsAGUA
-AAAfADUQAQAAAF4AAAA8ADgANgAzADEAMwAzADcAMgAzADkAZAA3ADQANAAwADgAOABkADUANgBj
-AGEAYQBiADIAZAA4AGYAMwA5AGMAYgBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQA+AAAAAAADAN4/
-tgMAAAMAExIAAAAAAgEAgBOP8kH0gxRBpYTu21prC/8BAAAALgAAAEgAZQBhAGQAZQByAEIAbwBk
-AHkARgByAGEAZwBtAGUAbgB0AEwAaQBzAHQAAAAAAAEAAAAiAAAAAQAKAAAABAAAAAAAAAAUAAAA
-AAAAAAAAAAD/////AAAAAAAACwAAgBOP8kH0gxRBpYTu21prC/8BAAAAHAAAAEgAYQBzAFEAdQBv
-AHQAZQBkAFQAZQB4AHQAAAAAAAAACwAAgBOP8kH0gxRBpYTu21prC/8BAAAAKAAAAEkAcwBRAHUA
-bwB0AGUAZABUAGUAeAB0AEMAaABhAG4AZwBlAGQAAAAAAAAAQAAHMAq5EC4fHtsBAgELAAEAAAAQ
-AAAAhFK3aGEhG0+RiCAAVNhH5QMAJgAAAAAACwAGDAAAAAACARAwAQAAAEYAAAAAAAAA2+nESiSg
-50GTGyq7K7NtTAcATLd9DVWheUS+c4U5YtAApQAAAGlg9wAAMq84BUqwTkaAx8c4IroPWgAAAdfA
-HgAAAAACARMwAQAAABAAAAA4OTPr2qZDZpWsvxxKVUeUAgEUMAEAAAAMAAAAVgAAAIXP89JJAAAA
-HwD4PwEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AIkABAAAABgAAAEUAWAAAAAAAHwAjQAEAAAC2
-AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4A
-SQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQ
-AEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0AVQBTAEUAUgA1ADkA
-OAA2ADUAMQAwADkAAAAAAB8AJEABAAAABgAAAEUAWAAAAAAAHwAlQAEAAAC2AAAALwBPAD0AUgBU
-AEUAWABDAEgALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQA
-SQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBD
-AE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0AVQBTAEUAUgA1ADkAOAA2ADUAMQAwADkA
-AAAAAB8AMEABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADFAAQAAABAAAABKAGEAYwBrACAAWQB1
-AAAAHwA4QAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOUABAAAAEAAAAEoAYQBjAGsAIABZAHUA
-AAADAFlAAAAAAAMAWkAAAAAAAwAJWQEAAAAfAApdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBl
-AGEAbAB0AGUAawAuAGMAbwBtAAAAHwALXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwA
-dABlAGsALgBjAG8AbQAAAB8AAIAfpOszqHouQr57eeGpjlSzAQAAADgAAABDAG8AbgB2AGUAcgBz
-AGEAdABpAG8AbgBJAG4AZABlAHgAVAByAGEAYwBrAGkAbgBnAEUAeAAAAAEAAAAkAQAASQBJAD0A
-WwBDAEkARAA9AGUAYgAzADMAMwA5ADMAOAAtAGEANgBkAGEALQA2ADYANAAzAC0AOQA1AGEAYwAt
-AGIAZgAxAGMANABhADUANQA0ADcAOQA0ADsASQBEAFgASABFAEEARAA9AEQAQgAxAEUAMQBGADIA
-RAA4AEQAOwBJAEQAWABDAE8AVQBOAFQAPQAxAF0AOwBQAFMAPQBVAG4AawBuAG8AdwBuADsAVgBl
-AHIAcwBpAG8AbgA9AFYAZQByAHMAaQBvAG4AIAAxADUALgAxACAAKABCAHUAaQBsAGQAIAAyADUA
-MAA3AC4AMAApACwAIABTAHQAYQBnAGUAPQBIADQAOwBVAFAAPQAxADAAOwBEAFAAPQAxAEMANQAA
-AAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAAIKFAAAAAAAAAwANNP0/AAAfAACAhgMCAAAAAADAAAAA
-AAAARgEAAAAgAAAAeAAtAG0AcwAtAGgAYQBzAC0AYQB0AHQAYQBjAGgAAAABAAAAAgAAAAAAAAAf
-AACAhgMCAAAAAADAAAAAAAAARgEAAAAiAAAAeAAtAG8AcgBpAGcAaQBuAGEAdABpAG4AZwAtAGkA
-cAAAAAAAAQAAABwAAABbADEANwAyAC4AMgAxAC4ANgAuADQAMgBdAAAAHwAAgIYDAgAAAAAAwAAA
-AAAAAEYBAAAAIgAAAHgALQBrAHMAZQAtAHMAZQByAHYAZQByAGkAbgBmAG8AAAAAAAEAAAA4AAAA
-UgBUAEUAWABNAEIAUwAwADMALgByAGUAYQBsAHQAZQBrAC4AYwBvAG0ALgB0AHcALAAgADkAAAAf
-AACAhgMCAAAAAADAAAAAAAAARgEAAABAAAAAeAAtAGsAcwBlAC0AYQBuAHQAaQBzAHAAYQBtAC0A
-aQBuAHQAZQByAGMAZQBwAHQAbwByAC0AaQBuAGYAbwAAAAEAAAASAAAAZgBhAGwAbABiAGEAYwBr
-AAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAABCAAAAeAAtAGsAcwBlAC0AYQBuAHQAaQB2AGkA
-cgB1AHMALQBpAG4AdABlAHIAYwBlAHAAdABvAHIALQBpAG4AZgBvAAAAAAABAAAAEgAAAGYAYQBs
-AGwAYgBhAGMAawAAAAAA86w=
+Also, better to align the subject line with a prefix (e.g.
+"ALSA: line6: Support for Line 6 TonePort KB37").
 
---_000_8631337239d744088d56caab2d8f39cbrealtekcom_--
+
+thanks,
+
+Takashi

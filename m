@@ -2,92 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DCC599C407
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2024 10:51:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1EC699C42C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2024 10:54:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BA7720C;
-	Mon, 14 Oct 2024 10:51:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BA7720C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01DB120C;
+	Mon, 14 Oct 2024 10:54:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01DB120C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728895905;
-	bh=hZIvC5VaMoMBi4KsXTmdsWXCnU4FnqfqbQ9kVukmG2o=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1728896083;
+	bh=zR8jxtGQri3/niH/uyKJJP2AIvmsFg1JnJK/aXPbI5U=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=H5YpgxgCVqn8ocqolWwfmh8/cb3oOz91VchLBNOcjSxodKDG+ZSjaZJWdx5eSc9eW
-	 Ok5zsCZRO6TtiVQVne9qjbn3GNj0Zmbj/VDnGQlTkucsX8IsmNaXz/OKTMkOKlAnAG
-	 L+t6JCnMs8BJvk2mp7q991Tks8j+klkEJ0Oy0aqw=
+	b=kDS2RDsLc8zSe+s1nVC96abFc8fiDkYD/abkEJcJHDcEo56FN3QeEkkh2gCwA/A1K
+	 LfGqDsRwnqbOGfZXVf7Oa+aRyCeQTudwNxT2A5Ipwo2fnhG4E5foRC/fZePk8xftK+
+	 /X9KRZhbIqkPhOUmRlypA2hOKB8J6oVP9Pcb75AQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A73FF805A1; Mon, 14 Oct 2024 10:51:14 +0200 (CEST)
+	id CACE0F805B5; Mon, 14 Oct 2024 10:54:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F239F805B1;
-	Mon, 14 Oct 2024 10:51:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FFC3F8032D;
+	Mon, 14 Oct 2024 10:54:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F792F80448; Mon, 14 Oct 2024 10:51:04 +0200 (CEST)
+	id 40ACAF80448; Mon, 14 Oct 2024 10:54:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 34183F80149
-	for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2024 10:51:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34183F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id BA583F80104
+	for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2024 10:53:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA583F80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TSHYzqzv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1728895862; x=1760431862;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=hZIvC5VaMoMBi4KsXTmdsWXCnU4FnqfqbQ9kVukmG2o=;
-  b=TSHYzqzv4kh2+QK9PBwDsqLTUP0izAcWS0e+r4TMVwetdw0FG1YurWqa
-   vgw4DJJx8SPscEGcglejEUihUe1tDoYIC5J2IsJIxzh7CAVs2bUS6vbsC
-   5STN0hKv5iIOPMOGQqWkSag4dAbbZy+MCcTWJ7T8XIZA3egdIc6LpXcWR
-   orUL3NJ1PS2yotw5VhnK/kPgxzM7OSlaDuELr6SLhXhXGB15OmCwxOe4m
-   LCdSELlWO6AN2qkySKiBxWEJ+QTgXrcNYe+UqtoIkqD8zPKk8EtnRqf7t
-   m0EfWHwJq0VfOeY/lI06vIBPvJKtWU2l0Sve25x2OtEzJMglxRpYeO+cY
-   Q==;
-X-CSE-ConnectionGUID: j5CBcJxDRT6AWn4jypUmUg==
-X-CSE-MsgGUID: zIPz855vTE24aQCSmAH2iw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11224"; a="39630493"
-X-IronPort-AV: E=Sophos;i="6.11,202,1725346800";
-   d="scan'208";a="39630493"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2024 01:50:56 -0700
-X-CSE-ConnectionGUID: mS50L6kgSnupiuSMyx5sxA==
-X-CSE-MsgGUID: hBdxFI4IQ72sxk6KHv/RfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,202,1725346800";
-   d="scan'208";a="100844864"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 14 Oct 2024 01:50:55 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1t0Gmz-000F6S-1S;
-	Mon, 14 Oct 2024 08:50:53 +0000
-Date: Mon, 14 Oct 2024 16:50:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	alsa-devel@alsa-project.org
-Subject: [tiwai-sound:for-next 9/14] sound/pci/hda/patch_conexant.c:1081:2:
- error: field designator 'name' does not refer to any field in type 'const
- struct hda_quirk'
-Message-ID: <202410141648.JOPFB2du-lkp@intel.com>
+	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=uM1zSkff
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 49E8rqyX73748904,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
+	t=1728896032; bh=zR8jxtGQri3/niH/uyKJJP2AIvmsFg1JnJK/aXPbI5U=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version;
+	b=uM1zSkffjT7IwNdbRpp/XaArKtEOq069Rb8BveEbo3Tbs44g9HLaXOEbW2YHmNK6d
+	 p0xxI/ivqZy2oVzcHaUKrnDdX7JJ9kENcQtQ5FklDFg3kFS5sS0Va4Fm3hRBfVhie0
+	 mVdHjP6mDXjGbMirRqaCZO1ocL7coaxggsescyzOgeRKz1zDNGhlvOkwRtFV4UjWmP
+	 QkhSUKt/IDdLclKruFih8pjEO6n9Gkfxn9ouLNycjbqIXcBWaAbqdPxns8duJVpzfh
+	 B/8BsYS/ulCUqEztHNw/vxN97YsT29K+o5+As4d/5gkoXWPoNXuZvSmBvrpGQ5LC6V
+	 M5xzCKySqbiww==
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 49E8rqyX73748904
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 14 Oct 2024 16:53:52 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Mon, 14 Oct 2024 16:53:52 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 14 Oct 2024 16:53:51 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
+ RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
+ 15.01.2507.035; Mon, 14 Oct 2024 16:53:51 +0800
+Content-Type: multipart/mixed;
+	boundary="_000_2a984a94017247d58e93d936e0f4f368realtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+        "lars@metafoo.de" <lars@metafoo.de>,
+        "Flove(HsinFu)" <flove@realtek.com>,
+        Oder Chiou <oder_chiou@realtek.com>,
+        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
+	<shumingf@realtek.com>,
+        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
+	<derek.fang@realtek.com>,
+        Jack Yu <jack.yu@realtek.com>
+Subject: [PATCH] ASoC: rt-sdw-common: Enhance switch case to prevent
+ uninitialized variable
+Thread-Topic: [PATCH] ASoC: rt-sdw-common: Enhance switch case to prevent
+ uninitialized variable
+Thread-Index: AdseFpa4vn8OhwZiStChyHpMnS4SFQ==
+Date: Mon, 14 Oct 2024 08:53:51 +0000
+Message-ID: <2a984a94017247d58e93d936e0f4f368@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-TNEF-Correlator: <2a984a94017247d58e93d936e0f4f368@realtek.com>
+x-originating-ip: [172.21.6.42]
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: CM4PYJEZWVNGED2DUERRRRXHA6OAVQHF
-X-Message-ID-Hash: CM4PYJEZWVNGED2DUERRRRXHA6OAVQHF
-X-MailFrom: lkp@intel.com
+Message-ID-Hash: GODPQDO337Q2OLODISCAYV333RCXDHLO
+X-Message-ID-Hash: GODPQDO337Q2OLODISCAYV333RCXDHLO
+X-MailFrom: jack.yu@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CM4PYJEZWVNGED2DUERRRRXHA6OAVQHF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GODPQDO337Q2OLODISCAYV333RCXDHLO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,98 +118,122 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-head:   0ddf2784d6c29e59409a62b8f32dc5abe56135a4
-commit: 1f55e3699fc9ced72400cdca39fe248bf2b288a2 [9/14] ALSA: hda/conexant: Use the new codec SSID matching
-config: i386-buildonly-randconfig-003-20241014 (https://download.01.org/0day-ci/archive/20241014/202410141648.JOPFB2du-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241014/202410141648.JOPFB2du-lkp@intel.com/reproduce)
+--_000_2a984a94017247d58e93d936e0f4f368realtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410141648.JOPFB2du-lkp@intel.com/
+SWYgZGV0X21vZGUgaXMgbm90IDAsIDMgb3IgNSB0aGVuIGZ1bmN0aW9uIHdpbGwgcmV0dXJuDQpq
+YWNrX3R5cGUgd2l0aCBhbiB1bmluaXRpYWx6ZWQgdmFsdWUuDQpFbmhhbmNlIHN3aXRjaCBjYXNl
+IHRvIHByZXZlbnQgdW5pbml0aWFsaXplZCB2YXJpYWJsZSBpc3N1ZS4NCg0KU2lnbmVkLW9mZi1i
+eTogSmFjayBZdSA8amFjay55dUByZWFsdGVrLmNvbT4NCi0tLQ0KIHNvdW5kL3NvYy9jb2RlY3Mv
+cnQtc2R3LWNvbW1vbi5jIHwgNSArKy0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
+KyksIDMgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3J0LXNk
+dy1jb21tb24uYyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQtc2R3LWNvbW1vbi5jDQppbmRleCBhNDIy
+ZGE2Y2Y3MDIuLjNlYzU3NmM1NzZiZSAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQt
+c2R3LWNvbW1vbi5jDQorKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0LXNkdy1jb21tb24uYw0KQEAg
+LTE1MCwxNSArMTUwLDE0IEBAIGludCBydF9zZGNhX2hlYWRzZXRfZGV0ZWN0KHN0cnVjdCByZWdt
+YXAgKm1hcCwgdW5zaWduZWQgaW50IGVudGl0eV9pZCkNCiAJCWdvdG8gaW9fZXJyb3I7DQogDQog
+CXN3aXRjaCAoZGV0X21vZGUpIHsNCi0JY2FzZSAweDAwOg0KLQkJamFja190eXBlID0gMDsNCi0J
+CWJyZWFrOw0KIAljYXNlIDB4MDM6DQogCQlqYWNrX3R5cGUgPSBTTkRfSkFDS19IRUFEUEhPTkU7
+DQogCQlicmVhazsNCiAJY2FzZSAweDA1Og0KIAkJamFja190eXBlID0gU05EX0pBQ0tfSEVBRFNF
+VDsNCiAJCWJyZWFrOw0KKwlkZWZhdWx0Og0KKwkJamFja190eXBlID0gMDsNCiAJfQ0KIA0KIAkv
+KiB3cml0ZSBzZWxlY3RlZF9tb2RlICovDQotLSANCjIuMzQuMQ0KDQo=
 
-Note: the tiwai-sound/for-next HEAD 0ddf2784d6c29e59409a62b8f32dc5abe56135a4 builds fine.
-      It only hurts bisectability.
+--_000_2a984a94017247d58e93d936e0f4f368realtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-All errors (new ones prefixed by >>):
+eJ8+Ik17AQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAAEMxNDQzOEQ3
+Mjc3NDJDNDRCODAxQkYyNDFBNUI3RENCACUHAQ2ABAACAAAAAgACAAEFgAMADgAAAOgHCgAOAAgA
+NQAzAAEAeAEBIIADAA4AAADoBwoADgAIADUAMwABAHgBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
+YWlsLk5vdGUAMQgBBIABAFMAAABbUEFUQ0hdIEFTb0M6IHJ0LXNkdy1jb21tb246IEVuaGFuY2Ug
+c3dpdGNoIGNhc2UgdG8gcHJldmVudCB1bmluaXRpYWxpemVkIHZhcmlhYmxlAJ8dAQuAAQAhAAAA
+QzE0NDM4RDcyNzc0MkM0NEI4MDFCRjI0MUE1QjdEQ0IAJQcBA5AGANgSAABEAAAAAgF/AAEAAAAv
+AAAAPDJhOTg0YTk0MDE3MjQ3ZDU4ZTkzZDkzNmUwZjRmMzY4QHJlYWx0ZWsuY29tPgAACwAfDgAA
+AAACAQkQAQAAAEsDAABHAwAAZAUAAExaRnWZvML5YQAKZmJpZAQAAGNjwHBnMTI1MgD+A0PwdGV4
+dAH3AqQD4wIABGNoCsBzZXQwIO8HbQKDAFARTTIKgAa0AoCWfQqACMg7CWIxOQ7AvwnDFnIKMhZx
+AoAVYioJsHMJ8ASQYXQFsg5QA2Bzom8BgCBFeBHBbhgwXQZSdgSQF7YCEHIAwHR9CFBuGjEQIAXA
+BaAbZGSaIANSIBAiF7JcdgiQ5HdrC4BkNR1TBPAHQA0XcDAKcRfyYmttawZzAZAAICBCTV9C4EVH
+SU59CvwB8QvxkCBJZiABAHRfBGIiIAQAIG5vBUAwLKggMyAFsTUcwGgJ8EEccHVuY3RpAiAgbQPw
+bAMgCXB0CHALkGwVC4BlCoBqANBrX3TceXAZ4APwI3AgA5Ej0NcLgCYgBzF6HFF2B0AKUNIuJQVF
+bhmhYxngA+E2dBHAG9BhEgAcwG8g3nAJcBowAjAmiGknJAchGwJgIkJzJ5glBVNpZwkYUGQtGTBm
+LWJ5CDogSiWBIFl1IMI8JXIueXVACXAHQKcQIC6ABaBtPiUFLTAALyUFKKAIYB3ALxkgYy8TBaAF
+gXMvACAtc2Qsdy0vUQRgbi9AIHzpI0ErKzAJMRxwAxAZ4PUZlGQi4DIiUACAG4EkEfBzKCspIuIB
+AB5wNURcLSkr/A3gASAgMABn3yYgJlAxATDfMexiOG85fg8lBR2xEDAmUDQyMmQAYTZjZjcwMi5k
+LjMFkDU3PdA+gWLjGeAekTY0NC+YOE87jzs8ljMAKzp/QT88lkBAeTfgMTUi0EXQMvBF0zTeIEWR
+C4AFQAAgXzHwHlDSXyOAYWQSAV8h0QWQZHQoH2BydSPwJJFn8QDAcCAqSUEi4CPQAJDPLPJG4ynh
+JiB5Xw3QNrbcIGcioCmAJBBfBJADYK8aUDA2MDcoxCgh1ikDMKcAAC+lKSMweB6gOi+WvSV4PSLA
+TKYtcC7Ra0ynFU92M1AGIFCaU05EAF9KQUNLX0hFgEFEUEhPTkVMpxtR/0+jNVNvVH9TRVRnVd9C
+dAEBYXUvAFAGK89Qn0zkIEBMzS8qJEAFED8QICigNhEj8AmAIgQqL8cvl00mPiAzNC4AUCwLAxVC
+YzAAHwBCAAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AZQABAAAAKAAAAGoAYQBjAGsALgB5AHUA
+QAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAGQAAQAAAAoAAABTAE0AVABQAAAAAAACAUEAAQAA
+AFoAAAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoA
+YQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAl0BAAAAKAAAAGoAYQBj
+AGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAOVfAQAAAAQAAAAgAAAAHwAaDAEA
+AAAQAAAASgBhAGMAawAgAFkAdQAAAB8AHwwBAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBs
+AHQAZQBrAC4AYwBvAG0AAAAfAB4MAQAAAAoAAABTAE0AVABQAAAAAAACARkMAQAAAFoAAAAAAAAA
+gSsfpL6jEBmdbgDdAQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoAYQBjAGsALgB5
+AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAV0BAAAAKAAAAGoAYQBjAGsALgB5AHUA
+QAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAALAEA6AQAAAB8AGgABAAAAEgAAAEkAUABNAC4ATgBv
+AHQAZQAAAAAAAwDxPwQEAAALAEA6AQAAAAMA/T+2AwAAAgELMAEAAAAQAAAAwUQ41yd0LES4Ab8k
+Glt9ywMAFwABAAAAQAA5AIC5DpcWHtsBQAAIML2hepcWHtsBCwApAAAAAAAfANk/AQAAAPwBAABJ
+AGYAIABkAGUAdABfAG0AbwBkAGUAIABpAHMAIABuAG8AdAAgADAALAAgADMAIABvAHIAIAA1ACAA
+dABoAGUAbgAgAGYAdQBuAGMAdABpAG8AbgAgAHcAaQBsAGwAIAByAGUAdAB1AHIAbgANAAoAagBh
+AGMAawBfAHQAeQBwAGUAIAB3AGkAdABoACAAYQBuACAAdQBuAGkAbgBpAHQAaQBhAGwAegBlAGQA
+IAB2AGEAbAB1AGUALgANAAoARQBuAGgAYQBuAGMAZQAgAHMAdwBpAHQAYwBoACAAYwBhAHMAZQAg
+AHQAbwAgAHAAcgBlAHYAZQBuAHQAIAB1AG4AaQBuAGkAdABpAGEAbABpAHoAZQBkACAAdgBhAHIA
+aQBhAGIAbABlACAAaQBzAHMAdQBlAC4ADQAKAA0ACgBTAGkAZwBuAGUAZAAtAG8AZgBmAC0AYgB5
+ADoAIABKAGEAYwBrACAAWQB1ACAAPABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMA
+bwBtAD4ADQAKAC0ALQAtAA0ACgAgAHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQAZQBjAHMALwBy
+AHQALQBzAGQAdwAtAGMAbwBtAG0AbwBuAC4AYwAgAHwAIAA1ACAAKwArAC0ALQAtAAAACwAAgAgg
+BgAAAAAAwAAAAAAAAEYAAAAAFIUAAAEAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAeAAAAYQBj
+AGMAZQBwAHQAbABhAG4AZwB1AGEAZwBlAAAAAAABAAAAGgAAAHoAaAAtAFQAVwAsACAAZQBuAC0A
+VQBTAAAAAAADAACACCAGAAAAAADAAAAAAAAARgEAAAAyAAAARQB4AGMAaABhAG4AZwBlAEEAcABw
+AGwAaQBjAGEAdABpAG8AbgBGAGwAYQBnAHMAAAAAACAAAABIAACACCAGAAAAAADAAAAAAAAARgEA
+AAAiAAAATgBlAHQAdwBvAHIAawBNAGUAcwBzAGEAZwBlAEkAZAAAAAAA9x4J8NX1Qk0FdAjc7C26
+Ax8AAIATj/JB9IMUQaWE7ttaawv/AQAAABYAAABDAGwAaQBlAG4AdABJAG4AZgBvAAAAAAABAAAA
+KgAAAEMAbABpAGUAbgB0AD0ATQBTAEUAeABjAGgAYQBuAGcAZQBSAFAAQwAAAAAAHwD6PwEAAAAQ
+AAAASgBhAGMAawAgAFkAdQAAAB8ANwABAAAApgAAAFsAUABBAFQAQwBIAF0AIABBAFMAbwBDADoA
+IAByAHQALQBzAGQAdwAtAGMAbwBtAG0AbwBuADoAIABFAG4AaABhAG4AYwBlACAAcwB3AGkAdABj
+AGgAIABjAGEAcwBlACAAdABvACAAcAByAGUAdgBlAG4AdAAgAHUAbgBpAG4AaQB0AGkAYQBsAGkA
+egBlAGQAIAB2AGEAcgBpAGEAYgBsAGUAAAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIBcQAB
+AAAAFgAAAAHbHhaWuL5/DocGYkrQoch6TJ0uEhUAAB8AcAABAAAApgAAAFsAUABBAFQAQwBIAF0A
+IABBAFMAbwBDADoAIAByAHQALQBzAGQAdwAtAGMAbwBtAG0AbwBuADoAIABFAG4AaABhAG4AYwBl
+ACAAcwB3AGkAdABjAGgAIABjAGEAcwBlACAAdABvACAAcAByAGUAdgBlAG4AdAAgAHUAbgBpAG4A
+aQB0AGkAYQBsAGkAegBlAGQAIAB2AGEAcgBpAGEAYgBsAGUAAAAAAB8ANRABAAAAXgAAADwAMgBh
+ADkAOAA0AGEAOQA0ADAAMQA3ADIANAA3AGQANQA4AGUAOQAzAGQAOQAzADYAZQAwAGYANABmADMA
+NgA4AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4AAAAAAAMA3j+2AwAAAwATEgAAAAACAQCAE4/y
+QfSDFEGlhO7bWmsL/wEAAAAuAAAASABlAGEAZABlAHIAQgBvAGQAeQBGAHIAYQBnAG0AZQBuAHQA
+TABpAHMAdAAAAAAAAQAAACIAAAABAAoAAAAEAAAAAAAAABQAAAAAAAAAAAAAAP////8AAAAAAAAL
+AACAE4/yQfSDFEGlhO7bWmsL/wEAAAAcAAAASABhAHMAUQB1AG8AdABlAGQAVABlAHgAdAAAAAAA
+AAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAoAAAASQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAQwBo
+AGEAbgBnAGUAZAAAAAAAAABAAAcwBc9tlxYe2wECAQsAAQAAABAAAADBRDjXJ3QsRLgBvyQaW33L
+AwAmAAAAAAALAAYMAAAAAAIBEDABAAAARgAAAAAAAADb6cRKJKDnQZMbKrsrs21MBwBMt30NVaF5
+RL5zhTli0AClAAAAaWD3AAAyrzgFSrBORoDHxzgiug9aAAAB18AdAAAAAAIBEzABAAAAEAAAAL5/
+DocGYkrQoch6TJ0uEhUCARQwAQAAAAwAAABVAAAAPSvQCUkAAAAfAPg/AQAAABAAAABKAGEAYwBr
+ACAAWQB1AAAAHwAiQAEAAAAGAAAARQBYAAAAAAAfACNAAQAAALYAAAAvAE8APQBSAFQARQBYAEMA
+SAAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJAFYARQAg
+AEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMATgA9AFIA
+RQBDAEkAUABJAEUATgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4ADYANQAxADAAOQAAAAAAHwAk
+QAEAAAAGAAAARQBYAAAAAAAfACVAAQAAALYAAAAvAE8APQBSAFQARQBYAEMASAAvAE8AVQA9AEUA
+WABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJAFYARQAgAEcAUgBPAFUAUAAg
+ACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMATgA9AFIARQBDAEkAUABJAEUA
+TgBUAFMALwBDAE4APQBVAFMARQBSADUAOQA4ADYANQAxADAAOQAAAAAAHwAwQAEAAAAQAAAASgBh
+AGMAawAgAFkAdQAAAB8AMUABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADhAAQAAABAAAABKAGEA
+YwBrACAAWQB1AAAAHwA5QAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAAMAWUAAAAAAAwBaQAAAAAAD
+AAlZAQAAAB8ACl0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0A
+AAAfAAtdAQAAACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAA
+gB+k6zOoei5Cvnt54amOVLMBAAAAOAAAAEMAbwBuAHYAZQByAHMAYQB0AGkAbwBuAEkAbgBkAGUA
+eABUAHIAYQBjAGsAaQBuAGcARQB4AAAAAQAAACQBAABJAEkAPQBbAEMASQBEAD0AOAA3ADAAZQA3
+AGYAYgBlAC0ANgAyADAANgAtAGQAMAA0AGEALQBhADEAYwA4AC0ANwBhADQAYwA5AGQAMgBlADEA
+MgAxADUAOwBJAEQAWABIAEUAQQBEAD0ARABCADEARQAxADYAOQA2AEIAOAA7AEkARABYAEMATwBV
+AE4AVAA9ADEAXQA7AFAAUwA9AFUAbgBrAG4AbwB3AG4AOwBWAGUAcgBzAGkAbwBuAD0AVgBlAHIA
+cwBpAG8AbgAgADEANQAuADEAIAAoAEIAdQBpAGwAZAAgADIANQAwADcALgAwACkALAAgAFMAdABh
+AGcAZQA9AEgANAA7AFUAUAA9ADEAMAA7AEQAUAA9ADEAQwA1AAAACwAAgAggBgAAAAAAwAAAAAAA
+AEYAAAAAgoUAAAAAAAADAA00/T8AAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACAAAAB4AC0AbQBz
+AC0AaABhAHMALQBhAHQAdABhAGMAaAAAAAEAAAACAAAAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABG
+AQAAACIAAAB4AC0AbwByAGkAZwBpAG4AYQB0AGkAbgBnAC0AaQBwAAAAAAABAAAAHAAAAFsAMQA3
+ADIALgAyADEALgA2AC4ANAAyAF0AAACqdQ==
 
->> sound/pci/hda/patch_conexant.c:1081:2: error: field designator 'name' does not refer to any field in type 'const struct hda_quirk'
-    1081 |         HDA_CODEC_QUIRK(0x2782, 0x12c3, "Sirius Gen1", CXT_PINCFG_TOP_SPEAKER),
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/hda/hda_local.h:312:51: note: expanded from macro 'HDA_CODEC_QUIRK'
-     312 |         { _SND_PCI_QUIRK_ID(vend, dev), .value = (val), .name = (xname),\
-         |                                                         ~^~~~~~~~~~~~~~
-   sound/pci/hda/patch_conexant.c:1082:2: error: field designator 'name' does not refer to any field in type 'const struct hda_quirk'
-    1082 |         HDA_CODEC_QUIRK(0x2782, 0x12c5, "Sirius Gen2", CXT_PINCFG_TOP_SPEAKER),
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/pci/hda/hda_local.h:312:51: note: expanded from macro 'HDA_CODEC_QUIRK'
-     312 |         { _SND_PCI_QUIRK_ID(vend, dev), .value = (val), .name = (xname),\
-         |                                                         ~^~~~~~~~~~~~~~
-   2 errors generated.
-
-
-vim +1081 sound/pci/hda/patch_conexant.c
-
-  1029	
-  1030	static const struct hda_quirk cxt5066_fixups[] = {
-  1031		SND_PCI_QUIRK(0x1025, 0x0543, "Acer Aspire One 522", CXT_FIXUP_STEREO_DMIC),
-  1032		SND_PCI_QUIRK(0x1025, 0x054c, "Acer Aspire 3830TG", CXT_FIXUP_ASPIRE_DMIC),
-  1033		SND_PCI_QUIRK(0x1025, 0x054f, "Acer Aspire 4830T", CXT_FIXUP_ASPIRE_DMIC),
-  1034		SND_PCI_QUIRK(0x103c, 0x8079, "HP EliteBook 840 G3", CXT_FIXUP_HP_DOCK),
-  1035		SND_PCI_QUIRK(0x103c, 0x807C, "HP EliteBook 820 G3", CXT_FIXUP_HP_DOCK),
-  1036		SND_PCI_QUIRK(0x103c, 0x80FD, "HP ProBook 640 G2", CXT_FIXUP_HP_DOCK),
-  1037		SND_PCI_QUIRK(0x103c, 0x8115, "HP Z1 Gen3", CXT_FIXUP_HP_GATE_MIC),
-  1038		SND_PCI_QUIRK(0x103c, 0x814f, "HP ZBook 15u G3", CXT_FIXUP_MUTE_LED_GPIO),
-  1039		SND_PCI_QUIRK(0x103c, 0x8174, "HP Spectre x360", CXT_FIXUP_HP_SPECTRE),
-  1040		SND_PCI_QUIRK(0x103c, 0x822e, "HP ProBook 440 G4", CXT_FIXUP_MUTE_LED_GPIO),
-  1041		SND_PCI_QUIRK(0x103c, 0x828c, "HP EliteBook 840 G4", CXT_FIXUP_HP_DOCK),
-  1042		SND_PCI_QUIRK(0x103c, 0x8299, "HP 800 G3 SFF", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-  1043		SND_PCI_QUIRK(0x103c, 0x829a, "HP 800 G3 DM", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-  1044		SND_PCI_QUIRK(0x103c, 0x82b4, "HP ProDesk 600 G3", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-  1045		SND_PCI_QUIRK(0x103c, 0x836e, "HP ProBook 455 G5", CXT_FIXUP_MUTE_LED_GPIO),
-  1046		SND_PCI_QUIRK(0x103c, 0x837f, "HP ProBook 470 G5", CXT_FIXUP_MUTE_LED_GPIO),
-  1047		SND_PCI_QUIRK(0x103c, 0x83b2, "HP EliteBook 840 G5", CXT_FIXUP_HP_DOCK),
-  1048		SND_PCI_QUIRK(0x103c, 0x83b3, "HP EliteBook 830 G5", CXT_FIXUP_HP_DOCK),
-  1049		SND_PCI_QUIRK(0x103c, 0x83d3, "HP ProBook 640 G4", CXT_FIXUP_HP_DOCK),
-  1050		SND_PCI_QUIRK(0x103c, 0x8402, "HP ProBook 645 G4", CXT_FIXUP_MUTE_LED_GPIO),
-  1051		SND_PCI_QUIRK(0x103c, 0x8427, "HP ZBook Studio G5", CXT_FIXUP_HP_ZBOOK_MUTE_LED),
-  1052		SND_PCI_QUIRK(0x103c, 0x844f, "HP ZBook Studio G5", CXT_FIXUP_HP_ZBOOK_MUTE_LED),
-  1053		SND_PCI_QUIRK(0x103c, 0x8455, "HP Z2 G4", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-  1054		SND_PCI_QUIRK(0x103c, 0x8456, "HP Z2 G4 SFF", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-  1055		SND_PCI_QUIRK(0x103c, 0x8457, "HP Z2 G4 mini", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-  1056		SND_PCI_QUIRK(0x103c, 0x8458, "HP Z2 G4 mini premium", CXT_FIXUP_HP_MIC_NO_PRESENCE),
-  1057		SND_PCI_QUIRK(0x1043, 0x138d, "Asus", CXT_FIXUP_HEADPHONE_MIC_PIN),
-  1058		SND_PCI_QUIRK(0x14f1, 0x0265, "SWS JS201D", CXT_PINCFG_SWS_JS201D),
-  1059		SND_PCI_QUIRK(0x152d, 0x0833, "OLPC XO-1.5", CXT_FIXUP_OLPC_XO),
-  1060		SND_PCI_QUIRK(0x17aa, 0x20f2, "Lenovo T400", CXT_PINCFG_LENOVO_TP410),
-  1061		SND_PCI_QUIRK(0x17aa, 0x215e, "Lenovo T410", CXT_PINCFG_LENOVO_TP410),
-  1062		SND_PCI_QUIRK(0x17aa, 0x215f, "Lenovo T510", CXT_PINCFG_LENOVO_TP410),
-  1063		SND_PCI_QUIRK(0x17aa, 0x21ce, "Lenovo T420", CXT_PINCFG_LENOVO_TP410),
-  1064		SND_PCI_QUIRK(0x17aa, 0x21cf, "Lenovo T520", CXT_PINCFG_LENOVO_TP410),
-  1065		SND_PCI_QUIRK(0x17aa, 0x21d2, "Lenovo T420s", CXT_PINCFG_LENOVO_TP410),
-  1066		SND_PCI_QUIRK(0x17aa, 0x21da, "Lenovo X220", CXT_PINCFG_LENOVO_TP410),
-  1067		SND_PCI_QUIRK(0x17aa, 0x21db, "Lenovo X220-tablet", CXT_PINCFG_LENOVO_TP410),
-  1068		SND_PCI_QUIRK(0x17aa, 0x38af, "Lenovo IdeaPad Z560", CXT_FIXUP_MUTE_LED_EAPD),
-  1069		SND_PCI_QUIRK(0x17aa, 0x3905, "Lenovo G50-30", CXT_FIXUP_STEREO_DMIC),
-  1070		SND_PCI_QUIRK(0x17aa, 0x390b, "Lenovo G50-80", CXT_FIXUP_STEREO_DMIC),
-  1071		SND_PCI_QUIRK(0x17aa, 0x3975, "Lenovo U300s", CXT_FIXUP_STEREO_DMIC),
-  1072		/* NOTE: we'd need to extend the quirk for 17aa:3977 as the same
-  1073		 * PCI SSID is used on multiple Lenovo models
-  1074		 */
-  1075		SND_PCI_QUIRK(0x17aa, 0x3977, "Lenovo IdeaPad U310", CXT_FIXUP_STEREO_DMIC),
-  1076		SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo G50-70", CXT_FIXUP_STEREO_DMIC),
-  1077		SND_PCI_QUIRK(0x17aa, 0x397b, "Lenovo S205", CXT_FIXUP_STEREO_DMIC),
-  1078		SND_PCI_QUIRK_VENDOR(0x17aa, "Thinkpad", CXT_FIXUP_THINKPAD_ACPI),
-  1079		SND_PCI_QUIRK(0x1c06, 0x2011, "Lemote A1004", CXT_PINCFG_LEMOTE_A1004),
-  1080		SND_PCI_QUIRK(0x1c06, 0x2012, "Lemote A1205", CXT_PINCFG_LEMOTE_A1205),
-> 1081		HDA_CODEC_QUIRK(0x2782, 0x12c3, "Sirius Gen1", CXT_PINCFG_TOP_SPEAKER),
-  1082		HDA_CODEC_QUIRK(0x2782, 0x12c5, "Sirius Gen2", CXT_PINCFG_TOP_SPEAKER),
-  1083		{}
-  1084	};
-  1085	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--_000_2a984a94017247d58e93d936e0f4f368realtekcom_--

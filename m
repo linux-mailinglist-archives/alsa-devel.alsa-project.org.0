@@ -2,166 +2,166 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B98199DB04
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2024 03:00:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AD2E99DB09
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2024 03:00:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15E9EEC0;
-	Tue, 15 Oct 2024 02:59:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15E9EEC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D7A3E85;
+	Tue, 15 Oct 2024 03:00:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D7A3E85
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1728954008;
-	bh=jL5hztbRGI1Tm1tovWSX7TbyVHtxGpxZwsK/lZd5mBs=;
+	s=default; t=1728954049;
+	bh=sHJceF9qgO/8XgkLvZwhXK/dmYnmVfIJIK1XVUgl0l0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RCrWj8dmfem9lTpQvT+6B9Y85TRE+WD5RHbE5WRxBX/wAEOMoyyRAwVGCq/ibq1TR
-	 AYTuf7aeu6iJJV20AT8B0g2N9n4HshfXsSSZ7xLvMygXxjXqxiO73U9MnbvZHQF8Pb
-	 jafFRoC6u2Zs8qYMbJ9mTK9co/pf5pzk62B8Or98=
+	b=W07ZcNCnTx8ymtVcCwWwW+GC0FEN8uanAyDRCiH1WoP3nlJzxaNNx9PCUUFhYIBXj
+	 7SXdyTjQVvQB8P/9l3ihNqY03wo8GxfcLquN1Y2+rV0f/LJOak+igNaS+AwZxktGKB
+	 Nv9jFGcvnHswv9ry4rlT/hNueR5GG21faBFsSPTk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE46BF8076D; Tue, 15 Oct 2024 02:56:48 +0200 (CEST)
+	id 7D0CFF80846; Tue, 15 Oct 2024 02:56:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBA26F80760;
-	Tue, 15 Oct 2024 02:56:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8895BF8085D;
+	Tue, 15 Oct 2024 02:56:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71F89F806C4; Tue, 15 Oct 2024 02:56:40 +0200 (CEST)
+	id A7558F80726; Tue, 15 Oct 2024 02:56:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from OS0P286CU010.outbound.protection.outlook.com
- (mail-japanwestazlp170110001.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:c407::1])
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazlp170100001.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:c405::1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E704F80639
-	for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2024 02:56:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E704F80639
+	by alsa1.perex.cz (Postfix) with ESMTPS id 61531F80726
+	for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2024 02:56:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61531F80726
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=PdUKlG+p
+ header.s=selector1 header.b=B99ROOOz
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vIv4mppH/V6lQwmHLpoeflGA3JDvNOVaN3eDUU1c7AKzQQiszeWjuoTU+y9JYn1427Q1YeoCtUwsYepI99OGOWS1KUt7TlgU/WxF+j1no8m264qW2el7ieG9NCxXkhbiqHipWCdVhMSpSdVsAP7KXCNfB/K2QIWcv36nnXR0kF763uTplvHc3C+dezHiJjXVS2QPfsugkRcSROK7fHQPYWP+FyHplsnCacnGe5Ton9BC/qtQL82H5j3EdeFxlDxuzhLgtWjMNNqAojZnIc6Ku0Yjjct/ZndxKZtGnjIC6EB9rVI4qSOCRCRhfcAlUkWqb5yyOkezrxhQb227y5wf2g==
+ b=L5r5sVKWTP5o1uK+l8bXzAvRESPzd9fD3JJf9h65lYra3zpD56RzWFpItmeTg68/TBrIY0n2LYHGGZ80V5bCsrISYTjqJjS7Fmbpcms3Z8O6uiNb0IPOulaa4I9xl881p04SbLMtPVEHgBk4flUnJmfCZruy4JGwmuLrqykFH30BpN4dm+EPo+gTOTYfS7LlekMrSSDC2VhLYJ9t6eY5CuE27+bzoV4m8muliz0c2sRJwIg5AZWK1BXpWBW7+iU8tSuxc+04tBjXv6YcDeSWgnbPsP7mb3IMM1Cdb7+4Pj0vzVfPsmdpWvUmaJHZK6jDrjcnH69/cVd/vLUD6ThZGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q7YdZX1l6hpmIHvo28d4Vx8ad4WMxH5X72cmvyifWCA=;
- b=dAQe58dtQQ0lcaR52l3Q+c1FThM/0H5uA2+3KKqIWkcVUY8AlBFPumVpjOrzHNA2Oijz+Q65/fR+EppXUR/yrhYuviXuLEMwXPOOfLvE1Tr0y5Jp8T+YTTHmIvp6gaW9ggiuan3k55VzoAeTsdoAsGjCi9axFm0c5d1Wlbe9C7MbmZymg/Km7ujo3MVZaaxQvb1pYSl+QyWVTu/p019m+bjcfrUoXabk0f2Pkr7UdACyRoKCi6KjUiCm61a6wg2NljJDRRW7bP2cyZQVFjBr/DJ5ZeRQ7fpgO2E80xllkWC4u92XVzaGrQtigwk34xeyNtS9UcAgJ8ZTab+KyrTX5w==
+ bh=2qs4JCdG53zTFye5G/+UbLM1QMcObGvrEDohoMWSvXQ=;
+ b=SWUHlq2o3sjIpDRysxVJnyPKoXSenDQp/yWoZNaEF/c5wpwi+M4gB95BfslsIvQbFdHCFI0g/XYbop5Qdyok9ncg4ByywTpFzLjbb7RrC7qW1rrr/MAM8aJrgtO0ZY1wF4/IEsTorv4cd3Ed4ea/28aSuyZkf9oj/pjIt4t1VR9zrp04B0csn7wT0Gj1E6Yt/MPP5fOaWnABcIYkID0h2TGoFx9/NxRQ96MYp558ighZBdMZxaQj3oqIKYPiMG8W+msLLveiwkCBqhmyvESUS/aWcQUfA5Cx7QmCAnPZ3DGsEqq/0Apnj5Gpkn/cArf308uImsfxQbcch9R8bpFLtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q7YdZX1l6hpmIHvo28d4Vx8ad4WMxH5X72cmvyifWCA=;
- b=PdUKlG+p1JUFJFiUxzd9bu+4rYuMSAcBEEzgvBFTNEyEWRGsysgzYUvMuc6377Pu/hL1fUm4Uxpt/R/RNia9GUOH70PwSVyCISX/ABGsia2j9cPZc+cxmXJVc2SUc50miTC00fx1w1E/xc3mRTt4Xw16fOZvWV6y61dMe7X8tmo=
+ bh=2qs4JCdG53zTFye5G/+UbLM1QMcObGvrEDohoMWSvXQ=;
+ b=B99ROOOzsbQ+QOXNEyJhWxYYGIcuME0R3ZoujdL3eHHJJ1d+kb1ftK9O81Rvu88GRYScmweAEz7c69wcDyPuhUooPg+8vjMSAq+lyvmrVvvTVxrkPjPgLYnnnyX6fm75+qBuMWA3PKr/FBr/TowHjk8p8ri7w2t4Q2Kujxl33ig=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by OS0PR01MB6130.jpnprd01.prod.outlook.com
- (2603:1096:604:cb::7) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:1096:400:3a9::11) by TYCPR01MB7121.jpnprd01.prod.outlook.com
+ (2603:1096:400:c0::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.27; Tue, 15 Oct
- 2024 00:56:34 +0000
+ 2024 00:56:38 +0000
 Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
  ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
  ([fe80::c568:1028:2fd1:6e11%4]) with mapi id 15.20.8048.020; Tue, 15 Oct 2024
- 00:56:34 +0000
-Message-ID: <87bjzmqj3y.wl-kuninori.morimoto.gx@renesas.com>
+ 00:56:37 +0000
+Message-ID: <87a5f6qj3u.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v4 09/13] ASoC: soc-topology: remove dpcm_xxx flags
+Subject: [PATCH v4 10/13] ASoC: intel: boards: remove dpcm_xxx flags
 User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
 In-Reply-To: <87o73mqj5b.wl-kuninori.morimoto.gx@renesas.com>
 References: <87o73mqj5b.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 15 Oct 2024 00:56:33 +0000
-X-ClientProxiedBy: TYAPR01CA0111.jpnprd01.prod.outlook.com
- (2603:1096:404:2a::27) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+Date: Tue, 15 Oct 2024 00:56:37 +0000
+X-ClientProxiedBy: TYBP286CA0021.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:404:ce::33) To TYCPR01MB10914.jpnprd01.prod.outlook.com
  (2603:1096:400:3a9::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS0PR01MB6130:EE_
-X-MS-Office365-Filtering-Correlation-Id: d719b99d-3ec6-4953-a330-08dcecb436e8
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYCPR01MB7121:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6245cd2e-c78f-40d8-7e9a-08dcecb43934
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|52116014|376014|1800799024|366016|38350700014;
+	BCL:0;ARA:13230040|376014|52116014|366016|1800799024|38350700014;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?l5X8hLSxIq4xg7Rwsj45Usy1UsTK/DvQh+JCPah1qjTc/ATq5uh7vp88KPGh?=
- =?us-ascii?Q?a0NzHz7Ilk0vsAoR1r1dgECP2GfePCweD8PJmfmJPx5AJBUrjo167Kq8I8Me?=
- =?us-ascii?Q?Tt+hGFT/9J20IDWI1/ephsda8wFsJdCe72SL9MmueBnKjBFqOPxnCjNkJ89D?=
- =?us-ascii?Q?L0Ejbp5loY5CACIP0XLFtyf9t/aqfUThJKkYiAvu6I76OQHzCNAjUhHIkCaS?=
- =?us-ascii?Q?mMUd6ys78+kYfj16AnK5nWT3NcEfLFVQuvVOj1PZggzxEV47DJ36zR8bKji6?=
- =?us-ascii?Q?LsRroZwEDIU1FNrsnplNAyBz4FcdAPZ7hE2nTdA0CbEGD1IBS5nDeyBxrh0t?=
- =?us-ascii?Q?M3G+2Ys22MBvx5TsIcbvZxSDTtELblPbuahZH1BKAjTOA2a2/MmrZgZCmXvU?=
- =?us-ascii?Q?BxLN5VH/DEiKVxZYGOvsCSxDP6KH/4dBRu0lRG0nVbdC2PWuMbhc/1WIaj9y?=
- =?us-ascii?Q?JBzJZjYPEUFxpIPjcSFfapzyrWgyt12D8BfgzAwA/RkYj84HlohKZvCHvjIM?=
- =?us-ascii?Q?Uq84s/BzLVYMjwJkPTi6FvSeTYmVI97rrx7Dhoet+yIMcrweGH7jQRDyPb9q?=
- =?us-ascii?Q?/t6IkQROYRZhD8pOaJR0/Cup8WhyiKeWCW/HaYx+6Rh2rQ7uUPwCneo95q9l?=
- =?us-ascii?Q?i0qI31fFhgRRLfYMnLj5FtC2YSNNupRMTcHT/Qb1auHKq5NlgjIbyqxHxn9K?=
- =?us-ascii?Q?Oyj2ZTjGiUh1+LqGIk539hI0TajhSK2BV6tCV5rcJj6CCs/jH/0aNj7Qwlqh?=
- =?us-ascii?Q?rXF12t8T/l6jLcwrM3gU6LTzPKqW94vJb7BHQ5N8z09tpY0c6WnZDe0k6Lfp?=
- =?us-ascii?Q?AbMnPidmRx8eGGi3K2dfnBPI8h4wLvm7XlUK9X2sbZswm6tuWSRuSY/ufH7t?=
- =?us-ascii?Q?oIBR+/1S9BYuUuDbN3lCVVdPKH8v80FLUQtWmwMNqMPEq/j5y2U2intVxH8c?=
- =?us-ascii?Q?lQ7RufzDEQWqiO4VWzUGsED9DgOtMJ3mNbQU6w4VFPcd1XrQI7GzIchsZp1W?=
- =?us-ascii?Q?JDlrdA6uYaO3vpL9sjl+dUbJkZZ4moqZNgbeKOf8geBCbdEwOBIaQ3M4Shf4?=
- =?us-ascii?Q?9i5JtRem2CZCkSKfPYAEwwtpK8Gb3f2YyirgqDLw1BhylrHDY3f9PR8MXHgw?=
- =?us-ascii?Q?z7E6edXh5NFyv3wJ8ZCUIGTNBdiaNzW19wS7+UHDI3v2awgRi45tE1cc3Jza?=
- =?us-ascii?Q?/37X/M5OEZnzawQC0NYoAzHudeTBvtCVg88oSU6gpQYRts4dH5j69tu8GGaj?=
- =?us-ascii?Q?2vjMthzlGpsDsvlv33IngLZnLBI95kcPcY4MTKPxxk7euUHHu4MHBw8Dsb6m?=
- =?us-ascii?Q?qsiZhCR1VVbqvdJDhjGlxBAxNlZPbX2A8bT4p7p05/c56g=3D=3D?=
+	=?us-ascii?Q?GxW0TQqiP9tAV3TJgG4CZq+voA/C/yGa6dX1k5wqvNtTFRHSG8zVrwUVumfR?=
+ =?us-ascii?Q?I1o5GyWklbRiRi53VqFSmCqZSxIHg27M5lEAelRdq40XvCRtEM5lZTb7yxM3?=
+ =?us-ascii?Q?hy7RM3qHjb36qTNZzmaDT7G1nGGbU12BQQJfH1ByYWAaN4EKbZlodYJ59TmO?=
+ =?us-ascii?Q?EpgZyuTM8YWU9c3n6jQ/KhmnrH6aUKqBCbCNinpFqdJ4ReDBYaknCMWhrbav?=
+ =?us-ascii?Q?DWT5AwtCfXSzNvZ0xbjKRIww/X3y8QlKtS5DsvYv+9oUHbkqZz8lfhz+hugB?=
+ =?us-ascii?Q?sst551NP4DcfN+0ZmTosS3+qmdII2lqPwqM+Ux9HkNcuv7DO3AUMYyueXi75?=
+ =?us-ascii?Q?pslCg7hzy5omWLbd6BgE6y30JFQ4j7TQ2g10j6QpGA4RjUsW+8yhLTjF2INi?=
+ =?us-ascii?Q?vcY568SXL1ZZc5DZuDXDLbkMZoSAvBYUSvPDTN6nryq+mnKjh+R4F3xLP5XY?=
+ =?us-ascii?Q?yIaoSUxph6mNzrb4IIdDqRQFKGs0ALhF7gygJ4KeG2z5WAWozt/FFg6yeW4t?=
+ =?us-ascii?Q?5vUwiObptyLsNG5WwJxEULYG4HPCPVgHFQS89VI9620narUs6tU0EIo7hMaY?=
+ =?us-ascii?Q?ZAT0jq4BqGCvme1QZsUszJFP2s54cJa+TrOOUA7p7eq45RYTe2i7QYYqCsHn?=
+ =?us-ascii?Q?n48FGqq7dtd1xHEyywH6eVGkJN8Xpb5VR2fC/F8cqN/SlEmKvnLn7riR9aGK?=
+ =?us-ascii?Q?1MamowfzbFkC5BkxKNIKv18tQrWBpuUKq3WHvmYwNxR16NouV2oH2VPqsgpd?=
+ =?us-ascii?Q?YL8JVK4OGmxZD2dU8BtYH8og18fBHYVEaZuKHShZZGqkYmObdHlTCg6UFE1o?=
+ =?us-ascii?Q?BvB8PzD/I72Y1GHL4O9VCRDqO+Hd/Xaf8fGoWiSsRKALYRi2W+hutaq9kOFU?=
+ =?us-ascii?Q?zdSj3TzaKBoU5PT6w111rJMIEOeLgpuZsshsNA4Bby55Is8G9PLhemnK6N/h?=
+ =?us-ascii?Q?VBWyMjA8yyvs4XqpQEOWO7d6W8m0hA+LKJrj1gubgxO5MNY5i5y7FbCB/vrh?=
+ =?us-ascii?Q?DTvUBhYPzx06bGPJvWBq/wkWkJcggVvpvH8vTt5rG7JkAoFjx36z8i8I9aA0?=
+ =?us-ascii?Q?7HsEmrz3p6GR9YBzMLvgl5YNdm3r6hhFNhwscwuBqIABrnPQYeJSKnmTBq+/?=
+ =?us-ascii?Q?cyVum3HGHDznWiTmGul40QmJk5zBqVRrWuZ6C7ZNCCGF+VOOeAvZHVWHdlcf?=
+ =?us-ascii?Q?fYZtAEOoLwkhD5ugdQNjFmXcBPR5gW7JcGo5ccrhBxVQ2x6T86db4d2x3Okl?=
+ =?us-ascii?Q?qqagSRTXqna43B43H0p47pSldN5Blggf2boPgmR9d2uhUYzwgbESnkdvsTul?=
+ =?us-ascii?Q?FpVV6cwrZhJySMvHA4KozPbId0rRgw8bni+idjUBM9Qa0w=3D=3D?=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(1800799024)(366016)(38350700014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(366016)(1800799024)(38350700014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?X7eV0NDTy3dAYzkPBsPRvn2XD1TERqvDvz8mVOD3H/ILqWTaryGHQ04lpYqX?=
- =?us-ascii?Q?c3Lp5j+MLKudVCKlxpf8GBhAOmsF741U2h9VBWvgkE5rZK/xwUM8XoXX81HM?=
- =?us-ascii?Q?62mLvpeEWCfxKDMCE9vnu7uco7N+avDrrBKle66sQo6I1+v2+eYe7OUQ5MSF?=
- =?us-ascii?Q?fQWfOSJwiyUJBxtRu75nQ54ITekx4+BvobiqD0cE3OnOzGQyQVwFfuYK63EG?=
- =?us-ascii?Q?LDPratlZXWLyp0QNPUbVLfZsgUon0XP5fzt8GGsHPNHe/D70JXhgNZdUd9pp?=
- =?us-ascii?Q?G1jKU51Jv3X0UfhOc/bfG1arhkr3yKrVQvNtKGvlPbkqAY4ZmAAIZd3/qTfX?=
- =?us-ascii?Q?QwwmT/Be68OjNBsyOsOxqzwC5hWwcsuCGXpN2C8TXcDjBgWTWjGeahLg1RN1?=
- =?us-ascii?Q?lJjnbNNERo3tSr0CXzBXeeYBobjMkPabCUMBPxsib5Q8A4qT7Ck8xHEt5RRd?=
- =?us-ascii?Q?MJ6L3RXqYW9U4pa8LmDf2q/RSmQJWTlk4QF4yMKHWpu931VvFrDgwWWYUz5X?=
- =?us-ascii?Q?6fMWnnNZA2BbslLX+8Y4AO/FtMb+dSFNiyXEttRTuKjJVko7G9HyG4xUtSrY?=
- =?us-ascii?Q?TFbpq6cQG7dHf3XzIKqw9pJClIWtmgT/sx2UZgUyKkIz9mc53jDySwVS8N1X?=
- =?us-ascii?Q?rPWnJhxoiP25UM/5DD5sw4V7Y6LnWjX5Qs60OBb2ztB/DO2qPwWRJSRJi/Bo?=
- =?us-ascii?Q?+v1TvhqOTnt1RXC/2u1JEl8ag2csXkgBr08qmgLi++SbYDmfSIFc13Qh95Ht?=
- =?us-ascii?Q?/YkWRiUqyobGxbezHpl4gkaG/Cb3HU2Vvweptyq1e1WKl+ukhOA75CkzgwQW?=
- =?us-ascii?Q?knp+UwwOaOpo3wdTHMv5oNVV0EqNjaA5dd+2cQgKBFf2h+p0maRXVcHK399d?=
- =?us-ascii?Q?wHolvBF0H7G81B4nXRKW6ugXQfBCK5qavfntALlAi6PtUjt4DWwgnU+8Xn5j?=
- =?us-ascii?Q?Rf0VYDk/bjrmtppvraAeHxYh3egQaqloACfqS9touX74tRzVlRYVOZXXzDOB?=
- =?us-ascii?Q?MJwM3EE/zFnJZhxxr+AgwGn9ZkR+CnhhW14oXJx7/wz1xQzSCk8sYDlDRLpl?=
- =?us-ascii?Q?hbdSxuXy5xTgoO/ozN8mwmkyoccp1gRZmEU/b7Gu1Y0uNHNLq+b1GsLvsnad?=
- =?us-ascii?Q?/qREbUUxPmtk3SH5JgOwxiD84BtGxrOArtNgy6yRu25uwJGMwsQDmlNCeXg8?=
- =?us-ascii?Q?t1t6akQUB9AQ/UyZywZKrtZBkKK4XizTNkqrBvETC9EW5ov6thZ2CKZy+PUN?=
- =?us-ascii?Q?g7kAEa8wCs/Wu54m2rB7b3a9gVIVj4geEzxqFzukx96EchH92GkzU5nDkt8p?=
- =?us-ascii?Q?msd5k9uDKPWpPPuUsxUJtjS3VHfMJwqbjFSpEtZC8amOZqxZiLyacNC8oqYj?=
- =?us-ascii?Q?p0hx1JjZmjjR2VD+I5QhiusMLofb00cbhBuJ3yiWLjjaeYdRfP0alUbYoeyn?=
- =?us-ascii?Q?eVv0Njv39/GwFeooErQeWcE0KXKPUORk6eQAP8l2LHT0vsC1gUNm2hJdRS1K?=
- =?us-ascii?Q?8WLlncqokENxE7zoglRuOiTQnI0e/4mAnHhwAFn2RE7vZ66f7SEwCtGJXZbO?=
- =?us-ascii?Q?6DDOWZZOwctituCMuDFwRTYQXRsseyEZ7iG8X81b6LNfzCUbthiQxDHwXWVM?=
- =?us-ascii?Q?keEEBvoWMkowLb/pB83IHKw=3D?=
+	=?us-ascii?Q?vEXoTZ08WPMnyR0TcB8EmmeAOZ7KmCRmmz4ERpggmXqXCG6dcziNL7WbOnrc?=
+ =?us-ascii?Q?TZaXSU9V5+au1iKKjhnnVeca3sWCx+7rs8WhY48mMDn+MuR8eBEq/aylHvoV?=
+ =?us-ascii?Q?nw3SABeHaQ8zrZJdSr+PswTwBa3b4M89SQaD3iFMzftNJoaV0Cnc39VfPvbQ?=
+ =?us-ascii?Q?wHZHoiDLL5hg1TTJKXh7xv7RBqoND+AHmWX04QsZa7bplgTf6BhuYSdjoVr6?=
+ =?us-ascii?Q?m61l1y9DKYRTFq//MhdTgZngdySvGwuqz9XXkkFZT9aPUYPD81ajhv06BKUd?=
+ =?us-ascii?Q?/XUl3/It5zZ7++hG8pKDaWGGoSQYmvZVPpRp5fCOHmlaljfWpCk0/r0Ow5RN?=
+ =?us-ascii?Q?j+2CiLAOIZMx6NwbFy90U3flBZUQDHAi6kXTkKPBq/eOU7yF6rOn2izBRFeM?=
+ =?us-ascii?Q?8BhpIXGCjJLpTImJYGgKMeMlobq7++BfmE8QOeKjPrVsxsLCuLmEA8W939mn?=
+ =?us-ascii?Q?Z5NOFe36kld9rPPZsLXx55Az7wCv/Xa8cQ0d4L0JsQrp7T+Mh+UQZ6zhb2YU?=
+ =?us-ascii?Q?i2uIu1RtfGVW4yHl4fj9pNBabTo2qBwdJepcs7q9lSX9O9acXZU5Di9RjcX6?=
+ =?us-ascii?Q?tJ+nxqsDKuGDMBYAz0RSdAfPtOp/IWSpzsMJASxn8h0RQI9AgvLePh1JRsxP?=
+ =?us-ascii?Q?sb4CQ1tSGA8mgkiZ6R6Hp1EfjF33FV2FdssrHWxEgTijTzO2pci7I0VOQXxU?=
+ =?us-ascii?Q?nYEcsZENFD0rcQ02lhKxZhu+om/VcYFcP8PZlvVImxiVY5snklGZ/Vcz5CfV?=
+ =?us-ascii?Q?/kQ5jklEH3z6pDPQH3Jyc19HHKie+NwLZPZz2Rp2JKG5xtk+iwKTieZF7zrF?=
+ =?us-ascii?Q?uz1XEd0K23mtZysNvOQQr3wI1PDfByuUXXVqXl7J/qWZO6TLGGGIjPw8yQaj?=
+ =?us-ascii?Q?jNN+IMeyr4FmU7tEg+JXcp6CtJmuQG3J2huYJlSLSHFuWoW5g74N7EKkM396?=
+ =?us-ascii?Q?frm3Cr1vPguHkTMTkUzY2jhssc7FivCOfMKShOa7V+c5lpnXKqxh6KqoQknS?=
+ =?us-ascii?Q?EegceSW+AUJ3Qg7x6bVhYnlJY992EgkIyUMSFOChPomN5KElGgxBqtM1Kg3u?=
+ =?us-ascii?Q?Ep9cmniKdnl1uMC3OU65kOAtlUVVVaYaBRODAKrnB1ZyP03MYIOWVb8gDYoU?=
+ =?us-ascii?Q?IorHR0WSV4+pxie8lNc4eKn2BMbVTBQSTOp0LujNnq7kcI9b0j49mHs2m6dx?=
+ =?us-ascii?Q?iiwIFRKDB93jc5qepr2tlCplM7y/tMocgcx6xZqiOXjF6BiJnM++oBnWcKlB?=
+ =?us-ascii?Q?+4AZCG9vghW9n352siHUYEyhoPqYxIhxwH63prD+jyLDekLoWa09Rtrn1geC?=
+ =?us-ascii?Q?7hdITSpLux2ZgZNqdEOh4LO+k51T9fSExT/mopQb+m30BsiX6Q3Qvx8BIi7o?=
+ =?us-ascii?Q?fWZgeeUFpZn38m876QxHTnprpmY4PxhdakUF7CjHmeJI+gtuxzWZmyxJ/99E?=
+ =?us-ascii?Q?WNPMXN45m1It7Og0093Njjm1iLi6cPBRF0bw9pLAiK5oT2tdLelvnALsgNFM?=
+ =?us-ascii?Q?CaU/pqCoebblQsWQgG8IJpI/sszpcYe4wZAwdfg39A0xFmE3rz7ZudlqDj16?=
+ =?us-ascii?Q?KGe845+wx88VecKKLT2JaA3SK5n/J9SwQQzfd5T5FQJtxCO8p11hfBUuTIiM?=
+ =?us-ascii?Q?WcmO52rU3wN/WfVVal2Ds3c=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d719b99d-3ec6-4953-a330-08dcecb436e8
+ 6245cd2e-c78f-40d8-7e9a-08dcecb43934
 X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2024 00:56:34.0051
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2024 00:56:37.8899
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- rmpzCVvOJCftizRmdQkdkHpFalsUuCKQtaKT8aCa5WQVe4mVcNJcFmaJnYQIbBMU7dm5yeNu2jc5pB9hddjBqjkgSU6w8wwEYzvjg59UyLUD6nH3pNuFjiu2D0cBgBlc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS0PR01MB6130
-Message-ID-Hash: M4CCXYYXVGG6PRQ4WZVXVPWNUAMDKHKM
-X-Message-ID-Hash: M4CCXYYXVGG6PRQ4WZVXVPWNUAMDKHKM
+ fh6OyGwe90mp4ieU3Jv+2z8gjp3jerwEKfBxzafA107Z8TVBihqAo3XLOwXYOwiDLOGCRI+3WYvxaspOjZQ0qUJ/s5FnIJ/9HChDGHg3jAO0kDkaMrd7nk9ZkPBNrFfU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB7121
+Message-ID-Hash: ELPN4XHQGFN43UZSYVVUMFF6RWRUAX6P
+X-Message-ID-Hash: ELPN4XHQGFN43UZSYVVUMFF6RWRUAX6P
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -174,7 +174,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M4CCXYYXVGG6PRQ4WZVXVPWNUAMDKHKM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ELPN4XHQGFN43UZSYVVUMFF6RWRUAX6P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -188,38 +188,741 @@ xxx_only if needed.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-topology-test.c | 2 --
- sound/soc/soc-topology.c      | 4 ++--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ sound/soc/intel/boards/bdw-rt5650.c          |  4 ----
+ sound/soc/intel/boards/bdw-rt5677.c          |  4 ----
+ sound/soc/intel/boards/bdw_rt286.c           | 10 +++-------
+ sound/soc/intel/boards/bytcht_cx2072x.c      |  6 +-----
+ sound/soc/intel/boards/bytcht_da7213.c       |  6 +-----
+ sound/soc/intel/boards/bytcht_es8316.c       |  6 +-----
+ sound/soc/intel/boards/bytcht_nocodec.c      |  6 +-----
+ sound/soc/intel/boards/bytcr_rt5640.c        |  6 +-----
+ sound/soc/intel/boards/bytcr_rt5651.c        |  6 +-----
+ sound/soc/intel/boards/bytcr_wm5102.c        |  6 +-----
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c |  6 +-----
+ sound/soc/intel/boards/cht_bsw_nau8824.c     |  6 +-----
+ sound/soc/intel/boards/cht_bsw_rt5645.c      |  6 +-----
+ sound/soc/intel/boards/cht_bsw_rt5672.c      |  6 +-----
+ sound/soc/intel/boards/ehl_rt5660.c          | 14 ++++++--------
+ sound/soc/intel/boards/hsw_rt5640.c          | 10 +++-------
+ sound/soc/intel/boards/sof_board_helpers.c   | 15 ++++-----------
+ sound/soc/intel/boards/sof_es8336.c          |  8 +++-----
+ sound/soc/intel/boards/sof_pcm512x.c         |  9 ++++-----
+ sound/soc/intel/boards/sof_wm8804.c          |  2 --
+ 20 files changed, 34 insertions(+), 108 deletions(-)
 
-diff --git a/sound/soc/soc-topology-test.c b/sound/soc/soc-topology-test.c
-index a2b08568f4e89..c8f2ec29e9703 100644
---- a/sound/soc/soc-topology-test.c
-+++ b/sound/soc/soc-topology-test.c
-@@ -88,8 +88,6 @@ static struct snd_soc_dai_link kunit_dai_links[] = {
+diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
+index 3c7cee03a02e6..d25a7188f603f 100644
+--- a/sound/soc/intel/boards/bdw-rt5650.c
++++ b/sound/soc/intel/boards/bdw-rt5650.c
+@@ -239,8 +239,6 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
+ 			SND_SOC_DPCM_TRIGGER_POST,
+ 			SND_SOC_DPCM_TRIGGER_POST
+ 		},
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(fe, dummy, platform),
+ 	},
+ 
+@@ -256,8 +254,6 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
+ 		.ignore_pmdown_time = 1,
+ 		.be_hw_params_fixup = broadwell_ssp0_fixup,
+ 		.ops = &bdw_rt5650_ops,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.init = bdw_rt5650_init,
+ 		SND_SOC_DAILINK_REG(ssp0_port, be, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index 304af3d06d017..9484f34107876 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -329,8 +329,6 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+ 			SND_SOC_DPCM_TRIGGER_POST,
+ 			SND_SOC_DPCM_TRIGGER_POST
+ 		},
+-		.dpcm_capture = 1,
+-		.dpcm_playback = 1,
+ 		.ops = &bdw_rt5677_fe_ops,
+ 		SND_SOC_DAILINK_REG(fe, dummy, platform),
+ 	},
+@@ -356,8 +354,6 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+ 		.ignore_pmdown_time = 1,
+ 		.be_hw_params_fixup = broadwell_ssp0_fixup,
+ 		.ops = &bdw_rt5677_ops,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.init = bdw_rt5677_init,
+ 		.exit = bdw_rt5677_exit,
+ 		SND_SOC_DAILINK_REG(ssp0_port, be, platform),
+diff --git a/sound/soc/intel/boards/bdw_rt286.c b/sound/soc/intel/boards/bdw_rt286.c
+index 58db09d9b6e16..523ade9f31ab7 100644
+--- a/sound/soc/intel/boards/bdw_rt286.c
++++ b/sound/soc/intel/boards/bdw_rt286.c
+@@ -133,8 +133,6 @@ static struct snd_soc_dai_link card_dai_links[] = {
  		.nonatomic = 1,
  		.dynamic = 1,
  		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
 -		.dpcm_playback = 1,
 -		.dpcm_capture = 1,
- 		SND_SOC_DAILINK_REG(dummy, dummy, platform),
+ 		SND_SOC_DAILINK_REG(system, dummy, platform),
+ 	},
+ 	{
+@@ -143,7 +141,7 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		SND_SOC_DAILINK_REG(offload0, dummy, platform),
+ 	},
+ 	{
+@@ -152,7 +150,7 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		SND_SOC_DAILINK_REG(offload1, dummy, platform),
+ 	},
+ 	{
+@@ -161,7 +159,7 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.dpcm_capture = 1,
++		.capture_only = 1,
+ 		SND_SOC_DAILINK_REG(loopback, dummy, platform),
+ 	},
+ 	/* Back End DAI links */
+@@ -177,8 +175,6 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.ignore_pmdown_time = 1,
+ 		.be_hw_params_fixup = codec_link_hw_params_fixup,
+ 		.ops = &codec_link_ops,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
  	},
  };
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 97517423d1f0b..43003d2d36667 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -1544,8 +1544,8 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
- 	/* enable DPCM */
- 	link->dynamic = 1;
- 	link->ignore_pmdown_time = 1;
--	link->dpcm_playback = le32_to_cpu(pcm->playback);
--	link->dpcm_capture = le32_to_cpu(pcm->capture);
-+	link->playback_only =  le32_to_cpu(pcm->playback) && !le32_to_cpu(pcm->capture);
-+	link->capture_only  = !le32_to_cpu(pcm->playback) &&  le32_to_cpu(pcm->capture);
- 	if (pcm->flag_mask)
- 		set_link_flags(link,
- 			       le32_to_cpu(pcm->flag_mask),
+diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
+index 8c2b4ab764bba..68a3d345dc25d 100644
+--- a/sound/soc/intel/boards/bytcht_cx2072x.c
++++ b/sound/soc/intel/boards/bytcht_cx2072x.c
+@@ -175,8 +175,6 @@ static struct snd_soc_dai_link byt_cht_cx2072x_dais[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &byt_cht_cx2072x_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -185,7 +183,7 @@ static struct snd_soc_dai_link byt_cht_cx2072x_dais[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &byt_cht_cx2072x_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -198,8 +196,6 @@ static struct snd_soc_dai_link byt_cht_cx2072x_dais[] = {
+ 					      | SND_SOC_DAIFMT_CBC_CFC,
+ 		.init = byt_cht_cx2072x_init,
+ 		.be_hw_params_fixup = byt_cht_cx2072x_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(ssp2, cx2072x, platform),
+ 	},
+ };
+diff --git a/sound/soc/intel/boards/bytcht_da7213.c b/sound/soc/intel/boards/bytcht_da7213.c
+index 9178bbe8d9950..31141d4b6b256 100644
+--- a/sound/soc/intel/boards/bytcht_da7213.c
++++ b/sound/soc/intel/boards/bytcht_da7213.c
+@@ -174,8 +174,6 @@ static struct snd_soc_dai_link dailink[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -184,7 +182,7 @@ static struct snd_soc_dai_link dailink[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -197,8 +195,6 @@ static struct snd_soc_dai_link dailink[] = {
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+ 						| SND_SOC_DAIFMT_CBC_CFC,
+ 		.be_hw_params_fixup = codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &ssp2_ops,
+ 		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index d3327bc237b5f..62594e7966ab0 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -315,8 +315,6 @@ static struct snd_soc_dai_link byt_cht_es8316_dais[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &byt_cht_es8316_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -326,7 +324,7 @@ static struct snd_soc_dai_link byt_cht_es8316_dais[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &byt_cht_es8316_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -339,8 +337,6 @@ static struct snd_soc_dai_link byt_cht_es8316_dais[] = {
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+ 						| SND_SOC_DAIFMT_CBC_CFC,
+ 		.be_hw_params_fixup = byt_cht_es8316_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.init = byt_cht_es8316_init,
+ 		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/bytcht_nocodec.c b/sound/soc/intel/boards/bytcht_nocodec.c
+index 4a957d1cece35..fec23bda9e643 100644
+--- a/sound/soc/intel/boards/bytcht_nocodec.c
++++ b/sound/soc/intel/boards/bytcht_nocodec.c
+@@ -119,8 +119,6 @@ static struct snd_soc_dai_link dais[] = {
+ 		.ignore_suspend = 1,
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -130,7 +128,7 @@ static struct snd_soc_dai_link dais[] = {
+ 		.ignore_suspend = 1,
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -144,8 +142,6 @@ static struct snd_soc_dai_link dais[] = {
+ 						| SND_SOC_DAIFMT_CBC_CFC,
+ 		.be_hw_params_fixup = codec_fixup,
+ 		.ignore_suspend = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(ssp2_port, dummy, platform),
+ 	},
+ };
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 2ed49acb4e36e..410eb36c37c93 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -1546,8 +1546,6 @@ static struct snd_soc_dai_link byt_rt5640_dais[] = {
+ 		.stream_name = "Baytrail Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &byt_rt5640_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -1556,7 +1554,7 @@ static struct snd_soc_dai_link byt_rt5640_dais[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &byt_rt5640_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -1568,8 +1566,6 @@ static struct snd_soc_dai_link byt_rt5640_dais[] = {
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+ 						| SND_SOC_DAIFMT_CBC_CFC,
+ 		.be_hw_params_fixup = byt_rt5640_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.init = byt_rt5640_init,
+ 		.exit = byt_rt5640_exit,
+ 		.ops = &byt_rt5640_be_ssp2_ops,
+diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
+index 8e4b821efe927..67c62844ca2a9 100644
+--- a/sound/soc/intel/boards/bytcr_rt5651.c
++++ b/sound/soc/intel/boards/bytcr_rt5651.c
+@@ -770,8 +770,6 @@ static struct snd_soc_dai_link byt_rt5651_dais[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &byt_rt5651_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -780,7 +778,7 @@ static struct snd_soc_dai_link byt_rt5651_dais[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &byt_rt5651_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -793,8 +791,6 @@ static struct snd_soc_dai_link byt_rt5651_dais[] = {
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+ 						| SND_SOC_DAIFMT_CBC_CFC,
+ 		.be_hw_params_fixup = byt_rt5651_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.init = byt_rt5651_init,
+ 		.ops = &byt_rt5651_be_ssp2_ops,
+ 		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
+diff --git a/sound/soc/intel/boards/bytcr_wm5102.c b/sound/soc/intel/boards/bytcr_wm5102.c
+index 0b10d89cb1892..a6dfbcfdf74e3 100644
+--- a/sound/soc/intel/boards/bytcr_wm5102.c
++++ b/sound/soc/intel/boards/bytcr_wm5102.c
+@@ -462,8 +462,6 @@ static struct snd_soc_dai_link byt_wm5102_dais[] = {
+ 		.stream_name = "Baytrail Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &byt_wm5102_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 
+@@ -473,7 +471,7 @@ static struct snd_soc_dai_link byt_wm5102_dais[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &byt_wm5102_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -490,8 +488,6 @@ static struct snd_soc_dai_link byt_wm5102_dais[] = {
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+ 						| SND_SOC_DAIFMT_CBC_CFC,
+ 		.be_hw_params_fixup = byt_wm5102_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.init = byt_wm5102_init,
+ 		SND_SOC_DAILINK_REG(ssp0_port, ssp0_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+index d7c1148588331..36984de8a0679 100644
+--- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
++++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+@@ -351,8 +351,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -361,7 +359,7 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -374,8 +372,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 					| SND_SOC_DAIFMT_CBC_CFC,
+ 		.init = cht_codec_init,
+ 		.be_hw_params_fixup = cht_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_be_ssp2_ops,
+ 		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
+index 7651b83632fa4..4afb292d4f13a 100644
+--- a/sound/soc/intel/boards/cht_bsw_nau8824.c
++++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
+@@ -193,8 +193,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -203,7 +201,7 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -217,8 +215,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 			| SND_SOC_DAIFMT_CBC_CFC,
+ 		.init = cht_codec_init,
+ 		.be_hw_params_fixup = cht_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_be_ssp2_ops,
+ 		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+index ac23a8b7cafca..b977a2db73a3a 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5645.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+@@ -448,8 +448,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -458,7 +456,7 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -470,8 +468,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.no_pcm = 1,
+ 		.init = cht_codec_init,
+ 		.be_hw_params_fixup = cht_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_be_ssp2_ops,
+ 		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index c6c469d51243e..aaef212cf44ec 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -358,8 +358,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(media, dummy, platform),
+ 	},
+@@ -368,7 +366,7 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.stream_name = "Deep-Buffer Audio",
+ 		.nonatomic = true,
+ 		.dynamic = 1,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+@@ -381,8 +379,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.no_pcm = 1,
+ 		.init = cht_codec_init,
+ 		.be_hw_params_fixup = cht_codec_fixup,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &cht_be_ssp2_ops,
+ 		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/ehl_rt5660.c b/sound/soc/intel/boards/ehl_rt5660.c
+index 90d93e667bd9e..ebc417c04a500 100644
+--- a/sound/soc/intel/boards/ehl_rt5660.c
++++ b/sound/soc/intel/boards/ehl_rt5660.c
+@@ -178,8 +178,6 @@ static struct snd_soc_dai_link ehl_rt5660_dailink[] = {
+ 		.name = "SSP0-Codec",
+ 		.id = 0,
+ 		.no_pcm = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &rt5660_ops,
+ 		SND_SOC_DAILINK_REG(ssp0_pin, rt5660_codec, platform),
+ 	},
+@@ -187,7 +185,7 @@ static struct snd_soc_dai_link ehl_rt5660_dailink[] = {
+ 		.name = "dmic48k",
+ 		.id = 1,
+ 		.ignore_suspend = 1,
+-		.dpcm_capture = 1,
++		.capture_only = 1,
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(dmic_pin, dmic_codec, platform),
+ 	},
+@@ -195,7 +193,7 @@ static struct snd_soc_dai_link ehl_rt5660_dailink[] = {
+ 		.name = "dmic16k",
+ 		.id = 2,
+ 		.ignore_suspend = 1,
+-		.dpcm_capture = 1,
++		.capture_only = 1,
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(dmic16k, dmic_codec, platform),
+ 	},
+@@ -203,7 +201,7 @@ static struct snd_soc_dai_link ehl_rt5660_dailink[] = {
+ 		.name = "iDisp1",
+ 		.id = 5,
+ 		.init = hdmi_init,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(idisp1_pin, idisp1_codec, platform),
+ 	},
+@@ -211,7 +209,7 @@ static struct snd_soc_dai_link ehl_rt5660_dailink[] = {
+ 		.name = "iDisp2",
+ 		.id = 6,
+ 		.init = hdmi_init,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(idisp2_pin, idisp2_codec, platform),
+ 	},
+@@ -219,7 +217,7 @@ static struct snd_soc_dai_link ehl_rt5660_dailink[] = {
+ 		.name = "iDisp3",
+ 		.id = 7,
+ 		.init = hdmi_init,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(idisp3_pin, idisp3_codec, platform),
+ 	},
+@@ -227,7 +225,7 @@ static struct snd_soc_dai_link ehl_rt5660_dailink[] = {
+ 		.name = "iDisp4",
+ 		.id = 8,
+ 		.init = hdmi_init,
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(idisp4_pin, idisp4_codec, platform),
+ 	},
+diff --git a/sound/soc/intel/boards/hsw_rt5640.c b/sound/soc/intel/boards/hsw_rt5640.c
+index 1826a4dfd0f35..9bb2822ba63e3 100644
+--- a/sound/soc/intel/boards/hsw_rt5640.c
++++ b/sound/soc/intel/boards/hsw_rt5640.c
+@@ -85,8 +85,6 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(system, dummy, platform),
+ 	},
+ 	{
+@@ -95,7 +93,7 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		SND_SOC_DAILINK_REG(offload0, dummy, platform),
+ 	},
+ 	{
+@@ -104,7 +102,7 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.dpcm_playback = 1,
++		.playback_only = 1,
+ 		SND_SOC_DAILINK_REG(offload1, dummy, platform),
+ 	},
+ 	{
+@@ -113,7 +111,7 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.nonatomic = 1,
+ 		.dynamic = 1,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+-		.dpcm_capture = 1,
++		.capture_only = 1,
+ 		SND_SOC_DAILINK_REG(loopback, dummy, platform),
+ 	},
+ 	/* Back End DAI links */
+@@ -127,8 +125,6 @@ static struct snd_soc_dai_link card_dai_links[] = {
+ 		.ignore_pmdown_time = 1,
+ 		.be_hw_params_fixup = codec_link_hw_params_fixup,
+ 		.ops = &codec_link_ops,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
+ 	},
+ };
+diff --git a/sound/soc/intel/boards/sof_board_helpers.c b/sound/soc/intel/boards/sof_board_helpers.c
+index 24f716e42d6a3..50e846d67c194 100644
+--- a/sound/soc/intel/boards/sof_board_helpers.c
++++ b/sound/soc/intel/boards/sof_board_helpers.c
+@@ -217,8 +217,6 @@ static int set_ssp_codec_link(struct device *dev, struct snd_soc_dai_link *link,
+ 
+ 	link->id = be_id;
+ 	link->no_pcm = 1;
+-	link->dpcm_capture = 1;
+-	link->dpcm_playback = 1;
+ 
+ 	return 0;
+ }
+@@ -268,7 +266,7 @@ static int set_dmic_link(struct device *dev, struct snd_soc_dai_link *link,
+ 		link->init = dmic_init;
+ 	link->ignore_suspend = 1;
+ 	link->no_pcm = 1;
+-	link->dpcm_capture = 1;
++	link->capture_only = 1;
+ 
+ 	return 0;
+ }
+@@ -326,7 +324,7 @@ static int set_idisp_hdmi_link(struct device *dev, struct snd_soc_dai_link *link
+ 	link->id = be_id;
+ 	link->init = (hdmi_id == 1) ? hdmi_init : NULL;
+ 	link->no_pcm = 1;
+-	link->dpcm_playback = 1;
++	link->playback_only = 1;
+ 
+ 	return 0;
+ }
+@@ -361,13 +359,12 @@ static int set_ssp_amp_link(struct device *dev, struct snd_soc_dai_link *link,
+ 	/* codecs - caller to handle */
+ 
+ 	/* platforms */
++	/* feedback stream or firmware-generated echo reference */
+ 	link->platforms = platform_component;
+ 	link->num_platforms = ARRAY_SIZE(platform_component);
+ 
+ 	link->id = be_id;
+ 	link->no_pcm = 1;
+-	link->dpcm_capture = 1; /* feedback stream or firmware-generated echo reference */
+-	link->dpcm_playback = 1;
+ 
+ 	return 0;
+ }
+@@ -407,8 +404,6 @@ static int set_bt_offload_link(struct device *dev, struct snd_soc_dai_link *link
+ 
+ 	link->id = be_id;
+ 	link->no_pcm = 1;
+-	link->dpcm_capture = 1;
+-	link->dpcm_playback = 1;
+ 
+ 	return 0;
+ }
+@@ -448,7 +443,7 @@ static int set_hdmi_in_link(struct device *dev, struct snd_soc_dai_link *link,
+ 
+ 	link->id = be_id;
+ 	link->no_pcm = 1;
+-	link->dpcm_capture = 1;
++	link->capture_only = 1;
+ 
+ 	return 0;
+ }
+@@ -496,8 +491,6 @@ static int set_hda_codec_link(struct device *dev, struct snd_soc_dai_link *link,
+ 	if (be_type == SOF_HDA_ANALOG)
+ 		link->init = hda_init;
+ 	link->no_pcm = 1;
+-	link->dpcm_capture = 1;
+-	link->dpcm_playback = 1;
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
+index fc998fe4b1960..a927078768519 100644
+--- a/sound/soc/intel/boards/sof_es8336.c
++++ b/sound/soc/intel/boards/sof_es8336.c
+@@ -455,8 +455,6 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 	links[id].exit = sof_es8316_exit;
+ 	links[id].ops = &sof_es8336_ops;
+ 	links[id].nonatomic = true;
+-	links[id].dpcm_playback = 1;
+-	links[id].dpcm_capture = 1;
+ 	links[id].no_pcm = 1;
+ 	links[id].cpus = &cpus[id];
+ 	links[id].num_cpus = 1;
+@@ -496,7 +494,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 		links[id].platforms = platform_component;
+ 		links[id].num_platforms = ARRAY_SIZE(platform_component);
+ 		links[id].ignore_suspend = 1;
+-		links[id].dpcm_capture = 1;
++		links[id].capture_only = 1;
+ 		links[id].no_pcm = 1;
+ 
+ 		id++;
+@@ -539,7 +537,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 		links[id].platforms = platform_component;
+ 		links[id].num_platforms = ARRAY_SIZE(platform_component);
+ 		links[id].init = sof_hdmi_init;
+-		links[id].dpcm_playback = 1;
++		links[id].playback_only = 1;
+ 		links[id].no_pcm = 1;
+ 
+ 		id++;
+@@ -569,7 +567,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 			links[id].num_codecs = 1;
+ 			links[id].platforms = platform_component;
+ 			links[id].num_platforms = ARRAY_SIZE(platform_component);
+-			links[id].dpcm_capture = 1;
++			links[id].capture_only = 1;
+ 			links[id].no_pcm = 1;
+ 			links[id].num_cpus = 1;
+ 			id++;
+diff --git a/sound/soc/intel/boards/sof_pcm512x.c b/sound/soc/intel/boards/sof_pcm512x.c
+index 8d237f67bd067..68380b738d883 100644
+--- a/sound/soc/intel/boards/sof_pcm512x.c
++++ b/sound/soc/intel/boards/sof_pcm512x.c
+@@ -246,12 +246,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 	links[id].num_platforms = ARRAY_SIZE(platform_component);
+ 	links[id].init = sof_pcm512x_codec_init;
+ 	links[id].ops = &sof_pcm512x_ops;
+-	links[id].dpcm_playback = 1;
+ 	/*
+ 	 * capture only supported with specific versions of the Hifiberry DAC+
+ 	 */
+-	if (sof_pcm512x_quirk & SOF_PCM512X_ENABLE_SSP_CAPTURE)
+-		links[id].dpcm_capture = 1;
++	if (!(sof_pcm512x_quirk & SOF_PCM512X_ENABLE_SSP_CAPTURE))
++		links[id].playback_only = 1;
+ 	links[id].no_pcm = 1;
+ 	links[id].cpus = &cpus[id];
+ 	links[id].num_cpus = 1;
+@@ -294,7 +293,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 		links[id].platforms = platform_component;
+ 		links[id].num_platforms = ARRAY_SIZE(platform_component);
+ 		links[id].ignore_suspend = 1;
+-		links[id].dpcm_capture = 1;
++		links[id].capture_only = 1;
+ 		links[id].no_pcm = 1;
+ 		id++;
+ 	}
+@@ -341,7 +340,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 		links[id].platforms = platform_component;
+ 		links[id].num_platforms = ARRAY_SIZE(platform_component);
+ 		links[id].init = sof_hdmi_init;
+-		links[id].dpcm_playback = 1;
++		links[id].playback_only = 1;
+ 		links[id].no_pcm = 1;
+ 		id++;
+ 	}
+diff --git a/sound/soc/intel/boards/sof_wm8804.c b/sound/soc/intel/boards/sof_wm8804.c
+index facc6c32cbfed..51922347409f0 100644
+--- a/sound/soc/intel/boards/sof_wm8804.c
++++ b/sound/soc/intel/boards/sof_wm8804.c
+@@ -167,8 +167,6 @@ static struct snd_soc_dai_link dailink[] = {
+ 		.name = "SSP5-Codec",
+ 		.id = 0,
+ 		.no_pcm = 1,
+-		.dpcm_playback = 1,
+-		.dpcm_capture = 1,
+ 		.ops = &sof_wm8804_ops,
+ 		SND_SOC_DAILINK_REG(ssp5_pin, ssp5_codec, platform),
+ 	},
 -- 
 2.43.0
 

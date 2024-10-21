@@ -2,54 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140889A5BCD
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2024 08:57:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F12AD9A5C15
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2024 09:09:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EFA5836;
-	Mon, 21 Oct 2024 08:57:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EFA5836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 81CB0DF9;
+	Mon, 21 Oct 2024 09:09:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81CB0DF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729493855;
-	bh=crXVhYFRtr/2Joiu91gtXLZ1UDXqfeEoHQc9X7mp8eQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=thvEN17aIi/adV3GIkMuiOdqGYWfuVfP6wtW5AQTxjM5/plMtW8UMPu1Dxf/a4s/V
-	 gfXzeNEcttFA9yUHdglvVeQ2CubELEVkuHSnk5fdQRbYvhkq9IQJUbTrl/Fw+x9Nvv
-	 dfaO2E/9Ce5wXMX/2IMlmKcLgbipfMc9G7OxQ5ms=
+	s=default; t=1729494565;
+	bh=DJ/LMXa8DNzbZlDTMg9MkBRugetCEuzG8+gEMP8AGOs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=lmKglehJ1YX4YMKPm28XD5xVbCjmIu9yWsIcRS0L+4/HXiy4hqZXryur3U/FzYLEe
+	 habX/ZswRin3kxQD8OAfbYPJyQx0nIix4kXDTB8pjUau4D8OTUP17u9WOKKjQ3D/aL
+	 4Mww03wamf/ALW3v+cSOrEXn6ipEc3IyXm9B/bLQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9407F80104; Mon, 21 Oct 2024 08:57:04 +0200 (CEST)
+	id 5610EF805BB; Mon, 21 Oct 2024 09:08:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14723F805B1;
-	Mon, 21 Oct 2024 08:57:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBFD4F805B0;
+	Mon, 21 Oct 2024 09:08:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3ABDF8016C; Mon, 21 Oct 2024 08:56:58 +0200 (CEST)
+	id 23E19F8016C; Mon, 21 Oct 2024 09:08:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2DE4F800ED
-	for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2024 08:56:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2DE4F800ED
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1729493816408677816-webhooks-bot@alsa-project.org>
-References: <1729493816408677816-webhooks-bot@alsa-project.org>
-Subject: snd_pcm_hw_open open '/dev/snd/pcmC0D0p' failed (-16)
-Message-Id: <20241021065658.B3ABDF8016C@alsa1.perex.cz>
-Date: Mon, 21 Oct 2024 08:56:58 +0200 (CEST)
-Message-ID-Hash: BMDXOWSC7KUCSPZQB4SBKM7WJUNRJ3MC
-X-Message-ID-Hash: BMDXOWSC7KUCSPZQB4SBKM7WJUNRJ3MC
-X-MailFrom: github@alsa-project.org
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 07CD6F8014C
+	for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2024 09:08:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07CD6F8014C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=w2bqYB2D;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=x5pkQ8Dc;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=ohGxU7if;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=cTdeW+gC
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D172121FC9;
+	Mon, 21 Oct 2024 07:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1729494523;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mbDBxoWKkQMhSe40y2KcT39f+Czf7BLV/i78/Xk1dFs=;
+	b=w2bqYB2DWayNdgQk+kyqKcswbyy/uH0bbsnlOPnCbFPofbdkVJVhO/fxbZJ45Gog7GWQ1l
+	CeF7+zPwps+wIHuJyRR3+Jdp0FG8IJ4j8l/SyQMxuGdXFEzgMDn1ccSQ5ES0+4TuE5fhAA
+	2B5bJuvS7UI67EOxo9/QRbDTueW1W2w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1729494523;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mbDBxoWKkQMhSe40y2KcT39f+Czf7BLV/i78/Xk1dFs=;
+	b=x5pkQ8DcWQZ9Xo7oSzwc/bG0e1xBnLr50pLwGwb2j6Z7jf1rNiwG1vqAfXWIfz9k8FKhb+
+	90lHIsZN83qz/dAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1729494522;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mbDBxoWKkQMhSe40y2KcT39f+Czf7BLV/i78/Xk1dFs=;
+	b=ohGxU7ifBTz6z8C+KkJBBWIcKtYQiOWSp8/Ov/Ung0jP6WBKqWjhWkj04JdCVUQxPS9vl1
+	Sz9UZiLZM0z7v7P40jwwnb64W2p9jBX1/sFNwFXrwf9+8Bq23CEhGu/mxuKlAjERD91S4G
+	1ocwmihwI+a1SWFnlv+p5PbLyFXSeu4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1729494522;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mbDBxoWKkQMhSe40y2KcT39f+Czf7BLV/i78/Xk1dFs=;
+	b=cTdeW+gC1dpK6vVuBhBoNKqwBKQ9oUSI4DF6rjcPn9TsQuTF0XJK9woqG3liqPCeZMsdld
+	Ar7Mrl+AI0BpxBAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 699FB136DC;
+	Mon, 21 Oct 2024 07:08:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id weFNGPr9FWcXSgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 21 Oct 2024 07:08:42 +0000
+Date: Mon, 21 Oct 2024 09:09:42 +0200
+Message-ID: <874j56j5jd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andrey Shumilin <shum.sdl@nppct.ru>
+Cc: Clemens Ladisch <clemens@ladisch.de>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	lvc-patches@linuxtesting.org,
+	khoroshilov@ispras.ru,
+	ykarpov@ispras.ru,
+	vmerzlyakov@ispras.ru,
+	vefanov@ispras.ru
+Subject: Re: [PATCH] ALSA: firewire-lib: Avoid division by zero in
+ apply_constraint_to_size()
+In-Reply-To: <20241018060018.1189537-1-shum.sdl@nppct.ru>
+References: <20241018060018.1189537-1-shum.sdl@nppct.ru>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_DN_SOME(0.00)[]
+Message-ID-Hash: RGN2WZMWYHH66D3XFSVRAZRPQPPVEVIB
+X-Message-ID-Hash: RGN2WZMWYHH66D3XFSVRAZRPQPPVEVIB
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +163,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BMDXOWSC7KUCSPZQB4SBKM7WJUNRJ3MC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RGN2WZMWYHH66D3XFSVRAZRPQPPVEVIB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,64 +172,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #412 was edited from SVENsuzhou:
+On Fri, 18 Oct 2024 08:00:18 +0200,
+Andrey Shumilin wrote:
+> 
+> The step variable is initialized to zero. It is changed in the loop,
+> but if it's not changed it will remain zero. Add a variable check
+> before the division.
+> 
+> The observed behavior was introduced by commit 826b5de90c0b
+> ("ALSA: firewire-lib: fix insufficient PCM rule for period/buffer size"),
+> and it is difficult to show that any of the interval parameters will
+> satisfy the snd_interval_test() condition with data from the
+> amdtp_rate_table[] table.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Fixes: 826b5de90c0b ("ALSA: firewire-lib: fix insufficient PCM rule for period/buffer size")
+> Signed-off-by: Andrey Shumilin <shum.sdl@nppct.ru>
 
-Hi, I am using pjsip to make a sip call function. But I got the following error in alsa-lib.
-```
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.315           pjsua_call.c !Answering call 0: code=200
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.315      inv0x7f989c003fc8  ..SDP negotiation done: Success
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316          pjsua_media.c  ...Call 0: updating media..
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316          pjsua_media.c  .....Media stream call00:0 is destroyed
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316      udp0x7f989c010710  ....UDP media transport started
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316            pjsua_aud.c  ....Audio channel update..
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316      udp0x7f989c010710  .....UDP media transport attached
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317     strm0x5559ce2eb538  .....Encoder stream started
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317     strm0x5559ce2eb538  .....Decoder stream started
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317          pjsua_media.c  ....Audio updated, stream #0: PCMA (sendrecv)
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317            pjsua_aud.c  ...Conf connect: 1 --> 0
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317            pjsua_aud.c  ....Set sound device: capture=-1, playback=-2, mode=0, use_default_settings=0
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@16000/1/20ms
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@44100/1/20ms
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: start media transmit failed: pjsua_conf_connect(id, sink.id) error: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) (status=420002) [/usr/src/debug/pjproject/2.14.1/pjsip/src/pjsua2/media.cpp:218]
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@48000/1/20ms
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@32000/1/20ms
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@16000/1/20ms
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@8000/1/20ms
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320            pjsua_aud.c  .....Unable to open sound device: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) [status=420002]
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320            pjsua_aud.c  ....Error opening sound device: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) [status=420002]
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320              media.cpp  ...pjsua_conf_connect(id, sink.id) error: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) (status=420002) [/usr/src/debug/pjproject/2.14.1/pjsip/src/pjsua2/media.cpp:218]
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.321           pjsua_core.c  ....TX 966 bytes Response msg 200/INVITE/cseq=30946 (tdta0x5559ce2e7378) to UDP 10.57.0.200:5060:
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: SIP/2.0 200 OK
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: Via: SIP/2.0/UDP 10.57.0.200:5060;rport=5060;received=10.57.0.200;branch=z9hG4bKPje5a12777-db72-4db0-a5a5-a72743589a27
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: Call-ID: 0bc91889-099c-42de-beb2-4fedefac6e7f
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: answer incoming call, remote uri: <sip:passenger_pei@10.57.0.200>, state: CONNECTING
-Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: From: <sip:passenger_pei@10.57.0.200>;tag=9efc50b5-c57a-4aa7-823e-2c3df064a27c
-```
-```
-root@tos-hmi-02:~# dmesg | grep snd
-[   16.251073] snd_hda_intel 0000:00:0e.0: DSP detected with PCI class/subclass/prog-if info 0x040380
-[   16.261081] snd_hda_intel 0000:00:0e.0: bound 0000:00:02.0 (ops 0xffffffff8df312a0)
-[   16.351558] snd_hda_codec_idt hdaudioC0D0: autoconfig for 92HD89D3: line_outs=3 (0xd/0xf/0x10/0x0/0x0) type:line
-[   16.362460] snd_hda_codec_idt hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-[   16.362470] snd_hda_codec_idt hdaudioC0D0:    hp_outs=1 (0xa/0x0/0x0/0x0/0x0)
-[   16.362476] snd_hda_codec_idt hdaudioC0D0:    mono: mono_out=0x0
-[   16.383430] snd_hda_codec_idt hdaudioC0D0:    dig-out=0x22/0x23
-[   16.383447] snd_hda_codec_idt hdaudioC0D0:    inputs:
-[   16.383452] snd_hda_codec_idt hdaudioC0D0:      Internal Mic=0x14
-[   16.383455] snd_hda_codec_idt hdaudioC0D0:      Rear Mic=0xe
-[   16.383459] snd_hda_codec_idt hdaudioC0D0:      Front Mic=0xb
-[   16.383461] snd_hda_codec_idt hdaudioC0D0:      Internal Mic=0x13
-[   16.383464] snd_hda_codec_idt hdaudioC0D0:      Line=0xc
-[   16.383466] snd_hda_codec_idt hdaudioC0D0:      CD=0x12
-[   16.383469] snd_hda_codec_idt hdaudioC0D0:    dig-in=0x24
-```
-I try to use `lsof /dev/snd/*` to check which process hold the file handle. And I got nothing. Can you give me some leads on troubleshooting?
+Applied now.  Thanks.
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/412
-Repository URL: https://github.com/alsa-project/alsa-lib
+
+Takashi

@@ -2,101 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EDC09A5A35
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2024 08:16:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5399A5A7A
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2024 08:36:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0450683B;
-	Mon, 21 Oct 2024 08:16:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0450683B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEBD3B6A;
+	Mon, 21 Oct 2024 08:36:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEBD3B6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729491403;
-	bh=SB3QsRQcqgGA2dyHEZzxJwxxtZ6P+VjMKwLtTbebdG0=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LSWrzeC1HA4l7e+9/jS16ppUusbp7xWyH4eB1m1OUqwmHW/8VOnRRUqQ5jDW4zqDN
-	 7FIZniwtun+HpVSmUeXJwTCP0pXgbomk9EgKZTkyLDYROH4ymMVqC72lmXd2O6Ve5s
-	 HgY1bddODkXgF7XK+WITVttSGwm74LlzdjWM+dHc=
+	s=default; t=1729492604;
+	bh=ZiSVpMyTTk8w9gZJ69Hs5xWvt9Ms6PxbVYaEk375Q7c=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=OGz49pTOsG7bjxnwjDBX6EdupCKIA/oVsLzp3QQ2KnJw8Z0ZgfvtozYywFI3VdWLn
+	 wGfofHtRmpIBSFYxgjEfWQsCNmXYKN8BwyFsQTR4F/7ifYPoF1UZQtrNlO4YaNdvV9
+	 DqsJguaL8CQa20cUroc5Zuf+2w0E2XzSQqTZP3j8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 06788F80587; Mon, 21 Oct 2024 08:16:12 +0200 (CEST)
+	id 868CCF805BB; Mon, 21 Oct 2024 08:36:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1CB2F805B0;
-	Mon, 21 Oct 2024 08:16:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86D31F80154;
+	Mon, 21 Oct 2024 08:36:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7A53F8016C; Mon, 21 Oct 2024 08:16:01 +0200 (CEST)
+	id A3B5EF8016C; Mon, 21 Oct 2024 08:36:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0DE6FF80104
-	for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2024 08:15:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DE6FF80104
-Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=MErigJBH
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 49L6FiYlA2002592,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1729491344; bh=SB3QsRQcqgGA2dyHEZzxJwxxtZ6P+VjMKwLtTbebdG0=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version;
-	b=MErigJBHR+JnfxU0GshynQfJj+lIK1jt/qvCRK5rsTY0EZmX0wZ8hoPcixWdikjxn
-	 BLZ63gSAkc2Q2PXAsEgQ6mEwX9xcJ/1Y4DyD+mP1yP9d4wy4MY+orjgrK285Ece1K0
-	 589px3C1pNxHSZ9d4U89DFrn7k829CCzENL3x2fe9LG1jAc6MQnvRm4irtDEiN1zZg
-	 s3sdO7YkYOfXtlH8lO+inQoSxF9MEUqg/M60OgE0k5OPAyEzLgvz3DII1z0XkRVhj7
-	 GkmS5BvOoGLAAtIcNXCf1tk5XgzfEXRobnDpgvQ6cCVZH6Q5d1V1kx4SDigPJLzNIS
-	 d8XToWMC1uJoA==
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 49L6FiYlA2002592
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Oct 2024 14:15:44 +0800
-Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Mon, 21 Oct 2024 14:15:45 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Mon, 21 Oct 2024 14:15:44 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
- RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
- 15.01.2507.035; Mon, 21 Oct 2024 14:15:44 +0800
-Content-Type: multipart/mixed;
-	boundary="_000_cd26275d9fc54374a18dc016755cb72drealtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>
-CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "lars@metafoo.de" <lars@metafoo.de>,
-        "Flove(HsinFu)" <flove@realtek.com>,
-        Oder Chiou <oder_chiou@realtek.com>,
-        =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?=
-	<shumingf@realtek.com>,
-        =?big5?B?RGVyZWsgW6TovHe4cV0=?=
-	<derek.fang@realtek.com>
-Subject: [PATCH] ASoC: rt722-sdca: increase clk_stop_timeout to fix clock stop
- issue
-Thread-Topic: [PATCH] ASoC: rt722-sdca: increase clk_stop_timeout to fix clock
- stop issue
-Thread-Index: AdsjgKjFvRyVnz1TR+GL6gzinRn0Jg==
-Date: Mon, 21 Oct 2024 06:15:44 +0000
-Message-ID: <cd26275d9fc54374a18dc016755cb72d@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-TNEF-Correlator: <cd26275d9fc54374a18dc016755cb72d@realtek.com>
-x-originating-ip: [172.21.6.42]
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id CB6D8F80104
+	for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2024 08:36:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB6D8F80104
 MIME-Version: 1.0
-Message-ID-Hash: ET4TGX72PBIRMUJTDWJ2BKU5IB4YMDFV
-X-Message-ID-Hash: ET4TGX72PBIRMUJTDWJ2BKU5IB4YMDFV
-X-MailFrom: jack.yu@realtek.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1729492566332724810-webhooks-bot@alsa-project.org>
+References: <1729492566332724810-webhooks-bot@alsa-project.org>
+Subject: snd_pcm_hw_open open '/dev/snd/pcmC0D0p' failed (-16)
+Message-Id: <20241021063608.A3B5EF8016C@alsa1.perex.cz>
+Date: Mon, 21 Oct 2024 08:36:08 +0200 (CEST)
+Message-ID-Hash: NRUXMXXFAO2L4KDWF6WJYLGT6HWWFNRR
+X-Message-ID-Hash: NRUXMXXFAO2L4KDWF6WJYLGT6HWWFNRR
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ET4TGX72PBIRMUJTDWJ2BKU5IB4YMDFV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NRUXMXXFAO2L4KDWF6WJYLGT6HWWFNRR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,115 +70,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_000_cd26275d9fc54374a18dc016755cb72drealtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+alsa-project/alsa-lib issue #412 was opened from SVENsuzhou:
 
-Y2xrX3N0b3BfdGltZW91dCBzaG91bGQgYmUgaW5jcmVhc2VkIHRvIDkwMG1zIHRvIGZpeCBjbG9j
-ayBzdG9wIGlzc3VlLg0KDQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsu
-Y29tPg0KLS0tDQogc291bmQvc29jL2NvZGVjcy9ydDcyMi1zZGNhLXNkdy5jIHwgMiArLQ0KIDEg
-ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0
-IGEvc291bmQvc29jL2NvZGVjcy9ydDcyMi1zZGNhLXNkdy5jIGIvc291bmQvc29jL2NvZGVjcy9y
-dDcyMi1zZGNhLXNkdy5jDQppbmRleCA4NzM1NGJiMTU2NGUuLmQ1Yzk4NWZmNWFjNSAxMDA2NDQN
-Ci0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQ3MjItc2RjYS1zZHcuYw0KKysrIGIvc291bmQvc29j
-L2NvZGVjcy9ydDcyMi1zZGNhLXNkdy5jDQpAQCAtMjUzLDcgKzI1Myw3IEBAIHN0YXRpYyBpbnQg
-cnQ3MjJfc2RjYV9yZWFkX3Byb3Aoc3RydWN0IHNkd19zbGF2ZSAqc2xhdmUpDQogCX0NCiANCiAJ
-Lyogc2V0IHRoZSB0aW1lb3V0IHZhbHVlcyAqLw0KLQlwcm9wLT5jbGtfc3RvcF90aW1lb3V0ID0g
-MjAwOw0KKwlwcm9wLT5jbGtfc3RvcF90aW1lb3V0ID0gOTAwOw0KIA0KIAkvKiB3YWtlLXVwIGV2
-ZW50ICovDQogCXByb3AtPndha2VfY2FwYWJsZSA9IDE7DQotLSANCjIuMzQuMQ0KDQo=
+Hi, I am using pjsip to make a sip call function. But I got the following error in alsa-lib.
+```
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.315           pjsua_call.c !Answering call 0: code=200
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.315      inv0x7f989c003fc8  ..SDP negotiation done: Success
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316          pjsua_media.c  ...Call 0: updating media..
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316          pjsua_media.c  .....Media stream call00:0 is destroyed
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316      udp0x7f989c010710  ....UDP media transport started
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316            pjsua_aud.c  ....Audio channel update..
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.316      udp0x7f989c010710  .....UDP media transport attached
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317     strm0x5559ce2eb538  .....Encoder stream started
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317     strm0x5559ce2eb538  .....Decoder stream started
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317          pjsua_media.c  ....Audio updated, stream #0: PCMA (sendrecv)
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317            pjsua_aud.c  ...Conf connect: 1 --> 0
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317            pjsua_aud.c  ....Set sound device: capture=-1, playback=-2, mode=0, use_default_settings=0
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.317            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@16000/1/20ms
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@44100/1/20ms
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: start media transmit failed: pjsua_conf_connect(id, sink.id) error: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) (status=420002) [/usr/src/debug/pjproject/2.14.1/pjsip/src/pjsua2/media.cpp:218]
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.318            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@48000/1/20ms
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@32000/1/20ms
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@16000/1/20ms
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.319            pjsua_aud.c  .....Opening sound device (speaker + mic) PCM@8000/1/20ms
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320             alsa_dev.c  ......ALSA lib /usr/src/debug/alsa-lib/1.2.11/src/pcm/pcm_hw.c:1785:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-16): Device o
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320            pjsua_aud.c  .....Unable to open sound device: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) [status=420002]
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320            pjsua_aud.c  ....Error opening sound device: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) [status=420002]
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.320              media.cpp  ...pjsua_conf_connect(id, sink.id) error: Unknown error from audio driver (PJMEDIA_EAUD_SYSERR) (status=420002) [/usr/src/debug/pjproject/2.14.1/pjsip/src/pjsua2/media.cpp:218]
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: 08:14:36.321           pjsua_core.c  ....TX 966 bytes Response msg 200/INVITE/cseq=30946 (tdta0x5559ce2e7378) to UDP 10.57.0.200:5060:
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: SIP/2.0 200 OK
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: Via: SIP/2.0/UDP 10.57.0.200:5060;rport=5060;received=10.57.0.200;branch=z9hG4bKPje5a12777-db72-4db0-a5a5-a72743589a27
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: Call-ID: 0bc91889-099c-42de-beb2-4fedefac6e7f
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: answer incoming call, remote uri: <sip:passenger_pei@10.57.0.200>, state: CONNECTING
+Oct 21 08:14:36 tos-hmi-02 ads_uartboardd[1404]: From: <sip:passenger_pei@10.57.0.200>;tag=9efc50b5-c57a-4aa7-823e-2c3df064a27c
+```
+I try to use `lsof /dev/snd/*` to check which process hold the file handle. And I got nothing. Can you give me some leads on troubleshooting?
 
---_000_cd26275d9fc54374a18dc016755cb72drealtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
-
-eJ8+IvQMAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADA0MkM3RDgz
-NERERTUzNDM5M0Y4MUEwNUVCODQ4MUY3ACkHAQ2ABAACAAAAAgACAAEFgAMADgAAAOgHCgAVAAYA
-DwAsAAEAUAEBIIADAA4AAADoBwoAFQAGAA8ALAABAFABAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAEwAAABbUEFUQ0hdIEFTb0M6IHJ0NzIyLXNkY2E6IGluY3JlYXNlIGNs
-a19zdG9wX3RpbWVvdXQgdG8gZml4IGNsb2NrIHN0b3AgaXNzdWUAfxoBC4ABACEAAAAwNDJDN0Q4
-MzREREU1MzQzOTNGODFBMDVFQjg0ODFGNwApBwEDkAYAPBIAAEQAAAACAX8AAQAAAC8AAAA8Y2Qy
-NjI3NWQ5ZmM1NDM3NGExOGRjMDE2NzU1Y2I3MmRAcmVhbHRlay5jb20+AAALAB8OAAAAAAIBCRAB
-AAAAyQIAAMUCAABiBAAATFpGdZHtdpBhAApmYmlkBAAAY2PAcGcxMjUyAP4DQ/B0ZXh0AfcCpAPj
-AgAEY2gKwHNldDAg7wdtAoMAUBFNMgqABrQCgJZ9CoAIyDsJYjE5DsC/CcMWcgoyFnECgBViKgmw
-cwnwBJBhdAWyDlADYHOibwGAIEV4EcFuGDBdBlJ2BJAXtgIQcgDAdH0IUG4aMRAgBcAFoBtkZJog
-A1IgECIXslx2CJDkd2sLgGQ1HVME8AdADRdwMApxF/Jia21rBnMBkAAgIEJNX0LgRUdJTn0K/AHx
-C/ERG9Bsa18fYG9wX050B3EIYAVAc2gIYGydHGBiGeALgAUAZWESANMcYBiQIDkeoG0EICPxiGZp
-eCGRb2NrIqCPIfEjQAQQClAuXGwLgEZlCoEmFFNpZxhQZAItGTBmLWJ5OiAGSgDQJTBZdSA8aqEn
-4S55dUAjgWwQINMokAWgbT4mBS0qECYFlyKgCGAdwC8ZIGMvBaAZBYFzLwAgAcAyLXMWZB5QLCF3
-KVAgfCDoMiArKjcxJKEecBvQeRmjZCwtsQuAEgAAIGnxAiAoKykuogEAHnAvM1wtKSYMDeABICAq
-EGe6aQVAYSsRKu8r/WIyPw8zTyYFHbEQMCA4NzMANTRiYjE1NjSFJeAuHdBjOTg1ASC6NQDQNS2w
-HqA38DQpqPcyHzVvNncrPMA0XzsvNneMQEAxsA6gMyw3LRD/P+Q/oR9hIjAswAuABUAzU4sh0CxB
-XyOBZF9wA2DEcCgfYHJ1YyKRLJDnIdALYBowICpDkzCGAzDnIEBEdipVLyoioBIQHMB2aBngIjZ2
-B0AKUAQgKqYvKaZCki0+Ia89LPD/HqAWIDxlSE9JViQhSgZFekB3YWtlLXUlgGW3GjBBYUenIEqU
-TZJfHlDvCrACYBngSbAxSgY58SYF4DIuMzQuAFAmGxVCAVMQAAAAHwBCAAEAAAAQAAAASgBhAGMA
-awAgAFkAdQAAAB8AZQABAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBv
-AG0AAAAfAGQAAQAAAAoAAABTAE0AVABQAAAAAAACAUEAAQAAAFoAAAAAAAAAgSsfpL6jEBmdbgDd
-AQ9UAgAAAIBKAGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBs
-AHQAZQBrAC4AYwBvAG0AAAAAAB8AAl0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQA
-ZQBrAC4AYwBvAG0AAAAfAOVfAQAAAAQAAAAgAAAAHwAaDAEAAAAQAAAASgBhAGMAawAgAFkAdQAA
-AB8AHwwBAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAB4M
-AQAAAAoAAABTAE0AVABQAAAAAAACARkMAQAAAFoAAAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBK
-AGEAYwBrACAAWQB1AAAAUwBNAFQAUAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4A
-YwBvAG0AAAAAAB8AAV0BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBv
-AG0AAAALAEA6AQAAAB8AGgABAAAAEgAAAEkAUABNAC4ATgBvAHQAZQAAAAAAAwDxPwQEAAALAEA6
-AQAAAAMA/T+2AwAAAgELMAEAAAAQAAAABCx9g03eU0OT+BoF64SB9wMAFwABAAAAQAA5AACoQamA
-I9sBQAAIMM3XV6mAI9sBCwApAAAAAAAfANk/AQAAAAACAABjAGwAawBfAHMAdABvAHAAXwB0AGkA
-bQBlAG8AdQB0ACAAcwBoAG8AdQBsAGQAIABiAGUAIABpAG4AYwByAGUAYQBzAGUAZAAgAHQAbwAg
-ADkAMAAwAG0AcwAgAHQAbwAgAGYAaQB4ACAAYwBsAG8AYwBrACAAcwB0AG8AcAAgAGkAcwBzAHUA
-ZQAuAA0ACgANAAoAUwBpAGcAbgBlAGQALQBvAGYAZgAtAGIAeQA6ACAASgBhAGMAawAgAFkAdQAg
-ADwAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQA+AA0ACgAtAC0ALQANAAoA
-IABzAG8AdQBuAGQALwBzAG8AYwAvAGMAbwBkAGUAYwBzAC8AcgB0ADcAMgAyAC0AcwBkAGMAYQAt
-AHMAZAB3AC4AYwAgAHwAIAAyACAAKwAtAA0ACgAgADEAIABmAGkAbABlACAAYwBoAGEAbgBnAGUA
-ZAAsACAAMQAgAGkAbgBzAGUAcgB0AGkAbwBuACgAKwApACwAIAAxACAAZABlAGwAZQB0AGkAbwBu
-ACgALQApAA0ACgANAAoAZABpAGYAZgAgAC0ALQBnAGkAdAAgAGEALwBzAG8AdQBuAGQALwBzAG8A
-YwAvAGMAbwBkAGUAYwBzAC8AcgB0ADcAMgAyAC0AcwAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAA
-ABSFAAABAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAHgAAAGEAYwBjAGUAcAB0AGwAYQBuAGcA
-dQBhAGcAZQAAAAAAAQAAABoAAAB6AGgALQBUAFcALAAgAGUAbgAtAFUAUwAAAAAAAwAAgAggBgAA
-AAAAwAAAAAAAAEYBAAAAMgAAAEUAeABjAGgAYQBuAGcAZQBBAHAAcABsAGkAYwBhAHQAaQBvAG4A
-RgBsAGEAZwBzAAAAAAAgAAAASAAAgAggBgAAAAAAwAAAAAAAAEYBAAAAIgAAAE4AZQB0AHcAbwBy
-AGsATQBlAHMAcwBhAGcAZQBJAGQAAAAAANQQSLp64c5AZesI3PGXy/IfAACAE4/yQfSDFEGlhO7b
-WmsL/wEAAAAWAAAAQwBsAGkAZQBuAHQASQBuAGYAbwAAAAAAAQAAACoAAABDAGwAaQBlAG4AdAA9
-AE0AUwBFAHgAYwBoAGEAbgBnAGUAUgBQAEMAAAAAAB8A+j8BAAAAEAAAAEoAYQBjAGsAIABZAHUA
-AAAfADcAAQAAAJgAAABbAFAAQQBUAEMASABdACAAQQBTAG8AQwA6ACAAcgB0ADcAMgAyAC0AcwBk
-AGMAYQA6ACAAaQBuAGMAcgBlAGEAcwBlACAAYwBsAGsAXwBzAHQAbwBwAF8AdABpAG0AZQBvAHUA
-dAAgAHQAbwAgAGYAaQB4ACAAYwBsAG8AYwBrACAAcwB0AG8AcAAgAGkAcwBzAHUAZQAAAB8APQAB
-AAAAAgAAAAAAAAADADYAAAAAAAIBcQABAAAAFgAAAAHbI4Coxb0clZ89U0fhi+oM4p0Z9CYAAB8A
-cAABAAAAmAAAAFsAUABBAFQAQwBIAF0AIABBAFMAbwBDADoAIAByAHQANwAyADIALQBzAGQAYwBh
-ADoAIABpAG4AYwByAGUAYQBzAGUAIABjAGwAawBfAHMAdABvAHAAXwB0AGkAbQBlAG8AdQB0ACAA
-dABvACAAZgBpAHgAIABjAGwAbwBjAGsAIABzAHQAbwBwACAAaQBzAHMAdQBlAAAAHwA1EAEAAABe
-AAAAPABjAGQAMgA2ADIANwA1AGQAOQBmAGMANQA0ADMANwA0AGEAMQA4AGQAYwAwADEANgA3ADUA
-NQBjAGIANwAyAGQAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0APgAAAAAAAwDeP7YDAAADABMSAAAA
-AAIBAIATj/JB9IMUQaWE7ttaawv/AQAAAC4AAABIAGUAYQBkAGUAcgBCAG8AZAB5AEYAcgBhAGcA
-bQBlAG4AdABMAGkAcwB0AAAAAAABAAAAIgAAAAEACgAAAAQAAAAAAAAAFAAAAAAAAAAAAAAA////
-/wAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAABwAAABIAGEAcwBRAHUAbwB0AGUAZABUAGUA
-eAB0AAAAAAAAAAsAAIATj/JB9IMUQaWE7ttaawv/AQAAACgAAABJAHMAUQB1AG8AdABlAGQAVABl
-AHgAdABDAGgAYQBuAGcAZQBkAAAAAAAAAEAABzDL50+pgCPbAQIBCwABAAAAEAAAAAQsfYNN3lND
-k/gaBeuEgfcDACYAAAAAAAsABgwAAAAAAgEQMAEAAABGAAAAAAAAANvpxEokoOdBkxsquyuzbUwH
-AEy3fQ1VoXlEvnOFOWLQAKUAAABpYPcAADKvOAVKsE5GgMfHOCK6D1oAAAHXwCQAAAAAAgETMAEA
-AAAQAAAAvRyVnz1TR+GL6gzinRn0JgIBFDABAAAADAAAADsAAACD1zpHYwAAAB8A+D8BAAAAEAAA
-AEoAYQBjAGsAIABZAHUAAAAfACJAAQAAAAYAAABFAFgAAAAAAB8AI0ABAAAAtgAAAC8ATwA9AFIA
-VABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBU
-AEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8A
-QwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5
-AAAAAAAfACRAAQAAAAYAAABFAFgAAAAAAB8AJUABAAAAtgAAAC8ATwA9AFIAVABFAFgAQwBIAC8A
-TwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIAQQBUAEkAVgBFACAARwBS
-AE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAApAC8AQwBOAD0AUgBFAEMA
-SQBQAEkARQBOAFQAUwAvAEMATgA9AFUAUwBFAFIANQA5ADgANgA1ADEAMAA5AAAAAAAfADBAAQAA
-ABAAAABKAGEAYwBrACAAWQB1AAAAHwAxQAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOEABAAAA
-EAAAAEoAYQBjAGsAIABZAHUAAAAfADlAAQAAABAAAABKAGEAYwBrACAAWQB1AAAAAwBZQAAAAAAD
-AFpAAAAAAAMACVkBAAAAHwAKXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsA
-LgBjAG8AbQAAAB8AC10BAAAAKAAAAGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBv
-AG0AAAAfAACAH6TrM6h6LkK+e3nhqY5UswEAAAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQAaQBvAG4A
-SQBuAGQAZQB4AFQAcgBhAGMAawBpAG4AZwBFAHgAAAABAAAAJAEAAEkASQA9AFsAQwBJAEQAPQA5
-AGYAOQA1ADEAYwBiAGQALQA1ADMAMwBkAC0AZQAxADQANwAtADgAYgBlAGEALQAwAGMAZQAyADkA
-ZAAxADkAZgA0ADIANgA7AEkARABYAEgARQBBAEQAPQBEAEIAMgAzADgAMABBADgAQwA1ADsASQBE
-AFgAQwBPAFUATgBUAD0AMQBdADsAUABTAD0AVQBuAGsAbgBvAHcAbgA7AFYAZQByAHMAaQBvAG4A
-PQBWAGUAcgBzAGkAbwBuACAAMQA1AC4AMQAgACgAQgB1AGkAbABkACAAMgA1ADAANwAuADAAKQAs
-ACAAUwB0AGEAZwBlAD0ASAA0ADsAVQBQAD0AMQAwADsARABQAD0AMQBDADUAAAALAACACCAGAAAA
-AADAAAAAAAAARgAAAACChQAAAAAAAAMADTT9PwAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAA
-AHgALQBtAHMALQBoAGEAcwAtAGEAdAB0AGEAYwBoAAAAAQAAAAIAAAAAAAAAHwAAgIYDAgAAAAAA
-wAAAAAAAAEYBAAAAIgAAAHgALQBvAHIAaQBnAGkAbgBhAHQAaQBuAGcALQBpAHAAAAAAAAEAAAAc
-AAAAWwAxADcAMgAuADIAMQAuADYALgA0ADIAXQAAAHVM
-
---_000_cd26275d9fc54374a18dc016755cb72drealtekcom_--
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/412
+Repository URL: https://github.com/alsa-project/alsa-lib

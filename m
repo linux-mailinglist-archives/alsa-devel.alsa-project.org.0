@@ -2,109 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B4669AB1A5
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2024 17:05:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D33E59AB3EC
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2024 18:26:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8ED80DEC;
-	Tue, 22 Oct 2024 17:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ED80DEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 785CBE68;
+	Tue, 22 Oct 2024 18:26:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 785CBE68
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729609501;
-	bh=QUUBW21t3BimnstQVgGZ0SBenbQzNgaGQZcFRj4mm8Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=GWoEek7PGO8UQjhb0HrcVSG+U0tmJb0JSXJvGqmznROdO22OWHsS1rdwIsvSHTwi1
-	 onIKWVMEax8ZFaFbn/Mifhgwu+hLzOlKy5TQQS9qdqBrzc73OUPwcIZz4gJu2u6tEt
-	 IC/sjqxzGheqKdDQILxTNhfhVa930tKP3adHtCKk=
+	s=default; t=1729614384;
+	bh=uvkDvs7FjFUmP11GS9EWAOnbt5BjXtNf7QczaVMT/8E=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=b04ZQx+kcV6ZfEvMow3p4FOglfDplLzyrKRm0eHZOv1th5wb3iMmpe8Jq2vUqkEHL
+	 4aZ2E1pZehPr97RA1i4xHvSCfbMpq9HoeTyRM5pYEIvyDj174kzgYMY+EnTZAD0GGq
+	 sD0nTcPY+jmQLNUxZuk+FKOvmEulKGqWWa9UNZx8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F35DF805B0; Tue, 22 Oct 2024 17:04:29 +0200 (CEST)
+	id 4BD38F805AC; Tue, 22 Oct 2024 18:25:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 938CAF805B2;
-	Tue, 22 Oct 2024 17:04:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88B1CF805A1;
+	Tue, 22 Oct 2024 18:25:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2938BF8016C; Tue, 22 Oct 2024 17:04:23 +0200 (CEST)
+	id 0E8F5F8016C; Tue, 22 Oct 2024 18:25:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9A9D9F80149
-	for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2024 17:04:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A9D9F80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lW/WsS7U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1729609462; x=1761145462;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=QUUBW21t3BimnstQVgGZ0SBenbQzNgaGQZcFRj4mm8Y=;
-  b=lW/WsS7UP3Wb3wukhaYqcaZCCXqvOYRLwojwkF+TFtlSCrSvAgFPIcPW
-   jnOK2Xuhq1/A9gW9FFddrXXYz6P1rQoPya+wdB+3aeM0XdSZls0KmvABP
-   d1ucwISbNZsoKrhdtrhkkBsGZH+vBEDolB8HFO9ZNxbaD0DHB1Y8i1ZSv
-   F+CD/kxVIULnnu3TTNRFYyfQWffcVXW/A98sd85sy2cY8Dvoa/sapqqhs
-   Ftm0XZf7AoIPJLyO6jaUYHsaNXzK/yIsG2umVCzs57XB4sEAiDae3j0+X
-   ozzmb2E0LVVYVdLNyYhmJTO7D0UizmtwVUOTQtUpANACytvC+ZSPtACsJ
-   Q==;
-X-CSE-ConnectionGUID: l3D98gfRTKSstYBjHZIeUg==
-X-CSE-MsgGUID: FrlON3w6QuS7nCpN26vXpA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11233"; a="33079484"
-X-IronPort-AV: E=Sophos;i="6.11,223,1725346800";
-   d="scan'208";a="33079484"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2024 08:04:17 -0700
-X-CSE-ConnectionGUID: t2EfxH96Ts+ZMKuBfhIFQA==
-X-CSE-MsgGUID: JAHYnJKXTd6WFkKNAaIiYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,223,1725346800";
-   d="scan'208";a="80072066"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
- ([10.94.0.53])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2024 08:04:10 -0700
-Message-ID: <8795c4ad-e3ac-47aa-92dd-f899042cefc0@linux.intel.com>
-Date: Tue, 22 Oct 2024 17:04:07 +0200
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B4ADF80104
+	for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2024 18:25:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B4ADF80104
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v29 01/33] xhci: support setting interrupt moderation IMOD
- for secondary interrupters
-To: Greg KH <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.de>
-Cc: Wesley Cheng <quic_wcheng@quicinc.com>, srinivas.kandagatla@linaro.org,
- mathias.nyman@intel.com, perex@perex.cz, conor+dt@kernel.org,
- dmitry.torokhov@gmail.com, corbet@lwn.net, lgirdwood@gmail.com,
- tiwai@suse.com, krzk+dt@kernel.org, pierre-louis.bossart@linux.intel.com,
- Thinh.Nguyen@synopsys.com, broonie@kernel.org, bgoswami@quicinc.com,
- robh@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-input@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-doc@vger.kernel.org, alsa-devel@alsa-project.org,
- Mathias Nyman <mathias.nyman@linux.intel.com>
-References: <20241015212915.1206789-1-quic_wcheng@quicinc.com>
- <20241015212915.1206789-2-quic_wcheng@quicinc.com>
- <2024101747-defog-squiggly-ef54@gregkh>
- <5847c380-75ce-492a-9a30-0899b7ebe98c@quicinc.com>
- <2024101824-hammock-elastic-8d38@gregkh> <87wmi02qcj.wl-tiwai@suse.de>
- <2024102240-gag-famished-245c@gregkh>
-Content-Language: en-US
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <2024102240-gag-famished-245c@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UW76LIY36DSTDDJR27AYAK6QHGUAXP5H
-X-Message-ID-Hash: UW76LIY36DSTDDJR27AYAK6QHGUAXP5H
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+From: GitHub issues - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1729614342095661163-webhooks-bot@alsa-project.org>
+References: <1729614342095661163-webhooks-bot@alsa-project.org>
+Subject: ALSA problem , audio on/off across multiple ubuntu releases
+Message-Id: <20241022162546.0E8F5F8016C@alsa1.perex.cz>
+Date: Tue, 22 Oct 2024 18:25:46 +0200 (CEST)
+Message-ID-Hash: RZDOGGRWQISAULDDJDTCK4FOOQZVX4L4
+X-Message-ID-Hash: RZDOGGRWQISAULDDJDTCK4FOOQZVX4L4
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UW76LIY36DSTDDJR27AYAK6QHGUAXP5H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZDOGGRWQISAULDDJDTCK4FOOQZVX4L4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,72 +70,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/22/2024 4:02 PM, Greg KH wrote:
-> On Tue, Oct 22, 2024 at 03:56:44PM +0200, Takashi Iwai wrote:
->> On Fri, 18 Oct 2024 07:52:35 +0200,
->> Greg KH wrote:
->>>
->>> On Thu, Oct 17, 2024 at 05:07:12PM -0700, Wesley Cheng wrote:
->>>> Hi Greg,
->>>>
->>>> On 10/16/2024 11:40 PM, Greg KH wrote:
->>>>> On Tue, Oct 15, 2024 at 02:28:43PM -0700, Wesley Cheng wrote:
->>>>>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
->>>>>>
->>>>>> Allow creators of xHCI secondary interrupters to specify the interrupt
->>>>>> moderation interval value in nanoseconds when creating the interrupter.
->>>>>>
->>>>>> If not sure what value to use then use the xhci driver default
->>>>>> xhci->imod_interval
->>>>>>
->>>>>> Suggested-by: Wesley Cheng <quic_wcheng@quicinc.com>
->>>>>> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
->>>>>> Link: https://lore.kernel.org/r/20240905143300.1959279-13-mathias.nyman@linux.intel.com
->>>>>> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->>>>>> ---
->>>>>>   drivers/usb/host/xhci-mem.c | 8 +++++++-
->>>>>>   drivers/usb/host/xhci.c     | 4 ++--
->>>>>>   drivers/usb/host/xhci.h     | 5 ++++-
->>>>>>   3 files changed, 13 insertions(+), 4 deletions(-)
->>>>> This is already in 6.12-rc1, which makes me confused as to what tree you
->>>>> made this series against.
->>>>
->>>> Sorry, I didn't fetch the latest changes from usb-next.
->>>
->>> It wasn't even usb-next, it was 6.12-rc1, so I don't know what tree you
->>> based this on :(
->>>
->>>> In this case, should I rebase and resbumit?
->>>
->>> As the series can't be applied as-is, probably.  But I think you might
->>> want to collect some acks from the sound people and xhci developers, as
->>> I can't do anything with this until they look at the changes.
->>
->> Honestly speaking, I couldn't follow fully the discussions about the
->> fundamental design -- IIRC, Pierre and others had concerns to the way
->> to manage the offload device via kcontrols.  Did we get consensus?
-> 
-> I don't think so.
-> 
->> I believe that's the biggest obstacle in the audio side, i.e. what's
->> visible to users.  The kernel internals can be corrected at any time
->> later.
-> 
-> I would like to see that agreed on before I even look at the usb side.
+alsa-project/alsa-lib issue #414 was edited from Kermilli:
 
-My main concern is still that one USB audio device can be accessed via 
-two different cards exposed in userspace. Usual USB one, and the one 
-from device which does "offload". Suggested implementation achieves it 
-by adding additional controls, which need to be set in specific way to 
-achieve offload. Overall while I understand the mechanism, I'm not 
-exactly convinced that it is the best way from end user point of view.
+Hi, 
 
-"Implementation" part in Documentation added in patch 19 shows how it 
-looks in userspace now.
+I've been having problems with audio on ubuntu on and off. I'm not a professional but everything seems to point at alsa . The pulse troubleshooting page at some point recommends to run alsa directly/bypass pulse with the command `mplayer -ao alsa:device=hw=0 yourchosentrack.mp3`  which  gives 
+`[AO_ALSA] alsa-lib: pcm_hw.c:1715:(snd_pcm_hw_open) open '/dev/snd/pcmC0D0p' failed (-2): No such file or directory
+[AO_ALSA] Playback open error: No such file or directory
+Failed to initialize audio driver 'alsa:device=hw=0'
+Could not open/initialize audio device -> no sound.
+Audio: no sound
+Video: no video
+` 
 
-If you don't mind two sound cards being used to access same piece of HW, 
-current implementation looks ok to me.
+sudo pulseaudio -vvv gives
 
-See also:
-https://lore.kernel.org/linux-sound/75ffde3a-7fef-4c15-bfc8-87756e1c3f11@linux.intel.com/
-where I described how I would prefer it to look.
+`E: [pulseaudio] module-alsa-card.c: Failed to find a working profile.
+E: [pulseaudio] module.c: Failed to load module "module-alsa-card" (argument: "device_id="1" name="pci-0000_00_1b.0" card_name="alsa_card.pci-0000_00_1b.0" namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no deferred_volume=yes use_ucm=yes avoid_resampling=no card_properties="module-udev-detect.discovered=1""): initialization failed.`
+
+ 
+I've tried everything . The only time it worked was when I added options snd-hda-intel model=auto to  /etc/modprobe.d/alsa-base.conf. , but even then it stopped working after some time when I was listening to audio.
+
+
+Any help would be greatly appreciated!
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/414
+Repository URL: https://github.com/alsa-project/alsa-lib

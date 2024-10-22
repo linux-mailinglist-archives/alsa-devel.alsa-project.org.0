@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A8569A954C
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2024 03:13:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD7D9A9551
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2024 03:13:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F4C586E;
-	Tue, 22 Oct 2024 03:13:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F4C586E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 543AAE0D;
+	Tue, 22 Oct 2024 03:13:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 543AAE0D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729559609;
-	bh=zznZuV5BSYyHPdP10aHlx6qycRdWxJALVq24/p1846M=;
+	s=default; t=1729559636;
+	bh=uvkDvs7FjFUmP11GS9EWAOnbt5BjXtNf7QczaVMT/8E=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=m/9vzqpqg2zbHpXO4Uiih6mtWnoGi8wO2r1ZNjj0eLrh2qJEf15KZ0yTlvOZqjG0e
-	 e5Ee5DUq2s8YKQXCUlD7uOEKVXM2TZMACsbew5u2bsbKFQVebVWzM/HNzoR+7UY1Lm
-	 LDKlIbI/ilJg4Sv+uSKFwnoXXDuIg0B97zBLXlPE=
+	b=ml9fs0GuTJyc6rvQU4HQVvIA48rz4fL7awAGAyPf+DhN14D0GxuDhiEjzyd5BSs6d
+	 RPRfl/7PNYwh/W/kUdLyimhT9piyaH6WKAy76JCvloh4iO/DNYdqGFnTeFQBbPAYbV
+	 Uw3GZ2D7KmHDDJV8FQY767NGY13del7PqofOnGVg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2EF6F805E1; Tue, 22 Oct 2024 03:13:03 +0200 (CEST)
+	id 6C445F805AE; Tue, 22 Oct 2024 03:13:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A576F805CA;
-	Tue, 22 Oct 2024 03:13:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75840F805A8;
+	Tue, 22 Oct 2024 03:13:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5FC48F805AB; Tue, 22 Oct 2024 03:12:56 +0200 (CEST)
+	id 36A78F80272; Tue, 22 Oct 2024 03:13:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6D33F8016C
-	for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2024 03:12:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6D33F8016C
+	by alsa1.perex.cz (Postfix) with ESMTP id 75963F80149
+	for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2024 03:13:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75963F80149
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1729559574734588385-webhooks-bot@alsa-project.org>
-References: <1729559574734588385-webhooks-bot@alsa-project.org>
+In-Reply-To: <1729559607451637030-webhooks-bot@alsa-project.org>
+References: <1729559607451637030-webhooks-bot@alsa-project.org>
 Subject: AlSA problem , audio on/off across multiple ubuntu releases
-Message-Id: <20241022011256.5FC48F805AB@alsa1.perex.cz>
-Date: Tue, 22 Oct 2024 03:12:56 +0200 (CEST)
-Message-ID-Hash: BIVX6O2SIGZ2DP2YFE5PBBXKUTHWFQWH
-X-Message-ID-Hash: BIVX6O2SIGZ2DP2YFE5PBBXKUTHWFQWH
+Message-Id: <20241022011329.36A78F80272@alsa1.perex.cz>
+Date: Tue, 22 Oct 2024 03:13:29 +0200 (CEST)
+Message-ID-Hash: 3EB46BQQS2SO62PSTDBSRHLSP7KLZGA6
+X-Message-ID-Hash: 3EB46BQQS2SO62PSTDBSRHLSP7KLZGA6
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BIVX6O2SIGZ2DP2YFE5PBBXKUTHWFQWH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3EB46BQQS2SO62PSTDBSRHLSP7KLZGA6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -82,6 +82,7 @@ Could not open/initialize audio device -> no sound.
 Audio: no sound
 Video: no video
 ` 
+
 sudo pulseaudio -vvv gives
 
 `E: [pulseaudio] module-alsa-card.c: Failed to find a working profile.

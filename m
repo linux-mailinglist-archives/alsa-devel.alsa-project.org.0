@@ -2,110 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 832EE9ACA53
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2024 14:42:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73A689AD34F
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2024 19:51:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52FDE85D;
-	Wed, 23 Oct 2024 14:42:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52FDE85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D107DA4A;
+	Wed, 23 Oct 2024 19:51:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D107DA4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729687357;
-	bh=r4xQBSHSzqBbjSO15B6LqQBSJLlq/rBG7/qkg8UtW2c=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=D42ISRhXX/WHCKfnriRk2t6UCPTG4RINv97RR0fmqVBr5qRwxQ7fICpoQnNhhZ6o+
-	 H02lBgegw+Bg7PgmWc0NmcMrE7ctB71Lzp0nTjL2w0wAEG3Njp0siIn/T1TgeWs2mo
-	 4OlbdSrt/TtG5gffU0iOy+xVNrOH3Qx/7H0Wq+Ws=
+	s=default; t=1729705907;
+	bh=c2WzyIX4sWl7qX+/hZrSf2EBXAGnkp4nmO/PSorBmmE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AfhCUZuQx4Z2ANy3vhJ2UyssxebStr7NFp9tCLw5tAZPawOFoD7gc0/u1CcBALpdH
+	 oAQx23u+/G8QvDCMrBxVI1jSL5x8KOhPmYnRf9ayEAyo8pKgsEx1E3V8EWTtI/b6tk
+	 Q16ihfoacmND3802iiEvLYBcdN9aRdkjNdleAWEs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5396DF805B3; Wed, 23 Oct 2024 14:42:04 +0200 (CEST)
+	id E4A67F805B5; Wed, 23 Oct 2024 19:51:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A5C9F8058C;
-	Wed, 23 Oct 2024 14:42:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04C0AF8023A;
+	Wed, 23 Oct 2024 19:51:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46EBCF8016C; Wed, 23 Oct 2024 14:41:59 +0200 (CEST)
+	id 177DCF8023A; Wed, 23 Oct 2024 19:51:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84ECBF800ED
-	for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2024 14:41:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84ECBF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 70B8FF800ED
+	for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2024 19:51:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70B8FF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=hufviTMd
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43155a6c3a6so9295565e9.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 23 Oct 2024 05:41:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1729687316; x=1730292116;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OC1GUo6u6ogIaP+998OmJFrdwx6E7b3ebTutyLvUJYE=;
-        b=hufviTMdFCl7XbS6HhI5D0JPXUsJes3jb+irrjU1eaKONG7vbQ+irjnGhh/1UO/qVX
-         mIkNwJPkOfm4nwXUKyRp1sTBjSbQ+r7xuUyiQEkZyTCdL1V7FH+dmKoo7x7vHAZCZqGR
-         3xHL92HtOAq79PZwBl/tsmU+JPZmVL6yvYigYiX5jJ7nGBDBWGK+z3lCZqLwZ3dtHr/O
-         Dg3A/B5XAbc8cRYGG9WohnvLC7o7i8UYiCCY0jDfVhA2SvcEfmkN/NLlpMnR6vtkTBoi
-         bGrW3c3SwYiRKD8hn1JiutvoFQQc2MnXtymd37I+PDQEWel1OjlHj+N2DUDsNKq78EaT
-         SmBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729687316; x=1730292116;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OC1GUo6u6ogIaP+998OmJFrdwx6E7b3ebTutyLvUJYE=;
-        b=F+hJR2ywF4JUenHPPEflZ3n1u7KfA5LIRU6Pfq69p8SSJeDlV6YbS4Zbq3s+DA+nzt
-         yQWig1qm2m2hQ7UHK99NT6E6qeyy9R9Up/GAecGtvrTMFr3a8g3EDEJ5MCGvMMjmWLO3
-         EL54ukvB0XgmhaNd+uZ9j0mh/0b30DzDVyrBQN3oyCXXsLCnbeVsfO976AO0vBealxED
-         x7vnS1K+BB+tdMdi21dNFFp6lZpu2i7aTCuRSkz2ed4eL7pv4a9XCv0TMGHWge9qvZ3f
-         ZlE/8XVtQ+hboS+8fiP44jyb9d9zOU3LZQvk3ZKhXp4thYPgYx9KlG8tZlHp3NyPu64O
-         nfKw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXQtv9DTCxNAJi8RAyUzlgPoctfHTYQlqQkrzQpgbk23S4VEOy/jj4FxdGfw46Ow8uHofN4X3JE1G1x@alsa-project.org
-X-Gm-Message-State: AOJu0YxREEGuQG+uVc/yc3W/UC2Z/e0V0+e2hI4hA7cw/Q88gVTkHnbY
-	8ng2c/ovP3RJVuSlyo3a/ElSvonWDaM6kaSzMGWbih4jedjivzc567kGizAfM48=
-X-Google-Smtp-Source: 
- AGHT+IGOOLD010FpGoIXn//GRg/EMY8PWXk1Rdw1ltM3+wHFz9aINxy6HV8Thsw/0R78Sp9Fi09moA==
-X-Received: by 2002:a05:600c:1d06:b0:42c:bfd6:9d2f with SMTP id
- 5b1f17b1804b1-43184133ef0mr9814505e9.1.1729687316420;
-        Wed, 23 Oct 2024 05:41:56 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.211.167])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43186befc90sm15101675e9.26.2024.10.23.05.41.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Oct 2024 05:41:55 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH] ASoC: qcom: x1e80100: Support boards with two speakers
-Date: Wed, 23 Oct 2024 14:41:52 +0200
-Message-ID: <20241023124152.130706-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.43.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=BMiEhyoa
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id C4BF7A41B67;
+	Wed, 23 Oct 2024 17:50:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0FD0C4CEE5;
+	Wed, 23 Oct 2024 17:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1729705862;
+	bh=c2WzyIX4sWl7qX+/hZrSf2EBXAGnkp4nmO/PSorBmmE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=BMiEhyoalBDieptxTjgZHygfWwFWBMyu/c7izbVbM2cs12sQdgAmja3j4YJWBmORS
+	 BWqn3o2MEZ3XFLd0+t042Z77lgMSJM2emoTyd0liHN2Ro70HVuZWQtSR2eTCJ1T2xA
+	 LEWdQ2lTIXbq0lc235E9OBsU41Ji/VtpYA0cytMjmoJCSUmyFVcNil1PuS3q80elLc
+	 TQNm4WaQgmdhIBNqRWUtLtCnp0IglpVPvyNFf+wsuYglztNYXn5ZAQ5FvJ5ksqPSIT
+	 bBuO2WjVZ3yGF85TwJDhg0hhCQDWIiWOI/fu3q2fZZAVa0pSje6Fp6lIZPLu4ddJVi
+	 XjHus071rqQ1g==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+In-Reply-To: <87o73mqj5b.wl-kuninori.morimoto.gx@renesas.com>
+References: <87o73mqj5b.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v4 00/13] ASoC: remove dpcm_xxx flags
+Message-Id: <172970586171.110994.6170499612142580470.b4-ty@kernel.org>
+Date: Wed, 23 Oct 2024 18:51:01 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XYS3GSFVRCRG5ZTRVYEX2C3HI5MZJNKW
-X-Message-ID-Hash: XYS3GSFVRCRG5ZTRVYEX2C3HI5MZJNKW
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-9b746
+Message-ID-Hash: 7ALQ7EXMKTXCAGM7R3S6JBPNIYDD2JQG
+X-Message-ID-Hash: 7ALQ7EXMKTXCAGM7R3S6JBPNIYDD2JQG
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XYS3GSFVRCRG5ZTRVYEX2C3HI5MZJNKW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ALQ7EXMKTXCAGM7R3S6JBPNIYDD2JQG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,82 +95,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Some Qualcomm X1E laptops have only two speakers.  Regardless whether
-this sound card driver is suitable for them (we could re-use one for
-some older SoC), we should set reasonable channel map depending on the
-number of channels, not always 4-speaker setup.
+On Tue, 15 Oct 2024 00:55:44 +0000, Kuninori Morimoto wrote:
+> 2 weeks past. This is v4 patch-set
+> 
+> Now, we don't need to use dpcm_playback/capture flags for DPCM since v6.11,
+> and thus we can use playback/capture_only flags instead too for DPCM,
+> which is same as non-DPCM.
+> 
+> Let's remove dpcm_playback/capture flags, and use playback/capture_only flags
+> instead.
+> 
+> [...]
 
-This change is necessary for bringing audio support on Lenovo Thinkpad
-T14s with Qualcomm X1E78100 and only two speakers.
+Applied to
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- sound/soc/qcom/x1e80100.c | 40 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 35 insertions(+), 5 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/qcom/x1e80100.c b/sound/soc/qcom/x1e80100.c
-index 898b5c26bf1e..8eb57fc12f0d 100644
---- a/sound/soc/qcom/x1e80100.c
-+++ b/sound/soc/qcom/x1e80100.c
-@@ -95,23 +95,53 @@ static int x1e80100_snd_hw_params(struct snd_pcm_substream *substream,
- 	return qcom_snd_sdw_hw_params(substream, params, &data->sruntime[cpu_dai->id]);
- }
- 
-+static int x1e80100_snd_hw_map_channels(unsigned int *ch_map, int num)
-+{
-+	switch (num) {
-+	case 1:
-+		ch_map[0] = PCM_CHANNEL_FC;
-+		break;
-+	case 2:
-+		ch_map[0] = PCM_CHANNEL_FL;
-+		ch_map[1] = PCM_CHANNEL_FR;
-+		break;
-+	case 3:
-+		ch_map[0] = PCM_CHANNEL_FL;
-+		ch_map[1] = PCM_CHANNEL_FR;
-+		ch_map[2] = PCM_CHANNEL_FC;
-+		break;
-+	case 4:
-+		ch_map[0] = PCM_CHANNEL_FL;
-+		ch_map[1] = PCM_CHANNEL_LB;
-+		ch_map[2] = PCM_CHANNEL_FR;
-+		ch_map[3] = PCM_CHANNEL_RB;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static int x1e80100_snd_prepare(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
- 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
- 	struct x1e80100_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
- 	struct sdw_stream_runtime *sruntime = data->sruntime[cpu_dai->id];
--	const unsigned int rx_slot[4] = { PCM_CHANNEL_FL,
--					  PCM_CHANNEL_LB,
--					  PCM_CHANNEL_FR,
--					  PCM_CHANNEL_RB };
-+	unsigned int channels = substream->runtime->channels;
-+	unsigned int rx_slot[4];
- 	int ret;
- 
- 	switch (cpu_dai->id) {
- 	case WSA_CODEC_DMA_RX_0:
- 	case WSA_CODEC_DMA_RX_1:
-+		ret = x1e80100_snd_hw_map_channels(rx_slot, channels);
-+		if (ret)
-+			return ret;
-+
- 		ret = snd_soc_dai_set_channel_map(cpu_dai, 0, NULL,
--						  ARRAY_SIZE(rx_slot), rx_slot);
-+						  channels, rx_slot);
- 		if (ret)
- 			return ret;
- 		break;
--- 
-2.43.0
+Thanks!
+
+[01/13] ASoC: amd: remove dpcm_xxx flags
+        commit: 12c61265e5b687b155d08e052c2b6d78eaee4849
+[02/13] ASoC: fsl: remove dpcm_xxx flags
+        commit: efa527f984a110944d9640b81ff94d0a5401b3fb
+[03/13] ASoC: sof: remove dpcm_xxx flags
+        commit: 90bbbf612f9e5e4548b27b213b1866b4feb670bd
+[04/13] ASoC: intel: remove dpcm_xxx flags
+        commit: d26aed5eba16bf5a4aa86bc717edf0b5ed192b93
+[05/13] ASoC: samsung: remove dpcm_xxx flags
+        commit: fa9c4b46fb76e2cb36bd8f94a096e61ebdb8b7f9
+[06/13] ASoC: mediatek: remove dpcm_xxx flags
+        commit: ec15e5043d0bedcb93a2653725fb50d5b358b06b
+[07/13] ASoC: soc-core: remove dpcm_xxx flags
+        commit: b6b8caf6470b9793ae4b66a95c742a1c97ece748
+[08/13] ASoC: soc-compress: remove dpcm_xxx flags
+        commit: 0f77c88f0e3a3945c328bbb9a9e3c4b5826e8fe0
+[09/13] ASoC: soc-topology: remove dpcm_xxx flags
+        commit: 44b6f24018317f6096007d9d397e6f3dfb0131ae
+[10/13] ASoC: intel: boards: remove dpcm_xxx flags
+        commit: ae0967da4bbfadc7156ba1deeb16fb31495ea359
+[11/13] ASoC: soc-pcm: remove dpcm_xxx flags
+        commit: c7ae6551533e7c7bf903a2d259044778f4b103ce
+[12/13] ASoC: doc: remove dpcm_xxx flags
+        commit: 0e3dc8e4bd4a739401ada1541452fe1499254680
+[13/13] ASoC: soc-pcm: merge DPCM and non-DPCM validation check
+        commit: a6ff8572fd3fafe3f0f39e94ad8d4b6c88de7e03
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

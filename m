@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 558289ABE6A
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2024 08:08:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF3D9AC1BA
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2024 10:33:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68F5186E;
-	Wed, 23 Oct 2024 08:08:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68F5186E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2DC6A4D;
+	Wed, 23 Oct 2024 10:33:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2DC6A4D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729663728;
-	bh=j4XMlJCKKl/NCp8f3DD3ZgpEl3aj4KSw7rw+sv4iyB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=S3aKddEOxzYCRxBKmHLLmeJbEF0WiwGaz+9ZgNfszgZVhLktkqmSde7ahmXb4/a1+
-	 H7zztKvlu2iH0spqz85glLhiifXXdUC5IWk6ybNK+qPNi7SCnM4LXmUez9SA7gFMfS
-	 YWRfiaqypjlQCcfN4dFo3OjfkEIw1N8VK2McYczo=
+	s=default; t=1729672406;
+	bh=PXoGPnALUjX/puvxoXB0mLRhSu4ViCSlNG2WIB/jj+M=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=lYP7RMvRZYWg8UJQrL2Z0Ev1kObe3NH5kuaHpJMiKLuLGWDXQI641c8dN7onQpQOt
+	 YUN5rXHtBgVpllrWboTcGkUkI3kWNfdeigMA3d5oSxJ8h2tPDKgIu66rHWmIyL53ZK
+	 OQLxVmtm8eCqjCVq4SmxdcfrOpK6/qYC1nhU4oxE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF753F80588; Wed, 23 Oct 2024 08:08:26 +0200 (CEST)
+	id 1D8C9F80272; Wed, 23 Oct 2024 10:32:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E7E1F805AB;
-	Wed, 23 Oct 2024 08:08:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C4C2F805B1;
+	Wed, 23 Oct 2024 10:32:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5BF1F8016C; Wed, 23 Oct 2024 08:08:21 +0200 (CEST)
+	id DD26BF8016C; Wed, 23 Oct 2024 10:32:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 375DBF8014C
-	for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2024 08:08:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 375DBF8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 78170F80104
+	for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2024 10:32:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78170F80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=X82Z5W4g
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9AE665C5609;
-	Wed, 23 Oct 2024 06:08:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29111C4CEC6;
-	Wed, 23 Oct 2024 06:08:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1729663695;
-	bh=j4XMlJCKKl/NCp8f3DD3ZgpEl3aj4KSw7rw+sv4iyB0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=X82Z5W4gyo0iAwJOPV2j9Pr7vNlIie3ww7Npft8tTl1O06r02076tsqUUPxILhjpd
-	 j4qTPGr2XpszinTEn8nOC2QWiJ1hVJ5IOyYYoa5VOxoMIAJPXrc6NQUeaZ+XC9k4rt
-	 aYyGModaYkn6PKKAsg0lTiHEBMGjTwka/l+ggL17d66f8wE9xyR8HagCXjHxvNTvCj
-	 KexLmt5m7h8ehk9nIYQGWqOzSWwXHrDEzpdObd374g/uE5nHMCA+2A9GzM22ywY3J7
-	 9oznCHM1t8xg898ahtONtwrqq0T0D8Gd0ugZrrDp4dIrlWjgeH5yA6fbuYE4ZwbBX2
-	 ttdfRjUa0cVCw==
-Date: Wed, 23 Oct 2024 11:38:11 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: =?iso-8859-1?B?Q3Pza+Fz?= Bence <csokas.bence@prolan.hu>
-Cc: Mesih Kilinc <mesihkilinc@gmail.com>, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-sunxi@googlegroups.com, Rob Herring <robh+dt@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Maxime Ripard <maxime.ripard@bootlin.com>,
-	Chen-Yu Tsai <wens@csie.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: Re: [RFC PATCH 00/10] Add support for DMA and audio codec of F1C100s
-Message-ID: <ZxiSywkxggKboVRF@vaman>
-References: <cover.1543782328.git.mesihkilinc@gmail.com>
- <13ab5cec-25e5-4e82-b956-5c154641d7ab@prolan.hu>
+	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=BZivyTTE
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 49N8WbAY21208590,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
+	t=1729672357; bh=PXoGPnALUjX/puvxoXB0mLRhSu4ViCSlNG2WIB/jj+M=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version;
+	b=BZivyTTE3CicoVd6We28nQ8/1NiQDkszmCYDGsHAIafEx3HhoNNahxqSHC9Onmt/v
+	 yoR4m6EVMKkHXn3+X1+eVjwQt1j0updgTRRLMxgfLw4nbDw+4UwYDdCjEEhiITa5vp
+	 kuVpkKX9NIxTiw/ndVFwnZ+Q1c+ClKxjd4C5se3/sUTsUoD3utNjPWZD6FRRn4SxwQ
+	 Udz7V/jrF/XeiJL55KjbJqQOTv/9MAw5CTmAVZJF1DK2XE03RPaK+v9HVEuFahX3Bo
+	 ID/GeuRNzXRK2X+G0k3NhW3wb1fZ/pSrZYZ66GCvrUlB5OAsv7WNKrSxTmMzww7cTm
+	 6Je90DZ6rdqHg==
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 49N8WbAY21208590
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 23 Oct 2024 16:32:37 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 23 Oct 2024 16:32:37 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 23 Oct 2024 16:32:37 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
+ RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
+ 15.01.2507.035; Wed, 23 Oct 2024 16:32:37 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Update default depop procedure
+Thread-Topic: Update default depop procedure
+Thread-Index: AdslJX6/J7v0Yw5kRRyTUFp3qmxZGQ==
+Date: Wed, 23 Oct 2024 08:32:37 +0000
+Message-ID: <17b717a0a0b04a77aea4a8ec820cba13@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.21.6.42]
+Content-Type: multipart/mixed;
+	boundary="_002_17b717a0a0b04a77aea4a8ec820cba13realtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <13ab5cec-25e5-4e82-b956-5c154641d7ab@prolan.hu>
-Message-ID-Hash: SBKKNUOQVZDJJMUFW6R6Y7PBLJN7TXYW
-X-Message-ID-Hash: SBKKNUOQVZDJJMUFW6R6Y7PBLJN7TXYW
-X-MailFrom: vkoul@kernel.org
+Message-ID-Hash: E22BG5M542FDGNRZCJ72OQHAT4YEUQU5
+X-Message-ID-Hash: E22BG5M542FDGNRZCJ72OQHAT4YEUQU5
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SBKKNUOQVZDJJMUFW6R6Y7PBLJN7TXYW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E22BG5M542FDGNRZCJ72OQHAT4YEUQU5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,67 +106,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 23-10-24, 00:52, Csókás Bence wrote:
-> Hi,
-> I was trying to get audio on the F1C200s, but so far had no luck, and I came
-> across this series.
-> 
-> On 2018. 12. 02. 22:23, Mesih Kilinc wrote:
-> > This is RFC patchset for Allwinner suniv F1C100s to support DMA and
-> > audio codec.
-> > 
-> > Allwinner F1C100s has a audio codec that has necessary digital and
-> > analog parts. It has r-l headphone output and microphone, line, r-l
-> > FM inputs. ADC can capture any inputs and also output channels via mux.
-> > Any input channels or DAC samples can feed output channels.
-> > 
-> > Add support for this audio codec.
-> > 
-> > F1C100s utilizes DMA channels to send and receive ADC-DAC samples. So
-> > DMA support needed. Patch 1~5 adds support for DMA. Suniv F1C100s has
-> > very similar DMA to sun4i. But there is some dissimilarities also.
-> > Suniv features a DMA reset bit in clock  control unit. It has smaller
-> > number of DMA channels. Several registers has different addresses.
-> > It's max burst size is 4 instead of 8. Also DMA endpoint numbers are
-> > different.
-> > 
-> > Patch 6 adds DMA max burst option to sun4i-codec.
-> > 
-> > Patch 7~8 Add support for suniv F1C100s audio codec.
-> > 
-> > Patch 9 adds audio codec to suniv-f1c100s.dtsi
-> > 
-> > Patch 10 adds audio codec support to Lichee Pi Nano board.
-> > Thanks!
-> > 
-> > Mesih Kilinc (10):
-> >    dma-engine: sun4i: Add a quirk to support different chips
-> >    dma-engine: sun4i: Add has_reset option to quirk
-> >    dt-bindings: dmaengine: Add Allwinner suniv F1C100s DMA
-> >    dma-engine: sun4i: Add support for Allwinner suniv F1C100s
-> >    ARM: dts: suniv: f1c100s: Add support for DMA
-> >    ASoC: sun4i-codec: Add DMA Max Burst field
-> >    dt-bindigs: sound: Add Allwinner suniv F1C100s Audio Codec
-> >    ASoC: sun4i-codec: Add support for Allwinner suniv F1C100s
-> >    ARM: dts: suniv: f1c100s: Add support for Audio Codec
-> >    ARM: dts: suniv: f1c100s: Activate Audio Codec for Lichee Pi Nano
-> > 
-> >   .../devicetree/bindings/dma/sun4i-dma.txt          |   4 +-
-> >   .../devicetree/bindings/sound/sun4i-codec.txt      |   5 +
-> >   arch/arm/boot/dts/suniv-f1c100s-licheepi-nano.dts  |   8 +
-> >   arch/arm/boot/dts/suniv-f1c100s.dtsi               |  25 ++
-> >   drivers/dma/Kconfig                                |   4 +-
-> >   drivers/dma/sun4i-dma.c                            | 221 ++++++++++--
-> >   sound/soc/sunxi/sun4i-codec.c                      | 371 ++++++++++++++++++++-
-> >   7 files changed, 601 insertions(+), 37 deletions(-)
-> 
-> What's the status of this series? I see that it was not merged, despite
-> getting a few ACKs and only a few minor comments. Ripard's comments make me
-> believe that the sun4i DMA driver should be able to handle the suniv family
-> with minimal adjustments, have those not been added? Or is it that the DMA
-> support is ready but the ALSA/ASoC support is missing?
+--_002_17b717a0a0b04a77aea4a8ec820cba13realtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Maybe split the series and post dma and audio parts separately for review
+Hi Takashi,
 
--- 
-~Vinod
+Attach patch will solve issue which Headphone has a chance no sound.
+Many Thanks.
+
+BR,
+Kailang
+
+--_002_17b717a0a0b04a77aea4a8ec820cba13realtekcom_
+Content-Type: application/octet-stream;
+	name="0000-default-init-shutup-change.patch"
+Content-Description: 0000-default-init-shutup-change.patch
+Content-Disposition: attachment;
+	filename="0000-default-init-shutup-change.patch"; size=1998;
+	creation-date="Wed, 23 Oct 2024 08:15:22 GMT";
+	modification-date="Wed, 23 Oct 2024 08:27:14 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSBmNzNjZTBkN2VjMWEwNWQzZGJkMGViZTAwOGNlZmE3YmRjZTNjZGZmIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFdlZCwgMjMgT2N0IDIwMjQgMTY6MTM6MTAgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlazogVXBkYXRlIGRlZmF1bHQgZGVwb3AgcHJvY2VkdXJlCgpPbGQgcHJvY2Vk
+dXJlIGhhcyBhIGNoYW5jZSB0byBtZWV0IEhlYWRwaG9uZSBubyBvdXRwdXQuCgpTaWduZWQtb2Zm
+LWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CmRpZmYgLS1naXQgYS9zb3Vu
+ZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5j
+CmluZGV4IDFjMWE2NjhkYzBlMC4uZDY1ODQ4ODY2ZTQ3IDEwMDY0NAotLS0gYS9zb3VuZC9wY2kv
+aGRhL3BhdGNoX3JlYWx0ZWsuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwpA
+QCAtMzg2OCwyMCArMzg2OCwxOCBAQCBzdGF0aWMgdm9pZCBhbGNfZGVmYXVsdF9pbml0KHN0cnVj
+dCBoZGFfY29kZWMgKmNvZGVjKQogCiAJaHBfcGluX3NlbnNlID0gc25kX2hkYV9qYWNrX2RldGVj
+dChjb2RlYywgaHBfcGluKTsKIAotCWlmIChocF9waW5fc2Vuc2UpCisJaWYgKGhwX3Bpbl9zZW5z
+ZSkgewogCQltc2xlZXAoMik7CiAKLQlzbmRfaGRhX2NvZGVjX3dyaXRlKGNvZGVjLCBocF9waW4s
+IDAsCi0JCQkgICAgQUNfVkVSQl9TRVRfQU1QX0dBSU5fTVVURSwgQU1QX09VVF9NVVRFKTsKLQot
+CWlmIChocF9waW5fc2Vuc2UpCi0JCW1zbGVlcCg4NSk7CisJCXNuZF9oZGFfY29kZWNfd3JpdGUo
+Y29kZWMsIGhwX3BpbiwgMCwKKwkJCQkgICAgQUNfVkVSQl9TRVRfUElOX1dJREdFVF9DT05UUk9M
+LCBQSU5fT1VUKTsKIAotCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKLQkJ
+CSAgICBBQ19WRVJCX1NFVF9QSU5fV0lER0VUX0NPTlRST0wsIFBJTl9PVVQpOworCQltc2xlZXAo
+NzUpOwogCi0JaWYgKGhwX3Bpbl9zZW5zZSkKLQkJbXNsZWVwKDEwMCk7CisJCXNuZF9oZGFfY29k
+ZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKKwkJCQkgICAgQUNfVkVSQl9TRVRfQU1QX0dBSU5f
+TVVURSwgQU1QX09VVF9VTk1VVEUpOworCQltc2xlZXAoNzUpOworCX0KIH0KIAogc3RhdGljIHZv
+aWQgYWxjX2RlZmF1bHRfc2h1dHVwKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQpAQCAtMzg5Nywy
+MiArMzg5NSwyMCBAQCBzdGF0aWMgdm9pZCBhbGNfZGVmYXVsdF9zaHV0dXAoc3RydWN0IGhkYV9j
+b2RlYyAqY29kZWMpCiAKIAlocF9waW5fc2Vuc2UgPSBzbmRfaGRhX2phY2tfZGV0ZWN0KGNvZGVj
+LCBocF9waW4pOwogCi0JaWYgKGhwX3Bpbl9zZW5zZSkKKwlpZiAoaHBfcGluX3NlbnNlKSB7CiAJ
+CW1zbGVlcCgyKTsKIAotCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKLQkJ
+CSAgICBBQ19WRVJCX1NFVF9BTVBfR0FJTl9NVVRFLCBBTVBfT1VUX01VVEUpOwotCi0JaWYgKGhw
+X3Bpbl9zZW5zZSkKLQkJbXNsZWVwKDg1KTsKLQotCWlmICghc3BlYy0+bm9fc2h1dHVwX3BpbnMp
+CiAJCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKLQkJCQkgICAgQUNfVkVS
+Ql9TRVRfUElOX1dJREdFVF9DT05UUk9MLCAweDApOworCQkJCSAgICBBQ19WRVJCX1NFVF9BTVBf
+R0FJTl9NVVRFLCBBTVBfT1VUX01VVEUpOwogCi0JaWYgKGhwX3Bpbl9zZW5zZSkKLQkJbXNsZWVw
+KDEwMCk7CisJCW1zbGVlcCg3NSk7CiAKKwkJaWYgKCFzcGVjLT5ub19zaHV0dXBfcGlucykKKwkJ
+CXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKKwkJCQkJICAgIEFDX1ZFUkJf
+U0VUX1BJTl9XSURHRVRfQ09OVFJPTCwgMHgwKTsKKworCQltc2xlZXAoNzUpOworCX0KIAlhbGNf
+YXV0b19zZXR1cF9lYXBkKGNvZGVjLCBmYWxzZSk7CiAJYWxjX3NodXR1cF9waW5zKGNvZGVjKTsK
+IH0K
+
+--_002_17b717a0a0b04a77aea4a8ec820cba13realtekcom_--

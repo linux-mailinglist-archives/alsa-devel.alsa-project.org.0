@@ -2,91 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CEC19AFB4E
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2024 09:41:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54A129AFC5F
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2024 10:21:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0D8386E;
-	Fri, 25 Oct 2024 09:40:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0D8386E
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACFA193A;
+	Fri, 25 Oct 2024 10:21:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACFA193A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729842061;
-	bh=8v2fCxABYiuRzBSk7VpSit0opiveUCgKpDNkHqdNy7E=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1729844505;
+	bh=F+8EYrYfCSov3vYJvjIGwMMAlrlWyYadM7OBoaLYkxg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=J8vLldNZ6YT7Dk0LsBskCopywrEnW09sl2JBTRqoJuPUgJHadx3O4Haq7AGOpprWx
-	 7L7IV1WFNWYRdaJouBlLg04YdRUukDZRNo0f2Bhi8ZjhvGkhxuYg9TL+0VJ9s+QuV9
-	 5nRsIlF3FthrQhZ2f8a2yXqjRTJ7yJYnnbRpNbTo=
+	b=kpPAqXsXAnHOFe1iSO6+2CnV/XlqV3vrBFePqU8lulhoVKq11QKPDRpoHMrlj36Dj
+	 Y/JUpWVYoD3EAj7bFzXqg9dZKWdqoDhsC0TzBBb63yLW24Ejlh9+53mfdMNeykmur6
+	 UXeiceKJB9atv/TeiWyx9Yna4PtdN7/8wbFn89OM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C4B7F805B6; Fri, 25 Oct 2024 09:40:30 +0200 (CEST)
+	id 69089F805A9; Fri, 25 Oct 2024 10:21:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1B7EF805B0;
-	Fri, 25 Oct 2024 09:40:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 351E7F8016C;
+	Fri, 25 Oct 2024 10:21:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BEAD0F8016C; Fri, 25 Oct 2024 09:40:21 +0200 (CEST)
+	id 90B09F8016C; Fri, 25 Oct 2024 10:21:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F625F8014C
-	for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2024 09:40:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F625F8014C
-Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=aUDswyCH
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 49P7eB4a9262613,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1729842011; bh=8v2fCxABYiuRzBSk7VpSit0opiveUCgKpDNkHqdNy7E=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version;
-	b=aUDswyCHcJTyahopYB4ioK5KaGoDKEleCW8BZvTcsPXe2f28gQ18+s+SsvUVYbCQY
-	 AXOTSFwf0IgTuEwv/Y2xmHqGvYpAt+bbKdC1/5HJsDkIQTTF0SBGQ+xpQXOASwChFp
-	 YOlyd1h96omcPWoOZSDMDdDruQXStytTKjr0/HaM1dM+FgKvmeHZcOGquVu1e4heit
-	 cRobd4yLSOi6KkPRaKAXCB7nSy/iomUYoKe89cz8ozN8tYQt21ot3PUsCmc9EN+nv0
-	 6/Ja4Zx2rfCcgYmoEEUwkC/vxVs+B20E1HEfLd6sIU0KyIsG/W2zSadAaxEUIqMrR5
-	 3JqdMj0TIvTrw==
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 49P7eB4a9262613
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 25 Oct 2024 15:40:11 +0800
-Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Fri, 25 Oct 2024 15:40:11 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Fri, 25 Oct 2024 15:40:10 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
- RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
- 15.01.2507.035; Fri, 25 Oct 2024 15:40:10 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Limit internal Mic boost on Dell platform
-Thread-Topic: Limit internal Mic boost on Dell platform
-Thread-Index: AdsmsPt9iQQgIC6BQ16vfM294wlMVg==
-Date: Fri, 25 Oct 2024 07:40:10 +0000
-Message-ID: <561fc5f5eff04b6cbd79ed173cd1c1db@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-x-originating-ip: [172.21.6.42]
-Content-Type: multipart/mixed;
-	boundary="_002_561fc5f5eff04b6cbd79ed173cd1c1dbrealtekcom_"
+Received: from cmccmta2.chinamobile.com (cmccmta4.chinamobile.com
+ [111.22.67.137])
+	by alsa1.perex.cz (Postfix) with ESMTP id A70A0F8014C
+	for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2024 10:21:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A70A0F8014C
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee8671b54e746b-b64ab;
+	Fri, 25 Oct 2024 16:20:58 +0800 (CST)
+X-RM-TRANSID: 2ee8671b54e746b-b64ab
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from leadsec.example.com.localdomain (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea671b54e6a90-2f5f8;
+	Fri, 25 Oct 2024 16:20:58 +0800 (CST)
+X-RM-TRANSID: 2eea671b54e6a90-2f5f8
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: shenghao-ding@ti.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	lgirdwood@gmail.com
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tang Bin <tangbin@cmss.chinamobile.com>
+Subject: [PATCH] ASoC: tas2781: Fix redundant logical jump
+Date: Fri, 25 Oct 2024 16:20:42 +0800
+Message-Id: <20241025082042.2872-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Message-ID-Hash: YGIYDVUWTPFBWJ6FXAS3IVAPYOVEFSZX
-X-Message-ID-Hash: YGIYDVUWTPFBWJ6FXAS3IVAPYOVEFSZX
-X-MailFrom: kailang@realtek.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 2X7XHL6ZR4CCNH6ZTDK4H5T2EH43632S
+X-Message-ID-Hash: 2X7XHL6ZR4CCNH6ZTDK4H5T2EH43632S
+X-MailFrom: tangbin@cmss.chinamobile.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +80,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YGIYDVUWTPFBWJ6FXAS3IVAPYOVEFSZX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2X7XHL6ZR4CCNH6ZTDK4H5T2EH43632S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,91 +89,193 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_002_561fc5f5eff04b6cbd79ed173cd1c1dbrealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+In these functions, some logical jump of "goto" and variable
+are redundant, thus remove them.
 
-Hi Takashi,
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ sound/soc/codecs/tas2781-i2c.c | 68 +++++++++++++---------------------
+ 1 file changed, 25 insertions(+), 43 deletions(-)
 
-Attach patch will limit internal Mic boost on all Dell platform.
+diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
+index 68887799e..27f2f84a4 100644
+--- a/sound/soc/codecs/tas2781-i2c.c
++++ b/sound/soc/codecs/tas2781-i2c.c
+@@ -489,14 +489,11 @@ static int tas2563_calib_start_put(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *comp = snd_soc_kcontrol_component(kcontrol);
+ 	struct tasdevice_priv *tas_priv = snd_soc_component_get_drvdata(comp);
+ 	const int sum = ARRAY_SIZE(tas2563_cali_start_reg);
+-	int rc = 1;
+ 	int i, j;
+ 
+ 	guard(mutex)(&tas_priv->codec_lock);
+-	if (tas_priv->chip_id != TAS2563) {
+-		rc = -1;
+-		goto out;
+-	}
++	if (tas_priv->chip_id != TAS2563)
++		return -1;
+ 
+ 	for (i = 0; i < tas_priv->ndev; i++) {
+ 		struct tasdevice *tasdev = tas_priv->tasdevice;
+@@ -523,8 +520,8 @@ static int tas2563_calib_start_put(struct snd_kcontrol *kcontrol,
+ 					q[j].val, 4);
+ 		}
+ 	}
+-out:
+-	return rc;
++
++	return 1;
+ }
+ 
+ static void tas2563_calib_stop_put(struct tasdevice_priv *tas_priv)
+@@ -576,7 +573,7 @@ static int tasdev_cali_data_put(struct snd_kcontrol *kcontrol,
+ 	struct cali_reg *p = &cali_data->cali_reg_array;
+ 	unsigned char *src = ucontrol->value.bytes.data;
+ 	unsigned char *dst = cali_data->data;
+-	int rc = 1, i = 0;
++	int i = 0;
+ 	int j;
+ 
+ 	guard(mutex)(&priv->codec_lock);
+@@ -605,7 +602,7 @@ static int tasdev_cali_data_put(struct snd_kcontrol *kcontrol,
+ 	i += 3;
+ 
+ 	memcpy(dst, &src[i], cali_data->total_sz);
+-	return rc;
++	return 1;
+ }
+ 
+ static int tas2781_latch_reg_get(struct snd_kcontrol *kcontrol,
+@@ -1115,25 +1112,21 @@ static int tasdevice_dsp_create_ctrls(struct tasdevice_priv *tas_priv)
+ 	char *conf_name, *prog_name;
+ 	int nr_controls = 4;
+ 	int mix_index = 0;
+-	int ret;
+ 
+ 	/* Alloc kcontrol via devm_kzalloc, which don't manually
+ 	 * free the kcontrol
+ 	 */
+ 	dsp_ctrls = devm_kcalloc(tas_priv->dev, nr_controls,
+ 		sizeof(dsp_ctrls[0]), GFP_KERNEL);
+-	if (!dsp_ctrls) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
++	if (!dsp_ctrls)
++		return -ENOMEM;
+ 
+ 	/* Create mixer items for selecting the active Program and Config */
+ 	prog_name = devm_kstrdup(tas_priv->dev, "Speaker Program Id",
+ 		GFP_KERNEL);
+-	if (!prog_name) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
++	if (!prog_name)
++		return -ENOMEM;
++
+ 	dsp_ctrls[mix_index].name = prog_name;
+ 	dsp_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+ 	dsp_ctrls[mix_index].info = tasdevice_info_programs;
+@@ -1143,10 +1136,9 @@ static int tasdevice_dsp_create_ctrls(struct tasdevice_priv *tas_priv)
+ 
+ 	conf_name = devm_kstrdup(tas_priv->dev, "Speaker Config Id",
+ 		GFP_KERNEL);
+-	if (!conf_name) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
++	if (!conf_name)
++		return -ENOMEM;
++
+ 	dsp_ctrls[mix_index].name = conf_name;
+ 	dsp_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+ 	dsp_ctrls[mix_index].info = tasdevice_info_configurations;
+@@ -1156,10 +1148,9 @@ static int tasdevice_dsp_create_ctrls(struct tasdevice_priv *tas_priv)
+ 
+ 	active_dev_num = devm_kstrdup(tas_priv->dev, "Activate Tasdevice Num",
+ 		GFP_KERNEL);
+-	if (!active_dev_num) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
++	if (!active_dev_num)
++		return -ENOMEM;
++
+ 	dsp_ctrls[mix_index].name = active_dev_num;
+ 	dsp_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+ 	dsp_ctrls[mix_index].info = tasdevice_info_active_num;
+@@ -1168,21 +1159,17 @@ static int tasdevice_dsp_create_ctrls(struct tasdevice_priv *tas_priv)
+ 	mix_index++;
+ 
+ 	chip_id = devm_kstrdup(tas_priv->dev, "Tasdevice Chip Id", GFP_KERNEL);
+-	if (!chip_id) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
++	if (!chip_id)
++		return -ENOMEM;
++
+ 	dsp_ctrls[mix_index].name = chip_id;
+ 	dsp_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+ 	dsp_ctrls[mix_index].info = tasdevice_info_chip_id;
+ 	dsp_ctrls[mix_index].get = tasdevice_get_chip_id;
+ 	mix_index++;
+ 
+-	ret = snd_soc_add_component_controls(tas_priv->codec, dsp_ctrls,
++	return snd_soc_add_component_controls(tas_priv->codec, dsp_ctrls,
+ 		nr_controls < mix_index ? nr_controls : mix_index);
+-
+-out:
+-	return ret;
+ }
+ 
+ static int tasdevice_create_cali_ctrls(struct tasdevice_priv *priv)
+@@ -1469,7 +1456,6 @@ static int tasdevice_hw_params(struct snd_pcm_substream *substream,
+ 	unsigned int slot_width;
+ 	unsigned int fsrate;
+ 	int bclk_rate;
+-	int rc = 0;
+ 
+ 	fsrate = params_rate(params);
+ 	switch (fsrate) {
+@@ -1479,8 +1465,7 @@ static int tasdevice_hw_params(struct snd_pcm_substream *substream,
+ 	default:
+ 		dev_err(tas_priv->dev, "%s: incorrect sample rate = %u\n",
+ 			__func__, fsrate);
+-		rc = -EINVAL;
+-		goto out;
++		return -EINVAL;
+ 	}
+ 
+ 	slot_width = params_width(params);
+@@ -1493,20 +1478,17 @@ static int tasdevice_hw_params(struct snd_pcm_substream *substream,
+ 	default:
+ 		dev_err(tas_priv->dev, "%s: incorrect slot width = %u\n",
+ 			__func__, slot_width);
+-		rc = -EINVAL;
+-		goto out;
++		return -EINVAL;
+ 	}
+ 
+ 	bclk_rate = snd_soc_params_to_bclk(params);
+ 	if (bclk_rate < 0) {
+ 		dev_err(tas_priv->dev, "%s: incorrect bclk rate = %d\n",
+ 			__func__, bclk_rate);
+-		rc = bclk_rate;
+-		goto out;
++		return bclk_rate;
+ 	}
+ 
+-out:
+-	return rc;
++	return 0;
+ }
+ 
+ static int tasdevice_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+-- 
+2.33.0
 
-BR,
-Kailang
 
---_002_561fc5f5eff04b6cbd79ed173cd1c1dbrealtekcom_
-Content-Type: application/octet-stream;
-	name="0000-dell-limit-intMic-boost.patch"
-Content-Description: 0000-dell-limit-intMic-boost.patch
-Content-Disposition: attachment;
-	filename="0000-dell-limit-intMic-boost.patch"; size=3668;
-	creation-date="Fri, 18 Oct 2024 05:55:40 GMT";
-	modification-date="Fri, 25 Oct 2024 07:37:14 GMT"
-Content-Transfer-Encoding: base64
 
-RnJvbSAxMmQ1OTlhMWJlZjFmOWM1ZDVjMTJhNmIyNTQwZTI3MDJlMDczYjIwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IEZyaSwgMTggT2N0IDIwMjQgMTM6NTM6MjQgKzA4MDAKU3ViamVjdDogW1BBVENIXSBMaW1p
-dCBpbnRlcm5hbCBNaWMgYm9vc3Qgb24gRGVsbCBwbGF0Zm9ybQoKRGVsbCB3YW50IHRvIGxpbWl0
-IGludGVybmFsIE1pYyBib29zdCBvbiBhbGwgRGVsbCBwbGF0Zm9ybS4KClNpZ25lZC1vZmYtYnk6
-IEthaWxhbmcgWWFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4KZGlmZiAtLWdpdCBhL3NvdW5kL3Bj
-aS9oZGEvcGF0Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5k
-ZXggZDYyY2I0YWI4YWUwLi5kN2NjNWJkMTRhMWMgMTAwNjQ0Ci0tLSBhL3NvdW5kL3BjaS9oZGEv
-cGF0Y2hfcmVhbHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCkBAIC03
-NTI1LDYgKzc1MjUsNyBAQCBlbnVtIHsKIAlBTEMyODZfRklYVVBfU09OWV9NSUNfTk9fUFJFU0VO
-Q0UsCiAJQUxDMjY5X0ZJWFVQX1BJTkNGR19OT19IUF9UT19MSU5FT1VULAogCUFMQzI2OV9GSVhV
-UF9ERUxMMV9NSUNfTk9fUFJFU0VOQ0UsCisJQUxDMjY5X0ZJWFVQX0RFTEwxX0xJTUlUX0lOVF9N
-SUNfQk9PU1QsCiAJQUxDMjY5X0ZJWFVQX0RFTEwyX01JQ19OT19QUkVTRU5DRSwKIAlBTEMyNjlf
-RklYVVBfREVMTDNfTUlDX05PX1BSRVNFTkNFLAogCUFMQzI2OV9GSVhVUF9ERUxMNF9NSUNfTk9f
-UFJFU0VOQ0UsCkBAIC03NTU5LDYgKzc1NjAsNyBAQCBlbnVtIHsKIAlBTEMyNTVfRklYVVBfQUNF
-Ul9NSUNfTk9fUFJFU0VOQ0UsCiAJQUxDMjU1X0ZJWFVQX0FTVVNfTUlDX05PX1BSRVNFTkNFLAog
-CUFMQzI1NV9GSVhVUF9ERUxMMV9NSUNfTk9fUFJFU0VOQ0UsCisJQUxDMjU1X0ZJWFVQX0RFTEwx
-X0xJTUlUX0lOVF9NSUNfQk9PU1QsCiAJQUxDMjU1X0ZJWFVQX0RFTEwyX01JQ19OT19QUkVTRU5D
-RSwKIAlBTEMyNTVfRklYVVBfSEVBRFNFVF9NT0RFLAogCUFMQzI1NV9GSVhVUF9IRUFEU0VUX01P
-REVfTk9fSFBfTUlDLApAQCAtODA0Nyw2ICs4MDQ5LDEyIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
-aGRhX2ZpeHVwIGFsYzI2OV9maXh1cHNbXSA9IHsKIAkJLmNoYWluZWQgPSB0cnVlLAogCQkuY2hh
-aW5faWQgPSBBTEMyNjlfRklYVVBfSEVBRFNFVF9NT0RFCiAJfSwKKwlbQUxDMjY5X0ZJWFVQX0RF
-TEwxX0xJTUlUX0lOVF9NSUNfQk9PU1RdID0geworCQkudHlwZSA9IEhEQV9GSVhVUF9GVU5DLAor
-CQkudi5mdW5jID0gYWxjMjY5X2ZpeHVwX2xpbWl0X2ludF9taWNfYm9vc3QsCisJCS5jaGFpbmVk
-ID0gdHJ1ZSwKKwkJLmNoYWluX2lkID0gQUxDMjY5X0ZJWFVQX0RFTEwxX01JQ19OT19QUkVTRU5D
-RQorCX0sCiAJW0FMQzI2OV9GSVhVUF9ERUxMMl9NSUNfTk9fUFJFU0VOQ0VdID0gewogCQkudHlw
-ZSA9IEhEQV9GSVhVUF9QSU5TLAogCQkudi5waW5zID0gKGNvbnN0IHN0cnVjdCBoZGFfcGludGJs
-W10pIHsKQEAgLTgzMjcsNiArODMzNSwxMiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGhkYV9maXh1
-cCBhbGMyNjlfZml4dXBzW10gPSB7CiAJCS5jaGFpbmVkID0gdHJ1ZSwKIAkJLmNoYWluX2lkID0g
-QUxDMjU1X0ZJWFVQX0hFQURTRVRfTU9ERQogCX0sCisJW0FMQzI1NV9GSVhVUF9ERUxMMV9MSU1J
-VF9JTlRfTUlDX0JPT1NUXSA9IHsKKwkJLnR5cGUgPSBIREFfRklYVVBfRlVOQywKKwkJLnYuZnVu
-YyA9IGFsYzI2OV9maXh1cF9saW1pdF9pbnRfbWljX2Jvb3N0LAorCQkuY2hhaW5lZCA9IHRydWUs
-CisJCS5jaGFpbl9pZCA9IEFMQzI1NV9GSVhVUF9ERUxMMV9NSUNfTk9fUFJFU0VOQ0UKKwl9LAog
-CVtBTEMyNTVfRklYVVBfREVMTDJfTUlDX05PX1BSRVNFTkNFXSA9IHsKIAkJLnR5cGUgPSBIREFf
-RklYVVBfUElOUywKIAkJLnYucGlucyA9IChjb25zdCBzdHJ1Y3QgaGRhX3BpbnRibFtdKSB7CkBA
-IC0xMDk4OCw2ICsxMTAwMiw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX21vZGVsX2ZpeHVw
-IGFsYzI2OV9maXh1cF9tb2RlbHNbXSA9IHsKIAl7LmlkID0gQUxDMjY5X0ZJWFVQX0RFTEwyX01J
-Q19OT19QUkVTRU5DRSwgLm5hbWUgPSAiZGVsbC1oZWFkc2V0LWRvY2sifSwKIAl7LmlkID0gQUxD
-MjY5X0ZJWFVQX0RFTEwzX01JQ19OT19QUkVTRU5DRSwgLm5hbWUgPSAiZGVsbC1oZWFkc2V0MyJ9
-LAogCXsuaWQgPSBBTEMyNjlfRklYVVBfREVMTDRfTUlDX05PX1BSRVNFTkNFLCAubmFtZSA9ICJk
-ZWxsLWhlYWRzZXQ0In0sCisJey5pZCA9IEFMQzI2OV9GSVhVUF9ERUxMNF9NSUNfTk9fUFJFU0VO
-Q0VfUVVJRVQsIC5uYW1lID0gImRlbGwtaGVhZHNldDQtcXVpZXQifSwKIAl7LmlkID0gQUxDMjgz
-X0ZJWFVQX0NIUk9NRV9CT09LLCAubmFtZSA9ICJhbGMyODMtZGFjLXdjYXBzIn0sCiAJey5pZCA9
-IEFMQzI4M19GSVhVUF9TRU5TRV9DT01CT19KQUNLLCAubmFtZSA9ICJhbGMyODMtc2Vuc2UtY29t
-Ym8ifSwKIAl7LmlkID0gQUxDMjkyX0ZJWFVQX1RQVDQ0MF9ET0NLLCAubmFtZSA9ICJ0cHQ0NDAt
-ZG9jayJ9LApAQCAtMTE1NDIsMTYgKzExNTU3LDE2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25k
-X2hkYV9waW5fcXVpcmsgYWxjMjY5X2ZhbGxiYWNrX3Bpbl9maXh1cF90YmxbXSA9IHsKIAlTTkRf
-SERBX1BJTl9RVUlSSygweDEwZWMwMjg5LCAweDEwMjgsICJEZWxsIiwgQUxDMjY5X0ZJWFVQX0RF
-TEw0X01JQ19OT19QUkVTRU5DRSwKIAkJezB4MTksIDB4NDAwMDAwMDB9LAogCQl7MHgxYiwgMHg0
-MDAwMDAwMH0pLAotCVNORF9IREFfUElOX1FVSVJLKDB4MTBlYzAyOTUsIDB4MTAyOCwgIkRlbGwi
-LCBBTEMyNjlfRklYVVBfREVMTDRfTUlDX05PX1BSRVNFTkNFLAorCVNORF9IREFfUElOX1FVSVJL
-KDB4MTBlYzAyOTUsIDB4MTAyOCwgIkRlbGwiLCBBTEMyNjlfRklYVVBfREVMTDRfTUlDX05PX1BS
-RVNFTkNFX1FVSUVULAogCQl7MHgxOSwgMHg0MDAwMDAwMH0sCiAJCXsweDFiLCAweDQwMDAwMDAw
-fSksCiAJU05EX0hEQV9QSU5fUVVJUksoMHgxMGVjMDI1NiwgMHgxMDI4LCAiRGVsbCIsIEFMQzI1
-NV9GSVhVUF9ERUxMMV9NSUNfTk9fUFJFU0VOQ0UsCiAJCXsweDE5LCAweDQwMDAwMDAwfSwKIAkJ
-ezB4MWEsIDB4NDAwMDAwMDB9KSwKLQlTTkRfSERBX1BJTl9RVUlSSygweDEwZWMwMjM2LCAweDEw
-MjgsICJEZWxsIiwgQUxDMjU1X0ZJWFVQX0RFTEwxX01JQ19OT19QUkVTRU5DRSwKKwlTTkRfSERB
-X1BJTl9RVUlSSygweDEwZWMwMjM2LCAweDEwMjgsICJEZWxsIiwgQUxDMjU1X0ZJWFVQX0RFTEwx
-X0xJTUlUX0lOVF9NSUNfQk9PU1QsCiAJCXsweDE5LCAweDQwMDAwMDAwfSwKIAkJezB4MWEsIDB4
-NDAwMDAwMDB9KSwKLQlTTkRfSERBX1BJTl9RVUlSSygweDEwZWMwMjc0LCAweDEwMjgsICJEZWxs
-IiwgQUxDMjc0X0ZJWFVQX0RFTExfQUlPX0xJTkVPVVRfVkVSQiwKKwlTTkRfSERBX1BJTl9RVUlS
-SygweDEwZWMwMjc0LCAweDEwMjgsICJEZWxsIiwgQUxDMjY5X0ZJWFVQX0RFTEwxX0xJTUlUX0lO
-VF9NSUNfQk9PU1QsCiAJCXsweDE5LCAweDQwMDAwMDAwfSwKIAkJezB4MWEsIDB4NDAwMDAwMDB9
-KSwKIAlTTkRfSERBX1BJTl9RVUlSSygweDEwZWMwMjU2LCAweDEwNDMsICJBU1VTIiwgQUxDMlhY
-X0ZJWFVQX0hFQURTRVRfTUlDLAo=
-
---_002_561fc5f5eff04b6cbd79ed173cd1c1dbrealtekcom_--

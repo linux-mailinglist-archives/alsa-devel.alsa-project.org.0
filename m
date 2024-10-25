@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62AE79B01EB
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2024 14:09:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B909B0853
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2024 17:31:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2888851;
-	Fri, 25 Oct 2024 14:09:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2888851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84EFEDEC;
+	Fri, 25 Oct 2024 17:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84EFEDEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729858183;
-	bh=KWeHL03zG2XtfvUC5qi18da7cLf3LMkFc7eigmeQXPE=;
+	s=default; t=1729870312;
+	bh=AkQu2yW3liKjQfD9wCOU4VjmxlD+B1YAe2IpYa3DcjY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=NH9UeIO4bQ5jD6NIDWicULA/CRnaPiep87NxCjdwQmTapqpMDVYfNsmLTEgUvBAW7
-	 6u0C5PIHpF3me6nyMNoPNXhxmnDIIXWNAkoyi6qAEtRe9PwUlLBAyhAnLDybibjWsT
-	 6mahmPWCm5RDco5T9J9k1F7RpK7Tp+QdpH3gFVlg=
+	b=Z7iYpOXeul7hleIoieYDkx8SYVPHgFLjtjyQ/s8zEV1+G7YO1J/H0kTCGbkzq20wc
+	 cYhlUbnPRtZIuCJ+oeL19KS4xNcqpnny2P9jUZwBFc0joZSwX1nl7/tWJbTBPMrTuN
+	 +6hWslP++BjPLGVKJyJG8RCdcrU9jz0H39G+RHzk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D468BF805B4; Fri, 25 Oct 2024 14:09:11 +0200 (CEST)
+	id 024D6F805B6; Fri, 25 Oct 2024 17:31:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB35AF8057A;
-	Fri, 25 Oct 2024 14:09:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 420D4F805B1;
+	Fri, 25 Oct 2024 17:31:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35F21F8016C; Fri, 25 Oct 2024 14:09:06 +0200 (CEST)
+	id 76F03F8016C; Fri, 25 Oct 2024 17:31:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81EEBF8014C
-	for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2024 14:09:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81EEBF8014C
+	by alsa1.perex.cz (Postfix) with ESMTP id B9CCAF80149
+	for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2024 17:31:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9CCAF80149
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1729858144063719511-webhooks-bot@alsa-project.org>
-References: <1729858144063719511-webhooks-bot@alsa-project.org>
-Subject: ALC225 the microphone does not work in jack3.5
-Message-Id: <20241025120906.35F21F8016C@alsa1.perex.cz>
-Date: Fri, 25 Oct 2024 14:09:06 +0200 (CEST)
-Message-ID-Hash: RCJNUETC54OLZTFEFUKXZYERMH5GM73B
-X-Message-ID-Hash: RCJNUETC54OLZTFEFUKXZYERMH5GM73B
+In-Reply-To: <1729870273090391874-webhooks-bot@alsa-project.org>
+References: <1729870273090391874-webhooks-bot@alsa-project.org>
+Subject: Help to address pop at end of buffer
+Message-Id: <20241025153115.76F03F8016C@alsa1.perex.cz>
+Date: Fri, 25 Oct 2024 17:31:15 +0200 (CEST)
+Message-ID-Hash: 74WJ3AYECGT5GRSISBXKY3LBKL3MB4MF
+X-Message-ID-Hash: 74WJ3AYECGT5GRSISBXKY3LBKL3MB4MF
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RCJNUETC54OLZTFEFUKXZYERMH5GM73B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/74WJ3AYECGT5GRSISBXKY3LBKL3MB4MF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,14 +70,164 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #416 was opened from PavelGu:
+alsa-project/alsa-lib issue #417 was opened from charlesmulder:
 
-I have notebook clevo NL55AU with Ubuntu24.04 installed.
-The microphone does not work on a headset connected to a combined audio output jack 3.5. 
+Hi.
 
-Logs: https://alsa-project.org/db/?f=89d2b631cb1635dd48357610d54e062bddef81b4
+Apologies for asking for help here. I don't know where else to go. 
 
-Can you help me?
+I'm working on a wavetable project for college.
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/416
+I've managed to create a wavetable containing a sine wave. 
+The pitch can be altered via a frequency variable (f). 
+
+There is an audible popping sound when the sound loops. I have noticed that increasing the buffer size, postpones the pop.
+
+I've been reading up on `buffer > period > frames`, but I don't know how to go about removing the pop. 
+
+Would really appreciate some guidance. 
+
+Thanks
+C      
+
+```
+#include <stdio.h>
+#include <alsa/asoundlib.h>
+#include <math.h>
+
+unsigned char sinuc( float );
+
+#define TWOPI 2*M_PI
+#define ALSA_INFO 1
+
+static char *device = "default";            /* playback device */
+unsigned char buffer[24*1024];            
+
+int main(void) {
+
+        // ALSA playback related
+        int err; 
+        snd_pcm_t *playback_handle; // pcm
+        snd_pcm_hw_params_t *hw_params;
+        unsigned int val, val2; 
+        int dir;
+        snd_pcm_uframes_t period_size;
+        snd_pcm_format_t format;
+
+        // Wavetable related
+        unsigned int N = 1024;
+        float f = 440; // A4 note
+        //float f = 261.626; // C4 note
+        unsigned int fs = 44100;
+
+        // playback
+        if ((err = snd_pcm_open(&playback_handle, device, SND_PCM_STREAM_PLAYBACK, 0)) < 0) {                                                                          
+                printf("Playback open error: %s\n", snd_strerror(err));                                                                                           
+                exit(EXIT_FAILURE);                                                                                                                               
+        }
+
+        // ALSA configuration 
+
+        /* Allocate a hardware parameters object. */
+        snd_pcm_hw_params_alloca(&hw_params);
+
+        /* Fill it in with default values. */
+        snd_pcm_hw_params_any(playback_handle, hw_params);
+
+        /* Set the desired hardware parameters. */
+
+        /* Interleaved mode */
+        snd_pcm_hw_params_set_access(playback_handle, hw_params,
+                        SND_PCM_ACCESS_RW_INTERLEAVED);
+
+        /* Unsigned 8-bit little-endian format */
+        snd_pcm_hw_params_set_format(playback_handle, hw_params,
+                        SND_PCM_FORMAT_U8);
+
+        /* Two channels (stereo) */
+        snd_pcm_hw_params_set_channels(playback_handle, hw_params, 1);
+
+        /* 44100 bits/second sampling rate (CD quality) */
+        snd_pcm_hw_params_set_rate_near(playback_handle,
+                        hw_params, &fs, &dir);
+
+         /* Set period size to 32 frames. */
+        period_size = 32;
+        snd_pcm_hw_params_set_period_size_near(playback_handle, hw_params, &period_size, &dir);
+
+        /* Write the parameters to the driver */
+        err = snd_pcm_hw_params(playback_handle, hw_params);
+        if (err < 0) {
+                fprintf(stderr,
+                                "unable to set hw parameters: %s\n",
+                                snd_strerror(err));
+                exit(1);
+        }
+
+        // Wavetable init
+        unsigned char wavetable[N]; // wavetable buffer
+        float angle_inc = TWOPI/(float)N; // sine wave angle increment
+        float index_inc = N*f/(float)fs; // wavetable index increment
+
+        // Populate wavetable with a sine wave
+        for( int n = 0; n < N; n++ ) {
+                wavetable[n] = sinuc( angle_inc * n ); // 0 - 255 range
+        }
+
+        // ALSA Sample Buffer
+        // period = 940 frames
+        // buffer = 15052 frames
+        float n = 0;
+        for (int i = 0; i < sizeof(buffer)/sizeof(char); i++) {
+                buffer[i] = wavetable[(int)n];
+                //printf("%d\n",buffer[i]);
+                n = n+index_inc;
+                if( (int)n >= N ) {
+                        n = 0;
+                }
+        }
+
+        if ((err = snd_pcm_prepare (playback_handle)) < 0) {
+                fprintf (stderr, "cannot prepare audio interface for use (%s)\n",
+                                snd_strerror (err));
+                exit (1);
+        }
+
+        //for (int i = 0; i < 16; i++) {
+        while(1) {
+                period_size = snd_pcm_writei(playback_handle, buffer, sizeof(buffer));
+                if (period_size < 0)
+                        period_size = snd_pcm_recover(playback_handle, period_size, 0);
+                if (period_size < 0) {
+                        printf("snd_pcm_writei failed: %s\n", snd_strerror(period_size));
+                        break;
+                }
+                if (period_size > 0 && period_size < (long)sizeof(buffer))
+                        printf("Short write (expected %li, wrote %li)\n", (long)sizeof(buffer), period_size);
+        }
+
+        // pass the remaining samples, otherwise they're dropped in close 
+        err = snd_pcm_drain(playback_handle);
+        if (err < 0)
+                printf("snd_pcm_drain failed: %s\n", snd_strerror(err));
+
+        //snd_pcm_hw_params_free(hw_params);
+        snd_pcm_close(playback_handle);
+
+        return 0;
+}
+
+/**
+ * Sine unsigned char.
+ * Scales sine output to a char
+ * Original range -1 to 1.
+ * New range 0 - 255.
+ */
+unsigned char sinuc( float angle ) {
+        return (sinf( angle ) * 255 + 255) / 2;
+}
+
+```
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/417
 Repository URL: https://github.com/alsa-project/alsa-lib

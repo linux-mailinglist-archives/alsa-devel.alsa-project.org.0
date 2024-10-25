@@ -2,54 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BBAA9AFD99
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2024 11:05:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62AE79B01EB
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2024 14:09:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C4E7DEE;
-	Fri, 25 Oct 2024 11:05:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C4E7DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2888851;
+	Fri, 25 Oct 2024 14:09:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2888851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729847112;
-	bh=9+H2OccexnG7t3JWRvYT0DGY4VICDNBs30+J+ACi5Uo=;
+	s=default; t=1729858183;
+	bh=KWeHL03zG2XtfvUC5qi18da7cLf3LMkFc7eigmeQXPE=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=EnrkyxP4eiTyT/iZJH7s2orlLxW0L6RESHAeAjc3mYXO8/aTHrtringI0fskycnRb
-	 1FXUNjepYcKHE1PUUTKj+5b8tqBLnIxUMkupFynKY+93NRWUTGjuNHRj+M+92B24d2
-	 hkphquueoDHrI6MAhYZBe/+deXxS5rhZfobz3Bjw=
+	b=NH9UeIO4bQ5jD6NIDWicULA/CRnaPiep87NxCjdwQmTapqpMDVYfNsmLTEgUvBAW7
+	 6u0C5PIHpF3me6nyMNoPNXhxmnDIIXWNAkoyi6qAEtRe9PwUlLBAyhAnLDybibjWsT
+	 6mahmPWCm5RDco5T9J9k1F7RpK7Tp+QdpH3gFVlg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A5DAF805AE; Fri, 25 Oct 2024 11:04:40 +0200 (CEST)
+	id D468BF805B4; Fri, 25 Oct 2024 14:09:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37F17F805B0;
-	Fri, 25 Oct 2024 11:04:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB35AF8057A;
+	Fri, 25 Oct 2024 14:09:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B12A1F8016C; Fri, 25 Oct 2024 11:04:29 +0200 (CEST)
+	id 35F21F8016C; Fri, 25 Oct 2024 14:09:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC1A4F80104
-	for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2024 11:04:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC1A4F80104
+	by alsa1.perex.cz (Postfix) with ESMTP id 81EEBF8014C
+	for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2024 14:09:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81EEBF8014C
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1729847067114536524-webhooks-bot@alsa-project.org>
-References: <1729847067114536524-webhooks-bot@alsa-project.org>
-Subject: [Discussion] Why doesn't ALSA autogenerate/autoconfigure the mono
- profile by default?
-Message-Id: <20241025090429.B12A1F8016C@alsa1.perex.cz>
-Date: Fri, 25 Oct 2024 11:04:29 +0200 (CEST)
-Message-ID-Hash: HZZV57UEEHAAT3HCSKNLCAHY5XRWN6GO
-X-Message-ID-Hash: HZZV57UEEHAAT3HCSKNLCAHY5XRWN6GO
+In-Reply-To: <1729858144063719511-webhooks-bot@alsa-project.org>
+References: <1729858144063719511-webhooks-bot@alsa-project.org>
+Subject: ALC225 the microphone does not work in jack3.5
+Message-Id: <20241025120906.35F21F8016C@alsa1.perex.cz>
+Date: Fri, 25 Oct 2024 14:09:06 +0200 (CEST)
+Message-ID-Hash: RCJNUETC54OLZTFEFUKXZYERMH5GM73B
+X-Message-ID-Hash: RCJNUETC54OLZTFEFUKXZYERMH5GM73B
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HZZV57UEEHAAT3HCSKNLCAHY5XRWN6GO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RCJNUETC54OLZTFEFUKXZYERMH5GM73B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,11 +70,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #415 was opened from xeroxslayer:
+alsa-project/alsa-lib issue #416 was opened from PavelGu:
 
-I raised this discussion a few months ago on the ALSA mailing list, but there was no response regarding this.
+I have notebook clevo NL55AU with Ubuntu24.04 installed.
+The microphone does not work on a headset connected to a combined audio output jack 3.5. 
 
-This was pointed out by a reddit user, and to be frank, I was kinda surprised that this is not done by default. The user in question is hearing impaired (can listen on only one ear), so the user has no benefit of actually listening to stereo or any other multichannel audio, thus wanted to just set everything to mono (dual mono I presume) and was puzzled when there was no such option in pulseaudio (which pulls the profiles from ALSA). Now, this profile will be autogenerated, but only if the hardware has such capability (as is the case with any other profile). You can enable it manually by editing config files (in which case I presume the channel downconversion is done in software, I wouldn't know, I haven't actually tried adding a mono profile manually), but it seemed odd that one has to go through such trouble just to listen to mono sound... something that should be available out of the box IMO.
+Logs: https://alsa-project.org/db/?f=89d2b631cb1635dd48357610d54e062bddef81b4
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/415
+Can you help me?
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/416
 Repository URL: https://github.com/alsa-project/alsa-lib

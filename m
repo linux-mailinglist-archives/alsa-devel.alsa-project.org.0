@@ -2,186 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98C8F9B36F0
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2024 17:44:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8FEB9B36F5
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2024 17:44:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6E7614DC;
-	Mon, 28 Oct 2024 17:44:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6E7614DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F7A4EA3;
+	Mon, 28 Oct 2024 17:44:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F7A4EA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730133873;
-	bh=0q05/MbevCkEmzTkh3vQ7Wca08bw07kSjIbrFNOKAys=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SNLhpSlMRI4r/Ui98uHFZKIkRLW5o3p/g1kWwvKj4OnFkNQNoXsclyc9aHc9faR5e
-	 PcVip4/bd32Q+HqFFkvXCYmumH2P2JfPP9eMs4Y2S9ygiIq7G70p24hbntR87inS77
-	 Ce+KwjfwExBKQHvJr7OE17i6bITqzkrfIDpBrkhY=
+	s=default; t=1730133892;
+	bh=FfNk8I+mjQn3bM3n+9hlR4/TJBS6DhNfRocxYzTffS0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=b17sStz+Aj5UoGCzYTF+GMQCiheeSFNu4CX6+ZFjOJSQuQiwi+3XDMjhMf03kJENh
+	 jMWztEjtRCLH5XTZDmesb1NFrNxGPx4MAsPjN95jtNs/j+s9MsxW2f9jcRKZgFAO0V
+	 UJcYjBTkkpulkE1Q5x6yO14zHglOZMo/hNO7Y+No=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58701F80698; Mon, 28 Oct 2024 17:42:53 +0100 (CET)
+	id 94016F806B3; Mon, 28 Oct 2024 17:43:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A956F80691;
-	Mon, 28 Oct 2024 17:42:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76B2BF806B5;
+	Mon, 28 Oct 2024 17:43:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44CE3F8016C; Sat, 26 Oct 2024 09:54:23 +0200 (CEST)
+	id F1623F80269; Sun, 27 Oct 2024 23:17:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20624.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::624])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0C39FF800ED
-	for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2024 09:54:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C39FF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id B42E5F80104
+	for <alsa-devel@alsa-project.org>; Sun, 27 Oct 2024 23:17:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B42E5F80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=tLYoDJej
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oGa5b1Tb8Ec5UNVg69VQ45wWus7I5LoKduuRd69tEP4co/3bbduMxHBcb2YG2I1XQPa4jUi4vf9/0qE6AHYyaih0ULAhJBDrc5qOU0SXee8UTum4nT4iuQAGVaXmaaMrqI5yXSd0bVJn0lph1NQyJA6dNweyvCWngI0QrQzSsfVuqYq7GKvvwq3l1N2aA+4VORUzjorL2NSIBnZnh3tSYP5OGPKnsuA/qeUvvOyKWoKhBhYNXhcKL6PE8tqK/bhqAZHF6dbwuhHmMSKCR/P0Gea1tzI4Z2LcHa2p1OhmFgCwq6fvrJMLysbHn1o8GtI496jTvkDdyVwSP8zh9LZAIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=owYK/6+V3VUTla7EukrIdWHtCfgdNgNjjMHBG3WW1+E=;
- b=pfrBohqvElexBbyvO1ocJxVuwo1n+ZZTPolgfZAcGKWsaElV4d4T+UTFFyRppq45DiUPF+yp09CnMGQvPDIacubwJu242Sq2/eTAA+64cu+gX+flPcodXvl1d/Z8Z7nSWPuuCgb2IGR8lL2+7uxdL6n4TrWvQOVbuaj+/WY2DVsOJmuDpS2HbVmFAzhOoYrVwlr9nYk+zC/JZPeuQcsc6JzxGyAmjHwBNHL2FgvZ16e9JoJZCLeKyS8qJ0LD0MTFIBADwalnnyOh8c+9BsxImSWu5xg4hiQqIF7eQ2sk8jFvlgn/Vgu4u2y076hlvPt5PmJ7uID2/vWTykMdm1fdBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=owYK/6+V3VUTla7EukrIdWHtCfgdNgNjjMHBG3WW1+E=;
- b=tLYoDJejm9yXd5otWASOIRpGzV3hVu555/6sqnMvbYMADckGUMc7EUeOfQV6SyZK7NmiA9OdrPaRA9UF6IZqrOZKwFZfQNMvL9moeRo9fADP8bi4MYe7wxB2qMEYDqt5EEaB7UAb6OZOQyURz3i8H0R8GiHv4MDIrm8jow/4V9A=
-Received: from BN9P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::7)
- by PH7PR12MB5733.namprd12.prod.outlook.com (2603:10b6:510:1e0::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.23; Sat, 26 Oct
- 2024 07:54:14 +0000
-Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
- (2603:10b6:408:10a:cafe::7b) by BN9P221CA0012.outlook.office365.com
- (2603:10b6:408:10a::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.23 via Frontend
- Transport; Sat, 26 Oct 2024 07:54:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8093.14 via Frontend Transport; Sat, 26 Oct 2024 07:54:14 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sat, 26 Oct
- 2024 02:54:12 -0500
-Received: from xhdakumarma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Sat, 26 Oct 2024 02:54:07 -0500
-From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-To: <tudor.ambarus@linaro.org>, <michael@walle.cc>, <broonie@kernel.org>,
-	<pratyush@kernel.org>, <richard@nod.at>, <vigneshr@ti.com>,
-	<miquel.raynal@bootlin.com>, <robh@kernel.org>, <conor+dt@kernel.org>,
-	<krzk+dt@kernel.org>
-CC: <venkatesh.abbarapu@amd.com>, <linux-spi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
-	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
-	<claudiu.beznea@tuxon.dev>, <michal.simek@amd.com>,
-	<linux-arm-kernel@lists.infradead.org>, <alsa-devel@alsa-project.org>,
-	<patches@opensource.cirrus.com>, <git@amd.com>, <amitrkcian2002@gmail.com>,
-	<beanhuo@micron.com>, Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-Subject: [RFC PATCH 2/2] dt-bindings: spi: Update stacked and parallel
- bindings
-Date: Sat, 26 Oct 2024 13:23:47 +0530
-Message-ID: <20241026075347.580858-3-amit.kumar-mahapatra@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241026075347.580858-1-amit.kumar-mahapatra@amd.com>
-References: <20241026075347.580858-1-amit.kumar-mahapatra@amd.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=DeIWEYvv
+Received: by mail-pj1-x102e.google.com with SMTP id
+ 98e67ed59e1d1-2e2a97c2681so2622738a91.2
+        for <alsa-devel@alsa-project.org>;
+ Sun, 27 Oct 2024 15:17:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1730067422; x=1730672222;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SlVBKyzyVEcrMiwiyfAZvoqJg2MA2IkLbNP36j/gEss=;
+        b=DeIWEYvvJamrc0NEFax3oUef1SlWBAesbgiCKf0WlrzNXEIBtyWTFcm0L9XjnpWooc
+         NZRdNOUuJzIyHotqYviP01x2k1ujgCme7xxp+pQhFRmREEOyYVYO2qBnV3rKmt0AdRNd
+         BsEVTPoqfQc9Kr848F7ZdFisWHUyTDVl/E6TmOsxLjX5y1iXaL3ZxbL6WX/Spp2pMCjB
+         dG37DDwBZqcUqmVMLIkGybhzx9IgXihdLmBRqhiu3eOCsr8IThk3bj48jCL0tukTEJhd
+         iAF/r+gcI2pc0ptDO4CExbZxoBbsAt05vHjgbnLHqrtbZGBALbtnKMFW4F7dYCDfxjAC
+         qLPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730067422; x=1730672222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SlVBKyzyVEcrMiwiyfAZvoqJg2MA2IkLbNP36j/gEss=;
+        b=HugmRn9i6SUzl2lNIkTQ2qHeJbUgwAx/mhHx8r4L4TOABy37OaHFUWmDSMT47p6zNX
+         Cyc2l5r4yvZbF0Db1koeLGbp9nDLDVDjcOu0OwCXf+dkF6ekfxNLZGhh/pSiL0gvi1/A
+         atcc7ybhaARNh+z8HSHs6fwGp8cvQLNkYWvFa7oJ2gjcBu1CRpyINwh3zUHy6PQPy7k/
+         MU+fbJ3LNlrVb0mnWbs8CXPzNjuHfOXgqDZUxL+w8yjI6aIVxhDH/FJFQHGGwsg9dBwR
+         BY1T/6dNqDmO4Qfnq/rKS33j4xEsuzL4zmYO9V6c1ohzACAuHEnhO0WH4x0MnL718Bia
+         Ogow==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXwrRLGjce4xEZllN3Ytb8las1e1GgJxkq666tu1QV9cXtSwgPgSZUMvRNczbGG2anM+V8diVDwkSv6@alsa-project.org
+X-Gm-Message-State: AOJu0YxWO2cZSFOL+le6jY5448eDq4kk464HGhrOLJNA4NCYK4MdBECu
+	yzWi7rq7IpeTsPORJew6Nji/Da9v2lYyFlk0HcgOrcFcy0wn7dTQ
+X-Google-Smtp-Source: 
+ AGHT+IEB70GCebAhFLvFL16d0ZUPWVH08atumYvquHryLNwf9YYWZfC5o6C2i612B/sijw2eCz9B3Q==
+X-Received: by 2002:a17:90a:4e0a:b0:2e8:f58e:27bb with SMTP id
+ 98e67ed59e1d1-2e8f58e283fmr6404631a91.8.1730067422109;
+        Sun, 27 Oct 2024 15:17:02 -0700 (PDT)
+Received: from
+ codespaces-c8bc9f.dxrpqgqhlb3ehogrxrezr215ye.rx.internal.cloudapp.net
+ ([20.192.21.48])
+        by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-7edc8696918sm4590721a12.48.2024.10.27.15.17.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Oct 2024 15:17:01 -0700 (PDT)
+From: Piyush Raj Chouhan <piyushchouhan1598@gmail.com>
+X-Google-Original-From: Piyush Raj Chouhan <piyuschouhan1598@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.de,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	pc1598 <piyushchouhan1598@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Add subwoofer quirk for Infinix ZERO BOOK
+ 13
+Date: Sun, 27 Oct 2024 22:16:55 +0000
+Message-ID: <20241027221655.74885-1-piyuschouhan1598@gmail.com>
+X-Mailer: git-send-email 2.46.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: amit.kumar-mahapatra@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|PH7PR12MB5733:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7da072c1-1097-459b-0c34-08dcf5936289
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|7416014|376014|921020;
-X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?NzBmMFBlUitLelU5WCt5UWxnbDhsUDQ4MlJPVVdFMk9ieENrTU8yUzdVY2tt?=
- =?utf-8?B?N1N5U2RnMnhRTGdsbmU5dndwVU1jTHFFbEY2SUxsRndzQ0IwNXNhaDdkOTFX?=
- =?utf-8?B?OVh6WWp2dnNGOFUvaXVSQVFwbUJTbkhkNDlhSnBLWXlQamRzalRDRGdkTVlP?=
- =?utf-8?B?S0dzY1VtUFRQdWlkNnN6aTByOVZLLzdvTVdRaUxBMnBmUVdSY2dIMnN5NkRR?=
- =?utf-8?B?ODREaUYvejJuSlQxVzRTOVJVbUhHMjk2cy8vV1J1dElTRW12dUtpSHVJSU9B?=
- =?utf-8?B?a3ptbTQzRVZhdWdCWUhOU1RFYkhXVHFkY3ZBemhhRjZCL1JPM1BKU29VbGdL?=
- =?utf-8?B?VlBZK01CZmhTV21EdGtNeVVvMllXalNHaHJEaXBHd2J4dCtLR2MvZDhoWm13?=
- =?utf-8?B?KzBJNUtnbC9pN0xtazRCajc2ZzQ0UG11MVMybGdJbnhhcGtsZFJzelEyTE1C?=
- =?utf-8?B?Nlo4Z3ArZzVBOEFqRHB1ay9jOThZdmJ6VDAveWxvNG9tWGRrd2tFRWpkMFlD?=
- =?utf-8?B?WkRvNWxldWtSVmtyTUZQUGpWNjRiQVhKdlRpOGxsRE54TzBEa2YxdW9VdENn?=
- =?utf-8?B?ZTBCUzQ1eHhjNVE1WHJtaVpFRWZoajRObUhwSTZqaUt4RXAxbEQyZXRDZm9J?=
- =?utf-8?B?ZytjcmViSkJsbW9uMDk2ZE5uNVpuOVJIend0UlVJakJhSlFoUmpZc042YnE1?=
- =?utf-8?B?NnJQaGZwOUxvY2Q0VWRWVFUxOFB2aVRQZEtGQTZDUVdKdmJ2S2xxdGJ6TG1X?=
- =?utf-8?B?ZkNRdDBQL1VaNmJiVWtnbW9hRzNXbmZkTDJodWdJOWJrTVRFWGovRU9YUkZw?=
- =?utf-8?B?cEI3NEN2b092dnNESjFvaXlQL3dmeTg1cUFuOHBPZktqaHZ2d0xDdHhCZlk5?=
- =?utf-8?B?N0NhZTUwQzZUazR4SlhabGdrTEUvYlQyRU9KVG9KK0FEWkg1eDhaR3BDeXNP?=
- =?utf-8?B?a3NmMlRBM2N2eGRNN2tFN09aSnlMYUlZUHNYN3dNdURnY1FyT3JLL3pKU3dF?=
- =?utf-8?B?UW96OHVxMllpMGdhK1U5d0FjUDdNdE5YKytJdHQvdytVd2w0ZVFlaXk3R1Vk?=
- =?utf-8?B?amNqRkN2S0Q1RGpuQ2RwQlFhSlFtRWhrVFJqRWxvenBRN1JMbTEreVNMV0px?=
- =?utf-8?B?SGtpOUhsQ2FFeDNBUTNyTTJ3MHF0NzFRcCtCYUpWVElqTG44UUdITmYvVktp?=
- =?utf-8?B?U0lPenhYYk5Xc0I0ZjczTkdqT0kya0N0bzlEN1NMZ0htWGRuVjJFNk9hWEJ4?=
- =?utf-8?B?WXVRc0JTNXdobW1wMmovamhqbHRqamdMSjNqR01lQ05ua0JhQXkxTlQ5Qk9o?=
- =?utf-8?B?eEdma3F0ejcxR09ROStzRzg3ZE52WStnZGwraFVJTXR1Y3lVK3J2L2tZTkpD?=
- =?utf-8?B?d01KaXpuNEVOSHZHTU9qeTk1MGRKLzFYRU54dDBQM0R1THVrV0VKQzRycjBs?=
- =?utf-8?B?akhOVHE5QmNobzZWYjFPcThkdEczbWx0TTE0SmxONk5lUTBHRk5UbkRRVUN1?=
- =?utf-8?B?VEd0cDBxR2FZZDkrRU8wS05yWFdXTXBvdmJ4aHRTYXdQNk1HNHI5ZlpwY0ZU?=
- =?utf-8?B?V080N2hSQlFuSFhLQkNlZDlRSU10QkNma1dZSG1XckNudHk4dzYwVlJQV0x3?=
- =?utf-8?B?MXpWS29EQWJ3OE9UUE1MSWM3M0pmd3dEdzZaRUkyektMZk85S1BCYjM3ZFNN?=
- =?utf-8?B?VDRXOG02VWpBRHZMRG45emdSNzFCZ2VRN2ZsQnQxdkluNDN4Vy9SU1hCNWpm?=
- =?utf-8?B?MVoxRGgzWS9PeUlIcmwwTUtHUGYrbmxIbWJaUEsxczVXMFJmKzZJcEpXMHRF?=
- =?utf-8?B?Q2dXa2tieW5SQmt3aWxJNkN0OWlpQW5Yb1psR0NtK1lHa2lUN1FPc3oxMU9Z?=
- =?utf-8?B?Y0pqWklzWEhxVG1mT2tVb0g1Q1FGZTlLVlB6UTVrNi9obWRmbjBMODlkak41?=
- =?utf-8?Q?PAV9WO4hsQ4=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(7416014)(376014)(921020);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2024 07:54:14.1289
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 7da072c1-1097-459b-0c34-08dcf5936289
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	BL02EPF0001A0FF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5733
-X-MailFrom: amit.kumar-mahapatra@amd.com
+X-MailFrom: piyushchouhan1598@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DQQVSUB6ZQQXLCQVYJ76OCKVH2GOX5PP
-X-Message-ID-Hash: DQQVSUB6ZQQXLCQVYJ76OCKVH2GOX5PP
-X-Mailman-Approved-At: Mon, 28 Oct 2024 16:42:31 +0000
+Message-ID-Hash: C3KBCR5YVJNGYSR4BLAH5E74623DG6CA
+X-Message-ID-Hash: C3KBCR5YVJNGYSR4BLAH5E74623DG6CA
+X-Mailman-Approved-At: Mon, 28 Oct 2024 16:42:59 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQQVSUB6ZQQXLCQVYJ76OCKVH2GOX5PP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C3KBCR5YVJNGYSR4BLAH5E74623DG6CA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -190,153 +125,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For implementing the proposed solution the current 'stacked-memories' &
-'parallel-memories' bindings need to be updated as follow.
+From: pc1598 <piyushchouhan1598@gmail.com>
 
-stacked-memories binding changes:
-- Each flash will have its own flash node. This approach allows flashes of
-  different makes and sizes to be stacked together, as each flash will be
-  probed individually.
-- Each of the flash node will have its own “reg” property that will contain
-  its physical CS.
-- Remove the size information from the bindings as it can be retrived
-  drirectly from the flash.
-- The stacked-memories DT bindings will contain the phandles of the flash
-  nodes connected in stacked mode.
+Infinix ZERO BOOK 13 has a 2+2 speaker system which isn't probed correctly.
+This patch adds a quirk with the proper pin connections.
+Also The mic in this laptop suffers too high gain resulting in mostly fan noise being recorded,
+This patch Also limit mic boost.
 
-The new layer will update the mtd->size and other mtd_info parameters after
-both the flashes are probed and will call mtd_device_register with the
-combined information.
+HW Probe for device; https://linux-hardware.org/?probe=a2e892c47b
 
-spi@0 {
-        ...
-        flash@0 {
-                compatible = "jedec,spi-nor"
-                reg = <0x00>;
-                stacked-memories = <&flash@0 &flash@1>;
-                spi-max-frequency = <50000000>;
-                ...
-                        partitions {
-                        compatible = "fixed-partitions";
-                                concat-partition = <&flash0_partition &flash1_partition>;
-                                flash0_partition: partition@0 {
-                                        label = "part0_0";
-                                        reg = <0x0 0x800000>;
-                                }
-                        }
-        }
-        flash@1 {
-                compatible = "jedec,spi-nor"
-                reg = <0x01>;
-                stacked-memories = <&flash@0 &flash@1>;
-                spi-max-frequency = <50000000>;
-                ...
-                        partitions {
-                        compatible = "fixed-partitions";
-                                concat-partition = <&flash0_partition &flash1_partition>;
-                                flash1_partition: partition@0 {
-                                        label = "part0_1";
-                                        reg = <0x0 0x800000>;
-                                }
-                        }
-        }
-
-}
-
-parallel-memories binding changes:
-- Remove the size information from the bindings and change the type to
-  boolen.
-- Each flash connected in parallel mode should be identical and will have
-  one flash node for both the flash devices.
-- The “reg” prop will contain the physical CS number for both the connected
-  flashes.
-
-The new layer will double the mtd-> size and register it with the mtd layer.
-
-spi@1 {
-        ...
-        flash@3 {
-                compatible = "jedec,spi-nor"
-                reg = <0x00 0x01>;
-                paralle-memories ;
-                spi-max-frequency = <50000000>;
-                ...
-                        partitions {
-                        compatible = "fixed-partitions";
-                                flash0_partition: partition@0 {
-                                        label = "part0_0";
-                                        reg = <0x0 0x800000>;
-                                }
-                        }
-        }
-}
-
-Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Test: All 4 speaker works, Mic has low noise.
+Signed-off-by: Piyush Raj Chouhan <piyushchouhan1598@gmail.com>
 ---
- .../bindings/spi/spi-controller.yaml          | 23 +++++++++++++++++--
- .../bindings/spi/spi-peripheral-props.yaml    |  9 +++-----
- 2 files changed, 24 insertions(+), 8 deletions(-)
+ sound/pci/hda/patch_realtek.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/spi/spi-controller.yaml b/Documentation/devicetree/bindings/spi/spi-controller.yaml
-index 093150c0cb87..2d300f98dd72 100644
---- a/Documentation/devicetree/bindings/spi/spi-controller.yaml
-+++ b/Documentation/devicetree/bindings/spi/spi-controller.yaml
-@@ -185,7 +185,26 @@ examples:
-         flash@2 {
-             compatible = "jedec,spi-nor";
-             spi-max-frequency = <50000000>;
--            reg = <2>, <3>;
--            stacked-memories = /bits/ 64 <0x10000000 0x10000000>;
-+            reg = <2>;
-+            stacked-memories = <&flash0 &flash1>;
-         };
-+
-     };
-+
-+  - |
-+    spi@90010000 {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        compatible = "fsl,imx28-spi";
-+        reg = <0x90010000 0x2000>;
-+        interrupts = <96>;
-+        dmas = <&dma_apbh 0>;
-+        dma-names = "rx-tx";
-+
-+        flash@0 {
-+            compatible = "jedec,spi-nor";
-+            spi-max-frequency = <50000000>;
-+            reg = <0>, <1>;
-+            parallel-memories;
-+        };
-+      };
-diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-index 15938f81fdce..2a014160d701 100644
---- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-+++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-@@ -96,7 +96,7 @@ properties:
-       space with only a single additional wire, while still needing
-       to repeat the commands when crossing a chip boundary. The size of
-       each chip should be provided as members of the array.
--    $ref: /schemas/types.yaml#/definitions/uint64-array
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-     minItems: 2
-     maxItems: 4
- 
-@@ -107,11 +107,8 @@ properties:
-       different memories (eg. even bits are stored in one memory, odd
-       bits in the other). This basically doubles the address space and
-       the throughput while greatly complexifying the wiring because as
--      many busses as devices must be wired. The size of each chip should
--      be provided as members of the array.
--    $ref: /schemas/types.yaml#/definitions/uint64-array
--    minItems: 2
--    maxItems: 4
-+      many busses as devices must be wired.
-+    $ref: /schemas/types.yaml#/definitions/flag
- 
-   st,spi-midi-ns:
-     description: |
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3567b14b52b7..075935707f8a 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -7551,6 +7551,7 @@ enum {
+ 	ALC290_FIXUP_SUBWOOFER_HSJACK,
+ 	ALC269_FIXUP_THINKPAD_ACPI,
+ 	ALC269_FIXUP_DMIC_THINKPAD_ACPI,
++	ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13,
+ 	ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO,
+ 	ALC255_FIXUP_ACER_MIC_NO_PRESENCE,
+ 	ALC255_FIXUP_ASUS_MIC_NO_PRESENCE,
+@@ -7996,6 +7997,16 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc269_fixup_pincfg_U7x7_headset_mic,
+ 	},
++	[ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x14, 0x90170151 }, /* use as internal speaker (LFE) */
++			{ 0x1b, 0x90170152 }, /* use as internal speaker (back) */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC269_FIXUP_LIMIT_INT_MIC_BOOST
++	},
+ 	[ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -10989,6 +11000,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1d72, 0x1945, "Redmi G", ALC256_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1d72, 0x1947, "RedmiBook Air", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x2782, 0x0214, "VAIO VJFE-CL", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
++	SND_PCI_QUIRK(0x2782, 0x0228, "Infinix ZERO BOOK 13", ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13),
+ 	SND_PCI_QUIRK(0x2782, 0x0232, "CHUWI CoreBook XPro", ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO),
+ 	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
+ 	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
 -- 
-2.34.1
+2.46.2
 

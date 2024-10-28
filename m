@@ -2,81 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE0259B3691
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2024 17:34:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17809B38D5
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2024 19:12:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42C4DE66;
-	Mon, 28 Oct 2024 17:34:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42C4DE66
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7C8EE8E;
+	Mon, 28 Oct 2024 19:12:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7C8EE8E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730133254;
-	bh=/GA1touZQkGDDK0wLtrA8ojFx9dCS+V30atvsmCrNIM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1730139173;
+	bh=sEUoxC02iCpTxcYJhl7YWFX1HCD6NzBw0eWUjpJiVwg=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HJn+N5LIj9nsY/I3M2MTD6HeXdSdIBIZc6vqjFCP9gEsJJYVd/r4WMqdq+rPc8UPK
-	 efkb9eM4OU4pSnYhUORde02a6lCd/VI0s1Y2vmxDJ0X1VYFt1MsqhxkhBKjiuXfncR
-	 wm+LxIF+Frlh5dr2DFeIW/nX1E7AYU+8mPj6+0XE=
+	b=MDS/jN1mEa++YsQiW1ow3BeQFWOuFP+6ChIRLnlxwNg1nudkVjBNf7A3xrcR6UWxB
+	 8zwEwbHLjy6ZK7tYSPMB44eNbvhFcFjZW+259FEWhB0hKTe8BVMwt/N7a81woHBYbN
+	 KPhAK2WSlS5Fnet6dimXMFb7SCny4vSW08YJ2sSg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89C6DF805AA; Mon, 28 Oct 2024 17:33:39 +0100 (CET)
+	id 85D4AF805BB; Mon, 28 Oct 2024 19:12:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54C47F805AA;
-	Mon, 28 Oct 2024 17:33:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02FADF805AF;
+	Mon, 28 Oct 2024 19:12:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C08B5F80269; Mon, 28 Oct 2024 17:33:33 +0100 (CET)
+	id F33F5F80269; Mon, 28 Oct 2024 19:12:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C1AB3F8014C
-	for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2024 17:33:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1AB3F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id D5D0BF80104
+	for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2024 19:12:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5D0BF80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DxzhTR59
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 4DBCCA42977;
-	Mon, 28 Oct 2024 16:31:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF99C4CEC3;
-	Mon, 28 Oct 2024 16:33:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730133208;
-	bh=/GA1touZQkGDDK0wLtrA8ojFx9dCS+V30atvsmCrNIM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=DxzhTR59n3ydk4pFTk8WbE0/6/LZ5tcZmNqJPdpgwZ0tD/Kw3SlOp5IWnTAphfkTA
-	 JEmXL5B6lP0YTCFBIvpIG8W7ynRn6rATTKhPyN9xBQx1v3iN4H6igm7fCB2Dj5eMQN
-	 BYLzhAaiWQqfMZksTxOTlc+0cDu1EOf9pwwk88yJlJxxBkvDzGh8wh+ZQa/bLUlKpE
-	 1rOrZpjl+ArZbD08JYKDMZPqDyNGKsQge70Ob5gKICQ6g47LMPC3rrUmsV5+KzxjU2
-	 OOBwdjGvOKuRIMCC2d4TqEpNLRUccY/JeU44Dn/+57i7xTNFX8DSrfEiUPrnGnLBky
-	 OpWlC+39SBGeA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Zhang Yi <zhangyi@everest-semi.com>
-Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
- yangxiaohua@everest-semi.com, zhuning@everest-semi.com
-In-Reply-To: <20241028060529.3359-1-zhangyi@everest-semi.com>
-References: <20241028060529.3359-1-zhangyi@everest-semi.com>
-Subject: Re: [PATCH] ASoC: codecs: ES8326: Modify the configuration of and
- micbias
-Message-Id: <173013320685.78752.14724693204140069588.b4-ty@kernel.org>
-Date: Mon, 28 Oct 2024 16:33:26 +0000
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=SZRcYieq
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 49SAv1pG005093;
+	Mon, 28 Oct 2024 18:12:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sEUoxC02iCpTxcYJhl7YWFX1HCD6NzBw0eWUjpJiVwg=; b=SZRcYieqr1duO6jN
+	yNPU+IPfmU5epd+/o81r40LC4ldLZCIxxkZjlAkUm0IpqlMxvPWXcCU1XBkzNRaC
+	TP7nTfoabSBoIEFd9oUJxyH8ssxT3RMVVy6b1jtpFrGzR4Qr9S53G356VCRfaWGR
+	e0AnvtjH6VYpYYPfGf1XC09U3+7KSWJYNeVHPyXSb/F5vqb519sM99cu5UY56mKi
+	nLQWpX+LNtMePMDN4WQu5efqc5IUJX7MFL7F5AKVFzVhpOnpRjh5Yo1iOH3bw7nE
+	D/KHDSkVLNE3b5W37aYUqFwulXlJTuqei1PCdAs0SH8ah1ZumWVhoYwIz0PpMB8r
+	sMF64w==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42gsq8dw7k-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Oct 2024 18:12:09 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 49SIC861013622
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 28 Oct 2024 18:12:08 GMT
+Received: from [10.110.31.141] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Mon, 28 Oct
+ 2024 11:12:07 -0700
+Message-ID: <8f6e35c0-8cd6-495d-92ad-21d76a726785@quicinc.com>
+Date: Mon, 28 Oct 2024 11:12:07 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-9b746
-Message-ID-Hash: EUIDP4KJ7RGQOBXS7CB3ZQ4JDRTEUYHS
-X-Message-ID-Hash: EUIDP4KJ7RGQOBXS7CB3ZQ4JDRTEUYHS
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v29 01/33] xhci: support setting interrupt moderation IMOD
+ for secondary interrupters
+To: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
+	<amadeuszx.slawinski@linux.intel.com>,
+        Greg KH <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.de>
+CC: <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
+        <perex@perex.cz>, <conor+dt@kernel.org>, <dmitry.torokhov@gmail.com>,
+        <corbet@lwn.net>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+        <krzk+dt@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
+        <Thinh.Nguyen@synopsys.com>, <broonie@kernel.org>,
+        <bgoswami@quicinc.com>, <robh@kernel.org>,
+        <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-sound@vger.kernel.org>, <linux-input@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        Mathias Nyman <mathias.nyman@linux.intel.com>
+References: <20241015212915.1206789-1-quic_wcheng@quicinc.com>
+ <20241015212915.1206789-2-quic_wcheng@quicinc.com>
+ <2024101747-defog-squiggly-ef54@gregkh>
+ <5847c380-75ce-492a-9a30-0899b7ebe98c@quicinc.com>
+ <2024101824-hammock-elastic-8d38@gregkh> <87wmi02qcj.wl-tiwai@suse.de>
+ <2024102240-gag-famished-245c@gregkh>
+ <8795c4ad-e3ac-47aa-92dd-f899042cefc0@linux.intel.com>
+Content-Language: en-US
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+In-Reply-To: <8795c4ad-e3ac-47aa-92dd-f899042cefc0@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 3VvqAHZW17ni7Z9fnrpLfG7y2SqeBCje
+X-Proofpoint-ORIG-GUID: 3VvqAHZW17ni7Z9fnrpLfG7y2SqeBCje
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0
+ adultscore=0 mlxscore=0 priorityscore=1501 mlxlogscore=999 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1011 spamscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
+ definitions=main-2410280143
+Message-ID-Hash: NIE35SJ5O6B2VWQ5S62ZSXQZGY2ZFLAM
+X-Message-ID-Hash: NIE35SJ5O6B2VWQ5S62ZSXQZGY2ZFLAM
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EUIDP4KJ7RGQOBXS7CB3ZQ4JDRTEUYHS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NIE35SJ5O6B2VWQ5S62ZSXQZGY2ZFLAM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,38 +145,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 28 Oct 2024 14:05:29 +0800, Zhang Yi wrote:
-> Because we designed a new version of ES8326, the configuration of
-> micbias needed to be modified.We tested the new driver,
-> on both the new version and the old one. It works well.
-> 
-> 
 
-Applied to
+On 10/22/2024 8:04 AM, Amadeusz Sławiński wrote:
+> On 10/22/2024 4:02 PM, Greg KH wrote:
+>> On Tue, Oct 22, 2024 at 03:56:44PM +0200, Takashi Iwai wrote:
+>>> On Fri, 18 Oct 2024 07:52:35 +0200,
+>>> Greg KH wrote:
+>>>>
+>>>> On Thu, Oct 17, 2024 at 05:07:12PM -0700, Wesley Cheng wrote:
+>>>>> Hi Greg,
+>>>>>
+>>>>> On 10/16/2024 11:40 PM, Greg KH wrote:
+>>>>>> On Tue, Oct 15, 2024 at 02:28:43PM -0700, Wesley Cheng wrote:
+>>>>>>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>>>>>>
+>>>>>>> Allow creators of xHCI secondary interrupters to specify the interrupt
+>>>>>>> moderation interval value in nanoseconds when creating the interrupter.
+>>>>>>>
+>>>>>>> If not sure what value to use then use the xhci driver default
+>>>>>>> xhci->imod_interval
+>>>>>>>
+>>>>>>> Suggested-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>>>>>>> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>>>>>> Link: https://lore.kernel.org/r/20240905143300.1959279-13-mathias.nyman@linux.intel.com
+>>>>>>> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>>>>>>> ---
+>>>>>>>   drivers/usb/host/xhci-mem.c | 8 +++++++-
+>>>>>>>   drivers/usb/host/xhci.c     | 4 ++--
+>>>>>>>   drivers/usb/host/xhci.h     | 5 ++++-
+>>>>>>>   3 files changed, 13 insertions(+), 4 deletions(-)
+>>>>>> This is already in 6.12-rc1, which makes me confused as to what tree you
+>>>>>> made this series against.
+>>>>>
+>>>>> Sorry, I didn't fetch the latest changes from usb-next.
+>>>>
+>>>> It wasn't even usb-next, it was 6.12-rc1, so I don't know what tree you
+>>>> based this on :(
+>>>>
+>>>>> In this case, should I rebase and resbumit?
+>>>>
+>>>> As the series can't be applied as-is, probably.  But I think you might
+>>>> want to collect some acks from the sound people and xhci developers, as
+>>>> I can't do anything with this until they look at the changes.
+>>>
+>>> Honestly speaking, I couldn't follow fully the discussions about the
+>>> fundamental design -- IIRC, Pierre and others had concerns to the way
+>>> to manage the offload device via kcontrols.  Did we get consensus?
+>>
+>> I don't think so.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+As mentioned by Amadeusz, the overall USB offload concept hasn't changed significantly since the initial series, and will rely on having two sounds cards, ie leaving the one created by USB SND untouched (and still usable), while creating a path to an ASoC based platform card, which handles the offload path.
 
-Thanks!
+The follow ups that I've had with Pierre was more towards how the offload parameters are going to be exposed to userspace, so that it can be properly utilized.  I think for the most part, we've agreed that the set of kcontrols we have now are sufficient, and there is proper controls for userspace to know which devices to use.
 
-[1/1] ASoC: codecs: ES8326: Modify the configuration of and micbias
-      commit: bc48c55557edea46939ffef8ab9fa807b5951948
+>>
+>>> I believe that's the biggest obstacle in the audio side, i.e. what's
+>>> visible to users.  The kernel internals can be corrected at any time
+>>> later.
+>>
+>> I would like to see that agreed on before I even look at the usb side.
+>
+> My main concern is still that one USB audio device can be accessed via two different cards exposed in userspace. Usual USB one, and the one from device which does "offload". Suggested implementation achieves it by adding additional controls, which need to be set in specific way to achieve offload. Overall while I understand the mechanism, I'm not exactly convinced that it is the best way from end user point of view.
+>
+> "Implementation" part in Documentation added in patch 19 shows how it looks in userspace now.
+>
+> If you don't mind two sound cards being used to access same piece of HW, current implementation looks ok to me.
+>
+@Takashi, this was something we discussed really early on, even before the series was made, and I think it was agreed upon to avoid doing this with a single card.  I remember putting in the initial work to scope out this path, but it was going to require significant/major modifications to USB SND core, hence why we decided on the path to have two sound cards. (USB SND legacy path still usable)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Thanks
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Wesley Cheng 
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+> See also:
+> https://lore.kernel.org/linux-sound/75ffde3a-7fef-4c15-bfc8-87756e1c3f11@linux.intel.com/
+> where I described how I would prefer it to look.

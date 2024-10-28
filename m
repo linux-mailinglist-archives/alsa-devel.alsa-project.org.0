@@ -2,135 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E4659B1759
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Oct 2024 13:14:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D133C9B3436
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2024 16:01:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E646E72;
-	Sat, 26 Oct 2024 13:14:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E646E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FFCCF51;
+	Mon, 28 Oct 2024 16:01:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FFCCF51
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1729941265;
-	bh=uepjXSsNqFucMSnwMjNTgUmu9t3lyLfDvlOZx3AMk2g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1730127718;
+	bh=Zsay79nU2eMCSqWrRa8oot6GKFy/BE43j1a9E9/Qt9Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=h+8BCqO1lnyj4kYn+j6sITXiCnnli/nLojflKZY7XVYiHdt3Pg44VDV2ni7qclmTe
-	 lTtcJwRC+lbHPywpqWMgEKH+CYxF9l/yaCws7qPZDftKufz/aEl4AS2J+yJ5e8v1hM
-	 O6cRQTD+b2aMbKhQQFe7xLzA6++kCptfhyyKSj84=
+	b=I6HzuEBgLQZlBp1xvSBZ86FG0M0z16+a9rhX1nTeHQN74UNbzghRil7vIFwPcSJK2
+	 ijihDwRDrUxYktWLHJzcUz2+6D4mJrwt0ADaB9oIvooc5K6MluR3xqVjGkHGUz7GoE
+	 7jfdvJr+z6D8Y0lqH/UxI7uiz8o1Mdv+q+TT2j34=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1E4FF805AB; Sat, 26 Oct 2024 13:13:54 +0200 (CEST)
+	id DB249F805BE; Mon, 28 Oct 2024 16:01:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D28F6F80579;
-	Sat, 26 Oct 2024 13:13:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C31E8F805B1;
+	Mon, 28 Oct 2024 16:01:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67E64F8016C; Sat, 26 Oct 2024 13:13:48 +0200 (CEST)
+	id 7828BF80269; Mon, 28 Oct 2024 16:01:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16D37F80104
-	for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2024 13:13:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16D37F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 93894F800E5
+	for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2024 16:01:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93894F800E5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cuohDEER
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 456C5A4050C;
-	Sat, 26 Oct 2024 11:11:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D172C4CEC6;
-	Sat, 26 Oct 2024 11:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1729941222;
-	bh=uepjXSsNqFucMSnwMjNTgUmu9t3lyLfDvlOZx3AMk2g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=cuohDEERw1KIj6Kqx7iWme4k35V7pDvSZE8UghmobXDCKmvMenxWhQf8J+9VY5EOx
-	 6m9ACNbhPoh0cgfWIFWoeYwhPMmsMbZkBtJIYXc6j4ekwX0n4QMCQIEsYB9WBoTC4o
-	 uOK+Ser5vhmC/gCWqmGJQ3SCn06MoHJ/Vd1H+tii8GbXBkws1RmSNk7bqIJXAXdCIk
-	 Nh2EQP0x9Zhy8S1+R4pne900hSFbMSMSzC617eitYgksuU7zTuXVXk1guXZcY9/aE+
-	 LlFuLZ28kfojcIQh/fToRIiO2OuQGm8YdO+UI4o9guiNH4UPwC453BDWSz0yuq2+Ef
-	 bG6xmiephFAuA==
-Message-ID: <ba6d1274-08ab-4754-9d5a-92f0ebab88d3@kernel.org>
-Date: Sat, 26 Oct 2024 13:13:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/2] dt-bindings: mtd: Add bindings for describing
- concatinated MTD devices
-To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>,
- tudor.ambarus@linaro.org, michael@walle.cc, broonie@kernel.org,
- pratyush@kernel.org, richard@nod.at, vigneshr@ti.com,
- miquel.raynal@bootlin.com, robh@kernel.org, conor+dt@kernel.org,
- krzk+dt@kernel.org
-Cc: venkatesh.abbarapu@amd.com, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- claudiu.beznea@tuxon.dev, michal.simek@amd.com,
- linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, git@amd.com, amitrkcian2002@gmail.com,
- beanhuo@micron.com
-References: <20241026075347.580858-1-amit.kumar-mahapatra@amd.com>
- <20241026075347.580858-2-amit.kumar-mahapatra@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
- QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
- gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
- /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
- iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
- VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
- 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
- xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
- eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
- AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
- MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
- Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
- ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
- vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
- oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
- lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
- t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
- uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
- 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
- 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20241026075347.580858-2-amit.kumar-mahapatra@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AQVJHTWDESB6JSPV5IQXAPUF3CHNZK3V
-X-Message-ID-Hash: AQVJHTWDESB6JSPV5IQXAPUF3CHNZK3V
-X-MailFrom: krzk@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=XecdA1Wd;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=0S5ME1kT;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=XecdA1Wd;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=0S5ME1kT
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 98C441FDA1;
+	Mon, 28 Oct 2024 15:01:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1730127677;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mbpjmrdgp+jOJf/Yxvcfl5QS2vt8WbjcQQlTRirH1yc=;
+	b=XecdA1WdyK4eKNYL0NncyvaKr/D4rCWRRXJVRWA3VPI1oS09X9s4fHdlx//3izmF7Ui9Gd
+	AffhSoO1IuONR3YcNSPR+WV69NLtWz2pCOgtvqfvASwRqW0mO//2mMylmWLE6lLW7bEk8D
+	2W33G+Lcz7hasKqL9/KNV7AKY7PIO3U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1730127677;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mbpjmrdgp+jOJf/Yxvcfl5QS2vt8WbjcQQlTRirH1yc=;
+	b=0S5ME1kTvVpXYX6PFTle3qvmuBhUvet48PPcLKI+5TIGPgNfWR5N1IZnuhS/qVS/Wuzfcm
+	kOon8PGEZVfNPCDQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=XecdA1Wd;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=0S5ME1kT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1730127677;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mbpjmrdgp+jOJf/Yxvcfl5QS2vt8WbjcQQlTRirH1yc=;
+	b=XecdA1WdyK4eKNYL0NncyvaKr/D4rCWRRXJVRWA3VPI1oS09X9s4fHdlx//3izmF7Ui9Gd
+	AffhSoO1IuONR3YcNSPR+WV69NLtWz2pCOgtvqfvASwRqW0mO//2mMylmWLE6lLW7bEk8D
+	2W33G+Lcz7hasKqL9/KNV7AKY7PIO3U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1730127677;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mbpjmrdgp+jOJf/Yxvcfl5QS2vt8WbjcQQlTRirH1yc=;
+	b=0S5ME1kTvVpXYX6PFTle3qvmuBhUvet48PPcLKI+5TIGPgNfWR5N1IZnuhS/qVS/Wuzfcm
+	kOon8PGEZVfNPCDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 707D5136DC;
+	Mon, 28 Oct 2024 15:01:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id H9AhGj2nH2eHCwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 28 Oct 2024 15:01:17 +0000
+Date: Mon, 28 Oct 2024 16:02:20 +0100
+Message-ID: <87a5eoqnib.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Piyush Raj Chouhan <piyushchouhan1598@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Add subwoofer quirk for Infinix ZERO
+ BOOK 13
+In-Reply-To: <20241027221655.74885-1-piyuschouhan1598@gmail.com>
+References: <20241027221655.74885-1-piyuschouhan1598@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 98C441FDA1
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCPT_COUNT_THREE(0.00)[4];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Message-ID-Hash: ZADQZHM5EB5MWHJ6QJI524EGMTGZSINA
+X-Message-ID-Hash: ZADQZHM5EB5MWHJ6QJI524EGMTGZSINA
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -142,7 +168,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AQVJHTWDESB6JSPV5IQXAPUF3CHNZK3V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZADQZHM5EB5MWHJ6QJI524EGMTGZSINA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -151,41 +177,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 26/10/2024 09:53, Amit Kumar Mahapatra wrote:
-> This approach was suggested by Rob [1] during a discussion on Miquel's
-> initial approach [2] to extend the MTD-CONCAT driver to support stacked
-> memories.
-> Define each flash node separately with its respective partitions, and add
-> a 'concat-parts' binding to link the partitions of the two flash nodes that
-> need to be concatenated.
+On Sun, 27 Oct 2024 23:16:55 +0100,
+Piyush Raj Chouhan wrote:
+> 
+> From: pc1598 <piyushchouhan1598@gmail.com>
 
-I understand this was not sent to proper addresses for review because it
-is a RFC. It's fine then.
+Please drop this line, otherwise it's taken as the author.
+We prefer having the same address as specified in Signed-off-by tag.
 
-If this was not the intention and this should be reviewed (and tested,
-although I assume you tested these patches first), then please read the
-standard form bellow:
 
-<form letter>
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
+thanks,
 
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
+Takashi
 
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
 
-Please kindly resend and include all necessary To/Cc entries.
-</form letter>
-
-Best regards,
-Krzysztof
-
+> Infinix ZERO BOOK 13 has a 2+2 speaker system which isn't probed correctly.
+> This patch adds a quirk with the proper pin connections.
+> Also The mic in this laptop suffers too high gain resulting in mostly fan noise being recorded,
+> This patch Also limit mic boost.
+> 
+> HW Probe for device; https://linux-hardware.org/?probe=a2e892c47b
+> 
+> Test: All 4 speaker works, Mic has low noise.
+> Signed-off-by: Piyush Raj Chouhan <piyushchouhan1598@gmail.com>
+> ---
+>  sound/pci/hda/patch_realtek.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 3567b14b52b7..075935707f8a 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -7551,6 +7551,7 @@ enum {
+>  	ALC290_FIXUP_SUBWOOFER_HSJACK,
+>  	ALC269_FIXUP_THINKPAD_ACPI,
+>  	ALC269_FIXUP_DMIC_THINKPAD_ACPI,
+> +	ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13,
+>  	ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO,
+>  	ALC255_FIXUP_ACER_MIC_NO_PRESENCE,
+>  	ALC255_FIXUP_ASUS_MIC_NO_PRESENCE,
+> @@ -7996,6 +7997,16 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.type = HDA_FIXUP_FUNC,
+>  		.v.func = alc269_fixup_pincfg_U7x7_headset_mic,
+>  	},
+> +	[ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13] = {
+> +		.type = HDA_FIXUP_PINS,
+> +		.v.pins = (const struct hda_pintbl[]) {
+> +			{ 0x14, 0x90170151 }, /* use as internal speaker (LFE) */
+> +			{ 0x1b, 0x90170152 }, /* use as internal speaker (back) */
+> +			{ }
+> +		},
+> +		.chained = true,
+> +		.chain_id = ALC269_FIXUP_LIMIT_INT_MIC_BOOST
+> +	},
+>  	[ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO] = {
+>  		.type = HDA_FIXUP_PINS,
+>  		.v.pins = (const struct hda_pintbl[]) {
+> @@ -10989,6 +11000,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x1d72, 0x1945, "Redmi G", ALC256_FIXUP_ASUS_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x1d72, 0x1947, "RedmiBook Air", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x2782, 0x0214, "VAIO VJFE-CL", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+> +	SND_PCI_QUIRK(0x2782, 0x0228, "Infinix ZERO BOOK 13", ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13),
+>  	SND_PCI_QUIRK(0x2782, 0x0232, "CHUWI CoreBook XPro", ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO),
+>  	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
+>  	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
+> -- 
+> 2.46.2
+> 

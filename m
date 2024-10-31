@@ -2,191 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0139B70D0
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Oct 2024 00:58:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F38A9B7158
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Oct 2024 01:50:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51CE5EF2;
-	Thu, 31 Oct 2024 00:57:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51CE5EF2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E14FAE8;
+	Thu, 31 Oct 2024 01:49:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E14FAE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730332688;
-	bh=tRAqIlmnqopPfN9MoXpK709PloSDAAo7niYRySdRAbc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1730335807;
+	bh=AouGVQ2CRkjpEWM70bUJlCu0V+yKP2XQnmW+HAZ45c8=;
+	h=Date:Subject:From:To:CC:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mOCa60AFyjQE8lC2SpZM8CRDXh/gHG2Gfk0UMyzZkZE8pz1NGM6Vto/kscvkB38Aa
-	 ToozAv3XQm9DKI6D53u6KmdqRy12bYKwoq8M6xteKDzHjniK+wLH8jgVvLha1Rv3bB
-	 08tZ/Ch/JjNxrueIVdma11aCEyi5Wu59pvAf2fjc=
+	b=ISytXhoM4tRsgf5qkCSe2JVX/F9qA7qi4fP/tU93HMzBuxL/uSwj6A506QsQIiJXK
+	 hOBA3CD2WR0s4xlEGeAI8+st0cY63AfklNOGJStJKGZVmcT0aPXBjFhSR8WGZM8SeL
+	 gWcOaVlMzjAbvZqWWZI4Rm6yAxT/iRJAqSxVRTLo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A6D1F805B1; Thu, 31 Oct 2024 00:57:36 +0100 (CET)
+	id F3816F805AD; Thu, 31 Oct 2024 01:49:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42D2DF805AC;
-	Thu, 31 Oct 2024 00:57:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 671AEF805A1;
+	Thu, 31 Oct 2024 01:49:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CEF0F80269; Thu, 31 Oct 2024 00:57:29 +0100 (CET)
+	id 77644F80269; Thu, 31 Oct 2024 01:49:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazlp170110002.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:c405::2])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4B4CF80104
-	for <alsa-devel@alsa-project.org>; Thu, 31 Oct 2024 00:57:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4B4CF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 85978F80104
+	for <alsa-devel@alsa-project.org>; Thu, 31 Oct 2024 01:49:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85978F80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=n2sxbZUp
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sRbMl9rF52eCAzSVdwwPZak0mBBx/p4MhKjfc7Mnu7MbW8W8O+CoHXmiGa/5c9gT0PBTNriqk5YUjenU1KmAPWHhNvJFUkS+I54B+RAuIWOIDDIe8WmdpTzjoMMTSvom6BrXL8ZZUaLzscBrZqbeF+0HXkJuiKIxCfh2TV6bQzu+DZBDBsWymu2PvIpFZjOac8E9jR7QFhn8878aV/5p/QH84sFrVO0mNlIr4DupfB5SSzeZ8zCSsKJeC6N2ryOGkWIG+KHF8ZpsSqlf0D9FIei5P81mNvyx6qcvEllP7CRP2X05JNGyWS4husua/AOWQoZXgdG7Kw9O/x2x7CNQ7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tRAqIlmnqopPfN9MoXpK709PloSDAAo7niYRySdRAbc=;
- b=r2yEOst7/kg8/Xaklo44GoaON9axEeLdy89zQN4K7v5xw2OPyrWIfCqH6ueFCiSXyvaXYNpMukmLX5Q4apbIWSVjsvSUxtJMPeWS2D1dlkRqlu9/vyxiNSNDTCJKZzePKbfjT+WySni04wKmWHpYmpWugpg5j77BNDrNv5O0rlzaek7BaS9BPNMyY4O5wwCAEdsjaxwwVZQ5qxEvi0xtA7HyP101He6BuIwaoZ4iDZpf33TYXoLFlW7FhQwN/3pbnzTkDyB6QPnEorqI97938B7/GyPb8ulRY4lDuG4RE24d4ckZnGNnhP7L0w261xYQKrIAuGMwHqZYcrx3Jxxxxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tRAqIlmnqopPfN9MoXpK709PloSDAAo7niYRySdRAbc=;
- b=n2sxbZUp6RTJdMTTf+7AS+hMR963jB2wWRdHoSVJWA+1vfx65tT5sn9A3vEO4ii+texSJLLYipqzMcm547Yxiny/PSZ36te5SvvsW2BUOaU/PV5bh+q35WuUDyRiCPSPxaYc/Y9Loi6DUIBcYmiqwZjWq4kxSv92cZFN3BbdO9Q=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TY3PR01MB10156.jpnprd01.prod.outlook.com
- (2603:1096:400:1db::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20; Wed, 30 Oct
- 2024 23:57:17 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11%6]) with mapi id 15.20.8114.015; Wed, 30 Oct 2024
- 23:57:17 +0000
-Message-ID: <87ttct2lgt.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Liam Girdwood
- <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Neil Armstrong
- <neil.armstrong@linaro.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Shengjiu Wang
- <shengjiu.wang@gmail.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	Vinod Koul
- <vkoul@kernel.org>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	alsa-devel@alsa-project.org,
-	imx@lists.linux.dev,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-sound@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH 3/8] ASoC: meson: switch to use rtd->id from rtd->num
-In-Reply-To: <1ja5eudix4.fsf@starbuckisacylon.baylibre.com>
-References: <871q06cmsl.wl-kuninori.morimoto.gx@renesas.com>
-	<87wmhyb85l.wl-kuninori.morimoto.gx@renesas.com>
-	<1ja5eudix4.fsf@starbuckisacylon.baylibre.com>
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 30 Oct 2024 23:57:16 +0000
-X-ClientProxiedBy: TYWPR01CA0034.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::21) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=g/AnwqZ3
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 49UCH9ug019847;
+	Thu, 31 Oct 2024 00:49:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7xhMTx79uWJ0oHC0IxM8Ok0hQb/h6nRSursI6CrKMEE=; b=g/AnwqZ3Yif4Pzs9
+	KNW5jnZUznCrIQweqAJPN2eBbylguIg9A+Lb3oIoZ/6PVJ+K6OE8qFGSS9kW39i4
+	jqRrPlz4uQIfbSHSlMIx8YFg+l1p4wMsEfNbfVfakFk7UPY7S4X9vMPJp3WGVB4v
+	LFe3/fhmghYYimkF1MItCwkWuigpuJI+FLXRIgLjNp7PcRPXfD4H/XfNYZ+3kUyW
+	XHMhMBbexVYS9emVN69riDIRc+7EIVogY99NrtMJc3BSMjm8WRQ8ftxFZTKMg0bE
+	0YYLsxaAasl1dM/MhkJZ/KY22YvtnOhIUiZ3MwgrhVJbfTv7a9JnSkI8K5FumQ4R
+	hCFDCQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42kmp0ht14-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 31 Oct 2024 00:49:20 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+	by NALASPPMTA04.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id
+ 49V0nKMA010497
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 31 Oct 2024 00:49:20 GMT
+Received: from [10.71.115.184] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 30 Oct
+ 2024 17:49:19 -0700
+Message-ID: <07d5a8b5-e985-45c1-95e0-1def6695ba9b@quicinc.com>
+Date: Wed, 30 Oct 2024 17:49:18 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TY3PR01MB10156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21cf39fe-27bc-460a-62e2-08dcf93e9576
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|376014|7416014|52116014|366016|1800799024|38350700014;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?XSEXtiBxC99FU9bP9dDDw3u1bn+AMg5ibxvIsZKvM0U2rpDr3ifmwA5RRqOZ?=
- =?us-ascii?Q?KeCfg4ZGHQhlDzgPqGX8MtPb87bWoVMvOXlX5Onifl1VgoSNJTeAyR7R1KWz?=
- =?us-ascii?Q?Fw8q3by5JGvPvQ3pk2zZLMNsHxPhi4jzhXHCRHbN0EkiuTe129iUD1UcQKOQ?=
- =?us-ascii?Q?TqpwYTHsR51ouCBQNB5JNGN9FhZR5VShzRxjGVGeVABuxXET2mPZebqxQG3Z?=
- =?us-ascii?Q?vySs0AnLMaRmZnqMIxzNcoDLkZDmm3kO/8BLQD8cdZU5IuyLjEKpBN2naQEK?=
- =?us-ascii?Q?o0BCFCTMZDtvgUx1kpPu4LG1wP3V2zg1mYlcOOT4SCPRHnDHLpkqfVpjdsQv?=
- =?us-ascii?Q?klP6waV6qB3SWR/E7a0GttVYSixxSVhSp+KDEJSIf1FkajyubX5APyeOdsxq?=
- =?us-ascii?Q?8uGjWwXrIWhyK+HLSMhEjP4TO7kEPSevCkmyP+FT3PTPkHjuFputz2oiHJaw?=
- =?us-ascii?Q?NnD9rb6jGYi8l07oyoVSjCt1stRjjMlD4F04XdnqKTAM6NeRXnPS9Pkq1cuU?=
- =?us-ascii?Q?sPSmXJ/UVxmOlNm2Ky0X3z50wiaUzBkeq/Stds3//CMj5z83/A1IvhMsVAok?=
- =?us-ascii?Q?MpMA1Wmd7liJOANTVr9Hd3jABY+OnR91M0WdJ2yyQCXsU906vIY6Occm1y7m?=
- =?us-ascii?Q?R74D/qXyYuk72J7htTC8+w4Q9WDVht+rbiFjKLvbz6vUVshzzYlPpM4HinEI?=
- =?us-ascii?Q?poaCn8vcx7+t92Xk4yt20kBUKTYNPvg3QLh8HQEhvdpVvucckaJT9xvB18bP?=
- =?us-ascii?Q?PgKaEWRwkcfkLB3ckl16F4lvkhPJB1bxpiWZxW9RN7xWdj4UqVT098kwZAO0?=
- =?us-ascii?Q?+E8QXMns8MJsqlknl4RQjCLsF84pstt34wZvGb/lSXqJEa0b0KkZH4QBCWN4?=
- =?us-ascii?Q?fL44bt37Z8V6lnZ7QtXvvLnBeM7tA22D+x8vpQ6uRf1GzIdbI5Ss+MEm3NBG?=
- =?us-ascii?Q?bIFth+dmwVZF6KX9bFc2LwiZSYczH4lBG3ZdJWwWYPjdTA+lsGkGKqQPM3vV?=
- =?us-ascii?Q?zhQLnCLiPsyUrvmUZqAFQGFKZDZRJXPmcL4swl7mF3Lc+ZxUJNmvJcsEZhel?=
- =?us-ascii?Q?DNCb+sXYECDiPjCURbcgv9Jnieqjl+rS1c2xkTrlF9wuKl6geeDFiW+qu95R?=
- =?us-ascii?Q?t5UjvIWWmqKYkfVJj+7M0fa2o5Wv4EjyhupQ6yTjq4gQ9B1edWT829t54dN1?=
- =?us-ascii?Q?PGRCIWS8EiD7zrdTEPOPTpDcxXr8c2lPgPTIdY+SbKSbUobeHZ5o4kJaONL5?=
- =?us-ascii?Q?0w4AAt2EhR84l9+OZ7qI2037ilrswdy4wAEAZDw5w28nlfDeyNPOwbxmBCDS?=
- =?us-ascii?Q?BcjyZN+oeFSAD/xgb/Pxuiw6g5X4/Dxu4aYEquSwScXHi7gV/uDGGXtV7cnI?=
- =?us-ascii?Q?tR3hBgE=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(1800799024)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?2BTfJN2F7n1JgexQwidyeQYy1UODCIHvqNP6HnJji0OeUw412NabEuNvVx9+?=
- =?us-ascii?Q?xOb8H6C/Qcu75J9tL9T9k4qB9zNuBE5tN8luxlOGekRpvFvAHzPzrMRzt1+I?=
- =?us-ascii?Q?BbNuPyH9jPbZkfxqrEKVglHf0Lkm/rSEu7V0jNcuUFMkvpGFy/ZoLNBf232X?=
- =?us-ascii?Q?7BtBu0aXQIyM1H+I7koc4gZ6iREwaMd2rKwKIxEGAsGfgOmQxImg1/An6ocK?=
- =?us-ascii?Q?z13pPKCSB1ury/0k/vcqkTH5eznff/XipbWzHued260gBNB4t1lXTTe4sCMs?=
- =?us-ascii?Q?i4LX86fzc7eSsyBT6jOzBTgk4XG1t+uDgSRK+iEj+IH7Fink8dMd4ySrDrV6?=
- =?us-ascii?Q?s2pJAkmyQTT49SnJefhQyez/vmeBoZkwZ5DIvWSgWaV9WEIlOgvBVyeb8OvX?=
- =?us-ascii?Q?2tCxeAq7DSHGxDTD5Lrj5ZjEZ2HVMWRkdPUWVx4/VRvNyymCb+xIMI9o/yCb?=
- =?us-ascii?Q?SI6Aemn4tSWQQdpwe9QScgm9snCo2dHGnB+OwpT/CSUsNhn1TDONBsJrzsBl?=
- =?us-ascii?Q?KDptrYGe9lHv5yuXLwtHWw27PZqmFji+oXVNr+rv6eC0qhXzzU9qj+gM+Rel?=
- =?us-ascii?Q?19gNzkyO0/4QDBR1Qvl+xLJyESYNIX8YUSgRfzl8StKn+EGN3jxyJU/ZxGSQ?=
- =?us-ascii?Q?4BwvY5S8B+fm6oDtioIntf84q529Zl+iJGmlRI3yjy/E9TUQ3eOxN6VPUhVd?=
- =?us-ascii?Q?05u2rk4V2J5nktP8BmnbCGmL7qqp3JKeui1TDBK6Dqi8OxdyCvAjnemMOn+P?=
- =?us-ascii?Q?XyDEeJF7e4mzltmIRKsIyWDyii3FKkGHh2k7GmCoVmlKhT9meCCuoyq7AbYu?=
- =?us-ascii?Q?tiwN3Jgwli5wz54pAwZVX1oy/V/ecJlmY2yZ2csZsnyDFJxiIcnlc+EAHB+f?=
- =?us-ascii?Q?PkPebCZxBlbZBZ36BuKkpEop4wXb4/3nsag3SEuImYKc660bc7kxI6pzFT26?=
- =?us-ascii?Q?Zm/8zz2Esx8RXOZ8JtSRR/NC5wCKW+eiScINmFJDC/YHX6nykiPnVGLX9VGo?=
- =?us-ascii?Q?gDAUJjanNAQe770bCUcmSIL0Y2Q+QFjfuUFBEsT6NeblxFipISF0hqkoEvPv?=
- =?us-ascii?Q?J4U2d5X6O0PyFlcPe7uZ2fM2jK3o8rQPQHHNqqbLg7daJeECTX1Zgg3KjrjE?=
- =?us-ascii?Q?hsBwGyf+liBzw+6o3RvTJi24z40XBX1jjRbYfDBNXXhb++D1RRkpnkVcb54x?=
- =?us-ascii?Q?395UejlJKNwfP6sXwHksin8udSgm3RtODTqI0ihIzsQmG5n+AOzSfgDObsxQ?=
- =?us-ascii?Q?xkyHCLT3zCfbfVBc5sk+jpwOxaGmkwYybtP0y5dCPgYdZ7p0+ezvRdDIOe1Z?=
- =?us-ascii?Q?cRynyS2h8jk5pzCkJh3cYu1Qd3dAFoT0xVzHKfP7uA1zMf7RjpS4S4kNWP6O?=
- =?us-ascii?Q?AqLBUZlAR0zXy8si/vCEqcopA3HBmV6vblEmr4NI84cCqzGzckXdnW5QBWxx?=
- =?us-ascii?Q?7wDC39ByC5u6/FVXPZPsnUZLzWtLPtC2co/vBgnyIvyYl1+hocx50Dnf5ZMG?=
- =?us-ascii?Q?KcJkbJDZubWUmb+2ohNiq7YQ4M665i2a7SmbfkLbfXpbnl8JnXIbdG43o/XS?=
- =?us-ascii?Q?FfJxSTy0jDp8c72tH4KQjnHX2XLQa7TErkgGHFBQ37yuunQ5HKJzkG4fHJHE?=
- =?us-ascii?Q?dFmKCD4S8I9dDzsUp0VIwzY=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 21cf39fe-27bc-460a-62e2-08dcf93e9576
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2024 23:57:17.2397
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- LyzMdoc1d6d1UOIMAfj0Ta1hI32YZZgzLRUQ1DpjJAHN0sMPgTptbiN3aBEF9sLIylmL2NYNkmWO6RzgXXhg/z3n3rkSKaWZ140pY+vON566K0Oc0JpGnbrzkW9Nb4Nj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10156
-Message-ID-Hash: DMA5COTBGC4PXV7QA4KZZ4X3OA5WJH4V
-X-Message-ID-Hash: DMA5COTBGC4PXV7QA4KZZ4X3OA5WJH4V
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v29 04/33] xhci: sideband: add initial api to register a
+ sideband entity
+From: Wesley Cheng <quic_wcheng@quicinc.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+CC: "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
+        "mathias.nyman@intel.com" <mathias.nyman@intel.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "conor+dt@kernel.org" <conor+dt@kernel.org>,
+        "dmitry.torokhov@gmail.com" <dmitry.torokhov@gmail.com>,
+        "corbet@lwn.net"
+	<corbet@lwn.net>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "tiwai@suse.com" <tiwai@suse.com>,
+        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+        "pierre-louis.bossart@linux.intel.com"
+	<pierre-louis.bossart@linux.intel.com>,
+        "broonie@kernel.org"
+	<broonie@kernel.org>,
+        "bgoswami@quicinc.com" <bgoswami@quicinc.com>,
+        "robh@kernel.org" <robh@kernel.org>,
+        "gregkh@linuxfoundation.org"
+	<gregkh@linuxfoundation.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+        "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>,
+        "linux-input@vger.kernel.org"
+	<linux-input@vger.kernel.org>,
+        "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>,
+        "linux-arm-msm@vger.kernel.org"
+	<linux-arm-msm@vger.kernel.org>,
+        "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>,
+        Mathias Nyman <mathias.nyman@linux.intel.com>
+References: <20241015212915.1206789-1-quic_wcheng@quicinc.com>
+ <20241015212915.1206789-5-quic_wcheng@quicinc.com>
+ <20241025232252.wsk4lviqzyzqjzuh@synopsys.com>
+ <52ea0b32-79c7-42e8-8e2c-192d08f41e64@quicinc.com>
+Content-Language: en-US
+In-Reply-To: <52ea0b32-79c7-42e8-8e2c-192d08f41e64@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: OqRiUjmTcddOaQjqdwLe-IzQ-UetsT-M
+X-Proofpoint-ORIG-GUID: OqRiUjmTcddOaQjqdwLe-IzQ-UetsT-M
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ bulkscore=0 malwarescore=0 impostorscore=0 mlxscore=0 suspectscore=0
+ adultscore=0 clxscore=1015 phishscore=0 spamscore=0 mlxlogscore=999
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2409260000 definitions=main-2410310005
+Message-ID-Hash: JNLOE5V4BF325DKVVOMHPCNL22XKSRB2
+X-Message-ID-Hash: JNLOE5V4BF325DKVVOMHPCNL22XKSRB2
+X-MailFrom: quic_wcheng@quicinc.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -198,7 +156,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DMA5COTBGC4PXV7QA4KZZ4X3OA5WJH4V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JNLOE5V4BF325DKVVOMHPCNL22XKSRB2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -207,25 +165,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 10/29/2024 11:58 AM, Wesley Cheng wrote:
+> Hi Thinh,
+>
+> On 10/25/2024 4:22 PM, Thinh Nguyen wrote:
+>> Hi,
+>>
+>> On Tue, Oct 15, 2024, Wesley Cheng wrote:
+>>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>>
+>>> Introduce XHCI sideband, which manages the USB endpoints being requested by
+>>> a client driver.  This is used for when client drivers are attempting to
+>>> offload USB endpoints to another entity for handling USB transfers.  XHCI
+>>> sideband will allow for drivers to fetch the required information about the
+>>> transfer ring, so the user can submit transfers independently.  Expose the
+>>> required APIs for drivers to register and request for a USB endpoint and to
+>>> manage XHCI secondary interrupters.
+>>>
+>>> Multiple ring segment page linking, proper endpoint clean up, and allowing
+>>> module compilation added by Wesley Cheng to complete original concept code
+>>> by Mathias Nyman.
+>>>
+>>> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+>>> Co-developed-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
+>>> ---
+>>>  drivers/usb/host/Kconfig          |   9 +
+>>>  drivers/usb/host/Makefile         |   2 +
+>>>  drivers/usb/host/xhci-sideband.c  | 424 ++++++++++++++++++++++++++++++
+>>>  drivers/usb/host/xhci.h           |   4 +
+>>>  include/linux/usb/xhci-sideband.h |  70 +++++
+>>>  5 files changed, 509 insertions(+)
+>>>  create mode 100644 drivers/usb/host/xhci-sideband.c
+>>>  create mode 100644 include/linux/usb/xhci-sideband.h
+>>>
+>>> diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
+>>> index 4448d0ab06f0..96659efa4be5 100644
+>>> --- a/drivers/usb/host/Kconfig
+>>> +++ b/drivers/usb/host/Kconfig
+>>> @@ -104,6 +104,15 @@ config USB_XHCI_RZV2M
+>>>  	  Say 'Y' to enable the support for the xHCI host controller
+>>>  	  found in Renesas RZ/V2M SoC.
+>>>  
+>>> +config USB_XHCI_SIDEBAND
+>>> +	tristate "xHCI support for sideband"
+>>> +	help
+>>> +	  Say 'Y' to enable the support for the xHCI sideband capability.
+>>> +	  Provide a mechanism for a sideband datapath for payload associated
+>> Please correct me if I'm wrong, but this doesn't look like the actual
+>> xHCI Audio Sideband capability described in the xHCI spec section 7.9
+>> but rather a specific implementation for Qcom right? For the xHCI Audio
+>> Sideband xHCI capability, the driver should detect this capability
+>> through the xHCI get extended capability. If this is not xHCI Audio
+>> Sideband capability, we should properly clarify this in the
+>> documentation and the naming of things to avoid any confusion.
+> Sure, that's a good point.  It does still currently rely on utilizing the system memory for USB IO transfers.  I can add some comments and update some of the documentation to reflect that this is different. 
 
-Hi Jerome
+Hi Mathias,
 
-Sorry for my late responce
+Would it make sense to rename the APIs and driver to something other than "sideband" so that users don't get confused with the audio sideband that is mentioned above by Thinh?  How about using something like xhci-sec-intr to signify that this driver has APIs that will help support the use of xHCI secondary interrupters?
 
-> Just one comment: I understand why you have split this into multiple
-> patches, I suppose it will help with the review but I wonder if it
-> wouldn't be better to squash it all into a single change before
-> applying ? To avoid exposing the intermediate state. It might be
-> confusing too. The change would not be that big actually.
+Thanks
 
-Thank you for suggesting, but I don't want to squash them,
-because it makes backport difficult for LTS and/or BSP people.
-I'm always trying to create patch as much as small piece which can
-easy to backport.
+Wesley Cheng
 
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+> Thanks
+>
+> Wesley Cheng
+>
+>> I believe your implementation still needs to provide the data to the
+>> host controller through the system memory right? The xHCI Audio Sideband
+>> capability may pass the data to the xHC other than the main memory.
+>>
+>> BR,
+>> Thinh
+>>
+>>> +	  with audio class endpoints. This allows for an audio DSP to use
+>>> +	  xHCI USB endpoints directly, allowing CPU to sleep while playing
+>>> +	  audio.
+>>> +
+>>>  config USB_XHCI_TEGRA
+>>>  	tristate "xHCI support for NVIDIA Tegra SoCs"
+>>>  	depends on PHY_TEGRA_XUSB

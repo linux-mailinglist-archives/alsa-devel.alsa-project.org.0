@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8DD9B891E
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Nov 2024 03:10:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A684D9B8920
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Nov 2024 03:11:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE82DED1;
-	Fri,  1 Nov 2024 03:10:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE82DED1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5539EC7;
+	Fri,  1 Nov 2024 03:11:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5539EC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730427028;
-	bh=IWhoqvlnLIixO1EP2uq8YzwvZEBRen5XSx6ptqaV330=;
+	s=default; t=1730427070;
+	bh=1NEo2JeNkkw4bbbA2yKGHx4O4VvcPKHkv8KnO4efVtw=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sNqf8NZtaYRVMWmIbmBk/gySevIeUketdL3dnMbnrlW8QdPOy6ikwueup1J5RTTKJ
-	 XLzqvQv/ON3xfWk2A8jyrtMlT4fuCbGHON2yIl4vd3w1fyYJor4kLg1a+CDV1oNZbd
-	 dXzxyqT90lgQ/jp3FTFZFWBEzDHRLdvzcMMwYtQc=
+	b=gvFMByoY3OKrdz+98UY6NnWbP+X/YGINNBSu9ckmO9Gkgr07UCRKjruFHKbMfMu3G
+	 RGjJOfKZjKHHwo2FVrUSar1o+LlOt7ZM3AmGAMMGSBAgDvHmleJs11ydgZw1O2Q3NO
+	 8eclnzOT69XBBj5Ljjeak7t0soZ7ZqFoNcwGQmLA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A29C1F805A1; Fri,  1 Nov 2024 03:09:56 +0100 (CET)
+	id 8B3D4F805F7; Fri,  1 Nov 2024 03:10:14 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74B78F8059F;
-	Fri,  1 Nov 2024 03:09:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 895DDF8057A;
+	Fri,  1 Nov 2024 03:10:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E3702F80301; Fri,  1 Nov 2024 03:09:33 +0100 (CET)
+	id 9F9EEF8057A; Fri,  1 Nov 2024 03:10:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,44 +33,44 @@ X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2060b.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2408::60b])
+ (mail-bn8nam04on2061f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2408::61f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4007AF801F5
-	for <alsa-devel@alsa-project.org>; Fri,  1 Nov 2024 03:09:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4007AF801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 025CAF8057A
+	for <alsa-devel@alsa-project.org>; Fri,  1 Nov 2024 03:10:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 025CAF8057A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=KwJMebnK
+ header.s=selector1 header.b=SfIzoh1I
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h0+lfd86cJqWjDwk3dLOemlgaJ783Xynqe/7VcKSX75GyA6dMXOeg9MWMdm0nLk4Wmw55hnhAJsY+he22hq0J0r8k0B3gZ5QutMTGwQhYX9LO+9COCR//shMRL+66i1u8FvvJ9p+15/Vw1kcYEzSsffAzeC84AHSqTWljy4a1Ljn/UyGHpf6KiJ9c0dJajn7VKkpSEroGUykt6RDm3H6288iSbgqQCfwzBPE3Cki/5MCFm4YniqrZ+QMc9LN87srtsEUuVrUIKQCq/MDRQ/BAEvseTOMYvciaBstK107mVan2iMzKi4grKHA+EzPzBXejdQ3ZyehdFCpmcBVDhtwag==
+ b=OoOLNSa5MDZRw7PSaHneIgZteRL8iGFnNCkIiZE/mfXwXtnZvQ1pLuKHKtz7I5ofvsvfR1xttIGil8xbV/nfCP7vFH2smcCAPc9FRMh9gliPe3VVs3AYCvs+3/R2CIvLSjAHKlbwKacZi0tOvetDe3zhH2YDu9joid7NCtULsBbC8ZQKxka47TPJd6MYyUnpjrxMOYoWWUtWx7M1uZCb5XEn4v04VGXJDPlTeW456uMzjef7hNlbQW3EIcM26pgcbx38gMAPBIseNtRtpzDS5veN2SD6JcF8mf+EjMoBGUaNwCn+UgV2EkwPW+krBW8opxZzQpz7nPXKxjK4tyi17w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NfpdbmsLNWo4PAJQrgN6rD60LlEcyWPm2xz6l7SB/NQ=;
- b=xK+/pNt8CyRVGFkljTgRPHTTr+O9jPVsPqNEiC5tQJcxBUvc89V7ugYfad4jv8t2Y/JwsOlQTjwKpq8luNh9vVACAtssgB/cgSDP1dE/+NrfIZN6A0r/PVKhr/U8kCqYIukuTRK0MOLps/IilnvnjXTHpW3yTV5C5d4tV/EiZRsOkIRHjRXzgN0w9YdcFVionVZ1tCOOarNE+iThbefLAsZgNRE2wfnIlnESGndPMjOoXTwbVipFrmpme1Yinskpoum0yPsQLRcfMTgrDGeh+za3nBNwv+lcv55gc880sukW/7ZxF7Sz75EKEUCveuIbfFuPVbm/oyiD6l8fEhWF1Q==
+ bh=+mPL9Dk4TIDb/iIakDcxkLGlLqgxV7OGgUh4obwrz68=;
+ b=G2Y1kMM0bb3I8MBQyHmUV1z9Y1vv4+NF3p+SqquLhwEP3mCUHrp86OkupfF8uPuvfBgksEhYvM4yS/os/ihNUFz0seNUbJ9uu2OdHpDLQB4sLOONIaNrl60IkZXC001rPN47EsuTIG++besRld4AK+gHCzzHCDctjaGdyr6fWKSvsG9Q4ICjLJTEIC9t7rY7IAZbHQAazclpSZ633qPkuypJl8KRxYNLGex2+S4bNG+6eGvT63wYXfcWxAS+UtDAD3rHZtEkkEB2WBBs1mt5h6wdU2IcPIay2gEe5/vOtTSIpIAgFoMTcWZaFNs82uKcGuWs9vps4foj8ivleCOBTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NfpdbmsLNWo4PAJQrgN6rD60LlEcyWPm2xz6l7SB/NQ=;
- b=KwJMebnK9XVm5xGEN9ZX7M4biYXVhEkwU7sm7ra8FNYduB2/3MQgocsp/WSDDreOyqtN+Awq25JkuiIzOImZMWrDypX92U+aa7CNuCKWlXA+7i+cJeDfioaIU2yj0ojJ3shj1Alh/gcYMq3mbvNlGuUVgpvd2dhVRYNdLiLgZgQ=
-Received: from BYAPR06CA0035.namprd06.prod.outlook.com (2603:10b6:a03:d4::48)
- by SJ2PR12MB8807.namprd12.prod.outlook.com (2603:10b6:a03:4d0::14) with
+ bh=+mPL9Dk4TIDb/iIakDcxkLGlLqgxV7OGgUh4obwrz68=;
+ b=SfIzoh1I8KSKDJMWzvCEHPpXDJve3gZiuU1bSNLrLztRdD6hhEpDNnlnZ+ScdeHQmJRn/j+t6jg/UREjNFCspMEQgKiBE6RQ7QVG+kCJ2xWyZLqeQOb3GRxrxow/g5yB+wGFpPyS2ZXGYMM1btNFIw6++Fd4BHq8dQ598N8IqeU=
+Received: from BY5PR04CA0019.namprd04.prod.outlook.com (2603:10b6:a03:1d0::29)
+ by PH8PR12MB6889.namprd12.prod.outlook.com (2603:10b6:510:1c9::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.23; Fri, 1 Nov
- 2024 02:09:12 +0000
-Received: from SJ5PEPF00000208.namprd05.prod.outlook.com
- (2603:10b6:a03:d4:cafe::94) by BYAPR06CA0035.outlook.office365.com
- (2603:10b6:a03:d4::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20 via Frontend
- Transport; Fri, 1 Nov 2024 02:09:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.23; Fri, 1 Nov
+ 2024 02:10:00 +0000
+Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::6b) by BY5PR04CA0019.outlook.office365.com
+ (2603:10b6:a03:1d0::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.22 via Frontend
+ Transport; Fri, 1 Nov 2024 02:10:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -78,13 +78,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF00000208.mail.protection.outlook.com (10.167.244.41) with Microsoft
+ SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 02:09:12 +0000
+ 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 02:10:00 +0000
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 31 Oct 2024 21:09:08 -0500
+ 15.1.2507.39; Thu, 31 Oct 2024 21:09:12 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <yung-chuan.liao@linux.intel.com>,
@@ -95,9 +95,10 @@ CC: <alsa-devel@alsa-project.org>, <yung-chuan.liao@linux.intel.com>,
 	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
  Mukunda" <Vijendar.Mukunda@amd.com>, Liam Girdwood
 	<liam.r.girdwood@intel.com>
-Subject: [PATCH 1/2] ASoC: sdw_utils/intel/amd: refactor dai link init logic
-Date: Fri, 1 Nov 2024 07:38:01 +0530
-Message-ID: <20241101020802.1103181-2-Vijendar.Mukunda@amd.com>
+Subject: [PATCH 2/2] ASoC: sdw_utils: Update stream_name in dai_links
+ structure
+Date: Fri, 1 Nov 2024 07:38:02 +0530
+Message-ID: <20241101020802.1103181-3-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241101020802.1103181-1-Vijendar.Mukunda@amd.com>
 References: <20241101020802.1103181-1-Vijendar.Mukunda@amd.com>
@@ -109,54 +110,54 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000208:EE_|SJ2PR12MB8807:EE_
-X-MS-Office365-Filtering-Correlation-Id: e29d9368-7ce3-42c7-4b1c-08dcfa1a2e06
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|PH8PR12MB6889:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fc91d34-c129-400a-d2e4-08dcfa1a4a7f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700013|1800799024;
+	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|7416014|376014;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?0wg5S17dPCB+u4qxa4E+JITIXH5slFZ6KDeQqzIzaboHDJO7QGwgR2sM4Aop?=
- =?us-ascii?Q?jr/pbkrjXIy2NgmMIdmvMYM3FBkO+G7VhxzI1hjmYW+pr0sHIDO3ghZcWsDY?=
- =?us-ascii?Q?gun9VxWXlF5YpjxnzRgQiV+x0F/LyuLTJAtbkBXdC4qt431BoJcjza8iSZWq?=
- =?us-ascii?Q?3P47TIngyMI7nPu5eFslYDY6zlY35XfNYDuc3/D81U+iDBci4rwYKCAFY0IW?=
- =?us-ascii?Q?Qvhr5XSqCdq2t3uULarDwQ25ViMJkUPeisbU9fYrjUivpKxyh5zImXsnX6gA?=
- =?us-ascii?Q?b8781CJL7y2KTGBiJP7rpn8aDs+T9rvIvywSFRoZcDUI9esAjH/OXPdaRUlM?=
- =?us-ascii?Q?M4odnO7w+CV0xvVMqlvK7WRHwtIpbuEqCAaipvhKFxove0ZW1lejNLHSmRng?=
- =?us-ascii?Q?hhXXeABN8nupIuKlhJT8XhtZURCWT5qhvYvH/g88yZR4BztGYv6kVOCBwbEa?=
- =?us-ascii?Q?QyrzCjOjRlAl+o7VYXOLFgGghN8qX+hkaIcndSjDdw2xIhohmT1wHJ2025ZM?=
- =?us-ascii?Q?y3RBxpiGz4r3j4/S9p8Uw+ellBOmWnFHmn6OG2MFy+ObLXi0w6B3F9PMzx19?=
- =?us-ascii?Q?zeUGPBfaJ85SSg7XZFk0LmP5ZwkKTsqKkZkSnCYrlB+TOerTvdNIoSTS+zmt?=
- =?us-ascii?Q?LQSCENDi//MInd4TDp5g7D18lk99WPl4ekhlZ5rLetezcY9Fml67tToo+ZSG?=
- =?us-ascii?Q?7DZ/LNzNGUmyJJFaXegj0GpkU7kjvdVVLygAxq2eadJGZYYZ5FovCkuWLyyT?=
- =?us-ascii?Q?10eeODXph7SmYUNwyyA0qK68hUkk3MCa8l83smT2cvjpbs0off1buuwY3riL?=
- =?us-ascii?Q?qX44tRCaGLboazn3nzyO7yBj4K+vdrgZWJSHNmUBH6/7ylXAivPNN7kHMd2T?=
- =?us-ascii?Q?sy3c6KUAPASPwyg7cvoMpNXX6hv4h1159gXzU0l3KYlAqED6lwPxwjsz+Tns?=
- =?us-ascii?Q?qcz9gVr3vIcsgODwZ4ipsY6g4r0DUA/pLfY4aUpsnBTBJE34I1y73ZowxITh?=
- =?us-ascii?Q?3bD4QqV4whNX7TNXFOAAMImPDl6a7k3xwJC52ze+tK0HS4c6WJxEIzBr1tRP?=
- =?us-ascii?Q?3rMmgeXDkK15y+yxKVDph2OgwzAUp8twA1/nM+lBMgIFdYztrqb6vDztbo1p?=
- =?us-ascii?Q?MbXElYZhJAhAmeT7cN4MiyACQIcY2UY5YvyY7zS2O96MFhQC8GhNYLhWIvv2?=
- =?us-ascii?Q?K9ZYh+upCbygVWKXSSAd0bZ3+Fqg/MsDEL2Ke4mPFgLB0Fsv6P4twUXL4z37?=
- =?us-ascii?Q?HQBB82Vunhrf5ta7Ei1u6+91SaFJN+LOkKOviOBaZ6g76vbWqU54Bj2W1DAH?=
- =?us-ascii?Q?RauadxF/SphrxNR7PnUt6bk4n3sOOhIhqOuJyzCPQKnkMCHeyRLexZa2DTiR?=
- =?us-ascii?Q?XIE65WE7a7VKOuoL/1vsamnS66L4j46KRP/fHipQbo77li0AmQ=3D=3D?=
+	=?us-ascii?Q?cLr1FhwhTdNStECJWAByL+PeEL20e2qRoij8EXSEi1SqDQLxCmmjc7d/Nczw?=
+ =?us-ascii?Q?crLHkMK7sfDq0QU2JbKfeP09dnHS/D8LlkhuS9XdshrgcaPrfdvFafux63Uy?=
+ =?us-ascii?Q?fpjeO9Zm9XnxSFusA74mhpPTolfw4rlbYCA8rSQnSm460WQTJnEfy0R8ok5z?=
+ =?us-ascii?Q?5DGaEhSEpAUNPj8F7wmiSww0CMbhPD7y4A34hqv3HLUGwXCTwb4QQM5DEvm0?=
+ =?us-ascii?Q?yGcmyr2PDxSAx5Hg9PAN3gp3SMIJuE8y//SSEp80rXGcTeROzYbqbqTCCJ9q?=
+ =?us-ascii?Q?mbCYn33oTP5Q0I5ps4L/vJ1e69wZdQiKfkW6WhON361F5RyDWZH7L6oSuj7p?=
+ =?us-ascii?Q?ZtdTHw/LDDEX4yp3Y/giG623csEls5KA52NRe+1fMr3gTcG0OdyTPsv9T1XZ?=
+ =?us-ascii?Q?u/OMtBk/PldJjx1xLCndzbrPX9P8OQsE6gbxdAH0F9Nxoxnf956PmIX/W98g?=
+ =?us-ascii?Q?rNiVpVkZ9XhVM5Tljknw1mAv4kyxs2drTKpyZwSXzNlHnS02naybGRWWe1ta?=
+ =?us-ascii?Q?XlJoVMbfq3CDpdU8I6lQW19tNL0A0rzJNBbBKTDXopKkSuGGXDbOWN42x9HJ?=
+ =?us-ascii?Q?QMw0CbUmedk95RLpvCyhvYWhcHy5va2DUTZHVHYhHHmhTSpOW1WkNXJ0lUVY?=
+ =?us-ascii?Q?gdFIuuckmGnFbUXbt5DuCCpe0iMlhPR9QSG1kp1C6MbaK8wqOeSNtqg0vKGh?=
+ =?us-ascii?Q?v/hc4SLujMCls2P+dzjIlAaDTP39pZxv2Wbvany8lH9tk87PhH/xgByY2htG?=
+ =?us-ascii?Q?EiZuJsawyKYYc3f1vK5glkWJn5FiqdRoaL2pJ6GFDyzko1norYwH5IKPIgw+?=
+ =?us-ascii?Q?Wzkqw/R1SEGrOQ3ivxyNg5yV6JYhO3SsxdUZehp6EFvFhDCz809dETniQ9O/?=
+ =?us-ascii?Q?l7EpD5AgkCEN6XLXWAu5n10Yn6TlrRs4W9WXIXOickdnW6ElMdp9/qyKys0x?=
+ =?us-ascii?Q?H1olXkDpXQC1rUBaAxxHZjthunm/kuu6ga7G+D5Fl4DPHTT5k2aHdo+p7eBv?=
+ =?us-ascii?Q?0e7umSmiRV/+GmjBqa2RsxWyK7clrGHTANuPwnkBZqYIAIUDmlQ4Zb2RuU9b?=
+ =?us-ascii?Q?X5MheEgoM6+TLIf/oHaTfEsKVtcXLlfkD+I4y9x9z8+y8HrEm6v45AvkxGf1?=
+ =?us-ascii?Q?lXoegN3FIh/nioLlN0jGhf0eGprDeti4bTbaoRdQsbutVUhgRNtXjK1vMQAv?=
+ =?us-ascii?Q?FYpcijBA59kCj54RVdDDrLir3jZKtZp3V9qSQJ+1kbZWh9FpOc01D/74n7SI?=
+ =?us-ascii?Q?DZbWgN9MDmo07Kw0JXQ5qET7KJRAy9Q+ABLxQ1x7IACz7MwqOvLRcnUBP4Mg?=
+ =?us-ascii?Q?usQ9JlFfZ9huwuKV8EUbseFGQ+geuqWQcVGyEIH0rpkSp1FEBDgdcUGeJx29?=
+ =?us-ascii?Q?867NuWU9Ej8Key3DLI49hX0rtYukCzQLUtBL5y9lQpEElmYE2A=3D=3D?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(7416014)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 02:09:12.6463
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 02:10:00.4033
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e29d9368-7ce3-42c7-4b1c-08dcfa1a2e06
+ 0fc91d34-c129-400a-d2e4-08dcfa1a4a7f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
  TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	SJ5PEPF00000208.namprd05.prod.outlook.com
+	SJ5PEPF00000203.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8807
-Message-ID-Hash: TAUECAXUA6L6PW5NZFHSMVZAC4R4GQXU
-X-Message-ID-Hash: TAUECAXUA6L6PW5NZFHSMVZAC4R4GQXU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6889
+Message-ID-Hash: WDNDZ6CKR6FFIIMUZBFVNVGW4X57MJQZ
+X-Message-ID-Hash: WDNDZ6CKR6FFIIMUZBFVNVGW4X57MJQZ
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -169,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TAUECAXUA6L6PW5NZFHSMVZAC4R4GQXU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WDNDZ6CKR6FFIIMUZBFVNVGW4X57MJQZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -178,182 +179,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add 'no_pcm' as parameter for asoc_sdw_init_dai_link() so that
-same function can be used for SOF and legacy(No DSP) stack.
-Pass 'no_pcm' as 1 for Intel and AMD SOF based machine drivers.
+For sof stack, dai_link->stream name will be assigned.
+For legacy(No DSP enabled) stack, dai_link->stream name should be updated
+explicitly. Update the stream_name in dai_link structure.
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
- include/sound/soc_sdw_utils.h        |  5 +++--
- sound/soc/amd/acp/acp-sdw-sof-mach.c |  8 ++++----
- sound/soc/intel/boards/sof_sdw.c     | 12 ++++++------
- sound/soc/sdw_utils/soc_sdw_utils.c  |  9 +++++----
- 4 files changed, 18 insertions(+), 16 deletions(-)
+ sound/soc/sdw_utils/soc_sdw_utils.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/sound/soc_sdw_utils.h b/include/sound/soc_sdw_utils.h
-index a25f94d6eb67..0e82598e10af 100644
---- a/include/sound/soc_sdw_utils.h
-+++ b/include/sound/soc_sdw_utils.h
-@@ -152,14 +152,15 @@ void asoc_sdw_init_dai_link(struct device *dev, struct snd_soc_dai_link *dai_lin
- 			    struct snd_soc_dai_link_component *cpus, int cpus_num,
- 			    struct snd_soc_dai_link_component *platform_component,
- 			    int num_platforms, struct snd_soc_dai_link_component *codecs,
--			    int codecs_num, int (*init)(struct snd_soc_pcm_runtime *rtd),
-+			    int codecs_num, int no_pcm,
-+			    int (*init)(struct snd_soc_pcm_runtime *rtd),
- 			    const struct snd_soc_ops *ops);
- 
- int asoc_sdw_init_simple_dai_link(struct device *dev, struct snd_soc_dai_link *dai_links,
- 				  int *be_id, char *name, int playback, int capture,
- 				  const char *cpu_dai_name, const char *platform_comp_name,
- 				  int num_platforms, const char *codec_name,
--				  const char *codec_dai_name,
-+				  const char *codec_dai_name, int no_pcm,
- 				  int (*init)(struct snd_soc_pcm_runtime *rtd),
- 				  const struct snd_soc_ops *ops);
- 
-diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-index 36e6d6db90c1..8fce8cb957c9 100644
---- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
-@@ -236,7 +236,7 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 		asoc_sdw_init_dai_link(dev, *dai_links, be_id, name, playback, capture,
- 				       cpus, num_cpus, platform_component,
- 				       ARRAY_SIZE(platform_component), codecs, num_codecs,
--				       asoc_sdw_rtd_init, &sdw_ops);
-+				       1, asoc_sdw_rtd_init, &sdw_ops);
- 
- 		/*
- 		 * SoundWire DAILINKs use 'stream' functions and Bank Switch operations
-@@ -285,7 +285,7 @@ static int create_sdw_dailinks(struct snd_soc_card *card,
- }
- 
- static int create_dmic_dailinks(struct snd_soc_card *card,
--				struct snd_soc_dai_link **dai_links, int *be_id)
-+				struct snd_soc_dai_link **dai_links, int *be_id, int no_pcm)
- {
- 	struct device *dev = card->dev;
- 	int ret;
-@@ -294,7 +294,7 @@ static int create_dmic_dailinks(struct snd_soc_card *card,
- 					    0, 1, // DMIC only supports capture
- 					    "acp-sof-dmic", platform_component->name,
- 					    ARRAY_SIZE(platform_component),
--					    "dmic-codec", "dmic-hifi",
-+					    "dmic-codec", "dmic-hifi", no_pcm,
- 					    asoc_sdw_dmic_init, NULL);
- 	if (ret)
- 		return ret;
-@@ -377,7 +377,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
- 		if (ctx->ignore_internal_dmic) {
- 			dev_warn(dev, "Ignoring ACP DMIC\n");
- 		} else {
--			ret = create_dmic_dailinks(card, &dai_links, &be_id);
-+			ret = create_dmic_dailinks(card, &dai_links, &be_id, 1);
- 			if (ret)
- 				return ret;
- 		}
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 5614e706a0bb..9ca284a1d666 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -790,7 +790,7 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 		asoc_sdw_init_dai_link(dev, *dai_links, be_id, name, playback, capture,
- 				       cpus, num_cpus, platform_component,
- 				       ARRAY_SIZE(platform_component), codecs, num_codecs,
--				       asoc_sdw_rtd_init, &sdw_ops);
-+				       1, asoc_sdw_rtd_init, &sdw_ops);
- 
- 		/*
- 		 * SoundWire DAILINKs use 'stream' functions and Bank Switch operations
-@@ -867,7 +867,7 @@ static int create_ssp_dailinks(struct snd_soc_card *card,
- 						    playback, capture, cpu_dai_name,
- 						    platform_component->name,
- 						    ARRAY_SIZE(platform_component), codec_name,
--						    ssp_info->dais[0].dai_name, NULL,
-+						    ssp_info->dais[0].dai_name, 1, NULL,
- 						    ssp_info->ops);
- 		if (ret)
- 			return ret;
-@@ -892,7 +892,7 @@ static int create_dmic_dailinks(struct snd_soc_card *card,
- 					    0, 1, // DMIC only supports capture
- 					    "DMIC01 Pin", platform_component->name,
- 					    ARRAY_SIZE(platform_component),
--					    "dmic-codec", "dmic-hifi",
-+					    "dmic-codec", "dmic-hifi", 1,
- 					    asoc_sdw_dmic_init, NULL);
- 	if (ret)
- 		return ret;
-@@ -903,7 +903,7 @@ static int create_dmic_dailinks(struct snd_soc_card *card,
- 					    0, 1, // DMIC only supports capture
- 					    "DMIC16k Pin", platform_component->name,
- 					    ARRAY_SIZE(platform_component),
--					    "dmic-codec", "dmic-hifi",
-+					    "dmic-codec", "dmic-hifi", 1,
- 					    /* don't call asoc_sdw_dmic_init() twice */
- 					    NULL, NULL);
- 	if (ret)
-@@ -947,7 +947,7 @@ static int create_hdmi_dailinks(struct snd_soc_card *card,
- 						    1, 0, // HDMI only supports playback
- 						    cpu_dai_name, platform_component->name,
- 						    ARRAY_SIZE(platform_component),
--						    codec_name, codec_dai_name,
-+						    codec_name, codec_dai_name, 1,
- 						    i == 0 ? sof_sdw_hdmi_init : NULL, NULL);
- 		if (ret)
- 			return ret;
-@@ -975,7 +975,7 @@ static int create_bt_dailinks(struct snd_soc_card *card,
- 					    1, 1, cpu_dai_name, platform_component->name,
- 					    ARRAY_SIZE(platform_component),
- 					    snd_soc_dummy_dlc.name, snd_soc_dummy_dlc.dai_name,
--					    NULL, NULL);
-+					    1, NULL, NULL);
- 	if (ret)
- 		return ret;
- 
 diff --git a/sound/soc/sdw_utils/soc_sdw_utils.c b/sound/soc/sdw_utils/soc_sdw_utils.c
-index 6610efe8af18..e7f5938701ef 100644
+index e7f5938701ef..19bd02e2cd6d 100644
 --- a/sound/soc/sdw_utils/soc_sdw_utils.c
 +++ b/sound/soc/sdw_utils/soc_sdw_utils.c
-@@ -1015,7 +1015,8 @@ void asoc_sdw_init_dai_link(struct device *dev, struct snd_soc_dai_link *dai_lin
- 			    struct snd_soc_dai_link_component *cpus, int cpus_num,
- 			    struct snd_soc_dai_link_component *platform_component,
- 			    int num_platforms, struct snd_soc_dai_link_component *codecs,
--			    int codecs_num, int (*init)(struct snd_soc_pcm_runtime *rtd),
-+			    int codecs_num, int no_pcm,
-+			    int (*init)(struct snd_soc_pcm_runtime *rtd),
- 			    const struct snd_soc_ops *ops)
- {
+@@ -1022,6 +1022,7 @@ void asoc_sdw_init_dai_link(struct device *dev, struct snd_soc_dai_link *dai_lin
  	dev_dbg(dev, "create dai link %s, id %d\n", name, *be_id);
-@@ -1023,7 +1024,7 @@ void asoc_sdw_init_dai_link(struct device *dev, struct snd_soc_dai_link *dai_lin
+ 	dai_links->id = (*be_id)++;
  	dai_links->name = name;
++	dai_links->stream_name = name;
  	dai_links->platforms = platform_component;
  	dai_links->num_platforms = num_platforms;
--	dai_links->no_pcm = 1;
-+	dai_links->no_pcm = no_pcm;
- 	dai_links->cpus = cpus;
- 	dai_links->num_cpus = cpus_num;
- 	dai_links->codecs = codecs;
-@@ -1039,7 +1040,7 @@ int asoc_sdw_init_simple_dai_link(struct device *dev, struct snd_soc_dai_link *d
- 				  int *be_id, char *name, int playback, int capture,
- 				  const char *cpu_dai_name, const char *platform_comp_name,
- 				  int num_platforms, const char *codec_name,
--				  const char *codec_dai_name,
-+				  const char *codec_dai_name, int no_pcm,
- 				  int (*init)(struct snd_soc_pcm_runtime *rtd),
- 				  const struct snd_soc_ops *ops)
- {
-@@ -1058,7 +1059,7 @@ int asoc_sdw_init_simple_dai_link(struct device *dev, struct snd_soc_dai_link *d
- 
- 	asoc_sdw_init_dai_link(dev, dai_links, be_id, name, playback, capture,
- 			       &dlc[0], 1, &dlc[1], num_platforms,
--			       &dlc[2], 1, init, ops);
-+			       &dlc[2], 1, no_pcm, init, ops);
- 
- 	return 0;
- }
+ 	dai_links->no_pcm = no_pcm;
 -- 
 2.34.1
 

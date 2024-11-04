@@ -2,89 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1B79BB07E
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2024 11:01:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CABE19BB476
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2024 13:17:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFD10843;
-	Mon,  4 Nov 2024 11:01:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFD10843
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC15986E;
+	Mon,  4 Nov 2024 13:17:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC15986E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730714516;
-	bh=f1WAT5GznHOznsY4+nfCpE5qHc2VaaKObHI4tYurF1k=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=vPUSKLOZquc4ag1Uwtv2ZMeAbFcvuLzQYNkynfbopZIfkdKoE8hAAlFkTte0WuvEY
-	 bzSFzvpirECyvnPmBrWxRhs/7GBoMlbpxdWNnSw58b4BCKM0QGFLm0BNTRl8oPnZi3
-	 vEr3ohYLBqTe4EA6DsxdNHhtVWame4DfNDDZbKAE=
+	s=default; t=1730722638;
+	bh=2q5cM5jBgPwB0S1xjxKGbk0Ij/bx8viMdMSL73+1hxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=APnDEmBiQsoOJ7ex2qQmy1nJ2h+/f4yIamviJBX4u7QDTcbl4MJ42tffLtRoAbowq
+	 a9jvGfcN5cN8CMT+aEkXmO9KrFqmHykGOuv3ABM0OGWMSk9iJ1ZVUT5KT4utJ1j6eW
+	 8D9fhw9yWlQ+cUvSXiLgXCax53/zvus3uhvvOiDg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EC2FF80588; Mon,  4 Nov 2024 11:01:22 +0100 (CET)
+	id 48716F805AF; Mon,  4 Nov 2024 13:16:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 586E3F805B0;
-	Mon,  4 Nov 2024 11:01:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B430FF805A8;
+	Mon,  4 Nov 2024 13:16:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2CAC0F8026A; Mon,  4 Nov 2024 11:01:12 +0100 (CET)
+	id F099CF8026A; Mon,  4 Nov 2024 13:16:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3E82F8014C
-	for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2024 11:01:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3E82F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1CD6AF8014C
+	for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2024 13:16:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CD6AF8014C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=mhHEKlid
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 4A4A13s1124531;
-	Mon, 4 Nov 2024 04:01:03 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1730714463;
-	bh=VBIC/sZ0pblJPttXUyrh9GSaEySJML5Y8Qv1tloCis4=;
-	h=From:To:CC:Subject:Date;
-	b=mhHEKlidrL4upkPqDsBApPUAXY4u0tNM3WfEtBuZSpk1XC5ER+l0XppfbxLPDNOVG
-	 0cgZpySi72rHGk757XWX5JwAGojl9x6VIMus2G+mxIOeCQKPSeNVjBrHUW0MjmfUe4
-	 5UW8P9C+ucVwOQqXNI0f1uH5x+pQfQrL1rrUyUvY=
-Received: from DFLE114.ent.ti.com (dfle114.ent.ti.com [10.64.6.35])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4A4A13ed097286;
-	Mon, 4 Nov 2024 04:01:03 -0600
-Received: from DFLE102.ent.ti.com (10.64.6.23) by DFLE114.ent.ti.com
- (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 4
- Nov 2024 04:01:03 -0600
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Mon, 4 Nov 2024 04:01:03 -0600
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.162.164])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4A4A0wvT080525;
-	Mon, 4 Nov 2024 04:00:59 -0600
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>,
-        <pierre-louis.bossart@linux.intel.com>, <13916275206@139.com>,
-        <alsa-devel@alsa-project.org>, <tiwai@suse.de>, <baojun.xu@ti.com>,
-        <Baojun.Xu@fpt.com>, <navada@ti.com>, <flaviopr@microsoft.com>,
-        <v-hampiholi@ti.com>, Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v1] ASoC: tas2781: Add new driver version for tas2563 &
- tas2781 qfn chip
-Date: Mon, 4 Nov 2024 18:00:55 +0800
-Message-ID: <20241104100055.48-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ISYXWq50
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id D09385C559E;
+	Mon,  4 Nov 2024 12:15:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD52C4CECE;
+	Mon,  4 Nov 2024 12:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730722595;
+	bh=2q5cM5jBgPwB0S1xjxKGbk0Ij/bx8viMdMSL73+1hxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ISYXWq50pkwY7IaQdLnqnQ6LvPiNyernU2Y9U8ikMDdaBY/QUiNnbnJaAjDHFHbE7
+	 2FTHnBZPsWJFGKCeKpc5tiYQjPPxEh8sgbHbSJmJOpl0SNguGBm3ALc4bmaJUkQWoe
+	 slpJ5z/q+IRU5Yfof5et6OVUeCw4mAOiMXana6Xz1YOLvt/QLwegp8PWVr8cgNR3YC
+	 JbviL7aHu7oMmJsgdV61397zHvO33QupWW8n2/Q+u6As8aPZykV7hwN9T7evw/rldT
+	 N0tF1yyvtaf6GTzIDzDiPvA5wraIjCLUKNMA5L+y5gEplnCJF0BKLFDJ2K7Qkd4seK
+	 dR1QNONAnfuTw==
+Date: Mon, 4 Nov 2024 12:16:28 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+	linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	Basavaraj Hiregoudar <Basavaraj.Hiregoudar@amd.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Emil Velikov <emil.velikov@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Sunil-kumar Dommati <Sunil-kumar.Dommati@amd.com>,
+	syed saba kareem <ssabakar@amd.com>, Takashi Iwai <tiwai@suse.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: amd: acp: Fix for ACP SOF dmic tplg component load
+ failure
+Message-ID: <d53810ac-a7f6-47da-aa12-0562ed565008@sirena.org.uk>
+References: <20241104091312.1108299-1-venkataprasad.potturu@amd.com>
+ <e1ac11b3-b746-4564-8daa-3527aa13e348@web.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Message-ID-Hash: BKLPFWHIJZWPLIRGSXWESIBX5PTRAHTO
-X-Message-ID-Hash: BKLPFWHIJZWPLIRGSXWESIBX5PTRAHTO
-X-MailFrom: shenghao-ding@ti.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kTb8e3B9zP668jr+"
+Content-Disposition: inline
+In-Reply-To: <e1ac11b3-b746-4564-8daa-3527aa13e348@web.de>
+X-Cookie: The meek are contesting the will.
+Message-ID-Hash: QSM7EFUV4TCSH2SPKFHOHEPGVFPKFCP2
+X-Message-ID-Hash: QSM7EFUV4TCSH2SPKFHOHEPGVFPKFCP2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BKLPFWHIJZWPLIRGSXWESIBX5PTRAHTO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QSM7EFUV4TCSH2SPKFHOHEPGVFPKFCP2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,25 +109,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add new driver version to support tas2563 & tas2781 qfn chip
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
----
- sound/soc/codecs/tas2781-fmwlib.c | 1 +
- 1 file changed, 1 insertion(+)
+--kTb8e3B9zP668jr+
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index ae360c97fe1e..0aeb88abbf52 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -1992,6 +1992,7 @@ static int tasdevice_dspfw_ready(const struct firmware *fmw,
- 		break;
- 	case 0x202:
- 	case 0x400:
-+	case 0x401:
- 		tas_priv->fw_parse_variable_header =
- 			fw_parse_variable_header_git;
- 		tas_priv->fw_parse_program_data =
--- 
-2.34.1
+On Mon, Nov 04, 2024 at 10:35:23AM +0100, Markus Elfring wrote:
+> =E2=80=A6
+> > As SOF framework assigns dailink->stream name, overriding stream name
+> > other than link name causes SOF dmic component load failure.
+> =E2=80=A6
 
+> Will another imperative wording be helpful for an improved change descrip=
+tion?
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/D=
+ocumentation/process/submitting-patches.rst?h=3Dv6.12-rc5#n94
+
+Feel free to ignore Markus, he has a long history of sending
+unhelpful review comments and continues to ignore repeated requests
+to stop.
+
+--kTb8e3B9zP668jr+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmcouxsACgkQJNaLcl1U
+h9BKcAf/TNNGFpwVuNpRbVlSMez8V2eMkz5wyQajdqcAKWhgfpA4LjxqXW/f4A1g
+ZEHgOPg7WdSnazsqaI/t/q8JOj/j7S033Cw1z6RGT/pXs/CnYnlbi6NSeSSXaUZ9
+vS6ouSn/2qdgqePwSAjcqMUYS5bEHlkI5iBIGcBAugKcBK2W0VI3s679ss+Br83m
++3CHGp4XNiV5LKQyCx948EItuH3d0ncdxTPjgyTUQiPz/WeT9s3xY/TAShRPaB1s
+vt+hfxCNCttGrKtq4+iTNc9l63W2B1cxEjrGrc8WO7Jy7QzDu4RN6boru6xJng7o
+NVY1DEAQ2MYP+8N76znghsRRZkPYrw==
+=9nQZ
+-----END PGP SIGNATURE-----
+
+--kTb8e3B9zP668jr+--

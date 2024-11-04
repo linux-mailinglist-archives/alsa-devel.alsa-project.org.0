@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54BFD9BBA10
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2024 17:18:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1219BBA78
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2024 17:42:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED27EB6A;
-	Mon,  4 Nov 2024 17:18:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED27EB6A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E39E686E;
+	Mon,  4 Nov 2024 17:41:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E39E686E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730737129;
-	bh=bfAsiSNijIbn9dA6dCEoAJCNnIpUVnYgwURSK8OS4ug=;
+	s=default; t=1730738520;
+	bh=+B9xFugGobw2ZRWDNdrYNv/jQoedsgnzX20cqqtb3i8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YG9SQlREIAdBpoQSr1YCGjoPTRC74LI24CY5NrF92+Qiphd2grBNFez190H0jy/xY
-	 mO1d8gvWKv70c0cOKismIhk23jbmrPAAv44FQ4ErutbqCMXpXAlAPqI3Cw7icUuIAG
-	 rv9UAyb5qFlClbZ1w2AUGnVYGWdBhpm70ZRha4+c=
+	b=PCKfQqh+iKPaoG7P8cJFDQpHIbUOUGqRknrl86aX6W3/c64pOxnOaeAlGpGFV+nJc
+	 TSs0o+eOmE+8l3xNeXXIf6b8fG1w8I84QURDdceMz8HACtdzuPr5m27q7KYiMjfiFm
+	 7wkZ7OEKJIf/zNTFxgxLjhDTL2tPoJKxnaZ9YTJI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 984D0F805BA; Mon,  4 Nov 2024 17:18:17 +0100 (CET)
+	id 761E0F805AC; Mon,  4 Nov 2024 17:41:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4274F805B0;
-	Mon,  4 Nov 2024 17:18:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6CA5F805A8;
+	Mon,  4 Nov 2024 17:41:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB6C9F8026A; Mon,  4 Nov 2024 17:18:12 +0100 (CET)
+	id 7E26FF8026A; Mon,  4 Nov 2024 17:41:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3223F8013D
-	for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2024 17:17:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3223F8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id DFA52F8014C
+	for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2024 17:41:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFA52F8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ELeHiV4v
+ header.s=k20201202 header.b=OWjugrvu
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 437C85C486D;
-	Mon,  4 Nov 2024 16:17:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E502C4CECE;
-	Mon,  4 Nov 2024 16:17:53 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id D3D435C3ECC;
+	Mon,  4 Nov 2024 16:40:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04D29C4CECE;
+	Mon,  4 Nov 2024 16:41:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730737073;
-	bh=bfAsiSNijIbn9dA6dCEoAJCNnIpUVnYgwURSK8OS4ug=;
+	s=k20201202; t=1730738479;
+	bh=+B9xFugGobw2ZRWDNdrYNv/jQoedsgnzX20cqqtb3i8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ELeHiV4vJKBVJKglPnNwM4FU9h4OgvTXusWR8lAPnMYQkdfviOs8EYxwcL7BFbdiL
-	 2RVJSf42kx/VHzzyjb4XTns0+4vRba32OT2rKvpm8SOwYAx5UdrChcvvsSZ2CEFndf
-	 daO4CLeyWE5Lbh8G7KVLF5o9n7K3VsPFRKrVV44BpsC97egsW8iREvcfqojKpnzwj1
-	 03GkPzA0xMlNzY9F/Q3KiNX+Iqyda+V0dAPhUZYMyiihT49jsH9JICKfJKpendetVR
-	 cx3TENatm5/RUWWRx9XlsjY818EJGeRDOmYYG69p1JW1AKCDsHHhDGMSFgkG2nm4P1
-	 lv2vYvcLarrcw==
-Date: Mon, 4 Nov 2024 10:17:51 -0600
-From: Rob Herring <robh@kernel.org>
-To: Ki-Seok Jo <kiseok.jo@irondevice.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	b=OWjugrvuDz6ff1jX/EzVG4/5uQaUmp1rB0aAZ84F+JUT2zEz56uX+cXmYmmDbldk2
+	 UbhbOGj3IXz8OKNgB2+5YfAEdCUCMImjpwSQ7RqsxtwYDe5v1KA9Bjf8gJOBqPCswA
+	 6EnDbu8MrjWQszhTFJwgJK3Qi7rRh4x6YoFVpDBHZnXBPv321bpIic0X87FGSnk09b
+	 x4epqNCrtv9imO8+7YX4eRYgmRYegPpjGWCDyfGOsckK+wtSzunlOLmlD7WKqRyEct
+	 41BYaHLIba6sMWBmPxbjI3w6OvSq6rSnjk3alY9Iw9RuS+d+pW45muP1DwnAzha6X7
+	 eySOu/81VHVkw==
+Date: Mon, 4 Nov 2024 16:41:14 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Ki-Seok Jo <kiseok.jo@irondevice.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -73,18 +74,20 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: irondevice,sma1307: Add
  initial DT binding
-Message-ID: <20241104161751.GA320514-robh@kernel.org>
+Message-ID: <ac5ad26e-ef76-4ad9-9396-2b175276a5c8@sirena.org.uk>
 References: <20241104-irondevice-sma1307-v3-0-4bbe79895f54@irondevice.com>
  <20241104-irondevice-sma1307-v3-1-4bbe79895f54@irondevice.com>
  <SL2P216MB23377A60BEC4396ADFA78A6A8C512@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+ <20241104161751.GA320514-robh@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oagKkKyvt1o8YX1v"
 Content-Disposition: inline
-In-Reply-To: 
- <SL2P216MB23377A60BEC4396ADFA78A6A8C512@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
-Message-ID-Hash: 4FJ3O7OYFFHMF73SC4EH43JAZSWNWNIZ
-X-Message-ID-Hash: 4FJ3O7OYFFHMF73SC4EH43JAZSWNWNIZ
-X-MailFrom: robh@kernel.org
+In-Reply-To: <20241104161751.GA320514-robh@kernel.org>
+X-Cookie: The meek are contesting the will.
+Message-ID-Hash: SAWJH2IKELZYQAZZYEWOPLCTFGLD2U3A
+X-Message-ID-Hash: SAWJH2IKELZYQAZZYEWOPLCTFGLD2U3A
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4FJ3O7OYFFHMF73SC4EH43JAZSWNWNIZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SAWJH2IKELZYQAZZYEWOPLCTFGLD2U3A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,92 +108,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Nov 04, 2024 at 07:33:47AM +0000, Ki-Seok Jo wrote:
-> 
 
-I don't see the rest of the series (I fetch from lore). That means your 
-threading is broken.
+--oagKkKyvt1o8YX1v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> This adds the schema binding for the Iron Device SMA1307 Amp
-> 
-> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
-> ---
+On Mon, Nov 04, 2024 at 10:17:51AM -0600, Rob Herring wrote:
+> On Mon, Nov 04, 2024 at 07:33:47AM +0000, Ki-Seok Jo wrote:
 
-v3, but where is the revision history?
+> > +    enum:
+> > +      - irondevice,sma1307a
+> > +      - irondevice,sma1307aq
+> > +    description:
+> > +      If a 'q' is added, it indicated the product is AEC-Q100
+> > +      qualified for automotive applications. SMA1307A supports
+> > +      both WLCSP and QFN packages. However, SMA1307AQ only
+> > +      supports the QFN package.
 
->  .../bindings/sound/irondevice,sma1307.yaml         | 54 ++++++++++++++++++++++
->  1 file changed, 54 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/irondevice,sma1307.yaml b/Documentation/devicetree/bindings/sound/irondevice,sma1307.yaml
-> new file mode 100644
-> index 000000000..0bb4ee664
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/irondevice,sma1307.yaml
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) %YAML 1.2
+> Is this difference visible to software? The package is not, so that part=
+=20
+> is irrelevant.
 
-"%YAML 1.2" goes on the 2nd line.
+It seems reasonable to allow it as a compatible if it's sold as a
+separate part, even if we don't need to care.
 
-> +---
-> +$id: http://devicetree.org/schemas/sound/irondevice,sma1307.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Iron Device SMA1307 Audio Amplifier
-> +
-> +maintainers:
-> +  - Kiseok Jo <kiseok.jo@irondevice.com>
-> +
-> +description:
-> +  SMA1307 boosted digital speaker amplifier
-> +  with feedback-loop.
+--oagKkKyvt1o8YX1v
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Wrap lines at 80 char.
+-----BEGIN PGP SIGNATURE-----
 
-> +
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - irondevice,sma1307a
-> +      - irondevice,sma1307aq
-> +    description:
-> +      If a 'q' is added, it indicated the product is AEC-Q100
-> +      qualified for automotive applications. SMA1307A supports
-> +      both WLCSP and QFN packages. However, SMA1307AQ only
-> +      supports the QFN package.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmco+SkACgkQJNaLcl1U
+h9C3WQf/cvCLIIc9BSmHgNbLWWFbm12PJ+ga/IEM7Ud6luckZzqyjyZRvFV/uy0E
+JabJmdMpallRe/VTN0/0aXbMFY66Jw+3QVCyLprfuYr6GtItgkLxE7SdO32bmp6N
+1Qj5qXJETVb2PWiVsvmVjRitxuKTfLJms0HGgaK5VMwdkV6nTjujPDhKLfIzbgOl
+kDEI+s+aZXcOSbqk69XjFrRtXMiiGZKqbFbdfOncUdt6i1UeiM7AuIvJzjLh18gp
+o2v7CQ5BI+/WXKEk3Mqz8c16WBBiJYmihPraozovwIlDRp7BH7o3qBqX/SxR5TLz
+OkBQzrEMqk42cfC+HVpeWVHb6ML8TA==
+=ZsMY
+-----END PGP SIGNATURE-----
 
-Is this difference visible to software? The package is not, so that part 
-is irrelevant.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#sound-dai-cells':
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#sound-dai-cells'
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        amplifier@1e {
-> +            compatible = "irondevice,sma1307a";
-> +            reg = <0x1e>;
-> +            #sound-dai-cells = <1>;
-> +        };
-> +    };
-> 
-> --
-> 2.39.2
-> 
+--oagKkKyvt1o8YX1v--

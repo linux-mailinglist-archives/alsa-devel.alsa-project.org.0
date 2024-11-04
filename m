@@ -2,91 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CAD79BBD3C
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2024 19:24:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BD469BBE34
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2024 20:43:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03767950;
-	Mon,  4 Nov 2024 19:24:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03767950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E88BB60;
+	Mon,  4 Nov 2024 20:43:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E88BB60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730744657;
-	bh=A6hzEqWTeqonjW95K+t1XJXYA78y9lt27DRYr168Gsw=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=aMx6UFFGE5rfD8iwdCPwpCajoKyxHNn246HVEUAJFRLrGs44UxB3V1TFhRW6ak9Tz
-	 YUXm+1W7VJ2XRkUBVlbfzaRtQ6HFWj53bzIt4vgvz6L/3Rw4yC0ICJlpn88gKnLcO8
-	 lAcRCYFzbrZhAapUM7s39/RQd+oo6BDz+jk7pvuk=
+	s=default; t=1730749405;
+	bh=/s92982cc/MdC2q4FYzyn4p9mBlEM898SljOJNES+l4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KMVLjWXqPImfkwQNdExMX/uDLHE5HvtatuQQjEp2GFFImXhYG3IrFRLgmgQxJjTPU
+	 ftEHH8VPYC5so2kAShR6bgYLEOnfSTbFU8lIva/uwKc/WaVkIqAyGR9igRen5kJ5DH
+	 lQfx9ndorsAy62gcXIREFC56FxgIkMfiTkBFCBhI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC020F805B6; Mon,  4 Nov 2024 19:23:45 +0100 (CET)
+	id 38484F805B0; Mon,  4 Nov 2024 20:42:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17536F805A1;
-	Mon,  4 Nov 2024 19:23:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94071F8026A;
+	Mon,  4 Nov 2024 20:42:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CF86F8026A; Mon,  4 Nov 2024 19:23:38 +0100 (CET)
+	id 91C91F8026A; Mon,  4 Nov 2024 20:42:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5917FF8013D
-	for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2024 19:23:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5917FF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id B19E9F80104
+	for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2024 20:42:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B19E9F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Fg/fgtl3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1730744617; x=1762280617;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=A6hzEqWTeqonjW95K+t1XJXYA78y9lt27DRYr168Gsw=;
-  b=Fg/fgtl3pfjbZPiY8eMqZ6DOojtvB5yIGmshrKif0HksR79u5aWFaF9d
-   t/OMQaiQ+TAOCGSwLbvjqdClAQCAZrXGDTuPCgrYTQsTmoVhtfm0dzhRn
-   kXEa786gnwdp56fHgnHj1SSE+TTru7/vqjPcfF2cbdFPP5oYIlKfjyKq/
-   J5BDieNEYMoyYkoVPViJGWQ+/gUO9gecoaWqdSlQVJD4i3Ib/ka0qBYlK
-   h7Whu79afZePzzat8quU4JbFzTcV0uVM52hgtg72/Phxknw0Ic1LO0DjV
-   SwylmYXoPXpkFggpOoodPSSC56bbgiv1kq6T4GWjRq30QowT/ZiLaj7GI
-   Q==;
-X-CSE-ConnectionGUID: gIFTXxwgRM+i1AgpV+wV8A==
-X-CSE-MsgGUID: eM2yMgACQXWMFVv1xHliew==
-X-IronPort-AV: E=McAfee;i="6700,10204,11246"; a="29882643"
-X-IronPort-AV: E=Sophos;i="6.11,257,1725346800";
-   d="scan'208";a="29882643"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2024 10:23:31 -0800
-X-CSE-ConnectionGUID: 5pAznSnLQWC2y05RIQo8wg==
-X-CSE-MsgGUID: XTMTUZxYRemJ14qtEF5kvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,257,1725346800";
-   d="scan'208";a="83671566"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
-  by orviesa010.jf.intel.com with ESMTP; 04 Nov 2024 10:23:30 -0800
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1t81jb-000l7B-1P;
-	Mon, 04 Nov 2024 18:23:27 +0000
-Date: Tue, 5 Nov 2024 02:23:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [tiwai-sound:for-next 8/9] sound/pci/hda/hda_intel.c:1035:26:
- warning: variable 'bus' set but not used
-Message-ID: <202411050247.3esQz7Am-lkp@intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=nPcxgZ4c
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 4E7535C0FAB;
+	Mon,  4 Nov 2024 19:42:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B257BC4CECE;
+	Mon,  4 Nov 2024 19:42:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730749364;
+	bh=/s92982cc/MdC2q4FYzyn4p9mBlEM898SljOJNES+l4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=nPcxgZ4cUif3dTkaKxy0Z07nOemCV0kB33MSKir78wv64NucIK74YUcBryIMqB3br
+	 zxanUKxlpEeIUf3muBOT8RTGKBgcdl870y+iCLSCusMLu3fbo+wWBzzTtp3d77tSMp
+	 ZLUvHlpUqq2M3+YQWrgbXj2xyA9ofoO4uP1ELYSn1i47j0h//JftZWn4dxRS3HNWHe
+	 D6tAg7CTF946zyYZzc+N9EgbsB+Zu0MvvT+E7kP8aD8Jay5LfvkXcI1/CQMRVgmr76
+	 mZpixnn9pMPw9kIRs+fPbh/0pJMq/eHY664YR3qtwcg7Zy3RjHzw4E/HB9CEWq246a
+	 E0en81OsjKFcg==
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: andriy.shevchenko@linux.intel.com, 13916275206@139.com,
+ alsa-devel@alsa-project.org, tiwai@suse.de, baojun.xu@ti.com,
+ Baojun.Xu@fpt.com, navada@ti.com, flaviopr@microsoft.com,
+ v-hampiholi@ti.com, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20241104100055.48-1-shenghao-ding@ti.com>
+References: <20241104100055.48-1-shenghao-ding@ti.com>
+Subject: Re: [PATCH v1] ASoC: tas2781: Add new driver version for tas2563 &
+ tas2781 qfn chip
+Message-Id: <173074936244.127848.13340343910986887412.b4-ty@kernel.org>
+Date: Mon, 04 Nov 2024 19:42:42 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: SK63HJ45R3VENRPT7CXVN2QOISTFX3PE
-X-Message-ID-Hash: SK63HJ45R3VENRPT7CXVN2QOISTFX3PE
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-9b746
+Message-ID-Hash: YGFBIO4HL64UNWDE5PHQBQ3BTFXAAOVI
+X-Message-ID-Hash: YGFBIO4HL64UNWDE5PHQBQ3BTFXAAOVI
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SK63HJ45R3VENRPT7CXVN2QOISTFX3PE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YGFBIO4HL64UNWDE5PHQBQ3BTFXAAOVI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,53 +99,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-head:   149cb7d9537e241b43056fb4133f56832ac51b7a
-commit: cac99f73f0752e1c83674e12fb2c605dca9ce474 [8/9] ALSA: hda: intel: Don't free interrupt when suspending
-config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20241105/202411050247.3esQz7Am-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-12) 11.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241105/202411050247.3esQz7Am-lkp@intel.com/reproduce)
+On Mon, 04 Nov 2024 18:00:55 +0800, Shenghao Ding wrote:
+> Add new driver version to support tas2563 & tas2781 qfn chip
+> 
+> 
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202411050247.3esQz7Am-lkp@intel.com/
+Applied to
 
-All warnings (new ones prefixed by >>):
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-   sound/pci/hda/hda_intel.c: In function 'azx_suspend':
->> sound/pci/hda/hda_intel.c:1035:26: warning: variable 'bus' set but not used [-Wunused-but-set-variable]
-    1035 |         struct hdac_bus *bus;
-         |                          ^~~
+Thanks!
 
+[1/1] ASoC: tas2781: Add new driver version for tas2563 & tas2781 qfn chip
+      commit: fe09de2db2365eed8b44b572cff7d421eaf1754a
 
-vim +/bus +1035 sound/pci/hda/hda_intel.c
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-f5dac54d9d9382 Kai-Heng Feng  2020-10-27  1030  
-3baffc4a84d759 Takashi Iwai   2018-12-07  1031  static int azx_suspend(struct device *dev)
-3baffc4a84d759 Takashi Iwai   2018-12-07  1032  {
-3baffc4a84d759 Takashi Iwai   2018-12-07  1033  	struct snd_card *card = dev_get_drvdata(dev);
-3baffc4a84d759 Takashi Iwai   2018-12-07  1034  	struct azx *chip;
-3baffc4a84d759 Takashi Iwai   2018-12-07 @1035  	struct hdac_bus *bus;
-3baffc4a84d759 Takashi Iwai   2018-12-07  1036  
-3baffc4a84d759 Takashi Iwai   2018-12-07  1037  	if (!azx_is_pm_ready(card))
-c5c215232dfb71 Takashi Iwai   2012-12-04  1038  		return 0;
-c5c215232dfb71 Takashi Iwai   2012-12-04  1039  
-3baffc4a84d759 Takashi Iwai   2018-12-07  1040  	chip = card->private_data;
-a41d122449bea3 Takashi Iwai   2015-04-14  1041  	bus = azx_bus(chip);
-472e18f63c425d Imre Deak      2021-06-23  1042  	azx_shutdown_chip(chip);
-785d8c4be82b45 Libin Yang     2015-05-12  1043  
-785d8c4be82b45 Libin Yang     2015-05-12  1044  	trace_azx_suspend(chip);
-^1da177e4c3f41 Linus Torvalds 2005-04-16  1045  	return 0;
-^1da177e4c3f41 Linus Torvalds 2005-04-16  1046  }
-^1da177e4c3f41 Linus Torvalds 2005-04-16  1047  
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-:::::: The code at line 1035 was first introduced by commit
-:::::: 3baffc4a84d759ba54c461e8e4583bd8890c749a ALSA: hda/intel: Refactoring PM code
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-:::::: TO: Takashi Iwai <tiwai@suse.de>
-:::::: CC: Takashi Iwai <tiwai@suse.de>
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Mark
+

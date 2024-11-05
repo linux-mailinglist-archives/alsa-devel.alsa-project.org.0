@@ -2,82 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E737D9BD294
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2024 17:39:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF40D9BD298
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2024 17:39:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8708EF94;
-	Tue,  5 Nov 2024 17:38:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8708EF94
+	by alsa0.perex.cz (Postfix) with ESMTPS id 068BEE69;
+	Tue,  5 Nov 2024 17:39:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 068BEE69
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730824745;
-	bh=Fma6XFgCqfjYGnYfDtMUvnzfc/WI0JtMlx9ImAuLeyc=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=XEcBtl3uZALnqLYethulCyKDiaFFbWVisLdyxu8NtnzmBsVY+p5OOmdzPs3uTKpXH
-	 7tnPnSPE1KzXOF9jnjHBR6PnviMQq6Otc2l4g12QyiY8eVQDDUyYHeb6oLYcBqVWlg
-	 7XrSlF7gvnhW/Dnhw4/8syoseLOBHw6RzbiVKB8s=
+	s=default; t=1730824766;
+	bh=omxC84VGn/+YQr7YbyZx+jQOt5oTJWK99g8fh9uYgT4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=R50Hb6QomCOnKZuoZU3PCmCfP6U10cVGGJfnYZJceRjpWFBbxyN2S/9ahBbf0NlcZ
+	 NbLqfvJNeibWHdat+Im299DNEGvXpUoZz+5A4PyjShnO2jRBSut6euoP/qp+TfipK4
+	 zFOuYs65BlItw7Fid0uqrzy0Vh9YBk9H5mIb07sk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68B2BF805E1; Tue,  5 Nov 2024 17:38:30 +0100 (CET)
+	id A2EFEF805FB; Tue,  5 Nov 2024 17:38:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9322F8059F;
-	Tue,  5 Nov 2024 17:38:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C680BF805FA;
+	Tue,  5 Nov 2024 17:38:35 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BEB4FF805C0; Tue,  5 Nov 2024 17:38:26 +0100 (CET)
+	id 1B77CF805BD; Tue,  5 Nov 2024 17:38:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DE584F8059F
-	for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2024 17:38:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE584F8059F
+	by alsa1.perex.cz (Postfix) with ESMTPS id C55F7F805BD
+	for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2024 17:38:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C55F7F805BD
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=t0ug9P1x
+ header.s=k20201202 header.b=DvaRf/uh
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id EA0F9A435F3;
-	Tue,  5 Nov 2024 16:36:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DF8C4CED3;
-	Tue,  5 Nov 2024 16:38:20 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6EC1C5C3E40;
+	Tue,  5 Nov 2024 16:37:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2500DC4CED4;
+	Tue,  5 Nov 2024 16:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730824702;
-	bh=Fma6XFgCqfjYGnYfDtMUvnzfc/WI0JtMlx9ImAuLeyc=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=t0ug9P1xSRFfLjOY8qw7KoTG8Fpae8qE/dbeKDyC1DjIKlLX3htFFn3SMh58rk7eG
-	 PhGvNEVy0DMnZu6UB7LchNEfudNim7MlKhR4eiUn80BDyimNE1Qz061uHHaT32bU5t
-	 caTdOvSuNmkrqtlMUJBenL06t6BrqWL5uH2XqzB+z6rZWmpBzKFJxesshaAqJar9f8
-	 S4InGPH3r3c5DsMgchCD/go/h1cTnXMB8rQXKlSWS4Gl2lXaMciVicEuvVci+VknNU
-	 YJrdrQpmUY44Susjv6Ovt0QK+U+qPYpZt1NavRmjUAsprQnDiPEwXgMv5H6R5XsrSk
-	 2eVp9TMAororw==
+	s=k20201202; t=1730824705;
+	bh=omxC84VGn/+YQr7YbyZx+jQOt5oTJWK99g8fh9uYgT4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=DvaRf/uhp2xk2i+id0MOV/XKBXEpoPGF27r9aIiU8ES8BhUS5q77LiwNV32tTkqWp
+	 n+RCTU3Pn2wPlAOHxpxykq8dChEwd4WqOCpaQSeIToC/kBgRDGDU/kEg0xIERNSssh
+	 jkJ1caVmGpeZBZK5a2G9l4JJ6ycq+hZ1y6oEPjwFnMRfQcGPyNPgp0xF6J18oJR1LV
+	 /XyL/or9i5/T/ssqty5KadvXy9rKQJDxuCRqFz/BbpiwXLoqAQg4qaFUyqW7zqc5qk
+	 JfzwqDuHJ/D0+i1cDyWM2UIDW4oJOxMKeKJ3O4DkSEi+rwAes9whSKQGJUEZ+cOdUY
+	 D38kuNRb/TSkw==
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+To: alsa-devel@alsa-project.org,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Cc: mario.limonciello@amd.com, Vijendar.Mukunda@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com, ssabakar@amd.com,
  Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20241023124152.130706-1-krzysztof.kozlowski@linaro.org>
-References: <20241023124152.130706-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: qcom: x1e80100: Support boards with two speakers
-Message-Id: <173082470066.77847.3145634719799599408.b4-ty@kernel.org>
-Date: Tue, 05 Nov 2024 16:38:20 +0000
+ Takashi Iwai <tiwai@suse.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Emil Velikov <emil.velikov@collabora.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <linux-sound@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20241104091312.1108299-1-venkataprasad.potturu@amd.com>
+References: <20241104091312.1108299-1-venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH] ASoC: amd: acp: Fix for ACP SOF dmic tplg component
+ load failure
+Message-Id: <173082470287.77847.14499487480313142859.b4-ty@kernel.org>
+Date: Tue, 05 Nov 2024 16:38:22 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-9b746
-Message-ID-Hash: 4D5PDRVYZPWTVVZ3NQIS3NEDM7OO3FQF
-X-Message-ID-Hash: 4D5PDRVYZPWTVVZ3NQIS3NEDM7OO3FQF
+Message-ID-Hash: TWUZE6VJLGP53ABF6TYKAC4RQN5JBNW7
+X-Message-ID-Hash: TWUZE6VJLGP53ABF6TYKAC4RQN5JBNW7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4D5PDRVYZPWTVVZ3NQIS3NEDM7OO3FQF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TWUZE6VJLGP53ABF6TYKAC4RQN5JBNW7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,14 +106,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 23 Oct 2024 14:41:52 +0200, Krzysztof Kozlowski wrote:
-> Some Qualcomm X1E laptops have only two speakers.  Regardless whether
-> this sound card driver is suitable for them (we could re-use one for
-> some older SoC), we should set reasonable channel map depending on the
-> number of channels, not always 4-speaker setup.
+On Mon, 04 Nov 2024 14:43:10 +0530, Venkata Prasad Potturu wrote:
+> Stream name mismatch with topology file causes tplg load failure.
 > 
-> This change is necessary for bringing audio support on Lenovo Thinkpad
-> T14s with Qualcomm X1E78100 and only two speakers.
+> As SOF framework assigns dailink->stream name, overriding stream name
+> other than link name causes SOF dmic component load failure.
+> 
+> [   35.474995] snd_sof_amd_acp70 0000:c4:00.5: error: can't connect DAI ACPDMIC0.IN stream acp-dmic-codec
+> [   35.475001] snd_sof_amd_acp70 0000:c4:00.5: failed to add widget type 28 name : ACPDMIC0.IN stream acp-dmic-codec
+> [   35.475013] sof_mach acp70-dsp: ASoC: failed to load widget ACPDMIC0.IN
+> [   35.475018] sof_mach acp70-dsp: ASoC: topology: could not load header: -22
+> [   35.475072] snd_sof_amd_acp70 0000:c4:00.5: error: tplg component load failed -22
+> [   35.475083] snd_sof_amd_acp70 0000:c4:00.5: error: failed to load DSP topology -22
+> [   35.475090] snd_sof_amd_acp70 0000:c4:00.5: ASoC: error at snd_soc_component_probe on 0000:c4:00.5: -22
+> [   35.475117] sof_mach acp70-dsp: ASoC: failed to instantiate card -22
+> [   35.475254] sof_mach acp70-dsp: error -EINVAL: Failed to register card(sof-acp70-dsp)
+> [   35.475261] sof_mach acp70-dsp: probe with driver sof_mach failed with error -22
 > 
 > [...]
 
@@ -116,8 +131,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: x1e80100: Support boards with two speakers
-      commit: 159098859bf6d46b34a1e1f7d44d28987b875878
+[1/1] ASoC: amd: acp: Fix for ACP SOF dmic tplg component load failure
+      commit: 224b898f7c5ff575b02911e21383f271761bdeb6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

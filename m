@@ -2,88 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984029BE4D0
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2024 11:51:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3252B9BEF79
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2024 14:52:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 116FD14E0;
-	Wed,  6 Nov 2024 11:51:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 116FD14E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A93BAE7D;
+	Wed,  6 Nov 2024 14:52:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A93BAE7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730890317;
-	bh=91xyZJvrOWAyzLR65JD4tI5hHPkKw1Ximo0E5o5L5LA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1730901148;
+	bh=0Vk788ZZKXNB38TEaQ2/NFObChD6O7+6oKGX1QBRcBg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tjd80US8yK7oeJ0PbJnItM8VgEPLP5pYRI0MhJZBGxQiWvrwTMm4oQk96b5Kx1LPV
-	 yg+hqRsgtCH4/mv7f9fmkcQsjJ7txPRe+QHpa/2sYSfd24YEbdi9Dej3eY/0VxbY1E
-	 KSuBvspjqjXlU/KTCCUEwavE8vsGNF0+3oQbFspI=
+	b=P8Srk6bkEoJLYDBdbgVJaR5OMjzYPwak4+w1OGhDVE3s5NROINCCSOPk4ZeUj2Eps
+	 sNHCs+ONbmyBbuiW+ggCWTUK94k0161Lv8NEVfO/JPNekdsdksipvQGhlaagql7noW
+	 Mdji9yEwPJjulErZ5Ea5d5OFPNRx7LL2QUFkV8G4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B70AF805BE; Wed,  6 Nov 2024 11:51:27 +0100 (CET)
+	id 6FBF9F805BB; Wed,  6 Nov 2024 14:51:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D517F805AD;
-	Wed,  6 Nov 2024 11:51:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E857F80134;
+	Wed,  6 Nov 2024 14:51:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69CA4F8013D; Wed,  6 Nov 2024 11:51:20 +0100 (CET)
+	id 77513F8013D; Wed,  6 Nov 2024 14:51:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,TRACKER_ID,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8E2E9F800C8
-	for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2024 11:51:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E2E9F800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19904F800AA
+	for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2024 14:51:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19904F800AA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com
- header.a=rsa-sha256 header.s=default header.b=pWTGuSqQ
-Received: from [192.168.42.96] (p5de457db.dip0.t-ipconnect.de [93.228.87.219])
-	(Authenticated sender: wse@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 0217A2FC004A;
-	Wed,  6 Nov 2024 11:51:16 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1730890277;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UUxM+TDhBc4tT25gDHBZmTz+F++cFnGwVx5y8aqIjCc=;
-	b=pWTGuSqQQLWNggA8vgbxSAtEiLPvgwCqK5toesG0Ekg7Xr9b2qPT1+S/rKHjWFpZdtv354
-	PRouOLBLvU5wxdS5HwcSGEDYDEDWR3z7GGxFJWxtIOsnveHO1NldvMwK1U+nKLw19L64W4
-	1ProqEjkrHT71+KGPdMocqneSH8Jr2o=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-Message-ID: <b768433e-c146-46af-a077-3e2631a4c292@tuxedocomputers.com>
-Date: Wed, 6 Nov 2024 11:51:16 +0100
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=TMhpwrQX
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 326AAA43D04;
+	Wed,  6 Nov 2024 13:49:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A77C4CEC6;
+	Wed,  6 Nov 2024 13:51:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730901103;
+	bh=0Vk788ZZKXNB38TEaQ2/NFObChD6O7+6oKGX1QBRcBg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TMhpwrQXr0qbUqr7dg/U4WJirNO0XZf1/26P95vZDOdS8dCAFup8gu5zP3Nmz7gna
+	 6hicyj5Ps52RCkBEE01wigSpU6qu6YLjjxbXvzONmy91HC+92F5eFnmHM3WjfjR9gu
+	 UooJ/sUpEGenL8bLgiBz1TFtxH9W3jH6dZ1kwwHMeVPM7bFTFtYgIiq6f3hCLbOEo5
+	 JtRme90fSWrM94fAj6XnogC50If2SBA7KulUJ0XCcnowjAWNitg+3vd2GblSwdHb84
+	 3xXQm0UqnnvdE8QAz11L+kMwe0RXbhmCdlONld379CXi51UF2qKThxEom4WL61kpFH
+	 AWRzX7cLtKLrQ==
+Date: Wed, 6 Nov 2024 14:51:40 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kiseok Jo <kiseok.jo@irondevice.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] This adds the schema binding for the Iron Device
+ SMA1307 Amp
+Message-ID: <a2cmjydyryfm3fgqgyun4e352cbg654yba7ggzavatrq4dvrd7@f35gxk4cgi3g>
+References: <20241106004621.7069-1-kiseok.jo@irondevice.com>
+ <20241106004621.7069-2-kiseok.jo@irondevice.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1.y] ALSA: hda/realtek: Fix headset mic on TUXEDO Gemini
- 17 Gen3
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Christoffer Sandberg <cs@tuxedo.de>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-References: <20241106021124.182205-1-sashal>
- <20241106094920.239972-1-wse@tuxedocomputers.com>
- <2024110606-expansion-probing-862b@gregkh>
-Content-Language: en-US
-From: Werner Sembach <wse@tuxedocomputers.com>
-In-Reply-To: <2024110606-expansion-probing-862b@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: MOPHC3KIGSCOCLYLURF64RB573SREH6Q
-X-Message-ID-Hash: MOPHC3KIGSCOCLYLURF64RB573SREH6Q
-X-MailFrom: wse@tuxedocomputers.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20241106004621.7069-2-kiseok.jo@irondevice.com>
+Message-ID-Hash: IBX7WSN7SEKL2UAPLJIMMZ6DXTT3FIJR
+X-Message-ID-Hash: IBX7WSN7SEKL2UAPLJIMMZ6DXTT3FIJR
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MOPHC3KIGSCOCLYLURF64RB573SREH6Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IBX7WSN7SEKL2UAPLJIMMZ6DXTT3FIJR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,35 +101,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi
+On Wed, Nov 06, 2024 at 09:46:20AM +0900, Kiseok Jo wrote:
+> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+> ---
 
-Am 06.11.24 um 11:42 schrieb Greg KH:
-> On Wed, Nov 06, 2024 at 10:49:04AM +0100, Werner Sembach wrote:
->> From: Christoffer Sandberg <cs@tuxedo.de>
->>
->> Quirk is needed to enable headset microphone on missing pin 0x19.
->>
->> Signed-off-by: Christoffer Sandberg <cs@tuxedo.de>
->> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
->> Cc: <stable@vger.kernel.org>
->> Link: https://patch.msgid.link/20241029151653.80726-1-wse@tuxedocomputers.com
->> Signed-off-by: Takashi Iwai <tiwai@suse.de>
->> ---
->>   sound/pci/hda/patch_realtek.c | 1 +
->>   1 file changed, 1 insertion(+)
-> What is the git commit id of this in Linus's tree?
+Missing commit msg, missing subject (so commit msg went there).
 
-0b04fbe886b4274c8e5855011233aaa69fec6e75
+Please run scripts/checkpatch.pl and fix reported warnings. Then please
+run 'scripts/checkpatch.pl --strict' and (probably) fix more warnings.
+Some warnings can be ignored, especially from --strict run, but the code
+here looks like it needs a fix. Feel free to get in touch if the warning
+is not clear.
 
-Is there a specific format/tag to add it to the commit? something like 
-"Mainline-commit: <hash>". Didn't find anything in the documentation.
 
->
-> thanks,
->
-> greg k-h
+> v3 -> v4
+>  - Modify to fit the character-per-line format
 
-Kind regards,
 
-Werner Sembach
+Best regards,
+Krzysztof
 

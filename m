@@ -2,54 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A36329C0562
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2024 13:10:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27DA49C06D3
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2024 14:07:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8042BDEE;
-	Thu,  7 Nov 2024 13:10:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8042BDEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2E4FEC1;
+	Thu,  7 Nov 2024 14:07:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2E4FEC1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730981432;
-	bh=aBBTmbdG9cxUZWz57CPZY1U0vdBGGz8EIap9msps0XU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=ahiIacLhJ0uK3hn5ktFOlUfyAMvRFwad/fH7xX3Q/0liceuLfKxFAdJAKtEz2cbH7
-	 J0DKayQJPEeiNFO0tkIZPWVSOKbs1DZLDjkeqWLRO7zDwSRD+6ax69Gd0/MU7Vg9PU
-	 y85IqX2CEzKncPuxyd8GweARPDy5pyh7UeJ6DZEc=
+	s=default; t=1730984864;
+	bh=WpXkdW58NwJpi1pGQBZHFsJuQ2oNn8UxUGi30Sv955k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=oAFSCVSbq4kSMQ1pgxWP38tXRTyLkKkK3uFcvca7eU/idFMHMbW6wcNYZ8SRG1slQ
+	 PRwdW5Jv9irtQ8Phx/uqF/DJstcQphnovan2INdes7WZn5SOQNIAAMAnPhA5VpUcm3
+	 XdN42GEG1+E4aY7/1cJaWcCj1m59APbIu0Cvd+04=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18BEBF805B3; Thu,  7 Nov 2024 13:10:00 +0100 (CET)
+	id B2469F805B2; Thu,  7 Nov 2024 14:07:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 850DEF805B1;
-	Thu,  7 Nov 2024 13:10:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0296BF805AC;
+	Thu,  7 Nov 2024 14:07:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7483FF8013D; Thu,  7 Nov 2024 13:09:56 +0100 (CET)
+	id 0FD40F8013D; Thu,  7 Nov 2024 14:07:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7D51F800C8
-	for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2024 13:09:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7D51F800C8
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 104BFF800AA;
+	Thu,  7 Nov 2024 14:07:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 104BFF800AA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=W2klslHa
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 1B9205C0767;
+	Thu,  7 Nov 2024 13:06:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA61C4CECC;
+	Thu,  7 Nov 2024 13:06:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1730984821;
+	bh=WpXkdW58NwJpi1pGQBZHFsJuQ2oNn8UxUGi30Sv955k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=W2klslHatOvfEzop97ZNdi5LkY8g3XSNRpV8nQURb9wLjqSNTxFb75WKIappO9f/D
+	 bqvgHZ18Z995UzpcpvzQV8+ajMME7/1tRgPO9+BSZOnTk/Ws+ws0ZhEjR9L/5SKqn6
+	 MchKVHlmHnK08ZqI1v27lxBVPvh0cKOZZOm/Tri8gaFbZsrQTbqGu7K316NuYg9mEU
+	 L2Z5rLdWj8tUxyqPzBWumXQgAGblQG3+UZFw3Kz3Ct100XgN2y2HkbwSExbo3I0sBh
+	 R8XUgIFFpsN5QJkKLn5hMTWDLMh52N1q1wI9RUSdb3co+1PmhWtdlGlk2cQd92kk2A
+	 5QJ/xu9/UKasQ==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, syed.sabakareem@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Emil Velikov <emil.velikov@collabora.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+ "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <linux-sound@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20241106101455.1229113-1-venkataprasad.potturu@amd.com>
+References: <20241106101455.1229113-1-venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH] ASoC: SOF: amd: Fix for incorrect DMA ch status
+ register offset
+Message-Id: <173098481508.15423.6358343520867651072.b4-ty@kernel.org>
+Date: Thu, 07 Nov 2024 13:06:55 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1730981394094357252-webhooks-bot@alsa-project.org>
-References: <1730981394094357252-webhooks-bot@alsa-project.org>
-Subject: topology: Fix strcat() to uninitialized memory in add_define()
-Message-Id: <20241107120956.7483FF8013D@alsa1.perex.cz>
-Date: Thu,  7 Nov 2024 13:09:56 +0100 (CET)
-Message-ID-Hash: GZXWGQY74L54LSEPHMET6HAEPYJ566XO
-X-Message-ID-Hash: GZXWGQY74L54LSEPHMET6HAEPYJ566XO
-X-MailFrom: github@alsa-project.org
+X-Mailer: b4 0.15-dev-9b746
+Message-ID-Hash: UF3L5A7MJFY2R274WT5STAUXEDZJJV4M
+X-Message-ID-Hash: UF3L5A7MJFY2R274WT5STAUXEDZJJV4M
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GZXWGQY74L54LSEPHMET6HAEPYJ566XO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UF3L5A7MJFY2R274WT5STAUXEDZJJV4M/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,26 +113,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils pull request #277 was opened from rfvirgil:
+On Wed, 06 Nov 2024 15:44:53 +0530, Venkata Prasad Potturu wrote:
+> DMA ch status register offset change in acp7.0 platform
+> 
+> Incorrect DMA channel status register offset check lead to
+> firmware boot failure.
+> 
+> [   14.432497] snd_sof_amd_acp70 0000:c4:00.5: ------------[ DSP dump start ]------------
+> [   14.432533] snd_sof_amd_acp70 0000:c4:00.5: Firmware boot failure due to timeout
+> [   14.432549] snd_sof_amd_acp70 0000:c4:00.5: fw_state: SOF_FW_BOOT_IN_PROGRESS (3)
+> [   14.432610] snd_sof_amd_acp70 0000:c4:00.5: invalid header size 0x71c41000. FW oops is bogus
+> [   14.432626] snd_sof_amd_acp70 0000:c4:00.5: unexpected fault 0x71c40000 trace 0x71c40000
+> [   14.432642] snd_sof_amd_acp70 0000:c4:00.5: ------------[ DSP dump end ]------------
+> [   14.432657] snd_sof_amd_acp70 0000:c4:00.5: error: failed to boot DSP firmware -5
+> [   14.432672] snd_sof_amd_acp70 0000:c4:00.5: fw_state change: 3 -> 4
+> [   14.433260] dmic-codec dmic-codec: ASoC: Unregistered DAI 'dmic-hifi'
+> [   14.433319] snd_sof_amd_acp70 0000:c4:00.5: fw_state change: 4 -> 0
+> [   14.433358] snd_sof_amd_acp70 0000:c4:00.5: error: sof_probe_work failed err: -5
+> 
+> [...]
 
-If *defs == NULL the realloc() will be a simple malloc() and return a pointer to uninitialized memory. Doing a strcat() to this is bad, so in that case strcpy() the string into the newly allocated buffer.
+Applied to
 
-This fixes the buffer overflow bug, such as:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-*** buffer overflow detected ***: terminated
-Program received signal SIGABRT, Aborted.
-__pthread_kill_implementation (no_tid=0, signo=6, threadid=<optimized out>) at ./nptl/pthread_kill.c:44
-warning: 44     ./nptl/pthread_kill.c: No such file or directory
-(gdb) bt
-    at ../sysdeps/posix/libc_fatal.c:132
-    at ./debug/fortify_fail.c:24
-    dest=dest@entry=0x5555555682c0 "hUUU\005PLATFORM=mtl,PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-mtl-sdw-cs42l42-l0-max98363-l2-4ch-48k-96k.bin,NUM_DMICS=4,PDM1_MIC_A_ENABLE=1,PDM1_MIC_B_ENABLE=1,DMIC0_ID=3,DMIC1_ID=4,DMIC1_ENABLE=passth"...,
-    src=src@entry=0x7fffffffe0fa "PLATFORM=mtl,PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-mtl-sdw-cs42l42-l0-max98363-l2-4ch-48k-96k.bin,NUM_DMICS=4,PDM1_MIC_A_ENABLE=1,PDM1_MIC_B_ENABLE=1,DMIC0_ID=3,DMIC1_ID=4,DMIC1_ENABLE=passthrough"..., destlen=<optimized out>) at ./debug/strcat_chk.c:34
-    __src=0x7fffffffe0fa "PLATFORM=mtl,PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-mtl-sdw-cs42l42-l0-max98363-l2-4ch-48k-96k.bin,NUM_DMICS=4,PDM1_MIC_A_ENABLE=1,PDM1_MIC_B_ENABLE=1,DMIC0_ID=3,DMIC1_ID=4,DMIC1_ENABLE=passthrough"...,
-    __dest=<optimized out>) at /usr/include/x86_64-linux-gnu/bits/string_fortified.h:130
-    d=0x7fffffffe0fa "PLATFORM=mtl,PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-mtl-sdw-cs42l42-l0-max98363-l2-4ch-48k-96k.bin,NUM_DMICS=4,PDM1_MIC_A_ENABLE=1,PDM1_MIC_B_ENABLE=1,DMIC0_ID=3,DMIC1_ID=4,DMIC1_ENABLE=passthrough"...,
-    defs=<synthetic pointer>) at topology.c:400
+Thanks!
 
-Request URL   : https://github.com/alsa-project/alsa-utils/pull/277
-Patch URL     : https://github.com/alsa-project/alsa-utils/pull/277.patch
-Repository URL: https://github.com/alsa-project/alsa-utils
+[1/1] ASoC: SOF: amd: Fix for incorrect DMA ch status register offset
+      commit: 94debe5eaa0adaa24a6de4a8e5f138be7381eb9e
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

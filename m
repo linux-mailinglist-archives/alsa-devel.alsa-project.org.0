@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B29E9C1155
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2024 22:53:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC669C119D
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2024 23:22:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9920F54;
-	Thu,  7 Nov 2024 22:53:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9920F54
+	by alsa0.perex.cz (Postfix) with ESMTPS id B469714DF;
+	Thu,  7 Nov 2024 23:21:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B469714DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731016397;
-	bh=pZlXXjMp+LvTEKn+ZGAIRGqWWu4Sh8kXSZp6RNBri/k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jyhCTzcXcM+ds8CyBKAN2AULgAN4rIgHx5ThbK43in0SFDLBGa7G6c8s5c1gidvbt
-	 LXcH12I7iEL3fEBKGmTcyqNLXx3GSnna8rPYr1ZqJ7v6MtDjmHApDyCTaViyoboYRs
-	 rsOyJpYpB118pjNdtR2XHP4IFe2RqKOpeVaBlz5w=
+	s=default; t=1731018127;
+	bh=a+Ap5XJK/oSs3jcv6DfbCuxz4bmqjeiAZ1ml2aOMWso=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=S3yhmkIO951qKYN/pIUL4ztVIDtSULvsV1QjPm4jEodGFxrP12OwbT5iUyEvDA2f3
+	 jyD9zPgE6P+LCMf/pBQ9qqAtzCVLQI4o6j5qCOUDy2vvoVkDHbxWegglpVb7yrijYb
+	 3vYUnueHGzMVVAbIvkA4h6Xk3ZPb9POcYZwvPUKA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C5F2F80588; Thu,  7 Nov 2024 22:52:35 +0100 (CET)
+	id EA6CDF805BD; Thu,  7 Nov 2024 23:21:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7683F805D9;
-	Thu,  7 Nov 2024 22:52:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BE0CF805A0;
+	Thu,  7 Nov 2024 23:21:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8456CF8013D; Thu,  7 Nov 2024 22:52:24 +0100 (CET)
+	id CBBA7F8013D; Thu,  7 Nov 2024 23:21:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,50 +34,39 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from nyc.source.kernel.org (nyc.source.kernel.org
  [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B4565F800C8
-	for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2024 22:52:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4565F800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19070F800D2
+	for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2024 23:21:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19070F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=G7l5vIRj
+ header.s=k20201202 header.b=KMuYVBMR
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 8FAE4A44525;
-	Thu,  7 Nov 2024 21:50:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48144C4CED4;
-	Thu,  7 Nov 2024 21:52:19 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 51762A44B4B;
+	Thu,  7 Nov 2024 22:19:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD32C4CECC;
+	Thu,  7 Nov 2024 22:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731016341;
-	bh=pZlXXjMp+LvTEKn+ZGAIRGqWWu4Sh8kXSZp6RNBri/k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=G7l5vIRjpvvfawjV8GngNJYHsxSaBnDSrmFbDYm39RmmwQ94nBlmAElADp++6vAq3
-	 /2EVs8wcf8gEWATrHFR7YO9UNnvBrSAut22PHLYdA05o/GEU1FHN7aGTf2fb0o06MH
-	 RRKT4FyHQi8QutrNr2w/FMShT8KGOqdSOhssnbB2oHc4Q6XyO/GMFX2RlbMQLKbq9e
-	 RL+hzz2omZsWrbWPQDRgEbkvDRbhADuFs6i81G4mm9kPegO46Uf5LeYUaLhUtkbEbj
-	 1aaKIG6QqN5BnAJp6uRlpFMtxhSCDN6YSOjGfX1wWvMob+CJSoxcsget+hgEzbhfha
-	 qW6+vVHXEfE8g==
+	s=k20201202; t=1731018087;
+	bh=a+Ap5XJK/oSs3jcv6DfbCuxz4bmqjeiAZ1ml2aOMWso=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KMuYVBMR09ixIIMQbD5x8kr4Egsjdnc99uY6db03Wp1qGn2Qnf0/JLnZuKAMD1r41
+	 J9DIHm8KsPfUkfzNC/YR3h4njyd/18eKLdIFa6Tqa5wVR0DzslR8vRavlMH03Y2xmU
+	 hCpqkxG0fmfNTijqmQ5eVfVOzyGLZRiwUksWJPzZ6SzV/yq0SuT7HLVdT71b8lRMeZ
+	 vnzRBVhOI9Edw+dEs/saCbfKgg0mMedTdzwV/11GoG1xWdaI5Dr78Ke6Vuo4OTsSM3
+	 t4KpR94WMtPIMqR6p5pnWOrKvREjaKHvRoEUnd1M4ygSwgW4N4rAN708CfjKFvnbQO
+	 XnUuvemiftvpw==
+Message-ID: <c47a108a78297aa0534c252420f39a48.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Kiseok Jo <kiseok.jo@irondevice.com>
-Cc: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20241106005800.7520-1-kiseok.jo@irondevice.com>
-References: <20241106005800.7520-1-kiseok.jo@irondevice.com>
-Subject: Re: [PATCH RESEND v4 0/2] Add a driver for the Iron Device SMA1307
- Amp
-Message-Id: <173101633902.271800.3646827162492611433.b4-ty@kernel.org>
-Date: Thu, 07 Nov 2024 21:52:19 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-9b746
-Message-ID-Hash: PVOWVRNHCPTRXWLH4G57HL7DO37VVP3W
-X-Message-ID-Hash: PVOWVRNHCPTRXWLH4G57HL7DO37VVP3W
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.12-rc6
+Date: Thu, 07 Nov 2024 22:21:19 +0000
+Message-ID-Hash: FNNKBJNXTC5XMYG7ATKLZYQ4KTW76GCF
+X-Message-ID-Hash: FNNKBJNXTC5XMYG7ATKLZYQ4KTW76GCF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PVOWVRNHCPTRXWLH4G57HL7DO37VVP3W/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FNNKBJNXTC5XMYG7ATKLZYQ4KTW76GCF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,52 +88,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 06 Nov 2024 09:57:58 +0900, Kiseok Jo wrote:
-> This adds basic audio support for the Iron Device SMA1307 amplifier
-> 
-> Kiseok Jo (2):
->   ASoC: dt-bindings: irondevice,sma1307: Add initial DT
->   ASoC: sma1307: Add driver for Iron Device SMA1307
-> 
-> .../bindings/sound/irondevice,sma1307.yaml    |   53 +
->  sound/soc/codecs/Kconfig                      |   10 +
->  sound/soc/codecs/Makefile                     |    2 +
->  sound/soc/codecs/sma1307.c                    | 2052 +++++++++++++++++
->  sound/soc/codecs/sma1307.h                    |  444 ++++
->  5 files changed, 2561 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/irondevice,sma1307.yaml
->  create mode 100644 sound/soc/codecs/sma1307.c
->  create mode 100644 sound/soc/codecs/sma1307.h
-> 
-> [...]
+The following changes since commit 2db63e92186d7201ee1cb2f5af11757c5e5a1020:
 
-Applied to
+  wcd937x codec fixes (2024-10-29 19:18:48 +0000)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.12-rc6
 
-[1/2] ASoC: dt-bindings: irondevice,sma1307: Add initial DT
-      commit: 82a1ccdf616d396c99f535febb6c997781c5c26c
-[2/2] ASoC: sma1307: Add driver for Iron Device SMA1307
-      commit: 576c57e6b4c1d734bcb7cc33dde9a99a9383b520
+for you to fetch changes up to 48b86532c10128cf50c854a90c2d5b1410f4012d:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: SOF: sof-client-probes-ipc4: Set param_size extension bits (2024-11-07 15:35:52 +0000)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.12
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+A moderately large pile of small changes here, split fairly evenly
+between fixes and ID additions/quirks and all of it driver specific.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Amelie Delaunay (1):
+      ASoC: stm32: spdifrx: fix dma channel release in stm32_spdifrx_remove
 
-Thanks,
-Mark
+Jyri Sarha (1):
+      ASoC: SOF: sof-client-probes-ipc4: Set param_size extension bits
 
+Kuninori Morimoto (1):
+      MAINTAINERS: Generic Sound Card section
+
+Luo Yifan (2):
+      ASoC: stm: Prevent potential division by zero in stm32_sai_mclk_round_rate()
+      ASoC: stm: Prevent potential division by zero in stm32_sai_get_clk_div()
+
+Markus Petri (1):
+      ASoC: amd: yc: Support dmic on another model of Lenovo Thinkpad E14 Gen 6
+
+Mingcong Bai (1):
+      ASoC: amd: yc: fix internal mic on Xiaomi Book Pro 14 2022
+
+Shenghao Ding (1):
+      ASoC: tas2781: Add new driver version for tas2563 & tas2781 qfn chip
+
+Venkata Prasad Potturu (1):
+      ASoC: SOF: amd: Fix for incorrect DMA ch status register offset
+
+ MAINTAINERS                            |  9 +++++++++
+ sound/soc/amd/yc/acp6x-mach.c          | 14 ++++++++++++++
+ sound/soc/codecs/tas2781-fmwlib.c      |  1 +
+ sound/soc/sof/amd/acp.c                | 10 +++++++++-
+ sound/soc/sof/sof-client-probes-ipc4.c |  1 +
+ sound/soc/stm/stm32_sai_sub.c          |  6 +++---
+ sound/soc/stm/stm32_spdifrx.c          |  2 +-
+ 7 files changed, 38 insertions(+), 5 deletions(-)

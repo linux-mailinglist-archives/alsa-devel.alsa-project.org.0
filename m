@@ -2,94 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 909F69BFA2F
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2024 00:33:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A55E19C01D1
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2024 11:03:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89ECB741;
-	Thu,  7 Nov 2024 00:33:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89ECB741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 996DAEC7;
+	Thu,  7 Nov 2024 11:02:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 996DAEC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1730936010;
-	bh=87Z6ChZTRDwcQKUGbg4OylOoY3jZ6CxKLD7unKaMEo4=;
+	s=default; t=1730973787;
+	bh=eYH2ACgbRqffR/sv/0uuECjlgyo1XRetpJbSYf2Khb8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OH/g+VSO6nYl6o63s7oTMkfk8VsOLDSiflGx+txugDa+SspF1gm7yNPdJ2oymKJ2T
-	 6BX0vJtp4rNuwm8xbvZAc5lD7AY+l5n2UkLKphXRv2tshziFp/VnDUQSEErwgc90fX
-	 aTMPWIuU7rCax2NWEk6QA+/8z9Fe3GWhKROaHfjw=
+	b=r05i57i06+kwEFwCaDoXX5K3xj1SQHlw0oQ906xjWd16n0SibC759+NTBNOKlSqpy
+	 AJPw6gmQB6KLsGERJegvALy//yDW5w0F35VpS7GnL27aEUJtnfxLgQXQvOfq9NW+cO
+	 TB67vapOPacqc9JRq60nE7vSbNPihhM0ju4achMc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 554D7F80603; Thu,  7 Nov 2024 00:32:24 +0100 (CET)
+	id D2979F80134; Thu,  7 Nov 2024 11:02:34 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78CD5F805BF;
-	Thu,  7 Nov 2024 00:32:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DABCDF805B0;
+	Thu,  7 Nov 2024 11:02:33 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7EFE1F805F3; Thu,  7 Nov 2024 00:32:19 +0100 (CET)
+	id 4E580F8013D; Thu,  7 Nov 2024 11:02:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A155CF805F1
-	for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2024 00:32:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A155CF805F1
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8915F800C8
+	for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2024 11:02:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8915F800C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ePV3VsEp
+ header.s=k20201202 header.b=ls+pTpqK
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 3878EA4030C;
-	Wed,  6 Nov 2024 23:30:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F8CC4CED0;
-	Wed,  6 Nov 2024 23:32:12 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 9DDA25C4767;
+	Thu,  7 Nov 2024 10:01:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9111EC4CECC;
+	Thu,  7 Nov 2024 10:02:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1730935934;
-	bh=87Z6ChZTRDwcQKUGbg4OylOoY3jZ6CxKLD7unKaMEo4=;
+	s=k20201202; t=1730973738;
+	bh=eYH2ACgbRqffR/sv/0uuECjlgyo1XRetpJbSYf2Khb8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ePV3VsEpc7HYjKBtU9kKj+FbpArK3+YDFH8Cb/YqSJln7HwBnSFIHKlYwz1rDmCl0
-	 gjm1Vm3kI9bS+jXHm8Gl7H5oJ0Y14F3aBh/R0sg3T5Caj/kYambSfj/7/zlLa8vdgV
-	 foyKSojlFuZMopnb0kcpy4EZKdlYqWVN484B4wxNwguEUoC9Rrzng7mNSQLYbZSspp
-	 evQcF4nKtYPzoGtHpatd3YYPXPS85NE2XXtzwZX+dDayQUtezCxEbuhsSXX55KAh66
-	 h2aYIw5L6iXo4nEZ5kv8eWuEOojEwRIcbqCVq91Fhmkau1HQhOLt3ZQf7dyb0qDMP8
-	 EWuHTdPFBAZpw==
-Date: Wed, 6 Nov 2024 23:32:09 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Ki-Seok Jo <kiseok.jo@irondevice.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	b=ls+pTpqKEVFBnjSler0aLSN7NjB7FCMguWmgezFpnazhMTTmT+zdNwoSPyeWZ4geE
+	 /E/4bW9ZVWubuCw8uzmb0OKRJ+Hg8AEz3JX1h5M9yct2/0AH/7gru09Rp8MRXXJSNz
+	 Bla2G6XeEfYocOo0gX6FlRrG24nGsQVGg2gTkC0sxssM1ubKv6vhv/ozXxswt42vIu
+	 cdEnYxCci4D6GiVNSYK7RoTWQcdlpC+r2ww6TqFgITVLRHXQNS6KCHTo11BZ+eBxCx
+	 CWIAPBhT63Ku2OjWvmmUonjYI5kpaZ87vC0FUHRdk33dxmV06cyP2248FUX+l7sGGm
+	 stpvNEjMt5l+Q==
+Date: Thu, 7 Nov 2024 11:02:13 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kiseok Jo <kiseok.jo@irondevice.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Subject: Re: [PATCH RESEND v4 1/2] ASoC: dt-bindings: irondevice,sma1307: Add
  initial DT
-Message-ID: <921e46e0-1490-40f2-899a-f8562256d49d@sirena.org.uk>
-References: <20241106005800.7520-1-kiseok.jo@irondevice.com>
- <20241106005800.7520-2-kiseok.jo@irondevice.com>
- <kspk7qajv7r5glbcawmecbup36cv4wi3hjrgyfyyejjectwwt5@u5nx5y5zirsa>
- <092cfb04-378f-4997-88e0-35c247b8c445@sirena.org.uk>
- <SL2P216MB2337334118683779C2FEABDB8C532@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
+Message-ID: <butx33avx7zainw6im72kwdxj6jfvfbdlzugxadu6rfn3uszdx@oxgvrnfl5t5h>
+References: <20241106233144.9283-1-kiseok.jo@irondevice.com>
+ <20241106233144.9283-2-kiseok.jo@irondevice.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2kSW8dw7hKOyK1AY"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: 
- <SL2P216MB2337334118683779C2FEABDB8C532@SL2P216MB2337.KORP216.PROD.OUTLOOK.COM>
-X-Cookie: Include me out.
-Message-ID-Hash: SMYSPJV4MC76227LIBNJ7XKNXV5XKSZP
-X-Message-ID-Hash: SMYSPJV4MC76227LIBNJ7XKNXV5XKSZP
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20241106233144.9283-2-kiseok.jo@irondevice.com>
+Message-ID-Hash: YCA2RBNGWZD2X5F5BK6PABK7HZABO23J
+X-Message-ID-Hash: YCA2RBNGWZD2X5F5BK6PABK7HZABO23J
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SMYSPJV4MC76227LIBNJ7XKNXV5XKSZP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YCA2RBNGWZD2X5F5BK6PABK7HZABO23J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,34 +101,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, Nov 07, 2024 at 08:31:44AM +0900, Kiseok Jo wrote:
+> This adds the schema binding for the Iron Device SMA1307 Amp
+> 
+> Signed-off-by: Kiseok Jo <kiseok.jo@irondevice.com>
+> ---
+> v3 -> v4
+>  - Modify to fit the character-per-line format
 
---2kSW8dw7hKOyK1AY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+<form letter>
+This is a friendly reminder during the review process.
 
-On Wed, Nov 06, 2024 at 11:28:45PM +0000, Ki-Seok Jo wrote:
+It looks like you received a tag and forgot to add it.
 
-> Oh, I'm sorry, that was my mistake.
-> I realized the error and send it again using a script, but I accidentally left out the changelogs.
-> I'll resend it with the changelogs added this time.
-> Since there are no changes, I'll simply resend it without additional modifications.
+If you do not know the process, here is a short explanation: Please add
+Acked-by/Reviewed-by/Tested-by tags when posting new versions, under
+or above your Signed-off-by tag. Tag is "received", when provided
+in a message replied to you on the mailing list. Tools like b4 can help
+here. However, there's no need to repost patches *only* to add the tags.
+The upstream maintainer will do that for tags received on the version
+they apply.
 
-It's OK, no need for any further resends just now - just try to consider
-it in future.
+https://elixir.bootlin.com/linux/v6.5-rc3/source/Documentation/process/submitting-patches.rst#L577
 
---2kSW8dw7hKOyK1AY
-Content-Type: application/pgp-signature; name="signature.asc"
+If a tag was not added on purpose, please state why and what changed.
+</form letter>
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+Krzysztof
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmcr/HgACgkQJNaLcl1U
-h9BB/gf/YksRbOGZotMGDGEoCRc1ujhaZOmYBMw0k7mzc1O3IAyX7C7vtTCY4rhj
-HHRqskm3vmGw0DE56lNOK9/oABkXkTnXGW6XX3lsHRcl2whBx3oW5cnPP1vOGqds
-Uop28iRhBj6tcqolAWAmlTlNZOo/fkN4ai6qTVcodHlc1KjZGjE8MQxNO/6Dyr/Q
-U7eh/ouyMpFjYUaK3PjXkfAe8VDhEaoRTKSKH04MfQA8e2PuPQc4Co1k7B2lbD/e
-aWZBsRilxoXcAypGo9/JwGW/uPjFVALitFpAFzTaOzWYGe13Md/GsqFF9kBxBFXZ
-uaaHZtI/dAeNct1iXOix2huMwogcSA==
-=eONU
------END PGP SIGNATURE-----
-
---2kSW8dw7hKOyK1AY--

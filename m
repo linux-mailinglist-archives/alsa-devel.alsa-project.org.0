@@ -2,105 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14A0F9C31AC
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Nov 2024 11:45:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E82F9C38A1
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2024 07:50:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36475E66;
-	Sun, 10 Nov 2024 11:45:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36475E66
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC1BC105F;
+	Mon, 11 Nov 2024 07:50:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC1BC105F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731235543;
-	bh=RBkaVa+v3bdfSur4TMosKjf3T1UqOD8FCPd0qxXj+5E=;
-	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=KI3RRiZXXk4WCZlSDBvHmNf2mUUO9eCtSv4G2aZv0y8V+YEqnmsdVn56iPq0Qwbep
-	 M80GOdnrI5VHIQa7RzZBVuw/mtmyAYuLwA84E+VezLC8jHSaskTK5dQu32MR2vazHx
-	 uyTiGatuMSkFXETFO5JeuEZgs52Az4vYWd9oG68w=
+	s=default; t=1731307848;
+	bh=Qg0m7cCtgNpLQr5oneSHt08zgC2VU5Sp2uA8uuOfkfw=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HrNa6ZtNGHQBWtYANOV6mEvSjdOL/RVxZ6iiiq0decq8Safub35WR+VJevVbZfkbd
+	 ARGYoN/3Sty0b7vrgIWsaqSEzRmZsTMtfikwKhmghS2eLLa1EKoNasQBKTS7bWx7un
+	 4EFByXOKsdD1N7KDfkrC1EaPtB62MZGgY+bb7xZM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 96A48F805B5; Sun, 10 Nov 2024 11:45:13 +0100 (CET)
+	id 46FAFF805BD; Mon, 11 Nov 2024 07:50:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BED1F80587;
-	Sun, 10 Nov 2024 11:45:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D73F5F80578;
+	Mon, 11 Nov 2024 07:50:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2BB4EF80199; Sun, 10 Nov 2024 11:45:04 +0100 (CET)
+	id 88021F80199; Mon, 11 Nov 2024 07:50:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mout.web.de (mout.web.de [212.227.17.12])
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+	autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CCFA3F800AA
-	for <alsa-devel@alsa-project.org>; Sun, 10 Nov 2024 11:45:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCFA3F800AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37F5AF800C9
+	for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2024 07:50:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37F5AF800C9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=web.de header.i=markus.elfring@web.de
- header.a=rsa-sha256 header.s=s29768273 header.b=npCXaA+9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1731235492; x=1731840292; i=markus.elfring@web.de;
-	bh=RBkaVa+v3bdfSur4TMosKjf3T1UqOD8FCPd0qxXj+5E=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=npCXaA+9LbaI7T4MUptHXIE9s/sTgjf3EYTUtUB+Z+fPf+8Vrohx9Uq7Qj04mhbp
-	 vXAEOLtqNplPRibmcXOhHGw4UNiD8YzLJLPq1PrU6IC/LM0PpwwaQ7xTvkoEwYgY9
-	 iv/hk/LP2/SBDjcUacZwMDU2RhRI84eGcNPr2PazTD1A1VlosUCq/Ri/8sxp6ZGEA
-	 kNoZ7SvZC/1UVyNxLrzmLwwLmWtqL6rI1dVROPSLmg+wE0S2iUO+d9DLv26LJ2cSh
-	 PunNhNo8bTt9G58fY/93IZsRjRPiHBl5aDViBvEs1KrEmSoZXwJTgHa4SLc0hLS8g
-	 4QjBYf8v89CWZiNHDg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N3Xnl-1tssBb2LND-00tFjA; Sun, 10
- Nov 2024 11:44:52 +0100
-Message-ID: <6ed94ce6-211e-4f6a-9479-34467e6ca7d2@web.de>
-Date: Sun, 10 Nov 2024 11:44:19 +0100
+	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=eTUaioX4
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4AB6nsdJ71778797,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
+	t=1731307794; bh=Qg0m7cCtgNpLQr5oneSHt08zgC2VU5Sp2uA8uuOfkfw=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version;
+	b=eTUaioX4DR1FOztg+Rw3tyKp/UBlzKEjeQfRuETuIQFXHLrgyMa/R4LH1OmT/KTY8
+	 EKaAgVkmJPmTc3Zg3yW3zgZeV5fKBkJlWMGL1TswLVol2UjbIrhxqBJ5bbvTOYA984
+	 8U0Fe2GU7UyvLUvwLmXy78GK3j/h1ZUi6usSgDqLK2FNi/+AJB5GhTmdUMkhF6sfxT
+	 MK5RtLmH4uYUUae7DmH0QkcrKoPPl7Xg9I7iWgSOb1cQBl3SW6NVr5nJg/yoPwckGn
+	 d/cLpgdFZTRa0MCTHehQT/lJa/wOykkJq/qv9J8LPpVT2ODq6iWc/9T7oJcga9ntko
+	 vN3ccFGt9ZqZQ==
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 4AB6nsdJ71778797
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 11 Nov 2024 14:49:54 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Mon, 11 Nov 2024 14:49:55 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 11 Nov 2024 14:49:54 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
+ RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
+ 15.01.2507.035; Mon, 11 Nov 2024 14:49:54 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Clevo Platfrom with ALC255
+Thread-Topic: Clevo Platfrom with ALC255
+Thread-Index: Ads0BaMtPCa3pUJzTVqnN43TAnkA3g==
+Date: Mon, 11 Nov 2024 06:49:54 +0000
+Message-ID: <b2dcac3e09ef4f82b36d6712194e1ea4@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.21.6.42]
+x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: multipart/mixed;
+	boundary="_002_b2dcac3e09ef4f82b36d6712194e1ea4realtekcom_"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Tang Bin <tangbin@cmss.chinamobile.com>, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org, Baojun Xu <baojun.xu@ti.com>,
- Jaroslav Kysela <perex@perex.cz>, Kevin Lu <kevin-lu@ti.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Shenghao Ding <shenghao-ding@ti.com>, Takashi Iwai <tiwai@suse.com>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20241025082042.2872-1-tangbin@cmss.chinamobile.com>
-Subject: Re: [PATCH] ASoC: tas2781: Fix redundant logical jump
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20241025082042.2872-1-tangbin@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:kq2cIavDfgtbPbNSQLm6JLpH3awd+E/fzjLmAO/20DY0oIkYfk4
- U6iqWBnEmLcu7h0s8lk/RD3Y0DDBdzQICiPLvt1/NfBWurjZiQxw6+vWhjXKL3kIy6FbtER
- 0Mqn3I2Cz7Aa2GXWLqLt6L2qov+ZDPZLYINjjet5yQWpK+xF4NY74POlVQyxdJfi9wVAOTg
- UluwJ61bqcVojDU99xtLA==
-UI-OutboundReport: notjunk:1;M01:P0:1/WxcWUAL50=;NI6XhN6vHl5Cy63vKB5kyxF2Kcm
- vtmiiTN+CsU0/YgbrcgPKKS59yKWfV7NJw7GrR5y+8sTCMy7m4mWL60VS7sI2O7sfc7guZvHy
- Rz3Mni7eMtFJlwS1618bk+WYNvQsYmVJhVSzxKh7sTXlI+yukCAdqamnrEZvAMzDHl4btoD3E
- /108XPlr6Da/oIu5RRp8359wAkqk4VSfmLiP7Fsam5StD4C+SfA8tNAM5oXto5u0csQ38tPQt
- wSuuPCkawIOF6Z2gojWbGYdJ2ErtUL2nyNi2i/yQA2L++FjPoMJvAW9KnxOfGv4okkHRURxsU
- QmKloITV5GCO0ELLLP0OM41f4Xaysm1ZGXRRDoEs8cXIGYb3DdY2isCCWNYn75r7ihIWbmDyZ
- M6rPSf16AjJnssgZlFaTHb/AlobB81WrabFm8OI8uhyYEu48KIpk7OpEk5meVxf4HFGFFOL5+
- SyZ5WgPGBEBu2IcnS9ShPh9jeFGimX+pYhpO2rTIP6Mz49ZF9cbOhPinYwGyWgYlbYC6Vv2+Z
- Q6nDCXkLOKdyhIBDk7VFbry+WH7qe4dpLZe0LOYmDtRz71rrcXuZ8skJYAfn2DToxX5uqrXey
- iNcRX0z51Q9mBtHaRCU3U+xpeNKrOFPF/r9y6yV8dZe7q2Y9Q6O9Em0ep9otwmysTq0FtVXHZ
- w+OZihCMsjB9W+mdr9p3nHtQIG6wqHS4wuA5dQt4P3PydSlrTVmfZluDS7W6Ds3yCXltjkWj7
- MN3NM8kSALPNheGu5S9BIkGnT/n+1PF+nlopqfUhzXffFvZ2d9c3CzTllrNTWQM42X0cQy0/V
- uVppwj1bR7dR1ErWq5O/ODpLBtNF8M0zgyjSbL53voWD+21+1An0t9F/q7r9JkdqZoSSGlnOo
- xerYhEwPndfmdThlEBjYymJIKlTZp9wGSGPgZ1G6TaTWMANTuAwwCDwfz
-Message-ID-Hash: F5KWZRAQ3SDX5O3DN6KOWOBIITVZE3NC
-X-Message-ID-Hash: F5KWZRAQ3SDX5O3DN6KOWOBIITVZE3NC
-X-MailFrom: Markus.Elfring@web.de
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: DQ7JAZJ6HFV5BSWWAA6NGVNJUKYFBCKM
+X-Message-ID-Hash: DQ7JAZJ6HFV5BSWWAA6NGVNJUKYFBCKM
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F5KWZRAQ3SDX5O3DN6KOWOBIITVZE3NC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQ7JAZJ6HFV5BSWWAA6NGVNJUKYFBCKM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,12 +111,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> In these functions, some logical jump of "goto" and variable
-> are redundant, thus remove them.
+--_002_b2dcac3e09ef4f82b36d6712194e1ea4realtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Another wording suggestion:
-Return some values directly in a few function implementations.
-Thus remove local variables which became redundant with this refactoring.
+Hi Takashi,
 
-Regards,
-Markus
+Attach was let Clevo platform with ALC255 enable headset Mic.
+
+BR,
+Kailang
+
+--_002_b2dcac3e09ef4f82b36d6712194e1ea4realtekcom_
+Content-Type: application/octet-stream;
+	name="0000-alc255-clevo-headset-mic.patch"
+Content-Description: 0000-alc255-clevo-headset-mic.patch
+Content-Disposition: attachment;
+	filename="0000-alc255-clevo-headset-mic.patch"; size=906;
+	creation-date="Fri, 25 Oct 2024 08:40:00 GMT";
+	modification-date="Mon, 11 Nov 2024 06:44:14 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSBmYTRmMzBkZjdkNjE1NGFlYWE4ZTk0YWE5OWUyZjgxNGViNTA0NTU3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IEZyaSwgMjUgT2N0IDIwMjQgMTY6Mzc6NTcgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlayAtIEZpeGVkIENsZXZvIHBsYXRmb3JtIGhlYWRzZXQgTWljIGlzc3VlCgpD
+bGV2byBwbGF0Zm9ybSB3aXRoIEFMQzI1NSBIZWFkc2V0IE1pYyB3YXMgZGlzYWJsZSBieSBkZWZh
+dWx0LgpBc3NpZ25lZCB2ZXJiIHRhYmxlIGZvciBNaWMgcGluIHdpbGwgZW5hYmxlIGl0LgoKU2ln
+bmVkLW9mZi1ieTogS2FpbGFuZyBZYW5nIDxrYWlsYW5nQHJlYWx0ZWsuY29tPgpkaWZmIC0tZ2l0
+IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3Jl
+YWx0ZWsuYwppbmRleCAxYzFhNjY4ZGMwZTAuLjYxZmRlODM0YWMzZSAxMDA2NDQKLS0tIGEvc291
+bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFs
+dGVrLmMKQEAgLTExNTY2LDYgKzExNTY2LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfaGRh
+X3Bpbl9xdWlyayBhbGMyNjlfZmFsbGJhY2tfcGluX2ZpeHVwX3RibFtdID0gewogCQl7MHgxYSwg
+MHg0MDAwMDAwMH0pLAogCVNORF9IREFfUElOX1FVSVJLKDB4MTBlYzAyNTYsIDB4MTA0MywgIkFT
+VVMiLCBBTEMyWFhfRklYVVBfSEVBRFNFVF9NSUMsCiAJCXsweDE5LCAweDQwMDAwMDAwfSksCisJ
+U05EX0hEQV9QSU5fUVVJUksoMHgxMGVjMDI1NSwgMHgxNTU4LCAiQ2xldm8iLCBBTEMyWFhfRklY
+VVBfSEVBRFNFVF9NSUMsCisJCXsweDE5LCAweDQwMDAwMDAwfSksCiAJe30KIH07CiAK
+
+--_002_b2dcac3e09ef4f82b36d6712194e1ea4realtekcom_--

@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F8F9C60F3
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 20:01:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E9E9C6182
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 20:32:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C63E81629;
-	Tue, 12 Nov 2024 20:01:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C63E81629
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82ECB162A;
+	Tue, 12 Nov 2024 20:32:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82ECB162A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731438075;
-	bh=t9EVwb5gK0dVvCLzFDIqImJy/PJDy4+ZSKGgBulnslE=;
+	s=default; t=1731439949;
+	bh=KEohtFqUU5/1FVnBYMafh79Cg3+1dalpPfGc8Vnck98=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=FBXThMCbIoK7IWCnQiOBMb0k/PzlGP6wxrqNf0R/DGZshryygqESL12T0SmotIpaC
-	 rWEFNntr7qrFDslDZ/rodYzx/iVf5OODyhEO6WkRDM+XK9i2yahBM/uWyqA8tPSm75
-	 4sdjlIrrmshqcH7N5JNKqieFDr9y+hJcruvjvDtc=
+	b=i4jExRXQcf0yQ0LSq27nbfzAkbr0b1gxAYMogYUcqssV1cMZ2dqSJJ2j7ddl7+H2V
+	 sZ9/tJZ47doeG9wrLLgqUVDPfYbLpw375VOYdye+WDpRInAirnPdbrLzmSj6v+y3Tp
+	 vRN1g8vC+vHpHmwTwB1u1LRO3peRYE+wZJMZeIHA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44D0CF805BF; Tue, 12 Nov 2024 20:00:43 +0100 (CET)
+	id 5A9D6F805B1; Tue, 12 Nov 2024 20:32:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE9F4F805A8;
-	Tue, 12 Nov 2024 20:00:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3973F805AD;
+	Tue, 12 Nov 2024 20:32:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F06C6F8058C; Tue, 12 Nov 2024 20:00:39 +0100 (CET)
+	id DDDF4F8058C; Tue, 12 Nov 2024 20:32:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	MISSING_MID,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EB42F80587
-	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 20:00:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EB42F80587
+	by alsa1.perex.cz (Postfix) with ESMTP id 379BFF800D2
+	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 20:32:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 379BFF800D2
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1731438037685908556-webhooks-bot@alsa-project.org>
-References: <1731438037685908556-webhooks-bot@alsa-project.org>
+In-Reply-To: <1731439920448478699-webhooks-bot@alsa-project.org>
+References: <1731439920448478699-webhooks-bot@alsa-project.org>
 Subject: ALC4082 - ASRock X870 Steel Legend
-Message-Id: <20241112190039.F06C6F8058C@alsa1.perex.cz>
-Date: Tue, 12 Nov 2024 20:00:39 +0100 (CET)
-Message-ID-Hash: QNEWQZRIT7JTJJPHKH3ZWIHTXV2R25QN
-X-Message-ID-Hash: QNEWQZRIT7JTJJPHKH3ZWIHTXV2R25QN
+Message-Id: <20241112193202.DDDF4F8058C@alsa1.perex.cz>
+Date: Tue, 12 Nov 2024 20:32:02 +0100 (CET)
+Message-ID-Hash: CDWWSC5RPARM77UOT5IMXDJKJCWVKWVV
+X-Message-ID-Hash: CDWWSC5RPARM77UOT5IMXDJKJCWVKWVV
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNEWQZRIT7JTJJPHKH3ZWIHTXV2R25QN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CDWWSC5RPARM77UOT5IMXDJKJCWVKWVV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -87,6 +87,10 @@ While sound works "fine" (ish), it's limited to 2 channels.
 Is there something missing in the config files to allow for such support?
 
 ![image](https://github.com/user-attachments/assets/906ea829-0210-49a8-ba16-ad1b5b1285ae)
+
+### Relevant files & the such
+
+[alsa-info.txt](https://github.com/user-attachments/files/17721762/alsa-info.txt)
 
 Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/462
 Repository URL: https://github.com/alsa-project/alsa-ucm-conf

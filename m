@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82D5C9C541E
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 11:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7739C9C5423
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 11:38:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B424211A;
-	Tue, 12 Nov 2024 11:37:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B424211A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDBF02110;
+	Tue, 12 Nov 2024 11:38:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDBF02110
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731407869;
-	bh=OwYKO2ftZtJ8KzoLUoBhbVlf+nM/VBM4EuwO2VowwU4=;
+	s=default; t=1731407890;
+	bh=PzeOA8w+AECUnUVCa08aeQFCwhtB+Ux77+jEn8m2cbI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ms4gS92macrs/raZzuC0lMH+puYI0vsSaT8H5x/eIZUn6kvk6evNfrCNkIYnV6y9l
-	 mZp1HaMiGAgjfVge7M6dplpSSDmhrgUrMhXWVAiNSoN8hjY25PK/5xZm1aWjI6At6P
-	 QHy9HcIdGvR4GgV8ZxIxR5T8g/KD53Wi7OpXgH4I=
+	b=uRHiS7mGIzM79s2VAM70arKPKw11TQJQDFdMXH5gjbG0itRqx/45Ql37IS1kGxXBE
+	 LMM0+8FNKiRgjFkp4UDp83vbQe3VTJuL5VVO4ElE53M1WWnk9XuQ/mP623mttrKcvX
+	 fl1xbHG8RENx/faaUy2fdUcw90aiEHwHIpf2RQIQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCCC1F80604; Tue, 12 Nov 2024 11:36:41 +0100 (CET)
+	id 3B03CF80633; Tue, 12 Nov 2024 11:37:04 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7516DF80604;
-	Tue, 12 Nov 2024 11:36:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C918F80623;
+	Tue, 12 Nov 2024 11:37:04 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8BC68F805A0; Tue, 12 Nov 2024 11:36:35 +0100 (CET)
+	id C3489F80612; Tue, 12 Nov 2024 11:36:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,63 +33,60 @@ X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB2FEF8058C
-	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 11:36:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB2FEF8058C
+	by alsa1.perex.cz (Postfix) with ESMTPS id EB966F80600
+	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 11:36:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB966F80600
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=sZzZMJGE
+ header.s=k20201202 header.b=Nbnz7fN1
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 91D35A41904;
-	Tue, 12 Nov 2024 10:34:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1142C4CECD;
-	Tue, 12 Nov 2024 10:36:30 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 30E615C544D;
+	Tue, 12 Nov 2024 10:36:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3597C4CED6;
+	Tue, 12 Nov 2024 10:36:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731407792;
-	bh=OwYKO2ftZtJ8KzoLUoBhbVlf+nM/VBM4EuwO2VowwU4=;
+	s=k20201202; t=1731407815;
+	bh=PzeOA8w+AECUnUVCa08aeQFCwhtB+Ux77+jEn8m2cbI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=sZzZMJGE4jyiA+GXmnfYvxuOtEgAnHe1xjMXQ/pc61Lxush9rT/11heqXv7K/d600
-	 d033zHwvD+Z2kFWhrGC3WAtyLI/3OSE128nNEjLUlVBkhtLXPwLXUjqMGMwDlpxpF7
-	 cBEhYenFQM049bKaWg1htxvXxc7+OXXKR5O0YUkuJcag18867+XTNRw8L7fVHOJ3Wi
-	 AE70pEP+N/0hNPIPK32rUmVqNRVaPi34k6u29jwgrm+qfLn5VUe+jG0mJRzSRrIF/h
-	 YrP6AIRXRwOZ32LUjeO4X2J4NZ1MRF/imeVEAY7n9nCqgzot8VFu9Uf/Ualtxv/1wB
-	 pyczFRtEvu8Cg==
+	b=Nbnz7fN1SztRrR/Hq3R0ez+5fBEl2Y0k5MN5MGNycWQ+wbSFMoesVlIk5liEKnGKA
+	 3sQ3jabYKrxnMyc3HroEEN6gS8FHVuwMOWKxuNzKzqVN87F3pHsYBpYDdwpGOy0f+U
+	 gbA71bFTRGf/JdBm9G5f2S5t0aiWiQOC8O3z/AIIEt2AtDbVSoYeLXdyijz319NPoS
+	 mcEzAeTC3MymE/Ab5CBgpqkoA2boZq2kZA20i4661gfAMLpr+0UDYW8agG2vuFsCHl
+	 3b1kTkUzJYo87WgVsYlNOh4kn/lttoJtB0763AtbD7IVIE78XN+JIHtHjYBW9VEl8p
+	 pJiUuV+pLAdjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Luo Yifan <luoyifan@cmss.chinamobile.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
+Cc: Shenghao Ding <shenghao-ding@ti.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	arnaud.pouliquen@foss.st.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
 	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
 	alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH AUTOSEL 6.11 14/16] ASoC: stm: Prevent potential division by
- zero in stm32_sai_get_clk_div()
-Date: Tue, 12 Nov 2024 05:35:56 -0500
-Message-ID: <20241112103605.1652910-14-sashal@kernel.org>
+	linux-sound@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.6 06/15] ASoC: tas2781: Add new driver version for
+ tas2563 & tas2781 qfn chip
+Date: Tue, 12 Nov 2024 05:36:27 -0500
+Message-ID: <20241112103643.1653381-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241112103605.1652910-1-sashal@kernel.org>
-References: <20241112103605.1652910-1-sashal@kernel.org>
+In-Reply-To: <20241112103643.1653381-1-sashal@kernel.org>
+References: <20241112103643.1653381-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.11.7
+X-stable-base: Linux 6.6.60
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Q25G4VEECLPHYZKPD3DM6NOM5IS2FKQY
-X-Message-ID-Hash: Q25G4VEECLPHYZKPD3DM6NOM5IS2FKQY
+Message-ID-Hash: LDLFRG3CZRJ2KVQNOOWFSDOPRMOF4IMJ
+X-Message-ID-Hash: LDLFRG3CZRJ2KVQNOOWFSDOPRMOF4IMJ
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q25G4VEECLPHYZKPD3DM6NOM5IS2FKQY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LDLFRG3CZRJ2KVQNOOWFSDOPRMOF4IMJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,36 +108,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Luo Yifan <luoyifan@cmss.chinamobile.com>
+From: Shenghao Ding <shenghao-ding@ti.com>
 
-[ Upstream commit 23569c8b314925bdb70dd1a7b63cfe6100868315 ]
+[ Upstream commit fe09de2db2365eed8b44b572cff7d421eaf1754a ]
 
-This patch checks if div is less than or equal to zero (div <= 0). If
-div is zero or negative, the function returns -EINVAL, ensuring the
-division operation is safe to perform.
+Add new driver version to support tas2563 & tas2781 qfn chip
 
-Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
-Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
-Link: https://patch.msgid.link/20241107015936.211902-1-luoyifan@cmss.chinamobile.com
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Link: https://patch.msgid.link/20241104100055.48-1-shenghao-ding@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/stm/stm32_sai_sub.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/tas2781-fmwlib.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 19307812ec765..64f52c75e2aa8 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -317,7 +317,7 @@ static int stm32_sai_get_clk_div(struct stm32_sai_sub_data *sai,
- 	int div;
- 
- 	div = DIV_ROUND_CLOSEST(input_rate, output_rate);
--	if (div > SAI_XCR1_MCKDIV_MAX(version)) {
-+	if (div > SAI_XCR1_MCKDIV_MAX(version) || div <= 0) {
- 		dev_err(&sai->pdev->dev, "Divider %d out of range\n", div);
- 		return -EINVAL;
- 	}
+diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
+index 629e2195a890b..1cc64ed8de6da 100644
+--- a/sound/soc/codecs/tas2781-fmwlib.c
++++ b/sound/soc/codecs/tas2781-fmwlib.c
+@@ -2022,6 +2022,7 @@ static int tasdevice_dspfw_ready(const struct firmware *fmw,
+ 		break;
+ 	case 0x202:
+ 	case 0x400:
++	case 0x401:
+ 		tas_priv->fw_parse_variable_header =
+ 			fw_parse_variable_header_git;
+ 		tas_priv->fw_parse_program_data =
 -- 
 2.43.0
 

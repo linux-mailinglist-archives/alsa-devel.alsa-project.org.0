@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FB659C5437
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 11:39:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E5A29C543F
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 11:39:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF80C19E7;
-	Tue, 12 Nov 2024 11:38:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF80C19E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 767D922AF;
+	Tue, 12 Nov 2024 11:39:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 767D922AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731407942;
-	bh=lcduc60GNebFCYDHb+GQvYHyFjg9yhZLS6nfuLgYaqU=;
+	s=default; t=1731407958;
+	bh=P/cWhJSzT3puwSZtlig6ZrMwW8z69zWDYWcHupE6Rt8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bEi0OVVkfdhohYR2xrHX5KheXtrIedPXuGNTNcG9nUSNDxd0x/tKWB7qVD07Zv80S
-	 KGHYXi2EMZfjXAjsT4+OPWetFUQWY93/oDhIXie/xhE7fW2ELOtxSughACs4TlWFNP
-	 cWbR4DX/r5rvgzm/+Bk78Q37MGbi28OXlv2hPICs=
+	b=mbsjxUtbYb42DzxSzNvMOgwXAJlLf9rQ485JufhBRMfDv6zcO3e4+3D4lKLtyH3ni
+	 J/fS+7pb3CYuo0e2lhsvtR8mQPgmTYlSL4gltucfEG7voEvWWqyKcVmCLopLJIOCPV
+	 u6HfGcxhXhJ49y54bl8hEEv00hULgTpkcUwodGlA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C70DF805E8; Tue, 12 Nov 2024 11:37:45 +0100 (CET)
+	id 59A07F8068F; Tue, 12 Nov 2024 11:37:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 843C8F805E7;
-	Tue, 12 Nov 2024 11:37:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95EC4F8068E;
+	Tue, 12 Nov 2024 11:37:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F1D2F805AF; Tue, 12 Nov 2024 11:37:39 +0100 (CET)
+	id 08717F805AF; Tue, 12 Nov 2024 11:37:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -37,35 +37,35 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65F06F8058C
-	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 11:37:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65F06F8058C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4259AF8058C
+	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 11:37:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4259AF8058C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A4YgFNSE
+ header.s=k20201202 header.b=aXCskZvc
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id ECA3D5C4D44;
-	Tue, 12 Nov 2024 10:36:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4DDC4CED8;
-	Tue, 12 Nov 2024 10:37:34 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 1EB3E5C5409;
+	Tue, 12 Nov 2024 10:36:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FA76C4CECD;
+	Tue, 12 Nov 2024 10:37:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1731407856;
-	bh=lcduc60GNebFCYDHb+GQvYHyFjg9yhZLS6nfuLgYaqU=;
+	s=k20201202; t=1731407858;
+	bh=P/cWhJSzT3puwSZtlig6ZrMwW8z69zWDYWcHupE6Rt8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=A4YgFNSE2Js6HV9ohpgTmgXM/6dmh9kiLnKZceJF5OcdG8vPEG5Gm1eBzMgYW+H0j
-	 WOumfIJDBrCMzUfnu4qLs89rQxOVipXjvlfO92xVg7a53g8SlfIPuTyuYxhV0qTndI
-	 qkTd5mMWfNa3iFc4STkVI8I71Pkf8j8z2dWWlJ/6OqyoFEp7STARqRt07RZL41jYGD
-	 7WpMIrtueFZbpJCh36hOIZeOcOMXd4/WRCNBpyt5Jyl7bBGxo4xezCaLmABw1nLrDl
-	 SCh1mC3U78epy8gUYYYWDmH2xaPbmC5vcnlqS5LqsaDKnRyJ8pXjbg0fqq3BhjDmRB
-	 huQ3nTxhY9SAA==
+	b=aXCskZvcklrVg6zOgYlnxaT9bxAabnQfXkFIXICfqH1LiqjQ58XURu8aZ4pUaDiD3
+	 YMHP/2z9Ws9IfMp/xKD/WLrue7fyGquY9LrCFTTbL50v7c7f+vfUmUps5ZdfSx2EQR
+	 DJ4jbp6rCfHqJQtyRHO/+MUJxfnifaVhYtQ7RP3DoZGFKAAMPDnd929zqAmQg72qKF
+	 pwFT5p2Blnd4uRLjF0OzVh6AyTAv/9KGL4l7RiJBhnsP6mn/GZ9gGv4y92/S3ksFXF
+	 1L3o1PxQObNMUr5H66gBaH0dSl98Efq5Eqnw66fKvn46vMhhiOL3Clqj8eB8su9Xbs
+	 I3otYSaQ0AuEw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
 Cc: Luo Yifan <luoyifan@cmss.chinamobile.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	olivier.moysan@foss.st.com,
 	arnaud.pouliquen@foss.st.com,
 	lgirdwood@gmail.com,
 	perex@perex.cz,
@@ -76,10 +76,10 @@ Cc: Luo Yifan <luoyifan@cmss.chinamobile.com>,
 	linux-sound@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH AUTOSEL 6.1 09/12] ASoC: stm: Prevent potential division by
- zero in stm32_sai_mclk_round_rate()
-Date: Tue, 12 Nov 2024 05:37:11 -0500
-Message-ID: <20241112103718.1653723-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 10/12] ASoC: stm: Prevent potential division by
+ zero in stm32_sai_get_clk_div()
+Date: Tue, 12 Nov 2024 05:37:12 -0500
+Message-ID: <20241112103718.1653723-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241112103718.1653723-1-sashal@kernel.org>
 References: <20241112103718.1653723-1-sashal@kernel.org>
@@ -88,8 +88,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.1.116
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IYBGKEH52KOLEPIRC4QLQRXMD4JEJKMO
-X-Message-ID-Hash: IYBGKEH52KOLEPIRC4QLQRXMD4JEJKMO
+Message-ID-Hash: XXNNBURDXS7PNYPMSB5PVYO23AS2VRBN
+X-Message-ID-Hash: XXNNBURDXS7PNYPMSB5PVYO23AS2VRBN
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IYBGKEH52KOLEPIRC4QLQRXMD4JEJKMO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XXNNBURDXS7PNYPMSB5PVYO23AS2VRBN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,35 +113,34 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Luo Yifan <luoyifan@cmss.chinamobile.com>
 
-[ Upstream commit 63c1c87993e0e5bb11bced3d8224446a2bc62338 ]
+[ Upstream commit 23569c8b314925bdb70dd1a7b63cfe6100868315 ]
 
 This patch checks if div is less than or equal to zero (div <= 0). If
 div is zero or negative, the function returns -EINVAL, ensuring the
-division operation (*prate / div) is safe to perform.
+division operation is safe to perform.
 
 Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
-Link: https://patch.msgid.link/20241106014654.206860-1-luoyifan@cmss.chinamobile.com
+Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+Link: https://patch.msgid.link/20241107015936.211902-1-luoyifan@cmss.chinamobile.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/stm/stm32_sai_sub.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/stm/stm32_sai_sub.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index eb31b49e65978..3d237f75e81f5 100644
+index 3d237f75e81f5..0629aa5f2fe4b 100644
 --- a/sound/soc/stm/stm32_sai_sub.c
 +++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -378,8 +378,8 @@ static long stm32_sai_mclk_round_rate(struct clk_hw *hw, unsigned long rate,
+@@ -317,7 +317,7 @@ static int stm32_sai_get_clk_div(struct stm32_sai_sub_data *sai,
  	int div;
  
- 	div = stm32_sai_get_clk_div(sai, *prate, rate);
--	if (div < 0)
--		return div;
-+	if (div <= 0)
-+		return -EINVAL;
- 
- 	mclk->freq = *prate / div;
- 
+ 	div = DIV_ROUND_CLOSEST(input_rate, output_rate);
+-	if (div > SAI_XCR1_MCKDIV_MAX(version)) {
++	if (div > SAI_XCR1_MCKDIV_MAX(version) || div <= 0) {
+ 		dev_err(&sai->pdev->dev, "Divider %d out of range\n", div);
+ 		return -EINVAL;
+ 	}
 -- 
 2.43.0
 

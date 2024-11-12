@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4488D9C4871
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2024 22:48:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 818009C4A53
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 01:03:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C0C514DF;
-	Mon, 11 Nov 2024 22:47:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C0C514DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0934F14DE;
+	Tue, 12 Nov 2024 01:03:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0934F14DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731361682;
-	bh=LKNRRs0TrHkupJkgF9W1r6G3Ht6SYDtEfjtG2re5cgw=;
+	s=default; t=1731369801;
+	bh=ls/MIf30Agu7qEZi/+729fUyFOmUfufiE5k/sZ2eE/I=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=k0m3bw1rJxWyD31dJ0OFJeKV0X8pCA6NW8cNbbjpDM+R+c3P9mlFMgQCZsVAqoTE6
-	 0g0Zwkh8hT6CAjIWRMHaCinp3DyKLURzEi5QJntfbNaZOP+6vAGWvhb/x8BX4h3h17
-	 ZANdCTiZAnINhIfXaLrhvZbtv1BcAkPxCwOzbQSo=
+	b=P6IpHuSSrMWkvgRQHUUKXLPDOaqkmAZGULThRJIT1GWdZO0fxMeXsoDjRBU94KZkA
+	 o0RZ+Hr3kp3p6ay1u6XWe4dWQ9ueeaXQwoizpUnGVVOOZee4zhZTlMwiCGIHxVPAUl
+	 GpVfRsVhpeMC/t+gJ6y83R/rMGt2xKaRkVjRxeXs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 211D9F805AF; Mon, 11 Nov 2024 22:47:31 +0100 (CET)
+	id 9F6C9F8058C; Tue, 12 Nov 2024 01:02:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE810F805AD;
-	Mon, 11 Nov 2024 22:47:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42CD3F802DB;
+	Tue, 12 Nov 2024 01:02:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABCC4F80199; Mon, 11 Nov 2024 22:47:20 +0100 (CET)
+	id D4B4FF80199; Tue, 12 Nov 2024 01:02:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2532FF800BD
-	for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2024 22:47:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2532FF800BD
+	by alsa1.perex.cz (Postfix) with ESMTP id 252E2F800C9
+	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 01:02:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 252E2F800C9
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1731361636306850672-webhooks-bot@alsa-project.org>
-References: <1731361636306850672-webhooks-bot@alsa-project.org>
-Subject: `amixer sset Master` doesnt increase and decrease both sides equally
-Message-Id: <20241111214720.ABCC4F80199@alsa1.perex.cz>
-Date: Mon, 11 Nov 2024 22:47:20 +0100 (CET)
-Message-ID-Hash: LFI6VVUFIYVIEMVU7JSK26WVSU4ACH5P
-X-Message-ID-Hash: LFI6VVUFIYVIEMVU7JSK26WVSU4ACH5P
+In-Reply-To: <1731369770321220875-webhooks-bot@alsa-project.org>
+References: <1731369770321220875-webhooks-bot@alsa-project.org>
+Subject: ALC4082 - ASRock X870 Steel Legend
+Message-Id: <20241112000252.D4B4FF80199@alsa1.perex.cz>
+Date: Tue, 12 Nov 2024 01:02:52 +0100 (CET)
+Message-ID-Hash: L7LHJOV55L4Y33XVY4ODB45G5WEHS2XQ
+X-Message-ID-Hash: L7LHJOV55L4Y33XVY4ODB45G5WEHS2XQ
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LFI6VVUFIYVIEMVU7JSK26WVSU4ACH5P/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L7LHJOV55L4Y33XVY4ODB45G5WEHS2XQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,29 +70,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #279 was opened from lquenti:
+alsa-project/alsa-ucm-conf issue #462 was opened from cybik:
 
-I look through the issues, man pages and internet and hope I didn't miss anything. Please tell me if its a user error.
+Following up on https://github.com/alsa-project/alsa-ucm-conf/issues/334
 
-Whenever I use `amixer sset Master` to increase volume, it will not increase them evenly.
+The card "works", but there is one feature missing - though I hesitate to call it "critical": S/PDIF / TOSLINK support is incomplete.
 
-Here is a before
+While sound works "fine" (ish), it's limited to 2 channels.
+* Plugging in another device (CM106-type, for example) gives out a plethora of configuration options (per the screenshot), though this also comes with having to select the right output
+* The USB audio outs are output-specific, which is VERY welcome, but the S/PDIF out does not allow for any advanced selection like "Supported Codecs", and the HiFi 5.1 and 7.1 do not appear to enable any IEC958/AC3 support in the background
 
-![before](https://github.com/user-attachments/assets/4ccfa220-608c-4407-9f6e-fc1d27f1a91b)
+Is there something missing in the config files to allow for such support?
 
-and after
+![image](https://github.com/user-attachments/assets/906ea829-0210-49a8-ba16-ad1b5b1285ae)
 
-![after](https://github.com/user-attachments/assets/250ab254-d46a-44e4-a201-58f9224b6293)
+Relevant PR: https://github.com/alsa-project/alsa-ucm-conf/pull/461
 
-Interestingly amixer seem to think that it is still evenly balanced, although alsamixer shows that it is unbalanced afterwards.
-
----
-
-Interestingly, when decreasing, the unevenness flips to the other side.
-
-[Other people also seem to struggle with it](https://stackoverflow.com/questions/69826139/using-amixer-to-set-audio-makes-left-and-right-unbalanced) 
-
-Thank you so much. If it is something somewhat simple to fix, I can also write a fix myself, but for now I am unsure what the problem is.
-
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/279
-Repository URL: https://github.com/alsa-project/alsa-utils
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/462
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

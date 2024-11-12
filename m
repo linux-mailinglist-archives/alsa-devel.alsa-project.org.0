@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D5639C4A56
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 01:03:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B97C99C4A59
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2024 01:04:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1914C1518;
-	Tue, 12 Nov 2024 01:03:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1914C1518
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB37D14DF;
+	Tue, 12 Nov 2024 01:04:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB37D14DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731369824;
-	bh=NWnVupaAr5xce8G06h0fF4KVcNjOyhngRKHPBgGMQRY=;
+	s=default; t=1731369891;
+	bh=Rz9n9bz4khJmIfQ/g6MiVq1jgLrB0C6kXJW8kogi4aM=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=I+j3sVqHqUPrp7XNTXvaeQa2zsmR4wfQN40yIxZCc/Is+CsHo01pC+cfvb4guSnFt
-	 1sOxZV27NtjonJFAla8gT6B4ooC4YTksSMEwr2ZN4OFPRxLkbHMIA/FG3uf2PVBcwO
-	 tPHhd3ShkZunn90hruqlbcTbodYIRR+VD2Ox3sRM=
+	b=kDeGzVFXjTG8gN03F8oPnfz5x19ssbWpWFcPzRBua5dlYeCL+2lc7xp7MuVWWcy3V
+	 YVxs0LhpuW2QhdAzmcsg/aLTNBMzA7cxBU3z+byipAO1trpPlTSbv7NhY2PpEUvG66
+	 AFLFBl18IIRrtL7GU8bh1x/QjC/JSuVuVDN2ol2c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A622DF805E5; Tue, 12 Nov 2024 01:03:08 +0100 (CET)
+	id DAA44F805A8; Tue, 12 Nov 2024 01:04:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C760F805C0;
-	Tue, 12 Nov 2024 01:03:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 753F3F80534;
+	Tue, 12 Nov 2024 01:04:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17D73F805C0; Tue, 12 Nov 2024 01:03:04 +0100 (CET)
+	id 82C93F80199; Tue, 12 Nov 2024 01:04:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 756F3F805BB
-	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 01:03:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 756F3F805BB
+	by alsa1.perex.cz (Postfix) with ESMTP id C9E43F800AA
+	for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2024 01:04:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9E43F800AA
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1731369782468131065-webhooks-bot@alsa-project.org>
-References: <1731369782468131065-webhooks-bot@alsa-project.org>
+In-Reply-To: <1731369853246054411-webhooks-bot@alsa-project.org>
+References: <1731369853246054411-webhooks-bot@alsa-project.org>
 Subject: ALC4082 - ASRock X870 Steel Legend
-Message-Id: <20241112000304.17D73F805C0@alsa1.perex.cz>
-Date: Tue, 12 Nov 2024 01:03:04 +0100 (CET)
-Message-ID-Hash: 3CNLDJCFC5QG3ZJNPQTFYE4JBVSN5UOM
-X-Message-ID-Hash: 3CNLDJCFC5QG3ZJNPQTFYE4JBVSN5UOM
+Message-Id: <20241112000415.82C93F80199@alsa1.perex.cz>
+Date: Tue, 12 Nov 2024 01:04:15 +0100 (CET)
+Message-ID-Hash: DGO37TYFD4NOY3BNMCR53KEGSYYZXKKS
+X-Message-ID-Hash: DGO37TYFD4NOY3BNMCR53KEGSYYZXKKS
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3CNLDJCFC5QG3ZJNPQTFYE4JBVSN5UOM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DGO37TYFD4NOY3BNMCR53KEGSYYZXKKS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,7 +72,11 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 alsa-project/alsa-ucm-conf issue #462 was edited from cybik:
 
-Following up on https://github.com/alsa-project/alsa-ucm-conf/issues/334 | Relevant PR: https://github.com/alsa-project/alsa-ucm-conf/pull/461
+| Following up | Relevant PR |
+| ------------------| ---------------- |
+| https://github.com/alsa-project/alsa-ucm-conf/issues/334 | https://github.com/alsa-project/alsa-ucm-conf/pull/461 |
+
+
 
 The card "works", but there is one feature missing - though I hesitate to call it "critical": S/PDIF / TOSLINK support is incomplete.
 

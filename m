@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 236069C7F5E
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Nov 2024 01:29:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4199C8B97
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Nov 2024 14:15:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D90B190B;
-	Thu, 14 Nov 2024 01:29:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D90B190B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A66F62355;
+	Thu, 14 Nov 2024 14:14:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A66F62355
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731544167;
-	bh=w+RliFWDy4pz9SGjEdF4frsKbs8MHyjroHrB/goIMkI=;
+	s=default; t=1731590099;
+	bh=yb51lT1q1fL7hr+3ECl0T2v2CVQU6cGDRq9w09frkUs=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=fLjanLNvLGltj4bNAKN+Cg2q7P06RwWU7YHdVF/ZvqAhHhXe01+T4nLkVmPvj8tYT
-	 NWGb2VHk4xx2nellIiYC4AP4PSjMReBsg3+IqGpSGa7shM/dCAzKugvSfWIt8DnOyS
-	 Lb34LVkeT9jcvXkelXJupTW+r1k8zLeYElIN9GFE=
+	b=CDnNqyl5x8ndzXrXUAVsPGIIMUJv/NN0dqU+JV9fljGm79RfjfkMxH/U05TfAP0VA
+	 HLHCnuLEzP6clSBrKTdaTIxDx9e245W+Z494pq1uVR59djGAd6tFYpNUxFtFV5phb/
+	 CpPUoPsZm8NzLEuQiQhTzJXB0Ic2UDHe1+FdzydE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4ACC1F805C0; Thu, 14 Nov 2024 01:28:56 +0100 (CET)
+	id 16B82F805C5; Thu, 14 Nov 2024 14:14:27 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEB80F805A1;
-	Thu, 14 Nov 2024 01:28:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD692F800D2;
+	Thu, 14 Nov 2024 14:14:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 06FECF8058C; Thu, 14 Nov 2024 01:28:48 +0100 (CET)
+	id A957DF8058C; Thu, 14 Nov 2024 14:14:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
 	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53B06F802DB
-	for <alsa-devel@alsa-project.org>; Thu, 14 Nov 2024 01:28:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53B06F802DB
+	by alsa1.perex.cz (Postfix) with ESMTP id B0529F800D2
+	for <alsa-devel@alsa-project.org>; Thu, 14 Nov 2024 14:14:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0529F800D2
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1731544125486296654-webhooks-bot@alsa-project.org>
-References: <1731544125486296654-webhooks-bot@alsa-project.org>
-Subject: udevd[142]: GOTO 'alsa_restore_std' has no matching label in:
- '/usr/lib/udev/rules.d/90-alsa-restore.rules'
-Message-Id: <20241114002848.06FECF8058C@alsa1.perex.cz>
-Date: Thu, 14 Nov 2024 01:28:48 +0100 (CET)
-Message-ID-Hash: VSMIOZLWL6ZY6D5LVY4LLI7XTG7KEJAO
-X-Message-ID-Hash: VSMIOZLWL6ZY6D5LVY4LLI7XTG7KEJAO
+In-Reply-To: <1731590060024505377-webhooks-bot@alsa-project.org>
+References: <1731590060024505377-webhooks-bot@alsa-project.org>
+Subject: alsa-lib-1.2.13: ld.lld: error: version script assignment of
+ 'ALSA_1.2.13' to symbol 'snd_seq_has_tempo_base' failed: symbol not defined
+Message-Id: <20241114131422.A957DF8058C@alsa1.perex.cz>
+Date: Thu, 14 Nov 2024 14:14:22 +0100 (CET)
+Message-ID-Hash: DZ54XLAQR3K37FNHYUGGH5ECJXXP5XVW
+X-Message-ID-Hash: DZ54XLAQR3K37FNHYUGGH5ECJXXP5XVW
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VSMIOZLWL6ZY6D5LVY4LLI7XTG7KEJAO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DZ54XLAQR3K37FNHYUGGH5ECJXXP5XVW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,9 +71,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #280 was opened from sxzzsf:
+alsa-project/alsa-lib issue #420 was opened from nvinson:
 
-There is no 'alsa_restore_std' label in the udev rule  file, is it misspelled alsa_restore_go?
+libasound.so fails to link with ld.lld with error
 
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/280
-Repository URL: https://github.com/alsa-project/alsa-utils
+```ld.lld: error: version script assignment of 'ALSA_1.2.13' to symbol 'snd_seq_has_tempo_base' failed: symbol not defined```
+
+Bug: [Gentoo bug 943399](https://bugs.gentoo.org/9433399)
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/420
+Repository URL: https://github.com/alsa-project/alsa-lib

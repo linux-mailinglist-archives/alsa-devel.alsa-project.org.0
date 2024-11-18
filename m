@@ -2,147 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 598D89D121C
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2024 14:39:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F539D122A
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2024 14:40:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CCF3A4A;
-	Mon, 18 Nov 2024 14:39:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CCF3A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D94EB7F4;
+	Mon, 18 Nov 2024 14:40:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D94EB7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731937158;
-	bh=/td8+4wWQTvp3IPGcZ9enOwVZbTEZd+Scjg/rzpSPe8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1731937211;
+	bh=1dzIu+bDS3mEQECtESSifdxh9boBbAqXLDWb6o78W1w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CLgIbTw5xzoTzyBM9GiRuW0AESrn/1B/dJflGLLD1hFjXNPzMVxkPtOa236KV9pe+
-	 iohvQsa2c81qfOpijuq9ivP2m/oPrggbWFbdJ4t0Gyve67PQ7aK/iraXH0YXvOVVT2
-	 qGuyH2ri4uc07y/Ar5q9exV5qLx0+ojG8v9IEvFQ=
+	b=BM8BHQOnEZ6sZc/E0tbYVGescl6pqKj9zb51C2B/46ik5MjaNbbDhCJwFsx4HzvKD
+	 YOLct4XJUoZk7zlBNnZDWCJxweXXlbXyF1fd1GQYQZ8kFAC2OoXnOy2Qx+U99dplhi
+	 E1eXFAyz3zxzSoxNNPVvOYgmlol2LzPs9u8/NZX8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52D7EF805AE; Mon, 18 Nov 2024 14:38:47 +0100 (CET)
+	id 0BEF2F805BD; Mon, 18 Nov 2024 14:39:40 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BD48F805BA;
-	Mon, 18 Nov 2024 14:38:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADCCFF805BB;
+	Mon, 18 Nov 2024 14:39:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6442F8026D; Mon, 18 Nov 2024 14:38:41 +0100 (CET)
+	id 2FF9FF8026D; Mon, 18 Nov 2024 14:39:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::228])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2D67F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2024 14:38:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2D67F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7151DF800BA
+	for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2024 14:39:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7151DF800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=W89kw9/y;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=e2j1A21Q;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=W89kw9/y;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=e2j1A21Q
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 874391F365;
-	Mon, 18 Nov 2024 13:38:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1731937118;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=kg3o6mNG
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DB8351BF208;
+	Mon, 18 Nov 2024 13:39:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1731937174;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lqZBBu9P0vMQ+LDYax8S5AKlyWD14AuVgXKH6RN0Bqo=;
-	b=W89kw9/y0wty21neLLp8Sqg0IlIi1GFSsAUXSswmhwzMWkWoaet+riFLwiJtwSPGkH3yDd
-	hUci/P2GR49J6jinabGyxvWnjyEDmru6HVn+TzbRJRabWdVLU0x6mQQil2Y/xeXeU/2y11
-	gKkabqcqyCoiNUJuFQ/+1/7Lji+vGQ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1731937118;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lqZBBu9P0vMQ+LDYax8S5AKlyWD14AuVgXKH6RN0Bqo=;
-	b=e2j1A21QZRkN1KEH4N+rbTjyL1aKgU0Pn3AOChbvspJXeg/LXxCOUsEFH0oiNHSJbsNHsf
-	LOwr0CjeDlIJfDDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1731937118;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lqZBBu9P0vMQ+LDYax8S5AKlyWD14AuVgXKH6RN0Bqo=;
-	b=W89kw9/y0wty21neLLp8Sqg0IlIi1GFSsAUXSswmhwzMWkWoaet+riFLwiJtwSPGkH3yDd
-	hUci/P2GR49J6jinabGyxvWnjyEDmru6HVn+TzbRJRabWdVLU0x6mQQil2Y/xeXeU/2y11
-	gKkabqcqyCoiNUJuFQ/+1/7Lji+vGQ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1731937118;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lqZBBu9P0vMQ+LDYax8S5AKlyWD14AuVgXKH6RN0Bqo=;
-	b=e2j1A21QZRkN1KEH4N+rbTjyL1aKgU0Pn3AOChbvspJXeg/LXxCOUsEFH0oiNHSJbsNHsf
-	LOwr0CjeDlIJfDDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6971F134A0;
-	Mon, 18 Nov 2024 13:38:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1bt1GF5DO2dtaAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 18 Nov 2024 13:38:38 +0000
-Date: Mon, 18 Nov 2024 14:38:38 +0100
-Message-ID: <87iksk7jc1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC updates for v6.13
-In-Reply-To: <448e5dfb7b1c48b7b4a544d2ece10c7e.broonie@kernel.org>
-References: <448e5dfb7b1c48b7b4a544d2ece10c7e.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-Message-ID-Hash: 37NDMATFFD7BSFGL5VXE4MZ7HNJ3KHMP
-X-Message-ID-Hash: 37NDMATFFD7BSFGL5VXE4MZ7HNJ3KHMP
-X-MailFrom: tiwai@suse.de
+	bh=WKBfmWwe0K8YK6G59KsdbaDz2+vE4JtCifokD5Jr7zc=;
+	b=kg3o6mNGQfhtXlBOIcFMtnFqK7OJJG4S/uA++2tR7IMdOehPRj+qTUkcxNKZsF0cG/F2tl
+	0ZgptP2PYC9FDYJwuWbteP+AZysqliZ5AjXxkJCmIgsRapeZgllNAdrIMyv9zvYXlwzrRx
+	ZqV098zadeIDwrUDGNzQUrlE4xBplfMZD43XGUbtqou3is7C9EK0RaSZhQXtjbCbxLyl80
+	9aEGY3YDkivEu5QHWUCM9NWfy8H6dVznjYMubOhNE5+h3OOltp9KVebf4/O6lkzkqvisQ/
+	Ywr8UohM5O+ut7DpWgSA96aAkUNb0IorayZKgQZrcFnPpicVpPrZE1EBBPPBlg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: <tudor.ambarus@linaro.org>,  <michael@walle.cc>,  <broonie@kernel.org>,
+  <pratyush@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <robh@kernel.org>,  <conor+dt@kernel.org>,  <krzk+dt@kernel.org>,
+  <venkatesh.abbarapu@amd.com>,  <linux-spi@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>,  <linux-mtd@lists.infradead.org>,
+  <nicolas.ferre@microchip.com>,  <alexandre.belloni@bootlin.com>,
+  <claudiu.beznea@tuxon.dev>,  <michal.simek@amd.com>,
+  <linux-arm-kernel@lists.infradead.org>,  <alsa-devel@alsa-project.org>,
+  <patches@opensource.cirrus.com>,  <git@amd.com>,
+  <amitrkcian2002@gmail.com>,  <beanhuo@micron.com>
+Subject: Re: [RFC PATCH 2/2] dt-bindings: spi: Update stacked and parallel
+ bindings
+In-Reply-To: <20241026075347.580858-3-amit.kumar-mahapatra@amd.com> (Amit
+	Kumar Mahapatra's message of "Sat, 26 Oct 2024 13:23:47 +0530")
+References: <20241026075347.580858-1-amit.kumar-mahapatra@amd.com>
+	<20241026075347.580858-3-amit.kumar-mahapatra@amd.com>
+User-Agent: mu4e 1.12.1; emacs 29.4
+Date: Mon, 18 Nov 2024 14:39:32 +0100
+Message-ID: <87y11gwtij.fsf@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-GND-Sasl: miquel.raynal@bootlin.com
+Message-ID-Hash: H2SZW2LORGHY4IYLU4RRKE2NUBVIDY4Q
+X-Message-ID-Hash: H2SZW2LORGHY4IYLU4RRKE2NUBVIDY4Q
+X-MailFrom: miquel.raynal@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -154,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37NDMATFFD7BSFGL5VXE4MZ7HNJ3KHMP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H2SZW2LORGHY4IYLU4RRKE2NUBVIDY4Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,40 +105,137 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 18 Nov 2024 14:32:14 +0100,
-Mark Brown wrote:
-> 
-> The following changes since commit 2ae6da569e34e1d26c5275442d17ffd75fd343b3:
-> 
->   ASoC: max9768: Fix event generation for playback mute (2024-11-12 13:16:37 +0000)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.13
-> 
-> for you to fetch changes up to 82ff5abc2edcfba0c0f1a1be807795e2876f46e9:
-> 
->   ASoC: hdmi-codec: reorder channel allocation list (2024-11-15 13:43:00 +0000)
-> 
-> ----------------------------------------------------------------
-> ASoC: Updates for v6.13
-> 
-> This release was mainly about new drivers, there's a very large batch of
-> new drivers and devices including quite a few from newer vendors which
-> is great to see.  Other than the new drivers and the usual routine fixes
-> and enhancements the bulk of the work has been Morimoto-san's continuing
-> work on simplifiying APIs, plus a few other bits:
-> 
->  - More API simplifications from Morimoto-san.
->  - Renaming of the sh directory to Renesas to reflect the focus on other
->    architectures.
->  - Factoring out of some of the common code for Realtek devices.
->  - Support for Allwinner H616, AMD ACP 6.3 systems, AWInic AW88081,
->    Cirrus Logic CS32L84, Everest ES8328, Iron Devices SMA1307, Longsoon
->    I2S, NeoFidelity NTP8918 and NTP8835, Philips UDA1342, Qualcomm
->    SM8750, RealTek RT721, and ST Microelectronics STM32MP25.
+Hi Amit,
 
-Pulled now.  Thanks.
+On 26/10/2024 at 13:23:47 +0530, Amit Kumar Mahapatra <amit.kumar-mahapatra=
+@amd.com> wrote:
 
+> For implementing the proposed solution the current 'stacked-memories' &
+> 'parallel-memories' bindings need to be updated as follow.
+>
+> stacked-memories binding changes:
+> - Each flash will have its own flash node. This approach allows flashes of
+>   different makes and sizes to be stacked together, as each flash will be
+>   probed individually.
+> - Each of the flash node will have its own =E2=80=9Creg=E2=80=9D property=
+ that will contain
+>   its physical CS.
+> - Remove the size information from the bindings as it can be retrived
+>   drirectly from the flash.
+> - The stacked-memories DT bindings will contain the phandles of the flash
+>   nodes connected in stacked mode.
+>
+> The new layer will update the mtd->size and other mtd_info parameters aft=
+er
+> both the flashes are probed and will call mtd_device_register with the
+> combined information.
+>
+> spi@0 {
+>         ...
+>         flash@0 {
+>                 compatible =3D "jedec,spi-nor"
+>                 reg =3D <0x00>;
+>                 stacked-memories =3D <&flash@0 &flash@1>;
+>                 spi-max-frequency =3D <50000000>;
+>                 ...
+>                         partitions {
+>                         compatible =3D "fixed-partitions";
+>                                 concat-partition =3D <&flash0_partition &=
+flash1_partition>;
+>                                 flash0_partition: partition@0 {
+>                                         label =3D "part0_0";
+>                                         reg =3D <0x0 0x800000>;
+>                                 }
+>                         }
+>         }
+>         flash@1 {
+>                 compatible =3D "jedec,spi-nor"
+>                 reg =3D <0x01>;
+>                 stacked-memories =3D <&flash@0 &flash@1>;
+>                 spi-max-frequency =3D <50000000>;
+>                 ...
+>                         partitions {
 
-Takashi
+Same comment as before here.
+
+>                         compatible =3D "fixed-partitions";
+>                                 concat-partition =3D <&flash0_partition &=
+flash1_partition>;
+>                                 flash1_partition: partition@0 {
+>                                         label =3D "part0_1";
+>                                         reg =3D <0x0 0x800000>;
+>                                 }
+>                         }
+>         }
+>
+> }
+>
+> parallel-memories binding changes:
+> - Remove the size information from the bindings and change the type to
+>   boolen.
+> - Each flash connected in parallel mode should be identical and will have
+>   one flash node for both the flash devices.
+> - The =E2=80=9Creg=E2=80=9D prop will contain the physical CS number for =
+both the connected
+>   flashes.
+>
+> The new layer will double the mtd-> size and register it with the mtd
+> layer.
+
+Not so sure about that, you'll need a new mtd device to capture the
+whole device. But this is implementation related, not relevant for
+binding.
+
+>
+> spi@1 {
+>         ...
+>         flash@3 {
+>                 compatible =3D "jedec,spi-nor"
+>                 reg =3D <0x00 0x01>;
+>                 paralle-memories ;
+
+Please fix the typos and the spacing (same above).
+
+>                 spi-max-frequency =3D <50000000>;
+>                 ...
+>                         partitions {
+>                         compatible =3D "fixed-partitions";
+>                                 flash0_partition: partition@0 {
+>                                         label =3D "part0_0";
+>                                         reg =3D <0x0 0x800000>;
+>                                 }
+>                         }
+>         }
+> }
+>
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
+>  .../bindings/spi/spi-controller.yaml          | 23 +++++++++++++++++--
+>  .../bindings/spi/spi-peripheral-props.yaml    |  9 +++-----
+>  2 files changed, 24 insertions(+), 8 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/spi/spi-controller.yaml b/=
+Documentation/devicetree/bindings/spi/spi-controller.yaml
+> index 093150c0cb87..2d300f98dd72 100644
+> --- a/Documentation/devicetree/bindings/spi/spi-controller.yaml
+> +++ b/Documentation/devicetree/bindings/spi/spi-controller.yaml
+> @@ -185,7 +185,26 @@ examples:
+>          flash@2 {
+>              compatible =3D "jedec,spi-nor";
+>              spi-max-frequency =3D <50000000>;
+> -            reg =3D <2>, <3>;
+> -            stacked-memories =3D /bits/ 64 <0x10000000 0x10000000>;
+> +            reg =3D <2>;
+> +            stacked-memories =3D <&flash0 &flash1>;
+>          };
+
+I'm sorry but this is not what you've talked about in this series.
+Either you have flash0 and flash1 and use the stacked-memories property
+in both of them (which is what you described) or you create a third
+virtual device which points to two other flashes. This example allows
+for an easier use of the partitions mechanism on top of a virtual mtd
+device but, heh, you're now describing a virtual mtd device, which is
+not a physical device as it "should" be.
+
+Thanks,
+Miqu=C3=A8l

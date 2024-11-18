@@ -2,102 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8586B9D0393
-	for <lists+alsa-devel@lfdr.de>; Sun, 17 Nov 2024 13:26:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B77269D11D9
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2024 14:28:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E72E1EB;
-	Sun, 17 Nov 2024 13:26:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E72E1EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E20AB846;
+	Mon, 18 Nov 2024 14:27:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E20AB846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1731846373;
-	bh=2Vzu3RlYgWlUg+kP8l3nTLXS8GOcuKbfykkwWU/BOFg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1731936486;
+	bh=j+2aLqPO8jT7pUqSoOdhBzttb3wUlOWGxh1jMETKNlc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Jx0Or7iaWkSns9q2jOq1yWfZ136U4tyBe7IALV7zaDX/kR4Jt82L/wBfze56+mH4B
-	 1Z3kDid+bpDhjEuNxC0KsMspTOian+e/iG7F4doOmoE4RoIIXv3JGGjlLLrruC1HfS
-	 u8IUc9oJ9kvrykX1oM6hYKDdLdbW3emBq8QONEhk=
+	b=hEazPSE7mMu0ZTeq9D6kVcFkwp4iCdX77G7UXsixylGXdscQ5uSLYqhLeV++CL4yH
+	 qLC2uRoVB0kaHW9UaC64fO4Ux2V6Ej9wwC45JnTsnZrhyhhKEHhG9paJJxPm5hZe/b
+	 m++xiveN/NlZx33JynponVWUAOy+DiGC1epclIP0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B24BF805BF; Sun, 17 Nov 2024 13:25:41 +0100 (CET)
+	id 8403CF805AF; Mon, 18 Nov 2024 14:27:33 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4F4EF80508;
-	Sun, 17 Nov 2024 13:25:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2A25F805B0;
+	Mon, 18 Nov 2024 14:27:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46AA6F80517; Sun, 17 Nov 2024 13:25:33 +0100 (CET)
+	id 51B4BF8026D; Mon, 18 Nov 2024 14:27:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::223])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F1778F800D2
-	for <alsa-devel@alsa-project.org>; Sun, 17 Nov 2024 13:25:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1778F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73B8EF800BA
+	for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2024 14:27:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73B8EF800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
- unprotected) header.d=ellerman.id.au header.i=@ellerman.id.au
- header.a=rsa-sha256 header.s=201909 header.b=mTU1+u6c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
-	s=201909; t=1731846322;
-	bh=tp2Q+8b3zGUBih3afpuzhAn88G4uKrpXKwQ9ivMWqHM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=mTU1+u6copmZDAjfqnXWv+2ujIPjQ3JtoGu9so550WGMXDTKHgPRUtKWL5WTQKacA
-	 ukYIXyZnvXaIaM7phYyg2ffevuNcZwkVM+fGzA0yJe4hA6ivVJfsyMN2k5es56Dca2
-	 xnyEpYxwi2vRkSTSXt4SDnE54vHeCtrhpgtS0p+MhXC1a/iPqUZ6noNUE4xD/tX6x3
-	 9xyLmagErBzssEeKDZj2zkr4owFCFT2YctuTq6qJ9KGCJplX90TRwhVHol5EujIAFV
-	 JLHuHIFQhKPYuj26daIFU9Gqj0sP+YYyQFfmqJ5wJevMLVh4tXn5ub20TQGEUboHP9
-	 4WeeB6bi4EbDw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4Xrqhp5Zp2z4xf5;
-	Sun, 17 Nov 2024 23:25:14 +1100 (AEDT)
-From: Michael Ellerman <patch-notifications@ellerman.id.au>
-To: linux-gpio@vger.kernel.org, Julia Lawall <Julia.Lawall@inria.fr>
-Cc: kernel-janitors@vger.kernel.org, audit@vger.kernel.org,
- linux-mtd@lists.infradead.org, Zhihao Cheng <chengzhihao1@huawei.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mm@kvack.org,
- maple-tree@lists.infradead.org, alsa-devel@alsa-project.org,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, dccp@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>,
- drbd-dev@lists.linbit.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-leds@vger.kernel.org,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Naveen N Rao <naveen@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- linuxppc-dev@lists.ozlabs.org, tipc-discussion@lists.sourceforge.
- net, Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-trace-kernel@vger.kernel.org, Neil Brown <neilb@suse.de>,
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, linux-nfs@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-wireless@vger.kernel.org,
- intel-wired-lan@lists.osuosl.org
-In-Reply-To: <20240930112121.95324-1-Julia.Lawall@inria.fr>
-References: <20240930112121.95324-1-Julia.Lawall@inria.fr>
-Subject: Re: (subset) [PATCH 00/35] Reorganize kerneldoc parameter names
-Message-Id: <173184539760.890800.14513086226459117952.b4-ty@ellerman.id.au>
-Date: Sun, 17 Nov 2024 23:09:57 +1100
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=TjnKsS73
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 491CE6000C;
+	Mon, 18 Nov 2024 13:27:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1731936443;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C3aT8RFdCdTNdeyQreq16da7/I4iz4pcsvKIIFnCgCA=;
+	b=TjnKsS73E0DI6Iz1Q01nvGmPESd+7DxF6LViNdUq0cX9Z0fhcRy+zhf1rsWcq79PUow3za
+	RedWyADTe3BipekMwV1ef4XY/nveNr9lfcgJe4eucg+cC4f9nqXU1Al0w+rzpPv1ZlTkL4
+	HWjP5twPA9CmE/HK7Q7xBEyU4DBsvYCeyZt+WyrLoXwfeDK9DI6KYjnW7Ab8tBOVTaZS3K
+	YNrfEQzODkE3MW1LaAnQM5yksYIAph0J7GYoc5gRUVBOMDwH6TOBPu39VY25t+GtnWI1PU
+	t+GuJMr7+z3Ssm8X8RkzTw6qDTocV4cBUXJ4Bck+T4PF979v2jPhGguDTJplDw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Cc: <tudor.ambarus@linaro.org>,  <michael@walle.cc>,  <broonie@kernel.org>,
+  <pratyush@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <robh@kernel.org>,  <conor+dt@kernel.org>,  <krzk+dt@kernel.org>,
+  <venkatesh.abbarapu@amd.com>,  <linux-spi@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>,  <linux-mtd@lists.infradead.org>,
+  <nicolas.ferre@microchip.com>,  <alexandre.belloni@bootlin.com>,
+  <claudiu.beznea@tuxon.dev>,  <michal.simek@amd.com>,
+  <linux-arm-kernel@lists.infradead.org>,  <alsa-devel@alsa-project.org>,
+  <patches@opensource.cirrus.com>,  <git@amd.com>,
+  <amitrkcian2002@gmail.com>,  <beanhuo@micron.com>
+Subject: Re: [RFC PATCH 1/2] dt-bindings: mtd: Add bindings for describing
+ concatinated MTD devices
+In-Reply-To: <20241026075347.580858-2-amit.kumar-mahapatra@amd.com> (Amit
+	Kumar Mahapatra's message of "Sat, 26 Oct 2024 13:23:46 +0530")
+References: <20241026075347.580858-1-amit.kumar-mahapatra@amd.com>
+	<20241026075347.580858-2-amit.kumar-mahapatra@amd.com>
+User-Agent: mu4e 1.12.1; emacs 29.4
+Date: Mon, 18 Nov 2024 14:27:21 +0100
+Message-ID: <87frnoy8na.fsf@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: EQPLALXWIDGIVLUXVE5TXZUN4ROXJD66
-X-Message-ID-Hash: EQPLALXWIDGIVLUXVE5TXZUN4ROXJD66
-X-MailFrom: michael@ellerman.id.au
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-GND-Sasl: miquel.raynal@bootlin.com
+Message-ID-Hash: DKVY3ZFP4RLLZQZ3O3OQAOGAEXAZZBWL
+X-Message-ID-Hash: DKVY3ZFP4RLLZQZ3O3OQAOGAEXAZZBWL
+X-MailFrom: miquel.raynal@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EQPLALXWIDGIVLUXVE5TXZUN4ROXJD66/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DKVY3ZFP4RLLZQZ3O3OQAOGAEXAZZBWL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,22 +105,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 30 Sep 2024 13:20:46 +0200, Julia Lawall wrote:
-> Reorganize kerneldoc parameter names to match the parameter
-> order in the function header.
-> 
-> The misordered cases were identified using the following
-> Coccinelle semantic patch:
-> 
-> // <smpl>
-> @initialize:ocaml@
-> @@
-> 
-> [...]
+On 26/10/2024 at 13:23:46 +0530, Amit Kumar Mahapatra <amit.kumar-mahapatra=
+@amd.com> wrote:
 
-Applied to powerpc/next.
+> This approach was suggested by Rob [1] during a discussion on Miquel's
+> initial approach [2] to extend the MTD-CONCAT driver to support stacked
+> memories.
+> Define each flash node separately with its respective partitions, and add
+> a 'concat-parts' binding to link the partitions of the two flash nodes th=
+at
+> need to be concatenated.
+>
+> flash@0 {
+>         compatible =3D "jedec,spi-nor"
+>         ...
+>                 partitions {
 
-[11/35] powerpc/ps3: Reorganize kerneldoc parameter names
-        https://git.kernel.org/powerpc/c/276e036e5844116e563fa90f676c625bb742cc57
+Wrong indentation here and below which makes the example hard to read.
 
-cheers
+>                 compatible =3D "fixed-partitions";
+>                         concat-partition =3D <&flash0_partition &flash1_p=
+artition>;
+>                         flash0_partition: partition@0 {
+>                                 label =3D "part0_0";
+>                                 reg =3D <0x0 0x800000>;
+>                         }
+>                 }
+> }
+> flash@1 {
+>         compatible =3D "jedec,spi-nor"
+>         ...
+>                 partitions {
+>                 compatible =3D "fixed-partitions";
+>                         concat-partition =3D <&flash0_partition &flash1_p=
+artition>;
+>                         flash1_partition: partition@0 {
+>                                 label =3D "part0_1";
+>                                 reg =3D <0x0 0x800000>;
+>                         }
+>                 }
+> }
+
+This approach has a limitation I didn't think about before: you cannot
+use anything else than fixed partitions as partition parser.
+
+> Based on the bindings the MTD-CONCAT driver need to be updated to create
+> virtual mtd-concat devices.
+>
+> [1] https://lore.kernel.org/all/20191118221341.GA30937@bogus/
+> [2] https://lore.kernel.org/all/20191113171505.26128-4-miquel.raynal@boot=
+lin.com/
+>
+> Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+> ---
+>  .../mtd/partitions/fixed-partitions.yaml       | 18 ++++++++++++++++++
+>  .../bindings/mtd/partitions/partitions.yaml    |  6 ++++++
+>  2 files changed, 24 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/mtd/partitions/fixed-parti=
+tions.yaml b/Documentation/devicetree/bindings/mtd/partitions/fixed-partiti=
+ons.yaml
+> index 058253d6d889..df4ccb3dfeba 100644
+> --- a/Documentation/devicetree/bindings/mtd/partitions/fixed-partitions.y=
+aml
+> +++ b/Documentation/devicetree/bindings/mtd/partitions/fixed-partitions.y=
+aml
+> @@ -183,3 +183,21 @@ examples:
+>              read-only;
+>          };
+>      };
+> +
+> +  - |
+> +    partitions {
+> +        compatible =3D "fixed-partitions";
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+
+This is not strictly related but I believe we will soon have issues with
+these, as we will soon cross the 4GiB boundary.
+
+> +        concat-parts =3D <&part0 &part1>;
+> +
+> +        part0: partition@0 {
+> +            label =3D "flash0-part0";
+> +            reg =3D <0x0000000 0x100000>;
+> +        };
+> +
+> +        part1: partition@100000 {
+> +            label =3D "flash1-part0";
+> +            reg =3D <0x0100000 0x200000>;
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/mtd/partitions/partitions.=
+yaml b/Documentation/devicetree/bindings/mtd/partitions/partitions.yaml
+> index 1dda2c80747b..86bbd83c3f6d 100644
+> --- a/Documentation/devicetree/bindings/mtd/partitions/partitions.yaml
+> +++ b/Documentation/devicetree/bindings/mtd/partitions/partitions.yaml
+> @@ -32,6 +32,12 @@ properties:
+>    '#size-cells':
+>      enum: [1, 2]
+>=20=20
+> +  concat-parts:
+> +    description: List of MTD partitions phandles that should be concaten=
+ated.
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    minItems: 2
+> +    maxItems: 4
+> +
+>  patternProperties:
+>    "^partition(-.+|@[0-9a-f]+)$":
+>      $ref: partition.yaml
+
+Fine by me otherwise.
+
+Thanks,
+Miqu=C3=A8l

@@ -2,55 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F9A9D35B0
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2024 09:42:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AAFD9D35B1
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2024 09:42:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C49791926;
-	Wed, 20 Nov 2024 09:41:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C49791926
+	by alsa0.perex.cz (Postfix) with ESMTPS id E140B20C0;
+	Wed, 20 Nov 2024 09:42:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E140B20C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1732092120;
-	bh=1h5VrLXzHJTCIhEzRJWc5HBxMGPClMTJUb95GwlFRv8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=tGMqPAMVQIy3qeAHGZIJHpW3HGACi34C+6IFLdOPuG70PnMUHp+fwyFyL+t2NoKVz
-	 R9lVOGPCt1INhXCRrr2RecaL7j0WlnVffZJjM3cVjXXb8sN8Nle0GyV1P7acCYoSeL
-	 HhwMSeFrEMg9xJQA07qDM0TepBOR7IbF7mhjKSBQ=
+	s=default; t=1732092147;
+	bh=2M2M2SjwDjMs9ETC6napHTvd1ofZOHgmElOYKyXOnEU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=H38l4HguzJPXHqahQyKzOW7/8hFzxx8nMf6R7eJ6aHmLw/Mj4wTq2eSVky9ylabg/
+	 73ys1l6ZKwJMsT6nCVLnLUbU4Hbnl+Qk1GIgIceSw09vTl9dBCFA9nonZ46JJVrKpX
+	 TLR2gCWibXK/MivCA0svsG6a23ZE9Pb5nnM85rr0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF70FF805B0; Wed, 20 Nov 2024 09:41:29 +0100 (CET)
+	id 3245DF805C6; Wed, 20 Nov 2024 09:42:07 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59244F805BB;
-	Wed, 20 Nov 2024 09:41:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5ED8F80587;
+	Wed, 20 Nov 2024 09:42:06 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14047F8026D; Wed, 20 Nov 2024 09:41:25 +0100 (CET)
+	id D391DF8026D; Wed, 20 Nov 2024 09:42:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B120F80124
-	for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2024 09:41:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B120F80124
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8EEF8F80124
+	for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2024 09:41:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EEF8F80124
+Authentication-Results: alsa1.perex.cz;
+	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=rP9kFAIW
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4AK8fmRqB3787695,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
+	t=1732092108; bh=2M2M2SjwDjMs9ETC6napHTvd1ofZOHgmElOYKyXOnEU=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version;
+	b=rP9kFAIWgInVdpvQtj+ACDzH3+nnVcrEdVikRj6BctYIt23TRmmF1LObHwFERsE/T
+	 NBdTPNAd1mVuKRzettQyLMQWIMN6VxUXUxingkL56gENCUoGnqPFUQG0kccCvmTAMl
+	 +78fba5SHp7nPrpxV/IVwWbP4WlyZeXv+ohfyB/SC6jVUhcAkcoo4bJ3QH29+zxKai
+	 z5IgxLZ+Xx6HhMaO5Dgm0n/wMFoUa7QAVs1Z4fXiAfnJu0Vs/ZfDfrhqHfdBKvRXEU
+	 cdwGz5ZniqIycfyz37jvIIwh1KVQ4SEKFZTPmhBEmO6xDOkQ+E4OGWtdYHXZ9QA1cf
+	 bkM50ENY+wQ+A==
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 4AK8fmRqB3787695
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 20 Nov 2024 16:41:48 +0800
+Received: from RTEXDAG02.realtek.com.tw (172.21.6.101) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 20 Nov 2024 16:41:49 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG02.realtek.com.tw (172.21.6.101) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 20 Nov 2024 16:41:48 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
+ RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
+ 15.01.2507.035; Wed, 20 Nov 2024 16:41:48 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: ALC225 ALC256 update depop procedure
+Thread-Topic: ALC225 ALC256 update depop procedure
+Thread-Index: Ads7J/YDoQMGzHJWR2uu6mx3IHXi0g==
+Date: Wed, 20 Nov 2024 08:41:48 +0000
+Message-ID: <463c5f93715d4714967041a0a8cec28e@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.21.6.42]
+Content-Type: multipart/mixed;
+	boundary="_003_463c5f93715d4714967041a0a8cec28erealtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1732092083066355228-webhooks-bot@alsa-project.org>
-References: <1732092083066355228-webhooks-bot@alsa-project.org>
-Subject: alsactl: 90-alsa-restore.rules - fix AMD acp-pdm-mach link name
- acp-dmic-codec
-Message-Id: <20241120084125.14047F8026D@alsa1.perex.cz>
-Date: Wed, 20 Nov 2024 09:41:25 +0100 (CET)
-Message-ID-Hash: JOAGONPRFOHS6TT2M35HIMFXDCH3I6LJ
-X-Message-ID-Hash: JOAGONPRFOHS6TT2M35HIMFXDCH3I6LJ
-X-MailFrom: github@alsa-project.org
+Message-ID-Hash: ESMO3KWFDOYJXLURSJ7XJCUIWQBICPOY
+X-Message-ID-Hash: ESMO3KWFDOYJXLURSJ7XJCUIWQBICPOY
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JOAGONPRFOHS6TT2M35HIMFXDCH3I6LJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ESMO3KWFDOYJXLURSJ7XJCUIWQBICPOY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,53 +106,171 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils pull request #281 was edited from pma1:
+--_003_463c5f93715d4714967041a0a8cec28erealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-The link name of AMD ACP digital microphones driver acp-pdm-mach is acp-dmic-codec.
-fix it to make UCM initialize it again.
+Hi Takashi,
 
-Fixes: 8116639 ("alsactl: 90-alsa-restore.rules - add support for AMD ACP digital microphone")
+ALC225 ALC256 update depop procedure.
+Many Thanks.
 
-```
-# arecord -l
-**** List of CAPTURE Hardware Devices ****
-card 1: Generic_1 [HD-Audio Generic], device 0: ALC257 Analog [ALC257 Analog]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: acppdmmach [acp-pdm-mach], device 0: (null) dmic-hifi-0 []
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
+BR,
+Kailang
 
-# ls -la /sys/class/sound/controlC2/device/
-total 0
-drwxr-xr-x 5 root root    0 Nov 20 15:50 .
-drwxr-xr-x 3 root root    0 Nov 20 15:50 ..
-drwxr-xr-x 3 root root    0 Nov 20 15:47 controlC2
-lrwxrwxrwx 1 root root    0 Nov 20 15:47 device -> ../../../acp-pdm-mach
--rw-r--r-- 1 root root 4096 Nov 20 15:50 id
--r--r--r-- 1 root root 4096 Nov 20 15:47 number
-drwxr-xr-x 3 root root    0 Nov 20 15:47 pcmC2D0c
-drwxr-xr-x 2 root root    0 Nov 20 15:50 power
-lrwxrwxrwx 1 root root    0 Nov 20 15:47 subsystem -> ../../../../../../../../class/sound
--rw-r--r-- 1 root root 4096 Nov 20 15:47 uevent
+--_003_463c5f93715d4714967041a0a8cec28erealtekcom_
+Content-Type: application/octet-stream;
+	name="0000-alc256-hp-depop-update.patch"
+Content-Description: 0000-alc256-hp-depop-update.patch
+Content-Disposition: attachment;
+	filename="0000-alc256-hp-depop-update.patch"; size=2999;
+	creation-date="Thu, 14 Nov 2024 07:22:42 GMT";
+	modification-date="Thu, 14 Nov 2024 07:29:32 GMT"
+Content-Transfer-Encoding: base64
 
-# ls -la /sys/class/sound/controlC2/device/device/
-total 0
-drwxr-xr-x 5 root root    0 Nov 20 15:50 .
-drwxr-xr-x 4 root root    0 Nov 20 15:50 ..
-drwxr-xr-x 3 root root    0 Nov 20 15:50 acp-dmic-codec
-lrwxrwxrwx 1 root root    0 Nov 20 15:47 driver -> ../../../../../../bus/platform/drivers/acp_mach
--rw-r--r-- 1 root root 4096 Nov 20 15:50 driver_override
--r--r--r-- 1 root root 4096 Nov 20 15:50 modalias
-drwxr-xr-x 2 root root    0 Nov 20 15:50 power
-drwxr-xr-x 3 root root    0 Nov 20 15:50 sound
-lrwxrwxrwx 1 root root    0 Nov 20 15:47 subsystem -> ../../../../../../bus/platform
--rw-r--r-- 1 root root 4096 Nov 20 15:50 uevent
-```
+RnJvbSAzODczNGNmZThjMTBhMjQ0NmMyNzUzZGRmZDA4NWY1NjM0ZDFiOWU3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFRodSwgMTQgTm92IDIwMjQgMTU6MjE6MDkgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlazogVXBkYXRlIEFMQzI1NiBkZXBvcCBwcm9jZWR1cmUKCk9sZCBwcm9jZWR1
+cmUgaGFzIGEgY2hhbmNlIHRvIG1lZXQgSGVhZHBob25lIG5vIG91dHB1dC4KCkZpeGVzOiA0YTIx
+OWVmOGYzNzAgKCJBTFNBOiBoZGEvcmVhbHRlayAtIEFkZCBBTEMyNTYgSFAgZGVwb3AgZnVuY3Rp
+b24iKQpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CmRp
+ZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYyBiL3NvdW5kL3BjaS9oZGEv
+cGF0Y2hfcmVhbHRlay5jCmluZGV4IDU2YTM2MjJjYTJjMS4uYzVkYWUyZjkwYTQ1IDEwMDY0NAot
+LS0gYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYworKysgYi9zb3VuZC9wY2kvaGRhL3Bh
+dGNoX3JlYWx0ZWsuYwpAQCAtMzYxMywyNSArMzYxMywyMiBAQCBzdGF0aWMgdm9pZCBhbGMyNTZf
+aW5pdChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAogCWhwX3Bpbl9zZW5zZSA9IHNuZF9oZGFf
+amFja19kZXRlY3QoY29kZWMsIGhwX3Bpbik7CiAKLQlpZiAoaHBfcGluX3NlbnNlKQorCWlmICho
+cF9waW5fc2Vuc2UpIHsKIAkJbXNsZWVwKDIpOworCQlhbGNfdXBkYXRlX2NvZWZleF9pZHgoY29k
+ZWMsIDB4NTcsIDB4MDQsIDB4MDAwNywgMHgxKTsgLyogTG93IHBvd2VyICovCiAKLQlhbGNfdXBk
+YXRlX2NvZWZleF9pZHgoY29kZWMsIDB4NTcsIDB4MDQsIDB4MDAwNywgMHgxKTsgLyogTG93IHBv
+d2VyICovCi0KLQlzbmRfaGRhX2NvZGVjX3dyaXRlKGNvZGVjLCBocF9waW4sIDAsCi0JCQkgICAg
+QUNfVkVSQl9TRVRfQU1QX0dBSU5fTVVURSwgQU1QX09VVF9NVVRFKTsKLQotCWlmIChocF9waW5f
+c2Vuc2UgfHwgc3BlYy0+dWx0cmFfbG93X3Bvd2VyKQotCQltc2xlZXAoODUpOwotCi0Jc25kX2hk
+YV9jb2RlY193cml0ZShjb2RlYywgaHBfcGluLCAwLAorCQlzbmRfaGRhX2NvZGVjX3dyaXRlKGNv
+ZGVjLCBocF9waW4sIDAsCiAJCQkgICAgQUNfVkVSQl9TRVRfUElOX1dJREdFVF9DT05UUk9MLCBQ
+SU5fT1VUKTsKIAotCWlmIChocF9waW5fc2Vuc2UgfHwgc3BlYy0+dWx0cmFfbG93X3Bvd2VyKQot
+CQltc2xlZXAoMTAwKTsKKwkJbXNsZWVwKDc1KTsKKworCQlzbmRfaGRhX2NvZGVjX3dyaXRlKGNv
+ZGVjLCBocF9waW4sIDAsCisJCQkgICAgQUNfVkVSQl9TRVRfQU1QX0dBSU5fTVVURSwgQU1QX09V
+VF9VTk1VVEUpOwogCisJCW1zbGVlcCg3NSk7CisJCWFsY191cGRhdGVfY29lZmV4X2lkeChjb2Rl
+YywgMHg1NywgMHgwNCwgMHgwMDA3LCAweDQpOyAvKiBIaWdodCBwb3dlciAqLworCX0KIAlhbGNf
+dXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDQ2LCAzIDw8IDEyLCAwKTsKLQlhbGNfdXBkYXRlX2Nv
+ZWZleF9pZHgoY29kZWMsIDB4NTcsIDB4MDQsIDB4MDAwNywgMHg0KTsgLyogSGlnaHQgcG93ZXIg
+Ki8KIAlhbGNfdXBkYXRlX2NvZWZleF9pZHgoY29kZWMsIDB4NTMsIDB4MDIsIDB4ODAwMCwgMSA8
+PCAxNSk7IC8qIENsZWFyIGJpdCAqLwogCWFsY191cGRhdGVfY29lZmV4X2lkeChjb2RlYywgMHg1
+MywgMHgwMiwgMHg4MDAwLCAwIDw8IDE1KTsKIAkvKgpAQCAtMzY1NSwyOSArMzY1MiwyOCBAQCBz
+dGF0aWMgdm9pZCBhbGMyNTZfc2h1dHVwKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQogCWFsY191
+cGRhdGVfY29lZmV4X2lkeChjb2RlYywgMHg1NywgMHgwNCwgMHgwMDA3LCAweDEpOyAvKiBMb3cg
+cG93ZXIgKi8KIAlocF9waW5fc2Vuc2UgPSBzbmRfaGRhX2phY2tfZGV0ZWN0KGNvZGVjLCBocF9w
+aW4pOwogCi0JaWYgKGhwX3Bpbl9zZW5zZSkKKwlpZiAoaHBfcGluX3NlbnNlKSB7CiAJCW1zbGVl
+cCgyKTsKIAotCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKKwkJc25kX2hk
+YV9jb2RlY193cml0ZShjb2RlYywgaHBfcGluLCAwLAogCQkJICAgIEFDX1ZFUkJfU0VUX0FNUF9H
+QUlOX01VVEUsIEFNUF9PVVRfTVVURSk7CiAKLQlpZiAoaHBfcGluX3NlbnNlIHx8IHNwZWMtPnVs
+dHJhX2xvd19wb3dlcikKLQkJbXNsZWVwKDg1KTsKKwkJbXNsZWVwKDc1KTsKIAogCS8qIDNrIHB1
+bGwgbG93IGNvbnRyb2wgZm9yIEhlYWRzZXQgamFjay4gKi8KIAkvKiBOT1RFOiBjYWxsIHRoaXMg
+YmVmb3JlIGNsZWFyaW5nIHRoZSBwaW4sIG90aGVyd2lzZSBjb2RlYyBzdGFsbHMgKi8KIAkvKiBJ
+ZiBkaXNhYmxlIDNrIHB1bGxkb3duIGNvbnRyb2wgZm9yIGFsYzI1NywgdGhlIE1pYyBkZXRlY3Rp
+b24gd2lsbCBub3Qgd29yayBjb3JyZWN0bHkKIAkgKiB3aGVuIGJvb3Rpbmcgd2l0aCBoZWFkc2V0
+IHBsdWdnZWQuIFNvIHNraXAgc2V0dGluZyBpdCBmb3IgdGhlIGNvZGVjIGFsYzI1NwogCSAqLwot
+CWlmIChzcGVjLT5lbl8za3B1bGxfbG93KQotCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAw
+eDQ2LCAwLCAzIDw8IDEyKTsKKwkJaWYgKHNwZWMtPmVuXzNrcHVsbF9sb3cpCisJCQlhbGNfdXBk
+YXRlX2NvZWZfaWR4KGNvZGVjLCAweDQ2LCAwLCAzIDw8IDEyKTsKIAotCWlmICghc3BlYy0+bm9f
+c2h1dHVwX3BpbnMpCi0JCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKKwkJ
+aWYgKCFzcGVjLT5ub19zaHV0dXBfcGlucykKKwkJCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMs
+IGhwX3BpbiwgMCwKIAkJCQkgICAgQUNfVkVSQl9TRVRfUElOX1dJREdFVF9DT05UUk9MLCAweDAp
+OwogCi0JaWYgKGhwX3Bpbl9zZW5zZSB8fCBzcGVjLT51bHRyYV9sb3dfcG93ZXIpCi0JCW1zbGVl
+cCgxMDApOworCQltc2xlZXAoNzUpOworCX0KIAogCWFsY19hdXRvX3NldHVwX2VhcGQoY29kZWMs
+IGZhbHNlKTsKIAlhbGNfc2h1dHVwX3BpbnMoY29kZWMpOwo=
 
-After the change of link name acp-dmic-codec,
-the micmute led can work on ThinkPad T14s Gen 6.
+--_003_463c5f93715d4714967041a0a8cec28erealtekcom_
+Content-Type: application/octet-stream;
+	name="0000-alc225-hp-depop-update.patch"
+Content-Description: 0000-alc225-hp-depop-update.patch
+Content-Disposition: attachment;
+	filename="0000-alc225-hp-depop-update.patch"; size=4554;
+	creation-date="Thu, 14 Nov 2024 07:22:42 GMT";
+	modification-date="Thu, 14 Nov 2024 07:32:36 GMT"
+Content-Transfer-Encoding: base64
 
-Request URL   : https://github.com/alsa-project/alsa-utils/pull/281
-Patch URL     : https://github.com/alsa-project/alsa-utils/pull/281.patch
-Repository URL: https://github.com/alsa-project/alsa-utils
+RnJvbSA3OGZmY2M1ZGIzZDc2ZDgzMmNmODZjNGI0YWUwMDdiMGVkZDMxM2FjIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFRodSwgMTQgTm92IDIwMjQgMTU6MDg6MDcgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlazogVXBkYXRlIEFMQzIyNSBkZXBvcCBwcm9jZWR1cmUKCk9sZCBwcm9jZWR1
+cmUgaGFzIGEgY2hhbmNlIHRvIG1lZXQgSGVhZHBob25lIG5vIG91dHB1dC4KCkZpeGVzOiBkYTkx
+MWIxZjVlOTggKCJBTFNBOiBoZGEvcmVhbHRlayAtIHVwZGF0ZSBBTEMyMjUgZGVwb3Agb3B0aW1p
+emUiKQpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9w
+Y2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCA1NmEzNjIyY2EyYzEuLjAyZWY2MjcyMDE1OSAx
+MDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291bmQvcGNp
+L2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTM3NzIsMzMgKzM3NzIsMjggQEAgc3RhdGljIHZvaWQg
+YWxjMjI1X2luaXQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiAJaHAxX3Bpbl9zZW5zZSA9IHNu
+ZF9oZGFfamFja19kZXRlY3QoY29kZWMsIGhwX3Bpbik7CiAJaHAyX3Bpbl9zZW5zZSA9IHNuZF9o
+ZGFfamFja19kZXRlY3QoY29kZWMsIDB4MTYpOwogCi0JaWYgKGhwMV9waW5fc2Vuc2UgfHwgaHAy
+X3Bpbl9zZW5zZSkKKwlpZiAoaHAxX3Bpbl9zZW5zZSB8fCBocDJfcGluX3NlbnNlKSB7CiAJCW1z
+bGVlcCgyKTsKKwkJYWxjX3VwZGF0ZV9jb2VmZXhfaWR4KGNvZGVjLCAweDU3LCAweDA0LCAweDAw
+MDcsIDB4MSk7IC8qIExvdyBwb3dlciAqLwogCi0JYWxjX3VwZGF0ZV9jb2VmZXhfaWR4KGNvZGVj
+LCAweDU3LCAweDA0LCAweDAwMDcsIDB4MSk7IC8qIExvdyBwb3dlciAqLwotCi0JaWYgKGhwMV9w
+aW5fc2Vuc2UgfHwgc3BlYy0+dWx0cmFfbG93X3Bvd2VyKQotCQlzbmRfaGRhX2NvZGVjX3dyaXRl
+KGNvZGVjLCBocF9waW4sIDAsCi0JCQkgICAgQUNfVkVSQl9TRVRfQU1QX0dBSU5fTVVURSwgQU1Q
+X09VVF9NVVRFKTsKLQlpZiAoaHAyX3Bpbl9zZW5zZSkKLQkJc25kX2hkYV9jb2RlY193cml0ZShj
+b2RlYywgMHgxNiwgMCwKLQkJCSAgICBBQ19WRVJCX1NFVF9BTVBfR0FJTl9NVVRFLCBBTVBfT1VU
+X01VVEUpOwotCi0JaWYgKGhwMV9waW5fc2Vuc2UgfHwgaHAyX3Bpbl9zZW5zZSB8fCBzcGVjLT51
+bHRyYV9sb3dfcG93ZXIpCi0JCW1zbGVlcCg4NSk7Ci0KLQlpZiAoaHAxX3Bpbl9zZW5zZSB8fCBz
+cGVjLT51bHRyYV9sb3dfcG93ZXIpCi0JCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3Bp
+biwgMCwKLQkJCSAgICBBQ19WRVJCX1NFVF9QSU5fV0lER0VUX0NPTlRST0wsIFBJTl9PVVQpOwot
+CWlmIChocDJfcGluX3NlbnNlKQotCQlzbmRfaGRhX2NvZGVjX3dyaXRlKGNvZGVjLCAweDE2LCAw
+LAotCQkJICAgIEFDX1ZFUkJfU0VUX1BJTl9XSURHRVRfQ09OVFJPTCwgUElOX09VVCk7CisJCWlm
+IChocDFfcGluX3NlbnNlKQorCQkJc25kX2hkYV9jb2RlY193cml0ZShjb2RlYywgaHBfcGluLCAw
+LAorCQkJCSAgICBBQ19WRVJCX1NFVF9QSU5fV0lER0VUX0NPTlRST0wsIFBJTl9PVVQpOworCQlp
+ZiAoaHAyX3Bpbl9zZW5zZSkKKwkJCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIDB4MTYsIDAs
+CisJCQkJICAgIEFDX1ZFUkJfU0VUX1BJTl9XSURHRVRfQ09OVFJPTCwgUElOX09VVCk7CisJCW1z
+bGVlcCg3NSk7CiAKLQlpZiAoaHAxX3Bpbl9zZW5zZSB8fCBocDJfcGluX3NlbnNlIHx8IHNwZWMt
+PnVsdHJhX2xvd19wb3dlcikKLQkJbXNsZWVwKDEwMCk7CisJCWlmIChocDFfcGluX3NlbnNlKQor
+CQkJc25kX2hkYV9jb2RlY193cml0ZShjb2RlYywgaHBfcGluLCAwLAorCQkJCSAgICBBQ19WRVJC
+X1NFVF9BTVBfR0FJTl9NVVRFLCBBTVBfT1VUX1VOTVVURSk7CisJCWlmIChocDJfcGluX3NlbnNl
+KQorCQkJc25kX2hkYV9jb2RlY193cml0ZShjb2RlYywgMHgxNiwgMCwKKwkJCQkgICAgQUNfVkVS
+Ql9TRVRfQU1QX0dBSU5fTVVURSwgQU1QX09VVF9VTk1VVEUpOwogCi0JYWxjX3VwZGF0ZV9jb2Vm
+X2lkeChjb2RlYywgMHg0YSwgMyA8PCAxMCwgMCk7Ci0JYWxjX3VwZGF0ZV9jb2VmZXhfaWR4KGNv
+ZGVjLCAweDU3LCAweDA0LCAweDAwMDcsIDB4NCk7IC8qIEhpZ2h0IHBvd2VyICovCisJCW1zbGVl
+cCg3NSk7CisJCWFsY191cGRhdGVfY29lZmV4X2lkeChjb2RlYywgMHg1NywgMHgwNCwgMHgwMDA3
+LCAweDQpOyAvKiBIaWdodCBwb3dlciAqLworCX0KIH0KIAogc3RhdGljIHZvaWQgYWxjMjI1X3No
+dXR1cChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKQEAgLTM4MTAsMzYgKzM4MDUsMzUgQEAgc3Rh
+dGljIHZvaWQgYWxjMjI1X3NodXR1cChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAlpZiAoIWhw
+X3BpbikKIAkJaHBfcGluID0gMHgyMTsKIAotCWFsY19kaXNhYmxlX2hlYWRzZXRfamFja19rZXko
+Y29kZWMpOwotCS8qIDNrIHB1bGwgbG93IGNvbnRyb2wgZm9yIEhlYWRzZXQgamFjay4gKi8KLQlh
+bGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDRhLCAwLCAzIDw8IDEwKTsKLQogCWhwMV9waW5f
+c2Vuc2UgPSBzbmRfaGRhX2phY2tfZGV0ZWN0KGNvZGVjLCBocF9waW4pOwogCWhwMl9waW5fc2Vu
+c2UgPSBzbmRfaGRhX2phY2tfZGV0ZWN0KGNvZGVjLCAweDE2KTsKIAotCWlmIChocDFfcGluX3Nl
+bnNlIHx8IGhwMl9waW5fc2Vuc2UpCisJaWYgKGhwMV9waW5fc2Vuc2UgfHwgaHAyX3Bpbl9zZW5z
+ZSkgeworCQlhbGNfZGlzYWJsZV9oZWFkc2V0X2phY2tfa2V5KGNvZGVjKTsKKwkJLyogM2sgcHVs
+bCBsb3cgY29udHJvbCBmb3IgSGVhZHNldCBqYWNrLiAqLworCQlhbGNfdXBkYXRlX2NvZWZfaWR4
+KGNvZGVjLCAweDRhLCAwLCAzIDw8IDEwKTsKIAkJbXNsZWVwKDIpOwogCi0JaWYgKGhwMV9waW5f
+c2Vuc2UgfHwgc3BlYy0+dWx0cmFfbG93X3Bvd2VyKQotCQlzbmRfaGRhX2NvZGVjX3dyaXRlKGNv
+ZGVjLCBocF9waW4sIDAsCi0JCQkgICAgQUNfVkVSQl9TRVRfQU1QX0dBSU5fTVVURSwgQU1QX09V
+VF9NVVRFKTsKLQlpZiAoaHAyX3Bpbl9zZW5zZSkKLQkJc25kX2hkYV9jb2RlY193cml0ZShjb2Rl
+YywgMHgxNiwgMCwKLQkJCSAgICBBQ19WRVJCX1NFVF9BTVBfR0FJTl9NVVRFLCBBTVBfT1VUX01V
+VEUpOwotCi0JaWYgKGhwMV9waW5fc2Vuc2UgfHwgaHAyX3Bpbl9zZW5zZSB8fCBzcGVjLT51bHRy
+YV9sb3dfcG93ZXIpCi0JCW1zbGVlcCg4NSk7CisJCWlmIChocDFfcGluX3NlbnNlKQorCQkJc25k
+X2hkYV9jb2RlY193cml0ZShjb2RlYywgaHBfcGluLCAwLAorCQkJCSAgICBBQ19WRVJCX1NFVF9B
+TVBfR0FJTl9NVVRFLCBBTVBfT1VUX01VVEUpOworCQlpZiAoaHAyX3Bpbl9zZW5zZSkKKwkJCXNu
+ZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIDB4MTYsIDAsCisJCQkJICAgIEFDX1ZFUkJfU0VUX0FN
+UF9HQUlOX01VVEUsIEFNUF9PVVRfTVVURSk7CiAKLQlpZiAoaHAxX3Bpbl9zZW5zZSB8fCBzcGVj
+LT51bHRyYV9sb3dfcG93ZXIpCi0JCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIGhwX3Bpbiwg
+MCwKLQkJCSAgICBBQ19WRVJCX1NFVF9QSU5fV0lER0VUX0NPTlRST0wsIDB4MCk7Ci0JaWYgKGhw
+Ml9waW5fc2Vuc2UpCi0JCXNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIDB4MTYsIDAsCi0JCQkg
+ICAgQUNfVkVSQl9TRVRfUElOX1dJREdFVF9DT05UUk9MLCAweDApOworCQltc2xlZXAoNzUpOwog
+Ci0JaWYgKGhwMV9waW5fc2Vuc2UgfHwgaHAyX3Bpbl9zZW5zZSB8fCBzcGVjLT51bHRyYV9sb3df
+cG93ZXIpCi0JCW1zbGVlcCgxMDApOworCQlpZiAoaHAxX3Bpbl9zZW5zZSkKKwkJCXNuZF9oZGFf
+Y29kZWNfd3JpdGUoY29kZWMsIGhwX3BpbiwgMCwKKwkJCQkgICAgQUNfVkVSQl9TRVRfUElOX1dJ
+REdFVF9DT05UUk9MLCAweDApOworCQlpZiAoaHAyX3Bpbl9zZW5zZSkKKwkJCXNuZF9oZGFfY29k
+ZWNfd3JpdGUoY29kZWMsIDB4MTYsIDAsCisJCQkJICAgIEFDX1ZFUkJfU0VUX1BJTl9XSURHRVRf
+Q09OVFJPTCwgMHgwKTsKIAorCQltc2xlZXAoNzUpOworCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNv
+ZGVjLCAweDRhLCAzIDw8IDEwLCAwKTsKKwkJYWxjX2VuYWJsZV9oZWFkc2V0X2phY2tfa2V5KGNv
+ZGVjKTsKKwl9CiAJYWxjX2F1dG9fc2V0dXBfZWFwZChjb2RlYywgZmFsc2UpOwogCWFsY19zaHV0
+dXBfcGlucyhjb2RlYyk7CiAJaWYgKHNwZWMtPnVsdHJhX2xvd19wb3dlcikgewpAQCAtMzg1MCw5
+ICszODQ0LDYgQEAgc3RhdGljIHZvaWQgYWxjMjI1X3NodXR1cChzdHJ1Y3QgaGRhX2NvZGVjICpj
+b2RlYykKIAkJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHg0YSwgMzw8NCwgMjw8NCk7CiAJ
+CW1zbGVlcCgzMCk7CiAJfQotCi0JYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHg0YSwgMyA8
+PCAxMCwgMCk7Ci0JYWxjX2VuYWJsZV9oZWFkc2V0X2phY2tfa2V5KGNvZGVjKTsKIH0KIAogc3Rh
+dGljIHZvaWQgYWxjX2RlZmF1bHRfaW5pdChzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykK
+
+--_003_463c5f93715d4714967041a0a8cec28erealtekcom_--

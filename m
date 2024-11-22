@@ -2,90 +2,155 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8434C9D59F9
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2024 08:30:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 370EB9D5C09
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2024 10:34:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEE3A1903;
-	Fri, 22 Nov 2024 08:30:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEE3A1903
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B9A81903;
+	Fri, 22 Nov 2024 10:34:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B9A81903
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1732260648;
-	bh=NHPW+B6PAvMMjXDG/UpVwOgWtbVQlnjBk0ks8cHMHpE=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=RivkkxgMWpKeJTnKWvK44ZmRPgo3pedrRN5nM1ieM9qGxaDair6ZmjNwxZuBsI5Z9
-	 SBb7wz6nXiSQhcQCA3l5lCa0AlijZ1GI+dOcD62W7Jl9hiPr1cVZCJDA78v5S3zt/T
-	 V7/VapkfQggAcfRg6MvGUX7vcp4gYP5crZSn8zdk=
+	s=default; t=1732268088;
+	bh=h/jF7El483byCq6+FxeS1FkoOY6ppOMwYS9loHC1sBo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=kMrOEFZGZFQmWMPgEep6j0rtmhXZd+G9j0AGVctA4FnefhFD2rzNMzJXFdNRXi62j
+	 zrDAzd4+vbgQ135GEYZSdRCsogy8WdRuUQlVzNVWi6DMRNU+szNtW8vBE1SGjQ5rWo
+	 AZqNGad1ZLJiqaTiT58xhXZgKRUO15CMD2RhcdI8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D20FF80535; Fri, 22 Nov 2024 08:30:17 +0100 (CET)
+	id E7E89F805B2; Fri, 22 Nov 2024 10:34:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7262F8053B;
-	Fri, 22 Nov 2024 08:30:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5176DF805B6;
+	Fri, 22 Nov 2024 10:34:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1943DF80533; Fri, 22 Nov 2024 08:30:08 +0100 (CET)
+	id 9ECE5F80533; Fri, 22 Nov 2024 10:34:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F537F80134
-	for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2024 08:30:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F537F80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id EF3D4F80073
+	for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2024 10:34:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF3D4F80073
 Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=UEGL2XBk
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4AM7TutJ62899330,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1732260596; bh=NHPW+B6PAvMMjXDG/UpVwOgWtbVQlnjBk0ks8cHMHpE=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version;
-	b=UEGL2XBkGjIo6D489Wihx+HUwM8UU6dFIkBLCv0QP7Qpxs5vkqnblh1iVZwJD8H4w
-	 rE5rrawuUH0E0FuxaBLfFniHu4GT5jhT40LYJjsQgEbt15Fe+bpZk2tx0McuY5YHcF
-	 QwpNZmCG8yZnhcw2bKsDKipxYhnNpBRL0Pr4W1fE6eE09f2g1MoYZtAKEoqMP6YD3m
-	 6EUZGKa5VJaw+Ty0TJTODzdqfwhE+0Sp9DCpMmZGYsSn5c7+6q6ia8rhiu9UNElY+G
-	 6twbARmpYLgozAhi+V8EE6CToAwF9m876DGdv+ccOvodgRd56PHs0YzuTt+ZUQ5dPU
-	 xx6lv710eMghA==
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 4AM7TutJ62899330
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 22 Nov 2024 15:29:56 +0800
-Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Fri, 22 Nov 2024 15:29:56 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Fri, 22 Nov 2024 15:29:56 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
- RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
- 15.01.2507.035; Fri, 22 Nov 2024 15:29:56 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Set pcbeep to default value
-Thread-Topic: Set pcbeep to default value
-Thread-Index: Ads8sBHNzM+TirlYQ/mnHXgYWQoEnw==
-Date: Fri, 22 Nov 2024 07:29:56 +0000
-Message-ID: <a76a10fc88e740f2b157375d44f167c7@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-x-originating-ip: [172.21.6.42]
-Content-Type: multipart/mixed;
-	boundary="_002_a76a10fc88e740f2b157375d44f167c7realtekcom_"
-MIME-Version: 1.0
-Message-ID-Hash: 6M2D4SUFKHUIQLBMOGOP3FBLGP2GHISU
-X-Message-ID-Hash: 6M2D4SUFKHUIQLBMOGOP3FBLGP2GHISU
-X-MailFrom: kailang@realtek.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=O/lhKRmy;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=YRcLoT3Y;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=O/lhKRmy;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=YRcLoT3Y
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A2E2521119;
+	Fri, 22 Nov 2024 09:34:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1732268046;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
+	b=O/lhKRmyjvsZN0TG8k6yP8VtAeTS2zUQHWx6706QSPv/4E9+EBUeD+hS/KQ2UZBjMlhcz/
+	QNmi4I9SvGcbiBDzvkKxTX7zIfFcBjdHPeMcD/sCqBRXd1kb9VTfju1sU4yLe3oCqQakwl
+	1fDBoMeDEh5kaw9eg9bCRm6r93D+82I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1732268046;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
+	b=YRcLoT3Y5ehseOvezfX/AnpaieWcFWabdJur7k196gHcT4wSJ+xs2fvggtXDCHzsogXcPM
+	bzjzDaYwLAyYCjDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="O/lhKRmy";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=YRcLoT3Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1732268046;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
+	b=O/lhKRmyjvsZN0TG8k6yP8VtAeTS2zUQHWx6706QSPv/4E9+EBUeD+hS/KQ2UZBjMlhcz/
+	QNmi4I9SvGcbiBDzvkKxTX7zIfFcBjdHPeMcD/sCqBRXd1kb9VTfju1sU4yLe3oCqQakwl
+	1fDBoMeDEh5kaw9eg9bCRm6r93D+82I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1732268046;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
+	b=YRcLoT3Y5ehseOvezfX/AnpaieWcFWabdJur7k196gHcT4wSJ+xs2fvggtXDCHzsogXcPM
+	bzjzDaYwLAyYCjDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 856DE13998;
+	Fri, 22 Nov 2024 09:34:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FArYHg5QQGfKDwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 22 Nov 2024 09:34:06 +0000
+Date: Fri, 22 Nov 2024 10:34:06 +0100
+Message-ID: <87r0731uk1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
+Subject: Re: Set pcbeep to default value
+In-Reply-To: <a76a10fc88e740f2b157375d44f167c7@realtek.com>
+References: <a76a10fc88e740f2b157375d44f167c7@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: A2E2521119
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	TO_DN_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+Message-ID-Hash: 6UUGTUKTV52M2LFV7XREKGDLLTQ3ZQ4E
+X-Message-ID-Hash: 6UUGTUKTV52M2LFV7XREKGDLLTQ3ZQ4E
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +162,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6M2D4SUFKHUIQLBMOGOP3FBLGP2GHISU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6UUGTUKTV52M2LFV7XREKGDLLTQ3ZQ4E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,40 +171,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_002_a76a10fc88e740f2b157375d44f167c7realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Fri, 22 Nov 2024 08:29:56 +0100,
+Kailang wrote:
+> 
+> Hi Takashi,
+> 
+> Attach patch will set pcbeep to default value for ALC274.
 
-Hi Takashi,
+Could you resubmit with your Signed-off-by tag?
 
-Attach patch will set pcbeep to default value for ALC274.
+Also, a bit more comment about what this COEF setup is meant would be
+helpful.
 
-BR,
-Kailang
 
---_002_a76a10fc88e740f2b157375d44f167c7realtekcom_
-Content-Type: application/octet-stream;
-	name="0000-dell-alc274-beep-default.patch"
-Content-Description: 0000-dell-alc274-beep-default.patch
-Content-Disposition: attachment;
-	filename="0000-dell-alc274-beep-default.patch"; size=745;
-	creation-date="Thu, 21 Nov 2024 08:17:27 GMT";
-	modification-date="Fri, 22 Nov 2024 07:27:13 GMT"
-Content-Transfer-Encoding: base64
+thanks,
 
-RnJvbSA1OTA5ODc4MzZmNWY4ZTU2NWU3ZmVkMzcyNTYxODVmNTUwNGQ2ZGE2IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IFRodSwgMjEgTm92IDIwMjQgMTY6MTY6MjYgKzA4MDAKU3ViamVjdDogW1BBVENIXSBTZXQg
-UENCZWVwIHRvIGRlZmF1bHQgdmFsdWUgZm9yIEFMQzI3NAoKRW5hYmxlIFBDIGJlZXAgcGF0aCBj
-YXVzZSBwb3Agbm9pc2UgdmlhIHNwZWFrZXIgZHVyaW5nIGJvb3QgdGltZS4KU2V0IHRvIGRlZmF1
-bHQgdmFsdWUgd2lsbCBzb2x2ZSB0aGUgaXNzdWUuCgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hk
-YS9wYXRjaF9yZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCA1
-NmEzNjIyY2EyYzEuLjY3MDM2ZmU2YzZjYyAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRj
-aF9yZWFsdGVrLmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTQ3Myw2
-ICs0NzMsOCBAQCBzdGF0aWMgdm9pZCBhbGNfZmlsbF9lYXBkX2NvZWYoc3RydWN0IGhkYV9jb2Rl
-YyAqY29kZWMpCiAJCWJyZWFrOwogCWNhc2UgMHgxMGVjMDIzNDoKIAljYXNlIDB4MTBlYzAyNzQ6
-CisJCWFsY193cml0ZV9jb2VmX2lkeChjb2RlYywgMHg2ZSwgMHgwYzI1KTsKKwkJZmFsbHRocm91
-Z2g7CiAJY2FzZSAweDEwZWMwMjk0OgogCWNhc2UgMHgxMGVjMDcwMDoKIAljYXNlIDB4MTBlYzA3
-MDE6Cg==
-
---_002_a76a10fc88e740f2b157375d44f167c7realtekcom_--
+Takashi

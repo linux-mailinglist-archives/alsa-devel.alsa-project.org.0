@@ -2,155 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 370EB9D5C09
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2024 10:34:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A813E9D65CA
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2024 23:28:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B9A81903;
-	Fri, 22 Nov 2024 10:34:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B9A81903
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECE1B19E7;
+	Fri, 22 Nov 2024 23:27:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECE1B19E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1732268088;
-	bh=h/jF7El483byCq6+FxeS1FkoOY6ppOMwYS9loHC1sBo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=kMrOEFZGZFQmWMPgEep6j0rtmhXZd+G9j0AGVctA4FnefhFD2rzNMzJXFdNRXi62j
-	 zrDAzd4+vbgQ135GEYZSdRCsogy8WdRuUQlVzNVWi6DMRNU+szNtW8vBE1SGjQ5rWo
-	 AZqNGad1ZLJiqaTiT58xhXZgKRUO15CMD2RhcdI8=
+	s=default; t=1732314483;
+	bh=lm0mWxvXDqCkwB/9OU/EXC2mFL/355EGws+cHpfvUU8=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=VMMCbvLDPEQltFbN29xL/8X0cnExJyMMvY3IaVsNi7CWTX9LycXmGwB56paUI4FDt
+	 J1S9iWvxrkIfYTuAr8AVCDSCPph7jIpMJYW9Qw+TB3eeQfc3Td6cchZd+pgxYiKGzJ
+	 Nxgcgp4rM4koi9jZcZgsuAZV/ZiqFpyWHCf6UxR0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7E89F805B2; Fri, 22 Nov 2024 10:34:17 +0100 (CET)
+	id E7B2BF805C0; Fri, 22 Nov 2024 23:27:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5176DF805B6;
-	Fri, 22 Nov 2024 10:34:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8B9DF805BE;
+	Fri, 22 Nov 2024 23:27:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9ECE5F80533; Fri, 22 Nov 2024 10:34:12 +0100 (CET)
+	id 6E37FF80533; Fri, 22 Nov 2024 23:27:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EF3D4F80073
-	for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2024 10:34:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF3D4F80073
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=O/lhKRmy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=YRcLoT3Y;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=O/lhKRmy;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=YRcLoT3Y
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A2E2521119;
-	Fri, 22 Nov 2024 09:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1732268046;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
-	b=O/lhKRmyjvsZN0TG8k6yP8VtAeTS2zUQHWx6706QSPv/4E9+EBUeD+hS/KQ2UZBjMlhcz/
-	QNmi4I9SvGcbiBDzvkKxTX7zIfFcBjdHPeMcD/sCqBRXd1kb9VTfju1sU4yLe3oCqQakwl
-	1fDBoMeDEh5kaw9eg9bCRm6r93D+82I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1732268046;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
-	b=YRcLoT3Y5ehseOvezfX/AnpaieWcFWabdJur7k196gHcT4wSJ+xs2fvggtXDCHzsogXcPM
-	bzjzDaYwLAyYCjDQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="O/lhKRmy";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=YRcLoT3Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1732268046;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
-	b=O/lhKRmyjvsZN0TG8k6yP8VtAeTS2zUQHWx6706QSPv/4E9+EBUeD+hS/KQ2UZBjMlhcz/
-	QNmi4I9SvGcbiBDzvkKxTX7zIfFcBjdHPeMcD/sCqBRXd1kb9VTfju1sU4yLe3oCqQakwl
-	1fDBoMeDEh5kaw9eg9bCRm6r93D+82I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1732268046;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DA0LVP2u60QTNLqtJmC1P9Nw7hztaZ6gJR6NQIGjgZg=;
-	b=YRcLoT3Y5ehseOvezfX/AnpaieWcFWabdJur7k196gHcT4wSJ+xs2fvggtXDCHzsogXcPM
-	bzjzDaYwLAyYCjDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 856DE13998;
-	Fri, 22 Nov 2024 09:34:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FArYHg5QQGfKDwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 22 Nov 2024 09:34:06 +0000
-Date: Fri, 22 Nov 2024 10:34:06 +0100
-Message-ID: <87r0731uk1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-Subject: Re: Set pcbeep to default value
-In-Reply-To: <a76a10fc88e740f2b157375d44f167c7@realtek.com>
-References: <a76a10fc88e740f2b157375d44f167c7@realtek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: A2E2521119
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	TO_DN_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-Message-ID-Hash: 6UUGTUKTV52M2LFV7XREKGDLLTQ3ZQ4E
-X-Message-ID-Hash: 6UUGTUKTV52M2LFV7XREKGDLLTQ3ZQ4E
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
+	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id BEFA5F80073
+	for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2024 23:27:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEFA5F80073
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1732314444029596329-webhooks-bot@alsa-project.org>
+References: <1732314444029596329-webhooks-bot@alsa-project.org>
+Subject: x870-A no S/PDIF output audio (ALC4080)
+Message-Id: <20241122222726.6E37FF80533@alsa1.perex.cz>
+Date: Fri, 22 Nov 2024 23:27:26 +0100 (CET)
+Message-ID-Hash: JDGP77W4XFGQMPQ3ARFZNXZC7QF3ZQ6Y
+X-Message-ID-Hash: JDGP77W4XFGQMPQ3ARFZNXZC7QF3ZQ6Y
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -162,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6UUGTUKTV52M2LFV7XREKGDLLTQ3ZQ4E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDGP77W4XFGQMPQ3ARFZNXZC7QF3ZQ6Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,19 +70,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 22 Nov 2024 08:29:56 +0100,
-Kailang wrote:
-> 
-> Hi Takashi,
-> 
-> Attach patch will set pcbeep to default value for ALC274.
+alsa-project/alsa-ucm-conf issue #468 was opened from SentryII:
 
-Could you resubmit with your Signed-off-by tag?
+Hi all, I've been searching for hours for a fix for this and im posting this as a last resort
 
-Also, a bit more comment about what this COEF setup is meant would be
-helpful.
+I've checked under If.realtek-alc4080 in the USB-Audio.conf and the X870-A is not listed 
+IDVendor is 0b05
+IDProduct is 1b9b
+0b05:1b9b
 
+Line-Out works fine, issue is with Soundcard 2 USB-Audio
+Which is using optical / S/PDIF
 
-thanks,
+I've attached the alsa-info output below
 
-Takashi
+Thank you for your time
+[alsa-info.txt](https://github.com/user-attachments/files/17876970/alsa-info.txt)
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/468
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

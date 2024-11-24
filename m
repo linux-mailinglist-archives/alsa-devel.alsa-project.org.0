@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E81429D67CF
-	for <lists+alsa-devel@lfdr.de>; Sat, 23 Nov 2024 07:16:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D02989D6C99
+	for <lists+alsa-devel@lfdr.de>; Sun, 24 Nov 2024 05:09:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C21115FB;
-	Sat, 23 Nov 2024 07:15:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C21115FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id B328D9F6;
+	Sun, 24 Nov 2024 05:09:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B328D9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1732342566;
-	bh=ESDzv5/UHxBjBa2diSrueMWyljiTRmo+CnhAYPaTv5A=;
+	s=default; t=1732421359;
+	bh=GRXYGaDcHZ74zrGSior+GKmoM2hFkhEFGDCNsWDtxRE=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=ShxuwgFYcUiX/z4Q06GxzWu7SuhkZthhgvziMia2e1Tb2EN+UJO8EZiwPdIEZ0Kv6
-	 S1tFqmSstH3lbUXj90k42ZpUJZUBCMSe+aseMyu7gHSaAxNHbgeMEU60w20tOKOvjz
-	 CiMkCMa/JIP0fjkmTSgYVW/+kyjBSYl19l/ss9Do=
+	b=ayjaZlwEV91E6gK3jDLLNc45EcY9+3zTra+HrFtHtTVk4WpVAXdihFsnMP7swP24o
+	 8hhJ3qVwW1kXsKC2ObiYVwveXZ7Nr6aNGHr1ii1/DgIosC+X1xx7hqpveUkQNl8rmN
+	 gpbPEWc8+LX+AdlirqQ0457GOwH2HgRztOtiGmeQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2527EF805BF; Sat, 23 Nov 2024 07:15:32 +0100 (CET)
+	id 3A102F805C3; Sun, 24 Nov 2024 05:08:49 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27091F805B4;
-	Sat, 23 Nov 2024 07:15:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B90E7F80528;
+	Sun, 24 Nov 2024 05:08:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64127F80533; Sat, 23 Nov 2024 07:15:19 +0100 (CET)
+	id 1E454F80496; Sun, 24 Nov 2024 05:08:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	MISSING_MID,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD371F80166
-	for <alsa-devel@alsa-project.org>; Sat, 23 Nov 2024 07:15:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD371F80166
+	by alsa1.perex.cz (Postfix) with ESMTP id 60906F8019B
+	for <alsa-devel@alsa-project.org>; Sun, 24 Nov 2024 05:08:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60906F8019B
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1732342517061112881-webhooks-bot@alsa-project.org>
-References: <1732342517061112881-webhooks-bot@alsa-project.org>
-Subject: TLVs with (size % 4) != 0 make amixer and alsactl crash
-Message-Id: <20241123061519.64127F80533@alsa1.perex.cz>
-Date: Sat, 23 Nov 2024 07:15:19 +0100 (CET)
-Message-ID-Hash: 6LTOVNITLVZSY56EW2B5UOTBU2H6I6IE
-X-Message-ID-Hash: 6LTOVNITLVZSY56EW2B5UOTBU2H6I6IE
+In-Reply-To: <1732421316651742458-webhooks-bot@alsa-project.org>
+References: <1732421316651742458-webhooks-bot@alsa-project.org>
+Subject: Configuration for Roland BridgeCastX
+Message-Id: <20241124040839.1E454F80496@alsa1.perex.cz>
+Date: Sun, 24 Nov 2024 05:08:39 +0100 (CET)
+Message-ID-Hash: Z7CYXJVRKNNTE3S2ITLOB7ASB2PEGHA7
+X-Message-ID-Hash: Z7CYXJVRKNNTE3S2ITLOB7ASB2PEGHA7
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6LTOVNITLVZSY56EW2B5UOTBU2H6I6IE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z7CYXJVRKNNTE3S2ITLOB7ASB2PEGHA7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,24 +70,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #282 was opened from geoffreybennett:
+alsa-project/alsa-ucm-conf pull request #469 was opened from Konna1337:
 
-While trying to figure out how TLVs work, I found that if the length field is not a multiple of 4 then amixer and alsactl keep reading past the end of the buffer until they segfault, because size is unsigned. One example here:
-```
-diff --git a/amixer/amixer.c b/amixer/amixer.c
-index 8b8000b..03cc9cb 100644
---- a/amixer/amixer.c
-+++ b/amixer/amixer.c
-@@ -587,7 +587,7 @@ static void decode_tlv(unsigned int spaces, unsigned int *tlv, unsigned int tlv_
- #endif
-        default:
-                printf("unk-%u-", type);
--               while (size > 0) {
-+               while (size >= sizeof(unsigned int)) {
-                        printf("0x%08x,", tlv[idx++]);
-                        size -= sizeof(unsigned int);
-                }
-```
+Added Configuration for the X version of Bridge Cast. Config is based on the non X version but it's wired differently and has two more Hardware Channels. It's for the 2.0 Firmware of the Device. The "Game" channel has a virtual 5.1 mode which doesn't work properly and isn't configured.  
 
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/282
-Repository URL: https://github.com/alsa-project/alsa-utils
+- Added condition to USB-Audio.conf
+- Added BridgeCastXV2.conf
+- Added BridgeCastXV2-Hifi.conf with configuration for channels
+
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/469
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/469.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

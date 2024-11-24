@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0EA69D6F6F
-	for <lists+alsa-devel@lfdr.de>; Sun, 24 Nov 2024 14:09:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92DE99D71A3
+	for <lists+alsa-devel@lfdr.de>; Sun, 24 Nov 2024 14:52:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70005200;
-	Sun, 24 Nov 2024 14:09:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70005200
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20CF41FE;
+	Sun, 24 Nov 2024 14:51:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20CF41FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1732453795;
-	bh=p2/1e2z0F8CnGprSKxZZcvNvM36bhonvfwh73WbPJ90=;
+	s=default; t=1732456328;
+	bh=yqUYQVzRB5lqf5s1Kn4DplXjzZ66WhAqsW7uzghifsI=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=QoyZydGWt5d9QdcrdlRG4QeBMCfyPphFoi8MjK2QQ5XbL3jIbuohMl79xBOVl1xr2
-	 NgVu6WQIpiIErhuwgI5x1D4W6kItv2E0HqH9BcPkDTHusFwkjpq2ENXqipQF9a4xEG
-	 a+lzx7QBnClbj6HJr3Sbvlyb6otGCrYr6/zTSUik=
+	b=QZhrDj/pboSjEfy85E7BWGEQ4QU9VRSGjo0n1kwBgAxKNE5qo28qtRiPtU7oJyiZY
+	 IuK9li+svB5LLzeeXCap+OcTKWTuYFv+62OlnzD/9YUH1ve8Ktyciq4Z0t71jAp45M
+	 kA1DtHe0dyeaZg6v/evwXl7DlBSYWLB6FXpApVtM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 304C3F805AA; Sun, 24 Nov 2024 14:09:25 +0100 (CET)
+	id 458A0F805BB; Sun, 24 Nov 2024 14:51:37 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5535BF800F0;
-	Sun, 24 Nov 2024 14:09:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2753F805AC;
+	Sun, 24 Nov 2024 14:51:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA6F5F80496; Sun, 24 Nov 2024 14:09:16 +0100 (CET)
+	id 70D33F80496; Sun, 24 Nov 2024 14:51:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 132B0F80073
-	for <alsa-devel@alsa-project.org>; Sun, 24 Nov 2024 14:09:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 132B0F80073
+	by alsa1.perex.cz (Postfix) with ESMTP id C03ABF80073
+	for <alsa-devel@alsa-project.org>; Sun, 24 Nov 2024 14:51:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C03ABF80073
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1732453753013833523-webhooks-bot@alsa-project.org>
-References: <1732453753013833523-webhooks-bot@alsa-project.org>
-Subject: No sound and alsactl init errors after updating to 1.12.13
-Message-Id: <20241124130916.BA6F5F80496@alsa1.perex.cz>
-Date: Sun, 24 Nov 2024 14:09:16 +0100 (CET)
-Message-ID-Hash: OMEXXVOPEP46DSQFXHNVR7PNLYR4HWVN
-X-Message-ID-Hash: OMEXXVOPEP46DSQFXHNVR7PNLYR4HWVN
+In-Reply-To: <1732456290994635820-webhooks-bot@alsa-project.org>
+References: <1732456290994635820-webhooks-bot@alsa-project.org>
+Subject: No sound and alsactl init errors after updating to 1.2.13
+Message-Id: <20241124135133.70D33F80496@alsa1.perex.cz>
+Date: Sun, 24 Nov 2024 14:51:33 +0100 (CET)
+Message-ID-Hash: TU7NKPNMMVRPJD4Q2ALAFFHH3CFWOUSG
+X-Message-ID-Hash: TU7NKPNMMVRPJD4Q2ALAFFHH3CFWOUSG
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OMEXXVOPEP46DSQFXHNVR7PNLYR4HWVN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TU7NKPNMMVRPJD4Q2ALAFFHH3CFWOUSG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,7 +70,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #283 was opened from wastlnd:
+alsa-project/alsa-utils issue #283 was edited from wastlnd:
 
 I think I have kind of a regression after updating to the latest version. I have this error at startup:
 ```

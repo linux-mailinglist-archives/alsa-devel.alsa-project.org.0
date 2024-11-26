@@ -2,99 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3872D9D930F
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2024 09:06:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8653D9D952C
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2024 11:09:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5283D1909;
-	Tue, 26 Nov 2024 09:06:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5283D1909
+	by alsa0.perex.cz (Postfix) with ESMTPS id B99711939;
+	Tue, 26 Nov 2024 11:09:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B99711939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1732608386;
-	bh=6jf8nTYlhFbfM8tgJ1WU/jAB0zb7dAR+RwPeGIBacbo=;
-	h=From:To:CC:Subject:Date:References:List-Id:List-Archive:List-Help:
-	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=vSd85elFMxQZGAzRyHYqq+97kvYnGEF6+pqPnb9RZF9YorezVj4WRkEqNUEtDJ4UZ
-	 wSZYw10XocO3zcBU8N/HsWallwjUrDmFdW+pHVkHHlo1z/jxZIk4Mz0JrUMqywxP/n
-	 iEmvQoXTx1AtDp3LehuRbJB1O8jRhj+GkgTt0268=
+	s=default; t=1732615797;
+	bh=WgDKmD5flbPT9HS1Ap8apO5uPzHW9CUGCRvplzJAn+A=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=WCeXTR/YiDe88XlnAhG7egaIhGFvO8WeIoczH/1U6zmGVDpnU9dpP+O7zoln4zlWu
+	 1qXuMFez4wjWjyePkrIeikDPEclTtib+scBN0/qkK4h9JUOx7Z1i3z1RdPpatfd0Wz
+	 bt8i5sw9eTwcLRuH3Q9n5JBwZ3U+QLLhZmvqfwkE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F6CBF805AF; Tue, 26 Nov 2024 09:05:54 +0100 (CET)
+	id 92B31F805C1; Tue, 26 Nov 2024 11:09:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AC8DF805C1;
-	Tue, 26 Nov 2024 09:05:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F75FF805AA;
+	Tue, 26 Nov 2024 11:09:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D559F80496; Tue, 26 Nov 2024 09:05:50 +0100 (CET)
+	id 0A387F8019B; Tue, 26 Nov 2024 11:09:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
+	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 533B4F800F0
-	for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2024 09:05:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 533B4F800F0
-Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=pP5ONFyo
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 4AQ85cxD6737558,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1732608338; bh=6jf8nTYlhFbfM8tgJ1WU/jAB0zb7dAR+RwPeGIBacbo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:Content-Type:
-	 MIME-Version;
-	b=pP5ONFyoGvfhgMWro5kqKCBX4xZaNWeaKY4sMU/xAHxm1iSrMJZGR6klA41avhMGz
-	 g9y7bHMAvTwWfCJMCdUWUBnC3oDA57y4mXyKwT7a4AzhKEraPp1GzjWRQwPKKaU7an
-	 awqTDL5OByy43M2MC8GA/XCa/rZAR4GMdB7irGw95b8RQrRUIC+TQu9Kxtlz4QG+sm
-	 js/xJuaxE3avokNGhA6X/9DiRFE3kvBLSzbJjpge4GWRzlgACHbBoTR/M/tRcnc1Pa
-	 TXfsEP5eNTEiJVUKwAHAnMA3b1S9Gp9mZMNOUQD/mye/DmcQLUS+Jxbpu/ometUKq/
-	 cfLkITwMDk9Ag==
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 4AQ85cxD6737558
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 26 Nov 2024 16:05:38 +0800
-Received: from RTEXMBS03.realtek.com.tw (172.21.6.96) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Tue, 26 Nov 2024 16:05:38 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Tue, 26 Nov 2024 16:05:38 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2]) by
- RTEXMBS01.realtek.com.tw ([fe80::147b:e1e8:e867:41c2%7]) with mapi id
- 15.01.2507.035; Tue, 26 Nov 2024 16:05:38 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>
-CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>,
-        "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-Subject: RE: Set pcbeep to default value
-Thread-Topic: Set pcbeep to default value
-Thread-Index: Ads8sBHNzM+TirlYQ/mnHXgYWQoEn///nRkA//tCZACACctvgP/+tDQA//0LycA=
-Date: Tue, 26 Nov 2024 08:05:37 +0000
-Message-ID: <2721bb57e20a44c3826c473e933f9105@realtek.com>
-References: <a76a10fc88e740f2b157375d44f167c7@realtek.com>
-	<87r0731uk1.wl-tiwai@suse.de>	<cb9caa0e01f34e3b881bad24701c741f@realtek.com>
- <87v7wbxti2.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-x-originating-ip: [172.21.6.42]
-x-kse-serverinfo: RTEXMBS03.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: multipart/mixed;
-	boundary="_002_2721bb57e20a44c3826c473e933f9105realtekcom_"
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 2540EF8019B
+	for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2024 11:09:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2540EF8019B
 MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: OZ4UXGQHG6XD4HVHE4FY4ZXSSZFNTB5K
-X-Message-ID-Hash: OZ4UXGQHG6XD4HVHE4FY4ZXSSZFNTB5K
-X-MailFrom: kailang@realtek.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1732615753402373075-webhooks-bot@alsa-project.org>
+References: <1732615753402373075-webhooks-bot@alsa-project.org>
+Subject: how do I create configure a ucm2 conf file for my card just like an
+ acp file
+Message-Id: <20241126100916.0A387F8019B@alsa1.perex.cz>
+Date: Tue, 26 Nov 2024 11:09:16 +0100 (CET)
+Message-ID-Hash: KZD6AQMLRI2O3FCA74F355XZ3JOFSGPT
+X-Message-ID-Hash: KZD6AQMLRI2O3FCA74F355XZ3JOFSGPT
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OZ4UXGQHG6XD4HVHE4FY4ZXSSZFNTB5K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KZD6AQMLRI2O3FCA74F355XZ3JOFSGPT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,96 +71,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_002_2721bb57e20a44c3826c473e933f9105realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+alsa-project/alsa-ucm-conf issue #475 was opened from beh-10257:
 
-Sorry! Attach again.
+1_ how do I know if my card is using acp or ucm profile
+2_ can ucm config file be availble in user directories
+3_ how do i test a ucm profile
+4_ if my card is using ucm is there a way to cooverride that file
+5_ for more context https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/4421
+6_ as a tldr I want to take advanatage of indep_hp=yes (IDK why this is not enabled by default its a great feature compared to other platforms after all) either way I want to make hw:0,0 as speaker and hw:0,2 as headphones
+can a ucm profile replace the indep_hp hint and udev rule and just porceed to seperate them directly
+also indep_hp seperates speaker and headphones output is there a way to seperate internal mic and headphone speaker
+also is there a way to put priority for headphones when the jack port is actually put or even disable it entirely and just default back to speaker automatically
+thats all thanks
 
-Add ALSA: hda/realtek: to Title.
+thats all and thanks
+further editing will be filled once I have more questions and thanks
 
-> -----Original Message-----
-> From: Kailang
-> Sent: Tuesday, November 26, 2024 10:36 AM
-> To: 'Takashi Iwai' <tiwai@suse.de>
-> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>;
-> 'linux-sound@vger.kernel.org' <linux-sound@vger.kernel.org>
-> Subject: RE: Set pcbeep to default value
->=20
-> OK.
->=20
-> > -----Original Message-----
-> > From: Takashi Iwai <tiwai@suse.de>
-> > Sent: Monday, November 25, 2024 10:45 PM
-> > To: Kailang <kailang@realtek.com>
-> > Cc: Takashi Iwai <tiwai@suse.de>
-> > Subject: Re: Set pcbeep to default value
-> >
-> >
-> > External mail.
-> >
-> >
-> >
-> > On Mon, 25 Nov 2024 03:00:26 +0100,
-> > Kailang wrote:
-> > >
-> > >
-> > >
-> > > > -----Original Message-----
-> > > > From: Takashi Iwai <tiwai@suse.de>
-> > > > Sent: Friday, November 22, 2024 5:34 PM
-> > > > To: Kailang <kailang@realtek.com>
-> > > > Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
-> > > > Subject: Re: Set pcbeep to default value
-> > > >
-> > > >
-> > > > External mail.
-> > > >
-> > > >
-> > > >
-> > > > On Fri, 22 Nov 2024 08:29:56 +0100, Kailang wrote:
-> > > > >
-> > > > > Hi Takashi,
-> > > > >
-> > > > > Attach patch will set pcbeep to default value for ALC274.
-> > > >
-> > > > Could you resubmit with your Signed-off-by tag?
-> > >
-> > > Sorry! Attach again.
-> >
-> > You seem to have dropped Cc to alsa-devel ML.
-> > Also, nowadays we use linux-sound@vger.kernel.org for the main ML for
-> > kernel patches.  Care to resubmit to there?
-> >
-> >
-> > thanks,
-> >
-> > Takashi
-
---_002_2721bb57e20a44c3826c473e933f9105realtekcom_
-Content-Type: application/octet-stream;
-	name="0000-dell-alc274-beep-default.patch"
-Content-Description: 0000-dell-alc274-beep-default.patch
-Content-Disposition: attachment;
-	filename="0000-dell-alc274-beep-default.patch"; size=831;
-	creation-date="Thu, 21 Nov 2024 08:17:27 GMT";
-	modification-date="Tue, 26 Nov 2024 08:03:37 GMT"
-Content-Transfer-Encoding: base64
-
-RnJvbSA1OTA5ODc4MzZmNWY4ZTU2NWU3ZmVkMzcyNTYxODVmNTUwNGQ2ZGE2IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IFRodSwgMjEgTm92IDIwMjQgMTY6MTY6MjYgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlazogU2V0IFBDQmVlcCB0byBkZWZhdWx0IHZhbHVlIGZvciBBTEMyNzQKCkJJ
-T1MgRW5hYmxlIFBDIGJlZXAgcGF0aCBjYXVzZSBwb3Agbm9pc2UgdmlhIHNwZWFrZXIgZHVyaW5n
-IGJvb3QgdGltZS4KU2V0IHRvIGRlZmF1bHQgdmFsdWUgZnJvbSBkcml2ZXIgd2lsbCBzb2x2ZSB0
-aGUgaXNzdWUuCgpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5j
-b20+CmRpZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYyBiL3NvdW5kL3Bj
-aS9oZGEvcGF0Y2hfcmVhbHRlay5jCmluZGV4IDU2YTM2MjJjYTJjMS4uNjcwMzZmZTZjNmNjIDEw
-MDY0NAotLS0gYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYworKysgYi9zb3VuZC9wY2kv
-aGRhL3BhdGNoX3JlYWx0ZWsuYwpAQCAtNDczLDYgKzQ3Myw4IEBAIHN0YXRpYyB2b2lkIGFsY19m
-aWxsX2VhcGRfY29lZihzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAkJYnJlYWs7CiAJY2FzZSAw
-eDEwZWMwMjM0OgogCWNhc2UgMHgxMGVjMDI3NDoKKwkJYWxjX3dyaXRlX2NvZWZfaWR4KGNvZGVj
-LCAweDZlLCAweDBjMjUpOworCQlmYWxsdGhyb3VnaDsKIAljYXNlIDB4MTBlYzAyOTQ6CiAJY2Fz
-ZSAweDEwZWMwNzAwOgogCWNhc2UgMHgxMGVjMDcwMToK
-
---_002_2721bb57e20a44c3826c473e933f9105realtekcom_--
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/475
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

@@ -2,113 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AD0F9DA20C
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2024 07:16:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 654249DA6CD
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2024 12:23:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 020C622AD;
-	Wed, 27 Nov 2024 07:15:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 020C622AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F9332409;
+	Wed, 27 Nov 2024 12:23:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F9332409
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1732688166;
-	bh=OGkbtmZImDn3HweExT0jKE0mBrCCcS/nHmbKRJw4NDM=;
-	h=Date:From:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1732706605;
+	bh=TYuDefE5o6JsD4jXbjI5zpjxEc0j0tNQDw/WSbjab38=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=TdqOU2Lnnyw4VS+FssO2wWAyx6Xl+d5QER0JzyBl0G/iR4u5rhcVcqLjSpoKh5Xcj
-	 JGRwEi+s+nXgOyodcmyVKZoU8jwXFoKPZaZRjeGLNfQ3XwRC1GcutHPjaub4OWkas1
-	 MnduUBuktR65zLqiB2TltAXJI2fORowQf/nTXKgc=
+	b=n2ry9qN69xrTfbT+gWdqXte5YUjBrYt9QaFzQG6hiR6kPRYuQtT+/d5pklmXsmdLx
+	 leM14RyiunsVHpqIXMcI4iEqaoTlA2mDWO+3aBqPfB65pgqNNKhlzJsd3dGhBoGIHA
+	 gnXeRu3qNe1pxTYZ1O3Z2z0qWb9Xd/xQw9HfGhjc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1BE91F805B1; Wed, 27 Nov 2024 07:15:35 +0100 (CET)
+	id 01171F8058C; Wed, 27 Nov 2024 12:23:03 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6ED4F805BF;
-	Wed, 27 Nov 2024 07:15:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 369BBF805BD;
+	Wed, 27 Nov 2024 12:23:03 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90157F80236; Wed, 27 Nov 2024 07:15:24 +0100 (CET)
+	id 15501F80236; Wed, 27 Nov 2024 12:22:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,URIBL_SBL_A shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-3.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A67C6F80134
-	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 07:15:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A67C6F80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id D6C71F800F0
+	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 12:22:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6C71F800F0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=ZCAzFl2E
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-53de5ec22adso3475001e87.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 26 Nov 2024 22:15:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1732688058; x=1733292858;
- darn=alsa-project.org;
-        h=content-transfer-encoding:content-language:to:subject:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BQvgi0LXLrpOahla8s3Di7M2RES8PSdpe4s7MQPLm5w=;
-        b=ZCAzFl2E0LwKFqlAJAXKC7aLCDL37Z9feUqOwEdFZ7kRc16xki7/ADaP19k5zufldR
-         U65GhdV+dhelh9pg2laMsUnb+DwppRAiUOK+bOFi6NgpAv4rFFdYNcbc/CdC/HY2EkYf
-         UITHiOhyTo8pQ6Z4hpLbn/FUt9e6gD9b4pUUlXwrXD4iAMC3tR/CapP7TlP/sO6t6VQr
-         xLU76q0tIu5+8rERSINMpP2Fogkt3NQp8WtD2ceB+6q/TVgSWmGGg0lhLRawbSkzbdhX
-         5tvBAxXRhhJ43A2naqPieZpyzS72Sz1ma2dq/H7rjMv3WC0EJ83MIcuXOXmsRGECO3PG
-         fiZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732688058; x=1733292858;
-        h=content-transfer-encoding:content-language:to:subject:from
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=BQvgi0LXLrpOahla8s3Di7M2RES8PSdpe4s7MQPLm5w=;
-        b=VAYkL/ROiRCClK7Ikg3WyJhzQnppP9CE4ZF4+VIaW6eSLMwv7crfTWwzy6Pa/S97Fb
-         QsvYMGKhxISObLsYjmsqnfO4cEl5tFS35vhRhI5FcTuQYpM2zNuDOcdNkMB6iOZfeP99
-         8f2v+lday/h7chyvTmgAuOhNlAx2GTQWYrcr21iPwMoqXQPgYAO9QezduZ8DQoQEjeDX
-         b8fGo2EUrlgUyA/HIutPQFlCHbdXouQ/a+7+OsQzlvHmDPpvqlw7u/8mLVSphANiq7dh
-         Xvw/UM5e841R05p4VyUxpYbQHNQ8919oZeV58WknYZJejjDRG2+O00/THX7t+Oj1eJbF
-         l+5g==
-X-Gm-Message-State: AOJu0YynILy4jVbFBaVciVGkQgTvlX1v+eYEsj6Q7ceIT5NchFxQw64Z
-	1XPC7RiWsCqb7giYWZP7lv23Lv3jDZVKWM0feDuNIjWPT0zlH054Ypi+IA==
-X-Gm-Gg: ASbGncuNTmMisxKZC1Ozorv8/Txei/Zdenls0V5f5JAWkgy43/yQUbqO2EHVG4ULajU
-	RXpVZL9y1N3hZklEU2GvvLsnPVpdS0ShxOfuICDPDH4CrJvdHak+Ca1B9QlwJ3SnF6BeEr2ptow
-	uALNUYjuxhmkt7FZEcdmTIswdWH/yZ26rpafJCmrs/FOydsYv0viq0Dl8nA4ofoxF11cq02ngG4
-	wvyk3liShOhmgrYENk5rDNHJpFSPnipyBX/wv/5MGzbrjTkzsgrHdENdpPhjSY0mp76WSQ7/bNz
-	X1aj5LuRbqx4SR0SwXc39wO4yDAJ
-X-Google-Smtp-Source: 
- AGHT+IGG2tBc61GladwBJq8iH//Y4YKYLgN9/I+55STvcKGeA9i0PXoWQhoqHCiaIKCiAjcd5Hiqug==
-X-Received: by 2002:a05:6512:b26:b0:53d:edba:d40b with SMTP id
- 2adb3069b0e04-53df00dc8d7mr883894e87.33.1732688058127;
-        Tue, 26 Nov 2024 22:14:18 -0800 (PST)
-Received: from ?IPV6:2a02:8071:3484:bc0:caf7:50ff:fe30:727e?
- ([2a02:8071:3484:bc0:caf7:50ff:fe30:727e])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-434aa7b6c30sm9950365e9.10.2024.11.26.22.14.16
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 Nov 2024 22:14:17 -0800 (PST)
-Message-ID: <eef23463-2a16-4d68-a1c9-cab152e61192@gmail.com>
-Date: Wed, 27 Nov 2024 07:14:16 +0100
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=sWmTV4GG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TUYNFUhwbPcfBv/sBtstSUoICJRkbwBtvWNTYcgcUYVRI0Zzc3KRm8E6hkH8JHON+uBZM5EOORpSq0DwvIrdXIvkAF3FEWHnX9Sh+71Hk0VpsWxXdjDZrBgzEy/GZdc/x7HKYFiIVLuAYgYUVyS3gIG4B+FByZ0w418Vo8noid6+sWz6J9WqbvINRc8tzVkKI8d0vOW8vLt3IiJzxoVJ4lKk11lTAmLP8ibMctHmfTm911LsZfuFaresgUxRlJOzI5tqr6Ko4sfXO4JEImzTIPOe2RY7IX/oU0SgleSJJMRAPzZ6IpJ+IVlLa5AkNLqLVMhaaBw4jyvuQ/eWlo5w0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4tCOncg/iDILytUeVCgGrsZHuksKz3nVtd9URHAQS7I=;
+ b=KBbbHeAgE7whqJDdycrf4EsUf21B6rMISDhaGFj6SyjakCjidMkV7vRew7CEmE6pPdLbCCKi6rp2fQ3K0VexLzYCoSIGtj5/vQo5zNQu02dZMhLa44Lzgu/6XLuZW0hgNMLbRTYyAKxVFmtf7Y4bhkW9m77uRQ17Sq5hdHm4Ck+E/stju6FyBGf4xsch5tisuISzSH0lh+2neD+IwPTbMGsDx6+pH4xFj6fwBo+F/j6JGDdQ7cB4QSwTTtB86c7jKKDAWyZVBjyqSE/cJASYch6sH46VhqnVpSh18o1JUoHLtPZ0TssnLE/byiZpzJTJ/g2Bwfuc0zGOi7dPU2ytmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4tCOncg/iDILytUeVCgGrsZHuksKz3nVtd9URHAQS7I=;
+ b=sWmTV4GG92FwWzwzF/39Qx43IXt3X4LJ/yB048t4uyVhn26D4pLBHDanrDG5hZIeHe5gFtBqOeEFACCISB323BvxAUTZ1EgiRFuXkLLQE8LS8S4OncRVPPMwzjxRqORfiH/X0wrXueZg4fDfk8XIuIZ6RttTEJ3RdfNeefNAJI4=
+Received: from BN0PR03CA0035.namprd03.prod.outlook.com (2603:10b6:408:e7::10)
+ by DM4PR12MB6133.namprd12.prod.outlook.com (2603:10b6:8:ae::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8182.21; Wed, 27 Nov 2024 11:22:35 +0000
+Received: from BN2PEPF0000449D.namprd02.prod.outlook.com
+ (2603:10b6:408:e7:cafe::35) by BN0PR03CA0035.outlook.office365.com
+ (2603:10b6:408:e7::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.12 via Frontend Transport; Wed,
+ 27 Nov 2024 11:22:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF0000449D.mail.protection.outlook.com (10.167.243.148) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8207.12 via Frontend Transport; Wed, 27 Nov 2024 11:22:34 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Nov
+ 2024 05:22:33 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Nov
+ 2024 05:22:32 -0600
+Received: from prasad-lnx-mach.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 27 Nov 2024 05:22:28 -0600
+From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <syed.sabakareem@amd.com>,
+	<mario.limonciello@amd.com>, Venkata Prasad Potturu
+	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Tim Crawford
+	<tcrawford@system76.com>, =?UTF-8?q?Attila=20T=C5=91k=C3=A9s?=
+	<attitokes@gmail.com>, Techno Mooney <techno.mooney@gmail.com>, Jeremy Soller
+	<jeremy@system76.com>, Malcolm Hart <malcolm@5harts.com>, "open list:SOUND -
+ SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: amd: yc: Fix for enabling DMIC on acp6x via _DSD entry
+Date: Wed, 27 Nov 2024 16:52:25 +0530
+Message-ID: <20241127112227.227106-1-venkataprasad.potturu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: schorpp <thomas.schorpp@gmail.com>
-Subject: [BUG] HDA Intel PCH, HDMI , HDA Intel PCH, ALC886 Digital, no IEC958
- / HDMI output/passthrough to AVR, partly fixed but HDMI AC3 passthrough
-To: alsa-devel@alsa-project.org
-X-Priority: 4 (Low)
-Content-Language: en-US, de-DE
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: VXZJFXT7ONMIIZAZEXPZHUHB4YAQDH66
-X-Message-ID-Hash: VXZJFXT7ONMIIZAZEXPZHUHB4YAQDH66
-X-MailFrom: thomas.schorpp@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449D:EE_|DM4PR12MB6133:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f4f97fc-e354-4368-b775-08dd0ed5ca7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|36860700013|1800799024|7416014|376014|82310400026;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?zWCzOVHEd9BUIHL0+NjwF19g0FvASduhx9l+mrIuSho/Ko3zb56p55aIYMlw?=
+ =?us-ascii?Q?t0TWAfRKxpUU3VSI3M7PiDZMtkYwjjHowjAhafgOgqoT9QB4r4JK39ZfHqnk?=
+ =?us-ascii?Q?LhOORMGcJtpJc+uUP5UEfgy7PIFW0a9EIHCYlwc7YZqSimRE9yxE+H9ts2Bw?=
+ =?us-ascii?Q?c7X8fatmLWHr+jt4zAw/UFRgovCWSr1NPE/Qn2vKGRQ/l9pmF+gZjn8knE6o?=
+ =?us-ascii?Q?iSB1RrwBHaK2yup1sh97ffZmHg1UjaHeOJmhQGyZ9+pUcJWFcddCraJqOzFk?=
+ =?us-ascii?Q?CVLPwvIU9w6Pz359RDHpwtypY/1q7/pfvVZvPV8V4r5C5XpmZNqtca9egp/V?=
+ =?us-ascii?Q?kC9m2nA2QNIQc9KIRB9mmon1qeTTQAFuglU8xBjvB1wYEDyJOZUxyXB+6k+T?=
+ =?us-ascii?Q?kDBob2EPqsex0fpNN9eN1Q04E7eGI7er2CWsSbpgSED7/MkljwD6IY4d6F8r?=
+ =?us-ascii?Q?BGh17Pv9dP3i505MQsDfe86C9sJQgqrFq44TJOGrVDqgh/jUsQhyphAu/aA5?=
+ =?us-ascii?Q?r4RuYS5Fq8RTgzB3lnUm3NH3T/zTLeNeVwpXUoBQ6hbqFrsZn92g94oiqbo9?=
+ =?us-ascii?Q?KGkcmLFsk6liyWFoH2uVjAh58wR5EG2QMt8UcNoog2kMMGTTe1nlgCGL368j?=
+ =?us-ascii?Q?OqqubYgzXdPtHGT5+sna+XzstjRz+eLRG3F6e6BKVkrhi8XtgaQFEYaYjuY8?=
+ =?us-ascii?Q?1fpC1Gu81KbiG6LZklpk1LW3rt1dCpdYg3G0xVQ/ZtpW79tByufah7jrU3d2?=
+ =?us-ascii?Q?atlpaR1zGQ8cR9kb8jmI++t6kZ4Hfs8LCttROG8q/OS7mBHIQgQwPPIzCFho?=
+ =?us-ascii?Q?icby5E/xE44u9R1HQao7JEFh1LG3lgFZEjQHawUKYUrQzPDik0Y5H6zAn56D?=
+ =?us-ascii?Q?r0MiYk/TpVm0hhyrp0PqYzBZMZSAOx+tX/glGVLzYLnK+9ZSCQ59FsRjUq3c?=
+ =?us-ascii?Q?1qMy0NZk4qqEaVo0s4uunvtXiozDekWunshiXdvPtaTV3MxuLAu/7z5Q4Zn+?=
+ =?us-ascii?Q?ALPhUso0Kl+xKwSs8IzYPG2hXwTYWHj4qxDEvlqeGPF05NRoayv1ZjgOert4?=
+ =?us-ascii?Q?jAuRn0L07oAmTk0rJO6XwK52s7jzY1uBFqHuNcNRGuk8GO898BBkr3OEJtti?=
+ =?us-ascii?Q?YVhkQ8MU7q2v5hcLAtVWVHQd/Q5D1WJg7gfaf5Y8aeXHObU9B002HCVD9T5O?=
+ =?us-ascii?Q?xfe7ICloPrp05B9p9lSudNZkDCGi8woly8T8lHpIfkK8or7sNkydfJvY7ChV?=
+ =?us-ascii?Q?wlT1fwEg2zIeZyhtgBG45G9Az1Y04lRqzeR25+rrqKMHj7TqY0InwfgCWdzY?=
+ =?us-ascii?Q?U6b+H7/KhIznGB2bY+ep99QBJ+RP51o81eryTxrm2U3H3kpAGLw9mKnsIJsI?=
+ =?us-ascii?Q?r0HzhV9QVMWpIfmCoFvMs3Q0dzd+nhlesuRdVxZPSEimKUaeu/GDK4u34Mn4?=
+ =?us-ascii?Q?2u9lUiRh/K0EO/2mT11nGBwaBbpTWZXw?=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(7416014)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2024 11:22:34.3847
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 3f4f97fc-e354-4368-b775-08dd0ed5ca7c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	BN2PEPF0000449D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6133
+Message-ID-Hash: T4C67T73SRGJRFTJDAM7SQ5264XIE2KE
+X-Message-ID-Hash: T4C67T73SRGJRFTJDAM7SQ5264XIE2KE
+X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +172,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VXZJFXT7ONMIIZAZEXPZHUHB4YAQDH66/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T4C67T73SRGJRFTJDAM7SQ5264XIE2KE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,56 +181,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
->>> 
->>> [BUG] HDA Intel PCH, HDMI , HDA Intel PCH, ALC886 Digital, no IEC958 / HDMI output/passthrough to AVR
->>> 
->>> ALSA versions 1.0.28
->>> 
->>> Kernel Driver versions 3.12.40
-> Partly FIXED in Longterm Stable Kernel 4.19.324 and using HDMI DEV 1 instead of 0.
-> 
-> 2 CH PCM HDMI to AVR works now but AC3/DTS passthrough still not or is not recognized by AVR or some wrong AES setting but iec958 
+Add condition check to register ACP PDM sound card by reading
+_WOV acpi entry.
 
-ALC886 optical toslink AC3/DTS output to AVR works.
+Fixes: 5426f506b584 ("ASoC: amd: Add support for enabling DMIC on acp6x via _DSD")
 
-> 
-> New BUG: No more 5.1 Analog Output on the CM106 USB Box if AC3 stream is selected.
+Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-No. Sorry, VDR xineliboutput config error, needs speaker setup 5.1 
-instead of pass through.
-
-y
-tom
-
-> 
-> Your ALSA information is located at http://alsa-project.org/db/?f=5ef8b56450583ba8afbcc705afc02228da4a3072
-> 
-> y
-> tom
-> 
->>> 
->>> Hardware:
->>> 
->>> DFI Mainboard MB330-CRM
->>> 
->>> https://www.dfi.com/de/product/index/273#specification
->>> 
->>> Reproducible Always
->>> 
->>> Steps to reproduce and full report:
->>> 
->>> https://www-vdr--portal-de.translate.goog/forum/index.php?thread/136519-gel%C3%B6st-xineliboutput-config-f%C3%BCr-dd-passthrough-zu-avr-und-5-1-surround-headset/&postID=1375883&_x_tr_sl=de&_x_tr_tl=en&_x_tr_hl=de&_x_tr_pto=wapp#post1375883
->> Output of alsa-info.sh is here
->> 
->> http://alsa-project.org/db/?f=fc4734deddd9a92331692bf94b15cf84b7722cd4
->> 
->>> 
->>> Software crosscheck with CM106 USB Soundbox iec958: works OK.
->>> 
->>> Where to start in the drivers source code to fix it?
->>> 
->>> y
->>> tom
->>> 
->>> 
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 438865d5e376..c301dac8b979 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -523,8 +523,14 @@ static int acp6x_probe(struct platform_device *pdev)
+ 	struct acp6x_pdm *machine = NULL;
+ 	struct snd_soc_card *card;
+ 	struct acpi_device *adev;
++	acpi_handle handle;
++	acpi_integer dmic_status;
+ 	int ret;
++	bool is_dmic_enable, wov_en;
+ 
++	/* IF WOV entry not found, enable dmic based on AcpDmicConnected entry*/
++	is_dmic_enable = false;
++	wov_en = true;
+ 	/* check the parent device's firmware node has _DSD or not */
+ 	adev = ACPI_COMPANION(pdev->dev.parent);
+ 	if (adev) {
+@@ -532,9 +538,19 @@ static int acp6x_probe(struct platform_device *pdev)
+ 
+ 		if (!acpi_dev_get_property(adev, "AcpDmicConnected", ACPI_TYPE_INTEGER, &obj) &&
+ 		    obj->integer.value == 1)
+-			platform_set_drvdata(pdev, &acp6x_card);
++			is_dmic_enable = true;
+ 	}
+ 
++	handle = ACPI_HANDLE(pdev->dev.parent);
++	ret = acpi_evaluate_integer(handle, "_WOV", NULL, &dmic_status);
++	if (!ACPI_FAILURE(ret))
++		wov_en = dmic_status;
++
++	if (is_dmic_enable && wov_en)
++		platform_set_drvdata(pdev, &acp6x_card);
++	else
++		return 0;
++
+ 	/* check for any DMI overrides */
+ 	dmi_id = dmi_first_match(yc_acp_quirk_table);
+ 	if (dmi_id)
+-- 
+2.39.2
 

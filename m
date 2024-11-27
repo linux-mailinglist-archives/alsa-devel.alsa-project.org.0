@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEBFF9DFC2D
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2024 09:42:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D66C9DFC2E
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2024 09:42:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4749D22A9;
-	Mon,  2 Dec 2024 09:42:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4749D22A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9803C233F;
+	Mon,  2 Dec 2024 09:42:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9803C233F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733128929;
-	bh=pFghbaWtd/STyIfc/3CL7MtyUPysSEDZeYSKOSqu2+o=;
+	s=default; t=1733128944;
+	bh=qIOaITSkr2hoSHYZoH8rMa+w2PEY8oF1TUWYTma/SZ8=;
 	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=uD6cQLCVmNhyPku7gJ93xwkBQmyKjj6uK3QR28O4soECZN9TDKYjFo4mF9M+OHONU
-	 FhiAMNNhCPKufK14KD+neX6aJCTXY8t2xSM5YwYYavG16noVI92OGVUFpUWM3aIXyj
-	 WqpVaxfXSIgJBvquEX2NPqi0EHjXYKUE+Km71gdo=
+	b=fjbbjI2MG2YS7gVX7xsnt/MQIF1bNxqTln3cYpDD4ru6mr3tpC8/BZZkDTdUo5MdG
+	 vMy3vki7Fa8IbXCgYcCjRE+h0FMl0zQdseQ90cKzYJ8+7qk/bsdjoNMWlhI+0pdubm
+	 i9SrLmatr6ZvcKGAQSf5tXFrvOBvShl7LdwAERI4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E26A5F805EB; Mon,  2 Dec 2024 09:41:45 +0100 (CET)
+	id 184D7F8003C; Mon,  2 Dec 2024 09:41:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8683CF8052E;
-	Mon,  2 Dec 2024 09:41:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 385D8F805C2;
+	Mon,  2 Dec 2024 09:41:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A1AAF80236; Wed, 27 Nov 2024 02:34:05 +0100 (CET)
+	id D12D3F80236; Wed, 27 Nov 2024 03:15:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -32,112 +32,112 @@ X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1-04.simnet.is (smtp-out1-04.simnet.is
- [194.105.232.35])
+Received: from smtp-out1-06.simnet.is (smtp-out1-06.simnet.is
+ [194.105.231.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C5BDBF800F0
-	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 02:33:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5BDBF800F0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 68F1BF80116
+	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 03:15:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68F1BF80116
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=simnet.is header.i=@simnet.is header.a=rsa-sha256
- header.s=sel1 header.b=e0NM6WHa
+ header.s=sel1 header.b=LLu+qnJu
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=simnet.is; i=@simnet.is; q=dns/txt; s=sel1;
-  t=1732671240; x=1764207240;
+  t=1732673723; x=1764209723;
   h=date:from:to:subject:message-id:mime-version;
-  bh=z9UTy1QTtayTq+0bwyuQ2PeETDJ6V1U7dIP85o3SJS8=;
-  b=e0NM6WHaxYWFmNOsZXjAX4PshuJiUhA7LoiEgGXHVMQjh5nOR6lU31JZ
-   BjQBIi4vtKl6Z5AUgzPRtDYnhI/8MT3oQSfOLDxxLANBKDJMhD1rK7LbE
-   Ny6oj6q4AzxmZaEx2mjNrLFiRQFa1IP2Y0kuBcqo2wzorI5SChYjL0X0E
-   5KjHwlvXzObprawak+bYzhDVbrlhv4n41h+vwjKLxxGORk3d8Qil6f7Ie
-   1w7mxlp3bUEccoNVXbR1euHTSJsvBJRHgl2/jCdfxvEBBrFziHUV8ng1h
-   3BQddOSdWzit4uYKTZwEfOnc5QCb8PD1q8fOfEDZc1CaQDz8T4FH6qWQd
-   Q==;
-X-CSE-ConnectionGUID: /Z1TLSvoS2qOODMWu/wi+g==
-X-CSE-MsgGUID: OfKPyDkYSq+e8qEaLkXiFA==
-Authentication-Results: smtp-out-04.simnet.is;
+  bh=TDRHElr7oOSLi/OaWah5wWZcBo30pme1wqiET5MbYkU=;
+  b=LLu+qnJujJNkM18z0fzYjNyRN3ZR3GPlJBgf91+rUYG5ErBTlyhFkJqR
+   2wtRdMSGvyGqQaSWus4UEqltLiMtFK+ZsCG2geG7wypveIRpdDVw+xb4e
+   yv+eZ/jEEVkknGjTx2v8Kjin99aZLepzwzw84IKe58GT4+7sTF2kBZMSN
+   /qicS7qXWtyVQjAF7t9GferlCpSJTFaVM6gYJ4mSAP7fwq8MykMSjH2dE
+   j4mzSQ4TJCzbcbH8Ad3KPMlw4vmyDyXC87UaTE66oCahOO5pIO6l6m4Ve
+   uskAGaVuBI1WjilCOkGR76qKoN0CN8C74Spf4tSYsDXStDq+egUIjcsPh
+   w==;
+X-CSE-ConnectionGUID: Fa6L/vLQRKyLan+ht2ABBg==
+X-CSE-MsgGUID: 3XwjPYZcSI6+tNK3IGK9Tg==
+Authentication-Results: smtp-out-06.simnet.is;
  dkim=none (message not signed) header.i=none
 X-SBRS: 3.3
-X-IPAS-Result: =?us-ascii?q?A2GZAgDMb0ZnhVjoacJaHQEBAQEJARIBBQUBQIFTgkR9g?=
- =?us-ascii?q?WSIJY4fgRaeWjAHAQEBDzkLBAEBAwEDgVCDMIpeKDgTAQIEAQEBAQMCAwEBA?=
- =?us-ascii?q?QEBAQEBDgEBBgEBAQEBAQYHAhABAQEBQA47hTVGDYMWcYElAQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQEBAQEBARcCAgs0KgGBEzh8JwmCeAGCZBQGsQeBNIEBgxzbF4FdEIFIh?=
- =?us-ascii?q?WqCYgGFaYR3PAaCDYEVMgOBBm1KB2+CYQECAYFGRIYYBIIkHHk6B4EsDIILE?=
- =?us-ascii?q?iWCGoENgV+CD16BDYN+hByCVYFKgRaCP4IQiUVIgSEDWSERAVUTDQoLBwWBd?=
- =?us-ascii?q?gOCTHorgQuBFzqBfoETSoNKgUJGPTeCE2lLNwINAjaCJH2CTYMYgX+EaYRbh?=
- =?us-ascii?q?jAdNgoDCxgNSBEsNxQbRG4HoDQBRoJNCWAMBgEBMCIEDBgTKgJYLRMDMAYPH?=
- =?us-ascii?q?gUCGh4LBpJoWI9PgUShXIQkhluDMIILlUczIoNigVeLLoY6DDqSSJh7jgCVc?=
- =?us-ascii?q?hk3hGaBfoF/LAcaCDA7gmcJSRkPjgcjAxaDWIReNsM6eAIBOAIHCwEBAwmSa?=
- =?us-ascii?q?QEB?=
-IronPort-PHdr: A9a23:ab99BByo/yc9nVHXCzPyngc9DxPP2p3vOxINr506l/cWLuK4/pHkM
- VCZ5O4+xFPKXICO7fVChqKWtq37QmUP7N6Ht2xKa51DURIJyI0WkgUsDdTDCBj9K/jnBxE=
-IronPort-Data: A9a23:u5Da46ncbhr4igseuKwDmQno5gxjIURdPkR7XQ2eYbSJt16W5oEne
- lBvCjHdVaLbPHygOZtoOdH1pBhX/YjU/mJQOFdvpC8wE35DoJuaC9rEcBv7ZX7Id5XJExlst
- ZkTN9WZcM1lQC+Nrx7ybeCw9SZx2/vZGef3UueYanEhHVFuQy1JZX6P4wIcqtcAbY+RXl7W4
- 7se2vH3J0C6nTR1KmdS7LiM7x5p++zvsjcZtVUiZPdNpxjFljwfFpUUJbyrIhPErvJv8ruHq
- 5zrl/fhll7kwivBYz/dftzTe0kRS7TbIU7XzHZXVabKbnNq93Y4i/tlOKFBZxcMgWXSzowpm
- Y0S6JLvGVZ2Nf3FxrlHXkcEQn8hMKYep+KcLXHvu5fOxBWfLiK3nq8+UxBvM+X0lgoP7URmr
- JT0fxhSMkna7w7P/Jq7VvV0nZZka9LsIZkUtzdpyz3DCvcqB5vERuLG6MFZ1zorwclTEffZI
- M4ebiJlZR/DJR1TP1N/NH5Fpwveu5WFW2Ee9zqomJcKD0jvIC1ZjuThPYPcK4zXFJUKzhrCr
- D6eoDWpC0FKPozAw2Hc/i6Fi76Ul0sXeqpLT+TgqaQCbH5/Z4A3IEdLPbduiaDh0iZSY/oGd
- gpMvHJo9PBunKCSZoGVdwWip3KZtQIrVdNVEukrgCmA0aO8DzyxXwDodRYfLoV83CMKbWZyj
- APQxom3XWcHXIC9EBpxyJ/F/FteBgBNRYMyTXdsZRcI5dDlvLYygnrnJjq0OPfo5jFdMWiYL
- wGi9EDStZ1K5SI4//nTEWT8vt6ZjsOhojjZSengdjnNAgtRPOZJbmEzgLTRxa4owI2xFjFts
- JWY8iQ3AS9n4ZylzUSwrOsx8L6BoMTcDBnnn1lURYAG0BiIxGPkYoET72QrTKtpGp5slT7Bf
- k7IpUZD5ZpLJny6fOovOcSvCt82i6n7fTjnfqmFMpwXOsU3LlTdunE+DaKT9zmFfEwEm64XI
- paed8uwS3cBYUhi5GDpHbxMi+Jzrsw47UTdZqjq4xeW6qPdaS6MZL4hM2uPQMlsuctopy2Or
- 4YOaJrWo/lFa8X3ZjLetIIeM10OBXE/Hpmzs9ZQdOOIPkxhAm5JNhPK6a0gYJAgjaVQjv3P7
- mD4AhUe1lvkmTvGMm1md0yPdpuob89DiUklOhd2JHGP910cfMGw7eQQIs5fkaYcyMRvyvt9T
- v8gcsqGA+hSRjmvx9j7RcWixGCFXEj67T9iLxaYjC4Dk4lIZjehxzMJVhXu7zVLHCuyrdE5s
- 6zljlmdX5sYW0JjF646ic5DLXvv5BDxe8orDiMkx+W/nm23qeCGzASq15cKzzkkc0mr+9dj/
- 1/+7e0kjefMuZQp19LCmLqJqYyke8MnQREAQTWGvO7vbHCCloZG/WOmeLrYFdw6fD6skJhOm
- c0PkqyU3AAvxQoR7dMie1qV5f1ivoWHS0BmIvRMRymbPgv6VtuM01GD3M1G/q1DroK1SiPrM
- n9jDuJyYO3TUOu8SQJ5DFR+NIyri6pL8gQ+GNxuey0WEgcsp+LfCS2//nCk1ERgEVeCGNl4m
- 7t45J5LtmRSSHMCa767s8ydzEzURlRobkntnshy7FPD4ubz9mx/XA==
-IronPort-HdrOrdr: A9a23:tSOpy67/dtNlPE+IqAPXwN3XdLJyesId70hD6qlUc20yTiX4rb
- HIoB11737JYVoqOE3I+urwXJVoI0mskKKdiLN5VdzJMWWI1ldAR7sSj7cKrQeQeBEWjtQtrJ
- tdTw==
-X-Talos-CUID: 9a23:/ACqrWCAVx/kSOL6E25VrXIwId4iSSfE61D8BnClTnloC7LAHA==
-X-Talos-MUID: 9a23:K6J/0Aqj64UpYqYlcGMezxZsF/95z6efM1lOnMUflsCgNhxxFR7I2Q==
+X-IPAS-Result: =?us-ascii?q?A2HOAgDefUZnhVjoacJaHgEBCxIMQIFIC4IcKH2BZIglj?=
+ =?us-ascii?q?h+gIAcBAQEPMRMEAQEDAQOBUIMwil4oNwYOAQIEAQEBAQMCAwEBAQEBAQEBD?=
+ =?us-ascii?q?gEBBgEBAQEBAQYHAhABAQEBQA47hTVGDYMWghYsAi6BTQowI1kngwEBgmSxH?=
+ =?us-ascii?q?4E0gQGDHNsXgV0QgUiFaoJiAYVphHc8BoINgRUyA4EGbVFvhG+GGASCJBwtT?=
+ =?us-ascii?q?EGBLAyCCxIlghqBDYFfgg9egQ2Bb4IPhByCVYJgHR0wgVVZgTeJRUiBIQNZI?=
+ =?us-ascii?q?REBVRMNCgsHBYF2A4JMeiuBC4EXOoF+gRNKg0qBQkY9N4ITaUs3Ag0CNoIkf?=
+ =?us-ascii?q?YJNgxiBf4RphFuGMB02CgMLGA1IESw3FBtEbgegNAFGgk0JPyIEAQ0BMAwaD?=
+ =?us-ascii?q?BgTAS8eMgQjChMDMAIEBAsdAQ2UA49PgUShXIQkhluDMIILlUczIoNigVeRa?=
+ =?us-ascii?q?Aw6kkiYe5cAjCZMGTeEZoF9ggAsBxoIMDuCZwlJGQ+OByMDFoEMAQeHIjbDR?=
+ =?us-ascii?q?Xg7AgcLAQEDCZJpAQE?=
+IronPort-PHdr: A9a23:2x2bCxZN9sZb3rcBA+S1ddn/LTAChN3EVzX9i7I8jq5WN6O+49G6Y
+ grE5PBrgUOPXJ6Io/5Hiu+DtafmVCRA5Juaq3kNfdRKUANNksQZmQEsQYaFBET3IeSsbnk8G
+ 8JPPGI=
+IronPort-Data: A9a23:uLuM2awWkmMVyotLS3h6t+dawSrEfRIJ4+MujC+fZmQN5Y4CYwd3n
+ TpENjTXZOHfICDrKoU1Od7yqVQHiSLmvt41TVY+qnxjF3kW+cbMVYnGchv5Yy3Mf5CeFB5st
+ ZROYYiQIs5qHiWB/Bn9OLaw/Hci2fDUTOSnWb+dZH0rHlAMpEvN8f5Gs7dRbtlA34jnW2thw
+ O/PnvEzUbPdN1RcO2YP4qmfrFU2+vjztj1wUjcWOfwa5QCDmiQfAJhOe63hISGmGdkIReTlT
+ L+ekrvm92jX9EdwUtr5n+agLUBTG7eMMFPVgCINAPLy2BMf9iZrjc7XWBZkhWJ/0l1lyPguk
+ osU3XDJdToUA0HspAg8e0QETHAiY/1MqbLJcCTj7cGflRHLLyWzk/w1AB07MNIV0+smWmsmG
+ d4wcWtUNk/Z7w6VLBNXbsE226zP+eGyZNt3VklIlGyfVbB+B8mbH80m3PcAtB8onMdCAP3CU
+ MQQbDtrfXzobgZGUrstIMtWcNyA2D+mKVW0lHrP/fBrujGJklQquFTQGIO9luKiFJQ9cnmw/
+ goqz0yhajkGOdqWzyay837ErocjSguiBer+vJXhnhJbqAX7Kl47UXX6ZnPnyRWNsXNSbvoEQ
+ 6AiFoXCmoBpnKCjZoGVsxRVOxdotDZEMzZbO7VSBA1gVsM4SutWb4QJZmcpVTAoiCM5bRIji
+ HvOgffQPx9+lLSTCnKBrJ6+hzznbED5LUdaDcMFZRUE+MWmsoA2lgjIXscmSPTzkNzuBXfx2
+ FhmrgBn1ulV1JZWkf/gpxaX01pApbCQJuIxzg/Ydnmk6wV0eMikfORE7HCBsqsRdtbEEzFtu
+ lBfq9ec1NE8Bqqsym+RZsZWPZ6KtsqKZWi0bVlHRMVxpmv8pxZPZ7t46TVlLQJlP9gJfRfgZ
+ FTa/BtL451eN2fsarV4C79dEOw0zLP8UMbkU+jOacpfJ8ArMhGG5z0oZFX4M33RfFYEv6hhH
+ dCFVf+WLmc+AKIkzCbsbs033up+rswh/l/7SZf+xhWh9LORYn+JVLsIWGdiiMhls8toRy2Jo
+ r5i29u29vlJbAHpSgjsmbP/wHgULGMnQIL3rtRNcf6SZ1I8Xn8gEOOXwKhJl21Zc0Z9yL6gE
+ pKVAx4wJL/DaZvvclzihpdLM+qHYHqHhShnVRHAxH7xs5TZXa6h7b0Ea7w8dqQ9+epowJZcF
+ qZeIZvcX6UXE22eo1zxiKURSqQ+JHxHYirTZ0KYjMQXJcM9L+A00oa4JVW2qkHi8ALo6ZJgy
+ 1Ff6u8racFfF1U9XZq+hAOHylK1tDAdlopPs7jgf7FulLHX2NEycUTZ16ZrS+lSck+r7mXBi
+ G6r7eIw/rKlT3kdq4KR3fjsQkbAO7cWI3e26EGHtO7pb3mFpjf7qWKCOc7RFQ3guKrP0P3KT
+ Y1oIzvUaZXrQH4iX1JALotW
+IronPort-HdrOrdr: A9a23:ZzDCuqhpnz85LNBLvcY2InPVWXBQXs8ji2hC6mlwRA09TyW9rb
+ HJoB17726StN9/YhAdcLy7WJVoIkmskaKdg7NhWItKNTOO0ADDQe0Mg7cKqAeQeREWmNQttp
+ uIC5IOceHNMQ==
+X-Talos-CUID: =?us-ascii?q?9a23=3APiV4N2kMZDiS/9UWOsduhcq/M17XOVPUklOXPWu?=
+ =?us-ascii?q?BM0V4bLSTCl+MoopOucU7zg=3D=3D?=
+X-Talos-MUID: =?us-ascii?q?9a23=3A1eG6/w23sfVcIRNjM5zv9DgyhjUjuJSxCng8o54?=
+ =?us-ascii?q?9mpfHKQpTYBayr2WLTdpy?=
 X-IronPort-Anti-Spam-Filtered: true
 X-IronPort-AV: E=Sophos;i="6.12,188,1728950400";
-   d="1'?diff'?scan'208";a="27239250"
+   d="1'?diff'?scan'208";a="27592855"
 Received: from vist-zimproxy-02.vist.is ([194.105.232.88])
-  by smtp-out-04.simnet.is with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2024 01:33:57 +0000
+  by smtp-out-06.simnet.is with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2024 02:15:20 +0000
 Received: from localhost (localhost [127.0.0.1])
-	by vist-zimproxy-02.vist.is (Postfix) with ESMTP id 025BD401057B
-	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 01:33:57 +0000 (GMT)
+	by vist-zimproxy-02.vist.is (Postfix) with ESMTP id 481314009081
+	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 02:15:20 +0000 (GMT)
 Received: from vist-zimproxy-02.vist.is ([127.0.0.1])
  by localhost (vist-zimproxy-02.vist.is [127.0.0.1]) (amavis, port 10032)
- with ESMTP id egim8jrzOukI for <alsa-devel@alsa-project.org>;
- Wed, 27 Nov 2024 01:33:56 +0000 (GMT)
+ with ESMTP id YCqGNvgOVMMU for <alsa-devel@alsa-project.org>;
+ Wed, 27 Nov 2024 02:15:19 +0000 (GMT)
 Received: from localhost (localhost [127.0.0.1])
-	by vist-zimproxy-02.vist.is (Postfix) with ESMTP id 18F7543D59A7
-	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 01:33:56 +0000 (GMT)
+	by vist-zimproxy-02.vist.is (Postfix) with ESMTP id 5748043D59B0
+	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 02:15:19 +0000 (GMT)
 Received: from vist-zimproxy-02.vist.is ([127.0.0.1])
  by localhost (vist-zimproxy-02.vist.is [127.0.0.1]) (amavis, port 10026)
- with ESMTP id LsAkX3l1jyJ6 for <alsa-devel@alsa-project.org>;
- Wed, 27 Nov 2024 01:33:55 +0000 (GMT)
+ with ESMTP id Qfk5lIz0YRfV for <alsa-devel@alsa-project.org>;
+ Wed, 27 Nov 2024 02:15:19 +0000 (GMT)
 Received: from kassi.invalid.is (85-220-33-163.dsl.dynamic.simnet.is
  [85.220.33.163])
-	by vist-zimproxy-02.vist.is (Postfix) with ESMTPS id EA9AD401057B
-	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 01:33:55 +0000 (GMT)
+	by vist-zimproxy-02.vist.is (Postfix) with ESMTPS id 41E384009081
+	for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2024 02:15:19 +0000 (GMT)
 Received: from bg by kassi.invalid.is with local (Exim 4.98)
 	(envelope-from <bg@kassi.invalid.is>)
-	id 1tG6wI-000000002bJ-1gJE
+	id 1tG7aL-000000002wO-45lQ
 	for alsa-devel@alsa-project.org;
-	Wed, 27 Nov 2024 01:33:58 +0000
-Date: Wed, 27 Nov 2024 01:33:58 +0000
+	Wed, 27 Nov 2024 02:15:21 +0000
+Date: Wed, 27 Nov 2024 02:15:21 +0000
 From: Bjarni Ingi Gislason <bjarniig@simnet.is>
 To: alsa-devel@alsa-project.org
-Subject: alsabat.1: Some remarks and editorial changes for this man page
+Subject: alsactl.1: Some remarks and editorial changes for this man page
 Message-ID: 
- <173267102821.9901.14592571103118715184.reportbug@kassi.invalid.is>
+ <173267285341.10818.18163035991786515444.reportbug@kassi.invalid.is>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="KiFdB+TBweoewYi8"
+Content-Type: multipart/mixed; boundary="EA3fa+uv7YkAxoyi"
 Content-Disposition: inline
 X-Mailer: reportbug 13.0.2
 X-MailFrom: bg@simnet.is
@@ -146,15 +146,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: YD2TNQJLBSOF7LW3WSRILZFYLC2XZD3C
-X-Message-ID-Hash: YD2TNQJLBSOF7LW3WSRILZFYLC2XZD3C
+Message-ID-Hash: NDYV37I4L3F2BG7RES635WUEPPZFPGOE
+X-Message-ID-Hash: NDYV37I4L3F2BG7RES635WUEPPZFPGOE
 X-Mailman-Approved-At: Mon, 02 Dec 2024 08:41:41 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YD2TNQJLBSOF7LW3WSRILZFYLC2XZD3C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NDYV37I4L3F2BG7RES635WUEPPZFPGOE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -164,12 +164,12 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---KiFdB+TBweoewYi8
+--EA3fa+uv7YkAxoyi
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Package: alsa-utils
-Version: 1.2.12-1 (Debian testing)
+Version: 1.2.12-1
 Severity: minor
 Tags: patch
 
@@ -189,8 +189,10 @@ test-[g|n]roff -mandoc -t -K utf8 -rF0 -rHY=0 -ww -b -z < "man page"
    * What was the outcome of this action?
 
 
-troff: backtrace: file '<stdin>':175
-troff:<stdin>:175: warning: trailing space in the line
+troff: backtrace: file '<stdin>':93
+troff:<stdin>:93: warning: trailing space in the line
+troff: backtrace: file '<stdin>':224
+troff:<stdin>:224: warning: trailing space in the line
 
 
    * What outcome did you expect instead?
@@ -231,11 +233,11 @@ pn  dialog  <none>
 
 -- no debconf information
 
---KiFdB+TBweoewYi8
+--EA3fa+uv7YkAxoyi
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="chk_man.err.alsabat.1"
+Content-Disposition: attachment; filename="chk_man.err.alsactl.1"
 
-Input file is alsabat.1
+Input file is alsactl.1
 
   Any program (person), that produces man pages, should check the output
 for defects by using (both groff and nroff)
@@ -311,43 +313,45 @@ export MAN_KEEP_STDERR=yes (or any non-empty value)
 
 -.-.
 
-Output from "mandoc -T lint  alsabat.1 ": (shortened list)
+Output from "mandoc -T lint  alsactl.1 ": (shortened list)
 
-      1 skipping paragraph macro
-
--.-.
-
-Output from "test-groff -mandoc -t -ww -b -z alsabat.1 ": (shortened list)
-
-      1 trailing space in the line
+      2 input text line longer than 80 bytes
+      2 whitespace at end of input line
 
 -.-.
 
-Output from "mandoc -T lint  alsabat.1 ":
+Output from "test-groff -mandoc -t -ww -b -z alsactl.1 ": (shortened list)
 
-mandoc: alsabat.1:163:2: WARNING: skipping paragraph macro: br after SH
-
--.-.
-
-Change - to \- if it shall be printed as a minus sign.
-
-alsabat.1:166:If no peak be detected, returns -1001;
-alsabat.1:168:If only DC be detected, returns -1002;
-alsabat.1:170:If peak frequency does not match with the target frequency, returns -1003.
+      2 trailing space in the line
 
 -.-.
 
-Change a HYPHEN-MINUS (code 0x2D) to a minus(-dash) (\-),
-if it
-is in front of a name for an option,
-is a symbol for standard input,
-is a single character used to indicate an option,
-or is in the NAME section (man-pages(7)).
-N.B. - (0x2D), processed as a UTF-8 file, is changed to a hyphen
-(0x2010, groff \[u2010] or \[hy]) in the output.
+Output from "mandoc -T lint  alsactl.1 ":
 
-37:of alsabat, with configure option "--enable-alsabat-backend-tiny".
-134:"--standalone".
+mandoc: alsactl.1:93:20: STYLE: whitespace at end of input line
+mandoc: alsactl.1:110:92: STYLE: input text line longer than 80 bytes: Select the boot / ho...
+mandoc: alsactl.1:226:10: STYLE: whitespace at end of input line
+mandoc: alsactl.1:231:83: STYLE: input text line longer than 80 bytes: <abramo@alsa\-projec...
+
+-.-.
+
+Remove space characters at the end of lines.
+
+Use "git apply ... --whitespace=fix" to fix extra space issues, or use
+global configuration "core.whitespace".
+
+93:\fI\-h, \-\-help\fP 
+226:.SH BUGS 
+
+-.-.
+
+Add a comma (or \&) after "e.g." and "i.e.", or use English words
+(man-pages(7)).
+Abbreviation points should be protected against being interpreted as
+an end of sentence, if they are not, and that independent of the
+current place on the line.
+
+214:necessary for some soundcard features (e.g. enabling/disabling
 
 -.-.
 
@@ -374,253 +378,308 @@ and the same phrase.
   The amount of space between sentences in the output can then be
 controlled with the ".ss" request.
 
-11:human interaction. ALSABAT can be used to test audio quality, stress test
-14:ALSABAT's design is relatively simple. ALSABAT plays an audio stream and
-15:captures the same stream in either a digital or analog loop back. It then
-21:target and runs as a server on a separate tester machine. The client/server
-30:jacks to create a loopback. If only headphone and mic jacks (or combo jack)
-68:The number of channels. The default is one channel.
-72:Sampling rate in Hertz. The default rate is 44100 Hertz.
-79:1. Decimal integer, means number of frames;
-81:2. Floating point with suffix 's', means number of seconds.
-90:value and standard deviation of frequency vectors. After that, we define
-123:Playback, capture and analysis internal to ALSABAT only. This is intended
-139:There are many kinds of audio latency metrics. One useful metric is the
-143:Noise detection threshold in SNR (dB). 26dB indicates 5% noise in amplitude.
-178:Currently only support RIFF WAV format with PCM data. Please report any bugs to
+17:soundcard drivers. It supports multiple soundcards. If your card has
+25:The \fI<card>\fP argument is optional. If no soundcards are specified,
+36:configuration file. If restoring fails (eventually partly), the init
+46:This command tries to initialize all devices to a default state. If device
+76:The optional element identifiers are accepted as a filter. One extra
+106:Select the configuration file to use. The default is /var/lib/alsa/asound.state.
+110:Select the boot / hotplug ALSA configuration directory to use. The default is /var/lib/alsa.
+133:Used with store, restore and init commands. Do not show 'No soundcards found'
+152:Save restore and init state to this file. The file will contain only errors.
+167:The configuration file for init. By default, PREFIX/share/alsa/init/00main
+196:Execute also the 'defaults' section from the UCM configuration. The standard
+201:Skip the UCM init even if available. It may be useful for the test the
+207:soundcards. The settings include all the usual soundcard mixer
+213:\fBalsactl store\fP. Editing the configuration file by hand may be
+214:necessary for some soundcard features (e.g. enabling/disabling
+231:<abramo@alsa\-project.org>. This document is by Paul Winkler <zarmzarm@erols.com>.
 
 -.-.
 
-Use the name of units in text; use symbols in tables and
-calculations.
-The rule is to have a (no-break, \~) space between a number and
-its units (see "www.bipm.org/en/publications/si-brochure")
+Split lines longer than 80 characters into two or more lines.
+Appropriate break points are the end of a sentence and a subordinate
+clause; after punctuation marks.
 
-143:Noise detection threshold in SNR (dB). 26dB indicates 5% noise in amplitude.
+Line 7, length 93
+
+\fBalsactl\fP [\fIoptions\fP] [\fIstore\fP|\fIrestore\fP|\fIinit\fP] <card # or id or device>
+
+Line 110, length 92
+
+Select the boot / hotplug ALSA configuration directory to use. The default is /var/lib/alsa.
+
+Line 231, length 82
+
+<abramo@alsa\-project.org>. This document is by Paul Winkler <zarmzarm@erols.com>.
+
+
+-.-.
+
+Use \(en (en-dash) for a dash between space characters,
+not a minus (\-) or a hyphen (-), except in the NAME section.
+
+alsactl.1:162:ALSA_CONFIG_PATH to read different or optimized configuration - may be
 
 -.-.
 
 Name of a manual is set in bold, the section in roman.
 See man-pages(7).
 
-174:aplay(1)
+223:alsactl_init(7)
 
 -.-.
 
-Change a HYPHEN-MINUS (code 0x55, 2D) to a dash
-(\-, minus) if it matches "[[:alph:]]-[[:alpha:]]" in the name of an
-option).
-Facilitates the copy and paste of
-a) an option in UTF-8 text
-b) web addresses (URL).
+Put a parenthetical sentence, phrase on a separate line,
+if not part of a code.
+See man-pages(7), item "semantic newline".
 
-Is not needed in ordinary words like "mother-in-law", that are not
-copied and pasted to a command line (which needs ASCII code)
+alsactl.1:36:configuration file. If restoring fails (eventually partly), the init
+alsactl.1:120:file (including the global state file).
+alsactl.1:188:Set the process priority (see 'man nice')
 
-37:of alsabat, with configure option "--enable-alsabat-backend-tiny".
+-.-.
+
+Two or more space charaters between printable characters.
+
+When the distance is between sentences,
+start the beginning of the second one on a separate line
+("semantic newline").
+
+128:Used with restore command.  Try to restore the matching control elements
+129:as much as possible.  This option is set as default now.
+138:Used with restore command.  Don't restore mismatching control elements.
+143:Don't initialize cards if restore fails.  Since version 1.0.18,
+145:as default.  But this can cause incompatibility with the older version.
+147:exists.  This option takes the restore behavior back to the older
+208:settings.  More importantly, alsactl is
 
 -.-.
 
 Output from "test-groff  -mandoc -t -K utf8 -rF0 -rHY=0 -ww -b -z ":
 
-troff: backtrace: file '<stdin>':175
-troff:<stdin>:175: warning: trailing space in the line
+troff: backtrace: file '<stdin>':93
+troff:<stdin>:93: warning: trailing space in the line
+troff: backtrace: file '<stdin>':224
+troff:<stdin>:224: warning: trailing space in the line
 
--.-
-
-Additionally:
-
-  Use a hyphen between a number and the unit (name) "bit",
-see "man-pages(7)", item "Terms to avoid".
-
---KiFdB+TBweoewYi8
+--EA3fa+uv7YkAxoyi
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="alsabat.1.diff"
+Content-Disposition: attachment; filename="alsactl.1.diff"
 
---- alsabat.1	2024-11-27 00:33:40.281656673 +0000
-+++ alsabat.1.new	2024-11-27 01:03:49.731607405 +0000
-@@ -7,34 +7,41 @@ alsabat \- command\-line sound tester fo
+--- alsactl.1	2024-11-27 01:36:34.387486580 +0000
++++ alsactl.1.new	2024-11-27 01:53:30.810769721 +0000
+@@ -4,7 +4,8 @@ alsactl \- advanced controls for ALSA so
+ 
+ .SH SYNOPSIS
+ 
+-\fBalsactl\fP [\fIoptions\fP] [\fIstore\fP|\fIrestore\fP|\fIinit\fP] <card # or id or device>
++\fBalsactl\fP [\fIoptions\fP] [\fIstore\fP|\fIrestore\fP|\fIinit\fP] <card # \
++or id or device>
+ 
+ \fBalsactl\fP \fImonitor\fP <card # or id>
+ 
+@@ -14,8 +15,10 @@ alsactl \- advanced controls for ALSA so
  
  .SH DESCRIPTION
- \fBALSABAT(ALSA Basic Audio Tester)\fP is a simple command\-line utility
--intended to help automate audio driver and sound server testing with little
--human interaction. ALSABAT can be used to test audio quality, stress test
--features and test audio before and after PM state changes.
--
--ALSABAT's design is relatively simple. ALSABAT plays an audio stream and
--captures the same stream in either a digital or analog loop back. It then
--compares the captured stream using a FFT to the original to determine if
--the test case passes or fails.
--
--ALSABAT can either run wholly on the target machine being tested (standalone
--mode) or can run as a client/server mode where by alsabat client runs on the
--target and runs as a server on a separate tester machine. The client/server
--mode still requires some manual interaction for synchronization, but this
--is actively being developed for future releases.
-+intended to help automate audio driver
-+and sound server testing with little human interaction.
-+ALSABAT can be used to test audio quality,
-+stress test features
-+and test audio before and after PM state changes.
-+
-+ALSABAT's design is relatively simple.
-+ALSABAT plays an audio stream
-+and captures the same stream in either a digital or analog loop back.
-+It then compares the captured stream using a FFT to the original
-+to determine if the test case passes or fails.
-+
-+ALSABAT can either run wholly on the target machine being tested
-+(standalone mode)
-+or can run as a client/server mode where by alsabat client runs on the
-+target
-+and runs as a server on a separate tester machine.
-+The client/server mode still requires some manual interaction for
-+synchronization,
-+but this is actively being developed for future releases.
+ \fBalsactl\fP is used to control advanced settings for the ALSA
+-soundcard drivers. It supports multiple soundcards. If your card has
+-features that you can't seem to control from a mixer application,
++soundcard drivers.
++It supports multiple soundcards.
++If your card has features
++that you can't seem to control from a mixer application,
+ you have come to the right place.
  
- The hardware testing configuration may require the use of an analog cable
- connecting target to tester machines or a cable to create an analog
- loopback if no loopback mode is available on the sound hardware that is
- being tested.
- An analog loopback cable can be used to connect the "line in" to "line out"
--jacks to create a loopback. If only headphone and mic jacks (or combo jack)
--are available then the following simple circuit can be used to create an
--analog loopback :-
-+jacks to create a loopback.
-+If only headphone and mic jacks (or combo jack) are available
-+then the following simple circuit can be used to create an analog loopback
-+:-
+ .SH COMMANDS
+@@ -38,13 +41,13 @@ action is called.
  
- https://source.android.com/devices/audio/loopback.html
+ .SS nrestore <card>
  
- If tinyalsa is installed in system, user can choose tinyalsa as backend lib
--of alsabat, with configure option "--enable-alsabat-backend-tiny".
-+of alsabat, with configure option "\-\-enable-alsabat-backend-tiny".
+-This command is like \fIrestore\fP, but it notifies also the daemon
+-to do new rescan for available soundcards.
++This command is like \fIrestore\fP,
++but it notifies also the daemon to do new rescan for available soundcards.
  
+ .SS init <card>
+ 
+-This command tries to initialize all devices to a default state. If device
+-is not known, error code 99 is returned.
++This command tries to initialize all devices to a default state.
++If device is not known, error code 99 is returned.
+ 
+ .SS daemon
+ 
+@@ -56,8 +59,8 @@ This command is like \fIdaemon\fP but re
+ 
+ .SS kill <cmd>
+ 
+-This command notifies the daemon to do the specified operation (quit,
+-rescan, save_and_quit).
++This command notifies the daemon to do the specified operation
++(quit, rescan, save_and_quit).
+ 
+ .SS monitor <card>
+ 
+@@ -73,8 +76,8 @@ collected from the given control device
+ 
+ This command cleans the controls created by applications.
+ 
+-The optional element identifiers are accepted as a filter. One extra
+-argument is parsed as an element identifiers.
++The optional element identifiers are accepted as a filter.
++One extra argument is parsed as an element identifiers.
+ 
+ \fIExample:\fP alsactl clean 0 "name='PCM'" "name='Mic Phantom'"
+ 
+@@ -90,7 +93,7 @@ Note that the configuration hooks are ev
  .SH OPTIONS
- .TP
-@@ -59,26 +66,28 @@ Some of these may not be available on se
- .br
- The available format shortcuts are:
- .nf
--\-f cd (16 bit little endian, 44100, stereo) [\-f S16_LE \-c2 \-r44100]
--\-f dat (16 bit little endian, 48000, stereo) [\-f S16_LE \-c2 \-r48000]
-+\-f cd (16-bit little endian, 44100, stereo) [\-f S16_LE \-c2 \-r44100]
-+\-f dat (16-bit little endian, 48000, stereo) [\-f S16_LE \-c2 \-r48000]
- .fi
- If no format is given S16_LE is used.
- .TP
- \fI\-c\fP
--The number of channels. The default is one channel.
-+The number of channels.
-+The default is one channel.
- Valid values at the moment are 1 or 2.
- .TP
- \fI\-r\fP
--Sampling rate in Hertz. The default rate is 44100 Hertz.
-+Sampling rate in Hertz.
-+The default rate is 44100 Hertz.
- Valid values depends on hardware support.
- .TP
- \fI\-n\fP
- Duration of generated signal.
- The value could be either of the two forms:
- .br
--1. Decimal integer, means number of frames;
-+1.\& Decimal integer, means number of frames;
- .br
--2. Floating point with suffix 's', means number of seconds.
-+2.\& Floating point with suffix 's', means number of seconds.
- .br
- The default is 2 seconds.
- .TP
-@@ -87,8 +96,8 @@ Sigma k value for analysis.
- .br
- The analysis function reads data from WAV file, run FFT against the data
- to get magnitude of frequency vectors, and then calculates the average
--value and standard deviation of frequency vectors. After that, we define
--a threshold:
-+value and standard deviation of frequency vectors.
-+After that, we define a threshold:
- .br
- threshold = k * standard_deviation + mean_value
- .br
-@@ -120,9 +129,9 @@ Target WAV file to save capture test con
- .TP
- \fI\-\-local\fP
- Internal loopback mode.
--Playback, capture and analysis internal to ALSABAT only. This is intended
--for developers to test new ALSABAT features as no audio is routed outside
--of ALSABAT.
-+Playback, capture and analysis internal to ALSABAT only.
-+This is intended for developers to test new ALSABAT features
-+as no audio is routed outside of ALSABAT.
- .TP
- \fI\-\-standalone\fP
- Add support for standalone mode where ALSABAT will run on a different machine
-@@ -131,17 +140,20 @@ In standalone mode, the sound data can b
- just like in normal mode, but will not be analyzed.
- The ALSABAT being built without libfftw3 support is always in standalone mode.
- The ALSABAT in normal mode can also bypass data analysis using option
--"--standalone".
-+"\-\-standalone".
- .TP
- \fI\-\-roundtriplatency\fP
- Round trip latency test.
- Audio latency is the time delay as an audio signal passes through a system.
--There are many kinds of audio latency metrics. One useful metric is the
--round trip latency, which is the sum of output latency and input latency.
-+There are many kinds of audio latency metrics.
-+One useful metric is the round trip latency,
-+which is the sum of output latency and input latency.
- .TP
- \fI\-\-snr\-db=#\fP
--Noise detection threshold in SNR (dB). 26dB indicates 5% noise in amplitude.
--ALSABAT will return error if signal SNR is smaller than the threshold.
-+Noise detection threshold in SNR (dB).
-+26\~dB indicates 5% noise in amplitude.
-+ALSABAT will return error
-+if signal SNR is smaller than the threshold.
- .TP
- \fI\-\-snr\-pc=#\fP
- Noise detection threshold in percentage of noise amplitude (%).
-@@ -160,26 +172,24 @@ Play the RIFF WAV file "500Hz.wav" which
- data, and then capture and analyze.
  
- .SH RETURN VALUE
--.br
- On success, returns 0.
- .br
--If no peak be detected, returns -1001;
-+If no peak be detected, returns \-1001;
- .br
--If only DC be detected, returns -1002;
-+If only DC be detected, returns \-1002;
- .br
--If peak frequency does not match with the target frequency, returns -1003.
-+If peak frequency does not match with the target frequency, returns \-1003.
+ .TP
+-\fI\-h, \-\-help\fP 
++\fI\-h, \-\-help\fP
+ Help: show available flags and commands.
+ 
+ .TP
+@@ -103,21 +106,24 @@ Print alsactl version number.
+ 
+ .TP
+ \fI\-f, \-\-file\fP
+-Select the configuration file to use. The default is /var/lib/alsa/asound.state.
++Select the configuration file to use.
++The default is /var/lib/alsa/asound.state.
+ 
+ .TP
+ \fI\-a, \-\-config-dir\fP
+-Select the boot / hotplug ALSA configuration directory to use. The default is /var/lib/alsa.
++Select the boot / hotplug ALSA configuration directory to use.
++The default is /var/lib/alsa.
+ 
+ .TP
+ \fI\-l, \-\-lock\fP
+-Use the file locking to serialize the concurrent access to the state file (this
+-option is default for the global state file).
++Use the file locking to serialize the concurrent access to the state file
++(this option is default for the global state file).
+ 
+ .TP
+ \fI\-L, \-\-no-lock\fP
+ Do not use the file locking to serialize the concurrent access to the state
+-file (including the global state file).
++file
++(including the global state file).
+ 
+ .TP
+ \fI\-O, \-\-lock-state-file\fP
+@@ -130,21 +136,27 @@ as much as possible.  This option is set
+ 
+ .TP
+ \fI\-g, \-\-ignore\fP
+-Used with store, restore and init commands. Do not show 'No soundcards found'
+-and do not set an error exit code when soundcards are not installed.
++Used with store, restore and init commands.
++Do not show 'No soundcards found'
++and do not set an error exit code
++when soundcards are not installed.
+ 
+ .TP
+ \fI\-P, \-\-pedantic\fP
+-Used with restore command.  Don't restore mismatching control elements.
++Used with restore command.
++Don't restore mismatching control elements.
+ This option was the old default behavior.
+ 
+ .TP
+ \fI\-I, \-\-no\-init\-fallback\fP
+-Don't initialize cards if restore fails.  Since version 1.0.18,
++Don't initialize cards if restore fails.
++Since version 1.0.18,
+ \fBalsactl\fP tries to initialize the card with the restore operation
+-as default.  But this can cause incompatibility with the older version.
+-The caller may expect that the state won't be touched if no state file
+-exists.  This option takes the restore behavior back to the older
++as default.
++But this can cause incompatibility with the older version.
++The caller may expect
++that the state won't be touched if no state file exists.
++This option takes the restore behavior back to the older
+ version by suppressing the initialization.
+ 
+ .TP
+@@ -158,9 +170,10 @@ Remove runstate file at first.
+ 
+ .TP
+ \fI\-E, \-\-env\fP #=#
+-Set environment variable (useful for init action or you may override
+-ALSA_CONFIG_PATH to read different or optimized configuration - may be
+-useful for "boot" scripts).
++Set environment variable
++(useful for init action
++or you may override ALSA_CONFIG_PATH to read different
++or optimized configuration \(en may be useful for "boot" scripts).
+ 
+ .TP
+ \fI\-i, \-\-initfile\fP
+@@ -193,39 +206,40 @@ Set the process scheduling policy to idl
+ 
+ .TP
+ \fI\-D, \-\-ucm-defaults\fP
+-Execute also the 'defaults' section from the UCM configuration. The standard
+-behaviour is to execute only 'once' section.
++Execute also the 'defaults' section from the UCM configuration.
++The standard behaviour is to execute only 'once' section.
+ 
+ .TP
+ \fI\-U, \-\-no-ucm\fP
+-Skip the UCM init even if available. It may be useful for the test the
+-legacy init configuration.
++Skip the UCM init even if available.
++It may be useful for the test the legacy init configuration.
+ 
+ .SH FILES
+-\fI/var/lib/alsa/asound.state\fP (or whatever file you specify with the
+-\fB\-f\fP flag) is used to store current settings for your
+-soundcards. The settings include all the usual soundcard mixer
+-settings.  More importantly, alsactl is
+-capable of controlling other card-specific features that mixer apps
+-usually don't know about.
++\fI/var/lib/alsa/asound.state\fP
++(or whatever file you specify with the \fB\-f\fP flag)
++is used to store current settings for your soundcards.
++The settings include all the usual soundcard mixer settings.
++More importantly,
++alsactl is capable of controlling other card-specific features
++that mixer apps usually don't know about.
+ 
+ The configuration file is generated automatically by running
+ \fBalsactl store\fP. Editing the configuration file by hand may be
+-necessary for some soundcard features (e.g. enabling/disabling
++necessary for some soundcard features (e.g., enabling/disabling
+ automatic mic gain, digital output, joystick/game ports, some future MIDI
+ routing options, etc).
  
  .SH SEE ALSO
 -\fB
--aplay(1)
+-amixer(1),
+-alsamixer(1),
+-aplay(1),
+-alsactl_init(7)
 -\fP
-+.BR aplay (1)
++.BR \
++amixer "(1), "\
++alsamixer "(1), "\
++aplay "(1), "\
++alsactl_init (7)
  
- .SH BUGS
--Currently only support RIFF WAV format with PCM data. Please report any bugs to
--the alsa-devel mailing list.
-+Currently only support RIFF WAV format with PCM data.
-+Please report any bugs to the alsa-devel mailing list.
+-.SH BUGS 
++.SH BUGS
+ None known.
  
  .SH AUTHOR
--\fBalsabat\fP is by Liam Girdwood <liam.r.girdwood@linux.intel.com>, Bernard
--Gautier <bernard.gautier@intel.com> and Han Lu <han.lu@intel.com>.
--This document is by Liam Girdwood <liam.r.girdwood@linux.intel.com> and Han Lu
--<han.lu@intel.com>.
-+\fBalsabat\fP is by Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-+Bernard Gautier <bernard.gautier@intel.com>
-+and Han Lu <han.lu@intel.com>.
-+This document is by Liam Girdwood <liam.r.girdwood@linux.intel.com>
-+and Han Lu <han.lu@intel.com>.
+-\fBalsactl\fP is by Jaroslav Kysela <perex@perex.cz> and Abramo Bagnara
+-<abramo@alsa\-project.org>. This document is by Paul Winkler <zarmzarm@erols.com>.
++\fBalsactl\fP is by Jaroslav Kysela <perex@perex.cz>
++and Abramo Bagnara <abramo@alsa\-project.org>.
++This document is by Paul Winkler <zarmzarm@erols.com>.
 
---KiFdB+TBweoewYi8--
+--EA3fa+uv7YkAxoyi--

@@ -2,95 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D13629DFC37
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2024 09:43:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CE329DFC39
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2024 09:43:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C58532393;
-	Mon,  2 Dec 2024 09:43:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C58532393
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0A0210B;
+	Mon,  2 Dec 2024 09:43:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0A0210B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733129014;
-	bh=CEPCLyGcP+5TlVcrY9sskKx8WTDeCpweS8+NStxhbuw=;
+	s=default; t=1733129031;
+	bh=I5YCLO6EscYmRHuFv26CuhdZFgeTmhHZGaOy61Yx4H4=;
 	h=Date:Subject:From:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nlIrkuG1NSD8SFaZt9ahmeaa+VZX5YFpxo4qdREgs0YysRpPwaZAFl2PGTNely+eW
-	 LUCJf2nf+9RE5ZDWTAMvijJNsYelafEIshcJgHLAFlwI3F2+Ijg2zzdpB3RReERzjL
-	 JM2zZZVZyKhlvmb6Tb1/x5kllFb8atrWE1dMIFvg=
+	b=thB+LyUH1EE5RDOX3GWGa6YiB8NuCnh4rTlVgkfUFqaayaFNgqsADQzwC5lvsnfIV
+	 uggJvLDSrlXiQ8uEMXH96BYl5YO4UIw4mtf42rGBd9S+G49dHw143+KkQoF7yeCpT6
+	 e0D7r+KhX03debCZE0ZlfURJBoNCVVacLldprSYU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71AA2F80622; Mon,  2 Dec 2024 09:42:34 +0100 (CET)
+	id 2CF7BF805C5; Mon,  2 Dec 2024 09:42:39 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49ED3F805F1;
-	Mon,  2 Dec 2024 09:42:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3CDDF80656;
+	Mon,  2 Dec 2024 09:42:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0B1FF80236; Thu, 28 Nov 2024 17:01:26 +0100 (CET)
+	id 91035F80236; Thu, 28 Nov 2024 21:53:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
- [209.85.208.74])
+X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	USER_IN_DEF_DKIM_WL shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ej1-f74.google.com (mail-ej1-f74.google.com
+ [209.85.218.74])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A0F9F80134
-	for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2024 17:01:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A0F9F80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id CD457F80073
+	for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2024 21:53:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD457F80073
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20230601 header.b=aZKeZR7k
-Received: by mail-ed1-f74.google.com with SMTP id
- 4fb4d7f45d1cf-5d0214ba84eso684893a12.2
+ header.s=20230601 header.b=P/VQz2tH
+Received: by mail-ej1-f74.google.com with SMTP id
+ a640c23a62f3a-aa525192412so70455766b.0
         for <alsa-devel@alsa-project.org>;
- Thu, 28 Nov 2024 08:01:24 -0800 (PST)
+ Thu, 28 Nov 2024 12:53:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1732809624; x=1733414424;
+        d=google.com; s=20230601; t=1732827166; x=1733431966;
  darn=alsa-project.org;
         h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=HCg1Km73Sbp4/xSTNme8D+2Uw46vaSy0dpia+RIb3WE=;
-        b=aZKeZR7kiR8UcDlI7vbF8byFTzCn6mdWxjdwjZ/daamdgwVIlEWl1j0az5c93hqHOR
-         v4uagS1c2HhnaAz3gqXecs9P6dbgawpskPx6RpYcK6P94MBRl3hx84LDJ3URWkwy0BxD
-         mCInRqftIqadyMq32KHpDscCtUA9AGwgaCdZc9MMYlmU7calKYO+eZzG4+MOOCzqOcnM
-         6NbN2DH1eEWZqmVBaPcQzQyUGSTBtkybrEzyqTYu3TgbX3fww7mme7UolyOpfRsK4cW1
-         0LWzoxdAegPwROZhOUaRM3WV63ta40tJHbD+yraKLUhqmmUbMANGnrbnB/HuyeNwwJPw
-         chQA==
+        bh=Qob0FBpsUU/sx2eCBfCzGQ8cEgowX6VKZMzDfM9xuIE=;
+        b=P/VQz2tH5oVuCZDV32jvPdMLLDizDAZRUiBVyjPQHP6YLjyAcrabZdk+FEkLulUdqh
+         ApYXQHWZEEweR+zd2UqR7PLDOy9NMEgo9AYWe1kBymZ390ciqul/NH2oJtttgw49gAIg
+         RZjWplyUkJFO/CeluKT9YsUSQSsF0nR6qZWu1pnFgxrpJyJEkEVFFqpIkqfSjHoAxb8n
+         I4coVvU60LXI7+f6aiQBuvqJe0UpGUuP2bZ+SXMoYLXVjamzelfMpLX0zLow5pYajPQP
+         di9Jr7OcRnuD7O/VDCTM49YgjAZW5cPjSAqivMA16dJE+LqSGK+Pb/5TrPtyYjvhxxif
+         IZkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732809624; x=1733414424;
+        d=1e100.net; s=20230601; t=1732827166; x=1733431966;
         h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HCg1Km73Sbp4/xSTNme8D+2Uw46vaSy0dpia+RIb3WE=;
-        b=UWBuCslM43/dC2nkqJqWQc7opiv2UFb/vyuvSSLE7Z5bElhBquDyAIxCfck0gImozm
-         +u8AP/OjMPLZWQVgXn4E+P5ynLiscg54WOoYbgEVRpc/kFEkuBPmto6/EZKx/AhuBTuy
-         QzmVA8c+yXy0ZcJW6HqGov37eI0gN+63Sk8rkYKX3oE8xTiqpnV95pofYN4a3pY0go6H
-         QXV8dz2TX3K/okqOWHx3No8i7vzBDR+5d3LCg/xKcsN7uidgM8VUiJ/53szXZHJVaLqX
-         Bf6uHfGMzUdPLSI2ybBBK5bH2jWrG6zKpVdWE1X8Y126+xphCmDTvb8QbYQlt2gdxGA4
-         0+5Q==
+        bh=Qob0FBpsUU/sx2eCBfCzGQ8cEgowX6VKZMzDfM9xuIE=;
+        b=kapZYYlVJ7FUkoXWJqf2Nmami32KLvJTXlBqaXNgXCwtGFnHPlo0FgHiJoUkQ/Yz72
+         gnY+xkdT0WRzKtKyQXbGNmDNRjyCoAcBJBVPhVzw6cegVydO9zdDUlrS7K/RGW0r61Af
+         HNrTzVI49sR/eo+Ecg9PbGOEgd2nwSFUaF8SeW7rE4bFp6ERLvfgksEVR0CpOpxVTllL
+         8q+gcIjrSeLgsc79RrbNdTGT4z3/sKE5SKjbXxaBG7QFTr9ctxPjSVcM5rqP9/RCFNo5
+         Bh9VpUr5ZQnPFpPhjNe42nxmUDFPOJi83jW1Xzze1qjzqnOSytl6jOb/DZE6PAunPQKj
+         h5dQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUs+ZFkOxFYDqG8+Sw10MjHsNkDF0s4LOPdLwW5EodBkxtlqDPzbV8JCLgEFT/jtwDJ9SUOexdiLYdd@alsa-project.org
-X-Gm-Message-State: AOJu0YwBajY1GcRDYsyK2Qt/FCDUFKGx8S24NklkaKbDXvdzKfP/JvY3
-	k7z/YXBpYRuZ4bbaNpD0qXGp6WXxQjQE7j8xCmMz+yBspyCP8vZDXogb1rF9mKCiGEX01jY+TMh
-	rFDncXdp9fDPlwg==
+ AJvYcCWOYx8Z/fJfx8jha1VcvQv0LoeydzHHzOe+giw8Qfl8+0dcnQAxOsHktgbOJbkwlFpjWr83s5snCh5G@alsa-project.org
+X-Gm-Message-State: AOJu0YwPofuI5aLP4Jm+SeoIoZohyd7Bu0nh8aKUtogTAzubtxqZDcrU
+	FBPnUL+yDkdZFtqKl+LFlzzZ1KkFIm4L8ZaB1tjgHqxQ1kah9zH+d4btRaskxy6tQse6eHd2OxK
+	64rmNuenRMgHapg==
 X-Google-Smtp-Source: 
- AGHT+IH7O2F88sy1YkGak+ZTUuWwKlxn8SdhOmaY7RlKSth26WNlQQxcOCfxKgSD/+8oTPB23XqZRw9oivubtks=
-X-Received: from edal21.prod.google.com
- ([2002:a05:6402:2315:b0:5d0:83b1:b8ab])
+ AGHT+IHBgsLr3pLJH/ACZefffdWeb80QzhCBRqY4vhCfqkMxxEok2tAWW+nYrVbcV0Ijh3nfSJvgonr+4y2YvgM=
+X-Received: from ejct1.prod.google.com ([2002:a17:906:2681:b0:a9a:bf43:6c33])
  (user=mmaslanka job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:1e93:b0:5d0:8f29:73b9 with SMTP id
- 4fb4d7f45d1cf-5d08f2974b0mr4346712a12.28.1732809624031;
- Thu, 28 Nov 2024 08:00:24 -0800 (PST)
-Date: Thu, 28 Nov 2024 15:59:20 +0000
+ 2002:a17:906:b392:b0:a9a:f82:7712 with SMTP id
+ a640c23a62f3a-aa5810664dfmr643677466b.52.1732827165635;
+ Thu, 28 Nov 2024 12:52:45 -0800 (PST)
+Date: Thu, 28 Nov 2024 20:52:09 +0000
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.47.0.338.g60cca15819-goog
-Message-ID: <20241128155926.1774625-1-mmaslanka@google.com>
-Subject: [PATCH v3] ASoC: Intel: avs: da7219: Remove suspend_pre() and
+Message-ID: <20241128205215.2435485-1-mmaslanka@google.com>
+Subject: [PATCH v4] ASoC: Intel: avs: da7219: Remove suspend_pre() and
  resume_post()
 From: Marek Maslanka <mmaslanka@google.com>
 To: LKML <linux-kernel@vger.kernel.org>
@@ -109,21 +108,21 @@ Cc: Marek Maslanka <mmaslanka@google.com>,
 	linux-sound@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-MailFrom: 
- 3mJNIZwkKCiMLL9RK9MJ9FNNFKD.BNL9KR9-CDUDK9KR9-OQNIDBS.NQF@flex--mmaslanka.bounces.google.com
+ 3HdhIZwkKCjIaaOgZObYOUccUZS.QcaOZgO-RSjSZOZgO-dfcXSQh.cfU@flex--mmaslanka.bounces.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OQY2NAQTN5TWIPSJ4LBIRVHKYDUQ4YFS
-X-Message-ID-Hash: OQY2NAQTN5TWIPSJ4LBIRVHKYDUQ4YFS
+Message-ID-Hash: HVMR6S7HAE2GPPBXRFUBFXGR4WHH2HCU
+X-Message-ID-Hash: HVMR6S7HAE2GPPBXRFUBFXGR4WHH2HCU
 X-Mailman-Approved-At: Mon, 02 Dec 2024 08:42:21 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OQY2NAQTN5TWIPSJ4LBIRVHKYDUQ4YFS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVMR6S7HAE2GPPBXRFUBFXGR4WHH2HCU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,12 +133,15 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 The presence of a plugged jack is not detected after resuming the device
 if the jack was plugged before the device was suspended. This problem is
- caused by calling the
- sound/soc/codecs/da7219-aad.c:da7219_aad_jack_det() function on resume,
- which forces the jack insertion state to be unplugged.
+caused by calling the
+sound/soc/codecs/da7219-aad.c:da7219_aad_jack_det() function on resume,
+which forces the jack insertion state to be unplugged.
 
 Signed-off-by: Marek Maslanka <mmaslanka@google.com>
 ---
+Changes in v4:
+ - Remove redundant spaces from the commit message
+ - Link to v3: https://lore.kernel.org/all/20241128155926.1774625-1-mmaslanka@google.com/
 Changes in v3:
  - Fix line breaks in commit message
  - Link to v2: https://lore.kernel.org/all/20241128151239.1666582-1-mmaslanka@google.com/

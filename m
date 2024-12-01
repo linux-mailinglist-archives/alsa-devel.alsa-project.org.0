@@ -2,112 +2,170 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACC469DF4DA
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Dec 2024 07:00:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974899DF509
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Dec 2024 09:51:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D41415FB;
-	Sun,  1 Dec 2024 07:00:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D41415FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF446F55;
+	Sun,  1 Dec 2024 09:51:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF446F55
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733032843;
-	bh=jyOV/MtYhYi0j3/Jsu8H5Li32S/80cWAD/jonikYo9c=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=C5GpU20Gz+W9cEFaL32udUXtV8yF2kZoTV+1CJC5vbmTvDVrkGaIO1hnIj9LMLCrF
-	 mDdC9zmtkPcyIXlbmkRd2xqFLNKlslm3NpAEJ9Y2zQdFbQykTQU4Ix8D94ZAo+JsJV
-	 878jMFktJF7ieE5HMMUM7j9RxymoqI5s3XW3cA9w=
+	s=default; t=1733043104;
+	bh=Qe+D83qXumroTRyr7fSFDsUTe1V0pjsTvwSStSp0B0c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=tUDfoJVtj4ZgGgGBIUWJQ3F6ZMl6BsgN843SIJTtihs5tZxipN9ivqtMTEbV0liG2
+	 rdC0KSGOgIpV49oAwOYTKHZxxkLSdSepdyiK3/Le5Gp7IaAQXssFm2Y02bdobTUo5H
+	 hE5e9oHH75uYGTEmK7x6jvepUSuWGCYgSWMZShME=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F7ACF80448; Sun,  1 Dec 2024 07:00:12 +0100 (CET)
+	id 8680EF805B2; Sun,  1 Dec 2024 09:51:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79398F805C0;
-	Sun,  1 Dec 2024 07:00:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9572CF805AE;
+	Sun,  1 Dec 2024 09:51:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD8F8F8032D; Sun,  1 Dec 2024 06:59:57 +0100 (CET)
+	id 0F41EF8032D; Sun,  1 Dec 2024 09:51:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 31263F801C0
-	for <alsa-devel@alsa-project.org>; Sun,  1 Dec 2024 06:59:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31263F801C0
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE385F80116
+	for <alsa-devel@alsa-project.org>; Sun,  1 Dec 2024 09:51:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE385F80116
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=glyphic.com header.i=@glyphic.com header.a=rsa-sha256
- header.s=google header.b=TUYinnh2
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-53df63230d0so3644576e87.3
-        for <alsa-devel@alsa-project.org>;
- Sat, 30 Nov 2024 21:59:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=glyphic.com; s=google; t=1733032727; x=1733637527;
- darn=alsa-project.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Eevr/6uIURUC9dN1eC+ZYqQRhPgBD///1XsUHeZOE/Y=;
-        b=TUYinnh2ENfhkXYt4ph0HRnMDo/Gks0vlsNCTnDdpaVcg5LahdXGjPAYFO/FlfZ9fK
-         0DBuI2baspFhmZMM7W5a+Qq9Ox/R6kyXgbJeMV3R6NqzrJ7fpZo5GeMxOgAJUeQdhRr1
-         ZGpvIq2vFuGYW/IfHSKJGJfpkK5k/9e56iK7PQ8IyzPFMztx8BDu0fj30XisqIi//ini
-         Y7yRAhpBxDyNoW7aZkz+z9faTTjjIoB2E/mRl656t6HpDp7ogLGaw5yEP6dHFNnZkEDb
-         Z2NW7sfly3SQ69iXmHL0JY6IqmmKZJkALHs3CixRd/ZO6CPkYvDU/uMfVRMLAoWTNHzo
-         nk3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733032727; x=1733637527;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Eevr/6uIURUC9dN1eC+ZYqQRhPgBD///1XsUHeZOE/Y=;
-        b=Xqxq9HB6NjWYzZLbmIl8bTgLdYZIW9O8uUOnLuNpddq8CxYiJ8AoKj/w7hxIX34Wfq
-         rowuYr+wcc6kGDvjW98pmlMlVOWM0nAO07A/zdzIusQRavXtKFXJ72w9xISZjaSKnns2
-         KcUt8dFP2IzKBwmtxj7TeDzSswVbJdJn5b5eEkORPhdsA4r2QUwe5Kic5ElaE85txfgH
-         Jcw04R6XAC92DuW0jzMsEjWlI3DHwELXkk19g3VNakQj+LaGPZQzEd4QjAj0fU0xsw4c
-         2agDjPewFU3szuFT2esQmFHyxKcFKykZ1WE2VgTr5UMw764pv47kRoWmKaq4VdxlkVnl
-         qBmw==
-X-Gm-Message-State: AOJu0YwoQwlQ+XNVTl/L7d/YIveZ4AAd88YFXIDXDgjL7OTpatr0Pn6f
-	3licEq4mGo3mboZmQQ022pnLzQ18VAhhvOHexbQ1KBygd4OGg/SqVO7d269c0fpqlVDRIQ+aji1
-	PnAKp31LHlo/dqATuO2g7hcSsrHvmMVNr8dfbNnvU069rCQJ85mI=
-X-Gm-Gg: ASbGncuAYYEGuZqONgi1WE5sv1JV7LgUwVxfFj15y0RtO1BhXetvFOZX/I3SoN1zxIZ
-	Pin7B7fPmOMMsPiVB2AiM6VFnjhbUARA=
-X-Google-Smtp-Source: 
- AGHT+IE9xXVcC/kX+QMAEv/5g1DQPDXW0F0tLpeOnlkVXUey1cJBap16tvCOlBmp+5amy/N8LYKKHfSGjT4FGmmDXc8=
-X-Received: by 2002:a05:6512:33c8:b0:53d:e70d:f3bc with SMTP id
- 2adb3069b0e04-53df00d1bb2mr9459989e87.18.1733032727127; Sat, 30 Nov 2024
- 21:58:47 -0800 (PST)
-MIME-Version: 1.0
-From: Mark Lentczner <mark@glyphic.com>
-Date: Sat, 30 Nov 2024 21:58:36 -0800
-Message-ID: 
- <CAPnksqQRnbLw3Pwdr5GyFtgqncEmgDq+z9y2s+rPocoRrdXxOg@mail.gmail.com>
-Subject: snd_seq_open and pulse audio??
-To: alsa-devel@alsa-project.org
-Message-ID-Hash: Z5LXM42CJ5U4RV63FMRP4RPP4IC4MYY3
-X-Message-ID-Hash: Z5LXM42CJ5U4RV63FMRP4RPP4IC4MYY3
-X-MailFrom: mark@glyphic.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=tIftdx7D;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=m9/4G5Fh;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=1w6Y9+zv;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Fjk5g+Fb
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D2CD51F383;
+	Sun,  1 Dec 2024 08:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1733043062;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aeExrs1aYdDHfUzMH082DL4FWKhLKEf0fhA1eUJbfOo=;
+	b=tIftdx7DxR5mJwRJkblKYUtIsGmUSD3MmPb6R/t3+ixr+9QRWgt5HG8QhuzTFNlur/y63V
+	bFOAgL/FOUZTS25E2OmDDRxyIGG/AEM3We6xhK9wBLLOBe3EEvlxdEVUnk/Owsvx6SDqyO
+	Tz9yN0NMpqrKSY0UamoONtd+yPk2AYU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1733043062;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aeExrs1aYdDHfUzMH082DL4FWKhLKEf0fhA1eUJbfOo=;
+	b=m9/4G5Fhep6XwzUrlhwL5ueKThrX3vz1f1iCUY1KZNGqErKu3l5iCUPXCSTeRkbTrz0rQH
+	v2N00U9H3cNqVZAg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1w6Y9+zv;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Fjk5g+Fb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1733043061;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aeExrs1aYdDHfUzMH082DL4FWKhLKEf0fhA1eUJbfOo=;
+	b=1w6Y9+zvVfeuOK/mhSIEwpV7g9EU0QrXuQ0Y9QNx7dTGD9dnwrw9u1h3ppgToGShyxGDfJ
+	YkIG6rCJSwY72IHbSB7mb9YM3ltmkZk9RiruEi+G70lityVux5784LUWm2RIPMOwtDjxe0
+	EBgQ5E707DLY75yQyPTILglNBCkMxgs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1733043061;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aeExrs1aYdDHfUzMH082DL4FWKhLKEf0fhA1eUJbfOo=;
+	b=Fjk5g+Fb0y8eNeohAi9B2FCD6Z3I0z/smUCflaDVzFzXVM+WMds1osM8pwJL6MMvdmDH1e
+	mnh4Not/M2HFC9BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A3E9613974;
+	Sun,  1 Dec 2024 08:51:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ONurJnUjTGfTRgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 01 Dec 2024 08:51:01 +0000
+Date: Sun, 01 Dec 2024 09:51:01 +0100
+Message-ID: <87cyibzszu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nazar Bilinskyi <nbilinskyi@gmail.com>
+Cc: tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable mute and micmute LED on HP
+ ProBook 430 G8
+In-Reply-To: <20241130231631.8929-1-nbilinskyi@gmail.com>
+References: <20241130231631.8929-1-nbilinskyi@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: D2CD51F383
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+Message-ID-Hash: R2BIMYKUZB7V5ALEV6QYTG67UHVLQBKR
+X-Message-ID-Hash: R2BIMYKUZB7V5ALEV6QYTG67UHVLQBKR
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5LXM42CJ5U4RV63FMRP4RPP4IC4MYY3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R2BIMYKUZB7V5ALEV6QYTG67UHVLQBKR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,33 +174,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-TXkgQUxTQSBTZXEgcG9ydCBtYW5hZ2VyIHJ1bnMgYXMgYSBzZXJ2aWNlLiBUaGUgc2VydmljZSBp
-cyBpbnN0YWxsZWQgdW5kZXINCml0cyBvd24gc2VydmljZSB1c2VyLCB3aGljaCBoYXMgdGhlIGhv
-bWUgZGlyZWN0b3J5IHNldCB0byBzb21lIHBsYWNlDQpub24tZXhpc3RlbnQgYW5kIG5vbi13cml0
-YWJsZS4NCg0KV2hlbiBteSBzZXJ2aWNlIHN0YXJ0cyBJIHNlZSB0aGlzIHN1cnByaXNpbmcgbG9n
-IG1lc3NhZ2U6DQoNCiphbWlkaW1pbmRlclsxMzYzNDVdOiBGYWlsZWQgdG8gY3JlYXRlIHNlY3Vy
-ZSBkaXJlY3RvcnkNCigvdmFyL2xpYi9taXNjLy5jb25maWcvcHVsc2UpOiBObyBzdWNoIGZpbGUg
-b3IgZGlyZWN0b3J5Kg0KDQoNCkEgbGl0dGxlIGludmVzdGlnYXRpb24gcmV2ZWFscyB0aGF0IHRo
-aXMgZXJyb3IgaXMgZ2VuZXJhdGVkIGJ5IHRoaXMgY2FsbCwNCm9wZW5pbmcgdGhlIEFMU0EgU2Vx
-Og0KDQpzZXJyID0gc25kX3NlcV9vcGVuKCZzZXEsICJkZWZhdWx0IiwgU05EX1NFUV9PUEVOX0RV
-UExFWCwgMCk7DQoNCkl0J3MgYSBsaXR0bGUgc3VycHJpc2luZyB0aGF0IG9wZW5pbmcgQUxTQSBT
-ZXEgd291bGQgc29tZWhvdyBpbnZva2UNCnNvbWV0aGluZyBpbiBwdWxzZSBhdWRpbywgYW5kIGZ1
-cnRoZXIgdGhhdCBwdWxzZSBhdWRpbyB3b3VsZCB0aGVuIGJlIHRyeWluZw0KdG8gY3JlYXRlIGl0
-cyB1c2VyIGRpcmVjdG9yeSAoLmNvbmZpZ3VyZS9wdWxzZSBpcyB3aGVyZSBwdWxzZSBhdWRpbyBz
-dGlja3MNCnRoaW5ncyB1bmRlciBlYWNoIHVzZXIncyBob21lIGRpcmVjdG9yeSkuDQoNClRoaXMg
-c2VlbXMgdG8gYmUgYSByZXByaXNlIG9mIHRoaXMgRGViaWFuIGJ1ZyBmcm9tIDIwMTMgaW52b2x2
-aW5nDQphbHNhLXV0aWxzIGFuZCBwdWxzZSBhdWRpbzoNCg0KaHR0cHM6Ly9idWdzLmRlYmlhbi5v
-cmcvY2dpLWJpbi9idWdyZXBvcnQuY2dpP2J1Zz03MTI5ODANCg0KV2hpY2ggd2FzIGNsb3NlIHZp
-YSB0aGlzIHBhdGNoIHRvIGFsc2EtdXRpbHM6DQoNCmFsc2FjdGw6IE1ha2UgaG9tZWRpciBjb25m
-aWd1cmFibGUNCjxodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9oeXBlcmtpdHR5L2xp
-c3QvYWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnL3RocmVhZC9MMlJEVllSQTVSM1ZRSVhGUzRU
-R0tVNERJQTRJRlBXVy8jTDJSRFZZUkE1UjNWUUlYRlM0VEdLVTRESUE0SUZQV1c+DQoNClRoZSBm
-aXggdGhlcmUgc2VlbXMgdG8gYmUgYWRkaW5nIHNvbWUgbWVjaGFuaXNtIHRvIGNoYW5nZSB0aGUg
-JEhPTUUNCmVudmlyb25tZW50IHZhcmlhYmxlIHRvIHBvaW50IGF0IC92YXIvcnVuL2Fsc2EuIEkg
-YWdyZWUgd2l0aCBUYWthc2hpJ3MNCnJlcGx5IHRvIHRoYXQgZml4OiBPdmVycmlkaW5nICRIT01F
-IHNvdW5kcyBzY2FyeSB0byBtZSwgdG9vIQ0KDQpJcyB0aGVyZSBhbnkgaW5zaWdodCBpbnRvIHRo
-aXMuLi4gYW5kIGRpZCB0aGF0IGZpeCBzdGljayBvciB3YXMgc29tZSBvdGhlcg0KbWV0aG9kIGZv
-dW5kIHRvIGRlYWwgd2l0aCB0aGlzLiAgSW4gbXkgY2FzZSwgSSBkb24ndCB1bmRlcnN0YW5kIHdo
-eSBqdXN0DQpvcGVuaW5nIHRoZSBBTFNBIFNlcSBpcyBjYXVzaW5nIGFueSBwdWxzZSBhdWRpbyBj
-b2RlIHRvIHJ1bi4uLiBidXQgcGVyaGFwcw0KdGhpbmdzIGFyZSBtb3JlIGVudHdpbmVkIGF0IGEg
-bG93ZXIgbGV2ZWwgb2YgQUxTQSBsaWIgdGhhbiBJIHVuZGVyc3RhbmQuDQoNCi0gTWFyaw0K
+On Sun, 01 Dec 2024 00:16:31 +0100,
+Nazar Bilinskyi wrote:
+> 
+> HP ProBook 430 G8 has a mute and micmute LEDs that can be made to work
+> using quirk ALC236_FIXUP_HP_GPIO_LED. Enable already existing quirk.
+> 
+> Signed-off-by: Nazar Bilinskyi <nbilinskyi@gmail.com>
+
+Thanks, applied now.
+
+
+Takashi

@@ -2,71 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901C09E0134
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2024 13:01:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 898779E024C
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2024 13:36:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 562A520C3;
-	Mon,  2 Dec 2024 13:01:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 562A520C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id E51671912;
+	Mon,  2 Dec 2024 13:36:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E51671912
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733140913;
-	bh=qN7zSp52L2v1SA9YKpv1TumbOqlVeIrH+RB98EjRP+o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fSNFiYwlc7PyNKu26Ya+NyPIg/3+r0zyNoAJhQxLBIEdG2N3ms/DUX6B9KTaXRMV7
-	 pXTlM4s9wYJfJ1t+35nGhl8tFIG8Vt2g24IUW6Vd24a0PbLXU5oOxHu3S5G+6dSbA2
-	 VU0sg4k/pwrXdNo+b0oqUKKqAJE1ZF0pfHTjNmDA=
+	s=default; t=1733143005;
+	bh=LeOX3I+AcsqcrHraUMzI7Le5xq2aTr1WdEXHilpQ7EM=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=BfWDxL3an6Hrvgi30ffDapbKZg4WyhoQh8uZur1BTmmidCPIheFwjWN6JiLiRBWQn
+	 HtQ6+/AlaoNKPMg+cizdA1m1WhiQsAJ0EzsSrIVLg6xksiViTpyGKBKXnj8SFdJyMB
+	 xKy8doOIIaP4+aNwgQwUMezMntFZsuqVb+wF0EfI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D3F1F805AF; Mon,  2 Dec 2024 13:01:20 +0100 (CET)
+	id 16562F805C3; Mon,  2 Dec 2024 13:36:15 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F39ECF8047C;
-	Mon,  2 Dec 2024 13:01:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC1F7F805B5;
+	Mon,  2 Dec 2024 13:36:14 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1297F80272; Mon,  2 Dec 2024 13:01:14 +0100 (CET)
+	id 06D0FF80272; Mon,  2 Dec 2024 13:36:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_FAIL,SPF_HELO_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D1B34F800E9
-	for <alsa-devel@alsa-project.org>; Mon,  2 Dec 2024 13:01:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1B34F800E9
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
-	id 18A7A1C00A0; Mon,  2 Dec 2024 13:01:12 +0100 (CET)
-Date: Mon, 2 Dec 2024 13:01:11 +0100
-From: Pavel Machek <pavel@denx.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Luo Yifan <luoyifan@cmss.chinamobile.com>,
-	Mark Brown <broonie@kernel.org>, olivier.moysan@foss.st.com,
-	arnaud.pouliquen@foss.st.com, lgirdwood@gmail.com, perex@perex.cz,
-	tiwai@suse.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH AUTOSEL 5.10 4/6] ASoC: stm: Prevent potential division
- by zero in stm32_sai_mclk_round_rate()
-Message-ID: <Z02hh/K7okT4fvOc@duo.ucw.cz>
-References: <20241112103803.1654174-1-sashal@kernel.org>
- <20241112103803.1654174-4-sashal@kernel.org>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
+	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id AB948F80073
+	for <alsa-devel@alsa-project.org>; Mon,  2 Dec 2024 13:36:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB948F80073
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="3fawmNHJI3c1oRFq"
-Content-Disposition: inline
-In-Reply-To: <20241112103803.1654174-4-sashal@kernel.org>
-Message-ID-Hash: HAG3GPNNEHMSPB6OHFXMK57XAGMASWXA
-X-Message-ID-Hash: HAG3GPNNEHMSPB6OHFXMK57XAGMASWXA
-X-MailFrom: pavel@denx.de
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1733142965877290249-webhooks-bot@alsa-project.org>
+References: <1733142965877290249-webhooks-bot@alsa-project.org>
+Subject: Unable to request ucm2 to load BootSequence controls defaults
+Message-Id: <20241202123609.06D0FF80272@alsa1.perex.cz>
+Date: Mon,  2 Dec 2024 13:36:09 +0100 (CET)
+Message-ID-Hash: QNYEKOKG4PTO22DC33DAQPTTYNNUOTOE
+X-Message-ID-Hash: QNYEKOKG4PTO22DC33DAQPTTYNNUOTOE
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -78,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HAG3GPNNEHMSPB6OHFXMK57XAGMASWXA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNYEKOKG4PTO22DC33DAQPTTYNNUOTOE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -87,64 +70,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+alsa-project/alsa-ucm-conf issue #480 was opened from singalsu:
 
---3fawmNHJI3c1oRFq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm stuck with my ucm2 patch to set by default control switches for SOF DRC and beamformer "on" when the controls appear for first time. I don't seem to be able to reset the controls for the SOF sound card to defaults.
 
-Hi!
+There's a similar feature in https://github.com/alsa-project/alsa-ucm-conf/blob/62acef2efffdcb75a35f90d266bcad145b4eab35/ucm2/Intel/sof-hda-dsp/sof-hda-dsp.conf#L112 for "Dmic0 Capture Volume". But I haven't been able to see the volume to go to 70% in my tries to reset the configuration.
 
-> [ Upstream commit 63c1c87993e0e5bb11bced3d8224446a2bc62338 ]
->=20
-> This patch checks if div is less than or equal to zero (div <=3D 0). If
-> div is zero or negative, the function returns -EINVAL, ensuring the
-> division operation (*prate / div) is safe to perform.
+In Fedora 41 I've tried to remove /var/lib/alsa/asound.state and rename /usr/sbin/alsactl, reboot, and rename it back. But no success. The volume control remains in 100%. Similarly my tries to get DRC and TDFB enabled fail.
 
-Well, previous version propagated error code, now it is eaten. Is
-stm32_sai_get_clk_div returning 0?
+What is the right trick needed to trigger the BootSequence?
 
-BR,
-								Pavel
-
-> Signed-off-by: Luo Yifan <luoyifan@cmss.chinamobile.com>
-> Link: https://patch.msgid.link/20241106014654.206860-1-luoyifan@cmss.chin=
-amobile.com
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  sound/soc/stm/stm32_sai_sub.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-> index 3aa1cf2624020..3a7f0102b4c5c 100644
-> --- a/sound/soc/stm/stm32_sai_sub.c
-> +++ b/sound/soc/stm/stm32_sai_sub.c
-> @@ -380,8 +380,8 @@ static long stm32_sai_mclk_round_rate(struct clk_hw *=
-hw, unsigned long rate,
->  	int div;
-> =20
->  	div =3D stm32_sai_get_clk_div(sai, *prate, rate);
-> -	if (div < 0)
-> -		return div;
-> +	if (div <=3D 0)
-> +		return -EINVAL;
-> =20
->  	mclk->freq =3D *prate / div;
-> =20
-
---=20
-DENX Software Engineering GmbH,        Managing Director: Erika Unter
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-
---3fawmNHJI3c1oRFq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCZ02hhwAKCRAw5/Bqldv6
-8hAkAKC0b/Oh8ldKHa90Tlm10HU7ITeWowCgxMxATUX7/rKamYpZAx5Mk1HHjC8=
-=I7ba
------END PGP SIGNATURE-----
-
---3fawmNHJI3c1oRFq--
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/480
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

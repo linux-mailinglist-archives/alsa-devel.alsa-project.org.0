@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24EB39E16D0
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2024 10:11:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E6CD9E1742
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2024 10:22:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B59E3F54;
-	Tue,  3 Dec 2024 10:11:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B59E3F54
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6F62E72;
+	Tue,  3 Dec 2024 10:22:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6F62E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733217079;
+	s=default; t=1733217776;
 	bh=JCArq2paes462V82FvolIinFT9U/GeOLXOi2cG53vD4=;
 	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=NSnDhXFPudPBFWzoN6dwDcjJyfFKQ6lLchAsbLQR96X4buju9mQb9fx6QupIiGwZt
-	 KlKOY1gpBw1r6tAE3caiVzhDuLY4BucecH7Tfyn71uKO6wvXATxysucz48tuZvQEMQ
-	 fsgk+MBlreHP81sv3ZmDeZ32O+Zd87Y5QzXGRhog=
+	b=AMGENPkD48Jv9jeY5uuEioDZW1pLdFhlPEaUBDUsVXC/cnv5xbuOn9zZXtsexKQ1G
+	 LKstkqV6DWeDyaVFK11TLHnSHCyA+r14TlVaAjuMz09yMs0cyxR+IK6V7IQWpD5SFT
+	 1CnG+ISH0KquTyU/OcYcifQWZ9ZisCmnISoMourE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B75C7F805B2; Tue,  3 Dec 2024 10:10:48 +0100 (CET)
+	id 85B98F805B5; Tue,  3 Dec 2024 10:22:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 497C9F805AE;
-	Tue,  3 Dec 2024 10:10:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFF6EF805BB;
+	Tue,  3 Dec 2024 10:22:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C1CBF80272; Tue,  3 Dec 2024 10:10:45 +0100 (CET)
+	id 529FBF80272; Tue,  3 Dec 2024 10:22:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25C12F80073
-	for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2024 10:10:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25C12F80073
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6C1FAF8003C
+	for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2024 10:22:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C1FAF8003C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=lx3Fv9N5
+ header.s=selector1 header.b=du17ts+1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QJk19gHjTfCZENOu5adI62XAtORpT4NRxxVxF/EEZ+bpIaYIemDvUaWRqGwnIIjEdWGTeYC1h7PAqiOasmwIZ2n/y6vokX5h4wDzCM/dWlkE+XTE9V1p7Xhat/hV0WAu2QXvCWoFTA3A0PS6dDE9izSrZgqQsSbWTPqIZbiogwoqoJzWE8lmXQuGKfPCp6yCCmd7Vi74xMm0SLw/oJ3s/fbZ9DuO3wut+4PxXT54pWlOrBBLxHFHiSiSHVHg9s4IJ9v6iiz370C6WpCrGaGZUbRs1qjZQmtSvdGp+kMriJ4jvbB7DFpybE5YgtQ7XqKzkfc0jfzzlCKwS43p9VxPJg==
+ b=hVYDzpwFC3NNq/43WKMyI6UfFULf0gOSBOPeunXkgCM5Z8zZtZVLia1n/u7evwCKT7Z2JwKgw2JOvXys1f0HcendZ0L9/qjG89ola6DcRPkT+CtVPqPxPCqKDzLOBY1hNhoEFiAzUJmM1eFWJUSuk1jhF9ow4f0QVa64a2WsThsiykKPLXQBtlNbvLVVwC/t4eyonrS8bhHmC8yGkI2rKLbIphkY7kXQDpipZGrcjX3RjTbovv/uu+x0dsJnPh2DaGTCoyqHeaCO/lOdmlgBpcLzUbvn1SQ15GCOPzp4WM8Ek/3tH9IkKOcuXfQqwlOuSmKFlynAoCVwlOCAg6y3NA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
  bh=/tB/zHa4I0nkrecKYF8loAUxBra6/AwysO5/gHTQRL4=;
- b=hyJL3pWlsDHTVmDNTyFtlbAoM/EgcwG4rBBOt8amp5sCWXHPGgGWtQh6PoZrdrGMq4utnaW1gKsg46aahcYfO48tXNtb4JzRq/9Jb5f3xDOEH/+aHwypRD14pBr3xWFPlGmegozfxocmj4Y3xG79CNwVKX3g1Q5ZKNCYXQEXNYEdr5dRL3M0+gquyPWyE8OdWcgeBPLlqDJZjopHlXDo9vZfFnoL1SuHSykMKQGyUX/TF2TToN3SelQzebC9agtWAwLXjK/jU7EU1RkfGY8f4Rfq6M01yunOLf581Yvi5NbOK1tnigc+Y5VE6sRFFNCqXuiTforzEodRoMfpWe10pg==
+ b=uSU5VguMELh7iwufWHHoq0nEh3ENPVCJhFztodAQa2YPRd8oRroXQpNDoG8uaB9mL7YFD8aThcRavp5z0Eyb6ChRAD0DLeM1ZMgRAeBDRxzM7vWciQieZtVWlPySjrX9BTJo8bI0ytXpGSZbBPnvVyD4z/80kbdLE9vvJuvmmGdnZbeK7Iq+v/xNTKpCm8zTUcTvrZnYUCUGfD+/L+a3cwPNCgqz7Scv7ggCPTZrLEnh9WRZg0rlGGWD90cYmEwpqXGOO9RBgkT2wnBhyp2+ON+GV3mGukMX/P+3qz2A5AsUG2Yacm6MLPRCPxFitt8Lxu0g7IYmOdrZPORxV7sorw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
@@ -59,17 +59,17 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
  bh=/tB/zHa4I0nkrecKYF8loAUxBra6/AwysO5/gHTQRL4=;
- b=lx3Fv9N5YcRus0EXi9vWE1kTAjh5NfghAwPSa+dvJ3yqf01MITliSxIThgqvfR6XXxWgHWMhIUZRW6HRZMLxDyomR5xB8xdP4+X6TB33Mu+PPD27cVTQORV75GeUkyNBgyPEE+f+IhYEoep7i0Rh9NCcWV29b2yKNEwQm0BFYs0=
-Received: from CH2PR14CA0002.namprd14.prod.outlook.com (2603:10b6:610:60::12)
- by MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21) with
+ b=du17ts+1DiETwN3XJfNgK4E1oeCVbxf4YWf8bSwkNzfT+gDMB15a6LinrMLGiENIvyryBRIOnZUTdiTnxB8KvZ1JNyUbu5ofk13OGsf6VXzmP66mwsaiF7bSlhhqjm4nxQoraJQUyt8zh4YYYBGmdeiC81Pk670rVlKKtSli3fk=
+Received: from PH7P221CA0030.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::35)
+ by DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.18; Tue, 3 Dec
- 2024 09:10:23 +0000
-Received: from DS3PEPF000099D5.namprd04.prod.outlook.com
- (2603:10b6:610:60:cafe::68) by CH2PR14CA0002.outlook.office365.com
- (2603:10b6:610:60::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.16; Tue, 3 Dec
+ 2024 09:22:01 +0000
+Received: from SN1PEPF0002BA4F.namprd03.prod.outlook.com
+ (2603:10b6:510:32a:cafe::f8) by PH7P221CA0030.outlook.office365.com
+ (2603:10b6:510:32a::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.19 via Frontend Transport; Tue,
- 3 Dec 2024 09:10:23 +0000
+ 3 Dec 2024 09:22:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -77,13 +77,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099D5.mail.protection.outlook.com (10.167.17.6) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8230.7 via Frontend Transport; Tue, 3 Dec 2024 09:10:23 +0000
+ SN1PEPF0002BA4F.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8230.7 via Frontend Transport; Tue, 3 Dec 2024 09:22:00 +0000
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 3 Dec 2024 03:10:19 -0600
+ 15.1.2507.39; Tue, 3 Dec 2024 03:21:56 -0600
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <vkoul@kernel.org>
 CC: <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
@@ -92,9 +92,10 @@ CC: <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
 	<Mario.Limonciello@amd.com>, <linux-sound@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>, "Vijendar
  Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH RESEND] soundwire: amd: clear wake enable register for 
-Date: Tue, 3 Dec 2024 14:40:06 +0530
-Message-ID: <20241203091006.4096890-1-Vijendar.Mukunda@amd.com>
+Subject: [PATCH RESEND] soundwire: amd: clear wake enable register for power
+ off mode
+Date: Tue, 3 Dec 2024 14:51:44 +0530
+Message-ID: <20241203092144.4096986-1-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -104,55 +105,55 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099D5:EE_|MW5PR12MB5684:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7491883e-82a6-4e38-0a96-08dd137a51a6
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4F:EE_|DS0PR12MB6534:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a2beeff-f3f6-40bc-c97c-08dd137bf14b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?MwRYSoXh+yF6LJLQS4xVI/4uT5AxdDlBje+CDFUM6BHmYO8XBJzD1Quf+zyF?=
- =?us-ascii?Q?y9pbAJ4X+wrJQnCkOD4tBp46oNTFwG+0ZjNQ3jQiklyVTuyePW1m34FaUXe5?=
- =?us-ascii?Q?fh1voJMHeEh9Kljdlo0REh2oGrNPUiPP0MjK3kUnZA6IhSJyc8PrvizfuuGy?=
- =?us-ascii?Q?QecvzhyndJUpgzGOZ68DMe0mS835FJyB2+eoAaYhBOWmno6Bg+tLE31aqZtA?=
- =?us-ascii?Q?uBTEMc+oaWMxN5hzE6yxUDotdt1ge+YBs3cJbckAgJBrAyv+SGejaefilhS6?=
- =?us-ascii?Q?NLLx3PPB1OjCVd3IDq+OeNgr6R5AhWURuy/ByEQBrDqgmQmkORcft2kdhY9h?=
- =?us-ascii?Q?AJki2YcPW1kC2oJPfA9AAxX1iUvLvOs8vtsytqu2vOo0x65AY/36SmsiZuor?=
- =?us-ascii?Q?BKPXL1+zP+6XWSSBsLGoAhOOhfG+dKkBJJ1lK+o51KYblz1H68CB3BIzODLq?=
- =?us-ascii?Q?uz47+ijcR3bsavElWlNkesrr6uO0BmenKdnGTGfZVtLOhZWO3yXaqideOhnQ?=
- =?us-ascii?Q?Z+EPAsGaVYSHIUpvEXr1L76xupbxImZD9whf6374y/4dyAOZESk6dW0FrZ0F?=
- =?us-ascii?Q?MKjPDdhnviiOUSuP/zO04Vnyv+4B2v0S+GAFJKIME6so0xKBl+vHrMlkzI/T?=
- =?us-ascii?Q?hbKTlZIv8Vi2cVACV5q1fI9j821MPlYhlzJ23oeh/Sq+8xPtcnd2RwxoBhe9?=
- =?us-ascii?Q?oIZkw3NqG6TRjHorFaAmOAzhmbS6e192f6TS2RstKivRuMs0p9oqk8LOOuDy?=
- =?us-ascii?Q?tmF9u22EiAUGgfn9jDpql3WEH0BT8cii/aD6w4VsDmuaONSXI5DalMZXmYgS?=
- =?us-ascii?Q?2jl89nvQfxtNDh4TKxUy3wDaz97yinDjP3ZG+27NRiKJHdDhbQeGJakP3rei?=
- =?us-ascii?Q?TZISItyCydr7mqZablTdwFlYjVnm79RImgl2CDeCMc3BsOf2vvTqnKnnt+TC?=
- =?us-ascii?Q?W/8d3xk9ex2cOWHhSLEcwSGGc+QYMSrTN5BpPKmDUNBhL7UBvxWYZh+KQYr8?=
- =?us-ascii?Q?k/MtpoL+XDwTmdiC3L9rx9D94YA/5dzTMTWFzFQflQrBBRSeLJ58ZYPVYQpR?=
- =?us-ascii?Q?h62tcbBtRKbw4j3QUJL6G5pHTtIoPOvtlNo9CkeuCV8xA5ISM/sPfUkwt/xb?=
- =?us-ascii?Q?LF0VhL3Zsk/0juGUI2tnSKhh+bfBLOhHkxH49AsR4NHTXwr5NAevNC1Zg6Ep?=
- =?us-ascii?Q?SZCqstmbvkbf/A0lay8QOoKTmi4pcdG4QQM+q8z+UfH+whlib6MD/6fXNG5C?=
- =?us-ascii?Q?21tiWP7+8tdq6ukY5AR0iOvB/IpUqJjHtprqbdQ0/DQSql43TEnaGJBjWS2a?=
- =?us-ascii?Q?vEGeZyd1X5AUsHYRaqPuN1yDbMWcnQpxlmP5/KhZBHZrQ4iqifljxqX1aReL?=
- =?us-ascii?Q?AGnSjzwpUOnsUDRnuck1xkm94gynUsNle8vF7Lp+1n5kVieuseAFFJ1In3wd?=
- =?us-ascii?Q?LEdb2WxZ5ehYuz2Eek4duLa9wCK5nTF8?=
+	=?us-ascii?Q?QGjrRnljPKMGL4mrjYEmsbnSE+fQpsemD/6xFmUVCQOFr3TrB8uOdgx+jCOV?=
+ =?us-ascii?Q?ad5X3Ku4FghzVK6DgHRDdhbQyMnBmY5IKobmeE/hKk4HG57UuuXP1W44Lov6?=
+ =?us-ascii?Q?q6KciYpbq7B6M4W3D67bX0bA4Y9dBGEQHNcrbyBbmvAY1aZSAeG19+kGMKR8?=
+ =?us-ascii?Q?7UjHToJz5Q0w2L2YLBdq5x/dZy13BrIuqVt3wkLF0Lc9LLXXIQ3MIQrio1Nh?=
+ =?us-ascii?Q?Zb+0l1kLwq6z4AYUsPS91CbZiZHpb9C5EQfSoVrcxOc/VEyaehS+jOjWIOm1?=
+ =?us-ascii?Q?6or051IK1Wd5wFiYmbmpdnbDGWUjCBVk4jT6Wl7sHNJ0qgvmJy18PRxDWtEu?=
+ =?us-ascii?Q?oxOo0sDJG+Qy7mMEiiJG9pP8wW9iSHsKJXER4I3IQf3GkCXHO2ALlEOmdWpJ?=
+ =?us-ascii?Q?6iOJDhGc2X2Y7HIxazQk4Qv/ywbW2iLIHQcpvbyESxN4pXzb4+kBByn4rWh3?=
+ =?us-ascii?Q?ca4dqODaewpcBQeOFnVrL/pbaKP24gIy1k9ih32eYAzCoTyguX4QSAQVEW9T?=
+ =?us-ascii?Q?YfgQ2JroQ8Wykat2My+SLCD5HNKHmPNmpf5LYkna/mokgvcRyhiybPzp/bl4?=
+ =?us-ascii?Q?bBKaStb24OtpibM+J+dhzDxVSIE2C0R4uFuIzBJu7H7LK4xhCvsJMGiNl5hD?=
+ =?us-ascii?Q?DnYXAL66DGrNO7bHh3VbMjW/v6ZPhNn8n/1EgZ+pwQpeWJ3Yjc3XMauuAw60?=
+ =?us-ascii?Q?5pfqxT4OmKxkcYQCDvZZmis+DjIg1+ozrBi9nLsBAc9OdMzP5cGs8hnb4XgM?=
+ =?us-ascii?Q?xHs01E9u3V0RsU/g9k9mt7obRBIAdmjS8edDrR+RgVBdWUy10CJM39AtP1sA?=
+ =?us-ascii?Q?67V1eg4ZbXavMtqO1lX0L/trZIgV3rhA88CfcZz98HbTNw1iY1lV9IYBbv6O?=
+ =?us-ascii?Q?FHRKnw3vgW3hOyje7Jy+sWjhbZey7sTKJRbei1v+HOqzN9C4ILEFvy+V5p6k?=
+ =?us-ascii?Q?G4N42Y7/s3n8I3fCQqkbyROKhe3w3UlEBCIjsCxoAf5ubefXccTYfrRS9R9u?=
+ =?us-ascii?Q?ypRSbCoCMqeO/0m9ifClP3eZ2BZlB4b4pg/CS1YQ2hlA+O0/GeEDH7cFszNt?=
+ =?us-ascii?Q?ObbfPiGq5uP5L6jAz2GOzq99GcPbGgszaaTCSelJ2OwaVWpKjy7p8Bt+2fyr?=
+ =?us-ascii?Q?7Ffw2I2l28qdWTlrFzpS3pX8+kuUxD4ZFf0kELdy6nnPqgdmOAdkkyL+7rbl?=
+ =?us-ascii?Q?eAuii4YrRiRsEP+2uEjVdbMG5Z80bOxib4kzyxhX3bB1iQdIQE/REsE2HudC?=
+ =?us-ascii?Q?VkySc3OLx7UmuTv9kmc9zuHt5nfxEJRAV9Er8n826DprChZMQA2HbjKgmB1E?=
+ =?us-ascii?Q?XVrcLF/E49hrs9aXs9nODvg+jKaRlM0Dbkj20IDPe6hkwVZo3uiIteAws5LA?=
+ =?us-ascii?Q?txhZ1GVDHNEhF2P6qw2CfjGlmti9iF3XUE6rJr89Mp07Kc+AP38eE1gEX2IT?=
+ =?us-ascii?Q?NDLWdYj6jL2AgQ/n54wdiQUUOqDfb17y?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2024 09:10:23.2158
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2024 09:22:00.5878
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 7491883e-82a6-4e38-0a96-08dd137a51a6
+ 8a2beeff-f3f6-40bc-c97c-08dd137bf14b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
  TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	DS3PEPF000099D5.namprd04.prod.outlook.com
+	SN1PEPF0002BA4F.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5684
-Message-ID-Hash: CAVEIX3MRRKXOJAMPR2WGULNIK66SCKR
-X-Message-ID-Hash: CAVEIX3MRRKXOJAMPR2WGULNIK66SCKR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6534
+Message-ID-Hash: KQKL3FVWIWYV4G2P244GNMCLWBAEBCQS
+X-Message-ID-Hash: KQKL3FVWIWYV4G2P244GNMCLWBAEBCQS
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -165,7 +166,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CAVEIX3MRRKXOJAMPR2WGULNIK66SCKR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQKL3FVWIWYV4G2P244GNMCLWBAEBCQS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

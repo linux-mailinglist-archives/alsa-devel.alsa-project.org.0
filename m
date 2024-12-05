@@ -2,74 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C92F79E5C7A
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2024 18:02:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 872829E5CC4
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2024 18:16:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D46A210F;
-	Thu,  5 Dec 2024 18:02:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D46A210F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E947A210D;
+	Thu,  5 Dec 2024 18:16:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E947A210D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733418177;
-	bh=VXBjyptohqf8revAy0owY56QU9CqKlWBy0tw2vLvUS4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=nVwTzts8Y2pUMtfCLOV1dFWlKSTFFHjwi7vuqHuj3x5hxcJ6EoGJWeraT0Rufd6BC
-	 sdteS6ulonQn1I3wjOLFsdOsruM681N56V8JTCMBs8Hr0UicmfPgQjwqMqOQOGkeMZ
-	 XYYrjX0XBDzFZp9an6fV/b3AbqpdMAxUA59KOREc=
+	s=default; t=1733418984;
+	bh=iF77VdMRsgiYyVsuz8TkCnC52I8JAs32AxRcIWIj6Pc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AnGHw0YRO7vaHuS3Xie8H4Z7kaRihKwQS5VEpsPV6x6u0PsIiyHgH/+T1PwLp+bXp
+	 m0HF6IxWAkatKmQBeVW0BbdCSovQ4g4ozR1TDsb3IFZJ0WIjKENpkD/V8klBoNUzBD
+	 LrL6MrfpYH75PcOWSvTz4qe87n+9kCnOLasJ7adU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6796AF805C2; Thu,  5 Dec 2024 18:02:25 +0100 (CET)
+	id E4FE0F805C2; Thu,  5 Dec 2024 18:15:53 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84498F805AB;
-	Thu,  5 Dec 2024 18:02:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28ED6F805BF;
+	Thu,  5 Dec 2024 18:15:53 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2350F8047C; Thu,  5 Dec 2024 18:02:20 +0100 (CET)
+	id 63C56F8047C; Thu,  5 Dec 2024 18:15:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	PP_MIME_FAKE_ASCII_TEXT,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EE062F800E9
-	for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2024 18:02:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE062F800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 934B9F800E9
+	for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2024 18:15:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 934B9F800E9
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eCS7e7Im
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id BA4ECA43839;
-	Thu,  5 Dec 2024 17:00:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1677CC4CED1;
-	Thu,  5 Dec 2024 17:02:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1733418133;
-	bh=VXBjyptohqf8revAy0owY56QU9CqKlWBy0tw2vLvUS4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=eCS7e7Im9N0ppYbWjrWWbKI4/78UXvUzZbrnv57hzGS/QWASc0bVqlfTxBgNEt8Kl
-	 ebGhr6WSX3RwHwGU3RVhFJF13RVfqYmuNiMk8cucjxKZkVAfHfiJkqwrMbWfOBcq1f
-	 C6lDHJ7SSWlhlmv6Hql3dZG5AwcBK0XvApPm1woU+wm/KgGHJAbImR+KTEk7kCGDbM
-	 lYyjgm/4Lj1afDdxys+fzlqdrMtmE/JFWu44KErQPli6zWGsQ5T9t0VQVCYQOuZdgU
-	 CiDRWjPdBajBAXBIln3S1SDI8U3Fbmqu4WIqfNT8/6u2X+HToLE0xTtoZ9VV9MNCd2
-	 93BWDX2lmlvgA==
-Message-ID: <65b45ae5dd84c05f4907ee42725639cc.broonie@kernel.org>
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.13-rc1
-Date: Thu, 05 Dec 2024 17:02:05 +0000
-Message-ID-Hash: K3QBYXRYLDOIAOEB2BVP5F7DPYT45G6H
-X-Message-ID-Hash: K3QBYXRYLDOIAOEB2BVP5F7DPYT45G6H
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=pThoQdMr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=VhEJSsAK;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=pThoQdMr;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=VhEJSsAK
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 94C171F38C;
+	Thu,  5 Dec 2024 17:15:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1733418943;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u2hVCvTADCGt24nxL8PHw2SGY+2wwi+cG8xDrqShULk=;
+	b=pThoQdMrp8i4VjbN2HuQdf90mTlZThSSYLSPDWJvgelGyJ7f1Di7jQQRMi6+EkIT6zNI3M
+	Kt2FJm10v18dUCD/D8xLppSajTUD2yUUn9aK1eF15Bvll742quvtHH03/GijgawZNGvmAf
+	IUGnsC6He5C5vTCvW3zaMbGqMW6o7X0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1733418943;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u2hVCvTADCGt24nxL8PHw2SGY+2wwi+cG8xDrqShULk=;
+	b=VhEJSsAKhjFUIP8OOQu2VUI2GEnrD23Wv+gSOAP3afasdqhrv57pER9b+RnrJtjhC8gOqN
+	vK7zKXZAxU8t9kDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1733418943;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u2hVCvTADCGt24nxL8PHw2SGY+2wwi+cG8xDrqShULk=;
+	b=pThoQdMrp8i4VjbN2HuQdf90mTlZThSSYLSPDWJvgelGyJ7f1Di7jQQRMi6+EkIT6zNI3M
+	Kt2FJm10v18dUCD/D8xLppSajTUD2yUUn9aK1eF15Bvll742quvtHH03/GijgawZNGvmAf
+	IUGnsC6He5C5vTCvW3zaMbGqMW6o7X0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1733418943;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u2hVCvTADCGt24nxL8PHw2SGY+2wwi+cG8xDrqShULk=;
+	b=VhEJSsAKhjFUIP8OOQu2VUI2GEnrD23Wv+gSOAP3afasdqhrv57pER9b+RnrJtjhC8gOqN
+	vK7zKXZAxU8t9kDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7359F132EB;
+	Thu,  5 Dec 2024 17:15:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id n5a8Gr/fUWdIHAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 05 Dec 2024 17:15:43 +0000
+Date: Thu, 05 Dec 2024 18:15:43 +0100
+Message-ID: <878qsut5j4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.13-rc1
+In-Reply-To: <65b45ae5dd84c05f4907ee42725639cc.broonie@kernel.org>
+References: <65b45ae5dd84c05f4907ee42725639cc.broonie@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,alsa-project.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+Message-ID-Hash: 4RRGBMA5IE2EPAKONMPDKQWDLFJDS6BS
+X-Message-ID-Hash: 4RRGBMA5IE2EPAKONMPDKQWDLFJDS6BS
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -81,7 +154,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K3QBYXRYLDOIAOEB2BVP5F7DPYT45G6H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4RRGBMA5IE2EPAKONMPDKQWDLFJDS6BS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,35 +163,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 40384c840ea1944d7c5a392e8975ed088ecf0b37:
+On Thu, 05 Dec 2024 18:02:05 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit 40384c840ea1944d7c5a392e8975ed088ecf0b37:
+> 
+>   Linux 6.13-rc1 (2024-12-01 14:28:56 -0800)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.13-rc1
+> 
+> for you to fetch changes up to ec16a3cdf37e507013062f9c4a2067eacdd12b62:
+> 
+>   ASoC: mediatek: mt8188-mt6359: Remove hardcoded dmic codec (2024-12-05 13:39:58 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.13
+> 
+> A few small fixes for v6.13, all system specific - the biggest thing is
+> the fix for jack handling over suspend on some Intel laptops.
 
-  Linux 6.13-rc1 (2024-12-01 14:28:56 -0800)
+Thanks, pulled now.
 
-are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.13-rc1
-
-for you to fetch changes up to ec16a3cdf37e507013062f9c4a2067eacdd12b62:
-
-  ASoC: mediatek: mt8188-mt6359: Remove hardcoded dmic codec (2024-12-05 13:39:58 +0000)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.13
-
-A few small fixes for v6.13, all system specific - the biggest thing is
-the fix for jack handling over suspend on some Intel laptops.
-
-----------------------------------------------------------------
-Dan Carpenter (1):
-      ASoC: SOF: ipc3-topology: fix resource leaks in sof_ipc3_widget_setup_comp_dai()
-
-Marek Maslanka (1):
-      ASoC: Intel: avs: da7219: Remove suspend_pre() and resume_post()
-
-Nícolas F. R. A. Prado (1):
-      ASoC: mediatek: mt8188-mt6359: Remove hardcoded dmic codec
-
- sound/soc/intel/avs/boards/da7219.c       | 17 -----------------
- sound/soc/mediatek/mt8188/mt8188-mt6359.c |  4 +---
- sound/soc/sof/ipc3-topology.c             |  7 ++++---
- 3 files changed, 5 insertions(+), 23 deletions(-)
+Takashi

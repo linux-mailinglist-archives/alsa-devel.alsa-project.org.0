@@ -2,55 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 913699E5A56
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2024 16:57:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C92F79E5C7A
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2024 18:02:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E6FC20C1;
-	Thu,  5 Dec 2024 16:57:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E6FC20C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D46A210F;
+	Thu,  5 Dec 2024 18:02:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D46A210F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733414239;
-	bh=QKINI4gXvq5tu4To73hJDJYh+d1b1ccN5gLRHw6HUns=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=AdPZcQaYKczKqxEvyuWMbSkpGWDhHU+lOY1/tt0CHVcU8IJuWjRSaqb9DcVKaEeok
-	 DtCLM6mOlNMD3maYsFmKDoGl7RXrao+zrsYD1u5xPlf4PAjrktDNhaSif61NuxSUiZ
-	 wGxQ4hsQ5MH7NELmkLNy2BFNuwepmaMH29C2pb/E=
+	s=default; t=1733418177;
+	bh=VXBjyptohqf8revAy0owY56QU9CqKlWBy0tw2vLvUS4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nVwTzts8Y2pUMtfCLOV1dFWlKSTFFHjwi7vuqHuj3x5hxcJ6EoGJWeraT0Rufd6BC
+	 sdteS6ulonQn1I3wjOLFsdOsruM681N56V8JTCMBs8Hr0UicmfPgQjwqMqOQOGkeMZ
+	 XYYrjX0XBDzFZp9an6fV/b3AbqpdMAxUA59KOREc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91F92F80533; Thu,  5 Dec 2024 16:56:48 +0100 (CET)
+	id 6796AF805C2; Thu,  5 Dec 2024 18:02:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D703BF80533;
-	Thu,  5 Dec 2024 16:56:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84498F805AB;
+	Thu,  5 Dec 2024 18:02:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A61EFF8047C; Thu,  5 Dec 2024 16:56:44 +0100 (CET)
+	id C2350F8047C; Thu,  5 Dec 2024 18:02:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id E79F2F8032D
-	for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2024 16:56:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E79F2F8032D
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1733414202483495474-webhooks-bot@alsa-project.org>
-References: <1733414202483495474-webhooks-bot@alsa-project.org>
-Subject: With SOF enabled in sof-hda-generic.tplg device (no DMIC) the control
- 'Capture Source' is not controlled by UCM
-Message-Id: <20241205155644.A61EFF8047C@alsa1.perex.cz>
-Date: Thu,  5 Dec 2024 16:56:44 +0100 (CET)
-Message-ID-Hash: G3HCI25CRB7XU2MK6Q42WC7ICFZV376A
-X-Message-ID-Hash: G3HCI25CRB7XU2MK6Q42WC7ICFZV376A
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-4.9 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	PP_MIME_FAKE_ASCII_TEXT,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE062F800E9
+	for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2024 18:02:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE062F800E9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=eCS7e7Im
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id BA4ECA43839;
+	Thu,  5 Dec 2024 17:00:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1677CC4CED1;
+	Thu,  5 Dec 2024 17:02:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1733418133;
+	bh=VXBjyptohqf8revAy0owY56QU9CqKlWBy0tw2vLvUS4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=eCS7e7Im9N0ppYbWjrWWbKI4/78UXvUzZbrnv57hzGS/QWASc0bVqlfTxBgNEt8Kl
+	 ebGhr6WSX3RwHwGU3RVhFJF13RVfqYmuNiMk8cucjxKZkVAfHfiJkqwrMbWfOBcq1f
+	 C6lDHJ7SSWlhlmv6Hql3dZG5AwcBK0XvApPm1woU+wm/KgGHJAbImR+KTEk7kCGDbM
+	 lYyjgm/4Lj1afDdxys+fzlqdrMtmE/JFWu44KErQPli6zWGsQ5T9t0VQVCYQOuZdgU
+	 CiDRWjPdBajBAXBIln3S1SDI8U3Fbmqu4WIqfNT8/6u2X+HToLE0xTtoZ9VV9MNCd2
+	 93BWDX2lmlvgA==
+Message-ID: <65b45ae5dd84c05f4907ee42725639cc.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.13-rc1
+Date: Thu, 05 Dec 2024 17:02:05 +0000
+Message-ID-Hash: K3QBYXRYLDOIAOEB2BVP5F7DPYT45G6H
+X-Message-ID-Hash: K3QBYXRYLDOIAOEB2BVP5F7DPYT45G6H
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3HCI25CRB7XU2MK6Q42WC7ICFZV376A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K3QBYXRYLDOIAOEB2BVP5F7DPYT45G6H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,30 +90,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #484 was edited from singalsu:
+The following changes since commit 40384c840ea1944d7c5a392e8975ed088ecf0b37:
 
-The configuration is not usual. If there is no DMIC in the system usually the legacy mode is selected (as with `options snd_intel_dspcfg dsp_driver=1`). In such PCs SOF can be enabled with `options snd_intel_dspcfg dsp_driver=3`.
+  Linux 6.13-rc1 (2024-12-01 14:28:56 -0800)
 
-When a headset is plugged/unplugged the playback correctly switches between speaker and headphone/headset earbuds.
+are available in the Git repository at:
 
-But the microphone capture remains muted. I noticed with legacy mode where internal microphones work that control name='Capture Source' changes to 1 when headset is removed:
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.13-rc1
 
-```
-singalsu@asteri:~$ amixer -c0 cget name='Capture Source' 
-numid=6,iface=MIXER,name='Capture Source'
-  ; type=ENUMERATED,access=rw------,values=1,items=2
-  ; Item #0 'Headset Mic'
-  ; Item #1 'Internal Mic'
-  : values=1
-singalsu@asteri:~$ amixer -c0 cget name='Capture Source' 
-numid=6,iface=MIXER,name='Capture Source'
-  ; type=ENUMERATED,access=rw------,values=1,items=2
-  ; Item #0 'Headset Mic'
-  ; Item #1 'Internal Mic'
-  : values=0
-```
+for you to fetch changes up to ec16a3cdf37e507013062f9c4a2067eacdd12b62:
 
-This is not happening when SOF is enabled. But I could make internal microphones capture work with `amixer -c0 cset name='Capture Source' 1`.  Is there a way to fix this in ucm2? I'm not absolutely sure about this issue in Fedora 41 but this happens with my ucm2 development code with plain git master branch (commit 0782bf435b8332833e7b3fc91501d78473dd6edf).
+  ASoC: mediatek: mt8188-mt6359: Remove hardcoded dmic codec (2024-12-05 13:39:58 +0000)
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/484
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+----------------------------------------------------------------
+ASoC: Fixes for v6.13
+
+A few small fixes for v6.13, all system specific - the biggest thing is
+the fix for jack handling over suspend on some Intel laptops.
+
+----------------------------------------------------------------
+Dan Carpenter (1):
+      ASoC: SOF: ipc3-topology: fix resource leaks in sof_ipc3_widget_setup_comp_dai()
+
+Marek Maslanka (1):
+      ASoC: Intel: avs: da7219: Remove suspend_pre() and resume_post()
+
+Nícolas F. R. A. Prado (1):
+      ASoC: mediatek: mt8188-mt6359: Remove hardcoded dmic codec
+
+ sound/soc/intel/avs/boards/da7219.c       | 17 -----------------
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c |  4 +---
+ sound/soc/sof/ipc3-topology.c             |  7 ++++---
+ 3 files changed, 5 insertions(+), 23 deletions(-)

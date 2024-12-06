@@ -2,107 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E5599E751F
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2024 17:07:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A67429E7B0C
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2024 22:32:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 675912119;
-	Fri,  6 Dec 2024 17:07:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 675912119
+	by alsa0.perex.cz (Postfix) with ESMTPS id 705541A2D;
+	Fri,  6 Dec 2024 22:32:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 705541A2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733501256;
-	bh=gToIYM+37jkKtK/Sbu0IwPGwvwqDSaBXiHsgZA/gUAk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1733520768;
+	bh=OkyMM+Fli9aBMq1UHiXfdze4i6Cw8zF1Uo7qyadWUfA=;
+	h=Date:Subject:To:References:From:Cc:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oF09PRgZFb7T+YN6gTOC+4ZLrynlJJFpJBHclkZfPHzkI0D9xc6w2tzxoYDGBORg9
-	 Y5cJ5g7sX1LmZCka+2cUggGqYIL/MAMbaQANFtHIUBYo9pz+AaqKEnvLPt6CIqxt6c
-	 myyW/vF9vH/BQjp92ovXuN2zGAQrLCp6/2qoYG6o=
+	b=njdQrJZ7yWmhRHDv5cswd+9BjgYhrYXYV1mT5ZR8wArf6VYZmza/hqSIyIL9uNqHj
+	 3iEpjWAN9wIIVclvpSG45k2nart8V/s79eV2egYPsJHX+Lt1X8nq1CJ2mMnr4Ilfmy
+	 ASklcXi3g+E/IOiehxHGJAo2iktrkbBeK+rQwk1k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C678F805AA; Fri,  6 Dec 2024 17:07:05 +0100 (CET)
+	id 76F38F80073; Fri,  6 Dec 2024 22:32:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E09EF805BF;
-	Fri,  6 Dec 2024 17:07:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79D70F805C0;
+	Fri,  6 Dec 2024 22:32:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F771F8047C; Fri,  6 Dec 2024 17:06:56 +0100 (CET)
+	id 3FE83F8047C; Fri,  6 Dec 2024 22:32:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	GB_FREEMAIL_DISPTO,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 55AC0F800E9
-	for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2024 17:06:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55AC0F800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 20038F80116
+	for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2024 22:32:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20038F80116
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rUZhriGH
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 056675C6946;
-	Fri,  6 Dec 2024 16:06:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403D8C4CED1;
-	Fri,  6 Dec 2024 16:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1733501211;
-	bh=gToIYM+37jkKtK/Sbu0IwPGwvwqDSaBXiHsgZA/gUAk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rUZhriGHwCOGUtnZPn6FC7saJhs6BKSmHqVG5AS+E0JB1T7WxDfeMpEbolQahWmV4
-	 +/IvsXta9NDAgw02+PN2UCwNsn9gZ7EcEzwPrENYs2Vv191ztYUHRjTXw+lBe+c9Ic
-	 odbaoVofPbb+z6qo3uRJPlLjvHkpPXpFKIIvFaH5hbkzMAoRG89g854UUjG8fG127a
-	 4I04DzE5/U6OQjK/qkdEVVwAPxTAKAB2LS0I9ttpCOLbB7M9AkUDMA1KcR+1H7deLu
-	 TFv1mG8eIAAlXUdkyPJgcjkxdssShLZNDvFIYmCLWfTfQ3uccoPRQtkhT+hkSm5eNH
-	 lTXQ1kBPWpADw==
-Date: Fri, 6 Dec 2024 16:06:45 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu =?utf-8?B?KOS/nuWutumRqyk=?= <Jiaxin.Yu@mediatek.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"ajye_huang@compal.corp-partner.google.com"
- <ajye_huang@compal.corp-partner.google.com>,
-	Chunxu Li =?utf-8?B?KOadjuaYpeaXrSk=?= <Chunxu.Li@mediatek.com>,
-	Allen-KH Cheng =?utf-8?B?KOeoi+WGoOWLsik=?= <Allen-KH.Cheng@mediatek.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
-	"andrzej.hajda@intel.com" <andrzej.hajda@intel.com>,
-	"linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
-	Project_Global_Chrome_Upstream_Group
- <Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	"robert.foss@linaro.org" <robert.foss@linaro.org>,
-	"Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
-	"neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Prado <nfraprado@collabora.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH v2 1/3] ASoC: hdmi-codec: Add event handler for hdmi TX
-Message-ID: <6456e0b7-08ae-4515-a7c9-734f50c9130a@sirena.org.uk>
-References: <Y4Y/vEWe3dw0FPQH@sirena.org.uk>
- <cf9ea98a3263ffb8fc8b542888ad0ad680facfc7.camel@mediatek.com>
- <Y4jHAJgmz/P58Q/C@sirena.org.uk>
- <7023a2c7b471d6888d9079563a6c01f22599201f.camel@mediatek.com>
- <Y43e+EsNCrCpZSIH@sirena.org.uk>
- <dc50d0b21795acbcc44c77e5fd81e7cb92c65c67.camel@mediatek.com>
- <Y5ipwqzHKTK8UdlC@sirena.org.uk>
- <a699178dcef540fff5caae6291983a444886bff6.camel@mediatek.com>
- <00d5c728-3eb9-427a-bc60-5828c20fec09@sirena.org.uk>
- <b44319c9fabbea2e8c333191a0005ef5c4ec6b2c.camel@mediatek.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=LxWD0Bxk
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-5d0bd12374cso3090893a12.3
+        for <alsa-devel@alsa-project.org>;
+ Fri, 06 Dec 2024 13:32:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1733520668; x=1734125468;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:disposition-notification-to
+         :cc:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=V9J4GGJ8PlFHiuKS/KtImFeuLxUohPxmjNHgOdOGN0k=;
+        b=LxWD0BxkwZm4aEQhFvCcZ+BaQQ1NB1qdkgt30aA+JZafzYbmderDY8MHScGKYBcW0Q
+         7bCSXODOtm9jIreKKMbRWBqh756APx8/qLCdUguxJpjS7tpZ2+y6IEG/OeWWjmgqXPxI
+         L1qiFwkcpSlpDcUNqpYCjNiaXQXYNcplXb1/TwTdYmKirfTh3aarLacgRHqwdktVaomf
+         kLKBqE9WwuADqAhvFl6MGFDsYabwappmEWdYNXEQzJM+rtTQCGYMyL8fxoocRBu0VlzA
+         t/h0ZWJ9C116PyQ4p2jVqXTKr/BfyPq1tmAlpHKgfphDAdsFM3jvHVeI5sL8YT+vO6fs
+         KyOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733520668; x=1734125468;
+        h=content-transfer-encoding:in-reply-to:disposition-notification-to
+         :cc:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=V9J4GGJ8PlFHiuKS/KtImFeuLxUohPxmjNHgOdOGN0k=;
+        b=OqFb0qBQd0n2wGFT3pNT6BQ0vsaUDDjaLg3tdqInbnzjAuue3y7m7+tkoVskvVkEs8
+         /8nmVja9tOt+TJG6EM689TUXLiXeqskHLRBO4dsCpES+y4ksHV4V++8luZI/i2/e8Vmd
+         fy6Qe6wKxfcsX4zci4WMvMCCgsHV5hd+S2qH52u/ofw41ydme96d3/bzCZwHjR5licbp
+         zkRoOe3wIQd0g2L+czG6xN6dWzeM61aKsJYMVnGH5cP9OMSvhtHPrDmxJCkPE3axaVfF
+         Ev4jVQjx20S3zoifJoubfoxA67KE3wK9M0Y6IDtTwChECIFnA/frR2rJZi0mO3gAPGtj
+         /Z3A==
+X-Gm-Message-State: AOJu0YxitCEXa1Y3y841cpDpJolCf5aswimzY9hgZCStvvMr/YldcPgL
+	VfA0v4hBnSh1gzYgvRF2IBCRqZ0tu9MPzoweyimx34i+5spGOO0t5E9+Pg==
+X-Gm-Gg: ASbGnct/FTSWGJs6s+rJFxemYxhkvRatiqUMQ6UxuZS9TZHYCmexGGLp85d9VqGdnPt
+	DCoAgvGJ/2vyTzRVnK+QuADWfIrf5Zk1sM9OnEcCgUil+jeRs6GA02LfwfoOiyzn48AjpDaTfiG
+	Vu/Xrm3yHVKw9oUL/xDOKpY05Igi8SSVDgrygbiaOs7crfMYtXcH2DZDMRiIkUakXKgysillWzl
+	1MO9jyTsSyeKo6tWgrXdOThJosyMgTxTbZjJszYGkYwOhKqdvE3P/ZxlrYSJdMnSJGg3aBIkcAm
+	W+2K9MRLHfqwfYROZk6pkl8/ATJf
+X-Google-Smtp-Source: 
+ AGHT+IEajeOgVGx6nvpHLU8+19Zx0L8ukYC74jMmKUngW91imvpIGbTHXX3ffb+AmmXHh3DujLHwWA==
+X-Received: by 2002:a05:6402:2683:b0:5d0:e73c:b80a with SMTP id
+ 4fb4d7f45d1cf-5d3be742b4cmr10871006a12.33.1733520667672;
+        Fri, 06 Dec 2024 13:31:07 -0800 (PST)
+Received: from ?IPV6:2a02:8071:3484:bc0:caf7:50ff:fe30:727e?
+ ([2a02:8071:3484:bc0:caf7:50ff:fe30:727e])
+        by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d3ce5b776esm1106739a12.29.2024.12.06.13.31.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Dec 2024 13:31:07 -0800 (PST)
+Message-ID: <4d80afb0-fd93-4ab7-afcd-06a9a4d7700a@gmail.com>
+Date: Fri, 6 Dec 2024 22:31:06 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0Q96+HlCP5jtbeOt"
-Content-Disposition: inline
-In-Reply-To: <b44319c9fabbea2e8c333191a0005ef5c4ec6b2c.camel@mediatek.com>
-X-Cookie: Sales tax applies.
-Message-ID-Hash: JHQNLK6KN5UGHGIH5JMXBBEXYT7MXZFM
-X-Message-ID-Hash: JHQNLK6KN5UGHGIH5JMXBBEXYT7MXZFM
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [vdr] Identifying MPEG-4 HE-AAC (LATM, LAOS) audio formats
+To: vdr@linuxtv.org
+References: <Z1NfRupTvjFeTlbi@jyty>
+Content-Language: en-US, de-DE
+From: schorpp <thomas.schorpp@gmail.com>
+Cc: alsa-devel@alsa-project.org
+In-Reply-To: <Z1NfRupTvjFeTlbi@jyty>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 7M65HJVK65UHRRMHNR6LKJPEUEUDZDLX
+X-Message-ID-Hash: 7M65HJVK65UHRRMHNR6LKJPEUEUDZDLX
+X-MailFrom: thomas.schorpp@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHQNLK6KN5UGHGIH5JMXBBEXYT7MXZFM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7M65HJVK65UHRRMHNR6LKJPEUEUDZDLX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,50 +132,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Am 06.12.24 um 21:32 schrieb Marko Mäkelä:
+> A couple of weeks ago, Finland took the penultimate step to get rid of 
+> DVB-T. Since years, we had DVB-T and DVB-T2 running in parallel. The 
+> DVB-T transponders should be shut down in 2025.
 
---0Q96+HlCP5jtbeOt
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+same here but h.265 video and aac audio.
 
-On Fri, Dec 06, 2024 at 03:39:15PM +0000, Jiaxin Yu (=E4=BF=9E=E5=AE=B6=E9=
-=91=AB) wrote:
-> On Mon, 2024-12-02 at 13:16 +0000, Mark Brown wrote:
-> > On Sun, Dec 01, 2024 at 05:15:45PM +0000, Jiaxin Yu (=E4=BF=9E=E5=AE=B6=
-=E9=91=AB) wrote:
+> 
+> The step was to introduce a second free-to-air DVB-T2 bouquet to carry 
+> some channels that were previously only available with DVB-T and MPEG-2. 
+> The VDR channel search failed to find this transponder; I ran a patched 
+> version of https://github.com/mighty-p/t2scan/pull/15/ to generate a new 
+> channels.conf. (Is this a bug of VDR, or a feature? I remember that when 
+> I originally set up VDR, I had to get a channels.conf from tscan or 
+> t2scan.)
 
-> > > So I want to ask if I can do it by just adding
-> > > SOC_DAPM_PIN_SWITCH("Speakers") and SOC_DAPM_PIN_SWITCH("HDMI")?
-> > > Correspondingly, dapm widget and route path need to be added. That
-> > > is
-> > > "SND_SOC_DAPM_SPK("Speakers", NULL)/ SND_SOC_DAPM_LINE("HDMI1",
-> > > NULL)"
-> > > and "{"Speakers", NULL, "Speaker"}/ {"HDMI1", NULL, "TX"}".
+have You tried the latest git version of scan in dvb-utils @linuxtx.org 
+repo?
 
-> > Yes, that's what I'd expect to see.
+> 
+> Unlike our first free-to-air DVB-T2 bouquet, which uses MPEG-4 H.264 
+> video with AC3 audio, the second one uses H.264 video and HE-AAC audio, 
+> also known as LATM or LOAS. This had to be explicitly enabled for my 
+> output device: https://github.com/reufer/rpihddevice/issues/20
+> 
 
-> So if I open the "HDMI Switch" amixer control, it will call
-> 'hdmi_codec_startup', which in turn calls "audio_startup()"  in
-> 'hdmi_codec_ops'. Conversely, if I close it, it will call
-> 'hdmi_codec_shutdown', which in turn calls 'audio_shutdown' in
-> 'hdmi_codec_ops'. Is this understanding correct?
+> The HE-AAC support in rpihddevice is experimental, 
 
-The audio stream will still run, the DAPM path attached to it will get
-shut down.
+as it has been in ffmpeg until today and rpihddevive is based on it?
 
---0Q96+HlCP5jtbeOt
-Content-Type: application/pgp-signature; name="signature.asc"
+> maybe because the 
+> sampling rate is hard-coded as 48 kHz and the number of channels as 2. 
+> Unlike AC3, it does not look like these parameters would be available in 
+> any audio frame header. As far I understood from a NorDig.org 
+> specification, the sampling rate would always be 48 kHz, but the number 
+> of channels could be identified by something in the container, 
+> specifically, Table 12.28 and Table 12.29 at page 164 of
+> https://nordig.org/wp-content/uploads/2016/03/NorDig-Unified- 
+> Requirements-ver.-3.2.1.pdf
 
------BEGIN PGP SIGNATURE-----
+Have You tried the latest git ffprobe version, does it detect the aac 
+flavor of Your dvb-t2 DVB channels correctly?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmdTIRQACgkQJNaLcl1U
-h9AR8gf9Hfqv5O8hW1VoO/+oNPx5CkfRkyZFsfXQTS4FYXeTZ9zcxTzV8bdgREIe
-WVUSi00ehS2CCupQkffrSFfZHqk88wxKrrMFNQYcoDrekq/kUtbseBayFJgB6mQY
-4NUYT/0mnejbXDk+qeiHI1f0UzygswelfRVu+TZ7exCG2UI7GJO2RYdL6fpItNpQ
-F7ISvK9ldljmyAmqAbZ8Ol6tg2eNfbhESwdEGsGrx58UpFAWH/0Qb6G+T4tzPxQ+
-3rMJvvwahR0VMHmVglGFRUneunLknVaycWRVne7jYBilbaRlWMGQQ4FVs8XLY45q
-OE7ZqGZc2+b4p2bOuAcnSLIiQPRSsg==
-=/TNF
------END PGP SIGNATURE-----
+Have You tried latest git mediainfo?
 
---0Q96+HlCP5jtbeOt--
+> 
+> What would have to be changed in VDR or rpihddevice or both to correctly 
+> switch between 2-channel and 5.1-channel HE-AAC audio? This is mostly an 
+> academic question and exercise, because I only have stereo audio 
+> hardware and don't know if any programming is actually available with 
+> multichannel audio.
+
+Not at all academic. Since AVRs do not implement Fraunhofer codecs we 
+need a HDNI PCM Multichannel driver for the raspberry pi to playback 5.1 
+channel aac without transcoding it to ac3 which can be done with mplayer 
+on the fly.
+
+I've made a HDMI PCM Multichannel output to AVR driver patch for the 
+Allwinner SoC alsa audio driver, look for it on the alsa-dev list archives.
+
+> 
+> Best regards,
+> 
+>      Marko
+
+y
+tom

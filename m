@@ -2,102 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF7C79EC413
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 05:40:03 +0100 (CET)
-Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A079ECB24
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 12:27:47 +0100 (CET)
+Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E7A422A8;
-	Wed, 11 Dec 2024 05:39:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E7A422A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACD3D23D1;
+	Wed, 11 Dec 2024 12:27:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACD3D23D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733892001;
-	bh=HL6ack+5CGIxYn9KlAblirIQVNzTWySyAIZ3CVH68Oo=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=gGDEGHd+rVpf00E0uwXASdFCau1AcDFkXcG8JTqzoe1hbl0I60ZBOr882faAdnPMe
-	 iLpfmZyJNYeisSD5NTIW6PKPGDUeuzFeebZHCGmZJwiAiX28F2hTt2YbEzMLwLo237
-	 MN6pVHmkfcU4Ologq+6vtJJDNaqlo627m/PNe5lU=
+	s=default; t=1733916462;
+	bh=hBQRQ8ESi7Eq31G40nZCyMvXGjn2SEYp1AjX9awnGwU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=VJ8Cuise1CG46pYOKx0q5fqmzplhGgNc6sz0kj1Z2QmG7Z40v0YxOXjqRE4+iFiIN
+	 jwKaCx4KJyab4RNjIprBm1g7lZfP1xo2N/lUjDYMdtj0SMICWCu0E4S2aMmHn17d55
+	 rpJEATat8IquvwjozEKWTIHJNRM8su/eVNPvbwpA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E83D6F805B4; Wed, 11 Dec 2024 05:39:30 +0100 (CET)
+	id 971ADF805C1; Wed, 11 Dec 2024 12:27:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15A2DF805C3;
-	Wed, 11 Dec 2024 05:39:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77DABF805C2;
+	Wed, 11 Dec 2024 12:27:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0232F80482; Wed, 11 Dec 2024 05:39:16 +0100 (CET)
+	id 94578F80482; Mon,  9 Dec 2024 18:23:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelvem-ot02.ext.ti.com (lelvem-ot02.ext.ti.com [198.47.23.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F80FF8016C
-	for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2024 05:39:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F80FF8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id AE7ADF8032D
+	for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2024 18:23:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE7ADF8032D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=C+AxQ3+w
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by lelvem-ot02.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 4BB4d8QZ2776726
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 10 Dec 2024 22:39:08 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1733891948;
-	bh=ATvEdCpQABPHWAnljbiRS+SwKA1c6QoUlHHYaQ8R4qI=;
-	h=From:To:CC:Subject:Date;
-	b=C+AxQ3+wuJEHLE3vdIgIpZ2q87JTveL/Qjn1hM2Tjln6WSui9K0V4z2S447UxQWG9
-	 veFJuQoowYnYdW765Ek2ctVlAO9o+r762t/T02BQ2AgSQGU4UCJU09Qq4Hz0H+3IDt
-	 1oEiIoHqZJXy/XezOPplwaZigbRm4a3djGXxhSLw=
-Received: from DLEE106.ent.ti.com (dlee106.ent.ti.com [157.170.170.36])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 4BB4d8VF009571
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 10 Dec 2024 22:39:08 -0600
-Received: from DLEE111.ent.ti.com (157.170.170.22) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 10
- Dec 2024 22:39:07 -0600
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DLEE111.ent.ti.com
- (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Tue, 10 Dec 2024 22:39:07 -0600
-Received: from LT5CG31242FY.dhcp.ti.com (lt5cg31242fy.dhcp.ti.com
- [10.85.14.200])
-	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 4BB4d3xw086812;
-	Tue, 10 Dec 2024 22:39:04 -0600
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>,
-        <pierre-louis.bossart@linux.intel.com>, <13916275206@139.com>,
-        <alsa-devel@alsa-project.org>, <tiwai@suse.de>, <baojun.xu@ti.com>,
-        <Baojun.Xu@fpt.com>, Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v1] ASoC: tas2781: Fix calibration issue in stress test
-Date: Wed, 11 Dec 2024 12:38:59 +0800
-Message-ID: <20241211043859.1328-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+ unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256
+ header.s=meesny header.b=r2OJ78qP
+Received: from jyty (dsl-hkibng22-50ddb0-34.dhcp.inet.fi [80.221.176.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: msmakela)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4Y6TGf3qrrzyR7;
+	Mon,  9 Dec 2024 19:23:22 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1733765002;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oLw1c9ExvcQmf/sEr1pL9dAp+YXDJ/ofKOdrmeX/xUI=;
+	b=r2OJ78qP9HPiOuES6mBoOn1rReKbdDM83KbqfL6RHcQ8SI2B69eUfx0tOpAWtSEowRcHbi
+	avIqJangxR5VOgacFaRKD6SlMydv95zZpjRIHO+cBNdcOCwb7XoK7mBaOCESUj0YVyWPry
+	EDRqPzm0eJP2Shv5W8QYLKzPLz6fEzs=
+ARC-Seal: i=1; s=meesny; d=iki.fi; t=1733765002; a=rsa-sha256; cv=none;
+	b=t5njSnyigtZsvD8OK6ygQ+dakQMjjEKEzOhu3IlZMdd/wId1XDlcLW7IFerxkWrRXEB46k
+	l9RKdqeuJQHpi5l4mIUSrCFvF5ypGvAmAMCh//pCkQls+RTLb3+lXafKf/Jk0t72uIGduS
+	GQwrSS67dA4WtvsbNHR2zDbnfhl41pQ=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=msmakela smtp.mailfrom=marko.makela@iki.fi
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1733765002;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oLw1c9ExvcQmf/sEr1pL9dAp+YXDJ/ofKOdrmeX/xUI=;
+	b=AuFJt5ojkvujgJsJGOZTLfQeJn+mowizufpzvLcKLIMSMd3koGAkvc6ns5CHkNdShuQUo3
+	FXipiK2w3+6rs7WWVo8KVc3o/NRJTSLyFF2sE2M4iYzXZxNcuAwJUVetRKv4otYV22Z3hW
+	DxzC/Hw9OZtfsw1XfA/eFipTsR6INk8=
+Date: Mon, 9 Dec 2024 19:23:21 +0200
+From: Marko =?iso-8859-1?B?TeRrZWzk?= <marko.makela@iki.fi>
+To: VDR Mailing List <vdr@linuxtv.org>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [vdr] Re: Identifying MPEG-4 HE-AAC (LATM, LAOS) audio formats
+Message-ID: <Z1cniaCIBoFt-NTo@jyty>
+References: <Z1NfRupTvjFeTlbi@jyty>
+ <4d80afb0-fd93-4ab7-afcd-06a9a4d7700a@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Message-ID-Hash: QZDWYCXDOOPQGZR2SUEYZ34OBQJPSN23
-X-Message-ID-Hash: QZDWYCXDOOPQGZR2SUEYZ34OBQJPSN23
-X-MailFrom: shenghao-ding@ti.com
+In-Reply-To: <4d80afb0-fd93-4ab7-afcd-06a9a4d7700a@gmail.com>
+X-MailFrom: marko.makela@iki.fi
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: OGLNJIMPBSKVWVNIZLNFG34JXV7VPZUD
+X-Message-ID-Hash: OGLNJIMPBSKVWVNIZLNFG34JXV7VPZUD
+X-Mailman-Approved-At: Wed, 11 Dec 2024 11:27:05 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QZDWYCXDOOPQGZR2SUEYZ34OBQJPSN23/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OGLNJIMPBSKVWVNIZLNFG34JXV7VPZUD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,41 +116,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-One specific test condition: the default registers of p[j].reg ~
-p[j+3].reg are 0, TASDEVICE_REG(0x00, 0x14, 0x38)(PLT_FLAG_REG),
-TASDEVICE_REG(0x00, 0x14, 0x40)(SINEGAIN_REG), and
-TASDEVICE_REG(0x00, 0x14, 0x44)(SINEGAIN2_REG). After first calibration,
-they are freshed to TASDEVICE_REG(0x00, 0x1a, 0x20), TASDEVICE_REG(0x00,
-0x16, 0x58)(PLT_FLAG_REG), TASDEVICE_REG(0x00, 0x14, 0x44)(SINEGAIN_REG),
-and TASDEVICE_REG(0x00, 0x16, 0x64)(SINEGAIN2_REG) via "Calibration Start"
-kcontrol. In second calibration, the p[j].reg ~ p[j+3].reg have already
-become tas2781_cali_start_reg. However, p[j+2].reg, TASDEVICE_REG(0x00,
-0x14, 0x44)(SINEGAIN_REG), will be freshed to TASDEVICE_REG(0x00, 0x16,
-0x64), which is the third register in the input params of the kcontrol.
-This is why only first calibration can work, the second-time, third-time
-or more-time calibration always failed without reboot. Of course, if no
-p[j].reg is in the list of tas2781_cali_start_reg, this stress test can
-work well.
+Fri, Dec 06, 2024 at 10:31:06PM +0100, schorpp wrote:
+>Am 06.12.24 um 21:32 schrieb Marko Mäkelä:
+>>A couple of weeks ago, Finland took the penultimate step to get rid 
+>>of DVB-T. Since years, we had DVB-T and DVB-T2 running in parallel. 
+>>The DVB-T transponders should be shut down in 2025.
+>
+>same here but h.265 video and aac audio.
 
-Fixes: 49e2e353fb0d ("ASoC: tas2781: Add Calibration Kcontrols for Chromebook")
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
----
- sound/soc/codecs/tas2781-i2c.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Right, it's H.265 video in Germany. I found somewhere a reference to 
+something that would transcode H.265 into H.264 on the fly on a 
+Raspberry Pi 3, so that the Videocore GPU could play it in real time.
 
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index be2ca5eb6c93..fb8cd2284fe8 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -370,7 +370,7 @@ static void sngl_calib_start(struct tasdevice_priv *tas_priv, int i,
- 			tasdevice_dev_read(tas_priv, i, p[j].reg,
- 				(int *)&p[j].val[0]);
- 		} else {
--			switch (p[j].reg) {
-+			switch (tas2781_cali_start_reg[j].reg) {
- 			case 0: {
- 				if (!reg[0])
- 					continue;
--- 
-2.34.1
+>>The VDR channel search failed to find this transponder; I ran a 
+>>patched version of https://github.com/mighty-p/t2scan/pull/15/ to 
+>>generate a new channels.conf. (Is this a bug of VDR, or a feature? I 
+>>remember that when I originally set up VDR, I had to get a 
+>>channels.conf from tscan or t2scan.)
+>
+>have You tried the latest git version of scan in dvb-utils 
+>@linuxtx.org repo?
 
+At https://git.linuxtv.org/v4l-utils.git I found a reference to the 
+command dvbv5-scan. An "apt search dvbv5-scan" on my Debian Sid as well 
+as on Raspbian 12.8 yielded two packages: dvb-tools and w-scan-cpp. I 
+vaguely remember that I had used the latter one a few years ago. I just 
+invoked the following on the Raspberry Pi:
+
+w_scan_cpp -c FI
+
+The output during scanning looks convincing, but the program seems to 
+get stuck waiting for something at the end, for several minutes.
+
+I also tried to invoke dvbv5-scan from dvb-tools, but it seems to 
+require a file that contains some initial parameters.
+
+Anyway, I was mainly wondering if it is normal that the EPG update in 
+VDR did not find the new transponder. I guess it is; the search space 
+would be huge if it had to cover satellite, cable, terrestrial and some 
+IPTV sources as well.
+
+>>The HE-AAC support in rpihddevice is experimental,
+>
+>as it has been in ffmpeg until today and rpihddevive is based on it?
+
+As in:
+
+#ifdef ENABLE_AAC_LATM
+#warning "experimental AAC-LATM frame parser enabled, only 2ch/48kHz supported!"
+#endif
+
+>Have You tried the latest git ffprobe version, does it detect the aac 
+>flavor of Your dvb-t2 DVB channels correctly?
+
+I only have 2-channel recordings or DVB-T2 streams available to me.  
+Those already play without any problems. But I don't have any recording 
+with multichannel audio. I would like to implement correct detection and 
+playback of multichannel HE-AAC audio, so that the AAC audio support 
+could be enabled by default in rpihddevice.
+
+>Have You tried latest git mediainfo?
+
+I was reading the libmediainfo source code a few days ago. I guess I 
+should just have executed mediainfo on an MPEG-4 TS file inside a 
+debugger, to find out how and where exactly it detects the audio 
+parameters.
+
+>Not at all academic. Since AVRs do not implement Fraunhofer codecs we 
+>need a HDNI PCM Multichannel driver for the raspberry pi to playback 
+>5.1 channel aac without transcoding it to ac3 which can be done with 
+>mplayer on the fly.
+
+Right, also according to the NorDig specification, some transcoding of 
+audio is mandatory for some audio output options.
+
+>I've made a HDMI PCM Multichannel output to AVR driver patch for the 
+>Allwinner SoC alsa audio driver, look for it on the alsa-dev list 
+>archives.
+
+Sorry, I could not find it. I figured out that AVR here must refer to 
+Audio Video Receiver. The only HDMI output devices that I have are 
+displays with 2 built-in speakers. I believe that I am currently using 
+2-channel PCM audio output.
+
+Are there any sample MPEG TS recordings with 5.1 channel AAC audio?  
+That would be very helpful. In a 2-channel setup, would it be customary 
+to pass through only the first 2 channels and ignore the rest?
+
+	Marko

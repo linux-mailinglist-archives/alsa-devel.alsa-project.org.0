@@ -2,117 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF80F9E901B
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2024 11:27:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABEC59E97A8
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2024 14:47:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F8BC857;
-	Mon,  9 Dec 2024 11:27:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F8BC857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 517F6B6A;
+	Mon,  9 Dec 2024 14:47:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 517F6B6A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733740044;
-	bh=DwprayAsRbxlOZeWXOFPlnqBe65LrNBQCeIZ5sLxRhw=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1733752060;
+	bh=OWK9BmtU8SoylfONS5umnJSsgPj9CZ1NuxrjE2vmeD8=;
+	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=l47Ri8zYz8HgYvkqEfTcULRbA0IwyLuo7O/6Q9lTWxRQnTLR1YZEDOsedB11WCKwP
-	 MlyylTGAER/QHkcJF/LAJ19dJsfeDiwb2vub1G13BP0t5P0e4FprP7V0Uu35u+C+yW
-	 GU4yipZPeJn220rZ6tH8akcO+Uq9mwFt55z0TH78=
+	b=f1oVsLGKPsWFiTwBcGAKUpbie/sb2FNiW2PXYfEtOVSNO6YKBOIDc8AcxdySSo808
+	 hIcdbyvxgU1Ad9gg8it9Fut+saxtUYIIId9bg04pyY8Dr0bbKDuV7jMZqx+MMymLZV
+	 54hxgAOemg8+WXb3AYIcwWld699LlnYg9UrrMq5k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8E34F805AD; Mon,  9 Dec 2024 11:26:51 +0100 (CET)
+	id 67456F805C7; Mon,  9 Dec 2024 14:47:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26AA7F805BA;
-	Mon,  9 Dec 2024 11:26:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB12DF805C0;
+	Mon,  9 Dec 2024 14:47:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B820F80482; Mon,  9 Dec 2024 11:26:46 +0100 (CET)
+	id BD44FF80482; Mon,  9 Dec 2024 14:47:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=0.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_SBL_CSS,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92DFAF8032D
-	for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2024 11:26:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92DFAF8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC6FDF8032D
+	for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2024 14:46:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC6FDF8032D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=bRnZp1DX
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 4B92URrX022860;
-	Mon, 9 Dec 2024 04:26:42 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=6ELUabJeV2DuJWxQPcmBua6WsWFynHySKPd0DBqNBb0=; b=
-	bRnZp1DXHMfTK2APMmzw0GUG16a0hB8ANO7u3NAl9oFzXWX3Y7VB6+D0+zqSR70B
-	yAuov7f4KWN7hH/KR1c4xTMS6P8z5kaVyGBDjdfiKRl9MmAyJSfchzLzsE++W+kQ
-	qQvWWm8ZMfPlTKuo5QevD23fzI2SDMixnDf2FpCzHfWmF8TSAMVlqUJqXJ8zuO19
-	CxOEBK6GafQ9OG0TaMtkAoelE922GNVJrjOQeEg3dGZzT2x15jA1HdGdJCs+vi8P
-	gpVLPNynoltdcetKkwP4yy0jOB8u+DO7AaN6+pSrPNEWjwh8+xOAQVoMoP8J5Tx5
-	ZBi388JmOVR6jNHqya1J9A==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 43cmn21u5a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Dec 2024 04:26:42 -0600 (CST)
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.13; Mon, 9 Dec
- 2024 10:26:39 +0000
-Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
- anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
- 15.2.1544.13 via Frontend Transport; Mon, 9 Dec 2024 10:26:39 +0000
-Received: from [198.90.208.18] (ediswws06.ad.cirrus.com [198.90.208.18])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 94922820248;
-	Mon,  9 Dec 2024 10:26:39 +0000 (UTC)
-Message-ID: <edff6f0d-7f2e-4a27-b14f-f079855a737c@opensource.cirrus.com>
-Date: Mon, 9 Dec 2024 10:26:39 +0000
+ unprotected) header.d=web.de header.i=markus.elfring@web.de
+ header.a=rsa-sha256 header.s=s29768273 header.b=AepJ/Y+J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1733752008; x=1734356808; i=markus.elfring@web.de;
+	bh=RJ7S6xkYcjMsl89YuTBAOu/UbbpWls5LjLBD4ZsW4Ac=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=AepJ/Y+JEKo/4vyZzGM4THxUIJCrxKCWBek2wL2JRIoMrwN9g4z0ad7UwtbGQ7nd
+	 FOn2XeApR8zpGdq11M3F/3R2+6txmzCHOuLpOQRFrAZLyg8pDddWGMO8Y5jwd6F4Q
+	 iVHHIBOZrrwExiDe2UDpz0TYgZX1aWxW44ZSZE3ixhsDdWloUdj53I1/0chnFDkpP
+	 RtCrclbbAsuBe6pg9utZcTobdcDxpWzQOJ+UHYLrXMWcGpYOjcJv8K1m4BQALq7BG
+	 L7wcwvPnA3DjjuA7XzKB0Ej1ZQ3xdyMIxewVVSKUEK2rzt1KQyLfEfZdX5aOB7kx1
+	 XeAnuWy7/zXTIj0rHg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.88.95]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MD5jp-1tTgef2WNV-00HCGs; Mon, 09
+ Dec 2024 14:46:48 +0100
+Message-ID: <cabca893-74f3-441a-ad27-9589819cb1f4@web.de>
+Date: Mon, 9 Dec 2024 14:46:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/17] ASoC: remove snd_soc_dai_set_tristate()
-To: Charles Keepax <ckeepax@opensource.cirrus.com>,
-        Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>
-CC: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-        Daniel Mack
-	<daniel@zonque.org>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        Haojian Zhuang
-	<haojian.zhuang@gmail.com>,
-        Jaroslav Kysela <perex@perex.cz>,
-        "Lars-Peter
- Clausen" <lars@metafoo.de>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        Luca
- Ceresoli <luca.ceresoli@bootlin.com>,
-        Mark Brown <broonie@kernel.org>,
-        Peter
- Ujfalusi <peter.ujfalusi@gmail.com>,
-        Robert Jarzmik <robert.jarzmik@free.fr>,
-        "Takashi Iwai" <tiwai@suse.com>, <alsa-devel@alsa-project.org>,
-        <linux-rpi-kernel@lists.infradead.org>, <linux-sound@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>
-References: <87wmg9mhkk.wl-kuninori.morimoto.gx@renesas.com>
- <Z1a99HJuL04nWuqx@opensource.cirrus.com>
+To: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Basavaraj Hiregoudar <Basavaraj.Hiregoudar@amd.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jiawei Wang <me@jwang.link>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Sunil-kumar Dommati <Sunil-kumar.Dommati@amd.com>,
+ Syed Saba Kareem <Syed.SabaKareem@amd.com>, Takashi Iwai <tiwai@suse.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, end.to.start@mail.ru
+References: <20241209101320.970571-1-venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH] ASoC: amd: yc: Fix the wrong return value
 Content-Language: en-GB
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <Z1a99HJuL04nWuqx@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: FoClcTI9iDQt6WmgLjf93qdLdb-8gTkV
-X-Proofpoint-ORIG-GUID: FoClcTI9iDQt6WmgLjf93qdLdb-8gTkV
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: XGTPXC6GNW4UMQI5IJ73LHYLK6J5JOKB
-X-Message-ID-Hash: XGTPXC6GNW4UMQI5IJ73LHYLK6J5JOKB
-X-MailFrom: prvs=90738ed0c1=rf@opensource.cirrus.com
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20241209101320.970571-1-venkataprasad.potturu@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:dGgUdE03nz5a1Q2rmEDXGkDahfBzqXKiIuduBiULxsxXBJ4DeI7
+ /9CfE2YeBKXU4249i5wn18PJ1x7f7E3xxZ/pAQtXpUd3vhhrD30S6m9rTZnCRgp/5kUYJ/Y
+ xhOsj0BimHALxUY25jalsrjDnBCZX8/BftXS7bWsERAA56MMfUTPDXC4sUXg/RPpqt3ixk6
+ tYFJd85nx/RFMjvbdgQgg==
+UI-OutboundReport: notjunk:1;M01:P0:/tAO+DmNoTc=;d+/h+8iVKrYO6oBbOOOvsmhy1Ef
+ l+HuJCZpztCumPqKBQWd6fXl7FdG5C9i1HdufeKajQbxtzpRP5YY+f+hs1mpOf0AW1M0EbhZe
+ Woq8elam2WcvWJrKUlXI05NZPYleYvBpcKNqsPEW0fs2LpnOlTeOkmuT7/YcpQN3NCu+Rkh+e
+ ZAOiqeY1R5J5StLWq9Y+gsmq4JTSmlwxSgTD4nubJDUG/yg6PDgGiWv6Ex30fh43bb4tswhTT
+ kufeoBuaix31G4CBbSZQzTpzUlzFmzIJETEJ7DVfFYRf2qk0hoQFrvREr+SM56AEnCP0i1iZP
+ RsTybgNs/IDihW84IsCvlzVRPboOXYanhp4lQnwVg5ONMDKZxeqOh0xEqWbGaPQ5ONjspqL1N
+ gZe4dqbr77j1oS3guCmU45GcwrcfIMAgpez64UcioZvEZHHa3lFWkaQypfC1U+64BifqnwmgI
+ 93Lb8Y9VDOIRdqxmkihe8AEiG7j/3Omm/Q7Ds9Kx/RrLS/BCpm5K0WfJT4jR1+kwXB1rvsu2F
+ i4Z+j0pMnyK2OypmKxZ/95sSgOjhc7ZwAWOBO5I7yGWBjJCRKORbNLsPcUNR6/TPlsNk7Qg5B
+ oRP6a/6SFBu7MLn1J9xTAf9zYdMi2g3D4UIVtQUpwfr9nFjk7p64KRdCWokhyYtSquHfpFmVR
+ 739TIULKb560JBkpQPyupIye3b0LEvzmWBxMJs7baexYktrV5YOK0LQhzBcbeAsbRdGlNZx2Z
+ L+FRdp5kKdtZoRK/boP1bUkRaL+sKGs8biFwXyfQ6WFQIZh6qyU2Eu82cNseGEhb2xh4poAVy
+ EjEASy1sOxR7yyLI11UX45qRBjeLla0cLcxe2cSgToOSTUQ0E7bjgzAezozaLlp7Zd2tsQXhd
+ 4teXkxAyctQJh59Zh+qtwwt9CcSr0aujDHbaBm+COf7flrP4hbRRXNBHC5kheQcNnaXdTPNDL
+ cbXVyC1fETLhWmtrDL9ScYtBC0LcrUKrEV/8fPy8OdCAzid7QE7wnAKLjG9+r+HeuEdlUslL1
+ HC1jd+QAsS2pbd3z08VI7BOViUjDTvQOadJOTT7xwSrfHHhemSkOsuLGNAVFCN/n2zz8wXCdM
+ 1GqF9JU/k=
+Message-ID-Hash: UXWCXG6VN5Q7XLGPGDZLLA3TPMWPZM2W
+X-Message-ID-Hash: UXWCXG6VN5Q7XLGPGDZLLA3TPMWPZM2W
+X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XGTPXC6GNW4UMQI5IJ73LHYLK6J5JOKB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UXWCXG6VN5Q7XLGPGDZLLA3TPMWPZM2W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,34 +129,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 09/12/2024 9:52 am, Charles Keepax wrote:
-> On Mon, Dec 09, 2024 at 07:38:52AM +0000, Kuninori Morimoto wrote:
->> Hi Mark
->>
->> snd_soc_dai_set_tristate() has added in v2.6.27 (2008/Oct) by this commit
->>
->> 	8c6529dbf881303920a415c2d14a500218661949
->> 	("ALSA: asoc: core - add Digital Audio Interface (DAI) control functions.")
->>
->> But it has never been used during this 16 years.
->> Let's remove it.
-> 
-> We have definitely used it in out of tree code for some phones in
-> our times. Whilst I don't feel super strongly, I would say it seems
-> like fairly reasonable functionality and it does no harm, so I
-> would vote to keep it.
-> 
-> Thanks,
-> Charles
+=E2=80=A6
+> Add a condition check to jump to check the DMI entries
+> incase of ACP driver fail to read ACPI _WOV method.
 
-Yes, I'd forgotten that this function even existed. Now I've been
-reminded of it, it's a useful function because our I2S/TDM DAIs have
-configurable tri-stating. If we remove the function the alternative
-of using a pinmux driver is a lot of overhead.
+  in case?             failure?
 
-But the kerneldoc description is not very good:
 
-"Tristates the DAI so that others can use it."
+=E2=80=A6
+> +++ b/sound/soc/amd/yc/acp6x-mach.c
+> @@ -578,14 +578,19 @@ static int acp6x_probe(struct platform_device *pde=
+v)
+>
+>  	handle =3D ACPI_HANDLE(pdev->dev.parent);
+>  	ret =3D acpi_evaluate_integer(handle, "_WOV", NULL, &dmic_status);
+> -	if (!ACPI_FAILURE(ret))
+> +	if (!ACPI_FAILURE(ret)) {
+>  		wov_en =3D dmic_status;
+> +		if (!wov_en)
+> +			return -ENODEV;
+> +	} else {
+> +		/* Incase of ACPI method read failure then jump to check_dmi_entry */
+> +		goto check_dmi_entry;
+> +	}
+>
+>  	if (is_dmic_enable && wov_en)
+>  		platform_set_drvdata(pdev, &acp6x_card);
+=E2=80=A6
 
-That makes it sound like it disables the DAI. Should it say "Set the DAI
-TX pin to be hi-impedance in TDM slots where it is not transmitting"?
+Is there a need to adjust another condition check accordingly?
+
+Regards,
+Markus

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 472189EB3F5
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2024 15:52:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D039EB3F8
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2024 15:52:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB06DB60;
-	Tue, 10 Dec 2024 15:51:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB06DB60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64188EC7;
+	Tue, 10 Dec 2024 15:52:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64188EC7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733842322;
-	bh=bjEOgH1mGFSKaUDSOmFLt5GSuoXBCE4SC0dZzXTngqA=;
+	s=default; t=1733842345;
+	bh=vcFRyMq2LgyT/jZlk9FVwHCu7zwyckkYnKycWPJr6ls=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ARUXDjoG0TGbra30N1+Y9G+7aG1kSSIlx10kq09kRccNm+StnBv7CKb7vkwnbqILf
-	 +cxWuMTEuZftimmqpi58oLmTxvZfQMa8+0NLh7bJ5k/h17qVSeZkV9RxfWTfHbQsTo
-	 5sfA1IwWkeTkb8X2s3MG3rhkJWh+ySXWqNJr9a6o=
+	b=pLLbPnCL1SPbkELzS/mlDcpq3FUPZGUNkWxdH7/nhTCf7keJVEGnK1xmPshw3qCCS
+	 rdVhbzVhkjrCX1o+y1mIKnv7elbige2MuWSGb58doSkfT6WtfzdE84VPm7MPS4PAjb
+	 mm3xD4DD6rnmCPc8WvcUjXsxEsoMBTB/+kGT9Pls=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D25A6F805AC; Tue, 10 Dec 2024 15:51:33 +0100 (CET)
+	id 1B264F805EB; Tue, 10 Dec 2024 15:51:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C725F805B5;
-	Tue, 10 Dec 2024 15:51:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AF32F805E2;
+	Tue, 10 Dec 2024 15:51:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 304C4F80482; Tue, 10 Dec 2024 15:51:29 +0100 (CET)
+	id 1B9BCF805B0; Tue, 10 Dec 2024 15:51:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -35,31 +35,30 @@ X-Spam-Status: No, score=-7.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 696F0F8016C
-	for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2024 15:51:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 696F0F8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9CD99F805B0
+	for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2024 15:51:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CD99F805B0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tzFaYQwN
+ header.s=k20201202 header.b=HlL0x44Z
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 2E7445C5C76;
-	Tue, 10 Dec 2024 14:50:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF58C4CEDE;
-	Tue, 10 Dec 2024 14:51:17 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id C784F5C5D37;
+	Tue, 10 Dec 2024 14:50:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0FDBC4CEDE;
+	Tue, 10 Dec 2024 14:51:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1733842281;
-	bh=bjEOgH1mGFSKaUDSOmFLt5GSuoXBCE4SC0dZzXTngqA=;
+	s=k20201202; t=1733842286;
+	bh=vcFRyMq2LgyT/jZlk9FVwHCu7zwyckkYnKycWPJr6ls=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=tzFaYQwNuZYa6Uk6LIVcxB4y1YyKNj19103LVaDIcJe3B6YAS9EiX3w/B7YOYQ1ze
-	 NIyR+qyM4V/RjbxWm8Zl1tHqzZhrh8E26pEbsQhMtXRczg4MD6yM+Zf8+92JdMlz4t
-	 kGpLEQNnKgs23rW/09sTBsdV79EXbHFdZTumYZbtMBXCcFtRiXvKMi6y/9Py/xE3nL
-	 AiXAH4MzDESBRozie8AWVQ8ZXNlDmv48ZXeXCu0GVeU9uxfd3UzWLVsGvH7WtAqrjU
-	 O2EAoGWp1y7xF0XL++57vrJLFhKS/gxWmQSE7kVy9gLsjDlyPV4lAy/F8bAPGl5MDd
-	 VZkFswjWR8v8g==
+	b=HlL0x44ZrY+g9psBGk58yGcLzU6rmxdvvL/U2yD9CqqjJYjPnMZ41rN+p1LreLf7c
+	 tZCdX3rrBboA9Y6njpVnDvZ1igfRoaMO8Qx5BzXMUPxYDsAIJ2HXFY4jk9y4fS+nxG
+	 TM71JgY3hHNnjBj27TvyH2n19qEog+tucsKSeYN9o7aTbaw+J9p53BX3L8dNpFjtMn
+	 QmQ1M1Qk7cR0zYtZsCCFKHrqVWYBrnN8u3kauOkjZnoBB5GRRD8c0od4T7mKge9UCS
+	 vqpiClJ3pOnr9Tj8Tbqyi5FKDu0W1CsS/XOIwNa9ShiyIGzRDLH2Zw7gfsf0clZ4MI
+	 jtoN9layVBmGQ==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
  Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
@@ -71,17 +70,17 @@ Cc: Vijendar.Mukunda@amd.com, mario.limonciello@amd.com,
  "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
  <linux-sound@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20241209101320.970571-1-venkataprasad.potturu@amd.com>
-References: <20241209101320.970571-1-venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH] ASoC: amd: yc: Fix the wrong return value
-Message-Id: <173384227739.64342.4224280961659037340.b4-ty@kernel.org>
-Date: Tue, 10 Dec 2024 14:51:17 +0000
+In-Reply-To: <20241210091026.996860-1-venkataprasad.potturu@amd.com>
+References: <20241210091026.996860-1-venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH v2] ASoC: amd: yc: Fix the wrong return value
+Message-Id: <173384228352.64342.12647978237032666087.b4-ty@kernel.org>
+Date: Tue, 10 Dec 2024 14:51:23 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-9b746
-Message-ID-Hash: QQLODAMZJZNLU5PBYK67IJI7BCVUAFAO
-X-Message-ID-Hash: QQLODAMZJZNLU5PBYK67IJI7BCVUAFAO
+Message-ID-Hash: W2TWDI4MFJ766NSOFN2II6CJHUG26LFX
+X-Message-ID-Hash: W2TWDI4MFJ766NSOFN2II6CJHUG26LFX
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QQLODAMZJZNLU5PBYK67IJI7BCVUAFAO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W2TWDI4MFJ766NSOFN2II6CJHUG26LFX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,13 +102,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 09 Dec 2024 15:43:17 +0530, Venkata Prasad Potturu wrote:
+On Tue, 10 Dec 2024 14:40:25 +0530, Venkata Prasad Potturu wrote:
 > With the current implementation, when ACP driver fails to read
 > ACPI _WOV entry then the DMI overrides code won't invoke,
 > may cause regressions for some BIOS versions.
 > 
-> Add a condition check to jump to check the DMI entries
-> incase of ACP driver fail to read ACPI _WOV method.
+> Add a condition check to jump to check the DMI entries incase of
+> ACP driver fail to read ACPI _WOV method.
 > 
 > [...]
 

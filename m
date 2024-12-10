@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DC49ECB50
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 12:34:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF0609ECB51
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 12:34:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 416612C26;
-	Wed, 11 Dec 2024 12:34:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 416612C26
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84A362C36;
+	Wed, 11 Dec 2024 12:34:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A362C36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733916866;
-	bh=j3EZQQ+bJ4Pgh8+9W/k4Ypg3jmTVeLSoZtZxACS5Ilw=;
+	s=default; t=1733916886;
+	bh=hJDCv1TyaQlo/L0tvA82G+IiLtzZURDjCsIXt6YWZzI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ex1c89PfOTpkfO3gHgVXCNhjIpYmGcxEzFDqvw5lfgk1JdoFpfLS874S4OU/T2Kgj
-	 O6W5xwMO0YP6dIlSJxXJtewyRRIQ126B/9Pa6XN+XSZrIL52OwteLvcdyLCxxDkGKh
-	 pPLxYjovtro2KXh4hDphAmZ5ALiBjI7JbYbBGeAA=
+	b=iE3RCg/uNlRb2YUoB13jL41LAAfUi4Ai+rQk9XGd6A2wc6oAvJ7+23wGk5cihRKty
+	 ix6+IuvWpR+0iEE/HQP7cj+XHVE/7J7PBn4bbPdNm5wbsBpeGRa2QQdRXmsMqcP4Uy
+	 PMp60UYwtJs7I2YnVhB+jlCt47Vp35PH4dBV4RWY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C71F4F89782; Wed, 11 Dec 2024 12:28:24 +0100 (CET)
+	id 6B1F3F897AA; Wed, 11 Dec 2024 12:28:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39829F89781;
-	Wed, 11 Dec 2024 12:28:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5E20F897A0;
+	Wed, 11 Dec 2024 12:28:28 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA403F80482; Tue, 10 Dec 2024 18:12:01 +0100 (CET)
+	id 49F4FF80482; Tue, 10 Dec 2024 18:12:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -33,67 +33,67 @@ X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 13B38F800E9
-	for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2024 18:12:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13B38F800E9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D23EF800E9
+	for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2024 18:12:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D23EF800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256
- header.s=google header.b=C+dVmBtH
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5d3f28a4fccso3468945a12.2
+ header.s=google header.b=h/RpVRVo
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3cf094768so6587768a12.0
         for <alsa-devel@alsa-project.org>;
- Tue, 10 Dec 2024 09:12:00 -0800 (PST)
+ Tue, 10 Dec 2024 09:12:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1733850660; x=1734455460;
+        d=tuxon.dev; s=google; t=1733850663; x=1734455463;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jE6wTwaLZbTxO8+1zmhGoRQFuhziI2yndu2tr5ybLTY=;
-        b=C+dVmBtHW+94J9xMzh2SML1kb8WCTMEcdLo1Pb1tNcTWiE72ZtojMc3S/ZQXwHgUEF
-         anFHfeU98GsypKVZ75YT+WEkkd3ArKGvC4JfLAu+Hvcpt6gMFVcHXzWUd8vSPGz9ul2Q
-         CeTAs0u+J172cyiDJKdZBAV97BMNclIc1OfsjScylFAH/I9nqO3QdxfvmTsA85TS6/HW
-         1TXYmkKJRn4nIfJXAEaYbq4Pp6COumSFT/mrWtJCy4EAY9NFCOT27UvKMikJNnCcmcGE
-         oqqjG9qbbN5V2gg5yjF+6tsgRPwmYCNBmgg2PtodHwJJkGvAqGRT3+ABXw5GRpQ9kO+q
-         vrXg==
+        bh=TwyXnruxyE1MIUM59wwP+urrQ2EdZ5O+ybJnem/vHTM=;
+        b=h/RpVRVoDSDVXcydjmGiGuN+W0fkJg0fIYGtdt37Gg9b4yCXTUyvmn5JDwhPCkQ/rw
+         ApYVXCuhvg3/d+XESv+nQ76h7+1zAWMcnJRt1kZGNK3mdoT8bT+Fj0OhUmMWbDNpCQEK
+         XGk37nyTaKnsG/eEHI4maA1OPseXxe27AZNaW4O45e38sCNNVilWDaZ7pHhp456CumRb
+         Vlf+S//DPwFgTxfNG0zVqLms8xgFRDw1sX+//N+G2dUE4IaBzl4qMi6mVhrXm5C76o8K
+         FhyNvgBNKMpWyfLFn/OQop0Au7inG0CqViF+iDBGFtJD1ghlIksoUXPHZ6eV4ADy8jnp
+         qIAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733850660; x=1734455460;
+        d=1e100.net; s=20230601; t=1733850663; x=1734455463;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=jE6wTwaLZbTxO8+1zmhGoRQFuhziI2yndu2tr5ybLTY=;
-        b=ktznIpMVlZJEuqPoC1YZlS+DBXDGyqHhm9hVRF0rOmx1LLtxT7gjaeYPbCMLBSQH5n
-         g2UhjVx+uVVRp0d9qkMZ837jXKKxONpxvkYrrA+bSuf8zVFPFPyDWNNhuhQ05INuAa6s
-         Dgo6fjf2EqqhQ+PE3SC1JknMJ1z4FvypquNO1XoT+E7JMPOAMxf7vXR5/RJ97xWZMsru
-         ei4C+QEzGgh9EPpb+7/uK5qT4Li/xXelHbc7KI7PZotBC/13SHPHfJXtyeQQsvd8hFfv
-         mXcBgt136W3CTnxogK/u6AwdpebfFu5mOcgwKesZp+ClvSO8AIVggjB4GisyTC82A9R1
-         3F9w==
+        bh=TwyXnruxyE1MIUM59wwP+urrQ2EdZ5O+ybJnem/vHTM=;
+        b=Ovyp6VpM2r6vA2tnYs2fqgCIEkHWcX3I7L3jmO1CxFCNU0u+WQeA8CMNxaXB4A17bV
+         lowXTmTK7r1k+Y6+xJcf/GWQj9VrdD0xA9rkUDELNje3xKWjqGWe2oIH2M/rwWaEUub6
+         /9eWox+HqVzQvVW8NAn7Hm1Et7zlmICN3JYD1RehgOHueEFliqJle4u1Bc3e+fuVh6oh
+         yjukh2qTsakEX9txyagIIEKsz2rpSaEK/nA6efpT8CthaeK7XfzBeHbk8wa+ije+MF3q
+         15yh95EE+tLTmgbcB+Wv6BLS+6DSFcn0gABA/z8cNNthcJS7oLw9INF43P2+9ZgNm6OF
+         KYnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVrNyPJwRpdvHuzN8ZxH9kP/YDag/mXXzouiil9Rd9krxLgZMbsK0Y5FtOc3ALXkUTZZGuieNDmdlvi@alsa-project.org
-X-Gm-Message-State: AOJu0Yycbi9izOsXX1p936tsKFiAAHcr6vh+3HHLkyUduLcHN4GhwCon
-	etOCYmn2asd3wxRfidnAoUuGzFFxuJciiVzJtsIvZX2mm/+rrU2M1sJtUp+0G5o=
-X-Gm-Gg: ASbGncu27T3e64gx91eJVgjn2ZrvW8PUaYkG2ETqzUSLDg4OGhQQshQl7JcztqRaoAR
-	NltDYGQ+tRh2AUOnH6gAqrkV+Uv6B/iETfFDj2hCx54KgdkSPZpl7L58bfEYg3d+PVJJv8AjcX6
-	f3EA78XMbzZpH1qAQNOBLLAgpCGVRPFlbQ+q+aH6jKEWPamfszGgBX/wrXEras8035bVHw4N4a4
-	RnhCt0R3DjWMdMs7O69ix0IvjeANcs0awrkr2VY08bOmnciy/7I6B1BGVnXBrnSKUu2Ms05iQfP
-	+ZtpaI5j
+ AJvYcCWxp41qgsHb6SBR6GOzPKUQHsHywekPOgRodxY1sGU3kOk9A3SQsT/Kvk54tTZfd/mGJvrwCtETKsP9@alsa-project.org
+X-Gm-Message-State: AOJu0Yw4v4srqZaqKc9Z+v/7kZ7Nsl2TU5LaWp5V2JfMWhki1GVe6SwZ
+	/zFUpFBM3qIizMrU+wITUHcqo0gqx6VVjP07aoKd/nLla1Fnpvbuo1vPP8CgtqI=
+X-Gm-Gg: ASbGnctI63cUs2QUd+K2/yyIKAr6Y1NOQakfP0bK1joEGMJxyTPYX6TUsB8i1l8Kafm
+	Dz8KcD3HneGuAXitDA88MivjOX1aBmgqNulMDUyyTgnqlLhpmDPeN4oyH8GPH34I7zXaPLqmDm1
+	hXCvKrZZyp54xKiK8MFp66U3uOjSE/uk1y1dLRNjHEELl0o/YfvEgyy7T/5rlAlwYkSzNQE3rXJ
+	Nk88KXzWQv598+d9I/mbTesbEORSHXAyYfJqdQDXyMB1oBrq9Gwtg7kstgc2J/znfKEHOI44sKi
+	CQi9w7X/
 X-Google-Smtp-Source: 
- AGHT+IFlYyo736yb9cxpJS2cGnLCOO0TpZQwWI6UbvDphomE+gSa6jZr1VtWzN9wAD+vqnofdD3cjQ==
-X-Received: by 2002:a05:6402:2791:b0:5d0:b925:a8a with SMTP id
- 4fb4d7f45d1cf-5d3be6c1598mr19946134a12.16.1733850659570;
-        Tue, 10 Dec 2024 09:10:59 -0800 (PST)
+ AGHT+IGQNruuJ2fmbhGEBR6v4EYtbwtUlKzpp82KdDiJC4wYZhl0SU6OosybB2Txg3S5RjOBSBjG+g==
+X-Received: by 2002:a05:6402:3490:b0:5d0:d5af:d417 with SMTP id
+ 4fb4d7f45d1cf-5d418502c64mr5890914a12.1.1733850662767;
+        Tue, 10 Dec 2024 09:11:02 -0800 (PST)
 Received: from claudiu-X670E-Pro-RS.. ([82.78.167.161])
         by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3e7936581sm4853124a12.56.2024.12.10.09.10.57
+ 4fb4d7f45d1cf-5d3e7936581sm4853124a12.56.2024.12.10.09.10.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Dec 2024 09:10:59 -0800 (PST)
+        Tue, 10 Dec 2024 09:11:01 -0800 (PST)
 From: Claudiu <claudiu.beznea@tuxon.dev>
 X-Google-Original-From: Claudiu <claudiu.beznea.uj@bp.renesas.com>
 To: geert+renesas@glider.be,
@@ -114,9 +114,9 @@ Cc: claudiu.beznea@tuxon.dev,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: [PATCH v4 23/24] arm64: dts: renesas: rzg3s-smarc: Enable SSI3
-Date: Tue, 10 Dec 2024 19:09:52 +0200
-Message-Id: <20241210170953.2936724-24-claudiu.beznea.uj@bp.renesas.com>
+Subject: [PATCH v4 24/24] arm64: dts: renesas: rzg3s-smarc: Add sound card
+Date: Tue, 10 Dec 2024 19:09:53 +0200
+Message-Id: <20241210170953.2936724-25-claudiu.beznea.uj@bp.renesas.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20241210170953.2936724-1-claudiu.beznea.uj@bp.renesas.com>
 References: <20241210170953.2936724-1-claudiu.beznea.uj@bp.renesas.com>
@@ -128,15 +128,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CQO3R7QFAEMLVRNEHTU7TBL7RQNARHPG
-X-Message-ID-Hash: CQO3R7QFAEMLVRNEHTU7TBL7RQNARHPG
+Message-ID-Hash: PN6FP4ZANWT5R3JQ42N5AJLPTI7JXSJW
+X-Message-ID-Hash: PN6FP4ZANWT5R3JQ42N5AJLPTI7JXSJW
 X-Mailman-Approved-At: Wed, 11 Dec 2024 11:27:12 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CQO3R7QFAEMLVRNEHTU7TBL7RQNARHPG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PN6FP4ZANWT5R3JQ42N5AJLPTI7JXSJW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -147,7 +147,7 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-Enable SSI3.
+Add sound card with SSI3 as CPU DAI and DA7212 as codec DAI.
 
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
@@ -155,7 +155,6 @@ Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
 Changes in v4:
 - collected tags
-- dropped status for audio_clk2
 
 Changes in v3:
 - none
@@ -163,63 +162,37 @@ Changes in v3:
 Changes in v2:
 - none
 
- arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi | 25 ++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi b/arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi
-index 899d88467d79..1944468a2961 100644
+index 1944468a2961..5329f3461990 100644
 --- a/arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi
 +++ b/arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi
-@@ -64,6 +64,10 @@ vccq_sdhi1: regulator-vccq-sdhi1 {
- 	};
- };
- 
-+&audio_clk2 {
-+	clock-frequency = <12288000>;
-+};
-+
- &i2c0 {
- 	status = "okay";
- 
-@@ -105,6 +109,11 @@ power-monitor@44 {
- };
- 
- &pinctrl {
-+	audio_clock_pins: audio-clock {
-+		pins = "AUDIO_CLK1", "AUDIO_CLK2";
-+		input-enable;
-+	};
-+
- 	key-1-gpio-hog {
- 		gpio-hog;
- 		gpios = <RZG2L_GPIO(18, 0) GPIO_ACTIVE_LOW>;
-@@ -162,6 +171,13 @@ cd {
- 			pinmux = <RZG2L_PORT_PINMUX(0, 2, 1)>; /* SD1_CD */
+@@ -44,6 +44,23 @@ key-3 {
  		};
  	};
-+
-+	ssi3_pins: ssi3 {
-+		pinmux = <RZG2L_PORT_PINMUX(18, 2, 8)>, /* BCK */
-+			 <RZG2L_PORT_PINMUX(18, 3, 8)>, /* RCK */
-+			 <RZG2L_PORT_PINMUX(18, 4, 8)>, /* TXD */
-+			 <RZG2L_PORT_PINMUX(18, 5, 8)>; /* RXD */
-+	};
- };
  
- &scif0 {
-@@ -182,3 +198,12 @@ &sdhi1 {
- 	max-frequency = <125000000>;
- 	status = "okay";
- };
++	snd_rzg3s: sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,bitclock-master = <&cpu_dai>;
++		simple-audio-card,frame-master = <&cpu_dai>;
++		simple-audio-card,mclk-fs = <256>;
 +
-+&ssi3 {
-+	clocks = <&cpg CPG_MOD R9A08G045_SSI3_PCLK2>,
-+		 <&cpg CPG_MOD R9A08G045_SSI3_PCLK_SFR>,
-+		 <&versa3 2>, <&audio_clk2>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&ssi3_pins>, <&audio_clock_pins>;
-+	status = "okay";
-+};
++		cpu_dai: simple-audio-card,cpu {
++			sound-dai = <&ssi3>;
++		};
++
++		codec_dai: simple-audio-card,codec {
++			sound-dai = <&da7212>;
++			clocks = <&versa3 1>;
++		};
++	};
++
+ 	vcc_sdhi1: regulator-vcc-sdhi1 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "SDHI1 Vcc";
 -- 
 2.39.2
 

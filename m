@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497889ECB28
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 12:28:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3C429ECB29
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 12:28:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E83D0299A;
-	Wed, 11 Dec 2024 12:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E83D0299A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD51C2356;
+	Wed, 11 Dec 2024 12:28:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD51C2356
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733916494;
-	bh=xBCdUB4AW8mhnjHqG44vkCdEwLfV+6wgiY3J65tG+OY=;
+	s=default; t=1733916512;
+	bh=28M0DwDkMWfh/cCYd77FlED8MgZgXdkVNsI9ruq8oCo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=svrk/ETJGUWDMcIY9s/gChQtOYMo6FnsddZhNdXW7sMr08lNbcVK2GErhDQXEou3R
-	 B7QXfNaVVInrn8wa8i48Wn46KxG4mFUpvQZV+6TIfy3GvFcYGlVu2pXQ1PrektG8dZ
-	 FjaDfSCQkm/yl6FiW5YOuzAvcSUw7FKwXMk2nV+A=
+	b=QDVqQIE8qPU93lXF9UR7+x3eLQ6HO4L7AtKATTsbb+GCCxzU3m58JQ/P6pqb9THgF
+	 oX3G6d4aIg8MQvlRq7NBo+eFReZFnP+LbGbIeVFPZUOG/7wM+NdUQWN6w4vEKWfaVk
+	 kU8AZKpRJoLsjfFT1jJ0YMhjQydho3uYoMs8mqP8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD077F8060E; Wed, 11 Dec 2024 12:27:17 +0100 (CET)
+	id A2AC6F80631; Wed, 11 Dec 2024 12:27:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98420F80609;
-	Wed, 11 Dec 2024 12:27:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58A9DF80632;
+	Wed, 11 Dec 2024 12:27:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8C46F80482; Tue, 10 Dec 2024 18:11:09 +0100 (CET)
+	id 47C2FF805AB; Tue, 10 Dec 2024 18:11:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -33,67 +33,67 @@ X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1E827F8016C
-	for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2024 18:11:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E827F8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8E762F800E9
+	for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2024 18:11:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E762F800E9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=tuxon.dev header.i=@tuxon.dev header.a=rsa-sha256
- header.s=google header.b=IEIXcdtZ
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5d3f28a4fccso3467980a12.2
+ header.s=google header.b=Pcq1iHfv
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3d143376dso5626696a12.3
         for <alsa-devel@alsa-project.org>;
- Tue, 10 Dec 2024 09:11:07 -0800 (PST)
+ Tue, 10 Dec 2024 09:11:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1733850607; x=1734455407;
+        d=tuxon.dev; s=google; t=1733850609; x=1734455409;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uadH9PhfIl+f0c96d/6lazQpTxglh5DEUY3M9hlx46E=;
-        b=IEIXcdtZk3QexipLIm4s+xDAA2kbxLI/R0mKnhuSmjNCBRj9EHSjHgbEsI9QyPfwxa
-         z5f54nlvDOYTJ3mXUwAqDLFinUV4lMSEcTawq5VdikyzYUBaD55d8vN3jSjnODgtB+MW
-         2qNzG26mqykAyXX6Vn9mkeMsqOoSJxEcP37vGObhVhpVwVUfyjxYpYwBdljK8Rq2bqrg
-         hRLD/Le4S9Z5sMC0WV9SGURfTf+RfsJmbCIUk3kU+DXPuMNlRS+19tDi7vyh23Qyaonq
-         EtaM0Z9Yhv90nehYlfM0YfyVZmSSIWs5yWOOzjh4og4wvsyFfWpYzJcVtrzuK9BBrdrP
-         mXSQ==
+        bh=ehtFOxPVmrl0HXvdtrtv9cXQJbKgItgUhCJ0+pIiLcI=;
+        b=Pcq1iHfv8XpFIT7uoN4qS/zGi327csrFJh/e6ipGofw5ndXi9re3o8m2POg2A0jbGM
+         kg9LhArnov2sCiqdJWmihpJYVG6w5MqX1io64xdVAwmQWfemEFgFZLcV7zqJA3sQckBQ
+         OWh8zEfkDvuOdiGkntugRuUljQGn8lYfORtYoGpYLNElnOwwoFMWfUBD7r9IAbCWHnB8
+         /VauLrTjhf2BtuqbYLozakSpNulT1OvLJttZVQweU/lihLLeZKHtElGzmRJzxjjbiZKf
+         pn3ZU72d2SkWXGNbvsJbEGLVBR7ygyPZOzbjeC+zO405gKRtByrCAVBa3irEyQmmTzb9
+         6ndw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733850607; x=1734455407;
+        d=1e100.net; s=20230601; t=1733850609; x=1734455409;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=uadH9PhfIl+f0c96d/6lazQpTxglh5DEUY3M9hlx46E=;
-        b=p/o0KFuTQfuTV9QE2/Q8qIITEuU6hYhRvZH3q4IQmtaNqA7taV/FVM70t1txJPUvpQ
-         aSVQbbrSmj8agnErqxgFubnxpTmFpNJE578K5spLUUjl9m3Et6Xp4MRuYlSpmbW/5r0i
-         IZqF8/xIFinjFqJwkWt16KuHWJQLPFcKCrPAnug6PGRJbs4yVvIF23iPFz3/zcixv/9W
-         /A7jVhRhxcbxtk1t1hkqwt/jr3EulhYYXRTtY2soCX1SegMZLXNQQ102dZ8PFT7E7s96
-         0z25YhhPR8YmzWS0z/rnlRppZcIe8d+6sGy+8EmFTtc9hDk53nLug+RzzhlqUsKMWZzN
-         kWTg==
+        bh=ehtFOxPVmrl0HXvdtrtv9cXQJbKgItgUhCJ0+pIiLcI=;
+        b=bjcdyGBp8Pxau1FvXKOhBVdrUHvPwDhhF//dm+mc10Fr6JaQTA0IZCbq7CYAx4nbaz
+         G1HEZ6ROdVQY2PngfeP/Nk+gYmt7nVaXDhA/D9N1/rGzXfREoo1k55rnybST2SIXCM1l
+         7ljJ6ktSMzYD6UP9seXg3kr3UWDY96PHtufJeJZmK73BcWBQWtGjDlF9Ec2Aa9+J92A9
+         QL2GM+FwKDu+Ij06SI0Y0i/HaF1/3Gbr40vhl3VfW7dqD9temBuPKYWT4Dsykx0NpoBb
+         wgg3UxMQkctZRufJvzBS1C9HgstuDzYKfOStsDZQD5mCNAueULa+9gB/siYC7PSRgI8C
+         Tgow==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWGxYIxdb+aLwS2kEsllORdPK3ggpmEL2n/5W0B0SfYuAGtnQm3rQBiuCdXnEblqg/BfqnV8fkuR+ip@alsa-project.org
-X-Gm-Message-State: AOJu0YwgFZcQwbRyYKA4KLu8RBmo/sxVpvKGjJBe+lu+t9wf4zmiGzwI
-	7tF2Ifq9Ni55bihpMkQGPv5W+aZOnRjXuUdnV2R2ORJvhqs2yl2n2iLMbDOLizQ=
-X-Gm-Gg: ASbGncuCx/v8Ggb9IVYpVcX/nglOK64M0I8x27pc8H+AWikQZntP3cuHmnRs8FW6pqJ
-	PMcnueTtjG75XIGMjfuYLQlYMb4H7Vs+/hxKibkFBwykyedW6lj21/2OXquL9fgUg92X8+ZTZiB
-	NGx13tUFhwG8Yv2CfkvhgzALSgCJRtl42P84OWCFTwHGHv/11WDJkVV61flCs0xaEqoL64NR1jW
-	kUYyviNJ3eVzWfM0F+klye2cBDBAl5ssdYJvBH748I9F3uR3cBe4qCA6BDgKKOLAgYOw0fhlOSO
-	ndLTtkws
+ AJvYcCXXaN2RaikoGer1UGV/lnRgqINj8yyCdb6yW4tNMyjnHzNaG6JbHVT4iPYPGSYkIb+rRAFX/p2GFH0B@alsa-project.org
+X-Gm-Message-State: AOJu0Yx1xFEHkY+3ieIXHk2rjYEmjm0XuC6Wrbp3Wt0jqlB1jpW4U8Nn
+	57H9/A5TTtPzfgaY7QuqHZPav9vHGCFarIIKPXECYqBxC83TX0fG7xbJNk1Xf9Q=
+X-Gm-Gg: ASbGnctuKGpZ8WygVk6C4kPhlQka9UaUFzKLPbPXlUixWRvXaGk7CuZkP8nyBd6ft/h
+	eBNtwegQKh/9jfcgJFS7QX1lwzLXj1fxbAEw9bLnwvTxizzmqcUYEvXZH9eOtEGS6ZEmezRaFxt
+	bmQYq8XVs9e6nkera4blcb2Di+ZKSXBxngTOFvphtfFIvJvKMPHrk+QeWFpxiXOawCJIZAi1/eN
+	rO2IIXIQrzag6fC5MIz1rd7CCZqyzK9d3g8Kx2l+HyR6qkNWXP+ci1Ot5R+71WVZpZrUO5LHLHP
+	MDpkm9lC
 X-Google-Smtp-Source: 
- AGHT+IGFg61AhXK6q2yCp479aYEgRKUVM1++05q63Nd9oxa57q0bisHWfgqRash6JB5OY1cEW+iywA==
-X-Received: by 2002:a05:6402:4005:b0:5d2:7270:6125 with SMTP id
- 4fb4d7f45d1cf-5d3be6889e3mr17256633a12.8.1733850607270;
-        Tue, 10 Dec 2024 09:10:07 -0800 (PST)
+ AGHT+IFmnNKXXAN067E1UbwhBJfMpK5O10AWTX9+hlwh80SSPAEOWU+7C2pI3MGNxXbuHtb4mGyh4w==
+X-Received: by 2002:a05:6402:1ed6:b0:5d1:3da:e6c with SMTP id
+ 4fb4d7f45d1cf-5d41853e70cmr5928380a12.10.1733850609561;
+        Tue, 10 Dec 2024 09:10:09 -0800 (PST)
 Received: from claudiu-X670E-Pro-RS.. ([82.78.167.161])
         by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d3e7936581sm4853124a12.56.2024.12.10.09.10.05
+ 4fb4d7f45d1cf-5d3e7936581sm4853124a12.56.2024.12.10.09.10.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Dec 2024 09:10:06 -0800 (PST)
+        Tue, 10 Dec 2024 09:10:09 -0800 (PST)
 From: Claudiu <claudiu.beznea@tuxon.dev>
 X-Google-Original-From: Claudiu <claudiu.beznea.uj@bp.renesas.com>
 To: geert+renesas@glider.be,
@@ -113,11 +113,12 @@ Cc: claudiu.beznea@tuxon.dev,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: [PATCH v4 01/24] clk: versaclock3: Prepare for the addition of
- 5L35023 device
-Date: Tue, 10 Dec 2024 19:09:30 +0200
-Message-Id: <20241210170953.2936724-2-claudiu.beznea.uj@bp.renesas.com>
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v4 02/24] dt-bindings: clock: versaclock3: Document 5L35023
+ Versa3 clock generator
+Date: Tue, 10 Dec 2024 19:09:31 +0200
+Message-Id: <20241210170953.2936724-3-claudiu.beznea.uj@bp.renesas.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20241210170953.2936724-1-claudiu.beznea.uj@bp.renesas.com>
 References: <20241210170953.2936724-1-claudiu.beznea.uj@bp.renesas.com>
@@ -129,15 +130,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: GGM4MVGXVHQ7E2JNAINAKQXCN5AGHFVV
-X-Message-ID-Hash: GGM4MVGXVHQ7E2JNAINAKQXCN5AGHFVV
-X-Mailman-Approved-At: Wed, 11 Dec 2024 11:27:06 +0000
+Message-ID-Hash: T7RNLITIGBTJH6PAKU5RADW75VFZT4Z5
+X-Message-ID-Hash: T7RNLITIGBTJH6PAKU5RADW75VFZT4Z5
+X-Mailman-Approved-At: Wed, 11 Dec 2024 11:27:07 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGM4MVGXVHQ7E2JNAINAKQXCN5AGHFVV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T7RNLITIGBTJH6PAKU5RADW75VFZT4Z5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -148,187 +149,41 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-The 5P35023 and 5L35035 Versa 3 clock generator variants are different but
-the versaclock3 driver could be used with small adjustments. The features
-that are implemented in driver and differs b/w variants are the PLL2 Fvco
-and clock sel bit for SE2 clock. Adjust the driver to prepare for the
-addition of 5L35023 device.
+There are some differences b/w 5L35023 and 5P35023 Versa3 clock
+generator variants but the same driver could be used with minimal
+adjustments. The identified differences are PLL2 Fvco, the clock sel
+bit for SE2 clock and different default values for some registers.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 ---
 
 Changes in v4:
-- none
+- collected tags
 
 Changes in v3:
 - collected tags
 
 Changes in v2:
-- none
+- collected tags
 
- drivers/clk/clk-versaclock3.c | 61 ++++++++++++++++++++++++-----------
- 1 file changed, 43 insertions(+), 18 deletions(-)
+ Documentation/devicetree/bindings/clock/renesas,5p35023.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clk/clk-versaclock3.c b/drivers/clk/clk-versaclock3.c
-index 76d7ea1964c3..1398d16df5d0 100644
---- a/drivers/clk/clk-versaclock3.c
-+++ b/drivers/clk/clk-versaclock3.c
-@@ -78,9 +78,6 @@
- #define VC3_PLL1_VCO_MIN		300000000UL
- #define VC3_PLL1_VCO_MAX		600000000UL
+diff --git a/Documentation/devicetree/bindings/clock/renesas,5p35023.yaml b/Documentation/devicetree/bindings/clock/renesas,5p35023.yaml
+index 42b6f80613f3..162d38035188 100644
+--- a/Documentation/devicetree/bindings/clock/renesas,5p35023.yaml
++++ b/Documentation/devicetree/bindings/clock/renesas,5p35023.yaml
+@@ -31,6 +31,7 @@ description: |
+ properties:
+   compatible:
+     enum:
++      - renesas,5l35023
+       - renesas,5p35023
  
--#define VC3_PLL2_VCO_MIN		400000000UL
--#define VC3_PLL2_VCO_MAX		1200000000UL
--
- #define VC3_PLL3_VCO_MIN		300000000UL
- #define VC3_PLL3_VCO_MAX		800000000UL
- 
-@@ -147,9 +144,13 @@ struct vc3_pfd_data {
- 	u8 mdiv2_bitmsk;
- };
- 
-+struct vc3_vco {
-+	unsigned long min;
-+	unsigned long max;
-+};
-+
- struct vc3_pll_data {
--	unsigned long vco_min;
--	unsigned long vco_max;
-+	struct vc3_vco vco;
- 	u8 num;
- 	u8 int_div_msb_offs;
- 	u8 int_div_lsb_offs;
-@@ -166,12 +167,17 @@ struct vc3_div_data {
- struct vc3_hw_data {
- 	struct clk_hw hw;
- 	struct regmap *regmap;
--	const void *data;
-+	void *data;
- 
- 	u32 div_int;
- 	u32 div_frc;
- };
- 
-+struct vc3_hw_cfg {
-+	struct vc3_vco pll2_vco;
-+	u32 se2_clk_sel_msk;
-+};
-+
- static const struct clk_div_table div1_divs[] = {
- 	{ .val = 0, .div = 1, }, { .val = 1, .div = 4, },
- 	{ .val = 2, .div = 5, }, { .val = 3, .div = 6, },
-@@ -386,10 +392,10 @@ static long vc3_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 	const struct vc3_pll_data *pll = vc3->data;
- 	u64 div_frc;
- 
--	if (rate < pll->vco_min)
--		rate = pll->vco_min;
--	if (rate > pll->vco_max)
--		rate = pll->vco_max;
-+	if (rate < pll->vco.min)
-+		rate = pll->vco.min;
-+	if (rate > pll->vco.max)
-+		rate = pll->vco.max;
- 
- 	vc3->div_int = rate / *parent_rate;
- 
-@@ -680,8 +686,10 @@ static struct vc3_hw_data clk_pll[] = {
- 			.num = VC3_PLL1,
- 			.int_div_msb_offs = VC3_PLL1_LOOP_FILTER_N_DIV_MSB,
- 			.int_div_lsb_offs = VC3_PLL1_VCO_N_DIVIDER,
--			.vco_min = VC3_PLL1_VCO_MIN,
--			.vco_max = VC3_PLL1_VCO_MAX
-+			.vco = {
-+				.min = VC3_PLL1_VCO_MIN,
-+				.max = VC3_PLL1_VCO_MAX
-+			}
- 		},
- 		.hw.init = &(struct clk_init_data) {
- 			.name = "pll1",
-@@ -698,8 +706,6 @@ static struct vc3_hw_data clk_pll[] = {
- 			.num = VC3_PLL2,
- 			.int_div_msb_offs = VC3_PLL2_FB_INT_DIV_MSB,
- 			.int_div_lsb_offs = VC3_PLL2_FB_INT_DIV_LSB,
--			.vco_min = VC3_PLL2_VCO_MIN,
--			.vco_max = VC3_PLL2_VCO_MAX
- 		},
- 		.hw.init = &(struct clk_init_data) {
- 			.name = "pll2",
-@@ -716,8 +722,10 @@ static struct vc3_hw_data clk_pll[] = {
- 			.num = VC3_PLL3,
- 			.int_div_msb_offs = VC3_PLL3_LOOP_FILTER_N_DIV_MSB,
- 			.int_div_lsb_offs = VC3_PLL3_N_DIVIDER,
--			.vco_min = VC3_PLL3_VCO_MIN,
--			.vco_max = VC3_PLL3_VCO_MAX
-+			.vco = {
-+				.min = VC3_PLL3_VCO_MIN,
-+				.max = VC3_PLL3_VCO_MAX
-+			}
- 		},
- 		.hw.init = &(struct clk_init_data) {
- 			.name = "pll3",
-@@ -901,7 +909,6 @@ static struct vc3_hw_data clk_mux[] = {
- 	[VC3_SE2_MUX] = {
- 		.data = &(struct vc3_clk_data) {
- 			.offs = VC3_SE2_CTRL_REG0,
--			.bitmsk = VC3_SE2_CTRL_REG0_SE2_CLK_SEL
- 		},
- 		.hw.init = &(struct clk_init_data) {
- 			.name = "se2_mux",
-@@ -982,6 +989,7 @@ static int vc3_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
- 	u8 settings[NUM_CONFIG_REGISTERS];
-+	const struct vc3_hw_cfg *data;
- 	struct regmap *regmap;
- 	const char *name;
- 	int ret, i;
-@@ -1029,9 +1037,16 @@ static int vc3_probe(struct i2c_client *client)
- 					     clk_pfd[i].hw.init->name);
- 	}
- 
-+	data = i2c_get_match_data(client);
-+
- 	/* Register pll's */
- 	for (i = 0; i < ARRAY_SIZE(clk_pll); i++) {
- 		clk_pll[i].regmap = regmap;
-+		if (i == VC3_PLL2) {
-+			struct vc3_pll_data *pll_data = clk_pll[i].data;
-+
-+			pll_data->vco = data->pll2_vco;
-+		}
- 		ret = devm_clk_hw_register(dev, &clk_pll[i].hw);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "%s failed\n",
-@@ -1059,6 +1074,11 @@ static int vc3_probe(struct i2c_client *client)
- 	/* Register clk muxes */
- 	for (i = 0; i < ARRAY_SIZE(clk_mux); i++) {
- 		clk_mux[i].regmap = regmap;
-+		if (i == VC3_SE2_MUX) {
-+			struct vc3_clk_data *clk_data = clk_mux[i].data;
-+
-+			clk_data->bitmsk = data->se2_clk_sel_msk;
-+		}
- 		ret = devm_clk_hw_register(dev, &clk_mux[i].hw);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "%s failed\n",
-@@ -1108,8 +1128,13 @@ static int vc3_probe(struct i2c_client *client)
- 	return ret;
- }
- 
-+static const struct vc3_hw_cfg vc3_5p = {
-+	.pll2_vco = { .min = 400000000UL, .max = 1200000000UL },
-+	.se2_clk_sel_msk = BIT(6),
-+};
-+
- static const struct of_device_id dev_ids[] = {
--	{ .compatible = "renesas,5p35023" },
-+	{ .compatible = "renesas,5p35023", .data = &vc3_5p },
- 	{ /* Sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, dev_ids);
+   reg:
 -- 
 2.39.2
 

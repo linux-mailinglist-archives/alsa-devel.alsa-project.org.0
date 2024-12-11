@@ -2,98 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCE7F9ECB53
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 12:35:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B499ECB54
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2024 12:35:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E4AF2C2D;
-	Wed, 11 Dec 2024 12:34:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E4AF2C2D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E0E82C20;
+	Wed, 11 Dec 2024 12:35:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E0E82C20
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1733916905;
-	bh=Gri998DLOiEDYK4hbdpUrZQng2GZm/AcgRTGKsy0hgU=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LjTO54ep6Qfsnns36oMSUeSdNzWeL4GwnpaOnz5hOFYTRJlMBqd5/tGYEp2g3d7yF
-	 2eTsHYVyCXMg6EP1PjnnfN8RMQL09L6oG78PreodmKU6qoEQwNkNjzcQ85pflhVSp7
-	 5QaGssOKVZlVt6RaohbD7WmGqK+6ysCvydXTjgO8=
+	s=default; t=1733916919;
+	bh=8ubElFPwjHycNjFrW9z0XYAiigHs4ZcryCq1r3llRow=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=GhZpqxt1diOgwINr4kin9fEJyfjfmzwKjA5ZvzRaWEUk9MPLhhnPpZ4s7cRA+55f6
+	 6cQaIMoUmrLiBuTvykgq1ZKhamFUIR4C0VaMDYp5fQqOQM4jjHdkpG1IPuD+xoj3Cy
+	 O5jkt3XCfyuoMiNW4lelT5yWpQTwoW1YOI82gq9w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8548F80635; Wed, 11 Dec 2024 12:28:40 +0100 (CET)
+	id 5C87EF805C1; Wed, 11 Dec 2024 12:33:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7705AF897B1;
-	Wed, 11 Dec 2024 12:28:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CA44F805C4;
+	Wed, 11 Dec 2024 12:33:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2804F80617; Wed, 11 Dec 2024 12:28:31 +0100 (CET)
+	id F1C34F80533; Wed, 11 Dec 2024 12:33:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_40,DKIM_SIGNED,
-	DKIM_VALID,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4D9CBF80616
-	for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2024 12:28:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D9CBF80616
+	by alsa1.perex.cz (Postfix) with ESMTPS id 20E47F8016C
+	for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2024 12:33:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20E47F8016C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=fireburn-co-uk.20230601.gappssmtp.com
- header.i=@fireburn-co-uk.20230601.gappssmtp.com header.a=rsa-sha256
- header.s=20230601 header.b=zYys6uHD
-Received: by mail-io1-xd33.google.com with SMTP id
- ca18e2360f4ac-844ce6d0716so43148039f.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 11 Dec 2024 03:28:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20230601.gappssmtp.com; s=20230601; t=1733916506;
- x=1734521306; darn=alsa-project.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Gri998DLOiEDYK4hbdpUrZQng2GZm/AcgRTGKsy0hgU=;
-        b=zYys6uHDj8LyQnYqPGbBvob9N2UTy3bvtbCNgNffJSvVQvIWapbBeou7jomIIfBdiO
-         ZWi92eFbBOFxlyKxcPWinq+pUvVeb8ZXoNVFji/J6nJxkkYnKkBEf11HvfS/SbA7x9BQ
-         iaaVx+ToCtx5g75ibC4iJRvowLL0untGr9bER+JoYuKlrZ6SAM9PTPVGNkt+5vHlGfx6
-         tRUni4BWvao2aTDa8an7FyE8hmhfXM5SZL9QbsV8MJhnPh8gys200cNZHQc6FllcWj00
-         G0BLnKL9TB2/oNPtEpBAqvmkGLs0VpEzFYtI9zcy6VrVg3BsI6Z5UuECoxtcxz2zRilm
-         AvWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733916506; x=1734521306;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Gri998DLOiEDYK4hbdpUrZQng2GZm/AcgRTGKsy0hgU=;
-        b=K9LZfO2gzyv1rM5TuPoE7bqqEl2PlgSe7iwP9dF60FsFnX2FPtvTEEnz9Lue8CYwfh
-         cDSD3FsKMT75hW2uyjxPHiRX6ULOyk/AOo6xGYyR85+VYx+f405j5noUegGcieBvT4kY
-         6r+p9lCWAdxIrgaDKdihelQ/8aOD0aFH3cKD3JXS/VgF8WZsV+WRSq0mJAZrRJVbU/Yd
-         JUH8mrshOWwW/Y8pOJqauXSEuHcKwbchHE4cWOC03/vLxIRyWeIt+PXIWs1CxP+rKZNc
-         eOdcWJQtbZsQXBFXnU8bDS03othUOX9deAkIeQNlDel5BuwCFr8DNLB5LuiOaUXsyYdh
-         uJHg==
-X-Gm-Message-State: AOJu0YzFAi9hsGgNm+8h1WQG7N4FpUZebAgcBCHA7DTsGpoR/zUwVcDU
-	FKv2RkdrstqI6LR1ma6TsQqsl9/gOtmStz/2LidFDSc44wvt/8AoEmBHn2sdUdRNg0nrmMzP0MY
-	YYaSc1F+8G3oUi2iHMt2CmFHpGZ4KjlN5mwsfvX6f40EYLd62FK4S
-X-Gm-Gg: ASbGnctGA0rC0AyZdYADh0n+RGAkuhVhaKmV3UNP5Wp8kKgQJ3pn9CM2qnlZQx5fmzx
-	Nil4JoixeBQJrqwXtYeyEAVfcTAxwqOKwUTN38efvzmsCZGpdJTqWSOQL/iwT7Lo5hZ4oPg==
-X-Google-Smtp-Source: 
- AGHT+IGuULJtPxz5QYZMZX6hwgzdsEZpoUVDw6eBwgz/oyGbpW2xSkim8XZFkyP5S3F51bVfSW6pnozif+uCVPlwDjc=
-X-Received: by 2002:a05:6a20:a11b:b0:1e1:bf3d:a18a with SMTP id
- adf61e73a8af0-1e1c138ab36mr4843973637.32.1733913320318; Wed, 11 Dec 2024
- 02:35:20 -0800 (PST)
-MIME-Version: 1.0
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Wed, 11 Dec 2024 10:35:09 +0000
-Message-ID: 
- <CAHbf0-HuzfubZiLBsPhc24HrmS54sAsoDd_DVHPj+nTFqtuFAQ@mail.gmail.com>
-Subject: Re: [PATCH v2 30/37] ALSA: seq: Automatic conversion of UMP events
-To: tiwai@suse.de
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=kweNVhfr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=wCHSz1pl;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=kweNVhfr;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=wCHSz1pl
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D63C721114;
+	Wed, 11 Dec 2024 10:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1733914533;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DFHwJAzUaJg9vLlBzM9HuaXQrGkjzqZF6G6iw21/CnM=;
+	b=kweNVhfrz1/Xz5hwZz84ok40l/5GrD4eLrgEHYGVAueVt41yly1P0/Q8ZjCQYklWuaZNx2
+	1omDjHGLTOgIrlNWy4A7vQUVn5RYnsk8xOjUXxedNJprz69VYs2Wno70FmC7Fz69JiOP3a
+	On4weW7CYHv3law4xPc3AcLUqdwjj94=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1733914533;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DFHwJAzUaJg9vLlBzM9HuaXQrGkjzqZF6G6iw21/CnM=;
+	b=wCHSz1plVREcbIMmYJ5rc8+Iz0scQ4QlUmwfPwqfZSBcw400PLoljvnEV+oFRnr5XWFQmB
+	Aq/JqIb2Lq0sNyCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1733914533;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DFHwJAzUaJg9vLlBzM9HuaXQrGkjzqZF6G6iw21/CnM=;
+	b=kweNVhfrz1/Xz5hwZz84ok40l/5GrD4eLrgEHYGVAueVt41yly1P0/Q8ZjCQYklWuaZNx2
+	1omDjHGLTOgIrlNWy4A7vQUVn5RYnsk8xOjUXxedNJprz69VYs2Wno70FmC7Fz69JiOP3a
+	On4weW7CYHv3law4xPc3AcLUqdwjj94=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1733914533;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DFHwJAzUaJg9vLlBzM9HuaXQrGkjzqZF6G6iw21/CnM=;
+	b=wCHSz1plVREcbIMmYJ5rc8+Iz0scQ4QlUmwfPwqfZSBcw400PLoljvnEV+oFRnr5XWFQmB
+	Aq/JqIb2Lq0sNyCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B5BB31344A;
+	Wed, 11 Dec 2024 10:55:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HN0nK6VvWWdiZgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 11 Dec 2024 10:55:33 +0000
+Date: Wed, 11 Dec 2024 11:55:33 +0100
+Message-ID: <87frmu32vu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mike Lothian <mike@fireburn.co.uk>
 Cc: alsa-devel@alsa-project.org,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: XVU24OI65X2SGZNI2WF73NCADA3W65XB
-X-Message-ID-Hash: XVU24OI65X2SGZNI2WF73NCADA3W65XB
-X-MailFrom: mike@fireburn.co.uk
+Subject: Re: [PATCH v2 30/37] ALSA: seq: Automatic conversion of UMP events
+In-Reply-To: 
+ <CAHbf0-HuzfubZiLBsPhc24HrmS54sAsoDd_DVHPj+nTFqtuFAQ@mail.gmail.com>
+References: 
+ <CAHbf0-HuzfubZiLBsPhc24HrmS54sAsoDd_DVHPj+nTFqtuFAQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_THREE(0.00)[3]
+Message-ID-Hash: YUN3S6TYHUVWNS5Q77R2TXFS4MOOKQ24
+X-Message-ID-Hash: YUN3S6TYHUVWNS5Q77R2TXFS4MOOKQ24
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XVU24OI65X2SGZNI2WF73NCADA3W65XB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YUN3S6TYHUVWNS5Q77R2TXFS4MOOKQ24/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,16 +162,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi
+On Wed, 11 Dec 2024 11:35:09 +0100,
+Mike Lothian wrote:
+> 
+> Hi
+> 
+> I'm not sure when this first appeared but I see the following when
+> compiling/linking with Clang 19.1.5
+> 
+> vmlinux.o: warning: objtool: cc_ev_to_ump_midi2+0x5a5: return with
+> modified stack frame
 
-I'm not sure when this first appeared but I see the following when
-compiling/linking with Clang 19.1.5
+Could you figure out which line corresponds to this?
 
-vmlinux.o: warning: objtool: cc_ev_to_ump_midi2+0x5a5: return with
-modified stack frame
 
-This is the only commit I can see that has cc_ev_to_ump_midi2 in it
+thanks,
 
-Cheers
-
-Mike
+Takashi

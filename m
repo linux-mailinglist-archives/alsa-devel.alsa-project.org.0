@@ -2,102 +2,170 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 533459EDD58
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2024 03:08:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8392C9EE07E
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2024 08:46:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E09DA3C1;
-	Thu, 12 Dec 2024 03:08:02 +0100 (CET)
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FADB402;
+	Thu, 12 Dec 2024 08:46:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7715F805B1; Thu, 12 Dec 2024 03:07:34 +0100 (CET)
+	id 07583F805C5; Thu, 12 Dec 2024 08:46:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0F5DF805C0;
-	Thu, 12 Dec 2024 03:07:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9676FF805AD;
+	Thu, 12 Dec 2024 08:46:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5DBBF802BE; Thu, 12 Dec 2024 03:07:22 +0100 (CET)
+	id D4DF2F8032D; Thu, 12 Dec 2024 08:45:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,T_SPF_PERMERROR,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20623.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2614::623])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A011BF80254
-	for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2024 03:07:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A011BF80254
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B87CF8012B
+	for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2024 08:45:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B87CF8012B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=QVyrQvId
-Received: by mail-il1-x136.google.com with SMTP id
- e9e14a558f8ab-3a78b39034dso439595ab.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 11 Dec 2024 18:07:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1733969237; x=1734574037;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zsEQWcKkwE2tUR4EtqQ/7dt4QrY1pJqjE2F4WHaD4wk=;
-        b=QVyrQvIdHCMRkq2GlEpaw/GSWwHhXGqpRf3RS2spTrhPVb9K3de5xeoagsotr/qFzt
-         MDjcRt6tVYD8um0gqBdOSvK9oH3lzFzGop3fiD/IQv/dpXXokUTwGVtBCQxlyI1rCaNl
-         vdhyx8Li8M88SGQz1u0JrsOjj/S7zpZfdEwG7YChinU4VNuuFJAuLmaCRRVuz3PxxD2Z
-         QoKBIugPlWmQZSdNF8AsCxvFmad4vFkw+eaEYGCT9pWw9pANWmDWNpr+y0YBTBqDMbli
-         ejEKAFZEswHFqrYIbywY95M+/RcFOfE/QfKqLU0pKi7Rk6U5nd+vQr9S2QGVUX4lQ06a
-         b/dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1733969237; x=1734574037;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zsEQWcKkwE2tUR4EtqQ/7dt4QrY1pJqjE2F4WHaD4wk=;
-        b=uJae+HRe3/m0aoy7RbxV3o7MYLNBur23Y0GJThWClZuwcKh97uIfCe9juvSJdWUvFt
-         XqMzzMpSgM5S3cQH8k+NfJXIsN81tcZ/3zCVtAvvLR/FY8V3BCnI+mE3/gWCr6I4JM3A
-         0B4N5hwChi6O6LTR49z1+YFCfwwoiXceDgyzzydkKhH0q/f1ifFM25YXcC9vAuRQyH/N
-         TQTB50qjrzQ96pbYux1IZnfNKi6oiM3NrzlmmtcFKzNwkw/K0xedBfs2ZkndhB9A/DkR
-         X8HRfViPsK2X/PKRnNEKRx1B5JCDABf50zbsji0n2r9+3w5sMuN0JTOwAaGmaf9wrPFH
-         4kkA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzJYpuZy6r5tGnu/Y3HaSGggoHDzyiNPvNF8CBJpqp2ixqcxb4OaBgduEBJCenEuywCUybRkvnP6UT@alsa-project.org
-X-Gm-Message-State: AOJu0YxIhWCiyYnA67MTKDf+MB2xagQ/lCjSI97xfgQeVnEMXwrYiC6k
-	+aEW7ysXT2YAh5R5+6lotHXo4TnFQ5ApSotN9rkWt795lhbrDDwQ2rIW96kPDYsmFpCigPUiiGq
-	qEkwukGe5V0m553ApVPHLybxc8vU=
-X-Gm-Gg: ASbGnctuDexBoV5snyeyvgWLUg9WJfEcAahbouII9T8TmPQfLL1kFZH7W1+fOAxR0wB
-	e3LVkEnmVL8eRZl3BHB+9qdhBaPGV4ChtZjcflQ==
-X-Google-Smtp-Source: 
- AGHT+IFgbF3rpxFbC9uUWYHJ8NsiDEgvcpbD8m2ahheY6thhWrFNrML3gGOs0Uohbe0DWv40CeetB1K5Pc+PD5GSQGg=
-X-Received: by 2002:a05:6e02:1b05:b0:3a7:fe47:6228 with SMTP id
- e9e14a558f8ab-3ac483ff34emr18454135ab.6.1733969237518; Wed, 11 Dec 2024
- 18:07:17 -0800 (PST)
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector1 header.b=elOnmmMW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yHSTHd+iWNx7+p+Wy4xe/H1Qz4uwHY++B3JsuaOEl7LaUFsLDqOorW7fXGeRueY/osljeN16XjWbn5Gy85T52v/V6wkaoP+cu9pf3uqqVJa+9b7JEbkZAUgRhToo8ZZQQrsfykX5aNJ6p51MjEr0kgShybww3sns9TdSL0bFtk5yPXTaHWazmZ29/ZM05Iqxjf5l1h+XuU8GeQeqhNnAzKeviFRe97UzWpPhtY5Cpj8Yl9f97BXEI6GfK62hl2hexK/hDUahYJkNhoAyID3FyuoQSpoFqYmPCU4NBhbYhUcvAlwlXOy9V9yQdGvh3IwwucA4/0/Rrvq6slOfWQj6Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OaLHwnsqbGGf7kfT1yW2Q1i3/G+7bXgxqMvN1OgxehU=;
+ b=Tfnl2WkdoxkKYrP0sZtTbvggI6Zuthn+DwZG3gVNnCrBuR+wufLJEOLj7wS/KSHVThmTw+DByk19zcBxHc8CNrJfYfmzxQ77b2YXyX5NqZgSLRjEk5mJL16jCxQW/7cYekcTZTmIRKnSLM59S4k6U5d5wk8kuHleh7RdrUHHBr7IxLJFvfaRdeFzJcQnXKnsPqDmUNsoDq15e/j1MNYZ1hNbw3OZz9W4I2l+aX+xLItf7jBQYzmiIRY9TBmobfgx8C33uggkUjdQN33k1duiRbWPsp74X1+1HYZdoS4KmtTxEd16MNb67xfU2rtW2/ftwh67xrwyoqpMrxLcnWPBLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OaLHwnsqbGGf7kfT1yW2Q1i3/G+7bXgxqMvN1OgxehU=;
+ b=elOnmmMWcBaG58cNpOF1e0R3iLbWKHgdBmSq5Gz9g/CuXR+8WV2QkoLBl2pJJM6dhCe01UMgZGBUNhzp3JJkLGq5DrstRDcmusTBBIWWNofmRxv6TzBGhwIFDT4lA9jJocWxD2JNUSx8kFGrGMoD/pfeRQfdCiM0+QU9ujQRZMadZjh/13Fx5hHgl9ul7Otjlzu8eO9LYDfJDH+/dem61n5XE1F52pW21W+PeXewhy806fJcqVVfbJyvAonOXrdhGqI1ZahU1IFHpfZ+prQh8Bf5VTkrTYFWy001jdtOK0hcs7/oC3tafAvzepOyDPkTDNVRFSJgruTf8IDuLPgDLA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI1PR04MB7055.eurprd04.prod.outlook.com (2603:10a6:800:123::21)
+ by DBAPR04MB7256.eurprd04.prod.outlook.com (2603:10a6:10:1a3::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.16; Thu, 12 Dec
+ 2024 07:45:44 +0000
+Received: from VI1PR04MB7055.eurprd04.prod.outlook.com
+ ([fe80::d6ab:1538:d868:bf8]) by VI1PR04MB7055.eurprd04.prod.outlook.com
+ ([fe80::d6ab:1538:d868:bf8%7]) with mapi id 15.20.8251.008; Thu, 12 Dec 2024
+ 07:45:44 +0000
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: vkoul@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH v7 0/6] ASoC: fsl: add memory to memory function for ASRC
+Date: Thu, 12 Dec 2024 15:45:03 +0800
+Message-Id: <20241212074509.3445859-1-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.37.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0053.apcprd02.prod.outlook.com
+ (2603:1096:4:196::16) To VI1PR04MB7055.eurprd04.prod.outlook.com
+ (2603:10a6:800:123::21)
 MIME-Version: 1.0
-References: <20241211030849.1834450-1-shengjiu.wang@nxp.com>
- <20241211030849.1834450-5-shengjiu.wang@nxp.com>
- <dc52c945-b292-4cd8-97ae-369a45f5a4ad@sirena.org.uk>
-In-Reply-To: <dc52c945-b292-4cd8-97ae-369a45f5a4ad@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 12 Dec 2024 10:07:04 +0800
-Message-ID: 
- <CAA+D8ANG6enRKp7msjBs3Hxn8QozjT2tEvAmHDZjO7xtQYB4Jw@mail.gmail.com>
-Subject: Re: [PATCH v6 4/6] ASoC: fsl_asrc_m2m: Add memory to memory function
-To: Mark Brown <broonie@kernel.org>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, perex@perex.cz,
- tiwai@suse.com,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: RVWPHDHFRQJECW3Y5FMZR2YEHUTISWII
-X-Message-ID-Hash: RVWPHDHFRQJECW3Y5FMZR2YEHUTISWII
-X-MailFrom: shengjiu.wang@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7055:EE_|DBAPR04MB7256:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fcfd71c-a9ba-4dca-4809-08dd1a80fc11
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|1800799024|376014|52116014|366016|7416014|921020|38350700014;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?KxyJJK4f3sZagRpIfQMbCsS3NY/mhT11h+NW28H1jLxbwoIi6voXgqjBV1CA?=
+ =?us-ascii?Q?sehVox/DG9kbSNP4aNFwS2NtFW2wbTWpNBVMgAf4w2XHF1naRKIOXW9EyUc1?=
+ =?us-ascii?Q?gSHV/JYZ0VqgcPuFXqXbiq9+J96Ed6895dQQ7Id30EtR1RNfuEzSjoBqSKP6?=
+ =?us-ascii?Q?bJuYLif41tpdtCbaQiLwY1YrJgVnkIKOuSt8aUkrD2k0xZR1oV+dnx0eWaGJ?=
+ =?us-ascii?Q?9U5VlGBmY4nCToMqzRcGNdgKMA/aLo9vr1PShoy5S2XJHXJDexe1g0CHDGZZ?=
+ =?us-ascii?Q?g4NE5NnjebRvJKwdYXPAG5yi8mUU7m8M2caFS/GVQy7uEe6u5U7M4EA7SWhG?=
+ =?us-ascii?Q?Mj6t5jFyT1Dt0lvSRqFYrMEUOoz47fT8e/sQPNdChEGetgu0/UZ4PexWiWCv?=
+ =?us-ascii?Q?iflYrHs/+W161ImdBqzTXxGY4UfX+9GWp5yEU829pp0bIxJhxsJOScAHZz5E?=
+ =?us-ascii?Q?avFPUKVGPl8sv0mBIxOrKb+D/U9HoOph5qu4Rf3AuN2D1QO830R8KWY8iKp5?=
+ =?us-ascii?Q?pQ1sCr8oxR2YKNHkHW1Vdk0rU8shG6SC3QW9QJHeFVzqlAHbmWPhJRu0jzfc?=
+ =?us-ascii?Q?gu1CxnRFSP2BH9c7Fs5v4gKdQOfX1NkNTcQlkAmJyMRTmXzHblAsr17LZEYQ?=
+ =?us-ascii?Q?rDDDAgptRVJf24Z4fd63u9849y38ZdOYoD6nRyjWVbALUJNoYCHMMa4CLqwD?=
+ =?us-ascii?Q?1ohLxKKkDjajJ3OhzMHVujMW02b+cVNqrPcqJH9zW1pg/vp7dAp37XYan2A2?=
+ =?us-ascii?Q?TpPjky+4TJV7tWGaZq2wHEIvRS3UtfoURjIm8umEKqmLi6MkrAAFCgKN1eGm?=
+ =?us-ascii?Q?wQUxsV7GGrurEfbhUoKvjnZpW7NTN1fgYf7zMIQtPwKLJhhkLleroIsvl0jS?=
+ =?us-ascii?Q?ky+16fKzkB4W7p7DGm54Z7DHhV/USVgLkZydCkY9EkIVjsvrYeRxX17/kTS8?=
+ =?us-ascii?Q?+9F8Zufok9OuTufjDuQyPqoNfCQFQujwj8VYlq4Z2xHCWJNBPcVYWAfpUv6m?=
+ =?us-ascii?Q?f4imVYADIlegQDJGNfPquW6WzOvXNFARe450gSt852ELOBGI9B6GOfSx1YOj?=
+ =?us-ascii?Q?LDFTixmv0auMbX6Cv7Fn4AJJ7+f0fLo4b0UB6yNSDAmq4DTAyfR3SOZ4TaYo?=
+ =?us-ascii?Q?wdqCMUlHq5WxOZZayBZh5hIZKzDM/7+Zpt0VzEf89XBcBqKgDEd4YOtioqVa?=
+ =?us-ascii?Q?fTC3bA9bTdXYmwhFgsOCYWmFQmz9ZITOeAcqvOh1RZWZjT1uhQg8+pL3RteD?=
+ =?us-ascii?Q?umWIcp3WfbdB9oiq03/8B2TbkuzjoOpjIXJkNn07EitAAD+f483D15B1DrNd?=
+ =?us-ascii?Q?JGavFamz/bTzHLBPG0RwOwNe1H6fF9NAWnntNPtmQLnujHDSSCAFPAEDHT43?=
+ =?us-ascii?Q?Pa8TEsIGED5wpvOdHySwrXwvnLUhzBVCMfvnF8LhAwPaTt4sf7g1Z0lOF8ik?=
+ =?us-ascii?Q?/gsgz7QRUQo=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB7055.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(52116014)(366016)(7416014)(921020)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?BgRiLjbvGs11phFMdOhvx3ZsjhFWWiHfGE/cmE4aCNyAslpdb2lRZEJO337F?=
+ =?us-ascii?Q?iHLQnqtJxek+K0rTRE8sL0s/griA6aItIHyla7EGBxz1fHKju8+nNcSHgZpG?=
+ =?us-ascii?Q?CdyiN4l0CdvtEO2wsIldJSx8+Ln4iZIV+wX2w1VsgCMv728/Mxi2xqOb2gNi?=
+ =?us-ascii?Q?yKMycdbSG/rAjizkIpGp6kJsR+/JvHL4FkKiaWiQ50AkdGyP24CC+ZyTUkiq?=
+ =?us-ascii?Q?TD+5ZA93ajXJ3f417thOPlpc9rkErTcZDqqRXwGbY0d9BgHj8cIcA1EfnXhB?=
+ =?us-ascii?Q?KOvANBPXzw8Ivpd2EQ4Xl6ohEmU8jHYyEe8N6xMvLvc4SPXeJ23WCp93eWOp?=
+ =?us-ascii?Q?U5muJWQQlS0VV8UipxNzQ6liir/VwGFd8JQ1zpRlX3mtH8VNZ2tLzY8LbJI7?=
+ =?us-ascii?Q?QCwrfEv5ZmBUobbEdQmIl0Tz5O+NsWS5t3ZKRE8QQl3QPFFXxGg2a4zuBqOc?=
+ =?us-ascii?Q?lGzOIoIs4xAefhfpUTgl5UsxEQZztqcMGKm+u0Q4NLqjBxd49PiGI1VhNlu6?=
+ =?us-ascii?Q?TJ8laK6nK0QUHFuQWQu1K6qpga6S9MenPRu3Mq4fVsri7pKgnfgCifvE3ZZW?=
+ =?us-ascii?Q?UL6O+4tEHzQ9THSasVvLP6rB67Q+K+u3EL2OciOxXXSLaDZkMT0YC8y70hns?=
+ =?us-ascii?Q?zV3yPGC3/NLihv8ofFgdigJ8TgW6JKCATuZMlvWZE1/ClGNxuSmO3ZwugcB6?=
+ =?us-ascii?Q?BaD0XvjIkuXRpA8NoFg2FFJCQiENnjQezXw1qVj+w++FGLkAxiz7bJFKXEr0?=
+ =?us-ascii?Q?M69tIfa7MDndb4gv17Cnb/YoUx8Al4IX14CcxFt3makq79YrETbPHUG6oPK3?=
+ =?us-ascii?Q?HOdBGdjj4OWcHBKfYrytxsQG8aerpQnDcPzCxz40MwcbH43Xq/znKV6gTolw?=
+ =?us-ascii?Q?/OLluwvFqMMZLHmNbZokYzjvLyGmj+SRHu9YpIhNCEDWWQ1qeAzSA6laH10G?=
+ =?us-ascii?Q?H8RZ15mnbm5sGn1E7+r5ewegbK3k/ljrFSonaA3zgwB2UddGYvSZwhb/kuaX?=
+ =?us-ascii?Q?vDDbqNY4vIuMTxEBRuou58TSBmBRhG71oCh1ikqRonZjAKhyFQcB0Rqe4kZ+?=
+ =?us-ascii?Q?0pDPQcdIsGHyWYD4usgHiNVTwi8tE1AgkPWW0wSW+EO3GQqrfsZhbuAQaZ7A?=
+ =?us-ascii?Q?3aQHYxUlCePzMdCHvUa/Xmw1jTGAAW010tMAA6xaCfwPQpJ7VbwQaVeRyUBI?=
+ =?us-ascii?Q?MAtQxRvSMHR8X/fUD4zIiPwWvczWp8cZhbifmC+KVllvuTNFndDRVH+9ogAL?=
+ =?us-ascii?Q?7YjkBE9MPpT/jOnbvPBaIe3QppDAdh5De0koaBCVxs7fQTlwJsOLe40ZZPK1?=
+ =?us-ascii?Q?87XL4CrqktzWG071PA3OFfByuIgrI8RA/CZF43O1yFzPte2vG+HSV5XhY44n?=
+ =?us-ascii?Q?9oBepSmmENUIlCeJS6TPWlk3bOAiOf51BLzNl0qxRlqyYabEKYqAywU3cgWs?=
+ =?us-ascii?Q?tTqf8dlSyYhO8ZWr8OsFwvOdvLXK04/VKLHnMZ1QgxpC94vM5cW4IA4KQNL+?=
+ =?us-ascii?Q?akcw43lAFOoMJhkDgXjQ1sDSv0++JtptxTuG1zvh/drIAEj09ANaORdr/+nn?=
+ =?us-ascii?Q?+8M6upKhLJlZ0Jh+8Exgk48iVBdUBxuQ5CZL9Pn5?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 8fcfd71c-a9ba-4dca-4809-08dd1a80fc11
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB7055.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2024 07:45:44.7000
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 1TMk1IQyf4Dt0PIIF+OCCCF1dhdsaMfwxv4IJm1015cSbeyNtJTJlZxNJFPmA4qYxnKgO/feyU4nwHbItZJK0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7256
+Message-ID-Hash: BAQCUG7PIODTVQJAADMHIICZIVYNLWFK
+X-Message-ID-Hash: BAQCUG7PIODTVQJAADMHIICZIVYNLWFK
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +177,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RVWPHDHFRQJECW3Y5FMZR2YEHUTISWII/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BAQCUG7PIODTVQJAADMHIICZIVYNLWFK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,27 +186,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Dec 11, 2024 at 11:28=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
-ote:
->
-> On Wed, Dec 11, 2024 at 11:08:47AM +0800, Shengjiu Wang wrote:
-> > Implement the ASRC memory to memory function using
-> > the compress framework, user can use this function with
-> > compress ioctl interface.
-> >
-> > This feature can be shared by ASRC and EASRC drivers
->
-> This breaks an imx_v6_v7_defconfig build:
->
-> arm-linux-gnueabihf-ld: sound/soc/fsl/fsl_asrc_m2m.o: in function `fsl_as=
-rc_m2m_
-> init':
-> fsl_asrc_m2m.c:(.text+0x7ac): undefined reference to `snd_compress_new'
->
-> Looks like we're missing some select statements.
+This function is base on the accelerator implementation
+for compress API:
+04177158cf98 ("ALSA: compress_offload: introduce accel operation mode")
 
-Thanks for noticing this issue.
-Sorry about that, I will fix it.
+Audio signal processing also has the requirement for memory to
+memory similar as Video.
 
-Best regards
-Shengjiu Wang
+This asrc memory to memory (memory ->asrc->memory) case is a non
+real time use case.
+
+User fills the input buffer to the asrc module, after conversion, then asrc
+sends back the output buffer to user. So it is not a traditional ALSA playback
+and capture case.
+
+Because we had implemented the "memory -> asrc ->i2s device-> codec"
+use case in ALSA.  Now the "memory->asrc->memory" needs
+to reuse the code in asrc driver, so the patch 1 and patch 2 is for refining
+the code to make it can be shared by the "memory->asrc->memory"
+driver.
+
+Other change is to add memory to memory support for two kinds of i.MX ASRC
+modules.
+
+changes in v7:
+- add 'select SND_COMPRESS_OFFLOAD' for fixing compile issue with
+  imx_v6_v7_defconfig
+
+changes in v6:
+- rebase to latest tree, change to use 'MODULE_IMPORT_NS("DMA_BUF")'
+- Add Acked-by: Vinod Koul for patch 1/6
+
+changes in v5:
+- Drop Jaroslav Kysela's patch as it has been merged.
+- Add Jaroslav Kysela's Acked-by tag, received in v3.
+
+changes in v4:
+- remove the RFC tag, no comments receive in v3
+- Add Jaroslav Kysela's patch in this patch set. because it may be
+  better for reviewing in a full patch set.
+- Fix the list_for_each_entry_reverse to list_for_each_entry_safe_reverse
+- Fix some coding style issues in Jaroslav Kysela's patch
+
+changes in v3:
+- use Jaroslav's suggestion for header file compress_params.h (PATCH 01)
+- remove the ASRC_OUTPUT_FORMAT/ASRC_OUTPUT_RATE definition
+- remove ASRC_RATIO_MOD in this version because it uses .set_metadata()
+  Will wait Jaroslav's update or other better method in the future.
+- Address some comments from Pierre.
+
+changes in v2:
+- Remove the changes in compress API
+- drop the SNDRV_COMPRESS_SRC_RATIO_MOD
+- drop the SND_AUDIOCODEC_SRC and struct snd_dec_src
+- define private metadata key value
+  ASRC_OUTPUT_FORMAT/ASRC_OUTPUT_RATE/ASRC_RATIO_MOD
+
+Shengjiu Wang (6):
+  ALSA: compress: Add output rate and output format support
+  ASoC: fsl_asrc: define functions for memory to memory usage
+  ASoC: fsl_easrc: define functions for memory to memory usage
+  ASoC: fsl_asrc_m2m: Add memory to memory function
+  ASoC: fsl_asrc: register m2m platform device
+  ASoC: fsl_easrc: register m2m platform device
+
+ include/uapi/sound/compress_params.h |  23 +-
+ sound/soc/fsl/Kconfig                |   2 +
+ sound/soc/fsl/Makefile               |   2 +-
+ sound/soc/fsl/fsl_asrc.c             | 179 ++++++-
+ sound/soc/fsl/fsl_asrc.h             |   2 +
+ sound/soc/fsl/fsl_asrc_common.h      |  70 +++
+ sound/soc/fsl/fsl_asrc_m2m.c         | 727 +++++++++++++++++++++++++++
+ sound/soc/fsl/fsl_easrc.c            | 261 +++++++++-
+ sound/soc/fsl/fsl_easrc.h            |   4 +
+ 9 files changed, 1261 insertions(+), 9 deletions(-)
+ create mode 100644 sound/soc/fsl/fsl_asrc_m2m.c
+
+-- 
+2.34.1
+

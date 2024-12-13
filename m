@@ -2,168 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 963909F04AA
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2024 07:12:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E41569F05BA
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2024 08:46:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B76833F;
-	Fri, 13 Dec 2024 07:12:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B76833F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4612334A;
+	Fri, 13 Dec 2024 08:46:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4612334A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1734070365;
-	bh=0BlJ1MLrGAoh+EplO+Qa5A8YtvcQly4RhZfw3jEp4WU=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LFhC2ot2uInkwddLFZ5etQUdP5ZDljv+LKZYS3HgnBlZ13TimhhCnwb6pzcvxPjlm
-	 3Cta6AmhErZPtk7Il6GO6WBWsSy2v8rrMTefO/wMKgUt3smJgjhrjc07OCa+IKIl6r
-	 OR9khUtOzHf6BWUVccqYWNartQPO2zWefQirqo5g=
+	s=default; t=1734076008;
+	bh=rRjQS4jUL/JtWYebcDUqXrzPaB5dEzGbEPQpMDmOxAI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=t+MvRflAko2YtiGnsPVTcyrMHlF34Mjp4riZS1TlouaGH36NFv9v4XUht/yefyNo/
+	 6Bkx7lfEr/KT2GsIvH7Td8PhZW1Zv37Ql9KcjX8FRjLcUfaGx5/cf5hRivw8eWN+aO
+	 PMSNmiLhfN0LpEFd60ZapUDYBlZvOpGzHqxcA13w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3386DF805C0; Fri, 13 Dec 2024 07:12:12 +0100 (CET)
+	id A8970F805C0; Fri, 13 Dec 2024 08:46:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 613D4F805C1;
-	Fri, 13 Dec 2024 07:12:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12F33F805BA;
+	Fri, 13 Dec 2024 08:46:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20B18F80212; Fri, 13 Dec 2024 07:12:03 +0100 (CET)
+	id 48A52F80212; Fri, 13 Dec 2024 08:46:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20618.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::618])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 572B8F80100
-	for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2024 07:11:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 572B8F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id E134DF800EE
+	for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2024 08:46:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E134DF800EE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=0C0rF3iG
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y8AJh8qibnR1GbHOgMC+BOoD2UORgBMdeDoVEeP6MSMJ46EZ2s/4vBaM66ktodSsSSWT/Z64ZDWYEeGfrEsEm7C0mvNhQHV+JWwm/IHCM45X6Lth7FzO5EwYjGCESpu0S9dcA/nyDRezps/jJFPeU58oBWye2EVDM30Uh5Hn3suQ0FaOoncywQe7CF8oDOVDd4lelcSWJPbScp8aAoLrhAbu26igIaz4j8gNyWZaq/xCQSXJg/mIt8kbyBN8GKXHp8SX8pj/6/nYUio1PG0UgEyPhgNKmSfpffM6o2o2QrIkgUCLm+F91l0v+bE8oSLVOKm4NkvC5UuQH95gYH1B9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iojgeCIrd8Fb2m2rXVr3FYC8X3NT3dmkZsZ4UJ67bto=;
- b=S4FjNlJHrJj6cax4mJHYcEEpCGAy7y3rh8W4swMyC85+bYtZtiEbfD7iOcnt31VxfB2s6t0IE9TLC7gcuYWWj9WAw1lIZOyuqNHOCxsMt+uk0u3IOgqETw/tNzDXGhboy6DT381yE21g/14zRqfDKWwAoPyR166YRGheOlM9R1vg1hhJLg1DP0auzZjSlBsCuW42J6WcqT7qSFzjIedcWmRfHDnMiiGkhpH3Rgh5Ha1G2ryAjZ4OjK5puVs5lYVVeR9vA8xFyIqk5Sr3qtfpfUorRm/BpQ6f39p2V7xKYaq+2vClX6iFIpX+pSn7Wsuxo/7JHvt+ebzc4fhnVGRt0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iojgeCIrd8Fb2m2rXVr3FYC8X3NT3dmkZsZ4UJ67bto=;
- b=0C0rF3iGLIV6NY/zDM7kJ5Fb3qvBdf0LGQTqy31oAz+fWDXj0C/IR6sIXWqt+0JSZoglBD3+GqahZC3+djnU+m3INnYfXtk/WF45O2pdLrYpjoS8mfNiXN6GGCvK4MpUb2kJ7OlYUHNATnx0BFIuNeYGXzTH+uiItRQxL9gtMzU=
-Received: from BN9PR03CA0534.namprd03.prod.outlook.com (2603:10b6:408:131::29)
- by MN2PR12MB4061.namprd12.prod.outlook.com (2603:10b6:208:19a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.18; Fri, 13 Dec
- 2024 06:11:53 +0000
-Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
- (2603:10b6:408:131:cafe::23) by BN9PR03CA0534.outlook.office365.com
- (2603:10b6:408:131::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.15 via Frontend Transport; Fri,
- 13 Dec 2024 06:11:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8251.15 via Frontend Transport; Fri, 13 Dec 2024 06:11:52 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
- 2024 00:11:52 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
- 2024 00:11:51 -0600
-Received: from prasad-lnx-mach.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 13 Dec 2024 00:11:47 -0600
-From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <mario.limonciello@amd.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<syed.sabakareem@amd.com>, Venkata Prasad Potturu
-	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Bard Liao
-	<yung-chuan.liao@linux.intel.com>, =?UTF-8?q?P=C3=A9ter=20Ujfalusi?=
-	<peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.dev>, "open list:SOUND - SOC LAYER / DYNAMIC
- AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: amd: ps: Fix for enabling DMIC on acp63 platform via
- _DSD entry
-Date: Fri, 13 Dec 2024 11:41:46 +0530
-Message-ID: <20241213061147.1060451-1-venkataprasad.potturu@amd.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=AL0MLsEr
+Received: by mail-il1-x12b.google.com with SMTP id
+ e9e14a558f8ab-3a8f1c97ef1so4428295ab.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 12 Dec 2024 23:46:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1734075959; x=1734680759;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QYYkz5wo0agid+Six8DIqpuAadZaRu0O1Lrum3LM5+Y=;
+        b=AL0MLsEr8k3vJDWriobJzSWkb1PtsxrYSzZx4jM+7qUa7yX51a//kKDMlhtVWFry2R
+         acLy02O1IfRi+G7pYnubCYJvzBi5Smz7cg51pxMgootsc/cdnZJeZxI2+YjDCs9e2ABa
+         uk+CCEEBzgB7WvHRC20JQzRyxGuSgLyggiTdk/b78s+fYI2bDPYdoh/VWopzzrCFyJLj
+         6+xWmBZqm3qITBBIunUqrqNBQ5ZEsFKXRZjL/hCGhtwwvsWJn7eqdIfzc+v31MslyFiI
+         RlFK7L64bNJLAWVOBRz7AAf9up0YdzmKVmkYjvOUyZMtV9XOpa1lvC38bJgU+uF/yl9o
+         1Eww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1734075959; x=1734680759;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=QYYkz5wo0agid+Six8DIqpuAadZaRu0O1Lrum3LM5+Y=;
+        b=nMCkH6t0DLjcRCtZK4dDCgtGjfRh4t3DbutqN84Q3XUi1v8LzE42VjtS2rCq59QLs/
+         Fp61sWwvPGAJJL8WdU+1TuCgajPORFdH23t+RLmFS49ZyRTvsM4O9gYKcb3EZ6DHhvB2
+         W3MKJFKtqOTRm/UgZirEGynCyL9VQxnIT70Ruo+QtK+DwfHzPlMLs8qoDBmMHGYjFrjE
+         Fia//Ks8+2/DZkYsLx5g4y6euqZYf3cAk+QQzj6FSTTuxhvqZH4nmR8fzBTHP2ocdfeh
+         5JqgrARzC1CHFu+iWw+JOEFRvQVGFDWhODdynV+hqZnP1eJIvtYJxdZ8MCyEcVNswXFA
+         Q6ew==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVMxo3d3cwKlqsZOHuq3gM4M+TjfRTlT7bJhgsxiE8oaymvz16GWBJjOXpKOquF8Wlk0s1OhzpT0nXH@alsa-project.org
+X-Gm-Message-State: AOJu0Yzo3Lf+Xsv60x5/Lb5og+pc/jpui7I6zoMVVTEnwXXYDrVUk2r+
+	U5/yH8kl55+IFqJyVQX8EcbMWBAF1EJEkkI0FiokKLaccp6ZnAwftH7A76Bz5L95Q/flTpQKd05
+	J/ZI0j1FZsyPBfiiDg/yv/HXDyms=
+X-Gm-Gg: ASbGnctcgHePG2ludAHyD1ig6kcQLv7TCssPYunH3PWa5AwNwHFEvYlTJsn5uJfq4bF
+	5v53AblLZAVnMPGDohgyuQXUCVx68uPZluZ/L0w==
+X-Google-Smtp-Source: 
+ AGHT+IEZp59bOt9C+xTIkk05sua6DTUcqnvF1/4kOUynOScRvwUkj4Pb9JtHkrWiwmRLpAQs8Kn/IRepKMWS2L8ZLWk=
+X-Received: by 2002:a05:6e02:168b:b0:3a7:a69c:9692 with SMTP id
+ e9e14a558f8ab-3aff8c91543mr15440795ab.21.1734075958652; Thu, 12 Dec 2024
+ 23:45:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|MN2PR12MB4061:EE_
-X-MS-Office365-Filtering-Correlation-Id: f58d2468-3271-483b-2399-08dd1b3d09dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|7416014|36860700013|376014|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?IQMly5ChsgniHtstsBAnVazIk7GjETsBNvdQXxJwGEv+L/84DLvhcGJ4LfJJ?=
- =?us-ascii?Q?nZab8qBCU7tAfvx5RvcZEt0r/k2hV/R637U+k/3RoOrT6xOHoad3LDYhihLn?=
- =?us-ascii?Q?kLmmpjVIZ8QmR9sBae3dQIZK55re9m3jzVc9dNic7qZAQUXE3a23WOIb+ckD?=
- =?us-ascii?Q?t3hU8XjSFrLmJShCl+ad4TF1xCp6klyNMbKFWJ6dya4Qg97oTfJVlcCqc0RM?=
- =?us-ascii?Q?4hRnJJK/yWftqpLqZpG5TfZ11O3nGDRalzyKEVLd89ybvaVeTBgkHi9YlJMg?=
- =?us-ascii?Q?vKkvFWoCGCpoVdiAqgQ81td9R7y7C4V7e+dvqGY9how/sUdCDm3QgdY6LUVu?=
- =?us-ascii?Q?TZaDrsbKD8uiramb9bmSQ/Qwe/jfgtXgBrv/4Hl3qPARWzViPt/epzl839wO?=
- =?us-ascii?Q?h4EAlgXBpd7LC3pRyb43nlHqSDrsMdrwTApL5hrCfQ76p6thpQvoIc4T5irD?=
- =?us-ascii?Q?OmQvs13FnnalUyITRHr3o/GR2hUnz8SpwX9630ydTfE6RqsWuLOY9bt9ihWw?=
- =?us-ascii?Q?XZEahb9ozVx3JQQ2TmaTK6QJhc/UCkj3bBuwOQ1BfyPqb+zl2yuYAFGh0WGG?=
- =?us-ascii?Q?ieNQcPp3mzw4HEPis/EWAxnzqg0L6ciK8AOq+W+zcDrYY9/RJz7HHaFeFF3m?=
- =?us-ascii?Q?uO62MUC0jIgRfsnqmeEXNftlEuObyPYhfdj2fwgf9YJWv20lKGTHWbIxyVzW?=
- =?us-ascii?Q?9yChA1ACssI/UVuL69tsaoaA97XZ/D9wMFIbxyH2ffCiLEsJBLFifQ5usyi8?=
- =?us-ascii?Q?YD6qWFDpW6ow76N4jcJBXg+ZAHbCyi/rM/z32rsV9bJ0bWMVo3DCLpwYKGQ1?=
- =?us-ascii?Q?j3H+sM0oFmCslyrIr36LbIsm6R5T9VzeOfWe7qQF8ggm8mMESZrwPRyehAvd?=
- =?us-ascii?Q?ZKsTQQViIteyN70885TxrOi1aUPKXNjGlWJ1RUWqBbkXYFWdvvEVuMO/4Kc9?=
- =?us-ascii?Q?ygQaNQ/xp0znNHimpBHZVmaSY83WjD5zeVFS3YKDJkwys4pcy1naN4/pudg1?=
- =?us-ascii?Q?FQwOmpUgCr94Z9Ij6jCi4KlBEESf6IVUKFjk7HzwTVdoFOmpQYW+m+UwtF3C?=
- =?us-ascii?Q?g3GFt/3mLKEEpzuDyOGxTGiWc0c4hIGM5ej0B5yS4Z/2m7stLRsMxEWTqntQ?=
- =?us-ascii?Q?1sHZgzFQiKoKPDfN2AGpsDhV51h3PnX1vGhbeqjMHB99h3kL/WOOlLYb1Eii?=
- =?us-ascii?Q?bXikus1P952qdAuxwQCGYMDAuICHwtjjx3Yhha49haAIF/E2LL5ZS/FBl9sS?=
- =?us-ascii?Q?RDCrOcpak96/8qwLTj4n/I1qXyiJqjYf0ugT0RKY/w/Hq8UC7xslpS1DfNhN?=
- =?us-ascii?Q?A/4IcK73/r57Y5VLdlz1oroxFcy8fzUuEr3CZoYMaz1jLVBflUbO1126JIMT?=
- =?us-ascii?Q?SH7//7m2EV4LHDhxMlxFEZAaB0RHeIZ183+et1A6wIGEqfGDL/HUFAYC1DGK?=
- =?us-ascii?Q?VUAZUzn0h8/mOHsOdGo12avxjy3Mfam0?=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 06:11:52.8074
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- f58d2468-3271-483b-2399-08dd1b3d09dc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	BN2PEPF00004FBD.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4061
-Message-ID-Hash: Y6INX4CA4RY3UJTMPSIBKONU3LI7676E
-X-Message-ID-Hash: Y6INX4CA4RY3UJTMPSIBKONU3LI7676E
-X-MailFrom: venkataprasad.potturu@amd.com
+References: <20241212074509.3445859-1-shengjiu.wang@nxp.com>
+ <20241212074509.3445859-5-shengjiu.wang@nxp.com>
+ <58b4a167-5a13-49b2-9b08-58c3041b772b@sirena.org.uk>
+In-Reply-To: <58b4a167-5a13-49b2-9b08-58c3041b772b@sirena.org.uk>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 13 Dec 2024 15:45:46 +0800
+Message-ID: 
+ <CAA+D8AMKLFJx3Z03rLthaH-7_tAmb8c1c4wCSOee-t5uxZg2oA@mail.gmail.com>
+Subject: Re: [PATCH v7 4/6] ASoC: fsl_asrc_m2m: Add memory to memory function
+To: Mark Brown <broonie@kernel.org>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, perex@perex.cz,
+ tiwai@suse.com,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: W4KIPH7O4K7FKMVTMC7UXSYSLBX6NPSS
+X-Message-ID-Hash: W4KIPH7O4K7FKMVTMC7UXSYSLBX6NPSS
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -175,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y6INX4CA4RY3UJTMPSIBKONU3LI7676E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W4KIPH7O4K7FKMVTMC7UXSYSLBX6NPSS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -184,59 +128,177 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add condition check to register ACP PDM sound card by reading
-_WOV acpi entry.
+On Thu, Dec 12, 2024 at 7:45=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> On Thu, Dec 12, 2024 at 03:45:07PM +0800, Shengjiu Wang wrote:
+> > Implement the ASRC memory to memory function using
+> > the compress framework, user can use this function with
+> > compress ioctl interface.
+> >
+> > This feature can be shared by ASRC and EASRC drivers
+>
+> This breaks an x86 allmodconfig build (using GCC 13):
+>
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:186:68: warning: =E2=80=
+=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
+ll not be visible outside of this definition or declaration
+>   186 | static void asrc_m2m_device_run(struct fsl_asrc_pair *pair, struc=
+t snd_compr_task_runtime *task)
+>       |                                                                  =
+  ^~~~~~~~~~~~~~~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98asr=
+c_m2m_device_run=E2=80=99:
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:212:26: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   212 |         in_buf_len =3D task->input_size;
+>       |                          ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:279:13: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   279 |         task->output_size =3D out_dma_len;
+>       |             ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: At top level:
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:451:49: warning: =E2=80=
+=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
+ll not be visible outside of this definition or declaration
+>   451 |                                          struct snd_compr_task_ru=
+ntime *task)
+>       |                                                 ^~~~~~~~~~~~~~~~~=
+~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98fsl=
+_asrc_m2m_comp_task_create=E2=80=99:
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:465:13: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   465 |         task->input =3D dma_buf_export(&exp_info_in);
+>       |             ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:466:24: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   466 |         if (IS_ERR(task->input)) {
+>       |                        ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:467:35: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   467 |                 ret =3D PTR_ERR(task->input);
+>       |                                   ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:475:13: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   475 |         task->output =3D dma_buf_export(&exp_info_out);
+>       |             ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:476:24: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   476 |         if (IS_ERR(task->output)) {
+>       |                        ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:477:35: error: invalid us=
+e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
+>   477 |                 ret =3D PTR_ERR(task->output);
+>       |                                   ^~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: At top level:
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:523:48: warning: =E2=80=
+=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
+ll not be visible outside of this definition or declaration
+>   523 |                                         struct snd_compr_task_run=
+time *task)
+>       |                                                ^~~~~~~~~~~~~~~~~~=
+~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98fsl=
+_asrc_m2m_comp_task_start=E2=80=99:
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:528:35: error: passing ar=
+gument 2 of =E2=80=98asrc_m2m_device_run=E2=80=99 from incompatible pointer=
+ type [-Werror=3Dincompatible-pointer-types]
+>   528 |         asrc_m2m_device_run(pair, task);
+>       |                                   ^~~~
+>       |                                   |
+>       |                                   struct snd_compr_task_runtime *
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:186:92: note: expected =
+=E2=80=98struct snd_compr_task_runtime *=E2=80=99 but argument is of type =
+=E2=80=98struct snd_compr_task_runtime *=E2=80=99
+>   186 | static void asrc_m2m_device_run(struct fsl_asrc_pair *pair, struc=
+t snd_compr_task_runtime *task)
+>       |                                                             ~~~~~=
+~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: At top level:
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:534:47: warning: =E2=80=
+=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
+ll not be visible outside of this definition or declaration
+>   534 |                                        struct snd_compr_task_runt=
+ime *task)
+>       |                                               ^~~~~~~~~~~~~~~~~~~=
+~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:540:47: warning: =E2=80=
+=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
+ll not be visible outside of this definition or declaration
+>   540 |                                        struct snd_compr_task_runt=
+ime *task)
+>       |                                               ^~~~~~~~~~~~~~~~~~~=
+~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:623:10: error: =E2=80=98s=
+truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_create=E2=80=
+=99
+>   623 |         .task_create =3D fsl_asrc_m2m_comp_task_create,
+>       |          ^~~~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:623:24: warning: excess e=
+lements in struct initializer
+>   623 |         .task_create =3D fsl_asrc_m2m_comp_task_create,
+>       |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:623:24: note: (near initi=
+alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:624:10: error: =E2=80=98s=
+truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_start=E2=80=
+=99
+>   624 |         .task_start =3D fsl_asrc_m2m_comp_task_start,
+>       |          ^~~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:624:23: warning: excess e=
+lements in struct initializer
+>   624 |         .task_start =3D fsl_asrc_m2m_comp_task_start,
+>       |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:624:23: note: (near initi=
+alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:625:10: error: =E2=80=98s=
+truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_stop=E2=80=
+=99
+>   625 |         .task_stop =3D fsl_asrc_m2m_comp_task_stop,
+>       |          ^~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:625:22: warning: excess e=
+lements in struct initializer
+>   625 |         .task_stop =3D fsl_asrc_m2m_comp_task_stop,
+>       |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:625:22: note: (near initi=
+alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:626:10: error: =E2=80=98s=
+truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_free=E2=80=
+=99
+>   626 |         .task_free =3D fsl_asrc_m2m_comp_task_free,
+>       |          ^~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:626:22: warning: excess e=
+lements in struct initializer
+>   626 |         .task_free =3D fsl_asrc_m2m_comp_task_free,
+>       |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:626:22: note: (near initi=
+alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98fsl=
+_asrc_m2m_init=E2=80=99:
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:701:41: error: =E2=80=98S=
+ND_COMPRESS_ACCEL=E2=80=99 undeclared (first use in this function); did you=
+ mean =E2=80=98SNDRV_COMPRESS_AVAIL=E2=80=99?
+>   701 |         ret =3D snd_compress_new(card, 0, SND_COMPRESS_ACCEL, "AS=
+RC M2M", compr);
+>       |                                         ^~~~~~~~~~~~~~~~~~
+>       |                                         SNDRV_COMPRESS_AVAIL
+> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:701:41: note: each undecl=
+ared identifier is reported only once for each function it appears in
+> cc1: some warnings being treated as errors
 
-Fixes: 0386d765f27a ("ASoC: amd: ps: refactor acp device configuration read logic")
+Hi Mark
 
-Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
----
- sound/soc/amd/ps/pci-ps.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+     I can't reproduce this issue with 'make allmodconfig'.
+I tried the branches: for-6.13/for-6.14/for-next.
 
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index a7583844f5b4..983d7fa13938 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -374,11 +374,18 @@ static int get_acp63_device_config(struct pci_dev *pci, struct acp63_dev_data *a
- {
- 	struct acpi_device *pdm_dev;
- 	const union acpi_object *obj;
-+	acpi_handle handle;
-+	acpi_integer dmic_status;
- 	u32 config;
- 	bool is_dmic_dev = false;
- 	bool is_sdw_dev = false;
-+	bool wov_en, dmic_en;
- 	int ret;
- 
-+	/* IF WOV entry not found, enable dmic based on acp-audio-device-type entry*/
-+	wov_en = true;
-+	dmic_en = false;
-+
- 	config = readl(acp_data->acp63_base + ACP_PIN_CONFIG);
- 	switch (config) {
- 	case ACP_CONFIG_4:
-@@ -411,10 +418,18 @@ static int get_acp63_device_config(struct pci_dev *pci, struct acp63_dev_data *a
- 			if (!acpi_dev_get_property(pdm_dev, "acp-audio-device-type",
- 						   ACPI_TYPE_INTEGER, &obj) &&
- 						   obj->integer.value == ACP_DMIC_DEV)
--				is_dmic_dev = true;
-+				dmic_en = true;
- 		}
-+
-+		handle = ACPI_HANDLE(&pci->dev);
-+		ret = acpi_evaluate_integer(handle, "_WOV", NULL, &dmic_status);
-+		if (!ACPI_FAILURE(ret))
-+			wov_en = dmic_status;
- 	}
- 
-+	if (dmic_en && wov_en)
-+		is_dmic_dev = true;
-+
- 	if (acp_data->is_sdw_config) {
- 		ret = acp_scan_sdw_devices(&pci->dev, ACP63_SDW_ADDR);
- 		if (!ret && acp_data->info.link_mask)
--- 
-2.25.1
+     I suspect you are using the wrong branch, because I can
+reproduce this issue on for-6.12. which is caused by the below
+commit that is only applied from for-6.13.
+04177158cf98 ("ALSA: compress_offload: introduce accel operation mode")
 
+    But could you please tell me your steps in detail?, so that I can
+try more.
+
+Best regards
+Shengjiu Wang

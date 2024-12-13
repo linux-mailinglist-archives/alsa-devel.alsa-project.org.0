@@ -2,112 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E41569F05BA
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2024 08:46:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E83399F10E5
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2024 16:24:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4612334A;
-	Fri, 13 Dec 2024 08:46:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4612334A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BF73311;
+	Fri, 13 Dec 2024 16:24:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BF73311
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1734076008;
-	bh=rRjQS4jUL/JtWYebcDUqXrzPaB5dEzGbEPQpMDmOxAI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1734103480;
+	bh=/L2BRum8V73qtETJCILZboD8K816tH5sCP1OEzZP+ys=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=t+MvRflAko2YtiGnsPVTcyrMHlF34Mjp4riZS1TlouaGH36NFv9v4XUht/yefyNo/
-	 6Bkx7lfEr/KT2GsIvH7Td8PhZW1Zv37Ql9KcjX8FRjLcUfaGx5/cf5hRivw8eWN+aO
-	 PMSNmiLhfN0LpEFd60ZapUDYBlZvOpGzHqxcA13w=
+	b=ZpXSYDoSLUu6vK53mIZwrywqkUorzeoVMAYNbvvqidg4MCmUk1FjpR6RiP6wodRwD
+	 r2bAF0yQjigNoEBLpUQ3svWs4wMYEyrrTZl0YJP4Sh0zsClgLHlJM9XARMWq9O7hDI
+	 iXPzMHkq5+pB3RryiXmz5Zcf7u4jR8fwYIt526Ro=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8970F805C0; Fri, 13 Dec 2024 08:46:16 +0100 (CET)
+	id 2C785F805C0; Fri, 13 Dec 2024 16:24:02 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12F33F805BA;
-	Fri, 13 Dec 2024 08:46:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A26FBF805C0;
+	Fri, 13 Dec 2024 16:24:02 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48A52F80212; Fri, 13 Dec 2024 08:46:04 +0100 (CET)
+	id B5935F80212; Fri, 13 Dec 2024 16:23:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
- [IPv6:2607:f8b0:4864:20::12b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E134DF800EE
-	for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2024 08:46:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E134DF800EE
+	by alsa1.perex.cz (Postfix) with ESMTPS id EBE8FF800EE
+	for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2024 16:23:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBE8FF800EE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=AL0MLsEr
-Received: by mail-il1-x12b.google.com with SMTP id
- e9e14a558f8ab-3a8f1c97ef1so4428295ab.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 12 Dec 2024 23:46:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1734075959; x=1734680759;
- darn=alsa-project.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QYYkz5wo0agid+Six8DIqpuAadZaRu0O1Lrum3LM5+Y=;
-        b=AL0MLsEr8k3vJDWriobJzSWkb1PtsxrYSzZx4jM+7qUa7yX51a//kKDMlhtVWFry2R
-         acLy02O1IfRi+G7pYnubCYJvzBi5Smz7cg51pxMgootsc/cdnZJeZxI2+YjDCs9e2ABa
-         uk+CCEEBzgB7WvHRC20JQzRyxGuSgLyggiTdk/b78s+fYI2bDPYdoh/VWopzzrCFyJLj
-         6+xWmBZqm3qITBBIunUqrqNBQ5ZEsFKXRZjL/hCGhtwwvsWJn7eqdIfzc+v31MslyFiI
-         RlFK7L64bNJLAWVOBRz7AAf9up0YdzmKVmkYjvOUyZMtV9XOpa1lvC38bJgU+uF/yl9o
-         1Eww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1734075959; x=1734680759;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=QYYkz5wo0agid+Six8DIqpuAadZaRu0O1Lrum3LM5+Y=;
-        b=nMCkH6t0DLjcRCtZK4dDCgtGjfRh4t3DbutqN84Q3XUi1v8LzE42VjtS2rCq59QLs/
-         Fp61sWwvPGAJJL8WdU+1TuCgajPORFdH23t+RLmFS49ZyRTvsM4O9gYKcb3EZ6DHhvB2
-         W3MKJFKtqOTRm/UgZirEGynCyL9VQxnIT70Ruo+QtK+DwfHzPlMLs8qoDBmMHGYjFrjE
-         Fia//Ks8+2/DZkYsLx5g4y6euqZYf3cAk+QQzj6FSTTuxhvqZH4nmR8fzBTHP2ocdfeh
-         5JqgrARzC1CHFu+iWw+JOEFRvQVGFDWhODdynV+hqZnP1eJIvtYJxdZ8MCyEcVNswXFA
-         Q6ew==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVMxo3d3cwKlqsZOHuq3gM4M+TjfRTlT7bJhgsxiE8oaymvz16GWBJjOXpKOquF8Wlk0s1OhzpT0nXH@alsa-project.org
-X-Gm-Message-State: AOJu0Yzo3Lf+Xsv60x5/Lb5og+pc/jpui7I6zoMVVTEnwXXYDrVUk2r+
-	U5/yH8kl55+IFqJyVQX8EcbMWBAF1EJEkkI0FiokKLaccp6ZnAwftH7A76Bz5L95Q/flTpQKd05
-	J/ZI0j1FZsyPBfiiDg/yv/HXDyms=
-X-Gm-Gg: ASbGnctcgHePG2ludAHyD1ig6kcQLv7TCssPYunH3PWa5AwNwHFEvYlTJsn5uJfq4bF
-	5v53AblLZAVnMPGDohgyuQXUCVx68uPZluZ/L0w==
-X-Google-Smtp-Source: 
- AGHT+IEZp59bOt9C+xTIkk05sua6DTUcqnvF1/4kOUynOScRvwUkj4Pb9JtHkrWiwmRLpAQs8Kn/IRepKMWS2L8ZLWk=
-X-Received: by 2002:a05:6e02:168b:b0:3a7:a69c:9692 with SMTP id
- e9e14a558f8ab-3aff8c91543mr15440795ab.21.1734075958652; Thu, 12 Dec 2024
- 23:45:58 -0800 (PST)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bU4AAnnx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1734103434; x=1765639434;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=/L2BRum8V73qtETJCILZboD8K816tH5sCP1OEzZP+ys=;
+  b=bU4AAnnxFRK60Td5sQ/JH0DZW2f9rCTCCZ45CHvQPe603CMgbA/NHcHp
+   eJO57KjJiAIRBnej3lkfJjOPvQeAsEK6nZLUmYUofDJXZu4LIaaRQyByW
+   6MILS+iM4Cvb6OySNUN2w535iGQbgjmRK5A82+lSOLiGMo9MLzwVqBK7U
+   rkeCMcgXt3oT1Xz8e2FbEEaau4EOXG30mzqrVKSFqtPn7TrzIN7Xamljy
+   eow+5x4bAtD5Jtto8LWRq3mrUgQijfJs3PEZ9ujZp3jbFed0K65p1DD7V
+   wc4s0y54XYqPi0YA/6xKDK7ECkg0HlSBZod0zlU8cQUk56p33jzhGjJTp
+   w==;
+X-CSE-ConnectionGUID: 5qHHiKPXTryTFs2wuH5wXA==
+X-CSE-MsgGUID: FURURT/cQTqgJHopBaiJxA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11278"; a="45945115"
+X-IronPort-AV: E=Sophos;i="6.12,214,1728975600";
+   d="scan'208";a="45945115"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2024 07:23:49 -0800
+X-CSE-ConnectionGUID: 6OlwYim/Tau/E5xNYYaxxg==
+X-CSE-MsgGUID: JJsHhcarQ6uQPQpJ8iVJRg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,231,1728975600";
+   d="scan'208";a="101583297"
+Received: from ldmartin-desk2.corp.intel.com (HELO ldmartin-desk2)
+ ([10.125.110.169])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Dec 2024 07:23:48 -0800
+Date: Fri, 13 Dec 2024 09:23:36 -0600
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Daniel Vetter <daniel.vetter@ffwll.ch>, alsa-devel@alsa-project.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+	Maarten Lankhorst <dev@lankhorst.se>, dri-devel@lists.freedesktop.org
+Subject: Re: hda: how to implement component master_unbind?
+Message-ID: <itxamqrgaiukl3u63zz73brvqpfr6kjdwifrvx7ntjvzdewrlb@miy5fjm4v7ds>
+References: 
+ <alpine.DEB.2.22.394.2109221456080.3554566@eliteleevi.tm.intel.com>
+ <s5ha6jxnekp.wl-tiwai@suse.de>
 MIME-Version: 1.0
-References: <20241212074509.3445859-1-shengjiu.wang@nxp.com>
- <20241212074509.3445859-5-shengjiu.wang@nxp.com>
- <58b4a167-5a13-49b2-9b08-58c3041b772b@sirena.org.uk>
-In-Reply-To: <58b4a167-5a13-49b2-9b08-58c3041b772b@sirena.org.uk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 13 Dec 2024 15:45:46 +0800
-Message-ID: 
- <CAA+D8AMKLFJx3Z03rLthaH-7_tAmb8c1c4wCSOee-t5uxZg2oA@mail.gmail.com>
-Subject: Re: [PATCH v7 4/6] ASoC: fsl_asrc_m2m: Add memory to memory function
-To: Mark Brown <broonie@kernel.org>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, vkoul@kernel.org, perex@perex.cz,
- tiwai@suse.com,
-	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, festevam@gmail.com,
-	nicoleotsuka@gmail.com, lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: W4KIPH7O4K7FKMVTMC7UXSYSLBX6NPSS
-X-Message-ID-Hash: W4KIPH7O4K7FKMVTMC7UXSYSLBX6NPSS
-X-MailFrom: shengjiu.wang@gmail.com
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <s5ha6jxnekp.wl-tiwai@suse.de>
+Message-ID-Hash: EZNWHISEBFVNW7SWOWSYSTZ7CTKIHBJR
+X-Message-ID-Hash: EZNWHISEBFVNW7SWOWSYSTZ7CTKIHBJR
+X-MailFrom: lucas.demarchi@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W4KIPH7O4K7FKMVTMC7UXSYSLBX6NPSS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EZNWHISEBFVNW7SWOWSYSTZ7CTKIHBJR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,177 +115,133 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Dec 12, 2024 at 7:45=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
+Thanks Kai to pointing me to this thread, trying to revive it.
+Also adding dri-devel as it may be relevant there and Maarten who worked
+on the xe integration recently
+
+On Tue, Sep 28, 2021 at 01:07:34PM +0200, Takashi Iwai wrote:
+>On Wed, 22 Sep 2021 14:40:19 +0200,
+>Kai Vehmanen wrote:
+>>
+>> Hi Takashi et al,
+>>
+>> I've been having multiple discussions with our i915 team w.r.t. audio
+>> driver behaviour when the aggregate component is unbound, triggered by
+>> i915 unbind. This came up again in the recent regression with devres
+>> allocations and I now dug into the topic again.
+>>
+>> In short, I'm puzzled how to really implement this. ALSA (or ASoC) don't
+>> really have support for individual components of a card disappearing in a
+>> hotplug fashion. At card level, we do have such support (USB, firewire and
+>> recent work for PCI hotplug). But not individual components of a card
+>> getting unplugged.
+
+
+I think we will need to add some support here and handle the component
+going down the same as a pci hotplug.
+
+
+>>
+>> In current code we have this:
+>> static void hdac_component_master_unbind(struct device *dev)
+>> {
+>> »       struct drm_audio_component *acomp = hdac_get_acomp(dev);
+>>
+>> »       if (acomp->audio_ops && acomp->audio_ops->master_unbind)
+>> »       »       acomp->audio_ops->master_unbind(dev, acomp);
+>> »       module_put(acomp->ops->owner);
+>> »       component_unbind_all(dev, acomp);
+>> »       WARN_ON(acomp->ops || acomp->dev);
+>> }
+>>
+>> ... when e.g. i915 driver is unbound (but could be any driver using the
+>> component framework, not jus Intel hw), i915 calls component_del() and HDA
+>> gets call to the above. After this, acomp ops are null are audio no longer
+>> has ability to talk to i915 driver (which makes sense given it's unbound).
+>>
+>> If audio was runtime suspended, this kind of works (but relies on some
+>> good luck). Upon HDA controller resume, we note acomp ops are NULL and
+>> HDMI/DP operations (like snd_hdac_display_power()) silently become no-ops.
+>> PCM streaming will go to /dev/null, but this is ok'ish since no monitor
+>> can be connected anyways.
+>>
+>> If audio was active, we start to get warnings or worse. Audio expects hw
+>> display codec to be powered and programmed, but suddenly it mey lose
+>> state. If the audio controller is actually part of the display hardware
+>> (e.g. discrete GPUs), then controller registers can stop functioning (they
+>> should be still available, but given the main diplay driver is unbound,
+>> odds of suprising behaviour are high).
+>>
+>> So this is less than ideal. I've been looking at options:
+>>
+>> 1) prevent/block the unbind if audio device is busy
+>>
+>> The component framework does not allow individual components to return
+>> -EBUSY, so there's no way to let others know that unbind is not possible
+>> now.
+
+and there's no way to block unbind from the pci level neither, so this
+is not really possible. There's nothing blocking someone to unplug the
+card if it's on a hotplug-capable bus and/or someone calling
+
+	# echo 0000:00:02.0 > /sys/module/xe/drivers/pci:xe/unbind
+
+to tell the module to unbind from the device. If that involves multiple
+components, I think they all should treat that as a device hotplug
+rather than handling it differently.
+
+>>
+>> This would force anyone testing DRM driver unbind to first unbind
+>> the audio driver and stop any active audio use-cases if needed.
+>>
+>> 2) unbind the ALSA card
+>>
+>> I've experimented doing a device_unregister() from the above callback, but
+>> this has not really worked (onion peeling exercise of new probelms). The
+>> code is shared by multiple controllers, so getting a handle to an snd_card
+>> object is not straighforward (drvdata is differnet for SOF and
+>> snd-hda-intel for instance). But with some new work, maybe we could call
+>> snd_card_disconnect() to detach the card and inform user-space.
+
+yeah, since it depends on the i915/xe side to power up the display
+engine, I think handling that esssentially the same as a hotplug would
+be ideal
+
+
+>>
+>> 3) continue as-is and try to fix bugs
+>>
+>> If audio is active, maybe we could force a acomp->put_power() to ensure
+>> a clean unregister of the display part. But this leaves a big chunk of
+>> issues especially with HDA controllers that require the display to
+>> be powered on, to function.
+>>
+>> ..
+>>
+>> Any ideas, and/or has there been prior work? It seems Takashi it's been
+>> mostly you who has been active working on the acomp integration recently.
+>> I also included Chris, Daniel and Jani who've had patches to
+>> hdac_component.c.
 >
-> On Thu, Dec 12, 2024 at 03:45:07PM +0800, Shengjiu Wang wrote:
-> > Implement the ASRC memory to memory function using
-> > the compress framework, user can use this function with
-> > compress ioctl interface.
-> >
-> > This feature can be shared by ASRC and EASRC drivers
+>Removing a component from the card is a PITA for now, indeed,
+>especially when its influence is over different APIs (PCM, control,
+>whatever)...
+
+I'm not yet very familar with the sound side and checking if something changed
+from when this thread started: for cards that can't work without the
+other component, would it be hard to escalate that event to handle it
+the same as a hotplug? Because from this thread it seems usb/pci hotplug
+is already available.
+
+thanks
+Lucas De Marchi
+
 >
-> This breaks an x86 allmodconfig build (using GCC 13):
+>One thing I can think of is to perform like the vga_switcheroo
+>handling in hda_intel.c; it's essentially a forced runtime suspend,
+>and disable the whole card.  But in the case of audio-component
+>unbind, we need to think about re-binding -- or completely ignore
+>re-binding until the whole driver gets unloaded.
 >
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:186:68: warning: =E2=80=
-=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
-ll not be visible outside of this definition or declaration
->   186 | static void asrc_m2m_device_run(struct fsl_asrc_pair *pair, struc=
-t snd_compr_task_runtime *task)
->       |                                                                  =
-  ^~~~~~~~~~~~~~~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98asr=
-c_m2m_device_run=E2=80=99:
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:212:26: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   212 |         in_buf_len =3D task->input_size;
->       |                          ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:279:13: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   279 |         task->output_size =3D out_dma_len;
->       |             ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: At top level:
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:451:49: warning: =E2=80=
-=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
-ll not be visible outside of this definition or declaration
->   451 |                                          struct snd_compr_task_ru=
-ntime *task)
->       |                                                 ^~~~~~~~~~~~~~~~~=
-~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98fsl=
-_asrc_m2m_comp_task_create=E2=80=99:
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:465:13: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   465 |         task->input =3D dma_buf_export(&exp_info_in);
->       |             ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:466:24: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   466 |         if (IS_ERR(task->input)) {
->       |                        ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:467:35: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   467 |                 ret =3D PTR_ERR(task->input);
->       |                                   ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:475:13: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   475 |         task->output =3D dma_buf_export(&exp_info_out);
->       |             ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:476:24: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   476 |         if (IS_ERR(task->output)) {
->       |                        ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:477:35: error: invalid us=
-e of undefined type =E2=80=98struct snd_compr_task_runtime=E2=80=99
->   477 |                 ret =3D PTR_ERR(task->output);
->       |                                   ^~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: At top level:
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:523:48: warning: =E2=80=
-=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
-ll not be visible outside of this definition or declaration
->   523 |                                         struct snd_compr_task_run=
-time *task)
->       |                                                ^~~~~~~~~~~~~~~~~~=
-~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98fsl=
-_asrc_m2m_comp_task_start=E2=80=99:
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:528:35: error: passing ar=
-gument 2 of =E2=80=98asrc_m2m_device_run=E2=80=99 from incompatible pointer=
- type [-Werror=3Dincompatible-pointer-types]
->   528 |         asrc_m2m_device_run(pair, task);
->       |                                   ^~~~
->       |                                   |
->       |                                   struct snd_compr_task_runtime *
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:186:92: note: expected =
-=E2=80=98struct snd_compr_task_runtime *=E2=80=99 but argument is of type =
-=E2=80=98struct snd_compr_task_runtime *=E2=80=99
->   186 | static void asrc_m2m_device_run(struct fsl_asrc_pair *pair, struc=
-t snd_compr_task_runtime *task)
->       |                                                             ~~~~~=
-~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: At top level:
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:534:47: warning: =E2=80=
-=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
-ll not be visible outside of this definition or declaration
->   534 |                                        struct snd_compr_task_runt=
-ime *task)
->       |                                               ^~~~~~~~~~~~~~~~~~~=
-~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:540:47: warning: =E2=80=
-=98struct snd_compr_task_runtime=E2=80=99 declared inside parameter list wi=
-ll not be visible outside of this definition or declaration
->   540 |                                        struct snd_compr_task_runt=
-ime *task)
->       |                                               ^~~~~~~~~~~~~~~~~~~=
-~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:623:10: error: =E2=80=98s=
-truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_create=E2=80=
-=99
->   623 |         .task_create =3D fsl_asrc_m2m_comp_task_create,
->       |          ^~~~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:623:24: warning: excess e=
-lements in struct initializer
->   623 |         .task_create =3D fsl_asrc_m2m_comp_task_create,
->       |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:623:24: note: (near initi=
-alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:624:10: error: =E2=80=98s=
-truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_start=E2=80=
-=99
->   624 |         .task_start =3D fsl_asrc_m2m_comp_task_start,
->       |          ^~~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:624:23: warning: excess e=
-lements in struct initializer
->   624 |         .task_start =3D fsl_asrc_m2m_comp_task_start,
->       |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:624:23: note: (near initi=
-alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:625:10: error: =E2=80=98s=
-truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_stop=E2=80=
-=99
->   625 |         .task_stop =3D fsl_asrc_m2m_comp_task_stop,
->       |          ^~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:625:22: warning: excess e=
-lements in struct initializer
->   625 |         .task_stop =3D fsl_asrc_m2m_comp_task_stop,
->       |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:625:22: note: (near initi=
-alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:626:10: error: =E2=80=98s=
-truct snd_compr_ops=E2=80=99 has no member named =E2=80=98task_free=E2=80=
-=99
->   626 |         .task_free =3D fsl_asrc_m2m_comp_task_free,
->       |          ^~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:626:22: warning: excess e=
-lements in struct initializer
->   626 |         .task_free =3D fsl_asrc_m2m_comp_task_free,
->       |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:626:22: note: (near initi=
-alization for =E2=80=98fsl_asrc_m2m_compr_ops=E2=80=99)
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c: In function =E2=80=98fsl=
-_asrc_m2m_init=E2=80=99:
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:701:41: error: =E2=80=98S=
-ND_COMPRESS_ACCEL=E2=80=99 undeclared (first use in this function); did you=
- mean =E2=80=98SNDRV_COMPRESS_AVAIL=E2=80=99?
->   701 |         ret =3D snd_compress_new(card, 0, SND_COMPRESS_ACCEL, "AS=
-RC M2M", compr);
->       |                                         ^~~~~~~~~~~~~~~~~~
->       |                                         SNDRV_COMPRESS_AVAIL
-> /build/stage/linux/sound/soc/fsl/fsl_asrc_m2m.c:701:41: note: each undecl=
-ared identifier is reported only once for each function it appears in
-> cc1: some warnings being treated as errors
-
-Hi Mark
-
-     I can't reproduce this issue with 'make allmodconfig'.
-I tried the branches: for-6.13/for-6.14/for-next.
-
-     I suspect you are using the wrong branch, because I can
-reproduce this issue on for-6.12. which is caused by the below
-commit that is only applied from for-6.13.
-04177158cf98 ("ALSA: compress_offload: introduce accel operation mode")
-
-    But could you please tell me your steps in detail?, so that I can
-try more.
-
-Best regards
-Shengjiu Wang
+>
+>Takashi

@@ -2,191 +2,168 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 453409EFF66
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2024 23:31:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 963909F04AA
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2024 07:12:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CE61329;
-	Thu, 12 Dec 2024 23:31:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CE61329
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B76833F;
+	Fri, 13 Dec 2024 07:12:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B76833F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1734042713;
-	bh=Xz4iR4W8LrDne8p/govhOt0XYNGwYFRJxOuBBSKpaE4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=UgrYHiR/QATvVTGitjKx5R1N10wp6w4e+M3yx9UiNnOQ5J857wpt8fexzd6y9bLj3
-	 gInBvQCv/PjdG/KV1XtE3mDywWVQ2vU7LqZg52n6IfgHKx50xoBYKSdeZUlotrzcJr
-	 Gmcd2u+xeEyEPjINKkZtg9zOEyzIGLqHNmYFJfPY=
+	s=default; t=1734070365;
+	bh=0BlJ1MLrGAoh+EplO+Qa5A8YtvcQly4RhZfw3jEp4WU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LFhC2ot2uInkwddLFZ5etQUdP5ZDljv+LKZYS3HgnBlZ13TimhhCnwb6pzcvxPjlm
+	 3Cta6AmhErZPtk7Il6GO6WBWsSy2v8rrMTefO/wMKgUt3smJgjhrjc07OCa+IKIl6r
+	 OR9khUtOzHf6BWUVccqYWNartQPO2zWefQirqo5g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3348F805C1; Thu, 12 Dec 2024 23:31:16 +0100 (CET)
+	id 3386DF805C0; Fri, 13 Dec 2024 07:12:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2A87F805BE;
-	Thu, 12 Dec 2024 23:31:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 613D4F805C1;
+	Fri, 13 Dec 2024 07:12:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB700F802BE; Thu, 12 Dec 2024 23:31:10 +0100 (CET)
+	id 20B18F80212; Fri, 13 Dec 2024 07:12:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20608.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2413::608])
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20618.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2416::618])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F17CF8012B
-	for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2024 23:31:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F17CF8012B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 572B8F80100
+	for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2024 07:11:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 572B8F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=wNVC1mFU
+ header.s=selector1 header.b=0C0rF3iG
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KdLzQlkiCUgNqm+yMIRU4IxOa99ncn+aOyogOeF02STNd1vFIU/fLSStIW5zRaZp9x6gLX2Wu8bhkLGlxq6Vxizf/Gnzll5rxbLeZWAvrNfA1N/yY2XkZtYIrzAhIebguqQCJt+7HgFkVRxPDtmjRSJhDDIf1XBGRE5Lx3n+emRH6VqCj/cvesW0NDUqP2cEZQJiqH4dEl/uXC5uGBx5/fhm61yICv6NvqwfJxNF1RxQ5oeG5wOnlHZUWQjakCln8QpKHpF2tlGlhCg239iolz0Si16WCVOcVvF7+HWo6xb9y1tsie4ux8eS0ekT11x8brtLXaP5GIq80x82Cva18g==
+ b=y8AJh8qibnR1GbHOgMC+BOoD2UORgBMdeDoVEeP6MSMJ46EZ2s/4vBaM66ktodSsSSWT/Z64ZDWYEeGfrEsEm7C0mvNhQHV+JWwm/IHCM45X6Lth7FzO5EwYjGCESpu0S9dcA/nyDRezps/jJFPeU58oBWye2EVDM30Uh5Hn3suQ0FaOoncywQe7CF8oDOVDd4lelcSWJPbScp8aAoLrhAbu26igIaz4j8gNyWZaq/xCQSXJg/mIt8kbyBN8GKXHp8SX8pj/6/nYUio1PG0UgEyPhgNKmSfpffM6o2o2QrIkgUCLm+F91l0v+bE8oSLVOKm4NkvC5UuQH95gYH1B9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jiN+01x8eQWxKs9PaEiH916ewfyRGLyV+JdMiiIwstg=;
- b=rAiMHx3SqRLqf1VRUIKcZbxzYIQXaMHoZc93K935U2Wubboo+Ov0+oYAPi0M2jtobKo7GUMKmrb+U8hscT8FXRRREH/trEHt1RQfoiswwDfjFwDoCT8XB8FUXWN5vG4F0JAvG2Ib8ef8Owjw8MkLirEgSC7Y3/VZfkHF/Y9AEPxYhIWyhC2XU+PnTB9xST8LrXcduWT3Gx+dSS5BQvaP9eRWOlJA0cGGqBfPokpwfGWW0n4/0GjFiJ9dDVepN3Ej3vXPc4hj4gCPCX2EGWwtQeq2yRURWQj56fMk9+oWk2hS56bs69oAgb7LzWJl3Cj1r5RhzzR5qMHVOVLD98PQsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=iojgeCIrd8Fb2m2rXVr3FYC8X3NT3dmkZsZ4UJ67bto=;
+ b=S4FjNlJHrJj6cax4mJHYcEEpCGAy7y3rh8W4swMyC85+bYtZtiEbfD7iOcnt31VxfB2s6t0IE9TLC7gcuYWWj9WAw1lIZOyuqNHOCxsMt+uk0u3IOgqETw/tNzDXGhboy6DT381yE21g/14zRqfDKWwAoPyR166YRGheOlM9R1vg1hhJLg1DP0auzZjSlBsCuW42J6WcqT7qSFzjIedcWmRfHDnMiiGkhpH3Rgh5Ha1G2ryAjZ4OjK5puVs5lYVVeR9vA8xFyIqk5Sr3qtfpfUorRm/BpQ6f39p2V7xKYaq+2vClX6iFIpX+pSn7Wsuxo/7JHvt+ebzc4fhnVGRt0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jiN+01x8eQWxKs9PaEiH916ewfyRGLyV+JdMiiIwstg=;
- b=wNVC1mFUsjspgs7bZRDvZ+zq2cv2/zJkFTKtu2muc2m+rRtzJdmgmROdb1vCupsQpFSiCqynVnI/D7VfLcIR3ZJ446DE9FeNCoDgBxonvwh6ZRGzRbnXrb3Em0VGpZegUKmtQ0NF8ZsXKhbSy/yGRwON/whH7T5rgbS1dPxN7yQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SJ2PR12MB8063.namprd12.prod.outlook.com (2603:10b6:a03:4d1::17) with
+ bh=iojgeCIrd8Fb2m2rXVr3FYC8X3NT3dmkZsZ4UJ67bto=;
+ b=0C0rF3iGLIV6NY/zDM7kJ5Fb3qvBdf0LGQTqy31oAz+fWDXj0C/IR6sIXWqt+0JSZoglBD3+GqahZC3+djnU+m3INnYfXtk/WF45O2pdLrYpjoS8mfNiXN6GGCvK4MpUb2kJ7OlYUHNATnx0BFIuNeYGXzTH+uiItRQxL9gtMzU=
+Received: from BN9PR03CA0534.namprd03.prod.outlook.com (2603:10b6:408:131::29)
+ by MN2PR12MB4061.namprd12.prod.outlook.com (2603:10b6:208:19a::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.16; Thu, 12 Dec
- 2024 22:31:02 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8251.008; Thu, 12 Dec 2024
- 22:31:02 +0000
-Message-ID: <47f9ccce-1946-4586-b918-3de203b5c712@amd.com>
-Date: Thu, 12 Dec 2024 16:30:59 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] soundwire: amd: clear wake enable register for
- power off mode
-To: vkoul@kernel.org, Mark Brown <broonie@kernel.org>
-Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
- sanyog.r.kale@intel.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-References: <20241203092144.4096986-1-Vijendar.Mukunda@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20241203092144.4096986-1-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1PR03CA0007.namprd03.prod.outlook.com
- (2603:10b6:806:2d3::16) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.18; Fri, 13 Dec
+ 2024 06:11:53 +0000
+Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
+ (2603:10b6:408:131:cafe::23) by BN9PR03CA0534.outlook.office365.com
+ (2603:10b6:408:131::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.15 via Frontend Transport; Fri,
+ 13 Dec 2024 06:11:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8251.15 via Frontend Transport; Fri, 13 Dec 2024 06:11:52 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
+ 2024 00:11:52 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
+ 2024 00:11:51 -0600
+Received: from prasad-lnx-mach.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 13 Dec 2024 00:11:47 -0600
+From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <mario.limonciello@amd.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<syed.sabakareem@amd.com>, Venkata Prasad Potturu
+	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, =?UTF-8?q?P=C3=A9ter=20Ujfalusi?=
+	<peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, "open list:SOUND - SOC LAYER / DYNAMIC
+ AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: amd: ps: Fix for enabling DMIC on acp63 platform via
+ _DSD entry
+Date: Fri, 13 Dec 2024 11:41:46 +0530
+Message-ID: <20241213061147.1060451-1-venkataprasad.potturu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SJ2PR12MB8063:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c793021-cda1-4474-01c3-08dd1afca890
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|MN2PR12MB4061:EE_
+X-MS-Office365-Filtering-Correlation-Id: f58d2468-3271-483b-2399-08dd1b3d09dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|7416014|36860700013|376014|1800799024|82310400026;
 X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?cXY5VElJbHhjRnpFb21YYUtOVmdHY3BBb01uK0htb25NME4wdU96L3BBZ3VW?=
- =?utf-8?B?c3Fic1htVEUwMDFOdlZXQWhjSVh6NWV5eFVmME5sMXNtWnB4NTM0b05uZy94?=
- =?utf-8?B?bmtORysycEZidTFIbWNHNVI5NmRnVGlHdmRFMWhzZi8yMzhSTno2VDJaOEFC?=
- =?utf-8?B?MTllWWErQUhTNlVkTTZBSkxEU2hDaEVKVitZL1FXajFzdDFkaXJocGZGd01n?=
- =?utf-8?B?NFkrY2FURUxPSVVuSFdTVm9sdWpqTFg3ekltMktOL1UrWFdjRnFaL21UZ0Vo?=
- =?utf-8?B?RTRVamtaS2VxeDhRTEh2N3gyeXZ4NDNnUUtDR2N2b2dHRW8vNzVoenlVNjdQ?=
- =?utf-8?B?d00vcitTRmphblB1czh6UHFneVhOeUxsL3E2Q0RWa2UyNjFMQk1Ra3lMdWRL?=
- =?utf-8?B?TXpiaXc3SC92V3pyakt4cTNBUHIzM0t0WUExOWtkc2VIa3JzRWJJR2hVZHJH?=
- =?utf-8?B?MnNpMlIwUkp6V0R4dm5YOWJEZkdZSzhKb2REUkV1WjF3bjFjM3hMUjNWVTc0?=
- =?utf-8?B?NHI4ZjJoc0Y1cnppQ1pxSlVLRnQvYm52c1d5Q28reDhLMnd1dmN5YkU0NG1p?=
- =?utf-8?B?VzEycUlUK0tmVUVYbjRtZFB1Y2J6bDNvWmZEQUhrSEdiTWxNUlc3RW95SzMr?=
- =?utf-8?B?bUFSSU1sNmNTQ2oyTmUyQmE2aThqMmdJeWJNWVUvSk5tNDBQN083dENJZ01F?=
- =?utf-8?B?ZGg3Zm1QbmthYXkrZFVaWFZZMUhGS1pFLzJVemVkeWVYQ2Z3OE0zNUdOenl4?=
- =?utf-8?B?ckZwcko3VnNHanhtNVlCcHBMcUNETUpPVjlSSDUwd1VRTHo2U3lHSG9IWjJl?=
- =?utf-8?B?YldVa0FQam1IZGU3azBvalMyaTR0M1ZtVjFsVzNpL1MrdGVuUWtpNXAwcTlo?=
- =?utf-8?B?eTlNQU9kUzRxekFTMmcyejJwdEVPN1pQWk1yQnU4T2lhN29Jb21JZUpqc3Nh?=
- =?utf-8?B?ZExrMTQvd3RqVUM2VnNscERuQVNJTHpRT01Sb0ZoVHliZDhpN3YwdjRUdmlp?=
- =?utf-8?B?c3lielRGY2w5dWNRQUs0ODVyc3ZORnNPQ3Q2ZTQvdGd2REx0QksyV2tiUWZu?=
- =?utf-8?B?TVFwVlNYdUxJSzlYMm02czI3RVRkS3l2Vk1IdGdYdTNCLzQzVVRoZWFRNjgw?=
- =?utf-8?B?eDVTQTdvTUxPc3UwZGZyTUs5M2ZSWVBVQ2ZCVVJUSnRUaDcrUGdxUnl0d2JK?=
- =?utf-8?B?WWYvOTUvTDRlVjZ6OVNHZWJML3g4TzFsamtLVmRNRDcxeTdjWk5veE5UMkZh?=
- =?utf-8?B?ODVybEtnSmIvbEF2eFEvdzBUSE0wdVNrbEIrNS9sTGJRdEcrWWhRTW92d1FO?=
- =?utf-8?B?K1JvM3FHZHNXNmgxM2FjK242Z0RXZVVuNm1za25LNVJvditucjM0QitlTGtv?=
- =?utf-8?B?RWE3N1BzNUN3RW1NY2d4bUUxNkZIbDdoU1FLbi9IY3FnVmJGSkxuYi9UMEZC?=
- =?utf-8?B?dm9IMk9laGJpamlPWFMrbWpEVGxKRU9YalBJcTYvRUJYNUZHVFBFNC9TbHJ4?=
- =?utf-8?B?eGxYMFIvWkZtWmxjM3ZmN1IzeW00TWlsUThMZndmZUJMQkVYdU5mbVNFU1N3?=
- =?utf-8?B?R1Uya0k3TkhQaHF0K0R5STZNWk5UenNHVUI1U3gwWC9CakhCZjRTU25FUURT?=
- =?utf-8?B?NjVQQXVNclVRanI0cmxzWTgyZVV1NzUyQ1AvNWtkbWo0Z202MGh6NmMzbEps?=
- =?utf-8?B?SktSTHB3eVhncnR2QlFYZ1JUblN3dTlyazhkUGdYNnBFV0M0ak5pbDU4Q05C?=
- =?utf-8?B?Smg5cEFMSFIrVGNFREVOZWQ5ajhXOGZhM1QyMUw2c1NmWjE5TzJpNGR2c3po?=
- =?utf-8?Q?fEt0Z2R9LElQOZUR8UqzhQEZew+0FKWLYOKBE=3D?=
+	=?us-ascii?Q?IQMly5ChsgniHtstsBAnVazIk7GjETsBNvdQXxJwGEv+L/84DLvhcGJ4LfJJ?=
+ =?us-ascii?Q?nZab8qBCU7tAfvx5RvcZEt0r/k2hV/R637U+k/3RoOrT6xOHoad3LDYhihLn?=
+ =?us-ascii?Q?kLmmpjVIZ8QmR9sBae3dQIZK55re9m3jzVc9dNic7qZAQUXE3a23WOIb+ckD?=
+ =?us-ascii?Q?t3hU8XjSFrLmJShCl+ad4TF1xCp6klyNMbKFWJ6dya4Qg97oTfJVlcCqc0RM?=
+ =?us-ascii?Q?4hRnJJK/yWftqpLqZpG5TfZ11O3nGDRalzyKEVLd89ybvaVeTBgkHi9YlJMg?=
+ =?us-ascii?Q?vKkvFWoCGCpoVdiAqgQ81td9R7y7C4V7e+dvqGY9how/sUdCDm3QgdY6LUVu?=
+ =?us-ascii?Q?TZaDrsbKD8uiramb9bmSQ/Qwe/jfgtXgBrv/4Hl3qPARWzViPt/epzl839wO?=
+ =?us-ascii?Q?h4EAlgXBpd7LC3pRyb43nlHqSDrsMdrwTApL5hrCfQ76p6thpQvoIc4T5irD?=
+ =?us-ascii?Q?OmQvs13FnnalUyITRHr3o/GR2hUnz8SpwX9630ydTfE6RqsWuLOY9bt9ihWw?=
+ =?us-ascii?Q?XZEahb9ozVx3JQQ2TmaTK6QJhc/UCkj3bBuwOQ1BfyPqb+zl2yuYAFGh0WGG?=
+ =?us-ascii?Q?ieNQcPp3mzw4HEPis/EWAxnzqg0L6ciK8AOq+W+zcDrYY9/RJz7HHaFeFF3m?=
+ =?us-ascii?Q?uO62MUC0jIgRfsnqmeEXNftlEuObyPYhfdj2fwgf9YJWv20lKGTHWbIxyVzW?=
+ =?us-ascii?Q?9yChA1ACssI/UVuL69tsaoaA97XZ/D9wMFIbxyH2ffCiLEsJBLFifQ5usyi8?=
+ =?us-ascii?Q?YD6qWFDpW6ow76N4jcJBXg+ZAHbCyi/rM/z32rsV9bJ0bWMVo3DCLpwYKGQ1?=
+ =?us-ascii?Q?j3H+sM0oFmCslyrIr36LbIsm6R5T9VzeOfWe7qQF8ggm8mMESZrwPRyehAvd?=
+ =?us-ascii?Q?ZKsTQQViIteyN70885TxrOi1aUPKXNjGlWJ1RUWqBbkXYFWdvvEVuMO/4Kc9?=
+ =?us-ascii?Q?ygQaNQ/xp0znNHimpBHZVmaSY83WjD5zeVFS3YKDJkwys4pcy1naN4/pudg1?=
+ =?us-ascii?Q?FQwOmpUgCr94Z9Ij6jCi4KlBEESf6IVUKFjk7HzwTVdoFOmpQYW+m+UwtF3C?=
+ =?us-ascii?Q?g3GFt/3mLKEEpzuDyOGxTGiWc0c4hIGM5ej0B5yS4Z/2m7stLRsMxEWTqntQ?=
+ =?us-ascii?Q?1sHZgzFQiKoKPDfN2AGpsDhV51h3PnX1vGhbeqjMHB99h3kL/WOOlLYb1Eii?=
+ =?us-ascii?Q?bXikus1P952qdAuxwQCGYMDAuICHwtjjx3Yhha49haAIF/E2LL5ZS/FBl9sS?=
+ =?us-ascii?Q?RDCrOcpak96/8qwLTj4n/I1qXyiJqjYf0ugT0RKY/w/Hq8UC7xslpS1DfNhN?=
+ =?us-ascii?Q?A/4IcK73/r57Y5VLdlz1oroxFcy8fzUuEr3CZoYMaz1jLVBflUbO1126JIMT?=
+ =?us-ascii?Q?SH7//7m2EV4LHDhxMlxFEZAaB0RHeIZ183+et1A6wIGEqfGDL/HUFAYC1DGK?=
+ =?us-ascii?Q?VUAZUzn0h8/mOHsOdGo12avxjy3Mfam0?=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?dVRlU0dvQ1kzbkkwN24yVi9pTERVUUFxS3EwVWM2aWo5THB4dVEwdWNudk5j?=
- =?utf-8?B?aHlvbnI5NnRKRFQ4V21USnpnUmt2bmFFYk1UQmhFYVZVYzFFd3FwS1ZMc1FW?=
- =?utf-8?B?aVJ1aTNrSGlPOVptYm00OTdjVWdPZ1lBc0RYT09jY2dHY3F5Rlc1aVRWRyth?=
- =?utf-8?B?V3kyQ3VZNElWZ0g5T3NVeHRhc0l2NEM5NElYQ3lxeTIyeE15SjcwY1FaVC90?=
- =?utf-8?B?TGkrc3gwZzNyOWVwNVQzbWloT0JqSDljcW1FTTM1a3N4T0QvcS9vVDJTTitm?=
- =?utf-8?B?MGpTZHllYVhSS0gvaUN0WVQrTCtEeGJvU0pJMGNIejhXVEp2V2VuTEVKaHdB?=
- =?utf-8?B?S0RsN1Eybm83VmVaV1I2dTRGcFFiU3lyWkV1VE1HM1FwMXB6ZUxIS3RJQjJY?=
- =?utf-8?B?SlhuMVNLQjVaYUlmMDdmdUlvajdJY2hUbFFVZS9yTlBITDdHbytjZnY0TEN3?=
- =?utf-8?B?aFZ3ME9kcmlkc2taVjFTc0ZaS21COG13QlhJa2c4eTlvSllYUDlBNjFvSXJY?=
- =?utf-8?B?VTNkdkg2bzdJRGZFL2x3Y1ZXdVFXK3N5aGpNREIwdTZCaXJKaDZVZk9jL3Zp?=
- =?utf-8?B?RFV1MERHY1pLTlg1cjhCVXF5Y1ZPOTlyVW1rZEp3enNXNVNGNGlLZzA3U25V?=
- =?utf-8?B?UWVGYWhWUlVLdXRJOXFKcnRGdTkxemRISjRmZWhpOUN5WTZHUHRjeThsRTNJ?=
- =?utf-8?B?ajFLYVdPY3dINndLdE50cWR5blpKVEtNemtTbWRDcWNNMjc1cHVYSk9JRGNB?=
- =?utf-8?B?aUxkOXFNWTBDUUJjaGl3YnBqcHltWEZ1N2orWE9PcFNBa1JJTGF2YWI0MXdG?=
- =?utf-8?B?b3A2VzlPcTJVVFY2d0JuSWtxUDIvcE00NXNwdkRlc3V2aWZtWitXME14bTV5?=
- =?utf-8?B?YjJ4dnZ5YmN6ZFhZRXROVXVBM0phbTJFcHlmSzVzakhQYlkrR0ErREdHSWJK?=
- =?utf-8?B?TlZwaElsQm4wRDBPTzE3MDhhWVZocEVGL3l5OGg1UUk1cG1ueGlKMWlHR3VK?=
- =?utf-8?B?VU84Z08zcU10bWpLS0lrVWpkKzY3ckgzVGpFWW52blB1cmxPMHhUYUNoM2l3?=
- =?utf-8?B?Mk1xS29PWUMvR3JYdklMY1FMeVRxNUlYV3ozWWxyOGJhcE5UN3ZHZFNmVGFU?=
- =?utf-8?B?TElyZ2p6ZVMvdFBwczJFWmZHbGVLaWNiYzNNRnVKTHZmZXRDNnBCTzdraHZE?=
- =?utf-8?B?UVJISENjQjZtZFJYRGIraDdYTWNaUmx4Q2doWkswWng4Unlkdmd1U3A3TUpY?=
- =?utf-8?B?cCtoWWFZM2xPTXVjbEZ1ODE1YzJvdThUNXozQ2M3bUlvdVoweXB3K2lydHM4?=
- =?utf-8?B?c0tEL3VrVUR4Mm9oaTg1Z1I4TTE1eDJ6bjFWVnpTQmw2RGY3VzF0ZVIxUDFV?=
- =?utf-8?B?ZUlXL0c1SkZQemVtRHA4STBEQ253S3prSlpUaWhUeUh2ZUpsVzF1SmlNVEx5?=
- =?utf-8?B?eTNES1U5bkwycWRGTDR0SXBDaTRyUngyblM4T1k1ZHJHUzA3QS9vMklhNldK?=
- =?utf-8?B?elluNzZWdkJsYkRUdElqY0RoNDZUN3lLWHExT21ZS3I4MTM2NnQzUTZNUytG?=
- =?utf-8?B?cGlqTWhad2pGRDYvTnE3QzhZYWR6cW5NMERCbXJuZTRJRHlHUlpIS3R0VlBN?=
- =?utf-8?B?NGtmZ3JHRWVQY2xmY2kxK0JqcjN6RmY1cmM2UWdCaVgyVW1mRDNLOXUvemwx?=
- =?utf-8?B?MTVlWE1ZWFF4a0ErdUtvNVlVZ1VaSVFHN2Jhc3dNOFUvYmJXTVdMUVZ4Mmg0?=
- =?utf-8?B?emVWNVFCS1cwOWVnZm1uTkpjMzhsWlptT3orMXdHOFpuNzZyZmxxVGpQQ05F?=
- =?utf-8?B?Tm9NQWRySzNqV0gwUmhpdFJjMzIvN094ZTJFcithWDZCM1ZPWk5HVk9CUVRW?=
- =?utf-8?B?OHNsdlRDbkN1RDN0Qm1mWjl5cDVNak1sWjY1M1FjS295Q2M0OUpZRVFPOGU4?=
- =?utf-8?B?aDRvNFBRb1ZKNHRPUVIyZ2UxWkVOQ2xZTnhVcVh0dm92NFBMYVhxN1pyZWpN?=
- =?utf-8?B?My9KdjcxOWdmYUUrRGdaVlJvMy9EY2QrSTdLS2hUS24rcUtmeE1NSnVKc1ZP?=
- =?utf-8?B?eDZsdlh5TE9EZHgrMHZlRThtNmRYNGJGNGtubGZlSFdsUkplbitwa2lpTHpq?=
- =?utf-8?Q?lUY9ltAqPkqY+Ux+i0Ca+MgmZ?=
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 7c793021-cda1-4474-01c3-08dd1afca890
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2024 22:31:02.0363
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 06:11:52.8074
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f58d2468-3271-483b-2399-08dd1b3d09dc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- bS73mZ4kW3Gekb+uyFS11ao8oCcKPedt3mKRExK/7qORP1kFKzRinx4bLxjv0sp3yKpAYvgX1RA8q/sqblFMlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8063
-Message-ID-Hash: UTPH6GBNOJXHZWO2BNECNQ3OID434XTM
-X-Message-ID-Hash: UTPH6GBNOJXHZWO2BNECNQ3OID434XTM
-X-MailFrom: Mario.Limonciello@amd.com
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	BN2PEPF00004FBD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4061
+Message-ID-Hash: Y6INX4CA4RY3UJTMPSIBKONU3LI7676E
+X-Message-ID-Hash: Y6INX4CA4RY3UJTMPSIBKONU3LI7676E
+X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -198,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UTPH6GBNOJXHZWO2BNECNQ3OID434XTM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y6INX4CA4RY3UJTMPSIBKONU3LI7676E/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -207,39 +184,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/3/2024 03:21, Vijendar Mukunda wrote:
-> As per design for power off mode, clear the wake enable register during
-> resume sequence.
-> 
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Add condition check to register ACP PDM sound card by reading
+_WOV acpi entry.
 
-Hi Vinod,
+Fixes: 0386d765f27a ("ASoC: amd: ps: refactor acp device configuration read logic")
 
-Can you please pick up this patch?  There is other work that needs to 
-build on it that is currently blocked.  It's been on the list for nearly 
-a month [1] along with a resend [2] with no feedback.
+Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+---
+ sound/soc/amd/ps/pci-ps.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-[1] 
-https://lore.kernel.org/alsa-devel/20241112185138.3235375-1-Vijendar.Mukunda@amd.com/
-[2] 
-https://lore.kernel.org/alsa-devel/20241203092144.4096986-1-Vijendar.Mukunda@amd.com/
-
-Thanks,
-
-> ---
->   drivers/soundwire/amd_manager.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> index 5a4bfaef65fb..96a3aa6da711 100644
-> --- a/drivers/soundwire/amd_manager.c
-> +++ b/drivers/soundwire/amd_manager.c
-> @@ -1190,6 +1190,7 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
->   	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
->   		return amd_sdw_clock_stop_exit(amd_manager);
->   	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
-> +		writel(0x00, amd_manager->acp_mmio + ACP_SW_WAKE_EN(amd_manager->instance));
->   		val = readl(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
->   		if (val) {
->   			val |= AMD_SDW_CLK_RESUME_REQ;
+diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+index a7583844f5b4..983d7fa13938 100644
+--- a/sound/soc/amd/ps/pci-ps.c
++++ b/sound/soc/amd/ps/pci-ps.c
+@@ -374,11 +374,18 @@ static int get_acp63_device_config(struct pci_dev *pci, struct acp63_dev_data *a
+ {
+ 	struct acpi_device *pdm_dev;
+ 	const union acpi_object *obj;
++	acpi_handle handle;
++	acpi_integer dmic_status;
+ 	u32 config;
+ 	bool is_dmic_dev = false;
+ 	bool is_sdw_dev = false;
++	bool wov_en, dmic_en;
+ 	int ret;
+ 
++	/* IF WOV entry not found, enable dmic based on acp-audio-device-type entry*/
++	wov_en = true;
++	dmic_en = false;
++
+ 	config = readl(acp_data->acp63_base + ACP_PIN_CONFIG);
+ 	switch (config) {
+ 	case ACP_CONFIG_4:
+@@ -411,10 +418,18 @@ static int get_acp63_device_config(struct pci_dev *pci, struct acp63_dev_data *a
+ 			if (!acpi_dev_get_property(pdm_dev, "acp-audio-device-type",
+ 						   ACPI_TYPE_INTEGER, &obj) &&
+ 						   obj->integer.value == ACP_DMIC_DEV)
+-				is_dmic_dev = true;
++				dmic_en = true;
+ 		}
++
++		handle = ACPI_HANDLE(&pci->dev);
++		ret = acpi_evaluate_integer(handle, "_WOV", NULL, &dmic_status);
++		if (!ACPI_FAILURE(ret))
++			wov_en = dmic_status;
+ 	}
+ 
++	if (dmic_en && wov_en)
++		is_dmic_dev = true;
++
+ 	if (acp_data->is_sdw_config) {
+ 		ret = acp_scan_sdw_devices(&pci->dev, ACP63_SDW_ADDR);
+ 		if (!ret && acp_data->info.link_mask)
+-- 
+2.25.1
 

@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F8E9F745C
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2024 06:55:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1529F745E
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2024 06:56:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7B0A60291;
-	Thu, 19 Dec 2024 06:55:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7B0A60291
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8B2A602AF;
+	Thu, 19 Dec 2024 06:55:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8B2A602AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1734587749;
-	bh=lVgX+fLvSP85L2Rofn2ihdqZpltVmekJ++lM5pRSmPw=;
+	s=default; t=1734587766;
+	bh=U25s5aLwhsk2zL5rhOQf47JvTFjNh9sb8AGIQ+y1nWQ=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kg4rDiYl3t6vlmSWTZr/IqPYRnyP9wLzkEBb2zIw+KJ0UcbyUBA9elF37lyhq4Msv
-	 y6WHDnRkHIGKPVIctpmVHqd6KmTMukelDO1hqIzWYSkj8HAm3wZZHboMM0JeQJWQ1a
-	 21+ZXWyHtCXKz4VgiDLmSgF+B9afn61r0705mrpU=
+	b=NnvFEhn73x+uSUpNAS007i8KPdCO8Sj87Z75ea9T4m0T8+3YZ/HzpiXTY0Asx70NP
+	 8tYrOdZLrUKbppTNU6xd/SfJgpPjap8BjT05PMvps1oSpBj+s/49K4trGBN3FkcoiK
+	 T0OYMdr7FA9poeeuFvMfGwfuEtMh96SOY+18TlsU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D38BFF808C8; Thu, 19 Dec 2024 06:52:11 +0100 (CET)
+	id D577BF80C78; Thu, 19 Dec 2024 06:52:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9ADDF80C06;
-	Thu, 19 Dec 2024 06:52:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41128F80C70;
+	Thu, 19 Dec 2024 06:52:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B33AF805BF; Thu, 19 Dec 2024 06:52:01 +0100 (CET)
+	id 4F8D3F805BF; Thu, 19 Dec 2024 06:52:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061f.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:200a::61f])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2009::61e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0BC7F8075B
-	for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2024 06:51:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0BC7F8075B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5F8A5F805B6
+	for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2024 06:52:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F8A5F805B6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=Tva90utN
+ header.s=selector1 header.b=UIEFf3Rp
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sYYnTLbzvwlvWmTG/NRI/oMD7mzX8oYvbFIw3OXCkKWk0jX7+3MoQNU75jUyM86596VybuRmRMhDV7RW0eDDz9zyfarIzmZje0Hkfhk91T/k6CFpL4PSAt7d8ncFEapIK9XRqZv7j9I+s54XZpiCpVF8QNbwwr+rF7zvmx2WBxVAZbT7aP4QWNvfdX2oHIKrYUh+zaVbzw/nTtQLDNZ+StulqTTnY3sOpGQiY3VashJu2kBiFR6+bVKkZP4veJkiZ8/a7NmmsQNPMxOAd8YA4g7HwEGvcQttwL9DLw7cZF2WgPsYD/bmlwyfVjVvn+gAzxoO6WrcWvfU5Um4ZpCzaQ==
+ b=LUdDue1gnvcGP3xxunoKN8eh+vHzcdHxJkozTGtLrzcu2/YRmJEHRAQxSZKYnkSGoUC98wLh3atJcHaSvwV1C/QCLryl9G4YRknGOBMnK+96vMs4dBRkbQpwYg53zGWxQScXpYOFog+EO3wM4bwcIOVRd/+K2nViVa3FukptRM6DztaQMrIG5dgahNkQiS0eqzh624CJK8YquGr+VT+AcoFqxZ17kdjOmEW3U6m8Qi7MYZ59IIS3fveMmChYEf1r+KLXo/v+SgzXDsRPelMJZj03vVFH48n39s496LKTGxhBk2BNgP4DiEs7p3/PmKl6mOF2Ahnu6HcUuy1FpMxlyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z49mm4VSqdNYZlWWFiAkMujUb4pyfyf+byOBPncwc4s=;
- b=dWfb/wf2YaoGUpBzhSiDKlEWqoweU2z99nPAEFUdE/jDwEWLuj5DRvhIJnx7pIaPmFAFVAD2+BG4YpgXjweiasP39Sru9DTTHhKvNg6IBncp1KmPyidUC48T0UZ5FoJavawUz2yv+ai4GrUi+gmowzpciSsfvki1/64mw5WkJITWMHcIML+HkuKEELIf2kq/+v1EmWBvq+kXEdrQ6UsgG5MaLrSsW+aL/mzE5WSVXjOI/5oz+a8m3MHjv4+NZzPzm4zsxclaGD84ZXGM5yJjBDBrwmInCcSa9dMH9ABwiAaEVykDIkJuXvOHlHsk0jh4fl9ANtT6xYmCB8w7YiWqTA==
+ bh=5yvbuQE68I8CQBgTrrOyNfrUCUGPIKT7pMLZcWnPxk0=;
+ b=cCEf50f/shlZbKAcyQzr01BIe4XBzkSBAhQMJBlRAsrnFqYlBagy00ezhBjAoku1m6O9bNlPaNAX6Jgulpl3r3cqmfixgCTVgY4wRr1E+xFBwurlCaKkhfXe4tGl1aqQxgqz/eEfo6PIabElhCLiilCTd7pWHUW5YAQA5iuu+Ix7DZ3JP4RNqv/KnWdX5SpdyGIIGV2tQ9TQ75IPYXG9XVTvf7XWdIJ2YCZSr1UZFoBEbGgGoVpi+BS8W2jURphv8BtkEwU+BHCS6y7mRT7f9yU5wpCoseANqRTiFKLBRAxfqgOk4N9MCWN1yWWJZ2yXfgBI1ICFZlJM6k1CBxFhsQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z49mm4VSqdNYZlWWFiAkMujUb4pyfyf+byOBPncwc4s=;
- b=Tva90utNccBbOpGLqKVOIW8zLd20Yt3N0b17+pAk+mBhqs1YEf60O8R2M5HNjqyOoSzL5WKVlCzT9DOAL6Ibp5gb9CGxi9BBid8voJsLTU3GgHtOQwh9jyD2DY+W1hvlPoidUiSj1rdU3ZdAPdoJrkbVwRaeSGM1RVVaidq3RPU=
-Received: from CH0PR03CA0003.namprd03.prod.outlook.com (2603:10b6:610:b0::8)
- by SA1PR12MB7442.namprd12.prod.outlook.com (2603:10b6:806:2b5::15) with
+ bh=5yvbuQE68I8CQBgTrrOyNfrUCUGPIKT7pMLZcWnPxk0=;
+ b=UIEFf3Rpnr3RtKpMVcfX4mJnce+cyxJm/Ar2qg3d4pN7fFjf6LjGc8l9z7nqZOxPfVFxQwlgO9WJ8zDTHM/9thM1GBhd8TaF264yAc2p12sJu/bJoO3kYNkhbL9Za4xe0K1xGDJwHQrlO3d5KgAVGIpFugBPF7/F2RAFd6PxSIk=
+Received: from CH2PR18CA0048.namprd18.prod.outlook.com (2603:10b6:610:55::28)
+ by PH0PR12MB7861.namprd12.prod.outlook.com (2603:10b6:510:26e::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.14; Thu, 19 Dec
- 2024 05:51:53 +0000
-Received: from CH1PEPF0000AD7E.namprd04.prod.outlook.com
- (2603:10b6:610:b0:cafe::81) by CH0PR03CA0003.outlook.office365.com
- (2603:10b6:610:b0::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8182.15 via Frontend Transport; Thu,
- 19 Dec 2024 05:51:53 +0000
+ 2024 05:51:57 +0000
+Received: from CH1PEPF0000AD81.namprd04.prod.outlook.com
+ (2603:10b6:610:55:cafe::a7) by CH2PR18CA0048.outlook.office365.com
+ (2603:10b6:610:55::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.23 via Frontend Transport; Thu,
+ 19 Dec 2024 05:51:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -79,13 +79,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD7E.mail.protection.outlook.com (10.167.244.87) with Microsoft
+ CH1PEPF0000AD81.mail.protection.outlook.com (10.167.244.89) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8251.15 via Frontend Transport; Thu, 19 Dec 2024 05:51:53 +0000
+ 15.20.8251.15 via Frontend Transport; Thu, 19 Dec 2024 05:51:56 +0000
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 18 Dec 2024 23:51:49 -0600
+ 15.1.2507.39; Wed, 18 Dec 2024 23:51:53 -0600
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
@@ -93,10 +93,10 @@ CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
 	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
 	<Mario.Limonciello@amd.com>, <linux-sound@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: [PATCH 19/21] ASoC: amd: acp: add machine driver changes for ACP7.0
- and ACP7.1 platforms
-Date: Thu, 19 Dec 2024 11:18:55 +0530
-Message-ID: <20241219054857.2070420-20-Vijendar.Mukunda@amd.com>
+Subject: [PATCH 20/21] ASoC: amd: acp: add RT711,
+ RT714 & RT1316 support for ACP7.0 platform
+Date: Thu, 19 Dec 2024 11:18:56 +0530
+Message-ID: <20241219054857.2070420-21-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241219054857.2070420-1-Vijendar.Mukunda@amd.com>
 References: <20241219054857.2070420-1-Vijendar.Mukunda@amd.com>
@@ -108,56 +108,56 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7E:EE_|SA1PR12MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12526e4e-284f-441e-3162-08dd1ff13d6e
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD81:EE_|PH0PR12MB7861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 034f671b-d096-461e-bfb7-08dd1ff13f74
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700013;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?aWC16sjuIubuElrDywsZETAs2gwiXWYqY2krv/MDSfK5M9+lbRm+FxmgUjYa?=
- =?us-ascii?Q?54INaane2CD16mURxP1mP1A8ntRVtRObD8HBnkkf/pTGC2rrtKYX3bjjDdRC?=
- =?us-ascii?Q?8zBvS8C/ikoQbrYpk96x7DRVWUIIegcDbcimrsHINSoxt0xazHdXvqDeZavb?=
- =?us-ascii?Q?voxhk0g7mxiZ2ullRYc4P+vCmUSJmk9X2lNa7QzxpFo9vn13D7j8qJTFeDIQ?=
- =?us-ascii?Q?C2v98l3cd5p2gF8n71/ciTv1cKi6N+WkTQLCm/mHmuRCgwxDyw7y0LPMLvL4?=
- =?us-ascii?Q?j58Q7hT1KOeoaLqOqTjOMbFKIv+J/fPJ4VRJaGDek6vHxlr+pQSe/V8elkcY?=
- =?us-ascii?Q?b/576IaO/m0uWtwiLa6ilC+irqnWARKrxQNx/fYxz+qVA4yuBIu4yTsNuSK+?=
- =?us-ascii?Q?3ef5l6rwYmt61+DfRLXsc3+SJ+YZKS+2D3PVnsWiTX/BTrwbFItKo3VfuHPZ?=
- =?us-ascii?Q?7bHy19/oCfxO9/qTpahysIQWfXDHIhR/2ycWDRFozIjeC4pcaYaWyEMi7d0v?=
- =?us-ascii?Q?x9yxs76cqcXYRmX8YzB45iJNv7mo4Md2DTIq2fenYFbfjpicrwtSda8YlTlr?=
- =?us-ascii?Q?yAfhXM/2iQjM9fzz0Z4TXY/HoYZVQpM8zOd1kB5IhtozootyJ91CPygHu4aH?=
- =?us-ascii?Q?8xeC5qzeQAEKIEuD6TrVz9Ys7+qcqDTSEmzlv5JQjKESzqKjlCsbgwNOE/3E?=
- =?us-ascii?Q?junASIAJYYxH/1Na8hhkKFe3IbleHgY6iqxiMztRb8+DmOtEM4Pbb0bEuHHc?=
- =?us-ascii?Q?eyCctgmjOA6Fv2QJEcHsoWVYvXPj9aFGdZ8oak14Eh2lWUskYu7BYdzyeTEo?=
- =?us-ascii?Q?f5x0zEHoGqjtD/LAzGzjrzE2oRnBa/Rx60W95fgxrlle1Q+eMIJNRnfW3hQz?=
- =?us-ascii?Q?gFHHVQ/9gUR8cdBgUXbXp3F9BS7EJUzaqU1Z1DdwhVampdHxHAj5HHz9PE8f?=
- =?us-ascii?Q?1hv/OXoXDVt14NtJ+PgfMqDJdEbAZjSsE6qE1yTiDaIiu8N8wFtrbiPXT2Gq?=
- =?us-ascii?Q?ysb4m0x+qyvQ7HdRR2iF3IFYzB+U8vBKhgQe4HFArk50F6CruZTiBoUKDori?=
- =?us-ascii?Q?BgaXBWfw/KkEIt4t6EK3nUUxrrMC4c6tKltPRFaS5p3mQnKvoVifK5q1pCBn?=
- =?us-ascii?Q?3BsFdpkzv6+ACkrczs8jTpMKHlSRphZ6o6ZxTi1/I8x6IlFq33xPPccrqDuN?=
- =?us-ascii?Q?T/G7CA2zp2j8XJv8dU024qnVmIHGDqb0+qOh7VqsQVMMKPKL9fo8jtRAzMUI?=
- =?us-ascii?Q?mbWwo3FUn4YwrBDpGCAKho0fgOAqClIOuR50bng6RUP6i9ZjbnBIJEIumuAZ?=
- =?us-ascii?Q?VWkkxtQtSck7xVW+nNbOGp6HOKurXMnVBs2IEy+eVToX+9wMyPwDc0jXqqrN?=
- =?us-ascii?Q?8DRYpk+u2B/jOtQ/WnW4FUrbjwwTqF45tVPEjZbJLs4dlxVcTA20zlCmk6+S?=
- =?us-ascii?Q?xrcLm8YVEh4zt+DkyXOGgDi4qIkJQbLXe/gd1vN85I9dCCbL9yXNDrQrVJsw?=
- =?us-ascii?Q?7o2mD8DF92NXMLs=3D?=
+	=?us-ascii?Q?FMA61LdIr4NNQmVuuNTc8BhuNZygYvTm7S72oSBfCxLtUip+XCCEFFqGufOq?=
+ =?us-ascii?Q?HMsx+VVZDnZ7FwUY1FrPMk3uU3CbKt6S+oAhPkWIV5k53UDXipz7dzFA3YwQ?=
+ =?us-ascii?Q?9idO2KshIMmACXdL/DUsm2+gx72hCo/W4o+etK7mBRDZIv13AZ94+RwfYwUa?=
+ =?us-ascii?Q?69r2LDhTkPLDOe07EdVNjLDp+twZjCKqyx+jF0nnklxeCFyC2oMAXBAnWJ8Z?=
+ =?us-ascii?Q?px29SJCEP24ytUDMkJ6neoJFQ0qtKcu/dKikw2bGkGNvoou9B+gjnrh/a+Lz?=
+ =?us-ascii?Q?RkAWWM2sREwq3f/1MxJ9uVbhc/9MfWfYBl90ABeubZke4plo0/zFgR2UmX74?=
+ =?us-ascii?Q?TRnrhefnbDUFyD8IVFGalvHHUrCpExi8w3sPJmWbMhPD5ImkpT+ORz25DO1a?=
+ =?us-ascii?Q?+1WfG0GcuysKW7BmD1B/GCrbt+OO6abQkxT/5w198btAS5e+Yguxpwhv5w1I?=
+ =?us-ascii?Q?kbV8+oiKjO7+6eMZyfiC/k/8SzjVXFuCwSVIf0HD2fEcZTZn+i7JPs+8Kwgm?=
+ =?us-ascii?Q?JkiEgLJV3eBEwL4IG+YNZGOPxstnnie+hor1trGC+UwmOlU44kvjkhYiRBI0?=
+ =?us-ascii?Q?XGqEklZodsq6vHKPBi7hmbWHNeU/ZgfRxm8i93mR5ZuVlngZyFcAQ9HgXE/Y?=
+ =?us-ascii?Q?h0cvh9rjjL1IYs3P9O8KmA5TQvNuNteMKs4/gvpX217leO12bHiK0m9dzfwn?=
+ =?us-ascii?Q?e4K5pvKC1wCfjQ2GEC+1hJI6FB1wnLYWF2a6+Jkn8vjKjRu7gwQmQWjJK25m?=
+ =?us-ascii?Q?nlro2YXZm86zvaHXjbUI4VK4d1QXIePvhP4asXQ9Zqmk0kvQShd2AJSDhsz5?=
+ =?us-ascii?Q?19n+nYjaXFGHYW98NsteoVtWioy2GQx72qeXO8t5MyRtEBT1MizjkcxkBdGK?=
+ =?us-ascii?Q?eu2fzpygOLyZ3+7VU3EXzoZgq1mAqiR9q/0K+D6MPti18e/19gKJuLQ1JIxn?=
+ =?us-ascii?Q?mIcuC0vM9ua3wuHZ1zbWmrd0h29eiMBfFLOwR5RcPfPBeWE5drL5e9WziWzn?=
+ =?us-ascii?Q?EMWYH73VhT+/F6hk6jt7eL1dCIE2h17UwLXslEOQ7+cvrJuLvPho2n8liK4m?=
+ =?us-ascii?Q?qOjp3JncOJJ+w7Km0IRTTJci/MPLs0CJywTpJMl2HsjAMr5WghRJLheFshE1?=
+ =?us-ascii?Q?zQ8wvm4FGieqHBttUkkq+dLqGt693dBwsxXZc1b6/4i8YYrIuDTlwYWiOPOd?=
+ =?us-ascii?Q?bzy/Aw1qeCGdoarij8h4Y2wTrGUvTY4pNSDPsLeQcwRA8iGctcD8VxIky8kh?=
+ =?us-ascii?Q?iU3geybkNSpdB3P8QqpPrdz6H7A4RJYyzP9K1gyZvL5DUV5B1KdUkhwGVShI?=
+ =?us-ascii?Q?yx4SouBSNJh+CCQ6kztPmPe2VqhvnAFIjFR6H7oWvK7ukCIaElmXPrvWJfBy?=
+ =?us-ascii?Q?eXBlUgxcJp4dJTWg1s4Lxlvl6VPJUBeHApTHsQdp/rqsDM7bRUc4P09LjChI?=
+ =?us-ascii?Q?SsWungJ/BgGLQ2FnJsTBJr05lInAbOqA16eThSPpqFF+duamfhKLCHvhHOCw?=
+ =?us-ascii?Q?2RfenEaQ3xKPDTg=3D?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2024 05:51:53.3752
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2024 05:51:56.7892
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 12526e4e-284f-441e-3162-08dd1ff13d6e
+ 034f671b-d096-461e-bfb7-08dd1ff13f74
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
  TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	CH1PEPF0000AD7E.namprd04.prod.outlook.com
+	CH1PEPF0000AD81.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
-Message-ID-Hash: JXFL6PGSWBTBYHQB2SPY2N7FZE5HZ4XI
-X-Message-ID-Hash: JXFL6PGSWBTBYHQB2SPY2N7FZE5HZ4XI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7861
+Message-ID-Hash: NO3T6XT6CNC6EN24ZHC7S3CE6C5KNJSP
+X-Message-ID-Hash: NO3T6XT6CNC6EN24ZHC7S3CE6C5KNJSP
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -170,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JXFL6PGSWBTBYHQB2SPY2N7FZE5HZ4XI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NO3T6XT6CNC6EN24ZHC7S3CE6C5KNJSP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,136 +179,167 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add SoundWire generic machine driver changes for legacy stack(No DSP) for
-ACP7.0 and ACP7.1 platforms.
+Add support for corresponding codecs on ACP7.0 platform hardware
+configuration.
+
+SDW0: RT711 Jack
+SDW0: RT1316 Left Speaker
+SDW0: RT1316 Right Speaker
+SDW1: RT714 DMIC
 
 Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 ---
- sound/soc/amd/acp/acp-sdw-legacy-mach.c | 16 ++++++++++++
- sound/soc/amd/acp/acp-sdw-mach-common.c | 34 +++++++++++++++++++++++++
- sound/soc/amd/acp/soc_amd_sdw_common.h  | 11 ++++++++
- 3 files changed, 61 insertions(+)
+ sound/soc/amd/Kconfig                    |  1 +
+ sound/soc/amd/acp/Makefile               |  2 +-
+ sound/soc/amd/acp/amd-acp70-acpi-match.c | 88 ++++++++++++++++++++++++
+ sound/soc/amd/acp70/pci-acp70.c          |  1 +
+ sound/soc/amd/mach-config.h              |  1 +
+ 5 files changed, 92 insertions(+), 1 deletion(-)
+ create mode 100644 sound/soc/amd/acp/amd-acp70-acpi-match.c
 
-diff --git a/sound/soc/amd/acp/acp-sdw-legacy-mach.c b/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-index 9280cd30d19c..e27093d80cc6 100644
---- a/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-@@ -122,6 +122,13 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 			if (ret)
- 				return ret;
- 			break;
-+		case ACP70_PCI_REV:
-+		case ACP71_PCI_REV:
-+			ret = get_acp70_cpu_pin_id(ffs(soc_end->link_mask - 1),
-+						   *be_id, &cpu_pin_id, dev);
-+			if (ret)
-+				return ret;
-+			break;
- 		default:
- 			return -EINVAL;
- 		}
-@@ -223,6 +230,10 @@ static int create_sdw_dailinks(struct snd_soc_card *card,
- 	case ACP63_PCI_REV:
- 		sdw_platform_component->name = "amd_ps_sdw_dma.0";
- 		break;
-+	case ACP70_PCI_REV:
-+	case ACP71_PCI_REV:
-+		sdw_platform_component->name = "amd_acp70_sdw_dma.0";
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -269,6 +280,11 @@ static int create_dmic_dailinks(struct snd_soc_card *card,
- 		pdm_cpu->name = "acp_ps_pdm_dma.0";
- 		pdm_platform->name = "acp_ps_pdm_dma.0";
- 		break;
-+	case ACP70_PCI_REV:
-+	case ACP71_PCI_REV:
-+		pdm_cpu->name = "acp70_pdm_dma.0";
-+		pdm_platform->name = "acp70_pdm_dma.0";
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/sound/soc/amd/acp/acp-sdw-mach-common.c b/sound/soc/amd/acp/acp-sdw-mach-common.c
-index 6f5c39ed1a18..e5f394dc2f4c 100644
---- a/sound/soc/amd/acp/acp-sdw-mach-common.c
-+++ b/sound/soc/amd/acp/acp-sdw-mach-common.c
-@@ -59,6 +59,40 @@ int get_acp63_cpu_pin_id(u32 sdw_link_id, int be_id, int *cpu_pin_id, struct dev
- }
- EXPORT_SYMBOL_NS_GPL(get_acp63_cpu_pin_id, "SND_SOC_AMD_SDW_MACH");
- 
-+int get_acp70_cpu_pin_id(u32 sdw_link_id, int be_id, int *cpu_pin_id, struct device *dev)
-+{
-+	switch (sdw_link_id) {
-+	case AMD_SDW0:
-+	case AMD_SDW1:
-+		switch (be_id) {
-+		case SOC_SDW_JACK_OUT_DAI_ID:
-+			*cpu_pin_id = ACP70_SW_AUDIO0_TX;
-+			break;
-+		case SOC_SDW_JACK_IN_DAI_ID:
-+			*cpu_pin_id = ACP70_SW_AUDIO0_RX;
-+			break;
-+		case SOC_SDW_AMP_OUT_DAI_ID:
-+			*cpu_pin_id = ACP70_SW_AUDIO1_TX;
-+			break;
-+		case SOC_SDW_AMP_IN_DAI_ID:
-+			*cpu_pin_id = ACP70_SW_AUDIO1_RX;
-+			break;
-+		case SOC_SDW_DMIC_DAI_ID:
-+			*cpu_pin_id = ACP70_SW_AUDIO2_RX;
-+			break;
-+		default:
-+			dev_err(dev, "Invalid be id:%d\n", be_id);
-+			return -EINVAL;
-+		}
-+		break;
-+	default:
-+		return -EINVAL;
+diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+index 57743bc4fcea..de55fc7642c8 100644
+--- a/sound/soc/amd/Kconfig
++++ b/sound/soc/amd/Kconfig
+@@ -187,6 +187,7 @@ config SND_SOC_AMD_PS_MACH
+ config SND_SOC_AMD_ACP70
+ 	tristate "AMD Audio Coprocessor-v7.0 SoundWire support"
+ 	select SND_SOC_AMD_SOUNDWIRE_LINK_BASELINE
++	select SND_SOC_ACPI_AMD_MATCH
+ 	depends on X86 && PCI && ACPI
+ 	help
+ 	  This option enables Audio Coprocessor i.e ACP v7.0 support.
+diff --git a/sound/soc/amd/acp/Makefile b/sound/soc/amd/acp/Makefile
+index bb2702036338..7c75892e678b 100644
+--- a/sound/soc/amd/acp/Makefile
++++ b/sound/soc/amd/acp/Makefile
+@@ -22,7 +22,7 @@ snd-acp70-y := acp70.o
+ snd-acp-mach-y     := acp-mach-common.o
+ snd-acp-legacy-mach-y     := acp-legacy-mach.o acp3x-es83xx/acp3x-es83xx.o
+ snd-acp-sof-mach-y     := acp-sof-mach.o
+-snd-soc-acpi-amd-match-y := amd-acp63-acpi-match.o
++snd-soc-acpi-amd-match-y := amd-acp63-acpi-match.o amd-acp70-acpi-match.o
+ snd-acp-sdw-mach-y     := acp-sdw-mach-common.o
+ snd-acp-sdw-sof-mach-y += acp-sdw-sof-mach.o
+ snd-acp-sdw-legacy-mach-y += acp-sdw-legacy-mach.o
+diff --git a/sound/soc/amd/acp/amd-acp70-acpi-match.c b/sound/soc/amd/acp/amd-acp70-acpi-match.c
+new file mode 100644
+index 000000000000..1f30adb6c02a
+--- /dev/null
++++ b/sound/soc/amd/acp/amd-acp70-acpi-match.c
+@@ -0,0 +1,88 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * amd-acp70-acpi-match.c - tables and support for ACP 7.0 platform
++ * ACPI enumeration.
++ *
++ * Copyright 2024 Advanced Micro Devices, Inc.
++ */
++
++#include <sound/soc-acpi.h>
++#include "../mach-config.h"
++
++static const struct snd_soc_acpi_endpoint single_endpoint = {
++	.num = 0,
++	.aggregated = 0,
++	.group_position = 0,
++	.group_id = 0
++};
++
++static const struct snd_soc_acpi_endpoint spk_l_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 0,
++	.group_id = 1
++};
++
++static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
++	.num = 0,
++	.aggregated = 1,
++	.group_position = 1,
++	.group_id = 1
++};
++
++static const struct snd_soc_acpi_adr_device rt711_rt1316_group_adr[] = {
++	{
++		.adr = 0x000030025D071101ull,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt711"
++	},
++	{
++		.adr = 0x000030025D131601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_l_endpoint,
++		.name_prefix = "rt1316-1"
++	},
++	{
++		.adr = 0x000032025D131601ull,
++		.num_endpoints = 1,
++		.endpoints = &spk_r_endpoint,
++		.name_prefix = "rt1316-2"
++	},
++};
++
++static const struct snd_soc_acpi_adr_device rt714_adr[] = {
++	{
++		.adr = 0x130025d071401ull,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt714"
 +	}
-+	dev_dbg(dev, "sdw_link_id:%d, be_id:%d, cpu_pin_id:%d\n", sdw_link_id, be_id, *cpu_pin_id);
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(get_acp70_cpu_pin_id, "SND_SOC_AMD_SDW_MACH");
++};
 +
- MODULE_DESCRIPTION("AMD SoundWire Common Machine driver");
- MODULE_AUTHOR("Vijendar Mukunda <Vijendar.Mukunda@amd.com>");
- MODULE_LICENSE("GPL");
-diff --git a/sound/soc/amd/acp/soc_amd_sdw_common.h b/sound/soc/amd/acp/soc_amd_sdw_common.h
-index b7bae107c13e..9bedccfe25a9 100644
---- a/sound/soc/amd/acp/soc_amd_sdw_common.h
-+++ b/sound/soc/amd/acp/soc_amd_sdw_common.h
-@@ -19,6 +19,8 @@
- 
- #define AMD_SDW_MAX_GROUPS		9
- #define ACP63_PCI_REV			0x63
-+#define ACP70_PCI_REV			0x70
-+#define ACP71_PCI_REV			0x71
- #define SOC_JACK_JDSRC(quirk)		((quirk) & GENMASK(3, 0))
- #define ASOC_SDW_FOUR_SPK		BIT(4)
- #define ASOC_SDW_ACP_DMIC		BIT(5)
-@@ -38,11 +40,20 @@
- 
- #define ACP_DMIC_BE_ID		4
- 
-+#define ACP70_SW_AUDIO0_TX	0
-+#define ACP70_SW_AUDIO1_TX	1
-+#define ACP70_SW_AUDIO2_TX	2
++static const struct snd_soc_acpi_link_adr acp70_4_in_1_sdca[] = {
++	{	.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt711_rt1316_group_adr),
++		.adr_d = rt711_rt1316_group_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt714_adr),
++		.adr_d = rt714_adr,
++	},
++	{}
++};
 +
-+#define ACP70_SW_AUDIO0_RX	3
-+#define ACP70_SW_AUDIO1_RX	4
-+#define ACP70_SW_AUDIO2_RX	5
++struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[] = {
++	{
++		.link_mask = BIT(0) | BIT(1),
++		.links = acp70_4_in_1_sdca,
++		.drv_name = "amd_sdw",
++	},
++	{},
++};
++EXPORT_SYMBOL(snd_soc_acpi_amd_acp70_sdw_machines);
 +
- struct amd_mc_ctx {
- 	unsigned int acp_rev;
- 	unsigned int max_sdw_links;
- };
++MODULE_DESCRIPTION("AMD ACP7.0 tables and support for ACPI enumeration");
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Vijendar.Mukunda@amd.com");
+diff --git a/sound/soc/amd/acp70/pci-acp70.c b/sound/soc/amd/acp70/pci-acp70.c
+index ae19187fe695..d873e90e16d1 100644
+--- a/sound/soc/amd/acp70/pci-acp70.c
++++ b/sound/soc/amd/acp70/pci-acp70.c
+@@ -611,6 +611,7 @@ static int snd_acp70_probe(struct pci_dev *pci,
+ 	adata->addr = addr;
+ 	adata->reg_range = ACP70_REG_END - ACP70_REG_START;
+ 	adata->acp_rev = pci->revision;
++	adata->machines = snd_soc_acpi_amd_acp70_sdw_machines;
+ 	pci_set_master(pci);
+ 	pci_set_drvdata(pci, adata);
+ 	mutex_init(&adata->acp_lock);
+diff --git a/sound/soc/amd/mach-config.h b/sound/soc/amd/mach-config.h
+index a86c76f781f9..fdf016a64bbf 100644
+--- a/sound/soc/amd/mach-config.h
++++ b/sound/soc/amd/mach-config.h
+@@ -26,6 +26,7 @@ extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp63_sof_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp63_sdw_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp63_sof_sdw_machines[];
+ extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sof_machines[];
++extern struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[];
  
- int get_acp63_cpu_pin_id(u32 sdw_link_id, int be_id, int *cpu_pin_id, struct device *dev);
-+int get_acp70_cpu_pin_id(u32 sdw_link_id, int be_id, int *cpu_pin_id, struct device *dev);
- 
- #endif
+ struct config_entry {
+ 	u32 flags;
 -- 
 2.34.1
 

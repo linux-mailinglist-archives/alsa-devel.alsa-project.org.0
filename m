@@ -2,56 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F7FD9FA5D9
-	for <lists+alsa-devel@lfdr.de>; Sun, 22 Dec 2024 14:56:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7A79FAA30
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Dec 2024 07:09:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4B83601BC;
-	Sun, 22 Dec 2024 14:56:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4B83601BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A604601B2;
+	Mon, 23 Dec 2024 07:08:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A604601B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1734875775;
-	bh=BumS0w9aTcyHh0h4KCLOcGVuepMl9TXVUPZ6lA3hkUI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Ly27bQB2Flvl/t3L7Zr4HTkzoTma2QeKwDQ6qJijHaK5pSFF5B1wFTcRX7+oDIAfc
-	 R6oM6THEN2sbNEk4LC8aKn+VUoFHOJO1pmcekJDFkLcud4vmxm+8qs+I7CKhlyaV3J
-	 h+g3Q76Uxn6gc/KnsPtdXT4Lmo9I4qsLP5X1pYAk=
+	s=default; t=1734934149;
+	bh=nrc+SD0Pj5qDjajWk+2G/s3HKYE8BMI6C86R4ElicOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Zh5vZ7pu5Q0s+GvolVPabS49ojys7G/voIFPxg0Q/d/UWZD8HAFo/6zF5F8X81/pA
+	 fsw8rlCcAAnGXe3d/2B2bCcXLWeT1w3U+58jujkSUWB/vgR5r/Wz+wSMNgah5XDKaP
+	 vxZqi+BU8mz0lVEpnJzs+BzOE4QtFUaRIFKXdYkE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A59FF805C4; Sun, 22 Dec 2024 14:55:41 +0100 (CET)
+	id CB811F805BF; Mon, 23 Dec 2024 07:08:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83B25F805BA;
-	Sun, 22 Dec 2024 14:55:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD1DAF805C0;
+	Mon, 23 Dec 2024 07:08:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E971F8056F; Sun, 22 Dec 2024 14:55:30 +0100 (CET)
+	id EF081F80254; Mon, 23 Dec 2024 07:08:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97483F800B8
-	for <alsa-devel@alsa-project.org>; Sun, 22 Dec 2024 14:55:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97483F800B8
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C5471F800B0
+	for <alsa-devel@alsa-project.org>; Mon, 23 Dec 2024 07:08:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5471F800B0
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=dnC5SB/i
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 526EEA40BC6;
+	Mon, 23 Dec 2024 06:06:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47CC9C4CED4;
+	Mon, 23 Dec 2024 06:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1734934104;
+	bh=nrc+SD0Pj5qDjajWk+2G/s3HKYE8BMI6C86R4ElicOU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dnC5SB/iZFWwSOqNZbSJFTPwaMrVuVcgAkI3PdGL5v4KrbvqcYfKJo9BedLt2xyhl
+	 upxOhx/JG5tlbb5r5/EqF8r0ZvDbEIWmqioAmARydlGZ7+yDH5MGWTSHYq+JUI8FDe
+	 R7c7askD710cGKs0/tFWaeNarzi+jZOglcwLmQgERM/UuN0XN2/c14Ipau0Ui81/5C
+	 Lzx1UuKHg7biPYQ4OGsMz/1l/9P9oj27OtE9dKGm2VXobubnLH6F2+gnUtEJZGVYTx
+	 X0eoOiYMRpRiwhs8Ji8uMcfPT9uzuQWJIRSHvh7DS6QbNccEiNi4jUGU1+MZ4AVuIh
+	 iXgTcznbRMy6A==
+Date: Mon, 23 Dec 2024 11:38:21 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+	sanyog.r.kale@intel.com, Basavaraj.Hiregoudar@amd.com,
+	Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+	Mario.Limonciello@amd.com, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH RESEND] soundwire: amd: clear wake enable register for
+Message-ID: <Z2j+VQ4BPjr3HXsX@vaman>
+References: <20241203091006.4096890-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1734875727031821728-webhooks-bot@alsa-project.org>
-References: <1734875727031821728-webhooks-bot@alsa-project.org>
-Subject: make check fails to compile playmidi1.c: "error: expected identifier
- or '(' before numeric constant"
-Message-Id: <20241222135530.1E971F8056F@alsa1.perex.cz>
-Date: Sun, 22 Dec 2024 14:55:30 +0100 (CET)
-Message-ID-Hash: YSMDCJZWLKAFKMTBMLKZQHEYZBU5Z5KX
-X-Message-ID-Hash: YSMDCJZWLKAFKMTBMLKZQHEYZBU5Z5KX
-X-MailFrom: github@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241203091006.4096890-1-Vijendar.Mukunda@amd.com>
+Message-ID-Hash: ITM5YDHCYTMXRZDNCI4BK6VSH2JFGSQP
+X-Message-ID-Hash: ITM5YDHCYTMXRZDNCI4BK6VSH2JFGSQP
+X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -63,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YSMDCJZWLKAFKMTBMLKZQHEYZBU5Z5KX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ITM5YDHCYTMXRZDNCI4BK6VSH2JFGSQP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,88 +99,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #430 was opened from 746B61:
+On 03-12-24, 14:40, Vijendar Mukunda wrote:
 
-Getting the latest version from branch master (352cbc5e) and running `./gitcompile` followed by `make check` fails with:
-```
-Making check in test
-make[1]: Entering directory '/tmp/alsa-lib-master/test'
-Making check in .
-make[2]: Entering directory '/tmp/alsa-lib-master/test'
-make  control pcm pcm_min latency seq seq-ump-example playmidi1 timer rawmidi midiloop umpinfo oldapi queue_timer namehint client_event_filter chmap audio_time user-ctl-element-set pcm-multi-thread
-make[3]: Entering directory '/tmp/alsa-lib-master/test'
-  CC       control.o
-  CCLD     control
-  CC       pcm.o
-  CCLD     pcm
-  CC       pcm_min.o
-  CCLD     pcm_min
-  CC       latency.o
-  CCLD     latency
-  CC       seq.o
-In file included from seq.c:12:
-seq-sender.c: In function 'event_sender':
-seq-sender.c:150:62: warning: variable 'pcm_flag' set but not used [-Wunused-but-set-variable]
-  150 |         int client, port, queue, max, err, v1, v2, time = 0, pcm_flag = 0;
-      |                                                              ^~~~~~~~
-  CCLD     seq
-  CC       seq-ump-example.o
-  CCLD     seq-ump-example
-  CC       playmidi1.o
-In file included from playmidi1.c:48:
-midifile.h:55:33: error: expected identifier or '(' before numeric constant
-   55 | #define note_on                 0x90
-      |                                 ^~~~
-../include/alsa/ump_msg.h:170:41: note: in expansion of macro 'note_on'
-  170 |         snd_ump_msg_midi1_note_t        note_on;        /**< MIDI1 note-on message */
-      |                                         ^~~~~~~
-midifile.h:54:33: error: expected identifier or '(' before numeric constant
-   54 | #define note_off                0x80
-      |                                 ^~~~
-../include/alsa/ump_msg.h:171:41: note: in expansion of macro 'note_off'
-  171 |         snd_ump_msg_midi1_note_t        note_off;       /**< MIDI1 note-off message */
-      |                                         ^~~~~~~~
-midifile.h:57:33: error: expected identifier or '(' before numeric constant
-   57 | #define control_change          0xb0
-      |                                 ^~~~
-../include/alsa/ump_msg.h:173:41: note: in expansion of macro 'control_change'
-  173 |         snd_ump_msg_midi1_cc_t          control_change; /**< MIDI1 control-change message */
-      |                                         ^~~~~~~~~~~~~~
-midifile.h:55:33: error: expected identifier or '(' before numeric constant
-   55 | #define note_on                 0x90
-      |                                 ^~~~
-../include/alsa/ump_msg.h:432:41: note: in expansion of macro 'note_on'
-  432 |         snd_ump_msg_midi2_note_t        note_on;        /**< MIDI2 note-on message */
-      |                                         ^~~~~~~
-midifile.h:54:33: error: expected identifier or '(' before numeric constant
-   54 | #define note_off                0x80
-      |                                 ^~~~
-../include/alsa/ump_msg.h:433:41: note: in expansion of macro 'note_off'
-  433 |         snd_ump_msg_midi2_note_t        note_off;       /**< MIDI2 note-off message */
-      |                                         ^~~~~~~~
-midifile.h:57:33: error: expected identifier or '(' before numeric constant
-   57 | #define control_change          0xb0
-      |                                 ^~~~
-../include/alsa/ump_msg.h:438:41: note: in expansion of macro 'control_change'
-  438 |         snd_ump_msg_midi2_cc_t          control_change; /**< MIDI2 control-change message */
-      |                                         ^~~~~~~~~~~~~~
-In file included from playmidi1.c:49:
-midifile.c:57:33: error: expected identifier or '(' before numeric constant
-   57 | #define set_tempo               0x51
-      |                                 ^~~~
-../include/alsa/ump_msg.h:711:41: note: in expansion of macro 'set_tempo'
-  711 |         snd_ump_msg_set_tempo_t         set_tempo;      /**< Set Tempo */
-      |                                         ^~~~~~~~~
-make[3]: *** [Makefile:622: playmidi1.o] Error 1
-make[3]: Leaving directory '/tmp/alsa-lib-master/test'
-make[2]: *** [Makefile:819: check-am] Error 2
-make[2]: Leaving directory '/tmp/alsa-lib-master/test'
-make[1]: *** [Makefile:669: check-recursive] Error 1
-make[1]: Leaving directory '/tmp/alsa-lib-master/test'
-make: *** [Makefile:414: check-recursive] Error 1
-```
+for...? Pls write the full subject
 
-The issue was introduced with commit 07cee0ba. playmidi1.c first [includes](https://github.com/alsa-project/alsa-lib/blob/352cbc5eb94a271a9c3c0ff5bf1742232a69e0d0/test/playmidi1.c#L48) midifile.h from the test directory, which [has](https://github.com/alsa-project/alsa-lib/blob/352cbc5eb94a271a9c3c0ff5bf1742232a69e0d0/test/midifile.h#L55) `#define note_on          	0x90`. After commit 07cee0ba, ump_msg.h gets included later, which [has](https://github.com/alsa-project/alsa-lib/blob/352cbc5eb94a271a9c3c0ff5bf1742232a69e0d0/include/ump_msg.h#L170C27-L170C34) `	snd_ump_msg_midi1_note_t	note_on;	/**< MIDI1 note-on message */`. The preprocessor replaces `note_on` with `0x90` and the compilation fails with the error above.
+> As per design for power off mode, clear the wake enable register during
+> resume sequence.
+> 
+> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> ---
+>  drivers/soundwire/amd_manager.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> index 5a4bfaef65fb..96a3aa6da711 100644
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> @@ -1190,6 +1190,7 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
+>  	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
+>  		return amd_sdw_clock_stop_exit(amd_manager);
+>  	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
+> +		writel(0x00, amd_manager->acp_mmio + ACP_SW_WAKE_EN(amd_manager->instance));
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/430
-Repository URL: https://github.com/alsa-project/alsa-lib
+no need for 0x for a zero value
+
+>  		val = readl(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
+>  		if (val) {
+>  			val |= AMD_SDW_CLK_RESUME_REQ;
+> -- 
+> 2.34.1
+
+-- 
+~Vinod

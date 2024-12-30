@@ -2,119 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFDD39FDEDE
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Dec 2024 13:58:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1976F9FE216
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Dec 2024 03:54:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F49F6056D;
-	Sun, 29 Dec 2024 13:58:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F49F6056D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E8A8604DD;
+	Mon, 30 Dec 2024 03:54:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E8A8604DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1735477091;
-	bh=UnArMA/fGfArM6oTypl+dq5ZOo0yd+Q1EvViV6j0xgY=;
-	h=Subject:From:In-Reply-To:Date:Cc:References:To:List-Id:
+	s=default; t=1735527297;
+	bh=NvgY9XnDCdrDJIJE3XugzNRdBqJYwXldW+nX5bZhU54=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Bcca1Om2AQpFHrNzIOu8V2Ut4AB5dBt4VrWJO5UGBxoBIhQRwfxG1iZEQchruzAQn
-	 R7Y0o1QWPQcsQPK5Aul6ZyR2LRRe3KdWymW83A7H8mJJAeuumYY9VXrB5KE22GGuJJ
-	 FkrdzJOnJabyC2ajwpk4m7BoTn3UINQZGB83/b1o=
+	b=HTdrUADyuDbFCzL6ZBwuG1LJlu1qGIfUqIP+hnBAiUWyM9EwJnRo5Egarq/ptApd8
+	 UxCbZwOe0us5lK/bsJRQAEy1xWxJPjIhakH0gMcSGOZT5+oBUm06FXanj1pxL4Qvgp
+	 K72+wKhWkfUTYDw2xv/m2JNGQtgv7QpwFXuTSMq4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9938F805C6; Sun, 29 Dec 2024 13:56:59 +0100 (CET)
+	id 6EB68F805BA; Mon, 30 Dec 2024 03:54:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 256BBF805BA;
-	Sun, 29 Dec 2024 13:56:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63058F805BD;
+	Mon, 30 Dec 2024 03:54:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57355F804CC; Thu, 26 Dec 2024 07:08:38 +0100 (CET)
+	id 9FCC7F80508; Mon, 30 Dec 2024 03:54:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,URIBL_SBL_A
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9FBB3F800B0
-	for <alsa-devel@alsa-project.org>; Thu, 26 Dec 2024 07:08:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FBB3F800B0
+	by alsa1.perex.cz (Postfix) with ESMTPS id D55C1F800FE
+	for <alsa-devel@alsa-project.org>; Mon, 30 Dec 2024 03:54:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D55C1F800FE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=m.fudan.edu.cn header.i=@m.fudan.edu.cn
- header.a=rsa-sha256 header.s=sorc2401 header.b=nRKuUy4b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=m.fudan.edu.cn;
-	s=sorc2401; t=1735193306;
-	bh=RewUZwc/fweWU9IO3sqfsaJV2JhPK3JYS/iQLUZBALs=;
-	h=Mime-Version:Subject:From:Date:Message-Id:To;
-	b=nRKuUy4beC/g6w/WczcFA+kQQlZp0/DYE3YmA7u+20Jdu8TcK6F+WjB5HuvLegXba
-	 Tj67u4WSBmBjXJF2RhAVDCZBrdDHNWj63JP2Tr9ngn4Qh8MwqJFlRF2wH9HZCkkKzR
-	 Heca2fRoPNOEOsXL4Zl66cOIIaH7bY185a3VteGY=
-X-QQ-mid: bizesmtpsz5t1735193304tm22dr0
-X-QQ-Originating-IP: tSGkTe2Sd26OU+7JdOuv+mZQ1zoORz5PJRzDsxP1DFc=
-Received: from smtpclient.apple ( [202.120.235.170])
-	by bizesmtp.qq.com (ESMTP) with
-	id ; Thu, 26 Dec 2024 14:08:21 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 2540630981220103529
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3818.100.11.1.3\))
-Subject: Re: Bug: slab-out-of-bounds in snd_seq_oss_synth_sysex
-From: Kun Hu <huk23@m.fudan.edu.cn>
-In-Reply-To: <B1CA9370-9EFE-4854-B8F7-435E0B9276C6@m.fudan.edu.cn>
-Date: Thu, 26 Dec 2024 14:08:11 +0800
-Cc: linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "jjtan24@m.fudan.edu.cn" <jjtan24@m.fudan.edu.cn>,
- alsa-devel@alsa-project.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A2D50A73-EF90-486F-9F5C-FFC4F0906A01@m.fudan.edu.cn>
-References: <2B7E93E4-B13A-4AE4-8E87-306A8EE9BBB7@m.fudan.edu.cn>
- <B1CA9370-9EFE-4854-B8F7-435E0B9276C6@m.fudan.edu.cn>
-To: perex@perex.cz,
- tiwai@suse.com,
- vkoul@kernel.org,
- lars@metafoo.de,
- broonie@kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>
-X-Mailer: Apple Mail (2.3818.100.11.1.3)
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtpsz:m.fudan.edu.cn:qybglogicsvrgz:qybglogicsvrgz8a-1
-X-QQ-XMAILINFO: M59Ywtx0bkALgCg/C1sl9moKuT9DPNdTDbKng4UGmta8iPCjQfAyKbvc
-	OOPV/QmTXsLOZN1vT5by35vTiQYm0v/FnJ8U+ZNStHoFSMlxmTRutwZVOdRi0WCKsYTl+Xk
-	wLn04lFng8wsjXMRwa1t+cPmClmU8kQDStygajrX2Y246WTvVe0ztTKW4gc14jsjkvYF6ta
-	+28OQbg/wrcvh5r2JRUnjLUQL7SMcM+erNNyDEw3fry2xN9f00d2XqSwg0mgDTuEK0/RIQe
-	6OQMtXEFBHrBJDKjKntFwgfoQeHe8RUQ1Pe0q3aa6DFtftJ2yUQS63SQp32djz0uoRxhBW8
-	gG/9MMOuRvOhakMfLHueifUgZ3eReh0a8qy6pYcbM5jEIx2OETKTKSr3D2SFIGQZu6QjUi5
-	AV9mtM7ZTd+XGd8tPUOhFSISVlVXAPyvt+w98jKpZYCdJbIKuFfi/DV94Mc606/0xAvznrj
-	Ob/eoS6p7wH6UIfhjo8UOPFoNj1zGnNbwKyIFDGBU9Nm7MhsskWxAyUUnAoVpDu2WU2JD1+
-	WJnTeeSr486eWkBkmURv5HqgjiHEegrWB1Hy4nB4zGMtUnBjYStGixXISrjYOodTlK4Z6u8
-	H21fkkbXTiKmPFz8pjh+it4y+7qDInmAm3tt/AuFl07nu/KRFRVfrBQKOYEyFkYZ6f3qxPN
-	5WXRYgcYHcZGnTAT+t8WIZC76Ea/WZoW/RVx+kTObgtH0OjytMB7LxKhkYPs0hAW+7gb7sY
-	s+ubLQwjkJAhZ3Y8dG3WBs4+HIEDP5fpvePa5Hkh96KrzPbHYUHkWM/0fclwaA8+neDj2hg
-	CcFCvzviWVEw0d55Ghm+AZjeFi1CqP01goyWsMud1DcG7TtCeOlZqCnPAr/loWGX8frNjnS
-	qJJG9OMBGxc/M07N+8qQUq+uTbV9ekuFyRIm9PZ9o1lVEhEPx3PhldvE/bYv5N3+N5miQ5e
-	vSyvutJymoUbVU+964ityiiHAXLs00/pWD5bnOU/kasVuFw==
-X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
-X-QQ-RECHKSPAM: 0
-X-MailFrom: huk23@m.fudan.edu.cn
-X-Mailman-Rule-Hits: nonmember-moderation
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=MxilkXIL
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-21644aca3a0so13648725ad.3
+        for <alsa-devel@alsa-project.org>;
+ Sun, 29 Dec 2024 18:54:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1735527255; x=1736132055;
+ darn=alsa-project.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=1hOCNzn1u26zfwC5EVmnNPt6JsnGAZAdQcQkczE5MOI=;
+        b=MxilkXILFLyjG6oy/bipsLi3ut+4niEZbpW0wOT7GnFtaKvncpPr2P2+yTH6R+H0AR
+         mXwwN6Suh9Lvfd6SugaPe60l+piVzCk877Pn/djp9hMcTkUOfMJkzyCKytpOdXg87hjR
+         2dvaDf7j9ejUTZhA5l2IXdV+3y1Fgv0vaW37/XEJISZSLCx/1c56/FzzHg7GVlt+3gXY
+         hkC5pT+zNiCoUZl5OwXuLw1PZItLBVpPcYE+Yj2iR2Z76c9Z8Mis7c8f6DGbFGgJFas8
+         /ndlzgCzp2FoitFc1dsdINtlAZlP80Z9jysiU+KBc83crByMqeB2EAFgCcZbd/xbMGDl
+         neRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1735527255; x=1736132055;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1hOCNzn1u26zfwC5EVmnNPt6JsnGAZAdQcQkczE5MOI=;
+        b=eFT1iTkd8gxF2PQmbUTZEJp1aUOmrRmFlWz4rcHGaBGvgq8GfevMEGXCJXrkvZm/dc
+         zUPyLMmmGMuzkrLUZO+BrwgDadSw9qqJlkJWyEriKlWJGiaExUONEfUCE+O42w2jxO0Z
+         V2X1F8+MMA40PgtHOJajneU2JD3GNeTYwyzD/v8/hN0t/JmH3zT+4+WXorEAnn7r8Cfd
+         sCbawBjjQmByvV2MU9tYmPMZUJobhUA78n+F4gOPsMf6m0q4TowJQV98QWcALLbNFeAF
+         78citICvCJEYrnnJASfkhDw/jzyx+lMc7p1onw2RrHyDXm4tNxuKAbhtZM6cCALM4vQp
+         Lpmw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVjKAWz5XQ5tN4CGpWfh5bYOy2UWH8GQ9Sk3Z+dbeDTvAoSm6P9Iwj6w0zATwkd0cp3l8B8id5RjiI5@alsa-project.org
+X-Gm-Message-State: AOJu0Yx8h+Dyqv28fJvQpl+PgLDs1T/H80zBVaBdZ/P1ygolv0t/Lqfh
+	KZpPK9RomnAVmyJ4+CtnejoqUJC8wHm7MjDTu8rtkmHtVpKngPkL
+X-Gm-Gg: ASbGnctIHp8AzqvkabUas6uRO0QDta7NOO3CpxDQlUxiN6v7iukAU8CO9+RC9LXREox
+	z0Ym47IAXKjs1fyikWHiyK972g9hF0TsAaAw5T6EEnkziH0Ul4A2FbSMeR6UxNmH2GBp791cSC4
+	JGj6BlL/yoQo6tmm9uoYV/IoQD664y2iK0wGVtSWET6pxb1FIRgy5r37nS4v89S350tIO0INgj0
+	OUGy+nsP+E5wWOe2wtkKTW7SxXI3npkLe2W57kKq0OSLkfY/Ad/BPPJ
+X-Google-Smtp-Source: 
+ AGHT+IHj/Byn6Z/TryL91PlljX3v7lj8d0vU2WTjSaQqQP3l1D7Zl9YFQte4EjHg13nicR1o+Va6Sg==
+X-Received: by 2002:a17:902:d2c9:b0:215:a3fd:61f5 with SMTP id
+ d9443c01a7336-219e6e8917fmr452694535ad.5.1735527254984;
+        Sun, 29 Dec 2024 18:54:14 -0800 (PST)
+Received: from geday ([2804:7f2:800b:1740:5148:eadd:af21:83dc])
+        by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-219dc964f09sm169823335ad.26.2024.12.29.18.54.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 29 Dec 2024 18:54:14 -0800 (PST)
+Date: Sun, 29 Dec 2024 23:54:05 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Hugh Cole-Baker <sigmaris@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	ALSA-devel <alsa-devel@alsa-project.org>,
+	dri-devel <dri-devel@lists.freedesktop.org>,
+	linux-sound <linux-soundl@vger.kernel.org>
+Subject: Re: [RESEND PATCH v2] drm/bridge: dw-hdmi-i2s: set insert_pcuv bit
+ if hardware supports it
+Message-ID: <Z3ILTUU-t6Pb2x8O@geday>
+References: <Y01E5MvrnmVhnekO@geday>
+ <9b0a0cd8-0994-4235-9823-37f0da1a751d@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9b0a0cd8-0994-4235-9823-37f0da1a751d@gmail.com>
+Message-ID-Hash: CTO5TLJWFDUUXAR3DLB2KHVGISE4HXG6
+X-Message-ID-Hash: CTO5TLJWFDUUXAR3DLB2KHVGISE4HXG6
+X-MailFrom: geraldogabriel@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 5J5OVKK4UIHWA4ADERRH2HUCS7T3FJWF
-X-Message-ID-Hash: 5J5OVKK4UIHWA4ADERRH2HUCS7T3FJWF
-X-Mailman-Approved-At: Sun, 29 Dec 2024 12:56:50 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5J5OVKK4UIHWA4ADERRH2HUCS7T3FJWF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CTO5TLJWFDUUXAR3DLB2KHVGISE4HXG6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,185 +132,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
->> BUG: KASAN: slab-out-of-bounds in snd_seq_oss_synth_sysex+0x5d1/0x6c0 =
-sound/core/seq/oss/seq_oss_synth.c:516
+On Fri, Sep 13, 2024 at 10:12:39PM +0100, Hugh Cole-Baker wrote:
+> Hi Geraldo, and apologies for resurrecting a 2 year old thread...
+> 
+> On 17/10/2022 13:04, Geraldo Nascimento wrote:
+> > Hi Mark, resending this as it failed to apply in my last submission. Added
+> > Neil Armstrong to Cc: as hopefully he will be able to better review this.
+> > 
+> > Thanks,
+> > Geraldo Nascimento
+> > 
+> > ---
+> > 
+> > Starting with version 2.10a of Synopsys DesignWare HDMI controller the
+> > insert_pcuv bit was introduced. On RK3399pro SoM (Radxa Rock Pi N10),
+> > for example, if we neglect to set this bit and proceed to enable hdmi_sound
+> > and i2s2 on the device tree there will be extreme clipping of sound
+> > output, to the point that music sounds like white noise. Problem
+> > could also manifest as just mild cracking depending of HDMI audio
+> > implementation of sink. Setting insert_pcuv bit (bit 2 of
+> > aud_conf2 Audio Sample register) fixes this.
+> > 
+> > Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+> 
+> I also had the HDMI audio clipping issue described here, on a RK3399. This was
+> on a 6.1.23 kernel based on the one used by LibreELEC.tv with their out-of-tree
+> patches for video decoding, 4k HDMI support, etc. When testing this patch I
+> also updated my kernel tree to 6.10.3, and found that even without this patch,
+> on 6.10.3 the problem no longer happens.
+> 
+> I added printk to show the value of AUD_CONF2, and found that on 6.1.23, the
+> value is 0 before the code in this patch sets the insert_pcuv bit. On 6.10.3
+> the value is 4, i.e. insert_pcuv is already set.
+> 
+> According to the RK3399 TRM, the value-after-reset of the insert_pcuv bit is 1,
+> so apparently on the 6.1.23 kernel something is clearing the bit after HW reset
+> but before this driver sets the hw_params, and this patch sets it back to the
+> correct value. On 6.10.3 the bit is not cleared, i.e. this patch is seemingly
+> no longer necessary (but is a harmless no-op).
+>
 
->=20
-> We further analyzed the issue at line 516 in =
-./sound/core/seq/oss/seq_oss_synth.c.=20
-> The slab-out-of-bounds crash occurs in line 509, when sysex->len =3D =
-128. Specifically, the write operation to dest[0] accesses memory beyond =
-the bounds of sysex->buf (128 byte).
-> To resolve this issue, we suggest adding 6 lines of code to validate =
-the legality of the address write to sysex->buf before entering the =
-loop:
->=20
-> if (sysex->len >=3D MAX_SYSEX_BUFLEN) {=20
->   sysex->len =3D 0;=20
->   sysex->skip =3D 1;=20
->   return -EINVAL;  /* Exit early if sysex->len is out of bounds */=20
-> }
+I found out that for my hardware even with 6.13-rc5 I still suffer from
+really distorted audio if I don't apply this patch.
 
-If you need any more information, please don't hesitate to let me know.
+>From 2cd8a7432afa9a02b4498832c912b8f90e347a5d Mon Sep 17 00:00:00 2001
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Sun, 29 Dec 2024 23:26:47 -0300
+Subject: [PATCH 7/7] drm/bridge/synopsys: dw-hdmi: enforce PCUV bits for newer
+ versions
 
-=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94
-Best regards,
-Kun Hu
+For some strange reason my hardware boots without this set to
+the default, testing has shown mixed results with different
+kernel versions on different hardware, truth is, I need
+this patch or more compliant sinks will misbehave when the
+PCUV bits are not set
 
+Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c | 13 +++++++++++++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.h           |  5 +++++
+ 2 files changed, 18 insertions(+)
 
-> 2024=E5=B9=B412=E6=9C=8825=E6=97=A5 13:37=EF=BC=8CKun Hu =
-<huk23@m.fudan.edu.cn> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> Hello,
->=20
->> BUG: KASAN: slab-out-of-bounds in snd_seq_oss_synth_sysex+0x5d1/0x6c0 =
-sound/core/seq/oss/seq_oss_synth.c:516
->=20
-> We further analyzed the issue at line 516 in =
-./sound/core/seq/oss/seq_oss_synth.c.=20
-> The slab-out-of-bounds crash occurs in line 509, when sysex->len =3D =
-128. Specifically, the write operation to dest[0] accesses memory beyond =
-the bounds of sysex->buf (128 byte).
-> To resolve this issue, we suggest adding 6 lines of code to validate =
-the legality of the address write to sysex->buf before entering the =
-loop:
->=20
-> if (sysex->len >=3D MAX_SYSEX_BUFLEN) {=20
->   sysex->len =3D 0;=20
->   sysex->skip =3D 1;=20
->   return -EINVAL;  /* Exit early if sysex->len is out of bounds */=20
-> }
->=20
-> If you fix this issue, please add the following tag to the commit:
-> Reported-by: Kun Hu <huk23@m.fudan.edu.cn>
->=20
-> =E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94
-> Thanks,
-> Kun Hu
->=20
->> 2024=E5=B9=B412=E6=9C=8824=E6=97=A5 19:16=EF=BC=8CKun Hu =
-<huk23@m.fudan.edu.cn> =E5=86=99=E9=81=93=EF=BC=9A
->>=20
->> Hello,
->>=20
->> When using fuzzer tool to fuzz the latest Linux kernel, the following =
-crash
->> was triggered.
->>=20
->> HEAD commit: 78d4f34e2115b517bcbfe7ec0d018bbbb6f9b0b8
->> git tree: upstream
->> Console =
-output:https://drive.google.com/file/d/17oCyKDW_kNhSW5Bbvm23vnpD1eo0MHFi/v=
-iew?usp=3Dsharing
->> Kernel config: =
-https://drive.google.com/file/d/1RhT5dFTs6Vx1U71PbpenN7TPtnPoa3NI/view?usp=
-=3Dsharing
->> C reproducer: =
-https://drive.google.com/file/d/177HJht6a7-6F3YLudKb_d4kiPGd1VA_i/view?usp=
-=3Dsharing
->> Syzlang reproducer: =
-https://drive.google.com/file/d/1AuP5UGGc47rEXXPuvjmCKgJ3d0U1P84j/view?usp=
-=3Dsharing
->>=20
->>=20
->> If you fix this issue, please add the following tag to the commit:
->> Reported-by: Kun Hu <huk23@m.fudan.edu.cn>
->>=20
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> BUG: KASAN: slab-out-of-bounds in snd_seq_oss_synth_sysex+0x5d1/0x6c0 =
-sound/core/seq/oss/seq_oss_synth.c:516
->> Write of size 1 at addr ff1100000588e288 by task syz-executor411/824
->>=20
->> CPU: 2 UID: 0 PID: 824 Comm: syz-executor411 Not tainted 6.13.0-rc3 =
-#5
->> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS =
-1.13.0-1ubuntu1.1 04/01/2014
->> Call Trace:
->> <TASK>
->> __dump_stack lib/dump_stack.c:94 [inline]
->> dump_stack_lvl+0x116/0x1b0 lib/dump_stack.c:120
->> print_address_description mm/kasan/report.c:378 [inline]
->> print_report+0xcf/0x5f0 mm/kasan/report.c:489
->> kasan_report+0x93/0xc0 mm/kasan/report.c:602
->> snd_seq_oss_synth_sysex+0x5d1/0x6c0 =
-sound/core/seq/oss/seq_oss_synth.c:516
->> snd_seq_oss_process_event+0x46a/0x2620 =
-sound/core/seq/oss/seq_oss_event.c:61
->> insert_queue sound/core/seq/oss/seq_oss_rw.c:167 [inline]
->> snd_seq_oss_write+0x261/0x7f0 sound/core/seq/oss/seq_oss_rw.c:135
->> odev_write+0x53/0xa0 sound/core/seq/oss/seq_oss.c:168
->> vfs_write fs/read_write.c:677 [inline]
->> vfs_write+0x2e3/0x10f0 fs/read_write.c:659
->> ksys_write+0x122/0x240 fs/read_write.c:731
->> do_syscall_x64 arch/x86/entry/common.c:52 [inline]
->> do_syscall_64+0xc3/0x1d0 arch/x86/entry/common.c:83
->> entry_SYSCALL_64_after_hwframe+0x77/0x7f
->> RIP: 0033:0x7f69b379994d
->> Code: c3 e8 97 2a 00 00 0f 1f 80 00 00 00 00 f3 0f 1e fa 48 89 f8 48 =
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d =
-01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
->> RSP: 002b:00007f69b3718d78 EFLAGS: 00000246 ORIG_RAX: =
-0000000000000001
->> RAX: ffffffffffffffda RBX: 00007f69b382d2d0 RCX: 00007f69b379994d
->> RDX: 0000000000000008 RSI: 0000000020000140 RDI: 0000000000000003
->> RBP: 00007f69b382d2d8 R08: 0000000000000000 R09: 0000000000000000
->> R10: 0000000000000000 R11: 0000000000000246 R12: 00007f69b382d2dc
->> R13: 0000000020000140 R14: 00007f69b37fa008 R15: 000000000000000d
->> </TASK>
->>=20
->> Allocated by task 823:
->> kasan_save_stack+0x24/0x50 mm/kasan/common.c:47
->> kasan_save_track+0x14/0x30 mm/kasan/common.c:68
->> poison_kmalloc_redzone mm/kasan/common.c:377 [inline]
->> __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:394
->> kmalloc_noprof include/linux/slab.h:901 [inline]
->> kzalloc_noprof include/linux/slab.h:1037 [inline]
->> snd_seq_oss_synth_sysex+0x1d9/0x6c0 =
-sound/core/seq/oss/seq_oss_synth.c:502
->> snd_seq_oss_process_event+0x46a/0x2620 =
-sound/core/seq/oss/seq_oss_event.c:61
->> insert_queue sound/core/seq/oss/seq_oss_rw.c:167 [inline]
->> snd_seq_oss_write+0x261/0x7f0 sound/core/seq/oss/seq_oss_rw.c:135
->> odev_write+0x53/0xa0 sound/core/seq/oss/seq_oss.c:168
->> vfs_write fs/read_write.c:677 [inline]
->> vfs_write+0x2e3/0x10f0 fs/read_write.c:659
->> ksys_write+0x122/0x240 fs/read_write.c:731
->> do_syscall_x64 arch/x86/entry/common.c:52 [inline]
->> do_syscall_64+0xc3/0x1d0 arch/x86/entry/common.c:83
->> entry_SYSCALL_64_after_hwframe+0x77/0x7f
->>=20
->> The buggy address belongs to the object at ff1100000588e200
->> which belongs to the cache kmalloc-192 of size 192
->> The buggy address is located 0 bytes to the right of
->> allocated 136-byte region [ff1100000588e200, ff1100000588e288)
->>=20
->> The buggy address belongs to the physical page:
->> page: refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 =
-pfn:0x588e
->> anon flags: 0x100000000000000(node=3D0|zone=3D1)
->> page_type: f5(slab)
->> raw: 0100000000000000 ff1100000103c3c0 ffd4000000162340 =
-dead000000000003
->> raw: 0000000000000000 0000000080100010 00000001f5000000 =
-0000000000000000
->> page dumped because: kasan: bad access detected
->>=20
->> Memory state around the buggy address:
->> ff1100000588e180: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->> ff1100000588e200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->>> ff1100000588e280: 00 fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->>                     ^
->> ff1100000588e300: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->> ff1100000588e380: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->>=20
->> ---------------
->> thanks,
->> Kun Hu
->=20
->=20
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+index f1c5a8d0fa90..fc45d10c7d42 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+@@ -42,6 +42,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+ 	struct dw_hdmi *hdmi = audio->hdmi;
+ 	u8 conf0 = 0;
+ 	u8 conf1 = 0;
++	u8 conf2 = 0;
+ 	u8 inputclkfs = 0;
+ 
+ 	/* it cares I2S only */
+@@ -101,6 +102,17 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+ 		return -EINVAL;
+ 	}
+ 
++	/*
++	 * dw-hdmi introduced insert_pcuv bit in version 2.10a.
++	 * When set (1'b1), this bit enables the insertion of the PCUV
++	 * (Parity, Channel Status, User bit and Validity) bits on the
++	 * incoming audio stream (support limited to Linear PCM audio)
++	 */
++	if (hdmi_read(audio, HDMI_DESIGN_ID) >= 0x21 &&
++			!(hparms->iec.status[0] & IEC958_AES0_NONAUDIO))
++		conf2 = HDMI_AUD_CONF2_INSERT_PCUV;
++
++
+ 	dw_hdmi_set_sample_rate(hdmi, hparms->sample_rate);
+ 	dw_hdmi_set_channel_status(hdmi, hparms->iec.status);
+ 	dw_hdmi_set_channel_count(hdmi, hparms->channels);
+@@ -109,6 +121,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+ 	hdmi_write(audio, inputclkfs, HDMI_AUD_INPUTCLKFS);
+ 	hdmi_write(audio, conf0, HDMI_AUD_CONF0);
+ 	hdmi_write(audio, conf1, HDMI_AUD_CONF1);
++	hdmi_write(audio, conf2, HDMI_AUD_CONF2);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
+index af43a0414b78..d7cbdc42d501 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
+@@ -931,6 +931,11 @@ enum {
+ 	HDMI_AUD_CONF1_WIDTH_16 = 0x10,
+ 	HDMI_AUD_CONF1_WIDTH_24 = 0x18,
+ 
++/* AUD_CONF2 field values */
++	HDMI_AUD_CONF2_HBR = 0x1,
++	HDMI_AUD_CONF2_NLPCM = 0x2,
++	HDMI_AUD_CONF2_INSERT_PCUV = 0x04,
++
+ /* AUD_CTS3 field values */
+ 	HDMI_AUD_CTS3_N_SHIFT_OFFSET = 5,
+ 	HDMI_AUD_CTS3_N_SHIFT_MASK = 0xe0,
+-- 
+2.47.1
 

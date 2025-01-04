@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A4C9A01359
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jan 2025 09:41:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B8FA01376
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jan 2025 09:58:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4950602AC;
-	Sat,  4 Jan 2025 09:41:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4950602AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B8B9602E2;
+	Sat,  4 Jan 2025 09:58:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B8B9602E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1735980108;
-	bh=G2WDwlSYq97qyMqze6k5lUfeyUuCa3RNT9MQrL6J89w=;
+	s=default; t=1735981105;
+	bh=oS6pFT8+mVQjjcPw49cMmhB3vWQPXt68F/hGQfsr0Gs=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=mS9W7e40/4SzmSSmSojl6+oLMR19OYvsEJMpXaGy03ypj+xUpVLDIK2WvNq8lK5Fy
-	 DQ6+bJ8HH0hOtkpXwRQACycVhtLMmfXB4JomqM6h6RQvY1LZxAzAUEQaL38nRY+/I1
-	 KzSqhnPUI3rN1QxY8gpcKS7PIMrIQu/YIkFnf8+4=
+	b=UbzHVFhY/6HJIWDTMCg2tiN6pLwWw9tKVGEzjJwxIEKiYhhAlrqAQr+q54yCOpJpz
+	 kGi0ghdmKLnSa3DuTJRHUg6eeTY+7yxcskHT4rFjg4OkZBKC4gGlnG2IdfDMy8fEnT
+	 yV46Uthc+yykoue1xu8JJTpfZ1vhCL9nROoCUhpI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05EB9F805AF; Sat,  4 Jan 2025 09:41:15 +0100 (CET)
+	id 6D69EF805BD; Sat,  4 Jan 2025 09:57:52 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51AA7F80549;
-	Sat,  4 Jan 2025 09:41:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8525DF805BD;
+	Sat,  4 Jan 2025 09:57:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5DD20F80269; Sat,  4 Jan 2025 09:41:04 +0100 (CET)
+	id 88FB2F80269; Sat,  4 Jan 2025 09:57:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4631F800EE
-	for <alsa-devel@alsa-project.org>; Sat,  4 Jan 2025 09:40:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4631F800EE
+	by alsa1.perex.cz (Postfix) with ESMTP id 59E97F800EE
+	for <alsa-devel@alsa-project.org>; Sat,  4 Jan 2025 09:57:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59E97F800EE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
+From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1735980058981770754-webhooks-bot@alsa-project.org>
-References: <1735980058981770754-webhooks-bot@alsa-project.org>
+In-Reply-To: <1735981060487240791-webhooks-bot@alsa-project.org>
+References: <1735981060487240791-webhooks-bot@alsa-project.org>
 Subject: ucm2: USB-Audio: add Presonus Revelator IO 44 (USB194f:0424)
-Message-Id: <20250104084104.5DD20F80269@alsa1.perex.cz>
-Date: Sat,  4 Jan 2025 09:41:04 +0100 (CET)
-Message-ID-Hash: U7DL5HMFUTQRAKZZ6UYAS57ORTZBXH6M
-X-Message-ID-Hash: U7DL5HMFUTQRAKZZ6UYAS57ORTZBXH6M
+Message-Id: <20250104085743.88FB2F80269@alsa1.perex.cz>
+Date: Sat,  4 Jan 2025 09:57:43 +0100 (CET)
+Message-ID-Hash: F6U7PTMRUSSAAB3EDIJLZTDBRUKV2KOC
+X-Message-ID-Hash: F6U7PTMRUSSAAB3EDIJLZTDBRUKV2KOC
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7DL5HMFUTQRAKZZ6UYAS57ORTZBXH6M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F6U7PTMRUSSAAB3EDIJLZTDBRUKV2KOC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,7 +71,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #495 was opened from markulovi:
+alsa-project/alsa-ucm-conf pull request #495 was edited from markulovi:
 
 [alsa-info.txt](https://github.com/user-attachments/files/18306150/alsa-info.txt)
 
@@ -80,7 +80,7 @@ This adds support for [Presonus Revelator io44](https://eu.presonus.com/products
 ![out](https://github.com/user-attachments/assets/f4cacf14-e75e-4d33-ad64-cca4ca7ee18e)
 ![in](https://github.com/user-attachments/assets/60515091-51a5-4299-97c7-a12d3c091b8a)
 
-Microphone inputs have been separated to two mono channels for convenience.
+Microphone inputs have been separated into two mono channels for convenience.
 
 As far as I can tell, the [Universal Control](https://www.presonus.com/pages/support-documents-downloads?product=revelator-io44) software is required to configure levels and effects of these channels, but the settings can be saved to the device and operation without the software is possible outside Windows.
 

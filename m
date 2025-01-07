@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B763EA03E62
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2025 12:58:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8636A04496
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2025 16:32:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4394060381;
-	Tue,  7 Jan 2025 12:58:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4394060381
+	by alsa0.perex.cz (Postfix) with ESMTPS id A677F6037E;
+	Tue,  7 Jan 2025 16:32:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A677F6037E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1736251133;
-	bh=q0oEMukauLvdlEr9wXzIEd+rWoj+Dc1texb3YrvSzQE=;
+	s=default; t=1736263968;
+	bh=rmppKVmlM5jQDxLcaabRhJHMM/jp6NqK9tcqaoFB7yg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=k82JrVK1FhlqhaTQP6eMGg/LCDgdvKUktq/IEyfl34uQhL/Hfun7WS0dnm8VHmfVM
-	 rBMDYdY7zQFHQ9pDlulQQDUcRJ8Sk7bVYa8Np3spxWGi4WyF4Mi7cHtuDJBD4Dq2uD
-	 OaXT4eYwG0rNwklqd0TDJOTPeXlx9Zp58Vfrg1eM=
+	b=XvIcZDF0KuaK/G77Ka3IoCyGXRc79WAyg7bKyRR+FHXpVRnpXw+DmX1vZOUsrdVyx
+	 c9BbW1CWyxJbAMDHQrfZd+1JAajV0SzQem8qvnRYeiqztADMTw275Z0vJuxE1viFSJ
+	 Nw2SX8+cgAQz4qtBsW/2mS5tMxYdSNwj6ADnXQU4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C90AF805BB; Tue,  7 Jan 2025 12:58:20 +0100 (CET)
+	id E45B6F805C0; Tue,  7 Jan 2025 16:32:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DC94F805BB;
-	Tue,  7 Jan 2025 12:58:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99BEAF805BA;
+	Tue,  7 Jan 2025 16:32:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8EB88F801D5; Tue,  7 Jan 2025 12:58:16 +0100 (CET)
+	id 35CC7F80423; Tue,  7 Jan 2025 16:32:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 77395F8001E
-	for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2025 12:58:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77395F8001E
+	by alsa1.perex.cz (Postfix) with ESMTPS id E49DCF80086
+	for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2025 16:32:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E49DCF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FP//NdwE
+ header.s=k20201202 header.b=Tc3eH96F
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 08E54A40C07;
-	Tue,  7 Jan 2025 11:56:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD94C4CED6;
-	Tue,  7 Jan 2025 11:58:11 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id 5D5665C42BC;
+	Tue,  7 Jan 2025 15:31:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C63C4CEDE;
+	Tue,  7 Jan 2025 15:32:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736251092;
-	bh=q0oEMukauLvdlEr9wXzIEd+rWoj+Dc1texb3YrvSzQE=;
+	s=k20201202; t=1736263922;
+	bh=rmppKVmlM5jQDxLcaabRhJHMM/jp6NqK9tcqaoFB7yg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=FP//NdwENVnR7GLP+LyWhQJTq3EHna0hsGpaAQMATpNhyVKEySjQGrR43biv5VBI3
-	 /tB+ob7mW80JliYWcwNm8N1FHIazkjnTco1OAL3eJWnxOCpEy2p/ydlX5VKjUmw5hn
-	 F1bg5SknACS4sNQev2NotLbY3uQyTqVqBiWdg1zhE4bYosFOEwxPRxj5qnjoU0E/io
-	 dz7dcEci5hZ/qAIq63WGx8UTY1PDTt6LHcjdRCyJyheD1Qjo8GST+uyxJIXxxp4cDu
-	 8ayVq49/HHSQSpk5MTkk56twpWXbkwvw1bdEP4yWRAt5jMshx+NY9bDe3mZRw8RvTc
-	 yG2cSkRz5QAxA==
+	b=Tc3eH96Fk8BoTvx//RzwMjRur49I/EK+4dtswoLTBS+bzAsFpZtcmXoic/D8Db2eY
+	 JYMr5DAa/Zj1m7fo0azlhMdo+NdpHEpTFHcx/sqb8kN7+5selJcyybxp1iqQNxNXmM
+	 88oUVVxO/6OtO67Kn1QX+Gsa2CYtjcC81lvwRMgVvRLU+andTGDUsQQfhkMtRR5Sxf
+	 56wpca/kTboMSsrKK4B9QGQo6r1HniyyxHyOCCbb6AM2tTrsIdZyXTkpbwll7M9a1P
+	 yFFI8O1NVQziScEHExrxBElRCrBEfF2AHknDuFUMow2m5RQhWmqNd2bxx4QX7Nzl7A
+	 uAG490NFreNBg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Zhang Yi <zhangyi@everest-semi.com>
-Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
- yangxiaohua@everest-semi.com, zhuning@everest-semi.com
-In-Reply-To: <20241230032752.108298-1-zhangyi@everest-semi.com>
-References: <20241230032752.108298-1-zhangyi@everest-semi.com>
-Subject: Re: [PATCH] ASoC: codecs: ES8326: Adjust ANA_MICBIAS to reduce pop
- noise
-Message-Id: <173625109098.23747.3321481870636975691.b4-ty@kernel.org>
-Date: Tue, 07 Jan 2025 11:58:10 +0000
+To: alsa-devel@alsa-project.org, Marian Postevca <posteuca@mutex.one>
+Cc: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20241227202751.244954-1-posteuca@mutex.one>
+References: <20241227202751.244954-1-posteuca@mutex.one>
+Subject: Re: [PATCH RESEND] ASoC: codecs: es8316: Fix HW rate calculation
+ for 48Mhz MCLK
+Message-Id: <173626392060.92253.14506796479428762280.b4-ty@kernel.org>
+Date: Tue, 07 Jan 2025 15:32:00 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-1b0d6
-Message-ID-Hash: BAT4TBKKZNNTCCA4TPE2XJJOGE4KMMQT
-X-Message-ID-Hash: BAT4TBKKZNNTCCA4TPE2XJJOGE4KMMQT
+Message-ID-Hash: NK3OPR7JZKCYUUJ3JZD74SAMSDS3RAMG
+X-Message-ID-Hash: NK3OPR7JZKCYUUJ3JZD74SAMSDS3RAMG
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BAT4TBKKZNNTCCA4TPE2XJJOGE4KMMQT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NK3OPR7JZKCYUUJ3JZD74SAMSDS3RAMG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,8 +99,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 30 Dec 2024 11:27:52 +0800, Zhang Yi wrote:
-> We modify the value of ES8326_ANA_MICBIAS to reduce the pop noise
+On Fri, 27 Dec 2024 22:27:51 +0200, Marian Postevca wrote:
+> For 48Mhz MCLK systems the calculation of the HW rate is broken,
+> and will not produce even one sane rate. Since es83xx supports
+> the option to halve MCLK, calculate also rates with MCLK/2.
 > 
 > 
 
@@ -109,8 +112,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: ES8326: Adjust ANA_MICBIAS to reduce pop noise
-      commit: b1d4ac91a9246d7fb1906b2f38f529b097884c8e
+[1/1] ASoC: codecs: es8316: Fix HW rate calculation for 48Mhz MCLK
+      commit: 85c9ac7a56f731ecd59317c822cb6295464444cc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

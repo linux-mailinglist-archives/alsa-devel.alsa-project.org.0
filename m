@@ -2,81 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1167AA04A71
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2025 20:46:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D883FA04C0B
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2025 23:10:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8899F60395;
-	Tue,  7 Jan 2025 20:46:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8899F60395
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCCAF6035A;
+	Tue,  7 Jan 2025 23:10:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCCAF6035A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1736279192;
-	bh=sGxi94gfxLGkDJCzrxpR5Orr8qHhvHZdpXkwSMJLyTE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cmiLqXgD1fe2gPYHqTUdbDIihRAndwDGW8KMhIFcZBknMz4eJr3P0ZV/Mu+AVXFs1
-	 2zqTWfKPJCauw8bPAFA4qw3Iocr7mhqlbyS0SfW/K8+cQDCBrjlUSuWBmNFpGqDI9+
-	 CqGyje1gSPbpJ2K6okLlA0qv+14kkF0XQQKMkJ9M=
+	s=default; t=1736287849;
+	bh=wBJ+wI+2LUlTSsW8QJ0Gd82eqbwMbvfF6mnJAJkx5mU=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=KQj4jJ2/F1WSX1SFaK2EF+1fcNM5w2/YpwLmpHKk8QP7RR8QonH6pDkuPQlC4V+Gv
+	 ssPIVeaSJM/NSavLB80Ch6trTn0/aJ2lAZwusmj5NblF/gC/iAOecamms67KYkntrI
+	 d1E+Fe00hLljqo1HnSe0IvrCg8y/scVAGlq4+/i0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA21DF805C0; Tue,  7 Jan 2025 20:45:57 +0100 (CET)
+	id 497E8F805B5; Tue,  7 Jan 2025 23:10:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 916B0F805BE;
-	Tue,  7 Jan 2025 20:45:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35B51F805AF;
+	Tue,  7 Jan 2025 23:10:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB4DDF802DB; Tue,  7 Jan 2025 20:45:54 +0100 (CET)
+	id 418FFF802DB; Tue,  7 Jan 2025 23:10:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0948F800F3
-	for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2025 20:45:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0948F800F3
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=evr3v2Be
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 319BBA41CA4;
-	Tue,  7 Jan 2025 19:44:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D4C4C4CEE1;
-	Tue,  7 Jan 2025 19:45:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1736279150;
-	bh=sGxi94gfxLGkDJCzrxpR5Orr8qHhvHZdpXkwSMJLyTE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=evr3v2Bej9V1sHBQPxLatwTsxML7LUN+xF5O7wO8Sh2m/2Xxe0G8uaF/XZBU2STL8
-	 cbHfstuZqyZYFw8C2ptF1BVyCDze/7hi0hpJQOeD07j0uTbVXLMbJ5qQBM1ORFH/Zo
-	 LEnUYqPdPypDFOkUlsTVVg6ub+1SnRejVNOC9M82sCO0SUyFXpjnxlU6cc7edVWm2T
-	 VhrvCX99+/jEvvV5CljM9z0AzUVILyue2MG70sbK8nvWFoesW+dBPxMThQC/EbwBg7
-	 sScsomYHhlkQ8gpZ5rZMhNazorHBz1OxUaGnVhfaIHQawQVqRajTZ+KYS4xa8ijFdP
-	 OFD6b7MV2nuUA==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, derek.fang@realtek.com
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, shumingf@realtek.com
-In-Reply-To: <20241225094307.3678837-1-derek.fang@realtek.com>
-References: <20241225094307.3678837-1-derek.fang@realtek.com>
-Subject: Re: [PATCH] ASoC: rt5682: Support the ALC5682I-VE codec
-Message-Id: <173627914885.519339.16630973483069812149.b4-ty@kernel.org>
-Date: Tue, 07 Jan 2025 19:45:48 +0000
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
+	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 974AFF80086
+	for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2025 23:10:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 974AFF80086
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-1b0d6
-Message-ID-Hash: JYOTXZ24MOMG6OY2YY4OBNXJ7JCDYZ6N
-X-Message-ID-Hash: JYOTXZ24MOMG6OY2YY4OBNXJ7JCDYZ6N
-X-MailFrom: broonie@kernel.org
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1736287809908450842-webhooks-bot@alsa-project.org>
+References: <1736287809908450842-webhooks-bot@alsa-project.org>
+Subject: aseqdump version 1.2.11, There are small bugs
+Message-Id: <20250107221012.418FFF802DB@alsa1.perex.cz>
+Date: Tue,  7 Jan 2025 23:10:12 +0100 (CET)
+Message-ID-Hash: UHALDX3FCSYUHCYIBXKCJTHCL2A4UNDM
+X-Message-ID-Hash: UHALDX3FCSYUHCYIBXKCJTHCL2A4UNDM
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JYOTXZ24MOMG6OY2YY4OBNXJ7JCDYZ6N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UHALDX3FCSYUHCYIBXKCJTHCL2A4UNDM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,38 +71,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 25 Dec 2024 17:43:07 +0800, derek.fang@realtek.com wrote:
-> The ALC5682I-VD and ALC5682I-VE use the same I2C
-> codec driver with different calibration settings.
-> This patch aims to handle their differences.
-> 
-> 
+alsa-project/alsa-utils issue #285 was opened from masahirokakishita:
 
-Applied to
+Hello,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I found small bugs in aseqdump.c
 
-Thanks!
+static void dump_ump_midi2_event(const unsigned int *ump)
+...
+	case SND_UMP_MSG_PITCHBEND:
+		printf("Channel pressure       %2d, value %s",
+		       channel,
+		       midi2_pitchbend(m->channel_pressure.data));
+		break;
 
-[1/1] ASoC: rt5682: Support the ALC5682I-VE codec
-      commit: 5d085b25ae9843b4865360986ab288332bb01e21
+It is not "Channel pressure", but "Pitch Bend".
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+	case SND_UMP_MSG_NOTE_ON:
+		printf("Note on                %2d, note %d, velocity %s, attr type = %d, data = 0x%x",
+		       channel, m->note_off.note,
+		       midi2_velocity(m->note_off.velocity),
+		       m->note_off.attr_type, m->note_off.attr_data);
+		break;
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+"note->on" is correct. This bug does not affect the display.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/285
+Repository URL: https://github.com/alsa-project/alsa-utils

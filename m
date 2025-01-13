@@ -2,159 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98057A10261
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2025 09:51:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46B2DA10262
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2025 09:52:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E671160285;
-	Tue, 14 Jan 2025 09:51:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E671160285
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55EBE60285;
+	Tue, 14 Jan 2025 09:52:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55EBE60285
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1736844690;
-	bh=C8uQa5XRuGI45cy5JQLA75f9wCuiswCxX1xFNP7JI3I=;
-	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=sZQSdDAMjolLErFtrkR8dMx8z2mP91UR8b86upvCTm5NBUR5oWechoTLgQCkxgYq9
-	 qaCrZmBgE0ObO7f2oItrTwJJQeO1vL0wiVfKhVb4881DYn/pAtVcRgRA7DSZ0VI6rn
-	 0svUNN6zYvyhllKnOSs8MDWHrTZnfI3FB0ROMzzk=
+	s=default; t=1736844747;
+	bh=fa8HZsJ3T5Bjo4OSf8OOsBtUydRcEuo4H0Nj9ULNofI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=sL74gD0kxTfs4LYKUNeyz60shCd23fsFMZAPla+W2BvoDuxA9OvV6D0SpqHxcg6et
+	 +2IzwXrkzI8F7bATsL0xDB7ExjQcomGitsJ9tTCu60HabcMtnMdNoz0jLSTZ3HnSSQ
+	 sMFh9+D8urRA+wNU2E3FI30uCyEeJx3xn5OJt+1I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 293A1F805BB; Tue, 14 Jan 2025 09:50:58 +0100 (CET)
+	id BE4BEF805BD; Tue, 14 Jan 2025 09:52:00 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07C12F805BB;
-	Tue, 14 Jan 2025 09:50:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D91A4F805BE;
+	Tue, 14 Jan 2025 09:51:59 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C83CF80508; Sat, 11 Jan 2025 22:33:39 +0100 (CET)
+	id 91A13F80224; Mon, 13 Jan 2025 06:55:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1-06.simnet.is (smtp-out1-06.simnet.is
- [194.105.231.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9DDBCF800ED
-	for <alsa-devel@alsa-project.org>; Sat, 11 Jan 2025 22:33:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DDBCF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 907F8F800ED
+	for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2025 06:55:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 907F8F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=simnet.is header.i=@simnet.is header.a=rsa-sha256
- header.s=sel1 header.b=gC/q010C
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=HkrDkcEE
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-5d7e3f1fc01so7873979a12.2
+        for <alsa-devel@alsa-project.org>;
+ Sun, 12 Jan 2025 21:55:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=simnet.is; i=@simnet.is; q=dns/txt; s=sel1;
-  t=1736631213; x=1768167213;
-  h=date:from:to:subject:message-id:mime-version;
-  bh=7QUtogvyxCKUfMpkBZ5qk6rZbVQ+y5cm27snjwUDMYQ=;
-  b=gC/q010CdfU07qWSF+9ie2WB3CoyxHgvGHSAKfi/f85sFm3HNeSnbdjz
-   ZEGWlXA+dA7HRECn3mAPQhNLiKXAEwd4SU+E7wDHr0qSzSGaUMFCVHPXS
-   qG3fFkvVqs5hgjG6MzRUirtVHjzFOv6w5Kg5xoE0GWcXhLRQL6w+WO5TG
-   cQ6ZG8Ql0QYjQIJgUL4c5TKxeoMYkwWIPRjZzlmcYwzk8xqR0+hJBy8EF
-   +hauDvPAMVScpSjvL1wLj/wyumId1GaJdjX+L7dTDJB3kYikDy/fPgzC6
-   LjUdV8q2CbwucB/bYvoCN9VW7F1oGV+63Gv+14REf7AY9gf9x5I7TPyEJ
-   g==;
-X-CSE-ConnectionGUID: QMgCHGFoTB2wFk6uLSQ+uA==
-X-CSE-MsgGUID: cyh5TRsVSBWUdFMRI/Q/RA==
-Authentication-Results: smtp-out-06.simnet.is;
- dkim=none (message not signed) header.i=none
-X-SBRS: 3.3
-X-IPAS-Result: =?us-ascii?q?A2EgAwBG3YJnhVnoacJaHgEBCxIMQIQXfYFkiCWOH5FNj?=
- =?us-ascii?q?GKBcgcBAQEPOQsEAQEDAQOFAIp3KDgTAQIEAQEBAQMCAwEBAQEBAQEBDgEBB?=
- =?us-ascii?q?gEBAQEBAQYHAhABAQEBQA47hTVGDYMWcYElAQEBAQEBAQEBAQEBAR0CAj8qg?=
- =?us-ascii?q?Ux8MIJ4AYJkFLRNgTSBAYMc2xeBXRCBSIVrgmMBhWuEdzwGgg2BFTIDgQZtU?=
- =?us-ascii?q?W+BD4FSAQOBIWmGGASCHBeBRYNuhmZUhkeBD4ZciHtIgSEDWSwBVRMNCgsHB?=
- =?us-ascii?q?YFzAzgMCzAVNYEZRDc3gg9pSzcCDQI1gh58giuCX4F/hEeEVIVnghSGER02C?=
- =?us-ascii?q?gMLGA1IESw3FBtEbgebNT2CeAlgBQEMAQEwJjcBgQMtEwMFKwYPHgYbExySa?=
- =?us-ascii?q?ViPVYFEoCGBPoQlhlyDMYILji2HGzMig2JNknMMOpJJmHyCWKEfGTeEZoF+g?=
- =?us-ascii?q?X8sBxoIMDuCZwlJGQ+OByMDFhaIIDa0aHg8AgcLAQEDCZEtAQE?=
-IronPort-PHdr: A9a23:ZaG12BchYNH7iBZC0lAXrd2plGM/noqcDmcuAvsPkLdSauGk4oinZ
- BKZ/vRoilLVG4TAuLpIiOvT5qbnX2FIoZOMq2sLf5EEURgZwd4XkAotDI/NCUDyIPPwKS1vG
- sNEWTdY
-IronPort-Data: A9a23:wEdCyKpSlxdXTjMrOoUY+tJ5SCFeBmIxYhIvgKrLsJaIsI4StFGz/
- 9Y/7Vv2aafRDT+kJccjKs+otgpT6M2AjMsnHUEosygFoxli+ZfJWI3HIBn5MXrNf5eZFkk7v
- 8gSYNPOd85lFXKH+xvzOOPq9nIs3/qEFuulWODJayl4SAVpECl61k44l7No3+aE7TTB7yal4
- Lse9OWGYAP1glaYS1489L2c7hlupPG0vykX+VE4IuhWtlvfnHAJDZUZPuaqLj7yWI5fHvOgS
- o7/IMqCEjbkE20FUZX9+ovGT3HmK1Kq0WKmkWJbUquvmF1eqzculP99OPsSZy+74B2Hkox7x
- dkcu5LvQldxN6SWw7tCWUFUTCgjMKMfpeeefnbh6sHJkUCdf3Wzz69lVBk9NIBJp7l8XGger
- a1DdWlQBvzva5pa5ZriIgU7rpt5cJaD0Pojh0xdIRHl4dcOEcDIEv3G6YVRhGxuj8lAEKiGO
- JpDNzZlNh2eMkYRNAk+BcNllo9EpFGmKGQA9wj9SYnbQoT35FYsuFQ4GIONIrRmfe0MwwDA4
- DqApjylav0jHIT34SKf9X6xjfP4kyr+WYYDfJW17fcCbGe7nwT/MzVIEwLhyRWFohTmAY8Hc
- hVNonZGQZUarSRHcPGsDnVUn1bc1vIsc4I4O/E37giL1p3V726xboTTZmccADCOnJZeqQ0Cj
- jdlrfuwbdBcmOH9pUamy1uhhWja1R75goM1TXRsoQMtu7EPqWyo5/7FZo4L/KWd1rUZFdxsq
- twjQedXa7g71KY2O6uHEV/vuhejjbjmYAkJzF/IcGH78ydCXc24Ttn9gbTbxa4owIexUFiao
- D0Wms2G9uceHNTVz2qTQf4RWrCyjxqHGGSN3Rg2R8RnrW/3vS7yFWxTyGgWyENBOMksYj7sZ
- kLP/wJKjHNWFCDxMPYoM9/rYygs5aPxFYnZbOvqVfBxX5RfUTWmuxgpX2fFiggBl2B3zfFuZ
- sbHGSq2Nl4TDb9uiTa7WeoZ+bYv3Sl73XnUR53w01Kgy7X2WZKOYakEK0fLfOE89LmDsBSQq
- 40ZKcqR11NeS4USfxU776YqCF8hDVcVAqzc8dN5dbCeBjFfW3wIXqq5LawaR6RpmKFcl+Ht9
- 367W1NFxFeXuZEhAVnVApyEQO+/NauTvU4G0ToQ0UGA+kNLXGpCxLkebIdyb7gi7PZk3e8xF
- 6JDZcSbHrJOUVwrGgjxj7Gg/OSOlzzy1Gpi2hZJhhBkJfaMoCSTq7fZkvPHrnVmM8ZOnZJWT
- 0ec/g3aW4EfYA9pEdzbbvmip3vo4iNDxbkpDhWUcoIKEKkJzGSMA3Ch5hPQC51dQSgvOhPAh
- 1b+7eow/LWW/dZrmDU3rf/d89fB/xRC8rpyRDWLvOnnaUE2D0KmwItJGOaGFQ0xp0upkJhOk
- d59lqmmWNVexQoim9QnSd5Dk/lhj+YDUpcBlWyI6l2QNAzzUtuN4xCugaFyi0G67uQE5lHnA
- BnUooUy1HfgEJqNLWP97TENNoyrvcz4UBGLhRjpCC0WPBNKwYc=
-IronPort-HdrOrdr: A9a23:LeNWTqAuhOx9e5TlHem555DYdb4zR+YMi2TD83oBLyC9E/bo8P
- xG88576faZslYssRIb6LS90cu7MBbhHPdOiOF7V9rPM2fbUQCTXeNfBOXZsl7d8lXFh5dg6Z
- s=
-X-Talos-CUID: 9a23:pJz382xAfiB0mUGx+7dKBgUtP88OUlLzy0v6eVCWCjh0bIasCkK5rfY=
-X-Talos-MUID: =?us-ascii?q?9a23=3An06N7w5rV0NdXGDWMbhvtBeWxoxj8qTzNHoWr64?=
- =?us-ascii?q?shPSIGwlKGnCkyw6eF9o=3D?=
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.12,308,1728950400";
-   d="1'?diff'?scan'208";a="33517852"
-Received: from vist-zimproxy-03.vist.is ([194.105.232.89])
-  by smtp-out-06.simnet.is with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2025 21:33:30 +0000
-Received: from localhost (localhost [127.0.0.1])
-	by vist-zimproxy-03.vist.is (Postfix) with ESMTP id E4F5341F6314
-	for <alsa-devel@alsa-project.org>; Sat, 11 Jan 2025 21:33:29 +0000 (GMT)
-Received: from vist-zimproxy-03.vist.is ([127.0.0.1])
- by localhost (vist-zimproxy-03.vist.is [127.0.0.1]) (amavis, port 10032)
- with ESMTP id eruyDpMJsipC for <alsa-devel@alsa-project.org>;
- Sat, 11 Jan 2025 21:33:28 +0000 (GMT)
-Received: from localhost (localhost [127.0.0.1])
-	by vist-zimproxy-03.vist.is (Postfix) with ESMTP id C4C3441F6320
-	for <alsa-devel@alsa-project.org>; Sat, 11 Jan 2025 21:33:28 +0000 (GMT)
-Received: from vist-zimproxy-03.vist.is ([127.0.0.1])
- by localhost (vist-zimproxy-03.vist.is [127.0.0.1]) (amavis, port 10026)
- with ESMTP id aUhWOQfip1f1 for <alsa-devel@alsa-project.org>;
- Sat, 11 Jan 2025 21:33:28 +0000 (GMT)
-Received: from kassi.invalid.is (85-220-33-163.dsl.dynamic.simnet.is
- [85.220.33.163])
-	by vist-zimproxy-03.vist.is (Postfix) with ESMTPS id A9B2741F6314
-	for <alsa-devel@alsa-project.org>; Sat, 11 Jan 2025 21:33:28 +0000 (GMT)
-Received: from bg by kassi.invalid.is with local (Exim 4.98)
-	(envelope-from <bg@kassi.invalid.is>)
-	id 1tWj6m-000000000lY-0VGb
-	for alsa-devel@alsa-project.org;
-	Sat, 11 Jan 2025 21:33:28 +0000
-Date: Sat, 11 Jan 2025 21:33:28 +0000
-From: Bjarni Ingi Gislason <bjarniig@simnet.is>
-To: alsa-devel@alsa-project.org
-Subject: speaker-test.1: Some remarks and a patch with editorial changes for
- this man page
-Message-ID: <173663098940.2857.9286980961714784609.reportbug@kassi.invalid.is>
+        d=gmail.com; s=20230601; t=1736747732; x=1737352532;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=N4vQNusUmZAkLzXeYbfJ0r4HHkCe6vVP33VineDuAo8=;
+        b=HkrDkcEEtOTGAI4VEN/NC+Qk2XsJ5SisAuUQJ6szFm70zT7yzjP0fNVg0ciZWJXgFe
+         vv7J3jVibhom3VelSqIXe4uemrFsFnMVih0enLJp3UTWPqoDw7/lSJtlrELFVDvJcUoK
+         FxwwtzbVn3yUDNfR7k/yVjoMJmuMEx9qcwyQ1mbbwlyAHMfhsb8vLjiDOYNlmLylKGTM
+         lZlke+izkQab9bGFNG+yM2qZboBaHyIB73QklyC+Cq5cQEbyqEgaAPnRR5rNBuu8WIcC
+         NAyTBg0k3s+l6xbSyfyqZ68nBpZ4KjHK4w/BCYGJ6JL4qYtT68YHgM0/gaEPyMvA9P8+
+         iLBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736747732; x=1737352532;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=N4vQNusUmZAkLzXeYbfJ0r4HHkCe6vVP33VineDuAo8=;
+        b=XK3Qt0ZZhz5pm0LKDWKriGvEZdMKKDv9InvHzSqF/dQStkFgR8DwPZg6A3jKNDfwbC
+         pjAVI09P9u4GZtkkFE4S/Ukus7uy+BHVRfpbEfTiX6n91xM5C4OKk8cUK9moalTSvess
+         7VuLzar4abpuPjP5ltw7n0JmtMHXjYobSYwtXk1wqF1EhSxqp95t205pz5LobDKymefD
+         eC9s7/2hR/9OQTLJo/ZSf+uzHTMc3nqE8I6viCWhSqkhChy7BQs5U4djwOCXSB0k03vm
+         VrpE6Q7SHOzFo7J3+NWSI6xKa8BU50iXgePxVX0/i0vq+ZESctszCS8ms/y6h11aNKPd
+         cIdw==
+X-Gm-Message-State: AOJu0YzIWQmrqYSYoCUCNDIvmhDwmiu8D1tfCmykyvs2/8DEkeLbJ5Er
+	rI7nqJngKt7fMbyn34SxIUh8If2HcaRcAeBW2M0Vm/80OObFBh5g
+X-Gm-Gg: ASbGncsnAnpmzgbGbQ1Xrp4YVNNYNOFQ32H3Sc7/AuAgE6AD7JoKmh8EmfX2V4d21eS
+	w+2HwSICqXQBcUVt0//B5/RO0jXZQPzIkeNEPVY38lwtfKDh4+eI5CIq3el4sOyIcZTnWn+Nucn
+	0YcFnDYV5CNfW+4b8EPzYyZgQTbsvFRI+KLA32Vm0x6JivHVBNoMnxs5XX9uaociwwB/6Oe70ci
+	puStLMgQCsIVqiF6cBDT9ONJaAozWlCF5yHUXOtFBZZ2WbkR6LTgu7Yo97QUGdc89bybw==
+X-Google-Smtp-Source: 
+ AGHT+IHHDjzYEn5VmjKBCEbcSi6Bm+0MjLFulYvO92cR0rmLIAiatEhlM1Jl2TgpnNeRlQjm4KQ3Vw==
+X-Received: by 2002:a17:907:7ea2:b0:aa6:becf:b26a with SMTP id
+ a640c23a62f3a-ab2ab66d9a0mr1600953066b.9.1736747732023;
+        Sun, 12 Jan 2025 21:55:32 -0800 (PST)
+Received: from [192.168.1.10] ([95.43.220.235])
+        by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-ab2e57251fesm337068866b.53.2025.01.12.21.55.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Jan 2025 21:55:31 -0800 (PST)
+Message-ID: <db8321e3-e9c8-4f1e-8ebd-78d286320d55@gmail.com>
+Date: Mon, 13 Jan 2025 07:55:30 +0200
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="fhKBDjn8ybdDSAtq"
-Content-Disposition: inline
-X-Mailer: reportbug 13.0.2
-X-MailFrom: bg@simnet.is
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] soc: audio-graph-card2: use correct endpoint when
+ getting link parameters
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ tony@atomide.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20241220071126.1066691-1-ivo.g.dimitrov.75@gmail.com>
+Content-Language: en-GB
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <20241220071126.1066691-1-ivo.g.dimitrov.75@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MailFrom: ivo.g.dimitrov.75@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: M2KBZN3K4X434AW4B3CKHWGXR5B35THB
-X-Message-ID-Hash: M2KBZN3K4X434AW4B3CKHWGXR5B35THB
-X-Mailman-Approved-At: Tue, 14 Jan 2025 08:50:47 +0000
+Message-ID-Hash: PJGJKQZEDJVYHVMOBGGME2VSZKRWIV6P
+X-Message-ID-Hash: PJGJKQZEDJVYHVMOBGGME2VSZKRWIV6P
+X-Mailman-Approved-At: Tue, 14 Jan 2025 08:51:44 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M2KBZN3K4X434AW4B3CKHWGXR5B35THB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PJGJKQZEDJVYHVMOBGGME2VSZKRWIV6P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,571 +129,232 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
---fhKBDjn8ybdDSAtq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Package: alsa-utils
-Version: 1.2.13-1
-Severity: minor
-Tags: patch
-
-   * What led up to the situation?
-
-     Checking for defects with a new version
-
-test-[g|n]roff -mandoc -t -K utf8 -rF0 -rHY=0 -rCHECKSTYLE=10 -ww -z < "man page"
-
-  [Use "groff -e ' $' <file>" to find trailing spaces.]
-
-  ["test-groff" is a script in the repository for "groff"; is not shipped]
-(local copy and "troff" slightly changed by me).
-
-  [The fate of "test-nroff" was decided in groff bug #55941.]
-
-   * What was the outcome of this action?
-
-an.tmac:<stdin>:183: misuse, warning: .BR is for at least 2 arguments, got 1
-	Use macro '.B' for one argument or split argument.
-
-   * What outcome did you expect instead?
-
-     No output (no warnings).
-
--.-
-
-  General remarks and further material, if a diff-file exist, are in the
-attachments.
-
-
--- System Information:
-Debian Release: trixie/sid
-  APT prefers testing
-  APT policy: (500, 'testing')
-Architecture: amd64 (x86_64)
-
-Kernel: Linux 6.12.6-amd64 (SMP w/2 CPU threads; PREEMPT)
-Locale: LANG=is_IS.iso88591, LC_CTYPE=is_IS.iso88591 (charmap=ISO-8859-1), LANGUAGE not set
-Shell: /bin/sh linked to /usr/bin/dash
-Init: sysvinit (via /sbin/init)
-
-Versions of packages alsa-utils depends on:
-ii  kmod              33+20240816-2
-ii  libasound2t64     1.2.13-1+b1
-ii  libatopology2t64  1.2.13-1+b1
-ii  libc6             2.40-4
-ii  libfftw3-single3  3.3.10-2+b1
-ii  libncursesw6      6.5-2+b1
-ii  libsamplerate0    0.2.2-4+b2
-ii  libtinfo6         6.5-2+b1
-
-alsa-utils recommends no packages.
-
-Versions of packages alsa-utils suggests:
-pn  dialog  <none>
-
--- no debconf information
-
---fhKBDjn8ybdDSAtq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="chk_man.err.speaker-test.1"
-
-Input file is speaker-test.1
-
-  Any program (person), that produces man pages, should check the output
-for defects by using (both groff and nroff)
-
-[gn]roff -mandoc -t -ww -b -z -K utf8  <man page>
-
-  The same goes for man pages that are used as an input.
-
-  For a style guide use
-
-  mandoc -T lint
-
--.-
-
-  So any 'generator' should check its products with the above mentioned
-'groff', 'mandoc',  and additionally with 'nroff ...'.
-
-  This is just a simple quality control measure.
-
-  The 'generator' may have to be corrected to get a better man page,
-the source file may, and any additional file may.
-
-  Common defects:
-
-  Input text line longer than 80 bytes.
-
-  Not removing trailing spaces (in in- and output).
-  The reason for these trailing spaces should be found and eliminated.
-
-  Not beginning each input sentence on a new line.
-Lines should thus be shorter.
-
-  See man-pages(7), item 'semantic newline'.
-
--.-
-
-The difference between the formatted output of the original and patched file
-can be seen with:
-
-  nroff -mandoc <file1> > <out1>
-  nroff -mandoc <file2> > <out2>
-  diff -u <out1> <out2>
-
-and for groff, using
-
-"printf '%s\n%s\n' '.kern 0' '.ss 12 0' | groff -mandoc -Z - "
-
-instead of 'nroff -mandoc'
-
-  Add the option '-t', if the file contains a table.
-
-  Read the output of 'diff -u' with 'less -R' or similar.
-
--.-.
-
-  If 'man' (man-db) is used to check the manual for warnings,
-the following must be set:
-
-  The option "-warnings=w"
-
-  The environmental variable:
-
-export MAN_KEEP_STDERR=yes (or any non-empty value)
-
-  or
-
-  (produce only warnings):
-
-export MANROFFOPT="-ww -b -z"
-
-export MAN_KEEP_STDERR=yes (or any non-empty value)
-
--.-.
-
-Output from "mandoc -T lint  speaker-test.1": (shortened list)
-
-     10 input text line longer than 80 bytes
-      2 skipping all arguments
-      1 skipping paragraph macro
-
--.-.
-
-Output from "test-groff -mandoc -t -ww -z speaker-test.1": (shortened list)
-
-      1 	Use macro '.B' for one argument or split argument.
-      1 .BR is for at least 2 arguments, got 1
-
--.-.
-
-Change '-' (\-) to '\(en' (en-dash) for a (numeric) range.
-GNU gnulib has recently (2023-06-18) updated its
-"build_aux/update-copyright" to recognize "\(en" in man pages.
-
-speaker-test.1:148:Allow supplied \fIFREQ\fP to be outside the default range of 30-8000Hz. A minimum of 1Hz is still enforced.
-
--.-.
-
-Change two HYPHEN-MINUSES (code 0x2D) to an em-dash (\(em),
-if one is intended.
-  " \(em " creates a too big gap in the text (in "troff").
-
-An en-dash is usually surrounded by a space,
-while an em-dash is used without spaces.
-"man" (1 byte characters in input) transforms an en-dash (\(en) to one
-HYPHEN-MINUS,
-and an em-dash to two HYPHEN-MINUSES without considering the space
-around it.
-If "--" are two single "-"
-(begin of an option or end of options)
-then use "\-\-".
-
-speaker-test.1:100:Pink noise is perceptually uniform noise -- that is, it sounds like every frequency at once.  If you can hear any tone it may indicate resonances in your speaker system or room.
-
--.-.
-
-Change (or include a "FIXME" paragraph about) misused SI (metric)
-numeric prefixes (or names) to the binary ones, like Ki (kibi), Mi
-(mebi), Gi (gibi), or Ti (tebi), if indicated.
-If the metric prefixes are correct, add the definitions or an
-explanation to avoid misunderstanding.
-
-106:Note that sampling rates less than 48KHz are outside the scope of the spec, and an attempt will be made to construct a reduced rate filter.
-
--.-.
-
-Add a (no-break, "\ " or "\~") space between a number and a unit,
-as these are not one entity.
-
-106:Note that sampling rates less than 48KHz are outside the scope of the spec, and an attempt will be made to construct a reduced rate filter.
-
--.-.
-
-Change - to \- if it shall be printed as a minus sign.
-
-speaker-test.1:102:\fB\-t st2095\fP means use bandlimited pink noise at -18.5dB AES FS, generated according to SMPTE ST-2095:1-2015.
-
--.-.
-
-Move a full stop (period) and a comma outside of a quoted text, if it is
-at the end of the quote and does not end a quoted sentence.
-
-105:electroacoustic response of a cinema B-chain system."
-
--.-.
-
-Wrong distance between sentences in the input file.
-
-  Separate the sentences and subordinate clauses; each begins on a new
-line.  See man-pages(7) ("Conventions for source file layout") and
-"info groff" ("Input Conventions").
-
-  The best procedure is to always start a new sentence on a new line,
-at least, if you are typing on a computer.
-
-Remember coding: Only one command ("sentence") on each (logical) line.
-
-E-mail: Easier to quote exactly the relevant lines.
-
-Generally: Easier to edit the sentence.
-
-Patches: Less unaffected text.
-
-Search for two adjacent words is easier, when they belong to the same line,
-and the same phrase.
-
-  The amount of space between sentences in the output can then be
-controlled with the ".ss" request.
-
-Mark a final abbreviation point as such by suffixing it with "\&".
-
-
-23:\fBspeaker\-test\fP by default will test the \fIdefault\fP device. If you
-26:those cards. Notice that there might be for example, one device for
-50:and surround40. So, if you want to test the last device you can
-51:run \fBspeaker\-test \-Dsurround40:ICH5 \-c 6\fR. The \fB\-c\fR option will
-148:Allow supplied \fIFREQ\fP to be outside the default range of 30-8000Hz. A minimum of 1Hz is still enforced.
-
--.-.
-
-Split lines longer than 80 characters into two or more lines.
-Appropriate break points are the end of a sentence and a subordinate
-clause; after punctuation marks.
-
-Line 21, length 89
-
-\fBspeaker\-test\fP generates a tone that can be used to test the speakers of a computer.
-
-Line 100, length 177
-
-Pink noise is perceptually uniform noise -- that is, it sounds like every frequency at once.  If you can hear any tone it may indicate resonances in your speaker system or room.
-
-Line 102, length 113
-
-\fB\-t st2095\fP means use bandlimited pink noise at -18.5dB AES FS, generated according to SMPTE ST-2095:1-2015.
-
-Line 103, length 147
-
-In addition to speaker localization it may be used for system calibration, for example 85dB for thater drivers, with an extra +10dB for subwoofers.
-
-Line 104, length 84
-
-Per the spec, it is intended "to be used in calibrating the sound pressure level and
-
-Line 106, length 139
-
-Note that sampling rates less than 48KHz are outside the scope of the spec, and an attempt will be made to construct a reduced rate filter.
-
-Line 110, length 94
-
-\fB\-t wav\fP means to play WAV files, either pre-defined files or given via \fB\-w\fP option.
-
-Line 119, length 91
-
-When \fB\-s\fP option below with a valid channel is given, \fBspeaker\-test\fP will perform
-
-Line 124, length 87
-
-Do a single-shot speaker test for the given channel.  The channel number starts from 1.
-
-Line 125, length 82
-
-The channel number corresponds to left, right, rear-left, rear-right, center, LFE,
-
-Line 128, length 92
-
-For example, when 1 is passed, it tests the left channel only once rather than both channels
-
-Line 148, length 107
-
-Allow supplied \fIFREQ\fP to be outside the default range of 30-8000Hz. A minimum of 1Hz is still enforced.
-
-Line 167, length 93
-
-To send a nice low 75Hz tone to the Woofer and then exit without touching any other speakers:
-
--.-.
-
-Use the name of units in text; use symbols in tables and
-calculations.
-The rule is to have a (no-break, \~) space between a number and
-its units (see "www.bipm.org/en/publications/si-brochure")
-
-102:\fB\-t st2095\fP means use bandlimited pink noise at -18.5dB AES FS, generated according to SMPTE ST-2095:1-2015.
-103:In addition to speaker localization it may be used for system calibration, for example 85dB for thater drivers, with an extra +10dB for subwoofers.
-106:Note that sampling rates less than 48KHz are outside the scope of the spec, and an attempt will be made to construct a reduced rate filter.
-148:Allow supplied \fIFREQ\fP to be outside the default range of 30-8000Hz. A minimum of 1Hz is still enforced.
-167:To send a nice low 75Hz tone to the Woofer and then exit without touching any other speakers:
-
--.-.
-
-Name of a manual is set in bold, the section in roman.
-See man-pages(7).
-
-183:.BR aplay(1)
-
--.-.
-
-Put a parenthetical sentence, phrase on a separate line,
-if not part of a code.
-See man-pages(7), item "semantic newline".
-Not considered in a patch, too many lines.
-
-
-speaker-test.1:172:To do a 2\-speaker test using the spdif (coax or optical) output:
-
--.-.
-
-Use a no-break space between a number and a (SI) unit
-
-148:Allow supplied \fIFREQ\fP to be outside the default range of 30-8000Hz. A minimum of 1Hz is still enforced.
-167:To send a nice low 75Hz tone to the Woofer and then exit without touching any other speakers:
-
--.-.
-
-Put a subordinate sentence (after a comma) on a new line.
-
-26:those cards. Notice that there might be for example, one device for
-27:analog sound, one for digital sound and one for HDMI sound.
-49:in the above example, there are four devices listed: null, default, front
-50:and surround40. So, if you want to test the last device you can
-79:When 0 is given, use the maximal buffer size.
-85:When 0 is given, the periods given by \fB\-P\fP option is used.
-100:Pink noise is perceptually uniform noise -- that is, it sounds like every frequency at once.  If you can hear any tone it may indicate resonances in your speaker system or room.
-102:\fB\-t st2095\fP means use bandlimited pink noise at -18.5dB AES FS, generated according to SMPTE ST-2095:1-2015.
-103:In addition to speaker localization it may be used for system calibration, for example 85dB for thater drivers, with an extra +10dB for subwoofers.
-104:Per the spec, it is intended "to be used in calibrating the sound pressure level and
-106:Note that sampling rates less than 48KHz are outside the scope of the spec, and an attempt will be made to construct a reduced rate filter.
-110:\fB\-t wav\fP means to play WAV files, either pre-defined files or given via \fB\-w\fP option.
-119:When \fB\-s\fP option below with a valid channel is given, \fBspeaker\-test\fP will perform
-125:The channel number corresponds to left, right, rear-left, rear-right, center, LFE,
-126:side-left, side-right, and so on.
-128:For example, when 1 is passed, it tests the left channel only once rather than both channels
-144:required, pass the channel position strings to this option.
-
--.-.
-
-Output from "test-groff  -mandoc -t -K utf8 -rF0 -rHY=0 -rCHECKSTYLE=10 -ww -z ":
-
-an.tmac:<stdin>:183: misuse, warning: .BR is for at least 2 arguments, got 1
-	Use macro '.B' for one argument or split argument.
-
-
---fhKBDjn8ybdDSAtq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="speaker-test.1.diff"
-
---- speaker-test.1	2025-01-10 23:55:38.162393206 +0000
-+++ speaker-test.1.new	2025-01-11 21:26:59.088889888 +0000
-@@ -15,19 +15,25 @@
- .SH NAME
- speaker\-test \- command\-line speaker test tone generator for ALSA
- .SH SYNOPSIS
--.B speaker\-test [\-options]
-+.BR speaker\-test\  [ \fIoptions\fR ]
- 
- .SH DESCRIPTION
--\fBspeaker\-test\fP generates a tone that can be used to test the speakers of a computer.
-+\fBspeaker\-test\fP generates a tone that can be used to test the speakers
-+of a computer.
- 
--\fBspeaker\-test\fP by default will test the \fIdefault\fP device. If you
--want to test another sound device you will have first to get a list of
--all of the sound cards in your system and the devices associated with
--those cards. Notice that there might be for example, one device for
--analog sound, one for digital sound and one for HDMI sound.
--To get the list of available cards and devices you can run \fBaplay \-L\fR.
-+\fBspeaker\-test\fP by default will test the \fIdefault\fP device.
-+If you want to test another sound device
-+you will have first to get a list of all of the sound cards in your system
-+and the devices associated with those cards.
-+Notice that there might be for example,
-+one device for analog sound,
-+one for digital sound
-+and one for HDMI sound.
-+To get the list of available cards
-+and devices you can run \fBaplay \-L\fR.
- 
--.P \fBaplay\fR's output will be similar to this one:
-+.P
-+\fBaplay\fR's output will be similar to this one:
- 
- .nf
- $ aplay \-L
-@@ -45,15 +51,15 @@ surround40:CARD=ICH5,DEV=0
- (...)
- .fi
- 
--.P Each of the devices is listed in the beginning of the definition so,
--in the above example, there are four devices listed: null, default, front
--and surround40. So, if you want to test the last device you can
--run \fBspeaker\-test \-Dsurround40:ICH5 \-c 6\fR. The \fB\-c\fR option will
--indicate that the six audio channels in the device have to be tested.
--
--
--
--
-+.P
-+Each of the devices is listed in the beginning of the definition so,
-+in the above example,
-+there are four devices listed:
-+null, default, front and surround40.
-+So, if you want to test the last device
-+you can run \fBspeaker\-test \-Dsurround40:ICH5 \-c 6\fR.
-+The \fB\-c\fR option will indicate
-+that the six audio channels in the device have to be tested.
- 
- .SH OPTIONS
- 
-@@ -76,13 +82,15 @@ Print usage help
- .TP
- \fB\-b\fP | \fB\-\-buffer\fP \fITIME\fP
- Use buffer size of \fITIME\fP microseconds.
--When 0 is given, use the maximal buffer size.
-+When 0 is given,
-+use the maximal buffer size.
- The default value is 0.
- 
- .TP
- \fB\-p\fP | \fB\-\-period\fP \fITIME\fP
- Use period size of \fITIME\fP microseconds.
--When 0 is given, the periods given by \fB\-P\fP option is used.
-+When 0 is given,
-+the periods given by \fB\-P\fP option is used.
- The default value is 0.
- 
- .TP
-@@ -97,17 +105,27 @@ stream of \fIRATE\fP Hz
- \fB\-t\fP | \fB\-\-test\fP \fBpink\fP|\fBst2095\fP|\fBsine\fP|\fBwav\fP
- \fB\-t pink\fP means use pink noise (default).
- 
--Pink noise is perceptually uniform noise -- that is, it sounds like every frequency at once.  If you can hear any tone it may indicate resonances in your speaker system or room.
--
--\fB\-t st2095\fP means use bandlimited pink noise at -18.5dB AES FS, generated according to SMPTE ST-2095:1-2015.
--In addition to speaker localization it may be used for system calibration, for example 85dB for thater drivers, with an extra +10dB for subwoofers.
--Per the spec, it is intended "to be used in calibrating the sound pressure level and
--electroacoustic response of a cinema B-chain system."
--Note that sampling rates less than 48KHz are outside the scope of the spec, and an attempt will be made to construct a reduced rate filter.
-+Pink noise is perceptually uniform noise \(en that is,
-+it sounds like every frequency at once.
-+If you can hear any tone
-+it may indicate resonances in your speaker system or room.
-+
-+\fB\-t st2095\fP means use bandlimited pink noise at \-18.5\~dB AES FS,
-+generated according to SMPTE ST-2095:1-2015.
-+In addition to speaker localization it may be used for system calibration,
-+for example 85\~dB for thater drivers,
-+with an extra +10\~dB for subwoofers.
-+Per the spec,
-+it is intended
-+"to be used in calibrating the sound pressure level
-+and electroacoustic response of a cinema B-chain system".
-+Note that sampling rates less than 48\~kHz are outside the scope of the spec,
-+and an attempt will be made to construct a reduced rate filter.
- 
- \fB\-t sine\fP means to use sine wave.
- 
--\fB\-t wav\fP means to play WAV files, either pre-defined files or given via \fB\-w\fP option.
-+\fB\-t wav\fP means to play WAV files,
-+either pre-defined files or given via \fB\-w\fP option.
- 
- You can pass the number from 1 to 3 as a backward compatibility.
- 
-@@ -116,17 +134,20 @@ You can pass the number from 1 to 3 as a
- 
- Specifies the number of loops.  Zero means to run infinitely.
- 
--When \fB\-s\fP option below with a valid channel is given, \fBspeaker\-test\fP will perform
--always a single-shot without looping.
-+When \fB\-s\fP option below with a valid channel is given,
-+\fBspeaker\-test\fP will perform always a single-shot without looping.
- 
- .TP
- \fB\-s\fP | \fB\-\-speaker\fP \fICHANNEL\fP
--Do a single-shot speaker test for the given channel.  The channel number starts from 1.
-+Do a single-shot speaker test for the given channel.
-+The channel number starts from 1.
- The channel number corresponds to left, right, rear-left, rear-right, center, LFE,
- side-left, side-right, and so on.
- 
--For example, when 1 is passed, it tests the left channel only once rather than both channels
--with looping.
-+For example,
-+when 1 is passed,
-+it tests the left channel only once
-+rather than both channels with looping.
- 
- .TP
- \fB\-w\fP | \fB\-\-wavfile\fP \fIFILE\fP
-@@ -140,13 +161,15 @@ The default path is \fI/usr/share/sounds
- .TP
- \fB\-m\fP | \fB\-\-chmap\fP \fIMAP\fP
- Pass the channel map to override.
--If the playback in a specific channel order or channel positions is
--required, pass the channel position strings to this option.
-+If the playback in a specific channel order
-+or channel positions
-+is required,
-+pass the channel position strings to this option.
- 
- .TP
- \fB\-X\fP | \fB\-\-force-frequency\fP
--Allow supplied \fIFREQ\fP to be outside the default range of 30-8000Hz. A minimum of 1Hz is still enforced.
--
-+Allow supplied \fIFREQ\fP to be outside the default range of 30\(en8000\~Hz.
-+A minimum of 1\~Hz is still enforced.
- .SH USAGE EXAMPLES
- 
- Produce stereo sound from one stereo jack:
-@@ -164,12 +187,15 @@ Produce 5.1 speaker sound from three ste
-   speaker\-test \-Dplug:surround51 \-c6
- .EE
- 
--To send a nice low 75Hz tone to the Woofer and then exit without touching any other speakers:
-+To send a nice low 75\~Hz tone to the Woofer
-+and then exit without touching any other speakers:
- .EX
-   speaker\-test \-Dplug:surround51 \-c6 \-s1 \-f75
- .EE
- 
--To do a 2\-speaker test using the spdif (coax or optical) output:
-+To do a 2\-speaker test using the spdif
-+(coax or optical)
-+output:
- .EX
-   speaker\-test \-Dplug:spdif \-c2
- .EE
-@@ -180,7 +206,7 @@ Play in the order of front\-right and fr
- .EE
- 
- .SH SEE ALSO
--.BR aplay(1)
-+.BR aplay (1)
- 
- .SH AUTHOR
- The speaker\-test program was written by James Courtier-Dutton.
-
---fhKBDjn8ybdDSAtq--
+ping
+
+On 20.12.24 г. 9:11 ч., Ivaylo Dimitrov wrote:
+> We may have multiple links between ports, with each link
+> having different parameters. Currently, no matter the topology,
+> it is always port endpoint 0 that is used when setting parameters.
+> 
+> On a complex sound system, like the one found on Motorola droid4,
+> hifi and voice DAIs require differents formats (i2s vs dsp_a)
+> and curently it is impossible to use DT to set that.
+>   
+> Implementing the change leads to partially dropping of at least
+> 0dedbde5062d (ASoC: cpcap: Implement set_tdm_slot for voice call
+> support), as core does most of what is needed to configure voice DAI.
+> 
+> We (on Maemo Leste ) use the patch (along with few others) to have
+> voice calls working properly on d4 through UCM.
+> 
+> The patch is for linux 6.6, I want to know whether the
+> approach would be accepted before sending a proper patch for
+> current master.
+> 
+> the original commit message follows:
+> 
+> When link parameters are parsed, it is always endpoint@0 that is used and
+> parameters set to other endpoints are ignored.
+> 
+> Fix that by using endpoint that is set in DT when parsing link parameters.
+> 
+> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+> ---
+>   sound/soc/generic/audio-graph-card2.c | 59 +++++++++++++--------------
+>   1 file changed, 28 insertions(+), 31 deletions(-)
+> 
+> diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
+> index b1c675c6b6db..163a20c8ffee 100644
+> --- a/sound/soc/generic/audio-graph-card2.c
+> +++ b/sound/soc/generic/audio-graph-card2.c
+> @@ -508,17 +508,16 @@ static int __graph_parse_node(struct asoc_simple_priv *priv,
+>   
+>   static int graph_parse_node(struct asoc_simple_priv *priv,
+>   			    enum graph_type gtype,
+> -			    struct device_node *port,
+> +			    struct device_node *ep,
+>   			    struct link_info *li, int is_cpu)
+>   {
+> -	struct device_node *ep;
+>   	int ret = 0;
+> +	struct device_node *port = of_get_parent(ep);
+> +	bool is_multi = graph_lnk_is_multi(port);
+>   
+> -	if (graph_lnk_is_multi(port)) {
+> +	if (is_multi) {
+>   		int idx;
+>   
+> -		of_node_get(port);
+> -
+>   		for (idx = 0;; idx++) {
+>   			ep = graph_get_next_multi_ep(&port);
+>   			if (!ep)
+> @@ -532,9 +531,8 @@ static int graph_parse_node(struct asoc_simple_priv *priv,
+>   		}
+>   	} else {
+>   		/* Single CPU / Codec */
+> -		ep = port_to_endpoint(port);
+> +		of_node_put(port);
+>   		ret = __graph_parse_node(priv, gtype, ep, li, is_cpu, 0);
+> -		of_node_put(ep);
+>   	}
+>   
+>   	return ret;
+> @@ -591,22 +589,20 @@ static void graph_parse_daifmt(struct device_node *node,
+>   }
+>   
+>   static void graph_link_init(struct asoc_simple_priv *priv,
+> -			    struct device_node *port,
+> +			    struct device_node *ep,
+>   			    struct link_info *li,
+>   			    int is_cpu_node)
+>   {
+>   	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
+> -	struct device_node *ep;
+> +	struct device_node *port = of_get_parent(ep);
+> +	bool is_multi = graph_lnk_is_multi(port);
+>   	struct device_node *ports;
+>   	unsigned int daifmt = 0, daiclk = 0;
+>   	unsigned int bit_frame = 0;
+>   
+> -	if (graph_lnk_is_multi(port)) {
+> -		of_node_get(port);
+> +	if (is_multi) {
+>   		ep = graph_get_next_multi_ep(&port);
+>   		port = of_get_parent(ep);
+> -	} else {
+> -		ep = port_to_endpoint(port);
+>   	}
+>   
+>   	ports = of_get_parent(port);
+> @@ -642,6 +638,9 @@ static void graph_link_init(struct asoc_simple_priv *priv,
+>   	dai_link->ops		= &graph_ops;
+>   	if (priv->ops)
+>   		dai_link->ops	= priv->ops;
+> +
+> +	of_node_put(port);
+> +	of_node_put(ports);
+>   }
+>   
+>   int audio_graph2_link_normal(struct asoc_simple_priv *priv,
+> @@ -650,7 +649,7 @@ int audio_graph2_link_normal(struct asoc_simple_priv *priv,
+>   {
+>   	struct device_node *cpu_port = lnk;
+>   	struct device_node *cpu_ep = port_to_endpoint(cpu_port);
+> -	struct device_node *codec_port = of_graph_get_remote_port(cpu_ep);
+> +	struct device_node *codec_ep = of_graph_get_remote_endpoint(cpu_ep);
+>   	int ret;
+>   
+>   	/*
+> @@ -658,20 +657,20 @@ int audio_graph2_link_normal(struct asoc_simple_priv *priv,
+>   	 * see
+>   	 *	__graph_parse_node() :: DAI Naming
+>   	 */
+> -	ret = graph_parse_node(priv, GRAPH_NORMAL, codec_port, li, 0);
+> +	ret = graph_parse_node(priv, GRAPH_NORMAL, codec_ep, li, 0);
+>   	if (ret < 0)
+>   		goto err;
+>   
+>   	/*
+>   	 * call CPU, and set DAI Name
+>   	 */
+> -	ret = graph_parse_node(priv, GRAPH_NORMAL, cpu_port, li, 1);
+> +	ret = graph_parse_node(priv, GRAPH_NORMAL, cpu_ep, li, 1);
+>   	if (ret < 0)
+>   		goto err;
+>   
+> -	graph_link_init(priv, cpu_port, li, 1);
+> +	graph_link_init(priv, cpu_ep, li, 1);
+>   err:
+> -	of_node_put(codec_port);
+> +	of_node_put(codec_ep);
+>   	of_node_put(cpu_ep);
+>   
+>   	return ret;
+> @@ -684,7 +683,6 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
+>   {
+>   	struct device_node *ep = port_to_endpoint(lnk);
+>   	struct device_node *rep = of_graph_get_remote_endpoint(ep);
+> -	struct device_node *rport = of_graph_get_remote_port(ep);
+>   	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
+>   	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
+>   	int is_cpu = asoc_graph_is_ports0(lnk);
+> @@ -718,7 +716,7 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
+>   		dai_link->dynamic		= 1;
+>   		dai_link->dpcm_merged_format	= 1;
+>   
+> -		ret = graph_parse_node(priv, GRAPH_DPCM, rport, li, 1);
+> +		ret = graph_parse_node(priv, GRAPH_DPCM, rep, li, 1);
+>   		if (ret)
+>   			goto err;
+>   	} else {
+> @@ -751,7 +749,7 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
+>   		dai_link->no_pcm		= 1;
+>   		dai_link->be_hw_params_fixup	= asoc_simple_be_hw_params_fixup;
+>   
+> -		ret = graph_parse_node(priv, GRAPH_DPCM, rport, li, 0);
+> +		ret = graph_parse_node(priv, GRAPH_DPCM, rep, li, 0);
+>   		if (ret < 0)
+>   			goto err;
+>   	}
+> @@ -761,11 +759,10 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
+>   
+>   	snd_soc_dai_link_set_capabilities(dai_link);
+>   
+> -	graph_link_init(priv, rport, li, is_cpu);
+> +	graph_link_init(priv, rep, li, is_cpu);
+>   err:
+>   	of_node_put(ep);
+>   	of_node_put(rep);
+> -	of_node_put(rport);
+>   
+>   	return ret;
+>   }
+> @@ -777,7 +774,7 @@ int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
+>   {
+>   	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
+>   	struct device_node *port0, *port1, *ports;
+> -	struct device_node *codec0_port, *codec1_port;
+> +	struct device_node *codec0_ep, *codec1_ep;
+>   	struct device_node *ep0, *ep1;
+>   	u32 val = 0;
+>   	int ret = -EINVAL;
+> @@ -834,31 +831,31 @@ int audio_graph2_link_c2c(struct asoc_simple_priv *priv,
+>   	ep0 = port_to_endpoint(port0);
+>   	ep1 = port_to_endpoint(port1);
+>   
+> -	codec0_port = of_graph_get_remote_port(ep0);
+> -	codec1_port = of_graph_get_remote_port(ep1);
+> +	codec0_ep = of_graph_get_remote_endpoint(ep0);
+> +	codec1_ep = of_graph_get_remote_endpoint(ep1);
+>   
+>   	/*
+>   	 * call Codec first.
+>   	 * see
+>   	 *	__graph_parse_node() :: DAI Naming
+>   	 */
+> -	ret = graph_parse_node(priv, GRAPH_C2C, codec1_port, li, 0);
+> +	ret = graph_parse_node(priv, GRAPH_C2C, codec1_ep, li, 0);
+>   	if (ret < 0)
+>   		goto err2;
+>   
+>   	/*
+>   	 * call CPU, and set DAI Name
+>   	 */
+> -	ret = graph_parse_node(priv, GRAPH_C2C, codec0_port, li, 1);
+> +	ret = graph_parse_node(priv, GRAPH_C2C, codec0_ep, li, 1);
+>   	if (ret < 0)
+>   		goto err2;
+>   
+> -	graph_link_init(priv, codec0_port, li, 1);
+> +	graph_link_init(priv, codec0_ep, li, 1);
+>   err2:
+>   	of_node_put(ep0);
+>   	of_node_put(ep1);
+> -	of_node_put(codec0_port);
+> -	of_node_put(codec1_port);
+> +	of_node_put(codec0_ep);
+> +	of_node_put(codec1_ep);
+>   err1:
+>   	of_node_put(ports);
+>   	of_node_put(port0);

@@ -2,204 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E356EA176FB
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2025 06:27:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D567A17913
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2025 09:13:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8538660357;
-	Tue, 21 Jan 2025 06:27:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8538660357
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B733603A4;
+	Tue, 21 Jan 2025 09:13:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B733603A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1737437244;
-	bh=A5SmihSgbg4DiBNi8QpYPo+xTus2YqYH2SLsr/YxMSg=;
+	s=default; t=1737447218;
+	bh=7KIvSIu5XPPm9lTFj8UjdCcMTW3CkOGWN34+1V85Zzg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lY6yevB/9KCJKI36w40nD7G6h3dxOLUxfN9k1XUxTA2v6xoOfVhza/4QdauXw5+0+
-	 mQdpJ9sqx7pDg2uwCkFaGwyZDwHAlQyUff5O1SqEPVFkI5qwcJa2WqwzWe5IE4Ehzh
-	 j5h3deJI3uAMJ41NZUcb9bKQrtyLpIwywABSpXpA=
+	b=ASw9S7KSWBnyAyEzXtnOl9xzEll0S0OQqv2DaTiCMsYhVIGD+EizEsyls4XITo1tX
+	 CH+yTc1DCiPPAlJqDQBa4Avzs+JkhRxE/a6IINto4PRbFvPX8UsObV9cBWTSywGsyI
+	 ITVkLS3jHFAlLsaUSUlV7N3sEQIglK9SPV9+j9Yk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2C952F805B0; Tue, 21 Jan 2025 06:26:56 +0100 (CET)
+	id 4B0DCF805B2; Tue, 21 Jan 2025 09:13:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 245E6F805BA;
-	Tue, 21 Jan 2025 06:26:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF2F9F805BA;
+	Tue, 21 Jan 2025 09:13:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 146D1F8032D; Tue, 21 Jan 2025 06:26:43 +0100 (CET)
+	id 6926FF80510; Tue, 14 Jan 2025 10:05:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20613.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2407::613])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F3FEF800F3
-	for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2025 06:26:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F3FEF800F3
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8F23F80169
+	for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2025 10:04:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8F23F80169
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=BuBAKqDf
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QYNf5roX04CmM2uEBZGyXqCUZzIzuifau9yWEQyCxWF9v0Y1Bn60TdV4t3173HlA7j/9dxeHbThZ0H+P7lFZxLzniDIk6cvLrbNDEnLMO2ewkFyHRPtCy7f639ddab1JK1GV9lp3yrYNb/dr5Q9zyV/sPxo0RNW3syFs3M2UcIdwtDe24e+pEa0vtP3M9zHQto84nN5cXtwobZyjOw/ALkJOzDDjxpRJgM/bWYpDMhAUWrkGsDHaujbGB8AGs4qMchG/t8Fh+bLdVxCjBIQySWjP+pxduAOtUZ+d4wk2O8TiMGKJwd5Kx0S7tk5N10IghiaBLdQoCoODRaxnCIrwHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lY26GqTrkMIjInEmhoNRbPkC6yG/Evqs4Gv5LcRFqSs=;
- b=f0CMxi57kR1YOkpJ6gmKUsV7pn5kaNUDLpFcgpC/HGGvJDfVMfD2QQqJfeMJRu7r8P4+5tVx3JRhq4WhfzdEjOITmBvMv1wi5CR4o4mYUIvu+BMIVRWVnwdWFT04uT/zW7v5mN967vQmDCubyEb7EI2zb9kv5gl49+x2debjtzYcB7OzRfHq28wfJPP09APMdZ/4DLkXihSyVUME3KeLsr1HR0OlauVIOEd2yuYyHL34t9n8832mya77rEeujwZB+4lBSOiMXk3/d9S1wr0OIf7iSBqqt3LeqB38YKMDyUlsB3bhwft/rESv0siwQUNqLGQyZY0o9l7lkLHuDnSqLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lY26GqTrkMIjInEmhoNRbPkC6yG/Evqs4Gv5LcRFqSs=;
- b=BuBAKqDfjQarb7pQJBccc2Jss3gXOqTlgY6GlHKm9rm8i3Ok7Ngl9wEhBn+z8jwhpQore7p7rXrHbl9tuhVIcy9W9+F8G8NlHTXam4ZLNnU0dTdkSFrY+0G2X4dEpkIVD6MBlDMY/d/ppQwzYPmHvmf19KYZ+8cZWgAnhIq9WF4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB4120.namprd12.prod.outlook.com (2603:10b6:610:7b::13)
- by SJ2PR12MB8978.namprd12.prod.outlook.com (2603:10b6:a03:545::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.21; Tue, 21 Jan
- 2025 05:26:31 +0000
-Received: from CH2PR12MB4120.namprd12.prod.outlook.com
- ([fe80::6922:38fe:2b1c:7055]) by CH2PR12MB4120.namprd12.prod.outlook.com
- ([fe80::6922:38fe:2b1c:7055%5]) with mapi id 15.20.8356.020; Tue, 21 Jan 2025
- 05:26:31 +0000
-Message-ID: <2ab354e0-339e-448a-957d-4226781a7621@amd.com>
-Date: Tue, 21 Jan 2025 10:56:23 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 3/7] soundwire: amd: add conditional for check for
- device resume
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, vkoul@kernel.org
-Cc: alsa-devel@alsa-project.org, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- Mario.Limonciello@amd.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20250120101329.3713017-1-Vijendar.Mukunda@amd.com>
- <20250120101329.3713017-4-Vijendar.Mukunda@amd.com>
- <7e363634-b80f-4ae7-8d09-1bb07225eecd@linux.dev>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <7e363634-b80f-4ae7-8d09-1bb07225eecd@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0160.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::15) To CH2PR12MB4120.namprd12.prod.outlook.com
- (2603:10b6:610:7b::13)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=YRT/d/dt
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5d9b6b034easo5479868a12.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 14 Jan 2025 01:04:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1736845496; x=1737450296;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wKly9npKXBUSdy5qiIv5yFK78A+KB2EVLPMob+WSOS4=;
+        b=YRT/d/dtXcsiSo2dKmuZczkGHDI+5JcfjjTYsuRXgHXyjGkC2aKBJKTxE1GP5LB/ry
+         MfaQjBWBauG38YqBhHCxfZ/og5NPqzOoGbtIUKTKAbrXw45IqUS+GNI/pwCb/vx/v96D
+         TMUrFotziz+z44TLitOjXDkV302kljncTWvOvxDHctxf4AAycYzEihIlGFDwuFNAD4CL
+         tGf8ONu4brvkcp4ZjSlFq5ksxj0lXM/TW2IlL3wwCK75PZdVw9zJBVGHk/iZMe0JdjSm
+         i4zyBel/Rofwe42Gu3rbW0Py75WZdtSbUp4rDTWmx9/i67qxxEdoY9wfFDuofreor9F7
+         umHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736845496; x=1737450296;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wKly9npKXBUSdy5qiIv5yFK78A+KB2EVLPMob+WSOS4=;
+        b=NIQAqhzJLIxOKqTPIM4L9RlmCqzAbdk1ZNecmrpOZIn5Tgi2BWEjAZWav81KVzX2jb
+         uKny4JQftEQW4b/4ti9qQ74RfhzBJlf/OaFDlARvjRpj5TvthuKILRS+wtmSGSr17Q9H
+         D66mKosXwZQNDekJFQVaKE0Xu+z92G6psqtp/BC6uv1eorLlKepHpOhnBP59zu9gocdV
+         +RSFMM/ex9lAdB3RpXMZ5hC3gU9+lbehb5Hko3MJrzA7eiuiEyHgmpG3vQmLGXcgNtVS
+         lNPcoom5tcaXAc6ypp+xkn20J4DjqL1SyaAqNuPeaWlHveAqSIXF4jLWREbxyEJ6Wthj
+         fKvQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU+rWKm+IrTisP7XLue08CPq7A3UCdm5WqstZXIL1QJxT7a8vQttHoQGPd9cCgYPwbhO+AtO5Ic2chM@alsa-project.org
+X-Gm-Message-State: AOJu0YxroSQXOL2R8u+CVIdhOmgALFbJH5A0+UllG9MEk1uU7RzB6yNo
+	gK6erjDRKAcfAi8OS6hcaM0zUrDizu2X5Wv3u80Cv47gQF0to1IY
+X-Gm-Gg: ASbGncvK2r1WIXQuL7JLzn6mHvkuzHIoEk1GBjq0sk2kNy+i6XUql7iEu+4RfYb9151
+	93lc0nb3QFbkoR9GwH6JhHE6WoPpPXgJUqNhfgAqooJCxgZX5E5rwbcFHsmWV+n/LuusDsmJdx8
+	T15EbODpSRs7l9aH/kiNlesqxB2ZL12JN533YTbw5oaZYvq72KDgLKzmGXM49GhN+FaPTGLR85J
+	TbO/q9Sz6k2f3QZ2q1SdzrMBmZ/5BfRIEUB4W8pko9u0xFX5u7vtdm/6RdQPhYXvMHTqQ==
+X-Google-Smtp-Source: 
+ AGHT+IGsoy18wLlENnC1ImY9x1dKRjyISuUw2UI30yDUuaba5fLugh7Il8pnp4l0QaSrrcFcL68orA==
+X-Received: by 2002:a17:907:3e9b:b0:aae:d199:6eae with SMTP id
+ a640c23a62f3a-ab2ab6a38bbmr2049046366b.14.1736845496046;
+        Tue, 14 Jan 2025 01:04:56 -0800 (PST)
+Received: from [192.168.1.10] ([95.43.220.235])
+        by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-ab2c95b09b2sm607721766b.146.2025.01.14.01.04.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jan 2025 01:04:55 -0800 (PST)
+Message-ID: <98a19395-7056-48d1-ad89-fb057025f46c@gmail.com>
+Date: Tue, 14 Jan 2025 11:04:54 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4120:EE_|SJ2PR12MB8978:EE_
-X-MS-Office365-Filtering-Correlation-Id: 855c8af5-b177-4ac3-6cb5-08dd39dc29f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?dEk1Y2EyVHBFcDBiUTlvamRiNE1mUlAvYVRxRXJYTDJ5SlA0b3prRUgwVzZV?=
- =?utf-8?B?SzcyUFZNaXdRZlhqNlFZUkRRbVJZcG9VMHI0MlpEb2l3T29ZbVhxSDREN1Y4?=
- =?utf-8?B?UVAxL001UXNsVTEwc2s4alk3cUd6dHpTeHNDQkVpaFNFWVVOeFNUeWZIcnVG?=
- =?utf-8?B?d1NDMG9UblZHczIzVzFPUDUxQjFRWkViQ1JFd0puSnk4Wnd6UWJJdTVhUnFP?=
- =?utf-8?B?cUg2VU01U25CTFl5VUgwcFFJRmREWWZGUW1uUlBFZVY1ZE1DSkdLdU1xVnlu?=
- =?utf-8?B?MUoyc1p2WTlHUkp1NHp4ZHB3SjBXdkJmT2VxbWR5OS9GczNzaFF5RnJVb1ZP?=
- =?utf-8?B?Z1VqaTNJbi9JanFpd1pCTEczWWlnU29DNjVWWXdURUY0cGdKTitzaXUxTFhP?=
- =?utf-8?B?U0ptVThjTGhsbVA1c3h3dk1NRHAzU2NFMmRVZEZ3KzB4Qis3bFdnK0pDVkM1?=
- =?utf-8?B?Z0QzUDhCS2pkZ3ErYXRxUFJYcGtmU285cGFIN2NqaXhkS1hUci9sdFhGZUx0?=
- =?utf-8?B?c1dCVE5tNUM5UGFCelFDZjR3VTlFcjlzdFRmN2I2NmxGVmYrcC9LVG9YTnF0?=
- =?utf-8?B?bjVtSUVzZ3dFNjJFR3dBOC9WYkZ5bHgyTmtsUzhYQTJZWDN6dTEwcExMUDg4?=
- =?utf-8?B?bXZNR2d5VzU5aUlTUzFIZmxKM2JCdlFMTTkyY29PcE92YnBhSWZGZk1aNS9M?=
- =?utf-8?B?RWNXQXN0K3lwN2NnNUxjV0x3amxJOWR3TW1GMnhOa2xuQzFJT1JkM3B3aGNT?=
- =?utf-8?B?QTVPUUJIT3VzSEpENnZNQ3pzaklNVVFOSFZpZzlrUWJWSHZUSGV4b0oyd1Jw?=
- =?utf-8?B?ajQ3YVo5QytYWFI0ZFVBTS91ckJIWkVpZWhpb2tBUFZYdm14Z0JoWFZ2R011?=
- =?utf-8?B?N0FrbzJjV29jNHExUC9KY3JjT09PWG95ZWY3K2FlMjVFU1lYYXRuWks2Y09I?=
- =?utf-8?B?S244MTBJdjRKNGRDM1l1SEE5RnN5dXRGZDBsWndOdlJjcHU5OHlyQnJJRFhB?=
- =?utf-8?B?UGFsMGFTU2VxTjZYQXU2ZjNma2hWRmM5Qk5sVVhBeVV3ZFFya0wwUlpqSTVO?=
- =?utf-8?B?Wjc5KzROUEtwVE9IWG9ZR3hHd2ZZa2ZjMnhET3Qyd3JsV2RRT1lya1A1V1pD?=
- =?utf-8?B?eC9GTSs4NEo5b21WbXQvOW1GNmNhZGhsWGNDV2JpaEdvNkVtWC8wRGE3UERG?=
- =?utf-8?B?dzYrbWpaRHpaTno2TkljODFSL3FIOWhGZEk1Z2d5SC9RbWplRkNNREJ6NGVS?=
- =?utf-8?B?VnZZTmJ3Ymo4UmhqMzNwK0UwU1ZTY0ZKM0xiOFVPVlZGVWtwU2RiYXJzV1Jh?=
- =?utf-8?B?cHZ1eVRIaWd4SzIxNGlPYzNabTB3UnZPLzlZMFJUNVVocS9rbVlSMHlkYmJl?=
- =?utf-8?B?Q1BBc0c5cFdNaW9oUkVMTUFuQW05STBlZXJFbENlQmZra1cwT2J0L04ydjNN?=
- =?utf-8?B?eHUvVHE3UG1CMHZLYzdEWEx5L0U3WEp6Q2RtTGk0SHZkM1M0dmNWMzBKRWtz?=
- =?utf-8?B?a3ByNktPUEo2Nk56RC9KaXoyZjNPUTA4MmhFS1R2ZEF6V0duMjUwNmFwZVJB?=
- =?utf-8?B?d09kdWxva2Nrc0c1VlYrVXlpd2pXMXYyL2Q1bHAzSys2ZkJFSmJ4elNQZG1Z?=
- =?utf-8?B?M2tQQUtHSStManNLd09LMHlQVDZDdTRFSmFWVXF4RW04WUxLN3dtZFJQNlIx?=
- =?utf-8?B?cnhQNlhOdW02cUl1Y3AxeExYdVNwck9QV0pCRjBYQTNhRTNTY0JHa0poWUYr?=
- =?utf-8?B?Z3FiYTNGaDNWU0lrNmFTRGJhbTFNcGhEd2ZQQS9xYmEzNkQydTNSWmFxNDQ1?=
- =?utf-8?B?Uko5aUdOU3h1NjJKV3R6MUtJMlJrK2tBWjdxVk5Ud1FYZENkcWJmRVhtcHlF?=
- =?utf-8?Q?ZD78917gzSt2E?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB4120.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?OHhFN09vT3FCaDlHa3NQcmtodGVQclA5cGM3N1JmOVVOQjBVcUZMNmpmVjFl?=
- =?utf-8?B?TDlFWGNrb1RTcVliVnZMZnJZMU1XelAwOXE1cHhNTnRMRDJSbzdNOXlwcnpM?=
- =?utf-8?B?WmJDTDZ5eWYzUE5wTCtFalNYRDhvbEl4YUY3SkdvMnQrdHFSeWpYWUZDTlh6?=
- =?utf-8?B?T3kyb0I1RGlBdTV0d1BmUlBUOGFZRHVJV05CVjF0TkhlVjFUcXJQYXZTOVNr?=
- =?utf-8?B?cStLK1JUanBWWUF2dERxSFdjZ0lKd0lqNVdKaWdTRWx2eXBzbFFBek1XTFpt?=
- =?utf-8?B?VTA3dDNROGhxZGxwTVhYZGFMejNEeDFTRTFFV2VQaHNoVUpCUFBERVgvQ255?=
- =?utf-8?B?WGw4VWw4cnVmM0NtTGhnMVFyZ29BeXFUSG5rN1Yyb0lNTFA5WGNJejRTTi9Y?=
- =?utf-8?B?bjNqdXVSaThydnpZaE5ySHdxT011OHFKU0VRWXRRSTR2ZmI0M1BtUXMrdEdu?=
- =?utf-8?B?dWxJQXhuZG0xaUtOdGZlTHlJTkc2TS82dHpLUXdZbzI4bFhJZVo5SklUekFB?=
- =?utf-8?B?Zy9zTVN4OWlFUmNqWTNVeDNLaWFtbTZTQlJEUllvUVdZaXNWaTBXZEJSUEpR?=
- =?utf-8?B?Z2taaUl6WVlMREs5Ti9DbVNjb3ZIa3hnWHhuUlA3V1UxREdlZngzUjVyTGtI?=
- =?utf-8?B?RmFRcHF1aUdFckdmencvQnZTM0dZbXZmVE5yK3RWNUxkU25mblJYUGYxc3JO?=
- =?utf-8?B?YlRJSzJtQkZTeU1XU3V6V0NJTndaQ3labDlpMWZkMk83V3cxNTdwYzRINUhP?=
- =?utf-8?B?TmMvMUFXeFBVdnkvaHl5WGg5MXVYMWN2ZnR3VnlvdUUycGtxUThUL3BUSUk4?=
- =?utf-8?B?ak15ZVpVK1NnaDB2ZEN2UG5oVUE4R2xHVEczeE5RZ3J2ckV6YWxicTM1clBK?=
- =?utf-8?B?Tkk1MS9CcVJRbVd0MkF1Q3pjR1VkZW45dmYyZ1RUSlJHZGxkS2Z3U1RXejI1?=
- =?utf-8?B?SmhIYmJOVUFEejBKK1k1UnkxNzh6U3BXek1kNmxza2I5aWpsNm5DMDBKcSt3?=
- =?utf-8?B?WnJpYm9lU3YrYUk1VW9IOHBuUWlZelhSd2czYUswd3NNczg5NnpSeTV3NkIr?=
- =?utf-8?B?bVdTNkszUUR4Q0RnZTNicGc3MjBKdjFyZjZ6amtWRlg5S0lPRHhucWYycEFF?=
- =?utf-8?B?REdKTWoxMjFiUVFWTU0zSjFwT0hDSnh1VVk4RTdFYlZBcThhbFpJNmZrWFZE?=
- =?utf-8?B?TmVpWDJpNkNQcVd3Ull4SmpiRlMwMG8yWDVOMzF1TGdKV05CeDFwQVREMVN1?=
- =?utf-8?B?SFRvSXpVQkI5bmdmc29zTGJuUmV2VGdKQUVJdTIrUEFqV0R3eTlmQVhZNk9l?=
- =?utf-8?B?VUJGRkJXQUo1dWZYTU9JUklqZFZQc0xFWG5sZTFLTVZYc1ZlRnRQNkMrNjdn?=
- =?utf-8?B?Y3I1MzVrSHJwaXY2SUk2SGhkZHdBaTNRVi9UOXp1Q3lZcmpKcndIMzNYS1Qv?=
- =?utf-8?B?R0MzZHFxbWRURldaQ3F6cmRUOUhCeVgrWnMwWlF1bXVsR2dGcjFkNGwzdVNm?=
- =?utf-8?B?OHpNSUY0bnlqN0ZaaU5OTjBDQ3JlWjAvL1BhWlljVHJwd2tGWG5RclZkenhF?=
- =?utf-8?B?RGl6dlJjNXdaS3ROVUVUSExsRVlBUFFjTnlzRU9WUlBoUHRTWm5sbG5PNDg5?=
- =?utf-8?B?djJ0QWtkUUR0d250MDJ5cU5CQ2oyalNFZ2hSZ1JYS0ZZQWc0UVlSUEFBRUhl?=
- =?utf-8?B?WXgrL2hJNFcyckptdlgzdTdtVTJsL29uWWVITW1aZ3hvaDg1bndDaEdmWlJh?=
- =?utf-8?B?QlUwL1E2RjBPUEN1emlmeWlpVXhTUTdIUXFwNjM5UlYzcWp2S3VhcTlLY29I?=
- =?utf-8?B?YkgyekIrTHErSnZOcW9ITDJ6dXRUVmxCUUN6S0MrM29LUUQxSzMwcUl6a1dM?=
- =?utf-8?B?S2xRUTRxQXVZS0JmNXNLZENodFJLdUhnUmlVNXZ4MzZEWmJjTVZ3MDY2ZUkv?=
- =?utf-8?B?K0ZFUzVPRXR6RlM3RTlUeTkyM2xpTXY0YXd4dCtPNnV5cDByYzRodUFjcGgz?=
- =?utf-8?B?OXgzR2tLUE96SnRPSXVXZHJvMjB1MnRpY3dtYjNhZGJNUVA0di9xTDd2clNJ?=
- =?utf-8?B?c1NVYjhwRG1CU0d0cjVScVFxdGdMa01QR2N4SFJBbGNFNHNWVkN2M05pdWVa?=
- =?utf-8?Q?8KHftDTmaDhVfCI/Wj++BhdMP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 855c8af5-b177-4ac3-6cb5-08dd39dc29f9
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4120.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2025 05:26:31.7882
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- knbmjHJsOUe4UNZjEJ72zwYL3RnMNgnZ48nA2lWW8glvOt1U4EUxTWXp1zrCKIfl86DN9oLxSt9cQJEB0zKAQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8978
-Message-ID-Hash: TD22V5WPW3VSS2MKH6A7VJYJ6DE2WMWF
-X-Message-ID-Hash: TD22V5WPW3VSS2MKH6A7VJYJ6DE2WMWF
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] soc: audio-graph-card2: use correct endpoint when
+ getting link parameters
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ tony@atomide.com, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20241220071126.1066691-1-ivo.g.dimitrov.75@gmail.com>
+ <87y0zdsxme.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-GB
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <87y0zdsxme.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MailFrom: ivo.g.dimitrov.75@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 5IZE5ZITHER2WKEWMSUXTSVEAYBUSWME
+X-Message-ID-Hash: 5IZE5ZITHER2WKEWMSUXTSVEAYBUSWME
+X-Mailman-Approved-At: Tue, 21 Jan 2025 08:12:45 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TD22V5WPW3VSS2MKH6A7VJYJ6DE2WMWF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5IZE5ZITHER2WKEWMSUXTSVEAYBUSWME/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -208,36 +132,103 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 20/01/25 21:00, Pierre-Louis Bossart wrote:
-> On 1/20/25 4:13 AM, Vijendar Mukunda wrote:
->> Add a conditional check to resume SoundWire manager device, when the
->> SoundWire manager instance is in the suspended state.
+Hi Morimoto-san
+
+On 14.01.25 г. 8:44 ч., Kuninori Morimoto wrote:
+> 
+> Hi Ivaylo
+> 
+> Sorry for the late review.
+> 
+
+And sorry for the noise on my side.
+
+>> We may have multiple links between ports, with each link
+>> having different parameters. Currently, no matter the topology,
+>> it is always port endpoint 0 that is used when setting parameters.
 >>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>> On a complex sound system, like the one found on Motorola droid4,
+>> hifi and voice DAIs require differents formats (i2s vs dsp_a)
+>> and curently it is impossible to use DT to set that.
+>>   
+>> Implementing the change leads to partially dropping of at least
+>> 0dedbde5062d (ASoC: cpcap: Implement set_tdm_slot for voice call
+>> support), as core does most of what is needed to configure voice DAI.
+>>
+>> We (on Maemo Leste ) use the patch (along with few others) to have
+>> voice calls working properly on d4 through UCM.
+>>
+>> The patch is for linux 6.6, I want to know whether the
+>> approach would be accepted before sending a proper patch for
+>> current master.
+>>
+>> the original commit message follows:
+>>
+>> When link parameters are parsed, it is always endpoint@0 that is used and
+>> parameters set to other endpoints are ignored.
+>>
+>> Fix that by using endpoint that is set in DT when parsing link parameters.
+>>
+>> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 >> ---
->>  drivers/soundwire/amd_manager.c | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
->> index 60be5805715e..6831b3729db5 100644
->> --- a/drivers/soundwire/amd_manager.c
->> +++ b/drivers/soundwire/amd_manager.c
->> @@ -850,7 +850,10 @@ static void amd_sdw_update_slave_status(u32 status_change_0to7, u32 status_chang
->>  static void amd_sdw_process_wake_event(struct amd_sdw_manager *amd_manager)
->>  {
->>  	dev_dbg(amd_manager->dev, "SoundWire Wake event reported\n");
->> -	pm_request_resume(amd_manager->dev);
->> +	if (pm_runtime_suspended(amd_manager->dev)) {
->> +		dev_dbg(amd_manager->dev, "Device is in suspend state\n");
->> +		pm_request_resume(amd_manager->dev);
->> +	}
-> Is this test actually doing something useful?
->
-> If the device is already active, presumably doing a pm_request_resume() is a no-op. If it's already suspended it does something.
-> Testing the device state is risky with all the asynchronous behavior in SoundWire, best to leave the state checks to be handled inside the pm_runtime core, no?
->
-> IIRC the only time when such a test in needed is in the system suspend callbacks where specific action needs to be taken if the device is in pm_runtime suspended mode with the clock_stop mode engaged.
-Soundwire device resume sequence can be invoked from multiple places
-same time due to different interrupt sources. We have added this extra condition
-check to safeguard the resume invoking sequence.
-Will drop this code and retest our test scenarios.
+> (snip)
+>> @@ -684,7 +683,6 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
+>>   {
+>>   	struct device_node *ep = port_to_endpoint(lnk);
+>>   	struct device_node *rep = of_graph_get_remote_endpoint(ep);
+>> -	struct device_node *rport = of_graph_get_remote_port(ep);
+>>   	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
+>>   	struct simple_dai_props *dai_props = simple_priv_to_props(priv, li->link);
+>>   	int is_cpu = asoc_graph_is_ports0(lnk);
+>> @@ -718,7 +716,7 @@ int audio_graph2_link_dpcm(struct asoc_simple_priv *priv,
+>>   		dai_link->dynamic		= 1;
+>>   		dai_link->dpcm_merged_format	= 1;
+>>   
+>> -		ret = graph_parse_node(priv, GRAPH_DPCM, rport, li, 1);
+>> +		ret = graph_parse_node(priv, GRAPH_DPCM, rep, li, 1);
+> 
+> Please correct me if I was misunderstanding
+> Is the main issue "remote" side endpoint ?
+> 
+> You want to parse "remote" endpoint (= rep) directly, but the function
+> requests "port" (= rport), and it will use endpoint0 ( != rep).
+> Is this the main issue you want to fix ?
+> 
+
+Yes, it is the 'remote' side endpoint, currently it is always remote 
+endpoint0 that is used, because when you get 'port', it is endpoint0 of 
+that port that core uses.
+
+See:
+https://github.com/maemo-leste/droid4-linux/blob/maemo-6.6.y/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi#L91
+
+https://github.com/maemo-leste/droid4-linux/blob/maemo-6.6.y/arch/arm/boot/dts/ti/omap/motorola-mapphone-handset.dtsi#L65
+
+and
+
+https://github.com/maemo-leste/droid4-linux/blob/maemo-6.6.y/arch/arm/boot/dts/ti/omap/motorola-mapphone-common.dtsi#L476
+
+as an example DTS that is using multiple endpoints per port and also
+
+https://lkml.org/lkml/2018/3/27/1225
+
+for what audio wiring looks like.
+
+For voice calls the device does not use CPU, but we have C2C link 
+between modem and cpcap instead. However, we must correctly set DAI 
+format on cpcap side for for that link to work properly.
+
+General speaking, we might have multiple endpoints connected for a 
+single port and when getting "link properties" I think we should use 
+remote endpoint that is linked to local endpoint, not always remote 
+endpoint0.
+
+If it is still not clear what $subject patch tries to achieve, please 
+LMK and I'll try to elaborate even more, if possible.
+
+Also, if you think core allows such 'routing' to be implemented without 
+the $subject functionality, please elaborate. I spent a good amount of 
+time back then with no luck.
+
+Thanks and regards,
+Ivo

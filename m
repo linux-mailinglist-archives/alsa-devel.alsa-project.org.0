@@ -2,156 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4EF3A1027B
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2025 09:57:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAAD7A10D59
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2025 18:17:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5323260287;
-	Tue, 14 Jan 2025 09:57:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5323260287
+	by alsa0.perex.cz (Postfix) with ESMTPS id 320BE602AE;
+	Tue, 14 Jan 2025 18:17:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320BE602AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1736845043;
-	bh=9yqytV9B9G/EMZsQ/JdJldSH/fHuhjdkrCC3LnCSHPM=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=jJ3DCAwrwgUgr0uEXBJdxqf+KkMfH/Hifmj9e/OWvzQahgHxuM31VGwVn/J2tRJX7
-	 vWx6jtYnGSwYaU2fXdEGtr3nuOb0+pHiodtWlU2tU6wD8/ecxe3pG5DbWVcwuIBlrS
-	 ULny+prGyuHNkUXVlaR4yK95Z83noglJPIyMhxFQ=
+	s=default; t=1736875061;
+	bh=PIlfRnx4RBB1YQaPAcV6lclyA8pWck5Sh4Oaa1kB9Es=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=J7EVeVc8Xs90Hg6le4sIwt7PNa3+BAY69e92Mf9qFyYBLyeaii5/6+1ID6cIuY72P
+	 k6r0GF3w+3SH8ToqzXr95hAuGNOXg4hW+RpfRSNHIZnXjwp421LRTUcI/RWf2//Jr3
+	 /ISP3DiTSMceMCWwl1cvF3tEj21iJ1OJlNHQgBDI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C9EF3F80690; Tue, 14 Jan 2025 09:55:43 +0100 (CET)
+	id 9F85FF80510; Tue, 14 Jan 2025 18:17:01 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA097F80691;
-	Tue, 14 Jan 2025 09:55:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E889F80603;
+	Tue, 14 Jan 2025 18:17:00 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 416C7F80510; Tue, 14 Jan 2025 09:55:25 +0100 (CET)
+	id 4227BF80269; Tue, 14 Jan 2025 18:16:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8ADB3F80027
-	for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2025 09:55:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ADB3F80027
+	by alsa1.perex.cz (Postfix) with ESMTPS id C34BBF800B8
+	for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2025 18:15:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C34BBF800B8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=LczlLReK;
+ header.s=susede2_rsa header.b=GG+nVw21;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=kyzF7RV9;
+ header.s=susede2_ed25519 header.b=8jV2OUu8;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=LczlLReK;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=GG+nVw21;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=kyzF7RV9
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ header.s=susede2_ed25519 header.b=8jV2OUu8
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 51CAC2117D;
-	Tue, 14 Jan 2025 08:55:20 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 37E7921157;
+	Tue, 14 Jan 2025 17:15:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1736844920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1736874942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/9k0DlFohVDJP6FTuliDNQyWkGOf+T6Jl4c/IazWEE=;
-	b=LczlLReKgaU4zwx6A8CJtGdW3xQsviJs360nn+qtkkc3ejjvYU5RYRc/s2ypzlDKgefmez
-	3ZaP7la8L5u1MBlMCl+UAvRKOut36GxYre/u1oN6f0rY5GrOu/xprOt/gG4W/Q1hHGUvba
-	4Fl75zMdSsTTmohNMBjy61Q1MoQCM7c=
+  content-transfer-encoding:content-transfer-encoding;
+	bh=GBDjOkYKEQcWNuacu+IFkovQaJVAhh026v6MeoJLIH0=;
+	b=GG+nVw211B8unIuBQXheDgBQ00RqeOxxCYwvfR5bO227Rhs5iYISvlGx5XWW9gZEonp5Qg
+	hytwRlTI4kCfHrUJ8KZUwQldmuVPz+T0btTz/8OcThaTmiE1DAIMW+IxVCa1jlWk46GoXJ
+	4QxoRhX1Crc6qmNjFGid21QyhkJkKGk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1736844920;
+	s=susede2_ed25519; t=1736874942;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/9k0DlFohVDJP6FTuliDNQyWkGOf+T6Jl4c/IazWEE=;
-	b=kyzF7RV9/ZRTOPhgC6zZu7T/qYOl09+DquDpjSt9fgozkb/4GGO6G9Pe7kECo/U58sggJP
-	EcZfFkm134LUgFBg==
+  content-transfer-encoding:content-transfer-encoding;
+	bh=GBDjOkYKEQcWNuacu+IFkovQaJVAhh026v6MeoJLIH0=;
+	b=8jV2OUu8pas14PDXiQY+auaO3ytwXaEXiTDVAhNjCdhmbYDYrJRJp3bbA1ySAjKg9Zu65u
+	+8NEaLZQadQrfgCQ==
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LczlLReK;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kyzF7RV9
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1736844920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1736874942; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/9k0DlFohVDJP6FTuliDNQyWkGOf+T6Jl4c/IazWEE=;
-	b=LczlLReKgaU4zwx6A8CJtGdW3xQsviJs360nn+qtkkc3ejjvYU5RYRc/s2ypzlDKgefmez
-	3ZaP7la8L5u1MBlMCl+UAvRKOut36GxYre/u1oN6f0rY5GrOu/xprOt/gG4W/Q1hHGUvba
-	4Fl75zMdSsTTmohNMBjy61Q1MoQCM7c=
+  content-transfer-encoding:content-transfer-encoding;
+	bh=GBDjOkYKEQcWNuacu+IFkovQaJVAhh026v6MeoJLIH0=;
+	b=GG+nVw211B8unIuBQXheDgBQ00RqeOxxCYwvfR5bO227Rhs5iYISvlGx5XWW9gZEonp5Qg
+	hytwRlTI4kCfHrUJ8KZUwQldmuVPz+T0btTz/8OcThaTmiE1DAIMW+IxVCa1jlWk46GoXJ
+	4QxoRhX1Crc6qmNjFGid21QyhkJkKGk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1736844920;
+	s=susede2_ed25519; t=1736874942;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M/9k0DlFohVDJP6FTuliDNQyWkGOf+T6Jl4c/IazWEE=;
-	b=kyzF7RV9/ZRTOPhgC6zZu7T/qYOl09+DquDpjSt9fgozkb/4GGO6G9Pe7kECo/U58sggJP
-	EcZfFkm134LUgFBg==
+  content-transfer-encoding:content-transfer-encoding;
+	bh=GBDjOkYKEQcWNuacu+IFkovQaJVAhh026v6MeoJLIH0=;
+	b=8jV2OUu8pas14PDXiQY+auaO3ytwXaEXiTDVAhNjCdhmbYDYrJRJp3bbA1ySAjKg9Zu65u
+	+8NEaLZQadQrfgCQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2F12113A86;
-	Tue, 14 Jan 2025 08:55:20 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1FC8B1384C;
+	Tue, 14 Jan 2025 17:15:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id IPL8CXgmhmcHbQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 14 Jan 2025 08:55:20 +0000
+	id wiicBr6bhmdrFwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 14 Jan 2025 17:15:42 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib 5/5] seq: Define new events for UMP EP/FB change
- notifications
-Date: Tue, 14 Jan 2025 09:55:13 +0100
-Message-ID: <20250114085515.11880-6-tiwai@suse.de>
+Subject: [PATCH v2 0/5] Updates for rawmidi / sequencer
+Date: Tue, 14 Jan 2025 18:15:30 +0100
+Message-ID: <20250114171538.2751-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250114085515.11880-1-tiwai@suse.de>
-References: <20250114085515.11880-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 51CAC2117D
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_NONE(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,suse.de:mid];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCPT_COUNT_ONE(0.00)[1];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-Message-ID-Hash: 5ZMHCTVP2MZS4DBTH7ERHDBM26UKX7J3
-X-Message-ID-Hash: 5ZMHCTVP2MZS4DBTH7ERHDBM26UKX7J3
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_ALL(0.00)[]
+Message-ID-Hash: XK3ML7YJZOCJLAM5F627WK5GEA7XUZVK
+X-Message-ID-Hash: XK3ML7YJZOCJLAM5F627WK5GEA7XUZVK
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -164,7 +147,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZMHCTVP2MZS4DBTH7ERHDBM26UKX7J3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XK3ML7YJZOCJLAM5F627WK5GEA7XUZVK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,65 +156,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Two new sequencer event types are added for notifications of UMP info
-changes: SND_SEQ_EVENT_UMP_EP_CHANGE (68) and
-SND_SEQ_EVENT_UMP_BLOCK_CHANGE (69).
+The kernel 6.14 will receive a few small enhancements for rawmidi
+and sequencer APIs, and this patch set covers those.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/local.h     |  1 +
- include/seq_event.h | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
+v1->v2: sync with the latest rawmidi API change to pass 0 to
+	tied_device as default
 
-diff --git a/include/local.h b/include/local.h
-index 512e44555361..2b38ce647243 100644
---- a/include/local.h
-+++ b/include/local.h
-@@ -208,6 +208,7 @@
- #define snd_seq_result		sndrv_seq_result
- #define snd_seq_queue_skew	sndrv_seq_queue_skew
- #define snd_seq_ev_queue_control	sndrv_seq_ev_queue_control
-+#define snd_seq_ev_ump_notify	sndrv_seq_ev_ump_notify
- #define snd_seq_client_t	sndrv_seq_client_t
- #define snd_seq_client_type_t	sndrv_seq_client_type_t
- 
-diff --git a/include/seq_event.h b/include/seq_event.h
-index 0b59202f6e62..da542b106a48 100644
---- a/include/seq_event.h
-+++ b/include/seq_event.h
-@@ -135,6 +135,11 @@ enum snd_seq_event_type {
- 	/** Ports disconnected; event data type = #snd_seq_connect_t */
- 	SND_SEQ_EVENT_PORT_UNSUBSCRIBED,
- 
-+	/** UMP Endpoint info has changed; event data type = #snd_seq_ev_ump_notify_t */
-+	SND_SEQ_EVENT_UMP_EP_CHANGE,
-+	/** UMP Block info has changed; event data type = #snd_seq_ev_ump_notify_t */
-+	SND_SEQ_EVENT_UMP_BLOCK_CHANGE,
-+
- 	/** user-defined event; event data type = any (fixed size) */
- 	SND_SEQ_EVENT_USR0 = 90,
- 	/** user-defined event; event data type = any (fixed size) */
-@@ -294,6 +299,12 @@ typedef struct snd_seq_ev_queue_control {
- 	} param;				/**< data value union */
- } snd_seq_ev_queue_control_t;
- 
-+/** UMP info change notify */
-+typedef struct snd_seq_ev_ump_notify {
-+	unsigned char client;	/**< Client number */
-+	unsigned char block;	/**< Block number (optional) */
-+} snd_seq_ev_ump_notify_t;
-+
- /** Sequencer event data */
- typedef union snd_seq_event_data {
- 	snd_seq_ev_note_t note;		/**< note information */
-@@ -306,6 +317,7 @@ typedef union snd_seq_event_data {
- 	snd_seq_addr_t addr;		/**< address */
- 	snd_seq_connect_t connect;	/**< connect information */
- 	snd_seq_result_t result;	/**< operation result code */
-+	snd_seq_ev_ump_notify_t ump_notify; /**< UMP info change notification */
- } snd_seq_event_data_t;
- 
- /** Sequencer event */
+v1: https://lore.kernel.org/20250114085515.11880-1-tiwai@suse.de
+
+Takashi
+
+===
+
+Takashi Iwai (5):
+  Sync UAPI asound.h with 6.14 kernel
+  Sync UAPI asequencer.h with 6.14 kernel
+  rawmidi: Extensions for tied device and substream inactive flag
+  rawmidi: Make rawmidi flag bits doxygen-style comments
+  seq: Define new events for UMP EP/FB change notifications
+
+ include/local.h                 |  1 +
+ include/rawmidi.h               |  4 +++-
+ include/seq_event.h             | 12 ++++++++++++
+ include/sound/uapi/asequencer.h | 12 +++++++++++-
+ include/sound/uapi/asound.h     |  8 ++++++--
+ src/rawmidi/rawmidi.c           | 16 ++++++++++++++++
+ 6 files changed, 49 insertions(+), 4 deletions(-)
+
 -- 
 2.43.0
 

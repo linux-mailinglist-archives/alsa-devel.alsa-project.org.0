@@ -2,93 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C522FA14A67
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2025 08:49:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6AE6A14CF8
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2025 11:07:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A8AF603C1;
-	Fri, 17 Jan 2025 08:49:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A8AF603C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id F390660403;
+	Fri, 17 Jan 2025 11:07:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F390660403
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1737100193;
-	bh=+yBmPoF4ogpbGxrxDVIFImhd0LLlFhUgbAtZq8Zp9fc=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1737108475;
+	bh=4nmBK5Y10xZcj6H4h/c/lxSMWMkz9xO5YfSG5O3ExHM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hQgd52GpatV4LGF/mYizQTw26BvM6rEM37bJSNoOFWXKIMQX7LjvbToGSg3XWhiKH
-	 ahf59Z2Oi82MT5lCj209vCC53nHti6YMcXVc7qlLPr/fFmkCYDnU4l6cABT6XLlLf/
-	 aeEAyBlr5/mjYjVMg+f088t/87p7aDJHtExoV24U=
+	b=hGtQBFFznMtcL8MAxQlOGYSfrYHGn7C3OcvhJz+rTql0h1N7C0/FzLuHiO++/dOkC
+	 eqzZ0Scc2iLfhBZCWcMhMT2FuxvsNkLz6URE+2ooQN3/qHFav/kAObn8yIN59VnRGT
+	 YTcKIFFqXTLoTx2oiGd92x71FMG7xn4mF/jfsbf4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4A84F805BB; Fri, 17 Jan 2025 08:49:23 +0100 (CET)
+	id 44B75F805BB; Fri, 17 Jan 2025 11:07:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E88FF805B2;
-	Fri, 17 Jan 2025 08:49:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E926FF805B6;
+	Fri, 17 Jan 2025 11:07:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1DF52F800B6; Fri, 17 Jan 2025 08:49:09 +0100 (CET)
+	id A089DF8028B; Fri, 17 Jan 2025 11:07:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 79750F800B6
-	for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2025 08:48:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79750F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id E62F6F800B6
+	for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2025 11:06:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E62F6F800B6
 Authentication-Results: alsa1.perex.cz;
-	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=IagUcQbK
-X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 50H7mlK332353177,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
-	t=1737100127; bh=+yBmPoF4ogpbGxrxDVIFImhd0LLlFhUgbAtZq8Zp9fc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version;
-	b=IagUcQbKRs46148jsMZ/WZRywwRSIdO4zJok6JbQjKe62J/3/ZKI5+NP9TKzRsrlr
-	 nLDPtdqxIeddWVvMOQ6dr4XHyH8mwxS2ImKXe0RnwmzoAhYIimV6UBmuX2feHoNYst
-	 pbwYOGDlI3vfXyTSR2ySb4Uh8sLDdBHTzdE0oV4BS0EhhUYLT44OJcQKAwcsrwJnEJ
-	 xGem5R0q5ZQoZuKr2msdwVcBrdKGf+YEX6MswXMLYSKF6pFulRO09f2vz+/P3tvwzl
-	 YZOscdRxw9057FXMCQDHRURkgU7nIxb9j24oz28NHlLv+OS0m1RKU6t1uQuYP+HZXf
-	 8/4usD1HIZeKA==
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 50H7mlK332353177
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 17 Jan 2025 15:48:47 +0800
-Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Fri, 17 Jan 2025 15:48:47 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Fri, 17 Jan 2025 15:48:47 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::f5bd:6ac9:46d:9547]) by
- RTEXMBS01.realtek.com.tw ([fe80::f5bd:6ac9:46d:9547%5]) with mapi id
- 15.01.2507.035; Fri, 17 Jan 2025 15:48:47 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>, Evgeny Kapun <abacabadabacaba@gmail.com>
-CC: Linux Sound Mailing List <linux-sound@vger.kernel.org>,
-        "Linux Kernel
- Mailing List" <linux-kernel@vger.kernel.org>,
-        Linux Regressions Mailing List
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=u59TjU+P;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=tL2UeiCe;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=u59TjU+P;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=tL2UeiCe
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8CF7321181;
+	Fri, 17 Jan 2025 10:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1737108413;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMbQBTLczLBM3YAodIMvkUZ6q1XFlIgUXFPXCY2jW40=;
+	b=u59TjU+PshWxLnSittsY8jJbcga7yZ385D1Ga8jtFzfV2CgvnpYKpGGtsbCEE1CBlah/hG
+	RJRv162tjmkfv1jG+VVg78iN47UCh2YN9WRAF5FaazSRkJn7YIQKgZ7i2lg4zwszj8p4Q5
+	/NLaLPOZPt7LGCwi2PJItHYuMeOtF5E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1737108413;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMbQBTLczLBM3YAodIMvkUZ6q1XFlIgUXFPXCY2jW40=;
+	b=tL2UeiCevAzEif/xvSfjBLr9borSzqHVokFruugqPuPfD4MVkYWtvPhoBbTFHChcKbHMaE
+	mJdw1gFzwtZ+tNDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=u59TjU+P;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=tL2UeiCe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1737108413;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMbQBTLczLBM3YAodIMvkUZ6q1XFlIgUXFPXCY2jW40=;
+	b=u59TjU+PshWxLnSittsY8jJbcga7yZ385D1Ga8jtFzfV2CgvnpYKpGGtsbCEE1CBlah/hG
+	RJRv162tjmkfv1jG+VVg78iN47UCh2YN9WRAF5FaazSRkJn7YIQKgZ7i2lg4zwszj8p4Q5
+	/NLaLPOZPt7LGCwi2PJItHYuMeOtF5E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1737108413;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UMbQBTLczLBM3YAodIMvkUZ6q1XFlIgUXFPXCY2jW40=;
+	b=tL2UeiCevAzEif/xvSfjBLr9borSzqHVokFruugqPuPfD4MVkYWtvPhoBbTFHChcKbHMaE
+	mJdw1gFzwtZ+tNDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C16C139CB;
+	Fri, 17 Jan 2025 10:06:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 8d0sFb0rimd2HQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 17 Jan 2025 10:06:53 +0000
+Date: Fri, 17 Jan 2025 11:06:52 +0100
+Message-ID: <87tt9xsqir.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+Cc: Evgeny Kapun <abacabadabacaba@gmail.com>,
+	Linux Sound Mailing List <linux-sound@vger.kernel.org>,
+	"Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>,
+	Linux Regressions Mailing List
 	<regressions@lists.linux.dev>,
-        Linux Stable Mailing List
+	Linux Stable Mailing List
 	<stable@vger.kernel.org>,
-        " (alsa-devel@alsa-project.org)"
+	" (alsa-devel@alsa-project.org)"
 	<alsa-devel@alsa-project.org>
-Subject: RE: [REGRESSION] Distorted sound on Acer Aspire A115-31 laptop
-Thread-Topic: [REGRESSION] Distorted sound on Acer Aspire A115-31 laptop
-Thread-Index: 
- AQHbTvIxtyWK99B6LkqZbi3R9/JZE7LtROwAgAQfxYCAAA3tgIAB5qEAgAFmuDCAHI8ogIAH0iwAgAGookA=
-Date: Fri, 17 Jan 2025 07:48:46 +0000
-Message-ID: <0a89b6c18ed94378a105fa61e9f290e4@realtek.com>
+Subject: Re: [REGRESSION] Distorted sound on Acer Aspire A115-31 laptop
+In-Reply-To: <0a89b6c18ed94378a105fa61e9f290e4@realtek.com>
 References: <e142749b-7714-4733-9452-918fbe328c8f@gmail.com>
 	<8734ijwru5.wl-tiwai@suse.de>
 	<57883f2e-49cd-4aa4-9879-7dcdf7fec6df@gmail.com>
@@ -96,18 +132,45 @@ References: <e142749b-7714-4733-9452-918fbe328c8f@gmail.com>
 	<fc506097-9d04-442c-9efd-c9e7ce0f3ace@gmail.com>
 	<58300a2a06e34f3e89bf7a097b3cd4ca@realtek.com>
 	<0494014b-3aa2-4102-8b5b-7625d8c864e2@gmail.com>
- <87a5bqj0mb.wl-tiwai@suse.de>
-In-Reply-To: <87a5bqj0mb.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-x-originating-ip: [172.21.6.42]
-Content-Type: multipart/mixed;
-	boundary="_002_0a89b6c18ed94378a105fa61e9f290e4realtekcom_"
-MIME-Version: 1.0
-Message-ID-Hash: BYMOH2BEBM4A6JJXQ2WXXQ6VMJJCYNI7
-X-Message-ID-Hash: BYMOH2BEBM4A6JJXQ2WXXQ6VMJJCYNI7
-X-MailFrom: kailang@realtek.com
+	<87a5bqj0mb.wl-tiwai@suse.de>
+	<0a89b6c18ed94378a105fa61e9f290e4@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 8CF7321181
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid,suse.de:email,linux.dev:email,realtek.com:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,lists.linux.dev,alsa-project.org];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,linux.dev:email,suse.de:dkim,suse.de:mid,suse.de:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Message-ID-Hash: AYFIW2ROBSBDDGV6PH6EAIHYDMCR3ODT
+X-Message-ID-Hash: AYFIW2ROBSBDDGV6PH6EAIHYDMCR3ODT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +182,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BYMOH2BEBM4A6JJXQ2WXXQ6VMJJCYNI7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AYFIW2ROBSBDDGV6PH6EAIHYDMCR3ODT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,79 +191,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---_002_0a89b6c18ed94378a105fa61e9f290e4realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Fri, 17 Jan 2025 08:48:46 +0100,
+Kailang wrote:
+> 
+> Attached.
 
-Attached.
+Thanks, now applied.
 
-> -----Original Message-----
-> From: Takashi Iwai <tiwai@suse.de>
-> Sent: Thursday, January 16, 2025 10:27 PM
-> To: Evgeny Kapun <abacabadabacaba@gmail.com>
-> Cc: Kailang <kailang@realtek.com>; Takashi Iwai <tiwai@suse.de>; Linux
-> Sound Mailing List <linux-sound@vger.kernel.org>; Linux Kernel Mailing Li=
-st
-> <linux-kernel@vger.kernel.org>; Linux Regressions Mailing List
-> <regressions@lists.linux.dev>; Linux Stable Mailing List
-> <stable@vger.kernel.org>
-> Subject: Re: [REGRESSION] Distorted sound on Acer Aspire A115-31 laptop
->=20
->=20
-> External mail.
->=20
->=20
->=20
-> On Sat, 11 Jan 2025 16:00:33 +0100,
-> Evgeny Kapun wrote:
-> >
-> > On 12/24/24 04:54, Kailang wrote:
-> > > Please test attach patch.
-> >
-> > This patch, when applied to kernel version 6.12.8, appears to fix the
-> > issue. There are no distortions, and the left and the right channel
-> > can be controlled independently.
->=20
-> Good to hear.
->=20
-> Kailang, care to submit a proper patch for merging?
->=20
->=20
-> thanks,
->=20
-> Takashi
 
---_002_0a89b6c18ed94378a105fa61e9f290e4realtekcom_
-Content-Type: application/octet-stream; name="0000-acer-a115.patch"
-Content-Description: 0000-acer-a115.patch
-Content-Disposition: attachment; filename="0000-acer-a115.patch"; size=1342;
-	creation-date="Tue, 24 Dec 2024 02:52:43 GMT";
-	modification-date="Fri, 17 Jan 2025 07:45:06 GMT"
-Content-Transfer-Encoding: base64
+Takashi
 
-RnJvbSA2YTI2MmVmZTkzZWFhMjQ2NmYzZDRkMTAzNDRlZTU1Y2UyNjI1NmMyIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IE1vbiwgMzAgRGVjIDIwMjQgMTQ6NDQ6MDEgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIEZpeGVkIGhlYWRwaG9uZSBkaXN0b3J0ZWQgc291bmQgb24gQWNlciBB
-c3BpcmUgQTExNS0zMSBsYXB0b3AKClNvdW5kIHBsYXllZCB0aHJvdWdoIGhlYWRwaG9uZXMgaXMg
-ZGlzdG9ydGVkLgoKTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtc291bmQvZTE0
-Mjc0OWItNzcxNC00NzMzLTk0NTItOTE4ZmJlMzI4YzhmQGdtYWlsLmNvbS8KU2lnbmVkLW9mZi1i
-eTogS2FpbGFuZyBZYW5nIDxrYWlsYW5nQHJlYWx0ZWsuY29tPgoKZGlmZiAtLWdpdCBhL3NvdW5k
-L3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMK
-aW5kZXggNjFiYTVkYzM1YjhiLi4yOTM0Nzk5YjZlMDcgMTAwNjQ0Ci0tLSBhL3NvdW5kL3BjaS9o
-ZGEvcGF0Y2hfcmVhbHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCkBA
-IC0xMDE1OCw2ICsxMDE1OCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX3F1aXJrIGFsYzI2
-OV9maXh1cF90YmxbXSA9IHsKIAlTTkRfUENJX1FVSVJLKDB4MTAyNSwgMHgxMzA4LCAiQWNlciBB
-c3BpcmUgWjI0LTg5MCIsIEFMQzI4Nl9GSVhVUF9BQ0VSX0FJT19IRUFEU0VUX01JQyksCiAJU05E
-X1BDSV9RVUlSSygweDEwMjUsIDB4MTMyYSwgIkFjZXIgVHJhdmVsTWF0ZSBCMTE0LTIxIiwgQUxD
-MjMzX0ZJWFVQX0FDRVJfSEVBRFNFVF9NSUMpLAogCVNORF9QQ0lfUVVJUksoMHgxMDI1LCAweDEz
-MzAsICJBY2VyIFRyYXZlbE1hdGUgWDUxNC01MVQiLCBBTEMyNTVfRklYVVBfQUNFUl9IRUFEU0VU
-X01JQyksCisJU05EX1BDSV9RVUlSSygweDEwMjUsIDB4MTM2MCwgIkFjZXIgQXNwaXJlIEExMTUi
-LCBBTEMyNTVfRklYVVBfQUNFUl9NSUNfTk9fUFJFU0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgx
-MDI1LCAweDE0MWYsICJBY2VyIFNwaW4gU1A1MTMtNTROIiwgQUxDMjU1X0ZJWFVQX0FDRVJfTUlD
-X05PX1BSRVNFTkNFKSwKIAlTTkRfUENJX1FVSVJLKDB4MTAyNSwgMHgxNDJiLCAiQWNlciBTd2lm
-dCBTRjMxNC00MiIsIEFMQzI1NV9GSVhVUF9BQ0VSX01JQ19OT19QUkVTRU5DRSksCiAJU05EX1BD
-SV9RVUlSSygweDEwMjUsIDB4MTQzMCwgIkFjZXIgVHJhdmVsTWF0ZSBCMzExUi0zMSIsIEFMQzI1
-Nl9GSVhVUF9BQ0VSX01JQ19OT19QUkVTRU5DRSksCg==
-
---_002_0a89b6c18ed94378a105fa61e9f290e4realtekcom_--
+> 
+> > -----Original Message-----
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Sent: Thursday, January 16, 2025 10:27 PM
+> > To: Evgeny Kapun <abacabadabacaba@gmail.com>
+> > Cc: Kailang <kailang@realtek.com>; Takashi Iwai <tiwai@suse.de>; Linux
+> > Sound Mailing List <linux-sound@vger.kernel.org>; Linux Kernel Mailing List
+> > <linux-kernel@vger.kernel.org>; Linux Regressions Mailing List
+> > <regressions@lists.linux.dev>; Linux Stable Mailing List
+> > <stable@vger.kernel.org>
+> > Subject: Re: [REGRESSION] Distorted sound on Acer Aspire A115-31 laptop
+> > 
+> > 
+> > External mail.
+> > 
+> > 
+> > 
+> > On Sat, 11 Jan 2025 16:00:33 +0100,
+> > Evgeny Kapun wrote:
+> > >
+> > > On 12/24/24 04:54, Kailang wrote:
+> > > > Please test attach patch.
+> > >
+> > > This patch, when applied to kernel version 6.12.8, appears to fix the
+> > > issue. There are no distortions, and the left and the right channel
+> > > can be controlled independently.
+> > 
+> > Good to hear.
+> > 
+> > Kailang, care to submit a proper patch for merging?
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> 

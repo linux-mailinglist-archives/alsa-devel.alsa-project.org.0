@@ -2,164 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54B4BA16A9F
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jan 2025 11:16:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10AB6A16EFD
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jan 2025 16:05:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB6BA602CD;
-	Mon, 20 Jan 2025 11:16:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB6BA602CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71BD36022B;
+	Mon, 20 Jan 2025 16:05:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71BD36022B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1737368204;
-	bh=2mxFfcIffpKTSyLdlghabe4haSladRl1CKXokc98jM4=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WBLyLYeTz/Pkd6QlcFurF5B5KnhNoxLN2E0VkFRoPv4OAU3oJYtmAFGKGKzESeL1s
-	 NT6Lnl57Up6SNgx63YjxT3Q0hnnSNH3x4LJ6MdA/8R5G+rj7iW+2zZin1IqLk4wICJ
-	 VtgoDhYsvtgN3vcKRjmNQ2YwZDvWlBArU2/wNzn0=
+	s=default; t=1737385539;
+	bh=InxLJIzxA4tX/a0aInTD8VDB7tZ3PA86wBbaHlxSR6k=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HfpLmi/Tm+aBkjplcgToZZvyVUovFaSM2iv6hLMkLkkrKmfvoYOVaT3vvhEhKSwsg
+	 yVmGRLghD6b8wc341DlnFvZDqd+VB2OgOkZAyFTjOmePXNZaqoknDwcKcoEVH1SmJm
+	 fU+0g/JbKzGj+VInnUSxWRK/LhXvWFujVk1Tfbes=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE0DEF805B1; Mon, 20 Jan 2025 11:15:30 +0100 (CET)
+	id C770BF805B1; Mon, 20 Jan 2025 16:05:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D534F805EB;
-	Mon, 20 Jan 2025 11:15:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EC10F805B1;
+	Mon, 20 Jan 2025 16:05:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3277F80571; Mon, 20 Jan 2025 11:14:17 +0100 (CET)
+	id 1645BF80482; Mon, 20 Jan 2025 16:04:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-9.9 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061f.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2412::61f])
+	PP_MIME_FAKE_ASCII_TEXT,RCVD_IN_DNSWL_HI,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D54A7F805AE
-	for <alsa-devel@alsa-project.org>; Mon, 20 Jan 2025 11:14:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D54A7F805AE
+	by alsa1.perex.cz (Postfix) with ESMTPS id CED59F8016B
+	for <alsa-devel@alsa-project.org>; Mon, 20 Jan 2025 16:04:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CED59F8016B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=AAghmSWe
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yxFY/txHTOkBfgaypi6RpT9a/P8bNDpmfB8yiTIrphsr5yB7bXITy2YIMxxr0TA4kSfK8Sb4FXTRvoT8CenmalNVgG05JYpHQxxF6MY3vWDjGKMjy0jfaCFPpdQ+C0L68VeU+7tFi6gVxKjNuMbJp+nhyJrt8vSHsvLgSn5VQDbb9NAQCrmjlRv42luLIqH3jst2yzZyeU70GQGd/WMSSEVHEAoZjQ7Sg5wApBr6tl/6+8l92+/IvW72rOQvH3I4cx7wtj1R91AGqswCgWlShxmNeN9MGK8J//KK6rTZzd1yV9EtVpe7ahG6c6ePQVYZVPxoYXp3KR6Zu+EmL+TahA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jbFLIc86qhZtS6AqFt18YG5NxzDnVKEfEU/tjDTJ7Aw=;
- b=lxz68Z+TYF5lTe9yF/lovYunRdzrIxAt1S1PAywuNlGb1xqAt5nbkmG2qzn1R+eOQquDQEXkGqOONaaK1Qfqioslq/OTljfWo3HfDM52II67ryLRL4RD9b5d/DpcMY4gnxFnowWaSCVT1hrbdRWYg81bWla80YWv09lGZOeagZYN94pyNl/+9WOOJKD4KjlHJ8BSJ6D1VQwIX5SNQ7LE0aG8OuhbCjSSHu1MAd+epUfvzRc56Y6XY/kdkJwiCK4oKXF+VmuxrY3iVgc2/d6blB1cyRta9ynKDTI6nJdcJjX7zYhv71cEa7M1Sr1EOTTgc6Mj3NywCx8naqIuUu03Fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jbFLIc86qhZtS6AqFt18YG5NxzDnVKEfEU/tjDTJ7Aw=;
- b=AAghmSWeunZ19E7tM7JyJvtxzosXZa7XXCAyo9Zzn1IftKXZkuTt9NDqjT0kZi44yyip/B7OY40C53j+DMBoRAR47MerVW4aEhYL9rwX5FspES1/0xVxQWT/hoE5wpUl9YYsyClDfTF0CSl68X8er9B2LnOVON/CrTnzt1IdQ+k=
-Received: from MN2PR16CA0006.namprd16.prod.outlook.com (2603:10b6:208:134::19)
- by SA3PR12MB7879.namprd12.prod.outlook.com (2603:10b6:806:306::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.20; Mon, 20 Jan
- 2025 10:14:08 +0000
-Received: from BN3PEPF0000B373.namprd21.prod.outlook.com
- (2603:10b6:208:134:cafe::50) by MN2PR16CA0006.outlook.office365.com
- (2603:10b6:208:134::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8356.16 via Frontend Transport; Mon,
- 20 Jan 2025 10:14:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B373.mail.protection.outlook.com (10.167.243.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.0 via Frontend Transport; Mon, 20 Jan 2025 10:14:07 +0000
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 20 Jan 2025 04:14:04 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <yung-chuan.liao@linux.intel.com>,
-	<pierre-louis.bossart@linux.dev>, <sanyog.r.kale@intel.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Mario.Limonciello@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH V2 7/7] soundwire: amd: add soundwire host wake interrupt
- enable/disable sequence
-Date: Mon, 20 Jan 2025 15:43:29 +0530
-Message-ID: <20250120101329.3713017-8-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250120101329.3713017-1-Vijendar.Mukunda@amd.com>
-References: <20250120101329.3713017-1-Vijendar.Mukunda@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B373:EE_|SA3PR12MB7879:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6eb9e7a-6849-478e-d23d-08dd393b2d01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?Hw3j0RtrPdGR55k3tGdkHAHv2TLk7cCeefRRpSj0VC12JTLyKc5ZVVlOkPM5?=
- =?us-ascii?Q?gUT5rove8K2BTTrr8L+v1rwXRsV+NaKgr4ksCBL53ohxHaKbij1hCFUIt/u5?=
- =?us-ascii?Q?GonsqNXq04qz1ygT7GvUjoGgBN6T/ovMgMC05TaiLOZ/20x4YNcBO5bSiTCD?=
- =?us-ascii?Q?mewS8M6EAvJZc2RruvcFsR/xUwHeph8x10xw3C0eTg5x4X/P7wZIePmB+0pe?=
- =?us-ascii?Q?7OTjSMYD0aWzOne6PVPo+g/m9ByYpTz0yCMgU3ORP+fDnGs1VKSyELFeyPwq?=
- =?us-ascii?Q?o5RpdPgztB1EXQC4+rhPRCkicagkZV/z2pqf2Xv00GEOgUeYrGH/w2JvZ/qy?=
- =?us-ascii?Q?nkQQEV2dCYg9BjpbgCk7fL4aGexr7quCF3AW7tKljF+rywcU22/Es+ohha0w?=
- =?us-ascii?Q?16QYFuXHVdFCW5d3WwJZGu2ttGRkasozqTE6oTV1uT23rJJSlelfbdV0JB9L?=
- =?us-ascii?Q?T7VtTJhIkIQQQ4VE68pkqUOvDp5/3bIMztFQ8qCMADUxjwSpmZ9H5RF3cs+Z?=
- =?us-ascii?Q?QTIaTqfItcPvB5omCXlyi6r2WbUSR/4v4F81iWoj/ckBewqAavuLi1MnGeo5?=
- =?us-ascii?Q?U//npQGk10y5zrLQFKM93aT0IOqqlPIM/Qp3c3b1FgX8yTqIHwn2wdIBdFOe?=
- =?us-ascii?Q?EFEupETzUUg5YwSiO/VDINjFCCmJk0aK+oZ5c7Hp3QBTpli5/z659Q4htdDR?=
- =?us-ascii?Q?QAdUfJSF6YLynhWOnf+zNx/d1qKjTtGmwdmtH6NAAmDgBobn2G2Y//OxNZgK?=
- =?us-ascii?Q?S8B/DSOLBY341BKn6MUb56iFZf1KnsL8tzElC7sOssrT05Pcpvn8zSw3N/ko?=
- =?us-ascii?Q?iC9KOOdf6QGQ/uJ6O+vaYOCYEqsER2bGBZlDt9BCjyxpSZTCmAZ5L6QAYKzY?=
- =?us-ascii?Q?JEhK9wqSt9jLMxnerIiHcQY4Kev5Fej1V2zBrZwMIGGtGjl4GX+4FJPoe3S+?=
- =?us-ascii?Q?2DB1LpZaZTvILHUf5iyZwPudtIwy1KVIpDmP7uywVWPWXoFykVP06o9iuubt?=
- =?us-ascii?Q?NBMnzmb48U4viKJWBFELYbf/vRaB5ljE2NfbkayjcGigeUuSqZFZ6v0f2lCM?=
- =?us-ascii?Q?3kZoiNtCpWKz8foM6jKOeD9/J3hR4r8Ok8sQWzKKz/tPOtJfAAe2EKsySdR+?=
- =?us-ascii?Q?JEXaI+9eQ1KxV59Ii3rofO0rTZiOZe9TtnI5OEH2ca9xW4CwC/B0bnmdV5w8?=
- =?us-ascii?Q?FG+FxZKueN4/k+zArXr7Ey7PAI5H/EgzTQIewiQ56DNBVylGjzCPM30LLgQD?=
- =?us-ascii?Q?BdH1FqS1SJ/2pcZyokEUSJ1ZIpiin8ygXk0GvfGJ+k5bwxpjIBqxhm5Gf6k3?=
- =?us-ascii?Q?SFscniz+GajeurMiW9V94K7/gZdkL8JqAXpq9eBAlAT/AIPR89mGg5U2L4RK?=
- =?us-ascii?Q?6+ZWtiEJM0EnlpV3spQjKN6Q/2FdkY3ZczEqLEZySxq+GKXGxGhrlQYsNXj5?=
- =?us-ascii?Q?ennrLumWdlIJzkZEtg03qcp/IDbKvsafLGk+7AxChUbXD4J9KQOG3niMPSn4?=
- =?us-ascii?Q?ditAF4iJBVy/c4c=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2025 10:14:07.6801
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- c6eb9e7a-6849-478e-d23d-08dd393b2d01
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	BN3PEPF0000B373.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7879
-Message-ID-Hash: RCXNZK2IKOCI7MRUIP3MT52P5Y2UZK3U
-X-Message-ID-Hash: RCXNZK2IKOCI7MRUIP3MT52P5Y2UZK3U
-X-MailFrom: Vijendar.Mukunda@amd.com
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=S0zDpwSf
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 7308D5C5958;
+	Mon, 20 Jan 2025 15:03:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26BBCC4CEDD;
+	Mon, 20 Jan 2025 15:04:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1737385457;
+	bh=InxLJIzxA4tX/a0aInTD8VDB7tZ3PA86wBbaHlxSR6k=;
+	h=From:To:Cc:Subject:Date:From;
+	b=S0zDpwSfpbzVTDhOpsaI0nR9SNx9tWiTNya5AwUbdmmuvabQ9qc8Lnqo2R04AIrr7
+	 UPU0BqqKwWNWzucwj6xcCzlHBhSsx8uZPriP2wub+Ke/K7Avz4TEbmB18BL31CFmjg
+	 4KYW5JhNpqwc9bR8anRU/USjlkSH26R2Zb4q+Ztfn6rOy8DqbBrNyTSUy/S0SVqiIs
+	 HAcCy1w878PC/S7toRzBFRl3aOJj60Qkb0FZYJsMXynm3ZEvyHGIpqGmJNAULgf9G0
+	 9haJKUhsKQwwdexx9MdiTyCgMlW+Xo7Hj2H/xWDvXVjcnH3NSYBKir9Ox/+FYBEqCP
+	 BCaUMCF8pJ90g==
+Message-ID: <ed5e9273a349fd6ad9cb6edc0223ace5.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC updates for v6.14
+Date: Mon, 20 Jan 2025 15:04:04 +0000
+Message-ID-Hash: QOYCVJN2UA6EKMTMHREOBXV4P4PY6AKR
+X-Message-ID-Hash: QOYCVJN2UA6EKMTMHREOBXV4P4PY6AKR
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -171,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RCXNZK2IKOCI7MRUIP3MT52P5Y2UZK3U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QOYCVJN2UA6EKMTMHREOBXV4P4PY6AKR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,137 +90,504 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For wake event, SoundWire host wake interrupt will be asserted based on
-below pre-conditions for ACP7.0 & ACP7.1 platforms.
-- ACP device should be in D0 state.
-- SoundWire manager instance should be in D3 state.
-- SoundWire manager device state should be set to D3.
-- ACP_PME_EN should be set to 1.
+The following changes since commit 9d89551994a430b50c4fffcb1e617a057fa76e20:
 
-Implement code changes to enable/disable SoundWire host wake interrupt mask
-during suspend and resume as per design flow for ACP7.0 & ACP7.1 platforms.
+  Linux 6.13-rc6 (2025-01-05 14:13:40 -0800)
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- drivers/soundwire/amd_manager.c | 58 +++++++++++++++++++++++++++++++++
- drivers/soundwire/amd_manager.h |  2 ++
- 2 files changed, 60 insertions(+)
+are available in the Git repository at:
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 03c9e15dce5b..161d963c80e6 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -166,6 +166,34 @@ static int amd_sdw_set_device_state(struct amd_sdw_manager *amd_manager, u32 tar
- 	return 0;
- }
- 
-+static int amd_sdw_host_wake_enable(struct amd_sdw_manager *amd_manager, bool enable)
-+{
-+	u32 intr_cntl1;
-+	u32 sdw_host_wake_irq_mask;
-+
-+	if (!amd_manager->wake_en_mask)
-+		return 0;
-+
-+	switch (amd_manager->instance) {
-+	case ACP_SDW0:
-+		sdw_host_wake_irq_mask = AMD_SDW0_HOST_WAKE_INTR_MASK;
-+		break;
-+	case ACP_SDW1:
-+		sdw_host_wake_irq_mask = AMD_SDW1_HOST_WAKE_INTR_MASK;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	intr_cntl1 = readl(amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(ACP_SDW1));
-+	if (enable)
-+		intr_cntl1 |= sdw_host_wake_irq_mask;
-+	else
-+		intr_cntl1 &= ~sdw_host_wake_irq_mask;
-+	writel(intr_cntl1, amd_manager->acp_mmio + ACP_EXTERNAL_INTR_CNTL(ACP_SDW1));
-+	return 0;
-+}
-+
- static void amd_sdw_ctl_word_prep(u32 *lower_word, u32 *upper_word, struct sdw_msg *msg,
- 				  int cmd_offset)
- {
-@@ -1186,11 +1214,21 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
- 		amd_sdw_wake_enable(amd_manager, false);
-+		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+			ret = amd_sdw_host_wake_enable(amd_manager, false);
-+			if (ret)
-+				return ret;
-+		}
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		amd_sdw_wake_enable(amd_manager, false);
-+		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+			ret = amd_sdw_host_wake_enable(amd_manager, false);
-+			if (ret)
-+				return ret;
-+		}
- 		/*
- 		 * As per hardware programming sequence on AMD platforms,
- 		 * clock stop should be invoked first before powering-off
-@@ -1224,11 +1262,21 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 	}
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
- 		amd_sdw_wake_enable(amd_manager, true);
-+		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+			ret = amd_sdw_host_wake_enable(amd_manager, true);
-+			if (ret)
-+				return ret;
-+		}
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		amd_sdw_wake_enable(amd_manager, true);
-+		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+			ret = amd_sdw_host_wake_enable(amd_manager, true);
-+			if (ret)
-+				return ret;
-+		}
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
-@@ -1269,8 +1317,18 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 		ret = amd_sdw_clock_stop_exit(amd_manager);
- 		if (ret)
- 			return ret;
-+		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+			ret = amd_sdw_host_wake_enable(amd_manager, false);
-+			if (ret)
-+				return ret;
-+		}
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		writel(0x00, amd_manager->acp_mmio + ACP_SW_WAKE_EN(amd_manager->instance));
-+		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+			ret = amd_sdw_host_wake_enable(amd_manager, false);
-+			if (ret)
-+				return ret;
-+		}
- 		val = readl(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
- 		if (val) {
- 			val |= AMD_SDW_CLK_RESUME_REQ;
-diff --git a/drivers/soundwire/amd_manager.h b/drivers/soundwire/amd_manager.h
-index 1d5e94371f81..6cc916b0c820 100644
---- a/drivers/soundwire/amd_manager.h
-+++ b/drivers/soundwire/amd_manager.h
-@@ -194,6 +194,8 @@
- #define AMD_SDW_CLK_RESUME_DONE				3
- #define AMD_SDW_WAKE_STAT_MASK				BIT(16)
- #define AMD_SDW_WAKE_INTR_MASK				BIT(16)
-+#define AMD_SDW0_HOST_WAKE_INTR_MASK			BIT(22)
-+#define AMD_SDW1_HOST_WAKE_INTR_MASK			BIT(23)
- #define AMD_SDW_DEVICE_STATE				0x1430
- #define AMD_SDW0_DEVICE_STATE_MASK			GENMASK(1, 0)
- #define AMD_SDW1_DEVICE_STATE_MASK			GENMASK(3, 2)
--- 
-2.34.1
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.14
 
+for you to fetch changes up to fee89ddd76e45841a2b01d87b481bc02483f4572:
+
+  ASoC: xilinx: xlnx_spdif: Simpify using devm_clk_get_enabled() (2025-01-16 15:20:41 +0000)
+
+----------------------------------------------------------------
+ASoC: Updates for v6.14
+
+This was quite a quiet release for what I imagine are holiday related
+reasons, the diffstat is dominated by some Cirrus Logic Kunit tests.
+There's the usual mix of small improvements and fixes, plus a few new
+drivers and features.  The diffstat includes some DRM changes due to
+work on HDMI audio.
+
+ - Allow clocking on each DAI in an audio graph card to be configured
+   separately.
+ - Improved power management for Renesas RZ-SSI.
+ - KUnit testing for the Cirrus DSP framework.
+ - Memory to meory operation support for Freescale/NXP platforms.
+ - Support for pause operations in SOF.
+ - Support for Allwinner suinv F1C100s, Awinc AW88083, Realtek
+   ALC5682I-VE
+
+----------------------------------------------------------------
+Alexey Klimov (1):
+      ASoC: qcom: sdm845: add handling of secondary MI2S clock
+
+Amadeusz Sławiński (4):
+      ASoC: Intel: avs: Fix init-config parsing
+      ASoC: Intel: avs: Print IPC error messages in lower layer
+      ASoC: Intel: avs: Add MODULE_FIRMWARE to inform about FW
+      ASoC: Intel: avs: Update ASRC definition
+
+Andrew Davis (21):
+      ASoC: ad193x: Remove use of i2c_match_id()
+      ASoC: adau1761: Remove use of i2c_match_id()
+      ASoC: adau1781: Remove use of i2c_match_id()
+      ASoC: adau1977: Remove use of i2c_match_id()
+      ASoC: alc5623: Remove use of i2c_match_id()
+      ASoC: alc5632: Remove use of i2c_match_id()
+      ASoC: max98088: Remove use of i2c_match_id()
+      ASoC: max98090: Remove use of i2c_match_id()
+      ASoC: max98095: Remove use of i2c_match_id()
+      ASoC: pcm186x: Remove use of i2c_match_id()
+      ASoc: pcm6240: Remove use of i2c_match_id()
+      ASoC: ssm2602: Remove use of i2c_match_id()
+      ASoC: tas2562: Remove use of i2c_match_id()
+      ASoC: tas2781: Remove use of i2c_match_id()
+      ASoC: tas5720: Remove use of i2c_match_id()
+      ASoC: tlv320adc3xxx: Remove use of i2c_match_id()
+      ASoC: tlv320aic31xx: Remove use of i2c_match_id()
+      ASoC: tlv320aic3x: Remove use of i2c_match_id()
+      ASoC: tpa6130a2: Remove use of i2c_match_id()
+      ASoC: wm8904: Remove use of i2c_match_id()
+      ASoC: wm8985: Remove use of i2c_match_id()
+
+Andy Shevchenko (1):
+      ASoc: mediatek: mt8365: Don't use "proxy" headers
+
+Arnd Bergmann (1):
+      firmware: cs_dsp: avoid large local variables
+
+Bard Liao (7):
+      ASoC: SOF: Intel: hda-dai: Ensure DAI widget is valid during params
+      ASoC: Intel: sof_sdw: correct mach_params->dmic_num
+      ASoC: Intel: sof_sdw: reduce log level for not using internal dmic
+      ASoC: Intel: sof_sdw: improve the log of DAI link numbers
+      ASoC: Intel: soc-acpi-intel-ptl-match: add rt712_vb + rt1320 support
+      ASoC: Intel: soc-acpi-intel-lnl-match: add rt713_vb_l2_rt1320_l13 support
+      ASoC: Intel: soc-acpi-intel-ptl-match: add rt713_vb_l2_rt1320_l13 support
+
+Bence Csókás (1):
+      ASoC: sun4i-codec: Use new devm clk and reset APIs
+
+Cezary Rojewski (9):
+      ASoC: Intel: avs: Do not readq() u32 registers
+      ASoC: Intel: avs: Fix the minimum firmware version numbers
+      ASoC: Intel: avs: Fix theoretical infinite loop
+      ASoC: Intel: avs: Update hda component teardown sequences
+      ASoC: Intel: avs: Clearly state assumptions of hw_params()
+      ASoC: Intel: avs: Improve logging of firmware loading
+      ASoC: Intel: avs: Adjust DSP status register names
+      ASoC: Intel: avs: Adjust IPC traces
+      ASoC: Intel: avs: Add missing includes
+
+Chancel Liu (4):
+      ASoC: fsl_utils: Add function to constrain rates
+      ASoC: fsl_micfil: Switch to common sample rate constraint function
+      ASoC: fsl_xcvr: Add sample rate constraint
+      ASoC: fsl_sai: Add sample rate constraint
+
+Charles Keepax (5):
+      ASoC: SDCA: Add missing header includes
+      ASoC: SDCA: Clean up error messages
+      ASoC: SDCA: Add bounds check for function address
+      ASoC: SDCA: Add missing function type names
+      ASoC: SDCA: Split function type patching and function naming
+
+Christophe JAILLET (1):
+      ASoC: cs42l51: Constify struct i2c_device_id
+
+Claudiu Beznea (16):
+      ASoC: renesas: rz-ssi: Terminate all the DMA transactions
+      ASoC: renesas: rz-ssi: Use only the proper amount of dividers
+      ASoC: renesas: rz-ssi: Fix typo on SSI_RATES macro comment
+      ASoC: renesas: rz-ssi: Remove pdev member of struct rz_ssi_priv
+      ASoC: renesas: rz-ssi: Remove the rz_ssi_get_dai() function
+      ASoC: renesas: rz-ssi: Remove the first argument of rz_ssi_stream_is_play()
+      ASoC: renesas: rz-ssi: Use readl_poll_timeout_atomic()
+      ASoC: renesas: rz-ssi: Use temporary variable for struct device
+      ASoC: renesas: rz-ssi: Use goto label names that specify their actions
+      ASoC: renesas: rz-ssi: Rely on the ASoC subsystem to runtime resume/suspend the SSI
+      ASoC: renesas: rz-ssi: Enable runtime PM autosuspend support
+      ASoC: renesas: rz-ssi: Add runtime PM support
+      ASoC: renesas: rz-ssi: Issue software reset in hw_params API
+      ASoC: renesas: rz-ssi: Add suspend to RAM support
+      ASoC: dt-bindings: renesas,rz-ssi: Remove DMA description
+      ASoC: dt-bindings: renesas,rz-ssi: Document the Renesas RZ/G3S SoC
+
+Colin Ian King (1):
+      ASoC: soc-core: remove redundant assignment to variable ret
+
+Csókás Bence (1):
+      ASoC: dt-bindings: Add Allwinner suniv F1C100s Audio Codec
+
+Dan Carpenter (1):
+      ASoC: renesas: rz-ssi: Add a check for negative sample_space
+
+Derek Fang (1):
+      ASoC: rt5682: Support the ALC5682I-VE codec
+
+Dheeraj Reddy Jonnalagadda (1):
+      ASoC: rockchip: i2s-tdm: Fix a useless call issue
+
+Dr. David Alan Gilbert (1):
+      ASoC: rt715: Remove unused hda_to_sdw
+
+George Lander (1):
+      ASoC: sun4i-spdif: Add clock multiplier settings
+
+Krzysztof Kozlowski (3):
+      ASoC: codecs: wcd9335: Add define for number of DAIs
+      ASoC: dt-bindings: qcom,wcd9335: Drop number of DAIs from the header
+      ASoC: dt-bindings: Correct indentation and style in DTS example
+
+Kuninori Morimoto (18):
+      ASoC: simple-card-utils: use __free(device_node) for device node
+      ASoC: simple-card-utils: check port reg first on graph_get_dai_id()
+      ASoC: simple-card-utils: use for_each_of_graph_port() on graph_get_dai_id()
+      ASoC: soc-core: tidyup ret handling for card->disable_route_checks
+      ASoC: soc-pcm: don't use soc_pcm_ret() on .prepare callback
+      ASoC: simple-card-utils: Unify clock direction by clk_direction
+      ASoC: dt-bindings: renesas,rsnd: remove post-init-providers property
+      ASoC: soc-card: remove card check
+      ASoC: intel: remove disable_route_checks
+      ASoC: remove disable_route_checks
+      ASoC: audio-graph-card2: use __free(device_node) for device node
+      ASoC: audio-graph-card: use __free(device_node) for device node
+      ASoC: simple-card: use __free(device_node) for device node
+      ASoC: soc-core: return 0 if np was NULL on snd_soc_daifmt_parse_clock_provider_raw()
+      ASoC: audio-graph-card2: use of_graph_get_port_by_id() at graph_get_next_multi_ep()
+      ASoC: soc-core: Enable to use extra format on each DAI
+      ASoC: audio-graph-card2: Use extra format on each DAI
+      ASoC: soc-dapm: remove !card check from snd_soc_dapm_set_bias_level()
+
+Marcus Cooper (2):
+      ASoC: sun4i-spdif: Always set the valid data to be the MSB
+      ASoC: sun4i-spdif: Add working 24bit audio support
+
+Mark Brown (23):
+      ASoC: fsl_xcvr: Add suspend and resume support
+      ASoC: Correct *-objs usages
+      Add support for codec of F1C100s
+      ASoC: Splitting cs35l56 SoundWire DAI into separate
+      ASoC: Merge up origin to resolve interaction with manline symbol changes
+      ASoC: Merge up v6.12-rc2
+      ASoC: Intel: boards: updates for 6.14
+      ASoC: sun4i-spdif: Add 24bit support
+      Add function to constrain rates
+      ASoC: simple-card-utils: tidyup for Multi connection
+      Add audio support for the Renesas RZ/G3S SoC
+      ASoC: SOF: core/Intel: Handle pause supported token
+      firmware: cirrus: Add KUnit tests for cs_dsp
+      ASoC: fsl: add memory to memory function for ASRC
+      ASoC: Intel: Add matches for Cirrus Logic CDB35L56
+      Minor debugging improvements
+      ASoC: codecs: Add aw88083 amplifier driver
+      ASoC: Merge up v6.13-rc6
+      ASoC: Intel: avs: Fixes and cleanups
+      ASoC: remove disable_route_checks
+      ASoC: fsl: Support MQS on i.MX943
+      ASoC: extra format on each DAI
+      ASoC: fsl: Support micfil on i.MX943
+
+Martin Blumenstingl (2):
+      ASoC: soc-dai: add snd_soc_dai_prepare() and use it internally
+      ASoC: dapm: add support for preparing streams
+
+Mesih Kilinc (2):
+      ASoC: sun4i-codec: Add DMA Max Burst field
+      ASoC: sun4i-codec: Add support for Allwinner suniv F1C100s
+
+Michal Simek (1):
+      ASoC: xilinx: xlnx_spdif: Simpify using devm_clk_get_enabled()
+
+Neil Armstrong (1):
+      ASoC: dt-bindings: convert rt5682.txt to dt-schema
+
+Nícolas F. R. A. Prado (2):
+      ASoC: dt-bindings: mediatek,mt8188-mt6359: Add compatible for mt8390 evk
+      ASoC: dt-bindings: mediatek,mt8188-mt6359: Allow DL_SRC/UL_SRC dai-links
+
+Peter Ujfalusi (4):
+      ASoC: SOF: Add support for pause supported tokens from topology
+      ASoC: SOF: Intel: hda-pcm: Follow the pause_supported flag to drop PAUSE support
+      ASoC: SOF: ipc4-topology: Use macro to set the EXT_PARAM_SIZE in widget setup
+      ASoC: SOF: sof-priv: Remove unused SOF_DAI_STREAM() and SOF_FORMATS
+
+Richard Fitzgerald (21):
+      ASoC: cs35l56: Split SoundWire DAI into separate playback and capture
+      ASoC: sdw_utils: cs_amp: Assign non-overlapping TDM masks for each codec on a bus
+      firmware: cs_dsp: Add mock regmap for KUnit testing
+      firmware: cs_dsp: Add mock DSP memory map for KUnit testing
+      firmware: cs_dsp: Add mock wmfw file generator for KUnit testing
+      firmware: cs_dsp: Add mock bin file generator for KUnit testing
+      firmware: cs_dsp: Add KUnit testing of bin file download
+      firmware: cs_dsp: Add KUnit testing of wmfw download
+      firmware: cs_dsp: Add KUnit testing of control parsing
+      firmware: cs_dsp: Add KUnit testing of control cache
+      firmware: cs_dsp: Add KUnit testing of control read/write
+      firmware: cs_dsp: Add KUnit testing of bin error cases
+      firmware: cs_dsp: Add KUnit testing of wmfw error cases
+      firmware: cs_dsp: Add KUnit testing of client callbacks
+      ASoC: Intel: tgl-match: Add entries for CS35L56 on CDB35L56-EIGHT-C
+      ASoC: Intel: mtl-match: Add CDB35L56-EIGHT-C with aggregated speakers
+      ASoC: Intel: mtl-match: Add CDB35L56-EIGHT-C 8x CS35L56 without CS42L43
+      firmware: cs_dsp: Fix kerneldoc typos in cs_dsp_mock_bin.c
+      firmware: cs_dsp: Avoid using a u32 as a __be32 in cs_dsp_mock_mem_maps.c
+      firmware: cs_dsp: Fix endianness conversion in cs_dsp_mock_wmfw.c
+      firmware: cs_dsp: Delete redundant assignments in cs_dsp_test_bin.c
+
+Rob Herring (Arm) (2):
+      ASoC: Use of_property_present() for non-boolean properties
+      ASoC: simple-card: Drop unnecessary "dai-tdm-slot-width-map" property presence check
+
+Shengjiu Wang (13):
+      ASoC: fsl_xcvr: Use regmap for PHY and PLL registers
+      ASoC: fsl_xcvr: Add suspend and resume support
+      ALSA: compress: Add output rate and output format support
+      ASoC: fsl_asrc: define functions for memory to memory usage
+      ASoC: fsl_easrc: define functions for memory to memory usage
+      ASoC: fsl_asrc_m2m: Add memory to memory function
+      ASoC: fsl_asrc: register m2m platform device
+      ASoC: fsl_easrc: register m2m platform device
+      ASoC: fsl_asrc_m2m: force cast for snd_pcm_format_t type
+      ASoC: fsl_mqs: Add i.MX943 platform support
+      ASoC: dt-bindings: fsl,mqs: Add compatible string for i.MX943 platform
+      ASoC: fsl_micfil: Add i.MX943 platform support
+      ASoC: dt-bindings: fsl,micfil: Add compatible string for i.MX943 platform
+
+Simon Trimmer (4):
+      ASoC: Intel: sof_sdw: Correct quirk for Lenovo Yoga Slim 7
+      ASoC: Intel: sof_sdw: Add a dev_dbg message for the SOC_SDW_CODEC_MIC quirk
+      ASoC: Intel: soc-acpi: arl: Correct naming of a cs35l56 address struct
+      ASoC: Intel: soc-acpi: arl: Add match entries for new cs42l43 laptops
+
+Stephen Gordon (2):
+      ASoC: simple_card: Improve debugging messages
+      ASoC: simple_card: Show if link is unidirectional
+
+Takashi Iwai (5):
+      ASoC: cs40l50: Use *-y for Makefile
+      ASoC: mediatek: mt8365: Use *-y for Makefile
+      ASoC: SDCA: Use *-y for Makefile
+      ASoC: cs42l84: Use *-y for Makefile
+      ASoC: wcd937x: Use *-y for Makefile
+
+Tang Bin (2):
+      ASoC: mediatek: mt8192-afe-pcm: Simplify probe() with local dev variable
+      ASoC: tas2781: Fix redundant logical jump
+
+Thorsten Blum (4):
+      ASoC: SOF: Intel: Use str_yes_no() helper in atom_dump()
+      ASoC: madera: Use str_enabled_disabled() helper function
+      ASoC: SOF: Intel: Use str_yes_no() to improve bdw_dump()
+      ASoC: codecs: Use ARRAY_SIZE() to calculate PEB2466_TLV_SIZE
+
+Uwe Kleine-König (1):
+      ASoC: Drop explicit initialization of struct i2c_device_id::driver_data to 0
+
+Vijendar Mukunda (2):
+      ASoC: amd: ps: update mach params subsystem_rev variable
+      ASoC: amd: ps: add ZSC control register programming sequence
+
+Weidong Wang (2):
+      ASoC: dt-bindings: Add schema for "awinic,aw88083"
+      ASoC: codecs: Add aw88083 amplifier driver
+
+Wolfram Sang (1):
+      ASoC: cs42l43: don't include '<linux/find.h>' directly
+
+Yu-Chun Lin (1):
+      ASoC: amd: Add ACPI dependency to fix build error
+
+ .../devicetree/bindings/sound/adi,ssm2518.yaml     |   20 +-
+ .../bindings/sound/allwinner,sun4i-a10-codec.yaml  |   31 +
+ .../devicetree/bindings/sound/awinic,aw88395.yaml  |    2 +
+ .../devicetree/bindings/sound/everest,es71x4.yaml  |   10 +-
+ .../devicetree/bindings/sound/everest,es7241.yaml  |   19 +-
+ .../devicetree/bindings/sound/fsl,easrc.yaml       |   32 +-
+ .../devicetree/bindings/sound/fsl,micfil.yaml      |    1 +
+ .../devicetree/bindings/sound/fsl,mqs.yaml         |    2 +
+ .../devicetree/bindings/sound/fsl,xcvr.yaml        |   34 +-
+ .../bindings/sound/intel,keembay-i2s.yaml          |   32 +-
+ .../bindings/sound/mediatek,mt8188-mt6359.yaml     |   16 +-
+ .../bindings/sound/neofidelity,ntp8918.yaml        |   26 +-
+ .../devicetree/bindings/sound/realtek,rt5682.yaml  |  156 +
+ .../devicetree/bindings/sound/renesas,rsnd.yaml    |    6 -
+ .../devicetree/bindings/sound/renesas,rz-ssi.yaml  |   19 +-
+ Documentation/devicetree/bindings/sound/rt5682.txt |   98 -
+ .../devicetree/bindings/sound/ti,pcm6240.yaml      |   32 +-
+ .../devicetree/bindings/sound/ti,tas2562.yaml      |   30 +-
+ .../devicetree/bindings/sound/ti,tas2770.yaml      |   34 +-
+ .../devicetree/bindings/sound/ti,tas2781.yaml      |   38 +-
+ .../devicetree/bindings/sound/ti,tas27xx.yaml      |   34 +-
+ .../devicetree/bindings/sound/ti,tas57xx.yaml      |   36 +-
+ MAINTAINERS                                        |    4 +-
+ drivers/firmware/cirrus/Kconfig                    |   20 +
+ drivers/firmware/cirrus/Makefile                   |    2 +
+ drivers/firmware/cirrus/test/Makefile              |   23 +
+ drivers/firmware/cirrus/test/cs_dsp_mock_bin.c     |  199 ++
+ .../firmware/cirrus/test/cs_dsp_mock_mem_maps.c    |  752 +++++
+ drivers/firmware/cirrus/test/cs_dsp_mock_regmap.c  |  367 +++
+ drivers/firmware/cirrus/test/cs_dsp_mock_utils.c   |   13 +
+ drivers/firmware/cirrus/test/cs_dsp_mock_wmfw.c    |  473 +++
+ drivers/firmware/cirrus/test/cs_dsp_test_bin.c     | 2556 +++++++++++++++
+ .../firmware/cirrus/test/cs_dsp_test_bin_error.c   |  600 ++++
+ .../firmware/cirrus/test/cs_dsp_test_callbacks.c   |  688 ++++
+ .../cirrus/test/cs_dsp_test_control_cache.c        | 3282 ++++++++++++++++++++
+ .../cirrus/test/cs_dsp_test_control_parse.c        | 1851 +++++++++++
+ .../firmware/cirrus/test/cs_dsp_test_control_rw.c  | 2669 ++++++++++++++++
+ drivers/firmware/cirrus/test/cs_dsp_test_wmfw.c    | 2211 +++++++++++++
+ .../firmware/cirrus/test/cs_dsp_test_wmfw_error.c  | 1347 ++++++++
+ drivers/firmware/cirrus/test/cs_dsp_tests.c        |   14 +
+ include/dt-bindings/sound/qcom,wcd9335.h           |    1 -
+ include/linux/firmware/cirrus/cs_dsp_test_utils.h  |  160 +
+ include/sound/sdca.h                               |    7 +-
+ include/sound/sdca_function.h                      |    3 +
+ include/sound/simple_card_utils.h                  |    8 +-
+ include/sound/soc-dai.h                            |    3 +
+ include/sound/soc.h                                |   12 +-
+ include/sound/soc_sdw_utils.h                      |    2 +
+ include/uapi/sound/compress_params.h               |   23 +-
+ include/uapi/sound/sof/tokens.h                    |    2 +
+ sound/soc/amd/Kconfig                              |    2 +-
+ sound/soc/amd/ps/pci-ps.c                          |   16 +-
+ sound/soc/codecs/Kconfig                           |    2 +-
+ sound/soc/codecs/Makefile                          |    8 +-
+ sound/soc/codecs/ad193x-i2c.c                      |    3 +-
+ sound/soc/codecs/adau1761-i2c.c                    |    5 +-
+ sound/soc/codecs/adau1781-i2c.c                    |    5 +-
+ sound/soc/codecs/adau1977-i2c.c                    |    5 +-
+ sound/soc/codecs/alc5623.c                         |   10 +-
+ sound/soc/codecs/alc5632.c                         |    6 +-
+ sound/soc/codecs/aw88081.c                         |  333 +-
+ sound/soc/codecs/aw88081.h                         |   43 +
+ sound/soc/codecs/cs35l56.c                         |    8 +-
+ sound/soc/codecs/cs42l43.c                         |    2 +-
+ sound/soc/codecs/cs42l51-i2c.c                     |    6 +-
+ sound/soc/codecs/cs42l84.c                         |    2 +-
+ sound/soc/codecs/es8323.c                          |    2 +-
+ sound/soc/codecs/madera.c                          |    7 +-
+ sound/soc/codecs/max98088.c                        |    4 +-
+ sound/soc/codecs/max98090.c                        |   18 +-
+ sound/soc/codecs/max98095.c                        |    4 +-
+ sound/soc/codecs/ntp8835.c                         |    2 +-
+ sound/soc/codecs/ntp8918.c                         |    2 +-
+ sound/soc/codecs/pcm186x-i2c.c                     |    3 +-
+ sound/soc/codecs/pcm6240.c                         |    3 +-
+ sound/soc/codecs/peb2466.c                         |    3 +-
+ sound/soc/codecs/rt5682-i2c.c                      |    6 +
+ sound/soc/codecs/rt5682.c                          |   12 +-
+ sound/soc/codecs/rt5682.h                          |    2 +
+ sound/soc/codecs/rt715-sdw.c                       |   41 -
+ sound/soc/codecs/rt715.h                           |    3 -
+ sound/soc/codecs/sma1307.c                         |    4 +-
+ sound/soc/codecs/ssm2602-i2c.c                     |    5 +-
+ sound/soc/codecs/tas2562.c                         |    4 +-
+ sound/soc/codecs/tas2781-i2c.c                     |   71 +-
+ sound/soc/codecs/tas5720.c                         |   10 +-
+ sound/soc/codecs/tlv320adc3xxx.c                   |    4 +-
+ sound/soc/codecs/tlv320aic31xx.c                   |    6 +-
+ sound/soc/codecs/tlv320aic3x-i2c.c                 |    3 +-
+ sound/soc/codecs/tpa6130a2.c                       |    4 +-
+ sound/soc/codecs/uda1342.c                         |    2 +-
+ sound/soc/codecs/wcd9335.c                         |    2 +
+ sound/soc/codecs/wm8904.c                          |   13 +-
+ sound/soc/codecs/wm8985.c                          |    4 +-
+ sound/soc/fsl/Kconfig                              |    2 +
+ sound/soc/fsl/Makefile                             |    2 +-
+ sound/soc/fsl/fsl-asoc-card.c                      |    2 +-
+ sound/soc/fsl/fsl_asrc.c                           |  179 +-
+ sound/soc/fsl/fsl_asrc.h                           |    2 +
+ sound/soc/fsl/fsl_asrc_common.h                    |   70 +
+ sound/soc/fsl/fsl_asrc_m2m.c                       |  727 +++++
+ sound/soc/fsl/fsl_easrc.c                          |  261 +-
+ sound/soc/fsl/fsl_easrc.h                          |    4 +
+ sound/soc/fsl/fsl_micfil.c                         |  131 +-
+ sound/soc/fsl/fsl_micfil.h                         |    2 +-
+ sound/soc/fsl/fsl_mqs.c                            |   28 +
+ sound/soc/fsl/fsl_sai.c                            |    7 +-
+ sound/soc/fsl/fsl_sai.h                            |    3 +
+ sound/soc/fsl/fsl_utils.c                          |   45 +
+ sound/soc/fsl/fsl_utils.h                          |    5 +
+ sound/soc/fsl/fsl_xcvr.c                           |  404 ++-
+ sound/soc/fsl/fsl_xcvr.h                           |   13 +
+ sound/soc/fsl/imx-audmux.c                         |    2 +-
+ sound/soc/fsl/imx-card.c                           |    2 +-
+ sound/soc/fsl/imx-rpmsg.c                          |    2 +-
+ sound/soc/generic/audio-graph-card.c               |   48 +-
+ sound/soc/generic/audio-graph-card2.c              |  262 +-
+ sound/soc/generic/simple-card-utils.c              |   79 +-
+ sound/soc/generic/simple-card.c                    |   58 +-
+ sound/soc/intel/avs/apl.c                          |    2 +-
+ sound/soc/intel/avs/core.c                         |   24 +-
+ sound/soc/intel/avs/debugfs.c                      |    1 +
+ sound/soc/intel/avs/ipc.c                          |   25 +-
+ sound/soc/intel/avs/loader.c                       |   36 +-
+ sound/soc/intel/avs/messages.c                     |   22 +-
+ sound/soc/intel/avs/messages.h                     |    3 +-
+ sound/soc/intel/avs/pcm.c                          |    5 +-
+ sound/soc/intel/avs/registers.h                    |    2 +-
+ sound/soc/intel/avs/topology.c                     |    4 +-
+ sound/soc/intel/avs/trace.h                        |   38 +-
+ sound/soc/intel/boards/skl_hda_dsp_generic.c       |    2 -
+ sound/soc/intel/boards/sof_sdw.c                   |   33 +-
+ sound/soc/intel/common/soc-acpi-intel-arl-match.c  |   45 +-
+ sound/soc/intel/common/soc-acpi-intel-lnl-match.c  |   70 +
+ sound/soc/intel/common/soc-acpi-intel-mtl-match.c  |  289 +-
+ sound/soc/intel/common/soc-acpi-intel-ptl-match.c  |  148 +
+ sound/soc/intel/common/soc-acpi-intel-tgl-match.c  |  194 ++
+ sound/soc/intel/keembay/kmb_platform.c             |    2 +-
+ sound/soc/mediatek/common/mtk-soundcard-driver.c   |    4 +-
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c         |   19 +-
+ sound/soc/mediatek/mt8365/Makefile                 |    2 +-
+ sound/soc/mediatek/mt8365/mt8365-mt6357.c          |   11 +-
+ sound/soc/qcom/common.c                            |    6 +-
+ sound/soc/qcom/sc7180.c                            |    2 +-
+ sound/soc/qcom/sdm845.c                            |    5 +-
+ sound/soc/renesas/rz-ssi.c                         |  228 +-
+ sound/soc/rockchip/rockchip_i2s_tdm.c              |   28 -
+ sound/soc/sdca/Makefile                            |    2 +-
+ sound/soc/sdca/sdca_device.c                       |    2 +
+ sound/soc/sdca/sdca_functions.c                    |  132 +-
+ sound/soc/sdw_utils/soc_sdw_cs_amp.c               |   46 +
+ sound/soc/sdw_utils/soc_sdw_utils.c                |   13 +-
+ sound/soc/soc-card.c                               |    4 +-
+ sound/soc/soc-core.c                               |   58 +-
+ sound/soc/soc-dai.c                                |   27 +-
+ sound/soc/soc-dapm.c                               |   14 +-
+ sound/soc/soc-pcm.c                                |   32 +-
+ sound/soc/soc-topology.c                           |   10 +-
+ sound/soc/sof/intel/atom.c                         |   16 +-
+ sound/soc/sof/intel/bdw.c                          |   16 +-
+ sound/soc/sof/intel/hda-dai.c                      |   12 +
+ sound/soc/sof/intel/hda-pcm.c                      |   15 +
+ sound/soc/sof/intel/hda.c                          |    5 +
+ sound/soc/sof/ipc4-topology.c                      |    2 +-
+ sound/soc/sof/sof-audio.h                          |    1 +
+ sound/soc/sof/sof-priv.h                           |    8 -
+ sound/soc/sof/topology.c                           |    4 +
+ sound/soc/sunxi/sun4i-codec.c                      |  409 ++-
+ sound/soc/sunxi/sun4i-spdif.c                      |   24 +-
+ sound/soc/xilinx/xlnx_spdif.c                      |   38 +-
+ 170 files changed, 21739 insertions(+), 1441 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5682.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/rt5682.txt
+ create mode 100644 drivers/firmware/cirrus/test/Makefile
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_mock_bin.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_mock_mem_maps.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_mock_regmap.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_mock_utils.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_mock_wmfw.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_bin.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_bin_error.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_callbacks.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_control_cache.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_control_parse.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_control_rw.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_wmfw.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_test_wmfw_error.c
+ create mode 100644 drivers/firmware/cirrus/test/cs_dsp_tests.c
+ create mode 100644 include/linux/firmware/cirrus/cs_dsp_test_utils.h
+ create mode 100644 sound/soc/fsl/fsl_asrc_m2m.c

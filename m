@@ -2,206 +2,182 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75460A305A3
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2025 09:22:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D50CA37F55
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2025 11:07:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A6966024C;
-	Tue, 11 Feb 2025 09:22:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A6966024C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C82F96025E;
+	Mon, 17 Feb 2025 11:06:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C82F96025E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739262164;
-	bh=qKguWasAukKX/vr6LRmdIqmywBMmAG4dGs0KRHR0mkc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1739786825;
+	bh=RjFj+btLOrA1I0c/0XDEPot6dd9rNyckywxmgkJzq3o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P620+/Io/tHKdiun0W6hp+yCj9aC/cmJTo9W4lq4W+2bw9K2q4kyXnL2wXdMu+aY5
-	 egD7bAw8KAAb+HL8UtxfG7IF1h8KD/oIA5cFh9rtEaBVoWqKxqMjOmTp8DGsniyaOq
-	 B8oSPsjx1TXuPDGIIsEvfwUlNVLadLQeXllWoZjI=
+	b=YHYFkDZpXuDVvClCmBpeFCHAwc72ruEejG02uX4sjphA22rpM0CjplFpgJHl4TYIQ
+	 P/gOcYis7OZzCfAksBfQuvwLoi09bh35lSXXrPtcETBUKVYwru3a5qpGHxl5fSAYJx
+	 RsCaGzVrHizO0LiSq50bSdG89SSrjsk4buU5Wamg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7F83F805BE; Tue, 11 Feb 2025 09:22:22 +0100 (CET)
+	id A4847F805AD; Mon, 17 Feb 2025 11:06:35 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A637BF805BD;
-	Tue, 11 Feb 2025 09:22:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A2A6F805B5;
+	Mon, 17 Feb 2025 11:06:34 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1BDAF8051F; Tue, 11 Feb 2025 09:22:06 +0100 (CET)
+	id F3174F802DB; Mon, 27 Jan 2025 14:25:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-3.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2060c.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2408::60c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0C067F80134
-	for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2025 09:22:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C067F80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id 121D0F800E3
+	for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2025 14:25:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 121D0F800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=2gnHYT3v
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tqr54alwSiNNMm4VcoeFPX1k/N4dDhiLbNXg3CThVhQzGilncQS+uD/rJo6K57/mXPcYd/20dNh+mQGVJR3cSIvnaJOlY3mWuMmoP3vrquR9lB1gTgyThDOBn0nwUk3EdFFtf3MyGvLibaAzETqfDPgPt9HYqtAG+JpI4+gXCGDMT/tpjmHiuCWWDQM4i5PYnfcmF2cCXIuCP8HuSRruBYsz2HE8bnxsRsus7xEinCXbvV8eJP2XHwq8ceCm1ftM5iHRO68jKXs7tcPXUaAphaba0fKGJJg8i17CD1wsCvHCh+4ZrbjcNwamXLamJKnC92uIit08FSvLY4x0PoPgew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sLCYkT7mYPYDBlK2MoFUZShMGZTdaxMYRgxP4ZlBDNY=;
- b=UyXGoPxSTKC/cLv55FCOVGLBcOvd7nB/klrfWjKzPMv3mSbuLpYe7bKW2VKimhyKuLShzf4HeiPTTJaheyIkzsvt34ZB5acoCPCaCsUBWXC3UCKQ2BA5wGYrBUPZ5hP1JCg9t0aFFJs211Pr+fz5s5AQVC0sEQjhBdSzILVeue0xtpW6nAbe/7ffSUjEOw5tDRSxz6HgxfJ2LNv0wcOxXpE0ij/O7XWYhZSfGVZahDpuICLIqfKn/S6KGmtFe8B2WZDnTmZJNbVxiSVvPS3Tsuyt7dmqCbQP/rX/m8szcbepQhg/TLPlBSHJ4jahy/GnX0QhxzlggRBbDZIIGEOMVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sLCYkT7mYPYDBlK2MoFUZShMGZTdaxMYRgxP4ZlBDNY=;
- b=2gnHYT3vmymwWZLqWC4EO6HCYuu06vvSv/poHZ9tbifaczFr6zcbUCSzvl9dt9BL1lrLwyuEU0Rq2ORF4pli43p7s9jaivOBddt+orUAqbbyONg8ipvgTV/NTX/bef3+6xGaphvOia07QzaaHYFQCYbpoSrVEc5y8AHHB/dOeq0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by PH0PR12MB7488.namprd12.prod.outlook.com (2603:10b6:510:1e9::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Tue, 11 Feb
- 2025 08:21:55 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::512d:6caa:552a:7ebf]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::512d:6caa:552a:7ebf%3]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
- 08:21:55 +0000
-Message-ID: <f5f829d2-6e38-4d91-9621-94a85c0d8e14@amd.com>
-Date: Tue, 11 Feb 2025 13:51:47 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 00/23] ASoC: amd: acp70: add soundwire and acp pdm
- support
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Mario.Limonciello@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20250120100130.3710412-1-Vijendar.Mukunda@amd.com>
- <173920499691.65690.5029473211250633476.b4-ty@kernel.org>
- <d16ce74f-3320-49ec-a195-a473e03a9fc4@amd.com>
- <d1d08149-3b4c-44ff-99f0-34cdf70eb67f@sirena.org.uk>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <d1d08149-3b4c-44ff-99f0-34cdf70eb67f@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0186.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e8::13) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ZKYB+kUr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1737984335; x=1769520335;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RjFj+btLOrA1I0c/0XDEPot6dd9rNyckywxmgkJzq3o=;
+  b=ZKYB+kUrH0p6/ErD9ZFwrU0/8Xsj0glFRvowOWqseD9gP5mnq2u+MIaF
+   gvcjPSle550L917ZznDh0v6rvdFZiIOqcFyxcMY3p93z2y/vaOF1Tj0g5
+   sMr5sii3hI+poZv58Fwtm51X/LGgmwg9FLqg4gx/3HxvGHulV0VYoDpN8
+   hGWOxUtWKBIRTlnHcj4VbNnzPvsUAaZgNFXrmSmCHCjBuEDsszn22oNDY
+   KJdMNo/FslU1tJr/CEtGiY0tv0vS/b/oOfd51BbyLjx+jqRLrtM8r7Ffk
+   iUG2tpWVH5EFKgOAhZCDlaSICs5QXYH8C2jVPtfBGwAleFs6JtuiJDi8a
+   A==;
+X-CSE-ConnectionGUID: ooegN3rGRg6Jm9QjFznMnA==
+X-CSE-MsgGUID: 1ypM+zCuTZyhao6v+RsE5g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11328"; a="42105372"
+X-IronPort-AV: E=Sophos;i="6.13,238,1732608000";
+   d="scan'208";a="42105372"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2025 05:25:22 -0800
+X-CSE-ConnectionGUID: oOw//HyuRH2sXbDiVD3/cA==
+X-CSE-MsgGUID: F7vXYkyrSx2N1gt4t3xT9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600";
+   d="scan'208";a="131730368"
+Received: from smile.fi.intel.com ([10.237.72.58])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2025 05:25:02 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.98)
+	(envelope-from <andriy.shevchenko@intel.com>)
+	id 1tcP6l-00000005jpm-3fIe;
+	Mon, 27 Jan 2025 15:24:55 +0200
+Date: Mon, 27 Jan 2025 15:24:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Damien Le Moal <dlemoal@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Corey Minyard <minyard@acm.org>, Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Len Brown <lenb@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	John Allen <john.allen@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Vinod Koul <vkoul@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Moritz Fischer <mdf@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Michael Hennerich <michael.hennerich@analog.com>,
+	Peter Rosin <peda@axentia.se>, Lars-Peter Clausen <lars@metafoo.de>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Markuss Broks <markuss.broks@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lee Jones <lee@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+	Yisen Zhuang <yisen.zhuang@huawei.com>,
+	Stanislaw Gruszka <stf_xl@wp.pl>, Kalle Valo <kvalo@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Tony Lindgren <tony@atomide.com>, Mark Brown <broonie@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Xiang Chen <chenxiang66@hisilicon.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
+	Alex Elder <elder@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
+	Jacky Huang <ychuang3@nuvoton.com>, Helge Deller <deller@gmx.de>,
+	Christoph Hellwig <hch@lst.de>, Robin Murphy <robin.murphy@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <keescook@chromium.org>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
+	Anna Schumaker <anna@kernel.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org,
+	linux-ide@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+	linux-integrity@vger.kernel.org, linux-omap@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-efi@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-fpga@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-input@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+	linux-leds@vger.kernel.org, linux-wireless@vger.kernel.org,
+	linux-rtc@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev, linux-serial@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-fbdev@vger.kernel.org,
+	iommu@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org,
+	linux-nfs@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH 00/34] address all -Wunused-const warnings
+Message-ID: <Z5eJJ199QwL0HVJT@smile.fi.intel.com>
+References: <20240403080702.3509288-1-arnd@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|PH0PR12MB7488:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f8bdc35-a632-403f-b7ac-08dd4a75253f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?MDdqdm55QS9xdXRxNTg4eXJTU1JubjBVY3FwcjJ0cGN1cjBpdmdYeGpaaUt0?=
- =?utf-8?B?NFRGWTVTSC9iVWg5TzdKMnF0cTQ4S0hXL2lhTy80aEtpcXFTeUZraElvNWNI?=
- =?utf-8?B?ZHJUOXRUWTNMckE1SnhUWUUyYkd5SEF1MEphSjUxSUc3UFBTRVI2WXFRWUdt?=
- =?utf-8?B?M2c5dkpHNkp2d0pheGE3NmNMWTZxcUMraEk4c1R2OHRQVkpIMTVvQkF2N25C?=
- =?utf-8?B?WnhINmExRXlaWHNqSVA2V2NQcmhEK2lyWDdiVkFranA1aTlDdVlaL2pUYlhX?=
- =?utf-8?B?MUF1YWNtWVQ2M2d4UFNnUzFSU1VQMnBBNHZTTmV5VlQyY1RGcFlRd0kvVllY?=
- =?utf-8?B?SjZ3MDRaU00xWFVTUzVOaDRFeGVCOFNuQ21GWmVDSElwc01BSS9QMmduRTNK?=
- =?utf-8?B?K29kZTlRM2w5UDhMVnVhdGhqMlQ3S3FpV2lhTUg3Z01xYW5MUmVycTAwdTAz?=
- =?utf-8?B?L1dtMkMyeTN6SGJZY0NHajhTaFlCdElUb0pNZFpRVWtUNEp1OHRDRnRRbFdw?=
- =?utf-8?B?Uzg5TGIwMHVBL25vdTgxRGdEQ1gvenlNOC9sZnR3ZGlzQ2l5YjBoNlI0N1J3?=
- =?utf-8?B?V3VnTW8ycS9pWE8veFlmUmxZNjFNRVYyWkpVcHdBdlZlSWwvVzFWdUwzR0p1?=
- =?utf-8?B?VnJNcEZUck9YUVB2Z29NdWJqUkVCeFVCZHg3OHJneTV5NE1JYTl5NDZVc3ha?=
- =?utf-8?B?SXpwdlJ1L3hwWUliamRKZHZkS2dLdWVwb0hmSU9NRjhEN1JWZDhURURYOVRD?=
- =?utf-8?B?VlRVbUo1ZU9MMEJTem9RNXk0aWMxQ3hKdGl6NU5nRnJScjgwWjlrV1pGMlR0?=
- =?utf-8?B?aG9rUkhPSGxDU2MzQ0pFUER3VWgycFpoRXAxcnJnKzdFZ0oweThCRjZERHZE?=
- =?utf-8?B?eWFsQVkxSk5zbkR0OC9GV1A0eUlGUU5TTXY4WEgvMHkwQUE3czB4a2hTTVpi?=
- =?utf-8?B?UmN3OVE3cGc4Z1RSd2RrVUVTSnB0Z2o4cWl0LzhFUDZSczNRRzA2emUwS0cr?=
- =?utf-8?B?MG5JVmR0aGZaT2pGVWZ5clZvR1d4eG5sTVh4VG0zZkp5YVRMZkVaYkluY1dY?=
- =?utf-8?B?ZTRIL3B6UWkyaVJTQ0xFZHBCZ2tEeG5YdExXQ2JGMVg5N0FoT0l2Wkl2U1A5?=
- =?utf-8?B?RndtQmcwSVNsV0gyeS9TUklmWXdKazlOTEZpMEdQeDlaM2FGampkaWZaT0Vr?=
- =?utf-8?B?RFR0NmJDMnM4RzJIcUt1SkVhQVJZbXlUUFRPRkh2bzFFbWRESmJyVEZleG50?=
- =?utf-8?B?dG1NTlQzQm5UZFpLeWV1TVpNZG96L0s1N2dNbFR0SFZLaytITFFLMGpIZTVW?=
- =?utf-8?B?Y0krWW03UjBjQlg2QXJucTJhK1J4M1JmZEc2YWN0VzIrNWsrTWRmUFkwcXJT?=
- =?utf-8?B?QjlxNXgyY3hPWm5UOHc2SW5oWm5JTFNmbzUrRXFIVkdDTUtpQ0dSbytMNDk2?=
- =?utf-8?B?ZmtCWGIvcWpWQmNrZGQ1WUF2RThyMTdaUDdnOFNJZVJaRHlxM0RsNHZJVzUv?=
- =?utf-8?B?bkJGR1E4RzN4YXF1OUg0b0c1Q05jQWRXZGxBS0ZsZllzc0ZMUXUrME4yalRn?=
- =?utf-8?B?ZnhEcXk3bml6akJma2ZNdERQT1JGSnlNRVhFcEJ5aUVSNkEreXIvblE3QTAw?=
- =?utf-8?B?S25tSExrakJtTHZtZDliSnR4NUgxMHdiVXoxOFowSm43NWZuZFFTNUgyZGlE?=
- =?utf-8?B?RkMxckZYbmVCYzA3QzF1bmJnU21BaFF0bnphejZwT0dxWm9iMUtuQ3hpaVRn?=
- =?utf-8?B?MExjd2ZzK2ZxY1UwdE4rRm42SXpmOHlCU2dITWpSU0VwQUhsMVR2RzdTUWZZ?=
- =?utf-8?B?RGJ1RHBRVXZLeS8wYk9RaWFFMHVLcnpvekZXYmR0QjJPaW1YSnFtVWExNXpm?=
- =?utf-8?Q?h0B3NQaumDn5J?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?dlNKL095VEdxQ1NNVWFSazV0R1RycGdjd1FPTkpmcjZPTjVucEthUnlBZUxz?=
- =?utf-8?B?U3YzdEd3bk9tUnhtWk05RnI1M2lqMkVvZDluazZrdzl1VVlMSGhMdTAvajRG?=
- =?utf-8?B?VWZGR3hhSTBzWmVqajIzZFVIWWZrcDNpVy9MYzYxRC9Fd0wvT29pMWZ2eXQz?=
- =?utf-8?B?RVNGRXArRGpMVi91WjNWRmNOK1JnNWVSdko2SC95bGJ5Q0dhZEsxaEI2aDky?=
- =?utf-8?B?OXZQUnNFTXU1TnlrV2NOR3FxL0ptN3JoeXRwalNRQStrdkZrVkQ2VlVGSjlm?=
- =?utf-8?B?T1IyeitHNjdQUXFRNVlOdTRlekRnR08zaHAvOS9BU2wvRGtWTGI1bGpQNDNE?=
- =?utf-8?B?S2JLNnRlNFlwOW50MThWVXRqa0t1dTJ0bEUwVHhrNzVOTmphYkJENFJLVWVm?=
- =?utf-8?B?dFl6cmozb3dLKy9oZUo2RmxIL29xNWhSdW9HWXJ1N0EwQUZueSs3cjNNcnBy?=
- =?utf-8?B?ejU0WlJrOFpyT3NRdCtyamZkZTI3SEkxeVkrblUva2wvSzRLdjUyUElBQXdW?=
- =?utf-8?B?RytneU1hMFFjZXlWdlQ4VmRXL0VZcWJGSXdQYzViSlJVRlNNL2h4dG0xbUdC?=
- =?utf-8?B?MXN3RmZocmxNd3kxR1JOdG4wdXNJRUZrelVEVDFYMGJTa1VCdVpJeHJUZGtk?=
- =?utf-8?B?bTYzb1U0K3hMTXI4a1NEZFdhVWY5SS9sOUtjN253WllMcG03VDVJYnJDa081?=
- =?utf-8?B?d3NDK2Y0UHJJRnVJSnpBVjNOSGVlb2dVWGRveDNpL3ZyQVBDazg0R0F1YzRa?=
- =?utf-8?B?R2QzcElCRis1YUtwMWJBYzZ2VzBNOTc1NVIrSmppL1FvRmUzeHhlWkhhTDlV?=
- =?utf-8?B?aFlEQjdmWXI5bEVzUjhGbStNd0t4RmpIMmlka2xFQzQwWUJyN3BxNTg2Wm54?=
- =?utf-8?B?bTk3OXZhYitjNmNHeWNpNzN3ODRyMVg1cTByK0JCNkgyUHV5dW9laFpzTjZ6?=
- =?utf-8?B?SEtXa3QwQVBKemZnNVhsR2RPTVhGSTF1SnZMY25xNmJxL2tUczFPMjZkNlBC?=
- =?utf-8?B?Mm9zczdEemc0eXZHNlZzc253eDhwTFJsU0hnb1Q1UGNaUG5rNk94clZLQldD?=
- =?utf-8?B?RHJyN0NCNFBwQnBDbjNCMWUwWHVWUVhOaFBkV2hVWVU3WnU5SE1vbDNEYUdK?=
- =?utf-8?B?LzA2NVJmS09SdWlIZDl5ei9YcWFZUmtBL2wrelYxREd3dFkzMXJxOEp4a2d0?=
- =?utf-8?B?cWU3RWZQUFE4TXZDWUtHcldKTHYvYWFzTjZseU9QLzVGaUtYTzZzNWhUNzMz?=
- =?utf-8?B?UTVPRitZMStGWCtDSkVqZjErRURkbTJiWk1Cd3hKV0owSnptR1RzME8yT3Zi?=
- =?utf-8?B?N0M5eUFpelhKSUEvWFdGSXJDMXRXRlVneHJjbEFuYTUrZ3RqRkRrTXM0Rk9u?=
- =?utf-8?B?UzI5RERZTmFTY1Rxd1hYTzVpUTVndDZ1bjhxTUUvMC9ZUnhZeDNCWURYM0dY?=
- =?utf-8?B?dlB2RkU4QkpFTkpXOWpkcE5abitXZVdGVFNrVWVSWFJYRFRQV2NuWm1SRG9C?=
- =?utf-8?B?Mm9rbEZIbklmaTNuVk55QWFaYWVqaG5jdHNyUmsyTnZSdU1KWm5oMkNPdG1D?=
- =?utf-8?B?K0xldnRBTXV5RmZxdU1iekozMEtwN3FLVDlCcjlZbVRJNXBqOSt3TFI5T3hr?=
- =?utf-8?B?d2tVdzU1VW03UmxRMnJWcUlCdDEvNElLVTJFUUFRTUxGb0RMNGlqVEVQZzdW?=
- =?utf-8?B?MVRab1ZsV1gwcDkwWE9NMnQ2TTAydWhBUDJzc3UycHY1WkhER2Z5dHFUQndv?=
- =?utf-8?B?TE0zcUxCbnk4V0pkY2JQZ0F1RTFJMjhPTVhyYW5vR1FWWWQ5eUI4T2xoOU9x?=
- =?utf-8?B?ejhVMGE0UnNaMUQzWXhzZ2tGTGVxS0FaS3F2alZQdDZ3aTFtTEUzV1ZPU2RI?=
- =?utf-8?B?MytpQkgwWEZ1N25WSHVmTXdOOTl0VEgvN3NpL21udGtSMGVWSU1XK3JkNDI1?=
- =?utf-8?B?Szl0SEpyTnFsWXNESGIzakVySEtXcGx4UTFRMTRwVEJ0ejJFOW9RRWQyZGtu?=
- =?utf-8?B?RkRzNWZXc0JIcmVIZjRXdTBEV1Z2cGd3cHdnaDdRalJUMTF2dURrV2pZQWNs?=
- =?utf-8?B?V1VmTjBKcHRsWkU5dERwRjZBd3YyNzM3NUk1cmtBMGtNMTVNVzlYMFBFSWNQ?=
- =?utf-8?Q?vUSzfQpGaza6xJZR7P1ngTTFl?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 8f8bdc35-a632-403f-b7ac-08dd4a75253f
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2025 08:21:55.6903
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 3HP7eChBCvNVZKsoXaQcli8j3GarDUzak3LIPIRigdM7wWxmE+JC2S5XsPHsCPKmQwVzyT6Dh/U060JuC55Fpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7488
-Message-ID-Hash: MFMCB4HNCLDOFTYJG2PQIKB35NOVRFYR
-X-Message-ID-Hash: MFMCB4HNCLDOFTYJG2PQIKB35NOVRFYR
-X-MailFrom: Vijendar.Mukunda@amd.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240403080702.3509288-1-arnd@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-MailFrom: andriy.shevchenko@intel.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: F3FO4R57FOYKNQI27EHI5FHNEPXI2OIX
+X-Message-ID-Hash: F3FO4R57FOYKNQI27EHI5FHNEPXI2OIX
+X-Mailman-Approved-At: Mon, 17 Feb 2025 10:06:21 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MFMCB4HNCLDOFTYJG2PQIKB35NOVRFYR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F3FO4R57FOYKNQI27EHI5FHNEPXI2OIX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -210,62 +186,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/02/25 23:34, Mark Brown wrote:
-> On Mon, Feb 10, 2025 at 10:16:05PM +0530, Mukunda,Vijendar wrote:
->> On 10/02/25 21:59, Mark Brown wrote:
->>>> [...]
->> This patch series should be dropped and V3 version should be picked.
-> All the "no commit info"s here:
->
->>> [01/23] ASoC: amd: add register header file for ACP7.0 platform
->>>         (no commit info)
->>> [02/23] ASoC: amd: acp70: add acp pci driver for ACP7.0 and ACP7.1 platforms
->>>         (no commit info)
->>> [03/23] ASoC: amd: acp70: add acp init and de-init functions
->>>         (no commit info)
->>> [04/23] ASoC: amd: acp70: add logic for scanning acp child devices
->>>         (no commit info)
->>> [05/23] ASoC: amd: acp70: create platform devices for acp child nodes
->>>         (no commit info)
->>> [06/23] ASoC: amd: acp70: enable driver build for ACP7.0 platform
->>>         (no commit info)
->>> [07/23] ASoC: amd: acp70: add acp pdm platform driver
->>>         (no commit info)
->>> [08/23] ASoC: amd: acp70: add acp pdm driver dma ops and dai ops
->>>         (no commit info)
->>> [09/23] ASoC: amd: acp70: add acp soundwire dma driver
->>>         (no commit info)
->>> [10/23] ASoC: amd: update ACP7.0 KConfig option description
->>>         (no commit info)
->>> [11/23] ASoC: amd: acp70: add soundwire dma driver dma ops
->>>         (no commit info)
->>> [12/23] ASoC: amd: acp70: add acp ip interrupt handler
->>>         (no commit info)
->>> [13/23] ASoC: amd: acp70: add acp pdm driver pm ops
->>>         (no commit info)
->>> [14/23] ASoC: amd: acp70: add pm ops support for soundwire dma driver
->>>         (no commit info)
->>> [15/23] ASoC: amd: acp70: add acp driver pm ops support
->>>         (no commit info)
->>> [16/23] ASoC: amd: acp70: enable wake capability for acp pci driver
->>>         (no commit info)
->>> [17/23] ASoC: amd: acp70: add soundwire wake interrupt handling
->>>         (no commit info)
->>> [18/23] ASoC: amd: acp70: enable soundwire host wake irq mask
->>>         (no commit info)
->>> [19/23] ASoC: amd: acp70: enable acp pme enable during acp init sequence
->>>         (no commit info)
->>> [20/23] ASoC: amd: acp70: create a device node for soundwire machine driver
->>>         (no commit info)
-> mean that these patches weren't actually applied, it's only these ones:
->
->>> [21/23] ASoC: amd: acp: add machine driver changes for ACP7.0 and ACP7.1 platforms
->>>         commit: 638ad2bdb2f994c8bd99cc40e0c4796a8617ccf3
->>> [22/23] ASoC: amd: acp: add RT711, RT714 & RT1316 support for ACP7.0 platform
->>>         commit: 187150671d83324f1ca56f7ab5e00f16a3b9f2a9
->>> [23/23] ASoC: amd: acp: amd-acp70-acpi-match: Add rt722 support
->>>         commit: d0252b0b945ec67fd09fc764dcadf445fb7757ee
-> which were actually applied out of v3, they just didn't change much if
-> at all between the two versions and the tooling knew about v2 as well.
-Got it. Thanks
+On Wed, Apr 03, 2024 at 10:06:18AM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> Compilers traditionally warn for unused 'static' variables, but not
+> if they are constant. The reason here is a custom for C++ programmers
+> to define named constants as 'static const' variables in header files
+> instead of using macros or enums.
+> 
+> In W=1 builds, we get warnings only static const variables in C
+> files, but not in headers, which is a good compromise, but this still
+> produces warning output in at least 30 files. These warnings are
+> almost all harmless, but also trivial to fix, and there is no
+> good reason to warn only about the non-const variables being unused.
+> 
+> I've gone through all the files that I found using randconfig and
+> allmodconfig builds and created patches to avoid these warnings,
+> with the goal of retaining a clean build once the option is enabled
+> by default.
+> 
+> Unfortunately, there is one fairly large patch ("drivers: remove
+> incorrect of_match_ptr/ACPI_PTR annotations") that touches
+> 34 individual drivers that all need the same one-line change.
+> If necessary, I can split it up by driver or by subsystem,
+> but at least for reviewing I would keep it as one piece for
+> the moment.
+> 
+> Please merge the individual patches through subsystem trees.
+> I expect that some of these will have to go through multiple
+> revisions before they are picked up, so anything that gets
+> applied early saves me from resending.
+
+Arnd, can you refresh this one? It seems some misses still...
+I have got 3+ 0-day reports against one of the mux drivers.
+
+https://lore.kernel.org/all/?q=adg792a.c
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 

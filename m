@@ -2,126 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 599FCA37F64
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2025 11:08:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07077A37F58
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2025 11:07:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E436E6028E;
-	Mon, 17 Feb 2025 11:08:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E436E6028E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 931C86027F;
+	Mon, 17 Feb 2025 11:07:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 931C86027F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739786926;
-	bh=olXMtGIvvn9TPHslwVJS3u4q9v7cjx4B2v+mo2OSoVs=;
-	h=Date:Subject:References:To:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=D6jE3457ruPKqNa3fJiaBi+ONM44dg24Z3Oxlvnowp1FtFNCi2L+sr60F/vH24ZqL
-	 XsnoHFc+RAJA4XK2NQwgLdwIznBx6PifU+yPp+PluLs2v18OTPU5lIPmtnI4PmPHrd
-	 IhohsdhE8luTX0qfakpYZ4Vmt1gHkTs5AM1Vmjho=
+	s=default; t=1739786868;
+	bh=Zf3bQsk1oZtSkB5wg/6HpgBSiOWQhNYVKhig4aas/iE=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iNoy5ItJY3rJ4xcMh7IcDNk8Yx/pzrVZF6WrghkZKRrrGIJx9qJa9HHtnekfkOzAq
+	 SnwtrCtWCRe3dsz55MxKw6b6Rvz9QjmxLHkdpVZ1P9lcmoLYe45JdSv9YhhbxJcWV1
+	 22qN9YB6dsTyWpMvAv9N+CNOZ4/jrlzoxjLlf0nE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D36DF8063D; Mon, 17 Feb 2025 11:07:39 +0100 (CET)
+	id 35973F805B3; Mon, 17 Feb 2025 11:07:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C59FF805B4;
-	Mon, 17 Feb 2025 11:07:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F572F805B6;
+	Mon, 17 Feb 2025 11:07:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57414F8049C; Sun,  2 Feb 2025 00:12:00 +0100 (CET)
+	id F326AF80254; Mon,  3 Feb 2025 19:35:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx1.sberdevices.ru (mx2.sberdevices.ru [45.89.224.132])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97ED9F8014B
-	for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2025 00:11:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97ED9F8014B
+	by alsa1.perex.cz (Postfix) with ESMTPS id D3A6AF800ED
+	for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2025 19:35:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A6AF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=TrtiiJ/l
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-216728b1836so53442605ad.0
-        for <alsa-devel@alsa-project.org>;
- Sat, 01 Feb 2025 15:11:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1738451514; x=1739056314;
- darn=alsa-project.org;
-        h=in-reply-to:from:to:references:content-language:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=W9aoraTU5MC1EazB870bluwr2bm6kOCEcbME3ORLpq4=;
-        b=TrtiiJ/lXtlOV3EwlqnOxO0D6JhXbjhhKMvdVu4ZNDILyaEwX4Pz8wEn0l7kW99hdg
-         ikH8ThA4EORNnLDBmFjUXlkY4tudncdiXVbSl1lkW/FrSKegRJC876GeFhV+nFWG1LZC
-         sYFiFy5vO0N41EMGmg3n+NlNtEYVL/Myfz/ATUTGQig3tlQWnmTZU3pvA4RVpXkzyrgj
-         Z9bQcCibVv/RWmRzsOIuSviE3OLmTLPJcACYcDRL4Nibku00CLMO7lCF+4WttkBBtNc8
-         WR1ar9jsAzEdgoMqf7xXsGFaNgsimNLXqqBvVEfAeGnncjtgyVLrQp+wq8rkbt4akeOG
-         0bqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738451514; x=1739056314;
-        h=in-reply-to:from:to:references:content-language:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=W9aoraTU5MC1EazB870bluwr2bm6kOCEcbME3ORLpq4=;
-        b=hGAczoB+H4kagZnIZc7gVoK7GnmsbstiktRvc7eVtPWkW4/OpeMirWInPyAjtp9o8m
-         bYq+3tJ/9dgPrMFVDduRLrOfHEHI5w7vtILnddcyY9XQZRMOmMTPVOz2szhOxJxIRfUW
-         2v0q3uOnqwFL0uRpnsrs0HjyEgHcZafskskZmxnzScgTqz137SXJOxrqKU61DUvxJKZu
-         OhO+xqxqn3A05JDBjkGddJHK43uqZ4JNUV17gvXzTSYcJEZfaC09f/CLu+yfp5rqgTeG
-         XoSnCSk7RkkRucegN3aZFZQWLlxMrbRBYOp/2bGI+kSqyDEclUi9/0QDSP2nmL5Iv29e
-         uuuw==
-X-Gm-Message-State: AOJu0YwlqIlgM/wwd8R4A5oyk35SD5y4JK4OGRU/7GvlW96FZgEAZVzA
-	anSxB3j3hLkzIFRQ8YdDjvxJIqbXaWPTGWdDlIm7g9NHX2yRZ/w1LiQjP+Pz
-X-Gm-Gg: ASbGncuD9pNv6P1ikuTz5UPJ3jw+8OsTOyVBRGfQubahl8ZV0Mftznb7lUGvF/O08IQ
-	eG82oyas+sfH+H1+vxA+S6EZgRIpclsznWAu9bFT8eH0uvrAFw8wYwvdSileehZUepgTRFPhQau
-	gW7YOJ6hY41oaOXwZQCeAVdyzwMVknVSwasOpd37pGI3GnAv3WImwnzYj2GgIqpj54+Ar1j5HlO
-	0EoYms2x2LrsL8SwmT2+CcuiBnIFv4Iv+eoNx/pcmiLJ78VcV09KNEg6LXgp3I/LFu0+P4aeFb+
-	lpYAeiLwS2NjaQ==
-X-Google-Smtp-Source: 
- AGHT+IHcTbViXL1GGvtwIouh+cKBdpSsTO1ljuWLAn9nwQY7JJUDRFIO91xQWR7REclQkg1q5DP35g==
-X-Received: by 2002:a05:6300:197:b0:1e5:c43f:f36d with SMTP id
- adf61e73a8af0-1ed7a5f901emr29508036637.18.1738451513679;
-        Sat, 01 Feb 2025 15:11:53 -0800 (PST)
-Received: from [10.0.0.10] ([179.60.73.88])
-        by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-acebddbb0d4sm5236268a12.10.2025.02.01.15.11.52
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 01 Feb 2025 15:11:53 -0800 (PST)
-Message-ID: <b77a2cd6-7b59-4eb0-a8db-22d507d3af5f@gmail.com>
-Date: Sat, 1 Feb 2025 20:11:51 -0300
+ unprotected) header.d=salutedevices.com header.i=@salutedevices.com
+ header.a=rsa-sha256 header.s=mail header.b=dwE36QTf
+Received: from p-infra-ksmg-sc-msk02.sberdevices.ru (localhost [127.0.0.1])
+	by mx1.sberdevices.ru (Postfix) with ESMTP id 89100120002
+	for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2025 21:35:39 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 89100120002
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
+	s=mail; t=1738607739;
+	bh=EyqhjrL0LXhXk5cJaJwZSjg0pYdg2nalrMv+Hb4oKwY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
+	b=dwE36QTfPpJuLX2FcYbghBuw0qYd+xwTxxVQhWMAssPUsTa+ix6uWuvo/UCLS7VWk
+	 o3mcT0eevyCcjG37+BDczhtpbm//j50LFlGFtY61xw08NaWETeDWyMx8BvaV/yz5Vv
+	 iAoSWkENhErlql/puUIxRm8RqxDjJQtS2cAz9qjWbRffWZ4VHXmNjj4yr6Oo0eyv/d
+	 IJmNK+U8K1Jp1XLgHtrZx4ucsoh77a8eS9R2M/qou4coWciZzkgdKzWKOx22aokezw
+	 nuIWkjcZ3FxC2vDO2ROywcrQopuFvgoiT9soly9DLkS8ABp1ZAFeqnu0CNlYDR1sor
+	 qp25OpMN3VhDQ==
+Received: from smtp.sberdevices.ru (p-exch-cas-a-m1.sberdevices.ru
+ [172.24.201.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.sberdevices.ru (Postfix) with ESMTPS
+	for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2025 21:35:39 +0300 (MSK)
+From: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+To: <alsa-devel@alsa-project.org>
+CC: Jan Dakinevich <jan.dakinevich@salutedevices.com>,
+	<kernel@salutedevices.com>
+Subject: [PATCH alsa-utils] amixer: implement handling of TLV bytes kcontrols
+Date: Mon, 3 Feb 2025 21:35:14 +0300
+Message-ID: <20250203183514.2645694-1-jan.dakinevich@salutedevices.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Possible bug with snd_seq_event_input_pending
-Content-Language: es-CL
-References: <cb5ca1c7-64a3-43df-b506-db07a2b5f790@gmail.com>
-To: alsa-devel@alsa-project.org
-From: Carlos <correocebe@gmail.com>
-In-Reply-To: <cb5ca1c7-64a3-43df-b506-db07a2b5f790@gmail.com>
-X-Forwarded-Message-Id: <cb5ca1c7-64a3-43df-b506-db07a2b5f790@gmail.com>
-X-MailFrom: correocebe@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.28.224.8]
+X-ClientProxiedBy: p-i-exch-a-m1.sberdevices.ru (172.24.196.116) To
+ p-exch-cas-a-m1.sberdevices.ru (172.24.201.216)
+X-KSMG-Rule-ID: 1
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 190758 [Feb 03 2025]
+X-KSMG-AntiSpam-Version: 6.1.1.7
+X-KSMG-AntiSpam-Envelope-From: YVDakinevich@sberdevices.ru
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 50 0.3.50
+ df4aeb250ed63fd3baa80a493fa6caee5dd9e10f, {Tracking_smtp_not_equal_from},
+ {Tracking_from_domain_doesnt_match_to},
+ sberdevices.ru:7.1.1,5.0.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;salutedevices.com:7.1.1;127.0.0.199:7.1.2;smtp.sberdevices.ru:7.1.1,5.0.1,
+ {Tracking_smtp_domain_mismatch}, {Tracking_smtp_domain_2level_mismatch},
+ {Tracking_white_helo}, FromAlignment: n
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2025/02/03 17:06:00 #27204197
+X-KSMG-AntiVirus-Status: Clean, skipped
+X-MailFrom: YVDakinevich@sberdevices.ru
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DIUDXZFATUMEV3JDE44J64ZCVWOP7GYP
-X-Message-ID-Hash: DIUDXZFATUMEV3JDE44J64ZCVWOP7GYP
-X-Mailman-Approved-At: Mon, 17 Feb 2025 10:07:31 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
+Message-ID-Hash: B6ORGXQOSN3ZZOFRTSRFV7YQJVCNZWTN
+X-Message-ID-Hash: B6ORGXQOSN3ZZOFRTSRFV7YQJVCNZWTN
+X-Mailman-Approved-At: Mon, 17 Feb 2025 10:07:08 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DIUDXZFATUMEV3JDE44J64ZCVWOP7GYP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6ORGXQOSN3ZZOFRTSRFV7YQJVCNZWTN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,13 +122,275 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGksIEkgZG9uJ3Qga25vdyBpZiB0aGlzIGlzIGEgYnVnIG9yIG5vdCwgYnV0IEknbGwgcmVwb3J0
-IGl0IGluIGNhc2UgaXQgaXMuDQoNCklmIEkgY29uZmlndXJlIG15IGNsaWVudCBhcyBmb2xsb3dz
-Og0KDQpzbmRfc2VxX3NldF9jbGllbnRfbWlkaV92ZXJzaW9uKHNlcSwgU05EX1NFUV9DTElFTlRf
-TEVHQUNZX01JREkpOw0KDQpzbmRfc2VxX3NldF9jbGllbnRfdW1wX2NvbnZlcnNpb24oc2VxLCAw
-KTsvL0kgZGlzYWJsZSB1bXAgY29udmVyc2lvbg0KDQpBbmQgdGhlbiBJIHNlbmQgYSBtaWRpIGV2
-ZW50IGZyb20gYSBNSURJIDIuMCBkZXZpY2UsIHRoZSANCnNuZF9zZXFfZXZlbnRfaW5wdXRfcGVu
-ZGluZyhzZXEsIDEpIGZ1bmN0aW9uIHdpbGwgbm90IHJlc3BvbmQgdW50aWwgaXQgDQpyZWNlaXZl
-cyBhbnkgb3RoZXIgbGVnYWN5IGV2ZW50Lg0KDQpOb3cgSSBrbm93IHRoYXQgd2l0aMKgU05EX1NF
-UV9DTElFTlRfTEVHQUNZX01JREkgSSBzaG91bGRuJ3QgZGlzYWJsZSB1bXAgDQpjb252ZXJzaW9u
-LCBidXQgSSBleHBlY3RlZCBpdCB0byByZXR1cm4gMC4NCg0KVGhhbmsgeW91DQo=
+SND_SOC_BYTES_EXT kcontrols are deprecated and SND_SOC_BYTES_TLV should
+be used instead. However, there is no support of these kcontrols in
+amixer.
+
+This commit introduces a mechanism to show and write the content of
+SND_SOC_BYTES_TLV-based kcontrols.
+
+Example:
+
+  $ amixer cset name="Test" 0x10,0x20,0x30,0x40,0x50,0x60,0x70,0x80,0x90,0xa0
+  $ amixer cget name="Test"
+  numid=42,iface=MIXER,name='Test'
+    ; type=BYTES,access=-----RW-,values=10
+    : values=0x10,0x20,0x30,0x40,0x50,0x60,0x70,0x80,0x90,0xa0
+
+Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
+---
+ amixer/amixer.c | 180 +++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 141 insertions(+), 39 deletions(-)
+
+diff --git a/amixer/amixer.c b/amixer/amixer.c
+index 07e9819e5cdb..09f774fe2885 100644
+--- a/amixer/amixer.c
++++ b/amixer/amixer.c
+@@ -609,6 +609,8 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
+ {
+ 	int err;
+ 	unsigned int item, idx, count, *tlv;
++	uint8_t *tlv_bytes = NULL;
++	unsigned int tlv_bytes_count = 0;
+ 	snd_ctl_elem_type_t type;
+ 	snd_ctl_elem_id_t *id;
+ 	snd_ctl_elem_info_t *info;
+@@ -628,6 +630,18 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
+ 	}
+ 	count = snd_ctl_elem_info_get_count(info);
+ 	type = snd_ctl_elem_info_get_type(info);
++	if (type == SND_CTL_ELEM_TYPE_BYTES &&
++	    !snd_ctl_elem_info_is_readable(info) &&
++	    !snd_ctl_elem_info_is_writable(info)) {
++		if (count <= 2 * sizeof(unsigned int))
++			return -EINVAL;
++		tlv_bytes_count = count;
++		count -= 2 * sizeof(unsigned int);
++
++		tlv_bytes = malloc(tlv_bytes_count);
++		if (!tlv_bytes)
++			return -ENOMEM;
++	}
+ 	printf("%s; type=%s,access=%s,values=%u", space, control_type(info), control_access(info), count);
+ 	switch (type) {
+ 	case SND_CTL_ELEM_TYPE_INTEGER:
+@@ -661,16 +675,30 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
+ 		break;
+ 	}
+ 	if (level & LEVEL_BASIC) {
+-		if (!snd_ctl_elem_info_is_readable(info))
++		if (snd_ctl_elem_info_is_readable(info)) {
++			err = snd_hctl_elem_read(elem, control);
++			if (err < 0) {
++				error("Control %s element read error: %s\n", card, snd_strerror(err));
++				return err;
++			}
++		} else if (tlv_bytes) {
++			err = snd_hctl_elem_tlv_read(elem, (void *)tlv_bytes, tlv_bytes_count);
++			if (err < 0) {
++				error("Control %s element TLV read error: %s\n", card, snd_strerror(err));
++				free(tlv_bytes);
++				return err;
++			}
++		} else
+ 			goto __skip_read;
+-		if ((err = snd_hctl_elem_read(elem, control)) < 0) {
+-			error("Control %s element read error: %s\n", card, snd_strerror(err));
+-			return err;
+-		}
++
+ 		printf("%s: values=", space);
+ 		for (idx = 0; idx < count; idx++) {
+ 			if (idx > 0)
+ 				printf(",");
++			if (tlv_bytes) {
++				printf("0x%02x", tlv_bytes[idx + 2 * sizeof(unsigned int)]);
++				continue;
++			}
+ 			switch (type) {
+ 			case SND_CTL_ELEM_TYPE_BOOLEAN:
+ 				printf("%s", snd_ctl_elem_value_get_boolean(control, idx) ? "on" : "off");
+@@ -699,17 +727,11 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
+ 			}
+ 		}
+ 		printf("\n");
++		if (tlv_bytes)
++			goto __skip_tlv;
+ 	      __skip_read:
+ 		if (!snd_ctl_elem_info_is_tlv_readable(info))
+ 			goto __skip_tlv;
+-		/* skip ASoC ext bytes controls that may have huge binary TLV data */
+-		if (type == SND_CTL_ELEM_TYPE_BYTES &&
+-				!snd_ctl_elem_info_is_readable(info) &&
+-				!snd_ctl_elem_info_is_writable(info)) {
+-			printf("%s; ASoC TLV Byte control, skipping bytes dump\n", space);
+-			goto __skip_tlv;
+-		}
+-
+ 		tlv = malloc(4096);
+ 		if ((err = snd_hctl_elem_tlv_read(elem, tlv, 4096)) < 0) {
+ 			error("Control %s element TLV read error: %s\n", card, snd_strerror(err));
+@@ -720,6 +742,7 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
+ 		free(tlv);
+ 	}
+       __skip_tlv:
++	free(tlv_bytes);
+ 	return 0;
+ }
+ 
+@@ -1133,16 +1156,110 @@ static int parse_simple_id(const char *str, snd_mixer_selem_id_t *sid)
+ 	return 0;
+ }
+ 
++static int parse_bytes(const char *str, void *ptr, unsigned int len)
++{
++	char *p;
++	unsigned long tmp;
++	unsigned int idx = 0;
++	unsigned char *data = ptr;
++
++	for (;;) {
++		if (!*str)
++			break;
++		if (idx == len)
++			return -EINVAL;
++
++		tmp = strtoul(str, &p, 0);
++		if (p - str < 1)
++			return -EINVAL;
++		if (*p == ',')
++			str = p + 1;
++		else if (*p == '\0')
++			str = p;
++		else
++			return -EINVAL;
++
++		if (tmp > 255)
++			return -EINVAL;
++
++		data[idx] = tmp;
++		idx++;
++	}
++
++	if (!idx)
++		return -EINVAL;
++
++	return idx;
++}
++
++static int cset_tlv(int argc, char *argv[], snd_ctl_t *handle,
++	snd_ctl_elem_info_t *info, snd_ctl_elem_id_t *id)
++{
++	int err;
++	unsigned int count;
++	unsigned int *tlv = NULL;
++
++	count = snd_ctl_elem_info_get_count(info);
++	if (count <= 2 * sizeof(unsigned int)) {
++		err = -EINVAL;
++		goto out;
++	}
++	tlv = malloc(count);
++	if (!tlv) {
++		err = -ENOMEM;
++		goto out;
++	}
++	err = parse_bytes(argv[1], tlv + 2,
++			  count - 2 * sizeof(unsigned int));
++	if (err < 0)
++		goto out;
++	tlv[0] = 0;
++	tlv[1] = err;
++
++	err = snd_ctl_elem_tlv_write(handle, id, tlv);
++
++out:
++	free(tlv);
++	return err;
++}
++
++static int cset_elem(int argc, char *argv[], snd_ctl_t *handle,
++	snd_ctl_elem_info_t *info, snd_ctl_elem_id_t *id)
++{
++	int err;
++	snd_ctl_elem_value_t *control;
++	snd_ctl_elem_value_alloca(&control);
++
++	snd_ctl_elem_value_set_id(control, id);
++	if ((err = snd_ctl_elem_read(handle, control)) < 0) {
++		if (!ignore_error)
++			error("Cannot read the given element from control %s\n", card);
++		return err;
++	}
++	err = snd_ctl_ascii_value_parse(handle, control, info, argv[1]);
++	if (err < 0) {
++		if (!ignore_error)
++			error("Control %s parse error: %s\n", card, snd_strerror(err));
++		return err;
++	}
++	if ((err = snd_ctl_elem_write(handle, control)) < 0) {
++		if (!ignore_error)
++			error("Control %s element write error: %s\n", card, snd_strerror(err));
++		return err;
++	}
++
++	return 0;
++}
++
+ static int cset(int argc, char *argv[], int roflag, int keep_handle)
+ {
+ 	int err;
+ 	static snd_ctl_t *handle = NULL;
+ 	snd_ctl_elem_info_t *info;
+ 	snd_ctl_elem_id_t *id;
+-	snd_ctl_elem_value_t *control;
++	snd_ctl_elem_type_t type;
+ 	snd_ctl_elem_info_alloca(&info);
+ 	snd_ctl_elem_id_alloca(&id);
+-	snd_ctl_elem_value_alloca(&control);
+ 
+ 	if (argc < 1) {
+ 		fprintf(stderr, "Specify a full control identifier: [[iface=<iface>,][name='name',][index=<index>,][device=<device>,][subdevice=<subdevice>]]|[numid=<numid>]\n");
+@@ -1175,30 +1292,15 @@ static int cset(int argc, char *argv[], int roflag, int keep_handle)
+ 	}
+ 	snd_ctl_elem_info_get_id(info, id);     /* FIXME: Remove it when hctl find works ok !!! */
+ 	if (!roflag) {
+-		snd_ctl_elem_value_set_id(control, id);
+-		if ((err = snd_ctl_elem_read(handle, control)) < 0) {
+-			if (ignore_error)
+-				return 0;
+-			error("Cannot read the given element from control %s\n", card);
+-			if (! keep_handle) {
+-				snd_ctl_close(handle);
+-				handle = NULL;
+-			}
+-			return err;
+-		}
+-		err = snd_ctl_ascii_value_parse(handle, control, info, argv[1]);
+-		if (err < 0) {
+- 			if (!ignore_error)
+-				error("Control %s parse error: %s\n", card, snd_strerror(err));
+-			if (!keep_handle) {
+-				snd_ctl_close(handle);
+-				handle = NULL;
+-			}
+-			return ignore_error ? 0 : err;
+-		}
+-		if ((err = snd_ctl_elem_write(handle, control)) < 0) {
+-			if (!ignore_error)
+-				error("Control %s element write error: %s\n", card, snd_strerror(err));
++		type = snd_ctl_elem_info_get_type(info);
++		if (type == SND_CTL_ELEM_TYPE_BYTES &&
++		    !snd_ctl_elem_info_is_readable(info) &&
++		    !snd_ctl_elem_info_is_writable(info)) {
++			err = cset_tlv(argc, argv, handle, info, id);
++		} else
++			err = cset_elem(argc, argv, handle, info, id);
++
++		if (err) {
+ 			if (!keep_handle) {
+ 				snd_ctl_close(handle);
+ 				handle = NULL;
+-- 
+2.34.1
+

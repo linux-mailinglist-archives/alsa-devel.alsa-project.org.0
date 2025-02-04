@@ -2,118 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07077A37F58
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2025 11:07:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 944B7A37F5B
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2025 11:08:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 931C86027F;
-	Mon, 17 Feb 2025 11:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 931C86027F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E94846028B;
+	Mon, 17 Feb 2025 11:07:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E94846028B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739786868;
-	bh=Zf3bQsk1oZtSkB5wg/6HpgBSiOWQhNYVKhig4aas/iE=;
+	s=default; t=1739786881;
+	bh=hTXjfUYY5jkGWVr3mwx6N3NFTy2eiwGjxT5HEGQnA0I=;
 	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=iNoy5ItJY3rJ4xcMh7IcDNk8Yx/pzrVZF6WrghkZKRrrGIJx9qJa9HHtnekfkOzAq
-	 SnwtrCtWCRe3dsz55MxKw6b6Rvz9QjmxLHkdpVZ1P9lcmoLYe45JdSv9YhhbxJcWV1
-	 22qN9YB6dsTyWpMvAv9N+CNOZ4/jrlzoxjLlf0nE=
+	b=rSFeXkGw7Vczn9iBfdDE6M769nO9K7/7vmwKDXqCz3ifQOgRr9A1Fl2Yb3yeMlVlJ
+	 vbQgWXxdjRxMgjVOtT4MMaKzbcVaNZa4wHRw1ttXwBZN1Re0EFk+AKa2uFCfaRgGO5
+	 /bstKXnDfG5B3QqpKMoZQm3lzCqlSgv5kNhYz8T8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35973F805B3; Mon, 17 Feb 2025 11:07:20 +0100 (CET)
+	id 539FBF805E8; Mon, 17 Feb 2025 11:07:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F572F805B6;
-	Mon, 17 Feb 2025 11:07:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 266C2F805C9;
+	Mon, 17 Feb 2025 11:07:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F326AF80254; Mon,  3 Feb 2025 19:35:57 +0100 (CET)
+	id 15642F80528; Wed,  5 Feb 2025 00:19:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx1.sberdevices.ru (mx2.sberdevices.ru [45.89.224.132])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D3A6AF800ED
-	for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2025 19:35:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A6AF800ED
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=salutedevices.com header.i=@salutedevices.com
- header.a=rsa-sha256 header.s=mail header.b=dwE36QTf
-Received: from p-infra-ksmg-sc-msk02.sberdevices.ru (localhost [127.0.0.1])
-	by mx1.sberdevices.ru (Postfix) with ESMTP id 89100120002
-	for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2025 21:35:39 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.sberdevices.ru 89100120002
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=salutedevices.com;
-	s=mail; t=1738607739;
-	bh=EyqhjrL0LXhXk5cJaJwZSjg0pYdg2nalrMv+Hb4oKwY=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
-	b=dwE36QTfPpJuLX2FcYbghBuw0qYd+xwTxxVQhWMAssPUsTa+ix6uWuvo/UCLS7VWk
-	 o3mcT0eevyCcjG37+BDczhtpbm//j50LFlGFtY61xw08NaWETeDWyMx8BvaV/yz5Vv
-	 iAoSWkENhErlql/puUIxRm8RqxDjJQtS2cAz9qjWbRffWZ4VHXmNjj4yr6Oo0eyv/d
-	 IJmNK+U8K1Jp1XLgHtrZx4ucsoh77a8eS9R2M/qou4coWciZzkgdKzWKOx22aokezw
-	 nuIWkjcZ3FxC2vDO2ROywcrQopuFvgoiT9soly9DLkS8ABp1ZAFeqnu0CNlYDR1sor
-	 qp25OpMN3VhDQ==
-Received: from smtp.sberdevices.ru (p-exch-cas-a-m1.sberdevices.ru
- [172.24.201.216])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.sberdevices.ru (Postfix) with ESMTPS
-	for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2025 21:35:39 +0300 (MSK)
-From: Jan Dakinevich <jan.dakinevich@salutedevices.com>
-To: <alsa-devel@alsa-project.org>
-CC: Jan Dakinevich <jan.dakinevich@salutedevices.com>,
-	<kernel@salutedevices.com>
-Subject: [PATCH alsa-utils] amixer: implement handling of TLV bytes kcontrols
-Date: Mon, 3 Feb 2025 21:35:14 +0300
-Message-ID: <20250203183514.2645694-1-jan.dakinevich@salutedevices.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id AD09DF800BD
+	for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2025 00:19:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD09DF800BD
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=e/LSWgbH
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 514FmiGj029318;
+	Tue, 4 Feb 2025 17:19:18 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=PODMain02222019; bh=ZHHnYJ0H+qOjkw25
+	Mfu1e2Mk+Cj3/9kmu6Acd5OIRLc=; b=e/LSWgbHbdqAy5e4Au0YqEACXX3/BJ2R
+	5eL7sDXobIum2lr0Q2e2nMK3KRClXtMJhuWxncQ3pwjp7Xz4FxU8dIaNHo+qNQZl
+	396BEi0pdbkDdw+yUjZurhSi07DB1ycpz36MSURdy8rsiSSsWJ5I1nFshgiPsU7c
+	DmXWJ87vcSSRcdkV82q5qefHOeZ8aBr2l5l7ZKu+Mw3549XlgDwJ2tOhqDRIITRJ
+	Ah+lfubPWAZaYyTbTQToSQPFrybuzWOy9O9l6/IaDlr9kT/8Rh7okIIvVgqvMfvn
+	FSZtRWrBYoMHRKcmVAJikRQeonuVPn4g0exYwqEhJcyHQZ98NRo5cg==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 44hhw53pjr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Feb 2025 17:19:18 -0600 (CST)
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.14; Tue, 4 Feb
+ 2025 23:19:15 +0000
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex01.ad.cirrus.com (198.61.84.80) with Microsoft SMTP Server id
+ 15.2.1544.14 via Frontend Transport; Tue, 4 Feb 2025 23:19:10 +0000
+Received: from ftrev.crystal.cirrus.com (ftrev.ad.cirrus.com [141.131.145.81])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 53E69820248;
+	Tue,  4 Feb 2025 23:19:06 +0000 (UTC)
+From: Fred Treven <ftreven@opensource.cirrus.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Simon
+ Trimmer" <simont@opensource.cirrus.com>,
+        Charles Keepax
+	<ckeepax@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        James Ogletree <jogletre@opensource.cirrus.com>,
+        Ben Bright
+	<ben.bright@cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+	<broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Jeff LaBundy
+	<jeff@labundy.com>, Heiko Stuebner <heiko@sntech.de>,
+        Karel Balej
+	<balejk@matfyz.cz>,
+        Igor Prusov <ivprusov@salutedevices.com>,
+        Jack Yu
+	<jack.yu@realtek.com>,
+        Weidong Wang <wangweidong.a@awinic.com>,
+        Binbin Zhou
+	<zhoubinbin@loongson.cn>,
+        Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
+        "Paul
+ Handrigan" <paulha@opensource.cirrus.com>,
+        Masahiro Yamada
+	<masahiroy@kernel.org>, Nuno Sa <nuno.sa@analog.com>,
+        Fred Treven
+	<ftreven@opensource.cirrus.com>
+CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-input@vger.kernel.org>, <linux-sound@vger.kernel.org>
+Subject: [PATCH RESEND 0/7] Initial Support for CS40L26
+Date: Tue, 4 Feb 2025 17:18:29 -0600
+Message-ID: <20250204231835.2000457-1-ftreven@opensource.cirrus.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [172.28.224.8]
-X-ClientProxiedBy: p-i-exch-a-m1.sberdevices.ru (172.24.196.116) To
- p-exch-cas-a-m1.sberdevices.ru (172.24.201.216)
-X-KSMG-Rule-ID: 1
-X-KSMG-Message-Action: clean
-X-KSMG-AntiSpam-Lua-Profiles: 190758 [Feb 03 2025]
-X-KSMG-AntiSpam-Version: 6.1.1.7
-X-KSMG-AntiSpam-Envelope-From: YVDakinevich@sberdevices.ru
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Info: LuaCore: 50 0.3.50
- df4aeb250ed63fd3baa80a493fa6caee5dd9e10f, {Tracking_smtp_not_equal_from},
- {Tracking_from_domain_doesnt_match_to},
- sberdevices.ru:7.1.1,5.0.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;salutedevices.com:7.1.1;127.0.0.199:7.1.2;smtp.sberdevices.ru:7.1.1,5.0.1,
- {Tracking_smtp_domain_mismatch}, {Tracking_smtp_domain_2level_mismatch},
- {Tracking_white_helo}, FromAlignment: n
-X-MS-Exchange-Organization-SCL: -1
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiPhishing: Clean
-X-KSMG-LinksScanning: Clean
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
- bases: 2025/02/03 17:06:00 #27204197
-X-KSMG-AntiVirus-Status: Clean, skipped
-X-MailFrom: YVDakinevich@sberdevices.ru
+X-Proofpoint-ORIG-GUID: QamCuf7WV-kZl5nFaQXqFsH101IxiZvn
+X-Authority-Analysis: v=2.4 cv=W/3CVQWk c=1 sm=1 tr=0 ts=67a2a076 cx=c_pps
+ a=uGhh+3tQvKmCLpEUO+DX4w==:117 a=uGhh+3tQvKmCLpEUO+DX4w==:17
+ a=T2h4t0Lz3GQA:10 a=78G1mFUK9uwQN7RrU40A:9
+X-Proofpoint-GUID: QamCuf7WV-kZl5nFaQXqFsH101IxiZvn
+X-Proofpoint-Spam-Reason: safe
+X-MailFrom: prvs=113024ff55=ftreven@opensource.cirrus.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: B6ORGXQOSN3ZZOFRTSRFV7YQJVCNZWTN
-X-Message-ID-Hash: B6ORGXQOSN3ZZOFRTSRFV7YQJVCNZWTN
-X-Mailman-Approved-At: Mon, 17 Feb 2025 10:07:08 +0000
+Message-ID-Hash: ZWC24IEO47MEDY4THKZ33MY2GEDLLUED
+X-Message-ID-Hash: ZWC24IEO47MEDY4THKZ33MY2GEDLLUED
+X-Mailman-Approved-At: Mon, 17 Feb 2025 10:07:19 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6ORGXQOSN3ZZOFRTSRFV7YQJVCNZWTN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZWC24IEO47MEDY4THKZ33MY2GEDLLUED/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,275 +147,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SND_SOC_BYTES_EXT kcontrols are deprecated and SND_SOC_BYTES_TLV should
-be used instead. However, there is no support of these kcontrols in
-amixer.
+Introduce driver for Cirrus Logic Device CS40L26:
+A boosted haptics driver with integrated DSP and
+waveform memory with advanced closed loop algorithms
+and LRA protection.
 
-This commit introduces a mechanism to show and write the content of
-SND_SOC_BYTES_TLV-based kcontrols.
+The core CS40L26 driver is in MFD and touches the
+Input Force Feedback subsystem for haptics and
+the ASoC subsystem for audio to haptics streaming.
 
-Example:
+This patchset includes changes to the CS DSP firmware
+driver which fixes two bugs and introduces support for
+multiple coefficient files.
 
-  $ amixer cset name="Test" 0x10,0x20,0x30,0x40,0x50,0x60,0x70,0x80,0x90,0xa0
-  $ amixer cget name="Test"
-  numid=42,iface=MIXER,name='Test'
-    ; type=BYTES,access=-----RW-,values=10
-    : values=0x10,0x20,0x30,0x40,0x50,0x60,0x70,0x80,0x90,0xa0
+Fred Treven (7):
+  firmware: cs_dsp: Fix error checking in wseq_write()
+  firmware: cs_dsp: Check for valid num_regs in
+    cs_dsp_wseq_multi_write()
+  firmware: cs_dsp: Add ability to load multiple coefficient files
+  dt-bindings: mfd: cirrus,cs40l26: Support for CS40L26
+  mfd: cs40l26: Add support for CS40L26 core driver
+  ASoC: cs40l26: Support I2S streaming to CS40L26
+  Input: cs40l26 - Add support for CS40L26 haptic driver
 
-Signed-off-by: Jan Dakinevich <jan.dakinevich@salutedevices.com>
----
- amixer/amixer.c | 180 +++++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 141 insertions(+), 39 deletions(-)
+ .../bindings/mfd/cirrus,cs40l26.yaml          |   81 +
+ MAINTAINERS                                   |    4 +-
+ drivers/firmware/cirrus/cs_dsp.c              |   70 +-
+ drivers/input/misc/Kconfig                    |   10 +
+ drivers/input/misc/Makefile                   |    1 +
+ drivers/input/misc/cs40l26-vibra.c            |  669 ++++++++
+ drivers/mfd/Kconfig                           |   29 +
+ drivers/mfd/Makefile                          |    4 +
+ drivers/mfd/cs40l26-core.c                    | 1412 +++++++++++++++++
+ drivers/mfd/cs40l26-i2c.c                     |   63 +
+ drivers/mfd/cs40l26-spi.c                     |   63 +
+ include/linux/firmware/cirrus/cs_dsp.h        |   14 +
+ include/linux/mfd/cs40l26.h                   |  341 ++++
+ sound/soc/codecs/Kconfig                      |   12 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/cs40l26-codec.c              |  523 ++++++
+ 16 files changed, 3281 insertions(+), 17 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/cirrus,cs40l26.yaml
+ create mode 100644 drivers/input/misc/cs40l26-vibra.c
+ create mode 100644 drivers/mfd/cs40l26-core.c
+ create mode 100644 drivers/mfd/cs40l26-i2c.c
+ create mode 100644 drivers/mfd/cs40l26-spi.c
+ create mode 100644 include/linux/mfd/cs40l26.h
+ create mode 100644 sound/soc/codecs/cs40l26-codec.c
 
-diff --git a/amixer/amixer.c b/amixer/amixer.c
-index 07e9819e5cdb..09f774fe2885 100644
---- a/amixer/amixer.c
-+++ b/amixer/amixer.c
-@@ -609,6 +609,8 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
- {
- 	int err;
- 	unsigned int item, idx, count, *tlv;
-+	uint8_t *tlv_bytes = NULL;
-+	unsigned int tlv_bytes_count = 0;
- 	snd_ctl_elem_type_t type;
- 	snd_ctl_elem_id_t *id;
- 	snd_ctl_elem_info_t *info;
-@@ -628,6 +630,18 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
- 	}
- 	count = snd_ctl_elem_info_get_count(info);
- 	type = snd_ctl_elem_info_get_type(info);
-+	if (type == SND_CTL_ELEM_TYPE_BYTES &&
-+	    !snd_ctl_elem_info_is_readable(info) &&
-+	    !snd_ctl_elem_info_is_writable(info)) {
-+		if (count <= 2 * sizeof(unsigned int))
-+			return -EINVAL;
-+		tlv_bytes_count = count;
-+		count -= 2 * sizeof(unsigned int);
-+
-+		tlv_bytes = malloc(tlv_bytes_count);
-+		if (!tlv_bytes)
-+			return -ENOMEM;
-+	}
- 	printf("%s; type=%s,access=%s,values=%u", space, control_type(info), control_access(info), count);
- 	switch (type) {
- 	case SND_CTL_ELEM_TYPE_INTEGER:
-@@ -661,16 +675,30 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
- 		break;
- 	}
- 	if (level & LEVEL_BASIC) {
--		if (!snd_ctl_elem_info_is_readable(info))
-+		if (snd_ctl_elem_info_is_readable(info)) {
-+			err = snd_hctl_elem_read(elem, control);
-+			if (err < 0) {
-+				error("Control %s element read error: %s\n", card, snd_strerror(err));
-+				return err;
-+			}
-+		} else if (tlv_bytes) {
-+			err = snd_hctl_elem_tlv_read(elem, (void *)tlv_bytes, tlv_bytes_count);
-+			if (err < 0) {
-+				error("Control %s element TLV read error: %s\n", card, snd_strerror(err));
-+				free(tlv_bytes);
-+				return err;
-+			}
-+		} else
- 			goto __skip_read;
--		if ((err = snd_hctl_elem_read(elem, control)) < 0) {
--			error("Control %s element read error: %s\n", card, snd_strerror(err));
--			return err;
--		}
-+
- 		printf("%s: values=", space);
- 		for (idx = 0; idx < count; idx++) {
- 			if (idx > 0)
- 				printf(",");
-+			if (tlv_bytes) {
-+				printf("0x%02x", tlv_bytes[idx + 2 * sizeof(unsigned int)]);
-+				continue;
-+			}
- 			switch (type) {
- 			case SND_CTL_ELEM_TYPE_BOOLEAN:
- 				printf("%s", snd_ctl_elem_value_get_boolean(control, idx) ? "on" : "off");
-@@ -699,17 +727,11 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
- 			}
- 		}
- 		printf("\n");
-+		if (tlv_bytes)
-+			goto __skip_tlv;
- 	      __skip_read:
- 		if (!snd_ctl_elem_info_is_tlv_readable(info))
- 			goto __skip_tlv;
--		/* skip ASoC ext bytes controls that may have huge binary TLV data */
--		if (type == SND_CTL_ELEM_TYPE_BYTES &&
--				!snd_ctl_elem_info_is_readable(info) &&
--				!snd_ctl_elem_info_is_writable(info)) {
--			printf("%s; ASoC TLV Byte control, skipping bytes dump\n", space);
--			goto __skip_tlv;
--		}
--
- 		tlv = malloc(4096);
- 		if ((err = snd_hctl_elem_tlv_read(elem, tlv, 4096)) < 0) {
- 			error("Control %s element TLV read error: %s\n", card, snd_strerror(err));
-@@ -720,6 +742,7 @@ static int show_control(const char *space, snd_hctl_elem_t *elem,
- 		free(tlv);
- 	}
-       __skip_tlv:
-+	free(tlv_bytes);
- 	return 0;
- }
- 
-@@ -1133,16 +1156,110 @@ static int parse_simple_id(const char *str, snd_mixer_selem_id_t *sid)
- 	return 0;
- }
- 
-+static int parse_bytes(const char *str, void *ptr, unsigned int len)
-+{
-+	char *p;
-+	unsigned long tmp;
-+	unsigned int idx = 0;
-+	unsigned char *data = ptr;
-+
-+	for (;;) {
-+		if (!*str)
-+			break;
-+		if (idx == len)
-+			return -EINVAL;
-+
-+		tmp = strtoul(str, &p, 0);
-+		if (p - str < 1)
-+			return -EINVAL;
-+		if (*p == ',')
-+			str = p + 1;
-+		else if (*p == '\0')
-+			str = p;
-+		else
-+			return -EINVAL;
-+
-+		if (tmp > 255)
-+			return -EINVAL;
-+
-+		data[idx] = tmp;
-+		idx++;
-+	}
-+
-+	if (!idx)
-+		return -EINVAL;
-+
-+	return idx;
-+}
-+
-+static int cset_tlv(int argc, char *argv[], snd_ctl_t *handle,
-+	snd_ctl_elem_info_t *info, snd_ctl_elem_id_t *id)
-+{
-+	int err;
-+	unsigned int count;
-+	unsigned int *tlv = NULL;
-+
-+	count = snd_ctl_elem_info_get_count(info);
-+	if (count <= 2 * sizeof(unsigned int)) {
-+		err = -EINVAL;
-+		goto out;
-+	}
-+	tlv = malloc(count);
-+	if (!tlv) {
-+		err = -ENOMEM;
-+		goto out;
-+	}
-+	err = parse_bytes(argv[1], tlv + 2,
-+			  count - 2 * sizeof(unsigned int));
-+	if (err < 0)
-+		goto out;
-+	tlv[0] = 0;
-+	tlv[1] = err;
-+
-+	err = snd_ctl_elem_tlv_write(handle, id, tlv);
-+
-+out:
-+	free(tlv);
-+	return err;
-+}
-+
-+static int cset_elem(int argc, char *argv[], snd_ctl_t *handle,
-+	snd_ctl_elem_info_t *info, snd_ctl_elem_id_t *id)
-+{
-+	int err;
-+	snd_ctl_elem_value_t *control;
-+	snd_ctl_elem_value_alloca(&control);
-+
-+	snd_ctl_elem_value_set_id(control, id);
-+	if ((err = snd_ctl_elem_read(handle, control)) < 0) {
-+		if (!ignore_error)
-+			error("Cannot read the given element from control %s\n", card);
-+		return err;
-+	}
-+	err = snd_ctl_ascii_value_parse(handle, control, info, argv[1]);
-+	if (err < 0) {
-+		if (!ignore_error)
-+			error("Control %s parse error: %s\n", card, snd_strerror(err));
-+		return err;
-+	}
-+	if ((err = snd_ctl_elem_write(handle, control)) < 0) {
-+		if (!ignore_error)
-+			error("Control %s element write error: %s\n", card, snd_strerror(err));
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
- static int cset(int argc, char *argv[], int roflag, int keep_handle)
- {
- 	int err;
- 	static snd_ctl_t *handle = NULL;
- 	snd_ctl_elem_info_t *info;
- 	snd_ctl_elem_id_t *id;
--	snd_ctl_elem_value_t *control;
-+	snd_ctl_elem_type_t type;
- 	snd_ctl_elem_info_alloca(&info);
- 	snd_ctl_elem_id_alloca(&id);
--	snd_ctl_elem_value_alloca(&control);
- 
- 	if (argc < 1) {
- 		fprintf(stderr, "Specify a full control identifier: [[iface=<iface>,][name='name',][index=<index>,][device=<device>,][subdevice=<subdevice>]]|[numid=<numid>]\n");
-@@ -1175,30 +1292,15 @@ static int cset(int argc, char *argv[], int roflag, int keep_handle)
- 	}
- 	snd_ctl_elem_info_get_id(info, id);     /* FIXME: Remove it when hctl find works ok !!! */
- 	if (!roflag) {
--		snd_ctl_elem_value_set_id(control, id);
--		if ((err = snd_ctl_elem_read(handle, control)) < 0) {
--			if (ignore_error)
--				return 0;
--			error("Cannot read the given element from control %s\n", card);
--			if (! keep_handle) {
--				snd_ctl_close(handle);
--				handle = NULL;
--			}
--			return err;
--		}
--		err = snd_ctl_ascii_value_parse(handle, control, info, argv[1]);
--		if (err < 0) {
-- 			if (!ignore_error)
--				error("Control %s parse error: %s\n", card, snd_strerror(err));
--			if (!keep_handle) {
--				snd_ctl_close(handle);
--				handle = NULL;
--			}
--			return ignore_error ? 0 : err;
--		}
--		if ((err = snd_ctl_elem_write(handle, control)) < 0) {
--			if (!ignore_error)
--				error("Control %s element write error: %s\n", card, snd_strerror(err));
-+		type = snd_ctl_elem_info_get_type(info);
-+		if (type == SND_CTL_ELEM_TYPE_BYTES &&
-+		    !snd_ctl_elem_info_is_readable(info) &&
-+		    !snd_ctl_elem_info_is_writable(info)) {
-+			err = cset_tlv(argc, argv, handle, info, id);
-+		} else
-+			err = cset_elem(argc, argv, handle, info, id);
-+
-+		if (err) {
- 			if (!keep_handle) {
- 				snd_ctl_close(handle);
- 				handle = NULL;
 -- 
 2.34.1
 

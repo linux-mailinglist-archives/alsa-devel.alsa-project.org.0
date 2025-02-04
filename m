@@ -2,55 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF687A24E16
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Feb 2025 13:56:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1723A26AEF
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2025 05:08:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52308601B5;
-	Sun,  2 Feb 2025 13:56:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52308601B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F19F60195;
+	Tue,  4 Feb 2025 05:08:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F19F60195
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1738501000;
-	bh=VLyhRxL0cFNVHyicUEpAZ+A2pDwUl8cJT/gJhdjS0aE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=cM3ak3wyme6VHoXH1BdqMn17eRVgSBSh82glB16bJUTnhn6zZoojaqt1FCsy037bA
-	 W9oo1avsCphMYQEeDiQl/o/vqreZQIMCubufFQY96TZ4+pNIiRZAlgxoVwX9iMn2uV
-	 0lS4I3ftDgwaSjqi5FiqZPIlhBf8zzMseUE4KiJM=
+	s=default; t=1738642138;
+	bh=WVJKJCXafoZDt2fgMo2hfVB4TrepTpU/rLmSnRwwsmE=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=D8x+E5Rg+qIafx4yoyf/sOfCqcfHTgVn8AjJjJyJwfLAp77S5pBaDtIbs3scU7mLa
+	 0NqzAafCAKr0+GMKEqRY0N3Iq3jL+VnXiiHp2b5PrfTzFlxwA1K7Yut1/cbKe4ErZS
+	 RykMAXJ/LURAL1NgCzMES84zMeKTqg7g8bnKEOOk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4BC7F805B5; Sun,  2 Feb 2025 13:56:06 +0100 (CET)
+	id DAEF9F804B0; Tue,  4 Feb 2025 05:08:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A176F8049C;
-	Sun,  2 Feb 2025 13:56:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC0FCF804B0;
+	Tue,  4 Feb 2025 05:08:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1142F8049C; Sun,  2 Feb 2025 13:55:57 +0100 (CET)
+	id F0029F80527; Tue,  4 Feb 2025 05:07:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB066F8014B
-	for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2025 13:55:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB066F8014B
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6EFC8F8016E
+	for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2025 05:07:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EFC8F8016E
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=tIoNct5z
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 51447iLN3082441
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 3 Feb 2025 22:07:44 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1738642064;
+	bh=p5otmGI6O7LQBHDsBHInGlKABWHLbf34yMb/QXQ/q1o=;
+	h=From:To:CC:Subject:Date;
+	b=tIoNct5zTj3F/Q1KaRd+YJJgEb/mxc9nf2MVY66QK7ZFa/A2XUJPalsTAnaBt2HRh
+	 qltKSVCZcTJxRy0g0xt8j6Sx5FbItnTPeJ/vWAuoN7efA++ZGlqmX1OKBuApMJAxtg
+	 V4YxMtgyD4vu1LNwKnAcjFj8VUOsw24B3QxAlqZY=
+Received: from DLEE101.ent.ti.com (dlee101.ent.ti.com [157.170.170.31])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 51447ifX103878
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 3 Feb 2025 22:07:44 -0600
+Received: from DLEE111.ent.ti.com (157.170.170.22) by DLEE101.ent.ti.com
+ (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 3
+ Feb 2025 22:07:44 -0600
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE111.ent.ti.com
+ (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Mon, 3 Feb 2025 22:07:43 -0600
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.160.127])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 51447etc078001;
+	Mon, 3 Feb 2025 22:07:41 -0600
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <linux-kernel@vger.kernel.org>
+CC: <baojun.xu@ti.com>, <13564923607@139.com>, <13916275206@139.com>,
+        <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>,
+        Shenghao Ding
+	<shenghao-ding@ti.com>
+Subject: [PATCH v1] MAINTAINERS: remove Kevin Lu from TEXAS INSTRUMENTS AUDIO
+ (ASoC/HDA) DRIVERS
+Date: Tue, 4 Feb 2025 12:07:37 +0800
+Message-ID: <20250204040737.657-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1738500952613963366-webhooks-bot@alsa-project.org>
-References: <1738500952613963366-webhooks-bot@alsa-project.org>
-Subject: Compilation failure with Clang-21 due to macro conflicts
-Message-Id: <20250202125557.C1142F8049C@alsa1.perex.cz>
-Date: Sun,  2 Feb 2025 13:55:57 +0100 (CET)
-Message-ID-Hash: E47MTKZLF2WL3QH57QIBRSZCTEQDPPIG
-X-Message-ID-Hash: E47MTKZLF2WL3QH57QIBRSZCTEQDPPIG
-X-MailFrom: github@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: OAGKWNN7OX6DG56K6TQSQ6QWNGHB6DY5
+X-Message-ID-Hash: OAGKWNN7OX6DG56K6TQSQ6QWNGHB6DY5
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E47MTKZLF2WL3QH57QIBRSZCTEQDPPIG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OAGKWNN7OX6DG56K6TQSQ6QWNGHB6DY5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,174 +107,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #436 was opened from ms178:
+Due to internal re-org, Kevin Lu has no longer maintained audio driver.
 
-**Description:**
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+---
+ MAINTAINERS | 1 -
+ 1 file changed, 1 deletion(-)
 
-Attempting to compile alsa-lib (both the `git` version and version 1.2.13) with Clang-21 (commit `bfa7edcc6652bdb37d53e0cec64926aab3f280eb`) results in multiple compilation errors. These errors stem from conflicts between macros defined in `midifile.h` and member names within structures defined in `include/alsa/ump_msg.h`.
-
-**Environment:**
-
-*   **alsa-lib version:** `git` (and 1.2.13)
-*   **Compiler:** Clang-21 (`bfa7edcc6652bdb37d53e0cec64926aab3f280eb`)
-*   **Operating System:** CachyOS
-*   **Build System:** Autotools
-
-**Steps to Reproduce:**
-
-1.  Obtain the PKGBUILD and the other files from https://github.com/ms178/archpkgbuilds/blob/main/packages/alsa-lib-main/PKGBUILD
-2.  Uncomment the patch that I apply to workaround the issue.
-3.  Configure the build to use Clang-21 (`bfa7edcc6652bdb37d53e0cec64926aab3f280eb`).
-4.  Attempt to compile the library.
-
-**Expected Behavior:**
-
-The compilation should complete successfully without errors.
-
-**Actual Behavior:**
-
-The compilation fails with multiple errors similar to the following:
-
-```
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h:31:
-../include/alsa/ump_msg.h:170:27: error: expected member name or ';' after declaration specifiers
-  170 |         snd_ump_msg_midi1_note_t        note_on;        /**< MIDI1 note-on message */
-      |         ~~~~~~~~~~~~~~~~~~~~~~~~        ^
-./midifile.h:55:27: note: expanded from macro 'note_on'
-   55 | #define note_on                 0x90
-      |                                 ^
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h:31:
-../include/alsa/ump_msg.h:170:26: error: expected ';' at end of declaration list
-  170 |         snd_ump_msg_midi1_note_t        note_on;        /**< MIDI1 note-on message */
-      |                                 ^
-      |                                 ;
-../include/alsa/ump_msg.h:171:27: error: expected member name or ';' after declaration specifiers
-  171 |         snd_ump_msg_midi1_note_t        note_off;       /**< MIDI1 note-off message */
-      |         ~~~~~~~~~~~~~~~~~~~~~~~~        ^
-./midifile.h:54:27: note: expanded from macro 'note_off'
-   54 | #define note_off                0x80
-      |                                 ^
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h:31:
-../include/alsa/ump_msg.h:171:26: error: expected ';' at end of declaration list
-  171 |         snd_ump_msg_midi1_note_t        note_off;       /**< MIDI1 note-off message */
-      |                                 ^
-      |                                 ;
-../include/alsa/ump_msg.h:173:26: error: expected member name or ';' after declaration specifiers
-  173 |         snd_ump_msg_midi1_cc  CCLD     rawmidi
-_t          control_change; /**< MIDI1 control-change message */
-      |         ~~~~~~~~~~~~~~~~~~~~~~          ^
-./midifile.h:57:28: note: expanded from macro 'control_change'
-   57 | #define control_change          0xb0
-      |                                 ^
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h  CCLD     oldapi
-:31:
-../include/alsa/ump_msg.h:173:24: error: expected ';' at end of declaration list
-  173 |         snd_ump_msg_midi1_cc_t          control_change; /**< MIDI1 control-change message */
-      |                               ^
-      |                               ;
-../include/alsa/ump_msg.h:432:27: error: expected member name or ';' after declaration specifiers
-  432 |         snd_ump_msg_midi2_note_t        note_on;        /**< MIDI2 note-on message */
-      |         ~~~~~~~~~~~~~~~~~~~~~~~~        ^
-./midifile.h:55:27: note: expanded from macro 'note_on'
-   55 | #define note_on                 0x90
-      |                                 ^
-  CCLD     pcm_min
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h:31:
-../include/alsa/ump_msg.h:432:26: error: expected ';' at end of declaration list
-  432 |         snd_ump_msg_midi2_note_t        note_on;        /**< MIDI2 note-on message */
-      |                                 ^
-      |                                 ;
-../include/alsa/ump_msg.h:433:27: error: expected member name or ';' after declaration specifiers
-  433 |         snd_ump_msg_midi2_note_t        note_off;       /**< MIDI2 note-off message */
-      |         ~~~~~~~~~~~~~~~~~~~~~~~~        ^
-./midifile.h:54:27: note: expanded from macro 'note_off'
-   54 | #define note_off                0x80
-      |                                 ^
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h:31:
-../include/alsa/ump_msg.h:433:26: error: expected ';' at end of declaration list
-  433 |         snd_ump_msg_midi2_note_t        note_off;       /**< MIDI2 note-off message */
-      |                                 ^
-      |                                 ;
-../include/alsa/ump_msg.h:438:26: error: expected member name or ';' after declaration specifiers
-  438 |         snd_ump_msg_midi2_cc_t          control_change; /**< MIDI2 control-change message */
-      |         ~~~~~~~~~~~~~~~~~~~~~~          ^
-./midifile.h:57:28: note: expanded from macro 'control_change'
-   57 | #define control_change          0xb0
-      |                                 ^
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h:31:
-../include/alsa/ump_msg.h:438:24: error: expected ';' at end of declaration list
-  438 |         snd_ump_msg_midi2_cc_t          control_change; /**< MIDI2 control-change message */
-      |                               ^
-      |                               ;
-../include/alsa/ump_msg.h:711:27: error: expected member name or ';' after declaration specifiers
-  711 |         snd_ump_msg_set_tempo_t         set_tempo;      /**< Set Tempo */
-      |         ~~~~~~~~~~~~~~~~~~~~~~~         ^
-./midifile.c:57:20: note: expanded from macro 'set_tempo'
-   57 | #define set_tempo               0x51
-      |                                 ^
-In file included from playmidi1.c:51:
-In file included from ./../include/asoundlib.h:63:
-In file included from ../include/alsa/seq_event.h:31:
-../include/alsa/ump_msg.h:711:25: error: expected ';' at end of declaration list
-  711 |         snd_ump_msg_set_tempo_t         set_tempo;      /**< Set Tempo */
-      |                                ^
-      |                                ;
-  CCLD     control
-  CCLD     chmap
-14 errors generated.
-```
-
-**Root Cause analysis by AI:**
-
-The macros `note_on`, `note_off`, `control_change`, and `set_tempo` defined in `midifile.h` are conflicting with member names used in structures within `include/alsa/ump_msg.h`. This leads to incorrect code expansion and subsequent compilation errors.
-
-**Workaround:**
-
-The following patch applied to `include/asoundlib-head.h` allows the compilation to succeed:
-
-```diff
---- a/include/asoundlib-head.h
-+++ b/include/asoundlib-head.h
-@@ -28,6 +28,11 @@
- #ifndef __ASOUNDLIB_H
- #define __ASOUNDLIB_H
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 896a307fa065..bc0bf402818d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23370,7 +23370,6 @@ F:	sound/soc/ti/
  
-+#undef note_on
-+#undef note_off
-+#undef control_change
-+#undef set_tempo
-+
- #include <unistd.h>
- #include <stdio.h>
- #include <stdlib.h>
-```
+ TEXAS INSTRUMENTS AUDIO (ASoC/HDA) DRIVERS
+ M:	Shenghao Ding <shenghao-ding@ti.com>
+-M:	Kevin Lu <kevin-lu@ti.com>
+ M:	Baojun Xu <baojun.xu@ti.com>
+ L:	linux-sound@vger.kernel.org
+ S:	Maintained
+-- 
+2.34.1
 
-**Suggested Solutions by AI:**
-
-While the provided workaround resolves the immediate compilation issue, a more robust solution might involve:
-
-1.  **Renaming conflicting members:** Consider renaming the members in `ump_msg.h` (e.g., `midi1_note_on`, `midi2_note_off`, etc.) to avoid clashes with commonly used MIDI event names.
-2.  **Namespace/prefix:** If renaming is not feasible, consider using a namespace or prefix for the `ump_msg.h` members to prevent conflicts.
-3.  **Conditional undef:** Instead of unconditionally undefining the macros in `asoundlib-head.h`, a more targeted approach could be to undefine them only within the scope of `ump_msg.h`'s inclusion.
-4.  **Review macro definitions:** Investigate if the macros in `midifile.h` are strictly necessary or if they can be replaced with constants or enums within a namespace.
-
-**Additional Notes:**
-
-*   I am not a programmer and cannot provide a definitive fix. The provided workaround is based on AI feedback.
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/436
-Repository URL: https://github.com/alsa-project/alsa-lib

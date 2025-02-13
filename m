@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACA0BA3523B
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2025 00:35:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28901A3523E
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2025 00:36:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A7526025A;
-	Fri, 14 Feb 2025 00:35:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A7526025A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0BFF6025E;
+	Fri, 14 Feb 2025 00:36:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0BFF6025E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739489714;
-	bh=bz4LiqofSsfv8o+hqxcLujX3bGCIgYcTkQ/iKybWdkY=;
+	s=default; t=1739489801;
+	bh=essvWTaaW6dHa4NwAyTKmauWHpwmsO/VOBZoAWU/PHg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=LOjJMLt+fudUsPrQhvGq1U0pSe3ukhgZWvPQkDGk7+AZs13qwbGd+KXPUy0NPx43Z
-	 xOG4bbiWbtuZjUFTyWVd4LS17dNsxTum1ZjyH30/Xba0diQaPjL+INxQR2CK1NmeAg
-	 pivrJqeK4WiO73rJ5fd7jwUxVTs2Ep3sF4nj1Myc=
+	b=GdLFoqAow/RhCGmjMdKWFSySKkZhH9oQbW1GEVQ7JBDzaz+dRgSkVoUJZasdHjykb
+	 XyR1ht4/2hiNaiUM6XqxRhwbk4EvlHgJGje4o3WdSoteHA/QzBeq99rUY1FMi/Xdwn
+	 bsHfN+xdAvAJ/9F1BUTfp7qhZrpxNJgBO6etk5D4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 00274F805AF; Fri, 14 Feb 2025 00:34:39 +0100 (CET)
+	id DB74EF805C3; Fri, 14 Feb 2025 00:36:11 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFA5DF805BD;
-	Fri, 14 Feb 2025 00:34:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2202DF805B4;
+	Fri, 14 Feb 2025 00:36:11 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FB17F804B0; Fri, 14 Feb 2025 00:34:33 +0100 (CET)
+	id 830D7F8016E; Fri, 14 Feb 2025 00:36:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.8 required=5.0 tests=BAYES_00,DOS_BODY_HIGH_NO_MID,
@@ -36,21 +36,21 @@ X-Spam-Status: No, score=3.8 required=5.0 tests=BAYES_00,DOS_BODY_HIGH_NO_MID,
 	autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98327F80095
-	for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2025 00:34:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98327F80095
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B40EF800BF
+	for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2025 00:36:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B40EF800BF
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1739489669241238117-webhooks-bot@alsa-project.org>
-References: <1739489669241238117-webhooks-bot@alsa-project.org>
+In-Reply-To: <1739489760198934078-webhooks-bot@alsa-project.org>
+References: <1739489760198934078-webhooks-bot@alsa-project.org>
 Subject: USB-Audio: Add support for RME Fireface UCX II
-Message-Id: <20250213233433.7FB17F804B0@alsa1.perex.cz>
-Date: Fri, 14 Feb 2025 00:34:32 +0100 (CET)
-Message-ID-Hash: T6HUCTWHW54H4OVZXHPYTLEOBYVQEKW4
-X-Message-ID-Hash: T6HUCTWHW54H4OVZXHPYTLEOBYVQEKW4
+Message-Id: <20250213233602.830D7F8016E@alsa1.perex.cz>
+Date: Fri, 14 Feb 2025 00:36:02 +0100 (CET)
+Message-ID-Hash: OPGAV4UWOBABNCCAK2IBFHVD6CYZEEDV
+X-Message-ID-Hash: OPGAV4UWOBABNCCAK2IBFHVD6CYZEEDV
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -63,7 +63,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T6HUCTWHW54H4OVZXHPYTLEOBYVQEKW4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPGAV4UWOBABNCCAK2IBFHVD6CYZEEDV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,9 +99,9 @@ WExSIC8gVFJTIMK8IiBjb21ibywgYmFsYW5jZWQgbW9ubyBpbnB1dCwgNDjigK9WIHBoYW50b20g
 cG93ZXINCi0gXzMgTElORSAvIElOU1RSLl86IFRSUyDCvCIsIGJhbGFuY2VkIG1vbm8gaW5wdXQN
 Ci0gXzQgTElORSAvIElOU1RSLl86IFRSUyDCvCIsIGJhbGFuY2VkIG1vbm8gaW5wdXQNCi0gX/Cf
 jqfvuI5fIChoZWFkcGhvbmVzIHN5bWJvbCk6IFRSUyDCvCIsIHVuYmFsYW5jZWQgc3RlcmVvIG91
-dHB1dA0KDQojIyMjIEJhY2sNCg0KLSBfTElORSBJTlBVVFMgKEJBTEFOQ0VEKV8gW18xXywgXzJf
-OyBfM18sIF80XzsgXzVfLCBfNl9dOiBUUlMgwrwiLCBiYWxhbmNlZCBtb25vIGlucHV0cw0KLSBf
-TElORSBPVVRQVVRTIChCQUxBTkNFRClfICBbXzVfLCBfNl87IF83XywgXzhfXTogVFJTIMK8Iiwg
+dHB1dA0KDQojIyMjIEJhY2sNCg0KLSBfTElORSBJTlBVVFMgKEJBTEFOQ0VEKV8gIFtfNV8sIF82
+XzsgXzdfLCBfOF9dOiBUUlMgwrwiLCBiYWxhbmNlZCBtb25vIGlucHV0cw0KLSBfTElORSBPVVRQ
+VVRTIChCQUxBTkNFRClfIFtfMV8sIF8yXzsgXzNfLCBfNF87IF81XywgXzZfXTogVFJTIMK8Iiwg
 YmFsYW5jZWQgbW9ubyBvdXRwdXRzDQotIF9BREFUIElOXzogVE9TTElOSw0KLSBfQURBVCBPVVRf
 OiBUT1NMSU5LDQotIF9BRVMvRUJVICYgU1BESUZfOiA54oCQcGluIEQtU3ViIHdpdGggYnJlYWtv
 dXQgY2FibGUgKDLigK/DlyBSQ0EgYW5kIDLigK/DlyBYTFIpDQoNClthbHNhLWluZm8udHh0XSho

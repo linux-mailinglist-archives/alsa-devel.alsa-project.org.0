@@ -2,101 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CC71A37F86
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2025 11:11:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B13D5A37139
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Feb 2025 00:31:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14B6D60278;
-	Mon, 17 Feb 2025 11:11:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14B6D60278
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFF0E60258;
+	Sun, 16 Feb 2025 00:31:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFF0E60258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739787117;
-	bh=I0lAqZhhCBViVeX7MJHeY215g3SJL9ckNmOtMzp0HdQ=;
-	h=Date:From:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=uf3B3OAatgtW8Noh8ZJibbNijsd1gnC5DzO9ZIq0/s/tTejcwOOXlVhk/0XcBVwTX
-	 eXtmt1irGgN3zLapJi4V/E/JFcwEs7nUNXdlU9Dfs1rIUat6VUrliCZKStWktyNOa3
-	 uBdeXmNTaF0F/NJHQij22TQrIQufLodWuQL8vLDI=
+	s=default; t=1739662272;
+	bh=j5ldGfo9LNO8lTKTb16ubGI/OH6CqQ30On/1VN3wI+U=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=WNIHIYZS/Jy9I6S8kIMVwJfYRN1G7xzAYiiIU++JASJAOCXqSwbxWRSEUxOB8z9jW
+	 /UMlrFN/35DVE/JG8IkLOXsKe45K5kCbkt5Ztg/jF6F5PyMDTlfKkbyT38MiDmwT6r
+	 kFpCF491prcpiJXBJ90rJB1jtIjG6FA6Dx2Er9+Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D64F5F80699; Mon, 17 Feb 2025 11:09:27 +0100 (CET)
+	id 3AA8CF805BD; Sun, 16 Feb 2025 00:30:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECEBCF80095;
-	Mon, 17 Feb 2025 11:09:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14C4AF805BD;
+	Sun, 16 Feb 2025 00:30:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 337B2F804B0; Fri, 14 Feb 2025 13:06:31 +0100 (CET)
+	id 3244CF8016D; Sun, 16 Feb 2025 00:30:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.8 required=5.0 tests=BAYES_00,DOS_BODY_HIGH_NO_MID,
+	MISSING_DATE,MISSING_MID,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from mail.nihil.gay (nihil.gay [157.90.242.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C2BFF800BF
-	for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2025 13:06:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C2BFF800BF
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=nihil.gay header.i=@nihil.gay header.a=rsa-sha256
- header.s=2021 header.b=GRQUPp9j;
-	dkim=pass (2048-bit key) header.d=nihil.gay header.i=@nihil.gay
- header.a=rsa-sha256 header.s=2021 header.b=GRQUPp9j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nihil.gay; s=2021;
-	t=1739534781; bh=I0lAqZhhCBViVeX7MJHeY215g3SJL9ckNmOtMzp0HdQ=;
-	h=Date:From:Subject:To:From;
-	b=GRQUPp9jfzapoBLR3RMZXtpBnnbFZckZpYRPaqxrAzEA7pRY+zJ78Lag+WzfXT04O
-	 KvD3iX3WNNioAxAbvLgjL4C5ypyJbJHa4+oX8RC8XyoY2Pj4meXQAyCnGrt+e5ehyd
-	 En7d8cFLZernS9NUIq+5SypAXvPaeyAKR6Us6KrYlIZxBBSzW3iRAOCzUw/tPrZZgs
-	 A9Aq0FgjP/INXEw60ESwkCP2Bf5ejDgpQVhujRfQqRPGJWJJzfvMzwkgZB4rm4M0vx
-	 2QBrgiNIi2EUHRIn78+p1ckoPnZbPHwb76mQLQdsXoW7kZ+Vghddidel79NkZovjCB
-	 Homl1i3VRVoOA==
-Received: by mail.nihil.gay (Postfix, from userid 114)
-	id 6F8BD9D1B6; Fri, 14 Feb 2025 12:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nihil.gay; s=2021;
-	t=1739534781; bh=I0lAqZhhCBViVeX7MJHeY215g3SJL9ckNmOtMzp0HdQ=;
-	h=Date:From:Subject:To:From;
-	b=GRQUPp9jfzapoBLR3RMZXtpBnnbFZckZpYRPaqxrAzEA7pRY+zJ78Lag+WzfXT04O
-	 KvD3iX3WNNioAxAbvLgjL4C5ypyJbJHa4+oX8RC8XyoY2Pj4meXQAyCnGrt+e5ehyd
-	 En7d8cFLZernS9NUIq+5SypAXvPaeyAKR6Us6KrYlIZxBBSzW3iRAOCzUw/tPrZZgs
-	 A9Aq0FgjP/INXEw60ESwkCP2Bf5ejDgpQVhujRfQqRPGJWJJzfvMzwkgZB4rm4M0vx
-	 2QBrgiNIi2EUHRIn78+p1ckoPnZbPHwb76mQLQdsXoW7kZ+Vghddidel79NkZovjCB
-	 Homl1i3VRVoOA==
-Received: from [10.0.0.2] (host-79-37-133-17.retail.telecomitalia.it
- [79.37.133.17])
-	(Authenticated sender: lena@nihil.gay)
-	by mail.nihil.gay (Postfix) with ESMTPSA id 0B30F9CF61
-	for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2025 12:06:20 +0000 (UTC)
-Message-ID: <6f03b7d6-97d5-48a4-be6f-a1df481971fc@nihil.gay>
-Date: Fri, 14 Feb 2025 13:05:13 +0100
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 88C34F800BD
+	for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2025 00:30:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88C34F800BD
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Lena <lena@nihil.gay>
-Subject: ALSA USB quirk mixer driver question
+Content-Transfer-Encoding: base64
+From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: lena@nihil.gay
-X-Mailman-Rule-Hits: nonmember-moderation
+In-Reply-To: <1739662230129708529-webhooks-bot@alsa-project.org>
+References: <1739662230129708529-webhooks-bot@alsa-project.org>
+Subject: USB-Audio: Add support for RME Fireface UCX II
+Message-Id: <20250215233032.3244CF8016D@alsa1.perex.cz>
+Date: Sun, 16 Feb 2025 00:30:32 +0100 (CET)
+Message-ID-Hash: FMGVJACDJHCKSSL5XDKITDLWLKE7LWTA
+X-Message-ID-Hash: FMGVJACDJHCKSSL5XDKITDLWLKE7LWTA
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 347MDDMRT7SAXLOKXX33TEUZN2YBBAJL
-X-Message-ID-Hash: 347MDDMRT7SAXLOKXX33TEUZN2YBBAJL
-X-Mailman-Approved-At: Mon, 17 Feb 2025 10:09:15 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/347MDDMRT7SAXLOKXX33TEUZN2YBBAJL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FMGVJACDJHCKSSL5XDKITDLWLKE7LWTA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,52 +72,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi all!
-
-I'm currently trying to develop an usb quirk mixer driver for a desktop 
-USB audio interface.
-
-The interface exposes the following:
-
-- interface 0-2 are USB UAC compliant, bound to by snd-usb-audio, and
-   working flawlessly
-
-- interface 3 is vendor specific, and we can ignore it (used for
-   firmware updates)
-
-- interface 4 exposes a non-standard mixer with a HID interface exposing
-   2 interrupt endpoints, and is used by the vendor windows app.
-
-I have studied the protocol with usbpcap and can successfully talk to 
-the interface on the userspace, but i had a question regarding how to 
-proceed in the kernel.
-
-This is because, after creating a new entry in `sound/usb/mixer_quirks.c`
-with all the needed controls, userspace can interact with them, etc.
-
-I can't figure out how to tell ALSA to
-bind to the correct interface for the mixer (and kick out usbhid).
-Looking at the other quirk mixer drivers it doesn't look (?) like any
-other quirk mixer driver is binding to a *different* interface, not even 
-`sound/usb/mixer_scarlett.c`.
-
-Generally, in a standalone USB driver you'd have tracking/teardown
-handled easily with a callback, but i'm having trouble with the
-dependencies here. (simply using `usb_sndintpipe()` or
-`usb_interrupt_msg()` triggers kernel oopses, so that's probably not it)
-
-What i think i have to do is to use `usb_get_intf()`, then i have to
-somehow claim it (does `usb_driver_claim_interface()` work here?). But
-`usb_get_intf()` requires me to then release the interface with
-`usb_put_intf()`, and it doesn't look like there's anywhere for me to do
-that. (`snd_usb_mixer_elem_free()`? doesn't look like the order is
-correct)
-
-`iface_ref_find()` would sorta do what i need, but i cannot use it here.
-
-Could someone please point me in the right direction? I'm very stuck at
-the moment.
-
-Thanks,
-
-Lena
+YWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYgcHVsbCByZXF1ZXN0ICM1MDkgd2FzIGVkaXRlZCBm
+cm9tIGlsbGRlZmluZWQ6CgpUaGlzIGFkZHMgc3VwcG9ydCBmb3IgdGhlIFJNRSBGaXJlZmFjZSBV
+Q1ggSUkgaW50ZXJmYWNlLg0KDQpVc2VyIG1hbnVhbDogPGh0dHBzOi8vcm1lLWF1ZGlvLmRlL2Rv
+d25sb2Fkcy9mZmFjZV91Y3gyX2UucGRmPg0KDQpUaGUgaW50ZXJmYWNlIHByb3ZpZGVzIDIwIHBs
+YXliYWNrIGFuZCBjYXB0dXJlIGNoYW5uZWxzIGVhY2g6DQotIGNoYW5uZWxzICAwICB0byAgNyBh
+cmUgYW5hbG9nIGlucHV0cyBhbmQgb3V0cHV0cw0KLSBjaGFubmVscyAgOCBhbmQgIDkgYXJlIEFF
+UzMgKFMvUERJRikgdmlhIGNvYXgNCi0gY2hhbm5lbHMgMTAgYW5kIDExIGFyZSBBRVMzIChTL1BE
+SUYpIHZpYSBYTFINCi0gY2hhbm5lbHMgMTIgIHRvIDE5IGFyZSBBREFUIE9wdGljYWwgSW50ZXJm
+YWNlICg4IGNoYW5uZWxzKSBvciBTL1BESUYgKG91dHB1dCBvbmx5LCAxMiBhbmQgMTMpIHZpYSBU
+T1NMSU5LDQoNClRoZSBpbnRlcmZhY2Ugc3VwcG9ydHMgdGhyZWUgX0NsYXNzIENvbXBsaWFudF8g
+cGxheWJhY2sgbW9kZXM6DQoNCi0gXzggQ2guICsgUGhvbmVzXzoNCiAgLSBjaGFubmVscyAwKzEg
+YXJlIG1pcnJvcmVkIHRvIDYrNyAoaGVhZHBob25lcyBMK1IpLCA4KzkgKFMvUERJRiBMK1IpIGFu
+ZCAxMisxMyAoQURBVCAxLzIpDQogIC0gY2hhbm5lbHMgMiszIGFyZSBtaXJyb3JlZCB0byAxMCsx
+MSAoQUVTMyBMK1IpIGFuZCAxNCsxNSAoQURBVCAzLzQpDQogIC0gY2hhbm5lbHMgNCs1IGFyZSBt
+aXJyb3JlZCB0byAxNisxNyAoQURBVCA1LzYpDQogIC0gY2hhbm5lbHMgNis3IGFyZSBtaXJyb3Jl
+ZCB0byAxOCsxOSAoQURBVCA3LzgpDQotIF84IENoLiBQbGF5YmFja186DQogIC0gY2hhbm5lbHMg
+MCsxIGFyZSBtaXJyb3JlZCB0byA4KzkgKFMvUERJRiBMK1IpIGFuZCAxMisxMyAoQURBVCAxLzIp
+DQogIC0gY2hhbm5lbHMgMiszIGFyZSBtaXJyb3JlZCB0byAxMCsxMSAoQUVTMyBMK1IpIGFuZCAx
+NCsxNSAoQURBVCAzLzQpDQogIC0gY2hhbm5lbHMgNCs1IGFyZSBtaXJyb3JlZCB0byAxNisxNyAo
+QURBVCA1LzYpDQogIC0gY2hhbm5lbHMgNis3IGFyZSBtaXJyb3JlZCB0byAxOCsxOSAoQURBVCA3
+LzgpDQotIF8yMCBDaC4gUGxheWJhY2tfOiBubyBjaGFubmVsIG1pcnJvcmluZw0KDQojIyMgUGh5
+c2ljYWwgY29ubmVjdG9yIGxheW91dA0KDQp0b3AgdG8gYm90dG9tLCBsZWZ0IHRvIHJpZ2h0LCB2
+aWV3ZWQgZnJvbSBkZXZpY2UgZnJvbnQNCg0KIyMjIyBGcm9udA0KDQotIF8xIE1JQyAvIExJTkVf
+OiAgWExSIC8gVFJTIMK8IiBjb21ibywgYmFsYW5jZWQgbW9ubyBpbnB1dCwgNDjigK9WIHBoYW50
+b20gcG93ZXINCi0gXzIgTUlDIC8gTElORV86ICBYTFIgLyBUUlMgwrwiIGNvbWJvLCBiYWxhbmNl
+ZCBtb25vIGlucHV0LCA0OOKAr1YgcGhhbnRvbSBwb3dlcg0KLSBfMyBMSU5FIC8gSU5TVFIuXzog
+VFJTIMK8IiwgYmFsYW5jZWQgbW9ubyBpbnB1dA0KLSBfNCBMSU5FIC8gSU5TVFIuXzogVFJTIMK8
+IiwgYmFsYW5jZWQgbW9ubyBpbnB1dA0KLSBf8J+Op++4jl8gKGhlYWRwaG9uZXMgc3ltYm9sKTog
+VFJTIMK8IiwgdW5iYWxhbmNlZCBzdGVyZW8gb3V0cHV0DQoNCiMjIyMgQmFjaw0KDQotIF9MSU5F
+IElOUFVUUyAoQkFMQU5DRUQpXyAgW181XywgXzZfOyBfN18sIF84X106IFRSUyDCvCIsIGJhbGFu
+Y2VkIG1vbm8gaW5wdXRzDQotIF9MSU5FIE9VVFBVVFMgKEJBTEFOQ0VEKV8gW18xXywgXzJfOyBf
+M18sIF80XzsgXzVfLCBfNl9dOiBUUlMgwrwiLCBiYWxhbmNlZCBtb25vIG91dHB1dHMNCi0gX0FE
+QVQgSU5fOiBUT1NMSU5LLCBBREFUIE9wdGljYWwgSW50ZXJmYWNlDQotIF9BREFUIE9VVF86IFRP
+U0xJTkssIEFEQVQgT3B0aWNhbCBJbnRlcmZhY2Ugb3IgIG9yIFMvUERJRg0KLSBfQUVTL0VCVSAm
+IFNQRElGXzogOeKAkHBpbiBELVN1YiB3aXRoIGJyZWFrb3V0IGNhYmxlICgy4oCvw5cgUkNBIGFu
+ZCAy4oCvw5cgWExSKQ0KICAtIFJDQSBpbjogQUVTMyBvciBTL1BESUYgKGF1dG9tYXRpYykNCiAg
+LSBSQ0Egb3V0OiBjb25maWd1cmFibGUgZm9yIEFFUzMgKF9Qcm9mZXNzaW9uYWxfKSBvciBTL1BE
+SUYgKF9Db25zdW1lcl8pDQogIC0gWExSIGluOiBBRVMzIG9yIFMvUERJRiAoYXV0b21hdGljKQ0K
+ICAtIFhMUiBvdXQ6IEFFUzMgb25seQ0KDQpbYWxzYS1pbmZvLnR4dF0oaHR0cHM6Ly9naXRodWIu
+Y29tL3VzZXItYXR0YWNobWVudHMvZmlsZXMvMTg3OTA5NzgvYWxzYS1pbmZvLnR4dCkKClJlcXVl
+c3QgVVJMICAgOiBodHRwczovL2dpdGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYv
+cHVsbC81MDkKUGF0Y2ggVVJMICAgICA6IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3Qv
+YWxzYS11Y20tY29uZi9wdWxsLzUwOS5wYXRjaApSZXBvc2l0b3J5IFVSTDogaHR0cHM6Ly9naXRo
+dWIuY29tL2Fsc2EtcHJvamVjdC9hbHNhLXVjbS1jb25mCg==

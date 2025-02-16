@@ -2,68 +2,205 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F7FA3748E
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Feb 2025 14:32:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4D08A37F88
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2025 11:12:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AB6260202;
-	Sun, 16 Feb 2025 14:32:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AB6260202
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7481E602CC;
+	Mon, 17 Feb 2025 11:12:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7481E602CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739712779;
-	bh=rKxZsVjSYwxlXzzfFQgZH0zGv4t2iwe/RnvALYlEOJU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=jGEAuhPIlOLKX/lii7dKj+8aAJOJ49ssX/VceQddddK5XuLLTg/3kkDTvoBQ0Htcj
-	 PFAoLFfMRHCfZ8jwsC2TK5wgK4j01VA88wS5MAhsR+e6RxlbbK7VZgTiAOuQszLL5a
-	 hVexCmTCzXsRuHD5vqun8thi93naJr+3ch4r6LBU=
+	s=default; t=1739787131;
+	bh=vhYs8FqOPHBrdAsbSNy86LxnAQpsb4q2CFSPJQzjKBA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=HIL77nlV/k5MbNcdDdugLqXqB30+ktY5OP9v2UX1O6rt2zBCLrUDHvtNut2FN9nII
+	 YE7zHbd+bDAdiTv7S3urOvYj1Hoq3rONGQgUtzoA4CrWDIoow1mafDlViVxGNO/Pni
+	 QaPGEQLtqbdySP0RqzhV56hSBSb6G3rJDNqhQyaI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D26CF805C2; Sun, 16 Feb 2025 14:32:25 +0100 (CET)
+	id D5BA0F806A6; Mon, 17 Feb 2025 11:09:40 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04324F805B1;
-	Sun, 16 Feb 2025 14:32:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97E16F8069E;
+	Mon, 17 Feb 2025 11:09:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A914F801F5; Sun, 16 Feb 2025 14:32:21 +0100 (CET)
+	id 39BF0F801F5; Sun, 16 Feb 2025 22:14:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.8 required=5.0 tests=BAYES_00,DOS_BODY_HIGH_NO_MID,
-	MISSING_DATE,MISSING_MID,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D7FCF800BD
-	for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2025 14:32:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D7FCF800BD
-Content-Type: text/plain; charset="utf-8"
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20727.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2417::727])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8932CF800BD
+	for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2025 22:14:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8932CF800BD
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=NETORG5796793.onmicrosoft.com header.i=@NETORG5796793.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector1-NETORG5796793-onmicrosoft-com
+ header.b=KmN06Efc
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=brnmnO8XQZ+EEGJC6A0auFn4bOEDiDeNLW2KFJnMKEbT7xEh+KdNFv4MtttSJ7BnCwpVJmxovVoNULX8xhLPaITlbN3WgSwMb3csj7ifhxaRidMcfEIvI9QryA3IfTZWWJdZ13dP9hBztNajd1yNUNsL8Qzhd5kpigUuQeQQwPU0EsdNgr6Vt9k9misZzVyM+Xj+snRbddt6tPK4wHrgNrXJ5thycbMpqKSmgy/4bepGlqVrZztCPyKJrv5sKe5x6NxN/7y+YuV18tLVo07WgSDppTZGm3abFM3wlWWea+brZAzizp7Aat2Qe983jRImY75qLxjLHx/8dMRfo0fn7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jmiwwQbOqJknZ+v84xscacygZNtoF/ImO/oqT03xi3g=;
+ b=dAwjNwGRDDK7p24SqC5/A9I7lsjmlQTFyBYH5YqXDHnFqUuk9kY1L1Ze6yqB6AsiSrrNdMFMmH3cWDdPjIoy3RmFu6SzIxL3IczxTqrGEsZonhOPm8a1yYIjbG8xRSTnplR6Z3Na8STtGtMqqmYA6FX9hYJCWCnT71+HCR7VBZQRQAoUXnSCOis4T6tjPhLm+D7SalUMImmxpYcWvqm3WiGQkLsUhJdhBWH2UtMesx6dubawTB5bU/D8EsMY7nb/tqqBzzfE9oQEOBanwiAUR+gOBw0P66O3M6gxgpWxKPVK+ETyofd8WazyvHtBydrZ3ddPEoQhLg80Yw6MYK+ZqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=labundy.com; dmarc=pass action=none header.from=labundy.com;
+ dkim=pass header.d=labundy.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=NETORG5796793.onmicrosoft.com; s=selector1-NETORG5796793-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jmiwwQbOqJknZ+v84xscacygZNtoF/ImO/oqT03xi3g=;
+ b=KmN06Efc/NppcHrkZeexD8BuKxg/h/vbJzjYW0zFGEI6Ndvm3v9IHU8265ST2FgJXgC80E7uuyEJEQ0aIe5Rxyl+8vf3f1ffz+mZVOo0IQcwS09BaeWZ/5t6K6gMAO26jWsLQfpp5zYOfardqX7xBnQStP/qCi+RUx5kRTctNYA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=labundy.com;
+Received: from BN7PR08MB3937.namprd08.prod.outlook.com (2603:10b6:406:8f::25)
+ by LV8PR08MB9079.namprd08.prod.outlook.com (2603:10b6:408:206::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.13; Sun, 16 Feb
+ 2025 21:13:58 +0000
+Received: from BN7PR08MB3937.namprd08.prod.outlook.com
+ ([fe80::b729:b21d:93b4:504d]) by BN7PR08MB3937.namprd08.prod.outlook.com
+ ([fe80::b729:b21d:93b4:504d%3]) with mapi id 15.20.8445.017; Sun, 16 Feb 2025
+ 21:13:56 +0000
+Date: Sun, 16 Feb 2025 15:13:44 -0600
+From: Jeff LaBundy <jeff@labundy.com>
+To: Fred Treven <ftreven@opensource.cirrus.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Trimmer <simont@opensource.cirrus.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	James Ogletree <jogletre@opensource.cirrus.com>,
+	Ben Bright <ben.bright@cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Heiko Stuebner <heiko@sntech.de>, Karel Balej <balejk@matfyz.cz>,
+	Igor Prusov <ivprusov@salutedevices.com>,
+	Jack Yu <jack.yu@realtek.com>,
+	Weidong Wang <wangweidong.a@awinic.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
+	Paul Handrigan <paulha@opensource.cirrus.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Nuno Sa <nuno.sa@analog.com>, alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH RESEND 0/7] Initial Support for CS40L26
+Message-ID: <Z7JVCANOhoUMnnzd@nixie71>
+References: <20250204231835.2000457-1-ftreven@opensource.cirrus.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250204231835.2000457-1-ftreven@opensource.cirrus.com>
+X-ClientProxiedBy: SA1P222CA0141.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c2::8) To BN7PR08MB3937.namprd08.prod.outlook.com
+ (2603:10b6:406:8f::25)
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1739712738902598858-webhooks-bot@alsa-project.org>
-References: <1739712738902598858-webhooks-bot@alsa-project.org>
-Subject: USB-Audio: Add support for RME Fireface UCX II
-Message-Id: <20250216133221.4A914F801F5@alsa1.perex.cz>
-Date: Sun, 16 Feb 2025 14:32:21 +0100 (CET)
-Message-ID-Hash: SDRRQIH6YDUBT43L6M3QZGR7TATPAH3D
-X-Message-ID-Hash: SDRRQIH6YDUBT43L6M3QZGR7TATPAH3D
-X-MailFrom: github@alsa-project.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PR08MB3937:EE_|LV8PR08MB9079:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c584710-08a6-41f8-3414-08dd4eced29c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?Yo8jZQ8cWU7v0zxjI495e7hXgD3ILkS1sGffyBiBy7SKpg4kqTON8Hqmf03z?=
+ =?us-ascii?Q?n/vFyCXq8U1tiQOfK8U6CKXhUMqae2by4O/Qkqh54m5uIeXj3XjQwM0VOci+?=
+ =?us-ascii?Q?JuKdITupMLL0XXUdcibFNGCOq+GIKIyyxUSVtPAj1yBv35P8nDvbbNdluRB3?=
+ =?us-ascii?Q?9EOWutqrvstgrs5oX+YkRphmM3TY3NNcqgEyC1Sh1vP3BZsGwwiRN/j1w0Us?=
+ =?us-ascii?Q?n1bCBLas0qB4o/ScrsXxgyVqLXOY5xMX1e23zi4UP3EHndcID4WZ5PdnbHtS?=
+ =?us-ascii?Q?aqYkOxv/hxL5K4VACyBSBZfjZOPbITdV5dyQcLMkBhcqEzuH/PnPKomFS81S?=
+ =?us-ascii?Q?9wka69uDlNLx8IL7/kUpz4lYudKvuN7BW6ad1HlmuMbPZ3LzS1To9WSIm4GC?=
+ =?us-ascii?Q?hC2j/dXNrbalSU7chAViu3EfdeGuAYVIhZCbnHw3XOStasq0Ko+idfMul5N4?=
+ =?us-ascii?Q?lb534OXtqCg8/q1G/yR5vpl1ScaATx6lkw5O7mjuNILVvYlk3PgIOLB90BaA?=
+ =?us-ascii?Q?4H5xt8+inqRKmCH87y/emCGF/pVRJOJ/RiUxWf6Uek9xpVJHfYHxaCBTPneO?=
+ =?us-ascii?Q?yThhTy90J7Hzn0fq8/vVK4UXchYhDCT1OafzHm4kbCLgHShx/PvQUygQMKA2?=
+ =?us-ascii?Q?XRUeO+Djrw9Wg/cI5FNs7z/hMBCwsyJiZp6OrnWKFK8MnjExvfus9UpaSs9n?=
+ =?us-ascii?Q?0TBLm6O5YuiSrOcOgjygAdQR+WUoIdHGqYLkJ1OcGkDg+5Q4sp8nZGVJsVYB?=
+ =?us-ascii?Q?GeRIoOD1nzDvavFKgb4pLxjCgd4Seyc3oMfIdTCHV0sRpqhtDrwoH4qiaEG1?=
+ =?us-ascii?Q?ZRnniwix6C/6EWy9GvG6tuoqeWMXdhXCYtjl54UAsXIVKSWWCU6WsrdxaFsL?=
+ =?us-ascii?Q?v0zyaa3zbOiqpJRmMfCnH3BqtwdKc4i1k0HE1fFiR5seAr65F/c0pJPZE+D2?=
+ =?us-ascii?Q?oPzusT0ApiD5gIjM81xX7RfEUpAjU+BMnMBlRt7r46OuP6kkjRHubZ+ogQKe?=
+ =?us-ascii?Q?BF2f5qfAwUS7yam0anJzhj5tEwPgZ2z0173/2Xxd+6k4r9DNDtLrNf8yGYsl?=
+ =?us-ascii?Q?MPrY0bk+A3ax6lBgdc/SGKF+Jd10Q2to/fuMVqsfDdXS5T/ABEx2eu6wD6TZ?=
+ =?us-ascii?Q?Jt7DnidYdkrJiPOoHXCfyd/z8ZpfpVHpgdk2f7UIvpxvgxzuB15QgSb4v2gt?=
+ =?us-ascii?Q?Cn1sKopeXiyhOHjA6K6CSna0Dq+9R3eyFc2qm8oifDpPyKZCKc6ZRZJgVCyd?=
+ =?us-ascii?Q?an1DwYXKZGDAQhfaC8+Z0ksC/qzYRuF4wlYuCirTXDFyyyWmTKkPCddIRCN5?=
+ =?us-ascii?Q?yhlmoEUUNfAatcQahQ7LKLXvQ5WqRAWVuCxHlYFevEwhHrXsYPZP1guO5wlP?=
+ =?us-ascii?Q?RMepDPtiSRQFw7MqFC8e7SO47+pt?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR08MB3937.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?AiTyy/fTRl5mWXdkmgVl4E0AFGQKXLcmEvawUQhKTWF+254IGGkww+RlMFNa?=
+ =?us-ascii?Q?9RyBZwYJCMliAP2HgdiIGJ99Jv47soKttobwLayzX128Lweb5KWy7hSpAe5a?=
+ =?us-ascii?Q?yGJQ06Vt/2auB4aUjEiRItYXDgc9rKto8DbuiHDURHrOBApc4KyhHBMnjUPg?=
+ =?us-ascii?Q?3WmsQP8Xg31wbbsrmROpTlbJHnzp1PITq7rp17qjIOzA7Q5XzhE9gLERvrcX?=
+ =?us-ascii?Q?ra5CQjtPZfcmb7zzekIlgg2+FEgF5rl7LQe6AC9oY8n5nKahDeAQnwSLPaHB?=
+ =?us-ascii?Q?LEWBrhBjPQfDunLNNNPHUZASG4zx3beOCKGE/AK1NDTbbkChxUUiyFgZJa51?=
+ =?us-ascii?Q?WB1wfj+hoFxI/8zcKsOPuTfSpSop+WR0e7t9lOLfSq94N3FTAqJyWPDjqngP?=
+ =?us-ascii?Q?2q9eFPtqr4yOMEerkY28mL6sfrC7aAf5L9wBjGp+DkXAts5CIoNuMpOC1djh?=
+ =?us-ascii?Q?hhhuQHfimrdPvt30aZF79Z2ON0vFyOMGSfqOALXdu6QEokcxIxfLiNeNOZY7?=
+ =?us-ascii?Q?oqu8rpXIyRT4VBEjVoA0kv4+MtezlKzQVbULy6bw/qyh5TVkogR9rYlEtB6B?=
+ =?us-ascii?Q?8K5KtVmRHipwSJ4IuHBPxFptTupL4LtVl5Tu8l0Wa4H1w8KGwQWthnkyFoNb?=
+ =?us-ascii?Q?s2NVI7k+xdYEU/9Oend16gwKbbntME9KPDyMWzT0jCjqw7e7HX5QPMLAKtNx?=
+ =?us-ascii?Q?mtxlyQ97ix5WC00vwWecXXBK/9bnnheZLAFgduDACHLcV/asTqO3KudstK3t?=
+ =?us-ascii?Q?xTVJtb0jNLgC0p/KME+Q0KtnNzZbl93B3Yv+B/T9ImHY00soalGxJi0iNJD2?=
+ =?us-ascii?Q?3ubRDuQjYiS/Zn/epUQLdTgkEmTZJenPdEbznDDoE5SyIj5g6Irt+xkrfEzT?=
+ =?us-ascii?Q?cLKtBGOoPTWs4dbkmFxSvghuwlFLRGyJq2Qs9Nztixd6/5mWzbXCMEDZQtI0?=
+ =?us-ascii?Q?D+LeNkDvqj3gh7Ud9UNbUSTx86+x8BCJMHFrtyeTA1eQLyoJpPMQGmS/ucS4?=
+ =?us-ascii?Q?iF4UNRQKH+k8IWozAX/7SNfN5QysZdtB5F4rTraLQ4LGVvNgv3pZ8J/bE7Sa?=
+ =?us-ascii?Q?rX0yHw9vZM817nXdq+ZlO8NGO1wsJb8T5KqH6FRBxF6UBdBzTos6VYVUbynM?=
+ =?us-ascii?Q?DwWIE0W/FLrYQ2zYrX1Ts6QbDAy/sTBYmMGxIMFVzpcsswofSCBIRVGEXAkq?=
+ =?us-ascii?Q?P1zl+ZNJ5XBvkK4bypWwjD8rYVWs18H3p4YWZ9yYPp26gE1ODfP5Y5LZQDit?=
+ =?us-ascii?Q?WyPRu6eKcSDrAsqw9DF9KpgkkPNse4onvX1C6NGK2O5CMzbto8/NVCWuoqWW?=
+ =?us-ascii?Q?eEj0ESLfhGcqyoajJ2ZIXdCa/kEhG4fePFv7sBMu1yz5DYLBVr9ChQX92XHk?=
+ =?us-ascii?Q?GnfT4DaBCQ5dbPIC7xq6IPuFSX6YSydU0lfOTZ3MdZKDsrurjNQfBMFGZivJ?=
+ =?us-ascii?Q?PwcBVJyLZAKuj2P2iWd8Ao1CrcTplB+dtyrDvXmZrS+UnGfqb9dh1WG2VfBn?=
+ =?us-ascii?Q?zs+dVx+uoDATWdffG2vhiV+Kau0Q4UVkzxn2762UhAnxmOvHA8NNM7lQATLd?=
+ =?us-ascii?Q?LzbxldI2dNVI/rWam/w8ZCan2KYm9bN3F5nk6pKQ?=
+X-OriginatorOrg: labundy.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 8c584710-08a6-41f8-3414-08dd4eced29c
+X-MS-Exchange-CrossTenant-AuthSource: BN7PR08MB3937.namprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2025 21:13:56.2257
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 00b69d09-acab-4585-aca7-8fb7c6323e6f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 5fN5NuzYMk0E5KnIaixdxYdthbpKOT+Sbryxa6SFoPUG/XoJVgiPY/HPsbZfZOklDlrJVXxVDeZOlTx5lbDHGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR08MB9079
+X-MailFrom: jeff@labundy.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: AG5JO7LBJUDJ3Q2HPVWZNZ24M57UUYHB
+X-Message-ID-Hash: AG5JO7LBJUDJ3Q2HPVWZNZ24M57UUYHB
+X-Mailman-Approved-At: Mon, 17 Feb 2025 10:09:38 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SDRRQIH6YDUBT43L6M3QZGR7TATPAH3D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AG5JO7LBJUDJ3Q2HPVWZNZ24M57UUYHB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,57 +209,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-YWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYgcHVsbCByZXF1ZXN0ICM1MDkgd2FzIGVkaXRlZCBm
-cm9tIGlsbGRlZmluZWQ6CgpUaGlzIGFkZHMgc3VwcG9ydCBmb3IgdGhlIFJNRSBGaXJlZmFjZSBV
-Q1ggSUkgaW50ZXJmYWNlLg0KDQpVc2VyIG1hbnVhbDogPGh0dHBzOi8vcm1lLWF1ZGlvLmRlL2Rv
-d25sb2Fkcy9mZmFjZV91Y3gyX2UucGRmPg0KDQojIyMgRGV2aWNlIGludGVyZmFjZQ0KDQpUaGUg
-aW50ZXJmYWNlIHByb3ZpZGVzIDIwIHBsYXliYWNrIGFuZCBjYXB0dXJlIGNoYW5uZWxzIGVhY2g6
-DQotIGNoYW5uZWxzICAwICB0byAgNyBhcmUgYW5hbG9nIGlucHV0cyBhbmQgb3V0cHV0cw0KLSBj
-aGFubmVscyAgOCBhbmQgIDkgYXJlIEFFUzMgKFMvUERJRikgdmlhIGNvYXgNCi0gY2hhbm5lbHMg
-MTAgYW5kIDExIGFyZSBBRVMzIChTL1BESUYpIHZpYSBYTFINCi0gY2hhbm5lbHMgMTIgIHRvIDE5
-IGFyZSBBREFUIE9wdGljYWwgSW50ZXJmYWNlICg4IGNoYW5uZWxzKSBvciBTL1BESUYgKG91dHB1
-dCBvbmx5LCAxMiBhbmQgMTMpIHZpYSBUT1NMSU5LDQoNClRoZSBpbnRlcmZhY2Ugc3VwcG9ydHMg
-dGhyZWUgX0NsYXNzIENvbXBsaWFudF8gcGxheWJhY2sgbW9kZXM6DQoNCi0gXzggQ2guICsgUGhv
-bmVzXzoNCiAgLSBjaGFubmVscyAwKzEgYXJlIG1pcnJvcmVkIHRvIDYrNyAoaGVhZHBob25lcyBM
-K1IpLCA4KzkgKFMvUERJRiBMK1IpIGFuZCAxMisxMyAoQURBVCAxLzIpDQogIC0gY2hhbm5lbHMg
-MiszIGFyZSBtaXJyb3JlZCB0byAxMCsxMSAoQUVTMyBMK1IpIGFuZCAxNCsxNSAoQURBVCAzLzQp
-DQogIC0gY2hhbm5lbHMgNCs1IGFyZSBtaXJyb3JlZCB0byAxNisxNyAoQURBVCA1LzYpDQogIC0g
-Y2hhbm5lbHMgNis3IGFyZSBtaXJyb3JlZCB0byAxOCsxOSAoQURBVCA3LzgpDQotIF84IENoLiBQ
-bGF5YmFja186DQogIC0gY2hhbm5lbHMgMCsxIGFyZSBtaXJyb3JlZCB0byA4KzkgKFMvUERJRiBM
-K1IpIGFuZCAxMisxMyAoQURBVCAxLzIpDQogIC0gY2hhbm5lbHMgMiszIGFyZSBtaXJyb3JlZCB0
-byAxMCsxMSAoQUVTMyBMK1IpIGFuZCAxNCsxNSAoQURBVCAzLzQpDQogIC0gY2hhbm5lbHMgNCs1
-IGFyZSBtaXJyb3JlZCB0byAxNisxNyAoQURBVCA1LzYpDQogIC0gY2hhbm5lbHMgNis3IGFyZSBt
-aXJyb3JlZCB0byAxOCsxOSAoQURBVCA3LzgpDQotIF8yMCBDaC4gUGxheWJhY2tfOiBubyBjaGFu
-bmVsIG1pcnJvcmluZw0KDQpUaGUgZGV2aWNlIGV4cG9zZXMgYWxsIDIwIGNoYW5uZWxzIGluIGFs
-bCB0aHJlZSBwbGF5YmFjayBtb2Rlcy4NCg0KTm8gbWl4ZXIgY29udHJvbHMgYXJlIGF2YWlsYWJs
-ZSB3aXRoIHRoZSBjdXJyZW50IGRyaXZlci4NCg0KIyMjIFBoeXNpY2FsIGNvbm5lY3RvciBsYXlv
-dXQNCg0KdG9wIHRvIGJvdHRvbSwgbGVmdCB0byByaWdodCwgdmlld2VkIGZyb20gZGV2aWNlIGZy
-b250DQoNCiMjIyMgRnJvbnQNCg0KLSBfMSBNSUMgLyBMSU5FXzogIFhMUiAvIFRSUyDCvCIgY29t
-Ym8sIGJhbGFuY2VkIG1vbm8gaW5wdXQsIDQ44oCvViBwaGFudG9tIHBvd2VyDQotIF8yIE1JQyAv
-IExJTkVfOiAgWExSIC8gVFJTIMK8IiBjb21ibywgYmFsYW5jZWQgbW9ubyBpbnB1dCwgNDjigK9W
-IHBoYW50b20gcG93ZXINCi0gXzMgTElORSAvIElOU1RSLl86IFRSUyDCvCIsIGJhbGFuY2VkIG1v
-bm8gaW5wdXQNCi0gXzQgTElORSAvIElOU1RSLl86IFRSUyDCvCIsIGJhbGFuY2VkIG1vbm8gaW5w
-dXQNCi0gX/CfjqfvuI5fIChoZWFkcGhvbmVzIHN5bWJvbCk6IFRSUyDCvCIsIHVuYmFsYW5jZWQg
-c3RlcmVvIG91dHB1dA0KDQojIyMjIEJhY2sNCg0KLSBfTElORSBJTlBVVFMgKEJBTEFOQ0VEKV8g
-IFtfNV8sIF82XzsgXzdfLCBfOF9dOiBUUlMgwrwiLCBiYWxhbmNlZCBtb25vIGlucHV0cw0KLSBf
-TElORSBPVVRQVVRTIChCQUxBTkNFRClfIFtfMV8sIF8yXzsgXzNfLCBfNF87IF81XywgXzZfXTog
-VFJTIMK8IiwgYmFsYW5jZWQgbW9ubyBvdXRwdXRzDQotIF9BREFUIElOXzogVE9TTElOSywgQURB
-VCBPcHRpY2FsIEludGVyZmFjZQ0KLSBfQURBVCBPVVRfOiBUT1NMSU5LLCBBREFUIE9wdGljYWwg
-SW50ZXJmYWNlIG9yICBvciBTL1BESUYNCi0gX0FFUy9FQlUgJiBTUERJRl86IDnigJBwaW4gRC1T
-dWIgd2l0aCBicmVha291dCBjYWJsZSAoMuKAr8OXIFJDQSBhbmQgMuKAr8OXIFhMUikNCiAgLSBS
-Q0EgaW46IEFFUzMgb3IgUy9QRElGIChhdXRvbWF0aWMgZGV0ZWN0aW9uKQ0KICAtIFJDQSBvdXQ6
-IGNvbmZpZ3VyYWJsZSBmb3IgQUVTMyAoX1Byb2Zlc3Npb25hbF8pIG9yIFMvUERJRiAoX0NvbnN1
-bWVyXykNCiAgLSBYTFIgaW46IEFFUzMgb3IgUy9QRElGIChhdXRvbWF0aWMgZGV0ZWN0aW9uKQ0K
-ICAtIFhMUiBvdXQ6IEFFUzMgb25seQ0KDQojIyMgQ2hhbm5lbCBjb25maWd1cmF0aW9ucw0KDQpU
-aGUgX0hpRmlfIHVzZSBjYXNlIG9ubHkgZXhwb3NlcyB0aGUgbW9zdCBjb21tb24gY2hhbm5lbCBj
-b25maWd1cmF0aW9ucyB0byBsaW1pdCBjb21iaW5hdG9yaWFsIGNvbXBsZXhpdHk6DQoNCi0gQW5h
-bG9nIGxpbmUgb3V0cHV0cyBpbiBzdGVyZW8gYXMgd2VsbCBhcyA0LjAgYW5kIDUuMSBzdXJyb3Vu
-ZCwNCi0gYW5hbG9nIG1pY3JvcGhvbmUgYW5kIGluc3RydW1lbnQgaW5wdXRzIGluIG1vbm8gb25s
-eSwNCi0gQURBVCBPcHRpY2FsIG91dHB1dHMgYW5kIGlucHV0cyBpbiBkaXJlY3QgOOKAkGNoYW5u
-ZWwgbWFwcGluZywgYW5kDQotIGFsbCBvdGhlciBvdXRwdXRzIGFuZCBpbnB1dHMgaW4gc3RlcmVv
-Lg0KDQpbYWxzYS1pbmZvLnR4dF0oaHR0cHM6Ly9naXRodWIuY29tL3VzZXItYXR0YWNobWVudHMv
-ZmlsZXMvMTg4MTQ4MTUvYWxzYS1pbmZvLnR4dCkKClJlcXVlc3QgVVJMICAgOiBodHRwczovL2dp
-dGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYvcHVsbC81MDkKUGF0Y2ggVVJMICAg
-ICA6IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS11Y20tY29uZi9wdWxsLzUw
-OS5wYXRjaApSZXBvc2l0b3J5IFVSTDogaHR0cHM6Ly9naXRodWIuY29tL2Fsc2EtcHJvamVjdC9h
-bHNhLXVjbS1jb25mCg==
+Hi Fred,
+
+On Tue, Feb 04, 2025 at 05:18:29PM -0600, Fred Treven wrote:
+> Introduce driver for Cirrus Logic Device CS40L26:
+> A boosted haptics driver with integrated DSP and
+> waveform memory with advanced closed loop algorithms
+> and LRA protection.
+> 
+> The core CS40L26 driver is in MFD and touches the
+> Input Force Feedback subsystem for haptics and
+> the ASoC subsystem for audio to haptics streaming.
+> 
+> This patchset includes changes to the CS DSP firmware
+> driver which fixes two bugs and introduces support for
+> multiple coefficient files.
+> 
+> Fred Treven (7):
+>   firmware: cs_dsp: Fix error checking in wseq_write()
+>   firmware: cs_dsp: Check for valid num_regs in
+>     cs_dsp_wseq_multi_write()
+>   firmware: cs_dsp: Add ability to load multiple coefficient files
+>   dt-bindings: mfd: cirrus,cs40l26: Support for CS40L26
+>   mfd: cs40l26: Add support for CS40L26 core driver
+>   ASoC: cs40l26: Support I2S streaming to CS40L26
+>   Input: cs40l26 - Add support for CS40L26 haptic driver
+> 
+>  .../bindings/mfd/cirrus,cs40l26.yaml          |   81 +
+>  MAINTAINERS                                   |    4 +-
+>  drivers/firmware/cirrus/cs_dsp.c              |   70 +-
+>  drivers/input/misc/Kconfig                    |   10 +
+>  drivers/input/misc/Makefile                   |    1 +
+>  drivers/input/misc/cs40l26-vibra.c            |  669 ++++++++
+>  drivers/mfd/Kconfig                           |   29 +
+>  drivers/mfd/Makefile                          |    4 +
+>  drivers/mfd/cs40l26-core.c                    | 1412 +++++++++++++++++
+>  drivers/mfd/cs40l26-i2c.c                     |   63 +
+>  drivers/mfd/cs40l26-spi.c                     |   63 +
+>  include/linux/firmware/cirrus/cs_dsp.h        |   14 +
+>  include/linux/mfd/cs40l26.h                   |  341 ++++
+>  sound/soc/codecs/Kconfig                      |   12 +
+>  sound/soc/codecs/Makefile                     |    2 +
+>  sound/soc/codecs/cs40l26-codec.c              |  523 ++++++
+>  16 files changed, 3281 insertions(+), 17 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/mfd/cirrus,cs40l26.yaml
+>  create mode 100644 drivers/input/misc/cs40l26-vibra.c
+>  create mode 100644 drivers/mfd/cs40l26-core.c
+>  create mode 100644 drivers/mfd/cs40l26-i2c.c
+>  create mode 100644 drivers/mfd/cs40l26-spi.c
+>  create mode 100644 include/linux/mfd/cs40l26.h
+>  create mode 100644 sound/soc/codecs/cs40l26-codec.c
+> 
+> -- 
+> 2.34.1
+> 
+
+Thank you for this high-quality series!
+
+When the CS40L50 MFD landed last year, I (probably naively) imagined that
+CS40L26 and CS40L50 were close cousins. My understanding was that CS40L50
+implements some basic DSP functionality in ROM, which can be overridden
+with firmware uploaded at runtime, while CS40L26 requires firmware to be
+uploaded at runtime in any circumstance.
+
+To that end, I recall during the CS40L50 MFD review that there was some
+hope the CS40L50 MFD could be gently extended to support both devices, and
+a separate input driver may be required. At the very least, I was surprised
+to see an all-new codec driver, since the codec child is essentially just a
+stub driver in both cases.
+
+If a completely new MFD and children are utlimately required here, then so
+be it; I just wanted to ask whether you had considered if it's possible to
+re-use and/or extend any existing driver(s) here. Assuming so, I think it
+can be helpful to speak to this exercise in the cover letter and explain
+your reasoning to the review audience.
+
+Kind regards,
+Jeff LaBundy

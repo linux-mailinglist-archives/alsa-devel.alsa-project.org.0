@@ -2,94 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1CBA3B17A
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2025 07:12:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD0CCA3BBB6
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2025 11:34:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9572604AB;
-	Wed, 19 Feb 2025 07:12:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9572604AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AEC2604A5;
+	Wed, 19 Feb 2025 11:34:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AEC2604A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739945570;
-	bh=iXUqeelo6+wnmNEpdbEIOO9/BBhzbiMRW7aC7zC8Abk=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SzgWkD4TY+KxMCg1yaZCo/JQdXePETMAtDRQpGpQLc5WH6/w9Jxfed/ClrqHpMSpw
-	 ITXdN15NktomU1Spqxg9HGaFIN08Qi4+llofXr3NFi2pr+8QPOSA0dbKe4ujEOBvCN
-	 wruIYoVuzIfaaBUuNHKIPqGFkuWFnPlqJ6wB1710=
+	s=default; t=1739961270;
+	bh=Jz8MfOF0RtsLyIdzhdeLeDnOVjjxlipcpYaetRS6Ew0=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=QdfAfz3mrzeQMzMgMKMkvFZnnPivyis5mW/4cZAFDXaFF4rwYErlOfS56sPam6a/U
+	 wMLTH63jnB9NesC9+ZUtfOU7k/Zxu3cOhsEZeIeGSs7+rHmZ36WKWzEgdBVeLFb4yR
+	 cqISpN064LockOc4GBOX8Ay++gmLF/NmgVmF5Dqc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF8D9F8062D; Wed, 19 Feb 2025 07:11:45 +0100 (CET)
+	id B3F81F805BF; Wed, 19 Feb 2025 11:33:58 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 367D1F8061A;
-	Wed, 19 Feb 2025 07:11:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0E16F805B4;
+	Wed, 19 Feb 2025 11:33:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D78A9F8013D; Wed, 19 Feb 2025 07:11:24 +0100 (CET)
+	id 47936F8013D; Wed, 19 Feb 2025 11:33:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3631CF800E3
-	for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2025 07:11:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3631CF800E3
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=YtMYEH3r
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 51J6BGgx179437
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 19 Feb 2025 00:11:16 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1739945476;
-	bh=Heky75tj+uLcdqikRK3Ikg9XOVDU3NBtjpijRJyBNYI=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=YtMYEH3rbX5tyF0CrXbb+P5LtuFaM8cHa3Oi8nKjxNQQK1iokMZdkCE4ggRv/hP6L
-	 ih9f5mqC4TZp4CEJL2Y7gOQFIxQsmESlEaGBDaJb6v/3bn4UUlEFoUQUURO8lYr9X2
-	 DbX6NDnN4V3x/UX6n6BM3asGjtoEgi2ldVUg93eY=
-Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 51J6BGMn050537
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 19 Feb 2025 00:11:16 -0600
-Received: from DLEE111.ent.ti.com (157.170.170.22) by DLEE102.ent.ti.com
- (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 19
- Feb 2025 00:11:15 -0600
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DLEE111.ent.ti.com
- (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Wed, 19 Feb 2025 00:11:15 -0600
-Received: from LT5CG31242FY.dhcp.ti.com (lt5cg31242fy.dhcp.ti.com
- [10.85.14.207])
-	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 51J6B2Zx062304;
-	Wed, 19 Feb 2025 00:11:13 -0600
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>, <tiwai@suse.de>
-CC: <andriy.shevchenko@linux.intel.com>, <13916275206@139.com>,
-        <13564923607@139.com>, <alsa-devel@alsa-project.org>,
-        <baojun.xu@ti.com>, Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v2 4/4] ALSA: hda/tas2781: Support dsp firmware Alpha and Beta
- seaies
-Date: Wed, 19 Feb 2025 14:10:57 +0800
-Message-ID: <20250219061057.714-4-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
-In-Reply-To: <20250219061057.714-1-shenghao-ding@ti.com>
-References: <20250219061057.714-1-shenghao-ding@ti.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
+	MISSING_MID,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A238F800ED
+	for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2025 11:33:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A238F800ED
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Message-ID-Hash: XLCQPQI35SGV4XWCDUNWTLVKDYA2NLOY
-X-Message-ID-Hash: XLCQPQI35SGV4XWCDUNWTLVKDYA2NLOY
-X-MailFrom: shenghao-ding@ti.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1739961218815779686-webhooks-bot@alsa-project.org>
+References: <1739961218815779686-webhooks-bot@alsa-project.org>
+Subject: Realtek driver assignes wrong pins on Omen 16 with B&O audio
+Message-Id: <20250219103341.47936F8013D@alsa1.perex.cz>
+Date: Wed, 19 Feb 2025 11:33:40 +0100 (CET)
+Message-ID-Hash: U3KZG2NO7JX4NYI2KRR5BD7P2GGB6Q2T
+X-Message-ID-Hash: U3KZG2NO7JX4NYI2KRR5BD7P2GGB6Q2T
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XLCQPQI35SGV4XWCDUNWTLVKDYA2NLOY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U3KZG2NO7JX4NYI2KRR5BD7P2GGB6Q2T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,56 +71,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For calibration, basic version does not contain any calibration addresses,
-it depends on calibration tool to convery the addresses to the driver.
-Since Alpha and Beta firmware, all the calibration addresses are saved
-into the firmware. In order to fallback the BASIC or older version, code
-was added an extra branch to handle Alpha and Beta version.
+alsa-project/alsa-ucm-conf issue #511 was opened from johnfloe:
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+<!--
 
----
-v2:
- - | Reported-by: kernel test robot <lkp@intel.com>
-   | Closes:
-   | https://urldefense.com/v3/__https://lore.kernel.org/oe-kbuild-all/2025
-   | 02160812.P7szOygN-lkp@intel.com/__;!!G3vK!WriwhtbQGlg6p00bcWutlhb-y9vS
-   | pDrSu5_g9oOzzGOoABdirEARTntFzyX6Ss3UPRDxi_E-IA$
- - | Reported-by: kernel test robot <lkp@intel.com>
-   | Closes:
-   | https://urldefense.com/v3/__https://lore.kernel.org/oe-kbuild-all/2025
-   | 02160632.u0zxG7yD-lkp@intel.com/__;!!G3vK!VtEdfur3fZklvPVfHFFfFP60Ub2E
-   | JYvmjSUZ65lJ6BsQPJDl1fjYRDqh3c6Q5y6sA70ssXDG5g$
----
- sound/pci/hda/tas2781_spi_fwlib.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Please read our Bug reporting guidelines before opening a bug:
+https://wiki.archlinux.org/title/Bug_reporting_guidelines
 
-diff --git a/sound/pci/hda/tas2781_spi_fwlib.c b/sound/pci/hda/tas2781_spi_fwlib.c
-index 131d9a77d140..c90641119509 100644
---- a/sound/pci/hda/tas2781_spi_fwlib.c
-+++ b/sound/pci/hda/tas2781_spi_fwlib.c
-@@ -370,10 +370,10 @@ static unsigned char map_dev_idx(struct tasdevice_fw *tas_fmw,
- 	int i, n = ARRAY_SIZE(non_ppc3_mapping_table);
- 	unsigned char dev_idx = 0;
- 
--	if (fw_fixed_hdr->ppcver >= PPC3_VERSION_TAS2781) {
-+	if (fw_fixed_hdr->ppcver >= PPC3_VERSION_TAS2781_BASIC_MIN) {
- 		p = (struct blktyp_devidx_map *)ppc3_tas2781_mapping_table;
- 		n = ARRAY_SIZE(ppc3_tas2781_mapping_table);
--	} else if (fw_fixed_hdr->ppcver >= PPC3_VERSION) {
-+	} else if (fw_fixed_hdr->ppcver >= PPC3_VERSION_BASE) {
- 		p = (struct blktyp_devidx_map *)ppc3_mapping_table;
- 		n = ARRAY_SIZE(ppc3_mapping_table);
- 	}
-@@ -1605,7 +1605,7 @@ static int dspfw_default_callback(struct tasdevice_priv *tas_priv,
- 	int rc = 0;
- 
- 	if (drv_ver == 0x100) {
--		if (ppcver >= PPC3_VERSION) {
-+		if (ppcver >= PPC3_VERSION_BASE) {
- 			tas_priv->fw_parse_variable_header =
- 				fw_parse_variable_header_kernel;
- 			tas_priv->fw_parse_program_data =
--- 
-2.34.1
+If you want to help catching more bugs upfront, consider joining the Arch Testing Team:
+https://wiki.archlinux.org/title/Arch_Testing_Team
 
+-->
+
+# Description:
+I have a dual boot with Arch Linux and Windows 11 on my HP Omen 16 b1001nd with Bang & Olufsen audio.
+On Windows, the speakers function normally and the volume is quite loud and full at 100%.
+But on Arch, the audio is very shallow and the volume is low compared to Windows.
+I've tried using HDAJackRetask, but the Realtek driver overrides the pin settings.
+When I blacklist the Realtek module, it switches to Generic and I can enable the pins with hda verbs.
+But the then auto switching for the headphones doesn't work, so I have to figure out how to enable that..
+It does seem a bit better when enabling pin 0x14 and pin 0x1e, but still not the same as in Windows.
+It would be nice to have a working driver/codec so I don't have to configure all the pins myself.
+
+Thanks in advance!
+
+# Additional info:
+
+* package version(s): latest kernel, linux-firmware and sof-firmware installed
+* config and/or log files:
+Related dmesg output:
+
+sudo dmesg | grep snd                                      
+
+[    5.052362] snd_hda_intel 0000:00:1f.3: Digital mics found on Skylake+ platform, using SOF driver
+
+[    5.052469] snd_hda_intel 0000:01:00.1: enabling device (0000 -> 0002)
+
+[    5.052725] snd_hda_intel 0000:01:00.1: Disabling MSI
+
+[    5.052736] snd_hda_intel 0000:01:00.1: Handle vga_switcheroo audio client
+
+[    5.388591] snd_hda_codec_realtek ehdaudio0D0: ALC245: picked fixup  for PCI SSID 103c:0000
+
+[    5.388944] snd_hda_codec_realtek ehdaudio0D0: autoconfig for ALC245: line_outs=1 (0x17/0x0/0x0/0x0/0x0) type:speaker
+
+[    5.388947] snd_hda_codec_realtek ehdaudio0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+
+[    5.388949] snd_hda_codec_realtek ehdaudio0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
+
+[    5.388951] snd_hda_codec_realtek ehdaudio0D0:    mono: mono_out=0x0
+
+[    5.388953] snd_hda_codec_realtek ehdaudio0D0:    inputs:
+
+[    5.388954] snd_hda_codec_realtek ehdaudio0D0:      Mic=0x19
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/511
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

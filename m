@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24293A3BE87
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2025 13:49:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD2DA3BE95
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2025 13:50:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D56E4604C7;
-	Wed, 19 Feb 2025 13:49:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D56E4604C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 525F5604CA;
+	Wed, 19 Feb 2025 13:50:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 525F5604CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739969379;
-	bh=jSW5r+UPjx/T2Ti/Y3+D4rPMvFP7JyX5oxWfdboWC1k=;
+	s=default; t=1739969441;
+	bh=e5x3mOF9Rn2AllX0ZIyYTDaKIuJ2LfLJcnhK7JQ8mxk=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=FCfDj8tJuEoDCJpNCdbaOo8gRxEcgCSt329u5RvNC+wAomKvpSi8+Vm/+ikjw7e6L
-	 5TkhsoUXe3WszXaCi9dfwXWir0b8FdNuQRzIb2/oQci3P3876b51BNHeM8wdG/TFg3
-	 IrnxoN5G2LMK5esFuwiUq4u7BYAj9b0YzFabn4IM=
+	b=F/0XAoziNk9gNixUo3sEj8Wj0B+Gf+mtkjk9zsuT0sd95rcWlIkpFIAntQG4l3tmb
+	 usY+NlTRhmn7gqYw1BgF3IJOexRKKHRR6Akv3UU5JtwvG0T3lY0czqzIJhnnav3hlY
+	 SBXJDzokQe0xvvOHPEb/cIg+EehDCvSlo6lBhXr8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D595F805BE; Wed, 19 Feb 2025 13:49:04 +0100 (CET)
+	id 2FA43F805BF; Wed, 19 Feb 2025 13:50:07 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 372B7F805B3;
-	Wed, 19 Feb 2025 13:49:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A161F805B6;
+	Wed, 19 Feb 2025 13:50:07 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68180F8013D; Wed, 19 Feb 2025 13:48:49 +0100 (CET)
+	id CCA17F8013D; Wed, 19 Feb 2025 13:50:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 072ACF800EE
-	for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2025 13:48:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 072ACF800EE
+	by alsa1.perex.cz (Postfix) with ESMTP id 29542F800EE
+	for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2025 13:50:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29542F800EE
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1739969324169883966-webhooks-bot@alsa-project.org>
-References: <1739969324169883966-webhooks-bot@alsa-project.org>
+In-Reply-To: <1739969400697781801-webhooks-bot@alsa-project.org>
+References: <1739969400697781801-webhooks-bot@alsa-project.org>
 Subject: Realtek driver assignes wrong pins on Omen 16 with B&O audio
-Message-Id: <20250219124849.68180F8013D@alsa1.perex.cz>
-Date: Wed, 19 Feb 2025 13:48:49 +0100 (CET)
-Message-ID-Hash: JQ3QKGE5BBM3FJMS4JCDDRYLCPMJUBU7
-X-Message-ID-Hash: JQ3QKGE5BBM3FJMS4JCDDRYLCPMJUBU7
+Message-Id: <20250219125002.CCA17F8013D@alsa1.perex.cz>
+Date: Wed, 19 Feb 2025 13:50:02 +0100 (CET)
+Message-ID-Hash: LL43M2NR3NLBSWGUJ53PPZAORFP2KHBH
+X-Message-ID-Hash: LL43M2NR3NLBSWGUJ53PPZAORFP2KHBH
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQ3QKGE5BBM3FJMS4JCDDRYLCPMJUBU7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LL43M2NR3NLBSWGUJ53PPZAORFP2KHBH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,18 +100,25 @@ Thanks in advance!
 * package version(s): latest kernel, linux-firmware and sof-firmware installed
 * config and/or log files:
 Related dmesg output:
-`
-sudo dmesg | grep snd                                      
+
+`sudo dmesg | grep snd\n
 [    5.052362] snd_hda_intel 0000:00:1f.3: Digital mics found on Skylake+ platform, using SOF driver
 [    5.052469] snd_hda_intel 0000:01:00.1: enabling device (0000 -> 0002)
 [    5.052725] snd_hda_intel 0000:01:00.1: Disabling MSI
 [    5.052736] snd_hda_intel 0000:01:00.1: Handle vga_switcheroo audio client
+
 [    5.388591] snd_hda_codec_realtek ehdaudio0D0: ALC245: picked fixup  for PCI SSID 103c:0000
+
 [    5.388944] snd_hda_codec_realtek ehdaudio0D0: autoconfig for ALC245: line_outs=1 (0x17/0x0/0x0/0x0/0x0) type:speaker
+
 [    5.388947] snd_hda_codec_realtek ehdaudio0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+
 [    5.388949] snd_hda_codec_realtek ehdaudio0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
+
 [    5.388951] snd_hda_codec_realtek ehdaudio0D0:    mono: mono_out=0x0
+
 [    5.388953] snd_hda_codec_realtek ehdaudio0D0:    inputs:
+
 [    5.388954] snd_hda_codec_realtek ehdaudio0D0:      Mic=0x19`
 
 Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/511

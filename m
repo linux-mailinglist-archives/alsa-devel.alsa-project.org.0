@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20FF1A3BE97
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2025 13:50:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80D3CA3BE9A
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2025 13:51:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1DD0604E0;
-	Wed, 19 Feb 2025 13:50:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1DD0604E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0A0D604D1;
+	Wed, 19 Feb 2025 13:51:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0A0D604D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1739969452;
-	bh=W1Bk7r9PRNw1Xqx5ESJShKZ0pA9HYtbGSmuh1njFJcs=;
+	s=default; t=1739969472;
+	bh=RFcvg9dzFrEDQMHt2AVq59fEkf07ltbrvnr7EgT1zTs=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=cEjRbF+OF+jUmZcEQFKCO314u6QAaz2PPBrAkyWwHgdMGQoVYUxnr694uqaW+7KQv
-	 cAxaXb0WYkle8dFkoTraIo9K8l9hpotlNgXuH3YQML8emchfUtfuPBE8ZMH5FFbRHr
-	 L0otutgDEkUNC8ebImxBG42YBTxi82HBL/2nG3n8=
+	b=Fi8SQI8DBFBqi9uNQuQh4fLxxjghj6/X0RIdNI3yrJkdIqtMG4fcGYSpTkIZ6Ob5u
+	 1p41dd/iZl+YurtrPxL9OxE0Xtl+kxEiMK0jNaZHAfWLzRB+dGN3xfXYmYYwXLv7OG
+	 k5XqAo5FaNlK1NJjV09L/yGH3IcWgeVRF+MZbumE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC3DEF805D4; Wed, 19 Feb 2025 13:50:17 +0100 (CET)
+	id 9D3A8F805B3; Wed, 19 Feb 2025 13:50:47 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4E80F805EA;
-	Wed, 19 Feb 2025 13:50:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C687F805B6;
+	Wed, 19 Feb 2025 13:50:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43710F805C9; Wed, 19 Feb 2025 13:50:14 +0100 (CET)
+	id 8BD4DF8014B; Wed, 19 Feb 2025 13:50:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2B13F805C6
-	for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2025 13:50:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2B13F805C6
+	by alsa1.perex.cz (Postfix) with ESMTP id 54BADF800E3
+	for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2025 13:50:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54BADF800E3
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1739969412222621679-webhooks-bot@alsa-project.org>
-References: <1739969412222621679-webhooks-bot@alsa-project.org>
+In-Reply-To: <1739969440275688648-webhooks-bot@alsa-project.org>
+References: <1739969440275688648-webhooks-bot@alsa-project.org>
 Subject: Realtek driver assignes wrong pins on Omen 16 with B&O audio
-Message-Id: <20250219125014.43710F805C9@alsa1.perex.cz>
-Date: Wed, 19 Feb 2025 13:50:14 +0100 (CET)
-Message-ID-Hash: ZJ37X34N5WAI5I7DCQ6YEMJYZOHP7KPB
-X-Message-ID-Hash: ZJ37X34N5WAI5I7DCQ6YEMJYZOHP7KPB
+Message-Id: <20250219125042.8BD4DF8014B@alsa1.perex.cz>
+Date: Wed, 19 Feb 2025 13:50:42 +0100 (CET)
+Message-ID-Hash: PEZMJ7MIX4ONRUY32EXPLUNYN6GQQVI7
+X-Message-ID-Hash: PEZMJ7MIX4ONRUY32EXPLUNYN6GQQVI7
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZJ37X34N5WAI5I7DCQ6YEMJYZOHP7KPB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PEZMJ7MIX4ONRUY32EXPLUNYN6GQQVI7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,25 +101,18 @@ Thanks in advance!
 * config and/or log files:
 Related dmesg output:
 
-`sudo dmesg | grep snd
+sudo dmesg | grep snd
 [    5.052362] snd_hda_intel 0000:00:1f.3: Digital mics found on Skylake+ platform, using SOF driver
 [    5.052469] snd_hda_intel 0000:01:00.1: enabling device (0000 -> 0002)
 [    5.052725] snd_hda_intel 0000:01:00.1: Disabling MSI
 [    5.052736] snd_hda_intel 0000:01:00.1: Handle vga_switcheroo audio client
-
 [    5.388591] snd_hda_codec_realtek ehdaudio0D0: ALC245: picked fixup  for PCI SSID 103c:0000
-
 [    5.388944] snd_hda_codec_realtek ehdaudio0D0: autoconfig for ALC245: line_outs=1 (0x17/0x0/0x0/0x0/0x0) type:speaker
-
 [    5.388947] snd_hda_codec_realtek ehdaudio0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-
 [    5.388949] snd_hda_codec_realtek ehdaudio0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
-
 [    5.388951] snd_hda_codec_realtek ehdaudio0D0:    mono: mono_out=0x0
-
 [    5.388953] snd_hda_codec_realtek ehdaudio0D0:    inputs:
-
-[    5.388954] snd_hda_codec_realtek ehdaudio0D0:      Mic=0x19`
+[    5.388954] snd_hda_codec_realtek ehdaudio0D0:      Mic=0x19
 
 Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/511
 Repository URL: https://github.com/alsa-project/alsa-ucm-conf

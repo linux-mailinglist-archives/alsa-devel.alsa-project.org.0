@@ -2,55 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96946A3CD13
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2025 00:10:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 734E3A3DCAC
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2025 15:27:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95D9260533;
-	Thu, 20 Feb 2025 00:10:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95D9260533
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9E4C6056F;
+	Thu, 20 Feb 2025 15:27:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9E4C6056F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1740006619;
-	bh=GCXqZY9eW9vVuIjF2XxhxVCB5pm4G2rHyjeL0Kfa9M8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=mRvLp/NcHiHHwdFD6kqg9VhBTkBDDJVOgvOQaID9agp6bSv5it5XDHZHypIA/zlXO
-	 A0sIKE/8LvBrkzfqr/Gsf65zGze5x0jma3ZyuU2q1MPdNgPAQaBrtU2o/5AWhDwT3l
-	 WeXqDfrrkjd4HStJjqxtfigyp4cckw7dCTs2pApI=
+	s=default; t=1740061645;
+	bh=FcqdilpNhODSA00GdcWySmpigEU8BJsiN+AnfYbdzN0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Z9SbXuzuGjC0pSDPmKKirehH9J+Q3iFQtq4EIT6y/grlej1d5RKSAs0aHmdL2sIjN
+	 IefGAcM0aVa1eRg+59TSoi+XoLQRD87uqaN+EDUbLszeEbq5/JOH8wkTuwLYYBNGTA
+	 l9ludOqEB4wM4ntiTsm25BgBYxcARwmoNzgvg/XY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2FDFBF805B5; Thu, 20 Feb 2025 00:09:51 +0100 (CET)
+	id 693A2F805BD; Thu, 20 Feb 2025 15:26:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57150F805B5;
-	Thu, 20 Feb 2025 00:09:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DD62F805BA;
+	Thu, 20 Feb 2025 15:26:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA6A4F8032D; Thu, 20 Feb 2025 00:09:36 +0100 (CET)
+	id 990A0F8032D; Thu, 20 Feb 2025 15:26:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C5DCF8001D
-	for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2025 00:09:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C5DCF8001D
+X-Spam-Status: No, score=-2.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id D228FF8001D
+	for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2025 15:26:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D228FF8001D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Bk0z6obN
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6CFDB5C4926;
+	Thu, 20 Feb 2025 14:25:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4806C4CED1;
+	Thu, 20 Feb 2025 14:26:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1740061585;
+	bh=FcqdilpNhODSA00GdcWySmpigEU8BJsiN+AnfYbdzN0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Bk0z6obNnzzhW55kz+X64F/FtdhlZ9ulWS4OKELItY/ISD3kBHLf6gdm8Xx2YZ85Z
+	 7WNRixLa9DNvRhX69/stBIDSZ9jPnQE7RwdtzwWGZ2kmnpFgmDPfAieuhRr4tHR9dz
+	 ja2uXFvYcQHtdOHGO0MjLRi8TBAapXEYbg55wmCztlAAm2R9sXmSTxARYkSYmp8NMG
+	 e0dXylo9ELJ6fWy+d1ShNMPam2+vR5r89yXALF3k+sZaxKKH4tYe0qoz8jPL9J76Xo
+	 IpMnRU3waYjg5k4NKloWWOFpHIeRbIFj2zDr0ITV7TKI5imX+kFqAlbEY6W9VGpZVW
+	 yKM60niBX/1nQ==
+Date: Thu, 20 Feb 2025 14:26:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: tiwai@suse.de, andriy.shevchenko@linux.intel.com, 13916275206@139.com,
+	13564923607@139.com, alsa-devel@alsa-project.org, baojun.xu@ti.com
+Subject: Re: [PATCH v2 1/4] ASoC: tas2781: Support dsp firmware Alpha and
+ Beta seaies
+Message-ID: <Z7c7jpRCdMETRHBw@finisterre.sirena.org.uk>
+References: <20250219061057.714-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1740006574637485504-webhooks-bot@alsa-project.org>
-References: <1740006574637485504-webhooks-bot@alsa-project.org>
-Subject: Problems with async handler
-Message-Id: <20250219230936.EA6A4F8032D@alsa1.perex.cz>
-Date: Thu, 20 Feb 2025 00:09:36 +0100 (CET)
-Message-ID-Hash: CN3AWW22H2ZDA52EBSL7QWAN2RFP476H
-X-Message-ID-Hash: CN3AWW22H2ZDA52EBSL7QWAN2RFP476H
-X-MailFrom: github@alsa-project.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HSuuO7awSkUwTLzk"
+Content-Disposition: inline
+In-Reply-To: <20250219061057.714-1-shenghao-ding@ti.com>
+X-Cookie: Editing is a rewording activity.
+Message-ID-Hash: YXJSTXMDVOASTRWRSRW7662KYOIMQTLF
+X-Message-ID-Hash: YXJSTXMDVOASTRWRSRW7662KYOIMQTLF
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CN3AWW22H2ZDA52EBSL7QWAN2RFP476H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YXJSTXMDVOASTRWRSRW7662KYOIMQTLF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,32 +99,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #438 was edited from m-paq:
 
-Hi, I'm currently working on a project and I'm trying to use the async handler through `snd_async_add_pcm_handler`.
+--HSuuO7awSkUwTLzk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I don't really understand where the issue comes from and how to debug it but I keep getting an error on this function call in my project.
+On Wed, Feb 19, 2025 at 02:10:54PM +0800, Shenghao Ding wrote:
 
-To try to figure out what's wrong I went in the test files and tried to run the test file `pcm.c` and added a print of the error code (`snd_strerror`)
-Compiling with: `gcc pcm.c -o test_pcm -lasound -lm`
-Running it with `./test_pcm -m async`
+> -#define PPC3_VERSION				0x4100
+> -#define PPC3_VERSION_TAS2781			0x14600
+> +#define PPC3_VERSION_BASE			0x4100
+> +#define PPC3_VERSION_TAS2781_BASIC_MIN		0x14600
+> +#define PPC3_VERSION_TAS2781_ALPHA_MIN		0x4a00
+> +#define PPC3_VERSION_TAS2781_BETA_MIN		0x19400
 
-But it keeps giving me the following output:
-```
-Playback device is default
-Stream parameters are 44100Hz, S16_LE, 1 channels
-Sine wave rate is 440.0000Hz
-Using transfer method: async
-Unable to register async handler Function not implemented
-```
-from line 434.
+This is still going to break the build.  Each patch you send needs to
+build and run when applied by itself in order to allow people to bisect
+things.
 
-I am able to run it in write mode with the correct behaviour, so my question is:
-**Is this an issue with the device or is it an issue somewhere else?**
+--HSuuO7awSkUwTLzk
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If ever this is not the correct place to ask this question please refer me to a more adequate place.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks to anyone that can help me!
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAme3O4sACgkQJNaLcl1U
+h9CcmAf7BPM7oLmBr65sfOjuWFZPNrrxmPcnHpr6piArYfHbzW56k8WySG3zigpk
+5fPPBVB2Ak70PHSvGF+HM9HIDhml+EXYikniyJvERwfbPlJfoKk+ZbsPgDo6X+DA
+NJz2pLRgj0c930THOAU3JX8YNZoZGYifFjUhAEKa4izYYTYlypNjkQmUtD0wZ+za
+oYLvaVm1lxY2n3jjay7HzwIOKVKY2r2CC+LgO1WOLvYeNQHgjqaA5s6R+22gMaAe
+l1tSqIRcjdLcL9GK4ValHfwiYmi3znFb9Vm5qc8/YFRI/Dey/xXjQuRZ8DZaFpEd
+Rly7FJNi1+mOyY09Lv7WXD31JpiqFg==
+=Ghh2
+-----END PGP SIGNATURE-----
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/438
-Repository URL: https://github.com/alsa-project/alsa-lib
+--HSuuO7awSkUwTLzk--

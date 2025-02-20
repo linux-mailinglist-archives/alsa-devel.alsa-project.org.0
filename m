@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CAE4A3DCC1
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2025 15:28:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FE85A3E036
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2025 17:16:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 853866057A;
-	Thu, 20 Feb 2025 15:28:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 853866057A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3CD06030D;
+	Thu, 20 Feb 2025 17:16:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3CD06030D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1740061734;
-	bh=VJfQeC6UkhItLRobFtx+p9YE5O6I9pLQXBC0VfKPKkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tMPoN0hD0jCLyfRxOfd65urORz01HFJao8AYduJR6+/IHUClTnhuGtm4QM8Yho1yg
-	 BRr/wRj+lhuW2Ssn5gm0w5ue/JALBuFhjjb2eT3wm863Bm45oWcAzQQvJsOEaEnQbe
-	 qHyudhzQ1DVRs3yHVMJ7tbvlc3fgql/ITNggxQl0=
+	s=default; t=1740068196;
+	bh=Kz2vKX/s2pjV0F8lpMN1zrqeG9TVl5tlG5+9BI52XZo=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gR323EO3Kv5aZ7A7zHR1lRrYgdGvyCureDb/DA76JqYc92n49El1j7uLySsbcQ4iX
+	 pvXoUUJgZb5rXZE2AkJRsy77F0TxuHBn7eQaW8V2iXlhmMAV0hcG2/q0hnAwOQMkaB
+	 OCZ3qIQxDoI38YiT0sb/J1GkI6zV4bzIoU5K+yg0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF2EAF805AD; Thu, 20 Feb 2025 15:28:21 +0100 (CET)
+	id 2331DF805BD; Thu, 20 Feb 2025 17:16:05 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61342F8053D;
-	Thu, 20 Feb 2025 15:28:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76311F805BD;
+	Thu, 20 Feb 2025 17:16:05 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0778F8016B; Thu, 20 Feb 2025 15:27:56 +0100 (CET)
+	id AAAB7F8032D; Thu, 20 Feb 2025 17:15:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from mail.d-sys.org (70-31-180-213.sta.estpak.ee [213.180.31.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DD2F0F80016
-	for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2025 15:27:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD2F0F80016
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37530F80016
+	for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2025 17:15:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37530F80016
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tX+idvPE
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id C06A961495;
-	Thu, 20 Feb 2025 14:27:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98078C4CED1;
-	Thu, 20 Feb 2025 14:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740061667;
-	bh=VJfQeC6UkhItLRobFtx+p9YE5O6I9pLQXBC0VfKPKkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tX+idvPElslkbKPYzunVaAW6fwEFnZWUd9D4JvzyM1EZQWdHGfnXLzVDpSnmlKxth
-	 XFBY/kkZ2FKZB//s9rOXJOpGT5TlHDbcspF44b6XBAZpuPFWLiTeU6f+MiSNDfgogF
-	 Z3D06RIcaHkhMhyoP7xk47H8eKdGNkGPDV2PpL6qr9RBIl8w7OX1U+GcLkVwlSfBrr
-	 TovDBNpCN5C0pZrdoIa/FUUGhmCq3SYD+SDOzVnbWgRZXl46afRScI8QZN2bR3K+GS
-	 ViI1EUOnt//qe1WPT3bktIoO67Un/SmXJatluRVMBsFkBfsFMDg0Of/CIxLm5PGdxb
-	 gX0O8iHvv7szg==
-Date: Thu, 20 Feb 2025 14:27:43 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: tiwai@suse.de, andriy.shevchenko@linux.intel.com, 13916275206@139.com,
-	13564923607@139.com, alsa-devel@alsa-project.org, baojun.xu@ti.com
-Subject: Re: [PATCH v2 2/4] ASoC: tas2781: Support dsp firmware Alpha and
- Beta seaies
-Message-ID: <Z7c73zLIhzHmS6fP@finisterre.sirena.org.uk>
-References: <20250219061057.714-1-shenghao-ding@ti.com>
- <20250219061057.714-2-shenghao-ding@ti.com>
+ unprotected) header.d=d-systems.ee header.i=@d-systems.ee header.a=rsa-sha256
+ header.s=mail header.b=vqUbcWqq
+Received: from mail.d-sys.org (localhost [127.0.0.1])
+	by mail.d-sys.org (Postfix) with ESMTP id 8301560A53;
+	Thu, 20 Feb 2025 18:15:42 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=d-systems.ee; s=mail;
+	t=1740068142; bh=Kz2vKX/s2pjV0F8lpMN1zrqeG9TVl5tlG5+9BI52XZo=;
+	h=From:To:Cc:Subject:Date;
+	b=vqUbcWqqT2Z05kJC4FXQoGSpX1q739W1XwN5R9DTiEKOiUWh6BZLPHRb8OPttqTaW
+	 cFurft6FwlvcbSDwyOXS9G8j3Nn7aq+Yxb0aB4aHwW4YZ0iUPzkobUUwPJynkh126S
+	 7hJisI0uC+6kSTaQv03H88TBbQUsYYK/ELiOi8JmryB1Hdx6HNroOMERJIAOLZZRHD
+	 i8YyBFIvBBMIXlVHm8QRP9K44nWZxa8ei7YSH9sTEw3xELmzEJqgYJesZO0eaRfacg
+	 J8mab9LL9AfSYMGj7XQQLnSRk76U/M6ZFR9UF8er2w3UorNzJMxBpBWcFku/OZ4ZMM
+	 lPJptI5mTFR1Q==
+Received: from WSMF.dh (unknown [10.255.0.244])
+	by mail.d-sys.org (Postfix) with ESMTP id 70AD96097F;
+	Thu, 20 Feb 2025 18:15:42 +0200 (EET)
+From: Dmitry Panchenko | d-Systems <dmitry@d-systems.ee>
+To: alsa-devel@alsa-project.org
+Cc: Dmitry Panchenko <dmitry@d-systems.ee>
+Subject: [PATCH] ALSA: usb-audio: Re-add sample rate quirk for Pioneer
+ DJM-900NXS2
+Date: Thu, 20 Feb 2025 18:15:37 +0200
+Message-ID: <20250220161540.3624660-1-dmitry@d-systems.ee>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lI+lKjCUclSfw64s"
-Content-Disposition: inline
-In-Reply-To: <20250219061057.714-2-shenghao-ding@ti.com>
-X-Cookie: Editing is a rewording activity.
-Message-ID-Hash: SGSBZPCWGHOLEQUBK6BYHKZQVKPFBUEP
-X-Message-ID-Hash: SGSBZPCWGHOLEQUBK6BYHKZQVKPFBUEP
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+X-AV-Checked: ClamAV using ClamSMTP
+Message-ID-Hash: IMU3R2GL2454M3Q3W4XCXP7MWTECYRVI
+X-Message-ID-Hash: IMU3R2GL2454M3Q3W4XCXP7MWTECYRVI
+X-MailFrom: dmitry@d-systems.ee
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SGSBZPCWGHOLEQUBK6BYHKZQVKPFBUEP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IMU3R2GL2454M3Q3W4XCXP7MWTECYRVI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,35 +94,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Dmitry Panchenko <dmitry@d-systems.ee>
 
---lI+lKjCUclSfw64s
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Re-add the sample-rate quirk for the Pioneer DJM-900NXS2. This
+device does not not work without setting sample-rate.
 
-On Wed, Feb 19, 2025 at 02:10:55PM +0800, Shenghao Ding wrote:
-> For calibration, basic version does not contain any calibration addresses,
-> it depends on calibration tool to convey the addresses to the driver.
-> Since Alpha and Beta firmware, all the calibration addresses are saved
-> into the firmware.
+Signed-off-by: Dmitry Panchenko <dmitry@d-systems.ee>
+---
+ sound/usb/quirks.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The changelog and subject here are identical to that for patch 1.  If
-it's all one change this should be one patch, if they're two separate
-changes then something in the description of the patches should describe
-what's different.
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index a97efb7b131e..09210fb4ac60 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1868,6 +1868,7 @@ void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
+ 	case USB_ID(0x534d, 0x2109): /* MacroSilicon MS2109 */
+ 		subs->stream_offset_adj = 2;
+ 		break;
++	case USB_ID(0x2b73, 0x000a): /* Pioneer DJM-900NXS2 */
+ 	case USB_ID(0x2b73, 0x0013): /* Pioneer DJM-450 */
+ 		pioneer_djm_set_format_quirk(subs, 0x0082);
+ 		break;
+-- 
+2.43.0
 
---lI+lKjCUclSfw64s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAme3O98ACgkQJNaLcl1U
-h9BRmwf/f/in6gQDFvEuNqKbHHiPaXZ6eExjuyeMjCuI7ZRriFq6VUUs25kwa6Vg
-xK/VfLZZb0h5sVhe8DXektnBm6dLCFNHcQqJuRznDN38LOFkXk4VkAViiA4gLeA2
-MMr4fEPeKhfbVz+YRG3NLEeUgieRtvvdnCJ18R6Z1Ry+ADljJpYGgA2GGdbtKVng
-nErYb402aBCs/O9DnO9Gsb1lV9kNuE22kDJH+gYqSYWvw5h8UN07ZXx4r5wdVnlR
-qwUV+GIhddmsq8wLZIdT5cWgF7CS5gtTcZil4aZSqV6BwHKhL07CepDnwWzcd4kb
-y6DMRm0e6t2x14YjBLK4howj+dUn6A==
-=YbjV
------END PGP SIGNATURE-----
-
---lI+lKjCUclSfw64s--

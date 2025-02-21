@@ -2,146 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E945CA3E1D9
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2025 18:08:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C638A3F437
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2025 13:28:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21A3060591;
-	Thu, 20 Feb 2025 18:08:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21A3060591
+	by alsa0.perex.cz (Postfix) with ESMTPS id A052760596;
+	Fri, 21 Feb 2025 13:28:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A052760596
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1740071310;
-	bh=jxkfGLseJKQGm/Wu+jSyJs6KRESNwJzdUAWbwAMZZSk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=TS3/msHT65VaSgMNBuYx6wyYt+R3Iko2y6outQ4lbDUy2y371DvJYd5lteAv6hs9/
-	 01Qk2vo3dQxpKfGioyVMLNHExRwqTiSTl0LLvY8mfjvGKiNkdCNaN6AMPgBE3apzXg
-	 EFa3vmJNNHzGyGT7grxoCsoq3tXnSIoqhtDKODfs=
+	s=default; t=1740140920;
+	bh=Yyy18qKjq6WWcNNrHiZjhxMlZg0K62qDA8PvIO8C9tE=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ElGvqh/SUfYnb3kALV7aepyncEr27uUX2KDmGNwtk/QA92aT/049m1yWCWti+MZZ6
+	 nwT9XsOjbqPJUPOwYYlVbkdwzcIQmhjMO+iFUyKvQebUhnWMDqW4x7XWHNQBQjgcY0
+	 WDDhygKKq/xqXawKU4X6xWTXdpBmZxbfTP8WPeDY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F711F800E3; Thu, 20 Feb 2025 18:08:16 +0100 (CET)
+	id 498A6F805C2; Fri, 21 Feb 2025 13:28:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B891F805B4;
-	Thu, 20 Feb 2025 18:08:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E8C7F8052E;
+	Fri, 21 Feb 2025 13:28:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61261F8032D; Thu, 20 Feb 2025 18:07:46 +0100 (CET)
+	id 3C560F80424; Fri, 21 Feb 2025 13:27:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [IPv6:2600:3c04::f03c:95ff:fe5e:7468])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4A6A8F8001D
-	for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2025 18:07:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A6A8F8001D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 853C8F8001D
+	for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2025 13:27:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 853C8F8001D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=xCtgKqIY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=pwqMUwhq;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=xCtgKqIY;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=pwqMUwhq
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5E88021174;
-	Thu, 20 Feb 2025 17:07:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1740071263;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rxqeAyyRTMh5dpkBIDFcAuh2XPnTNJPihX/jfHLsZZQ=;
-	b=xCtgKqIYq8vRyodmDCi9evTiqMTjTKgBugQgBpcFgTzDDllnhaHIlbsPK+xeGbiltv23nM
-	w5aZ9mBdedQ6BWcxMIBNyHE7ib0JuWwhG+S106tu+l4yWAHB7eKQQ6cHjN9IYd9WlohSnZ
-	vNRzacQnAznfgND9kFQ0CcmeDvKNdgk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1740071263;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rxqeAyyRTMh5dpkBIDFcAuh2XPnTNJPihX/jfHLsZZQ=;
-	b=pwqMUwhq0BFKn3J3USaz8Nf6EKiefCbYbNG7aKKHo2gwxSA3VeeRQ8M/wgV6EKFkHFSp+k
-	cG/cczNMmRvNztCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1740071263;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rxqeAyyRTMh5dpkBIDFcAuh2XPnTNJPihX/jfHLsZZQ=;
-	b=xCtgKqIYq8vRyodmDCi9evTiqMTjTKgBugQgBpcFgTzDDllnhaHIlbsPK+xeGbiltv23nM
-	w5aZ9mBdedQ6BWcxMIBNyHE7ib0JuWwhG+S106tu+l4yWAHB7eKQQ6cHjN9IYd9WlohSnZ
-	vNRzacQnAznfgND9kFQ0CcmeDvKNdgk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1740071263;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rxqeAyyRTMh5dpkBIDFcAuh2XPnTNJPihX/jfHLsZZQ=;
-	b=pwqMUwhq0BFKn3J3USaz8Nf6EKiefCbYbNG7aKKHo2gwxSA3VeeRQ8M/wgV6EKFkHFSp+k
-	cG/cczNMmRvNztCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2401213301;
-	Thu, 20 Feb 2025 17:07:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id SEukBV9ht2exEQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 20 Feb 2025 17:07:43 +0000
-Date: Thu, 20 Feb 2025 18:07:42 +0100
-Message-ID: <87a5ag35pd.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dmitry Panchenko | d-Systems <dmitry@d-systems.ee>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: usb-audio: Re-add sample rate quirk for Pioneer
- DJM-900NXS2
-In-Reply-To: <20250220161540.3624660-1-dmitry@d-systems.ee>
-References: <20250220161540.3624660-1-dmitry@d-systems.ee>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-Message-ID-Hash: SBU3FMILKEVO6QFVZPNE4KRPHCGTEW55
-X-Message-ID-Hash: SBU3FMILKEVO6QFVZPNE4KRPHCGTEW55
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=YJrBYFpr
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 7D74861276;
+	Fri, 21 Feb 2025 12:27:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E876EC4CED6;
+	Fri, 21 Feb 2025 12:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1740140847;
+	bh=Yyy18qKjq6WWcNNrHiZjhxMlZg0K62qDA8PvIO8C9tE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=YJrBYFprBetKXhLiDKxhD78rCb6CfzngorK7v6vzZ40DQBJ4IEY6QfDFfWGR6uCI3
+	 BjNNMmu2Q3Dgp3J2usV6IF/rnBhByg0lvF80fAU6+/R5B66tNOk0XnceFMADOBuLUQ
+	 3nXmdPBBjRsRiw+H9EcCXkICAXL/e7W+LP+G84I8i1P673fbRuTOyq8ZJSfHTCgaBu
+	 IA3jvYlG0rok9MaWfmjHVlzLUyMzbwFk2hjHfmFHmxgHHgKCgJqYQP4xYMwwCL7Mh0
+	 pth65aVAfhhNt2yBX6C7n6WgGNWtOvDT3bVXv8VGfsk7LDncX0RD8Bzw/g5gfIs1e3
+	 oH5bb7r+SE6pQ==
+Message-ID: <dfd2c1bf9276c12f021c6474d60d71ee.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.14-rc3
+Date: Fri, 21 Feb 2025 12:27:18 +0000
+Message-ID-Hash: B4ZHHAKN7LBFCCRRWGPCM3U66HE2NPFE
+X-Message-ID-Hash: B4ZHHAKN7LBFCCRRWGPCM3U66HE2NPFE
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -153,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SBU3FMILKEVO6QFVZPNE4KRPHCGTEW55/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4ZHHAKN7LBFCCRRWGPCM3U66HE2NPFE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -162,21 +90,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 20 Feb 2025 17:15:37 +0100,
-Dmitry Panchenko | d-Systems wrote:
-> 
-> From: Dmitry Panchenko <dmitry@d-systems.ee>
-> 
-> Re-add the sample-rate quirk for the Pioneer DJM-900NXS2. This
-> device does not not work without setting sample-rate.
-> 
-> Signed-off-by: Dmitry Panchenko <dmitry@d-systems.ee>
+The following changes since commit 571b69f2f9b1ec7cf7d0e9b79e52115a87a869c4:
 
-Thanks, applied now.
+  ASoC: imx-audmix: remove cpu_mclk which is from cpu dai device (2025-02-13 11:34:32 +0000)
 
-But at the next time, please rather post to linux-sound ML instead of
-alsa-devel ML, and put me to Cc.  (I see you've sent a separate post
-to me without Cc to ML.)
+are available in the Git repository at:
 
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.14-rc3
 
-Takashi
+for you to fetch changes up to f5468beeab1b1adfc63c2717b1f29ef3f49a5fab:
+
+  ASoC: tas2764: Set the SDOUT polarity correctly (2025-02-18 20:08:43 +0000)
+
+----------------------------------------------------------------
+ASoC: Fixes for v6.14
+
+A few fixes I and James Calligero picked out of the Asahi tree.
+
+----------------------------------------------------------------
+Hector Martin (3):
+      ASoC: tas2770: Fix volume scale
+      ASoC: tas2764: Fix power control mask
+      ASoC: tas2764: Set the SDOUT polarity correctly
+
+ sound/soc/codecs/tas2764.c | 10 +++++++++-
+ sound/soc/codecs/tas2764.h |  8 +++++++-
+ sound/soc/codecs/tas2770.c |  2 +-
+ 3 files changed, 17 insertions(+), 3 deletions(-)

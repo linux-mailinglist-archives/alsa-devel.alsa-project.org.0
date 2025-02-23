@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEF51A3F73B
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2025 15:28:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F421A4123D
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2025 00:21:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DBAD60557;
-	Fri, 21 Feb 2025 15:28:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DBAD60557
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39FD16025C;
+	Mon, 24 Feb 2025 00:20:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39FD16025C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1740148116;
-	bh=IpGEehfeHDTP8+UlApJ1wZpAlncmr+yKfkZLBY0swNc=;
+	s=default; t=1740352859;
+	bh=Et0Q5tOeOA1OlrF9rbblSXzDzYuJY2dmdoIPQc124bY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=WCrdQvZ6KTWq0xBKGN2eG9YCS+wANMde+N0m7uggFHsPLlSy5BKvDC0xpeClvAEve
-	 CsXGawYwjnUG/SR+W25mXFzGBuDb4plB7vy8QFh8JM5SPMPYHIZ3gry44MxMcQGNUQ
-	 NCz8hTx/oVm7M6sKwrzE0U+T88tXHBDbsxPcOO/U=
+	b=Koamn8mhbr2Q6hcAUiWxLoCC6PAk3T+CaqYEy6g+ufMTMG+whUJXSiHCT+u+4CR6a
+	 7TeltnQ7qUgTm5Dtf18D6u1OPqs88zkx91Ka8xjpo6/0mczt1uVElMF4DGTwIsQPg5
+	 bKMEXGrlicNuwmKJTU6IJFb3oTWPi36DdR1tFUt0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C9A1F80544; Fri, 21 Feb 2025 15:28:13 +0100 (CET)
+	id EA9C4F805B4; Mon, 24 Feb 2025 00:20:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23D0EF8055B;
-	Fri, 21 Feb 2025 15:28:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D261FF805B3;
+	Mon, 24 Feb 2025 00:20:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4B9FDF80424; Fri, 21 Feb 2025 15:27:48 +0100 (CET)
+	id 1334BF8016E; Mon, 24 Feb 2025 00:20:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
-	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id F079EF800D2
-	for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2025 15:27:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F079EF800D2
+	by alsa1.perex.cz (Postfix) with ESMTP id 592D4F800E4
+	for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2025 00:20:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 592D4F800E4
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1740148065642512083-webhooks-bot@alsa-project.org>
-References: <1740148065642512083-webhooks-bot@alsa-project.org>
-Subject: FiiO K7 USB DAC no Inputs
-Message-Id: <20250221142749.4B9FDF80424@alsa1.perex.cz>
-Date: Fri, 21 Feb 2025 15:27:48 +0100 (CET)
-Message-ID-Hash: BXKEBGKEKLCDSVIUZIWJGNWYANY2CXVF
-X-Message-ID-Hash: BXKEBGKEKLCDSVIUZIWJGNWYANY2CXVF
+In-Reply-To: <1740352817830776215-webhooks-bot@alsa-project.org>
+References: <1740352817830776215-webhooks-bot@alsa-project.org>
+Subject: Request for Build Instructions for macOS and Ubuntu
+Message-Id: <20250223232020.1334BF8016E@alsa1.perex.cz>
+Date: Mon, 24 Feb 2025 00:20:20 +0100 (CET)
+Message-ID-Hash: QQEVNMDB4DEWZKHMKQL5XHJYRKEZ4I2S
+X-Message-ID-Hash: QQEVNMDB4DEWZKHMKQL5XHJYRKEZ4I2S
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BXKEBGKEKLCDSVIUZIWJGNWYANY2CXVF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QQEVNMDB4DEWZKHMKQL5XHJYRKEZ4I2S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,34 +71,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #439 was opened from Starfoxfs:
+alsa-project/alsa-utils issue #292 was opened from sallavatsal:
 
-I have problems with Fiio K7 USB DAC in Linux Mint Cinnamon 22.1 (6.8.0-56-generic)
+Hello,
 
-Alsa Version: 1.0.25+dfsg-0ubuntu7
-Pipewire: 1.0.5-1ubuntu2
-Wireplumber: 0.4.17-1ubuntu4
+I'm having difficulty building alsa-lib on both macOS and Ubuntu. Specifically:
 
-The USB Dac has this Ports:
-2x Line IN (Cinch)
-2x Line OUT or Pre OUT(Cinch)
-1x Digital IN TOSLINK
-1x COAX/RCA IN (Yellow Cinch)
+macOS: After running autoreconf, I get warnings and issues generating the configure script.
+Ubuntu: The available libasound2-dev version seems to be older than 1.2.5, causing configuration errors.
+Could you please provide official build instructions or guidance for these platforms? Also, I want to become a member of mailing list if there's any.
 
-The Problem is:
-Alsa didnt find any of this IN Ports. 
+Thank you!
 
-There are 4 OUTPUTS:
-Analog Stereo works fine with Alsa
-Digital IEC958 (thats wrong Device has no Digital Output)
-Digital Surround 51 (thats wrong Device has no Digital Output)
-Pro Audio works fine with Alsa
-
-Would be nice to have the Inputs.
-
-Heres my Alsa-Info Output:
-
-[alsa-info.txt](https://github.com/user-attachments/files/18907991/alsa-info.txt)
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/439
-Repository URL: https://github.com/alsa-project/alsa-lib
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/292
+Repository URL: https://github.com/alsa-project/alsa-utils

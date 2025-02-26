@@ -2,86 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AA1EA4FA3A
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 10:36:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D2BA4FA44
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 10:37:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 150466035A;
-	Wed,  5 Mar 2025 10:36:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 150466035A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0CEC60335;
+	Wed,  5 Mar 2025 10:36:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0CEC60335
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741167378;
-	bh=+FNZDPJJFiAJ9t2iAERYG9oZjAiS0JZDwNejk2fx/lk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=UN9ry0EqZ7ZbWrzm46/vkwUZ+LSQE8WJAGbn/xWCo2iEIHTb4QBpQNTBb8HxZKyZQ
-	 SUACeVHWoZsD46AZWUAGjxXJH8DdC/2SFrSlSzjqZm0FCXqM8oOrYYMjOgp32S9Cst
-	 vi1fqHMOxElGPC6b6yIDCvHUv1CxFOEYlq0Ni6b4=
+	s=default; t=1741167423;
+	bh=AIa07tIosd2Q/2NEoeR7hFtxOIpGbJrJEPR0A/jih34=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GHaa2uLEnB4hgXx82hjZIhbIovCJjVU8Zitjy5cwmmXLCcP18OyoAKpkKtSTrH0rT
+	 t4pT8zzWxKcnHbeWOdPSifFhJEM2VI7yaWkv8RDv6R/KBvfYfHa7lyO1Iteqlp0Wwx
+	 MFf3bSd1oRvGjyRkkZ5jXlbUEz7mkD3f6fRTAsD8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5EEC7F805BE; Wed,  5 Mar 2025 10:35:45 +0100 (CET)
+	id 5C3A6F8061F; Wed,  5 Mar 2025 10:35:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A259F805B5;
-	Wed,  5 Mar 2025 10:35:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29C22F8061B;
+	Wed,  5 Mar 2025 10:35:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEE10F8027B; Wed, 26 Feb 2025 11:50:25 +0100 (CET)
+	id 5576DF8016E; Wed, 26 Feb 2025 15:44:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp134-86.sina.com.cn (smtp134-86.sina.com.cn
- [180.149.134.86])
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from lelvem-ot02.ext.ti.com (lelvem-ot02.ext.ti.com [198.47.23.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3E749F8016E
-	for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2025 11:49:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E749F8016E
-Received: from unknown (HELO
- zy-virtual-machine.localdomain)([180.159.108.137])
-	by sina.net (10.185.250.30) with ESMTP
-	id 67BEF1CF00003A73; Wed, 26 Feb 2025 18:49:55 +0800 (CST)
-X-Sender: zhangyi@everest-semi.com
-X-Auth-ID: zhangyi@everest-semi.com
-Authentication-Results: sina.net;
-	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: 8E84643D83234D9A98BABE86AB6658B3
-X-SMAIL-UIID: 8E84643D83234D9A98BABE86AB6658B3-20250226-184955
-From: Zhang Yi <zhangyi@everest-semi.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	devicetree@vger.kernel.org
-Cc: tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com,
-	zhangyi@everest-semi.com
-Subject: [PATCH 2/2] ASoC: dt-bindings: Add Everest ES8389 audio CODEC
-Date: Wed, 26 Feb 2025 18:49:49 +0800
-Message-Id: <20250226104949.16303-3-zhangyi@everest-semi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20250226104949.16303-1-zhangyi@everest-semi.com>
-References: <20250226104949.16303-1-zhangyi@everest-semi.com>
-X-MailFrom: zhangyi@everest-semi.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id A611BF8016D
+	for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2025 15:44:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A611BF8016D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=tx9qgFTf
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by lelvem-ot02.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 51QEhvEr2100790
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 26 Feb 2025 08:43:57 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1740581037;
+	bh=/wxTwVL29KQhkgsTJJ0gr+cFwivRLGhTw6aMtsW1W0M=;
+	h=From:To:CC:Subject:Date;
+	b=tx9qgFTfAYPyyzBRUiUVoPKFb2ARIkEtiNw9Z3jtv/wG/il5lXKvruQE1/phkiFyq
+	 VBRzYCMJcIvxFZ9oCcyp+ll0zFAMnUxf+mCSDcxtJ9C9T7yx61PfclBTSr07PJuv5q
+	 fjpxE0dE+xLjHwFG6K1RPnuWmuWDJ9dmWnEq3rOg=
+Received: from DLEE107.ent.ti.com (dlee107.ent.ti.com [157.170.170.37])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 51QEhvCR092538
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 26 Feb 2025 08:43:57 -0600
+Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 26
+ Feb 2025 08:43:56 -0600
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE110.ent.ti.com
+ (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Wed, 26 Feb 2025 08:43:57 -0600
+Received: from lelvsmtp6.itg.ti.com ([10.250.165.138])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 51QEhrsp103598;
+	Wed, 26 Feb 2025 08:43:54 -0600
+From: Baojun Xu <baojun.xu@ti.com>
+To: <broonie@kernel.org>, <tiwai@suse.de>
+CC: <andriy.shevchenko@linux.intel.com>, <13916275206@139.com>,
+        <alsa-devel@alsa-project.org>, <shenghao-ding@ti.com>,
+        <baojun.xu@ti.com>
+Subject: [PATCH v1] ASoC: tas2781: Clean up for some define
+Date: Wed, 26 Feb 2025 22:43:28 +0800
+Message-ID: <20250226144328.11645-1-baojun.xu@ti.com>
+X-Mailer: git-send-email 2.43.0.windows.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-MailFrom: baojun.xu@ti.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FIDWIIUY26LGY2DREKYF4DZY2OMXLYFE
-X-Message-ID-Hash: FIDWIIUY26LGY2DREKYF4DZY2OMXLYFE
-X-Mailman-Approved-At: Wed, 05 Mar 2025 09:35:41 +0000
+Message-ID-Hash: CX6OPD7BWTXKVAMUTGS7UWZH5J2PHQWA
+X-Message-ID-Hash: CX6OPD7BWTXKVAMUTGS7UWZH5J2PHQWA
+X-Mailman-Approved-At: Wed, 05 Mar 2025 09:35:42 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FIDWIIUY26LGY2DREKYF4DZY2OMXLYFE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CX6OPD7BWTXKVAMUTGS7UWZH5J2PHQWA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,88 +105,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add device tree binding documentation for Everest ES8389
+Do some clean up for some define in header file.
+Like change lower case in value, up case in define,
+space add in recommends, change date of files and add author.
 
-Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 ---
- .../bindings/sound/everest,es8389.txt         | 68 +++++++++++++++++++
- 1 file changed, 68 insertions(+)
- create mode 100755 Documentation/devicetree/bindings/sound/everest,es8389.txt
+ include/sound/tas2781.h           | 21 +++++++++++----------
+ sound/soc/codecs/tas2781-fmwlib.c |  7 ++++---
+ 2 files changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8389.txt b/Documentation/devicetree/bindings/sound/everest,es8389.txt
-new file mode 100755
-index 000000000000..a65222f984da
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/everest,es8389.txt
-@@ -0,0 +1,68 @@
-+ES8389 audio CODEC
-+
-+This device supports I2C only.
-+
-+Required properties:
-+
-+- compatible : "everest,es8389"
-+
-+- reg : The I2C address of the device.
-+ It depends on The Voltage level on Chip Address Pin(AD1 = PIN11,AD0 = PIN1)
-+
-+- "#sound-dai-cells"
-+
-+Optional properties:
-+
-+- everest,adc-slot:
-+ This property is used to set the slots of recording data when multiple codecs
-+ are connected in PTDM mode. please do not set this property if you are setting
-+ STDM mode.
-+ minimum: 0x00
-+ maximum: 0x07
-+ default: 0x00
-+
-+- everest,dac-slot:
-+ This property is used to set the slots of playing data when multiple codecs
-+ are connected in TDM mode.
-+ minimum: 0x00
-+ maximum: 0x07
-+ default: 0x00
-+
-+- prefix_name:
-+ To set the prefix_name of kcontorls and dapm.
-+
-+- everest,dmic-enabled
-+ The property selects the PDM interface of ES8389
-+
-+Example for single codec:
-+
-+ es8389: es8389@10 {
-+                compatible = "everest,es8389";
-+                status = "okay";
-+                reg = <0x10>;
-+                everest,adc-slot = [00];
-+                everest,dac-slot = [00];
-+                prefix_name = "es8389_0";
-+                #sound-dai-cells = <0>;
-+        };
-+
-+Example for multiple codecs:
-+ es8389_0: es8389@10 {
-+                compatible = "everest,es8389";
-+                status = "okay";
-+                reg = <0x10>;
-+                everest,adc-slot = [00];
-+                everest,dac-slot = [00];
-+                prefix_name = "es8389_0";
-+                #sound-dai-cells = <0>;
-+        };
-+es8389_1: es8389@11 {
-+                compatible = "everest,es8389";
-+                status = "okay";
-+                reg = <0x11>;
-+                everest,adc-slot = [01];
-+                everest,dac-slot = [01];
-+                prefix_name = "es8389_1";
-+                clock-names = "mclk";
-+                #sound-dai-cells = <0>;
-+        };
+diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
+index 72d2060904f6..a2c8eb111e5f 100644
+--- a/include/sound/tas2781.h
++++ b/include/sound/tas2781.h
+@@ -2,7 +2,7 @@
+ //
+ // ALSA SoC Texas Instruments TAS2563/TAS2781 Audio Smart Amplifier
+ //
+-// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
++// Copyright (C) 2022 - 2025 Texas Instruments Incorporated
+ // https://www.ti.com
+ //
+ // The TAS2563/TAS2781 driver implements a flexible and configurable
+@@ -11,6 +11,7 @@
+ //
+ // Author: Shenghao Ding <shenghao-ding@ti.com>
+ // Author: Kevin Lu <kevin-lu@ti.com>
++// Author: Baojun Xu <baojun.xu@ti.com>
+ //
+ 
+ #ifndef __TAS2781_H__
+@@ -31,7 +32,7 @@
+ 	SNDRV_PCM_FMTBIT_S24_LE | \
+ 	SNDRV_PCM_FMTBIT_S32_LE)
+ 
+-/*PAGE Control Register (available in page0 of each book) */
++/* PAGE Control Register (available in page0 of each book) */
+ #define TASDEVICE_PAGE_SELECT		0x00
+ #define TASDEVICE_BOOKCTL_PAGE		0x00
+ #define TASDEVICE_BOOKCTL_REG		127
+@@ -42,12 +43,12 @@
+ #define TASDEVICE_REG(book, page, reg)	(((book * 256 * 128) + \
+ 					(page * 128)) + reg)
+ 
+-/*Software Reset */
+-#define TASDEVICE_REG_SWRESET		TASDEVICE_REG(0x0, 0X0, 0x01)
++/* Software Reset */
++#define TASDEVICE_REG_SWRESET		TASDEVICE_REG(0x0, 0x0, 0x01)
+ #define TASDEVICE_REG_SWRESET_RESET	BIT(0)
+ 
+-/*I2C Checksum */
+-#define TASDEVICE_I2CChecksum		TASDEVICE_REG(0x0, 0x0, 0x7E)
++/* I2C Checksum */
++#define TASDEVICE_CHECKSUM_REG		TASDEVICE_REG(0x0, 0x0, 0x7e)
+ 
+ /* XM_340 */
+ #define	TASDEVICE_XM_A1_REG	TASDEVICE_REG(0x64, 0x63, 0x3c)
+@@ -55,8 +56,8 @@
+ #define	TASDEVICE_XM_A2_REG	TASDEVICE_REG(0x64, 0x63, 0x38)
+ 
+ /* Volume control */
+-#define TAS2563_DVC_LVL			TASDEVICE_REG(0x00, 0x02, 0x0C)
+-#define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1A)
++#define TAS2563_DVC_LVL			TASDEVICE_REG(0x00, 0x02, 0x0c)
++#define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1a)
+ #define TAS2781_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
+ #define TAS2781_AMP_LEVEL_MASK		GENMASK(5, 1)
+ 
+@@ -95,8 +96,8 @@
+ #define TAS2781_PRM_SINEGAIN_REG	TASDEVICE_REG(0x00, 0x14, 0x40)
+ #define TAS2781_PRM_SINEGAIN2_REG	TASDEVICE_REG(0x00, 0x14, 0x44)
+ 
+-#define TAS2781_TEST_UNLOCK_REG		TASDEVICE_REG(0x00, 0xFD, 0x0D)
+-#define TAS2781_TEST_PAGE_UNLOCK	0x0D
++#define TAS2781_TEST_UNLOCK_REG		TASDEVICE_REG(0x00, 0xfd, 0x0d)
++#define TAS2781_TEST_PAGE_UNLOCK	0x0d
+ 
+ #define TAS2781_RUNTIME_LATCH_RE_REG	TASDEVICE_REG(0x00, 0x00, 0x49)
+ #define TAS2781_RUNTIME_RE_REG_TF	TASDEVICE_REG(0x64, 0x62, 0x48)
+diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
+index 61d9c220b6a4..bc2f68bd9846 100644
+--- a/sound/soc/codecs/tas2781-fmwlib.c
++++ b/sound/soc/codecs/tas2781-fmwlib.c
+@@ -2,9 +2,10 @@
+ //
+ // tas2781-fmwlib.c -- TASDEVICE firmware support
+ //
+-// Copyright 2023 - 2024 Texas Instruments, Inc.
++// Copyright 2023 - 2025 Texas Instruments, Inc.
+ //
+ // Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Baojun Xu <baojun.xu@ti.com>
+ 
+ #include <linux/crc8.h>
+ #include <linux/firmware.h>
+@@ -1496,7 +1497,7 @@ static int tasdev_block_chksum(struct tasdevice_priv *tas_priv,
+ 	unsigned int nr_value;
+ 	int ret;
+ 
+-	ret = tasdevice_dev_read(tas_priv, chn, TASDEVICE_I2CChecksum,
++	ret = tasdevice_dev_read(tas_priv, chn, TASDEVICE_CHECKSUM_REG,
+ 		&nr_value);
+ 	if (ret < 0) {
+ 		dev_err(tas_priv->dev, "%s: Chn %d\n", __func__, chn);
+@@ -1540,7 +1541,7 @@ static int tasdev_load_blk(struct tasdevice_priv *tas_priv,
+ 	while (block->nr_retry > 0) {
+ 		if (block->is_pchksum_present) {
+ 			ret = tasdevice_dev_write(tas_priv, chn,
+-				TASDEVICE_I2CChecksum, 0);
++				TASDEVICE_CHECKSUM_REG, 0);
+ 			if (ret < 0)
+ 				break;
+ 		}
 -- 
-2.17.1
+2.34.1
 

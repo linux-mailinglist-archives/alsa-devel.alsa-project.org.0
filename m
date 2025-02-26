@@ -2,101 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79D2BA4FA44
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 10:37:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C398A4FA48
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 10:37:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0CEC60335;
-	Wed,  5 Mar 2025 10:36:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0CEC60335
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BBC860389;
+	Wed,  5 Mar 2025 10:37:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BBC860389
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741167423;
-	bh=AIa07tIosd2Q/2NEoeR7hFtxOIpGbJrJEPR0A/jih34=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=GHaa2uLEnB4hgXx82hjZIhbIovCJjVU8Zitjy5cwmmXLCcP18OyoAKpkKtSTrH0rT
-	 t4pT8zzWxKcnHbeWOdPSifFhJEM2VI7yaWkv8RDv6R/KBvfYfHa7lyO1Iteqlp0Wwx
-	 MFf3bSd1oRvGjyRkkZ5jXlbUEz7mkD3f6fRTAsD8=
+	s=default; t=1741167448;
+	bh=nQV/6oTFPhfR1TN58aYGPWe8NOf/9PYSR4k+fw+SQDg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=cEmeZ1ir8NQ2HdU2jde4mYY2jUKXCehkM5EdH4kc1lhNbpuqAkxuBE34v3/gv2EzC
+	 Z9GXO4Gsd+8PEaZCclDJVCKTs8VUxdT1oMiPLzUpB40KCY+QQ/nO6tlXe/C/uaOqsv
+	 1rGiv/5VCoNGiWb7QKdB5Rao2PZPonDtFVBsXlk8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C3A6F8061F; Wed,  5 Mar 2025 10:35:51 +0100 (CET)
+	id AC849F80673; Wed,  5 Mar 2025 10:35:54 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29C22F8061B;
-	Wed,  5 Mar 2025 10:35:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79808F80671;
+	Wed,  5 Mar 2025 10:35:54 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5576DF8016E; Wed, 26 Feb 2025 15:44:58 +0100 (CET)
+	id 5C825F8021D; Thu, 27 Feb 2025 00:16:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelvem-ot02.ext.ti.com (lelvem-ot02.ext.ti.com [198.47.23.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,RDNS_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
+	autolearn_force=no version=3.4.6
+Received: from mail.nihil.gay (unknown [IPv6:2a01:4f8:c012:1016::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A611BF8016D
-	for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2025 15:44:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A611BF8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9D451F80116
+	for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2025 00:16:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D451F80116
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=tx9qgFTf
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelvem-ot02.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 51QEhvEr2100790
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 26 Feb 2025 08:43:57 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1740581037;
-	bh=/wxTwVL29KQhkgsTJJ0gr+cFwivRLGhTw6aMtsW1W0M=;
-	h=From:To:CC:Subject:Date;
-	b=tx9qgFTfAYPyyzBRUiUVoPKFb2ARIkEtiNw9Z3jtv/wG/il5lXKvruQE1/phkiFyq
-	 VBRzYCMJcIvxFZ9oCcyp+ll0zFAMnUxf+mCSDcxtJ9C9T7yx61PfclBTSr07PJuv5q
-	 fjpxE0dE+xLjHwFG6K1RPnuWmuWDJ9dmWnEq3rOg=
-Received: from DLEE107.ent.ti.com (dlee107.ent.ti.com [157.170.170.37])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 51QEhvCR092538
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 26 Feb 2025 08:43:57 -0600
-Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 26
- Feb 2025 08:43:56 -0600
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Wed, 26 Feb 2025 08:43:57 -0600
-Received: from lelvsmtp6.itg.ti.com ([10.250.165.138])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 51QEhrsp103598;
-	Wed, 26 Feb 2025 08:43:54 -0600
-From: Baojun Xu <baojun.xu@ti.com>
-To: <broonie@kernel.org>, <tiwai@suse.de>
-CC: <andriy.shevchenko@linux.intel.com>, <13916275206@139.com>,
-        <alsa-devel@alsa-project.org>, <shenghao-ding@ti.com>,
-        <baojun.xu@ti.com>
-Subject: [PATCH v1] ASoC: tas2781: Clean up for some define
-Date: Wed, 26 Feb 2025 22:43:28 +0800
-Message-ID: <20250226144328.11645-1-baojun.xu@ti.com>
-X-Mailer: git-send-email 2.43.0.windows.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=nihil.gay header.i=@nihil.gay header.a=rsa-sha256
+ header.s=2021 header.b=CfgwO0nq;
+	dkim=pass (2048-bit key) header.d=nihil.gay header.i=@nihil.gay
+ header.a=rsa-sha256 header.s=2021 header.b=bkh/F9Dw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nihil.gay; s=2021;
+	t=1740611784; bh=nQV/6oTFPhfR1TN58aYGPWe8NOf/9PYSR4k+fw+SQDg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CfgwO0nqi08V/NNcibUaMeRzkjgy8Y3mt/8vd7IcNm/pzKQ1570MF3kYkPH8nfCAc
+	 tg4BaaXZE7wFOva71BdcXmWYYwSb+xXYCT7pywluNxt42GdYjHQcN25u0lNV2DJk08
+	 EjA9JwzsW/Lt7P/Z/HFRaK0WXYFgdFd6SeEttKXT6RlplKNEIJFf0B1f1O5QQ3adUq
+	 vFD+Xd3PCRpZ3z/ONBYC5NAgNJ6LxHGok2nzGbKaqlxYjk2hvrchnw10vkjNco1/Bo
+	 TIUPIdSb5jZ3gPstIL6ljKwvEd3SJZxSJ73tdRDOuh8A8Y8UK60dGFoJF8ATbSnv6n
+	 iI05KZqnYH9RA==
+Received: by mail.nihil.gay (Postfix, from userid 114)
+	id A02299D17F; Wed, 26 Feb 2025 23:16:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nihil.gay; s=2021;
+	t=1740611783; bh=nQV/6oTFPhfR1TN58aYGPWe8NOf/9PYSR4k+fw+SQDg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bkh/F9Dwv1QyN43rA9jrcql5lFeH22cBnD4O+ae+NVaGxBLi4Qcpu7xGsFeJkeVle
+	 /eEzbMSj0iVeaQF49IQ1/dgO6v+ZL1NWKiqd6T9vRuCTDsqSs8Q+Egpl/BnND8ktDg
+	 aKwiQ6BoPuvwWcU0wFH2gkg/HDnGf+Bh+TcCegtfJrOHDaJb6LjmM9xhsE2LMv4laA
+	 INgmgOMAO5Q5t0rq3kaDuPrMuTJ/7VmYMLGduelu/iCyXv28obM7dzexyNv+0PrqNF
+	 9suzyrvhnMDT0ieQ3VEK0VLxGZkv4Oep9r5amwefkyWycwnjTia45GNzTRBtyfHL1a
+	 eEcAk/uaXpvzw==
+Received: from [10.0.0.2] (host-80-117-39-60.retail.telecomitalia.it
+ [80.117.39.60])
+	(Authenticated sender: lena@nihil.gay)
+	by mail.nihil.gay (Postfix) with ESMTPSA id 5379F9CFF6;
+	Wed, 26 Feb 2025 23:16:23 +0000 (UTC)
+Message-ID: <527b73fe-892f-476e-95e7-7c0cd09df1d0@nihil.gay>
+Date: Thu, 27 Feb 2025 00:15:01 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-MailFrom: baojun.xu@ti.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: ALSA USB quirk mixer driver question
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org
+References: <6f03b7d6-97d5-48a4-be6f-a1df481971fc@nihil.gay>
+ <87cyf557kv.wl-tiwai@suse.de>
+Content-Language: en-US
+From: Lena <lena@nihil.gay>
+In-Reply-To: <87cyf557kv.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: lena@nihil.gay
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CX6OPD7BWTXKVAMUTGS7UWZH5J2PHQWA
-X-Message-ID-Hash: CX6OPD7BWTXKVAMUTGS7UWZH5J2PHQWA
-X-Mailman-Approved-At: Wed, 05 Mar 2025 09:35:42 +0000
+Message-ID-Hash: B22BX6GMFCAXQHHOC5ABKQW6YJCNCXR7
+X-Message-ID-Hash: B22BX6GMFCAXQHHOC5ABKQW6YJCNCXR7
+X-Mailman-Approved-At: Wed, 05 Mar 2025 09:35:49 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CX6OPD7BWTXKVAMUTGS7UWZH5J2PHQWA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B22BX6GMFCAXQHHOC5ABKQW6YJCNCXR7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,119 +109,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Do some clean up for some define in header file.
-Like change lower case in value, up case in define,
-space add in recommends, change date of files and add author.
+Thanks for the reply!
 
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
----
- include/sound/tas2781.h           | 21 +++++++++++----------
- sound/soc/codecs/tas2781-fmwlib.c |  7 ++++---
- 2 files changed, 15 insertions(+), 13 deletions(-)
+So, if i understand correctly, instead of going through 
+sound/usb/mixer_quirks.c, i need to create a standalone USBHID driver 
+that exposes the ALSA kcontrols and then the ALSA userspace understands 
+that it's the same interface and 'links' the UAC/isochronous audio part 
+and the standalone ALSA mixer kcontrol part that has the volume knobs, 
+mute, output select and input impedance/phantom power/headphone gain 
+switches such that an userspace application (like alsamixer) treats it 
+all as a single thing.
 
-diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
-index 72d2060904f6..a2c8eb111e5f 100644
---- a/include/sound/tas2781.h
-+++ b/include/sound/tas2781.h
-@@ -2,7 +2,7 @@
- //
- // ALSA SoC Texas Instruments TAS2563/TAS2781 Audio Smart Amplifier
- //
--// Copyright (C) 2022 - 2024 Texas Instruments Incorporated
-+// Copyright (C) 2022 - 2025 Texas Instruments Incorporated
- // https://www.ti.com
- //
- // The TAS2563/TAS2781 driver implements a flexible and configurable
-@@ -11,6 +11,7 @@
- //
- // Author: Shenghao Ding <shenghao-ding@ti.com>
- // Author: Kevin Lu <kevin-lu@ti.com>
-+// Author: Baojun Xu <baojun.xu@ti.com>
- //
- 
- #ifndef __TAS2781_H__
-@@ -31,7 +32,7 @@
- 	SNDRV_PCM_FMTBIT_S24_LE | \
- 	SNDRV_PCM_FMTBIT_S32_LE)
- 
--/*PAGE Control Register (available in page0 of each book) */
-+/* PAGE Control Register (available in page0 of each book) */
- #define TASDEVICE_PAGE_SELECT		0x00
- #define TASDEVICE_BOOKCTL_PAGE		0x00
- #define TASDEVICE_BOOKCTL_REG		127
-@@ -42,12 +43,12 @@
- #define TASDEVICE_REG(book, page, reg)	(((book * 256 * 128) + \
- 					(page * 128)) + reg)
- 
--/*Software Reset */
--#define TASDEVICE_REG_SWRESET		TASDEVICE_REG(0x0, 0X0, 0x01)
-+/* Software Reset */
-+#define TASDEVICE_REG_SWRESET		TASDEVICE_REG(0x0, 0x0, 0x01)
- #define TASDEVICE_REG_SWRESET_RESET	BIT(0)
- 
--/*I2C Checksum */
--#define TASDEVICE_I2CChecksum		TASDEVICE_REG(0x0, 0x0, 0x7E)
-+/* I2C Checksum */
-+#define TASDEVICE_CHECKSUM_REG		TASDEVICE_REG(0x0, 0x0, 0x7e)
- 
- /* XM_340 */
- #define	TASDEVICE_XM_A1_REG	TASDEVICE_REG(0x64, 0x63, 0x3c)
-@@ -55,8 +56,8 @@
- #define	TASDEVICE_XM_A2_REG	TASDEVICE_REG(0x64, 0x63, 0x38)
- 
- /* Volume control */
--#define TAS2563_DVC_LVL			TASDEVICE_REG(0x00, 0x02, 0x0C)
--#define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1A)
-+#define TAS2563_DVC_LVL			TASDEVICE_REG(0x00, 0x02, 0x0c)
-+#define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1a)
- #define TAS2781_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
- #define TAS2781_AMP_LEVEL_MASK		GENMASK(5, 1)
- 
-@@ -95,8 +96,8 @@
- #define TAS2781_PRM_SINEGAIN_REG	TASDEVICE_REG(0x00, 0x14, 0x40)
- #define TAS2781_PRM_SINEGAIN2_REG	TASDEVICE_REG(0x00, 0x14, 0x44)
- 
--#define TAS2781_TEST_UNLOCK_REG		TASDEVICE_REG(0x00, 0xFD, 0x0D)
--#define TAS2781_TEST_PAGE_UNLOCK	0x0D
-+#define TAS2781_TEST_UNLOCK_REG		TASDEVICE_REG(0x00, 0xfd, 0x0d)
-+#define TAS2781_TEST_PAGE_UNLOCK	0x0d
- 
- #define TAS2781_RUNTIME_LATCH_RE_REG	TASDEVICE_REG(0x00, 0x00, 0x49)
- #define TAS2781_RUNTIME_RE_REG_TF	TASDEVICE_REG(0x64, 0x62, 0x48)
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index 61d9c220b6a4..bc2f68bd9846 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -2,9 +2,10 @@
- //
- // tas2781-fmwlib.c -- TASDEVICE firmware support
- //
--// Copyright 2023 - 2024 Texas Instruments, Inc.
-+// Copyright 2023 - 2025 Texas Instruments, Inc.
- //
- // Author: Shenghao Ding <shenghao-ding@ti.com>
-+// Author: Baojun Xu <baojun.xu@ti.com>
- 
- #include <linux/crc8.h>
- #include <linux/firmware.h>
-@@ -1496,7 +1497,7 @@ static int tasdev_block_chksum(struct tasdevice_priv *tas_priv,
- 	unsigned int nr_value;
- 	int ret;
- 
--	ret = tasdevice_dev_read(tas_priv, chn, TASDEVICE_I2CChecksum,
-+	ret = tasdevice_dev_read(tas_priv, chn, TASDEVICE_CHECKSUM_REG,
- 		&nr_value);
- 	if (ret < 0) {
- 		dev_err(tas_priv->dev, "%s: Chn %d\n", __func__, chn);
-@@ -1540,7 +1541,7 @@ static int tasdev_load_blk(struct tasdevice_priv *tas_priv,
- 	while (block->nr_retry > 0) {
- 		if (block->is_pchksum_present) {
- 			ret = tasdevice_dev_write(tas_priv, chn,
--				TASDEVICE_I2CChecksum, 0);
-+				TASDEVICE_CHECKSUM_REG, 0);
- 			if (ret < 0)
- 				break;
- 		}
--- 
-2.34.1
+Does this driver then belong in sound/usb/ (given it imports the API in 
+<sound/control.h>) or somewhere else (e.g. drivers/hid/usbhid/, 
+drivers/usb/)?
 
+Thanks again,
+
+Lena

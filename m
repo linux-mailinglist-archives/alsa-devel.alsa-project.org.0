@@ -2,127 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4BD7A46D49
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2025 22:19:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C62A47637
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2025 08:02:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BC5B6031A;
-	Wed, 26 Feb 2025 22:19:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BC5B6031A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C30EF6034B;
+	Thu, 27 Feb 2025 08:02:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C30EF6034B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1740604760;
-	bh=Y9afxBl/KbXm/WKtod3zwp3f2rp30K0FQ/s4r6eoOXA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1740639741;
+	bh=/o5Rh4/b7D5EpLQrxfDRvAYPVd78Q64ILQCKU4wMR2s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aS5QLo+MchIdMtfdc+lAYwwT0oF8oUSk2JPVPeXKQ7igzA/Dprb2viK/HEcgDLMCD
-	 CbwlWiPSuLJMhkfgmxoq2Dz9TS13yvb1ip6XO/QWtlsbjWPBf5lntHs3UmO9uovyzN
-	 h88fgClXjxawxMj3ls7X+NlvSIOR4qx+J0PqD0eg=
+	b=gsdoLH7WUGIBT/j2O0yio3K4d6n/25Zb3eM9/arNjt5PQbKcXCtXvwpq+Dhf/cQVL
+	 kVPBAAiyZvqu/B/EeaHepJgnwop2J0zcChwTncvDEFIih8xDg2B5R3OT8eZwICVPKs
+	 nJZ3yBdcZH26zITHGPkRwW7FL24XJMpzTG3zNJ4g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 351EDF805B6; Wed, 26 Feb 2025 22:18:43 +0100 (CET)
+	id 8088CF805C0; Thu, 27 Feb 2025 08:01:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF2F5F805B3;
-	Wed, 26 Feb 2025 22:18:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5645AF805AE;
+	Thu, 27 Feb 2025 08:01:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 730E2F8016E; Wed, 26 Feb 2025 22:18:33 +0100 (CET)
+	id C02C8F8021D; Thu, 27 Feb 2025 08:01:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED679F800E5
-	for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2025 22:18:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED679F800E5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B2B5F800E5
+	for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2025 08:01:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B2B5F800E5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dldymv4X
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 39F1E5C3A6E;
-	Wed, 26 Feb 2025 21:17:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F956C4CED6;
-	Wed, 26 Feb 2025 21:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1740604697;
-	bh=Y9afxBl/KbXm/WKtod3zwp3f2rp30K0FQ/s4r6eoOXA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dldymv4XvlYzA8pth1EXhbp+Aj/DBfAGtNqgRISOc1hYvhlNIGzQmhfwKt+x4mVJL
-	 VeG2HUiFVTphmF4AazHOngHRDnUjSHbtRxAt9hhGvQDFxIEUfXQxiLR6RpSPaQOkuW
-	 4b65AlPf/C7Ate5T25LNF0MvJe0BTrM2u2G38kWH6U76CSRpibl6t45Xt920Na7yZD
-	 jasYAKlEwgIPKvNFK/nj8OqX3L2hDmciMjnntjYy6TBPfli3tntIcAvYKivsJUcBmZ
-	 tfjaXaGtXH5BIhECLPZkXwlY/M6lLPNlDRfUTaL3ByGRjkfhxaHJr1sHsCrVvrpNUP
-	 uPlWj974zWg3A==
-Message-ID: <b34625d9-0b3f-47c2-a575-cc5b62ba9611@kernel.org>
-Date: Wed, 26 Feb 2025 22:18:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ASoC: dt-bindings: Add Everest ES8389 audio CODEC
-To: Zhang Yi <zhangyi@everest-semi.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org, devicetree@vger.kernel.org
-Cc: tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
- yangxiaohua@everest-semi.com, zhuning@everest-semi.com
-References: <20250226104949.16303-1-zhangyi@everest-semi.com>
- <20250226104949.16303-3-zhangyi@everest-semi.com>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20250226104949.16303-3-zhangyi@everest-semi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: TEKHV2WDLE6NDM677ISEGAW2S5RMSYHA
-X-Message-ID-Hash: TEKHV2WDLE6NDM677ISEGAW2S5RMSYHA
-X-MailFrom: krzk@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=Q4+Bio+2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=NDqolwew;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Q4+Bio+2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=NDqolwew
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8A27E1F38A;
+	Thu, 27 Feb 2025 07:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1740639699;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HXT9aAfKJ4P/NSCotlaojsRIxlADd+L97nb2iCJJ7tc=;
+	b=Q4+Bio+2QZ9SASl/yRel5gXlYwq2VGVieL0+toBv1yEwSmpjeVEVq1YjwkeiKqw64Dmi6v
+	Db7XWXSSIyf40rQ9kOOgnlOYu0ibudazK3piAfHBOrqm18rHYl7blzjvUssb65t1zAz9NN
+	5p0laAvlH2rYiVH+Vi9YNXHHNs2K+mU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1740639699;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HXT9aAfKJ4P/NSCotlaojsRIxlADd+L97nb2iCJJ7tc=;
+	b=NDqolwewQuinG7LCGFOOEORxb34+th/zU3H+HHMtQcBHEJlfb3Y9sykim9wpao0NUP+3tv
+	lX8aXjHgIzqCiRBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Q4+Bio+2;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NDqolwew
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1740639699;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HXT9aAfKJ4P/NSCotlaojsRIxlADd+L97nb2iCJJ7tc=;
+	b=Q4+Bio+2QZ9SASl/yRel5gXlYwq2VGVieL0+toBv1yEwSmpjeVEVq1YjwkeiKqw64Dmi6v
+	Db7XWXSSIyf40rQ9kOOgnlOYu0ibudazK3piAfHBOrqm18rHYl7blzjvUssb65t1zAz9NN
+	5p0laAvlH2rYiVH+Vi9YNXHHNs2K+mU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1740639699;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HXT9aAfKJ4P/NSCotlaojsRIxlADd+L97nb2iCJJ7tc=;
+	b=NDqolwewQuinG7LCGFOOEORxb34+th/zU3H+HHMtQcBHEJlfb3Y9sykim9wpao0NUP+3tv
+	lX8aXjHgIzqCiRBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6A15313888;
+	Thu, 27 Feb 2025 07:01:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xSdDGNMNwGegYwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 27 Feb 2025 07:01:39 +0000
+Date: Thu, 27 Feb 2025 08:01:38 +0100
+Message-ID: <87a5a73m7h.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lena <lena@nihil.gay>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: ALSA USB quirk mixer driver question
+In-Reply-To: <527b73fe-892f-476e-95e7-7c0cd09df1d0@nihil.gay>
+References: <6f03b7d6-97d5-48a4-be6f-a1df481971fc@nihil.gay>
+	<87cyf557kv.wl-tiwai@suse.de>
+	<527b73fe-892f-476e-95e7-7c0cd09df1d0@nihil.gay>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 8A27E1F38A
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+Message-ID-Hash: KSNFZKH7GOGN4GKXFLPO3EANRNFHM33N
+X-Message-ID-Hash: KSNFZKH7GOGN4GKXFLPO3EANRNFHM33N
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -134,7 +165,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TEKHV2WDLE6NDM677ISEGAW2S5RMSYHA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KSNFZKH7GOGN4GKXFLPO3EANRNFHM33N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,31 +174,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 26/02/2025 11:49, Zhang Yi wrote:
-> Add device tree binding documentation for Everest ES8389
+On Thu, 27 Feb 2025 00:15:01 +0100,
+Lena wrote:
 > 
-> Signed-off-by: Zhang Yi <zhangyi@everest-semi.com>
-> ---
->  .../bindings/sound/everest,es8389.txt         | 68 +++++++++++++++++++
+> Thanks for the reply!
+> 
+> So, if i understand correctly, instead of going through
+> sound/usb/mixer_quirks.c, i need to create a standalone USBHID driver
+> that exposes the ALSA kcontrols and then the ALSA userspace
+> understands that it's the same interface and 'links' the
+> UAC/isochronous audio part and the standalone ALSA mixer kcontrol part
+> that has the volume knobs, mute, output select and input
+> impedance/phantom power/headphone gain switches such that an userspace
+> application (like alsamixer) treats it all as a single thing.
 
-New bindings in TXT are not accepted. Please submit these in DT schema
-format - see all new bindings.
+Well, how to manage HID device is other question.  Usually a HID
+device provides the controls via input device API.  It's not
+prohibited to use a sound API (in this case you'd need to create your
+own sound card object), though.
 
-<form letter>
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC (and consider --no-git-fallback argument, so you will
-not CC people just because they made one commit years ago). It might
-happen, that command when run on an older kernel, gives you outdated
-entries. Therefore please be sure you base your patches on recent Linux
-kernel.
+> Does this driver then belong in sound/usb/ (given it imports the API
+> in <sound/control.h>) or somewhere else (e.g. drivers/hid/usbhid/,
+> drivers/usb/)?
 
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-</form letter>
+Not likely.  It'll be a pure HID driver.
 
-Best regards,
-Krzysztof
+
+HTH,
+
+Takashi

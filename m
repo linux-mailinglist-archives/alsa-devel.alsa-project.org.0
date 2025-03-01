@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1DD5A4FA58
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 10:38:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA848A4FA59
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 10:39:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFCE760387;
-	Wed,  5 Mar 2025 10:38:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFCE760387
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53AFA603C8;
+	Wed,  5 Mar 2025 10:38:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53AFA603C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741167529;
-	bh=NiA8B3e0ANak57mTI6oFWzPGBLit725o1Kfiqp5IVuE=;
+	s=default; t=1741167544;
+	bh=J74WhvPhRjAgNfxQELLA2D4gN96UgOUnuB5Z3fWRRhY=;
 	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=bq20OzCUxCWl03xVAPg1A4iIfjIqGzEBg1zO9C4dEaiZUcLvK6G2qPWcEWfracUMc
-	 vUiu3C2hd4v7sxRdtyiNyPSfhUBeK4zvVoryAYWGQ4MKuF3RIi9VI0F+fQcJ+a6c7d
-	 ju0fHLy0/TK/AyvskKYS7DP+BJmaCJDrdV8mSUco=
+	b=es1Ahy/JNNQzJqu1e0udIdMZAn1Nh6vM52ceNVDsc1ccKtNcrodR4RYXxydJzT9WK
+	 afITW+eIevSWdHnkHjoFaoP79gUtKtgJvhH3DTImgaSeJb5OW0cGwcjIpwJUJVVs2N
+	 d0o/uY4zcsTFAZlT5tRKuhJtDgHLy2p9xf3YIqJ8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D579F806EF; Wed,  5 Mar 2025 10:36:29 +0100 (CET)
+	id 54A80F806E9; Wed,  5 Mar 2025 10:36:31 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D6EFF806F2;
-	Wed,  5 Mar 2025 10:36:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C21AF80715;
+	Wed,  5 Mar 2025 10:36:31 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD55DF800C1; Sat,  1 Mar 2025 16:36:45 +0100 (CET)
+	id 20375F8014B; Sat,  1 Mar 2025 17:07:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -37,124 +37,110 @@ Received: from smtp-out1-03.simnet.is (smtp-out1-03.simnet.is
  [194.105.232.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 255D8F800C1
-	for <alsa-devel@alsa-project.org>; Sat,  1 Mar 2025 16:36:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 255D8F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8543F800C1
+	for <alsa-devel@alsa-project.org>; Sat,  1 Mar 2025 17:07:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8543F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=simnet.is header.i=@simnet.is header.a=rsa-sha256
- header.s=sel1 header.b=G+dIXKdK
+ header.s=sel1 header.b=RbDzUims
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=simnet.is; i=@simnet.is; q=dns/txt; s=sel1;
-  t=1740843399; x=1772379399;
+  t=1740845272; x=1772381272;
   h=date:from:to:cc:subject:message-id:mime-version;
-  bh=JRJCPtBEngPYbKT68vpCqbvINZFmXHRVmsuFvuHMi68=;
-  b=G+dIXKdKA7Dy9b+SgzG+OW/Pymb2uio2XlGZut74w3NTODM9USYCVHLJ
-   u63BB+WQkiMnhYqakVmSWP/SQ4vJlCPWGiijPTPJQvqwqN/eVhCLQB0dk
-   sMh5D/dqUANiJPrp5WPTIOopoy4vvIPX9eKb+EzQGtcFvI72EefagXnZZ
-   a8yM+/p0h7jM9Mp5vtnObHQ15SzfyyR4uyh0oA5oGEHe3zb3RL5kxWUK+
-   +vKf8tzdXLwbTM6ukQZxvRO7sZt6Cxl6AxL5Qu4vrR6seYdnby8PRH3zR
-   T6EVRgGoFxQ7rQR5A5/FA8hqSfhjxS2SHMmYvCM2wMoAjnaZFnQErM871
-   w==;
-X-CSE-ConnectionGUID: sze3pjwnQV6zAC3L5MlsBQ==
-X-CSE-MsgGUID: 9gyGcWw+Ra+mMPXbfrekSg==
+  bh=Pu5lDQp5iPzPA+eXGXOxuf4eantH9mLOi4QVMI6tEfA=;
+  b=RbDzUimstwj0fs9Ve6CMmXy1VKdE4c2fyVkgtVnfbDQe1qSJ32AqQ0IF
+   c/WG/N6VAziCx5ii5RgL9wkhk9GvvatKDsfDUIwquRCCXGmLzMKT3QfUM
+   3Vb5Kds9/dDsFW8iJMiAGa2Oq/dpBLRQIQjxXd9MvEGZpcO7KU1wfy4xo
+   BMcgPj2W+Uq+kalUE8dnDNolRhD7mblxE68+WVQbTfjus6I+IQSoKLf4R
+   rK5HKHmhnXwbkekkS/w7jUrhn1YGQJqjfJCW8Qx5crFaxGG/BbunA0na2
+   29mycLTHQVdMr+yKu9TWQLy+6FuiqxGWDyiF5mVk2uZXkJNEEqvrtB14K
+   A==;
+X-CSE-ConnectionGUID: rOu4utu3RZCaaFpYUORC9w==
+X-CSE-MsgGUID: iQ2Vrb8wSqm7Mh8SMXVdww==
 Authentication-Results: smtp-out-03.simnet.is;
  dkim=none (message not signed) header.i=none
 X-SBRS: 3.3
-X-IPAS-Result: =?us-ascii?q?A2EJAAD/JcNnhVjoacJaGgEBAQEBAQEBAQEDAQEBARIBA?=
- =?us-ascii?q?QEBAgIBAQEBQIFBAwEBAQELAYJDfYFkBIghjiGRSoxNFIEsRgcBAQEPOwkEA?=
- =?us-ascii?q?QEDAQOCDIJ0ixcoNgcOAQIEAQEBAQMCAwEBAQEBAQEBAQEBCwEBBgEBAQEBA?=
- =?us-ascii?q?QYHAhABAQEBQA47hTVGDYMWUx5lCQYBAQEBAQEBAQEBAQEBASIBAQEBJwICC?=
- =?us-ascii?q?4ErUi18J4MCAYJkFAavUIEBM4EBgxzbGIFeEIFIAYVrgmMBhWuEdzwGgg2BF?=
- =?us-ascii?q?TIDgQZQHVFvghRNAwEYgS1FhhgEghgXgTuCAoFqhyWCOYEXg3CDU4JfgT0gE?=
- =?us-ascii?q?pFjSIEhA1ksAVUTDQoLBwWBcQM1DAsuFTKBFEM3N4IOaUk6Ag0CNYIefIIrg?=
- =?us-ascii?q?luBeYRDhECFUoIRizeEdR02CgMLGA1IESw3FBtEbgehAQE8g0UJAS42AQYGA?=
- =?us-ascii?q?QEwDBw1ASkBIzYtDAcDMAYECx0BUCmSVkSPWYFEoCSBPoQlhlyDMYILlUozI?=
- =?us-ascii?q?oNhgVeRaww6kSaBJZh9jgWVGU8NARg3hGeBbgOCDCwHGggwO4JnCUkZD44HI?=
- =?us-ascii?q?wMWiDU2wwN4AgE5AgcLAQEDCYZNixoBAQ?=
-IronPort-PHdr: A9a23:W5yxeRCqDmLH+M9GsAZKUyQVQxdPi9zP1m898Z87k/dJb7jmp8+kJ
- 03a4/hxyl7SDs3X6PNB3uzRta2oGWkN+o2Iv31KdptQHwQEhsMbk01oAMOMBUDhav+/aSs8E
- ax/
-IronPort-Data: A9a23:anYTO6MLT2vtywnvrR1Xk8FynXyQoLVcMsEvi/8bNLSZYAhShG1co
- T9OB3fTeL2UMz62KpwlNZO3xf41yZPTn4VnGlZrqHgwQi4U9cPOWNrHcB6sNn3DIJLJQR89s
- 8tCOonLJZ5kE3ON+RyjPOPr9iUj3P6FGbHyAbSeaioZqWOIMMsEoUsLd7kR3NUy2rBVej+lu
- c/uu5+Yf1Ckx3h9Nnkd3+ebshRtsf/u/jQCsRtpfaVCuETXozwRDZhZKqCtfHKtSI1TFL20E
- v3Zx/ak9Wae5x43Ed6/1L2TTqFxeVKuAOT0oj8KHfDKvzBCujAqgOF8K+UDL05TkDzMh8p2y
- thGqdq3UwhuN6nXkaERVBIfGiVlNOhC+bWALmK4rNSk+FDNdj3s3/BqZH3aRrb0jNube0kWs
- 6NwFRgNcgyb1aXx362kDOBonc0XadHxO4ESsW0myivWSv8iWpn3BqnN7phR2Cw5soVKHPyZa
- NAedCJYWwnLZltPJlITYK7S59xE+kQTCRUd9BTNzZcK3lQ/peAJPNLFOd7Oc8GBQIMM2EqZq
- GyuEw/RCBtAbdLPwmaPqXyi3bLGx33xUd5NHbTjqKM2iwaenTQaUBZLBFfl/vC10RO1BY4DI
- EdK8yR+pPg+rBXyEdenBnVUzJL8Ujs0ArK8RMVnt1rVokat3y6ZGnQcHHkGZ9068sYyXjUek
- 0eTmNHkDiApt6eaDiWFo76QtjqGfCwUJykNZDNXRF4P597p849mlQjECctoFemth8fuFCu2y
- Fi2QFMFa8kuYbQjkvn9pTj6qzKwuoCbCUk65xmRV2a+5zc8fJSiZYGj9R7c9/kXNNOQSkKIi
- D0AmsLY4+ESXpjYniiKSrYDSaqz7LGxYiDXhBlbTYEo7S+g4TioFby8mwqSWHqFSO5BJXmxC
- HL7uR9N/M0Ue2S1cul+Z5m4TtwwyqrtHsijUerbKdNKeZE0eAiMuxU8bEqL1iXpkUJrpfMwI
- 5CGafGbEH0fT6R7yT7eewtm6lNd+8xE7TuVGvjG5xS7zaLMIzmKVqhDOV+VZ6Uh9qSGrQ7Jt
- dFFOIyDzw5WFeH5aW7e9ZUaaFQLJz80H5frs/tga+WGZAp6HWVJNxOq+l9XRmAft/wTyY/11
- nGhRlcKjx3gmmKBIAGRY0QmcKnoX5t0sTQ8JyNrNFKz0kxmbYGkq5NNfp8sdI1i8O1pisomQ
- OMCZt23NelET3LH5zEZBaUR17eOCClH/yrLY2z9CAUXf4J8X16OvcD7YU3m8DIHOm+vr8w8r
- ra8kATBTt0KQx9rOIPab/noxleqtExYnON4GETSJcRLT3Lx+40sKzD0ipcLz7o3xWn+KkGyk
- lrQWX8lmNTxT+bZiDWjra+JqYqzGu84FFdVBAE3hp7taXbQ9zr4yoIQXeqFdG6DXT76pq+oN
- b0En/ytPaEJxglA7Np3HekylP1kvYSy+edWk1VqESqaMVn3Uu8xLHLetSUjWtWh45cA0efhc
- hveoIMy1cy1Bf7Y/H4tyCsNZO6JjPoekDLbtvo5fh7zviF79rHZDEwIMUXW13MCfbJcPdJ+y
- 4/NmuZPsFXn1UBC3vVqL8xw3z7RRpDVe/x/7vn2OKey1ExzjAkEOcGAYsPPyMnnQ81WNUU3K
- SOjiqPHhrBNrmLPaHNb+ULlhIKxvrxQ/kkRpLM+Dw7RwIed3aduhEc5HQkfF2y58D0WgoqfB
- UAzX6FFDf3m1ytlgsFFQ1etF2lpbDWF+lb8wkc+j2bQSU+lTATldAXR7s7UoSj1W0oFFtRq1
- OnwJFTNCF4GT+mttscGYnOJntS4JTBHGqIur+j8dyiNN8FSjTMIGcZCb0JQw/fsKZtZaEEqO
- YCGVQu/AEH2HXd4nkE1N2WV/a8CRUucJnNEeM8/7ooiRkWBXTWp8wHbfihdeusVTxDL2VG5E
- NArNMNKTw65xDfL9mpdG68XP/l1h5bF5vJbK++tfDZb9eHE9Hw54Po89QCn7IMva99hud08L
- 4Xca3SDCQR8gFMPyjWU95IbagJUZ/FVaxzT19+qs98AVJcmiNFmf1s/0YC76iD93AxPpE7E7
- VySO8c61ddKwIB3ls7gH7tOAy29Lcj6EfyS9wK+uMgIasnAWe/VqgkQq0XPNRlZJv0dVt52n
- LLLt8T4tH4pp54oUnvF3ouAErFT4tWjGbINdNz2N2UcnDDqtNLQDwUr4HK1coRLj9Vk2Je1b
- iDjTJaVccU/YoIIrJFKUBR2HxEYAqXxS67voyKhsviBYiTxNySadLtLEle0NQlmmj80BnHoN
- uPjk9eVju20QaxSBQQYQuNnBodiJ0/yHPN8McPwriXeD3LAbrK+VlnKy0BIBdLjUyjs/CPGD
- XTtHEmWmPOa4/ig8T2hm9Yu1iD79V4k6QXKQmoT+sRtlxexB3McIOIWPP0uU84IynOsi8ynN
- GmWNAPO7BkRuxwZKH0QB/y+B2+i6hAmYIipTtDU1xrIMHnvWuts/pMwqnk7i5uJRtcT5Lr7e
- YBBqyGY0umZx5BtTK4T6JSGbRRPm5vnKoYz0RmlyaTaWk9CaZ1UjyYJNFQWCkT6/zTlzx6jy
- Z4dHjscGBnTpI+YOZoIRkO57zlH5W++kWRwPHjnLRS2k9zz8dCsAcbXY4nbuoDvpuxTTFLSb
- Rsbn1ew3l0=
-IronPort-HdrOrdr: A9a23:No5yxa4Y1SnJGJlUKQPXwMPXdLJyesId70hD6qm+c202TiW9rb
- HWoB17726TtN9/YhAdcLy7WJVoIkmskqKdg7NhWYtKNTOO0ADDQe0Mg7cKqAeQfhEWmNQttp
- uIC5IOcOHNMQ==
-X-Talos-CUID: =?us-ascii?q?9a23=3ALCVPqmiU8gIcVFJ4ctfoXJkUOzJuaW/Ql2/SPEm?=
- =?us-ascii?q?BNzh7YZbObQK1/LhOqp87?=
-X-Talos-MUID: 9a23:+nW47wolH+qlHr2CZWoez2BtJehj3LvtMklOlLA+i8OKLyFzADjI2Q==
+X-IPAS-Result: =?us-ascii?q?A2GbAgA2LcNnhVfoacJaHQEBAQEJARIBBQUBQIFTgkR9g?=
+ =?us-ascii?q?WSIFg+OIaAdBwEBAQ85CwQBAQMBA4UAixcoOBMBAgQBAQEBAwIDAQEBAQEBA?=
+ =?us-ascii?q?QEBAQELAQEGAQEBAQEBBgcCEAEBAQFADjuFNUYNgxZxgSUBAQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBHQICPyoBgREKAy18JwmCeQGCZBSvWoE0gQGDHNsYgV4QgUiFbIJjAYVrh?=
+ =?us-ascii?q?Hc8BoINgUcDgQZQHVFvgmEBA4IKhhgEghgXgTuCAl6BDIclhQaCOoF9hDUZg?=
+ =?us-ascii?q?SQgEoNfgnWLD0iBIQNZLAFVEw0KCwcFgXEDNQwLLhUygRRDNzeCDmlJOgINA?=
+ =?us-ascii?q?jWCHnyCK4JbgXmEQ4RAhVKCEYs3hHUdNgoDCxgNSBEsNxQbRG4HoQEBPINFC?=
+ =?us-ascii?q?S8xBQ0BARUbDCYrARsZGTYjChMDMAYPHQEhk3KPWYFEgyqceoE+hCWGXIMxg?=
+ =?us-ascii?q?guVSjMig2GBV5FrDDqSS5h9o20NGTeEZ4F+gX8sBxoIMDuCZwlJGQ+OByMDF?=
+ =?us-ascii?q?og1NsJ+eDwCBwsBAQMJkWcBAQ?=
+IronPort-PHdr: A9a23:TuBQaRaT39QVQfxZvbK2OhD/LTAChN3EVzX9i7I8jq5WN6O+49G6Z
+ wrE5PBrgUOPXJ6Io/5Hiu+DtafmVCRA5Juaq3kNfdRKUANNksQZmQEsQYaFBET3IeSsbnk8G
+ 8JPPGI=
+IronPort-Data: A9a23:2cWf0ajfXkT7VFhbZwkU8Tf/X1613RcKZh0ujC45NGQN5FlGYwSz7
+ tYtKTreYZDXMzzrLps0dtzrrAJT+4jU/mJQOApqqXhnES0QpZeZWo7EckyuMSrDf8bPRxw+t
+ 5lCMYmcIp5sRy7R/0z2a+a/8nAh3/uFHrT3V77JYXh/GQE+Fy5JZX6P4wIcqtcAbY+RX1/V4
+ rse2vH3J0C6nTR1KmdS7LiM7x5p++zvsjcZtVUiZPdNpxjFljwfFpUUJbyrIhPErvJv8ruHq
+ 5zrl/fhll7kwivBYz/dftzTe0gLUrPIe1HIhntYVcBO6TAerXc42/thaKYQOEpbhz/Sz417l
+ 4tGuZHpFg12MvbAxLgQXRQHTS9yNKNL9eCYeXGxuMDInxbILSO2na5iAB5rVWF0Fp6bJEkXn
+ RBPAG1dNU7ra5uK/Y+HpoCA/ihJBMbmOo4Fs3UmxyzWFp7KKriYH/rA7I8D1zpgi8xDFKiAb
+ pcXNzBlPEyRMxAeNwsZUs00w7ejiCamKmIC8g3I+/I7vjndwVMgjrWxaIaEdNfSLSk5cj50g
+ 0qfl4iuKkhLbob3JUO5z0+Ras/zcQLTBNMbGuzhra40iQ3MmmdJUBZHXAa3+aLi1hDiAIoAI
+ UI993t1p8De1mTyFYClAEfQTF1oH/I4c4ANewHvwFjVksI42y7AWC5cCGYHMIF63CMPbWRC/
+ keTmN/0DiBYvrSQSHaMnp+Ztjra1RI9dAfuXgdaC1JeizXfiNtr1E+XFY46SPTdYuDdQFkc/
+ Rjb/UDSuJ1L5SI7//3T1UzKhTuquq/IQmYdji3LXnio5x9Of4WsYYql8zDztZ6s+67AEzFtF
+ FBd8ySvxLhm4aOlzURhc81RdF2d3MtpBRWH6bJZ8zbNwBz2k5KrVdg4DDiTvy6FOO5cEdPiS
+ Be7VQ+8ePa/lZZlBEN6S9vZNigk8UTvPc7CS6zJcscVWKpafQap5BBTQnS7jn+4xSDAkYlnU
+ XuaWditFmpfG6Vi1CCxV/ZYieZt2CEl2SXSXvgXzTz+gObYPSbID+1eah3eMYjV74vdyOnR2
+ 9xQH9CLzhNSTKv/eUE79KZIfApTcCJjVfgareRWT7S9OAA2B1o4DqD0weMaXrxbk7tKw7KgE
+ naVARMImQWu2RUrMz6iY3R4YfbjUIhyqVoyOTcleE6y3Houaprp670QH7MsYLMi9fBLx+N7V
+ L8Jds+BC/IJTS7IkwnxdrHjrZd+MQaqgBqUODq0JWBmOYBhXBCP+8SMkhbTGDcmFA2q6dYiv
+ uaa5CjSSLQbdjlFNu2Hd6f6p7+uhkQ1lOV3VkrOB9BcfkTw7YRnQxAdaNdqe6ngzj2enlOnO
+ xaqPPsOmQXai64OmOQlaIiarpy1Vvl/G1JAGHnKqO7vczfb5XblwJQovAe0kdL1CjmcFEaKP
+ LQ9IxTA3BsvxgYiX21USO8D8E7Gz4Gzz4K2Nyw9dJkxU3ylC6l7Pl6N1tRVu6tGy9dx4FTqA
+ h3RpYQFae3SYKsJ9WL9wiJ4N4xvMtlJw1HvAQgdehqqjMOK1OPbChsLYXFgdgQMcOUuWG/a/
+ QvRkJVKu13g20ZC3ieuiyFQ/iyMIBQ9v1YP6/kn7HvQolNzkDlqOMWAYgeou8vnQ4sXbSEXz
+ sq83/Gqa0J0nRGaKyJb+Lmk9bY1uKniTzgUlQNTeQXRy4Wtaz1e9EQ5zAnbhz99ln1vu9+f8
+ EAxX6GpDc1iJwtVufU=
+IronPort-HdrOrdr: A9a23:61v5A6MptgfdTcBcTsqjsMiBIKoaSvp037Dk7TESdfVwSL3gqy
+ nOpoV86faaslcssR0b+exoW5PwJk80l6QFhbX5VI3KNGKN1QfGQr2KhrGSpgEIdReOldK1rZ
+ 0QC5RDNA==
+X-Talos-CUID: =?us-ascii?q?9a23=3AQuPGGmpWJem68/lr7XUC80PmUdoCbyHA0GqLGX2?=
+ =?us-ascii?q?TAG9HUIyobmW7qbwxxg=3D=3D?=
+X-Talos-MUID: 9a23:kT/CdgTor0ytYfcARXTtvWtcLs04/J+3DR8okcU9nvm6OTNvbmI=
 X-IronPort-Anti-Spam-Filtered: true
 X-IronPort-AV: E=Sophos;i="6.13,325,1732579200";
-   d="1'?diff'?bugs'?scan'208";a="39213378"
-Received: from vist-zimproxy-02.vist.is ([194.105.232.88])
+   d="1'?diff'?bugs'?scan'208";a="39215208"
+Received: from vist-zimproxy-01.vist.is ([194.105.232.87])
   by smtp-out-03.simnet.is with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2025 15:36:36 +0000
+ 01 Mar 2025 16:07:48 +0000
 Received: from localhost (localhost [127.0.0.1])
-	by vist-zimproxy-02.vist.is (Postfix) with ESMTP id 2EEED444632B;
-	Sat,  1 Mar 2025 15:36:36 +0000 (GMT)
-Received: from vist-zimproxy-02.vist.is ([127.0.0.1])
- by localhost (vist-zimproxy-02.vist.is [127.0.0.1]) (amavis, port 10032)
- with ESMTP id 4QJ2MHSqqu5Y; Sat,  1 Mar 2025 15:36:34 +0000 (GMT)
+	by vist-zimproxy-01.vist.is (Postfix) with ESMTP id 403AF41CE054;
+	Sat,  1 Mar 2025 16:07:48 +0000 (GMT)
+Received: from vist-zimproxy-01.vist.is ([127.0.0.1])
+ by localhost (vist-zimproxy-01.vist.is [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id brefOpBkW9wP; Sat,  1 Mar 2025 16:07:47 +0000 (GMT)
 Received: from localhost (localhost [127.0.0.1])
-	by vist-zimproxy-02.vist.is (Postfix) with ESMTP id D09284446481;
-	Sat,  1 Mar 2025 15:36:34 +0000 (GMT)
-Received: from vist-zimproxy-02.vist.is ([127.0.0.1])
- by localhost (vist-zimproxy-02.vist.is [127.0.0.1]) (amavis, port 10026)
- with ESMTP id gZw9jFGR1tHQ; Sat,  1 Mar 2025 15:36:34 +0000 (GMT)
+	by vist-zimproxy-01.vist.is (Postfix) with ESMTP id 3AF6241CE055;
+	Sat,  1 Mar 2025 16:07:47 +0000 (GMT)
+Received: from vist-zimproxy-01.vist.is ([127.0.0.1])
+ by localhost (vist-zimproxy-01.vist.is [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id 16E4sbs59pMt; Sat,  1 Mar 2025 16:07:47 +0000 (GMT)
 Received: from kassi.invalid.is (85-220-33-163.dsl.dynamic.simnet.is
  [85.220.33.163])
-	by vist-zimproxy-02.vist.is (Postfix) with ESMTPS id 9FE44444632B;
-	Sat,  1 Mar 2025 15:36:34 +0000 (GMT)
+	by vist-zimproxy-01.vist.is (Postfix) with ESMTPS id 1113A41CE054;
+	Sat,  1 Mar 2025 16:07:46 +0000 (GMT)
 Received: from bg by kassi.invalid.is with local (Exim 4.98)
 	(envelope-from <bg@kassi.invalid.is>)
-	id 1toOtG-000000001iS-09lP;
-	Sat, 01 Mar 2025 15:36:34 +0000
-Date: Sat, 1 Mar 2025 15:36:33 +0000
+	id 1toPNS-0000000021T-3UDj;
+	Sat, 01 Mar 2025 16:07:46 +0000
+Date: Sat, 1 Mar 2025 16:07:46 +0000
 From: Bjarni Ingi Gislason <bjarniig@simnet.is>
 To: alsa-devel@alsa-project.org
 Cc: Debian Bug Tracking System <submit@bugs.debian.org>
-Subject: alsaucm.1: Some remarks and a patch with editorial changes for this
+Subject: amixer.1: Some remarks and a patch with editorial changes for this
  man page
 Message-ID: 
- <174084317735.6540.16110786643260809278.reportbug@kassi.invalid.is>
+ <174084508860.7708.12299328035330936393.reportbug@kassi.invalid.is>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="arZipvw0uTFSQO46"
+Content-Type: multipart/mixed; boundary="KDdH5gMfg91zSpLK"
 Content-Disposition: inline
 X-Mailer: reportbug 13.1.0
 X-MailFrom: bg@simnet.is
@@ -163,15 +149,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CHDBT43SYWLPKH2XHS4I6BXN6ZLPZ5UK
-X-Message-ID-Hash: CHDBT43SYWLPKH2XHS4I6BXN6ZLPZ5UK
+Message-ID-Hash: BTFG2NBE6EE5MGEN432ZX3ZWB3ONJGDV
+X-Message-ID-Hash: BTFG2NBE6EE5MGEN432ZX3ZWB3ONJGDV
 X-Mailman-Approved-At: Wed, 05 Mar 2025 09:36:24 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CHDBT43SYWLPKH2XHS4I6BXN6ZLPZ5UK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTFG2NBE6EE5MGEN432ZX3ZWB3ONJGDV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -181,7 +167,7 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---arZipvw0uTFSQO46
+--KDdH5gMfg91zSpLK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
@@ -206,7 +192,10 @@ test-[g|n]roff -mandoc -t -K utf8 -rF0 -rHY=0 -rCHECKSTYLE=10 -ww -z < "man page
    * What was the outcome of this action?
 
 
-an.tmac:<stdin>:30: style: .TH missing fourth argument; consider package/project name and version (e.g., "groff 1.23.0")
+an.tmac:<stdin>:1: style: .TH missing fourth argument; consider package/project name and version (e.g., "groff 1.23.0")
+troff:<stdin>:124: warning: trailing space in the line
+troff:<stdin>:133: warning: trailing space in the line
+troff:<stdin>:138: warning: trailing space in the line
 
 
    * What outcome did you expect instead?
@@ -247,40 +236,26 @@ pn  dialog  <none>
 
 -- no debconf information
 
---arZipvw0uTFSQO46
+--KDdH5gMfg91zSpLK
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="chk_man.err.alsaucm.1"
+Content-Disposition: attachment; filename="chk_man.err.amixer.1"
 
-Input file is alsaucm.1
+Input file is amixer.1
 
-Output from "mandoc -T lint  alsaucm.1": (shortened list)
+Output from "mandoc -T lint  amixer.1": (shortened list)
 
-      1 input text line longer than 80 bytes: ALSA Use Case Interf...
-      1 input text line longer than 80 bytes: The master use case ...
-      1 input text line longer than 80 bytes: Use Case Interface: ...
-      1 input text line longer than 80 bytes: files. An audio use ...
-      6 skipping paragraph macro: sp after SH
-      2 whitespace at end of input line
+      1 input text line longer than 80 bytes: This document is by ...
+      4 whitespace at end of input line
 
 Remove trailing space with: sed -e 's/  *$//'
 
 -.-.
 
-Output from "test-groff -mandoc -t -ww -z alsaucm.1": (shortened list)
+Output from "test-groff -mandoc -t -ww -z amixer.1": (shortened list)
 
-      2 trailing space in the line
+      4 trailing space in the line
 
 Remove trailing space with: sed -e 's/  *$//'
-
--.-.
-
-Show if generated from reStructuredText
-
-Who is actually generating this man page?  Debian or upstream?
-
-Is the generating software out of date?
-
-1:.\" Man page generated from reStructuredText.
 
 -.-.
 
@@ -290,40 +265,7 @@ global configuration "core.whitespace".
 
 Number of lines affected is
 
-2
-
--.-.
-
-Remove space in the first column, if not indented.
-Use ".in +<number>n" and ".in" to end it; ".nf" and ".fi" to end
-it, for an extra indention.
-
-alsaucm.1:40: from the command line.
-alsaucm.1:237: <http://git.alsa\-project.org/?p=alsa\-lib.git;a=blob;f=src/ucm/parser.c> 
-
--.-.
-
-Strings longer than 3/4 of a standard line length (80)
-Use "\:" to split the string at the end of an output line, for example a
-long URL (web address)
-
-39 Interface <http://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm.html>
-149 ALSA Use Case Interface <http://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm.html>
-237  <http://git.alsa\-project.org/?p=alsa\-lib.git;a=blob;f=src/ucm/parser.c> 
-285 Use Case Interface:  <http://www.alsa\-project.org/alsa\-doc/alsa\-lib/group__ucm.html> 
-
--.-.
-
-Add a "\&" (or a comma (Oxford comma)) after "e.g." and "i.e.",
-or use English words
-(man-pages(7)).
-Abbreviation points should be marked as such and protected against being
-interpreted as an end of sentence, if they are not, and that independent
-of the current place on the line.
-
-59:The verb describes the use case action i.e. a phone call, listening to music,
-61:and playback hardware i.e. headphones, phone handset, bluetooth headset, etc.
-216:supported use cases, e.g.
+4
 
 -.-.
 
@@ -356,10 +298,6 @@ Some sentences (etc.) do not begin on a new line.
 
 Split (sometimes) lines after a punctuation mark; before a conjunction.
 
-N.B.
-
-  The number of lines affected can be too large to be in a patch.
-
   Lines with only one (or two) space(s) between sentences could be split,
 so latter sentences begin on a new line.
 
@@ -374,8 +312,19 @@ to split lines after a sentence period.
 Check result with the difference between the formatted outputs.
 See also the attachment "general.bugs"
 
-57:files. An audio use case can be defined by a \fBverb\fP and \fBdevice\fP parameter.
-60:recording a conversation etc. The device describes the physical audio capture
+12:for the default soundcard and device. This is a good way to see a list
+35:Sets the simple mixer control contents. The parameter can be the volume
+54:A simple mixer control must be specified. Only one device can be controlled
+61:A simple mixer control must be specified. Only one device can be controlled
+74:Sets the card control contents. The identifier has these components: iface,
+75:name, index, device, subdevice, numid. The next argument specifies the value
+80:Shows the card control contents. The identifier has same syntax as for
+98:Select the card number to control. The device name created from this
+104:Select the device name to control. The default control name is 'default'.
+112:Only sset and cset are accepted.  Other commands are ignored.
+121:Quiet mode. Do not show results of changes.
+143:will set the master volume of the second card to \-20dB.  If the master
+148:will increase the PCM volume of the second card with 2dB.  When both
 
 -.-.
 
@@ -384,33 +333,26 @@ Appropriate break points are the end of a sentence and a subordinate
 clause; after punctuation marks.
 Add "\:" to split the string for the output, "\<newline>" in the source.  
 
-Line 57, length 83
+Line 169, length 91
 
-files. An audio use case can be defined by a \fBverb\fP and \fBdevice\fP parameter.
+This document is by Paul Winkler <zarmzarm@erols.com> and Jaroslav Kysela <perex@perex.cz>.
 
-Line 114, length 81
+-.-.
 
-\fB_devices[/{verb}]\fP \- get list of supported devices (in pair device+comment)
+The name of a man page is typeset in bold and the section in roman
+(see man-pages(7)).
 
-Line 116, length 87
+161:alsamixer(1)
 
-\fB_modifiers[/{verb}]\fP \- get list of supported modifiers (in pair modifier+comment)
+-.-.
 
-Line 137, length 82
+Use the name of units in text; use symbols in tables and
+calculations.
+The rule is to have a (no-break, \~) space between a number and
+its units (see "www.bipm.org/en/publications/si-brochure")
 
-\fB_conflictingdevs/{modifier}|{device}[/{verb}]\fP \- list of conflicting devices
-
-Line 149, length 87
-
-ALSA Use Case Interface <http://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm.html>
-
-Line 212, length 91
-
-The master use case files for each supported sound card are in \fB/usr/share/alsa/ucm\fP\&.
-
-Line 285, length 88
-
-Use Case Interface:  <http://www.alsa\-project.org/alsa\-doc/alsa\-lib/group__ucm.html> 
+37:a dB gain with \fIdB\fP suffix (like \-12.5dB), or an exact hardware value.
+148:will increase the PCM volume of the second card with 2dB.  When both
 
 -.-.
 
@@ -418,208 +360,208 @@ Put a parenthetical sentence, phrase on a separate line,
 if not part of a code.
 See man-pages(7), item "semantic newline".
 
-alsaucm.1:38:alsaucm (ALSA Use Case Manager) is a program to use the ALSA Use Case
-alsaucm.1:79:batch mode (use \fB\(aq\-\(aq\fP for the stdin input)
-alsaucm.1:112:\fB_verbs\fP \- get verb list (in pair verb+comment)
-alsaucm.1:114:\fB_devices[/{verb}]\fP \- get list of supported devices (in pair device+comment)
-alsaucm.1:116:\fB_modifiers[/{verb}]\fP \- get list of supported modifiers (in pair modifier+comment)
-
--.-.
-
-No need for '\&' to be in front of a period (.),
-if there is a character in front of it.
-
-Remove with "sed -e 's/\\&\././g'".
-
-
-95:valid names are sound card names as listed in \fB/usr/share/alsa/ucm\fP\&.
-212:The master use case files for each supported sound card are in \fB/usr/share/alsa/ucm\fP\&.
-234:\fB/usr/share/alsa/ucm/PandaBoard/hifi\fP\&.
+amixer.1:37:a dB gain with \fIdB\fP suffix (like \-12.5dB), or an exact hardware value.
 
 -.-.
 
 Output from "test-groff  -mandoc -t -K utf8 -rF0 -rHY=0 -rCHECKSTYLE=10 -ww -z ":
 
-an.tmac:<stdin>:30: style: .TH missing fourth argument; consider package/project name and version (e.g., "groff 1.23.0")
-an.tmac:<stdin>:40: style: 1 leading space(s) on input line
-an.tmac:<stdin>:237: style: 1 leading space(s) on input line
-troff:<stdin>:237: warning: trailing space in the line
-troff:<stdin>:285: warning: trailing space in the line
+an.tmac:<stdin>:1: style: .TH missing fourth argument; consider package/project name and version (e.g., "groff 1.23.0")
+troff:<stdin>:116: warning: trailing space in the line
+troff:<stdin>:124: warning: trailing space in the line
+troff:<stdin>:129: warning: trailing space in the line
+troff:<stdin>:162: warning: trailing space in the line
 
 -.-.
-
-Spelling:
-
-switche -> switch
-
--.-
 
 Generally:
 
 Split (sometimes) lines after a punctuation mark; before a conjunction.
 
---arZipvw0uTFSQO46
+--KDdH5gMfg91zSpLK
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: attachment; filename="alsaucm.1.diff"
+Content-Disposition: attachment; filename="amixer.1.diff"
 
---- alsaucm.1	2025-03-01 14:55:25.265148045 +0000
-+++ alsaucm.1.new	2025-03-01 15:26:40.241393658 +0000
-@@ -31,13 +31,14 @@ level margin: \\n[rst2man-indent\\n[rst2
- .SH NAME
- alsaucm \- ALSA Use Case Manager
- .SH SYNOPSIS
--.sp
--\fIalsaucm\fP <options> [command]
-+.B alsaucm
-+.IR <options> " [" command ]
- .SH DESCRIPTION
--.sp
--alsaucm (ALSA Use Case Manager) is a program to use the ALSA Use Case
--Interface <http://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm.html>
-- from the command line.
-+alsaucm
-+(ALSA Use Case Manager)
-+is a program to use the ALSA Use Case
-+Interface <http://www.alsa-project.org/\:alsa-doc/\:alsa-lib/\:group__ucm.html>
-+from the command line.
- .sp
- On complex sound cards, setting up audio routes is not trivial and mixer
- settings can conflict one another preventing the audio card to work at all.
-@@ -54,13 +55,14 @@ ALSA kcontrols to change the hardware di
- match the requested device use case.
- .sp
- The use case manager kcontrol configurations are stored in easy to modify text
--files. An audio use case can be defined by a \fBverb\fP and \fBdevice\fP parameter.
-+files.
-+An audio use case can be defined by a \fBverb\fP and \fBdevice\fP parameter.
- .sp
--The verb describes the use case action i.e. a phone call, listening to music,
--recording a conversation etc. The device describes the physical audio capture
--and playback hardware i.e. headphones, phone handset, bluetooth headset, etc.
-+The verb describes the use case action i.e.\& a phone call, listening to music,
-+recording a conversation etc.
-+The device describes the physical audio capture
-+and playback hardware i.e.\& headphones, phone handset, bluetooth headset, etc.
- .SH OPTIONS
--.sp
- Available options:
- .INDENT 0.0
- .INDENT 3.5
-@@ -76,7 +78,8 @@ open card NAME
- interactive mode
+--- amixer.1	2025-03-01 15:39:10.554803625 +0000
++++ amixer.1.new	2025-03-01 16:00:13.654895906 +0000
+@@ -9,7 +9,8 @@ soundcard driver.
+ \fBamixer\fP supports multiple soundcards.
+ 
+ \fBamixer\fR with no arguments will display the current mixer settings
+-for the default soundcard and device. This is a good way to see a list
++for the default soundcard and device.
++This is a good way to see a list
+ of the simple mixer controls you can use.
+ 
+ .SH COMMANDS
+@@ -32,34 +33,45 @@ Shows a complete list of simple mixer co
+ 
  .TP
- .B \fB\-b\fP, \fB\-\-batch\fP \fIFILE\fP
--batch mode (use \fB\(aq\-\(aq\fP for the stdin input)
-+batch mode
-+(use \fB\(aq\-\(aq\fP for the stdin input)
+ \fIset\fP or \fIsset\fP <\fISCONTROL\fP> <\fIPARAMETER\fP> ...
+-Sets the simple mixer control contents. The parameter can be the volume
++Sets the simple mixer control contents.
++The parameter can be the volume
+ either as a percentage from 0% to 100% with \fI%\fP suffix,
+-a dB gain with \fIdB\fP suffix (like \-12.5dB), or an exact hardware value.
++a dB gain with \fIdB\fP suffix
++(like \-12.5\~dB),
++or an exact hardware value.
+ The dB gain can be used only for the mixer elements with available
+ dB information.
+ When plus(+) or minus(\-) letter is appended after
+ volume value, the volume is incremented or decremented from the current
+ value, respectively.
+ 
+-The parameters \fIcap, nocap, mute, unmute, toggle\fP are used to
++The parameters
++.BR cap ", " nocap ", " mute ", " unmute ", " toggle
++are used to
+ change capture (recording) and muting for the group specified.
+ 
+ The optional modifiers can be put as extra parameters before the value to
+ specify the stream direction or channels to apply.
+-The modifiers \fIplayback\fP and \fIcapture\fP specify the stream,
+-and the modifiers \fIfront, frontleft, frontright, frontcenter, center,
+-rear, rearright, rearleft, woofer\fP are used to specify channels to be
++The modifiers
++.B playback
++and
++.B capture
++specify the stream,
++and the modifiers
++.BR front ", " frontleft ", " frontright ", " frontcenter ", " center ", " \
++rear ", " rearright ", " rearleft ", " woofer
++are used to specify channels to be
+ changed.
+ 
+-A simple mixer control must be specified. Only one device can be controlled
+-at a time.
++A simple mixer control must be specified.
++Only one device can be controlled at a time.
+ 
  .TP
- .B \fB\-n\fP, \fB\-\-no\-open\fP
- do not open first card found
-@@ -92,7 +95,7 @@ Available commands:
- .B \fBopen\fP \fINAME\fP
- open card NAME.
- .sp
--valid names are sound card names as listed in \fB/usr/share/alsa/ucm\fP\&.
-+valid names are sound card names as listed in \fB/usr/share/alsa/ucm\fP.
+ \fIget\fP or \fIsget\fP <\fISCONTROL\fP>
+ Shows the simple mixer control contents.
+ 
+-A simple mixer control must be specified. Only one device can be controlled
+-at a time.
++A simple mixer control must be specified.
++Only one device can be controlled at a time.
+ 
  .TP
- .B \fBreset\fP
- reset sound card to default state.
-@@ -109,11 +112,14 @@ list command, for items returning two en
- the value of the \fIIDENTIFIER\fP argument can be:
- .INDENT 7.0
- .IP \(bu 2
--\fB_verbs\fP \- get verb list (in pair verb+comment)
-+\fB_verbs\fP \- get verb list \
-+(in pair verb+comment)
- .IP \(bu 2
--\fB_devices[/{verb}]\fP \- get list of supported devices (in pair device+comment)
-+\fB_devices[/{verb}]\fP \- get list of supported devices \
-+(in pair device+comment)
- .IP \(bu 2
--\fB_modifiers[/{verb}]\fP \- get list of supported modifiers (in pair modifier+comment)
-+\fB_modifiers[/{verb}]\fP \- get list of supported modifiers \
-+(in pair modifier+comment)
- .UNINDENT
- .sp
- The forms without the trailing \fB/{verb}\fP are valid only after a specific
-@@ -134,7 +140,8 @@ it can be:
- .IP \(bu 2
- \fB_supporteddevs/{modifier}|{device}[/{verb}]\fP \- list of supported devices
- .IP \(bu 2
--\fB_conflictingdevs/{modifier}|{device}[/{verb}]\fP \- list of conflicting devices
-+\fB_conflictingdevs/{modifier}|{device}[/{verb}]\fP \- list of
-+conflicting devices
- .UNINDENT
+ \fIcontrols\fP
+@@ -71,14 +83,15 @@ Shows a complete list of card controls w
+ 
  .TP
- .B \fBget\fP \fIIDENTIFIER\fP
-@@ -145,9 +152,9 @@ the value of the \fIIDENTIFIER\fP argume
- .IP \(bu 2
- \fB_verb\fP \- return current verb
- .IP \(bu 2
--\fB[=]{NAME}[/[{modifier}|{/device}][/{verb}]]\fP (For valid NAMEs look at the
--ALSA Use Case Interface <http://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm.html>
--)
-+\fB[=]{NAME}[/[{modifier}|{/device}][/{verb}]]\fP \
-+(For valid NAMEs look at the ALSA Use Case Interface
-+<http://www.alsa-project.org/\:alsa-doc/\:alsa-lib/\:group__ucm.html>)
- .UNINDENT
+ \fIcset\fP <\fICONTROL\fP> <\fIPARAMETER\fP> ...
+-Sets the card control contents. The identifier has these components: iface,
+-name, index, device, subdevice, numid. The next argument specifies the value
+-of control.
++Sets the card control contents.
++The identifier has these components:
++iface, name, index, device, subdevice, numid.
++The next argument specifies the value of control.
+ 
  .TP
- .B \fBgeti\fP \fIIDENTIFIER\fP
-@@ -173,7 +180,7 @@ The value of the \fIIDENTIFIER\fP argume
- .IP \(bu 2
- \fB_disdev\fP \- disable the device specified by \fIVALUE\fP
- .IP \(bu 2
--\fB_swdev/{old_device}\fP \- switche device:
-+\fB_swdev/{old_device}\fP \- switch device:
- .INDENT 2.0
- .IP \(bu 2
- disable \fIold_device\fP and then enable the device specified by
-@@ -208,12 +215,12 @@ quit
- .UNINDENT
- .UNINDENT
- .SH FILES
--.sp
--The master use case files for each supported sound card are in \fB/usr/share/alsa/ucm\fP\&.
-+The master use case files for each supported sound card are in
-+\fB/usr/share/alsa/ucm\fP.
- .sp
- For example, the master use case file for the \fIPandaboard\fP card is in
- \fB/usr/share/alsa/ucm/PandaBoard/PandaBoard.conf\fP, this file lists all the
--supported use cases, e.g.
-+supported use cases, e.g.\&
- .INDENT 0.0
- .INDENT 3.5
- .sp
-@@ -231,12 +238,11 @@ Each use case defines a _verb, which is
- the \fBFile\fP directive, like above.
- .sp
- The \fBHiFi\fP verb above is described in
--\fB/usr/share/alsa/ucm/PandaBoard/hifi\fP\&.
-+\fB/usr/share/alsa/ucm/PandaBoard/hifi\fP.
- .sp
- For more details on the syntax of UCM files, see the alsa\-lib source code:
-- <http://git.alsa\-project.org/?p=alsa\-lib.git;a=blob;f=src/ucm/parser.c> 
-+<http://git.alsa\-project.org/\:?p=alsa\-lib.git;a=blob;f=src/\:ucm/\:parser.c>
- .SH EXAMPLES OF USE
--.sp
- Some commands, like for instance \fBlist _devices\fP,
- can only work after setting a \fB_verb\fP in the \fBsame execution\fP, for
- instance this sequence doesn\(aqt work:
-@@ -282,10 +288,10 @@ EOM
+ \fIcget\fP <\fICONTROL\fP>
+-Shows the card control contents. The identifier has same syntax as for
+-the \fIcset\fP command.
++Shows the card control contents.
++The identifier has same syntax as for the \fIcset\fP command.
+ 
+ .SH ADVANCED COMMANDS
+ 
+@@ -95,13 +108,15 @@ Shows the events for the mixer controls.
+ .TP
+ \fI\-c\fP card
+ 
+-Select the card number to control. The device name created from this
+-parameter has syntax 'hw:N' where N is specified card number.
++Select the card number to control.
++The device name created from this parameter has syntax 'hw:N'
++where N is specified card number.
+ 
+ .TP
+ \fI\-D\fP device
+ 
+-Select the device name to control. The default control name is 'default'.
++Select the device name to control.
++The default control name is 'default'.
+ 
+ .TP
+ \fI\-s\fP | \fI\-\-stdin\fP
+@@ -109,24 +124,26 @@ Select the device name to control. The d
+ Read from stdin and execute the command on each line sequentially.
+ When this option is given, the command in command\-line arguments is ignored.
+ 
+-Only sset and cset are accepted.  Other commands are ignored.
++Only sset and cset are accepted.
++Other commands are ignored.
+ The commands to unmatched ids are ignored without errors too.
+ 
+ .TP
+-\fI\-h\fP 
++\fI\-h\fP
+ Help: show syntax.
+ 
+ .TP
+ \fI\-q\fP
+-Quiet mode. Do not show results of changes.
++Quiet mode.
++Do not show results of changes.
+ 
+ .TP
+-\fI\-R\fP 
++\fI\-R\fP
+ Use the raw value for evaluating the percentage representation.
+ This is the default mode.
+ 
+ .TP
+-\fI\-M\fP 
++\fI\-M\fP
+ Use the mapped volume for evaluating the percentage representation
+ like \fBalsamixer\fR, to be more natural for human ear.
+ 
+@@ -140,13 +157,15 @@ capture (recording).\fR
+ 
+ .TP
+ \fBamixer \-c 1 \-\- sset Master playback \-20dB\fR
+-will set the master volume of the second card to \-20dB.  If the master
+-has multiple channels, all channels are set to the same value.
++will set the master volume of the second card to \-20dB.
++If the master has multiple channels,
++all channels are set to the same value.
+ 
+ .TP
+ \fBamixer \-c 1 set PCM 2dB+\fR
+-will increase the PCM volume of the second card with 2dB.  When both
+-playback and capture volumes exist, this is applied to both volumes.
++will increase the PCM volume of the second card with 2\~dB.
++When both playback and capture volumes exist,
++this is applied to both volumes.
+ 
+ .TP
+ \fBamixer \-c 2 cset iface=MIXER,name='Line Playback Volume",index=1 40%\fR
+@@ -157,13 +176,12 @@ will set the third soundcard's second li
+ will set the 34th soundcard element to 40%
+ 
  .SH SEE ALSO
- .INDENT 0.0
- .IP \(bu 2
--Use Case Interface:  <http://www.alsa\-project.org/alsa\-doc/alsa\-lib/group__ucm.html> 
-+Use Case Interface: \
-+<http://www.alsa\-project.org/\:alsa\-doc/\:alsa\-lib/\:group__ucm.html>
- .UNINDENT
- .SH BUGS
--.sp
+-\fB
+-alsamixer(1)
+-\fP
++.BR alsamixer (1)
+ 
+-.SH BUGS 
++.SH BUGS
  None known.
+ 
  .SH AUTHOR
- Antonio Ospite <ao2@ao2.it>
+ \fBamixer\fP is by Jaroslav Kysela <perex@perex.cz>.
+-This document is by Paul Winkler <zarmzarm@erols.com> and Jaroslav Kysela <perex@perex.cz>.
++This document is by Paul Winkler <zarmzarm@erols.com>
++and Jaroslav Kysela <perex@perex.cz>.
 
---arZipvw0uTFSQO46
+--KDdH5gMfg91zSpLK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: attachment; filename="general.bugs"
 
@@ -702,4 +644,4 @@ export MAN_KEEP_STDERR=yes (or any non-empty value)
 
 -.-
 
---arZipvw0uTFSQO46--
+--KDdH5gMfg91zSpLK--

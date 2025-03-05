@@ -2,147 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F32DA4F853
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 08:54:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71B1FA4F858
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 08:57:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B697F602C9;
-	Wed,  5 Mar 2025 08:54:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B697F602C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27544602DE;
+	Wed,  5 Mar 2025 08:57:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27544602DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741161298;
-	bh=K36fAm89X5SrXPwH67TCmdU7lnTx7IUpwd2mFi3bTCc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1741161460;
+	bh=+mbFw9Ph9X3yqzcwPUFnG0EWQqGmsd8ENbZiOlSx150=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cEF/aKqLw60s5cFSkKvuJ19NnjbBW2q1upiUCenV5p1Aze2DmuJqCSdndRsOz/jk3
-	 UfTJo1tpR7qqkj4J1P6NKfiWcmsQXcbodjDop72HlRyhvxS9i/NXRVyMq3UeUEvBNz
-	 s77nI7wZiUTwWbvDv6F+okpEIpI7djrBqTfWQeBw=
+	b=HFDvnBtZABH6BaoCLk/H0K6CFHxe3Z0KRnEtJdEpn0uYqy7hYvYv1HWUFOhf5DGiQ
+	 Wf0qECgn1qkEp8gNDWkPYUCsYEHLKAhc0lFSyhCPyVpJC6ZDppmFvj1xjey5mWQnN5
+	 ULddXXF+lG9+wNdZ5o6Cd3jA5ycGuj+owCekZjhk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B16AF805BE; Wed,  5 Mar 2025 08:54:31 +0100 (CET)
+	id 21DFDF805BE; Wed,  5 Mar 2025 08:57:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E33ACF805B5;
-	Wed,  5 Mar 2025 08:54:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9026EF805BE;
+	Wed,  5 Mar 2025 08:57:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF715F8011B; Wed,  5 Mar 2025 08:54:00 +0100 (CET)
+	id EF4E8F802BE; Wed,  5 Mar 2025 08:56:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=no
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BEAB0F80171
-	for <alsa-devel@alsa-project.org>; Wed,  5 Mar 2025 08:53:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEAB0F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id 061E4F8011B
+	for <alsa-devel@alsa-project.org>; Wed,  5 Mar 2025 08:56:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 061E4F8011B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=rV2rbFjY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=T1pGKUT+;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=rV2rbFjY;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=T1pGKUT+
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9BC3D1F393;
-	Wed,  5 Mar 2025 07:53:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1741161220;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VTfGV8Bs9nYJ2LUZx1xbZKnrLQsmMhbvJLY4EmDrEcY=;
-	b=rV2rbFjYWUw2K1OEqJ+TgsMd8Cu9jrr7Bq+XJ0zpMGVGvLyKULpodikWWb1IDfNH2qdYGD
-	NRPp5M4jVDZq47xpSI10XW2Ps6Nqy8EwKpoVdUO0kYsnO6VLfEQMD2BmdTal5njApw5Kta
-	QxFEO47MgTlMCyCy6YKlq3nOBCCFJhA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1741161220;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VTfGV8Bs9nYJ2LUZx1xbZKnrLQsmMhbvJLY4EmDrEcY=;
-	b=T1pGKUT+3nZVnVcxJXqCPvR56c+xXo0RUTQ0jvVwOhalI2ItPOwh5n4l9+JPQU49i5DRtG
-	G3m0cdHbKrInGbCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1741161220;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VTfGV8Bs9nYJ2LUZx1xbZKnrLQsmMhbvJLY4EmDrEcY=;
-	b=rV2rbFjYWUw2K1OEqJ+TgsMd8Cu9jrr7Bq+XJ0zpMGVGvLyKULpodikWWb1IDfNH2qdYGD
-	NRPp5M4jVDZq47xpSI10XW2Ps6Nqy8EwKpoVdUO0kYsnO6VLfEQMD2BmdTal5njApw5Kta
-	QxFEO47MgTlMCyCy6YKlq3nOBCCFJhA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1741161220;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VTfGV8Bs9nYJ2LUZx1xbZKnrLQsmMhbvJLY4EmDrEcY=;
-	b=T1pGKUT+3nZVnVcxJXqCPvR56c+xXo0RUTQ0jvVwOhalI2ItPOwh5n4l9+JPQU49i5DRtG
-	G3m0cdHbKrInGbCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 75A621366F;
-	Wed,  5 Mar 2025 07:53:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2v4KGwQDyGcRTwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 05 Mar 2025 07:53:40 +0000
-Date: Wed, 05 Mar 2025 08:53:39 +0100
-Message-ID: <87zfhzud4s.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-Subject: Re: update ALC222 depop optimize
-In-Reply-To: <81c7f0ec4a2447219c06095e0de4d1d3@realtek.com>
+	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=fSy3wO5g
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 5257ugrrF1147908,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
+	t=1741161402; bh=+mbFw9Ph9X3yqzcwPUFnG0EWQqGmsd8ENbZiOlSx150=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=fSy3wO5gtlPOAi1hh3jXLfDPL14H7/7I0VkshaR3dGq2jhDdeg/TV08BgDklecv0Z
+	 vvQV9eDAYca/txNrIkGWawym7xxUi3e0t9rRFV/QVw6dtOWMfT+e8+uOr9JnMCDSOm
+	 +itqerFyEiv5RDwR7aM7ItL1TMmquPmhwp2Ggxv6PywircZz7Eqoz6CpjY7n42g8Em
+	 C+qcd6XEQ+7KddZPop/bmfwVJeRluHU5SXiyQa1DfYsFiIu6y0a+a5vYapJS60SXNN
+	 krUhAP4Fumdz4pSOxh7v2tHmLbeuuLqZpqzONBsGM/tlHbnKtbnuMaXcQiAJSJTKW8
+	 bakdcGdcKyczw==
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 5257ugrrF1147908
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 5 Mar 2025 15:56:42 +0800
+Received: from RTEXMBS03.realtek.com.tw (172.21.6.96) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 5 Mar 2025 15:56:42 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 5 Mar 2025 15:56:42 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::f5bd:6ac9:46d:9547]) by
+ RTEXMBS01.realtek.com.tw ([fe80::f5bd:6ac9:46d:9547%5]) with mapi id
+ 15.01.2507.035; Wed, 5 Mar 2025 15:56:42 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>,
+        "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+Subject: RE: update ALC222 depop optimize
+Thread-Topic: update ALC222 depop optimize
+Thread-Index: AduNl/Z/2i7zvjW2RduQNmX+QwAWAP//kWCA//95iZA=
+Date: Wed, 5 Mar 2025 07:56:41 +0000
+Message-ID: <f7fba6fc8d9e4abfb0c89e487e1d5d89@realtek.com>
 References: <81c7f0ec4a2447219c06095e0de4d1d3@realtek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-Message-ID-Hash: ZKBVUABKOITHVSCAMB4XNRFYRTFQWT2Z
-X-Message-ID-Hash: ZKBVUABKOITHVSCAMB4XNRFYRTFQWT2Z
-X-MailFrom: tiwai@suse.de
+ <87zfhzud4s.wl-tiwai@suse.de>
+In-Reply-To: <87zfhzud4s.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+x-originating-ip: [172.21.6.42]
+x-kse-serverinfo: RTEXMBS03.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: RHC7BXZ3S7WMJTM6NQXXJXW6K2K5LW6R
+X-Message-ID-Hash: RHC7BXZ3S7WMJTM6NQXXJXW6K2K5LW6R
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -154,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZKBVUABKOITHVSCAMB4XNRFYRTFQWT2Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RHC7BXZ3S7WMJTM6NQXXJXW6K2K5LW6R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,17 +117,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 05 Mar 2025 07:32:00 +0100,
-Kailang wrote:
-> 
-> Hi Takashi,
-> 
-> Update ALC222 depop optimize as attach.
 
-Could you give a bit more background info why this change is needed?
-Is it a mandatory change to fix something, or it improves something?
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Wednesday, March 5, 2025 3:54 PM
+> To: Kailang <kailang@realtek.com>
+> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>;
+> linux-sound@vger.kernel.org
+> Subject: Re: update ALC222 depop optimize
+>=20
+>=20
+> External mail : This email originated from outside the organization. Do n=
+ot
+> reply, click links, or open attachments unless you recognize the sender a=
+nd
+> know the content is safe.
+>=20
+>=20
+>=20
+> On Wed, 05 Mar 2025 07:32:00 +0100,
+> Kailang wrote:
+> >
+> > Hi Takashi,
+> >
+> > Update ALC222 depop optimize as attach.
+>=20
+> Could you give a bit more background info why this change is needed?
+> Is it a mandatory change to fix something, or it improves something?
+>=20
+This codec has two headphone design.
+The HP2 was nid 0x14.
 
-
-thanks,
-
-Takashi
+>=20
+> thanks,
+>=20
+> Takashi

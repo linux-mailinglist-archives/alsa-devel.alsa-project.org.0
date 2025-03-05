@@ -2,83 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A6AEA4FF99
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 14:07:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E7F3A50436
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Mar 2025 17:10:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDC3A6038C;
-	Wed,  5 Mar 2025 14:07:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDC3A6038C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C3C6603C5;
+	Wed,  5 Mar 2025 17:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C3C6603C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741180077;
-	bh=rRLh86cLFLqmNG+T9Rd6VrXKmn/xHimWelzpVRHuNdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1741191045;
+	bh=LvdFCFJHY3Rn4CYbBeqB8eaKQCsCyJdu8iqH3qc8dN4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lh2B0EphHUMhu1JgeeqPDWsQV3JcMp/cBMz1gebp2ZzGbe+A+zX5WZOnGreAluZd6
-	 cvr9jSi4x6aYH6UmbKbyo5k04G4ewrf0F8BDBDgICrhsm9jiyI/kWjLL8Hv8Ke0my6
-	 H2/r1fp32jwnC/VFOtCJaielU5f0h7ckjrhhVw8I=
+	b=U9o7rz+YMdbIfgtCuCFGWT5ivq8oSH9HyYe+LzL+khq2ImONvFdHr/9M/QiB1y7Sf
+	 8B3LCRC5mRrledelHrv80XkS1IbYUE9zF6cozr+SzTScB/kQ3j8mIGMHU2d4q56bMl
+	 C7JlMDtMn81j0BmLYbwdEa8qT4u+pRF8w4btXgco=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FB2EF805B0; Wed,  5 Mar 2025 14:07:25 +0100 (CET)
+	id 912F3F805BD; Wed,  5 Mar 2025 17:10:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D3FAF805B4;
-	Wed,  5 Mar 2025 14:07:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A66AF805B4;
+	Wed,  5 Mar 2025 17:10:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB7B9F802BE; Wed,  5 Mar 2025 14:07:08 +0100 (CET)
+	id 24C90F802BE; Wed,  5 Mar 2025 17:10:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2a07:de40:b251:101:10:150:64:2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7FA52F8011B
-	for <alsa-devel@alsa-project.org>; Wed,  5 Mar 2025 14:07:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FA52F8011B
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3087F80171
+	for <alsa-devel@alsa-project.org>; Wed,  5 Mar 2025 17:09:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3087F80171
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FTexpU7l
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 006245C6904;
-	Wed,  5 Mar 2025 13:04:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A7CC4CEE7;
-	Wed,  5 Mar 2025 13:06:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741180021;
-	bh=rRLh86cLFLqmNG+T9Rd6VrXKmn/xHimWelzpVRHuNdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FTexpU7l/PbhsIurlyD8VSoGVgjPlyNTy6nPpW1AnFmov0caF41Jf7gbOJ05x7bGz
-	 By4ZYuW9sShoEDy0o+h/bGouElGEmLrq7KbP1Wx+sM2QNqZ5U3vnNxN4vxclMISyEU
-	 PH2eGnimZFToswmg70C9j+2SoFsXGjY8t9XPvi8e2btt9y842Mho9dN6+EF8e3s6Z8
-	 0hEjToguGOWXwWdb2K0jRZXKmaAhx/GzZ+ZcjiZb84ZdhUPBDEAKZntWczcY4LJRiM
-	 IkVax+Orcq+PHlmzVwWSrS1yhAmtkMzjaRUzqdvNcsrBCTjeS4MAgUhePjQTuoh5eA
-	 uHPdE+3VFlFUQ==
-Date: Wed, 5 Mar 2025 13:06:56 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Zhang Yi <zhangyi@everest-semi.com>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org, tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org
-Subject: Re: [PATCH v4 1/2] ASoC: codecs: add support for ES8389
-Message-ID: <77f040bb-a1ff-4eca-831b-ab10bf79e6bc@sirena.org.uk>
-References: <20250305025610.58476-1-zhangyi@everest-semi.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="odRdCbb20AVtN+qv"
-Content-Disposition: inline
-In-Reply-To: <20250305025610.58476-1-zhangyi@everest-semi.com>
-X-Cookie: Everybody gets free BORSCHT!
-Message-ID-Hash: XBFDTZFO3WI55TJAKHJJCTWZHWOFJ7XF
-X-Message-ID-Hash: XBFDTZFO3WI55TJAKHJJCTWZHWOFJ7XF
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=DVzbsA/q;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=SlZStIqJ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=DVzbsA/q;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=SlZStIqJ
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 873921F394;
+	Wed,  5 Mar 2025 16:09:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1741190993;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JLcDxgtLdtZZEchsaRGzC3FY9F3HbBFNCz5bKNwvIUU=;
+	b=DVzbsA/qEYT6cl3NG88FSdDFx8Xwhy9AR8GyOW/39StH4djByIHzmqXTKaaqdqKwD1Ufqw
+	5mg/8UnJeur4bAXqowj1t7RCuYro4woYgiH2abwN7L+YbFVcdnDje1/5kI8ztdUGV/7WbS
+	a2LvO1b/SXHDBEMK0vetJZLhkieEIK0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1741190993;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JLcDxgtLdtZZEchsaRGzC3FY9F3HbBFNCz5bKNwvIUU=;
+	b=SlZStIqJOf0TPmqv/tt/JWMT1fowpO0CCvLO+NsdIHd7v8GLNgPNnYDTFX2cSowku1mwu/
+	6cAbxekznEk3p9Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1741190993;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JLcDxgtLdtZZEchsaRGzC3FY9F3HbBFNCz5bKNwvIUU=;
+	b=DVzbsA/qEYT6cl3NG88FSdDFx8Xwhy9AR8GyOW/39StH4djByIHzmqXTKaaqdqKwD1Ufqw
+	5mg/8UnJeur4bAXqowj1t7RCuYro4woYgiH2abwN7L+YbFVcdnDje1/5kI8ztdUGV/7WbS
+	a2LvO1b/SXHDBEMK0vetJZLhkieEIK0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1741190993;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JLcDxgtLdtZZEchsaRGzC3FY9F3HbBFNCz5bKNwvIUU=;
+	b=SlZStIqJOf0TPmqv/tt/JWMT1fowpO0CCvLO+NsdIHd7v8GLNgPNnYDTFX2cSowku1mwu/
+	6cAbxekznEk3p9Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 693BE1366F;
+	Wed,  5 Mar 2025 16:09:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UhJ3GFF3yGeFdQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 05 Mar 2025 16:09:53 +0000
+Date: Wed, 05 Mar 2025 17:09:52 +0100
+Message-ID: <87y0xjqx0v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: noman pouigt <variksla@gmail.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: XRUN handling in pcm driver
+In-Reply-To: 
+ <CAES_P+_nK8TPS_=TsJ-_eh+zRDGfCiu-=+73=i9c26KriuXSiw@mail.gmail.com>
+References: 
+ <CAES_P+_nK8TPS_=TsJ-_eh+zRDGfCiu-=+73=i9c26KriuXSiw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-0.999];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+Message-ID-Hash: U3DWQ62QQ5CAAK27ASSAEO6CGGPNAEXZ
+X-Message-ID-Hash: U3DWQ62QQ5CAAK27ASSAEO6CGGPNAEXZ
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +156,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XBFDTZFO3WI55TJAKHJJCTWZHWOFJ7XF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U3DWQ62QQ5CAAK27ASSAEO6CGGPNAEXZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,62 +165,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, 03 Mar 2025 18:27:43 +0100,
+noman pouigt wrote:
+> 
+> Hello Maintainers,
+> 
+> I have a question regarding XRUN handling.
+> After an XRUN is triggered, userspace generally
+> calls TRIGGER_STOP followed by PREPARE
+> and TRIGGER_START. In the PREPARE stage,
+> we are currently not sending the ALSA ring
+> buffer (physical address, rate, format, etc.) IPC to the
+> DSP but instead doing that in HW_PARAMS
+> which is causing bad audio after XRUN is triggered.
+> 
+> I was able to resolve the issue by moving the
+> IPC to PREPARE, which fixes the XRUN problem
+> and results in good audio even after an XRUN.
+> I have also observed a similar approach in
+> Qualcomm drivers, which I assume is for the same reason.
+> 
+> Is moving the IPC to PREPARE the correct
+> approach for handling this issue? I would appreciate any
+> insights or guidance on whether this is the recommended
+> way to handle XRUN recovery.
 
---odRdCbb20AVtN+qv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+IMO, It's not necessarily about XRUN, but rather a question how the
+driver reacts to user's action: stop, and the immediate prepare &
+restart.  It's a common pattern, and the driver should handle it
+properly in general.
 
-On Wed, Mar 05, 2025 at 10:56:10AM +0800, Zhang Yi wrote:
+Note that, if the hardware needs some time or procedure to clean up
+before the prepare, it should be handled by the driver's sync_stop PCM
+callback.
 
-> > set_tdm_slot()
 
-> We will register multiple codecs inside a single dai_link and differentia=
-te these
-> codecs by of_node. And the adc_slot and the dac_slot may be different, th=
-ey can=20
-> be decided by the user.If we use set_tdm_slot,the adc_slot and the dac_sl=
-ot will
-> be same.
-
-No, the machine driver should be configuring different TDM slots for
-each device - that's the whole point of the API.
-
-> > > +		ret =3D clk_prepare_enable(es8389->mclk);
-> > > +		if (ret) {
-> > > +			dev_err(codec->dev, "%s, unable to enable mclk\n", __func__);
-> > > +			return ret;
-> > > +		}
-> > > +	}
-
-> > Making the use of a MCLK depend on the configuration of a TDM slot for
-> > the ADC seems *very* unusual, what's going on there?
-
-> Because we are associating multiple codecs under a single dai_link, we wi=
-ll be
-> executing probe and init many times during initialization.But MCLK only n=
-eeds
-> to be used once.So we decided making the use of a MCLK depend on the conf=
-iguration
-> of a TDM slot for the ADC=20
-
-No, each device should just get and enable the MCLK itself - the clock
-API does reference counting so there's no problem with this, it's normal
-for a clok to have multiple consumers.
-
---odRdCbb20AVtN+qv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmfITHAACgkQJNaLcl1U
-h9DKdgf/dA3DFm9sVUPZw2kDFYD0y+gP8Zdn23GsRYrB8PFUCETklJpv8/5dVyqO
-IMfmmCdh7iNUgqPOnYSD3Xc9td9gAaiNN6Bn23fe2bMaLqfRw9Nu5evZsag/LM1I
-K+b4s2MvX7N0hR3AGPvyiqerfOMT1BQaC7PILBIPIVfVx6KlIqNYgc1F/c8qNhg4
-6TYrGVhzrGfQ8UCDKv06o7Kf4UI12yoT14700f5bii1mz7fSqnExlQbXo6sExsib
-aCkrak88ekZCVHdtP9wWZ3ZFtr8A9lE/cimo3C5KfYbLFssfUMvv7zLUBwbQF62x
-C9jHK18q3PotRcMDmoJJrr593qrHKQ==
-=U/iY
------END PGP SIGNATURE-----
-
---odRdCbb20AVtN+qv--
+Takashi

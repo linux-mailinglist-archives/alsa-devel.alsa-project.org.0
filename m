@@ -2,83 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB3DDA551D8
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Mar 2025 17:52:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4811A54F2B
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Mar 2025 16:33:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5148C604B6;
-	Thu,  6 Mar 2025 17:52:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5148C604B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D941460444;
+	Thu,  6 Mar 2025 16:33:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D941460444
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741279955;
-	bh=wn6xJhbl/Pse1EyyU15U5P4N59HzRgpmak3FGuqgezc=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Utth8H2OsozREWwL4RmzRYofbAhL5c7lYZi+QH6xiL8P5982CjHYfUp47PgqNIBW5
-	 ydBncaYlubfNPTazkgId4v67RNNryrdMeRLrzZLgcBcMVvPF8usjvVLatdVGxx/lpd
-	 hGwAZJM9NMxMki5K4fK3ugSvcomMtOBIjivffejQ=
+	s=default; t=1741275193;
+	bh=qZDnpQ6Ba0jxeRxPWLcv4BRa098LbDQreFld5r3y9N0=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=HqrAm7QJLsLmFdtApzJCm2/fWawoy3ncPi/NSCW8C96/yomN7HVHNUVzxLxg7RgnQ
+	 jghjm7QDaqav9DInotiIWzNnNzac0w2W3aKzsDTFwWcljOyy3/xA+TlPWrKzxQkG5x
+	 rs2iJP81kC6AYlfjglaLNDrlsq09bTDUhTPoYvZ8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9626F805C3; Thu,  6 Mar 2025 17:52:00 +0100 (CET)
+	id 4D141F805C2; Thu,  6 Mar 2025 16:32:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA88EF805B2;
-	Thu,  6 Mar 2025 17:52:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 210F9F8056F;
+	Thu,  6 Mar 2025 16:32:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 833F3F804B0; Thu,  6 Mar 2025 08:24:19 +0100 (CET)
+	id 0F870F804B0; Thu,  6 Mar 2025 16:32:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
+	MISSING_MID,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp134-102.sina.com.cn (smtp134-102.sina.com.cn
- [180.149.134.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 18997F8011B
-	for <alsa-devel@alsa-project.org>; Thu,  6 Mar 2025 08:24:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18997F8011B
-Received: from unknown (HELO
- zy-virtual-machine.localdomain)([180.159.108.137])
-	by sina.net (10.185.250.32) with ESMTP
-	id 67C94D8B0000292F; Thu, 6 Mar 2025 15:23:57 +0800 (CST)
-X-Sender: zhangyi@everest-semi.com
-X-Auth-ID: zhangyi@everest-semi.com
-Authentication-Results: sina.net;
-	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: 855E3EFC9669480CB4C67813C17AA883
-X-SMAIL-UIID: 855E3EFC9669480CB4C67813C17AA883-20250306-152357
-From: Zhang Yi <zhangyi@everest-semi.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	devicetree@vger.kernel.org
-Cc: tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org
-Subject: RE: [PATCH v4 1/2] ASoC: codecs: add support for ES8389
-Date: Thu,  6 Mar 2025 15:23:54 +0800
-Message-Id: <20250306072354.19987-1-zhangyi@everest-semi.com>
-X-Mailer: git-send-email 2.17.1
-X-MailFrom: zhangyi@everest-semi.com
-X-Mailman-Rule-Hits: nonmember-moderation
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 52B55F8011B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Mar 2025 16:32:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52B55F8011B
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1741275152916616440-webhooks-bot@alsa-project.org>
+References: <1741275152916616440-webhooks-bot@alsa-project.org>
+Subject: HDSPconf missing setting...
+Message-Id: <20250306153236.0F870F804B0@alsa1.perex.cz>
+Date: Thu,  6 Mar 2025 16:32:36 +0100 (CET)
+Message-ID-Hash: IBC5SNAFKABJQAMJ2SCWUXULZLNBKHOP
+X-Message-ID-Hash: IBC5SNAFKABJQAMJ2SCWUXULZLNBKHOP
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: M5FCEW5NHZLZQ2KWCDSIHP45MTY233E6
-X-Message-ID-Hash: M5FCEW5NHZLZQ2KWCDSIHP45MTY233E6
-X-Mailman-Approved-At: Thu, 06 Mar 2025 16:51:57 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M5FCEW5NHZLZQ2KWCDSIHP45MTY233E6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IBC5SNAFKABJQAMJ2SCWUXULZLNBKHOP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -87,36 +71,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> > > set_tdm_slot()
-> 
-> > We will register multiple codecs inside a single dai_link and differentiate these
-> > codecs by of_node. And the adc_slot and the dac_slot may be different, they can 
-> > be decided by the user.If we use set_tdm_slot,the adc_slot and the dac_slot will
-> > be same.
-> 
-> No, the machine driver should be configuring different TDM slots for
-> each device - that's the whole point of the API.
+alsa-project/alsa-tools issue #26 was opened from juanpc2018:
 
-We are using multiple codecs as a single device.So we can't use set_tdm_slot to configure
-different slots for multiple codecs under one device.
+$ alsamixer 1.2.2.
+![Image](https://github.com/user-attachments/assets/6b2860d4-73a0-4526-9a97-13a7c5d6785a)
 
-> > > > +		ret = clk_prepare_enable(es8389->mclk);
-> > > > +		if (ret) {
-> > > > +			dev_err(codec->dev, "%s, unable to enable mclk\n", __func__);
-> > > > +			return ret;
-> > > > +		}
-> > > > +	}
-> 
-> > > Making the use of a MCLK depend on the configuration of a TDM slot for
-> > > the ADC seems *very* unusual, what's going on there?
-> 
-> > Because we are associating multiple codecs under a single dai_link, we will be
-> > executing probe and init many times during initialization.But MCLK only needs
-> > to be used once.So we decided making the use of a MCLK depend on the configuration
-> > of a TDM slot for the ADC 
-> 
-> No, each device should just get and enable the MCLK itself - the clock
-> API does reference counting so there's no problem with this, it's normal
-> for a clok to have multiple consumers.
+![Image](https://github.com/user-attachments/assets/ec8253d0-627a-4dda-a45e-1a2080d20563)
 
-ok,I'll fix it
+HDSPconf 1.4 from alsa-tools-gui
+
+![Image](https://github.com/user-attachments/assets/d2d1dba5-8da6-43ae-a594-cfd89bdd7e1f)
+
+![Image](https://github.com/user-attachments/assets/17d070d3-067e-4d1b-adf9-131f843a634c)
+
+i dont know why iis called DDS Sample Offset
+
+
+should be a slider similar to HDSPmixer
+![Image](https://github.com/user-attachments/assets/3ac4ca5c-df61-4cb3-8e8d-2af8fc44019c)
+
+DDS "Sample Offsett",  is similar to a PLL with a more aggressive rejection of the external clock signal.
+IF the external clock coming from s/pdif is better, vs. RME DDS 200pico second jitter clock,  it worsens the clock.
+acts like a blend control:
+0% preference for internal DDS clock = 100% preference for external clock,
+100% preference for internal DDS clock = 0% preference for external clock.
+
+Issue URL     : https://github.com/alsa-project/alsa-tools/issues/26
+Repository URL: https://github.com/alsa-project/alsa-tools

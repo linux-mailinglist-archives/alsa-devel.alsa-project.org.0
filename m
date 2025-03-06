@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAD9EA55065
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Mar 2025 17:19:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7956AA55066
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Mar 2025 17:19:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4803C60496;
-	Thu,  6 Mar 2025 17:19:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4803C60496
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9968D604A1;
+	Thu,  6 Mar 2025 17:19:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9968D604A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741277961;
-	bh=a6N0BgtzIr0rX3kGGdJ7esDfg3GAb7lE+pwuWnFy0zY=;
+	s=default; t=1741277975;
+	bh=NPaI+OaJD0ZtE/FQEO4XcYgthVIQCB+3LGrisK5jkEA=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=DwmFg375aBb37UzdgPCX+Y6ZazZB2po8ZLE9E2T5Nwrd49yIVX6ycQRgyMfIB4cGL
-	 UGw1L2T76/qXYpwSXsQPqZ9XeYCySq/BrGKW3vo2C6uceR+SvS7LrTCHJyqUBjs9Xw
-	 PUmJdKdIpgU3qdLabc/TiwLPcgPrCaBqBPb4/7nc=
+	b=dQRhNnL5TDAc0MRqsYMpQb+aWEJhy8/iYrYlTlHHZajxN72Q6qAARqu8zeA4ayEVu
+	 f/HylFpOyby+8byUH0jBiNZzaFM1UZJQfdY2rtdYH7pUZpnrUif9TGm8UGwbSo/+vZ
+	 NqdrSIYLsHFJ8bYZb/NHDpJ3nfAD48ASJYTh1VTE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAD67F805AD; Thu,  6 Mar 2025 17:18:47 +0100 (CET)
+	id 2E68FF805C7; Thu,  6 Mar 2025 17:19:23 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5D18F805BB;
-	Thu,  6 Mar 2025 17:18:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25161F805C7;
+	Thu,  6 Mar 2025 17:19:23 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83C8FF804B0; Thu,  6 Mar 2025 17:18:43 +0100 (CET)
+	id 329B5F80152; Thu,  6 Mar 2025 17:19:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30346F8011B
-	for <alsa-devel@alsa-project.org>; Thu,  6 Mar 2025 17:18:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30346F8011B
+	by alsa1.perex.cz (Postfix) with ESMTP id A5E4FF804B0
+	for <alsa-devel@alsa-project.org>; Thu,  6 Mar 2025 17:19:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5E4FF804B0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1741277921147235394-webhooks-bot@alsa-project.org>
-References: <1741277921147235394-webhooks-bot@alsa-project.org>
+In-Reply-To: <1741277950374387264-webhooks-bot@alsa-project.org>
+References: <1741277950374387264-webhooks-bot@alsa-project.org>
 Subject: HDSPconf missing setting...
-Message-Id: <20250306161843.83C8FF804B0@alsa1.perex.cz>
-Date: Thu,  6 Mar 2025 17:18:43 +0100 (CET)
-Message-ID-Hash: 77O3UZZFG56QPQS36O2UE4O3EBRXPH4V
-X-Message-ID-Hash: 77O3UZZFG56QPQS36O2UE4O3EBRXPH4V
+Message-Id: <20250306161913.329B5F80152@alsa1.perex.cz>
+Date: Thu,  6 Mar 2025 17:19:12 +0100 (CET)
+Message-ID-Hash: GLS74AU46NMRERT44GR6JEFZMAG5WJIU
+X-Message-ID-Hash: GLS74AU46NMRERT44GR6JEFZMAG5WJIU
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/77O3UZZFG56QPQS36O2UE4O3EBRXPH4V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GLS74AU46NMRERT44GR6JEFZMAG5WJIU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,7 +86,7 @@ i dont know why iis called DDS Sample Offset
 but it should be like HDSPmixer
 ![Image](https://github.com/user-attachments/assets/3ac4ca5c-df61-4cb3-8e8d-2af8fc44019c)
 
-DDS "Sample Offsett"  is similar to a PLL with a more aggressive rejection of the external clock signal.
+DDS "Sample Offset"  is similar to a PLL with a more aggressive rejection of the external clock signal.
 IF external clock coming from s/pdif is better vs. RME DDS 200pico second jitter clock,  worsens the clock.
 like a blend control:
 0% preference for internal DDS clock = 100% preference for external clock,

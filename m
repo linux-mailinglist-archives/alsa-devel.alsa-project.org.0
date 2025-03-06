@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D39BA541FB
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Mar 2025 06:16:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C81CA541FF
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Mar 2025 06:18:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC1D960408;
-	Thu,  6 Mar 2025 06:16:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC1D960408
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6876760375;
+	Thu,  6 Mar 2025 06:17:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6876760375
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741238212;
-	bh=uEx7vT6A2RY8cSCCYAfAtJseQBiL4DQ7/YVPoVgUycg=;
+	s=default; t=1741238281;
+	bh=L6vpRQBi1WrXdrAUqtRno+5uu+lCjhnWoRvkFy8hc90=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=GSAAMj7C58vk9Y7lrpvjaKoyCGH0EioOZ6jXZn9CgOsEfj3RVCWOOubO1zmaCP4w0
-	 9ZSWxFntdKcDF5GOQT2EXnBdShMdnb+1G/mnkdTJQ///DRDSOwh764cHbjzsVXUfsg
-	 a3Xl/Te0Kbiu2Ktj+StgMe1vv5+dS/fNHK4Ud+A8=
+	b=O16j55ryDwi7tNw70TfUjqq8gHy5PUTIFpXlgZYlgjzniK21kFTpTTYr4XRN/TiLT
+	 2aoubX4JNJbCp91yaC5EwdXyhHdZ0qUYTzzCNnhskDZCabbm1JCiq1ZjMsGlxa2VG1
+	 ZQVJHECVqivqAOb+BTd3lEjtbA7qa2S/pzjJ56JY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46DC0F805C1; Thu,  6 Mar 2025 06:16:17 +0100 (CET)
+	id 0BE14F80152; Thu,  6 Mar 2025 06:17:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3999F805BD;
-	Thu,  6 Mar 2025 06:16:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E720EF805B6;
+	Thu,  6 Mar 2025 06:17:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5B86F804B0; Thu,  6 Mar 2025 06:16:13 +0100 (CET)
+	id 161AAF804B0; Thu,  6 Mar 2025 06:17:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_00,MISSING_DATE,
 	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1372FF80152
-	for <alsa-devel@alsa-project.org>; Thu,  6 Mar 2025 06:16:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1372FF80152
+	by alsa1.perex.cz (Postfix) with ESMTP id 35EC4F80134
+	for <alsa-devel@alsa-project.org>; Thu,  6 Mar 2025 06:17:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35EC4F80134
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1741238172007585526-webhooks-bot@alsa-project.org>
-References: <1741238172007585526-webhooks-bot@alsa-project.org>
+In-Reply-To: <1741238240895088434-webhooks-bot@alsa-project.org>
+References: <1741238240895088434-webhooks-bot@alsa-project.org>
 Subject: regresion: snd_hdsp
-Message-Id: <20250306051613.B5B86F804B0@alsa1.perex.cz>
-Date: Thu,  6 Mar 2025 06:16:13 +0100 (CET)
-Message-ID-Hash: 6X6TTMTEDLE6LVEK4VLJGW73DFDAHD3M
-X-Message-ID-Hash: 6X6TTMTEDLE6LVEK4VLJGW73DFDAHD3M
+Message-Id: <20250306051723.161AAF804B0@alsa1.perex.cz>
+Date: Thu,  6 Mar 2025 06:17:23 +0100 (CET)
+Message-ID-Hash: U45TLT3GSHUZ6TAUUUIQ3LTYJMM3O6DC
+X-Message-ID-Hash: U45TLT3GSHUZ6TAUUUIQ3LTYJMM3O6DC
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6X6TTMTEDLE6LVEK4VLJGW73DFDAHD3M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U45TLT3GSHUZ6TAUUUIQ3LTYJMM3O6DC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,6 +94,9 @@ s24le to s24be
 problem persists.
 
 forced sample rate to 48Khz,
+
+Audacity 3.6. ALSA also crash.
+
 i remember hdsp9632 worked ok on U/Kubuntu 10.04 & 10.10
 Now 20.04.4 LTS has problems.
 

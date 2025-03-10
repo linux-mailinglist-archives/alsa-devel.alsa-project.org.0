@@ -2,123 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17ED2A59000
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Mar 2025 10:44:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55D36A5918D
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Mar 2025 11:46:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3973604E1;
-	Mon, 10 Mar 2025 10:43:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3973604E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB0B7606F7;
+	Mon, 10 Mar 2025 11:46:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB0B7606F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741599847;
-	bh=tiRV1c3ODssi0VVXJsqe1pX2y8yNGqc41YuJClVMxuQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=RJ03m+bHsVaGFDX8vV4W+tohKRx6KFyDt90rtVbnYz70a8cyDKxCxuIm8+FD45uAx
-	 2iKzf8ynEp8ZcMVGFCdPq9R2yVRhDFAPAm7Zbc/a775EvYkWVlKuz91AIOeW8PLj6d
-	 GIdhUmvyqxIMwc1FzXd9J9uqjN7C/UW4QASo0Ix4=
+	s=default; t=1741603613;
+	bh=d9rL1tgVU+v5qETpcj/pcOwIbtyEWqbqavPJikse+do=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MIGw8nDcSsromHk6XJ5GTJXQq2keckzk8lQAsvoiq58OMMsZ2gVgaefRxbDvH0wYr
+	 hvg51bXDPmfiTVOgKjO++CqLSbRhfORzhgTqbzK/JiH3mv7DQxroR2ZKXGnBD7fbuU
+	 7JDzMAdD8JkavuM13ueZN+zcDnX5u305qcKt21As=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4FF6DF805E5; Mon, 10 Mar 2025 10:43:32 +0100 (CET)
+	id 2D4D4F80527; Mon, 10 Mar 2025 11:46:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 236AAF805DA;
-	Mon, 10 Mar 2025 10:43:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06B52F80526;
+	Mon, 10 Mar 2025 11:46:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CED6F8025A; Mon, 10 Mar 2025 10:43:27 +0100 (CET)
+	id CF914F800ED; Mon, 10 Mar 2025 11:46:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20607.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2409::607])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AA283F8025A
-	for <alsa-devel@alsa-project.org>; Mon, 10 Mar 2025 10:43:25 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 577262A2B;
-	Mon, 10 Mar 2025 10:43:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 577262A2B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1741599804; bh=K3zSiHz7lq31fOy5S1wpmT7j9bmIrdGn/m3ml4kbDds=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=xzSDYTL6C0AhpIV8P6soVB0uGCafKmIric+I6KhDKCyy4w2T9gQfz0r4b5jvGD1uX
-	 rXKtsl+o+2mgVwYivuSyWVb1O3OdtKviqyocawmfdo4Hi6r40UeUOvLakvzayQ3z0k
-	 +urK9ctl88fSGDb+Rs9eV+0jWYrlPGrlFmI2jsrg=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon, 10 Mar 2025 10:43:21 +0100 (CET)
-Message-ID: <f25eb9c9-4393-4851-bbc1-d6748ffaeb97@perex.cz>
-Date: Mon, 10 Mar 2025 10:43:20 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id BF532F800BD
+	for <alsa-devel@alsa-project.org>; Mon, 10 Mar 2025 11:46:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF532F800BD
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=JEa+l0rR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aopdzoWXi5PQ/7xeiFDLNEfzGM4zzhnsTn3Cn2zL0UFZCYTt4qlfHnIQMEkCQTUAJeUgiWzmgoOECIxt0Y9b+XsDyG2N2FXNK5GqSOl63MVqgZnjYJktMYUuiL/4eunbJ7J6f3UDPJ5nAa6Ut/oAfGQvKwD4bn3g7Xi65c0fhTnRNOEaq+8q/ULkAmxodDTFRDhhf7iVEvTZ7rmxdJOy57ryktzFCkUC5RsagTE7v2/H0hE7VFMHYW+L9OrDwlcbfls5LNrsT2EEUFdra87Y/K0UgzW3wHX1uJefWO7PEI08Me4CrCCX9czL018sSVreaQ9jZ4roCsKdk6fbtDTOQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AFKhqa4KcpkhHlSSpojhQHNlU6cdHaD+FtaTRK5GURg=;
+ b=tLR4jtBOlX3utJDrAIHXyt0nEEDOrz0T8i0CQdkIXKDAZPRjXaFmFQmUfbtAlotyuYZIYbLraUXgZoXlSmvgclGv19QI5We7lKGFFvPBkTBvOTEOWcAZAXiRqa2wNPE63QEBqpXWgSqCr2gf0RSSCaUZP3A6W4NomgLmVe7i2bId+HIiF2qsZ3AieEcGJTV3BLD3L6QSE7huytpDLcTYYtHDBLCeRiyOfnErdTRTOtCXMH3CXnIiUqPjU1JYz7WuklpRbHUYM2jhKKWI6N/Q9u1VBtf8i/aaTWC5eUA6t60vP/Dq9IbYXy0zEUlVxdRtfRp/adAl1GuQMgS9VEi4UA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AFKhqa4KcpkhHlSSpojhQHNlU6cdHaD+FtaTRK5GURg=;
+ b=JEa+l0rR7S3CJ0SXtm3YTz09eeRUcSAorb3Oa8z9sIvzBrJzrZ8YHokDtDM6oLpqA5Ya+5hlR5YTNYDwDhsp6QcMIf7ru5nhYZKoqj9WohHu9ZSZJw/z5r4pzrMx5b3gPlptjmxgsM0D0iRYHOI8urIhZYpPpO9Ppnp38Mcv3jY=
+Received: from CH0PR03CA0185.namprd03.prod.outlook.com (2603:10b6:610:e4::10)
+ by PH7PR12MB7987.namprd12.prod.outlook.com (2603:10b6:510:27c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.26; Mon, 10 Mar
+ 2025 10:46:06 +0000
+Received: from CH1PEPF0000AD83.namprd04.prod.outlook.com
+ (2603:10b6:610:e4:cafe::82) by CH0PR03CA0185.outlook.office365.com
+ (2603:10b6:610:e4::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.26 via Frontend Transport; Mon,
+ 10 Mar 2025 10:46:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000AD83.mail.protection.outlook.com (10.167.244.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8534.20 via Frontend Transport; Mon, 10 Mar 2025 10:46:05 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
+ 2025 05:46:05 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
+ 2025 05:46:04 -0500
+Received: from prasad-lnx-mach.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 10 Mar 2025 05:46:02 -0500
+From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <mario.limonciello@amd.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<syed.sabakareem@amd.com>, Venkata Prasad Potturu
+	<venkataprasad.potturu@amd.com>
+Subject: [PATCH 00/14] Implement acp_common_hw_ops support for all platforms
+Date: Mon, 10 Mar 2025 16:15:47 +0530
+Message-ID: <20250310104601.7325-1-venkataprasad.potturu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH alsa-ucm-conf] sof-soundwire: Split cs42l43 dmic
- initialisation
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
-References: <20250306125402.1741562-1-ckeepax@opensource.cirrus.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Content-Language: en-US
-Autocrypt: addr=perex@perex.cz; keydata=
- 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
-In-Reply-To: <20250306125402.1741562-1-ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: D4J2MRIQVJ7K2AHY4DLIC2L7A32DC6G2
-X-Message-ID-Hash: D4J2MRIQVJ7K2AHY4DLIC2L7A32DC6G2
-X-MailFrom: perex@perex.cz
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD83:EE_|PH7PR12MB7987:EE_
+X-MS-Office365-Filtering-Correlation-Id: b404c28a-4ad4-4075-2d84-08dd5fc0c26a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?tDh87+Dnr47cYcp9u1MbvNUwQzxrNKg8EnPOuiQnz/TJzgt89MPVd7kJ+M3i?=
+ =?us-ascii?Q?L3vsbsXKEvFBMzs3eM1l8JNOOVJH2lTU4OMlUUC7Q45PHay0h2fvNRxReAJi?=
+ =?us-ascii?Q?AMJuGqrSrfKVsbI8ireSevFlAF7/OG3YxXk0z5Lk3dIkZQEOhNsV6G8jGC9o?=
+ =?us-ascii?Q?swbNSr+zyx1u/C9LdtkVSyom+cbOtCTydnhB7KX9r3bGhhYOqbiDuT99Zd5x?=
+ =?us-ascii?Q?C91R5rPYitrpoxAIdB7xpVZPnnTg+f1kYlqsO/GEkmtGKGO069Gt7s+prNts?=
+ =?us-ascii?Q?KWfgbil+OOnHVVJKerCOUgM8ehs+bkJW9IjDGmuQpNzNnHxT3QHHydm53u5Z?=
+ =?us-ascii?Q?z4U7CRNJ5EXJvuQrVtHlTR6sr6eq2y0C5B8eOYMMVt8F3X9QO+gz+3BLA9G7?=
+ =?us-ascii?Q?Cc14OpZBQRRWlVS4aPqfdpYkz2d/FrU8UbIYYXzhvXHcPQmOI6VvSknkygfL?=
+ =?us-ascii?Q?nmVcQRjSu7SXz6dEyrNOzcF3OcbfMB0U6xtQbfun5t3KpqZVLRF8PlHbUy8k?=
+ =?us-ascii?Q?vOmM4JZReIjxQtftJNfow4on5matB9jAmmW3MMbJoq9tZxT8U3RxzFY397AZ?=
+ =?us-ascii?Q?yH0FHlcrZw5ZOV8ygFH67i68cARcaF1uGkIaNFlh3s9zto+MyHaWto0LRZmP?=
+ =?us-ascii?Q?BituI5h1GKd/qkunYrBiMOczke8lri+BausyZnriWrof08lR/FxrJo+AKM2h?=
+ =?us-ascii?Q?poj4lGC4arTLUINBljgXTX81v6bQIrw6QR+0+spFOusNvZ3kcOVBFYHPNb8w?=
+ =?us-ascii?Q?fhjC2bA2spcLRgLzSKUmTSlbrZpEvXcpSDjx+USGS+s47z+uL1tgi8FLdFCm?=
+ =?us-ascii?Q?CwVZ2t5JXOnf4vdcFgRPs+QDrnv5YxM0E4nt6Ni6COaihuszP7/7GyYiCshc?=
+ =?us-ascii?Q?r5WjsyKmofdxS8WCnAEwqCcLEMa+PXY9IePb+jPGSKflYdEgFmxEfntG5bI3?=
+ =?us-ascii?Q?LTHOjVRDFYczAfVyVHcQeP/OCJwcGVxWq0TBHVCKJk8FQ7EQMGgGw/pZw2mk?=
+ =?us-ascii?Q?S9cwD2MFrfIzLK5vp8MLOYToIbKvIN70R6udfyOn3V1zEyfI5Trb2QBD7xt4?=
+ =?us-ascii?Q?Wifwv4YOsj5i6LzxDTUAtFpOgR+Q1UxRtwt/P8T/HuFt8IVN7tHxnsotg14V?=
+ =?us-ascii?Q?eb/KRHltkiiHuD4AIMzqYcCreo+M5Op2tEH7Z+t450dAAFGMFhPqsZ7vte4v?=
+ =?us-ascii?Q?hDof6hc8F2f3fecfe/iRjs1WasUy+YBGo4vhXU+l0sYqfaYLW0f3zpflRqKG?=
+ =?us-ascii?Q?zpNA7PigzF7dV9sK8XUlH49IN5qjWiv/OP0StfQJY2CYNJ1mQwLmULiutfy2?=
+ =?us-ascii?Q?JyrdAUaHA1MqEwhfS/BcOvJkXkvxX2xjr9DL85h5emVQ8mO6FmeMIfYPG0Lo?=
+ =?us-ascii?Q?4lAjFQnaAq39fPLORaxmWCh0Bx9CliNNQA3hh1TxaZL9BMWCm5xPB2ZGVSoH?=
+ =?us-ascii?Q?TQlZDjpA/C1hDAMGQtB2rezYcllEvIlVa+dZdwvFIxtO3Q/FYXMfIw=3D=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 10:46:05.5951
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ b404c28a-4ad4-4075-2d84-08dd5fc0c26a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CH1PEPF0000AD83.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7987
+Message-ID-Hash: 7NKWJTRUIP6VMFZWJ2FURTNBBNU7F3JB
+X-Message-ID-Hash: 7NKWJTRUIP6VMFZWJ2FURTNBBNU7F3JB
+X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -130,7 +168,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D4J2MRIQVJ7K2AHY4DLIC2L7A32DC6G2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7NKWJTRUIP6VMFZWJ2FURTNBBNU7F3JB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,17 +177,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 06. 03. 25 13:54, Charles Keepax wrote:
-> Split the initialisation of cs42l43 into a headset part and a dmic
-> part. This will prevent the dmic mute controls getting attached to
-> the mute LED when the codec dmics are not being used.
-> 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+This patch series is to implement acp_common_hw_ops support and
+refactor interrupt handler registration and interrupt handling.
 
-Applied. Thank you.
+Venkata Prasad Potturu (14):
+  ASoC: amd: acp: Remove redundant acp70 chip->name
+  ASoC: amd: acp: Implement acp_common_hw_ops support for acp platforms
+  ASoC: amd: acp: Refactor dmic-codec platform device creation
+  ASoC: amd: acp: Refactor acp platform device creation
+  ASoC: amd: acp: Refactor acp machine select
+  ASoC: amd: acp: Add new interrupt handle callbacks in
+    acp_common_hw_ops
+  ASoC: amd: acp: Remove redundant acp_dev_data structure
+  ASoC: amd: acp: Move spin_lock and list initialization to acp-pci
+    driver
+  ASoC: amd: acp: Remove white line
+  ASoC: amd: acp: Refactor acp70 platform resource structure
+  ASoC: amd: acp: Refactor acp63 platform resource structure
+  ASoC: amd: acp: Refactor rembrant platform resource structure
+  ASoC: amd: acp: Refactor renoir platform resource structure
+  ASoC: amd: acp: Fix for enabling DMIC on acp platforms via _DSD entry
 
-				Jaroslav
+ sound/soc/amd/acp/acp-i2s.c           | 185 +++++++++---------
+ sound/soc/amd/acp/acp-legacy-common.c | 254 ++++++++++++++++++------
+ sound/soc/amd/acp/acp-pci.c           | 210 ++++++++++++--------
+ sound/soc/amd/acp/acp-pdm.c           |  53 +++--
+ sound/soc/amd/acp/acp-platform.c      | 145 ++++----------
+ sound/soc/amd/acp/acp-rembrandt.c     | 111 +++--------
+ sound/soc/amd/acp/acp-renoir.c        | 110 ++---------
+ sound/soc/amd/acp/acp63.c             |  94 +++------
+ sound/soc/amd/acp/acp70.c             |  84 +++-----
+ sound/soc/amd/acp/amd.h               | 270 +++++++++++++++++++++-----
+ sound/soc/amd/acp/chip_offset_byte.h  |  12 +-
+ 11 files changed, 792 insertions(+), 736 deletions(-)
 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.39.2
+

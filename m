@@ -2,169 +2,167 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40421A5A2F8
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Mar 2025 19:33:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15508A5A2FC
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Mar 2025 19:33:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C825606CB;
-	Mon, 10 Mar 2025 19:33:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C825606CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id A62E9606EA;
+	Mon, 10 Mar 2025 19:33:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A62E9606EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741631610;
-	bh=AeJFi3q47HY4SDYEIFsXss7reFvPIGFUBAjn2Z3t9nU=;
+	s=default; t=1741631626;
+	bh=4kd4g3GxjV6bfj+dOc/L+olSEAk3JkCZNcoQWU3Mn0I=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ScV66t/g0XIUf6yJO0SJFyq4LDiK5qqKsvvN+eD+9qiwBwW0M84KCa+JwMVOdz4zr
-	 ykKvtEEwa/yWThCRXWZ2OxoV8+EBnecpRuExIESijiLF+0TgEwMpiryF5x6ltfjPj2
-	 rEGWIVjv/YBe0u1jCf0JFJa05F8ze6yeNzh9dj9A=
+	b=J8Ntpoj85mtwZgC0sZBV5xr1Is/lzqkSHUFGNdN/Zv7wTCRz6GJkvobKuLafV4QaC
+	 VY5gDEwfmSkbS59nc+dCz3YS1zpBUqamh6mmJ1jqPzD5GRoWf8irHGHl9w1ZjCSzTA
+	 SQUVAgnrqYFgscpflYBWHbLc74BRxwpCv9GpHC1M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7017F805F5; Mon, 10 Mar 2025 19:32:29 +0100 (CET)
+	id BC379F8060C; Mon, 10 Mar 2025 19:32:36 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 881D0F805F5;
-	Mon, 10 Mar 2025 19:32:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98DD0F80614;
+	Mon, 10 Mar 2025 19:32:36 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2985F805DA; Mon, 10 Mar 2025 19:32:25 +0100 (CET)
+	id 13485F80606; Mon, 10 Mar 2025 19:32:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2061c.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2413::61c])
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20612.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2009::612])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 977A7F805CB
-	for <alsa-devel@alsa-project.org>; Mon, 10 Mar 2025 19:32:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 977A7F805CB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3EE7AF80604
+	for <alsa-devel@alsa-project.org>; Mon, 10 Mar 2025 19:32:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EE7AF80604
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=vhFFjd9d
+ header.s=selector1 header.b=uEpmx486
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ImW/fzRk4zDO6F9In16T6EvRkE2EA6EMxZ22/aGrZSAppfPaHyrCwsP1GfSzSK3qoIoMSvbZMPxgK56APy867GbpdJMIqnZoLnx/UjodJFKW5btb8ZzSOPNdrNVT7122p4hxQLYqS1Y7lJbAzBBmZfsH4A9zChEYIZS3rqQAVnyqVMbOIkFg5rP+2y2800LArQeNhpWmdgS4DRPCsePS+SPH1d3e/+TMpjGft+WUTIGzsEOCv+vgEfWTeF9HCbMTIM7TuzfM3+kfScW24u0QLslJ2GiCCga1ACXCl4TNX/mkesQsX7cSl49ByX6tOcH7XD3WK2Szo58chC2QHZwvVQ==
+ b=nWYx9QN3Rq8N8D/yJFzgAgoLpaQMUn+kys/bWHS0MtmwwP562RkuJmBojZAuZ8ojm4lsC2HQc88hcYHl1o3WqXxIDlUbYa5nNx76PrF6AWpkMtjws0QppbM86KD2P+Jk1BIuNJweFtDgEwho+umc9cqd2SLsopwBNXptXLZUuU+SEX4gTYAU5PFWCrK4gpdj5t+oXCsoffSXGLOKG2xCc1XdF2smSWDsMFyckKuiml/KzIV/hIpp1QSReNjZvUjjyaahc2PeRVMH12zKV5y9hBfZXBZT6N56Iuw0bksvXBM5I0RcI7gK2qEDS1DYrtSlI3fNCZ8N5ohceIKkK9IeXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oVve5xY86B7Vxx7Gmx3H2QvNhiF9Xy+jcYjT50d6wHE=;
- b=i0tMANTvNXq+j5EeP/Q5FggBjPET/TPPpijwHZVFFFjyt3eLjwh8aWKKZeHSaT+a17QerLdUkWOFWa3KkuOsLQnm8iI0eikF64jaW3w4oISVtvfa/qZjYZT3HKH3vXUaWWRQcRG4cB8mh66tZg3YTwlS8kDaqxzJQuWZyK8D6z3Z1kLwHTtxn2H6TU2eyGJ9HjeswOAg+BMlmbTDaB6sUaD1rVMdMT8OO4I3hNtrwtMWiFXHUqC88N9QnIE5uZz/wfKqj4/F68yMkilXmsA/kTMljKtahffm7xnVjRtWTdfVdoErX/rnx0aQ0jq9Ddr1VSCTCR2rnfAfD3/H0jpxjQ==
+ bh=91rq8pQ8W96B26QRLhyZbdJ03P+k3QwS54zN46FhSK8=;
+ b=xqHGLBcJs2CfhMkPD4FV61mhWoR+WjZSayXOrW28pbQpEqnXU9ARYqwXixnZkC1g5dzO40O6SeWPBc2hkMV60YAd/uUfK5WcZm5ZJzJJux4Fi3s71EnMEZo4unG1zo1ldrfX9vDSc9ou0YKZypBCVY2fGvxy8SIKnZXFJnw1xa8RFLMbWf1ZYzA5uzbT9nsB19DB4JZOS3hgcbzF1lAq31hoPI5KB6Mhb8at5rgnJfuW54+hPKGOetA1g7AWiTCYlPcMjIBrSj/tdeJkKp8ba7121VM3HfE8Rz31gISne+jYfQxgSylQSJa9wfcyhDfMLYgwJDIZJL7/9cP5GI0r/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oVve5xY86B7Vxx7Gmx3H2QvNhiF9Xy+jcYjT50d6wHE=;
- b=vhFFjd9dyrkKe1EHuc90+bYkDke3aaoiaincSQKgK1duTtYSaWKC+7InenWhRrMNQnOlFy3YMBVznMvcOpJ5R4KgN9TiDWdBZBGpOt5DsrE45VIHZTFaf3cExlGAohtN0yf69DUoCGD0148KEWp+icPQI8jX2hc5A8A8V0Osj7s=
-Received: from BL1PR13CA0441.namprd13.prod.outlook.com (2603:10b6:208:2c3::26)
- by DS0PR12MB7826.namprd12.prod.outlook.com (2603:10b6:8:148::6) with
+ bh=91rq8pQ8W96B26QRLhyZbdJ03P+k3QwS54zN46FhSK8=;
+ b=uEpmx486IktyCdfpcLrYu+FnlPWU4h6mJXKvtv8TYvTtyWrgGA/0RNUNZHBXsKNmZBFUucPnvgIi5HW1XJloElmvxO1IqS6nfi/A7w9w362h6qLG9iCgXSx6zjZ2VBXcvLs5fS9H16lw9h4ytYx4/bGGrFTmsofrZgn+jOr/Jjs=
+Received: from BN0PR04CA0064.namprd04.prod.outlook.com (2603:10b6:408:ea::9)
+ by CY8PR12MB7538.namprd12.prod.outlook.com (2603:10b6:930:95::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8511.27; Mon, 10 Mar
- 2025 18:32:17 +0000
-Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
- (2603:10b6:208:2c3:cafe::1a) by BL1PR13CA0441.outlook.office365.com
- (2603:10b6:208:2c3::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.18 via Frontend Transport; Mon,
- 10 Mar 2025 18:32:17 +0000
+ 2025 18:32:23 +0000
+Received: from BL02EPF00021F68.namprd02.prod.outlook.com
+ (2603:10b6:408:ea:cafe::19) by BN0PR04CA0064.outlook.office365.com
+ (2603:10b6:408:ea::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.26 via Frontend Transport; Mon,
+ 10 Mar 2025 18:32:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF00021F68.mail.protection.outlook.com (10.167.249.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8534.20 via Frontend Transport; Mon, 10 Mar 2025 18:32:17 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8534.20 via Frontend Transport; Mon, 10 Mar 2025 18:32:22 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
- 2025 13:32:16 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 10 Mar
- 2025 13:32:16 -0500
+ 2025 13:32:22 -0500
 Received: from prasad-lnx-mach.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 10 Mar 2025 13:32:12 -0500
+ Transport; Mon, 10 Mar 2025 13:32:18 -0500
 From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
 CC: <Mario.Limonciello@amd.com>, <Vijendar.Mukunda@amd.com>,
 	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
 	<ssabakar@amd.com>, Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
 	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Jeff Johnson <quic_jjohnson@quicinc.com>,
-	Peter Zijlstra <peterz@infradead.org>, Greg KH <gregkh@linuxfoundation.org>,
+	Takashi Iwai <tiwai@suse.com>, Greg KH <gregkh@linuxfoundation.org>, "Jeff
+ Johnson" <quic_jjohnson@quicinc.com>, Peter Zijlstra <peterz@infradead.org>,
 	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
 	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 02/14] ASoC: amd: acp: Implement acp_common_hw_ops support
- for acp platforms
-Date: Tue, 11 Mar 2025 00:01:49 +0530
-Message-ID: <20250310183201.11979-3-venkataprasad.potturu@amd.com>
+Subject: [PATCH v2 03/14] ASoC: amd: acp: Refactor dmic-codec platform device
+ creation
+Date: Tue, 11 Mar 2025 00:01:50 +0530
+Message-ID: <20250310183201.11979-4-venkataprasad.potturu@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250310183201.11979-1-venkataprasad.potturu@amd.com>
 References: <20250310183201.11979-1-venkataprasad.potturu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: venkataprasad.potturu@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|DS0PR12MB7826:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5fd77cc-1bfe-4cb4-3bb8-08dd6001e2c2
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F68:EE_|CY8PR12MB7538:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8272731-e684-4b97-977d-08dd6001e5fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|7416014|376014;
+	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700013|1800799024;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?X+LNN0JuQ3swK7HMLgpTaBge4XcSZhQkBn6VHaR9qyDDoMlIMBeIKIIp8DQM?=
- =?us-ascii?Q?pcGf5Ws7bNiGXvxcOrb9uKWMhvPZuh9YJZTrlfkcXe44AUBqhlVFDrMuGzvI?=
- =?us-ascii?Q?X7pb+3K+th2iDjFu14T0wGmRzhHCfzxm++zv3IsCtWRAX6mCHypd/nAYHD3+?=
- =?us-ascii?Q?zmcVTnqznnuxfggUJPWFN8/qR+mRRZ1tvL7KxsQXuR49qkVCvg638abPIYCQ?=
- =?us-ascii?Q?A36mvNG6tfjQCh5e9t7QO+WeSn7ogXz7vPPS7qWbEcFkcHILd/DQgPpAQoIw?=
- =?us-ascii?Q?DTX+Hkd90KRXTQ173ksRTqZdjpmtmmGNfNluyGSjN9SLpO9FG3A3hVy7aM7y?=
- =?us-ascii?Q?S0sFAZKABkqmvlGhcpXdlrKqAMMcL5+TakycidahlwWY2x8f7PvrkQg+5Pyv?=
- =?us-ascii?Q?IoeUgf+IIAuu7GzXncm5HT2JiC1Qg28Np84q+PMcWJ4yjNtCltJC8zVbopOc?=
- =?us-ascii?Q?tGmAHUD6Usz18GOlJo/E5sd4sRWDOcdudLRtFmR9GftBeoUks9kR6HzqpHfw?=
- =?us-ascii?Q?9ocIlRDMQAt09T1+4a1s2VA72iuHI0tvBZ3qNYTzQzzC2nXogwx8NbKyMg3B?=
- =?us-ascii?Q?Ilt7fll9Jr50OvADfBAWX028l3rMpUnL3QsI9fsOx+DEPL8xoehzrbnuSRQN?=
- =?us-ascii?Q?EFx24DU+FrOmfLxgDME6pAntcGnZ5hXmkZiVHqOIXlzWvznHWtoggYK9nGS9?=
- =?us-ascii?Q?niZloQWQLMiTwWd8GNLoyoaWjgydrbZOl8HPYtD3G5zQ34t32fOupZdWuotS?=
- =?us-ascii?Q?IU9gtLm2XCznwP/jLiBJ4BEG/Dg3A2oJ7tv/bDECOt8SYTHckxjmgjbxTOte?=
- =?us-ascii?Q?KUGAFOJFLmy3egsjqJhl/mFPEmrOYcZvEy7INQDXcGIYJ2hTWPcZKERLZJmD?=
- =?us-ascii?Q?PNxmT5zkduxeJy8ZjRZaCVnU1suCHKHuP1/uxA+SkFyrBzv8y3E0DdmlGAdI?=
- =?us-ascii?Q?IBekXWSAibIiGq7alu0YhXmuJ8qAeDDfhmUolt28NqIDxyglsKca0rvgD3+3?=
- =?us-ascii?Q?1B6EMTAxc92f9BbBXt9CQOcQfFrpb0o/tDI8R4M82u1OmoueL4N7jyKBOS5h?=
- =?us-ascii?Q?mqo0PAIq2utTljqRAIRMdyogTxACpB4s/VJQv/T6i/EScaHCMeEXIp19UY5q?=
- =?us-ascii?Q?eDfyZcGHDE0xbPGDCWJ4LTjIHDr2TFgjHa8pf7cHi8F0/sYHFxBre/NfG72s?=
- =?us-ascii?Q?3K0eG71HIjPVYu9FW4fKMgPygT/lswvlp2pqQpU3MFtHTLOVUYEbPtgLkqSW?=
- =?us-ascii?Q?71/Xbs4RcwdCIULNi4EaYOLzWp66y7WWrS2N4Zl2RhW7UhsFESrW3jxJd8rh?=
- =?us-ascii?Q?7HK6ZOlGUniFSNj4giN0Owoygft2+Zr1W5bmWNRvkCj1MsuWyYg1wh23GhAP?=
- =?us-ascii?Q?pNV3xxQbAx5PWTo1LVL9OmyqYVKH60ZP9jBGCEPNOqJCpnswUoc3pgkZ+bIn?=
- =?us-ascii?Q?R2uAbBHOot4ZWsCp6J2CcDuqGofeMcV6O4hfmhHiBqyXmMJaOTNnwMlsgQaY?=
- =?us-ascii?Q?MCV61rjoLXPAois=3D?=
+	=?us-ascii?Q?wsENIvKE2/+TTXPqIBH/dKNHy9hzRHKBm2VL2qSwBVXxuinZMHVF74rF4O0/?=
+ =?us-ascii?Q?KxuewDeiJGeTAAEeMlsX391inFYweAka0O+HhIm9YwwuWgTzfeAXzVZSiW9c?=
+ =?us-ascii?Q?IaOaeRiixJfZPjqIcsSRO0h6uBMqaUgCxxfrV/nC+VfxOqwTKT5cDL3z86Hz?=
+ =?us-ascii?Q?xBlrE60pNSqduM5E80ZVjij+IR3Nyuy45gV0U64d+oWHPsxuXDgyDbjJT8xa?=
+ =?us-ascii?Q?21HTXfY8eC3OysAo3Uw2/n1kuXQzCHcKycRV9hqgy6OrKqKkJolPHo0nT6IY?=
+ =?us-ascii?Q?e/HLw4ilRgyaEKU0IUDhlh1v0SN8bNLF4hxbzVK7JndA4FmO2Dd66yQZh6RS?=
+ =?us-ascii?Q?kfFDH+jwq8hx2p5O2BqLonwRX5zsANb+RlMaqdE+IoWTcmZAntGoblrwSEdu?=
+ =?us-ascii?Q?86q28N+5jhZJzf6q1jwdkJBiwzZCABVUf4JwijhrVCDd5/2QlM7UyGCIF3hp?=
+ =?us-ascii?Q?dcu3v5TznN3ZWUr75Ju0v0UmT81XIdRP8MCahFPUm3fMRDJliJOEkD/buJT7?=
+ =?us-ascii?Q?3ywFO5QVNOioTSRmIK+EiidQ0zGfUUDkK9kFuC8uDd0W3tUDZsKLQC+jhIyT?=
+ =?us-ascii?Q?n0KeMlkJ+L3NB1A2hxhz1ErvvyBNPuvuloaL3DiObw6jkDzMnXZX+AxUGPhK?=
+ =?us-ascii?Q?j9Ub5bRipSLL1N4f4bnfe8bkgZxMckZgZdqs+X9u3Q347vDsmVKyIiLwqcaa?=
+ =?us-ascii?Q?IHBMfwyyr5Q/+XTmoW9qvM9uoqT3jkbNVNVliRqoWcjDFArZOlGQa6VIhgn6?=
+ =?us-ascii?Q?U1NpxwzIzHbRaxw/aa+ciGFMY9XDzU2bYqeDnszKL0gdUjtNl7Mx/CoL9SY1?=
+ =?us-ascii?Q?qtAYHhLicfNuP+PuvtEMWpdJNI6YL+Vumh+nX/HYy7kSH1Jn+LLXU1A9L8R5?=
+ =?us-ascii?Q?uUN9HqeHm7kUVfm9T2M2YZ9RPWF5MkcC2hhxIM0VL+MbnhCpp+CV3VV/yfmP?=
+ =?us-ascii?Q?zK5c57OsujJIrndOZKThoIaCxbmQ6whiHOrNHSmAETDyuzrKoNWQtwtBeOb0?=
+ =?us-ascii?Q?eeUB7mDA/Y3MwgKKuX1UYKoGjQyG2MTbdODfWMBiWuLkcjT8Tts3om0x7mXj?=
+ =?us-ascii?Q?yEwIapJKhctX/pB6rXxv2VTZ3oeTD7Cjw4H4A6+3y7lP2Khvk7eERWLYQ4NW?=
+ =?us-ascii?Q?KKj23bHdoZdSsFrXKVoALWH/KDJcZHwgN/e45dfz+thG6MGhWLc6i7tX13iE?=
+ =?us-ascii?Q?Ea8Fyf6ZzvDF0HTiUwP4J7UmjDoM+vY7ZGVB2vM9NnQ/31Ua1wyN8W+q5g0C?=
+ =?us-ascii?Q?kLRiP46H/C4rtjzIF/YpXNZaa5Re6FMcnl1DAi9i3DMdlkDPzyTckwXjpTpK?=
+ =?us-ascii?Q?aiXrz0X3SAQ6PLfP0ZExHJpMnfUhPZp0YBeen9zVphwXy+OvAj4RxJtFQTBU?=
+ =?us-ascii?Q?xcXSG4hh+5cNTf8z8vhaZM/PbRdkqeBnF6x25Tgef+nZYsWZZWTk75OUyizM?=
+ =?us-ascii?Q?p0HnqxOZDR6KTpHNRxmzLw+Zhr2gnNNf26NPxe2bYqwTaFVP4t+MPn3Y5pqd?=
+ =?us-ascii?Q?/yiqvIRO0ySiU0g=3D?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(7416014)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700013)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 18:32:17.1779
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2025 18:32:22.5910
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e5fd77cc-1bfe-4cb4-3bb8-08dd6001e2c2
+ f8272731-e684-4b97-977d-08dd6001e5fe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	MN1PEPF0000F0E4.namprd04.prod.outlook.com
+	BL02EPF00021F68.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7826
-Message-ID-Hash: OLWX6AJ6OSQBDYPBXQJYUFYKZJPLDD47
-X-Message-ID-Hash: OLWX6AJ6OSQBDYPBXQJYUFYKZJPLDD47
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7538
+Message-ID-Hash: IIHJILLS7EEFB6BONEAMVOKNB4RNX53Y
+X-Message-ID-Hash: IIHJILLS7EEFB6BONEAMVOKNB4RNX53Y
 X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -177,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OLWX6AJ6OSQBDYPBXQJYUFYKZJPLDD47/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IIHJILLS7EEFB6BONEAMVOKNB4RNX53Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -186,213 +184,139 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Implement acp common hardware ops for acp_init and acp_deinit
-funcions to support commons ops for all platforms.
+Refactor dmic-codec platform driver creation using helper function.
 
 Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
 ---
- sound/soc/amd/acp/acp-legacy-common.c | 50 +++++++++++++++++++++++++++
- sound/soc/amd/acp/acp-pci.c           | 13 ++++---
- sound/soc/amd/acp/amd.h               | 36 +++++++++++++++++++
- 3 files changed, 95 insertions(+), 4 deletions(-)
+ sound/soc/amd/acp/acp-pci.c | 49 +++++++++++++++++++++++++------------
+ sound/soc/amd/acp/amd.h     |  1 +
+ 2 files changed, 35 insertions(+), 15 deletions(-)
 
-diff --git a/sound/soc/amd/acp/acp-legacy-common.c b/sound/soc/amd/acp/acp-legacy-common.c
-index 89f5cda18a23..f87a2da8c641 100644
---- a/sound/soc/amd/acp/acp-legacy-common.c
-+++ b/sound/soc/amd/acp/acp-legacy-common.c
-@@ -21,6 +21,12 @@
- #define ACP63_PDM_ADDR		0x02
- #define ACP70_PDM_ADDR		0x02
- 
-+const struct snd_acp_hw_ops acp_common_hw_ops = {
-+	/* ACP hardware initilizations */
-+	.acp_init = acp_init,
-+	.acp_deinit = acp_deinit,
-+};
-+EXPORT_SYMBOL_NS_GPL(acp_common_hw_ops, "SND_SOC_ACP_COMMON");
- void acp_enable_interrupts(struct acp_dev_data *adata)
- {
- 	struct acp_resource *rsrc = adata->rsrc;
-@@ -463,5 +469,49 @@ void check_acp_config(struct pci_dev *pci, struct acp_chip_info *chip)
- }
- EXPORT_SYMBOL_NS_GPL(check_acp_config, "SND_SOC_ACP_COMMON");
- 
-+struct snd_acp_hw_ops acp31_common_hw_ops;
-+EXPORT_SYMBOL_NS_GPL(acp31_common_hw_ops, "SND_SOC_ACP_COMMON");
-+int acp31_hw_ops_init(struct acp_chip_info *chip)
-+{
-+	memcpy(&acp31_common_hw_ops, &acp_common_hw_ops, sizeof(acp_common_hw_ops));
-+	chip->acp_hw_ops = &acp31_common_hw_ops;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(acp31_hw_ops_init, "SND_SOC_ACP_COMMON");
-+
-+struct snd_acp_hw_ops acp6x_common_hw_ops;
-+EXPORT_SYMBOL_NS_GPL(acp6x_common_hw_ops, "SND_SOC_ACP_COMMON");
-+int acp6x_hw_ops_init(struct acp_chip_info *chip)
-+{
-+	memcpy(&acp6x_common_hw_ops, &acp_common_hw_ops, sizeof(acp_common_hw_ops));
-+	chip->acp_hw_ops = &acp6x_common_hw_ops;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(acp6x_hw_ops_init, "SND_SOC_ACP_COMMON");
-+
-+struct snd_acp_hw_ops acp63_common_hw_ops;
-+EXPORT_SYMBOL_NS_GPL(acp63_common_hw_ops, "SND_SOC_ACP_COMMON");
-+int acp63_hw_ops_init(struct acp_chip_info *chip)
-+{
-+	memcpy(&acp63_common_hw_ops, &acp_common_hw_ops, sizeof(acp_common_hw_ops));
-+	chip->acp_hw_ops = &acp63_common_hw_ops;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(acp63_hw_ops_init, "SND_SOC_ACP_COMMON");
-+
-+struct snd_acp_hw_ops acp70_common_hw_ops;
-+EXPORT_SYMBOL_NS_GPL(acp70_common_hw_ops, "SND_SOC_ACP_COMMON");
-+int acp70_hw_ops_init(struct acp_chip_info *chip)
-+{
-+	memcpy(&acp70_common_hw_ops, &acp_common_hw_ops, sizeof(acp_common_hw_ops));
-+	chip->acp_hw_ops = &acp70_common_hw_ops;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(acp70_hw_ops_init, "SND_SOC_ACP_COMMON");
-+
- MODULE_DESCRIPTION("AMD ACP legacy common features");
- MODULE_LICENSE("Dual BSD/GPL");
 diff --git a/sound/soc/amd/acp/acp-pci.c b/sound/soc/amd/acp/acp-pci.c
-index dcd92d716e78..b5eabd0280bc 100644
+index b5eabd0280bc..549e95415ab2 100644
 --- a/sound/soc/amd/acp/acp-pci.c
 +++ b/sound/soc/amd/acp/acp-pci.c
-@@ -81,16 +81,20 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
- 	switch (pci->revision) {
- 	case 0x01:
- 		chip->name = "acp_asoc_renoir";
-+		chip->acp_hw_ops_init = acp31_hw_ops_init;
- 		break;
- 	case 0x6f:
- 		chip->name = "acp_asoc_rembrandt";
-+		chip->acp_hw_ops_init = acp6x_hw_ops_init;
- 		break;
- 	case 0x63:
- 		chip->name = "acp_asoc_acp63";
-+		chip->acp_hw_ops_init = acp63_hw_ops_init;
- 		break;
- 	case 0x70:
- 	case 0x71:
- 		chip->name = "acp_asoc_acp70";
-+		chip->acp_hw_ops_init = acp70_hw_ops_init;
- 		break;
- 	default:
- 		dev_err(dev, "Unsupported device revision:0x%x\n", pci->revision);
-@@ -112,7 +116,8 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
- 		goto unregister_dmic_dev;
- 	}
+@@ -26,7 +26,6 @@
+ #define ACP3x_REG_START	0x1240000
+ #define ACP3x_REG_END	0x125C000
  
--	ret = acp_init(chip);
-+	chip->acp_hw_ops_init(chip);
-+	ret = acp_hw_init(chip);
- 	if (ret)
- 		goto unregister_dmic_dev;
+-static struct platform_device *dmic_dev;
+ static struct platform_device *pdev;
  
-@@ -179,7 +184,7 @@ static int __maybe_unused snd_acp_suspend(struct device *dev)
- 	int ret;
- 
- 	chip = dev_get_drvdata(dev);
--	ret = acp_deinit(chip);
-+	ret = acp_hw_deinit(chip);
- 	if (ret)
- 		dev_err(dev, "ACP de-init failed\n");
- 	return ret;
-@@ -193,7 +198,7 @@ static int __maybe_unused snd_acp_resume(struct device *dev)
- 	int ret;
- 
- 	chip = dev_get_drvdata(dev);
--	ret = acp_init(chip);
-+	ret = acp_hw_init(chip);
- 	if (ret)
- 		dev_err(dev, "ACP init failed\n");
- 	if (chip->chip_pdev) {
-@@ -222,7 +227,7 @@ static void acp_pci_remove(struct pci_dev *pci)
- 		platform_device_unregister(dmic_dev);
- 	if (pdev)
- 		platform_device_unregister(pdev);
--	ret = acp_deinit(chip);
-+	ret = acp_hw_deinit(chip);
- 	if (ret)
- 		dev_err(&pci->dev, "ACP de-init failed\n");
- }
-diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
-index c921bcabbcec..3c06567e112c 100644
---- a/sound/soc/amd/acp/amd.h
-+++ b/sound/soc/amd/acp/amd.h
-@@ -142,6 +142,8 @@ struct acp_chip_info {
- 	char *name;		/* Platform name */
- 	unsigned int acp_rev;	/* ACP Revision id */
- 	void __iomem *base;	/* ACP memory PCI base */
-+	struct snd_acp_hw_ops *acp_hw_ops;
-+	int (*acp_hw_ops_init)(struct acp_chip_info *chip);
- 	struct platform_device *chip_pdev;
- 	unsigned int flag;	/* Distinguish b/w Legacy or Only PDM */
- 	bool is_pdm_dev;	/* flag set to true when ACP PDM controller exists */
-@@ -203,6 +205,17 @@ struct acp_dev_data {
- 	unsigned int flag;
+ static const struct resource acp_res[] = {
+@@ -44,6 +43,26 @@ static const struct resource acp_res[] = {
+ 	},
  };
  
-+/**
-+ * struct snd_acp_hw_ops - ACP PCI driver platform specific ops
-+ * @acp_init: ACP initialization
-+ * @acp_deinit: ACP de-initialization
-+ */
-+struct snd_acp_hw_ops {
-+	/* ACP hardware initilizations */
-+	int (*acp_init)(struct acp_chip_info *chip);
-+	int (*acp_deinit)(struct acp_chip_info *chip);
-+};
-+
- enum acp_config {
- 	ACP_CONFIG_0 = 0,
- 	ACP_CONFIG_1,
-@@ -239,6 +252,15 @@ int acp_init(struct acp_chip_info *chip);
- int acp_deinit(struct acp_chip_info *chip);
- void acp_enable_interrupts(struct acp_dev_data *adata);
- void acp_disable_interrupts(struct acp_dev_data *adata);
-+
-+extern struct snd_acp_hw_ops acp31_common_hw_ops;
-+extern struct snd_acp_hw_ops acp6x_common_hw_ops;
-+extern struct snd_acp_hw_ops acp63_common_hw_ops;
-+extern struct snd_acp_hw_ops acp70_common_hw_ops;
-+extern int acp31_hw_ops_init(struct acp_chip_info *chip);
-+extern int acp6x_hw_ops_init(struct acp_chip_info *chip);
-+extern int acp63_hw_ops_init(struct acp_chip_info *chip);
-+extern int acp70_hw_ops_init(struct acp_chip_info *chip);
- /* Machine configuration */
- int snd_amd_acp_find_config(struct pci_dev *pci);
- 
-@@ -252,6 +274,20 @@ int restore_acp_i2s_params(struct snd_pcm_substream *substream,
- 
- void check_acp_config(struct pci_dev *pci, struct acp_chip_info *chip);
- 
-+static inline int acp_hw_init(struct acp_chip_info *chip)
++static int create_acp_platform_devs(struct pci_dev *pci, struct acp_chip_info *chip)
 +{
-+	if (chip && chip->acp_hw_ops && chip->acp_hw_ops->acp_init)
-+		return chip->acp_hw_ops->acp_init(chip);
-+	return -EOPNOTSUPP;
++	int ret;
++
++	if (chip->is_pdm_dev && chip->is_pdm_config) {
++		chip->dmic_codec_dev = platform_device_register_data(&pci->dev,
++								     "dmic-codec",
++								     PLATFORM_DEVID_NONE,
++								     NULL, 0);
++		if (IS_ERR(chip->dmic_codec_dev)) {
++			dev_err(&pci->dev, "failed to create DMIC device\n");
++			ret = PTR_ERR(chip->dmic_codec_dev);
++			goto err;
++		}
++	}
++	return 0;
++err:
++	return ret;
 +}
 +
-+static inline int acp_hw_deinit(struct acp_chip_info *chip)
-+{
-+	if (chip && chip->acp_hw_ops && chip->acp_hw_ops->acp_deinit)
-+		return chip->acp_hw_ops->acp_deinit(chip);
-+	return -EOPNOTSUPP;
-+}
-+
- static inline u64 acp_get_byte_count(struct acp_dev_data *adata, int dai_id, int direction)
+ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
  {
- 	u64 byte_count = 0, low = 0, high = 0;
+ 	struct platform_device_info pdevinfo;
+@@ -102,33 +121,33 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+ 		goto release_regions;
+ 	}
+ 	chip->flag = flag;
+-	dmic_dev = platform_device_register_data(dev, "dmic-codec", PLATFORM_DEVID_NONE, NULL, 0);
+-	if (IS_ERR(dmic_dev)) {
+-		dev_err(dev, "failed to create DMIC device\n");
+-		ret = PTR_ERR(dmic_dev);
+-		goto release_regions;
+-	}
+ 
+ 	addr = pci_resource_start(pci, 0);
+ 	chip->base = devm_ioremap(&pci->dev, addr, pci_resource_len(pci, 0));
+ 	if (!chip->base) {
+ 		ret = -ENOMEM;
+-		goto unregister_dmic_dev;
++		goto release_regions;
+ 	}
+ 
+ 	chip->acp_hw_ops_init(chip);
+ 	ret = acp_hw_init(chip);
+ 	if (ret)
+-		goto unregister_dmic_dev;
++		goto release_regions;
+ 
+ 	check_acp_config(pci, chip);
+ 	if (!chip->is_pdm_dev && !chip->is_i2s_config)
+ 		goto skip_pdev_creation;
+ 
++	ret = create_acp_platform_devs(pci, chip);
++	if (ret < 0) {
++		dev_err(&pci->dev, "ACP platform devices creation failed\n");
++		goto de_init;
++	}
++
+ 	res = devm_kcalloc(&pci->dev, num_res, sizeof(struct resource), GFP_KERNEL);
+ 	if (!res) {
+ 		ret = -ENOMEM;
+-		goto unregister_dmic_dev;
++		goto de_init;
+ 	}
+ 
+ 	for (i = 0; i < num_res; i++, res_acp++) {
+@@ -156,7 +175,7 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+ 	if (IS_ERR(pdev)) {
+ 		dev_err(&pci->dev, "cannot register %s device\n", pdevinfo.name);
+ 		ret = PTR_ERR(pdev);
+-		goto unregister_dmic_dev;
++		goto de_init;
+ 	}
+ 
+ skip_pdev_creation:
+@@ -168,8 +187,8 @@ static int acp_pci_probe(struct pci_dev *pci, const struct pci_device_id *pci_id
+ 	pm_runtime_allow(&pci->dev);
+ 	return ret;
+ 
+-unregister_dmic_dev:
+-	platform_device_unregister(dmic_dev);
++de_init:
++	acp_hw_deinit(chip);
+ release_regions:
+ 	pci_release_regions(pci);
+ disable_pci:
+@@ -223,8 +242,8 @@ static void acp_pci_remove(struct pci_dev *pci)
+ 	chip = pci_get_drvdata(pci);
+ 	pm_runtime_forbid(&pci->dev);
+ 	pm_runtime_get_noresume(&pci->dev);
+-	if (dmic_dev)
+-		platform_device_unregister(dmic_dev);
++	if (chip->dmic_codec_dev)
++		platform_device_unregister(chip->dmic_codec_dev);
+ 	if (pdev)
+ 		platform_device_unregister(pdev);
+ 	ret = acp_hw_deinit(chip);
+diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
+index 3c06567e112c..9511995da591 100644
+--- a/sound/soc/amd/acp/amd.h
++++ b/sound/soc/amd/acp/amd.h
+@@ -145,6 +145,7 @@ struct acp_chip_info {
+ 	struct snd_acp_hw_ops *acp_hw_ops;
+ 	int (*acp_hw_ops_init)(struct acp_chip_info *chip);
+ 	struct platform_device *chip_pdev;
++	struct platform_device *dmic_codec_dev;
+ 	unsigned int flag;	/* Distinguish b/w Legacy or Only PDM */
+ 	bool is_pdm_dev;	/* flag set to true when ACP PDM controller exists */
+ 	bool is_pdm_config;	/* flag set to true when PDM configuration is selected from BIOS */
 -- 
 2.39.2
 

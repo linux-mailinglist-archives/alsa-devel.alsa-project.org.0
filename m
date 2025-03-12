@@ -2,31 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB763A5DCDA
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Mar 2025 13:40:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DF25A5DEA6
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Mar 2025 15:09:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E39B960219;
-	Wed, 12 Mar 2025 13:40:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E39B960219
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEC3C6023E;
+	Wed, 12 Mar 2025 15:09:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEC3C6023E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1741783229;
-	bh=ofedNlzRBTBal6pdHYXCJprbv+5hj+/1WGyAvKwu/6k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=P04MCresqbQlfLOnbLjV8M+Iopj7zO18U9Ug9JHaymhpPqyeXLlGAObar8YZ+TJhe
-	 k3BT5iCqH6DXujxgEhqvKSFXNIbOR50hEn1I9GYxBm4h5EJsk/taEpDDOyjqkjKIdh
-	 OE0fqLyS5AIoKMdvg0eMM2rWtU4EzGQYWf0SGTA4=
+	s=default; t=1741788552;
+	bh=kEsDpTKxQ3UQq71PcqQdVH0yUmbushia9MrK7Fmz9qc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=p1alKhB1Ad5jqn6BExDwyjY2rsihPcBKUDpld+ANWCWK1vnEvUKlmuJYX5/lq3alY
+	 ybe2XId4axYE8ic9co7a1ud+ZGkYVFuJ0aQXbd5l9qvK5cymM9vse99l7F7dxKWx2F
+	 aOIs0rmdN9Daz7V2rdtnq9YYuArmh6/qMud8IhDY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A30A7F805B4; Wed, 12 Mar 2025 13:39:55 +0100 (CET)
+	id 18994F805B0; Wed, 12 Mar 2025 15:08:37 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B6D8F80588;
-	Wed, 12 Mar 2025 13:39:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 075E9F805B0;
+	Wed, 12 Mar 2025 15:08:37 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CBED8F80301; Wed, 12 Mar 2025 13:39:47 +0100 (CET)
+	id A6E78F80301; Wed, 12 Mar 2025 15:08:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -39,45 +38,37 @@ Received: from nyc.source.kernel.org (nyc.source.kernel.org
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DD2A6F8003C
-	for <alsa-devel@alsa-project.org>; Wed, 12 Mar 2025 13:39:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD2A6F8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id E092DF80095
+	for <alsa-devel@alsa-project.org>; Wed, 12 Mar 2025 15:08:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E092DF80095
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dgpoAPlN
+ header.s=k20201202 header.b=IvhUo4o7
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 3DE57A47150;
-	Wed, 12 Mar 2025 12:34:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7010DC4CEEC;
-	Wed, 12 Mar 2025 12:39:42 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 4464EA41C35;
+	Wed, 12 Mar 2025 14:02:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E7BC4CEDD;
+	Wed, 12 Mar 2025 14:08:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741783183;
-	bh=ofedNlzRBTBal6pdHYXCJprbv+5hj+/1WGyAvKwu/6k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=dgpoAPlNydd7g6QXc9etdsnZl5uDIKR47XxVAOU4E5RZsdlIqp9NZngibwnNNtM4h
-	 VavRmUHQq16bsYl2fmpbZttAJ/frfRL5PBBA9ixlwZpH000iwarWQ+mz/cGJl/1SWx
-	 7Z2Mvf+o4YWHhqhTskOtyYelZesWJoGB3BQFWfyThXEslojNkijy3RhoVx8tgV0vAv
-	 FY16Ia8yt46FSu+A0q5XAKj34jjidvT7MSAI/smIZzOpi9ETGvsuWKFxbv/i65NdY5
-	 VyxHQoTODnbPzpNzNcye9MRDyB0wipBPHA8z+OPtWepgD1PQPDEj9voZehu44ttsnM
-	 zW2xMRut3n2ug==
+	s=k20201202; t=1741788508;
+	bh=kEsDpTKxQ3UQq71PcqQdVH0yUmbushia9MrK7Fmz9qc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=IvhUo4o7ewlByC9FOamurULHAZd14wHAYKX0UlBdxxMvgGP9G+UID1Fznh6mjf7/Q
+	 R2emWbaTOVSOcblDwwwZW/Z1GknBo3ESVFQmKAZRalmH8nA84koa+HpAriLSnAGfjx
+	 dfcxPtuuiF3pMTBK9lY7nzaaNIe3dueNAgfyvr8kBdqooeVwlJWp9jm9CaK7dHu5/V
+	 ZN0jFMej6oSkoi/6AmG2E7BsS7Sjazckf5lX7MrW/jLeo9rBJ1wY1omSyeb0iLpoRY
+	 ORLeYgkMIZ+tfEpP6gFM2rIPddlqQeLl5PsOwmzDWvWfU4L52689iUuLIWq4jPxpYX
+	 wDcLOqhTmwSkQ==
+Message-ID: <3e8be5877ad35b6bc8fb2d148378ea90.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Cc: Mario.Limonciello@amd.com, Vijendar.Mukunda@amd.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com, ssabakar@amd.com
-In-Reply-To: <20250310183201.11979-1-venkataprasad.potturu@amd.com>
-References: <20250310183201.11979-1-venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH v2 00/14] Implement acp_common_hw_ops support for all
- acp platforms
-Message-Id: <174178318217.22408.15659510789860544387.b4-ty@kernel.org>
-Date: Wed, 12 Mar 2025 12:39:42 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-1b0d6
-Message-ID-Hash: M35MDZUQYXKHATTH2RWWWKHBQZYBEZY4
-X-Message-ID-Hash: M35MDZUQYXKHATTH2RWWWKHBQZYBEZY4
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.14-rc6
+Date: Wed, 12 Mar 2025 14:08:20 +0000
+Message-ID-Hash: BD3CHZ23DH5GIUFYT7VWS2PH4DKTXCWD
+X-Message-ID-Hash: BD3CHZ23DH5GIUFYT7VWS2PH4DKTXCWD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M35MDZUQYXKHATTH2RWWWKHBQZYBEZY4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BD3CHZ23DH5GIUFYT7VWS2PH4DKTXCWD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,81 +90,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 11 Mar 2025 00:01:47 +0530, Venkata Prasad Potturu wrote:
-> This patch series is to implement acp_common_hw_ops support and
-> refactor interrupt handler registration and interrupt handling.
-> 
-> Venkata Prasad Potturu (14):
->   ASoC: amd: acp: Remove redundant acp70 chip->name
->   ASoC: amd: acp: Implement acp_common_hw_ops support for acp platforms
->   ASoC: amd: acp: Refactor dmic-codec platform device creation
->   ASoC: amd: acp: Refactor acp platform device creation
->   ASoC: amd: acp: Refactor acp machine select
->   ASoC: amd: acp: Add new interrupt handle callbacks in
->     acp_common_hw_ops
->   ASoC: amd: acp: Remove redundant acp_dev_data structure
->   ASoC: amd: acp: Move spin_lock and list initialization to acp-pci
->     driver
->   ASoC: amd: acp: Remove white line
->   ASoC: amd: acp: Refactor acp70 platform resource structure
->   ASoC: amd: acp: Refactor acp63 platform resource structure
->   ASoC: amd: acp: Refactor rembrant platform resource structure
->   ASoC: amd: acp: Refactor renoir platform resource structure
->   ASoC: amd: acp: Fix for enabling DMIC on acp platforms via _DSD entry
-> 
-> [...]
+The following changes since commit 7eb172143d5508b4da468ed59ee857c6e5e01da6:
 
-Applied to
+  Linux 6.14-rc5 (2025-03-02 11:48:20 -0800)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.14-rc6
 
-[01/14] ASoC: amd: acp: Remove redundant acp70 chip->name
-        commit: c3d5d331c96f35c6425f7dcfa5c60cf9a5055d0e
-[02/14] ASoC: amd: acp: Implement acp_common_hw_ops support for acp platforms
-        commit: 8ae746fe51041484e52eba99bed15a444c7d4372
-[03/14] ASoC: amd: acp: Refactor dmic-codec platform device creation
-        commit: e2cda461765692757cd5c3b1fc80bd260ffe1394
-[04/14] ASoC: amd: acp: Refactor acp platform device creation
-        commit: a8b9d2d7376d2caf74c0ffbf9bc71b98ed9d1a01
-[05/14] ASoC: amd: acp: Refactor acp machine select
-        commit: 6e60db74b69c29b528c8d10d86108f78f2995dcb
-[06/14] ASoC: amd: acp: Add new interrupt handle callbacks in acp_common_hw_ops
-        commit: aaf7a668bb3814f084f9f6f673567f6aa316632f
-[07/14] ASoC: amd: acp: Remove redundant acp_dev_data structure
-        commit: e3933683b25e2cc94485da4909e3338e1a177b39
-[08/14] ASoC: amd: acp: Move spin_lock and list initialization to acp-pci driver
-        commit: a95a1dbbd3d64adf392fed13c8eef4f72b4e5b90
-[09/14] ASoC: amd: acp: Remove white line
-        commit: c8b5f251f0e53edab220ac4edf444120815fed3c
-[10/14] ASoC: amd: acp: Refactor acp70 platform resource structure
-        commit: f8b4f3f525e82d78079a6ebbde68e4a0d79fd1c0
-[11/14] ASoC: amd: acp: Refactor acp63 platform resource structure
-        commit: d08220b6e32e88655f54b497fd45a3982b59093c
-[12/14] ASoC: amd: acp: Refactor rembrant platform resource structure
-        commit: ee7ab0fd540877fceb3d51f87016e6531d86406f
-[13/14] ASoC: amd: acp: Refactor renoir platform resource structure
-        commit: e167e5b268b2d06a7b59872c189fae0f587562ee
-[14/14] ASoC: amd: acp: Fix for enabling DMIC on acp platforms via _DSD entry
-        commit: 02e1cf7a352a3ba5f768849f2b4fcaaaa19f89e3
+for you to fetch changes up to ed92bc5264c4357d4fca292c769ea9967cd3d3b6:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: codecs: wm0010: Fix error handling path in wm0010_spi_probe() (2025-03-11 13:51:52 +0000)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.14
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+The bulk of this is driver specific fixes, mostly unremarkable.  There's
+also one core fix from Charles, fixing up confusion around the limiting
+of maximum control values.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Alexey Klimov (1):
+      ASoC: codecs: wsa884x: report temps to hwmon in millidegree of Celsius
 
-Thanks,
-Mark
+Bard Liao (2):
+      ASoC: rt1320: set wake_capable = 0 explicitly
+      ASoC: rt722-sdca: add missing readable registers
 
+Charles Keepax (2):
+      ASoC: ops: Consistently treat platform_max as control value
+      ASoC: cs42l43: Fix maximum ADC Volume
+
+Christophe JAILLET (1):
+      ASoC: codecs: wm0010: Fix error handling path in wm0010_spi_probe()
+
+Maciej Strozek (1):
+      ASoC: cs42l43: Add jack delay debounce after suspend
+
+Peter Ujfalusi (1):
+      ASoC: Intel: sof_sdw: Fix unlikely uninitialized variable use in create_sdw_dailinks()
+
+Thomas Mizrahi (1):
+      ASoC: amd: yc: Support mic on another Lenovo ThinkPad E16 Gen 2 model
+
+Thorsten Blum (1):
+      ASoC: tegra: Fix ADX S24_LE audio format
+
+ include/sound/soc.h               |  5 ++++-
+ sound/soc/amd/yc/acp6x-mach.c     |  7 +++++++
+ sound/soc/codecs/cs42l43-jack.c   | 13 ++++++++++---
+ sound/soc/codecs/cs42l43.c        | 17 +++++++++++++++--
+ sound/soc/codecs/cs42l43.h        |  3 +++
+ sound/soc/codecs/rt1320-sdw.c     |  3 +++
+ sound/soc/codecs/rt722-sdca-sdw.c |  4 ++++
+ sound/soc/codecs/wm0010.c         | 13 +++++++++++--
+ sound/soc/codecs/wsa884x.c        |  4 ++--
+ sound/soc/intel/boards/sof_sdw.c  |  2 +-
+ sound/soc/soc-ops.c               | 15 +++++++--------
+ sound/soc/tegra/tegra210_adx.c    |  4 ++--
+ 12 files changed, 69 insertions(+), 21 deletions(-)

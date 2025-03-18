@@ -2,162 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6F01A67558
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Mar 2025 14:40:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC95CA675B0
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Mar 2025 14:57:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E37560373;
-	Tue, 18 Mar 2025 14:40:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E37560373
+	by alsa0.perex.cz (Postfix) with ESMTPS id 702D36036C;
+	Tue, 18 Mar 2025 14:57:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 702D36036C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1742305256;
-	bh=cvajKkvuqbKU3jmB3q0F6N9Su9s3Rg3eh8HYzmL+ajE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=S+nIAsRj4jry5v8do1L/a6tZwfiMr5ADStHJXZDdNk8XSCfgGF7zZcCdzFvO0z/xi
-	 1oVL+nbcG3LZxM5Y7pAySr6JrMOGqzpM1SWILwKBwEQK+4yqTt9N63JVUquRrIAIFM
-	 TkrICQ7SjUhI6/BPxEpKxxquyMcIh4blRXSRn7eI=
+	s=default; t=1742306273;
+	bh=yI1agQ3B7Jpk6xuPHcDk76505PoNN2mGUJegXxzF4e4=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=YbAt0iO+EXBeLSyIqN0a4vgrygRqMG4H28fKvl0i3Mrq7ku5PuWgOXylxyaxVoVm0
+	 oF0M6jwt20CfT/nvpufMUZ18wYy/5UiKMEZ+jBP5Q5BquvhL92s52em6sRG2VokRT4
+	 Rbxc4GyvdKeaAwliEdEQzCcVqzcPnB/VXQDJFkSg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0996EF805BA; Tue, 18 Mar 2025 14:40:23 +0100 (CET)
+	id BAA59F805B5; Tue, 18 Mar 2025 14:57:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBAAEF805AE;
-	Tue, 18 Mar 2025 14:40:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8B7CF805B4;
+	Tue, 18 Mar 2025 14:57:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CFEF5F80587; Tue, 18 Mar 2025 14:40:19 +0100 (CET)
+	id 52A13F80587; Tue, 18 Mar 2025 14:57:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=0.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,
+	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4AE70F80093
-	for <alsa-devel@alsa-project.org>; Tue, 18 Mar 2025 14:40:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AE70F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87B64F802BE
+	for <alsa-devel@alsa-project.org>; Tue, 18 Mar 2025 14:57:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87B64F802BE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=1fEYIhzG;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3/xlkDBI;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=vUdxEEWb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=rKJdWq17
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id EC1A221232;
-	Tue, 18 Mar 2025 13:40:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1742305217;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h/5krZYaFQojyOXw3q5Pi7Cp5WRjTZ9YjAT8NAGmDKM=;
-	b=1fEYIhzGu9k0PzFkTbCgIg4R6MOTDFd+nwwoOeds8uz6l9Ocxy8X6+OLbNWSTcVUfw5kfv
-	H6EcYQBTuJHJX3/XCx8mMlk0f3CxwJxRt1AhGgFMCGbpdpHqq6rj7Ut1oENWUPUtEwvIFz
-	Obrm6OZZyuZGoeqGqonuZ2loaJ/yw6E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1742305217;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h/5krZYaFQojyOXw3q5Pi7Cp5WRjTZ9YjAT8NAGmDKM=;
-	b=3/xlkDBIhLBpULrXTFSoLzyPYj9Tc58c/HqtHLhgWd/qsUE/hljZTPq5mPUPclk73y0fVe
-	M2AVMDePgrO4kQCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1742305216;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h/5krZYaFQojyOXw3q5Pi7Cp5WRjTZ9YjAT8NAGmDKM=;
-	b=vUdxEEWbmCOhAfvCg8s0JuM0MhBpN9Age+TmlSjis+ANiHmrXz1B6UOYwD1QA1wpYQorwu
-	Ht3mvTYUcqgfIjwPrhnLkMaqnPYMujto6LhxM64zBOtmEQiM8Ldc4zckhNPo+DQWXUyTWX
-	TVn21d2i65m6F3BjnwWFIpX/SD4www4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1742305216;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h/5krZYaFQojyOXw3q5Pi7Cp5WRjTZ9YjAT8NAGmDKM=;
-	b=rKJdWq17VN6nXT7nXaBVl1mbGkbbylu3BAKjXnqWyevmUBJkOekcohzPS4igBbrt3CQ1iE
-	hKJSrMuDyrkLQgCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C8F7F139D2;
-	Tue, 18 Mar 2025 13:40:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zt3VL8B32WcUdQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 18 Mar 2025 13:40:16 +0000
-Date: Tue, 18 Mar 2025 14:40:16 +0100
-Message-ID: <877c4m1mpr.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dhruv Deshpande <dhrv.d@proton.me>
-Cc: tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Support mute LED on HP Laptop
- 15s-du3xxx
-In-Reply-To: <20250317085621.45056-1-dhrv.d@proton.me>
-References: <20250317083319.42195-1-dhrv.d@proton.me>
-	<875xk8f3ue.wl-tiwai@suse.de>
-	<20250317085621.45056-1-dhrv.d@proton.me>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-Message-ID-Hash: NJ34M6KBG7ESGKXKAEJWYOICG4CWOCO4
-X-Message-ID-Hash: NJ34M6KBG7ESGKXKAEJWYOICG4CWOCO4
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=blokas.io header.i=@blokas.io header.a=rsa-sha256
+ header.s=google header.b=Q2R73xZC
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-6f7031ea11cso60835917b3.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 18 Mar 2025 06:57:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=blokas.io; s=google; t=1742306233; x=1742911033;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=DuYRAfrewkQZZt+uLlzrffGglOJoMcYMXwHh1X0lVNQ=;
+        b=Q2R73xZCIKeUcW3O9doFApmSzmK60Om4bu0+LDuSagr/4tN9Cov0h6L7FV2kt1i1OV
+         CbOjBk+HtX+w0i6l9Jq7L+AQtDBZ9I8ELkPDcTVtO8gZBEcpMmA7mJpEYOSWvSWGMg/3
+         3ypusCT34vPxx4amvDLyx3DhEZcEpChOmHfvSZMwqe5VprI7RUfzy1ER6odgvmNTx4G2
+         JxGaS4HNK626rLoPn6oJ1cDSLNaf9gqwU86BNst0t9wk37VJqVULaADE9obPB77OHdUx
+         jbnAMpS3ONl+k0SY31ZY1/0smJeSa5xacC4FBzKR6FkTbyO0GtNdfaLYP2W4wRxLHQ4O
+         +cCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742306233; x=1742911033;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DuYRAfrewkQZZt+uLlzrffGglOJoMcYMXwHh1X0lVNQ=;
+        b=LkW8qTmqYILOm6PW7oX4MbtQiesBdvaVGnqnoohutzOrAGgH71S9fCHPauR4wgCsBi
+         ifZTEgNQxqMhlHtzAuZ8cC0cnRCdmabCpy26evm5vuvSHFB/X/gAuTO5VueHT2D+mSRn
+         BIzi2QyTCkyiaaUSiiOo0lh0rLzJqh1r3YydRmgEab2JIgdv2iz6ok2lTMqR59SlT7Ud
+         nnwoRI+xiG/Dg5jR0GM9blCpkWWo9RZ24xamFLOGp3g19iyt+At7+ngd7U9G8WulT+Tx
+         A9j4FLL1WZ5TVEf5wDrpoC0x4cxbw03cLBx3A8Di2mfZWXWGK3gAWVjM3SF2aeS4IOHk
+         QV0w==
+X-Gm-Message-State: AOJu0YyhT1poGs4j19oolTfOvV0Lfa1h+GdMR/gAZweCyMFLN9zmBg+u
+	DdUFuadXsudMcQaVk25YEPhfxY7SwDeFUMwi8DQ0sJi22Th2i8739SdqSkgFccN2P9ici5rIqBj
+	3S1wYXzPJyMC+ciK4/kIlT/1DqkEsPDDjxraKeSZO5Syx3cQTVTo=
+X-Gm-Gg: ASbGncvPoKAGWECyZJel9t649A9sM04RtdICvIL/qmHA1eus6CLJnrILAHdcNkTK45V
+	8H5avMcaKtWmpen89FmFMZpdq4L2JNgMbc/k8vpz6ILZyJi7RGUothT65aavE9EQ/uxd6Wp0Qm3
+	nmrnHVxn2AYT3usUAiq3f6QjPt84aPXHqFQDvH
+X-Google-Smtp-Source: 
+ AGHT+IEdAOhuk0ZRBF0Irc02jGWI8MBqYJlCLDeqfctZekUuRbAP/jKg6tJaOniMH7q51pppfScRykiX+GA3wLtORlY=
+X-Received: by 2002:a05:6902:2781:b0:e63:d36f:96c1 with SMTP id
+ 3f1490d57ef6-e63f64c196bmr22566486276.10.1742306232789; Tue, 18 Mar 2025
+ 06:57:12 -0700 (PDT)
+MIME-Version: 1.0
+From: =?UTF-8?Q?Giedrius_Trainavi=C4=8Dius?= <giedrius@blokas.io>
+Date: Tue, 18 Mar 2025 15:57:01 +0200
+X-Gm-Features: AQ5f1JpqfVJORgUSdCEuin9T9-AtG9oZuv5g2XrHBTwAMZl21DXjBxpKtZYfk2w
+Message-ID: 
+ <CAMONXLvYv-LJRkc=caYG5A5mb+CML2dJGCnxRhy9VXJed-KUjw@mail.gmail.com>
+Subject: UCM2 Conditional cset in BootSequence
+To: alsa-devel@alsa-project.org
+Message-ID-Hash: EL7ZPEIUN2IQXYN6V2BJTPKUCG4AKR4V
+X-Message-ID-Hash: EL7ZPEIUN2IQXYN6V2BJTPKUCG4AKR4V
+X-MailFrom: giedrius@blokas.io
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJ34M6KBG7ESGKXKAEJWYOICG4CWOCO4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EL7ZPEIUN2IQXYN6V2BJTPKUCG4AKR4V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -166,18 +117,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 17 Mar 2025 09:56:53 +0100,
-Dhruv Deshpande wrote:
-> 
-> The mute LED on this HP laptop uses ALC236 and requires a quirk to function.
-> This patch enables the existing quirk for the device.
-> 
-> Tested on my laptop and the LED behaviour works as intended.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dhruv Deshpande <dhrv.d@proton.me>
-
-Applied now.  Thanks.
-
-
-Takashi
+SGVsbG8sDQoNCkknbSB3cml0aW5nIGEgVUNNMiAuY29uZiBmaWxlLCBkZXBlbmRpbmcgb24gRGV2
+aWNlIFRyZWUgb3B0aW9ucywgc29tZQ0Ka2NvbnRyb2xzIG1heSBvciBtYXkgbm90IGV4aXN0IC0g
+aG93IGRvIEkgaGFuZGxlIHRoaXMgaW4gdGhlIEJvb3RTZXF1ZW5jZSwNCnNvIGFsc2FjdGwgZG9l
+cyBub3QgZXJyb3Igb3V0IGlmIHNvbWUgY29udHJvbHMgZG9uJ3QgZXhpc3Q/DQoNCkkga25vdyB0
+aGVyZSdzIGEgcG9zc2libGUgSWYgY29uZGl0aW9uIHRvIGNoZWNrIGlmIGEgY29udHJvbCBleGlz
+dHMsIGJ1dA0KaG93IGRvIEkgdXNlIHRoYXQgdG8gY29uZGl0aW9uYWxseSBhcHBlbmQgdG8gdGhl
+IEJvb3RTZXF1ZW5jZT8NCg0KVGhhbmsgeW91IQ0KR2llZHJpdXMuDQo=

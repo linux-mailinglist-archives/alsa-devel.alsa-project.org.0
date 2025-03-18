@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50940A67D2E
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Mar 2025 20:38:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD435A67D91
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Mar 2025 20:58:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D815A602BC;
-	Tue, 18 Mar 2025 20:38:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D815A602BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46310602D9;
+	Tue, 18 Mar 2025 20:58:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46310602D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1742326696;
-	bh=eDZiqsJCnRAew2LohDDzhP9DQPs0FRleiVWZz3vV9Hk=;
+	s=default; t=1742327929;
+	bh=eDHP8rN1eO961pHUauD/QkXXnKrgDxXZ8Cqcn65lvdk=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=IS/97grFX3aTT0UKPKz/0r00O6W4iFGKqIQFlWNm2vAnTWk54Hs80+7AfuGWb0JLl
-	 SFUxHMOMHa17Z+tiYAf3gmLQezS2b6QbkXoMBnBanJls9RCoQvXuvldaypktk4rMvB
-	 rjLTHWhPMZ5nJ54ypV6+QRuXnxEc/nHOjxrvIN68=
+	b=R5IEnSqjTuR8BJKzAEZiS+s0JcAUQUduvNQzEL6JekUS/1s1wPTMI5Dx9Z2TNJxP5
+	 SdBvdJEe+iuavtRIS+JL3XHMqX/dkL9nwqj2fdzmNnR/jUgEgKaOou4EuvrYIYrl07
+	 a2aADSa/yS/9kzxAh2JcQ1KH6hA7FYoKP/xsY8rI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78F23F805BF; Tue, 18 Mar 2025 20:37:43 +0100 (CET)
+	id 55176F805B0; Tue, 18 Mar 2025 20:58:15 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5435DF805B6;
-	Tue, 18 Mar 2025 20:37:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38060F805A0;
+	Tue, 18 Mar 2025 20:58:15 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF123F80587; Tue, 18 Mar 2025 20:37:38 +0100 (CET)
+	id 9D4D3F80587; Tue, 18 Mar 2025 20:58:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CBDAF80093
-	for <alsa-devel@alsa-project.org>; Tue, 18 Mar 2025 20:37:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CBDAF80093
+	by alsa1.perex.cz (Postfix) with ESMTP id AA4BDF80093
+	for <alsa-devel@alsa-project.org>; Tue, 18 Mar 2025 20:58:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA4BDF80093
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <182dfcdcc690f900-webhooks-bot@alsa-project.org>
-In-Reply-To: <182dfcdcc6888800-webhooks-bot@alsa-project.org>
-References: <182dfcdcc6888800-webhooks-bot@alsa-project.org>
+Message-Id: <182dfdfb2a6ae800-webhooks-bot@alsa-project.org>
+In-Reply-To: <182dfdfb2a626d00-webhooks-bot@alsa-project.org>
+References: <182dfdfb2a626d00-webhooks-bot@alsa-project.org>
 Subject: No Micrphone detected on ALC4080 - Gigabyte B850I Aorus Pro (rev 1.0)
-Date: Tue, 18 Mar 2025 20:37:38 +0100 (CET)
-Message-ID-Hash: 6722CJQWW3FTBAQPNRDAAQPYWMMZ5ZVN
-X-Message-ID-Hash: 6722CJQWW3FTBAQPNRDAAQPYWMMZ5ZVN
+Date: Tue, 18 Mar 2025 20:58:08 +0100 (CET)
+Message-ID-Hash: S55UTTQ6N3GPL6RIKO6QPYDKIYRP7AQC
+X-Message-ID-Hash: S55UTTQ6N3GPL6RIKO6QPYDKIYRP7AQC
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6722CJQWW3FTBAQPNRDAAQPYWMMZ5ZVN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S55UTTQ6N3GPL6RIKO6QPYDKIYRP7AQC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -303,7 +303,7 @@ Verb.HiFi {
 		Values {
 			CaptureCTL "_ucm0001.hw:Audio"
 			CaptureMixerElem Mic,0
-			CapturePCM "_ucm0001.hw:Audio,1"
+			CapturePCM "_ucm0001.hw:Audio,0"
 			CapturePriority 300
 			JackControl "Mic - Input Jack"
 			PlaybackCTL "_ucm0001.hw:Audio"
@@ -343,7 +343,7 @@ Verb."HiFi 5+1" {
 		Values {
 			CaptureCTL "_ucm0001.hw:Audio"
 			CaptureMixerElem Mic,0
-			CapturePCM "_ucm0001.hw:Audio,1"
+			CapturePCM "_ucm0001.hw:Audio,0"
 			CapturePriority 300
 			JackControl "Mic - Input Jack"
 			PlaybackCTL "_ucm0001.hw:Audio"
@@ -383,7 +383,7 @@ Verb."HiFi 7+1" {
 		Values {
 			CaptureCTL "_ucm0001.hw:Audio"
 			CaptureMixerElem Mic,0
-			CapturePCM "_ucm0001.hw:Audio,1"
+			CapturePCM "_ucm0001.hw:Audio,0"
 			CapturePriority 300
 			JackControl "Mic - Input Jack"
 			PlaybackCTL "_ucm0001.hw:Audio"

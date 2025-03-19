@@ -2,55 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD435A67D91
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Mar 2025 20:58:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A3DA685B2
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Mar 2025 08:18:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46310602D9;
-	Tue, 18 Mar 2025 20:58:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46310602D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B7CA6034A;
+	Wed, 19 Mar 2025 08:18:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B7CA6034A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1742327929;
-	bh=eDHP8rN1eO961pHUauD/QkXXnKrgDxXZ8Cqcn65lvdk=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=R5IEnSqjTuR8BJKzAEZiS+s0JcAUQUduvNQzEL6JekUS/1s1wPTMI5Dx9Z2TNJxP5
-	 SdBvdJEe+iuavtRIS+JL3XHMqX/dkL9nwqj2fdzmNnR/jUgEgKaOou4EuvrYIYrl07
-	 a2aADSa/yS/9kzxAh2JcQ1KH6hA7FYoKP/xsY8rI=
+	s=default; t=1742368731;
+	bh=VkPG6VmJuOpNBatg8d60V5rDvjQ0pWYUS6dXmD6QVpU=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=YSFZOOvJui7wy6QRoz5YkeXtfv9Uzo1O7HPHX7KiGYS1pcmtNKGDAREKxUfUq2qq3
+	 Jq/mvDz0JEkEvKmlyI3sO3gMRDJwLG6Mm9Ja11bv85AbDHV0vMxSLrlufArHNtPQ4q
+	 aSvr/WPkrNoBMYTHpIkU2dvwyGN8Pb+EfBGixgAA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 55176F805B0; Tue, 18 Mar 2025 20:58:15 +0100 (CET)
+	id 31BF0F805BE; Wed, 19 Mar 2025 08:18:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38060F805A0;
-	Tue, 18 Mar 2025 20:58:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F4010F805A0;
+	Wed, 19 Mar 2025 08:18:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D4D3F80587; Tue, 18 Mar 2025 20:58:08 +0100 (CET)
+	id 3B85CF805A0; Wed, 19 Mar 2025 08:18:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA4BDF80093
-	for <alsa-devel@alsa-project.org>; Tue, 18 Mar 2025 20:58:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA4BDF80093
-MIME-Version: 1.0
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 334DFF800B5
+	for <alsa-devel@alsa-project.org>; Wed, 19 Mar 2025 08:18:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 334DFF800B5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=DOEuujtn
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 52J7I2BV2809162
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 19 Mar 2025 02:18:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1742368682;
+	bh=VkPG6VmJuOpNBatg8d60V5rDvjQ0pWYUS6dXmD6QVpU=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=DOEuujtnMrID5JU3umRJwoh31gqt0ILBeA+kmR3gC+LGBXrzDVQLxdHCWVXxdhpOD
+	 6UUYmFaO/litJZX/K07mS+YFgihPlIVe7peFcRUE0FM25sQkvptQoFk3loLRXyg7tX
+	 VhdntcP76IWjsHHu3oLWd3xIrWJb5vYxYZ9TILAw=
+Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 52J7I2F2085580
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 19 Mar 2025 02:18:02 -0500
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE102.ent.ti.com
+ (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 19
+ Mar 2025 02:18:02 -0500
+Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
+ DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
+ 15.01.2507.023; Wed, 19 Mar 2025 02:18:02 -0500
+From: "Ding, Shenghao" <shenghao-ding@ti.com>
+To: "tiwai@suse.de" <tiwai@suse.de>
+CC: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+        "13916275206@139.com" <13916275206@139.com>,
+        "13564923607@139.com"
+	<13564923607@139.com>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>,
+        "Xu, Baojun" <baojun.xu@ti.com>, Mark Brown
+	<broonie@kernel.org>
+Subject: RE: [EXTERNAL] Re: [RESEND PATCH v5] ASoC: tas2781: Support dsp
+ firmware Alpha and Beta seaies
+Thread-Topic: [EXTERNAL] Re: [RESEND PATCH v5] ASoC: tas2781: Support dsp
+ firmware Alpha and Beta seaies
+Thread-Index: AQHbk/rhOLAQJNAiDEuX6RvFG/iN5bNx+d2AgAgbWSA=
+Date: Wed, 19 Mar 2025 07:18:01 +0000
+Message-ID: <a696042d25b94790885ec20bf1468323@ti.com>
+References: <20250313093238.1184-1-shenghao-ding@ti.com>
+ <f0bc9d68-5383-43b8-afea-0a065bcbe93c@sirena.org.uk>
+In-Reply-To: <f0bc9d68-5383-43b8-afea-0a065bcbe93c@sirena.org.uk>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.250.161.197]
+x-c2processedorg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <182dfdfb2a6ae800-webhooks-bot@alsa-project.org>
-In-Reply-To: <182dfdfb2a626d00-webhooks-bot@alsa-project.org>
-References: <182dfdfb2a626d00-webhooks-bot@alsa-project.org>
-Subject: No Micrphone detected on ALC4080 - Gigabyte B850I Aorus Pro (rev 1.0)
-Date: Tue, 18 Mar 2025 20:58:08 +0100 (CET)
-Message-ID-Hash: S55UTTQ6N3GPL6RIKO6QPYDKIYRP7AQC
-X-Message-ID-Hash: S55UTTQ6N3GPL6RIKO6QPYDKIYRP7AQC
-X-MailFrom: github@alsa-project.org
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Message-ID-Hash: TONXZDDQWMVZTLRSIJK45KHF25CVZBUN
+X-Message-ID-Hash: TONXZDDQWMVZTLRSIJK45KHF25CVZBUN
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S55UTTQ6N3GPL6RIKO6QPYDKIYRP7AQC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TONXZDDQWMVZTLRSIJK45KHF25CVZBUN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,327 +118,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #528 was edited from chanster:
-
-The Rear Microphone is not detected when I plug in my mic. I don't use the Front Audio connection as my case doesn't have I/O for it, I just used the 2 audio ports in the rear.
-
-When I try recording directly I can get the mic to work, but it does not show up in the sound settings.
-
-`arecord --duration=3 -D hw:CARD=2,DEV=1 -f dat -vvv a.wav`
-```
-Hardware PCM card 2 'USB Audio' device 1 subdevice 0
-Its setup is:
-  stream       : CAPTURE
-  access       : RW_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 24000
-  period_size  : 6000
-  period_time  : 125000
-  tstamp_mode  : ENABLE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 6000
-  period_event : 0
-  start_threshold  : 1
-  stop_threshold   : 24000
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6755399441055744000
-  appl_ptr     : 0
-  hw_ptr       : 0
-Recording WAVE 'a.wav' : Signed 16 bit Little Endian, Rate 48000 Hz, Stereo
-Max peak (12000 samples): 0x00000167 #                    1%
-Max peak (12000 samples): 0x000000da #                    0%
-Max peak (12000 samples): 0x000006b1 ##                   5%
-Max peak (12000 samples): 0x00000547 #                    4%
-Max peak (12000 samples): 0x00000729 ##                   5%
-Max peak (12000 samples): 0x00000a77 ##                   8%
-Max peak (12000 samples): 0x000006d2 ##                   5%
-Max peak (12000 samples): 0x000005ec #                    4%
-Max peak (12000 samples): 0x00000627 #                    4%
-Max peak (12000 samples): 0x00000d32 ###                  10%
-Max peak (12000 samples): 0x00000e9f ###                  11%
-Max peak (12000 samples): 0x00003813 #########            43%
-Max peak (12000 samples): 0x00006278 ################     76%
-Max peak (12000 samples): 0x00007fff #################### 99%
-Max peak (12000 samples): 0x00006694 #################    80%
-Max peak (12000 samples): 0x000068ea #################    81%
-Max peak (12000 samples): 0x00004ba0 ############         59%
-Max peak (12000 samples): 0x0000207c ######               25%
-Max peak (12000 samples): 0x000017e9 ####                 18%
-Max peak (12000 samples): 0x00003938 #########            44%
-Max peak (12000 samples): 0x00001f11 #####                24%
-Max peak (12000 samples): 0x00000ee5 ###                  11%
-Max peak (12000 samples): 0x00003944 #########            44%
-Max peak (12000 samples): 0x00003942 #########            44%
-```
-
-
-Motherboard: Gigabyte B850I Aorus Pro (rev 1.0)
-Audio Device: ALC4080
-Distro: Fedora 41
-Window Manager: Gnome-Shell
-Packages:
-```
-dnf list --installed | grep 'pipewire\|pulseaudio\|alsa'
-alsa-lib.i686                             1.2.13-3.fc41                      updates
-alsa-lib.x86_64                           1.2.13-3.fc41                      updates
-alsa-ucm.noarch                           1.2.13-3.fc41                      updates
-alsa-ucm-utils.x86_64                     1.2.13-2.fc41                      updates
-alsa-utils.x86_64                         1.2.13-2.fc41                      updates
-pipewire.i686                             1.2.7-7.fc41                       updates
-pipewire.x86_64                           1.2.7-7.fc41                       updates
-pipewire-alsa.i686                        1.2.7-7.fc41                       updates
-pipewire-alsa.x86_64                      1.2.7-7.fc41                       updates
-pipewire-gstreamer.x86_64                 1.2.7-7.fc41                       updates
-pipewire-libs.i686                        1.2.7-7.fc41                       updates
-pipewire-libs.x86_64                      1.2.7-7.fc41                       updates
-pipewire-pulseaudio.x86_64                1.2.7-7.fc41                       updates
-pipewire-utils.x86_64                     1.2.7-7.fc41                       updates
-pulseaudio-libs.i686                      17.0-2.fc41                        fedora
-pulseaudio-libs.x86_64                    17.0-2.fc41                        fedora
-pulseaudio-libs-glib2.x86_64              17.0-2.fc41                        fedora
-wine-alsa.i686                            10.1-1.fc41                        updates
-wine-alsa.x86_64                          10.1-1.fc41                        updates
-wine-pulseaudio.i686                      10.1-1.fc41                        updates
-wine-pulseaudio.x86_64                    10.1-1.fc41                        updates
-
-```
-
-`lsusb | grep -i audio`
-```
-Bus 001 Device 002: ID 0414:a014 Giga-Byte Technology Co., Ltd USB Audio
-```
-
-`alsactl monitor` (unplugging and plugging mic)
-```
-node hw:2, #9 (0,0,0,Mic - Input Jack,1) VALUE
-node hw:2, #9 (0,0,0,Mic - Input Jack,1) VALUE
-```
-
-`amixer -c events` (unplugging and plugging mic)
-```
-event value: numid=9,iface=CARD,name='Mic - Input Jack',index=1
-event value: numid=9,iface=CARD,name='Mic - Input Jack',index=1
-```
-
-`amixer -c 2 contents`
-```
-numid=8,iface=CARD,name='Clock Source 3 Validity'
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=on
-numid=12,iface=CARD,name='Clock Source 4 Validity'
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=on
-numid=15,iface=CARD,name='Clock Source 5 Validity'
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=on
-numid=19,iface=CARD,name='Clock Source 6 Validity'
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=on
-numid=20,iface=CARD,name='Headphone - Output Jack'
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=off
-numid=5,iface=CARD,name='Mic - Input Jack'
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=off
-numid=9,iface=CARD,name='Mic - Input Jack',index=1
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=on
-numid=16,iface=CARD,name='Speaker - Output Jack'
-  ; type=BOOLEAN,access=r-------,values=1
-  : values=off
-numid=13,iface=MIXER,name='PCM Playback Switch'
-  ; type=BOOLEAN,access=rw------,values=1
-  : values=off
-numid=17,iface=MIXER,name='PCM Playback Switch',index=1
-  ; type=BOOLEAN,access=rw------,values=1
-  : values=off
-numid=14,iface=MIXER,name='PCM Playback Volume'
-  ; type=INTEGER,access=rw---R--,values=2,min=0,max=87,step=0
-  : values=62,62
-  | dBminmax-min=-65.25dB,max=0.00dB
-numid=18,iface=MIXER,name='PCM Playback Volume',index=1
-  ; type=INTEGER,access=rw---R--,values=2,min=0,max=87,step=0
-  : values=62,62
-  | dBminmax-min=-65.25dB,max=0.00dB
-numid=6,iface=MIXER,name='Mic Capture Switch'
-  ; type=BOOLEAN,access=rw------,values=1
-  : values=off
-numid=10,iface=MIXER,name='Mic Capture Switch',index=1
-  ; type=BOOLEAN,access=rw------,values=1
-  : values=on
-numid=7,iface=MIXER,name='Mic Capture Volume'
-  ; type=INTEGER,access=rw---R--,values=2,min=0,max=39,step=0
-  : values=39,39
-  | dBminmax-min=-17.25dB,max=12.00dB
-numid=11,iface=MIXER,name='Mic Capture Volume',index=1
-  ; type=INTEGER,access=rw---R--,values=2,min=0,max=39,step=0
-  : values=39,39
-  | dBminmax-min=-17.25dB,max=12.00dB
-numid=1,iface=PCM,name='Capture Channel Map'
-  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
-  : values=0,0
-  | container
-    | chmap-fixed=FL,FR
-numid=3,iface=PCM,name='Playback Channel Map'
-  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
-  : values=0,0
-  | container
-    | chmap-fixed=FL,FR
-numid=2,iface=PCM,name='Capture Channel Map',device=1
-  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
-  : values=0,0
-  | container
-    | chmap-fixed=FL,FR
-numid=4,iface=PCM,name='Playback Channel Map',device=1
-  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
-  : values=0,0
-  | container
-    | chmap-fixed=FL,FR
-```
-
-`arecord -l`
-```
-**** List of CAPTURE Hardware Devices ****
-card 2: Audio [USB Audio], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: Audio [USB Audio], device 1: USB Audio [USB Audio #1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-```
-
-
-
-`alsaucm -c hw:2 dump text`
-```
-Verb.HiFi {
-	Comment "HiFi 2.0 channels"
-	Device.Speaker {
-		Comment Speakers
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			JackControl "Speaker - Output Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			PlaybackChannels 2
-			PlaybackMixerElem PCM,0
-			PlaybackPCM "_ucm0001.hw:Audio"
-			PlaybackPriority 200
-			TQ HiFi
-		}
-	}
-	Device.Headphones {
-		Comment "Front Headphones"
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			JackControl "Headphone - Output Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			PlaybackMixerElem PCM,1
-			PlaybackPCM "_ucm0001.hw:Audio,1"
-			PlaybackPriority 300
-			TQ HiFi
-		}
-	}
-	Device.Mic1 {
-		Comment "Front Microphone"
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			CaptureMixerElem Mic,0
-			CapturePCM "_ucm0001.hw:Audio,0"
-			CapturePriority 300
-			JackControl "Mic - Input Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			TQ HiFi
-		}
-	}
-}
-Verb."HiFi 5+1" {
-	Comment "HiFi 5.1 channels"
-	Device.Speaker {
-		Comment Speakers
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			JackControl "Speaker - Output Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			PlaybackChannels 6
-			PlaybackMixerElem PCM,0
-			PlaybackPCM "_ucm0001.hw:Audio"
-			PlaybackPriority 200
-			TQ HiFi
-		}
-	}
-	Device.Headphones {
-		Comment "Front Headphones"
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			JackControl "Headphone - Output Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			PlaybackMixerElem PCM,1
-			PlaybackPCM "_ucm0001.hw:Audio,1"
-			PlaybackPriority 300
-			TQ HiFi
-		}
-	}
-	Device.Mic1 {
-		Comment "Front Microphone"
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			CaptureMixerElem Mic,0
-			CapturePCM "_ucm0001.hw:Audio,0"
-			CapturePriority 300
-			JackControl "Mic - Input Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			TQ HiFi
-		}
-	}
-}
-Verb."HiFi 7+1" {
-	Comment "HiFi 7.1 channels"
-	Device.Speaker {
-		Comment Speakers
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			JackControl "Speaker - Output Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			PlaybackChannels 8
-			PlaybackMixerElem PCM,0
-			PlaybackPCM "_ucm0001.hw:Audio"
-			PlaybackPriority 200
-			TQ HiFi
-		}
-	}
-	Device.Headphones {
-		Comment "Front Headphones"
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			JackControl "Headphone - Output Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			PlaybackMixerElem PCM,1
-			PlaybackPCM "_ucm0001.hw:Audio,1"
-			PlaybackPriority 300
-			TQ HiFi
-		}
-	}
-	Device.Mic1 {
-		Comment "Front Microphone"
-		Values {
-			CaptureCTL "_ucm0001.hw:Audio"
-			CaptureMixerElem Mic,0
-			CapturePCM "_ucm0001.hw:Audio,0"
-			CapturePriority 300
-			JackControl "Mic - Input Jack"
-			PlaybackCTL "_ucm0001.hw:Audio"
-			TQ HiFi
-		}
-	}
-}
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/528
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Hi Tiwai
+There's one change in the HAD tree. Would you be so kind and apply it?
+Looking forward to your feedback. Thanks.
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: Friday, March 14, 2025 6:27 AM
+> To: Ding, Shenghao <shenghao-ding@ti.com>
+> Cc: tiwai@suse.de; andriy.shevchenko@linux.intel.com;
+> 13916275206@139.com; 13564923607@139.com; alsa-devel@alsa-project.org;
+> Xu, Baojun <baojun.xu@ti.com>
+> Subject: [EXTERNAL] Re: [RESEND PATCH v5] ASoC: tas2781: Support dsp
+> firmware Alpha and Beta seaies
+>=20
+> On Thu, Mar 13, 2025 at 05:32:38PM +0800, Shenghao Ding wrote:
+> > For calibration, basic version does not contain any calibration
+> > addresses, it depends on calibration tool to convey the addresses to th=
+e
+> driver.
+> > Since Alpha and Beta firmware, all the calibration addresses are saved
+> > into the firmware.
+>=20
+> Reviewed-by: Mark Brown <broonie@kernel.org>
+>=20
+> Takashi, this depends on changes in your tree due to the HDA bit - can yo=
+u
+> apply it please?

@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05D75A7171A
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Mar 2025 14:07:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77F36A71771
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Mar 2025 14:26:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51339601D8;
-	Wed, 26 Mar 2025 14:07:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51339601D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85EDB601A1;
+	Wed, 26 Mar 2025 14:25:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85EDB601A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1742994435;
-	bh=Cqq5jFzCIxmCfFNfx8fwKPnSTQb3kUzy1eRUhjzrldE=;
+	s=default; t=1742995560;
+	bh=OhIw89YZkaS3K3MXCywHnvtvlklUf24YtHt6tXGm3sg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AvTA8tTfcmPZG0GfIVO9QF6oqCuoz3+WqyHW57LCdkjwENCiBj7mX1YhXjGu1dqyL
-	 DVAmbGpOJ0GZ4gGhLbS8WtQMOMGz6mQtlknfovlxsqLB5z2186xM7vutJuD4/KIM3T
-	 8KKmP2nIVlcEWPHjBdeMp8Wvu+FqT7OdU65BL9l8=
+	b=nkXTlcf8zLtf0F3O7AJz4+3scSO031Av0Zf+Vjs/7XfAGJ17RF9JgAFNmmyq8sZsd
+	 d3qYPPRwnFSxcmFjJ+Ht+w+3Q8TcQCkH0dQIC2aRIbLT5c51Oic8GjwhdM6rp1Prpr
+	 uLlL7RY9tfTYxRdGS+oIXf/gxE43FT2X3bJ7GHhk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2CF9F80169; Wed, 26 Mar 2025 14:06:40 +0100 (CET)
+	id C2470F805B2; Wed, 26 Mar 2025 14:25:25 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6604FF805B6;
-	Wed, 26 Mar 2025 14:06:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 967F7F805B2;
+	Wed, 26 Mar 2025 14:25:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3451F80171; Wed, 26 Mar 2025 14:06:35 +0100 (CET)
+	id E06B3F80171; Wed, 26 Mar 2025 14:25:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -36,49 +36,47 @@ X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B4DDCF8010B
-	for <alsa-devel@alsa-project.org>; Wed, 26 Mar 2025 14:06:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4DDCF8010B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02B78F8010B
+	for <alsa-devel@alsa-project.org>; Wed, 26 Mar 2025 14:25:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B78F8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gkisAdSx
+ header.s=k20201202 header.b=bJrjX8zt
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id D46AA43B11;
-	Wed, 26 Mar 2025 13:06:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71BF9C4CEE2;
-	Wed, 26 Mar 2025 13:06:28 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id C6171440BB;
+	Wed, 26 Mar 2025 13:25:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72030C4CEE2;
+	Wed, 26 Mar 2025 13:25:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742994390;
-	bh=Cqq5jFzCIxmCfFNfx8fwKPnSTQb3kUzy1eRUhjzrldE=;
+	s=k20201202; t=1742995517;
+	bh=OhIw89YZkaS3K3MXCywHnvtvlklUf24YtHt6tXGm3sg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gkisAdSxKmv+/MjMr5ErVd6QF7g74npArnonU+YNAJfW4r/9788VEzgL/SKlE+Sw6
-	 IqTduXX573j6yK4HkYMY2IZzwQCWs6YPTe3uIl0gnuYoHtGkYUnmB//+4DzPwqzbaI
-	 r27weNycZUflsBXAsTK7q4x7fDNTyXQfl3Q5R8B7o1W082A6/PZP2Zj7bbZx1Nb35k
-	 P9Je9l1xHq9u9iLYlakBlh+vXjOgLekcHY8D9huepbSMJZPyweeLzk2iHEGcQL4UIQ
-	 XQQxkCIIrnUn5JEMMZqjKRsRpSlPBGaAOBBTn+kvwYN1ifC4eQ6sMg7H3nUNWCZ+ZG
-	 EkdlhIr6bUoGw==
-Date: Wed, 26 Mar 2025 13:06:25 +0000
+	b=bJrjX8zt+D0Nh9F+su0AXC6mefdS0Fb/VueSXUSlRhiZHOI1YTqX513PKUGwAMEfu
+	 ZlCSF4krPTGW+2HcbakE9Qrc5QylZN0U0/uyR4HwAGxodxKGMIOsNPmMBbg5jzrwRm
+	 3Nc2d2XI/NI3Us5cyNM7yLHMztypm5F1uaS7M6RYuEYEWFHcDWz20Cz0+xijCaDVE2
+	 EliOYCOb/M6/iwpm/bw0rU+nfj9lMR4Q6KcNyMe9MybmTxgKQKNJms1DVE1hFQFwsK
+	 XN33SBCK6rDsEkmOiYM7ynonfeTardP8MIP0Ja2BfEbxaX4N5JriMm24oBHFy0aZpc
+	 f2VduwlH+5gGQ==
+Date: Wed, 26 Mar 2025 13:25:12 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Brady Norander <bradynorander@gmail.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Aleksandr Mishin <amishin@t-argos.ru>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH 2/3] ASoC: amd: use new ACP dev names for DAI links
-Message-ID: <4045f230-1fdb-4a2e-b2a7-2dfc088c1a03@sirena.org.uk>
-References: <20250325211545.2099169-1-bradynorander@gmail.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	u.kleine-koenig@baylibre.com, Wu Bo <bo.wu@vivo.com>
+Subject: Re: [PATCH 3/3] ASoC: dwc: always enable/disable i2s irqs
+Message-ID: <98b92d09-435b-4aa4-9b21-496b51ce7d5f@sirena.org.uk>
+References: <20250325211805.2099278-1-bradynorander@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="T2l1mc34r2ShMavw"
+	protocol="application/pgp-signature"; boundary="uz6+6+wQfmh8uPot"
 Content-Disposition: inline
-In-Reply-To: <20250325211545.2099169-1-bradynorander@gmail.com>
+In-Reply-To: <20250325211805.2099278-1-bradynorander@gmail.com>
 X-Cookie: To err is humor.
-Message-ID-Hash: 2MHPVWFMYHHEEHIPG7GVAJNF6U73PSS2
-X-Message-ID-Hash: 2MHPVWFMYHHEEHIPG7GVAJNF6U73PSS2
+Message-ID-Hash: WDTTFPTEZ655BTYF56CFIEFYOPE3CAJP
+X-Message-ID-Hash: WDTTFPTEZ655BTYF56CFIEFYOPE3CAJP
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2MHPVWFMYHHEEHIPG7GVAJNF6U73PSS2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WDTTFPTEZ655BTYF56CFIEFYOPE3CAJP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,31 +99,42 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---T2l1mc34r2ShMavw
+--uz6+6+wQfmh8uPot
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 25, 2025 at 05:15:45PM -0400, Brady Norander wrote:
-> The old names used automatic platform device ids, which means they could
-> change. Use the new device names which will never change.
+On Tue, Mar 25, 2025 at 05:18:05PM -0400, Brady Norander wrote:
 
-I've got this patch and another patch numbered 3 (but not properly
-threaded with it) but not a patch 1.  What's going on here with
-dependencies?
+> Commit a42e988 ("ASoC: dwc: add DMA handshake control") changed the
+> behavior of the driver to not enable or disable i2s irqs if using DMA. Th=
+is
+> breaks platforms such as AMD ACP. Revert to the old behavior by always
+> enabling and disabling i2s irqs while keeping DMA handshake control.
+>=20
+> Fixes: a42e988 ("ASoC: dwc: add DMA handshake control")
+> Signed-off-by: Brady Norander <bradynorander@gmail.com>
 
---T2l1mc34r2ShMavw
+Same issue with dependencies here - what's going on?  It also doesn't
+seem like the changelog is describing what's goin on well, if all AMD
+systems were broken by a change from 2023 I'd really expect to have
+heard about it by now.  We've had AMD themselves doing fairly extensive
+work without reporting any issues.  What specifically is the problem you
+are seeing?
+
+--uz6+6+wQfmh8uPot
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmfj+9AACgkQJNaLcl1U
-h9BbKgf9FssF3nnIHWH5FPoiteEcuogQ4BsueuLhkuqvS2WEMv13QmYNjmvQX8V7
-46fhsyJnOnurd1bBx8R5G81IMH1OpVwX2fjubZ3vMAiIizCRFUjOFKgDreQ5gyQ6
-Vy4FzzPgRpvHTLO4z40w/QHn8GCS8nTPjWYD4x+cdWKuEjsTw1wLRsnLWP+DljR8
-qQ54VgeCXMT6csyjbS5fcDm5ejF49pZHjhP1Z7h4SRAKQfr/ShXr08jJDVnon27B
-cb2SOsljdkCrMRnkLw7yqGZqNlXQxjldrwc5Ms95+k/K7LpeIa8D/5sWRgEuGKJK
-+9XfW3rHBnlx3hI94terbCtTg0SHsw==
-=NV3P
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmfkADcACgkQJNaLcl1U
+h9AK/gf9ENDYToKaTXb4Hrcx9P0XxvUvlF84RfS1/ib0Hb8qCgU/lMj8niSuv92B
+Fm7tRT82kaMCWuHIJIiB0IoTBd6WTqOiuWM2Tu6xJjhy26FZIGnXFh6Sdsm918iu
+qsIFKt1MVJCy21/aDuOvRE6D0ZbPuh98Cz+vG65A5mV3eMNWMCd02bBffcFw/Fvr
+ewQ1/Mea4BBPy545Xmq+1EeoBRZL6jAG+lQWlR8Xnn6iPtCIZ7C1YeccUL1SUYU1
+oMAr61TtcP+o3vME6qPp3XJVfM+xXR0bDZinSZdzpoBHpPiSSv51eEGz6s06d9Bm
+sCvKcd0POaQ8jsWW/Yga9/GVsquIxQ==
+=PlC9
 -----END PGP SIGNATURE-----
 
---T2l1mc34r2ShMavw--
+--uz6+6+wQfmh8uPot--

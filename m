@@ -2,128 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 073E2A71361
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Mar 2025 10:12:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05D75A7171A
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Mar 2025 14:07:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DE9A60202;
-	Wed, 26 Mar 2025 10:11:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DE9A60202
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51339601D8;
+	Wed, 26 Mar 2025 14:07:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51339601D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1742980328;
-	bh=kYCJ1vNNmu4cnX3Zv4N65BeeWCJFNxqzoBhji8GJHME=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=D7lQeSs9GV291uYMX9IhfLrBO5P/0+Fjf/j6HgP/rzy/rmPNtcSVt2vuMWPDLacMx
-	 AK15Tpfc+9TgjSrd/1HgbrGFv+nwo6HL96a5rrDQCEWZkHYTOIe6iXzyVljjvbQ552
-	 d5jii/W9pLjDiC1B8/hlKP28rdlNMIwYmYKqfcK8=
+	s=default; t=1742994435;
+	bh=Cqq5jFzCIxmCfFNfx8fwKPnSTQb3kUzy1eRUhjzrldE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AvTA8tTfcmPZG0GfIVO9QF6oqCuoz3+WqyHW57LCdkjwENCiBj7mX1YhXjGu1dqyL
+	 DVAmbGpOJ0GZ4gGhLbS8WtQMOMGz6mQtlknfovlxsqLB5z2186xM7vutJuD4/KIM3T
+	 8KKmP2nIVlcEWPHjBdeMp8Wvu+FqT7OdU65BL9l8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 498B7F805DA; Wed, 26 Mar 2025 10:11:36 +0100 (CET)
+	id A2CF9F80169; Wed, 26 Mar 2025 14:06:40 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A2E0F805DA;
-	Wed, 26 Mar 2025 10:11:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6604FF805B6;
+	Wed, 26 Mar 2025 14:06:40 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACC42F80424; Tue, 25 Mar 2025 22:18:16 +0100 (CET)
+	id A3451F80171; Wed, 26 Mar 2025 14:06:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [IPv6:2607:f8b0:4864:20::72d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DDFD4F800B6
-	for <alsa-devel@alsa-project.org>; Tue, 25 Mar 2025 22:18:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDFD4F800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4DDCF8010B
+	for <alsa-devel@alsa-project.org>; Wed, 26 Mar 2025 14:06:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4DDCF8010B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=eV2y2OIW
-Received: by mail-qk1-x72d.google.com with SMTP id
- af79cd13be357-7c547932d2eso364993385a.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 25 Mar 2025 14:18:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742937493; x=1743542293;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YORNRy4OTXMv3Yhi6ofZ1+35f+Xdz3ifIja4azR4a6Q=;
-        b=eV2y2OIWTDs0WBUS7Eo7h38+72uG2j80LFzHKz/BfBqc3L8V6KYHaFMClYp6fYVRJ8
-         i7TWiJ2MUUgu/kodgILCX3Z/zJe7AbK5hT0+oNdB51wB9eHc3nJmv13LafX3iaTwoStE
-         9z94wG8QnwLunPVHSTL57Zd1JzwKMZmto+lgCMlse8klrU1ZMvJoDhvfLFDf0IBp73aU
-         z+dIHTvr4oor7DWRMPckhrZfq8jkenPJD9f9ZVjJWmsNDwvgjFnU8S8GiJ2d0kMCH8SX
-         GNCbI4v/bkxLbHxPTCOJtD7dc48haXmdV/t5YXN3elUU8TCNPlTTN78BMkVcHjzU6Thj
-         kZKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742937493; x=1743542293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YORNRy4OTXMv3Yhi6ofZ1+35f+Xdz3ifIja4azR4a6Q=;
-        b=HCnOJm+/UdxFC14Dvly9F6uHi0Nykm2S+48bYTndQs4Lxg340UEVwgCZlPBp3gRtKj
-         zwp3I9vwHlbcsjnxcAEPuqTeo1ZqW2I6XdpMeu3nY7Ue9MvF3Oil31YFPAHe7mVciOYt
-         MaSNyR1JjniQSLJefOgxvOb70qq0fosdW8Wx9emSam5f7Lk3LU/5JAJFQXvaqzeCkf1P
-         avmndmLqs/x+kaMWz3h0VY8C/w3riLVjjSZJ5diHiPlLp/NZ5X/qCsIwtXwbdaaX5J7p
-         gdcqTacCPgOOG1laVNkF26cnzZs06p27oBsIPnRRz4RJsKOTe4AdGpQNj3SF458RCeOH
-         2ggA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVfcSOW4HX7wuXpP2o/xDy1xLlUjVVpAK443bdA/BrE8MPrryxHOYnHDYpmgeP9+Di8NPspP5XO1aBT@alsa-project.org
-X-Gm-Message-State: AOJu0YykyU9ouGA8pCTNj5nff86wLuvYOfQx/4/uV97T79vqbDEpxoWV
-	+iFBYjTTcptwrGJ4Pw6tP+jSnudAzScJF7trQof5aBGrra9+yGCS
-X-Gm-Gg: ASbGncsuPKf4YEdPjdISvLB7hEBiDsHitfHXY8XYg6lDkhCHqN/zcxmc8AQRM95oMrX
-	xEp/u0ZHNzfjX9quTygaNzma1cBAzZDFJF539SCEO+HmSf/PDLJjQYcpOkH6iYmb/7DxKLzFqCp
-	ovBFEpvpJG+UDASHs8gJljYFsjTgDRic8NchqEfPfSLk7ImQ2tVB1tPyZSL1RP/zc3aKs1pIEVv
-	o3bK0N8bxhEO5wF1dGanPDca/n8qFCfQ/Y8HF0xZZYdV6ZDqMe2Viyg/QMtAXdiluOtyu4mDo6P
-	5L+SNHv0N03rVCeTiQ1+XRwpbgPEq7in/FCHZb8dw7ng+3Jg/RIb/pyJKL6+QgaLqbOtrj5AF/Q
-	ykocTIg8YQgqeSyPO6Ao=
-X-Google-Smtp-Source: 
- AGHT+IHr7MEJqWj2AbT6Erl+Fujw+8uJX4cGimN+hCDY0WysNw8kbTVhRB2c+75HV6llOMRnBSRRgg==
-X-Received: by 2002:a05:620a:19a3:b0:7c5:4278:d151 with SMTP id
- af79cd13be357-7c5ba211387mr2958874585a.43.1742937492920;
-        Tue, 25 Mar 2025 14:18:12 -0700 (PDT)
-Received: from localhost.localdomain (c-68-55-107-1.hsd1.mi.comcast.net.
- [68.55.107.1])
-        by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c5b9348308sm680685485a.89.2025.03.25.14.18.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Mar 2025 14:18:12 -0700 (PDT)
-From: Brady Norander <bradynorander@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	u.kleine-koenig@baylibre.com,
-	Wu Bo <bo.wu@vivo.com>,
-	Brady Norander <bradynorander@gmail.com>
-Subject: [PATCH 3/3] ASoC: dwc: always enable/disable i2s irqs
-Date: Tue, 25 Mar 2025 17:18:05 -0400
-Message-ID: <20250325211805.2099278-1-bradynorander@gmail.com>
-X-Mailer: git-send-email 2.49.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gkisAdSx
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id D46AA43B11;
+	Wed, 26 Mar 2025 13:06:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71BF9C4CEE2;
+	Wed, 26 Mar 2025 13:06:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1742994390;
+	bh=Cqq5jFzCIxmCfFNfx8fwKPnSTQb3kUzy1eRUhjzrldE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gkisAdSxKmv+/MjMr5ErVd6QF7g74npArnonU+YNAJfW4r/9788VEzgL/SKlE+Sw6
+	 IqTduXX573j6yK4HkYMY2IZzwQCWs6YPTe3uIl0gnuYoHtGkYUnmB//+4DzPwqzbaI
+	 r27weNycZUflsBXAsTK7q4x7fDNTyXQfl3Q5R8B7o1W082A6/PZP2Zj7bbZx1Nb35k
+	 P9Je9l1xHq9u9iLYlakBlh+vXjOgLekcHY8D9huepbSMJZPyweeLzk2iHEGcQL4UIQ
+	 XQQxkCIIrnUn5JEMMZqjKRsRpSlPBGaAOBBTn+kvwYN1ifC4eQ6sMg7H3nUNWCZ+ZG
+	 EkdlhIr6bUoGw==
+Date: Wed, 26 Mar 2025 13:06:25 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Brady Norander <bradynorander@gmail.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Aleksandr Mishin <amishin@t-argos.ru>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 2/3] ASoC: amd: use new ACP dev names for DAI links
+Message-ID: <4045f230-1fdb-4a2e-b2a7-2dfc088c1a03@sirena.org.uk>
+References: <20250325211545.2099169-1-bradynorander@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: bradynorander@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="T2l1mc34r2ShMavw"
+Content-Disposition: inline
+In-Reply-To: <20250325211545.2099169-1-bradynorander@gmail.com>
+X-Cookie: To err is humor.
+Message-ID-Hash: 2MHPVWFMYHHEEHIPG7GVAJNF6U73PSS2
+X-Message-ID-Hash: 2MHPVWFMYHHEEHIPG7GVAJNF6U73PSS2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ZU4GXR747LM5ZXNPIR3KSJ2XJHIQCBJ4
-X-Message-ID-Hash: ZU4GXR747LM5ZXNPIR3KSJ2XJHIQCBJ4
-X-Mailman-Approved-At: Wed, 26 Mar 2025 09:11:31 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZU4GXR747LM5ZXNPIR3KSJ2XJHIQCBJ4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2MHPVWFMYHHEEHIPG7GVAJNF6U73PSS2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,52 +100,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Commit a42e988 ("ASoC: dwc: add DMA handshake control") changed the
-behavior of the driver to not enable or disable i2s irqs if using DMA. This
-breaks platforms such as AMD ACP. Revert to the old behavior by always
-enabling and disabling i2s irqs while keeping DMA handshake control.
 
-Fixes: a42e988 ("ASoC: dwc: add DMA handshake control")
-Signed-off-by: Brady Norander <bradynorander@gmail.com>
----
- sound/soc/dwc/dwc-i2s.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+--T2l1mc34r2ShMavw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index 57b789d7fbed..5b4f20dbf7bb 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -199,12 +199,10 @@ static void i2s_start(struct dw_i2s_dev *dev,
- 	else
- 		i2s_write_reg(dev->i2s_base, IRER, 1);
- 
--	/* I2S needs to enable IRQ to make a handshake with DMAC on the JH7110 SoC */
--	if (dev->use_pio || dev->is_jh7110)
--		i2s_enable_irqs(dev, substream->stream, config->chan_nr);
--	else
-+	if (!(dev->use_pio || dev->is_jh7110))
- 		i2s_enable_dma(dev, substream->stream);
- 
-+	i2s_enable_irqs(dev, substream->stream, config->chan_nr);
- 	i2s_write_reg(dev->i2s_base, CER, 1);
- }
- 
-@@ -218,11 +216,12 @@ static void i2s_stop(struct dw_i2s_dev *dev,
- 	else
- 		i2s_write_reg(dev->i2s_base, IRER, 0);
- 
--	if (dev->use_pio || dev->is_jh7110)
--		i2s_disable_irqs(dev, substream->stream, 8);
--	else
-+	if (!(dev->use_pio || dev->is_jh7110))
- 		i2s_disable_dma(dev, substream->stream);
- 
-+	i2s_disable_irqs(dev, substream->stream, 8);
-+
-+
- 	if (!dev->active) {
- 		i2s_write_reg(dev->i2s_base, CER, 0);
- 		i2s_write_reg(dev->i2s_base, IER, 0);
--- 
-2.49.0
+On Tue, Mar 25, 2025 at 05:15:45PM -0400, Brady Norander wrote:
+> The old names used automatic platform device ids, which means they could
+> change. Use the new device names which will never change.
 
+I've got this patch and another patch numbered 3 (but not properly
+threaded with it) but not a patch 1.  What's going on here with
+dependencies?
+
+--T2l1mc34r2ShMavw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmfj+9AACgkQJNaLcl1U
+h9BbKgf9FssF3nnIHWH5FPoiteEcuogQ4BsueuLhkuqvS2WEMv13QmYNjmvQX8V7
+46fhsyJnOnurd1bBx8R5G81IMH1OpVwX2fjubZ3vMAiIizCRFUjOFKgDreQ5gyQ6
+Vy4FzzPgRpvHTLO4z40w/QHn8GCS8nTPjWYD4x+cdWKuEjsTw1wLRsnLWP+DljR8
+qQ54VgeCXMT6csyjbS5fcDm5ejF49pZHjhP1Z7h4SRAKQfr/ShXr08jJDVnon27B
+cb2SOsljdkCrMRnkLw7yqGZqNlXQxjldrwc5Ms95+k/K7LpeIa8D/5sWRgEuGKJK
++9XfW3rHBnlx3hI94terbCtTg0SHsw==
+=NV3P
+-----END PGP SIGNATURE-----
+
+--T2l1mc34r2ShMavw--

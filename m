@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2841A74864
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Mar 2025 11:35:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881ECA7488C
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Mar 2025 11:42:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EB8A601DA;
-	Fri, 28 Mar 2025 11:35:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EB8A601DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEE7C60173;
+	Fri, 28 Mar 2025 11:42:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEE7C60173
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1743158156;
-	bh=8R+M+Ao5mCZnFkPZi0Cz9vsPdI/pJJrWXSOTXF18xIY=;
+	s=default; t=1743158546;
+	bh=Fwiog+o2V11te8+X+E5E/syPyzmTVgbosRvcvnF01Go=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IhBD709GRPT+lK2BGOuVGbQEu5lWs0VB1cUafEFyEdOniOJRrD2KEzmhfm31pzfhn
-	 KalhAo9oBk3Y633Xlrj1GmMwnw10PJwlIYMJej4UPx32o2gkOoVX6n0wWWicwg+h/u
-	 lUpFVXVbDNOJpPV0FB5/ss4XkS8mr/VAQmWlb3Ps=
+	b=mgDbzIBdQKUJ91slvC97LN4SFmDcbH4T1DbgJLSiwL6Ycisdadmd6uNh2N7fSyVnd
+	 Co7K9ojZ/WAm8SyjpMMB6Hgh5DJ1zgOAgmbBdB6n9hewquNUub+ihq6m98CUceHGta
+	 btcyltYIHdDARBqs52mvF8MGqTudH/rd0o6/oY+k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5860F805B6; Fri, 28 Mar 2025 11:35:22 +0100 (CET)
+	id 93443F805C2; Fri, 28 Mar 2025 11:41:52 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B551BF805B4;
-	Fri, 28 Mar 2025 11:35:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78AD8F805BD;
+	Fri, 28 Mar 2025 11:41:52 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6DD87F80548; Fri, 28 Mar 2025 11:35:18 +0100 (CET)
+	id D0B10F80548; Fri, 28 Mar 2025 11:41:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -37,18 +37,18 @@ Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 958C1F80095
-	for <alsa-devel@alsa-project.org>; Fri, 28 Mar 2025 11:35:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42D35F80212
+	for <alsa-devel@alsa-project.org>; Fri, 28 Mar 2025 11:41:46 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BD1053A3B6;
-	Fri, 28 Mar 2025 11:35:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BD1053A3B6
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EC0413A3B6;
+	Fri, 28 Mar 2025 11:41:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EC0413A3B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1743158114; bh=iqfUAZjvzjfR7/iTCo2GophQdjB7ZnM8tMju9cHFyw0=;
+	t=1743158506; bh=CbwbNPe9dVWJ7xuWQAKHmX1HaZaAFOPJysqT/MHXRk8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=3LBup1yjXwp0m6IRx86fDMvWswv3TXiW35AwdhL9A3JzuocQmfowggQc0ZYAi8FN+
-	 ida+WqIByqeHIi+W/W+EwuFdXzDLXTIDaZq+Vw6nX1QJoWMF+O86X5xd7L+8Is8n72
-	 29hcxiEAvoGdoEv8z88jZ4wCY5JRQ5VbiK9Y0QP8=
+	b=MxLBHuqn49plWxA42wF+/u2fA5MEAXZwqyKRkW8xO0So/SX6Hx8MN7qK0irrX55JR
+	 JEeU00b/B8hxuTFw5Y6k8ZhupFo80kucSR6sP9MTAfgF+RrH7hCxKbJ7341TsRpUtP
+	 6J+F5udC9iilY/uQdtWZrQKzHCTA58LMiPhlX/cI=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
@@ -56,16 +56,17 @@ Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(No client certificate requested)
 	(Authenticated sender: perex)
 	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Fri, 28 Mar 2025 11:35:11 +0100 (CET)
-Message-ID: <4aa9c981-a756-4236-9a17-1eaadf8c193b@perex.cz>
-Date: Fri, 28 Mar 2025 11:35:10 +0100
+	Fri, 28 Mar 2025 11:41:42 +0100 (CET)
+Message-ID: <39ce620f-6c3d-4d3b-b30b-071ab7a40886@perex.cz>
+Date: Fri, 28 Mar 2025 11:41:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH alsa-ucm-conf 1/2] sof-soundwire: cs42l43: Drop headset
- mic from mic mute LED
+Subject: Re: [PATCH alsa-ucm-conf 2/2] sof-soundwire: cs42l43: Control
+ hardware volume to avoid clipping
 To: Maciej Strozek <mstrozek@opensource.cirrus.com>
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com
 References: <20250328083619.1262150-1-mstrozek@opensource.cirrus.com>
+ <20250328083619.1262150-2-mstrozek@opensource.cirrus.com>
 From: Jaroslav Kysela <perex@perex.cz>
 Content-Language: en-US
 Autocrypt: addr=perex@perex.cz; keydata=
@@ -111,11 +112,11 @@ Autocrypt: addr=perex@perex.cz; keydata=
  k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
  m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
  WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: <20250328083619.1262150-1-mstrozek@opensource.cirrus.com>
+In-Reply-To: <20250328083619.1262150-2-mstrozek@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OBXLPHWGU524AJIWTBLSAER5JJJ2JLKE
-X-Message-ID-Hash: OBXLPHWGU524AJIWTBLSAER5JJJ2JLKE
+Message-ID-Hash: UQYPDNRJ5DM6DDOQJ7WJWKKTTMER3DPU
+X-Message-ID-Hash: UQYPDNRJ5DM6DDOQJ7WJWKKTTMER3DPU
 X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -128,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBXLPHWGU524AJIWTBLSAER5JJJ2JLKE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQYPDNRJ5DM6DDOQJ7WJWKKTTMER3DPU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,11 +139,14 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 28. 03. 25 9:36, Maciej Strozek wrote:
-> As per conversation in [1], let headsets be dropped from LED bindings.
-> Also remove turning off the mics on device disable since they are now
-> not needed.
+> Hardware volume control in cs42l43 can go up to +31.5dB which can cause audio
+> degradation. For best results, keep the hardware volume set to 0dB and let
+> software volume control the output.
 
-Actually, it's preferred to turn off the unused paths. I would keep the sequences.
+It's something which I dislike (software volume control). If there's a 
+hardware limit, it should be added to the driver. Eventually, alsa-lib plugins 
+may be extended to do this cropping using a configuration. Also, it may be a 
+bug in pulseaudio/pipewire. The +0dB volumes should be handed with a care.
 
 				Jaroslav
 

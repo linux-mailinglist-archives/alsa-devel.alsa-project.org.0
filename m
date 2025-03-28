@@ -2,122 +2,201 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 881ECA7488C
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Mar 2025 11:42:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA171A748D7
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Mar 2025 11:59:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEE7C60173;
-	Fri, 28 Mar 2025 11:42:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEE7C60173
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2558860173;
+	Fri, 28 Mar 2025 11:59:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2558860173
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1743158546;
-	bh=Fwiog+o2V11te8+X+E5E/syPyzmTVgbosRvcvnF01Go=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1743159587;
+	bh=hAdsgKSPHFfh2E2LCMXeWJ3R5462IZNZ0S/YQ4FGhIw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mgDbzIBdQKUJ91slvC97LN4SFmDcbH4T1DbgJLSiwL6Ycisdadmd6uNh2N7fSyVnd
-	 Co7K9ojZ/WAm8SyjpMMB6Hgh5DJ1zgOAgmbBdB6n9hewquNUub+ihq6m98CUceHGta
-	 btcyltYIHdDARBqs52mvF8MGqTudH/rd0o6/oY+k=
+	b=pgcqsczJTbBuDbJXWiZbwLMJyQhw4wQ1Ydj2xXRwtDD0VR2WuAd1uUrpf0Pp+cU7q
+	 rLqD4i5PI2NIOx0mdm1jnRcnpgQ9cExPI5Arq3KAku/lmeUlJHF5el5R7LwiDF6NAq
+	 /yUdE0ZkTTn+Pv2apZDFNn4fsi5LPiZMLRnj/vbg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93443F805C2; Fri, 28 Mar 2025 11:41:52 +0100 (CET)
+	id 02273F805C0; Fri, 28 Mar 2025 11:59:13 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78AD8F805BD;
-	Fri, 28 Mar 2025 11:41:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3D21F805B2;
+	Fri, 28 Mar 2025 11:59:13 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0B10F80548; Fri, 28 Mar 2025 11:41:48 +0100 (CET)
+	id 21021F80548; Fri, 28 Mar 2025 11:59:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 42D35F80212
-	for <alsa-devel@alsa-project.org>; Fri, 28 Mar 2025 11:41:46 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EC0413A3B6;
-	Fri, 28 Mar 2025 11:41:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EC0413A3B6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1743158506; bh=CbwbNPe9dVWJ7xuWQAKHmX1HaZaAFOPJysqT/MHXRk8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MxLBHuqn49plWxA42wF+/u2fA5MEAXZwqyKRkW8xO0So/SX6Hx8MN7qK0irrX55JR
-	 JEeU00b/B8hxuTFw5Y6k8ZhupFo80kucSR6sP9MTAfgF+RrH7hCxKbJ7341TsRpUtP
-	 6J+F5udC9iilY/uQdtWZrQKzHCTA58LMiPhlX/cI=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Fri, 28 Mar 2025 11:41:42 +0100 (CET)
-Message-ID: <39ce620f-6c3d-4d3b-b30b-071ab7a40886@perex.cz>
-Date: Fri, 28 Mar 2025 11:41:42 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+	by alsa1.perex.cz (Postfix) with ESMTPS id 817D1F800E5
+	for <alsa-devel@alsa-project.org>; Fri, 28 Mar 2025 11:59:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 817D1F800E5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=dkhMlO5q;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com
+ header.b=ZSeDptUr
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
+ 52S81c6E001248;
+	Fri, 28 Mar 2025 05:59:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=hAdsgKSPHFfh2E2LCMXeWJ3R5462IZNZ0S/YQ4FGhIw=; b=
+	dkhMlO5qdyUQsJksZB+awmDm8CBC49nOv9JGkfyGshZZ4E3J3FV5WE4dzogrCgOS
+	I71B3aVOWtFc6sqmlbNwBiAS8ORNbkGzL8QjMaJzbdd9LcDw4HhOc8nV34I0F20J
+	Sp+9Zd0W2/O5GvwSl1fh3KDy4V8I6SgJI4u6DFL543nUFXVCmI4RCNJ+9WTddE3s
+	N6E4Um2xxGCfoBu9olpCMPzaKc9V2laBK3bMIerOpzng+SVvPISJiM7+wPYZo7He
+	B6elFemPvKAQPEdplu6DBnEer64GFQmO1mr5mDx/ULzg3w201Erzn9fBH/03nouT
+	RAOf6RX2uU+WYPqBe6qOFg==
+Received: from nam12-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12lp2174.outbound.protection.outlook.com [104.47.55.174])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 45ndnu12t7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 28 Mar 2025 05:59:04 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GJ1WZaFx2+ZBKc3IQNdA3ox7Z6cDZQ8j13e92WfkaKp87YGUd3WHSjnq45YFT6KSiZ3TDLlIhTUunwLiRRirQvNpyCqDSvv1MvxzSWwHZO1s8Fb039Czk6i9EPlYqnQ3lwzcAZZk4wop6gxN0wLlKTk1rJDzszopSVqZZFhcev5UEY4twDQPPqc5NB4L58q5r85rL1Fr+RSnhEXi4yvPeRU6tk9yOMbdAcdjG0rgPqiWa1A2ZhVuwP+3YhKGfc1igTbPsGXiEA5nEJ3o/tanXt27r6AbKZsmdqdh9tpY0gtMTECsgCgp74SG633ycN6Ld+UUiaA+iywkTcbfYdXUoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hAdsgKSPHFfh2E2LCMXeWJ3R5462IZNZ0S/YQ4FGhIw=;
+ b=oGO30K4MVKJu8Lp/5yOp8Oe0k/jkIrjnTcyAaVQPzoDSScVbjMz5Yrd5WXTOTSvcEYFc8+YggkD7aIu4uBzi//dAxGM9iE14HQ9M+wQPFtqthz9jYqCUk0MxXrpGNyfNJZd/OrLEGEt243x8UVR8Qb5JwWAyX1A2oTx/WNQN7rjH/u61JOzNfzNt1T2fpSU6LLOaor4585b9P+tBNbaYZ30YOGJia37/mmzEMoDMcocOQ5SFbf9363RxCHIzRpoSk+It7H0B3e7hyivven+q8+E6saByqKONE+RbgwBjjtOHHVE9vAFUA5Sb8VK9SdfThqa22eOgrKC7eO65As/ATQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 84.19.233.75) smtp.rcpttodomain=alsa-project.org smtp.mailfrom=cirrus.com;
+ dmarc=fail (p=reject sp=reject pct=100) action=oreject
+ header.from=opensource.cirrus.com; dkim=none (message not signed); arc=none
+ (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hAdsgKSPHFfh2E2LCMXeWJ3R5462IZNZ0S/YQ4FGhIw=;
+ b=ZSeDptUr2sFeSGwwjRx8YrLxFU8pGmZkmxDfd2Jxorep6UtCYw4rTFCANVyrpYCD29X22KYiXzJg/2DYhhkrkz5WjKLQq3+yzJOZ8mSsP0SUuHzeU5GJV/E1eJ9FdgWZUc/MyUp17huxiV56//a6R1cA9PLYaECXobQg6jyKVLY=
+Received: from MW4PR04CA0234.namprd04.prod.outlook.com (2603:10b6:303:87::29)
+ by PH7PR19MB7511.namprd19.prod.outlook.com (2603:10b6:510:27c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8534.47; Fri, 28 Mar
+ 2025 10:58:58 +0000
+Received: from CY4PEPF0000EE30.namprd05.prod.outlook.com
+ (2603:10b6:303:87:cafe::29) by MW4PR04CA0234.outlook.office365.com
+ (2603:10b6:303:87::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.43 via Frontend Transport; Fri,
+ 28 Mar 2025 10:58:58 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 84.19.233.75)
+ smtp.mailfrom=cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: Fail (protection.outlook.com: domain of cirrus.com does not
+ designate 84.19.233.75 as permitted sender) receiver=protection.outlook.com;
+ client-ip=84.19.233.75; helo=edirelay1.ad.cirrus.com;
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ CY4PEPF0000EE30.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8534.20
+ via Frontend Transport; Fri, 28 Mar 2025 10:58:56 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
+ [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 42286406541;
+	Fri, 28 Mar 2025 10:58:55 +0000 (UTC)
+Received: from ediswws03.ad.cirrus.com (ediswws03.ad.cirrus.com
+ [198.90.208.11])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTP id 1B6FC820248;
+	Fri, 28 Mar 2025 10:58:55 +0000 (UTC)
+Message-ID: 
+ <79a647c976f56b149e6136ad90f999bf581a47fa.camel@opensource.cirrus.com>
 Subject: Re: [PATCH alsa-ucm-conf 2/2] sof-soundwire: cs42l43: Control
  hardware volume to avoid clipping
-To: Maciej Strozek <mstrozek@opensource.cirrus.com>
+From: Maciej Strozek <mstrozek@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com
+Date: Fri, 28 Mar 2025 10:58:55 +0000
+In-Reply-To: <39ce620f-6c3d-4d3b-b30b-071ab7a40886@perex.cz>
 References: <20250328083619.1262150-1-mstrozek@opensource.cirrus.com>
- <20250328083619.1262150-2-mstrozek@opensource.cirrus.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Content-Language: en-US
-Autocrypt: addr=perex@perex.cz; keydata=
- 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
-In-Reply-To: <20250328083619.1262150-2-mstrozek@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UQYPDNRJ5DM6DDOQJ7WJWKKTTMER3DPU
-X-Message-ID-Hash: UQYPDNRJ5DM6DDOQJ7WJWKKTTMER3DPU
-X-MailFrom: perex@perex.cz
+	 <20250328083619.1262150-2-mstrozek@opensource.cirrus.com>
+	 <39ce620f-6c3d-4d3b-b30b-071ab7a40886@perex.cz>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE30:EE_|PH7PR19MB7511:EE_
+X-MS-Office365-Filtering-Correlation-Id: 863ffd00-725c-4a68-1480-08dd6de78996
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|36860700013|61400799027|376014|82310400026;
+X-Microsoft-Antispam-Message-Info: 
+	=?utf-8?B?eTlBajBUbUNQc1d3bFhRcUFtMUF2QlNNUlpjWHFteTZwQ01FSXc4dFJFV3Ny?=
+ =?utf-8?B?UHArWVlHT3NROWZ5MTlJaTdBdnVCcFIwUmx4Q0dXeU1pR3libFA2ZFZvSllK?=
+ =?utf-8?B?b3g0Z0pTeHpNYWFyRWxOcWxHK1p3Mmk0enVLZkYvVDVlNTJMSC9FK1JpOEIw?=
+ =?utf-8?B?VkFiLzNnQnpjNWIveS9kWXV4SGlteERFZXkrY2kwbVhIVlpmU0crTlI2WVRH?=
+ =?utf-8?B?MmE0cjN2NnltY01jaGhPQ2k1aUpaMjBMcDczTXUrUldSYkhXQnNpcU5mcyts?=
+ =?utf-8?B?TElCNElXbzRBSUJEM1hDblpSNWV5RjU3eTVjL1l1WE52bWJWNnlaZkkwRitr?=
+ =?utf-8?B?WlcxT1JJbmpSbGR0UUZ3N3R3ejJmWGlFRnZQSmdXNWZFZjJZTnJPdmMzVmlD?=
+ =?utf-8?B?c0ljWlNKbXVQMitkRllwNGJKek9aMHg5MXk4MFRkelVDNENwZmdrR2VlU2dq?=
+ =?utf-8?B?OVlQQnp3dVVtMnZCbnZzRFZpcGpoUmNWVWYxeXI4aCs1a29WVVROdERpUjRy?=
+ =?utf-8?B?TFhPNHV4MEZjK2tnamxPNkVUNlhsVFN5NEMySU1zQjl2dm1Oc2hlWkw2MnJh?=
+ =?utf-8?B?ZU1PRlpBb0ZOUjJYWm1WOUtTTXk0WXRWdUZGMVJFRkFlNEdaS0o2WVFWU3dQ?=
+ =?utf-8?B?Z0gxM0g3Q0p3K2F6NVgvV0RZeFZJK3YvY2d2WGtvVVcyUVgyN2dLRmFad1Vl?=
+ =?utf-8?B?Q01BM0RQdHo4VnIreDJBT3h3UXZ2SWVvTmtMd0VaWjcyRFdYNmlCVVR3Y3ly?=
+ =?utf-8?B?Q25HRFlZeXNINjM3RHZrcmRtSHMzUk12M2pkTnVVU1JlZzRyNzhUN29YdlRj?=
+ =?utf-8?B?c2hTMVc4TmUvSGxhY1NpNEN0S3R0S3VCcS9iODJ3R0Uya2tGTzYxdGMrN1VW?=
+ =?utf-8?B?dmQ2dXJWMi95U0xxaTcrRDN1YTNTMjZkVDQ3ZW9NRkxia3plRWExTDdVempK?=
+ =?utf-8?B?OTBZRkxUQjJRZmlDYTVBeWVlRUREZG9ESzJwMG51bHc0cHBJdXV6bVBmUm5a?=
+ =?utf-8?B?VjlqMjM0SnAzaXFLbnlMbUFubC8zbmx3eGxvUDdyak9pYW93TlpPSTRSNWxN?=
+ =?utf-8?B?YURsNXBjUENNTG1DTGdKdTU5RjZ2S2ZtNmRiL2VGMHV6TzIvMXZjOC9scEZh?=
+ =?utf-8?B?WGMxWnloU25od3hBb3B1WFk3MUpwM09OL2RGNk8rTk9iYm1wMGhOdCtQMSth?=
+ =?utf-8?B?TWlWUVQrM09OMTdQcVRXTTA4QjB2b2xxR2h0RE5rRWY4eDlpdTVVVlBMSGhx?=
+ =?utf-8?B?UmhIZnFneVNhajkyU20vTS83OW9VazVIWTRoT0w1Qjl0UWFqZUZHMUtoUlNP?=
+ =?utf-8?B?TFJzYTdILzNmblE3OThXNnc1OU1ydml1TnRrZi9UT2FOYWNBRXBEWnQxNzRj?=
+ =?utf-8?B?YnRNdXhsK3pXaVduSVlaNFlybXA0WWNpUGIwc1hFd0hJNG1KNXVBTUUxbDBq?=
+ =?utf-8?B?d3M0NGR4Ym1XU2FUUTdjMzEyOTJ5OEZPQjdNYTNGVzk4bjdTRFdZRCtrU0tH?=
+ =?utf-8?B?R0FhcVNUZ3o4NzhkTGE2djRLTUZvdnFVdGYycDJTTjd1Q1E0d1lTU216Wmti?=
+ =?utf-8?B?NEZrSnlucUVCRlhPVU1waGlZWmJ5L0RxNUxrMnBuYVQwOUYveDArNDRsMDBT?=
+ =?utf-8?B?aEsrM3hyY3Erd2tRcUlBNS80aHYrQTVsRm9NemZRRDdadnVYK0pZUU04NnVS?=
+ =?utf-8?B?MCt6MWl5K3B4bkJwWGdiK0tYQXlpSXNEMHp1Z0hrcXRWakh0SlZvQ2d5NUt6?=
+ =?utf-8?B?dlZ0NDltUnk3ZGV1a1NUSFIxNXQ5dkx1NytSSWlFeU5HcTJMWWs0ZFpHU3pY?=
+ =?utf-8?B?a0lFL0NYTnYweFRaLzNwSERjRDA3M2pXUzJWQ2hTVjJaTTEydjVibm1SWFBL?=
+ =?utf-8?B?MG1jT3RkblV5WU9sR2R0MVRjN2Q4ejd2b3BIRjQrV1VlUTVuWGU4YmtmNFpU?=
+ =?utf-8?B?UE5MdGh3dnNsQWV1VFFMTytWMXIrQzlpLzl6U2N1UHBoVDdmVjdBUzNYeDVn?=
+ =?utf-8?Q?NDZatU4Eh9q4ljKjW/fnO8JwKmU30Y=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(61400799027)(376014)(82310400026);DIR:OUT;SFP:1102;
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2025 10:58:56.6697
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 863ffd00-725c-4a68-1480-08dd6de78996
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CY4PEPF0000EE30.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR19MB7511
+X-Authority-Analysis: v=2.4 cv=GoJC+l1C c=1 sm=1 tr=0 ts=67e680f8 cx=c_pps
+ a=AVVanhwSUc+LQPSikfBlbg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19 a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19
+ a=IkcTkHD0fZMA:10 a=Vs1iUdzkB0EA:10
+ a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10 a=MGi3qEhtvdKTYsoYIVcA:9
+ a=QEXdDO2ut3YA:10 a=BGLuxUZjE2igh1l4FkT-:22
+X-Proofpoint-GUID: vApIs6A6dodxAulTyJWq1pLD0scAV4zA
+X-Proofpoint-ORIG-GUID: vApIs6A6dodxAulTyJWq1pLD0scAV4zA
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: J4VA6KOANQNHOI45KEZO3MANDB7ZDJ45
+X-Message-ID-Hash: J4VA6KOANQNHOI45KEZO3MANDB7ZDJ45
+X-MailFrom: prvs=3182ccdba2=maciej.strozek@cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +208,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQYPDNRJ5DM6DDOQJ7WJWKKTTMER3DPU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J4VA6KOANQNHOI45KEZO3MANDB7ZDJ45/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,18 +217,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 28. 03. 25 9:36, Maciej Strozek wrote:
-> Hardware volume control in cs42l43 can go up to +31.5dB which can cause audio
-> degradation. For best results, keep the hardware volume set to 0dB and let
-> software volume control the output.
+W=C2=A0dniu pi=C4=85, 28.03.2025 o=C2=A0godzinie 11=E2=88=B641=E2=80=89+010=
+0, u=C5=BCytkownik Jaroslav
+Kysela napisa=C5=82:
+> On 28. 03. 25 9:36, Maciej Strozek wrote:
+> > Hardware volume control in cs42l43 can go up to +31.5dB which can
+> > cause audio
+> > degradation. For best results, keep the hardware volume set to 0dB
+> > and let
+> > software volume control the output.
+>=20
+> It's something which I dislike (software volume control). If there's
+> a=20
+> hardware limit, it should be added to the driver. Eventually, alsa-
+> lib plugins=20
+> may be extended to do this cropping using a configuration. Also, it
+> may be a=20
+> bug in pulseaudio/pipewire. The +0dB volumes should be handed with a
+> care.
 
-It's something which I dislike (software volume control). If there's a 
-hardware limit, it should be added to the driver. Eventually, alsa-lib plugins 
-may be extended to do this cropping using a configuration. Also, it may be a 
-bug in pulseaudio/pipewire. The +0dB volumes should be handed with a care.
+I agree this is not very elegant to leave it to soft volume, but until
+things are resolved elsewhere this is the best way to get best audio
+for most users?
 
-				Jaroslav
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Jaroslav
+>=20
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+--=20
+Regards,
+Maciej

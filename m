@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EB68A754CE
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Mar 2025 08:40:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78882A7563E
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Mar 2025 13:26:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71CE4601BE;
-	Sat, 29 Mar 2025 08:40:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71CE4601BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA416601E2;
+	Sat, 29 Mar 2025 13:26:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA416601E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1743234032;
-	bh=XU9djj2CzTvhf4Yzf0u+fst2rECpOxvmS/qsviUBexw=;
+	s=default; t=1743251191;
+	bh=hrBk1I5S+G9BOOTuVBL3GPy4Ro2E7v8RTWcTwW45V8g=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=ZUs9EAT1/kj7y7T8nF4XDG6jIBh1vBQbfX9g1M2EW/iNJv6QZlp/PyoO7tvRYB4rK
-	 4OaIERoZVwBWdU5xM3AgBJFcJA3pLGeUAPRs0zOEayhQ31FtwfpF+3YijvuRz2uiyR
-	 UNkwU4GBPfcaYr0QP0UhRIzCnnERykwKHQx+wnM4=
+	b=Gw42hsDOwQbbXfXcve1ITyZPzaez3SlPNWO/oyAdqK3NLJ5bG2B4jCW2cLIWUvkcN
+	 G5j2tfuY1Tg6PFngwOKxr3aDbtYDX7ciNXxsaI9htwTTS94RnyIBrX8ZH4AqJDrWeI
+	 ILQZKIvsJsJGN9jBJ3qoSYtkGxpfS0CWoot+mXio=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03F8BF805BA; Sat, 29 Mar 2025 08:39:57 +0100 (CET)
+	id 00689F805C2; Sat, 29 Mar 2025 13:25:55 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1872F805B5;
-	Sat, 29 Mar 2025 08:39:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF55FF805AD;
+	Sat, 29 Mar 2025 13:25:55 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B167DF8055B; Sat, 29 Mar 2025 08:39:54 +0100 (CET)
+	id 9CE65F8055B; Sat, 29 Mar 2025 13:25:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 412A3F80093
-	for <alsa-devel@alsa-project.org>; Sat, 29 Mar 2025 08:39:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 412A3F80093
+	by alsa1.perex.cz (Postfix) with ESMTP id DB695F80095
+	for <alsa-devel@alsa-project.org>; Sat, 29 Mar 2025 13:25:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB695F80095
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1831361479ea5000-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-tools/pr/33@alsa-project.org>
-References: <alsa-project/alsa-tools/pr/33@alsa-project.org>
-Subject: envy24control: fix file descriptor leaks in profiles
-Date: Sat, 29 Mar 2025 08:39:54 +0100 (CET)
-Message-ID-Hash: 2Y3YFF4EENM3ZWGRYI6EUDLEHWGAAJZW
-X-Message-ID-Hash: 2Y3YFF4EENM3ZWGRYI6EUDLEHWGAAJZW
+Message-Id: <183145af172d8c00-webhooks-bot@alsa-project.org>
+In-Reply-To: <alsa-project/alsa-tools/pr/34@alsa-project.org>
+References: <alsa-project/alsa-tools/pr/34@alsa-project.org>
+Subject: envy24control: fix memory access errors in profiles
+Date: Sat, 29 Mar 2025 13:25:51 +0100 (CET)
+Message-ID-Hash: FCIZMTRRHYQY36CVY3PTZLP6OXZWF74T
+X-Message-ID-Hash: FCIZMTRRHYQY36CVY3PTZLP6OXZWF74T
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2Y3YFF4EENM3ZWGRYI6EUDLEHWGAAJZW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCIZMTRRHYQY36CVY3PTZLP6OXZWF74T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,10 +70,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-tools pull request #33 was opened from andreas56:
+alsa-project/alsa-tools pull request #34 was opened from andreas56:
 
-File descriptors were leaked when "Save active profile" was pressed. Add the missing calls to close.
+Fix two memory errors in the profiles parser: an invalid read and a "source and destination overlap in strncpy" warning.
 
-Request URL   : https://github.com/alsa-project/alsa-tools/pull/33
-Patch URL     : https://github.com/alsa-project/alsa-tools/pull/33.patch
+When the profiles page is initialized it fetches the profile names from the profiles file. When a profile wasn't defined in the file, the parser made invalid reads outside the buffer.
+
+Request URL   : https://github.com/alsa-project/alsa-tools/pull/34
+Patch URL     : https://github.com/alsa-project/alsa-tools/pull/34.patch
 Repository URL: https://github.com/alsa-project/alsa-tools

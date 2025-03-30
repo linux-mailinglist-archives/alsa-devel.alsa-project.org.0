@@ -2,111 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11900A84107
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Apr 2025 12:43:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E073BA8410A
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Apr 2025 12:43:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 736B46A863;
-	Thu, 10 Apr 2025 12:43:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 736B46A863
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53FE86A887;
+	Thu, 10 Apr 2025 12:43:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FE86A887
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1744281813;
-	bh=D3olxYLlBQ+nUTuxA65h4ayn7fzQD05m+AcZNVbUetg=;
+	s=default; t=1744281827;
+	bh=aQJ0XHn65sGs6NtxiUXiYeUBvt4Fj924GaZ8/5yJieA=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=UzOoeoHGrkT0de/1ChRy247ICpFEp6cxE4FHA0V70glxSX/pNF5M7dofuBk98zzMv
-	 piqoywc2YUD8SsOOu7+mlTOHrsGGc2zbx/AkL8cpwnuaYS8LUOyjlVG9amKpYoOij5
-	 NSi2B4x6CTmxP75FSc0mmSsOLsHedIaZuDPDofuA=
+	b=WHsFkarYwDQwaogELUMAeHi+PV8gukTdOcVzBeqQwnuzzDZD42gjGJQ1KpJxWgIy7
+	 YeeaFukwTVetElYkLhb4kWC8zbFVyvEiLwpTopAz/OSIZXdNsGJw+nvhFlVYOQ63ll
+	 RwqM4ZJulOMP+R85XKGw6JIBau/VCHGtLDI16mGU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75A7DF805C0; Thu, 10 Apr 2025 12:43:01 +0200 (CEST)
+	id 01E86F805EA; Thu, 10 Apr 2025 12:43:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B8DBF805B5;
+	by alsa1.perex.cz (Postfix) with ESMTP id DE86EF805DF;
 	Thu, 10 Apr 2025 12:43:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95B30F802DB; Sun, 30 Mar 2025 15:09:23 +0200 (CEST)
+	id 2EC08F804FF; Sun, 30 Mar 2025 15:09:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
 	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [IPv6:2607:f8b0:4864:20::836])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8AED5F8001D
-	for <alsa-devel@alsa-project.org>; Sun, 30 Mar 2025 15:09:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AED5F8001D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7349EF80093
+	for <alsa-devel@alsa-project.org>; Sun, 30 Mar 2025 15:09:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7349EF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=ZfUS8kTW
-Received: by mail-qv1-xf2e.google.com with SMTP id
- 6a1803df08f44-6ecfc7ed0c1so32874796d6.3
+ header.s=20230601 header.b=fk20J4lC
+Received: by mail-qt1-x836.google.com with SMTP id
+ d75a77b69052e-477282401b3so38182101cf.1
         for <alsa-devel@alsa-project.org>;
- Sun, 30 Mar 2025 06:09:20 -0700 (PDT)
+ Sun, 30 Mar 2025 06:09:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743340159; x=1743944959;
+        d=gmail.com; s=20230601; t=1743340162; x=1743944962;
  darn=alsa-project.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+f8/d1LUJCYjyq/aaDtzvsA9nVkE0shHwGbrMegDUrU=;
-        b=ZfUS8kTWu7lpJu8KCmGeaO+bujOM9Wl1qBAoLYZ6Skze4Vx31Z74ORPmcAInKz28ar
-         PQC2LeljKIt+rkiMKf2B5L4ewKBqfBCNJfiAjqFpVYA/SvJfrvalM062gUJHQughVVJf
-         KywiFPr4RaTiuF6Z+D+70dq8+kqMgK6jTE4M8oYKF2Ic1bk5O6N7TJR92cgy/jE5FJrj
-         +pk3zpmQXw3B3Kc4B+8z1hXeVw5pss88RuCSU2gTs5/tuASdhvMtWBfFDqFvhGW0/lOV
-         L3FiOA9R9HHTeNjcVY2aKmmAWYW5rLXAm06SwHx55q0V4WU5U5KrrTe+M2MB5iTPHkXH
-         MTcA==
+        bh=otHxdnQGm4FsPjJIQad3dVHmLl/Ou8a+L9FvFBgdAz4=;
+        b=fk20J4lCPqtJpI2Ucwxp6T55dGN6wCpyclGrPT+JfAGhsYIXmmdLVBLUxPvUuajHxh
+         9cTNxDdn/LCI/wT6tjxxPUKGNIX6atyjeKlcSQUZyrBen9mSKWyKQ1sNgcSpiXWavsBp
+         vfuRNvy/gd0XJkN7iBZCn/NxaU2nZAxEO0JVatItJOa+caW1RGER/cloHraPSg98g3ER
+         iBh5LGBM0jsfZk05pve0YVMZ0bgnjTasDm7kujE5QdZGGZjIwYqXucTvT6/hO4yXIdux
+         BRptheQJmsOTwlPrbUZDr15/TuEQsmvBTy9aimbFTZQHdfgvv9Of9Pzg1NjKmaOvRdcX
+         brjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743340159; x=1743944959;
+        d=1e100.net; s=20230601; t=1743340162; x=1743944962;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=+f8/d1LUJCYjyq/aaDtzvsA9nVkE0shHwGbrMegDUrU=;
-        b=iu3r5FLxl1G+98et5/u4KSnfXwYfpIlbfl+3PDsc1MIIMqLXtS+CVJ48g2q9Z/igz1
-         oUkTcjkT79nKq01ism9AtSNHjrLFv2kn03CRv/bWgoaLfh0CWqrE3As+aVoSbA6cteVZ
-         OkwiV1ta4mKwb4+7r/79xaUmFirWVm14GV32Ux3pZ4OnPXefm4EJrkDI6tE/ptWMOgVT
-         K2TMnhDF6yu/AXbt4V24AAvxysI6r0MmNyVS93Lts6+Zb5VLrrxTnggbGkOvx5PSsa6s
-         Y4U8cA50cb3obqbK3azfGEkNZDx0n6hvB/3+9S1xLFWp9suo4fo5kdKI/tmPmsPVVZPG
-         iI9Q==
+        bh=otHxdnQGm4FsPjJIQad3dVHmLl/Ou8a+L9FvFBgdAz4=;
+        b=g4btlNrQq7fVXIgNtOe730uMWmKB6PJgJ+Ypht3JkvAjO/mOkCFZd30Qe0l+81odf6
+         Aj2vkchUfh+x0x8KyhmNnAE9hm3WixL2jO0VnAE3ZPuTHzM1FNEe808M1ZQzPKV5JXbq
+         5E3Apv/ARcvZLyh+BAT5FIzxuayNoxEBvH3AbdGJ3vG86X9z5dK+NH2m39DVEmhEWffX
+         M8N/ANnYy9sQLTZRq0zGe1HuRMx/OV7n8JFym4DW4rHcgINjXwtwBjaujsjUOkzLzsoq
+         tzKbdCF068dopCKVt9pl7oNH4wHmNqsLdkx4t9SMyD1j+HtgzS97PlC4dwHGtk/Faucd
+         MdZg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/6B8/80/Gnn8mrMivhaZg3nRVVyahIjWM4W1NQadX+dgLeFFjJD9XjKY7uy1OkziTqvPo+1Xmd/7D@alsa-project.org
-X-Gm-Message-State: AOJu0YysAwq/XcuAvBo9Nj4GOJStLiibJZNSQdEUMwf7gC4kN4gIvfJe
-	2VUE6XkO2/oU5Nd6cL6EurfBPNGWbIttkGPSk3D6UWv9XYyBlUpk
-X-Gm-Gg: ASbGncupeBIJaba92j5Sw71khczgfT/GBHokGyAFh4sBcdJN2O4Oqn8WJgpxt2u6nAB
-	198MF2JOa2qS8luNpS0yBPBtmxzmj7BpTadgpTu8EiMwoTkkrfh9jwIxUvXE1VmV6BwzeE+QMpp
-	ICPWi++p6rFdgJ+XumLX67uqSpkOZDyzX6Qk5wC3UEiE6GmyoBqYiAJbYgqIeNQH3EC01WA3x3M
-	s136lLqMgJSwjHR8rDDnhcCPNwr1KA9f/X0VsJqWJnyVRfjxNeu9gbIqW0Gt4xYBrONtuMk17N0
-	yHIlU4nNq1BkeU2J6YS0EwFribd+/Zmcyin98yte4uWGl7dGdxlU/cazqdzm8ouYc9zChCqAlA7
-	A74jykW9zvu6HxqyyEuU=
+ AJvYcCVh0S2qduftWIr85zWlsaD43s6G0mWsm+Ydifa6JCNOOmsDhSHAPPNZfi99BhV/oIy18ICb2Dq0BMUh@alsa-project.org
+X-Gm-Message-State: AOJu0Yx/lx4vsJ8NzQ69NAlmYM1MxR6oATWhIvHXmhbOAhIG1MFUZkaA
+	RmueiJeOylkI9YrQ+inyFLUtmdHxtQk0R2Abrf3OrN4WPK4AJbK6
+X-Gm-Gg: ASbGncvP0LIYe0Efoud59V0MulPFoLVOZmJR4IZF4zW5VmEoOn9aS8YYuIvTLr+MEST
+	viOHOC8SZRd40zEbOkfizeb7r6GwTizQrSPlNEX3sLcpQBDWLrvqw63zsTSCkDq+HL4ES+5qVF/
+	O8qCV7aLGY+9QDVY00qaXfNjZunOGeloHhfvRCrvpSJVQ/Sby2TqzbIb8z8tB8E7sDYCU644/Hi
+	GZde1RL3/Q2fYgfKgxSYjpUSwAIh1HuaOXTXm0ab4Cjw6vjJRsFYpduHDUWdezjqwpIP+D1xozu
+	DWetKzmH3wnjBVnz+k+pzA2C/fjZUh+mmk0HlgzNYXmp4rU/KFeAM9KMHPe9ukaG36tFJy7juty
+	hXZaBlj+SJaeiiqWp4fM=
 X-Google-Smtp-Source: 
- AGHT+IGeW8/4t87eo3BmiJ5DqyKAxUo+ucEX1aeMXgaM2kqMDezafr8XhvZLkCdxwkgarITLCh9R1g==
-X-Received: by 2002:a05:6214:1bc5:b0:6ed:df6:cdcd with SMTP id
- 6a1803df08f44-6eed604410fmr77297666d6.21.1743340158836;
-        Sun, 30 Mar 2025 06:09:18 -0700 (PDT)
+ AGHT+IEV8HdK/DqdmO1+sj1GpGoXKylPrmqo89BfAGEMtLL+QVpJqbJGjIWVOPMDUkqeLA+AxhvjQg==
+X-Received: by 2002:a05:622a:1a25:b0:476:8595:fa09 with SMTP id
+ d75a77b69052e-477f7ae9679mr63879991cf.40.1743340161958;
+        Sun, 30 Mar 2025 06:09:21 -0700 (PDT)
 Received: from localhost.localdomain (c-68-55-107-1.hsd1.mi.comcast.net.
  [68.55.107.1])
         by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-6eec9627b36sm34011146d6.6.2025.03.30.06.09.17
+ d75a77b69052e-477831a65a3sm35687731cf.79.2025.03.30.06.09.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Mar 2025 06:09:18 -0700 (PDT)
+        Sun, 30 Mar 2025 06:09:21 -0700 (PDT)
 From: Brady Norander <bradynorander@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Aleksandr Mishin <amishin@t-argos.ru>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Jaroslav Kysela <perex@perex.cz>,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
+	u.kleine-koenig@baylibre.com,
 	Brady Norander <bradynorander@gmail.com>
-Subject: [PATCH v2] ASoC: amd: use new ACP dev names for DAI links
-Date: Sun, 30 Mar 2025 09:08:45 -0400
-Message-ID: <20250330130844.37870-2-bradynorander@gmail.com>
+Subject: [PATCH v2] ASoC: dwc: always enable/disable i2s irqs
+Date: Sun, 30 Mar 2025 09:08:54 -0400
+Message-ID: <20250330130852.37881-3-bradynorander@gmail.com>
 X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -116,15 +114,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: R6WDBAO6ISZVTGTSD4452IUXODALYZHZ
-X-Message-ID-Hash: R6WDBAO6ISZVTGTSD4452IUXODALYZHZ
+Message-ID-Hash: Y2WYS6XMHGZSKU5KOHXTEHJLYN3WMRP2
+X-Message-ID-Hash: Y2WYS6XMHGZSKU5KOHXTEHJLYN3WMRP2
 X-Mailman-Approved-At: Thu, 10 Apr 2025 10:42:58 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R6WDBAO6ISZVTGTSD4452IUXODALYZHZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y2WYS6XMHGZSKU5KOHXTEHJLYN3WMRP2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,100 +131,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On AMD SoC platforms with an ACP2x gpu ip block (such as stoneyridge),
-the amdgpu driver will create several platform devices for the ACP ASoC
-driver to communicate with the ACP hardware block on the gpu. These
-platform devices include dma for audio and one or multiple i2s
-interfaces. The amdgpu driver has always created these platform devices
-with automatic ids. The ASoC machine drives hardcode the platform device
-name. This creates an issue where if the ACP platform devices are not
-the first to be created, the ids can be different to what the machine
-drivers expect, causing them to not find the ACP platform devices and
-failing to load. Switch to using static ids for these ACP platform
-devices so that the names never change.
+Commit a42e988 ("ASoC: dwc: add DMA handshake control") changed the
+behavior of the driver to not enable or disable i2s irqs if using DMA. This
+breaks platforms such as AMD ACP. Audio playback appears to work but no
+audio can be heard. Revert to the old behavior by always enabling and
+disabling i2s irqs while keeping DMA handshake control.
 
-Depends on patch: drm/amdgpu: use static ids for ACP platform devs [1]
-
-[1] https://lore.kernel.org/all/20250325210517.2097188-1-bradynorander@gmail.com/
-
+Fixes: a42e988 ("ASoC: dwc: add DMA handshake control")
 Signed-off-by: Brady Norander <bradynorander@gmail.com>
 ---
-v2: rewrite commit message to better describe the issue
+v2: reword commit message to better describe the issue
 ---
- sound/soc/amd/acp-da7219-max98357a.c | 8 ++++----
- sound/soc/amd/acp-es8336.c           | 4 ++--
- sound/soc/amd/acp-rt5645.c           | 6 +++---
- 3 files changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/dwc/dwc-i2s.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
-index 02b04f355ca6..42aa009c4e13 100644
---- a/sound/soc/amd/acp-da7219-max98357a.c
-+++ b/sound/soc/amd/acp-da7219-max98357a.c
-@@ -517,11 +517,11 @@ static const struct snd_soc_ops cz_rt5682_dmic1_cap_ops = {
- };
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 57b789d7fbed..5b4f20dbf7bb 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -199,12 +199,10 @@ static void i2s_start(struct dw_i2s_dev *dev,
+ 	else
+ 		i2s_write_reg(dev->i2s_base, IRER, 1);
  
- SND_SOC_DAILINK_DEF(designware1,
--	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1.auto")));
-+	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1")));
- SND_SOC_DAILINK_DEF(designware2,
--	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2.auto")));
-+	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2")));
- SND_SOC_DAILINK_DEF(designware3,
--	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.3.auto")));
-+	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.3")));
+-	/* I2S needs to enable IRQ to make a handshake with DMAC on the JH7110 SoC */
+-	if (dev->use_pio || dev->is_jh7110)
+-		i2s_enable_irqs(dev, substream->stream, config->chan_nr);
+-	else
++	if (!(dev->use_pio || dev->is_jh7110))
+ 		i2s_enable_dma(dev, substream->stream);
  
- SND_SOC_DAILINK_DEF(dlgs,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-DLGS7219:00", "da7219-hifi")));
-@@ -533,7 +533,7 @@ SND_SOC_DAILINK_DEF(adau,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("ADAU7002:00", "adau7002-hifi")));
++	i2s_enable_irqs(dev, substream->stream, config->chan_nr);
+ 	i2s_write_reg(dev->i2s_base, CER, 1);
+ }
  
- SND_SOC_DAILINK_DEF(platform,
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0.auto")));
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0")));
+@@ -218,11 +216,12 @@ static void i2s_stop(struct dw_i2s_dev *dev,
+ 	else
+ 		i2s_write_reg(dev->i2s_base, IRER, 0);
  
- static struct snd_soc_dai_link cz_dai_7219_98357[] = {
- 	{
-diff --git a/sound/soc/amd/acp-es8336.c b/sound/soc/amd/acp-es8336.c
-index 0193b3eae7a6..b16dde0e2987 100644
---- a/sound/soc/amd/acp-es8336.c
-+++ b/sound/soc/amd/acp-es8336.c
-@@ -137,11 +137,11 @@ static const struct snd_soc_ops st_es8336_ops = {
- };
+-	if (dev->use_pio || dev->is_jh7110)
+-		i2s_disable_irqs(dev, substream->stream, 8);
+-	else
++	if (!(dev->use_pio || dev->is_jh7110))
+ 		i2s_disable_dma(dev, substream->stream);
  
- SND_SOC_DAILINK_DEF(designware1,
--		    DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2.auto")));
-+		    DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1")));
- SND_SOC_DAILINK_DEF(codec,
- 		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-ESSX8336:00", "ES8316 HiFi")));
- SND_SOC_DAILINK_DEF(platform,
--		    DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.1.auto")));
-+		    DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0")));
- 
- static struct snd_soc_dai_link st_dai_es8336[] = {
- 	{
-diff --git a/sound/soc/amd/acp-rt5645.c b/sound/soc/amd/acp-rt5645.c
-index 72ddad24dbda..11d373169380 100644
---- a/sound/soc/amd/acp-rt5645.c
-+++ b/sound/soc/amd/acp-rt5645.c
-@@ -108,15 +108,15 @@ static const struct snd_soc_ops cz_aif1_ops = {
- };
- 
- SND_SOC_DAILINK_DEF(designware1,
--	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1.auto")));
-+	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1")));
- SND_SOC_DAILINK_DEF(designware2,
--	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2.auto")));
-+	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2")));
- 
- SND_SOC_DAILINK_DEF(codec,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5650:00", "rt5645-aif1")));
- 
- SND_SOC_DAILINK_DEF(platform,
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0.auto")));
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0")));
- 
- static struct snd_soc_dai_link cz_dai_rt5650[] = {
- 	{
++	i2s_disable_irqs(dev, substream->stream, 8);
++
++
+ 	if (!dev->active) {
+ 		i2s_write_reg(dev->i2s_base, CER, 0);
+ 		i2s_write_reg(dev->i2s_base, IER, 0);
 -- 
 2.49.0
 

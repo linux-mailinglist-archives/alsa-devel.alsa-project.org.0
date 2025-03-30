@@ -2,102 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61523A83733
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Apr 2025 05:24:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11900A84107
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Apr 2025 12:43:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8730699B2;
-	Thu, 10 Apr 2025 05:24:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8730699B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 736B46A863;
+	Thu, 10 Apr 2025 12:43:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 736B46A863
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1744255462;
-	bh=4gLD2iSfTNiIrGQ1C0EITHBwoEyxmBlxJRt1Xgh8Du0=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1744281813;
+	bh=D3olxYLlBQ+nUTuxA65h4ayn7fzQD05m+AcZNVbUetg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Pq8hqaNbmZFNEcypOpPDkQsOgcKflCZuCCypgIsm2G4DJIByboKwbTmtfTYlY7zF3
-	 nbN+zoaGRuxjxMMauU+7LTIU+oO+IlsZswNxMVDTddDWFSgh7iZkJTHrzO+ZY6Fnk0
-	 w2+8qELfsd8AOIsWgabL+Nlgt7m0MvxpRmp9i5z4=
+	b=UzOoeoHGrkT0de/1ChRy247ICpFEp6cxE4FHA0V70glxSX/pNF5M7dofuBk98zzMv
+	 piqoywc2YUD8SsOOu7+mlTOHrsGGc2zbx/AkL8cpwnuaYS8LUOyjlVG9amKpYoOij5
+	 NSi2B4x6CTmxP75FSc0mmSsOLsHedIaZuDPDofuA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2255FF80093; Thu, 10 Apr 2025 05:23:57 +0200 (CEST)
+	id 75A7DF805C0; Thu, 10 Apr 2025 12:43:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6DC0F805B5;
-	Thu, 10 Apr 2025 05:23:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B8DBF805B5;
+	Thu, 10 Apr 2025 12:43:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1DFE7F8014C; Thu, 10 Apr 2025 05:23:49 +0200 (CEST)
+	id 95B30F802DB; Sun, 30 Mar 2025 15:09:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4C67BF80093
-	for <alsa-devel@alsa-project.org>; Thu, 10 Apr 2025 05:23:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C67BF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8AED5F8001D
+	for <alsa-devel@alsa-project.org>; Sun, 30 Mar 2025 15:09:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AED5F8001D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=mBHWduw4
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 53A3NbOG1154658
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Apr 2025 22:23:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1744255417;
-	bh=pxMt1M41FUy9blO34h2KKUXfMYsagOUCTDq2/DW2oAo=;
-	h=From:To:CC:Subject:Date;
-	b=mBHWduw4djUAwhiRzyzGUcFptdE9Ybevtl3e/bXQZMiMq/Yen2xGxIrf5dc/GWP2U
-	 MTDlEgzMS7pMygL9aa0rr13ut3ZwOmnKLh7bSX8N9du6i0EGx9FYPL3e0rw3l6REd6
-	 E2+//Yl7vLlLQNDXsN/qj5jzaMJzxRoMqEV3lBBs=
-Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 53A3NbAO127993
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 9 Apr 2025 22:23:37 -0500
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 9
- Apr 2025 22:23:37 -0500
-Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Wed, 9 Apr 2025 22:23:37 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.163.204])
-	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 53A3NWG7022629;
-	Wed, 9 Apr 2025 22:23:33 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <tiwai@suse.de>
-CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
-        <13564923607@139.com>, <13916275206@139.com>,
-        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <baojun.xu@ti.com>, <Baojun.Xu@fpt.com>, <robinchen@ti.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v2] ALSA: hda/tas2781: Create a common header for both spi and
- i2c tas2781 hda driver
-Date: Thu, 10 Apr 2025 11:23:28 +0800
-Message-ID: <20250410032328.1361-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=ZfUS8kTW
+Received: by mail-qv1-xf2e.google.com with SMTP id
+ 6a1803df08f44-6ecfc7ed0c1so32874796d6.3
+        for <alsa-devel@alsa-project.org>;
+ Sun, 30 Mar 2025 06:09:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1743340159; x=1743944959;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+f8/d1LUJCYjyq/aaDtzvsA9nVkE0shHwGbrMegDUrU=;
+        b=ZfUS8kTWu7lpJu8KCmGeaO+bujOM9Wl1qBAoLYZ6Skze4Vx31Z74ORPmcAInKz28ar
+         PQC2LeljKIt+rkiMKf2B5L4ewKBqfBCNJfiAjqFpVYA/SvJfrvalM062gUJHQughVVJf
+         KywiFPr4RaTiuF6Z+D+70dq8+kqMgK6jTE4M8oYKF2Ic1bk5O6N7TJR92cgy/jE5FJrj
+         +pk3zpmQXw3B3Kc4B+8z1hXeVw5pss88RuCSU2gTs5/tuASdhvMtWBfFDqFvhGW0/lOV
+         L3FiOA9R9HHTeNjcVY2aKmmAWYW5rLXAm06SwHx55q0V4WU5U5KrrTe+M2MB5iTPHkXH
+         MTcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1743340159; x=1743944959;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+f8/d1LUJCYjyq/aaDtzvsA9nVkE0shHwGbrMegDUrU=;
+        b=iu3r5FLxl1G+98et5/u4KSnfXwYfpIlbfl+3PDsc1MIIMqLXtS+CVJ48g2q9Z/igz1
+         oUkTcjkT79nKq01ism9AtSNHjrLFv2kn03CRv/bWgoaLfh0CWqrE3As+aVoSbA6cteVZ
+         OkwiV1ta4mKwb4+7r/79xaUmFirWVm14GV32Ux3pZ4OnPXefm4EJrkDI6tE/ptWMOgVT
+         K2TMnhDF6yu/AXbt4V24AAvxysI6r0MmNyVS93Lts6+Zb5VLrrxTnggbGkOvx5PSsa6s
+         Y4U8cA50cb3obqbK3azfGEkNZDx0n6hvB/3+9S1xLFWp9suo4fo5kdKI/tmPmsPVVZPG
+         iI9Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/6B8/80/Gnn8mrMivhaZg3nRVVyahIjWM4W1NQadX+dgLeFFjJD9XjKY7uy1OkziTqvPo+1Xmd/7D@alsa-project.org
+X-Gm-Message-State: AOJu0YysAwq/XcuAvBo9Nj4GOJStLiibJZNSQdEUMwf7gC4kN4gIvfJe
+	2VUE6XkO2/oU5Nd6cL6EurfBPNGWbIttkGPSk3D6UWv9XYyBlUpk
+X-Gm-Gg: ASbGncupeBIJaba92j5Sw71khczgfT/GBHokGyAFh4sBcdJN2O4Oqn8WJgpxt2u6nAB
+	198MF2JOa2qS8luNpS0yBPBtmxzmj7BpTadgpTu8EiMwoTkkrfh9jwIxUvXE1VmV6BwzeE+QMpp
+	ICPWi++p6rFdgJ+XumLX67uqSpkOZDyzX6Qk5wC3UEiE6GmyoBqYiAJbYgqIeNQH3EC01WA3x3M
+	s136lLqMgJSwjHR8rDDnhcCPNwr1KA9f/X0VsJqWJnyVRfjxNeu9gbIqW0Gt4xYBrONtuMk17N0
+	yHIlU4nNq1BkeU2J6YS0EwFribd+/Zmcyin98yte4uWGl7dGdxlU/cazqdzm8ouYc9zChCqAlA7
+	A74jykW9zvu6HxqyyEuU=
+X-Google-Smtp-Source: 
+ AGHT+IGeW8/4t87eo3BmiJ5DqyKAxUo+ucEX1aeMXgaM2kqMDezafr8XhvZLkCdxwkgarITLCh9R1g==
+X-Received: by 2002:a05:6214:1bc5:b0:6ed:df6:cdcd with SMTP id
+ 6a1803df08f44-6eed604410fmr77297666d6.21.1743340158836;
+        Sun, 30 Mar 2025 06:09:18 -0700 (PDT)
+Received: from localhost.localdomain (c-68-55-107-1.hsd1.mi.comcast.net.
+ [68.55.107.1])
+        by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6eec9627b36sm34011146d6.6.2025.03.30.06.09.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Mar 2025 06:09:18 -0700 (PDT)
+From: Brady Norander <bradynorander@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Aleksandr Mishin <amishin@t-argos.ru>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Brady Norander <bradynorander@gmail.com>
+Subject: [PATCH v2] ASoC: amd: use new ACP dev names for DAI links
+Date: Sun, 30 Mar 2025 09:08:45 -0400
+Message-ID: <20250330130844.37870-2-bradynorander@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Message-ID-Hash: BQODN3DUSFECLZCLKJXXNBDPRBQGCUD3
-X-Message-ID-Hash: BQODN3DUSFECLZCLKJXXNBDPRBQGCUD3
-X-MailFrom: shenghao-ding@ti.com
+X-MailFrom: bradynorander@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: R6WDBAO6ISZVTGTSD4452IUXODALYZHZ
+X-Message-ID-Hash: R6WDBAO6ISZVTGTSD4452IUXODALYZHZ
+X-Mailman-Approved-At: Thu, 10 Apr 2025 10:42:58 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BQODN3DUSFECLZCLKJXXNBDPRBQGCUD3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R6WDBAO6ISZVTGTSD4452IUXODALYZHZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,177 +133,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Move the common macro definition of kcontrols into a common header.
+On AMD SoC platforms with an ACP2x gpu ip block (such as stoneyridge),
+the amdgpu driver will create several platform devices for the ACP ASoC
+driver to communicate with the ACP hardware block on the gpu. These
+platform devices include dma for audio and one or multiple i2s
+interfaces. The amdgpu driver has always created these platform devices
+with automatic ids. The ASoC machine drives hardcode the platform device
+name. This creates an issue where if the ACP platform devices are not
+the first to be created, the ids can be different to what the machine
+drivers expect, causing them to not find the ACP platform devices and
+failing to load. Switch to using static ids for these ACP platform
+devices so that the names never change.
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Depends on patch: drm/amdgpu: use static ids for ACP platform devs [1]
 
+[1] https://lore.kernel.org/all/20250325210517.2097188-1-bradynorander@gmail.com/
+
+Signed-off-by: Brady Norander <bradynorander@gmail.com>
 ---
-v2:
- - Follow IWYU principle, add sound/asound.h into the header file.
-v1:
- - Revise the year of spi and i2c tas2781 hda drivers.
- - Create a common header for both spi and i2c tas2781 hda driver to define
-   the common macros and declare the common functions.
+v2: rewrite commit message to better describe the issue
 ---
- sound/pci/hda/tas2781_hda.h     | 44 +++++++++++++++++++++++++++++++++
- sound/pci/hda/tas2781_hda_i2c.c | 29 ++--------------------
- sound/pci/hda/tas2781_hda_spi.c | 35 ++------------------------
- 3 files changed, 48 insertions(+), 60 deletions(-)
- create mode 100644 sound/pci/hda/tas2781_hda.h
+ sound/soc/amd/acp-da7219-max98357a.c | 8 ++++----
+ sound/soc/amd/acp-es8336.c           | 4 ++--
+ sound/soc/amd/acp-rt5645.c           | 6 +++---
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/sound/pci/hda/tas2781_hda.h b/sound/pci/hda/tas2781_hda.h
-new file mode 100644
-index 000000000000..fc741fac419a
---- /dev/null
-+++ b/sound/pci/hda/tas2781_hda.h
-@@ -0,0 +1,44 @@
-+/* SPDX-License-Identifier: GPL-2.0-only
-+ *
-+ * HDA audio driver for Texas Instruments TAS2781 smart amp
-+ *
-+ * Copyright (C) 2025 Texas Instruments, Inc.
-+ */
-+#ifndef __TAS2781_HDA_H__
-+#define __TAS2781_HDA_H__
-+
-+#include <sound/asound.h>
-+
-+/*
-+ * No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
-+ * Define two controls, one is Volume control callbacks, the other is
-+ * flag setting control callbacks.
-+ */
-+
-+/* Volume control callbacks for tas2781 */
-+#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
-+	xhandler_get, xhandler_put, tlv_array) { \
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname), \
-+	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
-+		SNDRV_CTL_ELEM_ACCESS_READWRITE, \
-+	.tlv.p = (tlv_array), \
-+	.info = snd_soc_info_volsw, \
-+	.get = xhandler_get, .put = xhandler_put, \
-+	.private_value = (unsigned long)&(struct soc_mixer_control) { \
-+		.reg = xreg, .rreg = xreg, \
-+		.shift = xshift, .rshift = xshift,\
-+		.min = xmin, .max = xmax, .invert = xinvert, \
-+	} \
-+}
-+
-+/* Flag control callbacks for tas2781 */
-+#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) { \
-+	.iface = SNDRV_CTL_ELEM_IFACE_CARD, \
-+	.name = xname, \
-+	.info = snd_ctl_boolean_mono_info, \
-+	.get = xhandler_get, \
-+	.put = xhandler_put, \
-+	.private_value = xdata, \
-+}
-+
-+#endif
-diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
-index 29dc4f500580..9d94ae5fcfe0 100644
---- a/sound/pci/hda/tas2781_hda_i2c.c
-+++ b/sound/pci/hda/tas2781_hda_i2c.c
-@@ -2,7 +2,7 @@
- //
- // TAS2781 HDA I2C driver
- //
--// Copyright 2023 - 2024 Texas Instruments, Inc.
-+// Copyright 2023 - 2025 Texas Instruments, Inc.
- //
- // Author: Shenghao Ding <shenghao-ding@ti.com>
- // Current maintainer: Baojun Xu <baojun.xu@ti.com>
-@@ -30,35 +30,10 @@
- #include "hda_component.h"
- #include "hda_jack.h"
- #include "hda_generic.h"
-+#include "tas2781_hda.h"
+diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
+index 02b04f355ca6..42aa009c4e13 100644
+--- a/sound/soc/amd/acp-da7219-max98357a.c
++++ b/sound/soc/amd/acp-da7219-max98357a.c
+@@ -517,11 +517,11 @@ static const struct snd_soc_ops cz_rt5682_dmic1_cap_ops = {
+ };
  
- #define TASDEVICE_SPEAKER_CALIBRATION_SIZE	20
+ SND_SOC_DAILINK_DEF(designware1,
+-	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1.auto")));
++	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1")));
+ SND_SOC_DAILINK_DEF(designware2,
+-	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2.auto")));
++	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2")));
+ SND_SOC_DAILINK_DEF(designware3,
+-	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.3.auto")));
++	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.3")));
  
--/* No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
-- * Define two controls, one is Volume control callbacks, the other is
-- * flag setting control callbacks.
-- */
--
--/* Volume control callbacks for tas2781 */
--#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
--	xhandler_get, xhandler_put, tlv_array) \
--{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname),\
--	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
--		 SNDRV_CTL_ELEM_ACCESS_READWRITE,\
--	.tlv.p = (tlv_array), \
--	.info = snd_soc_info_volsw, \
--	.get = xhandler_get, .put = xhandler_put, \
--	.private_value = (unsigned long)&(struct soc_mixer_control) \
--		{.reg = xreg, .rreg = xreg, .shift = xshift, \
--		 .rshift = xshift, .min = xmin, .max = xmax, \
--		 .invert = xinvert} }
--
--/* Flag control callbacks for tas2781 */
--#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) \
--{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = xname, \
--	.info = snd_ctl_boolean_mono_info, \
--	.get = xhandler_get, .put = xhandler_put, \
--	.private_value = xdata }
--
- enum calib_data {
- 	R0_VAL = 0,
- 	INV_R0,
-diff --git a/sound/pci/hda/tas2781_hda_spi.c b/sound/pci/hda/tas2781_hda_spi.c
-index 399f2e4c3b62..c6be2be1b53e 100644
---- a/sound/pci/hda/tas2781_hda_spi.c
-+++ b/sound/pci/hda/tas2781_hda_spi.c
-@@ -2,7 +2,7 @@
- //
- // TAS2781 HDA SPI driver
- //
--// Copyright 2024 Texas Instruments, Inc.
-+// Copyright 2024 - 2025 Texas Instruments, Inc.
- //
- // Author: Baojun Xu <baojun.xu@ti.com>
+ SND_SOC_DAILINK_DEF(dlgs,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-DLGS7219:00", "da7219-hifi")));
+@@ -533,7 +533,7 @@ SND_SOC_DAILINK_DEF(adau,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("ADAU7002:00", "adau7002-hifi")));
  
-@@ -38,38 +38,7 @@
- #include "hda_component.h"
- #include "hda_jack.h"
- #include "hda_generic.h"
--
--/*
-- * No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
-- * Define two controls, one is Volume control callbacks, the other is
-- * flag setting control callbacks.
-- */
--
--/* Volume control callbacks for tas2781 */
--#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
--	xhandler_get, xhandler_put, tlv_array) { \
--	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname), \
--	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
--		SNDRV_CTL_ELEM_ACCESS_READWRITE, \
--	.tlv.p = (tlv_array), \
--	.info = snd_soc_info_volsw, \
--	.get = xhandler_get, .put = xhandler_put, \
--	.private_value = (unsigned long)&(struct soc_mixer_control) { \
--		.reg = xreg, .rreg = xreg, \
--		.shift = xshift, .rshift = xshift,\
--		.min = xmin, .max = xmax, .invert = xinvert, \
--	} \
--}
--
--/* Flag control callbacks for tas2781 */
--#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) { \
--	.iface = SNDRV_CTL_ELEM_IFACE_CARD, \
--	.name = xname, \
--	.info = snd_ctl_boolean_mono_info, \
--	.get = xhandler_get, \
--	.put = xhandler_put, \
--	.private_value = xdata, \
--}
-+#include "tas2781_hda.h"
+ SND_SOC_DAILINK_DEF(platform,
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0.auto")));
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0")));
  
- struct tas2781_hda {
- 	struct tasdevice_priv *priv;
+ static struct snd_soc_dai_link cz_dai_7219_98357[] = {
+ 	{
+diff --git a/sound/soc/amd/acp-es8336.c b/sound/soc/amd/acp-es8336.c
+index 0193b3eae7a6..b16dde0e2987 100644
+--- a/sound/soc/amd/acp-es8336.c
++++ b/sound/soc/amd/acp-es8336.c
+@@ -137,11 +137,11 @@ static const struct snd_soc_ops st_es8336_ops = {
+ };
+ 
+ SND_SOC_DAILINK_DEF(designware1,
+-		    DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2.auto")));
++		    DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1")));
+ SND_SOC_DAILINK_DEF(codec,
+ 		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-ESSX8336:00", "ES8316 HiFi")));
+ SND_SOC_DAILINK_DEF(platform,
+-		    DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.1.auto")));
++		    DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0")));
+ 
+ static struct snd_soc_dai_link st_dai_es8336[] = {
+ 	{
+diff --git a/sound/soc/amd/acp-rt5645.c b/sound/soc/amd/acp-rt5645.c
+index 72ddad24dbda..11d373169380 100644
+--- a/sound/soc/amd/acp-rt5645.c
++++ b/sound/soc/amd/acp-rt5645.c
+@@ -108,15 +108,15 @@ static const struct snd_soc_ops cz_aif1_ops = {
+ };
+ 
+ SND_SOC_DAILINK_DEF(designware1,
+-	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1.auto")));
++	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.1")));
+ SND_SOC_DAILINK_DEF(designware2,
+-	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2.auto")));
++	DAILINK_COMP_ARRAY(COMP_CPU("designware-i2s.2")));
+ 
+ SND_SOC_DAILINK_DEF(codec,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5650:00", "rt5645-aif1")));
+ 
+ SND_SOC_DAILINK_DEF(platform,
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0.auto")));
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp_audio_dma.0")));
+ 
+ static struct snd_soc_dai_link cz_dai_rt5650[] = {
+ 	{
 -- 
-2.34.1
+2.49.0
 

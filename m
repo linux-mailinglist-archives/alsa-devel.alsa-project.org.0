@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C38A7AB66
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Apr 2025 21:20:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 747CFA7B887
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Apr 2025 10:04:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C6D16019D;
-	Thu,  3 Apr 2025 21:20:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C6D16019D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34998601CE;
+	Fri,  4 Apr 2025 10:04:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34998601CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1743708025;
-	bh=KDddhCYnknq7o0u9HTHHceQR1oTElD5Bmvm2te5gsNY=;
+	s=default; t=1743753854;
+	bh=YvTIjhOkVSpLBEvYPsAQNkJ4hGH97GvHaoytv2JBtWw=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=F2Xt8R+sWsEC8l7k2E6sA5Rgs02trtq0/NdwjLe+uvhotvPBPCoQy3sKWWDIklFza
-	 ggrRbL7W3xCeChB9sFQ7VBce5MnK746Epnam9PtwMPhGUBtNH3OQFiGSYnUIRQXUI6
-	 z2oJCLEWPSP3xGMRNNLJ6S/hONeZXbPwrMpyYfO0=
+	b=THQbR32FDp8P6kDM4bd3luFW4SxuknQqItTW5JwjP//l2Scr5oVAPqnhNdLBrID2I
+	 VlQYnT53LcM/wMUd1pE+JX/tpYJGqwLPyqeAgOJnWlEq/YIvUQBUev4boguK6C4igY
+	 e8IlKs98pmRoXTgmMF25rxNTAVnUpSOiwO3qDjU8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5BA76F805BD; Thu,  3 Apr 2025 21:19:52 +0200 (CEST)
+	id 32A91F8052E; Fri,  4 Apr 2025 10:03:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AD4FF805BE;
-	Thu,  3 Apr 2025 21:19:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FD24F8023A;
+	Fri,  4 Apr 2025 10:03:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92B72F80236; Thu,  3 Apr 2025 21:19:46 +0200 (CEST)
+	id AF9BFF8023A; Fri,  4 Apr 2025 10:02:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90BB1F8003C
-	for <alsa-devel@alsa-project.org>; Thu,  3 Apr 2025 21:19:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90BB1F8003C
+	by alsa1.perex.cz (Postfix) with ESMTP id 1808AF80073
+	for <alsa-devel@alsa-project.org>; Fri,  4 Apr 2025 10:02:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1808AF80073
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
+From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1832e52c419f0600-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-ucm-conf/pr/536@alsa-project.org>
-References: <alsa-project/alsa-ucm-conf/pr/536@alsa-project.org>
-Subject: USB-Audio: Add Roland BridgeCast One | adapted
-Date: Thu,  3 Apr 2025 21:19:46 +0200 (CEST)
-Message-ID-Hash: 45K3AA53SRIUFV7KZ4JB2KQW4CY5YSH3
-X-Message-ID-Hash: 45K3AA53SRIUFV7KZ4JB2KQW4CY5YSH3
+Message-Id: <18330ecb67c82c00-webhooks-bot@alsa-project.org>
+In-Reply-To: <alsa-project/alsa-ucm-conf/pr/542@alsa-project.org>
+References: <alsa-project/alsa-ucm-conf/pr/542@alsa-project.org>
+Subject: ucm2: sof-soundwire: Correct include file path for dsp.conf
+Date: Fri,  4 Apr 2025 10:02:32 +0200 (CEST)
+Message-ID-Hash: ROB6RW5WZSYSKZYDJF72KOJD7UNVXNLE
+X-Message-ID-Hash: ROB6RW5WZSYSKZYDJF72KOJD7UNVXNLE
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/45K3AA53SRIUFV7KZ4JB2KQW4CY5YSH3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ROB6RW5WZSYSKZYDJF72KOJD7UNVXNLE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,13 +70,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #536 was edited from Simon99de:
+alsa-project/alsa-ucm-conf pull request #542 was opened from ujfalusi:
 
-Add Roland BridgeCast One
-uses the same config as the bridge cast v2 as it has the same outputs and it worked in my test.
+The file path must be given as absolut and not relative, otherwise the dsp.conf file will not be found:
+$ alsaucm dump text
+ALSA lib utils.c:364:(uc_mgr_config_load_into) could not open configuration file /usr/share/alsa/ucm2/conf.d/sof-soundwire/../Intel/sof-hda-dsp/dsp.conf ALSA lib parser.c:78:(uc_mgr_config_load_file) error: failed to open file /usr/share/alsa/ucm2/conf.d/sof-soundwire/../Intel/sof-hda-dsp/dsp.conf: -2 ALSA lib main.c:1554:(snd_use_case_mgr_open) error: failed to import hw:0 use case configuration -2 alsaucm: error failed to open sound card hw:0: No such file or directory
 
-0582:030d
+Fixes: c9d1f7eafa6c ("UCM2: sof-soundwire: Enable DRC and equalizers for")
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/536
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/536.patch
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/542
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/542.patch
 Repository URL: https://github.com/alsa-project/alsa-ucm-conf

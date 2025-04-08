@@ -2,127 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E073BA8410A
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Apr 2025 12:43:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8293BA8410D
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Apr 2025 12:44:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53FE86A887;
-	Thu, 10 Apr 2025 12:43:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FE86A887
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9702F6A8BE;
+	Thu, 10 Apr 2025 12:44:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9702F6A8BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1744281827;
-	bh=aQJ0XHn65sGs6NtxiUXiYeUBvt4Fj924GaZ8/5yJieA=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1744281889;
+	bh=NrhJ6SzzQ/PgGgxneFFyP6Ox/InK8EUy4fGdNgR1S88=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=WHsFkarYwDQwaogELUMAeHi+PV8gukTdOcVzBeqQwnuzzDZD42gjGJQ1KpJxWgIy7
-	 YeeaFukwTVetElYkLhb4kWC8zbFVyvEiLwpTopAz/OSIZXdNsGJw+nvhFlVYOQ63ll
-	 RwqM4ZJulOMP+R85XKGw6JIBau/VCHGtLDI16mGU=
+	b=W6DjqcsTMKv7K90idBLZnjkkj67VoEl+l4A0L6PEW+TZ7/7lk9T1Sogo4SPQVR7Y9
+	 VlPVlBk+xm1kIXPI5gOTfvX1IUld0SM9DmllwdoQf91vgDKt5zXR93aVWJJkGUSkdw
+	 iPHOTzyyzlINKprSu3A2YQIb3arBHosXi1itETX8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 01E86F805EA; Thu, 10 Apr 2025 12:43:01 +0200 (CEST)
+	id 953DBF805BF; Thu, 10 Apr 2025 12:44:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE86EF805DF;
-	Thu, 10 Apr 2025 12:43:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84B94F805BE;
+	Thu, 10 Apr 2025 12:44:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EC08F804FF; Sun, 30 Mar 2025 15:09:26 +0200 (CEST)
+	id 3F6C0F8055B; Tue,  8 Apr 2025 22:01:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+X-Spam-Status: No, score=0.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
 	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7349EF80093
-	for <alsa-devel@alsa-project.org>; Sun, 30 Mar 2025 15:09:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7349EF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 716A1F8003C
+	for <alsa-devel@alsa-project.org>; Tue,  8 Apr 2025 22:01:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 716A1F8003C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=fk20J4lC
-Received: by mail-qt1-x836.google.com with SMTP id
- d75a77b69052e-477282401b3so38182101cf.1
+ header.s=20230601 header.b=kziD4qtN
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-ac2963dc379so68919166b.2
         for <alsa-devel@alsa-project.org>;
- Sun, 30 Mar 2025 06:09:23 -0700 (PDT)
+ Tue, 08 Apr 2025 13:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743340162; x=1743944962;
+        d=gmail.com; s=20230601; t=1744142492; x=1744747292;
  darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=otHxdnQGm4FsPjJIQad3dVHmLl/Ou8a+L9FvFBgdAz4=;
-        b=fk20J4lCPqtJpI2Ucwxp6T55dGN6wCpyclGrPT+JfAGhsYIXmmdLVBLUxPvUuajHxh
-         9cTNxDdn/LCI/wT6tjxxPUKGNIX6atyjeKlcSQUZyrBen9mSKWyKQ1sNgcSpiXWavsBp
-         vfuRNvy/gd0XJkN7iBZCn/NxaU2nZAxEO0JVatItJOa+caW1RGER/cloHraPSg98g3ER
-         iBh5LGBM0jsfZk05pve0YVMZ0bgnjTasDm7kujE5QdZGGZjIwYqXucTvT6/hO4yXIdux
-         BRptheQJmsOTwlPrbUZDr15/TuEQsmvBTy9aimbFTZQHdfgvv9Of9Pzg1NjKmaOvRdcX
-         brjg==
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=bNchtQh6zPVwJtAvDDMxfjZjpLOdglQccQoL6yekagk=;
+        b=kziD4qtNH5JYGcyFPCE2wqCafFtCMbL15S6TmAQQ+6mh0nf2JupJgTAa0LqpaThEoG
+         OtWizmAJqWf0kCfFKRT7y8yjAr/ZQjmSVd8kx85ATGT3CUN7G4Kab+BSSvJepjqJ9Uzl
+         RjeOXKseDUGB3/LI/RUEbAsevJBG2Rkkhqk4GOyKP5b+D3BG7SHfv7HwwGBzKPCJd6Vz
+         d0nooCae8eiUzmt2FCsoDpiSHhvfdtxQDjTqflXMW2rPdPnBCq8UanDT6X3ogKawQUmW
+         CajEId1WfnPdF9+GdNUY1cbkjGcRV9Gf64t+u76Jy6xx2r/rPqlkYbBvqdEvj96/Mf0x
+         ZpLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743340162; x=1743944962;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=otHxdnQGm4FsPjJIQad3dVHmLl/Ou8a+L9FvFBgdAz4=;
-        b=g4btlNrQq7fVXIgNtOe730uMWmKB6PJgJ+Ypht3JkvAjO/mOkCFZd30Qe0l+81odf6
-         Aj2vkchUfh+x0x8KyhmNnAE9hm3WixL2jO0VnAE3ZPuTHzM1FNEe808M1ZQzPKV5JXbq
-         5E3Apv/ARcvZLyh+BAT5FIzxuayNoxEBvH3AbdGJ3vG86X9z5dK+NH2m39DVEmhEWffX
-         M8N/ANnYy9sQLTZRq0zGe1HuRMx/OV7n8JFym4DW4rHcgINjXwtwBjaujsjUOkzLzsoq
-         tzKbdCF068dopCKVt9pl7oNH4wHmNqsLdkx4t9SMyD1j+HtgzS97PlC4dwHGtk/Faucd
-         MdZg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVh0S2qduftWIr85zWlsaD43s6G0mWsm+Ydifa6JCNOOmsDhSHAPPNZfi99BhV/oIy18ICb2Dq0BMUh@alsa-project.org
-X-Gm-Message-State: AOJu0Yx/lx4vsJ8NzQ69NAlmYM1MxR6oATWhIvHXmhbOAhIG1MFUZkaA
-	RmueiJeOylkI9YrQ+inyFLUtmdHxtQk0R2Abrf3OrN4WPK4AJbK6
-X-Gm-Gg: ASbGncvP0LIYe0Efoud59V0MulPFoLVOZmJR4IZF4zW5VmEoOn9aS8YYuIvTLr+MEST
-	viOHOC8SZRd40zEbOkfizeb7r6GwTizQrSPlNEX3sLcpQBDWLrvqw63zsTSCkDq+HL4ES+5qVF/
-	O8qCV7aLGY+9QDVY00qaXfNjZunOGeloHhfvRCrvpSJVQ/Sby2TqzbIb8z8tB8E7sDYCU644/Hi
-	GZde1RL3/Q2fYgfKgxSYjpUSwAIh1HuaOXTXm0ab4Cjw6vjJRsFYpduHDUWdezjqwpIP+D1xozu
-	DWetKzmH3wnjBVnz+k+pzA2C/fjZUh+mmk0HlgzNYXmp4rU/KFeAM9KMHPe9ukaG36tFJy7juty
-	hXZaBlj+SJaeiiqWp4fM=
+        d=1e100.net; s=20230601; t=1744142492; x=1744747292;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bNchtQh6zPVwJtAvDDMxfjZjpLOdglQccQoL6yekagk=;
+        b=s2J6iZ7ihEuI8OslaThb49BgyXdw0O0S2QkvMZyDYUOlWmUF70af6TK7g9K4x4RUGc
+         LnbWUpJcOyTgj+6ptnO2nLoWEpiyN5Q8SL98TAfly2OnLoRE1+8Dd2Gozs9vghpiBEWo
+         By4Pgwq47JES14TWzz/aNqkBtImKAU7W5AjXfttGNihm1dgYzhWTGCgUws/sSSbPjWhE
+         tOIKjrkZUV2PTcPBUbVP/UiQGTQP9xF3TY04nWTQF2c0vwn+WzAfnXOSX8vZsGK5k269
+         zVNLU4Yymfyx35tLpVlMYN2/MYD56YAHryNT0rMAovl/CcyhBU7vaacBPw043UXS9oj8
+         Y+0w==
+X-Gm-Message-State: AOJu0YwWI/fEPydUcQZJGKT+Ry/E9hZclCOzAL9O663j7IOgED7ELfsb
+	pH9GJeW9ZRxPmO+kxvgbG9MhyQbR68n+g3gBwxYVUaw/yGUMFpOZM0FPAr9XV0yyl1hx9CsviH3
+	2yOZPyYeBGMQvOqt5XlqDW5dXnNO4HauKcSE=
+X-Gm-Gg: ASbGncveXuEcu2TG9jFBm0g6o8MGV3N6vpeLiwZuwuoaZAvVuvM3Faxpvz+1nR3D/P7
+	sPd1mqzkizurzZHP59HeMQgwx8mZlXdeulNbnu8874ux763UK0u5KypVhQqiXEqwYlU2nQ3k5Ix
+	G9dMPfh2mIP3JGIjr4gw8x/epYjA==
 X-Google-Smtp-Source: 
- AGHT+IEV8HdK/DqdmO1+sj1GpGoXKylPrmqo89BfAGEMtLL+QVpJqbJGjIWVOPMDUkqeLA+AxhvjQg==
-X-Received: by 2002:a05:622a:1a25:b0:476:8595:fa09 with SMTP id
- d75a77b69052e-477f7ae9679mr63879991cf.40.1743340161958;
-        Sun, 30 Mar 2025 06:09:21 -0700 (PDT)
-Received: from localhost.localdomain (c-68-55-107-1.hsd1.mi.comcast.net.
- [68.55.107.1])
-        by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-477831a65a3sm35687731cf.79.2025.03.30.06.09.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Mar 2025 06:09:21 -0700 (PDT)
-From: Brady Norander <bradynorander@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	u.kleine-koenig@baylibre.com,
-	Brady Norander <bradynorander@gmail.com>
-Subject: [PATCH v2] ASoC: dwc: always enable/disable i2s irqs
-Date: Sun, 30 Mar 2025 09:08:54 -0400
-Message-ID: <20250330130852.37881-3-bradynorander@gmail.com>
-X-Mailer: git-send-email 2.49.0
+ AGHT+IGL8VZ4AdGnGrKFQU9e04t902pN4Hb50jzrnda/donO1pZNaCpQpmsNTyeeLn5K2jpBDtmKm02/Ultq1MaGWWU=
+X-Received: by 2002:a17:907:d1f:b0:ac3:a7bb:1c2f with SMTP id
+ a640c23a62f3a-aca9d5dc8ebmr3869166b.7.1744142491494; Tue, 08 Apr 2025
+ 13:01:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: bradynorander@gmail.com
+From: Adam Larios <adamlarios@gmail.com>
+Date: Tue, 8 Apr 2025 15:01:20 -0500
+X-Gm-Features: ATxdqUF1dRrx0igJBzns3SHm_tVB9F1T_T-ZZ84JDGv_Wt_7LQhGZgoQl3SFOfM
+Message-ID: 
+ <CADcFSmxu5BSB-S6rgLqX58JnnE1jaFssQ5p9SELjH3PRGm4R1A@mail.gmail.com>
+Subject: Dell Precision 3571: DMIC not detected by SOF driver, silent mic
+ under Linux, works in Windows
+To: alsa-devel@alsa-project.org
+X-MailFrom: adam.larios@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: Y2WYS6XMHGZSKU5KOHXTEHJLYN3WMRP2
-X-Message-ID-Hash: Y2WYS6XMHGZSKU5KOHXTEHJLYN3WMRP2
-X-Mailman-Approved-At: Thu, 10 Apr 2025 10:42:58 +0000
+Message-ID-Hash: 7XBQW7MU3XT72ZVNS5I3S2SBK6NXYY6O
+X-Message-ID-Hash: 7XBQW7MU3XT72ZVNS5I3S2SBK6NXYY6O
+X-Mailman-Approved-At: Thu, 10 Apr 2025 10:44:07 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y2WYS6XMHGZSKU5KOHXTEHJLYN3WMRP2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7XBQW7MU3XT72ZVNS5I3S2SBK6NXYY6O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,55 +118,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Commit a42e988 ("ASoC: dwc: add DMA handshake control") changed the
-behavior of the driver to not enable or disable i2s irqs if using DMA. This
-breaks platforms such as AMD ACP. Audio playback appears to work but no
-audio can be heard. Revert to the old behavior by always enabling and
-disabling i2s irqs while keeping DMA handshake control.
-
-Fixes: a42e988 ("ASoC: dwc: add DMA handshake control")
-Signed-off-by: Brady Norander <bradynorander@gmail.com>
----
-v2: reword commit message to better describe the issue
----
- sound/soc/dwc/dwc-i2s.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
-
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index 57b789d7fbed..5b4f20dbf7bb 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -199,12 +199,10 @@ static void i2s_start(struct dw_i2s_dev *dev,
- 	else
- 		i2s_write_reg(dev->i2s_base, IRER, 1);
- 
--	/* I2S needs to enable IRQ to make a handshake with DMAC on the JH7110 SoC */
--	if (dev->use_pio || dev->is_jh7110)
--		i2s_enable_irqs(dev, substream->stream, config->chan_nr);
--	else
-+	if (!(dev->use_pio || dev->is_jh7110))
- 		i2s_enable_dma(dev, substream->stream);
- 
-+	i2s_enable_irqs(dev, substream->stream, config->chan_nr);
- 	i2s_write_reg(dev->i2s_base, CER, 1);
- }
- 
-@@ -218,11 +216,12 @@ static void i2s_stop(struct dw_i2s_dev *dev,
- 	else
- 		i2s_write_reg(dev->i2s_base, IRER, 0);
- 
--	if (dev->use_pio || dev->is_jh7110)
--		i2s_disable_irqs(dev, substream->stream, 8);
--	else
-+	if (!(dev->use_pio || dev->is_jh7110))
- 		i2s_disable_dma(dev, substream->stream);
- 
-+	i2s_disable_irqs(dev, substream->stream, 8);
-+
-+
- 	if (!dev->active) {
- 		i2s_write_reg(dev->i2s_base, CER, 0);
- 		i2s_write_reg(dev->i2s_base, IER, 0);
--- 
-2.49.0
-
+KlN5c3RlbSo6DQpEZWxsIFByZWNpc2lvbiAzNTcxDQpSZWFsdGVrIEFMQzMyMDQgY29kZWMNCklu
+dGVsIEFsZGVyIExha2UgKFNPRiBwbGF0Zm9ybSkNCg0KKlN5bXB0b21zKjoNCkludGVybmFsIG1p
+YyBpcyBzaWxlbnQgb3IgbXVmZmxlZCBpbiBhbGwgTGludXggYXBwbGljYXRpb25zDQpXb3JrcyBw
+ZXJmZWN0bHkgaW4gV2luZG93cw0KU09GIGRyaXZlciBsb2FkcyBjb3JyZWN0bHkgd2l0aCBmaXJt
+d2FyZSBzb2YtYWRsLnJpIGFuZCB0b3BvbG9neQ0Kc29mLWhkYS1nZW5lcmljLnRwbGcNCkJ1dCBk
+bWVzZyBzaG93czoNCg0Kc29mLWF1ZGlvLXBjaS1pbnRlbC10Z2wgMDAwMDowMDoxZi4zOiBETUlD
+cyBkZXRlY3RlZCBpbiBOSExUIHRhYmxlczogMA0KDQoNCk5vIHdvcmtpbmcgYXVkaW8gaW5wdXQg
+bm9kZXMgZXhwb3NlZCBpbiBQaXBlV2lyZQ0KDQoqVGVzdGVkKjoNCg0KICAgLQ0KDQogICBVYnVu
+dHUgMjQuMDQgd2l0aCBrZXJuZWwgNi44LjAtNTctZ2VuZXJpYw0KICAgLQ0KDQogICBzbmQtaW50
+ZWwtZHNwY2ZnLmRzcF9kcml2ZXI9MyBzZXQNCiAgIC0NCg0KICAgUHVsc2VBdWRpbyBhbmQgUGlw
+ZVdpcmUgYmFja2VuZHMNCiAgIC0NCg0KICAgYWxzYS1iYXNlLmNvbmYgb3ZlcnJpZGVzIGZvciBt
+b2RlbCBvcHRpb25zDQogICAtDQoNCiAgIGhkYWphY2tyZXRhc2sgcGluIHJlbWFwcGluZw0KICAg
+LQ0KDQogICBTT0YgZmlybXdhcmUgYW5kIHRvcG9sb2d5IGNvbmZpcm1lZCBwcmVzZW50DQoNCipD
+b25jbHVzaW9uKjoNCkZpcm13YXJlL0FDUEkgbGlrZWx5IG1pc3NpbmcgRE1JQyBOSExUIGVudHJ5
+OyByZXF1ZXN0aW5nIGtlcm5lbCBxdWlyayBvcg0KZ3VpZGFuY2UNCg==

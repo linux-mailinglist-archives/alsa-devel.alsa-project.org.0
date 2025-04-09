@@ -2,96 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10944A7FA16
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Apr 2025 11:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D85AA81E28
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Apr 2025 09:21:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CBDC6437D;
-	Tue,  8 Apr 2025 11:44:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CBDC6437D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0C0667623;
+	Wed,  9 Apr 2025 09:20:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0C0667623
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1744105467;
-	bh=cgkIZ1J1ZMb/WRj5ocOJvNePLZlmat4KeZ2YPojo1zc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=karP85MBxugDwh5cqtPPkbx+dWblTiu/PxYKshC+XkieJgorbi9+zSFA/6wLNEf8v
-	 82YFkTSLoXfzTPc4Ng1x1xfj0WxGJAm/61c/xk1XXdQcH1FK5wwASKVQMUuhvtko4J
-	 834OFxyISNRuDQSHUleJ47+MGoi44ShA9QTquFMA=
+	s=default; t=1744183256;
+	bh=TUy8N4tbq0j/2btvClKxatCnG+hf2VrrW8E0to8Fv5Y=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=POox803+OynQix9u4mzQdwGcWzza6MVSQzamJottuluBySDeFoBJe5xeWJ1pW8QQr
+	 kqbMzOOScESbLIweGLdGAiFqVIkkOOr/tGJcwfVAvHlEF+tdeVBuXTl5CutQi0KHux
+	 xwu1ZfLPyeej7SGtkC2AzskhTKzSsQRvW054b5Xw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77AE4F805B3; Tue,  8 Apr 2025 11:43:50 +0200 (CEST)
+	id 739E4F805BD; Wed,  9 Apr 2025 09:20:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CA44F805BF;
-	Tue,  8 Apr 2025 11:43:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12777F805BE;
+	Wed,  9 Apr 2025 09:20:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5ABE1F8055B; Tue,  8 Apr 2025 11:43:47 +0200 (CEST)
+	id B89D6F804E5; Wed,  9 Apr 2025 09:20:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no
+	autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2987DF8003C
-	for <alsa-devel@alsa-project.org>; Tue,  8 Apr 2025 11:43:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2987DF8003C
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5AB8F8016A
+	for <alsa-devel@alsa-project.org>; Wed,  9 Apr 2025 09:20:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5AB8F8016A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=J9lRAO6K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1744105426; x=1775641426;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cgkIZ1J1ZMb/WRj5ocOJvNePLZlmat4KeZ2YPojo1zc=;
-  b=J9lRAO6K20akInc7Gebmt6D9l7+652HzCKGXmi7dKuhSaAwaOAY3dmDb
-   ob399QoWAuX7Su4xZh52KaDlfzJxhn2kk9ta34EXcaSPgaOHTH8FwzKr/
-   jwJ7lHgp6oz8YpVgpBr90E5SJgQ/yUAYZ/waIsS3cJgKAjCJSNMiT8mOJ
-   0SpfWB5u+S9b8B1WT30D5zXEKfWY9N59KZN9Z8tO5NA+DHUsVaISryiPV
-   M+1wf14Xz4YUO6KNB59cFITEhTUwSgVmo4ol4ReVv1NOkvN5qN9/I3910
-   o5HqSHpjy5LnC7OwV82XnhbF2ZztYKMQKbSEDnrc72ur6X4V/Pq+JR05C
-   g==;
-X-CSE-ConnectionGUID: mxnVqHhQRIS1lINh/U24kQ==
-X-CSE-MsgGUID: dTYOEzMhSsy8fnZL2GyNJw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11397"; a="44668849"
-X-IronPort-AV: E=Sophos;i="6.15,197,1739865600";
-   d="scan'208";a="44668849"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2025 02:43:41 -0700
-X-CSE-ConnectionGUID: oAwSawQ5TM2ByHjbB4MxUQ==
-X-CSE-MsgGUID: 5pqBPiIHQS++WAhB4ytkew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.15,197,1739865600";
-   d="scan'208";a="151402703"
-Received: from smile.fi.intel.com ([10.237.72.58])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2025 02:43:25 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1u25UF-0000000AMB7-1Z3G;
-	Tue, 08 Apr 2025 12:43:19 +0300
-Date: Tue, 8 Apr 2025 12:43:19 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: broonie@kernel.org, tiwai@suse.de, 13916275206@139.com,
-	13564923607@139.com, alsa-devel@alsa-project.org, baojun.xu@ti.com
-Subject: Re: [PATCH v1] ALSA: hda/tas2781: Create a common header for both
- spi and i2c tas2781 hda driver
-Message-ID: <Z_Tvt1VsyBw8dS8m@smile.fi.intel.com>
-References: <20250408024522.1338-1-shenghao-ding@ti.com>
+	dkim=temperror header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=oWt3bJiw
+X-SpamFilter-By: ArmorX SpamTrap 5.78 with qID 5397K3K701151343,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=realtek.com; s=dkim;
+	t=1744183204; bh=TUy8N4tbq0j/2btvClKxatCnG+hf2VrrW8E0to8Fv5Y=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version;
+	b=oWt3bJiw9BeoH9UMRyU2mlFKbdKyHmIMc4wqjyidEu6Z0hnLMYL9onD+6I2pqrPzd
+	 W8DP/4Dl5gGxqA+sglP7ZaODMfSYfJ9aoduvySuLvthyGGRRsxnzcj3E7EFJnYwF/n
+	 JH6jg7PPAUTyOED1mOvMrVCXV2Rmoqz+3IUll5X0Aros0P4srqAICFimBjYhG/I6Gu
+	 gBp0gCiXn7jVs/ot05flf8prg4HF2fQ/70Gso9QuaNd0HnewnO/sxWB+80RdPCC172
+	 Qt3yVBC84xsoLeqf9g7707wcWNhUJ3FGlLeFJb8oiXrvk/xlXMX66G7Pxz/zGfsgQ3
+	 f8v1v4+5G9o8A==
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/3.06/5.92) with ESMTPS id 5397K3K701151343
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Apr 2025 15:20:04 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Wed, 9 Apr 2025 15:20:03 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 9 Apr 2025 15:20:03 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::f5bd:6ac9:46d:9547]) by
+ RTEXMBS01.realtek.com.tw ([fe80::f5bd:6ac9:46d:9547%5]) with mapi id
+ 15.01.2507.035; Wed, 9 Apr 2025 15:20:03 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+CC: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>,
+        "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+Subject: Enable Headset Mic for ASUS platform
+Thread-Topic: Enable Headset Mic for ASUS platform
+Thread-Index: AdupH4xt3y1erGWmSpCQwvkYvricow==
+Date: Wed, 9 Apr 2025 07:20:03 +0000
+Message-ID: <0fe3421a6850461fb0b7012cb28ef71d@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+x-originating-ip: [172.21.6.42]
+Content-Type: multipart/mixed;
+	boundary="_002_0fe3421a6850461fb0b7012cb28ef71drealtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250408024522.1338-1-shenghao-ding@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: W73K6SFI4BQ4EAXQYLHWZVYYNLTMG47U
-X-Message-ID-Hash: W73K6SFI4BQ4EAXQYLHWZVYYNLTMG47U
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Message-ID-Hash: QOPH3ZFSQ2PXWQZALVL72PRCTNT6QEV6
+X-Message-ID-Hash: QOPH3ZFSQ2PXWQZALVL72PRCTNT6QEV6
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W73K6SFI4BQ4EAXQYLHWZVYYNLTMG47U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QOPH3ZFSQ2PXWQZALVL72PRCTNT6QEV6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,24 +107,90 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Apr 08, 2025 at 10:45:22AM +0800, Shenghao Ding wrote:
-> Move the common macro definition of kcontrols into a common header.
+--_002_0fe3421a6850461fb0b7012cb28ef71drealtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Makes sense.
+Hi Takashi,
 
-...
+Attach patch was fixed headset Mic issue for Asus platform.
+Many Thanks.
 
-> +++ b/sound/pci/hda/tas2781_hda.h
+Kailang.
 
-> +#ifndef __TAS2781_HDA_H__
-> +#define __TAS2781_HDA_H__
+--_002_0fe3421a6850461fb0b7012cb28ef71drealtekcom_
+Content-Type: application/octet-stream; name="0001-alc294-asus-hsmic.patch"
+Content-Description: 0001-alc294-asus-hsmic.patch
+Content-Disposition: attachment; filename="0001-alc294-asus-hsmic.patch";
+	size=3725; creation-date="Wed, 09 Apr 2025 07:11:41 GMT";
+	modification-date="Wed, 09 Apr 2025 07:15:41 GMT"
+Content-Transfer-Encoding: base64
 
-It is better to follow IWYU principle, i.e. this header uses the following:
+RnJvbSBlNjNiMGQ3YzFkOGZkYmFlNzIwODRiN2ZhNmQ3N2IzYjk3M2YwNTczIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IFdlZCwgOSBBcHIgMjAyNSAxNTowOTowOCArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6
+IGhkYS9yZWFsdGVrIC0gRml4ZWQgQVNVUyBwbGF0Zm9ybSBoZWFkc2V0IE1pYyBpc3N1ZQoKQVNV
+UyBwbGF0Zm9ybSBIZWFkc2V0IE1pYyB3YXMgZGlzYWJsZSBieSBkZWZhdWx0LgpBc3NpZ25lZCB2
+ZXJiIHRhYmxlIGZvciBNaWMgcGluIHdpbGwgZW5hYmxlIGl0LgoKU2lnbmVkLW9mZi1ieTogS2Fp
+bGFuZyBZYW5nIDxrYWlsYW5nQHJlYWx0ZWsuY29tPgoKZGlmZiAtLWdpdCBhL3NvdW5kL3BjaS9o
+ZGEvcGF0Y2hfcmVhbHRlay5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKaW5kZXgg
+YjY5YjY1OWFlNjU5Li4xZGE2MTNmN2IyNTQgMTAwNjQ0Ci0tLSBhL3NvdW5kL3BjaS9oZGEvcGF0
+Y2hfcmVhbHRlay5jCisrKyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCkBAIC03OTUw
+LDYgKzc5NTAsNyBAQCBlbnVtIHsKIAlBTEMyMzNfRklYVVBfTUVESU9OX01UTF9TUEssCiAJQUxD
+Mjk0X0ZJWFVQX0JBU1NfU1BFQUtFUl8xNSwKIAlBTEMyODNfRklYVVBfREVMTF9IUF9SRVNVTUUs
+CisJQUxDMjk0X0ZJWFVQX0FTVVNfQ1MzNUw0MV9TUElfMiwKIH07CiAKIC8qIEEgc3BlY2lhbCBm
+aXh1cCBmb3IgTGVub3ZvIEM5NDAgYW5kIFlvZ2EgRHVldCA3OwpAQCAtMTAzMTAsNiArMTAzMTEs
+MTIgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBoZGFfZml4dXAgYWxjMjY5X2ZpeHVwc1tdID0gewog
+CQkudHlwZSA9IEhEQV9GSVhVUF9GVU5DLAogCQkudi5mdW5jID0gYWxjMjgzX2ZpeHVwX2RlbGxf
+aHBfcmVzdW1lLAogCX0sCisJW0FMQzI5NF9GSVhVUF9BU1VTX0NTMzVMNDFfU1BJXzJdID0gewor
+CQkudHlwZSA9IEhEQV9GSVhVUF9GVU5DLAorCQkudi5mdW5jID0gY3MzNWw0MV9maXh1cF9zcGlf
+dHdvLAorCQkuY2hhaW5lZCA9IHRydWUsCisJCS5jaGFpbl9pZCA9IEFMQzI5NF9GSVhVUF9BU1VT
+X0hFQURTRVRfTUlDLAorCX0sCiB9OwogCiBzdGF0aWMgY29uc3Qgc3RydWN0IGhkYV9xdWlyayBh
+bGMyNjlfZml4dXBfdGJsW10gPSB7CkBAIC0xMDgxMiw3ICsxMDgxOSw3IEBAIHN0YXRpYyBjb25z
+dCBzdHJ1Y3QgaGRhX3F1aXJrIGFsYzI2OV9maXh1cF90YmxbXSA9IHsKIAlTTkRfUENJX1FVSVJL
+KDB4MTA0MywgMHgxMmEwLCAiQVNVUyBYNDQxVVYiLCBBTEMyMzNfRklYVVBfRUFQRF9DT0VGX0FO
+RF9NSUNfTk9fUFJFU0VOQ0UpLAogCVNORF9QQ0lfUVVJUksoMHgxMDQzLCAweDEyYTMsICJBc3Vz
+IE43NjkxWk0iLCBBTEMyNjlfRklYVVBfQVNVU19ONzYwMVpNKSwKIAlTTkRfUENJX1FVSVJLKDB4
+MTA0MywgMHgxMmFmLCAiQVNVUyBVWDU4MlpTIiwgQUxDMjQ1X0ZJWFVQX0NTMzVMNDFfU1BJXzIp
+LAotCVNORF9QQ0lfUVVJUksoMHgxMDQzLCAweDEyYjQsICJBU1VTIEIzNDA1Q0NBIC8gUDM0MDVD
+Q0EiLCBBTEMyNDVfRklYVVBfQ1MzNUw0MV9TUElfMiksCisJU05EX1BDSV9RVUlSSygweDEwNDMs
+IDB4MTJiNCwgIkFTVVMgQjM0MDVDQ0EgLyBQMzQwNUNDQSIsIEFMQzI5NF9GSVhVUF9BU1VTX0NT
+MzVMNDFfU1BJXzIpLAogCVNORF9QQ0lfUVVJUksoMHgxMDQzLCAweDEyZTAsICJBU1VTIFg1NDFT
+QSIsIEFMQzI1Nl9GSVhVUF9BU1VTX01JQyksCiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MTJm
+MCwgIkFTVVMgWDU0MVVWIiwgQUxDMjU2X0ZJWFVQX0FTVVNfTUlDKSwKIAlTTkRfUENJX1FVSVJL
+KDB4MTA0MywgMHgxMzEzLCAiQXN1cyBLNDJKWiIsIEFMQzI2OVZCX0ZJWFVQX0FTVVNfTUlDX05P
+X1BSRVNFTkNFKSwKQEAgLTEwOTAxLDE0ICsxMDkwOCwxNCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IGhkYV9xdWlyayBhbGMyNjlfZml4dXBfdGJsW10gPSB7CiAJU05EX1BDSV9RVUlSSygweDEwNDMs
+IDB4MWZiMywgIkFTVVMgUk9HIEZsb3cgWjEzIEdaMzAyRUEiLCBBTEMyODdfRklYVVBfQ1MzNUw0
+MV9JMkNfMiksCiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MzAxMSwgIkFTVVMgQjU2MDVDVkEi
+LCBBTEMyNDVfRklYVVBfQ1MzNUw0MV9TUElfMiksCiAJU05EX1BDSV9RVUlSSygweDEwNDMsIDB4
+MzAzMCwgIkFTVVMgWk4yNzBJRSIsIEFMQzI1Nl9GSVhVUF9BU1VTX0FJT19HUElPMiksCi0JU05E
+X1BDSV9RVUlSSygweDEwNDMsIDB4MzA2MSwgIkFTVVMgQjM0MDVDQ0EiLCBBTEMyNDVfRklYVVBf
+Q1MzNUw0MV9TUElfMiksCi0JU05EX1BDSV9RVUlSSygweDEwNDMsIDB4MzA3MSwgIkFTVVMgQjU0
+MDVDQ0EiLCBBTEMyNDVfRklYVVBfQ1MzNUw0MV9TUElfMiksCi0JU05EX1BDSV9RVUlSSygweDEw
+NDMsIDB4MzBjMSwgIkFTVVMgQjM2MDVDQ0EgLyBQMzYwNUNDQSIsIEFMQzI0NV9GSVhVUF9DUzM1
+TDQxX1NQSV8yKSwKLQlTTkRfUENJX1FVSVJLKDB4MTA0MywgMHgzMGQxLCAiQVNVUyBCNTQwNUND
+QSIsIEFMQzI0NV9GSVhVUF9DUzM1TDQxX1NQSV8yKSwKLQlTTkRfUENJX1FVSVJLKDB4MTA0Mywg
+MHgzMGUxLCAiQVNVUyBCNTYwNUNDQSIsIEFMQzI0NV9GSVhVUF9DUzM1TDQxX1NQSV8yKSwKKwlT
+TkRfUENJX1FVSVJLKDB4MTA0MywgMHgzMDYxLCAiQVNVUyBCMzQwNUNDQSIsIEFMQzI5NF9GSVhV
+UF9BU1VTX0NTMzVMNDFfU1BJXzIpLAorCVNORF9QQ0lfUVVJUksoMHgxMDQzLCAweDMwNzEsICJB
+U1VTIEI1NDA1Q0NBIiwgQUxDMjk0X0ZJWFVQX0FTVVNfQ1MzNUw0MV9TUElfMiksCisJU05EX1BD
+SV9RVUlSSygweDEwNDMsIDB4MzBjMSwgIkFTVVMgQjM2MDVDQ0EgLyBQMzYwNUNDQSIsIEFMQzI5
+NF9GSVhVUF9BU1VTX0NTMzVMNDFfU1BJXzIpLAorCVNORF9QQ0lfUVVJUksoMHgxMDQzLCAweDMw
+ZDEsICJBU1VTIEI1NDA1Q0NBIiwgQUxDMjk0X0ZJWFVQX0FTVVNfQ1MzNUw0MV9TUElfMiksCisJ
+U05EX1BDSV9RVUlSSygweDEwNDMsIDB4MzBlMSwgIkFTVVMgQjU2MDVDQ0EiLCBBTEMyOTRfRklY
+VVBfQVNVU19DUzM1TDQxX1NQSV8yKSwKIAlTTkRfUENJX1FVSVJLKDB4MTA0MywgMHgzMWQwLCAi
+QVNVUyBaZW4gQUlPIDI3IFoyNzJTRF9BMjcyU0QiLCBBTEMyNzRfRklYVVBfQVNVU19aRU5fQUlP
+XzI3KSwKLQlTTkRfUENJX1FVSVJLKDB4MTA0MywgMHgzMWUxLCAiQVNVUyBCNTYwNUNDQSIsIEFM
+QzI0NV9GSVhVUF9DUzM1TDQxX1NQSV8yKSwKLQlTTkRfUENJX1FVSVJLKDB4MTA0MywgMHgzMWYx
+LCAiQVNVUyBCMzYwNUNDQSIsIEFMQzI0NV9GSVhVUF9DUzM1TDQxX1NQSV8yKSwKKwlTTkRfUENJ
+X1FVSVJLKDB4MTA0MywgMHgzMWUxLCAiQVNVUyBCNTYwNUNDQSIsIEFMQzI5NF9GSVhVUF9BU1VT
+X0NTMzVMNDFfU1BJXzIpLAorCVNORF9QQ0lfUVVJUksoMHgxMDQzLCAweDMxZjEsICJBU1VTIEIz
+NjA1Q0NBIiwgQUxDMjk0X0ZJWFVQX0FTVVNfQ1MzNUw0MV9TUElfMiksCiAJU05EX1BDSV9RVUlS
+SygweDEwNDMsIDB4M2EyMCwgIkFTVVMgRzYxNEpaUiIsIEFMQzI4NV9GSVhVUF9BU1VTX1NQSV9S
+RUFSX1NQRUFLRVJTKSwKIAlTTkRfUENJX1FVSVJLKDB4MTA0MywgMHgzYTMwLCAiQVNVUyBHODE0
+SlZSL0pJUiIsIEFMQzI4NV9GSVhVUF9BU1VTX1NQSV9SRUFSX1NQRUFLRVJTKSwKIAlTTkRfUENJ
+X1FVSVJLKDB4MTA0MywgMHgzYTQwLCAiQVNVUyBHODE0SlpSIiwgQUxDMjg1X0ZJWFVQX0FTVVNf
+U1BJX1JFQVJfU1BFQUtFUlMpLAo=
 
-+ sound/asound.h
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--_002_0fe3421a6850461fb0b7012cb28ef71drealtekcom_--

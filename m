@@ -2,155 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5FBFA8258D
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Apr 2025 15:04:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61523A83733
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Apr 2025 05:24:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 602E4689E5;
-	Wed,  9 Apr 2025 15:04:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 602E4689E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8730699B2;
+	Thu, 10 Apr 2025 05:24:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8730699B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1744203855;
-	bh=dxvNXxLCMG1EYU/8RyX90iaxECFYJ+Zv7qBpEBfqlzw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=K+gSmnXmwkVrTSYrTsVElXjr25p75JD7um4JI0EWwxNdYGiQNyqHCbhfVm+SbXlqJ
-	 gWh2u7lq2APwqq0O9I6vGdWczMMhl05NFFY9rAA+qFOYfBANxwU5KPt58IzwBr8Dei
-	 Q+l/YB7pou3mejcCjwHVkKF9kdblIFqN2XkUTcZ4=
+	s=default; t=1744255462;
+	bh=4gLD2iSfTNiIrGQ1C0EITHBwoEyxmBlxJRt1Xgh8Du0=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Pq8hqaNbmZFNEcypOpPDkQsOgcKflCZuCCypgIsm2G4DJIByboKwbTmtfTYlY7zF3
+	 nbN+zoaGRuxjxMMauU+7LTIU+oO+IlsZswNxMVDTddDWFSgh7iZkJTHrzO+ZY6Fnk0
+	 w2+8qELfsd8AOIsWgabL+Nlgt7m0MvxpRmp9i5z4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B142F805B1; Wed,  9 Apr 2025 15:03:42 +0200 (CEST)
+	id 2255FF80093; Thu, 10 Apr 2025 05:23:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68BE4F805B2;
-	Wed,  9 Apr 2025 15:03:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6DC0F805B5;
+	Thu, 10 Apr 2025 05:23:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 150C8F804FF; Wed,  9 Apr 2025 15:03:39 +0200 (CEST)
+	id 1DFE7F8014C; Thu, 10 Apr 2025 05:23:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3F853F8028B
-	for <alsa-devel@alsa-project.org>; Wed,  9 Apr 2025 15:03:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F853F8028B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4C67BF80093
+	for <alsa-devel@alsa-project.org>; Thu, 10 Apr 2025 05:23:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C67BF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=HOvFLNl2;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=NLVIlKRZ;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=HOvFLNl2;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=NLVIlKRZ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 673A721172;
-	Wed,  9 Apr 2025 13:03:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1744203815;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R6RLOpaSXhx8ugWtyt2xdGoSlzCCi0e0X6L+dmYrK50=;
-	b=HOvFLNl2SYOTrErOyRvzSTMsNl3diqS1hK9B9QnFEjrkKWmA05ek+safbvUaZ6LW4G4XuQ
-	xNNju6fbmydON5Nix5PFMXjxiKsvwavHtwc/2/Ol8ESVllg78XPRzvI9zOBjcCujkfR47u
-	UAmwMiO992yp47RlyhnMlU7R8MdXRkw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1744203815;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R6RLOpaSXhx8ugWtyt2xdGoSlzCCi0e0X6L+dmYrK50=;
-	b=NLVIlKRZ6IQWs/WIgkrrfVP2SI+gsGxvt4xWJ9r4OwZjoZqyLub45mDn8AHS1NHxfeigpz
-	I/Y9A5O3gnti/6AQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HOvFLNl2;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NLVIlKRZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1744203815;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R6RLOpaSXhx8ugWtyt2xdGoSlzCCi0e0X6L+dmYrK50=;
-	b=HOvFLNl2SYOTrErOyRvzSTMsNl3diqS1hK9B9QnFEjrkKWmA05ek+safbvUaZ6LW4G4XuQ
-	xNNju6fbmydON5Nix5PFMXjxiKsvwavHtwc/2/Ol8ESVllg78XPRzvI9zOBjcCujkfR47u
-	UAmwMiO992yp47RlyhnMlU7R8MdXRkw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1744203815;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R6RLOpaSXhx8ugWtyt2xdGoSlzCCi0e0X6L+dmYrK50=;
-	b=NLVIlKRZ6IQWs/WIgkrrfVP2SI+gsGxvt4xWJ9r4OwZjoZqyLub45mDn8AHS1NHxfeigpz
-	I/Y9A5O3gnti/6AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3FF1713691;
-	Wed,  9 Apr 2025 13:03:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Iu5kDidw9mfqNwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 09 Apr 2025 13:03:35 +0000
-Date: Wed, 09 Apr 2025 15:03:34 +0200
-Message-ID: <87ecy1zduh.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Cc: " (alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-Subject: Re: Enable Headset Mic for ASUS platform
-In-Reply-To: <0fe3421a6850461fb0b7012cb28ef71d@realtek.com>
-References: <0fe3421a6850461fb0b7012cb28ef71d@realtek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 673A721172
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: 6VD4QO57AZDKKFCTDY4USZAKBEML6Z3N
-X-Message-ID-Hash: 6VD4QO57AZDKKFCTDY4USZAKBEML6Z3N
-X-MailFrom: tiwai@suse.de
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=mBHWduw4
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 53A3NbOG1154658
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Apr 2025 22:23:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1744255417;
+	bh=pxMt1M41FUy9blO34h2KKUXfMYsagOUCTDq2/DW2oAo=;
+	h=From:To:CC:Subject:Date;
+	b=mBHWduw4djUAwhiRzyzGUcFptdE9Ybevtl3e/bXQZMiMq/Yen2xGxIrf5dc/GWP2U
+	 MTDlEgzMS7pMygL9aa0rr13ut3ZwOmnKLh7bSX8N9du6i0EGx9FYPL3e0rw3l6REd6
+	 E2+//Yl7vLlLQNDXsN/qj5jzaMJzxRoMqEV3lBBs=
+Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 53A3NbAO127993
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 9 Apr 2025 22:23:37 -0500
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 9
+ Apr 2025 22:23:37 -0500
+Received: from lelvsmtp6.itg.ti.com (10.180.75.249) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Wed, 9 Apr 2025 22:23:37 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.163.204])
+	by lelvsmtp6.itg.ti.com (8.15.2/8.15.2) with ESMTP id 53A3NWG7022629;
+	Wed, 9 Apr 2025 22:23:33 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <tiwai@suse.de>
+CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <13564923607@139.com>, <13916275206@139.com>,
+        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <baojun.xu@ti.com>, <Baojun.Xu@fpt.com>, <robinchen@ti.com>,
+        Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v2] ALSA: hda/tas2781: Create a common header for both spi and
+ i2c tas2781 hda driver
+Date: Thu, 10 Apr 2025 11:23:28 +0800
+Message-ID: <20250410032328.1361-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: BQODN3DUSFECLZCLKJXXNBDPRBQGCUD3
+X-Message-ID-Hash: BQODN3DUSFECLZCLKJXXNBDPRBQGCUD3
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -162,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VD4QO57AZDKKFCTDY4USZAKBEML6Z3N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BQODN3DUSFECLZCLKJXXNBDPRBQGCUD3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,17 +106,177 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 09 Apr 2025 09:20:03 +0200,
-Kailang wrote:
-> 
-> Hi Takashi,
-> 
-> Attach patch was fixed headset Mic issue for Asus platform.
-> Many Thanks.
-> 
-> Kailang.
+Move the common macro definition of kcontrols into a common header.
 
-Thanks, applied now with Fixes tags to 7ab61d0a9a35 and c86dd79a7c33.
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
+---
+v2:
+ - Follow IWYU principle, add sound/asound.h into the header file.
+v1:
+ - Revise the year of spi and i2c tas2781 hda drivers.
+ - Create a common header for both spi and i2c tas2781 hda driver to define
+   the common macros and declare the common functions.
+---
+ sound/pci/hda/tas2781_hda.h     | 44 +++++++++++++++++++++++++++++++++
+ sound/pci/hda/tas2781_hda_i2c.c | 29 ++--------------------
+ sound/pci/hda/tas2781_hda_spi.c | 35 ++------------------------
+ 3 files changed, 48 insertions(+), 60 deletions(-)
+ create mode 100644 sound/pci/hda/tas2781_hda.h
 
-Takashi
+diff --git a/sound/pci/hda/tas2781_hda.h b/sound/pci/hda/tas2781_hda.h
+new file mode 100644
+index 000000000000..fc741fac419a
+--- /dev/null
++++ b/sound/pci/hda/tas2781_hda.h
+@@ -0,0 +1,44 @@
++/* SPDX-License-Identifier: GPL-2.0-only
++ *
++ * HDA audio driver for Texas Instruments TAS2781 smart amp
++ *
++ * Copyright (C) 2025 Texas Instruments, Inc.
++ */
++#ifndef __TAS2781_HDA_H__
++#define __TAS2781_HDA_H__
++
++#include <sound/asound.h>
++
++/*
++ * No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
++ * Define two controls, one is Volume control callbacks, the other is
++ * flag setting control callbacks.
++ */
++
++/* Volume control callbacks for tas2781 */
++#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
++	xhandler_get, xhandler_put, tlv_array) { \
++	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname), \
++	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
++		SNDRV_CTL_ELEM_ACCESS_READWRITE, \
++	.tlv.p = (tlv_array), \
++	.info = snd_soc_info_volsw, \
++	.get = xhandler_get, .put = xhandler_put, \
++	.private_value = (unsigned long)&(struct soc_mixer_control) { \
++		.reg = xreg, .rreg = xreg, \
++		.shift = xshift, .rshift = xshift,\
++		.min = xmin, .max = xmax, .invert = xinvert, \
++	} \
++}
++
++/* Flag control callbacks for tas2781 */
++#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) { \
++	.iface = SNDRV_CTL_ELEM_IFACE_CARD, \
++	.name = xname, \
++	.info = snd_ctl_boolean_mono_info, \
++	.get = xhandler_get, \
++	.put = xhandler_put, \
++	.private_value = xdata, \
++}
++
++#endif
+diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
+index 29dc4f500580..9d94ae5fcfe0 100644
+--- a/sound/pci/hda/tas2781_hda_i2c.c
++++ b/sound/pci/hda/tas2781_hda_i2c.c
+@@ -2,7 +2,7 @@
+ //
+ // TAS2781 HDA I2C driver
+ //
+-// Copyright 2023 - 2024 Texas Instruments, Inc.
++// Copyright 2023 - 2025 Texas Instruments, Inc.
+ //
+ // Author: Shenghao Ding <shenghao-ding@ti.com>
+ // Current maintainer: Baojun Xu <baojun.xu@ti.com>
+@@ -30,35 +30,10 @@
+ #include "hda_component.h"
+ #include "hda_jack.h"
+ #include "hda_generic.h"
++#include "tas2781_hda.h"
+ 
+ #define TASDEVICE_SPEAKER_CALIBRATION_SIZE	20
+ 
+-/* No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
+- * Define two controls, one is Volume control callbacks, the other is
+- * flag setting control callbacks.
+- */
+-
+-/* Volume control callbacks for tas2781 */
+-#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
+-	xhandler_get, xhandler_put, tlv_array) \
+-{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname),\
+-	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
+-		 SNDRV_CTL_ELEM_ACCESS_READWRITE,\
+-	.tlv.p = (tlv_array), \
+-	.info = snd_soc_info_volsw, \
+-	.get = xhandler_get, .put = xhandler_put, \
+-	.private_value = (unsigned long)&(struct soc_mixer_control) \
+-		{.reg = xreg, .rreg = xreg, .shift = xshift, \
+-		 .rshift = xshift, .min = xmin, .max = xmax, \
+-		 .invert = xinvert} }
+-
+-/* Flag control callbacks for tas2781 */
+-#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) \
+-{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = xname, \
+-	.info = snd_ctl_boolean_mono_info, \
+-	.get = xhandler_get, .put = xhandler_put, \
+-	.private_value = xdata }
+-
+ enum calib_data {
+ 	R0_VAL = 0,
+ 	INV_R0,
+diff --git a/sound/pci/hda/tas2781_hda_spi.c b/sound/pci/hda/tas2781_hda_spi.c
+index 399f2e4c3b62..c6be2be1b53e 100644
+--- a/sound/pci/hda/tas2781_hda_spi.c
++++ b/sound/pci/hda/tas2781_hda_spi.c
+@@ -2,7 +2,7 @@
+ //
+ // TAS2781 HDA SPI driver
+ //
+-// Copyright 2024 Texas Instruments, Inc.
++// Copyright 2024 - 2025 Texas Instruments, Inc.
+ //
+ // Author: Baojun Xu <baojun.xu@ti.com>
+ 
+@@ -38,38 +38,7 @@
+ #include "hda_component.h"
+ #include "hda_jack.h"
+ #include "hda_generic.h"
+-
+-/*
+- * No standard control callbacks for SNDRV_CTL_ELEM_IFACE_CARD
+- * Define two controls, one is Volume control callbacks, the other is
+- * flag setting control callbacks.
+- */
+-
+-/* Volume control callbacks for tas2781 */
+-#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
+-	xhandler_get, xhandler_put, tlv_array) { \
+-	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname), \
+-	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
+-		SNDRV_CTL_ELEM_ACCESS_READWRITE, \
+-	.tlv.p = (tlv_array), \
+-	.info = snd_soc_info_volsw, \
+-	.get = xhandler_get, .put = xhandler_put, \
+-	.private_value = (unsigned long)&(struct soc_mixer_control) { \
+-		.reg = xreg, .rreg = xreg, \
+-		.shift = xshift, .rshift = xshift,\
+-		.min = xmin, .max = xmax, .invert = xinvert, \
+-	} \
+-}
+-
+-/* Flag control callbacks for tas2781 */
+-#define ACARD_SINGLE_BOOL_EXT(xname, xdata, xhandler_get, xhandler_put) { \
+-	.iface = SNDRV_CTL_ELEM_IFACE_CARD, \
+-	.name = xname, \
+-	.info = snd_ctl_boolean_mono_info, \
+-	.get = xhandler_get, \
+-	.put = xhandler_put, \
+-	.private_value = xdata, \
+-}
++#include "tas2781_hda.h"
+ 
+ struct tas2781_hda {
+ 	struct tasdevice_priv *priv;
+-- 
+2.34.1
+

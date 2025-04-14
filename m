@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3BF3A888D8
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Apr 2025 18:45:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A1F9A88970
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Apr 2025 19:13:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DB22683EC;
-	Mon, 14 Apr 2025 18:45:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DB22683EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EC76684DC;
+	Mon, 14 Apr 2025 19:13:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EC76684DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1744649139;
-	bh=2ZhD/bAVoJMRDrWdgR/mFbkBwzaX+rYv+mtCMqsaD64=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Un9r9tmkdqrgutFtOAeM0U+O8myfczeVa6WexgPh7saLXeB61w626b1bHfAHuKxiq
-	 MiXrSYoYiDEcrmBz2psDZz00nUmb6sEnoJdwMy+7SmBzpWbGxUuiGZ9Gyqk9k2WhBt
-	 lSM+dzBsQ7A3rXhFGRlC/P6XFl1GSF+chebGNKL0=
+	s=default; t=1744650803;
+	bh=8eQMZ844fv+Vu3nXm7B3kQGl+uqTRjAdrAYvTSH9498=;
+	h=Date:Subject:References:From:To:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=tVPYKNRdpUvSjbuKJQfOsV7cOqqmlraFxDst+gXKofXuSnIIxzaXOPToowBKW/fJ5
+	 +J2l+mwLHSMUHt+YUSvDLkwXnHe7fUqqstVIgEUAgCD6kDA9yci/FSH+0OVIzaUa4y
+	 /ITqPA6QcaNhnmeRMqfe5JZ7POxpaW7y3JueOEGE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25A46F805C5; Mon, 14 Apr 2025 18:45:16 +0200 (CEST)
+	id A41F2F805C6; Mon, 14 Apr 2025 19:12:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12C4DF805C6;
-	Mon, 14 Apr 2025 18:45:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99FFEF805C7;
+	Mon, 14 Apr 2025 19:12:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 947DAF805B0; Mon, 14 Apr 2025 18:45:10 +0200 (CEST)
+	id DFE21F805B2; Mon, 14 Apr 2025 19:12:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -37,36 +37,35 @@ Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C2E09F800D0
-	for <alsa-devel@alsa-project.org>; Mon, 14 Apr 2025 18:45:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 237DAF800D0
+	for <alsa-devel@alsa-project.org>; Mon, 14 Apr 2025 19:12:45 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 0ECED54A5;
-	Mon, 14 Apr 2025 18:45:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 0ECED54A5
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8876F54A4
+	for <alsa-devel@alsa-project.org>; Mon, 14 Apr 2025 19:12:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8876F54A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1744649107; bh=9FwfqFyi6aWZlrhoH8VK90hZIPao8f04KRafCtFJ8U0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=2i+zxxROJPl0Q8WBW/h8pIHYp3a70TG6FXHXWkr/0Bdv3Td0rk1mxlvz+pkX/3aUK
-	 bneZ9Arkf4x05gxARCkR+IY+DdurRRT8/fWky3GXFFUp+KWUfbLZiTnuckCeqx8oqA
-	 NvR+cgarQTxQAJMBgLyyO+mPb3aXVxxq/1qVJenA=
+	t=1744650764; bh=Z67ZQdKKVddrQyAk9dOo0Uxjk3urEsWSJqnfjZFuEzw=;
+	h=Date:Subject:References:From:To:In-Reply-To:From;
+	b=yYhS3w96kUT9wAsQttuqDQJV1ZSdivJ5ZJUyuKVlhsRIyGW/ex/5mLjDwTvk3bNd2
+	 wsoWitE/x+KiHy4+TTRTrQ5Hk+eri3i4soiE10w1x2UmpfDTHyv/WeAXLjdFVNI366
+	 C6FrE9votlyGu+3ojTo5QjpyEMx7tpu2kLTRsy4A=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon, 14 Apr 2025 18:45:05 +0200 (CEST)
-Message-ID: <52b874c1-5e0c-4382-a0f8-b4533d332e27@perex.cz>
-Date: Mon, 14 Apr 2025 18:45:04 +0200
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA
+	for <alsa-devel@alsa-project.org>; Mon, 14 Apr 2025 19:12:43 +0200 (CEST)
+Message-ID: <e88ab80d-c77e-4f2b-8c51-8b1507b46612@perex.cz>
+Date: Mon, 14 Apr 2025 19:12:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: recent change in seqmid.c is broken?
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
-References: <87friawxx5.wl-tiwai@suse.de>
+Subject: ALSA 1.2.14 release
 Content-Language: en-US
+References: <833d909b-1689-4e3e-b6fb-0595364549a5@perex.cz>
 From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
 Autocrypt: addr=perex@perex.cz; keydata=
  xsFNBFvNeCsBEACUu2ZgwoGXmVFGukNPWjA68/7eMWI7AvNHpekSGv3z42Iy4DGZabs2Jtvk
  ZeWulJmMOh9ktP9rVWYKL9H54gH5LSdxjYYTQpSCPzM37nisJaksC8XCwD4yTDR+VFCtB5z/
@@ -110,11 +109,12 @@ Autocrypt: addr=perex@perex.cz; keydata=
  k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
  m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
  WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: <87friawxx5.wl-tiwai@suse.de>
+In-Reply-To: <833d909b-1689-4e3e-b6fb-0595364549a5@perex.cz>
+X-Forwarded-Message-Id: <833d909b-1689-4e3e-b6fb-0595364549a5@perex.cz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3KHYJJZPMMYM2XT2NLIHQGAMO56YGJEA
-X-Message-ID-Hash: 3KHYJJZPMMYM2XT2NLIHQGAMO56YGJEA
+Message-ID-Hash: 5RUP6RMN32ZA5LRAQ46E5THFQLNE2EZA
+X-Message-ID-Hash: 5RUP6RMN32ZA5LRAQ46E5THFQLNE2EZA
 X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -127,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3KHYJJZPMMYM2XT2NLIHQGAMO56YGJEA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5RUP6RMN32ZA5LRAQ46E5THFQLNE2EZA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,52 +136,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 14. 04. 25 17:44, Takashi Iwai wrote:
-> Hi Jaroslav,
-> 
-> I'm afraid that your recent fix for alsa-lib commit a4e47461eca1
-> doesn't work as expected:
-> 
-> ```
-> @@ -664,15 +663,11 @@ static void update_group_ports(snd_seq_t *seq, snd_ump_endpoint_info_t *ep)
->                                  break;
->                          }
->   
-> -                       if (!*bp->name)
-> +                       if (bp->name[0] == '\0')
->                                  continue;
-> -                       len = strlen(blknames);
-> -                       if (len)
-> -                               snprintf(blknames + len, sizeof(blknames) - len,
-> -                                        ", %s", bp->name);
-> -                       else
-> -                               snd_strlcpy(blknames, (const char *)bp->name,
-> -                                           sizeof(blknames));
-> +                       if (blknames[0])
-> +                               snd_strlcpy(blknames, ", ", sizeof(blknames));
-> +                       snd_strlcpy(blknames, (const char *)bp->name, sizeof(blknames));
->                  }
->   
->                  if (!*blknames)
-> ```
-> 
-> The original code appended the new bp->name string with the prefix of
-> ", " if blknames is already present, but the new code looks as if it
-> overwrites onto blknames with strlcpy() from scratch for each
-> bp->name.
-> 
-> FWIW, the code there used to be with strlcat(), but it was rewritten
-> in the way above because strlcat() isn't always available in commit
-> d9694398130c.
 
-Oops.... I am at the end of 1.2.14 release procedure.
+Hello all,
 
-I'm trying to put the correct fix, could you check quickly latest two commits?
+	new ALSA userspace packages were released. You may download them from
+the ALSA website http://www.alsa-project.org or directly:
 
-		Thanks,
-				Jaroslav
+	HTTP: https://www.alsa-project.org/files/pub
+	FTP:  ftp://ftp.alsa-project.org/pub
 
+Released packages:
 
+	alsa-lib
+	alsa-utils
+	alsa-ucm-conf
+         alsa-tools
+         pyalsa
+
+Full list of changes:
+
+	https://www.alsa-project.org/wiki/Changes_v1.2.13_v1.2.14
+
+The fingerprint of the public signing key is:
+
+	F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
+
+				Have fun,
+					Jaroslav
 -- 
 Jaroslav Kysela <perex@perex.cz>
 Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

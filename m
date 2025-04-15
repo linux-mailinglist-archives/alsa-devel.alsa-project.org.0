@@ -2,54 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C64A894B8
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Apr 2025 09:18:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D669A89815
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Apr 2025 11:37:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CCAD69634;
-	Tue, 15 Apr 2025 09:18:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CCAD69634
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08E9968459;
+	Tue, 15 Apr 2025 11:36:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08E9968459
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1744701515;
-	bh=i7cRjZzxpJZXlfj8qnkXBARk1RJQG4ccLJ4CDQl/Pak=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=kmp7N447G6eAfdNeetbRhNII4/rH6q0urYivZUKATnmUd2m1xONIYHsNoD63NZrLA
-	 zsn9k9ON2hKmI/S5Pm0TQf6Xx009fTlGQmpKyrdiGbP1+uTfpOMYFY05oK7mk1Y/47
-	 o9q3l2Oe2KHJJcZ492WIh0gZ1OXB82O22yPoxnlA=
+	s=default; t=1744709828;
+	bh=OkBY9Xw36Y9PiWZASQI7OEVXsr5oy1CxNdHlImDBKWw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=atmpaXGGfjK0hZxTPDDRHjJX85J7NvOW5isRqC3b3FgVUUwZAUh0WqZqI5wlD/Nr7
+	 Xo5dGRNkpMY9cZGxGurDaz0/BXQGPSsTtH0n+b1isMGKE24p9PMJMLla0Ad74bVqZi
+	 GszDQbQpvtm14W8Hzj2EVhYyVPmTzC0Gme6ksXKs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8209FF805D4; Tue, 15 Apr 2025 09:18:13 +0200 (CEST)
+	id C01F7F805C5; Tue, 15 Apr 2025 11:36:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FB15F805CA;
-	Tue, 15 Apr 2025 09:18:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4458F805CA;
+	Tue, 15 Apr 2025 11:36:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2ADA0F8021D; Tue, 15 Apr 2025 09:18:10 +0200 (CEST)
+	id 9DFA3F80224; Tue, 15 Apr 2025 11:36:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EFEBF80075
-	for <alsa-devel@alsa-project.org>; Tue, 15 Apr 2025 09:18:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EFEBF80075
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <18366cc26eb87000-webhooks-bot@alsa-project.org>
-In-Reply-To: <18366cc26db3cf00-webhooks-bot@alsa-project.org>
-References: <18366cc26db3cf00-webhooks-bot@alsa-project.org>
-Subject: 1.2.14: SetuptoolsDeprecationWarning due to the use of `sys.exit(0)`
-Date: Tue, 15 Apr 2025 09:18:10 +0200 (CEST)
-Message-ID-Hash: EWVUT5HMJVJZQ2OJ72EALIL37VNX32JN
-X-Message-ID-Hash: EWVUT5HMJVJZQ2OJ72EALIL37VNX32JN
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id B6313F80075
+	for <alsa-devel@alsa-project.org>; Tue, 15 Apr 2025 11:36:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6313F80075
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=A9qg7Mk8;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=ATuZmOmB;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=A9qg7Mk8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=ATuZmOmB
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 834821F387;
+	Tue, 15 Apr 2025 09:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1744709779;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PVWxvGLRV9VNGPT4ZAnK3VIqNpYbLx9ZyJXBsbNj58M=;
+	b=A9qg7Mk8qn0TkrpCvsIQdG38xPkIEB4fC6zshsSS/GlIt4HHP/JEDwH0klvexSvvXKl6nn
+	Ae9kNvKClyn8SU2DtIK3x6tVQHFdCNx/73Zr5W8TQPJAk+Ih0UWJi5WZBrgqbAw8OK3Ybw
+	pN/KFhLhesZGBp+AMB6rr4Ute4IymHU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1744709779;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PVWxvGLRV9VNGPT4ZAnK3VIqNpYbLx9ZyJXBsbNj58M=;
+	b=ATuZmOmBINRqBWrZl/o6yk+Vn7vnz5wd2WTYxdmLe/dohXvmTn5169pfkNisWNQZSKGqoa
+	lcNg73yQUMUqM0AA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1744709779;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PVWxvGLRV9VNGPT4ZAnK3VIqNpYbLx9ZyJXBsbNj58M=;
+	b=A9qg7Mk8qn0TkrpCvsIQdG38xPkIEB4fC6zshsSS/GlIt4HHP/JEDwH0klvexSvvXKl6nn
+	Ae9kNvKClyn8SU2DtIK3x6tVQHFdCNx/73Zr5W8TQPJAk+Ih0UWJi5WZBrgqbAw8OK3Ybw
+	pN/KFhLhesZGBp+AMB6rr4Ute4IymHU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1744709779;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PVWxvGLRV9VNGPT4ZAnK3VIqNpYbLx9ZyJXBsbNj58M=;
+	b=ATuZmOmBINRqBWrZl/o6yk+Vn7vnz5wd2WTYxdmLe/dohXvmTn5169pfkNisWNQZSKGqoa
+	lcNg73yQUMUqM0AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 68210139A1;
+	Tue, 15 Apr 2025 09:36:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zxkoGJMo/mctWgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 15 Apr 2025 09:36:19 +0000
+Date: Tue, 15 Apr 2025 11:36:19 +0200
+Message-ID: <87ikn5vka4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: ALSA 1.2.14 release
+In-Reply-To: <e88ab80d-c77e-4f2b-8c51-8b1507b46612@perex.cz>
+References: <833d909b-1689-4e3e-b6fb-0595364549a5@perex.cz>
+	<e88ab80d-c77e-4f2b-8c51-8b1507b46612@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_DN_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+Message-ID-Hash: PKFMEKGG6K57FISUWSICUFWQU5THFMGL
+X-Message-ID-Hash: PKFMEKGG6K57FISUWSICUFWQU5THFMGL
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +151,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EWVUT5HMJVJZQ2OJ72EALIL37VNX32JN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKFMEKGG6K57FISUWSICUFWQU5THFMGL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,31 +160,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-YWxzYS1wcm9qZWN0L2Fsc2EtcHl0aG9uIGlzc3VlICMxOCB3YXMgb3BlbmVkIGZyb20gZHZ6cnY6
-CgpIaSEg8J+RiyAKCkkgcGFja2FnZSB0aGlzIHByb2plY3QgZm9yIEFyY2ggTGludXguCgpEdXJp
-bmcgdXBkYXRlIHRvIDEuMi4xNCBJIG5vdGljZWQgdGhhdCBzZXR1cHRvb2xzIG5vdyByYWlzZXMg
-dGhlIGZvbGxvd2luZyB3YXJuaW5nOgoKYGBgCi91c3IvbGliL3B5dGhvbjMuMTMvc2l0ZS1wYWNr
-YWdlcy9zZXR1cHRvb2xzL2J1aWxkX21ldGEucHk6NTIyOiBTZXR1cHRvb2xzRGVwcmVjYXRpb25X
-YXJuaW5nOiBSdW5uaW5nIGBzZXR1cC5weWAgZGlyZWN0bHkgYXMgQ0xJIHRvb2wgaXMgZGVwcmVj
-YXRlZC4KISEKCiAgICAgICAgKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioKICAgICAgICBQbGVhc2Ug
-YXZvaWQgdXNpbmcgYHN5cy5leGl0KDApYCBvciBzaW1pbGFyIHN0YXRlbWVudHMgdGhhdCBkb24n
-dCBmaXQgaW4gdGhlIHBhcmFkaWdtIG9mIGEgY29uZmlndXJhdGlvbiBmaWxlLgoKICAgICAgICBT
-ZWUgaHR0cHM6Ly9ibG9nLmdhbnNzbGUuaW8vYXJ0aWNsZXMvMjAyMS8xMC9zZXR1cC1weS1kZXBy
-ZWNhdGVkLmh0bWwgZm9yIGRldGFpbHMuCiAgICAgICAgKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioK
-CiEhCiAgc3VwZXIoKS5ydW5fc2V0dXAoc2V0dXBfc2NyaXB0PXNldHVwX3NjcmlwdCkKYGBgCgpU
-aGlzIGFwcGVhcnMgdG8gYmUgdHJpZ2dlcmVkIGJ5IHRoZSBgc3lzLmV4aXQoMClgIGNhbGwgaW4g
-c2V0dXAucHk6Cmh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS1weXRob24vYmxv
-Yi8yMGIyYjM5OTlmMjRhZjQ2MjgxNWI5Yzg2ZTk2NzY0M2NjZDMwMDM3L3NldHVwLnB5I0w3NC1M
-NzUKCihTZXR1cHRvb2xzIG5vdyBvZmZlcnMgb25lIG9mIHRoZSB2YXJpb3VzIFBFUDUxNyBidWls
-ZCBiYWNrZW5kcyBhbmQgY2FsbGluZyBzZXR1cC5weSBkaXJlY3RseSBhcyBhIHNjcmlwdCBpcyBk
-ZXByZWNhdGVkKS4KCkxvb2tpbmcgYXQgdGhlIGZpbGUgSSBub3RpY2VkIHRoYXQgdGhlcmUgYXJl
-IHN0aWxsIGNvbmRpdGlvbmFscyB0aGF0IGFjY29tbW9kYXRlIFB5dGhvbjI6CgpodHRwczovL2dp
-dGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtcHl0aG9uL2Jsb2IvMjBiMmIzOTk5ZjI0YWY0NjI4
-MTViOWM4NmU5Njc2NDNjY2QzMDAzNy9zZXR1cC5weSNMNzctTDgwCgpUaG9zZSBzaG91bGQgYmUg
-cmVtb3ZlZCwgYXMgdGhlIHNjcmlwdCBpdHNlbGYgaXMgbWFya2VkIGFzIFB5dGhvbjMgKGFuZCB3
-ZWxsIG9mIGNvdXJzZSBiZWNhdXNlIFB5dGhvbjIgaXMgbG9uZyBkaXNjb250aW51ZWQg8J+YhSku
-CgpJc3N1ZSBVUkwgICAgIDogaHR0cHM6Ly9naXRodWIuY29tL2Fsc2EtcHJvamVjdC9hbHNhLXB5
-dGhvbi9pc3N1ZXMvMTgKUmVwb3NpdG9yeSBVUkw6IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXBy
-b2plY3QvYWxzYS1weXRob24K
+On Mon, 14 Apr 2025 19:12:43 +0200,
+Jaroslav Kysela wrote:
+> 
+> 
+> Hello all,
+> 
+> 	new ALSA userspace packages were released. You may download them from
+> the ALSA website http://www.alsa-project.org or directly:
+> 
+> 	HTTP: https://www.alsa-project.org/files/pub
+> 	FTP:  ftp://ftp.alsa-project.org/pub
+> 
+> Released packages:
+> 
+> 	alsa-lib
+> 	alsa-utils
+> 	alsa-ucm-conf
+>         alsa-tools
+>         pyalsa
+> 
+> Full list of changes:
+> 
+> 	https://www.alsa-project.org/wiki/Changes_v1.2.13_v1.2.14
+> 
+> The fingerprint of the public signing key is:
+> 
+> 	F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
+> 
+> 				Have fun,
+> 					Jaroslav
+
+Are the latest commits for alsa-tools and alsa-python missing on
+github?  The tarballs look fine and I could build.
+
+
+thanks,
+
+Takashi

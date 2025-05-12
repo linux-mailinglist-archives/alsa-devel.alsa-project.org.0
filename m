@@ -2,104 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E575AB7F80
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:00:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED0FAB7F90
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:02:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55B5961F43;
-	Thu, 15 May 2025 09:44:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B5961F43
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31C7362019;
+	Thu, 15 May 2025 09:47:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31C7362019
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1747295059;
-	bh=2jepknxWjE/0XKgZzfXVHNANqnmrBGpNCfDIqn35WIw=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HAiy1XXjDUyPq7cw8t/zcXQiVUoJOH1SCHr8/5XGKciVsb0w04S2qU4LtNG63YAfk
-	 OnC33/tiWPLEas040SwEb33LNdwZtPW3I4EEwuCWQBa2Kntip3s9vAC9QssxqIP4Bl
-	 S0IwVmsw+pT+8MjiWFB9iBSyDumeAP0ZDyB9+B5Y=
+	s=default; t=1747295243;
+	bh=TQf5RiXYKd+8VoWEbuCU3v0PnHXgP3Wuw8V1KFhUltc=;
+	h=Date:From:To:Cc:Subject:References:List-Id:List-Archive:List-Help:
+	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hrEsp1IxigCjiGFNVE8+WiTFZDFBeQ7Owb9HdwDl89lpapxJ4cQ+cLAXs7jo9UuC8
+	 +NQmUwJPi19zKdMs1qSnT0b46j0SiTTpM+wBTvRxYr3Tk31O3eCSJWM1CmM3Ug4YmP
+	 BjwXHGXdFEf+PIvMhsAZ/XeuKWpSn2tDUE91GS+g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99584F899D7; Mon, 12 May 2025 10:18:47 +0200 (CEST)
+	id ADE4DF80636; Wed, 14 May 2025 19:59:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85142F899CF;
-	Mon, 12 May 2025 10:18:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71427F89BB0;
+	Wed, 14 May 2025 19:59:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9D65F899C0; Mon, 12 May 2025 10:18:44 +0200 (CEST)
+	id B3BE9F89A18; Mon, 12 May 2025 16:56:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic316-54.consmr.mail.gq1.yahoo.com
+ (sonic316-54.consmr.mail.gq1.yahoo.com [98.137.69.30])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E10CFF899BC
-	for <alsa-devel@alsa-project.org>; Mon, 12 May 2025 10:18:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E10CFF899BC
+	by alsa1.perex.cz (Postfix) with ESMTPS id A8F46F899B7
+	for <alsa-devel@alsa-project.org>; Mon, 12 May 2025 16:56:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8F46F899B7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=ayaLAO/w
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTPS id 54C8IUXV1928408
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 May 2025 03:18:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1747037910;
-	bh=ge8Dl/TyFR3+BosL2y3ZH63GxgS1a+2mlep3avVb4D8=;
-	h=From:To:CC:Subject:Date;
-	b=ayaLAO/wtOTUI15x3sTy3JRN4CN7GWgM/ATYqfqv5Q4yO2Ods0rCwOJZvB8S2QSWy
-	 tRVSWA+MjquKKekduWwYyACHradaVr5EI4NWcQVopIPXsLjy18mu4fTpLYYOZc3Eux
-	 OJ/XlakOgV2tam64ncgN3FWEVot4nTrHBIti0KKc=
-Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 54C8IUaY003426
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 12 May 2025 03:18:30 -0500
-Received: from DFLE101.ent.ti.com (10.64.6.22) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Mon, 12
- May 2025 03:18:30 -0500
-Received: from lelvsmtp5.itg.ti.com (10.180.75.250) by DFLE101.ent.ti.com
- (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Mon, 12 May 2025 03:18:30 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.59])
-	by lelvsmtp5.itg.ti.com (8.15.2/8.15.2) with ESMTP id 54C8IQUV095806;
-	Mon, 12 May 2025 03:18:26 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <tiwai@suse.de>
-CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
-        <13564923607@139.com>, <13916275206@139.com>,
-        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <baojun.xu@ti.com>, <Baojun.Xu@fpt.com>, <jesse-ji@ti.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v2] ALSA: hda/tas2781: Fix the ld issue reported by kernel
- test robot
-Date: Mon, 12 May 2025 16:18:22 +0800
-Message-ID: <20250512081822.1513-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256
+ header.s=s2048 header.b=iseRrAmR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1747061779; bh=TQf5RiXYKd+8VoWEbuCU3v0PnHXgP3Wuw8V1KFhUltc=;
+ h=Date:From:To:Cc:Subject:References:From:Subject:Reply-To;
+ b=iseRrAmRw/fkNREOKKDI0NPiLZb+ct2VdlovLlt1fgLcCBDHybi/GQUeWzPF155+sTeCKuYHjXLN1OF2euhn9lt7KgZlD5YOhWDYs+nz3pp6twsmyrt6asKzGj6bODxBpXMoNua1d9uZzmMxAeJW6RMcf6BJXENohTKD54huLFkYCDbTbzycZGyZK9Im7oeHfVZrOdJUUmOSrDldGdOzx11829wK+H+InzZG1C6PXvqVwS23M3eSZZwX6ST2W0SHPmMKMbwMgl5sambqxLzQWZ8etRONW2VN/xSE9FnTSJ2P8Qh6EmbDhsh0LGI8tITIeu+9ScLFIW6fJdRAGXptlw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1747061779; bh=lBnMndUIbc0AKFc4DiTXsv+edML5QjdE8RoLZzah4Rw=;
+ h=X-Sonic-MF:Date:From:To:Subject:From:Subject;
+ b=X953IwibabfuPSqpZnOS8SPxUyzppz328uOccDK3eJXBEJ98Q8rn71jPfuFdEK3+AdHAgQzvIZ3O7y5S3jyc9JHF6RO69tegN7JxNilXKKXfMuAAtNxs40QxRAlZvu11EMnUiSwuA0Xq7/23Ne5AcWihnHVboa/t4n+B4jpMixHo/wwLJ7NuAjVPPzakJcsdqrhCDAqo8k7mBc1Ulu08/J134pXHIVT2HWJajKOYaEWWVhnOhX5O4nDrsEaZJAN9uDKz+gsB1IwAGiwVyPzpNjwitdobAreVvrxbaYmbbUwFDRpvRbdiKym6bMJOATL5ZftT21i/In80cu6guDQxSQ==
+X-YMail-OSG: hfN8oUAVM1kjwip8lEbFPQL7ckZNRSDGmjx9auU3VGaadDRftLDfz8hV2.u29sF
+ z74lbLnI35b_TnCCIzTP.2NpdlMkN3VTw_dIKdYbC.F6GK7bMv.fRT.5clvuZN7r7ZUQL1dYRdv.
+ zvGQqAQEB7Is1d_f16ERv.II4ZYN88bieYImCx9ptM9Vk_lVHrJ8nQcg8LprODyUwjsTzT_tsFme
+ DtlQVOTb1GOqbhZ0LqNuSlCn.vxN8ZJzdy5xnRKBWWOScMH6jAi1ALnotWaeL7EvOmNoWk73k4bw
+ KnKaqHwGt8F8v6mCbzXjrqJnI7PbGJEUbtTMTRQiUHlV4dzRe.OmL5Tby8WAYxFhqCsO6o5aqBnB
+ EAaXdguDCad18qjXHz1ae2wNrGliIWNOUpNTDdL_OzbfX7hatZvtqdUYVkcyFXhqTN5QNRZv4nF3
+ mSltMA0.7QB.DUHsyfudeAnGuA.76HO0DDwIpmpo0BC.KJBsiqo4M2CH0NjlUBxeHFy1R5Qr6eV9
+ DmKqE5PvoW8hD0fqtVWlOp5v0i0BdbDj3N1x9a01pGhjY9o2hB.Hi7mD3RQuISl1Pv23xOn20l2A
+ c0IsLEfx2l_EdG36UeqxSJmVTHOmbAuEfGahGIIfFPZ6TT6tbwAXLVyQrnJFGPXfzupk.5YJNTd1
+ 8tCXGkRip5orP_XSOEuRV4Ij4oiax0bVmPwZI_zn7bw.dux5vLKchbW_vX9tzzSqZivUXOkYBvTg
+ 5.r28eAY.vjPwz6wjlKGW2kQZrB033kiA_IBCRpld4yGJNT_prPFZ.cwnWtc572X9uqabe7W5Dal
+ vBNX_MKuNq29VbvhEmwqemDFHAxpy0w_7B3Tzw6YIVPq8fFSGvNqXVlj9PQ_JDSBM1Acnx9NLkZf
+ xwQdSGuj0CrBykWDZ0qrlq5cE2BUHR2Dc6ot1essX4gQckaPt0AlO1jnRl.yygNowmLeVXhXThRo
+ yfP0lEOgmT1a5i92C0nf0q8_ipzHC5Seo.Fxst1ONaMlr3sON_yHcvAs91YuBI1e.aO3jRx3pinO
+ vxFZ3nxTATFRCIVHAXW6kT2cXWwyJwrV87Ub9u4VhAS.2ont_ZJ1fCsMAj9GoJVdxNHX.N1dfzmE
+ ErMjYWs9eZf0zsdjB.eRs11RkODhH_Eg1YDKuDG3xlORaYXwODBn619sJ.PPhGMUz2H9WVkvdMbi
+ xj8Nvd0UtqiFIwRUPBdzfHetK.2eWYhrKaF6C71Xu_ZqlbICqJV_l9BRizX9xTGI2hJuKYcV900h
+ ew7bR61NeXEfPZyYddGFH26hO.AnJvYZD74KUeC18znfPUdwGXykAMJgBL4vr_s8TnAmNoHyAVGn
+ uBMcIWyh00JHdFSF_mS0eISuozRDxNSOYKOmNa3BkjxVtHDjACB2ex9oHXkmx_cfsbPuz8VZV8GB
+ rkK86NBIHkW07k5Objqou02nFYgv4aYVIBmv_Y36d5NTnUgOBGdoyyOnOJcXJx1H_lBPFuVUSRpj
+ dArfFdA.nuxEv891xrLcamiXFFzoBsXlWLhxJToz5WceqVdjUQ0VFoaXmoS3zXBGv04gAF9x4KQg
+ gxZ6aV2w.N_GnoEE_TICP.KbeqoYYLvN62CnzcURBV_atPWw2f6G5_iTeNtVZSeap9cogc20cr9O
+ N.rL3jlAwZQZbYhshXerjXdeVUruJjRBRyVPISK0I3MfSJ0c6j_wIDFrGQ93KUdZVC0NMDScxfmX
+ tQwp5qH0L4QCzUEqyw6ei.4X4vXEFZo8896y._xMBeX_92jr1e_V57sPoZn7i7yyWw60bCH7rI1z
+ QE0guPiY4IC5yOoNcdD4iF7Q1WHQUbirtVaRKj5w22vRVn8XTZkIDza_8NHVqK0HN11uId7kyBst
+ vZaTAcGpWyQZ_pQcqG.5D_h20tqaO237HoBQYJMpFDvY9A4Fe.Vwpi0vsdMM5JVfIyZt1yuVAMRi
+ itF.qswO1NRVcV3yUPh_bCAmYzhXzi4XGO9bfgPYLpBQjiwv1zGkT_3.tjM2qhXUxl19aN0dS3vU
+ 3Dm6dI1BtQBROvpq3uKRoWH06azbXymBQtOzsJnTybNDz.OPujZbvE._6vE7ajc0Ix9ncQOUDsHW
+ 6miJyXLVo9crTlyNys22wfOdSTk9yeg97XAGVCTsEcri3H4WIbbAfdcIKqNTWuA6G_k6CsAD5VB8
+ .IIkCW_HjaKewzwCoViVclCQ_UeaniJcZne_7OOraAVpye9dcZMHSCtkdEk3ZUuamcBFKHK65igI
+ m56CzHmprR4wgmyqoBKg-
+X-Sonic-MF: <nruslan_devel@yahoo.com>
+X-Sonic-ID: abfb1eb2-8db1-4869-8252-f0ef297b5926
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic316.consmr.mail.gq1.yahoo.com with HTTP; Mon, 12 May 2025 14:56:19 +0000
+Date: Mon, 12 May 2025 14:56:17 +0000 (UTC)
+From: Ruslan Nikolaev <nruslan_devel@yahoo.com>
+To: "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+Cc: "kailang@realtek.com" <kailang@realtek.com>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"sashal@kernel.org" <sashal@kernel.org>,
+	"perex@perex.cz" <perex@perex.cz>
+Message-ID: <1064773772.509063.1747061777318@mail.yahoo.com>
+Subject: Fwd: [Bug 220109] New: Audio disappears on HP 15-fc000 after warm
+ boot again (ALC256 code path)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Message-ID-Hash: YQX5RB5JJZXZX4FGSP2XVDSRM63YHVMH
-X-Message-ID-Hash: YQX5RB5JJZXZX4FGSP2XVDSRM63YHVMH
-X-MailFrom: shenghao-ding@ti.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <1064773772.509063.1747061777318.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.23772 YMailNovation
+X-MailFrom: nruslan_devel@yahoo.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: QNXRTFUUJGC3PXLHN37NLJL4NNIP73SI
+X-Message-ID-Hash: QNXRTFUUJGC3PXLHN37NLJL4NNIP73SI
+X-Mailman-Approved-At: Wed, 14 May 2025 17:59:48 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YQX5RB5JJZXZX4FGSP2XVDSRM63YHVMH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNXRTFUUJGC3PXLHN37NLJL4NNIP73SI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,72 +129,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-After commit 9fa6a693ad8d ("ALSA: hda/tas2781: Remove tas2781_spi_fwlib.c
-and leverage SND_SOC_TAS2781_FMWLIB")created a separated lib for i2c,
-tasdevice_remove used for not only for I2C but for SPI being still in
-that lib caused ld issue.
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://urldefense.com/v3/__https://lore.kernel.org/
-|  oe-kbuild-all/202505111855.FP2fScKA-lkp@intel.com/
-|  __;!!G3vK!U-wdsvrOG1iezggZ55RYi8ikBxMaJDVs7u17Z9-7Xa-
-|  0lnyE4S3m2qmLCcHVK4qH1bD1JuBdzg$
-All errors (new ones prefixed by >>):
->> ld.lld: error: undefined symbol: tasdevice_remove
-   >>> referenced by tas2781_hda.c:33 (sound/pci/hda/tas2781_hda.c:33)
-   >>>               vmlinux.o:(tas2781_hda_remove)
-To fix this issue, the implementation of tasdevice_remove was moved from
-tas2781-comlib-i2c.c to tas2781-comlib.c.
+Hi,
 
-Fixes: 9fa6a693ad8d ("ALSA: hda/tas2781: Remove tas2781_spi_fwlib.c and leverage SND_SOC_TAS2781_FMWLIB")
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+Forwarding my regression bug report for HP 15-fc000 / ALC236 (ALC256 code path).
 
----
-v2:
- - put the Fixes tag to point out the commit that introduced the regression
- - Add compiling error information reported by kernel test robot into patch
-   description.
-v1:
- - | Reported-by: kernel test robot <lkp@intel.com>
-   | Closes: https://urldefense.com/v3/__https://lore.kernel.org/oe-kbuild-all/202505111855.FP2fScKA-lkp@intel.com/__;!!G3vK!U-wdsvrOG1iezggZ55RYi8ikBxMaJD
----
- sound/soc/codecs/tas2781-comlib-i2c.c | 6 ------
- sound/soc/codecs/tas2781-comlib.c     | 6 ++++++
- 2 files changed, 6 insertions(+), 6 deletions(-)
+#regzbot introduced: v6.12.2
+https://bugzilla.kernel.org/show_bug.cgi?id=220109
 
-diff --git a/sound/soc/codecs/tas2781-comlib-i2c.c b/sound/soc/codecs/tas2781-comlib-i2c.c
-index a75b812618ee..c078bb0a8437 100644
---- a/sound/soc/codecs/tas2781-comlib-i2c.c
-+++ b/sound/soc/codecs/tas2781-comlib-i2c.c
-@@ -364,12 +364,6 @@ int tascodec_init(struct tasdevice_priv *tas_priv, void *codec,
- }
- EXPORT_SYMBOL_GPL(tascodec_init);
- 
--void tasdevice_remove(struct tasdevice_priv *tas_priv)
--{
--	mutex_destroy(&tas_priv->codec_lock);
--}
--EXPORT_SYMBOL_GPL(tasdevice_remove);
--
- MODULE_DESCRIPTION("TAS2781 common library for I2C");
- MODULE_AUTHOR("Shenghao Ding, TI, <shenghao-ding@ti.com>");
- MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/tas2781-comlib.c b/sound/soc/codecs/tas2781-comlib.c
-index ad2f65359b15..076c1d955972 100644
---- a/sound/soc/codecs/tas2781-comlib.c
-+++ b/sound/soc/codecs/tas2781-comlib.c
-@@ -225,6 +225,12 @@ void tasdevice_dsp_remove(void *context)
- }
- EXPORT_SYMBOL_GPL(tasdevice_dsp_remove);
- 
-+void tasdevice_remove(struct tasdevice_priv *tas_priv)
-+{
-+	mutex_destroy(&tas_priv->codec_lock);
-+}
-+EXPORT_SYMBOL_GPL(tasdevice_remove);
-+
- MODULE_DESCRIPTION("TAS2781 common library");
- MODULE_AUTHOR("Shenghao Ding, TI, <shenghao-ding@ti.com>");
- MODULE_LICENSE("GPL");
--- 
-2.43.0
+Sincerely,
+Ruslan
 
+Forwarded Message (see logs in the bug report above):
+
+There was a similar bug in the past (Bug 217440), which was fixed for this laptop. (I believe the code path is for ALC256, see below.) The same issue is occurring again as of kernel v.6.12.2. The symptoms are very similar - initially audio works but after a warm reboot, the audio completely disappears until the computer is powered off (there is no audio output at all).
+
+The issue is caused by a different change now. By bisecting different kernel versions, I found that reverting cc3d0b5dd989d3238d456f9fd385946379a9c13d in patch_realtek.c ( see https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/sound/pci/hda/patch_realtek.c?h=v6.12.2&id=4ed7f16070a8475c088ff423b2eb11ba15eb89b6 ) restores the sound and it works fine after the reboot.

@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC356AB7F9C
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:03:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98EFEAB7F5E
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 09:54:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0E3623A1;
-	Thu, 15 May 2025 09:53:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0E3623A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09D206200C;
+	Thu, 15 May 2025 09:46:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09D206200C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1747295626;
-	bh=g6uAgBmdRVJ/MmwO0dYNS5uypb5EK9FZJwFt76vIoQc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1747295228;
+	bh=EQnX7N7VffNVrUEjAuBT7cDtlGHqEXDs7ycwfatEYsY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Dz1LfY/wAF3kOo5tEtn2Hf7fD0c6nETODxKzoI9KEow86Ll46iE6pskjBMDnAb39T
-	 0u+p48dCbprC43Su7/KWx1gpwyIquiwbghTyh2GqMnz4tS8v6omQ3LqBNrwbpX6iBF
-	 5uunOt8naKa1PkKJgbk4c7+GqerVBfyqqPk4VZqk=
+	b=YlSCqrq4L2DKP2GaYpxX2DKRq0dIWAFrKIZVUYjkRTIoQcvLm9j0twNyEZX13xim2
+	 vQfMVlyw3IVak/i+V3avXsipOIMxbC889vJhIX12b26gIWMvduFNov3MgOVW9+pu1c
+	 WjdJcbsPNv2lpGGGfEromj3Na5/t/GM/11f5nT80=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0EA03F89B40; Tue, 13 May 2025 18:34:58 +0200 (CEST)
+	id 05266F89B83; Tue, 13 May 2025 18:35:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EACAAF89B46;
-	Tue, 13 May 2025 18:34:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB6D4F89B78;
+	Tue, 13 May 2025 18:35:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 65ED8F80737; Tue, 13 May 2025 18:34:55 +0200 (CEST)
+	id F4093F89B75; Tue, 13 May 2025 18:35:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-3.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7453AF8055A
-	for <alsa-devel@alsa-project.org>; Tue, 13 May 2025 18:34:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7453AF8055A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 17883F89B73
+	for <alsa-devel@alsa-project.org>; Tue, 13 May 2025 18:35:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17883F89B73
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=A8xAZAx9
+ header.s=k20201202 header.b=C5QW4Iwe
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 585405C6B03;
-	Tue, 13 May 2025 16:32:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09464C4CEED;
-	Tue, 13 May 2025 16:34:48 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id BB8275C0501;
+	Tue, 13 May 2025 16:33:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493A4C4CEE4;
+	Tue, 13 May 2025 16:35:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747154090;
-	bh=g6uAgBmdRVJ/MmwO0dYNS5uypb5EK9FZJwFt76vIoQc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=A8xAZAx9JKl8AvNozmvyqowTBtujipU9DMjfnPjdd9rFMcOsMQNpR/du/X6dIl3Uz
-	 MZ9yB/n6jEvjBh+iMXbkVIi9yV0OlxzJwmMQkWW/Ust5PU3be6YDok8mQTRMeA9WX4
-	 QcEVkUKsnERfqti1xirG/YleYzlXVnJDDBnW+a3/pY6yQxoeQvFzzJ9I4WYjSc9WCJ
-	 kBAEo5WwOR3gDn/3zyo0eElh32X/dENgY7GL1I9T+yQWRSlXpKkAcDWro+H7j+vtp+
-	 yJVSXdNduMKMzbleIKgVHma95KYwuciSjE3nzANkGEPqZxTTFuHh2JWtv5ZzsMLOBu
-	 xXwQB8D1ajO2w==
+	s=k20201202; t=1747154149;
+	bh=EQnX7N7VffNVrUEjAuBT7cDtlGHqEXDs7ycwfatEYsY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=C5QW4IweRoXU3By//jssPj1I9br8RsDVzjl1KAPydZEkcWuTmqUbwqzloRY9mT2Tt
+	 3AiYP824KQp/NsB67+cmmifNMNh6gauByfAnzeIwyoyQuIITpTwK+XhJOH2ENFpj7i
+	 FZBWpRxYH68rfnurhgY/uUHkzvlIlepSIPMQXr8dK+VyhM7BG3ok49gFJRsiU0+gRp
+	 nLmwi2SOcZSuWjkOI8z6ZBA6AdVu+6C+omgqIpzp5D/HdvuOX6GF1j/af4dhq5paZf
+	 x18INHXg6eVfmH6Sk97bVsl+IuzurD90G5EVGYRuPx9H3Fg3acHt9BWjqGi56b/pWb
+	 JaPq0CepZgrKg==
+Date: Tue, 13 May 2025 18:35:46 +0200
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- Liam Girdwood <lgirdwood@gmail.com>, Nishanth Menon <nm@ti.com>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-In-Reply-To: <20250512185739.2907466-1-nm@ti.com>
-References: <20250512185739.2907466-1-nm@ti.com>
-Subject: Re: [PATCH] ASoC: tlv320aic3x: Use dev_err_probe
-Message-Id: <174715408662.98239.15738351990112374855.b4-ty@kernel.org>
-Date: Tue, 13 May 2025 18:34:46 +0200
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: tiwai@suse.de, andriy.shevchenko@linux.intel.com, 13564923607@139.com,
+	13916275206@139.com, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org, baojun.xu@ti.com, Baojun.Xu@fpt.com,
+	jesse-ji@ti.com, kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v4] ALSA: hda/tas2781: Fix the ld issue reported by
+ kernel test robot
+Message-ID: <aCN04pvw7-lzKosb@finisterre.sirena.org.uk>
+References: <20250513085947.1121-1-shenghao-ding@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-c25d1
-Message-ID-Hash: RGRLXTIJYS4ZF6R3EIF4ZQDFSROWWZ46
-X-Message-ID-Hash: RGRLXTIJYS4ZF6R3EIF4ZQDFSROWWZ46
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YDPNt9eOVWN6WI6E"
+Content-Disposition: inline
+In-Reply-To: <20250513085947.1121-1-shenghao-ding@ti.com>
+X-Cookie: Well begun is half done.
+Message-ID-Hash: K4HWBIPYYUYG2UORRQXXIZN72JR47LGK
+X-Message-ID-Hash: K4HWBIPYYUYG2UORRQXXIZN72JR47LGK
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RGRLXTIJYS4ZF6R3EIF4ZQDFSROWWZ46/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K4HWBIPYYUYG2UORRQXXIZN72JR47LGK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,37 +100,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 12 May 2025 13:57:39 -0500, Nishanth Menon wrote:
-> During probe the regulator supply drivers may not yet be available.
-> Use dev_err_probe to provide just the pertinent log.
-> 
-> 
 
-Applied to
+--YDPNt9eOVWN6WI6E
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, May 13, 2025 at 04:59:47PM +0800, Shenghao Ding wrote:
+> After commit 9fa6a693ad8d ("ALSA: hda/tas2781: Remove tas2781_spi_fwlib.c
+> and leverage SND_SOC_TAS2781_FMWLIB")created a separated lib for i2c,
+> However, tasdevice_remove() used for not only for I2C but for SPI being
+> still in that lib caused ld issue.
 
-Thanks!
+Acked-by: Mark Brown <broonie@kernel.org>
 
-[1/1] ASoC: tlv320aic3x: Use dev_err_probe
-      commit: 85f8c2d56caf56aa3379bbc5f1a19fef9aabd23e
+Even though this is an ASoC patch the fixed commit is in Takashi's
+tree so it needs to go via there.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--YDPNt9eOVWN6WI6E
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmgjdN8ACgkQJNaLcl1U
+h9Aqcgf9GjMJs7qvO6//reow/cMgcAv28XBCykx6EvIeTGKl0rSf5aJdwO23jrMP
+oBhg/VYwqSBTESrjhpIPhrewKpnbs5fr7peuAxz1TNYvwNeiI7BMgyEOopZcZvDV
+62q8smhvPWzLe8p71eTOHD3XxOekmnqgxPjfEHRaJp0DcncekWSyy73Cp+z81KFz
+RqTzDA06KFuflu5e/Ao+QieWdkyWlHjZqVqrYvkxiRMsJtZy2UNZaJ0jM94r0mWC
+eN2c3lRgoRuroSUXDXI7zks6WA6YFGGe9ihzpZUX04DPlqmmM7OxrA5CcsCJu7fx
+LZVekGXVzTc9goOsdVZ7LAd+U9CJEQ==
+=hMy0
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--YDPNt9eOVWN6WI6E--

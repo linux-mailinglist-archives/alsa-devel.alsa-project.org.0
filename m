@@ -2,170 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B0E0AB7FC8
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:07:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52277AB7FC4
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:06:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC30962E60;
-	Thu, 15 May 2025 10:02:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC30962E60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EAFC62CC0;
+	Thu, 15 May 2025 10:01:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EAFC62CC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1747296157;
-	bh=WZkibP4wkY2K1VC1gg6ut9Sm4jUW0R5ijpWiQ8P0XHI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1747296098;
+	bh=8n8/bY5LAWpyfxrimtYmM53zT/Z/g9DhZOdMQxbL7qs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RuHW6U5YRPZOKFaopv2JP+Skiyh7rTzNlALHXI94bkB9m1cEo9gSvmtzBP4VkbRlJ
-	 pU2wsUvZ2LMVzxIkJLL+FQR9iqEHM5/vFtzUFqXTLszNKL1IW+U2oONJMYOifuD7v7
-	 bTEAy3/4XFjTZrWL4WA3VZBj+W4fQO1vScBTyc8U=
+	b=K2mPqE6rAZZNEohjm6Ool2LlrdgmbB9650bYZgd2Ew4RF8PfpGA6EY1v8mAuiTNvl
+	 UysvHqhvj+GBgTot/Xu9fRm8zh+s4JlPunFWs6T9wU6CCmPj7jlKnfRrkKOE1MJ7rl
+	 v8Y+APxzpA2Yky5zywvyxHdxiFfnyB1Dkjf9uc5A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A52AEF89B24; Tue, 13 May 2025 11:06:00 +0200 (CEST)
+	id 71CCFF8069F; Tue, 13 May 2025 22:47:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82641F89B25;
-	Tue, 13 May 2025 11:06:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AD72F806A4;
+	Tue, 13 May 2025 22:47:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9401EF89B15; Tue, 13 May 2025 11:05:56 +0200 (CEST)
+	id 73AE0F80686; Tue, 13 May 2025 22:47:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF509F8977F
-	for <alsa-devel@alsa-project.org>; Tue, 13 May 2025 11:05:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF509F8977F
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3D15F80679
+	for <alsa-devel@alsa-project.org>; Tue, 13 May 2025 22:47:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D15F80679
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Gb4UDWu5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=kBetGmQB;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=nBCSw3E+;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=B3TI5dvQ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CA8E41F749;
-	Tue, 13 May 2025 09:05:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1747127154;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Xrxk4u8PDg7ZA0bd6jJfxJtoDG/Rxrff/Qlo9Ip/rr4=;
-	b=Gb4UDWu5JtRdbW8vBTA+1zHOoPkDZhjLCiAIjAZRh03L8oZp4qQSoIT/Xf9vXZAS0+oEP5
-	5CnY5N6yUFaWAgoyub1kMH89qahX9IHh7GeF7p/fuIaVl+PES5Z7Z7Qciw5jwRJlKfZ4vl
-	svmEKo1uzV19wNgofEdbFuuLKlInArQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1747127154;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Xrxk4u8PDg7ZA0bd6jJfxJtoDG/Rxrff/Qlo9Ip/rr4=;
-	b=kBetGmQBfcJGBImyNOnAqBZFg1Hfzm3j9xyRSofBpZI1nD8N2NM/Ad/yi12HnC7+Z4gLSA
-	1kPmvxW6NVFp5mDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=nBCSw3E+;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=B3TI5dvQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1747127152;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Xrxk4u8PDg7ZA0bd6jJfxJtoDG/Rxrff/Qlo9Ip/rr4=;
-	b=nBCSw3E+JJ0Ff9r0l57FUHVBGcap/zdh76U29DGfVVQGs4/JNdS3A4tFhbQJWsR6B0bnp0
-	InN0qGTvH8bBsiaPBVcGdI11q2jnZaFTz+vDbWabi7qPXSDs9vxAEvC8WjXVc8Z+Zy131o
-	R5ABTmSfUbQ79TExTLOecUWW1LoLikY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1747127152;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Xrxk4u8PDg7ZA0bd6jJfxJtoDG/Rxrff/Qlo9Ip/rr4=;
-	b=B3TI5dvQYecHSh1nstNoPdTgSNbn8JMr9lTecbo/oshcuGKn4IEkmIAAS6CZ0H6H2e2lwy
-	Cblj6pF2UAAbqOAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A96921365D;
-	Tue, 13 May 2025 09:05:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4xHWKHALI2hYAQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 13 May 2025 09:05:52 +0000
-Date: Tue, 13 May 2025 11:05:52 +0200
-Message-ID: <87zffgswwf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: <broonie@kernel.org>,
-	<andriy.shevchenko@linux.intel.com>,
-	<13564923607@139.com>,
-	<13916275206@139.com>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<baojun.xu@ti.com>,
-	<Baojun.Xu@fpt.com>,
-	<jesse-ji@ti.com>,
-	kernel test robot
-	<lkp@intel.com>
-Subject: Re: [PATCH v4] ALSA: hda/tas2781: Fix the ld issue reported by kernel
- test robot
-In-Reply-To: <20250513085947.1121-1-shenghao-ding@ti.com>
-References: <20250513085947.1121-1-shenghao-ding@ti.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: CA8E41F749
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[139.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,139.com,alsa-project.org,vger.kernel.org,ti.com,fpt.com,intel.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	REDIRECTOR_URL(0.00)[urldefense.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,urldefense.com:url,ti.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,intel.com:email]
-X-Rspamd-Action: no action
-Message-ID-Hash: 4QJFR3JJ2Q4HPVY35AFB4PMXQSPX4NN6
-X-Message-ID-Hash: 4QJFR3JJ2Q4HPVY35AFB4PMXQSPX4NN6
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=nRN803rF
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 65254614B3;
+	Tue, 13 May 2025 20:47:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD33C4CEEB;
+	Tue, 13 May 2025 20:47:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1747169226;
+	bh=8n8/bY5LAWpyfxrimtYmM53zT/Z/g9DhZOdMQxbL7qs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nRN803rF3MXyZo/sCduaCDqXHx54TbHvRsx8w0qF/iQNvLa/JEtjgSsZTNFXax0m9
+	 EVsxISYB+ng5o4jPweTZk4/SR/01QKV+2x3YATBZjKPFV5muyrq29w++yXuPHjjXuX
+	 AOiYTOoxHnkoQ3QYmsa3abJ3+G+NI80sKbM4fe7DYdNplJ+so0p3v6KGf+Tdw4pwOC
+	 22xRL+O0l7l9eCKips+B/n0rsDupZB9R7bhn0d6BLBMPZ8fz4V0ymDzdTdsSdNVDU9
+	 xxQreElLyMpJUiUw94X0kEc9Dc6x5rFkqXc+UrcfNnRL7TjoaSz7d+QS+yDy3/fNRV
+	 de0w1JcirHYgQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: (subset) [PATCH v4 0/5] Add DisplayPort sound support for
+ Fairphone 5 smartphone
+Date: Tue, 13 May 2025 21:46:41 +0100
+Message-ID: <174716895375.39748.1659820530327447413.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250507-fp5-dp-sound-v4-0-4098e918a29e@fairphone.com>
+References: <20250507-fp5-dp-sound-v4-0-4098e918a29e@fairphone.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: BRB7QSIDO32WO2JLAONPOUJAY2LQMVL4
+X-Message-ID-Hash: BRB7QSIDO32WO2JLAONPOUJAY2LQMVL4
+X-MailFrom: andersson@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -177,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4QJFR3JJ2Q4HPVY35AFB4PMXQSPX4NN6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRB7QSIDO32WO2JLAONPOUJAY2LQMVL4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -186,26 +115,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 13 May 2025 10:59:47 +0200,
-Shenghao Ding wrote:
+
+On Wed, 07 May 2025 10:01:36 +0200, Luca Weiss wrote:
+> Add the necessary sound card bits and some dts additions to enable sound
+> over DisplayPort-over-USB-C, e.g. to a connected TV or monitor.
 > 
-> After commit 9fa6a693ad8d ("ALSA: hda/tas2781: Remove tas2781_spi_fwlib.c
-> and leverage SND_SOC_TAS2781_FMWLIB")created a separated lib for i2c,
-> However, tasdevice_remove() used for not only for I2C but for SPI being
-> still in that lib caused ld issue.
-> All errors (new ones prefixed by >>):
-> >> ld.lld: error: undefined symbol: tasdevice_remove
->    >>> referenced by tas2781_hda.c:33 (sound/pci/hda/tas2781_hda.c:33)
->    >>>               vmlinux.o:(tas2781_hda_remove)
-> To fix this issue, the implementation of tasdevice_remove was moved from
-> tas2781-comlib-i2c.c to tas2781-comlib.c.
+> The UCM files can be found here:
+> https://gitlab.postmarketos.org/postmarketOS/pmaports/-/tree/master/device/testing/device-fairphone-fp5/ucm
 > 
-> Fixes: 9fa6a693ad8d ("ALSA: hda/tas2781: Remove tas2781_spi_fwlib.c and leverage SND_SOC_TAS2781_FMWLIB")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://urldefense.com/v3/__https://lore.kernel.org/oe-kbuild-all/202505111855.FP2fScKA-lkp@intel.com/__;!!G3vK!U-wdsvrOG1iezggZ55RYi8ikBxMaJD
-> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+> This series - in spirit - depends on the series enabling DisplayPort in
+> the first place, but can land pretty independently, especially the ASoC
+> bits:
+> https://lore.kernel.org/linux-arm-msm/20250312-fp5-pmic-glink-dp-v2-0-a55927749d77@fairphone.com/
+> 
+> [...]
 
-Applied now.  Thanks.
+Applied, thanks!
 
+[5/5] arm64: dts: qcom: qcm6490-fairphone-fp5: Add DisplayPort sound support
+      commit: 8fc88fbd471044d66cb2fd85dc0d431866ed7448
 
-Takashi
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>

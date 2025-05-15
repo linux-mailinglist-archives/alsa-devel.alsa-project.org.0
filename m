@@ -2,172 +2,178 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054AFAB7FD0
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:08:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA2D8AB8805
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 15:32:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 559C862F9B;
-	Thu, 15 May 2025 10:07:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 559C862F9B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08A1B6018F;
+	Thu, 15 May 2025 15:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08A1B6018F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1747296466;
-	bh=t6oieiC6PkmHUBT5J/m/ariSEMtMKZPl7YTPtb1Qy+8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=uHuPDx6WvaROL/SQOjsEmG6t8+lQD8BghOweeafqPNqtVxqVpaNCIBD7uWqBmwLs+
-	 A7ALbKE1CxDHIr6kMw24b8hm8z773LXmk7bYpk0DNvNL4QqSE+Qv4PQOYs2kD5C9Q3
-	 89mbrTLg96720okWEtWGEmkVn6e76bBOMpd6nFqI=
+	s=default; t=1747315957;
+	bh=RlXdQcbWEohjskl0/4v+tfl/SFDH1BDXeOG+VSHbAr4=;
+	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=s4h3xRgyAqSOdaiHTjV6Vpi0upDUsWVkCBcMRptmYJ6BDwK567I/GvLRLBzYb622a
+	 nYdtQL2GIZnYB8QKZA6BeU+u/ijzUt3+t5885gj/mfekQHB3f0p9AXrJ+UfETuzutV
+	 Klm59HYh77bSdEJmAJLYJjhI9I5BKJPDCazNEGTI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73831F89C48; Wed, 14 May 2025 20:03:14 +0200 (CEST)
+	id 0BAE3F80154; Thu, 15 May 2025 15:32:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15408F89C3D;
-	Wed, 14 May 2025 20:03:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0A88F80171;
+	Thu, 15 May 2025 15:32:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF81BF8064F; Wed, 14 May 2025 08:43:38 +0200 (CEST)
+	id 11D6EF80075; Thu, 15 May 2025 15:31:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20610.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2009::610])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0BD7F8063D
-	for <alsa-devel@alsa-project.org>; Wed, 14 May 2025 08:43:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0BD7F8063D
+	by alsa1.perex.cz (Postfix) with ESMTPS id A40FFF80027
+	for <alsa-devel@alsa-project.org>; Thu, 15 May 2025 15:31:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A40FFF80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=ODUBxBGC
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id
- 54E2JKHS025908
-	for <alsa-devel@alsa-project.org>; Wed, 14 May 2025 06:43:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1+kTWHR6Q/nKIsQr5M8KaRL7ZteEdh3CROcFdHwMXPY=; b=ODUBxBGC3ip4iDDR
-	qArtlQ7am/X45/1LBoNrBWnK6VRqXHKfPncnRFigXBAG6d4mfQJaTMHu09duID8C
-	qNFrL0A0+n28pd5X3ynfKJIVjOaJ7z3m5yrEloSiUecOrm3otoBJuSVQS2S2wyTD
-	E5DSypKc3cxiGgWB2DNOrNYYVE+zPpHLkocgDKadNoc290V+JFExWLGjOnES8FRt
-	Yeu0y+mQoGjmcEgLesJdOAov1Hl5ki6SKEDa2Td7T03w6V2ltAwA8HBxIW53k4Sh
-	Ndlv8176VxptKF1xb5cnLe57g3qXX93y/ECF02ewYMWYVqWcxRwHWvqES91pnsme
-	t5C5iQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 46mbew1nwf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <alsa-devel@alsa-project.org>; Wed, 14 May 2025 06:43:35 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-7c7c30d8986so2095335385a.2
-        for <alsa-devel@alsa-project.org>;
- Tue, 13 May 2025 23:43:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747205014; x=1747809814;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1+kTWHR6Q/nKIsQr5M8KaRL7ZteEdh3CROcFdHwMXPY=;
-        b=OGIz7gRWe61X2umr7uKWHKsJHIyoJ5EHcLFaS2ulyIFboDrBSMCPjNsuqkpilsbBgJ
-         LUWV8ULmlGSFr0OjVLWP5cMGousmZWPoaBJDQLnc8VnS3HG4vcLqHipRefuJBsq9ydUx
-         U4Oku6KsRyty5g0h3UDjiT0TrSZPqzh1hOzgdgjplNqwGV7KmIA59WAyhQrsN+IAnERh
-         bUcbZ3Jd1BnO/Yetf8HWB39Mc/7k4tjnZAoqrdNUZ27GvmtBqZqQ6PzGAuQDzfJcPds4
-         3TjBk7RQMu6pxT2CP6apO7upK1ZyuoFxXV1GgJjvtZGbmdHxVqaNdGl3qaCcF+waAzrd
-         VfPA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX3mSgQrrYJiLd9qNESvg20udVu/nJ65en7BVOb+pDN+K3k9Mn3qzgSqsKBCzUcGdH639UMrH8l8ZK4@alsa-project.org
-X-Gm-Message-State: AOJu0YztBpQy9MFf2keG7BY/eOl6vUCMLwGsyj+17EZCgguuqo2kc9H4
-	PUl31TSwwar89HZKGQG/wJJWyu+XlEFb8jpEYnKlG84599YFz5qiVq7+GTkBSJNLR6Jrhqud759
-	qrN/tjvLRge5lKlhh4FEJRyFewr47dYwA9JOjyrOyFZTIkDapUhZv6XcpHVqYjg==
-X-Gm-Gg: ASbGncsvYASRdRrodJD6HiwRLgzUtz4CN2ebOhhHzoXWFpTeWngKtCcZHe7j54Z/nZ9
-	473ckeyPLxhSwDMZE5UXhMmunnnWdM3xiNs3mNIXU8poydoq51P/fDOqqh5/MHiN1pmyU4F8+7C
-	BVlO9UB9+pfdidAEikOofd1jAG7/dH+ivfCl/HUcYmVo94/KU3AN6pbe1w1ll32NnaG5RCUQOkH
-	3YrQe4yreuYXJf/8LpzQrGJXSbnFRC4oMNQs7jtzN8WWsi6MFGn43mxyYtTLshoX6PoujdzNxXg
-	DgZJz0LLPG848XC85/8Vbmmpu/NkZO68Q2cLGrMOWGAd5mZs7FJUJf0YcCHB6A==
-X-Received: by 2002:a05:620a:4156:b0:7c5:6df2:b7a5 with SMTP id
- af79cd13be357-7cd287f9650mr287541085a.29.1747205014570;
-        Tue, 13 May 2025 23:43:34 -0700 (PDT)
-X-Google-Smtp-Source: 
- AGHT+IGCYe0F7XxHWYbhu7NVkdrepacB2uWQjdlsK87LfnyU0uT99TRX1IkmjHkIXO+a5nsoJ1a2jw==
-X-Received: by 2002:a05:620a:4156:b0:7c5:6df2:b7a5 with SMTP id
- af79cd13be357-7cd287f9650mr287539785a.29.1747205014272;
-        Tue, 13 May 2025 23:43:34 -0700 (PDT)
-Received: from [10.61.1.19] (110.8.30.213.rev.vodafone.pt. [213.30.8.110])
-        by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-3a1f57ddfc9sm18334688f8f.5.2025.05.13.23.43.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 May 2025 23:43:33 -0700 (PDT)
-Message-ID: <bd36e7e3-480a-4876-98b9-73af8298ff50@oss.qualcomm.com>
-Date: Wed, 14 May 2025 07:43:32 +0100
+ unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
+ header.s=selector2 header.b=PgjWgOrx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E6d8Uq5QS/wYhGsx1Ovh6R9KnQa+k1ZAoTIDxVUCNqHofwAHoUU6MXMhfR6FaE7BOa8TfjbOoaZ/jIaFTSMtet6epyJFfkQoHmlPamddXu+WKD/hrfH1QGL6NvRHaJZ7Xtxjk4luYFfnIXyohMmQ4RgKQrwBWxi0iGGJ2Gk3DCTAE5GJ9u8mRmqP1hJOCrT9nPGNIy7kMi5Isrig0EDlTKHUaV7aSsjNAVsNEsYT214esSpEKKOgg0dYjcW5762UZRSGh+wBEGPqrcyxnvo6tcx1Q3gUtdQhxQ7aQS1wEV8PTrPTplnkZ3NzqSeixHgI6yGk+vCjKddJyMGBf8Jd/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yNCDoiv8R5h09pTGCtsCSRU8hj1+lajarMq/MCe6uHs=;
+ b=m3KVzdTclNjtkIQps+wA/czI/Hqh8WOH3mMbgrD/oicxX8ZYvUSxVFA8UTj5qIEIfWCHOtKtZNjRXAJQVReN8JE4KlZLXCMnzxmnm8rvLsaZgSSkyLi+/Sg60ZhLyKCOmEEruv6ZPTpxvvUB0w15yR+PMaE6A8USdQWYY7oJZRLb/xdiT0xsoYpUeK1YBmuVmW3mKEdc78pcD0oEsKyv7MFFdHm/DqeSWtbZp58dCiXdRSFWtl+uV1XrKKnezVhx2xiKf1DIdWOpveJCvgvmg13/TTic7Vj4uqSifath22c0eVqR4Uf5peMEDtNYOQbKN0IziOaqwB9wPSPTESeZyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yNCDoiv8R5h09pTGCtsCSRU8hj1+lajarMq/MCe6uHs=;
+ b=PgjWgOrxDoruWRIv+eolfG0Ye9cr0Fr4mrWnUtQPi75WDUT5ZZhZCPBOqhBJlmZ804XLYyXFo+3yj4sVZpr9FQ1wpKWKyzm7NRC4WCj1vj8zJpx23eOgNQioYuBaO3IA5cKLIQQpxN7IZzgfXRuIUD2osuTFTNWvb7/tIJip+V0EKXgb59yRZtbYosvqATdQ1Hm/RKTJyQZRMvqk9kSZ25Hb6Wk77G/jR1v5b0hSSIFmRWl1F4ySMPpj2LjXvvSDYd1iMiSakDjXZpMdgxlP5gt64WZ9MBff8Yt+ZMcBd3mVcHNeIda/RiVz/XXuUdoi8z1141XLgjKhNdO35e1cEA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8422.namprd12.prod.outlook.com (2603:10b6:208:3de::8)
+ by DS7PR12MB8347.namprd12.prod.outlook.com (2603:10b6:8:e5::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.31; Thu, 15 May
+ 2025 13:31:49 +0000
+Received: from IA0PR12MB8422.namprd12.prod.outlook.com
+ ([fe80::50d8:c62d:5338:5650]) by IA0PR12MB8422.namprd12.prod.outlook.com
+ ([fe80::50d8:c62d:5338:5650%4]) with mapi id 15.20.8722.027; Thu, 15 May 2025
+ 13:31:49 +0000
+Date: Thu, 15 May 2025 08:31:46 -0500
+From: Daniel Dadap <ddadap@nvidia.com>
+To: alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
+Subject: [PATCH] ALSA: hda - Add new driver for HDA controllers listed via
+ ACPI
+Message-ID: <aCXswg1gr6cufyzp@ddadap-lakeline.nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-ClientProxiedBy: SA0PR13CA0008.namprd13.prod.outlook.com
+ (2603:10b6:806:130::13) To IA0PR12MB8422.namprd12.prod.outlook.com
+ (2603:10b6:208:3de::8)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/5] ASoC: qcom: sm8250: add DisplayPort Jack support
-To: Luca Weiss <luca.weiss@fairphone.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Banajit Goswami <bgoswami@quicinc.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20250507-fp5-dp-sound-v4-0-4098e918a29e@fairphone.com>
- <20250507-fp5-dp-sound-v4-3-4098e918a29e@fairphone.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20250507-fp5-dp-sound-v4-3-4098e918a29e@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: glwZlJt5-FPMxKXlfxq4_8G96xCVFkhW
-X-Proofpoint-ORIG-GUID: glwZlJt5-FPMxKXlfxq4_8G96xCVFkhW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTE0MDA1NyBTYWx0ZWRfX62aEPTt+NlIJ
- jcW4bBwYjcgzb6qsvQ7IGZTHDsPQr3fLSGndmJq/c1ooNMVSYDFKHuFV3SnUXWp4I9FWVPghq1a
- +uHzJvDBmKrvxmVgHN+InrbsANg1p7U2jL54mt+F6UsUJe+6BX0Pe50r/R/8yRk5UWwysOnjZfd
- PZfqi/I28NDmTZ2V02X5EOXD3tr36SHzq7RfutTKUDh+/exBbFhvR6CxVM2BwiW2pGWbaHz0N/X
- mUtb/GeBcpBHhSPK2MRQNPKtRhEBSHg/n8SCSJ8MOApusKWLZb/65RAssSi6Y+0+/DmV8nKY/pz
- ng0mjx+nxMp0Fe4RclvNd4pxYiWoP8LPtFXS2WmdL6f11kLx96VEsSU+Fjm6l49YZvdHJLkycH6
- QHsWAmitRNYYMw2/W32Gxtd7gZNP1nSTXBlccUxyhtVAKOZGGp4DAtkFVeDfAGeBBKP1PpV/
-X-Authority-Analysis: v=2.4 cv=LOFmQIW9 c=1 sm=1 tr=0 ts=68243b97 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=mS7wm7roH4dnaGY2uMEGzA==:17
- a=IkcTkHD0fZMA:10 a=dt9VzEwgFbYA:10 a=EUspDBNiAAAA:8 a=6H0WHjuAAAAA:8
- a=uaetQlgIYQjjGCg3SJwA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-14_02,2025-05-14_02,2025-02-21_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- mlxscore=0 malwarescore=0 mlxlogscore=999 impostorscore=0 bulkscore=0
- clxscore=1015 phishscore=0 classifier=spam authscore=0 authtc=n/a authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2505070000
- definitions=main-2505140057
-X-MailFrom: srinivas.kandagatla@oss.qualcomm.com
-X-Mailman-Rule-Hits: nonmember-moderation
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8422:EE_|DS7PR12MB8347:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17aebd85-965c-4a6f-5e38-08dd93b4d854
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?559+W1/iCwo5cR8ZfCY/4JCcwHGWRg6o42UItXd8ZfrJI5ASbDTZsHjTvzQC?=
+ =?us-ascii?Q?4dcVZUbnPpP+vjLKX3brXXjCLcC/my6Ia1pEhEIsrh5KEaookWbXqVVK8vGh?=
+ =?us-ascii?Q?qluPFEpwBO42IHnbhc9cAJDfjObo3031yFKIJTzZwCVff9dXylDOmd69idQ7?=
+ =?us-ascii?Q?t5lKLZntevtPM8yWcKW80v3XsXh50frctSCUc9pKo1VQjuuEnkx5qJ7qroXv?=
+ =?us-ascii?Q?5F0Ju99uQj/pVy2fiMt1FWxcDHR1UYCu/YeWKqQIOShZfpQ13TCzHJrpX4UU?=
+ =?us-ascii?Q?rMt6OI8/rG6PHsG+v6r/BouD1G00tRQhp13qZyWv5NJHrsPLL747l+9J5Mg9?=
+ =?us-ascii?Q?ei/DnWfuSnz7Jys1yQawRtVRUqCvq3dRJVqO3EA3eCZMEAQyd8uf6P9auwaP?=
+ =?us-ascii?Q?+oo70qimonrjTbQkUroA0XNKhwdeUbZ8Fe2Y+R4CTSMXG4fzLzZUuxx9E5rp?=
+ =?us-ascii?Q?Drmqa5js+oHEFOj4JndB810pC/GgmMlkH+nOoWUK7TY6jPNqsJKjNAwq+nVW?=
+ =?us-ascii?Q?3Qrh2E8FeVYQ9EAmTUL/rqhy5o+dLHzfvjpuUQVuIQeI8xqZ1cEhr2Fs6c16?=
+ =?us-ascii?Q?KbUdWwfk2XSNT/ZX9BuQeSh/kA2qUV2dOxr7XwlWg2tqeGnwaUQaRE86+ezR?=
+ =?us-ascii?Q?IOU3y2I2E5Dqn0FIbCVUTfjTSwXhhYJE8fyPBgQJsXY+z8wdO70xqf2LlYfm?=
+ =?us-ascii?Q?1yOBJ5WHKFG4eq7revPMp8QCPBsuTsJ+OrKFMTnzpR+kbOZOzDxcDyC45ghN?=
+ =?us-ascii?Q?3S2dP4cTIQg9Zf3JmTnk/X1Tkns5kfmw6BG/V5nuIUvF+XOA6HmATeD0KoC6?=
+ =?us-ascii?Q?LYSu/GueYJhxb+aPM9Lip/TLS5IQteAs4E9OYMZhKHfXcpJnnmq1uFPjrVkZ?=
+ =?us-ascii?Q?Olf875ea2CSwFYsld1iZoN051gW44mvp0F50Tq8A5JZ7gr7x2TKdF64WW13P?=
+ =?us-ascii?Q?7fs2EcK8g3ISTmvSoXjBIOqDcWRZFFbn6yIpNF2DD3wOIrkhV0IjO0G79AE0?=
+ =?us-ascii?Q?EDbFOIOQnLswd+CI4Qr372SZV3PUpnsm34UNb98S0Mwzi67X2fZwJcmYuk3E?=
+ =?us-ascii?Q?pMq32VvYMUb8BNjeylM8jAyJJaxDyK+nw1MC/7r/5lMA3aL02G1MXV2faS14?=
+ =?us-ascii?Q?JE2awW3OTZRE5OCj413bx/2KfsNq+tkQewYketA1iOZBtSFlIxyCAIAuGJqe?=
+ =?us-ascii?Q?doX0PXux/8F5FYrUqI3Yb0gIi0LesPozIcNxiydLcrHvCjxnr9n8+K3roXQk?=
+ =?us-ascii?Q?r8DwqsgPLUfXORetUqwUSvlPMxmq6hVvpgrqarsPYXbu+4r7dX+lBenOXvog?=
+ =?us-ascii?Q?zodSKN7eFW/oHK/zG+LheVjdWSMVrW0afMTs7hjOWHqSR23+ILW3P16G9RXa?=
+ =?us-ascii?Q?7I5mISzzbThtcGwK/QXDTsPqxJmZggjrYvixCmvwzdUNrwV07yfC3WA80zLk?=
+ =?us-ascii?Q?i6b3WYSaeXQ=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8422.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?+Kk8fIIgL77Xccz16648rCOc23lw/hJw5z6ae3MVaFuSlwSgIxZPHFBOvaC0?=
+ =?us-ascii?Q?I90NokpfbkL1iPKsl/km2foa2T6SDgChHG7p1Hnh/qcC5I1KdWs2TPe9nkAQ?=
+ =?us-ascii?Q?3Bb904pF+FMGBjBVxnPqyb+rtYqGTcecSKnNJB0ReneUwyg/beurtNy+WCFN?=
+ =?us-ascii?Q?dmmcDd73msUgQm2TV0AdDt/Gii6HfMjz15F84qKOtnmfDF5If8bRJWioiMEE?=
+ =?us-ascii?Q?YFlTw7t1D3hFxlG8X6ZW7EWnG4nPC4aDzy+ahfdKtH2ORo/xssUAcijXQ5aD?=
+ =?us-ascii?Q?bCkMLZtXxqA6dyrIowp1SOBt36Z2iL8FoZ88SAWEth1l36W5dwkJ6rMLr81K?=
+ =?us-ascii?Q?HgDtW+bQdqoSENOajobptEZlZOtzDNjhN/ll9VWofz9InVx7KxFmxaYZg0Pk?=
+ =?us-ascii?Q?5vEJgC4jIXT/3HUTNQcYxfrRXu6j2LSBk2iaX4bl4lrRwpa1CmVlYx5TmtFT?=
+ =?us-ascii?Q?9DQP1uBQgI3Nmrzt0ezqK1orJQrsZ90kzmVTTaTcRTACTjDHCbtk2GHOFw7M?=
+ =?us-ascii?Q?wOcE3fvtyd5hsimRSIgPTBF2bwIK15glCK0MhaRbHmlvkarT3kmznSa2KI+p?=
+ =?us-ascii?Q?fjknOQTgodDTnkFF0GTgE9K1/Jc+/Vd5z+nd2LerbFKfpeFN3HOChKGIoDE2?=
+ =?us-ascii?Q?Boxd2LLYqRPvsc2WAsbHRWWqzUL2CJ9dnzahagfoR4ajAB//8Nuaz45zRRxO?=
+ =?us-ascii?Q?wEMHOyLq010yCTt1TFqhgBDr+jzu0QTRptIQO9A6zmMrnIavNNDEphbOaXYg?=
+ =?us-ascii?Q?Rv/TvlLUB/C9gUbXJnfFHg+sALjzj0/0zoJhYt+DLhvSAOz9k4nzU891bshk?=
+ =?us-ascii?Q?+MT6uQm6Sv/luA2UCxiYuXQnopGsg2hrLeeLGwAwWTTZXrM4JsI9nYgoe4aB?=
+ =?us-ascii?Q?bPlcoNA2Af0VGSt8gygGeC5+B8zcw53KPmEHfVlI+jBpvxNnEBtxD50FMcUY?=
+ =?us-ascii?Q?mhxmAiSDq7a9Wl/3d4C9OHbYBlnw8y/yttpKJgWDB98mTzjFJ4Ul2LcC4rqt?=
+ =?us-ascii?Q?VmH+r0cVZXm2AeTXjh1vCJ/l7aLRx1GuVh9ghgrRhsQRTNCYsdYTdbVKdyCS?=
+ =?us-ascii?Q?t4cpxEW9gCDtauD87Q6CDwJUGkZuAZmTqjvjBRjVZ4vTGyFC3gE5HnApqy0Y?=
+ =?us-ascii?Q?aJnZqJC9mdNNzwHsEvO1l0qOynjPxoyg0HDwLhZlngYkDcEFTVMC7SphJzAs?=
+ =?us-ascii?Q?NwvTYeJGvoQBf0CN1RodzHqD6XSZuynRf+rx0kkFk7YjGgJgLYDDsXWyTXgF?=
+ =?us-ascii?Q?2OF4/hNqUHC8JZaVeeFofszKVe3Kz2sSzpG7Yt03npYhsXnATn2x4Cd8U25c?=
+ =?us-ascii?Q?u/a5w3pmWEhYZIrIdL/dAcOW3R4wMG6RugiC3RJ1qFY15SuzOyFqEPmJ1dos?=
+ =?us-ascii?Q?/Jexz7XCFT6QhbsYBlLF920tYqGqE0r/pBr0IKJa2aGWSrK78grHsZlUV31p?=
+ =?us-ascii?Q?MZSN5Gs4nmpnJr1P9kqG/zmy4lbATbS5wAZSFsfbYMI0g62QGIAG5qCwI1Tx?=
+ =?us-ascii?Q?GaYnR0+QdkFJBfDRvf0ihbA5XljH6dXpBYcQnPO8dyuWykAA8X8yxjusURcB?=
+ =?us-ascii?Q?ynFz/LS7K8KbT9by7milXB5iskPjOB6vZ5uhC+jC?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 17aebd85-965c-4a6f-5e38-08dd93b4d854
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8422.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2025 13:31:49.2004
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ TlpvoPRxkojnaBzJzZ11ly+jKQaAv4PhnDdIQf7Ba4gPAYvYzSm11OaBNcxYQGuG8i2SeWvCdEylAxgYRo919w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8347
+Message-ID-Hash: MVJ2NQRZ3IDZSKDXOLHMARVVA5APYAF3
+X-Message-ID-Hash: MVJ2NQRZ3IDZSKDXOLHMARVVA5APYAF3
+X-MailFrom: ddadap@nvidia.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FCY72BQJDOI5VX46WHGVNIGIDQVMKYL7
-X-Message-ID-Hash: FCY72BQJDOI5VX46WHGVNIGIDQVMKYL7
-X-Mailman-Approved-At: Wed, 14 May 2025 18:03:10 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCY72BQJDOI5VX46WHGVNIGIDQVMKYL7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MVJ2NQRZ3IDZSKDXOLHMARVVA5APYAF3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -176,55 +182,409 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Some systems expose HD-Audio controllers via objects in the ACPI tables
+which encapsulate the controller's interrupt and the base address for the
+HDA registers in an ACPI _CRS object, for example, as listed in this ACPI
+table dump excerpt:
 
+        Device (HDA0)
+        {
+            Name (_HID, "NVDA2014")  // _HID: Hardware ID
+            ...
+            Name (_CRS, ResourceTemplate ()  // _CRS: Current Resource Settings
+            {
+                Memory32Fixed (ReadWrite,
+                    0x36078000,         // Address Base
+                    0x00008000,         // Address Length
+                    )
+                Interrupt (ResourceConsumer, Level, ActiveHigh, Exclusive, ,, )
+                {
+                    0x0000021E,
+                }
+            })
+        }
 
-On 5/7/25 09:01, Luca Weiss wrote:
-> Add support for DisplayPort Jack events, so that user space can
-> configure the audio routing correctly.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Add support for HDA controllers discovered through ACPI, including support
+for some platforms which expose such HDA controllers on NVIDIA SoCs. This
+is done with a new driver which uses existing infrastructure for extracting
+resource information from _CRS objects and plumbs the parsed resource
+information through to the existing HDA infrastructure to enable HD-Audio
+functionality on such devices.
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> ---
->  sound/soc/qcom/sm8250.c | 17 ++++++++++-------
->  1 file changed, 10 insertions(+), 7 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/sm8250.c b/sound/soc/qcom/sm8250.c
-> index f0d83a843765d8dcdd51569e7cbc95eb72292497..2317fe285ee7d41689d7fac453164fbe706744ff 100644
-> --- a/sound/soc/qcom/sm8250.c
-> +++ b/sound/soc/qcom/sm8250.c
-> @@ -25,6 +25,7 @@ struct sm8250_snd_data {
->  	struct snd_soc_jack jack;
->  	struct snd_soc_jack usb_offload_jack;
->  	bool usb_offload_jack_setup;
-> +	struct snd_soc_jack dp_jack;
->  	bool jack_setup;
->  };
->  
-> @@ -32,14 +33,16 @@ static int sm8250_snd_init(struct snd_soc_pcm_runtime *rtd)
->  {
->  	struct sm8250_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
->  	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-> -	int ret;
->  
-> -	if (cpu_dai->id == USB_RX)
-> -		ret = qcom_snd_usb_offload_jack_setup(rtd, &data->usb_offload_jack,
-> -						      &data->usb_offload_jack_setup);
-> -	else
-> -		ret = qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup);
-> -	return ret;
-> +	switch (cpu_dai->id) {
-> +	case DISPLAY_PORT_RX:
-> +		return qcom_snd_dp_jack_setup(rtd, &data->dp_jack, 0);
-> +	case USB_RX:
-> +		return qcom_snd_usb_offload_jack_setup(rtd, &data->usb_offload_jack,
-> +						       &data->usb_offload_jack_setup);
-> +	default:
-> +		return qcom_snd_wcd_jack_setup(rtd, &data->jack, &data->jack_setup);
-> +	}
->  }
->  
->  static void sm8250_snd_exit(struct snd_soc_pcm_runtime *rtd)
-> 
+Although this driver is in the sound/pci/hda/ directory, it targets devices
+which are not actually enumerated on the PCI bus. This is because it depends
+upon the Intel "Azalia" infrastructure which has traditionally been used for
+PCI-based devices.
+
+Signed-off-by: Daniel Dadap <ddadap@nvidia.com>
+---
+ sound/pci/hda/Kconfig    |  11 ++
+ sound/pci/hda/Makefile   |   2 +
+ sound/pci/hda/hda_acpi.c | 316 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 329 insertions(+)
+ create mode 100644 sound/pci/hda/hda_acpi.c
+
+diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
+index 9c427270ff4f..436dfd182a09 100644
+--- a/sound/pci/hda/Kconfig
++++ b/sound/pci/hda/Kconfig
+@@ -42,6 +42,17 @@ config SND_HDA_TEGRA
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called snd-hda-tegra.
+ 
++config SND_HDA_ACPI
++	tristate "HD Audio ACPI"
++	depends on ACPI
++	select SND_HDA
++	help
++	  Say Y here to include support for Azalia-compatible HDA controllers
++	  which are advertised via ACPI objects.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called snd-hda-acpi.
++
+ if SND_HDA
+ 
+ config SND_HDA_HWDEP
+diff --git a/sound/pci/hda/Makefile b/sound/pci/hda/Makefile
+index 210c406dfbc5..7a7c16d705dd 100644
+--- a/sound/pci/hda/Makefile
++++ b/sound/pci/hda/Makefile
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ snd-hda-intel-y := hda_intel.o
+ snd-hda-tegra-y := hda_tegra.o
++snd-hda-acpi-y := hda_acpi.o
+ 
+ snd-hda-codec-y := hda_bind.o hda_codec.o hda_jack.o hda_auto_parser.o hda_sysfs.o
+ snd-hda-codec-y += hda_controller.o
+@@ -80,3 +81,4 @@ obj-$(CONFIG_SND_HDA_SCODEC_TAS2781_SPI) += snd-hda-scodec-tas2781-spi.o
+ # when built in kernel
+ obj-$(CONFIG_SND_HDA_INTEL) += snd-hda-intel.o
+ obj-$(CONFIG_SND_HDA_TEGRA) += snd-hda-tegra.o
++obj-$(CONFIG_SND_HDA_ACPI) += snd-hda-acpi.o
+diff --git a/sound/pci/hda/hda_acpi.c b/sound/pci/hda/hda_acpi.c
+new file mode 100644
+index 000000000000..736eac59eaa0
+--- /dev/null
++++ b/sound/pci/hda/hda_acpi.c
+@@ -0,0 +1,316 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * ALSA driver for ACPI-based HDA Controllers.
++ */
++
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/acpi.h>
++
++#include <sound/hda_codec.h>
++
++#include "hda_controller.h"
++
++struct hda_acpi {
++	struct azx azx;
++	struct snd_card *card;
++	struct platform_device *pdev;
++	void __iomem *regs;
++	struct work_struct probe_work;
++	const struct hda_data *data;
++};
++
++/**
++ * struct hda_data - Optional device-specific data
++ * @short_name: Used for the ALSA card name; defaults to KBUILD_MODNAME
++ * @long_name:  Used for longer description; defaults to short_name
++ * @flags:      Passed to &azx->driver_caps
++ *
++ * A pointer to a record of this type may be stored in the
++ * &acpi_device_id->driver_data field of an ACPI match table entry in order to
++ * customize the naming and behavior of a particular device. All fields are
++ * optional and sensible defaults will be selected in their absence.
++ */
++struct hda_data {
++	const char *short_name;
++	const char *long_name;
++	unsigned long flags;
++};
++
++static int hda_acpi_dev_disconnect(struct snd_device *device)
++{
++	struct azx *chip = device->device_data;
++
++	chip->bus.shutdown = 1;
++	return 0;
++}
++
++static int hda_acpi_dev_free(struct snd_device *device)
++{
++	struct azx *azx = device->device_data;
++	struct hda_acpi *hda = container_of(azx, struct hda_acpi, azx);
++
++	cancel_work_sync(&hda->probe_work);
++	if (azx_bus(azx)->chip_init) {
++		azx_stop_all_streams(azx);
++		azx_stop_chip(azx);
++	}
++
++	azx_free_stream_pages(azx);
++	azx_free_streams(azx);
++	snd_hdac_bus_exit(azx_bus(azx));
++
++	return 0;
++}
++
++static int hda_acpi_init(struct hda_acpi *hda)
++{
++	struct hdac_bus *bus = azx_bus(&hda->azx);
++	struct snd_card *card = hda->azx.card;
++	struct device *dev = &hda->pdev->dev;
++	struct azx *azx = &hda->azx;
++	struct resource *res;
++	unsigned short gcap;
++	const char *sname, *lname;
++	int err, irq;
++
++	/* The base address for the HDA registers and the interrupt are wrapped
++	 * in an ACPI _CRS object which can be parsed by platform_get_irq() and
++	 * devm_platform_get_and_ioremap_resource() */
++
++	irq = platform_get_irq(hda->pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	hda->regs = devm_platform_get_and_ioremap_resource(hda->pdev, 0, &res);
++	if (IS_ERR(hda->regs))
++		return PTR_ERR(hda->regs);
++
++	bus->remap_addr = hda->regs;
++	bus->addr = res->start;
++
++	err = devm_request_irq(dev, irq, azx_interrupt,
++	                       IRQF_SHARED, KBUILD_MODNAME, azx);
++	if (err) {
++		dev_err(dev, "unable to request IRQ %d, disabling device\n", irq);
++		return err;
++	}
++	bus->irq = irq;
++	bus->dma_stop_delay = 100;
++	card->sync_irq = bus->irq;
++
++	gcap = azx_readw(azx, GCAP);
++	dev_dbg(dev, "chipset global capabilities = 0x%x\n", gcap);
++
++	azx->align_buffer_size = 1;
++
++	azx->capture_streams = (gcap >> 8) & 0x0f;
++	azx->playback_streams = (gcap >> 12) & 0x0f;
++
++	azx->capture_index_offset = 0;
++	azx->playback_index_offset = azx->capture_streams;
++	azx->num_streams = azx->playback_streams + azx->capture_streams;
++
++	err = azx_init_streams(azx);
++	if (err < 0) {
++		dev_err(dev, "failed to initialize streams: %d\n", err);
++		return err;
++	}
++
++	err = azx_alloc_stream_pages(azx);
++	if (err < 0) {
++		dev_err(dev, "failed to allocate stream pages: %d\n", err);
++		return err;
++	}
++
++	azx_init_chip(azx, 1);
++
++	if (!bus->codec_mask) {
++		dev_err(dev, "no codecs found!\n");
++		return -ENODEV;
++	}
++
++	strscpy(card->driver, "hda-acpi", sizeof(card->driver));
++
++	sname = hda->data->short_name ? hda->data->short_name : KBUILD_MODNAME;
++
++	if (strlen(sname) > sizeof(card->shortname))
++		dev_info(dev, "truncating shortname for card %s\n", sname);
++	strscpy(card->shortname, sname, sizeof(card->shortname));
++
++	lname = hda->data->long_name ? hda->data->long_name : sname;
++
++	snprintf(card->longname, sizeof(card->longname),
++		 "%s at 0x%lx irq %i", lname, bus->addr, bus->irq);
++
++	return 0;
++}
++
++static void hda_acpi_probe_work(struct work_struct *work)
++{
++	struct hda_acpi *hda = container_of(work, struct hda_acpi, probe_work);
++	struct azx *chip = &hda->azx;
++	int err;
++
++	err = hda_acpi_init(hda);
++	if (err < 0)
++		return;
++
++	err = azx_probe_codecs(chip, 8);
++	if (err < 0)
++		return;
++
++	err = azx_codec_configure(chip);
++	if (err < 0)
++		return;
++
++	err = snd_card_register(chip->card);
++	if (err < 0)
++		return;
++
++	chip->running = 1;
++}
++
++static int hda_acpi_create(struct hda_acpi *hda)
++{
++	static const struct snd_device_ops ops = {
++		.dev_disconnect = hda_acpi_dev_disconnect,
++		.dev_free = hda_acpi_dev_free,
++	};
++	static const struct hda_controller_ops null_ops;
++	struct azx *azx = &hda->azx;
++	int err;
++
++	mutex_init(&azx->open_mutex);
++	azx->card = hda->card;
++	INIT_LIST_HEAD(&azx->pcm_list);
++
++	azx->ops = &null_ops;
++	azx->driver_caps = hda->data->flags;
++	azx->driver_type = hda->data->flags & 0xff;
++	azx->codec_probe_mask = -1;
++
++	err = azx_bus_init(azx, NULL);
++	if (err < 0)
++		return err;
++
++	err = snd_device_new(hda->card, SNDRV_DEV_LOWLEVEL, &hda->azx, &ops);
++	if (err < 0) {
++		dev_err(&hda->pdev->dev, "Error creating device\n");
++		return err;
++	}
++
++	return 0;
++}
++
++static int hda_acpi_probe(struct platform_device *pdev)
++{
++	struct hda_acpi *hda;
++	int err;
++
++	hda = devm_kzalloc(&pdev->dev, sizeof(*hda), GFP_KERNEL);
++	if (!hda)
++		return -ENOMEM;
++
++	hda->pdev = pdev;
++	hda->data = acpi_device_get_match_data(&pdev->dev);
++
++	err = snd_card_new(&pdev->dev, SNDRV_DEFAULT_IDX1, SNDRV_DEFAULT_STR1,
++	                   THIS_MODULE, 0, &hda->card);
++	if (err < 0) {
++		dev_err(&pdev->dev, "Error creating card!\n");
++		return err;
++	}
++
++	INIT_WORK(&hda->probe_work, hda_acpi_probe_work);
++
++	err = hda_acpi_create(hda);
++	if (err < 0)
++		goto out_free;
++	hda->card->private_data = &hda->azx;
++
++	dev_set_drvdata(&pdev->dev, hda->card);
++
++	schedule_work(&hda->probe_work);
++
++	return 0;
++
++out_free:
++	snd_card_free(hda->card);
++	return err;
++}
++
++static void hda_acpi_remove(struct platform_device *pdev)
++{
++	snd_card_free(dev_get_drvdata(&pdev->dev));
++}
++
++static void hda_acpi_shutdown(struct platform_device *pdev)
++{
++	struct snd_card *card = dev_get_drvdata(&pdev->dev);
++	struct azx *chip;
++
++	if (!card)
++		return;
++	chip = card->private_data;
++	if (chip && chip->running)
++		azx_stop_chip(chip);
++}
++
++static int __maybe_unused hda_acpi_suspend(struct device *dev)
++{
++	struct snd_card *card = dev_get_drvdata(dev);
++	int rc;
++
++	rc = pm_runtime_force_suspend(dev);
++	if (rc < 0)
++		return rc;
++	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
++
++	return 0;
++}
++
++static int __maybe_unused hda_acpi_resume(struct device *dev)
++{
++	struct snd_card *card = dev_get_drvdata(dev);
++	int rc;
++
++	rc = pm_runtime_force_resume(dev);
++	if (rc < 0)
++		return rc;
++	snd_power_change_state(card, SNDRV_CTL_POWER_D0);
++
++	return 0;
++}
++
++static const struct dev_pm_ops hda_acpi_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(hda_acpi_suspend, hda_acpi_resume)
++};
++
++struct hda_data nvidia_hda_data = {
++	.short_name = "NVIDIA",
++	.long_name = "NVIDIA HDA Controller",
++	.flags = AZX_DCAPS_CORBRP_SELF_CLEAR,
++};
++
++static const struct acpi_device_id hda_acpi_match[] = {
++	{ .id = "NVDA2014", .driver_data = (uintptr_t) &nvidia_hda_data },
++	{ .id = "NVDA2015", .driver_data = (uintptr_t) &nvidia_hda_data },
++	{},
++};
++MODULE_DEVICE_TABLE(acpi, hda_acpi_match);
++
++static struct platform_driver hda_acpi_platform_driver = {
++	.driver = {
++		.name = KBUILD_MODNAME,
++		.pm = &hda_acpi_pm,
++		.acpi_match_table = hda_acpi_match,
++	},
++	.probe = hda_acpi_probe,
++	.remove = hda_acpi_remove,
++	.shutdown = hda_acpi_shutdown,
++};
++module_platform_driver(hda_acpi_platform_driver);
++
++MODULE_DESCRIPTION("Driver for ACPI-based HDA Controllers");
++MODULE_LICENSE("GPL v2");
+-- 
+2.39.5
 

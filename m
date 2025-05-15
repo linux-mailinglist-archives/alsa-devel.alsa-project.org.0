@@ -2,136 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9B69AB7FAA
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:04:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C616FAB7F8B
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 May 2025 10:01:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BE15625E8;
-	Thu, 15 May 2025 09:56:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BE15625E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC7AF620FD;
+	Thu, 15 May 2025 09:49:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC7AF620FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1747295800;
-	bh=XO2VW6yW6g1AO1YwoxZW55mAH6fKX8pXVdfog2134aA=;
-	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qz/RBY98ZZHqM1781Pex/KO1tZJRcmbfEwNPeJ6XJw5A3ZdpEf1BDXYJIz4loR3zw
-	 wqo/GkoL66z4t1Uh4oBUt9DymmDULxDrhK7G0S11Jh5DphyYUCameC9cr+ymlU8zRa
-	 Sgo9bkEidUdScsPLYwhm6WagZp4iAHy3DLFpHbNc=
+	s=default; t=1747295356;
+	bh=FWkVhd1e+rN1MkOzu4aHGcRnovRlUpyoL9e1RjZDZbg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=eEHgsiI4+U3fbt+lAnewbdmYEkN83Vr9sut31p9SHuOi4OCUTbqn4FnsHPcSIjtkk
+	 nPfeL9icryc1LWkudHhNIeciYfkuXwrSUuPYohmVA2eydO9WMThWbEZfVtmZa4ASGh
+	 6q8P/LNrCkeLll+CAHjEdcr3FlclB4S7ScOcgkl8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C4ADF80617; Wed, 14 May 2025 17:17:30 +0200 (CEST)
+	id 16DC0F80542; Thu, 15 May 2025 09:35:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0476FF8060F;
-	Wed, 14 May 2025 17:17:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D415EF80542;
+	Thu, 15 May 2025 09:35:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F00D0F805F8; Wed, 14 May 2025 17:17:26 +0200 (CEST)
+	id 2B74AF80185; Thu, 15 May 2025 09:35:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+X-Spam-Status: No, score=-6.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0C371F805F3
-	for <alsa-devel@alsa-project.org>; Wed, 14 May 2025 17:17:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C371F805F3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 66D8CF80100
+	for <alsa-devel@alsa-project.org>; Thu, 15 May 2025 09:35:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66D8CF80100
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=sc/WXbtN;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Q55LZ4DM;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=sc/WXbtN;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Q55LZ4DM
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CE3DF21241
-	for <alsa-devel@alsa-project.org>; Wed, 14 May 2025 15:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1747235843; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=2ULNUs3F/MULwFLjowrOXi2XqIE2Trzd+ssBpSXFsCk=;
-	b=sc/WXbtNI5dtPikH5yePsvpmql0J/pdFpQAkLhzJq3DeNTWG7exaYoB5wkbHVzsupbCTqj
-	HKNyfRgt0WNUSZSzHwlyIYU93lx6KC4z7CV2NdFvPbhcXV3PpKj+UCC+H1mtBFbZk7OYSH
-	0m2wMeIb43jTMocnXdzbMvvRN0pw9F8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1747235843;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=2ULNUs3F/MULwFLjowrOXi2XqIE2Trzd+ssBpSXFsCk=;
-	b=Q55LZ4DMQKNMXHlC09IUpWo1iOQU+yj8Kzb1tGakKzmUiI56mAKuRpMKNFoo/xvFY2SBt5
-	iNgTuD52H6sL5ADg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1747235843; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=2ULNUs3F/MULwFLjowrOXi2XqIE2Trzd+ssBpSXFsCk=;
-	b=sc/WXbtNI5dtPikH5yePsvpmql0J/pdFpQAkLhzJq3DeNTWG7exaYoB5wkbHVzsupbCTqj
-	HKNyfRgt0WNUSZSzHwlyIYU93lx6KC4z7CV2NdFvPbhcXV3PpKj+UCC+H1mtBFbZk7OYSH
-	0m2wMeIb43jTMocnXdzbMvvRN0pw9F8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1747235843;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=2ULNUs3F/MULwFLjowrOXi2XqIE2Trzd+ssBpSXFsCk=;
-	b=Q55LZ4DMQKNMXHlC09IUpWo1iOQU+yj8Kzb1tGakKzmUiI56mAKuRpMKNFoo/xvFY2SBt5
-	iNgTuD52H6sL5ADg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BA607137E8
-	for <alsa-devel@alsa-project.org>; Wed, 14 May 2025 15:17:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id I0xfLAO0JGgrJgAAD6G6ig
-	(envelope-from <tiwai@suse.de>)
-	for <alsa-devel@alsa-project.org>; Wed, 14 May 2025 15:17:23 +0000
-Date: Wed, 14 May 2025 17:17:23 +0200
-Message-ID: <87frh7te64.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: MIDI 2.0 Network UDP server/client programs for ALSA
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	PREVIOUSLY_DELIVERED(0.00)[alsa-devel@alsa-project.org];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-Message-ID-Hash: LL4WNMS2JN5H7M2VTMD7UAV6KQFIYEXW
-X-Message-ID-Hash: LL4WNMS2JN5H7M2VTMD7UAV6KQFIYEXW
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=J8qWiIPT
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id A44EEA4C9DB;
+	Thu, 15 May 2025 07:35:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD8AC4CEE7;
+	Thu, 15 May 2025 07:35:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1747294521;
+	bh=FWkVhd1e+rN1MkOzu4aHGcRnovRlUpyoL9e1RjZDZbg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=J8qWiIPT+mHZPT7AQqadSn3+1bTsSwvYK+GOq65vtvFxh+8MH1YJi0Fg9oNJsCEKe
+	 qLdtYtdBaREPQGp0jt/Bl8a7fx9Q5HamMw806/KxqOIDZwUeUTyM99WcRWNef/AL/7
+	 XRTnFF4FOrQ+lwKpjxsUsD4uA1yJXST0UL1C5gbszowYVoNORFejwoAhWu36lrNukp
+	 lu4ybryflzhexW2nBsWpleLr4gHHR30q0racZnMoEiyn826YPSAw6U3Ru9PYRROhCe
+	 8nf4ujYfmUGpWs7Vqcn/+llkiGuG4x5cYDLqEnZqEr4sSFV0AMNhurm+sZBnSkEknY
+	 ZWVxtD6W3/VoQ==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Brady Norander <bradynorander@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Aleksandr Mishin <amishin@t-argos.ru>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <20250330130844.37870-2-bradynorander@gmail.com>
+References: <20250330130844.37870-2-bradynorander@gmail.com>
+Subject: Re: [PATCH v2] ASoC: amd: use new ACP dev names for DAI links
+Message-Id: <174729451754.272498.3315820407847091647.b4-ty@kernel.org>
+Date: Thu, 15 May 2025 09:35:17 +0200
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-c25d1
+Message-ID-Hash: LQAXJEGLKZUUYO2XQWZLHUYPQNIXNJZB
+X-Message-ID-Hash: LQAXJEGLKZUUYO2XQWZLHUYPQNIXNJZB
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -143,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LL4WNMS2JN5H7M2VTMD7UAV6KQFIYEXW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LQAXJEGLKZUUYO2XQWZLHUYPQNIXNJZB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,39 +100,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+On Sun, 30 Mar 2025 09:08:45 -0400, Brady Norander wrote:
+> On AMD SoC platforms with an ACP2x gpu ip block (such as stoneyridge),
+> the amdgpu driver will create several platform devices for the ACP ASoC
+> driver to communicate with the ACP hardware block on the gpu. These
+> platform devices include dma for audio and one or multiple i2s
+> interfaces. The amdgpu driver has always created these platform devices
+> with automatic ids. The ASoC machine drives hardcode the platform device
+> name. This creates an issue where if the ACP platform devices are not
+> the first to be created, the ids can be different to what the machine
+> drivers expect, causing them to not find the ACP platform devices and
+> failing to load. Switch to using static ids for these ACP platform
+> devices so that the names never change.
+> 
+> [...]
 
-I recently wrote a set of small programs for the new Network MIDI 2.0
-UDP transport with ALSA sequencer / rawmidi API, based on v1.0 spec.
-The current version (v0.3) is found at:
-  https://github.com/tiwai/amidi2net
+Applied to
 
-A network server can be invoked simply via:
-  % amidi2net-server
-and this will create an ALSA sequencer client/port.  This ALSA
-sequencer port can be connected by any other ALSA sequencer programs
-or devices.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-The server opens a UDP port, so that it can be connected by a client
-on another machine on the net, e.g.:
-  % amidi2net-client -l amidi2net
-which creates an ALSA sequencer client/port similarly, and this can be
-connected by other apps, too.  After the network connection, server
-and client can pass the UMP data between them freely, so they work as
-a bridge or hub for applications on both machines.
+Thanks!
 
-Some details are found in README and man pages.
+[1/1] ASoC: amd: use new ACP dev names for DAI links
+      commit: 51590571433e32cacce10b11051c6ff056bf0aa8
 
-For the builds, you'll need openssl and avahi devel packages.
-(It allows to build without those, but basic functions will be
-missing.)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-As it's a quite initial version, there can be bugs and subject to
-change.  But the stuff seems working stably.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Feel free to reach me if you find any issues.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-thanks,
+Thanks,
+Mark
 
-Takashi

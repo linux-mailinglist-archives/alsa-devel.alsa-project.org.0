@@ -2,159 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792C1ABFDBD
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 May 2025 22:17:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48094ABFF04
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 May 2025 23:36:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6CD7601D5;
-	Wed, 21 May 2025 22:17:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6CD7601D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8AE1601E2;
+	Wed, 21 May 2025 23:36:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8AE1601E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1747858672;
-	bh=ApWcyrroo+2hPS54I+0N5c7FGowDgjsj4rRqtuHkSjI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1747863416;
+	bh=g6+zsbOHPyUG91NuSDbzA80ZYUNh8XVdbb2MapM+onE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GhyMnOwbU73TBRrDze3RtE1KqKZo6dwZqpmT5qpjqfKm3JXm/DH8YAAsm1vzZgf3G
-	 K8xt01vKyY4drboS8hkORrH8Trxa+iXeMAxPzv39pGS8zZNYFSyFRnQ1/pMd520o+4
-	 M1JSjW6UN2qd5CLqW3I0mVEwnQQ4kmpERG9Xx04M=
+	b=sUIHYlLueHoSP+pTtU4RRVMwF+QANCwkshl6okn91jUPwaFj8qqalEBk2gSd3wT1I
+	 nVombnM6gPojIJ95XqhLG6xlzJcecvV/SGNXmNpsEFvVLlcRIumCtoVdTbdzUc18Wc
+	 2IkhuEwUFH8vMNqFiVKpVi3WZh2KxGY3Ncf1y27I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A52F1F805AA; Wed, 21 May 2025 22:17:16 +0200 (CEST)
+	id 5560CF8057D; Wed, 21 May 2025 23:36:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 948F9F80580;
-	Wed, 21 May 2025 22:17:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46282F805A1;
+	Wed, 21 May 2025 23:36:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3E15F80553; Wed, 21 May 2025 22:17:12 +0200 (CEST)
+	id 254C8F80553; Wed, 21 May 2025 23:36:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:2])
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20624.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2417::624])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 39080F801F7
-	for <alsa-devel@alsa-project.org>; Wed, 21 May 2025 22:17:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39080F801F7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35F46F800C1
+	for <alsa-devel@alsa-project.org>; Wed, 21 May 2025 23:36:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35F46F800C1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ZxvYvdcT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bVOgQEWz;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=ZxvYvdcT;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bVOgQEWz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A0C2C20A16;
-	Wed, 21 May 2025 20:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1747858628;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DT8o45QVlWn7fUluVCrGuzjTB2ZPfgQE+kq0JTqnQak=;
-	b=ZxvYvdcTq0B/ap/9FTyeuy8TmysfhYukmvf6ovJyZG8Cwj5EgqTWil0k1G5rTAusikLrza
-	zoYuBdJvpZJNqOreQTrJxZPQxhsItxVcKYwS2m6IDRyt/VFQs3tNzsVIEVRXT8vD79KMN9
-	uEcM2HTYBrP94b9jVjXKo9Xe3QjCIWE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1747858628;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DT8o45QVlWn7fUluVCrGuzjTB2ZPfgQE+kq0JTqnQak=;
-	b=bVOgQEWzWYTA+akt0hzVyRY1PChoqY2gLRisukr85nvk3U0ulGIFrU7w96QJI3yh8xjcws
-	h5sypX19Ml6YhyCw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZxvYvdcT;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bVOgQEWz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1747858628;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DT8o45QVlWn7fUluVCrGuzjTB2ZPfgQE+kq0JTqnQak=;
-	b=ZxvYvdcTq0B/ap/9FTyeuy8TmysfhYukmvf6ovJyZG8Cwj5EgqTWil0k1G5rTAusikLrza
-	zoYuBdJvpZJNqOreQTrJxZPQxhsItxVcKYwS2m6IDRyt/VFQs3tNzsVIEVRXT8vD79KMN9
-	uEcM2HTYBrP94b9jVjXKo9Xe3QjCIWE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1747858628;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DT8o45QVlWn7fUluVCrGuzjTB2ZPfgQE+kq0JTqnQak=;
-	b=bVOgQEWzWYTA+akt0hzVyRY1PChoqY2gLRisukr85nvk3U0ulGIFrU7w96QJI3yh8xjcws
-	h5sypX19Ml6YhyCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 796DE13AA0;
-	Wed, 21 May 2025 20:17:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YNIgHMQ0LmhmagAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 21 May 2025 20:17:08 +0000
-Date: Wed, 21 May 2025 22:17:04 +0200
-Message-ID: <877c29afcv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Daniel Dadap <ddadap@nvidia.com>
-Cc: alsa-devel@alsa-project.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH v5] ALSA: hda - Add new driver for HDA controllers listed
- via ACPI
-In-Reply-To: <aC3ksXJUM9DlKiz6@ddadap-lakeline.nvidia.com>
-References: <aCXswg1gr6cufyzp@ddadap-lakeline.nvidia.com>
-	<87r00qx78f.wl-tiwai@suse.de>
-	<aCYMjYrfFIPjN9Fi@ddadap-lakeline.nvidia.com>
-	<87zffdvvj6.wl-tiwai@suse.de>
-	<aC3ksXJUM9DlKiz6@ddadap-lakeline.nvidia.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Bar: /
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: A0C2C20A16
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-0.51 / 50.00];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[suse.de:mid,suse.de:dkim,nvidia.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim];
-	DKIM_TRACE(0.00)[suse.de:+]
-Message-ID-Hash: 7FYDQM57MA7QWBZUSSF6IYFLC4WXRNP7
-X-Message-ID-Hash: 7FYDQM57MA7QWBZUSSF6IYFLC4WXRNP7
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
+ header.s=selector2 header.b=pxem612e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LAobFysQEWGbEzRAjswqcOoan4V9aiG4inKvrOPyncP6IMSm0cfAKlCkd71H+XTAGUoajILxUTTaCq8x87ztEyJjDxEVgXaCrvCO0vG9MNcSJgHMl2hu46RbP2epZTiskm8ElWvVljFXsatmFeReLUn7DgtzS1HVscyTBs7NkJnSVMk8sM2I/+Wbo7+gIh0iQA+zSkQo4WbfSlF6NUymM3HDLzTeO/RdmJ3MktdDB1pKqlxolhN7fmOsI+VESdFzOKZbJR8DT73HWTovqyziBo03Dw3l6K4592onKE/UB97dOulJIJfDqir6potcYNbRQh7xXyzZ+favbmBynHw/tA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=naQDv1linFnpGkcVGPeykM6qkIIzL6/9J+fRGuU6AcM=;
+ b=WMwLWh6plme2JBb8TqTmLcSHozz6pGSwxx06nCN9p1UPhkLGhAEz8dLs2JhK4YrDf4EJYxchCtG6lU40H4Ke8XAK71JSALNRL64OdS3zLJTozAcckqnHJ/gee1jIcHv5ELvPgnJ1WwF0BUS5vAKRHiM3doX+vXCqxMK33UiVzmlcfT9OojSPfN63kzK8zFmxXNlCqIpb/JEF20JWr2TbjQ3mwzbhaKSzrwCX43VnxxKNREJi+rkp6X02LEHka1ngVraXSun3B8QB6c8yrhQa7Ijh8neBbfKPcbvbbJv12R/fbZp0ZLL/XGkuv400hkTkDGePBRWRbQ/BoAuG+GhG1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=naQDv1linFnpGkcVGPeykM6qkIIzL6/9J+fRGuU6AcM=;
+ b=pxem612enEmRZem5PsQBksXwIV5mDNuX/Eb5yeZoewDFOmT7sX7KKweFliaDjiHtM25Y6HW4MutL2ed29Zw7sa6Ynn80fVwb6FTzmlzqWPyGTVSlaXXdQSRZNqFzh8VeaXxqQDV+uOe+KWcvsrmlLXCMfTFpBnWR9iOsQQlVz5PEmO16M1um1YMEEtd3R2ukM5/IlUDHV1F+aMXmBdQOJ6YXMzbKUp71lqt6XdMx4VU9U0rrmS6w9J2rZ7fs40X43VF3tRoxEWnJBIWoxv665OVPNPYaUkDtDVhtaSQEm6WDhNqMVIm7DETIjTicPlhOLaNMIBWPXb+uz67v1scXfw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8422.namprd12.prod.outlook.com (2603:10b6:208:3de::8)
+ by CYYPR12MB8964.namprd12.prod.outlook.com (2603:10b6:930:bc::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Wed, 21 May
+ 2025 21:36:03 +0000
+Received: from IA0PR12MB8422.namprd12.prod.outlook.com
+ ([fe80::50d8:c62d:5338:5650]) by IA0PR12MB8422.namprd12.prod.outlook.com
+ ([fe80::50d8:c62d:5338:5650%4]) with mapi id 15.20.8746.030; Wed, 21 May 2025
+ 21:36:02 +0000
+Date: Wed, 21 May 2025 16:36:00 -0500
+From: Daniel Dadap <ddadap@nvidia.com>
+To: alsa-devel@alsa-project.org
+Cc: tiwai@suse.de
+Subject: Re: [PATCH] conf: aliases: add hda-acpi -> HDA-Intel alias
+Message-ID: <aC5HQAcun3NMnVMA@ddadap-lakeline.nvidia.com>
+References: <aCXs810qs_pvuOtx@ddadap-lakeline.nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aCXs810qs_pvuOtx@ddadap-lakeline.nvidia.com>
+X-ClientProxiedBy: DM6PR04CA0014.namprd04.prod.outlook.com
+ (2603:10b6:5:334::19) To IA0PR12MB8422.namprd12.prod.outlook.com
+ (2603:10b6:208:3de::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8422:EE_|CYYPR12MB8964:EE_
+X-MS-Office365-Filtering-Correlation-Id: d408f066-642f-451f-fcb0-08dd98af7c2d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?eSONRXN54Id6WFN+KVf4uGodQQphbNdLmkxsQcFtf3cQ/2/HTHk+hTIpFR7B?=
+ =?us-ascii?Q?rmb1//WJoVUOxGiMYa44JDW4+WC1sIIrzFJY3QuUOtAuWm/qd2fOQKBS8x0p?=
+ =?us-ascii?Q?yNH5GkcU0oXM7wKvbRMNBq5WiPZbJwndykG4/0oIt5KzfVT6GCM3HOuNZk6w?=
+ =?us-ascii?Q?c2AHqdRwLgGknOsMCE+EYMH0XyKzajE1ZE4G0W3e52DA5shAhYT+d/2zNwsK?=
+ =?us-ascii?Q?KWOulbIztkHZyd/aQ5+1LHt6dUR9nBnV+4iVUKDslyRNmsGu7CpmkmmeKqWF?=
+ =?us-ascii?Q?nK3aYqDXrQ79Q2g3YDqI7B5fiRRD0In050qm6llSAoObda+3LNAdxqzdd6EJ?=
+ =?us-ascii?Q?TDaqY+4VAvMXbbTDEvtW3qqsR4LLaNo/xg28JvOhPVQl0RaBx/SjsCC+1bjl?=
+ =?us-ascii?Q?YMWAPU5QdTcBIu3qew8sel4FONnNEPTrpioVjiyvPL8ABCXhXJKpExBpDV5f?=
+ =?us-ascii?Q?wFxQedFF84rCUXQBBnEgApf3j0oZvUhJ//cSwUP41z9YYbZjIp4w8O/yk0Q7?=
+ =?us-ascii?Q?wZ7f+dk62ujsHYfe55Ivy7np2mhofyk/3fc3gwpPPMHbeCScVB3KAObB7FKH?=
+ =?us-ascii?Q?ixiUMC/cGMIK2uAfO6beJ+FSM5b3AFOFucasLG8csXdllleyJVUc8kpN9c92?=
+ =?us-ascii?Q?ydKXlYBmVNQOwk7KMOPp9PtzAGxYjEKmfZrKpsx219ocCVlkV5PCQyjtB82G?=
+ =?us-ascii?Q?mA5NQBAyyj5mPve6QCsK5yLt0KQZYN+L0lZKzakhxb6GVXjBddQZhRXHEBZo?=
+ =?us-ascii?Q?KCt2Y5wY5HikwfSAPvEFAKliowWBL490twBincAx/ehdRo2i6LEp4AnxEu9e?=
+ =?us-ascii?Q?YxK237W7/hc3rZYjE62BMiJ8DVnfAd+tnjLHxolF8yH43GY+kZS41nqxIz8N?=
+ =?us-ascii?Q?a3kMqQP67VShnBvVMFreczR8Ybv9tWYWNP5Jb+Rs6agH+kxhlulP/3DKAhNY?=
+ =?us-ascii?Q?W74q6yGFVrhTOb5wC20/80z2uqgLhjsL6sO0ptXISWMAfoq1nzaWevEwMouz?=
+ =?us-ascii?Q?pO4SRiw9kZWpH9XKVDIXeTwVOeSRDJHhdOgEwHtuqEo0HyRVkiE4/rvzASKd?=
+ =?us-ascii?Q?2mGQQzKMKNNrQLoyduYmUKZ0grPcynUWl6PQvG64AhU495GXfI97rctn3XXT?=
+ =?us-ascii?Q?NaTJaAaD1HbjO6qwDO6LICaf9g6lzXvNjjeFTlwQCa3hEBycQqSviCQrVJKi?=
+ =?us-ascii?Q?ku4n7bOGVAxv/XBOv31VVScff+fzSbqNyqpXF+W84pSluYjrIjOCYGur+xu2?=
+ =?us-ascii?Q?eUpfM7KL8x5QCUb7KOX+EZOL5XvsijH5Lwq1owOZBwJSlWLeEVHHwEVHfxQH?=
+ =?us-ascii?Q?/pX4VQTemMP12V267J5vAmion5+frxJzKRmGR+ulR4IBWQJ+Ihh+ICx+9Aij?=
+ =?us-ascii?Q?mIvh5wLsMvMxwVutHQGXpXqxlrA2ncIpAudoc25yAqQCsd10Vh4fxckiZ35j?=
+ =?us-ascii?Q?aVEKxLmalSQ=3D?=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8422.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?9gMZ1HZ1HTpA7se57xnmf0lWBvBzpHx2DgHVj9vuit4rbY/rtRC5gO6zOrq0?=
+ =?us-ascii?Q?x84YqvevWezlcwqruWxRXET20zFXdmyAp7A9X86YiHwVgtZ2iL+XMvdFUcyh?=
+ =?us-ascii?Q?ShrHwbNjh6n0nat5Lt9YW5TCbe9B4tY3FPt6RfsfXy+APDXskc+QelJIKkuc?=
+ =?us-ascii?Q?fI+NKJT+2O4jAHcAd3zNcmmLLmUYu5Vxn+iwodZywaiRnTDj8nJha4pEuFM8?=
+ =?us-ascii?Q?rfuBoKtmOP/fPRO44fModI/2hxLRI8xKLJZom7dCgAMUv3fK4DNLc3hafF67?=
+ =?us-ascii?Q?xvgHtVfn5n0UiXM5gOD5BrXAOU1ipW4tCWJquB2dkFAyQeImCKz7ZZhfngXm?=
+ =?us-ascii?Q?CfYJCpMfBd7hjOygai2ZHcKDY0nuiEmPMiqr6d8KvZhcr4CpyeOad12rKX0T?=
+ =?us-ascii?Q?vFUEMmWW+jQTQNvVaCsQl/3zBtdQm4nAdOBkEDa9dB+C+YhxP//H/BPP/Fip?=
+ =?us-ascii?Q?Oq3CAbibQzitjWiHRRoV7+BsK/L2tKw2QgeVEN+yjpgEP648gEmFrVPj8mF3?=
+ =?us-ascii?Q?fkXjgYXO8aglVejJNtiXd+pOPRpmEZNe5pi0u+l60+QloX2OfoIMgVkKqGVj?=
+ =?us-ascii?Q?9s2oX8UFnRpX7z9i1+i8BXC1OXkgn6hlBuwZmz0Sdy8NZHt/6iroOBVC9wwO?=
+ =?us-ascii?Q?hT6VRlFF/YbMY9OsezoZ2JRoY/ThSSponINkLKVd1MkJQh8fhMDHYtOCXi+g?=
+ =?us-ascii?Q?N7ZaNpiB703GGqKMAO5h4/9syo83m75RK/VrSW9yFL88tMSuwvbxPDCbfc8o?=
+ =?us-ascii?Q?5VwiEWVJZRaqUaMjWgOeV8ftU07KobXe+oE2qFSL23GoSUiQtNI50hFzAYkX?=
+ =?us-ascii?Q?xYwZ7vLnMKMM1vt9lO4i6NEdKucakrE+RjsH7gmnnR0t/OODGBKBiFMH4iZz?=
+ =?us-ascii?Q?uP5cVu8wNTAALj4tWUV+ZC4C5TsJ/rhgYQGz4RUyjjn5vgteIPphmQGSuj+3?=
+ =?us-ascii?Q?RfB0O19QVtKllQc1cFOid5+NbxE4bhBHguayrAmEg1WSOU7bfOYh/8aaisr+?=
+ =?us-ascii?Q?wvz5vaC5Ibk3cWMKPFcajiQpBOFmAZirZYfVj2X0MRi8B35WTd+vh4Fvlan2?=
+ =?us-ascii?Q?7wb7jD/cS/b4aOBMTm5atUGK+xOmJCZCm4j6LTELYtulC299vdvZhCDWdqSU?=
+ =?us-ascii?Q?pk0A1UGfWVQZ7HqUNOAa7jN4oPljxU7TEbl2hUBXvmN450ZngbriXn36sD2K?=
+ =?us-ascii?Q?nKMAEGHjEf4cx94saeFAW2AnL0zSAaTnmMUI/bC4tLZaL4qBw9tK2zeqeETm?=
+ =?us-ascii?Q?93VeONTW4b0rD2glLxLnUETaoFtleyIQAFoP9Sf+OBqfehzWxnnDA55pYeF9?=
+ =?us-ascii?Q?boLsv1HCoqR1+jtfn09svadmowJEmAe+m0z8ajz0vOt1wG0Csu6jZ6TCSm4n?=
+ =?us-ascii?Q?/py5UA+b+mY78E30r6yylrfUqHKMYa5R/0VF6dDZDhYnhpSBN0Lfe3gVlxkf?=
+ =?us-ascii?Q?colbNq7JzFsmpYXcZ4LO0KKFyk7HPQ5ldar6dNA8z6/CO81uo8wsE7Eh8WAp?=
+ =?us-ascii?Q?iLlhthQZ5Oj4+VlgmZszjwl05P2plCnk+ZyrSJivdPKBtU3GWRWNkbXKuiUW?=
+ =?us-ascii?Q?k6jSFvmrjU2ETpOO726QOfYark23RTDdW6g3r6hb?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ d408f066-642f-451f-fcb0-08dd98af7c2d
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8422.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2025 21:36:02.8180
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ uTb2Eaw/G1BkZ17EW5T7e6gbEwLgR/BykXEkBKv9fTwR2CrIOdx3Hg1inAttIojnWOb6r8HJGVjnvBc8v9lrOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8964
+Message-ID-Hash: IFL43RSSYFPKECQNYQ3E3SJC2YSNNJCX
+X-Message-ID-Hash: IFL43RSSYFPKECQNYQ3E3SJC2YSNNJCX
+X-MailFrom: ddadap@nvidia.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -166,7 +176,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7FYDQM57MA7QWBZUSSF6IYFLC4WXRNP7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IFL43RSSYFPKECQNYQ3E3SJC2YSNNJCX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,54 +185,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 21 May 2025 16:35:29 +0200,
-Daniel Dadap wrote:
-> 
-> Some systems expose HD-Audio controllers via objects in the ACPI tables
-> which encapsulate the controller's interrupt and the base address for the
-> HDA registers in an ACPI _CRS object, for example, as listed in this ACPI
-> table dump excerpt:
-> 
->         Device (HDA0)
->         {
->             Name (_HID, "NVDA2014")  // _HID: Hardware ID
->             ...
->             Name (_CRS, ResourceTemplate ()
->             // _CRS: Current Resource Settings
->             {
->                 Memory32Fixed (ReadWrite,
->                     0x36078000,         // Address Base
->                     0x00008000,         // Address Length
->                     )
->                 Interrupt (ResourceConsumer, Level, ActiveHigh, Exclusive,
->                            ,, )
->                 {
->                     0x0000021E,
->                 }
->             })
->         }
-> 
-> Add support for HDA controllers discovered through ACPI, including support
-> for some platforms which expose such HDA controllers on NVIDIA SoCs. This
-> is done with a new driver which uses existing infrastructure for extracting
-> resource information from _CRS objects and plumbs the parsed resource
-> information through to the existing HDA infrastructure to enable HD-Audio
-> functionality on such devices.
-> 
-> Although this driver is in the sound/pci/hda/ directory, it targets devices
-> which are not actually enumerated on the PCI bus. This is because it
-> depends upon the Intel "Azalia" infrastructure which has traditionally been
-> usedvfor PCI-based devices.
+Add Takashi to CC. This is for the hda_acpi driver which was just merged
+into the for-next branch in the tiwai/sound tree.
+
+On Thu, May 15, 2025 at 08:32:39AM -0500, Daniel Dadap wrote:
+> The new snd_hda_acpi driver in Linux exposes the existing Azalia
+> interface to non-PCI devices advertised over ACPI. Add an alias
+> to the existing HDA-Intel configuration file so that devices using
+> this driver can be discovered properly.
 > 
 > Signed-off-by: Daniel Dadap <ddadap@nvidia.com>
 > ---
+>  src/conf/cards/aliases.conf | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Patch history:
-> v2,3: Remove __maybe_unused, use SYSTEM_SLEEP_PM_OPS (Takashi Iwai)
-> v4:   Address checkpatch issues (Takashi Iwai), allow NULL match data
-> v5:   Use two-argument strscpy()
-
-Applied now to for-next branch.  Thanks.
-
-
-Takashi
+> diff --git a/src/conf/cards/aliases.conf b/src/conf/cards/aliases.conf
+> index a54824ae..e2d59aa7 100644
+> --- a/src/conf/cards/aliases.conf
+> +++ b/src/conf/cards/aliases.conf
+> @@ -57,6 +57,7 @@ CMI8786 cards.CMI8788
+>  CMI8787 cards.CMI8788
+>  pistachio cards.pistachio-card
+>  VC4-HDMI cards.vc4-hdmi
+> +hda-acpi cards.HDA-Intel
+>  
+>  <confdir:ctl/default.conf>
+>  <confdir:pcm/default.conf>
+> -- 
+> 2.39.5
+> 

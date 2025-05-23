@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0962EAC28AD
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:30:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C2DAC28B9
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:34:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D63C601D4;
-	Fri, 23 May 2025 19:30:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D63C601D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFD7F601D3;
+	Fri, 23 May 2025 19:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFD7F601D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748021440;
-	bh=zR3XzvTb+7IWzWp0GTvIWeFpf9fnfzo3B/Vaz5GbRXo=;
+	s=default; t=1748021670;
+	bh=4rJRu4kMHCZdwhFSLv3FATync85qQd/xMKtW9oWfSQc=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=rkhX6maZoyCKaqbFBvxyoKsdvtGBlqRVcYeZ7KIvojRrwmR8kMKxQGRpZExrdO1Ym
-	 zEe8udL1ajXRfiKcVf2JS5ufcylXmq+ARH3ks5LtvMMF/yJFbhKSMB43es4IBmzwMA
-	 fCWaLXZghB/Ee5iOP10kt9H5pxqp8XuiJ3zzyRuU=
+	b=nYnAhMhVPwWPBZMk815fquXny9RpdZyff84MosqZOMaLpLtHAQySPxInZMVK7/PGf
+	 pd8OYamkAmWHQqZ3zDMaTBVnl52TBEPHb1Dz5SX/9xGe5rQE9ODoeAMpK117emBjfD
+	 ClUD1k5y8tKT13PIZXMKDmj9C/5xe4LSAAHfudNk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9424CF805BB; Fri, 23 May 2025 19:30:04 +0200 (CEST)
+	id 488DFF800C1; Fri, 23 May 2025 19:33:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86799F805B1;
-	Fri, 23 May 2025 19:30:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BB7DF805B2;
+	Fri, 23 May 2025 19:33:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BAFBF8057E; Fri, 23 May 2025 19:30:00 +0200 (CEST)
+	id 810BAF8057E; Fri, 23 May 2025 19:33:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,23 +35,23 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79539F800C1
-	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:29:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79539F800C1
+	by alsa1.perex.cz (Postfix) with ESMTP id 594ECF800C1
+	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:33:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594ECF800C1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <184238334137cb00-webhooks-bot@alsa-project.org>
-In-Reply-To: <184238334132cf00-webhooks-bot@alsa-project.org>
-References: <184238334132cf00-webhooks-bot@alsa-project.org>
+Message-Id: <184238690c99be00-webhooks-bot@alsa-project.org>
+In-Reply-To: <184238690c912a00-webhooks-bot@alsa-project.org>
+References: <184238690c912a00-webhooks-bot@alsa-project.org>
 Subject: Ubuntu Level 3 Log Error:
  /usr/lib/udev/rules.d/90-alsa-restore.rules:20 GOTO="alsa_restore_std" has no
  matching label, ignoring.
-Date: Fri, 23 May 2025 19:30:00 +0200 (CEST)
-Message-ID-Hash: 7TJNDOZVY27EXDZ6IHBNFCQTVNGQW2QC
-X-Message-ID-Hash: 7TJNDOZVY27EXDZ6IHBNFCQTVNGQW2QC
+Date: Fri, 23 May 2025 19:33:51 +0200 (CEST)
+Message-ID-Hash: OEWJWBNQWRUS7GGS7RLFOUNCDV66A5GX
+X-Message-ID-Hash: OEWJWBNQWRUS7GGS7RLFOUNCDV66A5GX
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -64,7 +64,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TJNDOZVY27EXDZ6IHBNFCQTVNGQW2QC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OEWJWBNQWRUS7GGS7RLFOUNCDV66A5GX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -327,6 +327,669 @@ Continued:
 Output sound settings work here:
 
 ![Image](https://github.com/user-attachments/assets/5162569b-9734-4088-897d-5b8c73632da1)
+
+Alsa Config:
+
+<pre>cat alsa.conf
+#
+#  ALSA library configuration file
+#
+
+# pre-load the configuration files
+
+@hooks [
+	{
+		func load
+		files [
+			&quot;/var/lib/alsa/conf.d&quot;
+			&quot;/usr/etc/alsa/conf.d&quot;
+			&quot;/etc/alsa/conf.d&quot;
+			&quot;/etc/asound.conf|||/usr/etc/asound.conf&quot;
+			&quot;~/.asoundrc&quot;
+			{
+				@func concat
+				strings [
+					{
+						@func getenv
+						vars [
+							XDG_CONFIG_HOME
+						]
+						default &quot;~/.config&quot;
+					}
+					&quot;/alsa/asoundrc&quot;
+				]
+			}
+		]
+		errors false
+	}
+]
+
+# load card-specific configuration files (on request)
+
+cards.@hooks [
+	{
+		func load
+		files [
+			{
+				@func concat
+				strings [
+					{ @func datadir }
+					&quot;/cards/aliases.conf&quot;
+				]
+			}
+		]
+	}
+	{
+		func load_for_all_cards
+		files [
+			{
+				@func concat
+				strings [
+					{ @func datadir }
+					&quot;/cards/&quot;
+					{ @func private_string }
+					&quot;.conf&quot;
+				]
+			}
+			{
+				root {
+					@func private_integer
+				}
+				file {
+					@func concat
+					strings [
+						&quot;/var/lib/alsa/card&quot;
+						{ @func private_integer }
+						&quot;.conf.d&quot;
+					]
+				}
+			}
+		]
+		table {
+			id {
+				@func concat
+				strings [
+					{ @func private_integer }
+				]
+			}
+			value {
+				@func concat
+				strings [
+					&quot;cards.&quot;
+					{ @func private_string }
+				]
+			}
+		}
+		errors false
+	}
+]
+
+#
+# defaults
+#
+
+# show all name hints also for definitions without hint {} section
+defaults.namehint.showall on
+# show just basic name hints
+defaults.namehint.basic on
+# show extended name hints
+defaults.namehint.extended on
+#
+defaults.ctl.card 0
+defaults.pcm.card 0
+defaults.pcm.device 0
+defaults.pcm.subdevice -1
+defaults.pcm.nonblock 1
+defaults.pcm.compat 0
+defaults.pcm.minperiodtime 5000		# in us
+defaults.pcm.ipc_key 5678293
+defaults.pcm.ipc_gid audio
+defaults.pcm.ipc_perm 0660
+defaults.pcm.tstamp_type default
+defaults.pcm.dmix.max_periods 0
+defaults.pcm.dmix.channels 2
+defaults.pcm.dmix.rate 48000
+defaults.pcm.dmix.format unchanged
+defaults.pcm.dmix.card defaults.pcm.card
+defaults.pcm.dmix.device defaults.pcm.device
+defaults.pcm.dsnoop.card defaults.pcm.card
+defaults.pcm.dsnoop.device defaults.pcm.device
+defaults.pcm.front.card defaults.pcm.card
+defaults.pcm.front.device defaults.pcm.device
+defaults.pcm.rear.card defaults.pcm.card
+defaults.pcm.rear.device defaults.pcm.device
+defaults.pcm.center_lfe.card defaults.pcm.card
+defaults.pcm.center_lfe.device defaults.pcm.device
+defaults.pcm.side.card defaults.pcm.card
+defaults.pcm.side.device defaults.pcm.device
+defaults.pcm.surround21.card defaults.pcm.card
+defaults.pcm.surround21.device defaults.pcm.device
+defaults.pcm.surround40.card defaults.pcm.card
+defaults.pcm.surround40.device defaults.pcm.device
+defaults.pcm.surround41.card defaults.pcm.card
+defaults.pcm.surround41.device defaults.pcm.device
+defaults.pcm.surround50.card defaults.pcm.card
+defaults.pcm.surround50.device defaults.pcm.device
+defaults.pcm.surround51.card defaults.pcm.card
+defaults.pcm.surround51.device defaults.pcm.device
+defaults.pcm.surround71.card defaults.pcm.card
+defaults.pcm.surround71.device defaults.pcm.device
+defaults.pcm.iec958.card defaults.pcm.card
+defaults.pcm.iec958.device defaults.pcm.device
+defaults.pcm.modem.card defaults.pcm.card
+defaults.pcm.modem.device defaults.pcm.device
+defaults.pcm.file_format raw
+defaults.pcm.file_truncate true		# truncate files via file or tee PCM
+defaults.rawmidi.card 0
+defaults.rawmidi.device 0
+defaults.rawmidi.subdevice -1
+defaults.hwdep.card 0
+defaults.hwdep.device 0
+defaults.timer.class 2
+defaults.timer.sclass 0
+defaults.timer.card 0
+defaults.timer.device 0
+defaults.timer.subdevice 0
+
+#
+#  PCM interface
+#
+
+pcm.hw {
+	@args [ CARD DEV SUBDEV ]
+	@args.CARD {
+		type string
+		default {
+			@func getenv
+			vars [
+				ALSA_PCM_CARD
+				ALSA_CARD
+			]
+			default {
+				@func refer
+				name defaults.pcm.card
+			}
+		}
+	}
+	@args.DEV {
+		type integer
+		default {
+			@func igetenv
+			vars [
+				ALSA_PCM_DEVICE
+			]
+			default {
+				@func refer
+				name defaults.pcm.device
+			}
+		}
+	}
+	@args.SUBDEV {
+		type integer
+		default {
+			@func refer
+			name defaults.pcm.subdevice
+		}
+	}		
+	type hw
+	card $CARD
+	device $DEV
+	subdevice $SUBDEV
+	hint {
+		show {
+			@func refer
+			name defaults.namehint.extended
+		}
+		description &quot;Direct hardware device without any conversions&quot;
+	}
+}
+
+pcm.plughw {
+	@args [ CARD DEV SUBDEV ]
+	@args.CARD {
+		type string
+		default {
+			@func getenv
+			vars [
+				ALSA_PCM_CARD
+				ALSA_CARD
+			]
+			default {
+				@func refer
+				name defaults.pcm.card
+			}
+		}
+	}
+	@args.DEV {
+		type integer
+		default {
+			@func igetenv
+			vars [
+				ALSA_PCM_DEVICE
+			]
+			default {
+				@func refer
+				name defaults.pcm.device
+			}
+		}
+	}
+	@args.SUBDEV {
+		type integer
+		default {
+			@func refer
+			name defaults.pcm.subdevice
+		}
+	}		
+	type plug
+	slave.pcm {
+		type hw
+		card $CARD
+		device $DEV
+		subdevice $SUBDEV
+	}
+	hint {
+		show {
+			@func refer
+			name defaults.namehint.extended
+		}
+		description &quot;Hardware device with all software conversions&quot;
+	}
+}
+
+pcm.plug {
+	@args [ SLAVE ]
+	@args.SLAVE {
+		type string
+	}
+	type plug
+	slave.pcm $SLAVE
+}
+
+pcm.shm {
+	@args [ SOCKET PCM ]
+	@args.SOCKET {
+		type string
+	}
+	@args.PCM {
+		type string
+	}
+	type shm
+	server $SOCKET
+	pcm $PCM
+}
+
+pcm.tee {
+	@args [ SLAVE FILE FORMAT ]
+	@args.SLAVE {
+		type string
+	}
+	@args.FILE {
+		type string
+	}
+	@args.FORMAT {
+		type string
+		default {
+			@func refer
+			name defaults.pcm.file_format
+		}
+	}
+	type file
+	slave.pcm $SLAVE
+	file $FILE
+	format $FORMAT
+	truncate {
+		@func refer
+		name defaults.pcm.file_truncate
+	}
+}
+
+pcm.file {
+	@args [ FILE FORMAT ]
+	@args.FILE {
+		type string
+	}
+	@args.FORMAT {
+		type string
+		default {
+			@func refer
+			name defaults.pcm.file_format
+		}
+	}
+	type file
+	slave.pcm null
+	file $FILE
+	format $FORMAT
+	truncate {
+		@func refer
+		name defaults.pcm.file_truncate
+	}
+}
+
+pcm.null {
+	type null
+	hint {
+		show {
+			@func refer
+			name defaults.namehint.basic
+		}
+		description &quot;Discard all samples (playback) or generate zero samples (capture)&quot;
+	}
+}
+
+# redirect to load-on-demand extended pcm definitions
+pcm.cards cards.pcm
+
+pcm.default cards.pcm.default
+pcm.sysdefault cards.pcm.default
+pcm.front cards.pcm.front
+pcm.rear cards.pcm.rear
+pcm.center_lfe cards.pcm.center_lfe
+pcm.side cards.pcm.side
+pcm.surround21 cards.pcm.surround21
+pcm.surround40 cards.pcm.surround40
+pcm.surround41 cards.pcm.surround41
+pcm.surround50 cards.pcm.surround50
+pcm.surround51 cards.pcm.surround51
+pcm.surround71 cards.pcm.surround71
+pcm.iec958 cards.pcm.iec958
+pcm.spdif iec958
+pcm.hdmi cards.pcm.hdmi
+pcm.dmix cards.pcm.dmix
+pcm.dsnoop cards.pcm.dsnoop
+pcm.modem cards.pcm.modem
+pcm.phoneline cards.pcm.phoneline
+
+#
+#  Control interface
+#
+	
+ctl.default cards.ctl.default
+ctl.sysdefault cards.ctl.default
+
+ctl.hw {
+	@args [ CARD ]
+	@args.CARD {
+		type string
+		default {
+			@func getenv
+			vars [
+				ALSA_CTL_CARD
+				ALSA_CARD
+			]
+			default {
+				@func refer
+				name defaults.ctl.card
+			}
+		}
+	}
+	type hw
+	card $CARD
+	hint.description &quot;Direct control device&quot;
+}
+
+ctl.shm {
+	@args [ SOCKET CTL ]
+	@args.SOCKET {
+		type string
+	}
+	@args.CTL {
+		type string
+	}
+	type shm
+	server $SOCKET
+	ctl $CTL
+}
+
+#
+#  RawMidi interface
+#
+
+rawmidi.default {
+	type hw
+	card {
+		@func getenv
+		vars [
+			ALSA_RAWMIDI_CARD
+			ALSA_CARD
+		]
+		default {
+			@func refer
+			name defaults.rawmidi.card
+		}
+	}
+	device {
+		@func igetenv
+		vars [
+			ALSA_RAWMIDI_DEVICE
+		]
+		default {
+			@func refer
+			name defaults.rawmidi.device
+		}
+	}
+	hint.description &quot;Default raw MIDI device&quot;
+}
+
+rawmidi.hw {
+	@args [ CARD DEV SUBDEV ]
+	@args.CARD {
+		type string
+		default {
+			@func getenv
+			vars [
+				ALSA_RAWMIDI_CARD
+				ALSA_CARD
+			]
+			default {
+				@func refer
+				name defaults.rawmidi.card
+			}
+		}
+	}
+	@args.DEV {
+		type integer
+		default {
+			@func igetenv
+			vars [
+				ALSA_RAWMIDI_DEVICE
+			]
+			default {
+				@func refer
+				name defaults.rawmidi.device
+			}
+		}
+	}
+	@args.SUBDEV {
+		type integer
+		default -1
+	}
+	type hw
+	card $CARD
+	device $DEV
+	subdevice $SUBDEV
+	hint {
+		description &quot;Direct rawmidi driver device&quot;
+		device $DEV
+	}
+}
+
+rawmidi.virtual {
+	@args [ MERGE ]
+	@args.MERGE {
+		type string
+		default 1
+	}
+	type virtual
+	merge $MERGE
+}
+
+#
+#  Sequencer interface
+#
+
+seq.default {
+	type hw
+	hint.description &quot;Default sequencer device&quot;
+}
+
+seq.hw {
+	type hw
+}
+
+#
+#  HwDep interface
+#
+
+hwdep.default {
+	type hw
+	card {
+		@func getenv
+		vars [
+			ALSA_HWDEP_CARD
+			ALSA_CARD
+		]
+		default {
+			@func refer
+			name defaults.hwdep.card
+		}
+	}
+	device {
+		@func igetenv
+		vars [
+			ALSA_HWDEP_DEVICE
+		]
+		default {
+			@func refer
+			name defaults.hwdep.device
+		}
+	}
+	hint.description &quot;Default hardware dependent device&quot;
+}
+
+hwdep.hw {
+	@args [ CARD DEV ]
+	@args.CARD {
+		type string
+		default {
+			@func getenv
+			vars [
+				ALSA_HWDEP_CARD
+				ALSA_CARD
+			]
+			default {
+				@func refer
+				name defaults.hwdep.card
+			}
+		}
+	}
+	@args.DEV {
+		type integer
+		default {
+			@func igetenv
+			vars [
+				ALSA_HWDEP_DEVICE
+			]
+			default {
+				@func refer
+				name defaults.hwdep.device
+			}
+		}
+	}
+	type hw
+	card $CARD
+	device $DEV
+	hint {
+		description &quot;Direct hardware dependent device&quot;
+		device $DEV
+	}
+}
+
+#
+#  Timer interface
+#
+
+timer_query.default {
+	type hw
+}
+
+timer_query.hw {
+	type hw
+}
+
+timer.default {
+	type hw
+	class {
+		@func refer
+		name defaults.timer.class
+	}
+	sclass {
+		@func refer
+		name defaults.timer.sclass
+	}
+	card {
+		@func refer
+		name defaults.timer.card
+	}
+	device {
+		@func refer
+		name defaults.timer.device
+	}
+	subdevice {
+		@func refer
+		name defaults.timer.subdevice
+	}
+	hint.description &quot;Default timer device&quot;
+}
+
+timer.hw {
+	@args [ CLASS SCLASS CARD DEV SUBDEV ]
+	@args.CLASS {
+		type integer
+		default {
+			@func refer
+			name defaults.timer.class
+		}
+	}
+	@args.SCLASS {
+		type integer
+		default {
+			@func refer
+			name defaults.timer.sclass
+		}
+	}
+	@args.CARD {
+		type string
+		default {
+			@func refer
+			name defaults.timer.card
+		}
+	}
+	@args.DEV {
+		type integer
+		default {
+			@func refer
+			name defaults.timer.device
+		}
+	}
+	@args.SUBDEV {
+		type integer
+		default {
+			@func refer
+			name defaults.timer.subdevice
+		}
+	}
+	type hw
+	class $CLASS
+	sclass $SCLASS
+	card $CARD
+	device $DEV
+	subdevice $SUBDEV
+	hint {
+		description &quot;Direct timer device&quot;
+		device $DEV
+	}
+}
+</pre>
 
 Issue URL     : https://github.com/alsa-project/alsa-utils/issues/299
 Repository URL: https://github.com/alsa-project/alsa-utils

@@ -2,55 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9925DAC169B
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 00:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7E6DAC237C
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 15:12:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1292E60208;
-	Fri, 23 May 2025 00:22:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1292E60208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21C6160195;
+	Fri, 23 May 2025 15:12:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21C6160195
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1747952579;
-	bh=hKwurjCrsZMKgQpTJLebTZlAT90rg6DLftSjusL0jWc=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=PvddjajKAaEy32ymii+Gc7HepGE7ow3x0Tg9rBwY0jWf1mTx38b/PQYVOkj2zUEik
-	 oaKzMAL0UyKT+ShR8kdXcOdCK+4QWqDYGOl76GhGniVmIDfWfrwD75aXI2/CCnO6+l
-	 45CmltQ+o7gkuTGxNWTqihPyR5IHAmHiRrpEspdQ=
+	s=default; t=1748005931;
+	bh=VYoT670TJsnVTvEQzUtCn0lO/9G1UORjQ8W6EV8wX/o=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jlemy5syRCbFSCaX7kizS4snTIr6SNi6nhIruEP1VHiUQUxtCK7rDNRwyTIFpaD+i
+	 C3GIXkuR4GDj8yoXxnSgSqvgxXWE/TO7/mZc9TRQz3JNcJBCkYuVYd0kISmmZ+zkk3
+	 Z7G/U9JsfIt4bfljZGL3PjPwIWeKs+JgFy9eIzCI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7CBB3F805BE; Fri, 23 May 2025 00:22:23 +0200 (CEST)
+	id 75CBEF800C1; Fri, 23 May 2025 15:11:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65435F805B6;
-	Fri, 23 May 2025 00:22:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67A02F805B4;
+	Fri, 23 May 2025 15:11:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FB85F8057F; Fri, 23 May 2025 00:22:20 +0200 (CEST)
+	id B0F15F8057E; Fri, 23 May 2025 15:11:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5ADAF80568
-	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 00:22:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5ADAF80568
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5A8FCF80508
+	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 15:11:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A8FCF80508
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=kfgOkFTc
+Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
+	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTP id 54NDBKfJ2112995;
+	Fri, 23 May 2025 08:11:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1748005880;
+	bh=LkQkT+4I/VfRBh8xB9FA+9eo6P9+4MLSefFU2BeWUAE=;
+	h=From:To:CC:Subject:Date;
+	b=kfgOkFTcbwu8vwfpIH+fpH2XxFS78kOPgz7SdsVn8mUDRAV5/6igD2nzw5eBkFmq8
+	 BynCIDsEBgd1ehgwxc/Laaoi2QeoVwbBESNKLKm8ZGFgOJnA3DyPGBxbZA7q80iE+9
+	 EZJmpYV2/68EQOUJlWPun97uL63X9yHT/qoFXe8U=
+Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
+	by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 54NDBKIY3834736
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Fri, 23 May 2025 08:11:20 -0500
+Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE102.ent.ti.com
+ (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 23
+ May 2025 08:11:19 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Fri, 23 May 2025 08:11:19 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.60])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 54NDBFQv1251237;
+	Fri, 23 May 2025 08:11:16 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <broonie@kernel.org>
+CC: <andriy.shevchenko@linux.intel.com>, <tiwai@suse.de>,
+        <13916275206@139.com>, <13564923607@139.com>,
+        <alsa-devel@alsa-project.org>, <baojun.xu@ti.com>, <jesse-ji@ti.com>,
+        Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v1] ASoC: tas2781: Drop the unnecessary symbol imply
+Date: Fri, 23 May 2025 21:11:11 +0800
+Message-ID: <20250523131111.1884-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <1841f99283587b00-webhooks-bot@alsa-project.org>
-In-Reply-To: <1841f99283422d00-webhooks-bot@alsa-project.org>
-References: <1841f99283422d00-webhooks-bot@alsa-project.org>
-Subject: snd_config_imul always produces a zero result.
-Date: Fri, 23 May 2025 00:22:20 +0200 (CEST)
-Message-ID-Hash: RX3NCFR26P3ZK6FTL6HK2WTU3MQGMVDP
-X-Message-ID-Hash: RX3NCFR26P3ZK6FTL6HK2WTU3MQGMVDP
-X-MailFrom: github@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: B4U3DQ7JIDZFECNFOTMZVC6XO3F42KL4
+X-Message-ID-Hash: B4U3DQ7JIDZFECNFOTMZVC6XO3F42KL4
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RX3NCFR26P3ZK6FTL6HK2WTU3MQGMVDP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4U3DQ7JIDZFECNFOTMZVC6XO3F42KL4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,74 +105,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #456 was edited from shanekirk:
+The unnecessary symbols for imply are SND_SOC_TAS2781_COMLIB,
+SND_SOC_TAS2781_COMLIB_I2C, and SND_SOC_TAS2781_FMWLIB. They all used for
+library compiling. All the symbols in the imply are used for codec driver
+compiling.
 
-The config function snd_config_imul always produces a zero result. This is because it delegates to snd_func_iops() to perform the iterative multiplication, which always initializes its result value to zero. Then it iteratively multiplies-assigns result against each integer in the params array, which _always_ produces zero.
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+---
+ sound/soc/codecs/Kconfig | 3 ---
+ 1 file changed, 3 deletions(-)
 
-This breaks any configuration that leans on "`@func imul`".
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 8fe795504dbb..0e70064bc90c 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -262,9 +262,6 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_TAS2764
+ 	imply SND_SOC_TAS2770
+ 	imply SND_SOC_TAS2780
+-	imply SND_SOC_TAS2781_COMLIB
+-	imply SND_SOC_TAS2781_COMLIB_I2C
+-	imply SND_SOC_TAS2781_FMWLIB
+ 	imply SND_SOC_TAS2781_I2C
+ 	imply SND_SOC_TAS5086
+ 	imply SND_SOC_TAS571X
+-- 
+2.43.0
 
-This can be demonstrated using this snippet of configuration...
-
-```
-test_fn
-{
-    @func imul
-    integers [2 4 6]
-}
-
-```
-...or this source code...
-```
-int main(int argc, char **argv)
-{
-    snd_config_t *pConfig = NULL;
-    snd_config_top(&pConfig);
-
-    /**
-     * Setting up...
-     * test_fn
-     * {
-     *     @func imul
-     *     integers [2 4 6]
-     * }
-     */
-    snd_config_t *pFnCS = NULL;
-    snd_config_make_compound(&pFnCS, "test_fn", 0);
-    snd_config_add(pConfig, pFnCS);
-
-    snd_config_t *pFn = NULL;
-    snd_config_imake_string(&pFn, "@func", "imul");
-    snd_config_add(pFnCS, pFn);
-
-    snd_config_t *pFnParams = NULL;
-    snd_config_make_compound(&pFnParams, "integers", 0);
-    snd_config_add(pFnCS, pFnParams);
-
-    snd_config_t *pFnInt = NULL;
-    snd_config_imake_integer(&pFnInt, "0", 2);
-    snd_config_add(pFnParams, pFnInt);
-    snd_config_imake_integer(&pFnInt, "1", 4);
-    snd_config_add(pFnParams, pFnInt);
-    snd_config_imake_integer(&pFnInt, "2", 6);
-    snd_config_add(pFnParams, pFnInt);
-
-    /**
-     * Evaluating...
-     */
-    snd_config_evaluate(pFnCS, pConfig, NULL, NULL);
-    assert(snd_config_get_type(pFnCS) == SND_CONFIG_TYPE_INTEGER);
-    long result = 0;
-    snd_config_get_integer(pFnCS, &result);
-    assert(result == 48); // ** FAILS because result is always zero! **
-
-    snd_config_delete(pConfig);
-    return 0;
-}
-```
-
-Note: If you replace "imul" above with "iadd" in either example, you'll get the result from iadd that you'd expect.
-
-Incidentally, from the history, it would appear that "imul" has never worked correctly since it was introduced all those years ago. So if any configuration truly depended on this feature, it would have always been broken too.
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/456
-Repository URL: https://github.com/alsa-project/alsa-lib

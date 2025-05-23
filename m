@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C2DAC28B9
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:34:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C7FDAC28CF
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:35:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFD7F601D3;
-	Fri, 23 May 2025 19:34:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFD7F601D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84A21601EE;
+	Fri, 23 May 2025 19:35:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A21601EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748021670;
-	bh=4rJRu4kMHCZdwhFSLv3FATync85qQd/xMKtW9oWfSQc=;
+	s=default; t=1748021749;
+	bh=iqzwAEW15Io9tZ5wCw81QQk18XjspER0mU8Jukx6TD4=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=nYnAhMhVPwWPBZMk815fquXny9RpdZyff84MosqZOMaLpLtHAQySPxInZMVK7/PGf
-	 pd8OYamkAmWHQqZ3zDMaTBVnl52TBEPHb1Dz5SX/9xGe5rQE9ODoeAMpK117emBjfD
-	 ClUD1k5y8tKT13PIZXMKDmj9C/5xe4LSAAHfudNk=
+	b=mxQLlG87CIouMSiMBpz9TyYPBgbFJ5HLEC3I46mb1T4cK/XiULOPWViC+Ps7UGOrO
+	 TIvEIqh1zCTVXHLDEFQpq+9xVn6/t/6tJ92KbhaOIdoUGmACObxc+gXuqSYAktSeaD
+	 iUAunla0dRr5CgWXOi6QNhgJPJEzXFiIuEwMjdGY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 488DFF800C1; Fri, 23 May 2025 19:33:54 +0200 (CEST)
+	id DA326F805B0; Fri, 23 May 2025 19:35:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BB7DF805B2;
-	Fri, 23 May 2025 19:33:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4979F805B2;
+	Fri, 23 May 2025 19:35:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 810BAF8057E; Fri, 23 May 2025 19:33:51 +0200 (CEST)
+	id 7FADAF8057E; Fri, 23 May 2025 19:35:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,23 +35,23 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 594ECF800C1
-	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:33:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594ECF800C1
+	by alsa1.perex.cz (Postfix) with ESMTP id D224FF800C1
+	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:35:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D224FF800C1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <184238690c99be00-webhooks-bot@alsa-project.org>
-In-Reply-To: <184238690c912a00-webhooks-bot@alsa-project.org>
-References: <184238690c912a00-webhooks-bot@alsa-project.org>
+Message-Id: <1842387b94da6000-webhooks-bot@alsa-project.org>
+In-Reply-To: <1842387b94d11f00-webhooks-bot@alsa-project.org>
+References: <1842387b94d11f00-webhooks-bot@alsa-project.org>
 Subject: Ubuntu Level 3 Log Error:
  /usr/lib/udev/rules.d/90-alsa-restore.rules:20 GOTO="alsa_restore_std" has no
  matching label, ignoring.
-Date: Fri, 23 May 2025 19:33:51 +0200 (CEST)
-Message-ID-Hash: OEWJWBNQWRUS7GGS7RLFOUNCDV66A5GX
-X-Message-ID-Hash: OEWJWBNQWRUS7GGS7RLFOUNCDV66A5GX
+Date: Fri, 23 May 2025 19:35:11 +0200 (CEST)
+Message-ID-Hash: 6MHAGOGFPLSQCEE5YB5WEIQLDDTAPNGI
+X-Message-ID-Hash: 6MHAGOGFPLSQCEE5YB5WEIQLDDTAPNGI
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -64,7 +64,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OEWJWBNQWRUS7GGS7RLFOUNCDV66A5GX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6MHAGOGFPLSQCEE5YB5WEIQLDDTAPNGI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,6 +110,39 @@ Similar issue to https://github.com/alsa-project/alsa-utils/issues/280
 <font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
 <font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
 <font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
+</pre>
+
+Udev Rules:
+
+<pre>cat /usr/lib/udev/rules.d/90-alsa-restore.rules
+# do not edit this file, it will be overwritten on update
+
+ACTION==&quot;add&quot;, SUBSYSTEM==&quot;sound&quot;, KERNEL==&quot;controlC*&quot;, KERNELS!=&quot;card*&quot;, TEST==&quot;/usr/sbin&quot;, TEST==&quot;/usr/share/alsa&quot;, GOTO=&quot;alsa_restore_go&quot;
+GOTO=&quot;alsa_restore_end&quot;
+
+ENV{ALSA_CARD_NUMBER}=&quot;$attr{device/number}&quot;
+
+# mark HDA analog card; HDMI/DP card does not have capture devices
+DRIVERS==&quot;snd_hda_intel&quot;, TEST==&quot;device/pcmC$env{ALSA_CARD_NUMBER}D0p&quot;, RUN+=&quot;/bin/sh -c &apos;echo ALSA_CARD_HDA_ANALOG=$env{ALSA_CARD_NUMBER} &gt;&gt; /run/udev/alsa-hda-analog-card&apos;&quot;
+
+# check for ACP hardware
+TEST==&quot;device/device/acp3x-dmic-capture&quot;, GOTO=&quot;alsa_hda_analog&quot;
+TEST==&quot;device/device/acp6x-dmic-capture&quot;, GOTO=&quot;alsa_hda_analog&quot;
+TEST==&quot;device/device/acp63-dmic-capture&quot;, GOTO=&quot;alsa_hda_analog&quot;
+TEST==&quot;device/device/acp-pdm-dmic&quot;, GOTO=&quot;alsa_hda_analog&quot;
+GOTO=&quot;alsa_restore_std&quot;
+
+LABEL=&quot;alsa_hda_analog&quot;
+# restore configuration for profile with combined cards (HDA + digital mic)
+TEST!=&quot;/run/udev/alsa-hda-analog-card&quot;, GOTO=&quot;alsa_restore_std&quot;
+IMPORT{program}=&quot;/usr/bin/cat /run/udev/alsa-hda-analog-card&quot;
+ENV{ALSA_CARD_HDA_ANALOG}!=&quot;&quot;, ENV{ALSA_CARD_NUMBER}=&quot;$env{ALSA_CARD_HDA_ANALOG}&quot;
+
+LABEL=&quot;alsa_restore_go&quot;
+TEST!=&quot;/etc/alsa/state-daemon.conf&quot;, TEST==&quot;/usr/sbin/alsactl&quot;, RUN+=&quot;/usr/sbin/alsactl -E HOME=/run/alsa -E XDG_RUNTIME_DIR=/run/alsa/runtime restore $env{ALSA_CARD_NUMBER}&quot;
+TEST==&quot;/etc/alsa/state-daemon.conf&quot;, TEST==&quot;/usr/sbin/alsactl&quot;, RUN+=&quot;/usr/sbin/alsactl -E HOME=/run/alsa -E XDG_RUNTIME_DIR=/run/alsa/runtime nrestore $env{ALSA_CARD_NUMBER}&quot;
+
+LABEL=&quot;alsa_restore_end&quot;
 </pre>
 
 Tried:

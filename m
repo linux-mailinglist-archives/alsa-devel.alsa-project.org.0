@@ -2,57 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78780AC28DB
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:37:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95F37AC2919
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:52:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7E3A601F8;
-	Fri, 23 May 2025 19:37:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7E3A601F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24995601E3;
+	Fri, 23 May 2025 19:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24995601E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748021836;
-	bh=pzZJXIRKENFRvuc8fMDnWYqoR3zwcFKguiLFTRIloBY=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=ZtMOGT7srN3CFZ/Bi/AG4gPYrn7h7ptxc7+SPItzloQCZRHV00ay63KceQrpm911l
-	 NKf2beu7Mmj6FpTgQWoM/szxfI57zTkEHqtppkxbCPFYnXrsWSoEFfcmYD7QiPc8w9
-	 ePYiUM7CtJVF4cpA1dB193OzJ5dZb+p3NHiM4KnM=
+	s=default; t=1748022742;
+	bh=omMpYypEg+1I4xHRZEzPXvvoN7mKcTUfcdqIAphTQzM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JediN1AIn8Vf94Xso9B+BjsWIqRtBFIC8A4kb/G1fAd7OP7fLE7hmC14xslAEmQWB
+	 DO5p08+LEvOGcEqYNRVoUtuCp3WrpJF9dEed/5r4w1kwAiPuWFIexVxmqwb33ku9ZP
+	 UtKJcQU/hjuBYMmNmePtOEdflkQ47T2PRJORWZFI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7C6EF805BF; Fri, 23 May 2025 19:36:33 +0200 (CEST)
+	id CFC55F805B0; Fri, 23 May 2025 19:51:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FE89F80563;
-	Fri, 23 May 2025 19:36:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF335F805B1;
+	Fri, 23 May 2025 19:51:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 585C5F8057E; Fri, 23 May 2025 19:36:30 +0200 (CEST)
+	id CB97CF8057E; Fri, 23 May 2025 19:51:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09C53F80563
-	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:36:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09C53F80563
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <1842388e0632d200-webhooks-bot@alsa-project.org>
-In-Reply-To: <1842388e0630aa00-webhooks-bot@alsa-project.org>
-References: <1842388e0630aa00-webhooks-bot@alsa-project.org>
-Subject: Ubuntu Level 3 Log Error:
- /usr/lib/udev/rules.d/90-alsa-restore.rules:20 GOTO="alsa_restore_std" has no
- matching label, ignoring.
-Date: Fri, 23 May 2025 19:36:30 +0200 (CEST)
-Message-ID-Hash: 5ZA2LLTA3XJI5TLCGD4QE4K7H5OA2LLN
-X-Message-ID-Hash: 5ZA2LLTA3XJI5TLCGD4QE4K7H5OA2LLN
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-2.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	PP_MIME_FAKE_ASCII_TEXT,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [IPv6:2600:3c04:e001:324:0:1991:8:25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 04330F800C1
+	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:51:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04330F800C1
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=LWUDpXxt
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 3B4CC629CD;
+	Fri, 23 May 2025 17:51:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF45C4CEE9;
+	Fri, 23 May 2025 17:51:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1748022698;
+	bh=omMpYypEg+1I4xHRZEzPXvvoN7mKcTUfcdqIAphTQzM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=LWUDpXxt6/yi9vZj17zDWoPDgkmFfyWUcoC0HgVY3z4NiD2WfV5DU8hqt5vnia1mT
+	 CeyDZRomaM4uFySWv7V65mcNVTK7N5XuiRCpRGfrM0wRU0d9HmboTPKwtmM6qQM5Rd
+	 lLwBeoRnIE68fCT1esGPDYNrVTgSuqHLoDPtng0FfIKDabrVow8sCgOsTEbWVwqOpF
+	 Vzy8e5gtcloIexm5TT+FEM5OCSnzFX6Zf/87W4HyE2MDGgAcHTGwur6kVaiW0ph2+W
+	 586NNaZUrVhYwmp3t2c71TYmuBS8rIE6SHh151Z1J3MZxm3Wha7kY56UL6spWYkCWJ
+	 Sz/pyV5PCr5qg==
+Message-ID: <ba7f879f929f53a179738402df6f13e9.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC updates for v6.16-2
+Date: Fri, 23 May 2025 18:51:28 +0100
+Message-ID-Hash: JKXZ7L7LH63SASBDPXHRQQPW6EXQ4UP3
+X-Message-ID-Hash: JKXZ7L7LH63SASBDPXHRQQPW6EXQ4UP3
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -64,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZA2LLTA3XJI5TLCGD4QE4K7H5OA2LLN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JKXZ7L7LH63SASBDPXHRQQPW6EXQ4UP3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -73,958 +90,721 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #299 was edited from CaptainMorgan12:
-
-I should note my microphone is not working, haven't gotten it to be recognized using t2mac kernel fixes.
-
-Similar issue to https://github.com/alsa-project/alsa-utils/issues/280
-
-<pre>journalctl -u systemd-udevd -b -o cat --grep alsa
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:16 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:16 The line has no effect any more, dropping.</b></font>
-<font color="#C01C28"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#C01C28"><b>-restore.rules:20 GOTO=&quot;alsa_restore_std&quot; has no matching label, ignoring.</b></font>
-<font color="#D7D75F"><b>/usr/lib/udev/rules.d/90-</b></font><b>alsa</b><font color="#D7D75F"><b>-restore.rules:20 The line has no effect any more, dropping.</b></font>
-</pre>
-
-Udev Rules:
-
-<pre>cat /usr/lib/udev/rules.d/90-alsa-restore.rules
-# do not edit this file, it will be overwritten on update
-
-ACTION==&quot;add&quot;, SUBSYSTEM==&quot;sound&quot;, KERNEL==&quot;controlC*&quot;, KERNELS!=&quot;card*&quot;, TEST==&quot;/usr/sbin&quot;, TEST==&quot;/usr/share/alsa&quot;, GOTO=&quot;alsa_restore_go&quot;
-GOTO=&quot;alsa_restore_end&quot;
-
-ENV{ALSA_CARD_NUMBER}=&quot;$attr{device/number}&quot;
-
-# mark HDA analog card; HDMI/DP card does not have capture devices
-DRIVERS==&quot;snd_hda_intel&quot;, TEST==&quot;device/pcmC$env{ALSA_CARD_NUMBER}D0p&quot;, RUN+=&quot;/bin/sh -c &apos;echo ALSA_CARD_HDA_ANALOG=$env{ALSA_CARD_NUMBER} &gt;&gt; /run/udev/alsa-hda-analog-card&apos;&quot;
-
-# check for ACP hardware
-TEST==&quot;device/device/acp3x-dmic-capture&quot;, GOTO=&quot;alsa_hda_analog&quot;
-TEST==&quot;device/device/acp6x-dmic-capture&quot;, GOTO=&quot;alsa_hda_analog&quot;
-TEST==&quot;device/device/acp63-dmic-capture&quot;, GOTO=&quot;alsa_hda_analog&quot;
-TEST==&quot;device/device/acp-pdm-dmic&quot;, GOTO=&quot;alsa_hda_analog&quot;
-GOTO=&quot;alsa_restore_std&quot;
-
-LABEL=&quot;alsa_hda_analog&quot;
-# restore configuration for profile with combined cards (HDA + digital mic)
-TEST!=&quot;/run/udev/alsa-hda-analog-card&quot;, GOTO=&quot;alsa_restore_std&quot;
-IMPORT{program}=&quot;/usr/bin/cat /run/udev/alsa-hda-analog-card&quot;
-ENV{ALSA_CARD_HDA_ANALOG}!=&quot;&quot;, ENV{ALSA_CARD_NUMBER}=&quot;$env{ALSA_CARD_HDA_ANALOG}&quot;
-
-LABEL=&quot;alsa_restore_go&quot;
-TEST!=&quot;/etc/alsa/state-daemon.conf&quot;, TEST==&quot;/usr/sbin/alsactl&quot;, RUN+=&quot;/usr/sbin/alsactl -E HOME=/run/alsa -E XDG_RUNTIME_DIR=/run/alsa/runtime restore $env{ALSA_CARD_NUMBER}&quot;
-TEST==&quot;/etc/alsa/state-daemon.conf&quot;, TEST==&quot;/usr/sbin/alsactl&quot;, RUN+=&quot;/usr/sbin/alsactl -E HOME=/run/alsa -E XDG_RUNTIME_DIR=/run/alsa/runtime nrestore $env{ALSA_CARD_NUMBER}&quot;
-
-LABEL=&quot;alsa_restore_end&quot;
-</pre>
-
-Tried:
-```
-
-@@ -3,6 +3,8 @@
-
-ACTION=="add", SUBSYSTEM=="sound", KERNEL=="controlC*", KERNELS!="card*",@extratest@ GOTO="alsa_restore_go"
-
-GOTO="alsa_restore_end"
-
-
-
-
-LABEL="alsa_restore_go"
-
-
-
-
-ENV{ALSA_CARD_NUMBER}="$attr{device/number}"
-
-
-
-# mark HDA analog card; HDMI/DP card does not have capture devices
-
-@@ -21,7 +23,7 @@ TEST!="/run/udev/alsa-hda-analog-card", GOTO="alsa_restore_std"
-
-IMPORT{program}="/usr/bin/cat /run/udev/alsa-hda-analog-card"
-
-ENV{ALSA_CARD_HDA_ANALOG}!="", ENV{ALSA_CARD_NUMBER}="$env{ALSA_CARD_HDA_ANALOG}"
-
-
-
-
-LABEL="alsa_restore_go"
-
-
-LABEL="alsa_restore_std"
-
-TEST!="@daemonswitch@", RUN+="@sbindir@/alsactl@args@ restore $env{ALSA_CARD_NUMBER}"
-
-TEST=="@daemonswitch@", RUN+="@sbindir@/alsactl@args@ nrestore $env{ALSA_CARD_NUMBER}"
-```
-
-but no cigar
-
-Hardware Config:
-
-<pre>aplay -L | grep CARD
-hw:<font color="#C01C28"><b>CARD</b></font>=Audio,DEV=0
-hw:<font color="#C01C28"><b>CARD</b></font>=Audio,DEV=2
-plughw:<font color="#C01C28"><b>CARD</b></font>=Audio,DEV=0
-plughw:<font color="#C01C28"><b>CARD</b></font>=Audio,DEV=2
-sysdefault:<font color="#C01C28"><b>CARD</b></font>=Audio
-dmix:<font color="#C01C28"><b>CARD</b></font>=Audio,DEV=0
-dmix:<font color="#C01C28"><b>CARD</b></font>=Audio,DEV=2
-usbstream:<font color="#C01C28"><b>CARD</b></font>=Audio
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=3
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=7
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=8
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=9
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=10
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=11
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=3
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=7
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=8
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=9
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=10
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=11
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=0
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=1
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=2
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=3
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=4
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=5
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=3
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=7
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=8
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=9
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=10
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI_1,DEV=11
-usbstream:<font color="#C01C28"><b>CARD</b></font>=HDMI_1
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=3
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=7
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=8
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=9
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=10
-hw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=11
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=3
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=7
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=8
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=9
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=10
-plughw:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=11
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=0
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=1
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=2
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=3
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=4
-hdmi:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=5
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=3
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=7
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=8
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=9
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=10
-dmix:<font color="#C01C28"><b>CARD</b></font>=HDMI,DEV=11
-usbstream:<font color="#C01C28"><b>CARD</b></font>=HDMI
-hw:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-plughw:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-sysdefault:<font color="#C01C28"><b>CARD</b></font>=DAC
-front:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-surround21:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-surround40:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-surround41:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-surround50:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-surround51:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-surround71:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-iec958:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-dmix:<font color="#C01C28"><b>CARD</b></font>=DAC,DEV=0
-usbstream:<font color="#C01C28"><b>CARD</b></font>=DAC
-usbstream:<font color="#C01C28"><b>CARD</b></font>=Webcam
-hw:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-hw:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=1
-plughw:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-plughw:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=1
-sysdefault:<font color="#C01C28"><b>CARD</b></font>=Device
-front:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-surround21:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-surround40:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-surround41:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-surround50:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-surround51:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-surround71:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-iec958:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-iec958:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=1
-dmix:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=0
-dmix:<font color="#C01C28"><b>CARD</b></font>=Device,DEV=1
-usbstream:<font color="#C01C28"><b>CARD</b></font>=Device
-</pre>
-
-Continued:
-
-<pre>aplay -l
-**** List of PLAYBACK Hardware Devices ****
-card 0: Audio [Apple T2 Audio], device 0: Speaker [Speaker]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 0: Audio [Apple T2 Audio], device 2: Codec Output [Codec Output]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI_1 [HDA ATI HDMI], device 3: HDMI 0 [LG ULTRAGEAR+]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI_1 [HDA ATI HDMI], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI_1 [HDA ATI HDMI], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI_1 [HDA ATI HDMI], device 9: HDMI 3 [HDMI 3]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI_1 [HDA ATI HDMI], device 10: HDMI 4 [HDMI 4]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: HDMI_1 [HDA ATI HDMI], device 11: HDMI 5 [HDMI 5]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: HDMI [HDA ATI HDMI], device 3: HDMI 0 [HDMI 0]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: HDMI [HDA ATI HDMI], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: HDMI [HDA ATI HDMI], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: HDMI [HDA ATI HDMI], device 9: HDMI 3 [HDMI 3]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: HDMI [HDA ATI HDMI], device 10: HDMI 4 [HDMI 4]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: HDMI [HDA ATI HDMI], device 11: HDMI 5 [HDMI 5]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 3: DAC [USB Audio DAC], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 5: Device [OWC Thunderbolt 3 Audio Device], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 5: Device [OWC Thunderbolt 3 Audio Device], device 1: USB Audio [USB Audio #1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-</pre>
-
-Continued:
-
-<pre>cat /proc/asound/cards
- 0 [Audio          ]: AppleT2x2 - Apple T2 Audio
-                      Apple T2 Audio
- 1 [HDMI_1         ]: HDA-Intel - HDA ATI HDMI
-                      HDA ATI HDMI at 0x74624000 irq 230
- 2 [HDMI           ]: HDA-Intel - HDA ATI HDMI
-                      HDA ATI HDMI at 0x75920000 irq 231
- 3 [DAC            ]: USB-Audio - USB Audio DAC
-                      Burr-Brown from TI USB Audio DAC at usb-0000:21:00.0-4, full speed
- 4 [Webcam         ]: USB-Audio - NexiGo N930E FHD Webcam
-                      Nexight Inc NexiGo N930E FHD Webcam at usb-0000:1f:00.0-2, high speed
- 5 [Device         ]: USB-Audio - OWC Thunderbolt 3 Audio Device
-                      Other World Computing OWC Thunderbolt 3 Audio Device at usb-0000:1f:00.0-4, ful
-</pre>
-
-Output sound settings work here:
-
-![Image](https://github.com/user-attachments/assets/5162569b-9734-4088-897d-5b8c73632da1)
-
-Alsa Config:
-
-<pre>cat alsa.conf
-#
-#  ALSA library configuration file
-#
-
-# pre-load the configuration files
-
-@hooks [
-	{
-		func load
-		files [
-			&quot;/var/lib/alsa/conf.d&quot;
-			&quot;/usr/etc/alsa/conf.d&quot;
-			&quot;/etc/alsa/conf.d&quot;
-			&quot;/etc/asound.conf|||/usr/etc/asound.conf&quot;
-			&quot;~/.asoundrc&quot;
-			{
-				@func concat
-				strings [
-					{
-						@func getenv
-						vars [
-							XDG_CONFIG_HOME
-						]
-						default &quot;~/.config&quot;
-					}
-					&quot;/alsa/asoundrc&quot;
-				]
-			}
-		]
-		errors false
-	}
-]
-
-# load card-specific configuration files (on request)
-
-cards.@hooks [
-	{
-		func load
-		files [
-			{
-				@func concat
-				strings [
-					{ @func datadir }
-					&quot;/cards/aliases.conf&quot;
-				]
-			}
-		]
-	}
-	{
-		func load_for_all_cards
-		files [
-			{
-				@func concat
-				strings [
-					{ @func datadir }
-					&quot;/cards/&quot;
-					{ @func private_string }
-					&quot;.conf&quot;
-				]
-			}
-			{
-				root {
-					@func private_integer
-				}
-				file {
-					@func concat
-					strings [
-						&quot;/var/lib/alsa/card&quot;
-						{ @func private_integer }
-						&quot;.conf.d&quot;
-					]
-				}
-			}
-		]
-		table {
-			id {
-				@func concat
-				strings [
-					{ @func private_integer }
-				]
-			}
-			value {
-				@func concat
-				strings [
-					&quot;cards.&quot;
-					{ @func private_string }
-				]
-			}
-		}
-		errors false
-	}
-]
-
-#
-# defaults
-#
-
-# show all name hints also for definitions without hint {} section
-defaults.namehint.showall on
-# show just basic name hints
-defaults.namehint.basic on
-# show extended name hints
-defaults.namehint.extended on
-#
-defaults.ctl.card 0
-defaults.pcm.card 0
-defaults.pcm.device 0
-defaults.pcm.subdevice -1
-defaults.pcm.nonblock 1
-defaults.pcm.compat 0
-defaults.pcm.minperiodtime 5000		# in us
-defaults.pcm.ipc_key 5678293
-defaults.pcm.ipc_gid audio
-defaults.pcm.ipc_perm 0660
-defaults.pcm.tstamp_type default
-defaults.pcm.dmix.max_periods 0
-defaults.pcm.dmix.channels 2
-defaults.pcm.dmix.rate 48000
-defaults.pcm.dmix.format unchanged
-defaults.pcm.dmix.card defaults.pcm.card
-defaults.pcm.dmix.device defaults.pcm.device
-defaults.pcm.dsnoop.card defaults.pcm.card
-defaults.pcm.dsnoop.device defaults.pcm.device
-defaults.pcm.front.card defaults.pcm.card
-defaults.pcm.front.device defaults.pcm.device
-defaults.pcm.rear.card defaults.pcm.card
-defaults.pcm.rear.device defaults.pcm.device
-defaults.pcm.center_lfe.card defaults.pcm.card
-defaults.pcm.center_lfe.device defaults.pcm.device
-defaults.pcm.side.card defaults.pcm.card
-defaults.pcm.side.device defaults.pcm.device
-defaults.pcm.surround21.card defaults.pcm.card
-defaults.pcm.surround21.device defaults.pcm.device
-defaults.pcm.surround40.card defaults.pcm.card
-defaults.pcm.surround40.device defaults.pcm.device
-defaults.pcm.surround41.card defaults.pcm.card
-defaults.pcm.surround41.device defaults.pcm.device
-defaults.pcm.surround50.card defaults.pcm.card
-defaults.pcm.surround50.device defaults.pcm.device
-defaults.pcm.surround51.card defaults.pcm.card
-defaults.pcm.surround51.device defaults.pcm.device
-defaults.pcm.surround71.card defaults.pcm.card
-defaults.pcm.surround71.device defaults.pcm.device
-defaults.pcm.iec958.card defaults.pcm.card
-defaults.pcm.iec958.device defaults.pcm.device
-defaults.pcm.modem.card defaults.pcm.card
-defaults.pcm.modem.device defaults.pcm.device
-defaults.pcm.file_format raw
-defaults.pcm.file_truncate true		# truncate files via file or tee PCM
-defaults.rawmidi.card 0
-defaults.rawmidi.device 0
-defaults.rawmidi.subdevice -1
-defaults.hwdep.card 0
-defaults.hwdep.device 0
-defaults.timer.class 2
-defaults.timer.sclass 0
-defaults.timer.card 0
-defaults.timer.device 0
-defaults.timer.subdevice 0
-
-#
-#  PCM interface
-#
-
-pcm.hw {
-	@args [ CARD DEV SUBDEV ]
-	@args.CARD {
-		type string
-		default {
-			@func getenv
-			vars [
-				ALSA_PCM_CARD
-				ALSA_CARD
-			]
-			default {
-				@func refer
-				name defaults.pcm.card
-			}
-		}
-	}
-	@args.DEV {
-		type integer
-		default {
-			@func igetenv
-			vars [
-				ALSA_PCM_DEVICE
-			]
-			default {
-				@func refer
-				name defaults.pcm.device
-			}
-		}
-	}
-	@args.SUBDEV {
-		type integer
-		default {
-			@func refer
-			name defaults.pcm.subdevice
-		}
-	}		
-	type hw
-	card $CARD
-	device $DEV
-	subdevice $SUBDEV
-	hint {
-		show {
-			@func refer
-			name defaults.namehint.extended
-		}
-		description &quot;Direct hardware device without any conversions&quot;
-	}
-}
-
-pcm.plughw {
-	@args [ CARD DEV SUBDEV ]
-	@args.CARD {
-		type string
-		default {
-			@func getenv
-			vars [
-				ALSA_PCM_CARD
-				ALSA_CARD
-			]
-			default {
-				@func refer
-				name defaults.pcm.card
-			}
-		}
-	}
-	@args.DEV {
-		type integer
-		default {
-			@func igetenv
-			vars [
-				ALSA_PCM_DEVICE
-			]
-			default {
-				@func refer
-				name defaults.pcm.device
-			}
-		}
-	}
-	@args.SUBDEV {
-		type integer
-		default {
-			@func refer
-			name defaults.pcm.subdevice
-		}
-	}		
-	type plug
-	slave.pcm {
-		type hw
-		card $CARD
-		device $DEV
-		subdevice $SUBDEV
-	}
-	hint {
-		show {
-			@func refer
-			name defaults.namehint.extended
-		}
-		description &quot;Hardware device with all software conversions&quot;
-	}
-}
-
-pcm.plug {
-	@args [ SLAVE ]
-	@args.SLAVE {
-		type string
-	}
-	type plug
-	slave.pcm $SLAVE
-}
-
-pcm.shm {
-	@args [ SOCKET PCM ]
-	@args.SOCKET {
-		type string
-	}
-	@args.PCM {
-		type string
-	}
-	type shm
-	server $SOCKET
-	pcm $PCM
-}
-
-pcm.tee {
-	@args [ SLAVE FILE FORMAT ]
-	@args.SLAVE {
-		type string
-	}
-	@args.FILE {
-		type string
-	}
-	@args.FORMAT {
-		type string
-		default {
-			@func refer
-			name defaults.pcm.file_format
-		}
-	}
-	type file
-	slave.pcm $SLAVE
-	file $FILE
-	format $FORMAT
-	truncate {
-		@func refer
-		name defaults.pcm.file_truncate
-	}
-}
-
-pcm.file {
-	@args [ FILE FORMAT ]
-	@args.FILE {
-		type string
-	}
-	@args.FORMAT {
-		type string
-		default {
-			@func refer
-			name defaults.pcm.file_format
-		}
-	}
-	type file
-	slave.pcm null
-	file $FILE
-	format $FORMAT
-	truncate {
-		@func refer
-		name defaults.pcm.file_truncate
-	}
-}
-
-pcm.null {
-	type null
-	hint {
-		show {
-			@func refer
-			name defaults.namehint.basic
-		}
-		description &quot;Discard all samples (playback) or generate zero samples (capture)&quot;
-	}
-}
-
-# redirect to load-on-demand extended pcm definitions
-pcm.cards cards.pcm
-
-pcm.default cards.pcm.default
-pcm.sysdefault cards.pcm.default
-pcm.front cards.pcm.front
-pcm.rear cards.pcm.rear
-pcm.center_lfe cards.pcm.center_lfe
-pcm.side cards.pcm.side
-pcm.surround21 cards.pcm.surround21
-pcm.surround40 cards.pcm.surround40
-pcm.surround41 cards.pcm.surround41
-pcm.surround50 cards.pcm.surround50
-pcm.surround51 cards.pcm.surround51
-pcm.surround71 cards.pcm.surround71
-pcm.iec958 cards.pcm.iec958
-pcm.spdif iec958
-pcm.hdmi cards.pcm.hdmi
-pcm.dmix cards.pcm.dmix
-pcm.dsnoop cards.pcm.dsnoop
-pcm.modem cards.pcm.modem
-pcm.phoneline cards.pcm.phoneline
-
-#
-#  Control interface
-#
-	
-ctl.default cards.ctl.default
-ctl.sysdefault cards.ctl.default
-
-ctl.hw {
-	@args [ CARD ]
-	@args.CARD {
-		type string
-		default {
-			@func getenv
-			vars [
-				ALSA_CTL_CARD
-				ALSA_CARD
-			]
-			default {
-				@func refer
-				name defaults.ctl.card
-			}
-		}
-	}
-	type hw
-	card $CARD
-	hint.description &quot;Direct control device&quot;
-}
-
-ctl.shm {
-	@args [ SOCKET CTL ]
-	@args.SOCKET {
-		type string
-	}
-	@args.CTL {
-		type string
-	}
-	type shm
-	server $SOCKET
-	ctl $CTL
-}
-
-#
-#  RawMidi interface
-#
-
-rawmidi.default {
-	type hw
-	card {
-		@func getenv
-		vars [
-			ALSA_RAWMIDI_CARD
-			ALSA_CARD
-		]
-		default {
-			@func refer
-			name defaults.rawmidi.card
-		}
-	}
-	device {
-		@func igetenv
-		vars [
-			ALSA_RAWMIDI_DEVICE
-		]
-		default {
-			@func refer
-			name defaults.rawmidi.device
-		}
-	}
-	hint.description &quot;Default raw MIDI device&quot;
-}
-
-rawmidi.hw {
-	@args [ CARD DEV SUBDEV ]
-	@args.CARD {
-		type string
-		default {
-			@func getenv
-			vars [
-				ALSA_RAWMIDI_CARD
-				ALSA_CARD
-			]
-			default {
-				@func refer
-				name defaults.rawmidi.card
-			}
-		}
-	}
-	@args.DEV {
-		type integer
-		default {
-			@func igetenv
-			vars [
-				ALSA_RAWMIDI_DEVICE
-			]
-			default {
-				@func refer
-				name defaults.rawmidi.device
-			}
-		}
-	}
-	@args.SUBDEV {
-		type integer
-		default -1
-	}
-	type hw
-	card $CARD
-	device $DEV
-	subdevice $SUBDEV
-	hint {
-		description &quot;Direct rawmidi driver device&quot;
-		device $DEV
-	}
-}
-
-rawmidi.virtual {
-	@args [ MERGE ]
-	@args.MERGE {
-		type string
-		default 1
-	}
-	type virtual
-	merge $MERGE
-}
-
-#
-#  Sequencer interface
-#
-
-seq.default {
-	type hw
-	hint.description &quot;Default sequencer device&quot;
-}
-
-seq.hw {
-	type hw
-}
-
-#
-#  HwDep interface
-#
-
-hwdep.default {
-	type hw
-	card {
-		@func getenv
-		vars [
-			ALSA_HWDEP_CARD
-			ALSA_CARD
-		]
-		default {
-			@func refer
-			name defaults.hwdep.card
-		}
-	}
-	device {
-		@func igetenv
-		vars [
-			ALSA_HWDEP_DEVICE
-		]
-		default {
-			@func refer
-			name defaults.hwdep.device
-		}
-	}
-	hint.description &quot;Default hardware dependent device&quot;
-}
-
-hwdep.hw {
-	@args [ CARD DEV ]
-	@args.CARD {
-		type string
-		default {
-			@func getenv
-			vars [
-				ALSA_HWDEP_CARD
-				ALSA_CARD
-			]
-			default {
-				@func refer
-				name defaults.hwdep.card
-			}
-		}
-	}
-	@args.DEV {
-		type integer
-		default {
-			@func igetenv
-			vars [
-				ALSA_HWDEP_DEVICE
-			]
-			default {
-				@func refer
-				name defaults.hwdep.device
-			}
-		}
-	}
-	type hw
-	card $CARD
-	device $DEV
-	hint {
-		description &quot;Direct hardware dependent device&quot;
-		device $DEV
-	}
-}
-
-#
-#  Timer interface
-#
-
-timer_query.default {
-	type hw
-}
-
-timer_query.hw {
-	type hw
-}
-
-timer.default {
-	type hw
-	class {
-		@func refer
-		name defaults.timer.class
-	}
-	sclass {
-		@func refer
-		name defaults.timer.sclass
-	}
-	card {
-		@func refer
-		name defaults.timer.card
-	}
-	device {
-		@func refer
-		name defaults.timer.device
-	}
-	subdevice {
-		@func refer
-		name defaults.timer.subdevice
-	}
-	hint.description &quot;Default timer device&quot;
-}
-
-timer.hw {
-	@args [ CLASS SCLASS CARD DEV SUBDEV ]
-	@args.CLASS {
-		type integer
-		default {
-			@func refer
-			name defaults.timer.class
-		}
-	}
-	@args.SCLASS {
-		type integer
-		default {
-			@func refer
-			name defaults.timer.sclass
-		}
-	}
-	@args.CARD {
-		type string
-		default {
-			@func refer
-			name defaults.timer.card
-		}
-	}
-	@args.DEV {
-		type integer
-		default {
-			@func refer
-			name defaults.timer.device
-		}
-	}
-	@args.SUBDEV {
-		type integer
-		default {
-			@func refer
-			name defaults.timer.subdevice
-		}
-	}
-	type hw
-	class $CLASS
-	sclass $SCLASS
-	card $CARD
-	device $DEV
-	subdevice $SUBDEV
-	hint {
-		description &quot;Direct timer device&quot;
-		device $DEV
-	}
-}
-</pre>
-
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/299
-Repository URL: https://github.com/alsa-project/alsa-utils
+The following changes since commit a5806cd506af5a7c19bcd596e4708b5c464bfd21:
+
+  Linux 6.15-rc7 (2025-05-18 13:57:29 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.16-2
+
+for you to fetch changes up to 43a38a0ff8c63ee156d997cd13063c63cd55d812:
+
+  ASoC: codecs: add support for ES8375 (2025-05-23 16:52:28 +0100)
+
+----------------------------------------------------------------
+ASoC: Additional v6.16 updates
+
+A couple more updates on top of the last set I sent you, a new driver
+for the ES8375 and a fix for the Cirrus KUnit tests from Jaroslav.
+
+----------------------------------------------------------------
+Amadeusz Sławiński (27):
+      ASoC: Intel: avs: Add boards definitions for FCL platform
+      ASoC: Intel: avs: boards: Add Kconfig option for obsolete card names
+      ASoC: Intel: avs: Use topology information for endpoint numbers
+      ASoC: Intel: avs: boards: Change da7219 card name
+      ASoC: Intel: avs: boards: Change DMIC card name
+      ASoC: Intel: avs: boards: Change es8336 card name
+      ASoC: Intel: avs: boards: Change hdaudio card name
+      ASoC: Intel: avs: boards: Change sspX-loopback card name
+      ASoC: Intel: avs: boards: Change max98357a card name
+      ASoC: Intel: avs: boards: Change max98373 card name
+      ASoC: Intel: avs: boards: Change max98927 card name
+      ASoC: Intel: avs: boards: Change nau8825 card name
+      ASoC: Intel: avs: boards: Change pcm3168a card name
+      ASoC: Intel: avs: boards: Change probe card name
+      ASoC: Intel: avs: boards: Change rt274 card name
+      ASoC: Intel: avs: boards: Change rt286 card name
+      ASoC: Intel: avs: boards: Change rt298 card name
+      ASoC: Intel: avs: boards: Change rt5514 card name
+      ASoC: Intel: avs: boards: Change rt5663 card name
+      ASoC: Intel: avs: boards: Change rt5682 card name
+      ASoC: Intel: avs: boards: Change ssm4567 card name
+      ASoC: Intel: avs: Rename AVS_CHANNELS_MAX define
+      ASoC: Intel: avs: Allow to specify custom configurations with i2s_test
+      ASoC: Intel: avs: Assign unique ID to platform devices
+      ASoC: Intel: avs: Iterate over correct number of TDMs
+      ASoC: Intel: avs: Support 16 TDMs in dynamic assignment
+      ASoC: Intel: avs: Fix NULL pointer dereference
+
+André Apitzsch (1):
+      ASoC: wm8998: Add Kconfig prompt
+
+Bard Liao (14):
+      ASoC: SOF: topology: allocate string for tuples
+      ASoC: SOF: topology: don't convert error code
+      ASoC: soc-acpi: add get_function_tplg_files ops
+      ASoC: SOF: topology: load multiple topologies
+      ASoC: Intel: add sof_sdw_get_tplg_files ops
+      ASoC: Intel: soc-acpi-intel-lnl-match: set get_function_tplg_files ops
+      ASoC: Intel: soc-acpi-intel-arl-match: set get_function_tplg_files ops
+      ASoC: Intel: soc-acpi-intel-ptl-match: add get_function_tplg_files ops
+      ASoC: Intel: soc-acpi-intel-mtl-match: add get_function_tplg_files ops
+      ASoC: sdw_utils: split asoc_sdw_get_codec_name
+      ASoC: soc_sdw_utils: skip the endpoint that doesn't present
+      ASoC: SOF: add disable_function_topology flag
+      ASoC: SOF: set disable_function_topology if override_tplg_filename is set
+      ASoC: SOF: add disable_function_topology module parameter
+
+Bartosz Golaszewski (12):
+      ASoC: soc-ac97: use new GPIO line value setter callbacks
+      ASoC: ti: davinci-mcasp:: use new GPIO line value setter callbacks
+      ASoC: codecs: wm8962: use new GPIO line value setter callbacks
+      ASoC: codecs: wm5100: use new GPIO line value setter callbacks
+      ASoC: codecs: rt5677: use new GPIO line value setter callbacks
+      ASoC: codecs: wm8996: use new GPIO line value setter callbacks
+      ASoC: codecs: tlv320adc3xxx: use new GPIO line value setter callbacks
+      ASoC: codecs: idt821034: use new GPIO line value setter callbacks
+      ASoC: codecs: peb2466: use new GPIO line value setter callbacks
+      ASoC: codecs: wm8903: use new GPIO line value setter callbacks
+      ASoC: codecs: zl38060: use new GPIO line value setter callbacks
+      ALSA: hda: cirrus_scodec_test: use new GPIO line value setter callbacks
+
+Brady Norander (1):
+      ASoC: amd: use new ACP dev names for DAI links
+
+Cezary Rojewski (14):
+      ASoC: core: Complete support for card rebinding
+      ASoC: Intel: avs: Permit deferred card registration
+      ALSA: hda: Allow to fetch hlink by ID
+      ASoC: Intel: avs: Ignore Vendor-space manipulation for ACE
+      ASoC: Intel: avs: Read HW capabilities when possible
+      ASoC: Intel: avs: Relocate DSP status registers
+      ASoC: Intel: avs: PTL-based platforms support
+      ASoC: Intel: avs: PCM operations for LNL-based platforms
+      ASoC: Intel: avs: Dynamically assign ops for non-HDAudio DAIs
+      ASoC: Intel: avs: Conditionally add DMA config when creating Copier
+      ALSA: hda: Select avs-driver by default on FCL
+      lib/string_helpers: Introduce parse_int_array()
+      ALSA: hda: Allow for 16 channels configuration
+      ASoC: Intel: avs: Allow for 16 channels configuration
+
+Chancel Liu (2):
+      ASoC: fsl_rpmsg: Configure CPU DAI for card that sits on rpmsg-micfil-channel
+      ASoC: fsl_rpmsg: Allocate a smaller buffer size for capture stream
+
+Charles Keepax (9):
+      ASoC: sdw_utils: Remove num_platforms from simple DAI helper
+      ASoC: Intel: sof_sdw: Avoid NULL check fail when re-probing
+      ASoC: SDCA: Fix minor typo
+      ASoC: SDCA: Remove regmap module macros
+      ASoC: SDCA: Move allocation of PDE delays array
+      ASoC: dapm: Add component level pin switches
+      ASoC: SDCA: Create DAPM widgets and routes from DisCo
+      ASoC: SDCA: Create ALSA controls from DisCo
+      ASoC: SDCA: Create DAI drivers from DisCo
+
+Chen Ni (8):
+      ASoC: sun8i-codec: Remove unnecessary NULL check before clk_prepare_enable/clk_disable_unprepare
+      ASoC: sta32x: Remove unnecessary NULL check before clk_disable_unprepare()
+      ASoC: tas2781-fmwlib: Remove unnecessary NULL check before release_firmware()
+      ASoC: pcm6240: Remove unnecessary NULL check before release_firmware()
+      ASoC: wm_adsp: Remove unnecessary NULL check before release_firmware()
+      ASoC: tas2781-i2c: Remove unnecessary NULL check before release_firmware()
+      ASoC: ak4458: Remove useless return variable
+      ASoC: fsl_rpmsg: Remove useless return variable
+
+Chen-Yu Tsai (4):
+      ASoC: mediatek: mt8183-afe-pcm: Shorten memif_data table using macros
+      ASoC: mediatek: mt8183-afe-pcm: Shorten irq_data table using macros
+      ASoC: mediatek: mt8183-afe-pcm: shorten mt8183_is_volatile_reg()
+      ASoC: soc-utils: Check string pointer validity in snd_soc_dlc_is_dummy()
+
+ChiYuan Huang (5):
+      ASoC: dt-bindings: Add bindings for Richtek rt9123
+      ASoC: codecs: Add support for Richtek rt9123
+      ASoC: dt-bindings: Add bindings for Richtek rt9123p
+      ASoC: codecs: Add support for Richtek rt9123p
+      ASoC: codecs: rt9123: Fix sparse cast warning
+
+Colin Ian King (3):
+      ASoC: cs48l32: Fix spelling mistake "exceeeds" -> "exceeds"
+      ASoC: rt712-sdca: remove redundant else path of if statement
+      ASoC: rt712-sdca: remove redundant else path of if statement
+
+Cristian Ciocaltea (1):
+      ASoC: amd: acp: Drop superfluous assignment in acp_sof_probe()
+
+Daniel Baluta (1):
+      ASoC: SOF: imx8m: Use reset controller API to control the DSP
+
+Dr. David Alan Gilbert (2):
+      ASoC: codecs: Remove unused rt566[58]_sel_asrc_clk_src
+      ASoC: Intel: atom: Remove unused functions
+
+Hector Martin (3):
+      ASoC: tas2770: Power cycle amp on ISENSE/VSENSE change
+      ASoC: tas2770: Support setting the PDM TX slot
+      ASoC: tas2764: Enable main IRQs
+
+Helen Koike (1):
+      ASoC: Intel: Remove unused SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
+
+I Hsin Cheng (1):
+      ASoC: intel/sdw_utils: Assign initial value in asoc_sdw_rt_amp_spk_rtd_init()
+
+James Calligeros (2):
+      ASoC: tas2770: expose die temp to hwmon
+      ASoC: tas2764: expose die temp to hwmon
+
+Jaroslav Kysela (1):
+      firmware: cs_dsp: Fix OOB memory read access in KUnit test
+
+Johan Hovold (2):
+      ASoC: codecs: wcd938x: fix mux error handling
+      ASoC: codecs: wcd938x: drop unnecessary mux flag assignment
+
+Julien Massot (6):
+      ASoC: mediatek: mt8195: Move rt5682 specific dapm routes
+      ASoC: mediatek: mt8195: Set ETDM1/2 IN/OUT to COMP_DUMMY()
+      ASoC: mediatek: mt8195: Add mt8195-mt6359 card
+      ASoC: dt-bindings: mt8195: add compatible mt8195_mt6359
+      ASoC: dt-bindings: mt8195: add missing audio routing and link-name
+      ASoC: SOF: topology: Fix null pointer dereference
+
+Kees Cook (1):
+      ASoC: SOF: ipc4-pcm: Adjust pipeline_list->pipelines allocation type
+
+Keguang Zhang (4):
+      ASoC: dt-bindings: Add Loongson-1 AC97 Controller
+      ASoC: dt-bindings: Add Realtek ALC203 Codec
+      ASoC: loongson: Add Loongson-1 AC97 Driver
+      ASoC: ac97: Add DT support
+
+Konrad Dybcio (1):
+      ASoC: q6apm-lpass-dais: Print APM port id in decimal on enable error
+
+Krzysztof Kozlowski (4):
+      ASoC: dt-bindings: maxim,max98925: Fix include placement in DTS example
+      ASoC: codecs: wsa88xx/wcd938x: Drop kerneldoc marker from inner comment
+      ASoC: codecs: tas2764: Fix Wvoid-pointer-to-enum-cast warning
+      ASoC: dt-bindings: mediatek: Simplify mediatek,clk-provider
+
+Kuninori Morimoto (18):
+      ASoC: rsnd: use snd_pcm_direction_name()
+      ASoC: simple-card-utils: fixup dlc->xxx handling for error case
+      spi: sh-msiof: use dev in sh_msiof_spi_probe()
+      spi: sh-msiof: ignore driver probing if it was MSIOF Sound
+      ASoC: fsl: don't set link->platform if not needed
+      dt-bindings: renesas,sh-msiof: Add MSIOF I2S Sound support
+      ASoC: renesas: rsnd: allow to use ADG as standalone
+      ASoC: renesas: rsnd: care BRGA/BRGB select in rsnd_adg_clk_enable()
+      ASoC: renesas: rsnd: enable to use "adg" clock
+      ASoC: renesas: add MSIOF sound support
+      ASoC: soc-utils: add snd_soc_dlc_is_dummy()
+      ASoC: mediatek: mt8188: use snd_soc_dlc_is_dummy()
+      ASoC: mediatek: mt8195: use snd_soc_dlc_is_dummy()
+      ASoC: soc.h: remove snd_soc_disconnect_sync()
+      ASoC: soc.h: remove unnecessary definitions
+      ASoC: soc-core: merge snd_soc_unregister_component() and snd_soc_unregister_component_by_driver()
+      ASoC: dt-bindings: audio-graph-card2: add missing mic-det-gpios
+      ASoC: dt-bindings: audio-graph-card2: reference audio-graph routing property
+
+Mac Chiang (2):
+      ASoC: Intel: soc-acpi-intel-lnl/ptl-match: Simplify variable name
+      ASoC: Intel: soc-acpi-intel-ptl-match: Add rt713_vb_l3_rt1320_l3 support
+
+Mark Brown (35):
+      ASoC: Intel: avs: Update machine board card names
+      ASoC: Intel: avs: Add support for FCL platform
+      ASoC: Intel: avs: 16 channels support
+      ASoC: codec: wcd93xx: Convert to GPIO descriptors
+      ASoC: fsl_sai: add several improvements
+      ASoC: wcd938x: enable t14s audio headset
+      ASoC: tas27{64,70}: improve support for Apple codec
+      ASoC: Add Richtek rt9123 and rt9123p support
+      ASoC: convert GPIO chips to using new value setters
+      Add support for Loongson-1 AC97
+      ASoC: skip the endpoint that doesn't present and
+      ASoC: Add codec driver for Cirrus Logic CS48L32 DSP
+      ASoC: mt8195: Add support for MT8395 Radxa NIO 12L
+      Add RK3576 SAI Audio Controller Support
+      ASoC: Merge up fixes
+      ASoC: codecs: wcd938x: fix mux error handling
+      ASoC: codec: tpa6130a2: Convert to GPIO descriptors
+      ASoC: add Renesas MSIOF sound driver
+      ASoC: codec: twl4030: Convert to GPIO descriptors
+      ASoC: soc-utils: add snd_soc_dlc_is_dummy()
+      ASoC: SOF: amd: add soundwire IO support for ACP7.0 &
+      AsoC: Phase out hybrid PCI devres
+      ASoC: codec: cs42l[56,73,52]: Convert to GPIO
+      Minor bug fix and tidy up for sof_sdw
+      ASoC: SOF: add disable_function_topology flag and
+      Add support for CS35L63 Smart Amplifier
+      ASoC: Intel: soc-acpi-intel-lnl/ptl-match: Add
+      ASoC: codecs: add support for ES8389
+      cs35l56: Log tuning unique identifiers during firmware
+      ASoC: mediatek: mt8183-afe-pcm: Shorten source code
+      Add sound card support for QCS9100 and QCS9075
+      ASoC: Add Intel machine driver support for CS35L63
+      Add DAPM/ASoC helpers to create SDCA drivers
+      Add Tegra264 support in AHUB drivers
+      ASoC: codecs: add support for ES8375
+
+Martin Blumenstingl (2):
+      ASoC: hdmi-codec: wire up the .prepare callback also for SPDIF DAI ops
+      ASoC: meson: meson-card-utils: use of_property_present() for DT parsing
+
+Martin Povišer (3):
+      ASoC: tas2764: Reinit cache on part reset
+      ASoC: tas2764: Raise regmap range maximum
+      ASoC: tas2764: Apply Apple quirks
+
+Michael Sikora (1):
+      ASoC: adau7118: Allow dsp_a mode
+
+Mohammad Rafi Shaik (2):
+      ASoC: dt-bindings: qcom,sm8250: Add QCS9100 and QCS9075 sound card
+      ASoC: qcom: sc8280xp: Add sound card support for QCS9100 and QCS9075
+
+Nathan Chancellor (1):
+      ASoC: cs48l32: Use modern PM_OPS
+
+Naveen Manohar (2):
+      ASoC: Intel: soc-acpi-intel-ptl-match: Sort ACPI link/machine tables
+      ASoC: Intel: sof_sdw: Add support for wclrvp & ocelot in WCL platform
+
+Nicolas Frattaroli (3):
+      ASoC: test-component: add set_tdm_slot stub implementation
+      ASoC: dt-bindings: add schema for rockchip SAI controllers
+      ASoC: rockchip: add Serial Audio Interface (SAI) driver
+
+Nishanth Menon (1):
+      ASoC: tlv320aic3x: Use dev_err_probe
+
+Peng Fan (19):
+      ASoC: codec: wcd939x: Convert to GPIO descriptors
+      ASoC: codec: wcd938x: Convert to GPIO descriptors
+      ASoC: codec: wcd9335: Convert to GPIO descriptors
+      ASoC: codec: ak5386: Convert to GPIO descriptors
+      ASoC: codec: tpa6130a2: Sort headers alphabetically
+      ASoC: codec: tpa6130a2: Remove tpa6130a2_platform_data
+      ASoC: codec: tpa6130a2: Convert to GPIO descriptors
+      ASoC: codec: twl4030: Sort headers alphabetically
+      ASoC: codec: twl4030: Convert to GPIO descriptors
+      ASoC: codec: sma1307: Remove including of_gpio.h
+      ASoC: codec: cs42l56: Sort headers alphabetically
+      ASoC: codec: cs42l56: Drop cs42l56.h
+      ASoC: codec: cs42l56: Convert to GPIO descriptors
+      ASoC: codec: cs42l73: Sort headers alphabetically
+      ASoC: codec: cs42l73: Drop cs42l73.h
+      ASoC: codec: cs42l73: Convert to GPIO descriptors
+      ASoC: codec: cs42l52: Sort headers alphabetically
+      ASoC: codec: cs42l52: Drop cs42l52.h
+      ASoC: codec: cs42l52: Convert to GPIO descriptors
+
+Philipp Stanner (5):
+      ASoC: loongson: Replace deprecated PCI functions
+      ASoC: sof: Use pure devres PCI
+      ASoC: intel: avs: Use pure devres PCI
+      ASoC: intel: atom: Use pure devres PCI
+      ASoC: intel: atom: Return -ENOMEM if pcim_iomap() fails
+
+Richard Fitzgerald (10):
+      ASoC: wm_adsp: Use vmemdup_user() instead of open-coding
+      ASoC: dt-bindings: Add Cirrus Logic CS48L32 audio DSP
+      ASoC: cs48l32: Add driver for Cirrus Logic CS48L32 audio DSP
+      ASoC: cs-amp-lib-test: Use flex_array_size()
+      ASoC: cs-amp-lib-test: Use faux bus instead of creating a dummy platform device
+      firmware: cs_dsp: Add some sanity-checking to test harness
+      MAINTAINERS: ASoC: Simplify references to Cirrus Logic include files
+      ASoC: wm_adsp: Don't use no_free_ptr() when passing to PTR_ERR()
+      ASoC: Intel: soc-acpi-intel-mtl-match: Add match for CDB35L63-CB2
+      ASoC: wm_adsp: Make cirrus_dir const
+
+Sheetal (11):
+      dt-bindings: ASoC: admaif: Add missing properties
+      dt-bindings: ASoC: Document Tegra264 APE support
+      ASoC: tegra: CIF: Add Tegra264 support
+      ASoC: tegra: ADMAIF: Add Tegra264 support
+      ASoC: tegra: ASRC: Update ARAM address
+      ASoC: tegra: Update PLL rate for Tegra264
+      ASoC: tegra: I2S: Add Tegra264 support
+      ASoC: tegra: AMX: Add Tegra264 support
+      ASoC: tegra: ADX: Add Tegra264 support
+      ASoC: tegra: AHUB: Add Tegra264 support
+      ASoC: tegra: Tegra264 support in isomgr_bw
+
+Shenghao Ding (2):
+      ASoC: tas2781: Add a debugfs node for acoustic tuning
+      ASoC: tas2781: Header file cleanup and Move the macro definitions to fwlib
+
+Shengjiu Wang (7):
+      ASoC: fsl_sai: allow to set mclk rate with zero clk_id
+      ASoC: fsl_sai: add xlate_tdm_slot_mask() callback
+      ASoC: fsl_sai: separate 'is_dsp_mode' for tx and rx
+      ASoC: fsl_sai: separate set_tdm_slot() for tx and rx
+      ASoC: dt-bindings: fsl,mqs: Reference common DAI properties
+      ASoC: dt-bindings: fsl,mqs: Document audio graph port
+      ASoC: fsl_xcvr: update platform driver name
+
+Shuming Fan (3):
+      ASoC: rt722: fix pop noise at the beginning of headphone playback
+      ASoC: rt722: fix pop noise at the beginning of DMIC recording
+      ASoC: rt722: make regmap cache-only in probe
+
+Simon Trimmer (2):
+      ASoC: cs35l56: Log tuning unique identifiers during firmware load
+      ALSA: hda: cs35l56: Log tuning unique identifiers during firmware load
+
+Srinivas Kandagatla (3):
+      ASoC: codecs: wcd-mbhc: cleanup swap_gnd_mic api
+      ASoC: dt-bindings: wcd93xx: add bindings for audio mux controlling hp
+      ASoC: codecs: wcd938x: add mux control support for hp audio mux
+
+Stefan Binding (6):
+      ASoC: cs35l56: Add Index based on ACPI HID or SDW ID to select regmap config
+      ASoC: cs35l56: Add struct to index firmware registers
+      ASoC: cs35l56: Add Mute, Volume and Posture registers to firmware register list
+      ASoC: cs35l56: Add initial support for CS35L63 for I2C and SoundWire
+      ASoC: cs35l56: Read Silicon ID from DIE_STS registers for CS35L63
+      ASoC: intel: sof_sdw: Add support for CS35L63 into machine driver
+
+Talhah Peerbhai (1):
+      ASoC: amd: yc: Add quirk for Lenovo Yoga Pro 7 14ASP9
+
+Thorsten Blum (6):
+      ASoC: codecs: rt5677: Use secs_to_jiffies() instead of msecs_to_jiffies()
+      ASoC: cs-amp-lib: Replace offsetof() with struct_size()
+      ASoC: cs-amp-lib: Annotate struct cirrus_amp_efi_data with __counted_by()
+      ASoC: starfive: Use max() to simplify code in jh7110_tdm_syncdiv()
+      ASoC: codecs: Use min() to simplify aw_dev_dsp_update_container()
+      ASoC: Intel: avs: Fix kcalloc() sizes
+
+Vijendar Mukunda (12):
+      ASoC: SOF: amd: remove else condition in resume sequence
+      ASoC: SOF: amd: add missing acp descriptor field
+      ASoC: SOF: amd: add ACP7.1 platform support
+      ASoC: SOF: amd: update soundwire specific acp descriptor fields
+      ASoC: SOF: amd: enable ACP_PME_EN register for ACP7.0 & ACP7.1 platforms
+      ASoC: SOF: amd: refactor acp reset sequence
+      ASoC: SOF: amd: enable soundwire host wake irq mask
+      ASoC: SOF: amd: add soundwire wake irq handling
+      ASoC: SOF: amd: add build support for soundwire
+      ASoC: amd: amd_sdw: Fix unlikely uninitialized variable use in create_sdw_dailinks()
+      ASoC: amd: sof_amd_sdw: Fix unlikely uninitialized variable use in create_sdw_dailinks()
+      ASoC: amd: sof_amd_sdw: add logic to get cpu_pin_id for ACP7.0/ACP7.1 platforms
+
+Yuanjun Gong (1):
+      ASoC: tegra210_ahub: Add check to of_device_get_match_data()
+
+Zhang Enpei (1):
+      ASoC: stm: stm32_sai: Use dev_err_probe()
+
+Zhang Yi (4):
+      ASoC: codecs: add support for ES8389
+      ASoC: dt-bindings: Add Everest ES8389 audio CODEC
+      ASoC: dt-bindings: Add Everest ES8375 audio CODEC
+      ASoC: codecs: add support for ES8375
+
+ .../bindings/bus/nvidia,tegra210-aconnect.yaml     |    1 +
+ .../bindings/sound/audio-graph-card2.yaml          |    8 +-
+ .../devicetree/bindings/sound/cirrus,cs48l32.yaml  |  195 +
+ .../devicetree/bindings/sound/everest,es8375.yaml  |   71 +
+ .../devicetree/bindings/sound/everest,es8389.yaml  |   50 +
+ .../devicetree/bindings/sound/fsl,mqs.yaml         |   10 +-
+ .../bindings/sound/loongson,ls1b-ac97.yaml         |   68 +
+ .../devicetree/bindings/sound/maxim,max98925.yaml  |    2 +-
+ .../bindings/sound/mediatek,mt8188-mt6359.yaml     |    7 +-
+ .../sound/mt8186-mt6366-da7219-max98357.yaml       |    7 +-
+ .../devicetree/bindings/sound/mt8195-mt6359.yaml   |    4 +
+ .../sound/nvidia,tegra-audio-graph-card.yaml       |    1 +
+ .../bindings/sound/nvidia,tegra186-asrc.yaml       |    4 +-
+ .../bindings/sound/nvidia,tegra186-dspk.yaml       |    1 +
+ .../bindings/sound/nvidia,tegra210-admaif.yaml     |   17 +
+ .../bindings/sound/nvidia,tegra210-adx.yaml        |    4 +-
+ .../bindings/sound/nvidia,tegra210-ahub.yaml       |    1 +
+ .../bindings/sound/nvidia,tegra210-amx.yaml        |    6 +-
+ .../bindings/sound/nvidia,tegra210-dmic.yaml       |    1 +
+ .../bindings/sound/nvidia,tegra210-i2s.yaml        |    4 +-
+ .../bindings/sound/nvidia,tegra210-mbdrc.yaml      |    1 +
+ .../bindings/sound/nvidia,tegra210-mixer.yaml      |    1 +
+ .../bindings/sound/nvidia,tegra210-mvc.yaml        |    1 +
+ .../bindings/sound/nvidia,tegra210-ope.yaml        |    1 +
+ .../bindings/sound/nvidia,tegra210-peq.yaml        |    1 +
+ .../bindings/sound/nvidia,tegra210-sfc.yaml        |    1 +
+ .../devicetree/bindings/sound/qcom,sm8250.yaml     |    2 +
+ .../devicetree/bindings/sound/qcom,wcd938x.yaml    |    6 +
+ .../devicetree/bindings/sound/realtek,alc203.yaml  |   36 +
+ .../devicetree/bindings/sound/richtek,rt9123.yaml  |   56 +
+ .../devicetree/bindings/sound/richtek,rt9123p.yaml |   48 +
+ .../bindings/sound/rockchip,rk3576-sai.yaml        |  144 +
+ .../devicetree/bindings/spi/renesas,sh-msiof.yaml  |   43 +-
+ MAINTAINERS                                        |   17 +-
+ drivers/firmware/cirrus/test/cs_dsp_mock_bin.c     |    6 +-
+ .../firmware/cirrus/test/cs_dsp_mock_mem_maps.c    |   15 +-
+ drivers/firmware/cirrus/test/cs_dsp_mock_wmfw.c    |    4 +
+ drivers/spi/spi-sh-msiof.c                         |   42 +-
+ include/dt-bindings/sound/cs48l32.h                |   20 +
+ include/linux/pci_ids.h                            |    1 +
+ include/linux/string_helpers.h                     |    1 +
+ include/sound/cs-amp-lib.h                         |    2 +-
+ include/sound/cs35l56.h                            |   29 +
+ include/sound/cs42l52.h                            |   29 -
+ include/sound/cs42l56.h                            |   45 -
+ include/sound/cs42l73.h                            |   19 -
+ include/sound/cs48l32.h                            |   47 +
+ include/sound/cs48l32_registers.h                  |  530 +++
+ include/sound/hdaudio_ext.h                        |    6 +
+ include/sound/sdca_asoc.h                          |   42 +
+ include/sound/sdca_function.h                      |   71 +-
+ include/sound/soc-acpi.h                           |   13 +
+ include/sound/soc-dapm.h                           |    4 +
+ include/sound/soc.h                                |   15 +-
+ include/sound/soc_sdw_utils.h                      |    5 +-
+ include/sound/sof.h                                |    1 +
+ include/sound/tas2781.h                            |   30 +-
+ include/sound/tpa6130a2-plat.h                     |   17 -
+ lib/string_helpers.c                               |   39 +-
+ sound/hda/ext/hdac_ext_controller.c                |   19 +
+ sound/hda/hdac_device.c                            |    2 +-
+ sound/hda/intel-dsp-config.c                       |    4 +
+ sound/pci/hda/cirrus_scodec_test.c                 |    7 +-
+ sound/pci/hda/cs35l56_hda.c                        |   24 +-
+ sound/pci/hda/cs35l56_hda_i2c.c                    |    3 +
+ sound/pci/hda/cs35l56_hda_spi.c                    |    3 +
+ sound/soc/amd/acp-da7219-max98357a.c               |    8 +-
+ sound/soc/amd/acp-es8336.c                         |    4 +-
+ sound/soc/amd/acp-rt5645.c                         |    6 +-
+ sound/soc/amd/acp/acp-sdw-legacy-mach.c            |    4 +-
+ sound/soc/amd/acp/acp-sdw-sof-mach.c               |   10 +-
+ sound/soc/amd/acp/acp-sof-mach.c                   |    2 +-
+ sound/soc/amd/yc/acp6x-mach.c                      |    9 +-
+ sound/soc/codecs/Kconfig                           |   38 +-
+ sound/soc/codecs/Makefile                          |   12 +-
+ sound/soc/codecs/ac97.c                            |   10 +
+ sound/soc/codecs/adau7118.c                        |    6 +
+ sound/soc/codecs/ak4458.c                          |   10 +-
+ sound/soc/codecs/ak5386.c                          |   28 +-
+ sound/soc/codecs/aw88166.c                         |    7 +-
+ sound/soc/codecs/aw88395/aw88395_device.c          |    7 +-
+ sound/soc/codecs/aw88399.c                         |    7 +-
+ sound/soc/codecs/cs-amp-lib-test.c                 |   70 +-
+ sound/soc/codecs/cs-amp-lib.c                      |    3 +-
+ sound/soc/codecs/cs35l56-i2c.c                     |   23 +-
+ sound/soc/codecs/cs35l56-sdw.c                     |   91 +-
+ sound/soc/codecs/cs35l56-shared.c                  |  257 +-
+ sound/soc/codecs/cs35l56-spi.c                     |    3 +
+ sound/soc/codecs/cs35l56.c                         |   48 +-
+ sound/soc/codecs/cs35l56.h                         |    1 +
+ sound/soc/codecs/cs42l52.c                         |  112 +-
+ sound/soc/codecs/cs42l56.c                         |   90 +-
+ sound/soc/codecs/cs42l73.c                         |   70 +-
+ sound/soc/codecs/cs48l32-tables.c                  |  540 +++
+ sound/soc/codecs/cs48l32.c                         | 4073 ++++++++++++++++++++
+ sound/soc/codecs/cs48l32.h                         |  403 ++
+ sound/soc/codecs/es8375.c                          |  793 ++++
+ sound/soc/codecs/es8375.h                          |  123 +
+ sound/soc/codecs/es8389.c                          |  962 +++++
+ sound/soc/codecs/es8389.h                          |  140 +
+ sound/soc/codecs/hdmi-codec.c                      |    1 +
+ sound/soc/codecs/idt821034.c                       |   17 +-
+ sound/soc/codecs/pcm6240.c                         |    3 +-
+ sound/soc/codecs/peb2466.c                         |   15 +-
+ sound/soc/codecs/rt5665.c                          |   96 -
+ sound/soc/codecs/rt5665.h                          |    3 -
+ sound/soc/codecs/rt5668.c                          |   43 -
+ sound/soc/codecs/rt5668.h                          |    3 -
+ sound/soc/codecs/rt5677-spi.c                      |    4 +-
+ sound/soc/codecs/rt5677.c                          |    7 +-
+ sound/soc/codecs/rt712-sdca-dmic.c                 |    8 +-
+ sound/soc/codecs/rt712-sdca.c                      |    8 +-
+ sound/soc/codecs/rt722-sdca-sdw.c                  |   20 +
+ sound/soc/codecs/rt722-sdca-sdw.h                  |    1 +
+ sound/soc/codecs/rt722-sdca.c                      |  322 +-
+ sound/soc/codecs/rt722-sdca.h                      |    6 +
+ sound/soc/codecs/rt9123.c                          |  503 +++
+ sound/soc/codecs/rt9123p.c                         |  171 +
+ sound/soc/codecs/sma1307.c                         |    1 -
+ sound/soc/codecs/sta32x.c                          |    6 +-
+ sound/soc/codecs/tas2764-quirks.h                  |  180 +
+ sound/soc/codecs/tas2764.c                         |  139 +-
+ sound/soc/codecs/tas2764.h                         |    3 +
+ sound/soc/codecs/tas2770.c                         |  151 +-
+ sound/soc/codecs/tas2770.h                         |    6 +
+ sound/soc/codecs/tas2781-fmwlib.c                  |    8 +-
+ sound/soc/codecs/tas2781-i2c.c                     |  157 +-
+ sound/soc/codecs/tlv320adc3xxx.c                   |    8 +-
+ sound/soc/codecs/tlv320aic3x.c                     |    6 +-
+ sound/soc/codecs/tpa6130a2.c                       |   54 +-
+ sound/soc/codecs/twl4030.c                         |   79 +-
+ sound/soc/codecs/wcd-mbhc-v2.c                     |    2 +-
+ sound/soc/codecs/wcd-mbhc-v2.h                     |    2 +-
+ sound/soc/codecs/wcd9335.c                         |   15 +-
+ sound/soc/codecs/wcd937x.c                         |    2 +-
+ sound/soc/codecs/wcd938x-sdw.c                     |    2 +-
+ sound/soc/codecs/wcd938x.c                         |   69 +-
+ sound/soc/codecs/wcd939x.c                         |   18 +-
+ sound/soc/codecs/wm5100.c                          |   10 +-
+ sound/soc/codecs/wm8903.c                          |   12 +-
+ sound/soc/codecs/wm8962.c                          |   11 +-
+ sound/soc/codecs/wm8996.c                          |   10 +-
+ sound/soc/codecs/wm_adsp.c                         |   28 +-
+ sound/soc/codecs/wsa883x.c                         |    2 +-
+ sound/soc/codecs/wsa884x.c                         |    2 +-
+ sound/soc/codecs/zl38060.c                         |   12 +-
+ sound/soc/fsl/fsl_rpmsg.c                          |   28 +-
+ sound/soc/fsl/fsl_rpmsg.h                          |    2 +-
+ sound/soc/fsl/fsl_sai.c                            |   90 +-
+ sound/soc/fsl/fsl_sai.h                            |    6 +-
+ sound/soc/fsl/fsl_xcvr.c                           |    2 +-
+ sound/soc/fsl/imx-card.c                           |    7 +-
+ sound/soc/fsl/imx-pcm-rpmsg.c                      |   21 +-
+ sound/soc/generic/simple-card-utils.c              |   23 +-
+ sound/soc/generic/test-component.c                 |   11 +
+ sound/soc/intel/atom/sst/sst.h                     |    6 -
+ sound/soc/intel/atom/sst/sst_drv_interface.c       |   24 -
+ sound/soc/intel/atom/sst/sst_pci.c                 |   59 +-
+ sound/soc/intel/atom/sst/sst_pvt.c                 |   33 -
+ sound/soc/intel/avs/Makefile                       |    6 +-
+ sound/soc/intel/avs/avs.h                          |   13 +-
+ sound/soc/intel/avs/board_selection.c              |  181 +-
+ sound/soc/intel/avs/boards/Kconfig                 |    8 +
+ sound/soc/intel/avs/boards/da7219.c                |   11 +-
+ sound/soc/intel/avs/boards/dmic.c                  |   12 +-
+ sound/soc/intel/avs/boards/es8336.c                |   11 +-
+ sound/soc/intel/avs/boards/hdaudio.c               |   25 +-
+ sound/soc/intel/avs/boards/i2s_test.c              |   15 +-
+ sound/soc/intel/avs/boards/max98357a.c             |   11 +-
+ sound/soc/intel/avs/boards/max98373.c              |   11 +-
+ sound/soc/intel/avs/boards/max98927.c              |   11 +-
+ sound/soc/intel/avs/boards/nau8825.c               |   11 +-
+ sound/soc/intel/avs/boards/pcm3168a.c              |   16 +-
+ sound/soc/intel/avs/boards/probe.c                 |    5 +-
+ sound/soc/intel/avs/boards/rt274.c                 |   11 +-
+ sound/soc/intel/avs/boards/rt286.c                 |   11 +-
+ sound/soc/intel/avs/boards/rt298.c                 |   11 +-
+ sound/soc/intel/avs/boards/rt5514.c                |   11 +-
+ sound/soc/intel/avs/boards/rt5663.c                |   11 +-
+ sound/soc/intel/avs/boards/rt5682.c                |   11 +-
+ sound/soc/intel/avs/boards/ssm4567.c               |   11 +-
+ sound/soc/intel/avs/core.c                         |   68 +-
+ sound/soc/intel/avs/dsp.c                          |    2 -
+ sound/soc/intel/avs/lnl.c                          |   27 +
+ sound/soc/intel/avs/loader.c                       |   11 +-
+ sound/soc/intel/avs/messages.h                     |   34 +-
+ sound/soc/intel/avs/mtl.c                          |  200 +
+ sound/soc/intel/avs/path.c                         |   59 +-
+ sound/soc/intel/avs/pcm.c                          |  156 +-
+ sound/soc/intel/avs/probes.c                       |    2 +-
+ sound/soc/intel/avs/ptl.c                          |   98 +
+ sound/soc/intel/avs/registers.h                    |   40 +-
+ sound/soc/intel/avs/topology.c                     |    4 +-
+ sound/soc/intel/avs/topology.h                     |    2 +-
+ sound/soc/intel/avs/utils.h                        |   16 +-
+ sound/soc/intel/boards/Kconfig                     |    8 -
+ sound/soc/intel/boards/sof_sdw.c                   |   48 +-
+ sound/soc/intel/common/Makefile                    |    2 +-
+ sound/soc/intel/common/soc-acpi-intel-arl-match.c  |    9 +
+ sound/soc/intel/common/soc-acpi-intel-lnl-match.c  |   15 +-
+ sound/soc/intel/common/soc-acpi-intel-mtl-match.c  |   49 +-
+ sound/soc/intel/common/soc-acpi-intel-ptl-match.c  |  124 +-
+ sound/soc/intel/common/sof-function-topology-lib.c |  135 +
+ sound/soc/intel/common/sof-function-topology-lib.h |   15 +
+ sound/soc/loongson/Kconfig                         |   10 +
+ sound/soc/loongson/Makefile                        |    2 +
+ sound/soc/loongson/loongson1_ac97.c                |  398 ++
+ sound/soc/loongson/loongson_i2s_pci.c              |   13 +-
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c         |  571 +--
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c          |    6 +-
+ sound/soc/mediatek/mt8195/mt8195-mt6359.c          |   45 +-
+ sound/soc/meson/meson-card-utils.c                 |    2 +-
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c            |    2 +-
+ sound/soc/qcom/sc8280xp.c                          |    2 +
+ sound/soc/renesas/Kconfig                          |    7 +
+ sound/soc/renesas/rcar/Makefile                    |    3 +
+ sound/soc/renesas/rcar/adg.c                       |   32 +-
+ sound/soc/renesas/rcar/core.c                      |    9 +-
+ sound/soc/renesas/rcar/msiof.c                     |  566 +++
+ sound/soc/rockchip/Kconfig                         |   10 +
+ sound/soc/rockchip/Makefile                        |    2 +
+ sound/soc/rockchip/rockchip_sai.c                  | 1555 ++++++++
+ sound/soc/rockchip/rockchip_sai.h                  |  251 ++
+ sound/soc/sdca/Makefile                            |    2 +-
+ sound/soc/sdca/sdca_asoc.c                         | 1311 +++++++
+ sound/soc/sdca/sdca_functions.c                    |   10 +-
+ sound/soc/sdca/sdca_regmap.c                       |    3 -
+ sound/soc/sdw_utils/soc_sdw_rt_amp.c               |    2 +-
+ sound/soc/sdw_utils/soc_sdw_utils.c                |  202 +-
+ sound/soc/soc-ac97.c                               |   15 +-
+ sound/soc/soc-core.c                               |  130 +-
+ sound/soc/soc-dapm.c                               |   84 +-
+ sound/soc/soc-devres.c                             |    7 +
+ sound/soc/soc-utils.c                              |   13 +
+ sound/soc/sof/amd/Kconfig                          |    7 +-
+ sound/soc/sof/amd/acp-dsp-offset.h                 |   10 +
+ sound/soc/sof/amd/acp.c                            |  133 +-
+ sound/soc/sof/amd/acp.h                            |    7 +
+ sound/soc/sof/amd/pci-acp70.c                      |   10 +-
+ sound/soc/sof/core.c                               |   10 +-
+ sound/soc/sof/imx/imx8.c                           |   24 +-
+ sound/soc/sof/ipc4-pcm.c                           |    3 +-
+ sound/soc/sof/sof-pci-dev.c                        |   16 +-
+ sound/soc/sof/topology.c                           |   97 +-
+ sound/soc/starfive/jh7110_tdm.c                    |   13 +-
+ sound/soc/stm/stm32_sai.c                          |   18 +-
+ sound/soc/sunxi/sun8i-codec.c                      |   13 +-
+ sound/soc/tegra/tegra186_asrc.c                    |   18 +-
+ sound/soc/tegra/tegra186_asrc.h                    |   12 +-
+ sound/soc/tegra/tegra210_admaif.c                  |  223 +-
+ sound/soc/tegra/tegra210_admaif.h                  |   78 +
+ sound/soc/tegra/tegra210_adx.c                     |  229 +-
+ sound/soc/tegra/tegra210_adx.h                     |   36 +-
+ sound/soc/tegra/tegra210_ahub.c                    |  850 +++-
+ sound/soc/tegra/tegra210_ahub.h                    |   52 +-
+ sound/soc/tegra/tegra210_amx.c                     |  229 +-
+ sound/soc/tegra/tegra210_amx.h                     |   34 +-
+ sound/soc/tegra/tegra210_i2s.c                     |  231 +-
+ sound/soc/tegra/tegra210_i2s.h                     |   51 +-
+ sound/soc/tegra/tegra_audio_graph_card.c           |   14 +-
+ sound/soc/tegra/tegra_cif.h                        |   30 +-
+ sound/soc/tegra/tegra_isomgr_bw.c                  |    7 +-
+ sound/soc/ti/davinci-mcasp.c                       |    8 +-
+ 263 files changed, 19486 insertions(+), 2213 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs48l32.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/everest,es8375.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/everest,es8389.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls1b-ac97.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/realtek,alc203.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/richtek,rt9123.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/richtek,rt9123p.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
+ create mode 100644 include/dt-bindings/sound/cs48l32.h
+ delete mode 100644 include/sound/cs42l52.h
+ delete mode 100644 include/sound/cs42l56.h
+ delete mode 100644 include/sound/cs42l73.h
+ create mode 100644 include/sound/cs48l32.h
+ create mode 100644 include/sound/cs48l32_registers.h
+ create mode 100644 include/sound/sdca_asoc.h
+ delete mode 100644 include/sound/tpa6130a2-plat.h
+ create mode 100644 sound/soc/codecs/cs48l32-tables.c
+ create mode 100644 sound/soc/codecs/cs48l32.c
+ create mode 100644 sound/soc/codecs/cs48l32.h
+ create mode 100644 sound/soc/codecs/es8375.c
+ create mode 100644 sound/soc/codecs/es8375.h
+ create mode 100644 sound/soc/codecs/es8389.c
+ create mode 100644 sound/soc/codecs/es8389.h
+ create mode 100644 sound/soc/codecs/rt9123.c
+ create mode 100644 sound/soc/codecs/rt9123p.c
+ create mode 100644 sound/soc/codecs/tas2764-quirks.h
+ create mode 100644 sound/soc/intel/avs/lnl.c
+ create mode 100644 sound/soc/intel/avs/mtl.c
+ create mode 100644 sound/soc/intel/avs/ptl.c
+ create mode 100644 sound/soc/intel/common/sof-function-topology-lib.c
+ create mode 100644 sound/soc/intel/common/sof-function-topology-lib.h
+ create mode 100644 sound/soc/loongson/loongson1_ac97.c
+ create mode 100644 sound/soc/renesas/rcar/msiof.c
+ create mode 100644 sound/soc/rockchip/rockchip_sai.c
+ create mode 100644 sound/soc/rockchip/rockchip_sai.h
+ create mode 100644 sound/soc/sdca/sdca_asoc.c

@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7FDAC28CF
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:35:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78780AC28DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 May 2025 19:37:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84A21601EE;
-	Fri, 23 May 2025 19:35:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A21601EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7E3A601F8;
+	Fri, 23 May 2025 19:37:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7E3A601F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748021749;
-	bh=iqzwAEW15Io9tZ5wCw81QQk18XjspER0mU8Jukx6TD4=;
+	s=default; t=1748021836;
+	bh=pzZJXIRKENFRvuc8fMDnWYqoR3zwcFKguiLFTRIloBY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=mxQLlG87CIouMSiMBpz9TyYPBgbFJ5HLEC3I46mb1T4cK/XiULOPWViC+Ps7UGOrO
-	 TIvEIqh1zCTVXHLDEFQpq+9xVn6/t/6tJ92KbhaOIdoUGmACObxc+gXuqSYAktSeaD
-	 iUAunla0dRr5CgWXOi6QNhgJPJEzXFiIuEwMjdGY=
+	b=ZtMOGT7srN3CFZ/Bi/AG4gPYrn7h7ptxc7+SPItzloQCZRHV00ay63KceQrpm911l
+	 NKf2beu7Mmj6FpTgQWoM/szxfI57zTkEHqtppkxbCPFYnXrsWSoEFfcmYD7QiPc8w9
+	 ePYiUM7CtJVF4cpA1dB193OzJ5dZb+p3NHiM4KnM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA326F805B0; Fri, 23 May 2025 19:35:14 +0200 (CEST)
+	id A7C6EF805BF; Fri, 23 May 2025 19:36:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4979F805B2;
-	Fri, 23 May 2025 19:35:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FE89F80563;
+	Fri, 23 May 2025 19:36:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FADAF8057E; Fri, 23 May 2025 19:35:11 +0200 (CEST)
+	id 585C5F8057E; Fri, 23 May 2025 19:36:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,23 +35,23 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id D224FF800C1
-	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:35:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D224FF800C1
+	by alsa1.perex.cz (Postfix) with ESMTP id 09C53F80563
+	for <alsa-devel@alsa-project.org>; Fri, 23 May 2025 19:36:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09C53F80563
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1842387b94da6000-webhooks-bot@alsa-project.org>
-In-Reply-To: <1842387b94d11f00-webhooks-bot@alsa-project.org>
-References: <1842387b94d11f00-webhooks-bot@alsa-project.org>
+Message-Id: <1842388e0632d200-webhooks-bot@alsa-project.org>
+In-Reply-To: <1842388e0630aa00-webhooks-bot@alsa-project.org>
+References: <1842388e0630aa00-webhooks-bot@alsa-project.org>
 Subject: Ubuntu Level 3 Log Error:
  /usr/lib/udev/rules.d/90-alsa-restore.rules:20 GOTO="alsa_restore_std" has no
  matching label, ignoring.
-Date: Fri, 23 May 2025 19:35:11 +0200 (CEST)
-Message-ID-Hash: 6MHAGOGFPLSQCEE5YB5WEIQLDDTAPNGI
-X-Message-ID-Hash: 6MHAGOGFPLSQCEE5YB5WEIQLDDTAPNGI
+Date: Fri, 23 May 2025 19:36:30 +0200 (CEST)
+Message-ID-Hash: 5ZA2LLTA3XJI5TLCGD4QE4K7H5OA2LLN
+X-Message-ID-Hash: 5ZA2LLTA3XJI5TLCGD4QE4K7H5OA2LLN
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -64,7 +64,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6MHAGOGFPLSQCEE5YB5WEIQLDDTAPNGI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZA2LLTA3XJI5TLCGD4QE4K7H5OA2LLN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -74,6 +74,8 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 alsa-project/alsa-utils issue #299 was edited from CaptainMorgan12:
+
+I should note my microphone is not working, haven't gotten it to be recognized using t2mac kernel fixes.
 
 Similar issue to https://github.com/alsa-project/alsa-utils/issues/280
 

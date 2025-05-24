@@ -2,55 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 479E7AC2ECD
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 May 2025 12:14:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C8FBAC31D1
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 May 2025 00:35:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB29B601EC;
-	Sat, 24 May 2025 12:13:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB29B601EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E8F1601E9;
+	Sun, 25 May 2025 00:35:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E8F1601E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748081638;
-	bh=3LYzinSD5GGXhf4u3fUt0es6jfbw6AvapG/Ry2wc9HI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=jmQh4Wxo2+2GB5ktugFqE6ORiOwegXizFM1zwgWDbJE/q3CW2XTB2vi5v39qi9fil
-	 uIc4W5h2V1g0oVHxwgE1ksubmXWCmRtGxudvJVWXXNVxX8/ZA00/XJ6lE1iOZiz8DX
-	 xWeNyeuIz+mixRx6BntiH70NslcAWPV4e52B3qZI=
+	s=default; t=1748126127;
+	bh=hTcFEegb2qiUjAMTfEa/uPeVJKtlF81ctDhTSt/5JF0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jTppdoD2QA8/VWjmFUJNPo19gs6KcW17YshV8M3/stJ11C58C/RYzqyExv5skTyEx
+	 W+WDJlrxJB4drR/9slZHb2DYniQ/H4lv381g0PreQBQrjwhsOS1rTanhtaxHm7ch9z
+	 NJvJivTlkL7uZtfL71GjeHqHE/TmQiUnhEfcDzjc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A49EF805BD; Sat, 24 May 2025 12:13:23 +0200 (CEST)
+	id 81C1FF805BE; Sun, 25 May 2025 00:34:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C9B7F805AB;
-	Sat, 24 May 2025 12:13:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58F9CF8028B;
+	Sun, 25 May 2025 00:34:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5C72F8026D; Sat, 24 May 2025 12:13:19 +0200 (CEST)
+	id 0AF66F80236; Sun, 25 May 2025 00:34:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+X-Spam-Status: No, score=-7.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	PP_MIME_FAKE_ASCII_TEXT,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF26BF80246
-	for <alsa-devel@alsa-project.org>; Sat, 24 May 2025 12:13:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF26BF80246
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <18426ef36da44f00-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-ucm-conf/pr/566@alsa-project.org>
-References: <alsa-project/alsa-ucm-conf/pr/566@alsa-project.org>
-Subject: USB-Audio: Solid State Labs SSL 2 - fix capture channels
-Date: Sat, 24 May 2025 12:13:19 +0200 (CEST)
-Message-ID-Hash: V3XLKCS7LJKKWT5DPZVAYLAGYWF6HSZO
-X-Message-ID-Hash: V3XLKCS7LJKKWT5DPZVAYLAGYWF6HSZO
-X-MailFrom: github@alsa-project.org
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B6DCF80152
+	for <alsa-devel@alsa-project.org>; Sun, 25 May 2025 00:34:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B6DCF80152
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Nc9E3IfJ
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 117375C59CE;
+	Sat, 24 May 2025 22:32:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EFB6C4CEE4;
+	Sat, 24 May 2025 22:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1748126082;
+	bh=hTcFEegb2qiUjAMTfEa/uPeVJKtlF81ctDhTSt/5JF0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Nc9E3IfJ1fY17e/9hTUpkhEFhyuwh0vInbLIS4lWXZ3UbMcFFQjxGIaZx8WhJeiTw
+	 XxnMvFDXtXLAeoAPNVvcU70PjNgdzNphnhaM2IC2ejJFMdXc9NR48YvWqV4kcBcm3s
+	 oPIPnOsgA2Wep1epagwqubKueTVwUyl6oA6BPZ4ZZEkSlRrj1xXsydizD2DDHiwdpm
+	 o+FCpuvERoUieQ2f4gronETVsSpe9nwkk4HfEqv8QogR80YR0nICZPZ6noNc7lc8Sr
+	 cvpdrjEQ7u/DlpZ5N8TMyDAd1JIqudydYn9ESUt0LQTpLkHl58Jzy9AxXCv7k19XEw
+	 +9T8Cr/zGlt4A==
+Message-ID: <c5f1dacf2885ff4eb1c04fa0faadd0b9.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.15-rc7
+Date: Sat, 24 May 2025 23:34:38 +0100
+Message-ID-Hash: 47BTADZQGNJXC2TQAY3IAU4G5AVMWHIZ
+X-Message-ID-Hash: 47BTADZQGNJXC2TQAY3IAU4G5AVMWHIZ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +82,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V3XLKCS7LJKKWT5DPZVAYLAGYWF6HSZO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/47BTADZQGNJXC2TQAY3IAU4G5AVMWHIZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,43 +91,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #566 was opened from olfx:
+The following changes since commit 7dd7f39fce0022b386ef1ea5ffef92ecc7dfc6af:
 
-Same fix as for SSL+, commit fc17ed4.
-Capture configuration is the same, with 4 channels.
+  ASoC: SOF: Intel: hda: Fix UAF when reloading module (2025-05-14 16:34:48 +0200)
 
--- alsa-info --
+are available in the Git repository at:
 
-Solid State Logic SSL 2 at usb-0000:00:14.0-1, high speed : USB Audio
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.15-rc7
 
-Playback:
-  Status: Stop
-  Interface 1
-    Altset 1
-    Format: S32_LE
-    Channels: 2
-    Endpoint: 0x01 (1 OUT) (ASYNC)
-    Rates: 44100, 48000, 88200, 96000, 176400, 192000
-    Data packet interval: 125 us
-    Bits: 24
-    Channel map: FL FR
-    Sync Endpoint: 0x81 (1 IN)
-    Sync EP Interface: 2
-    Sync EP Altset: 1
-    Implicit Feedback Mode: Yes
+for you to fetch changes up to 688abe2860fd9c644705b9e11cb9649eb891b879:
 
-Capture:
-  Status: Stop
-  Interface 2
-    Altset 1
-    Format: S32_LE
-    Channels: 4
-    Endpoint: 0x81 (1 IN) (ASYNC)
-    Rates: 44100, 48000, 88200, 96000, 176400, 192000
-    Data packet interval: 125 us
-    Bits: 24
-    Channel map: FL FR FC LFE
+  ASoC: qcom: sdm845: Add error handling in sdm845_slim_snd_hw_params() (2025-05-20 10:24:59 +0100)
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/566
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/566.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+----------------------------------------------------------------
+ASoC: Fixes for v6.15
+
+A couple more small fixes for v6.15, both of which could also easily
+wait until the merge window.
+
+----------------------------------------------------------------
+Martin Povišer (1):
+      ASoC: apple: mca: Constrain channels according to TDM mask
+
+Wentao Liang (1):
+      ASoC: qcom: sdm845: Add error handling in sdm845_slim_snd_hw_params()
+
+ sound/soc/apple/mca.c   | 23 +++++++++++++++++++++++
+ sound/soc/qcom/sdm845.c |  4 ++++
+ 2 files changed, 27 insertions(+)

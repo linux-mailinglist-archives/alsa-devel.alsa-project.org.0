@@ -2,186 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C1FEACE7BE
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jun 2025 03:27:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DE82ACEB06
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Jun 2025 09:43:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2DC1601A6;
-	Thu,  5 Jun 2025 03:27:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2DC1601A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CA20601DD;
+	Thu,  5 Jun 2025 09:43:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CA20601DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1749086834;
-	bh=ijRvAHxNTIN2sf2x4f6zONReiBa91J/4XyAfuUcryDY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=uOGePOvNHA5ABK5scOnSLlNDe0PTmm/23nwyYh5jSh6Y50393g3CeqHeAE5JT9ITd
-	 L2z45J77SfkOkRIQjKg9C4ig+k01kjrBD5zLJoHojbaBfLC/O4+abFw8hcZ0G+i36R
-	 WtNrH3DzEG896HbuVxjBQZJIW8mKqpRMu783RYmA=
+	s=default; t=1749109419;
+	bh=WcB9OLk3IbK3PrU7BwDLL38nq2o0Yny7n7fjpv0Em78=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gmFSFmOBjcK9Fc9ch3SAayJxA0txR2znWaRRCVvtmdsmRikLCSK9I1ygqSsmNn106
+	 jeWpMPhlpCO67okcWL38wBdft7OnkDRsu4dNwbFZv4mkPS5sFFw8G8I+j7ZVMimRsy
+	 WZc4qi2C8iMkomBWc1hJSeFsTiZHbF2TcJSQgEcU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28DE2F80154; Thu,  5 Jun 2025 03:26:42 +0200 (CEST)
+	id 43B9AF805B5; Thu,  5 Jun 2025 09:43:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B188F805BF;
-	Thu,  5 Jun 2025 03:26:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C543F805B1;
+	Thu,  5 Jun 2025 09:43:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E00CF80154; Thu,  5 Jun 2025 03:26:38 +0200 (CEST)
+	id 2B6F2F80212; Wed, 28 May 2025 05:24:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazlp170110002.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:c405::2])
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1E10F8011B
-	for <alsa-devel@alsa-project.org>; Thu,  5 Jun 2025 03:26:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1E10F8011B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E62EF800D2
+	for <alsa-devel@alsa-project.org>; Wed, 28 May 2025 05:24:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E62EF800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=RXZba9BR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rNKUBMWw664OA0R/6foFAPamSMFweVjJBPlkgRlzFAur/rJj5uGvMbGUytWCQLn0GVQkPOqtagjnAhxXUNfxJJ7xu1HM2z67l88AJuJ126iThPb867uMRieOCB9TFwb4vTPWTRzNs2k+FhOXwkSdYyDkSy97sJKTAmEwjpCn+v85P/HLq7Hec77/8K1qoX6eyUAva3YF9kiN7gZHKi6C6ucFy7ijeZ/BAU//CkRjXnzhwzgtfnBYcaxFaeIZ4KZkb+BRaIg3wPIEnDNFnn9JY0kznH3BIVc+FSZAK5r4WbBoVILxkBlSZ44IkgNZNyvAzdldDZRiF5913QZrDPjIgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RCRGw7uBvKe12sNjC3hAqU0pkSHIjBfnc2Y0DgzIx8g=;
- b=gGsm8m6sHPYJ1cjV0zEpT2EFBuGj/SP99By9AG1Nq02UHygnVVuawaF0q1tsdvJEmHypaG83vsZsYjqmsZ4oZo1IAU+oq5ZHzbYamjsfNsvZ0k8DMj9MscH2jr8cElX9zIxGHZwmF1kUmKhhU5j5QkVlOsem7lDHOMtLkQPXRm966BctvafzTYfaXCGevhi7A4y7xOSA/UOmYpZJ9Mo8zcQ5l4899z5KJ0+aUQcm1agIhqlcZtUQoxiHBR+5UxD9mnxLbUAiBjjCl4UjBSqt+yNpLOGAgYW661GoWVVsm25fC9w1ic2m/Mx3wY7sXhTm3XXIhrnqKJ2JA53S0gRMdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RCRGw7uBvKe12sNjC3hAqU0pkSHIjBfnc2Y0DgzIx8g=;
- b=RXZba9BRwRdYqndqCMnoRcSEGXD1bzCNd3ZlJ6BvgUYNThpLhXCDYYxHIreRydYLIZ7t8yyjK3+0+bUyoS58nzCJ/P5n7MbyHYJyjT6ecXzRGcTDtrVWo6Hqdx2ANEBEgrqTbz5U/1sAnEtJWlM9WDOQBo3XOlxUxFO2kjtIFSU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TY3PR01MB11221.jpnprd01.prod.outlook.com
- (2603:1096:400:3d6::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8813.21; Thu, 5 Jun
- 2025 01:26:22 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::c568:1028:2fd1:6e11%6]) with mapi id 15.20.8813.018; Thu, 5 Jun 2025
- 01:26:22 +0000
-Message-ID: <87sekfj7wi.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Giedrius =?ISO-8859-2?Q?Trainavi=E8ius?= <giedrius@blokas.io>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: snd_soc_dai_set_tdm_slot with slot=0 broken since 6.12.31 kernel
-In-Reply-To: 
- <CAMONXLtSL7iKyvH6w=CzPTxQdBECf++hn8RKL6Y4=M_ou2YHow@mail.gmail.com>
-References: 
- <CAMONXLtSL7iKyvH6w=CzPTxQdBECf++hn8RKL6Y4=M_ou2YHow@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 5 Jun 2025 01:26:21 +0000
-X-ClientProxiedBy: TY2PR0101CA0003.apcprd01.prod.exchangelabs.com
- (2603:1096:404:92::15) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmx.com header.i=meowmeowbeanz@gmx.com
+ header.a=rsa-sha256 header.s=s31663417 header.b=cjqsOMv7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1748402683; x=1749007483; i=meowmeowbeanz@gmx.com;
+	bh=ir3St0EToVdOtFoQuHxG0DRTDoertb0nXRrbxaaO0rE=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=cjqsOMv7+hCPXjOIFFdv+QhByVhXTx7waAcSZ4Aq40yTB1gR1g2kPIggK0MaGfOh
+	 5KFGI5wufh6vYPrxSi7sgUtwcITq5t0lwJyRCKDhVIb+8u0HachgDNecbJwtrDdk4
+	 tQ+a4SOc7SKbrYh0/uCryeIJb5YrN9LERRxCG6fyFBbtC2uX82pEWKScljtWu1+Pj
+	 jkW3j3jXmHGJ2czpniuNh9weK9d7qtpacQ+IvwWGh8mOPX9vt6hvKuXmnMiXW3Hr/
+	 OOiIiscyoudco9094XOWKYiu4X/uICR+ERYz/eKNAzNTTzpHWyOwkDc8TM7DsqrZV
+	 27+MclmWIwqSZrGwmQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from gemini.localnet ([24.205.220.130]) by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MPXhK-1uWr603bik-00Xkck; Wed, 28
+ May 2025 05:24:43 +0200
+From: meowmeowbeanz <meowmeowbeanz@gmx.com>
+To: alsa-devel@alsa-project.org
+Cc: broonie@kernel.org, mario.limonciello@amd.com
+Subject: [PATCH] ASoC: amd: yc: Add support for Lenovo Yoga 7 16ARP8
+Date: Tue, 27 May 2025 20:24:39 -0700
+Message-ID: <5015425.31r3eYUQgx@gemini>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TY3PR01MB11221:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ee20e4a-31e6-4946-7ca1-08dda3cffaed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|366016|52116014|376014|1800799024|38350700014;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?PJhjFnDU5eH2XAxzGYxs0UgD0qppKoO/b7ZeOw0SugjM3nDNkw1BYo3XoN88?=
- =?us-ascii?Q?2JnIVm1gjvweo8r/B30rHFiu/cSCJLS3nN/AXYuYvlENvCu0l5Ff6MS3ctrj?=
- =?us-ascii?Q?0LjHd43z7AXwBnykbMlbF57WXVFLGS4vsYdFZTIAEugmrGuF1pCKn5NGdncp?=
- =?us-ascii?Q?870uyxB71UbhRYCml0XAHyVQmAerGkASC4OVM4nW27KoWXzVVH1H6UbrXKEN?=
- =?us-ascii?Q?zdTNcWMyAydefZlgqlb0zRzmLpmYxcq6qJiaRTLLLA88r4bqNR5XO4IUkjtG?=
- =?us-ascii?Q?sjpRaCit2XRXwROfMte4TCN02Cw12E2Ls+SHqgAlXaWJCoPPh1j/4Igx/Lpe?=
- =?us-ascii?Q?Jok03h2wW9iq8Hi5/EYZula3ur1dvO2fGN79sgsaDRxTmHN71TXAZ0U2QQHe?=
- =?us-ascii?Q?FS3X5hL95odG+bajB8KUVzG8njpjdw2gMCWRlmHCCXBUfhvXPPkqQRocWxWh?=
- =?us-ascii?Q?HgDpUjE4sSlb2olPqvlrnHCfz+gbbC8aWpjzfncPgZzkhr7brV0zyRP+q5gv?=
- =?us-ascii?Q?Ly8z20ZWVDLvW0Jy5zWqUdnWYJj4fNMcnLOKXqQBmd3Z1HfUePwZWu9KTzCY?=
- =?us-ascii?Q?ULS3NcNw0xF//m6E8Kyi3FBDxbjlT4UGodqL9LjwxDfOqUCzdGGsPZYaSdsT?=
- =?us-ascii?Q?Kt1dkLevtvde/mQLyS4U3SG2CJQU6dmAaek9TWDjOGa+WRRG3kD7N8UYRJzj?=
- =?us-ascii?Q?ZmLsodxmFYgX6BPciAbG1Dm60+v2O/VLR2GOO5IgHuJKKR+pA8SIzNLG68XR?=
- =?us-ascii?Q?mGpaUw+hoFwGkYTMLEcp8OaSzjyMV7XtG+8NyxLOUEZ72GJm9ZmcqyeXwnXr?=
- =?us-ascii?Q?Tj/32Ug/MKzV4xRIpesmnjYVjPtn9vy1IvtkfRVLODKoJ2+WWfCqkW70onRM?=
- =?us-ascii?Q?mhZW6HXx8EudXXmwoMQOmkixKt4MUVz1yyi7kUNGujYiGSdtMk/HLcaSTq8i?=
- =?us-ascii?Q?a9vKdig/PALn414DeLUJc/DMTjdh2s8vGWt01rFusmxCBW77z9hrZGzGxpCo?=
- =?us-ascii?Q?WYDsF77eR8Eu/1TzbIcfdrUU4qtAd2as/Rguuk1N9gyN+PJC9U9eKTtrdQbM?=
- =?us-ascii?Q?9kOZWSrN3Jrncz1GlscxEEy+KW1nuvVWmOEzMzlXxHWr/0fIasMftAq6K2d4?=
- =?us-ascii?Q?/MjuATs26sKyZ4yKXbGxsf8xSepv7UOFyzytk8utiBQRZxaboO09PGE7ywqo?=
- =?us-ascii?Q?8sgAalpGlKQhzN00mGtT1tiKhBIxhaKNlGS52ul7hIxAsavub9CkQUldzzUs?=
- =?us-ascii?Q?1UDv33ojs9NRuj5o/A4reIG7p1vBU2DKua7aOQtEbfroPRJG71Tb2keIcKoG?=
- =?us-ascii?Q?KP3/eWQBdTKGFq8PwonC37VR+zxPqqvN0q+/snqbQFczDfieMkdDLx2lRek+?=
- =?us-ascii?Q?ZPEA3Q0Ff0HHlmrNUWfQs0sS6BQ+XXfSoZAhi3vHAz0uKj2w94rZa2AI92dN?=
- =?us-ascii?Q?iSDXlc1PPi0=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB10914.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(1800799024)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?k/6TaFlk6/A2LB0WXITNjAzvUzGHSH9o++p4GLmW2hiKTnB1veA06DYQMK57?=
- =?us-ascii?Q?kNeQjnKx1aI/Y9sbnpRC0dPv7W1N3ECzRUPuLSHYKlayzWr9Vywm2v/ZU2hk?=
- =?us-ascii?Q?7hmB39JYeWXu5eWbsSkyRWHBCh2ERENh6HNsNAccuhiuW74luhdgkUYUE6HO?=
- =?us-ascii?Q?4YKZbbfGMBEZBuBK/FUTJOnAO3uSOaHSATmCkbtnxnhDCsGt/M+ObgoK5WW/?=
- =?us-ascii?Q?gJJhpDYxMVlgFjlYVBl4MsNk1yTxKB33F1HTPp0VIGDJwjToUITWBEnVzhzF?=
- =?us-ascii?Q?jBvWn5Nfe6SIf8do9jBjRgDmQvy22emyww2CehSJ3mAXgTDA2/r5oIPO4+Vp?=
- =?us-ascii?Q?zOufZxQ6YEztFzT/S4nLDqKJkHC/BilmJ4Gw//8mPIlzFXF2oUgryPeiSBon?=
- =?us-ascii?Q?mqt782oDj7eIMMIijcB2XIhBYOvLcZkkClTI5mtUqfhdwmZSxV5oLTMDFNT+?=
- =?us-ascii?Q?pf/gVefI4n26IWeUyo51JElKxcPdnT0oWuMT8SaflTCGizBoixV9ln8dRrkR?=
- =?us-ascii?Q?7osA9yxrVimzE7KeN8FeYtsM//keLWRNhnSumgL4zPkSE3j5HgKcUWnTWSlk?=
- =?us-ascii?Q?hLP1I8fIW8cjAk87t10Yb06gGo1eJW5bI2ajQTYmguDLbE8hVflITYk96v0a?=
- =?us-ascii?Q?Q9TC4oX3ozpWBmRVKgq+zknbdqoQrc8QSne42VKNT8vK+hsTGkwULm7/xJfF?=
- =?us-ascii?Q?0cE8eag8fG/mGhuKruxK764ultIIlP02pmjSPbcxH0ohc8K/RkeFevE4dQrC?=
- =?us-ascii?Q?NjR4/uFIz1s0pTPi9YjmsX8u+R4eTRXY7yDlgLKkeseR+ePZEnpeRIcxMUSd?=
- =?us-ascii?Q?siJZ9ItxlYj2HEvEz7dFWR2nrIsczxRKKeZ6LtxevIGZTdlKBVKnjpj4m89A?=
- =?us-ascii?Q?mrLYcd2MGl7bDiSnKWQg04rBLR7to9Nk9fGuMWOCtiHhjszKwyHaGCAfrCWZ?=
- =?us-ascii?Q?4rdOpNp3TKw017P9OqRAsaGMcXy0C220XRWo1Bhrm1K2pyeN5uFvo6TveZc/?=
- =?us-ascii?Q?PgKhpdaVm5O5lOWoS3TuH7xfEUq2PqS4AoxZaoVtmjVp2+4AtdXBAr+NJLmp?=
- =?us-ascii?Q?RahjivlFNiN2T52kGUao3GwOnAtgbGZwD+z5NeRgeOU/eVOalBNgJvKAlxLF?=
- =?us-ascii?Q?KszesxOu1/2zUfEDo7DCkHNDvlSmHVfMNvarusM0RqyoevMHwK4ZVbxf5Ia1?=
- =?us-ascii?Q?M0D+Keq/a8kd4hbFA/rDCIbp0BSaDNQLdGFX/2Y/mLqVvflPTN/0THtrjWSB?=
- =?us-ascii?Q?C8xnbLoxta4c9ZFjZAMAj5sQvtWmdvvUXJXoPXsl1Gz5fjbFhv5Pdju1NhC6?=
- =?us-ascii?Q?DkH0eeoSZsVpiJqjFRwQo6MoxS5R3Rkzl9cgmlUK1WfLcvas7fpY1YowVMmE?=
- =?us-ascii?Q?smpMOKjBHxVRzH4BMfI3ZUfN0vBy/zdOoALwQJwIybo/F7M1+LAygzAg8G0h?=
- =?us-ascii?Q?z0WDGQAIkVDm3+DUYx7T97r9RZ/vGZfNG3EWYMVPx3K8zbxkuR2ZMJdF8kR9?=
- =?us-ascii?Q?uwSB1YnuXkneG9UtqFATdAzEHiGfGhbI+4T5GyndSVqHdYvNczT2yCqJWA18?=
- =?us-ascii?Q?J5Exl4yyLm3uXF4tVSughELFIYliHhjetPgn/NEo7KqKgjM4KT7p6dz7gw4g?=
- =?us-ascii?Q?Q5fjwpTAfz4XgPPRGwiKsV0=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 7ee20e4a-31e6-4946-7ca1-08dda3cffaed
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 01:26:22.2539
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- CPVm+SZazDw4T7UzEAmU2AHfS/abeXKS2/tJKBHscFCWO3EMd2hfMLI3nA8VO9rq8guvCzMrQPozAFAQ1oxSqUwfhTHrwVJl95xuQOHM1cX8RQJYwAPKoT4o35/c8kcH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11221
-Message-ID-Hash: TGQEZFFCS6LO356LFGK2623QIOBGUDAR
-X-Message-ID-Hash: TGQEZFFCS6LO356LFGK2623QIOBGUDAR
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Provags-ID: V03:K1:kjHiMNVefzq9VCPSasS2uJVff12Ov6aQShn39kCOKtBIb5iPwJ0
+ ahSKZRq1oTTNjwnxMQenBeOTludkiSi9szoYZLCItzmMx2fYLjj5IzQ0sKedEMlvWQl+IX2
+ hJ5Gu0nnX9o+ZrZ+mH9y7iIN3rJDIR0Jg34bIXQj0H5+78DR+j8oZBj+J7koydPrbNltnQc
+ uAhHD0TO2dxj0gAr2Z+Dg==
+UI-OutboundReport: notjunk:1;M01:P0:c4g6nNytRdk=;6BikSzjNd++dEdpsoAHgfZQWYwB
+ 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
+X-MailFrom: meowmeowbeanz@gmx.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: ZLTP6T2T5GNJSBNBWO7CE4WOKAYUJCHC
+X-Message-ID-Hash: ZLTP6T2T5GNJSBNBWO7CE4WOKAYUJCHC
+X-Mailman-Approved-At: Thu, 05 Jun 2025 07:43:03 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TGQEZFFCS6LO356LFGK2623QIOBGUDAR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZLTP6T2T5GNJSBNBWO7CE4WOKAYUJCHC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -190,35 +144,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+=46rom e1bc7cbafcdefad60ac6a34fd834a734c64f3fd5 Mon Sep 17 00:00:00 2001
+From: meowmeowbeanz <meowmeowbeanz@gmx.com>
+Date: Tue, 27 May 2025 19:57:07 -0700
+Subject: [PATCH] ASoC: amd: yc: Add support for Lenovo Yoga 7 16ARP8
 
-Hi Giedrius
+Add DMI quirk entry for Lenovo Yoga 7 16ARP8 (83BS) to enable
+digital microphone support via ACP driver.
 
-> Since Raspberry Pi's kernel version 6.12.31, I noticed
-> that snd_soc_dai_set_tdm_slot returns -EINVAL when slots=0 is provided to
-> the function, even though it's a documented legal use case:
-> 
->  * TDM mode can be disabled by passing 0 for @slots. In this case @tx_mask,
->  * @rx_mask and @slot_width will be ignored.
-> 
-> https://elixir.bootlin.com/linux/v6.12.31/source/sound/soc/soc-dai.c#L260
-> 
-> The issue was introduced by this commit:
-> 
-> https://lore.kernel.org/all/87o6z7yk61.wl-kuninori.morimoto.gx@renesas.com/#t
-> 
-> Which adds checking of snd_soc_xlate_tdm_slot_mask result which is -EINVAL
-> in case of slots=0, therefore stopping the snd_soc_dai_set_tdm_slot
-> execution.
-> 
-> The 6.12.30 was still fine:
-> https://elixir.bootlin.com/linux/v6.12.30/source/sound/soc/soc-dai.c#L281
-> 
-> I would suggest skipping the xlate call in case slots is 0 in
-> snd_soc_dai_set_tdm_slot.
+Fixes microphone detection on this specific model which was
+previously falling back to non-functional generic audio paths.
 
-Thank you for your report.
-I will post fixup patch. I'm happy if you can test it.
+Tested-by: meowmeowbeanz <meowmeowbeanz@gmx.com>
+Signed-off-by: meowmeowbeanz <meowmeowbeanz@gmx.com>
+=2D--
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Best regards
----
-Kuninori Morimoto
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 3d9da93d22ee..7e62445e02c1 100644
+=2D-- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -311,6 +311,13 @@ static const struct dmi_system_id yc_acp_quirk_table[=
+] =3D=20
+{
+                        DMI_MATCH(DMI_PRODUCT_NAME, "83AS"),
+                }
+        },
++       {
++               .driver_data =3D &acp6x_card,
++               .matches =3D {
++                       DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++                       DMI_MATCH(DMI_PRODUCT_NAME, "83BS"),
++               }
++       },
+        {
+                .driver_data =3D &acp6x_card,
+                .matches =3D {
+=2D-=20
+2.49.0
+
+
+
+
+

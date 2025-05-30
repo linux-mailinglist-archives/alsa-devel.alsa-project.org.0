@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD7E0AC8E17
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:44:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 477CCAC8E1B
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:45:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A514660261;
-	Fri, 30 May 2025 14:44:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A514660261
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EAD060240;
+	Fri, 30 May 2025 14:45:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EAD060240
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748609098;
-	bh=y8c3UFgLw0haFkZl4lWo09XnzTc7RMyN7xru2PO1SNQ=;
+	s=default; t=1748609117;
+	bh=Yizfy1XHJ4W+SiEGnJstdQkQ/isGgjlfcQVKxgOkasE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LgN6AbUrsPLHHvktp7E/z0ISFhZHRB5Jz9dlvugGqMmaQim9VuwebLaIeVmn8wuZJ
-	 DUMS4wrwuqFxUPamojFf2MP7XmrcuhVF3AR7UdDElyYCZvE8JbUoO9zGQJo5GVRqXx
-	 ucxwZtizPaCyZl0x06JYsk/uhvm5asYeUHSoJQng=
+	b=MPiAojg11DFQecNtX/SFPCs7yrUiXi8CfPf5+5sS6WHLHnc52wXnGAZNZysQNgQVC
+	 TJu5QFZEhsYQJef02rikgfXn8AVv5J3TTbk5xKI9r0ij6rEcYlWKIU6u2SssF5qTpx
+	 D4ZOyvZ5UwMkl0SLknp3RGgq7UNVqPWkacOpiJpU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77C5AF80687; Fri, 30 May 2025 14:41:06 +0200 (CEST)
+	id 0B586F80693; Fri, 30 May 2025 14:41:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52FE3F80687;
-	Fri, 30 May 2025 14:41:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCA71F80C17;
+	Fri, 30 May 2025 14:41:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8880AF8067D; Fri, 30 May 2025 14:41:03 +0200 (CEST)
+	id E2009F80C6F; Fri, 30 May 2025 14:41:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AA38EF80673
-	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:41:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA38EF80673
+	by alsa1.perex.cz (Postfix) with ESMTPS id F1480F80C32
+	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:41:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1480F80C32
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DsnMcCHM
+ header.s=k20201202 header.b=H0XRL3c9
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 850AA5C0FB0;
-	Fri, 30 May 2025 12:38:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C61C4CEF0;
-	Fri, 30 May 2025 12:40:58 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 581D54A6DE;
+	Fri, 30 May 2025 12:41:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F41C3C4CEEB;
+	Fri, 30 May 2025 12:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748608860;
-	bh=y8c3UFgLw0haFkZl4lWo09XnzTc7RMyN7xru2PO1SNQ=;
+	s=k20201202; t=1748608868;
+	bh=Yizfy1XHJ4W+SiEGnJstdQkQ/isGgjlfcQVKxgOkasE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DsnMcCHM88y73a4yuViq1tGSAWcCyp+Z2QVEKQKMuGdNJjamw9rcKQXIcu/uDpz7f
-	 DGGZCzAy7RHc1C+utIrGv1zBKVHwyKAV2B8Pv/lJ4b9PNdx4YTqD8ldmx1O8qzOmAE
-	 dXZ4j9pJ2iJ0CxmcYl4Mqlfi825uISI/iWTto48NrpzIqfRxvXQXRiLdB5uubhStQE
-	 g/EpaevlXtqaLGvF+Wkjf7DqJSYf1bxMhrG6YyJ1ctdMDm21tHzBgNO50Yj1ui6Xz1
-	 WqVBW4/im9v2bYAMZRSZlNyHIs22dh4cs5dSM+afWk7Yyvhf2eFOmxJA7PBykXgUT1
-	 gzTbWSdnEd5jQ==
+	b=H0XRL3c9B4orkjyAWaUtCTYn1vEBJFgEmoBcizlUfCMZIeg6e9NCETIHJS46kfgXb
+	 Fadz10yIHy88F5TPcRfCrGV2DCSkEVbm+zzntIi5GmpYsFOY+NX+cdN20+VYjgxRbU
+	 mcLwxclHb3/0mgflkULHxz7zNvA8Vuhwqx6H3b7FqHkGW3krRQTva6LkvT1UbS4rl3
+	 mfDTpqrjB8iJvoj17h1ObAdQCXCfY9dxF6PJiQntyVRKRj3T6ryf/J727cH0oL4eo4
+	 +FM0JuScCQYUxR8JvCaubAu95ynQnrLePVUzWxJJ6PgxNYUE2oabfv3JkM1xAHu2rJ
+	 OAQgc1zBv73Mg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Hector Martin <marcan@marcan.st>,
-	Neal Gompa <neal@gompa.dev>,
-	James Calligeros <jcalligeros99@gmail.com>,
+Cc: Yuanjun Gong <ruc_gongyuanjun@163.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	thierry.reding@gmail.com,
+	jonathanh@nvidia.com,
 	alsa-devel@alsa-project.org,
+	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.6 09/18] ASoC: tas2770: Power cycle amp on
- ISENSE/VSENSE change
-Date: Fri, 30 May 2025 08:40:38 -0400
-Message-Id: <20250530124047.2575954-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 15/18] ASoC: tegra210_ahub: Add check to
+ of_device_get_match_data()
+Date: Fri, 30 May 2025 08:40:44 -0400
+Message-Id: <20250530124047.2575954-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250530124047.2575954-1-sashal@kernel.org>
 References: <20250530124047.2575954-1-sashal@kernel.org>
@@ -84,9 +85,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.6.92
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LXRW2VALBQE75UTOEJC33N4FTFZW6OAT
-X-Message-ID-Hash: LXRW2VALBQE75UTOEJC33N4FTFZW6OAT
+Message-ID-Hash: P2LZFYLIXEPSJNINS3YCABGK7LT3IWD3
+X-Message-ID-Hash: P2LZFYLIXEPSJNINS3YCABGK7LT3IWD3
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LXRW2VALBQE75UTOEJC33N4FTFZW6OAT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P2LZFYLIXEPSJNINS3YCABGK7LT3IWD3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,113 +110,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Hector Martin <marcan@marcan.st>
+From: Yuanjun Gong <ruc_gongyuanjun@163.com>
 
-[ Upstream commit f529c91be8a34ac12e7599bf87c65b6f4a2c9f5c ]
+[ Upstream commit 04cb269c204398763a620d426cbee43064854000 ]
 
-The ISENSE/VSENSE blocks are only powered up when the amplifier
-transitions from shutdown to active. This means that if those controls
-are flipped on while the amplifier is already playing back audio, they
-will have no effect.
+In tegra_ahub_probe(), check the result of function
+of_device_get_match_data(), return an error code in case it fails.
 
-Fix this by forcing a power cycle around transitions in those controls.
-
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Signed-off-by: Hector Martin <marcan@marcan.st>
-Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-Link: https://patch.msgid.link/20250406-apple-codec-changes-v5-1-50a00ec850a3@gmail.com
+Signed-off-by: Yuanjun Gong <ruc_gongyuanjun@163.com>
+Link: https://patch.msgid.link/20250513123744.3041724-1-ruc_gongyuanjun@163.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-**YES** This commit should be backported to stable kernel trees based on
-my analysis of both the commit message and code changes. Here's my
-extensive explanation: ## Bug Fix Analysis This commit addresses a
-specific functional bug in the tas2770 audio codec driver where
-ISENSE/VSENSE controls don't work properly when changed during active
-playback. The commit message clearly states: "if those controls are
-flipped on while the amplifier is already playing back audio, they will
-have no effect." ## Code Changes Analysis The fix is contained and
-minimal, involving three key changes to `sound/soc/codecs/tas2770.c`: 1.
-**Addition of `sense_event` function (lines +21 to +43)**: This function
-implements a power cycling mechanism that forces the amplifier through a
-shutdown state when ISENSE/VSENSE controls are changed. This ensures the
-changes take effect regardless of playback state. 2. **Modified DAPM
-widget definitions (lines +45 to +48)**: The ISENSE and VSENSE switches
-are changed from simple `SND_SOC_DAPM_SWITCH` to `SND_SOC_DAPM_SWITCH_E`
-with event handling, connecting them to the new `sense_event` function.
-3. **Event triggers**: The widgets respond to `SND_SOC_DAPM_PRE_REG` and
-`SND_SOC_DAPM_POST_REG` events to perform the power cycling around
-register changes. ## Why This Should Be Backported 1. **User-Affecting
-Bug**: This fixes a real functional issue where audio controls don't
-work as expected during playback, which directly impacts user
-experience. 2. **Small and Contained**: The fix is confined to a single
-driver file (`tas2770.c`) and doesn't affect other subsystems. The
-changes are surgical and targeted. 3. **Low Risk**: The fix follows
-established ASoC patterns using standard DAPM event handling. Similar
-power cycling approaches are used throughout the ASoC subsystem. 4. **No
-New Features**: This purely fixes existing functionality rather than
-adding new features. 5. **Comparison with Similar Commits**: Looking at
-the provided examples, this commit is very similar to "Similar Commit
-#2" and "Similar Commit #5" which were both marked as backportable
-(YES). Like commit #2, it fixes incorrect hardware behavior with a small
-register/control change. Like commit #5, it addresses power state
-management issues in audio hardware. 6. **Hardware-Specific Fix**: The
-commit addresses a hardware limitation specific to the tas2770 chip
-where ISENSE/VSENSE blocks are only powered up during shutdown-to-active
-transitions. This is documented in the commit message and is a
-legitimate hardware workaround. The fix ensures that software speaker
-protection functionality works correctly by guaranteeing that IVSENSE
-controls are functional, which is critical for protecting audio hardware
-from damage.
+**YES** This commit should be backported to stable kernel trees.
+**Extensive Analysis:** **1. Nature of the Bug Fix:** This commit fixes
+a critical null pointer dereference vulnerability in the tegra210_ahub
+driver. The code calls `of_device_get_match_data(&pdev->dev)` but never
+validates the return value before using `ahub->soc_data`. Looking at the
+kernel tree, we can see that immediately after the assignment, the code
+accesses `ahub->soc_data->regmap_config` and later
+`ahub->soc_data->cmpnt_drv`, `ahub->soc_data->dai_drv`, and
+`ahub->soc_data->num_dais` without any null checking. **2. Severity and
+Impact:** - **High severity**: A null pointer dereference in the kernel
+probe function can cause kernel panic - **User impact**: Systems using
+Tegra210 audio hardware could crash during device initialization -
+**Subsystem criticality**: Audio subsystem failure affects multimedia
+functionality **3. Code Analysis:** The fix is minimal and surgical:
+```c ahub->soc_data = of_device_get_match_data(&pdev->dev); +if
+(!ahub->soc_data) + return -ENODEV; ``` This follows established kernel
+patterns and returns an appropriate error code (-ENODEV) when device
+match data cannot be found. **4. Consistency with Similar Fixes:**
+Examining the kernel tree reveals that other Tegra drivers have already
+been fixed with identical patterns: - `tegra30_ahub.c` already has this
+null check (returns -EINVAL) - `tegra30_i2s.c` already has this null
+check (returns -ENODEV) This indicates that tegra210_ahub was an
+oversight that should be corrected for consistency and safety. **5.
+Historical Reference Analysis:** While the provided historical commits
+all have "Backport Status: NO", they were primarily code cleanup and API
+migration commits (switching to `of_device_get_match_data`), not
+security/stability fixes. This commit is fundamentally different - it's
+a critical bug fix that prevents kernel crashes. **6. Stable Tree
+Criteria Compliance:** - ✅ **Important bugfix**: Prevents kernel panic -
+✅ **Minimal risk**: Two-line addition with well-established pattern - ✅
+**Small and contained**: No architectural changes - ✅ **Clear purpose**:
+Prevents null pointer dereference - ✅ **Subsystem confined**: Only
+affects tegra210_ahub driver **7. Risk Assessment:** - **Regression
+risk**: Extremely low - only adds a safety check - **Side effects**:
+None - failure case now returns clean error instead of crashing -
+**Testing impact**: Improves robustness without changing successful code
+paths **Conclusion:** This is a textbook example of a commit that should
+be backported to stable trees. It fixes a critical null pointer
+dereference that can cause kernel panics, uses minimal code changes
+following established patterns, and has virtually no risk of introducing
+regressions. The fix brings tegra210_ahub in line with other Tegra
+drivers that already have this protection.
 
- sound/soc/codecs/tas2770.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+ sound/soc/tegra/tegra210_ahub.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index 5c6b825c757b3..181b16530e5bc 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -158,11 +158,37 @@ static const struct snd_kcontrol_new isense_switch =
- static const struct snd_kcontrol_new vsense_switch =
- 	SOC_DAPM_SINGLE("Switch", TAS2770_PWR_CTRL, 2, 1, 1);
+diff --git a/sound/soc/tegra/tegra210_ahub.c b/sound/soc/tegra/tegra210_ahub.c
+index ab3c6b2544d20..140cb27f73287 100644
+--- a/sound/soc/tegra/tegra210_ahub.c
++++ b/sound/soc/tegra/tegra210_ahub.c
+@@ -1359,6 +1359,8 @@ static int tegra_ahub_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
-+static int sense_event(struct snd_soc_dapm_widget *w,
-+			struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct tas2770_priv *tas2770 = snd_soc_component_get_drvdata(component);
-+
-+	/*
-+	 * Powering up ISENSE/VSENSE requires a trip through the shutdown state.
-+	 * Do that here to ensure that our changes are applied properly, otherwise
-+	 * we might end up with non-functional IVSENSE if playback started earlier,
-+	 * which would break software speaker protection.
-+	 */
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_REG:
-+		return snd_soc_component_update_bits(component, TAS2770_PWR_CTRL,
-+						    TAS2770_PWR_CTRL_MASK,
-+						    TAS2770_PWR_CTRL_SHUTDOWN);
-+	case SND_SOC_DAPM_POST_REG:
-+		return tas2770_update_pwr_ctrl(tas2770);
-+	default:
-+		return 0;
-+	}
-+}
-+
- static const struct snd_soc_dapm_widget tas2770_dapm_widgets[] = {
- 	SND_SOC_DAPM_AIF_IN("ASI1", "ASI1 Playback", 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_MUX("ASI1 Sel", SND_SOC_NOPM, 0, 0, &tas2770_asi1_mux),
--	SND_SOC_DAPM_SWITCH("ISENSE", TAS2770_PWR_CTRL, 3, 1, &isense_switch),
--	SND_SOC_DAPM_SWITCH("VSENSE", TAS2770_PWR_CTRL, 2, 1, &vsense_switch),
-+	SND_SOC_DAPM_SWITCH_E("ISENSE", TAS2770_PWR_CTRL, 3, 1, &isense_switch,
-+		sense_event, SND_SOC_DAPM_PRE_REG | SND_SOC_DAPM_POST_REG),
-+	SND_SOC_DAPM_SWITCH_E("VSENSE", TAS2770_PWR_CTRL, 2, 1, &vsense_switch,
-+		sense_event, SND_SOC_DAPM_PRE_REG | SND_SOC_DAPM_POST_REG),
- 	SND_SOC_DAPM_DAC_E("DAC", NULL, SND_SOC_NOPM, 0, 0, tas2770_dac_event,
- 			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
- 	SND_SOC_DAPM_OUTPUT("OUT"),
+ 	ahub->soc_data = of_device_get_match_data(&pdev->dev);
++	if (!ahub->soc_data)
++		return -ENODEV;
+ 
+ 	platform_set_drvdata(pdev, ahub);
+ 
 -- 
 2.39.5
 

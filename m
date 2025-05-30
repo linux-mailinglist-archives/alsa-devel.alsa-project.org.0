@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1273AC8DEA
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:41:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DCD3AC8DF2
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:42:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BF7B601E3;
-	Fri, 30 May 2025 14:41:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BF7B601E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 531566022F;
+	Fri, 30 May 2025 14:41:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 531566022F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748608907;
-	bh=4QKsNMi+GXQlpetVe9R0wo8FXMgIicrAGhk2pEQx7Gg=;
+	s=default; t=1748608924;
+	bh=NCUICTrC8+gqXYnUCqs7UKPOFce2Teg+APrv6Pq+XjQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iXVTo5zQdoex6acfQA+IJpXUvZju+Nnbvn/LPa/ikg7WJgCXU/BPgG/kvQ9FEZBrR
-	 sPFnEvsMS7kHyu7lBxfAzv8NbUMFwu8zHhwOo19s9lwcpAHPZkTkkhHxKbBkswWqFp
-	 Wmun+yRNfLV0LEwsXzBpkLtIa4lZnLaPV539ZhJk=
+	b=Vn7h2V9nvCXNSNjJK9xLAttQG8ZpGJC6Z3ZTapmIjT+O9dtFne3TLRfZz3FKJnwwv
+	 UEnNVzg7XijY4acgpEg+aZVGlsOMsYCA0nV7ipZGVRpEDEX5TPtbJQe2zX7wCKwXfw
+	 bm1w+0dnqsonfhomPdDGCjIFsktr8c9WGpO3TTHo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 523A0F805C1; Fri, 30 May 2025 14:39:45 +0200 (CEST)
+	id C1BD4F805D7; Fri, 30 May 2025 14:39:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28033F805E4;
-	Fri, 30 May 2025 14:39:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A01F8F805E0;
+	Fri, 30 May 2025 14:39:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA361F805A9; Fri, 30 May 2025 14:39:42 +0200 (CEST)
+	id E2213F805CB; Fri, 30 May 2025 14:39:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B4287F805B3
-	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4287F805B3
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE39FF805C6
+	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE39FF805C6
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=i6CAakUf
+ header.s=k20201202 header.b=RqqxPgNU
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 3A3D15C6576;
-	Fri, 30 May 2025 12:37:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA987C4CEE9;
-	Fri, 30 May 2025 12:39:36 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 11BB3443C5;
+	Fri, 30 May 2025 12:39:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50CAC4CEEA;
+	Fri, 30 May 2025 12:39:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748608777;
-	bh=4QKsNMi+GXQlpetVe9R0wo8FXMgIicrAGhk2pEQx7Gg=;
+	s=k20201202; t=1748608788;
+	bh=NCUICTrC8+gqXYnUCqs7UKPOFce2Teg+APrv6Pq+XjQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=i6CAakUfkQXSTnLyFxSgpEiv3JRFtJ52Rrdf/bpLPXjKW1FwYUU4nEZ7XNt6PNCv0
-	 rluqYE+Tw/Tn6FXxuySG9ESMTsuuWfDnM03GsJ69ghhsVjBAs6QDijzd1VSmYnKeTE
-	 SlxA4auZm0dz0WhC9NZcx1si+wqJsUq+b4TURRJhNCmIdUGsg7G76vwMkLQdYcyd3Q
-	 ZuyHpSmF++7mwIKSvYkSiZ+cO0Bfw4fsplcNnwXzE+9YmvT5SYpuLtTUSkmjEBlsTo
-	 DuLtPBdelp8Zps9yfVympanDNNQEC2ikQg+QYK/IZXtSlBi86YolyVXc0T9jB/mPGU
-	 /Qj0zN+hRki6w==
+	b=RqqxPgNUgQcihsqG3lv1lTHXZFmZ/rt85Inni152vJGIl0PjIV1RdeYsrJiuVFxsP
+	 vLt58Xmh7ajj4hJG7V9Ot7Ldm4/H7ht2Fdl+ZTUF+WpsoGdJlAEeyz3ahs53S2M7j6
+	 vL61bwHdAmJexujPJROhvfOeDIN8TgBsM7Ibw9gxMzuCcBy8jntaGHn7FZJpNdtJKt
+	 ytUYI0jJHpjRYfKYpUTWcAPYJHgzoSCOHeOU6wGFtoFI7RKhIUyBSj1d0LFoUkMv5W
+	 2muWoXwaW35O9bcxMlUtjomCJmHKtMRkO1sYvk6hmOchy9Ud4YY25LMqgxXlMUwKtx
+	 aGO1HqyhSdm5A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Talhah Peerbhai <talhah.peerbhai@gmail.com>,
+Cc: Hector Martin <marcan@marcan.st>,
+	Neal Gompa <neal@gompa.dev>,
+	James Calligeros <jcalligeros99@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	lgirdwood@gmail.com,
@@ -72,10 +73,10 @@ Cc: Talhah Peerbhai <talhah.peerbhai@gmail.com>,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.14 02/28] ASoC: amd: yc: Add quirk for Lenovo Yoga
- Pro 7 14ASP9
-Date: Fri, 30 May 2025 08:39:08 -0400
-Message-Id: <20250530123934.2574748-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.14 11/28] ASoC: tas2770: Power cycle amp on
+ ISENSE/VSENSE change
+Date: Fri, 30 May 2025 08:39:17 -0400
+Message-Id: <20250530123934.2574748-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250530123934.2574748-1-sashal@kernel.org>
 References: <20250530123934.2574748-1-sashal@kernel.org>
@@ -83,10 +84,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.14.9
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WRB6CCSF64QML4AK3ZQZBRVCMZI55O5S
-X-Message-ID-Hash: WRB6CCSF64QML4AK3ZQZBRVCMZI55O5S
+Message-ID-Hash: 2OAFQXVCHA4MPOLVQN2HM5IFYZQQ5TT3
+X-Message-ID-Hash: 2OAFQXVCHA4MPOLVQN2HM5IFYZQQ5TT3
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRB6CCSF64QML4AK3ZQZBRVCMZI55O5S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2OAFQXVCHA4MPOLVQN2HM5IFYZQQ5TT3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,85 +108,113 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Talhah Peerbhai <talhah.peerbhai@gmail.com>
+From: Hector Martin <marcan@marcan.st>
 
-[ Upstream commit a28206060dc5848a1a2a15b7f6ac6223d869084d ]
+[ Upstream commit f529c91be8a34ac12e7599bf87c65b6f4a2c9f5c ]
 
-Similar to many other Lenovo models with AMD chips, the Lenovo
-Yoga Pro 7 14ASP9 (product name 83HN) requires a specific quirk
-to ensure internal mic detection. This patch adds a quirk fixing this.
+The ISENSE/VSENSE blocks are only powered up when the amplifier
+transitions from shutdown to active. This means that if those controls
+are flipped on while the amplifier is already playing back audio, they
+will have no effect.
 
-Signed-off-by: Talhah Peerbhai <talhah.peerbhai@gmail.com>
-Link: https://patch.msgid.link/20250515222741.144616-1-talhah.peerbhai@gmail.com
+Fix this by forcing a power cycle around transitions in those controls.
+
+Reviewed-by: Neal Gompa <neal@gompa.dev>
+Signed-off-by: Hector Martin <marcan@marcan.st>
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+Link: https://patch.msgid.link/20250406-apple-codec-changes-v5-1-50a00ec850a3@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-Based on my analysis of this commit, I can provide a comprehensive
-assessment for backporting. **YES** This commit should be backported to
-stable kernel trees for the following reasons: **1. Identical Pattern to
-Previously Backported Commits:** All five similar commits provided in
-the historical context (commits for Lenovo models 82UU, 82, 82YM, 83AS,
-and 21M1) have "Backport Status: YES" and follow the exact same pattern
-as this commit. This establishes a clear precedent for backporting such
-changes. **2. Hardware Enablement Bug Fix:** The commit fixes a clear
-user-affecting bug where the internal microphone on the Lenovo Yoga Pro
-7 14ASP9 (product name 83HN) is non-functional. This is a hardware
-compatibility issue that directly impacts users' ability to use their
-device's built-in microphone. **3. Minimal and Contained Change:** The
-code change is extremely small and safe: - Adds only a single 7-line
-quirk table entry to `sound/soc/amd/yc/acp6x-mach.c` - The change is
-purely additive - no existing code is modified - The quirk entry follows
-the exact same pattern as dozens of other entries in the same table -
-Zero risk of regression to existing functionality **4. Critical
-Subsystem with Safe Pattern:** While this touches audio (a critical
-subsystem), the change follows a well-established, safe pattern used
-extensively in this driver. The quirk table approach is designed
-specifically for adding device-specific compatibility without affecting
-other hardware. **5. Clear User Benefit:** Users with this specific
-Lenovo model will have their internal microphone functionality restored,
-which is essential for video calls, voice recording, and other audio
-input tasks. **6. Code Quality Improvement:** The commit also includes a
-minor whitespace fix (changing spaces to tab at line 350), improving
-code formatting consistency. **7. Follows Stable Tree Rules:** -
-Important bugfix: ✓ (enables hardware functionality) - Minimal risk: ✓
-(purely additive quirk entry) - Small and contained: ✓ (7 lines added) -
-No architectural changes: ✓ - Confined to subsystem: ✓ (AMD YC audio
-driver) The commit message clearly explains the issue and solution, and
-the change is identical in nature to numerous other successfully
-backported commits for similar Lenovo audio quirks. This represents a
-textbook example of a stable-appropriate hardware enablement fix.
+**YES** This commit should be backported to stable kernel trees based on
+my analysis of both the commit message and code changes. Here's my
+extensive explanation: ## Bug Fix Analysis This commit addresses a
+specific functional bug in the tas2770 audio codec driver where
+ISENSE/VSENSE controls don't work properly when changed during active
+playback. The commit message clearly states: "if those controls are
+flipped on while the amplifier is already playing back audio, they will
+have no effect." ## Code Changes Analysis The fix is contained and
+minimal, involving three key changes to `sound/soc/codecs/tas2770.c`: 1.
+**Addition of `sense_event` function (lines +21 to +43)**: This function
+implements a power cycling mechanism that forces the amplifier through a
+shutdown state when ISENSE/VSENSE controls are changed. This ensures the
+changes take effect regardless of playback state. 2. **Modified DAPM
+widget definitions (lines +45 to +48)**: The ISENSE and VSENSE switches
+are changed from simple `SND_SOC_DAPM_SWITCH` to `SND_SOC_DAPM_SWITCH_E`
+with event handling, connecting them to the new `sense_event` function.
+3. **Event triggers**: The widgets respond to `SND_SOC_DAPM_PRE_REG` and
+`SND_SOC_DAPM_POST_REG` events to perform the power cycling around
+register changes. ## Why This Should Be Backported 1. **User-Affecting
+Bug**: This fixes a real functional issue where audio controls don't
+work as expected during playback, which directly impacts user
+experience. 2. **Small and Contained**: The fix is confined to a single
+driver file (`tas2770.c`) and doesn't affect other subsystems. The
+changes are surgical and targeted. 3. **Low Risk**: The fix follows
+established ASoC patterns using standard DAPM event handling. Similar
+power cycling approaches are used throughout the ASoC subsystem. 4. **No
+New Features**: This purely fixes existing functionality rather than
+adding new features. 5. **Comparison with Similar Commits**: Looking at
+the provided examples, this commit is very similar to "Similar Commit
+#2" and "Similar Commit #5" which were both marked as backportable
+(YES). Like commit #2, it fixes incorrect hardware behavior with a small
+register/control change. Like commit #5, it addresses power state
+management issues in audio hardware. 6. **Hardware-Specific Fix**: The
+commit addresses a hardware limitation specific to the tas2770 chip
+where ISENSE/VSENSE blocks are only powered up during shutdown-to-active
+transitions. This is documented in the commit message and is a
+legitimate hardware workaround. The fix ensures that software speaker
+protection functionality works correctly by guaranteeing that IVSENSE
+controls are functional, which is critical for protecting audio hardware
+from damage.
 
- sound/soc/amd/yc/acp6x-mach.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ sound/soc/codecs/tas2770.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index e632f16c91025..3d9da93d22ee8 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -311,6 +311,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "83AS"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83HN"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
-@@ -360,7 +367,7 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "M5402RA"),
- 		}
- 	},
--        {
-+	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
+diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
+index 863c3f672ba98..0931b6109755f 100644
+--- a/sound/soc/codecs/tas2770.c
++++ b/sound/soc/codecs/tas2770.c
+@@ -156,11 +156,37 @@ static const struct snd_kcontrol_new isense_switch =
+ static const struct snd_kcontrol_new vsense_switch =
+ 	SOC_DAPM_SINGLE("Switch", TAS2770_PWR_CTRL, 2, 1, 1);
+ 
++static int sense_event(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct tas2770_priv *tas2770 = snd_soc_component_get_drvdata(component);
++
++	/*
++	 * Powering up ISENSE/VSENSE requires a trip through the shutdown state.
++	 * Do that here to ensure that our changes are applied properly, otherwise
++	 * we might end up with non-functional IVSENSE if playback started earlier,
++	 * which would break software speaker protection.
++	 */
++	switch (event) {
++	case SND_SOC_DAPM_PRE_REG:
++		return snd_soc_component_update_bits(component, TAS2770_PWR_CTRL,
++						    TAS2770_PWR_CTRL_MASK,
++						    TAS2770_PWR_CTRL_SHUTDOWN);
++	case SND_SOC_DAPM_POST_REG:
++		return tas2770_update_pwr_ctrl(tas2770);
++	default:
++		return 0;
++	}
++}
++
+ static const struct snd_soc_dapm_widget tas2770_dapm_widgets[] = {
+ 	SND_SOC_DAPM_AIF_IN("ASI1", "ASI1 Playback", 0, SND_SOC_NOPM, 0, 0),
+ 	SND_SOC_DAPM_MUX("ASI1 Sel", SND_SOC_NOPM, 0, 0, &tas2770_asi1_mux),
+-	SND_SOC_DAPM_SWITCH("ISENSE", TAS2770_PWR_CTRL, 3, 1, &isense_switch),
+-	SND_SOC_DAPM_SWITCH("VSENSE", TAS2770_PWR_CTRL, 2, 1, &vsense_switch),
++	SND_SOC_DAPM_SWITCH_E("ISENSE", TAS2770_PWR_CTRL, 3, 1, &isense_switch,
++		sense_event, SND_SOC_DAPM_PRE_REG | SND_SOC_DAPM_POST_REG),
++	SND_SOC_DAPM_SWITCH_E("VSENSE", TAS2770_PWR_CTRL, 2, 1, &vsense_switch,
++		sense_event, SND_SOC_DAPM_PRE_REG | SND_SOC_DAPM_POST_REG),
+ 	SND_SOC_DAPM_DAC_E("DAC", NULL, SND_SOC_NOPM, 0, 0, tas2770_dac_event,
+ 			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
+ 	SND_SOC_DAPM_OUTPUT("OUT"),
 -- 
 2.39.5
 

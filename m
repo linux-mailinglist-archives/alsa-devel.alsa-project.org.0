@@ -2,79 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E42A5AC8DDD
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:40:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65E45AC8DE1
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:41:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 798F760218;
-	Fri, 30 May 2025 14:40:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 798F760218
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA60B6020F;
+	Fri, 30 May 2025 14:40:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA60B6020F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748608850;
-	bh=0mNPQpbwT1Pfw1ec0QHifRguoEQrfpMBmf9+3fPz8uc=;
+	s=default; t=1748608869;
+	bh=tlfx5ZX8OiOfa8e2ECbTPm5rLjLNt+GxeR4ZUPgRF9g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OW/NqBHkCddMUwfh0Pq9amHr71Wp9H9Z0TsaifBCmekjrM7GWglpg7z+QjNhmzHoc
-	 GKiGT3GP2naL6I/i6vPp5mKAbz07Yegf2az+HaFv6PAnWP0fh5rmo/b8Fq3jdshOBG
-	 pXMZc2BRq5q1eBFBI5QZTTg/9cA5yXDOwLW50mnY=
+	b=lM9aFkPsR0C8rNCO5RGEGPdVvVolazDr1Gm/vkcxCKqDtFDmfJlFRzeKUTs9QaE++
+	 +dhmdqM3OVFj/gOIQ/vpzusppZu0s+LQmBmwPuWUPboHdIPElbKp0C2UX4DmrrNWWG
+	 0zkj2YL8L7tz+oNg25+KVYw1u6cMnXZw9nevlEEA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9DCE2F8065A; Fri, 30 May 2025 14:39:26 +0200 (CEST)
+	id 4A50EF80691; Fri, 30 May 2025 14:39:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82177F8049C;
-	Fri, 30 May 2025 14:39:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03157F80690;
+	Fri, 30 May 2025 14:39:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA9F7F8063D; Fri, 30 May 2025 14:39:22 +0200 (CEST)
+	id 50921F8063C; Fri, 30 May 2025 14:39:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A0E2F8049C
-	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A0E2F8049C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 59294F8063A
+	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59294F8063A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HRFdJhO+
+ header.s=k20201202 header.b=DOnWn7HJ
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 6FC6943C89;
-	Fri, 30 May 2025 12:39:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667D2C4CEEB;
-	Fri, 30 May 2025 12:39:16 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 34ED4A4ECE3;
+	Fri, 30 May 2025 12:39:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04B0C4CEEF;
+	Fri, 30 May 2025 12:39:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748608757;
-	bh=0mNPQpbwT1Pfw1ec0QHifRguoEQrfpMBmf9+3fPz8uc=;
+	s=k20201202; t=1748608759;
+	bh=tlfx5ZX8OiOfa8e2ECbTPm5rLjLNt+GxeR4ZUPgRF9g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HRFdJhO+ApuA3Ntz+gPQKQxwg5682IRiBJEf9J11v9jUQoyJLnrcuxJhHlPmBCNNN
-	 3BGxmGhjfuQEl1blzGEZiWgihfq/wxtlAYNzf95JPX9WJHIyyBomM8pE2p8SoNyrlC
-	 PFYBjmU+I0c+tL/6szYIgeh6b+SNhtiVcPg/CyoP4SEaQgeRQkes0QG31ygGCxqYkY
-	 /CI9Md5deDYMEWctHgDbaKM3seVPUxdH2QYSs/zdoaBQmhK6Z/qoV2PfwhVjW1Tph1
-	 P/IEvL27MwAmDTDDWeGM2UkOiGHebNjZvZZ6uChRnVtMmps9O+auJtB9RjR0Cx+HpM
-	 tmPtB4iFodjXw==
+	b=DOnWn7HJiytHGDmCmahf/6/pd2P2z2x+oPXDaZdJdLHW3S7lNt7EznjEIcFjy5JXo
+	 /drvN+PY7+n+dsi0vlkxuA6a/5p7mIUclV3wuo0PYfvDO4eqvnJKKJ09lWF313NyIY
+	 eWnVMajQyzm5Kvsklg2fTtMth5OPiJ9kX/vN8yGaKO0P4TJfgHcv73YX43BxOSl8AF
+	 ja17QZr1Jofi4bzdotkWkPst64c0KkrzApDhCX1crqV2B9Th/aQuijfSeHBA47X4Ms
+	 k2bMFwV+hqRlzmrbMprdh5UsDPwcQH4i3D0ACZNMB31dgxDOT6ZQ9EQzmA/s7oe8rt
+	 VV0YAfZFVdpLw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.15 18/30] ALSA: hda: cs35l41: Fix swapped l/r audio
- channels for Acer Helios laptops
-Date: Fri, 30 May 2025 08:38:40 -0400
-Message-Id: <20250530123852.2574030-18-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.15 20/30] ASoC: simple-card-utils: fixup dlc->xxx
+ handling for error case
+Date: Fri, 30 May 2025 08:38:42 -0400
+Message-Id: <20250530123852.2574030-20-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250530123852.2574030-1-sashal@kernel.org>
 References: <20250530123852.2574030-1-sashal@kernel.org>
@@ -82,10 +81,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.15
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SP52RYT7FJGACDIN4RQH5DXC5UMFFAIG
-X-Message-ID-Hash: SP52RYT7FJGACDIN4RQH5DXC5UMFFAIG
+Message-ID-Hash: 67KB3FHJSQYE7Z3RHEZBHIP5FQXMC3NF
+X-Message-ID-Hash: 67KB3FHJSQYE7Z3RHEZBHIP5FQXMC3NF
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SP52RYT7FJGACDIN4RQH5DXC5UMFFAIG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/67KB3FHJSQYE7Z3RHEZBHIP5FQXMC3NF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,92 +105,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Stefan Binding <sbinding@opensource.cirrus.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-[ Upstream commit e43a93c41982e82c1b703dd7fa9c1d965260fbb3 ]
+[ Upstream commit 2b4ce994afca0690ab79b7860045e6883e8706db ]
 
-Fixes audio channel assignment from ACPI using configuration table.
+Current graph_util_parse_dai() has 2 issue for dlc->xxx handling.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Link: https://patch.msgid.link/20250515162848.405055-3-sbinding@opensource.cirrus.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+1) dlc->xxx might be filled if snd_soc_get_dai_via_args() (A) works.
+   In such case it will fill dlc->xxx first (B), and detect error
+   after that (C). We need to fill dlc->xxx in success case only.
+
+(A)	dai = snd_soc_get_dai_via_args(&args);
+	if (dai) {
+		ret = -ENOMEM;
+ ^		dlc->of_node  = ...
+(B)		dlc->dai_name = ...
+ v		dlc->dai_args = ...
+(C)		if (!dlc->dai_args)
+			goto end;
+		...
+	}
+
+2) graph_util_parse_dai() itself has 2 patterns (X)(Y) to fill dlc->xxx.
+   Both case, we need to call of_node_put(node) (Z) in error case, but we
+   are calling it only in (Y) case.
+
+	int graph_util_parse_dai(...)
+	{
+		...
+		dai = snd_soc_get_dai_via_args(&args);
+		if (dai) {
+			...
+ ^			dlc->of_node  = ...
+(X)			dlc->dai_name = ...
+ v			dlc->dai_args = ...
+			...
+		}
+		...
+(Y)		ret = snd_soc_get_dlc(&args, dlc);
+		if (ret < 0) {
+(Z)			of_node_put(node);
+			...
+		}
+		...
+	}
+
+This patch fixup both case. Make it easy to understand, update
+lavel "end" to "err", too.
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://patch.msgid.link/87fribr2ns.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-**YES** This commit should be backported to stable kernel trees.
-**Extensive Analysis:** **1. Nature of the Fix:** The commit fixes
-swapped left/right audio channels for Acer Helios laptops by adding
-three new entries to the `cs35l41_config_table[]`: - `{ "10251826", 2,
-EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 }` -
-`{ "1025182C", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0,
--1, -1, 0, 0, 0 }` - `{ "10251844", 2, EXTERNAL, { CS35L41_LEFT,
-CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 }` The corresponding model
-table entries are also added to enable these configurations. **2.
-Comparison with Historical Similar Commits:** This commit is **very
-similar to Similar Commit #1 (Status: YES)** which also fixed swapped
-l/r audio channels for Lenovo ThinkBook laptops. Both commits: - Fix the
-same fundamental issue: swapped audio channels - Make identical types of
-changes: correcting channel assignment in configuration tables - Are
-small, contained fixes affecting only audio configuration data - Target
-specific laptop models with broken audio channel mapping The primary
-difference is that Similar Commit #1 modified existing entries by
-swapping `CS35L41_LEFT` and `CS35L41_RIGHT`, while this commit adds new
-entries with correct channel assignments. **3. Why This Qualifies for
-Backporting:** **✅ Fixes Important User-Affecting Bug:** Swapped audio
-channels are a significant usability issue that directly impacts users'
-audio experience on affected Acer Helios laptops. **✅ Small and
-Contained Change:** The fix only adds static configuration data - three
-new entries in a lookup table. No algorithmic changes or complex logic
-modifications. **✅ Minimal Risk of Regression:** Adding new entries to a
-device-specific configuration table cannot break existing functionality
-for other devices. The changes only affect the three specific Acer
-laptop models. **✅ No Architectural Changes:** This is purely data-
-driven configuration, not structural code changes. **✅ Specific Hardware
-Support:** The SSID values (10251826, 1025182C, 10251844) are vendor-
-specific identifiers for Acer devices (1025 = Acer vendor ID), ensuring
-the fix only applies to the intended hardware. **4. Code Analysis
-Verification:** From examining the current kernel tree at
-`/home/sasha/linux/sound/pci/hda/cs35l41_hda_property.c`, I confirmed
-that: - The file exists and contains the same structure as the commit -
-No "1025" entries currently exist in the configuration table - The
-pattern matches exactly with other vendor entries (HP: 103C, ASUS: 1043,
-Lenovo: 17AA) **5. Risk Assessment:** - **Regression Risk: MINIMAL** -
-Adding device-specific entries cannot affect other hardware - **Side
-Effects: NONE** - Changes are isolated to specific Acer laptop models -
-**Complexity: LOW** - Simple data table additions with no logic changes
-**Conclusion:** This commit perfectly fits the stable tree criteria:
-it's an important hardware-specific bug fix that affects users, with
-minimal risk and no architectural changes. The historical precedent
-(Similar Commit #1 with identical nature receiving YES status) strongly
-supports backporting this fix.
+**YES** - This commit should be backported to stable kernel trees. The
+commit fixes two clear bugs in `graph_util_parse_dai()` error handling:
+(1) premature assignment of `dlc->xxx` fields before error validation,
+causing inconsistent state when `snd_soc_copy_dai_args()` fails, and (2)
+missing `of_node_put(node)` cleanup in error paths, causing device tree
+node reference leaks. These are important resource management fixes that
+prevent memory leaks and state corruption in ASoC sound card
+initialization, with minimal regression risk since only error paths are
+modified.
 
- sound/pci/hda/cs35l41_hda_property.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/generic/simple-card-utils.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
-index 61d2314834e7b..d8249d997c2a0 100644
---- a/sound/pci/hda/cs35l41_hda_property.c
-+++ b/sound/pci/hda/cs35l41_hda_property.c
-@@ -31,6 +31,9 @@ struct cs35l41_config {
- };
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 3ae2a212a2e38..355f7ec8943c2 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -1119,12 +1119,16 @@ int graph_util_parse_dai(struct simple_util_priv *priv, struct device_node *ep,
+ 	args.np = ep;
+ 	dai = snd_soc_get_dai_via_args(&args);
+ 	if (dai) {
++		const char *dai_name = snd_soc_dai_name_get(dai);
++		const struct of_phandle_args *dai_args = snd_soc_copy_dai_args(dev, &args);
++
+ 		ret = -ENOMEM;
++		if (!dai_args)
++			goto err;
++
+ 		dlc->of_node  = node;
+-		dlc->dai_name = snd_soc_dai_name_get(dai);
+-		dlc->dai_args = snd_soc_copy_dai_args(dev, &args);
+-		if (!dlc->dai_args)
+-			goto end;
++		dlc->dai_name = dai_name;
++		dlc->dai_args = dai_args;
  
- static const struct cs35l41_config cs35l41_config_table[] = {
-+	{ "10251826", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
-+	{ "1025182C", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
-+	{ "10251844", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
- 	{ "10280B27", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "10280B28", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
- 	{ "10280BEB", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, -1, 0, 0, 0, 0 },
-@@ -452,6 +455,9 @@ struct cs35l41_prop_model {
- static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
- 	{ "CLSA0100", NULL, lenovo_legion_no_acpi },
- 	{ "CLSA0101", NULL, lenovo_legion_no_acpi },
-+	{ "CSC3551", "10251826", generic_dsd_config },
-+	{ "CSC3551", "1025182C", generic_dsd_config },
-+	{ "CSC3551", "10251844", generic_dsd_config },
- 	{ "CSC3551", "10280B27", generic_dsd_config },
- 	{ "CSC3551", "10280B28", generic_dsd_config },
- 	{ "CSC3551", "10280BEB", generic_dsd_config },
+ 		goto parse_dai_end;
+ 	}
+@@ -1154,16 +1158,17 @@ int graph_util_parse_dai(struct simple_util_priv *priv, struct device_node *ep,
+ 	 *    if he unbinded CPU or Codec.
+ 	 */
+ 	ret = snd_soc_get_dlc(&args, dlc);
+-	if (ret < 0) {
+-		of_node_put(node);
+-		goto end;
+-	}
++	if (ret < 0)
++		goto err;
+ 
+ parse_dai_end:
+ 	if (is_single_link)
+ 		*is_single_link = of_graph_get_endpoint_count(node) == 1;
+ 	ret = 0;
+-end:
++err:
++	if (ret < 0)
++		of_node_put(node);
++
+ 	return simple_ret(priv, ret);
+ }
+ EXPORT_SYMBOL_GPL(graph_util_parse_dai);
 -- 
 2.39.5
 

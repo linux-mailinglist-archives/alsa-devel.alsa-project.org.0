@@ -2,64 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCB28AC8DD6
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E42A5AC8DDD
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:40:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CA8460211;
-	Fri, 30 May 2025 14:40:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CA8460211
+	by alsa0.perex.cz (Postfix) with ESMTPS id 798F760218;
+	Fri, 30 May 2025 14:40:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 798F760218
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748608832;
-	bh=lTIFbvUzVtrdoyRg87m1jXHUYMw1CfmB2wmzwJv1abU=;
+	s=default; t=1748608850;
+	bh=0mNPQpbwT1Pfw1ec0QHifRguoEQrfpMBmf9+3fPz8uc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CnJ+G54NZIfPpO5S2QgfeFlR32X2Yz5mMWWfTzRoyyRibna758eSh7mHTO7ti8rWg
-	 ChjnMZKd6C0Bl6A8hyS8MQiJlPh5FUa3TYI/L1YvxYiECyMqnyu+r3f1C7QfXN8XMG
-	 pAKIoNZ+zClL6X1Y/yyCDpJET8nNAwJE46oPoNYs=
+	b=OW/NqBHkCddMUwfh0Pq9amHr71Wp9H9Z0TsaifBCmekjrM7GWglpg7z+QjNhmzHoc
+	 GKiGT3GP2naL6I/i6vPp5mKAbz07Yegf2az+HaFv6PAnWP0fh5rmo/b8Fq3jdshOBG
+	 pXMZc2BRq5q1eBFBI5QZTTg/9cA5yXDOwLW50mnY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 365A8F80630; Fri, 30 May 2025 14:39:19 +0200 (CEST)
+	id 9DCE2F8065A; Fri, 30 May 2025 14:39:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AFC6F8062E;
-	Fri, 30 May 2025 14:39:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82177F8049C;
+	Fri, 30 May 2025 14:39:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14AE5F80610; Fri, 30 May 2025 14:39:16 +0200 (CEST)
+	id EA9F7F8063D; Fri, 30 May 2025 14:39:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4064BF805F7
-	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4064BF805F7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A0E2F8049C
+	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A0E2F8049C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ttCOqqwb
+ header.s=k20201202 header.b=HRFdJhO+
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 423ACA4EBE1;
-	Fri, 30 May 2025 12:39:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF19C4CEEB;
-	Fri, 30 May 2025 12:39:10 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 6FC6943C89;
+	Fri, 30 May 2025 12:39:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667D2C4CEEB;
+	Fri, 30 May 2025 12:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748608751;
-	bh=lTIFbvUzVtrdoyRg87m1jXHUYMw1CfmB2wmzwJv1abU=;
+	s=k20201202; t=1748608757;
+	bh=0mNPQpbwT1Pfw1ec0QHifRguoEQrfpMBmf9+3fPz8uc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ttCOqqwb4zy0D/vfC2sHm+oZJ9yINNruHUIKdfafEGtFhunjQUD5rK0OWgCIhp0LK
-	 f75CS417JFYx/xpN6E9U0J1H8EjmcIQxDD4p2kKvMa6ksdn9gD/DKykUZ86SmHWxDH
-	 JKicwSqyocifwuX/8QzsqMMc5Kcs8281rGyi6jYqvNOfq2fSYNv+N4nNeQqCvMKa5x
-	 DtJG+h1Vnx3kzcn+XNI8zpcHdWkOxILIPnYgpmO21j/23xDL1qY0do0IzWng8Sz8ep
-	 YM8PcbWvzSEGCU1bFdSSC97+AbHSqNRvXI0jCsR4VjUmWvRttU5cCX+6OQApZFcBQY
-	 EAYWo+qWxNWpQ==
+	b=HRFdJhO+ApuA3Ntz+gPQKQxwg5682IRiBJEf9J11v9jUQoyJLnrcuxJhHlPmBCNNN
+	 3BGxmGhjfuQEl1blzGEZiWgihfq/wxtlAYNzf95JPX9WJHIyyBomM8pE2p8SoNyrlC
+	 PFYBjmU+I0c+tL/6szYIgeh6b+SNhtiVcPg/CyoP4SEaQgeRQkes0QG31ygGCxqYkY
+	 /CI9Md5deDYMEWctHgDbaKM3seVPUxdH2QYSs/zdoaBQmhK6Z/qoV2PfwhVjW1Tph1
+	 P/IEvL27MwAmDTDDWeGM2UkOiGHebNjZvZZ6uChRnVtMmps9O+auJtB9RjR0Cx+HpM
+	 tmPtB4iFodjXw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
@@ -68,17 +69,12 @@ Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
 	Sasha Levin <sashal@kernel.org>,
 	perex@perex.cz,
 	tiwai@suse.com,
-	kailang@realtek.com,
-	gregkh@linuxfoundation.org,
-	edson.drosdeck@gmail.com,
-	oder_chiou@realtek.com,
-	desikumar81@gmail.com,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.15 14/30] ALSA: hda/realtek: Add support for Acer
- Helios Laptops using CS35L41 HDA
-Date: Fri, 30 May 2025 08:38:36 -0400
-Message-Id: <20250530123852.2574030-14-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.15 18/30] ALSA: hda: cs35l41: Fix swapped l/r audio
+ channels for Acer Helios laptops
+Date: Fri, 30 May 2025 08:38:40 -0400
+Message-Id: <20250530123852.2574030-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250530123852.2574030-1-sashal@kernel.org>
 References: <20250530123852.2574030-1-sashal@kernel.org>
@@ -88,8 +84,8 @@ X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.15
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LSZ4NIDSKXE2DZMRHX6HF3XOCFXMJ6RP
-X-Message-ID-Hash: LSZ4NIDSKXE2DZMRHX6HF3XOCFXMJ6RP
+Message-ID-Hash: SP52RYT7FJGACDIN4RQH5DXC5UMFFAIG
+X-Message-ID-Hash: SP52RYT7FJGACDIN4RQH5DXC5UMFFAIG
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LSZ4NIDSKXE2DZMRHX6HF3XOCFXMJ6RP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SP52RYT7FJGACDIN4RQH5DXC5UMFFAIG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,93 +109,90 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Stefan Binding <sbinding@opensource.cirrus.com>
 
-[ Upstream commit d64cbb5ed9227566c068ac9300a85912234d10aa ]
+[ Upstream commit e43a93c41982e82c1b703dd7fa9c1d965260fbb3 ]
 
-Laptops use 2 CS35L41 Amps with HDA, using External boost with I2C.
-Similar to previous Acer laptops, these laptops also need the
-ALC255_FIXUP_PREDATOR_SUBWOOFER quirk to function properly.
+Fixes audio channel assignment from ACPI using configuration table.
 
 Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
-Link: https://patch.msgid.link/20250515162848.405055-2-sbinding@opensource.cirrus.com
+Link: https://patch.msgid.link/20250515162848.405055-3-sbinding@opensource.cirrus.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-**YES** This commit should be backported to stable kernel trees. ##
-Analysis ### What the commit does: This commit adds audio support for
-Acer Helios laptops using CS35L41 HDA amplifiers. The specific changes
-are: 1. **Adds new enum**: `ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2` 2.
-**Adds new fixup entry**: Chains `cs35l41_fixup_i2c_two` with the
-existing `ALC255_FIXUP_PREDATOR_SUBWOOFER` quirk 3. **Adds 3 PCI quirk
-entries** for specific Acer models: - `0x1025, 0x1826, "Acer Helios
-ZPC"` - `0x1025, 0x182c, "Acer Helios ZPD"` - `0x1025, 0x1844, "Acer
-Helios ZPS"` ### Comparison with approved similar commits: This commit
-follows **exactly the same pattern** as the four similar commits marked
-"YES": - **Similar Commits #1-4**: All added PCI quirk entries for ASUS
-laptops using CS35L41 HDA, with identical structure - **Same approach**:
-Extending the quirk table to map new hardware IDs to existing, proven
-fixup mechanisms - **Same scope**: Hardware-specific audio support using
-well-established CS35L41 amplifier functionality ### Hardware support vs
-bug fixing: This is **new hardware support** that enables audio
-functionality on specific Acer Helios laptop models. The CS35L41
-amplifier support and ALC255_FIXUP_PREDATOR_SUBWOOFER quirk already
-exist - this simply extends support to new hardware variants. ### Risk
-assessment: **Very low risk** because: 1. **Isolated impact**: Only
-affects the three specific Acer Helios models listed (PCI IDs 0x1826,
-0x182c, 0x1844) 2. **No architectural changes**: Pure quirk table
-additions with no modifications to core audio logic 3. **Proven fixup
-chain**: Both `cs35l41_fixup_i2c_two` and
-`ALC255_FIXUP_PREDATOR_SUBWOOFER` are existing, stable fixups 4. **No
-regression risk**: Doesn't modify behavior for any existing hardware ###
-Stable kernel criteria alignment: ✅ **Fixes important bugs**: Enables
-audio functionality that would otherwise be broken on these laptops ✅
-**No new features**: Uses existing CS35L41 and Predator subwoofer
-infrastructure ✅ **No architectural changes**: Only extends PCI quirk
-tables ✅ **Minimal regression risk**: Changes are completely isolated to
-specific hardware IDs ✅ **Subsystem-confined**: Limited to ALSA HDA
-realtek driver quirks This commit perfectly matches the established
-pattern of stable-worthy ALSA HDA hardware support commits and should be
-backported to ensure audio functionality works properly for users with
-these Acer Helios laptops.
+**YES** This commit should be backported to stable kernel trees.
+**Extensive Analysis:** **1. Nature of the Fix:** The commit fixes
+swapped left/right audio channels for Acer Helios laptops by adding
+three new entries to the `cs35l41_config_table[]`: - `{ "10251826", 2,
+EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 }` -
+`{ "1025182C", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0,
+-1, -1, 0, 0, 0 }` - `{ "10251844", 2, EXTERNAL, { CS35L41_LEFT,
+CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 }` The corresponding model
+table entries are also added to enable these configurations. **2.
+Comparison with Historical Similar Commits:** This commit is **very
+similar to Similar Commit #1 (Status: YES)** which also fixed swapped
+l/r audio channels for Lenovo ThinkBook laptops. Both commits: - Fix the
+same fundamental issue: swapped audio channels - Make identical types of
+changes: correcting channel assignment in configuration tables - Are
+small, contained fixes affecting only audio configuration data - Target
+specific laptop models with broken audio channel mapping The primary
+difference is that Similar Commit #1 modified existing entries by
+swapping `CS35L41_LEFT` and `CS35L41_RIGHT`, while this commit adds new
+entries with correct channel assignments. **3. Why This Qualifies for
+Backporting:** **✅ Fixes Important User-Affecting Bug:** Swapped audio
+channels are a significant usability issue that directly impacts users'
+audio experience on affected Acer Helios laptops. **✅ Small and
+Contained Change:** The fix only adds static configuration data - three
+new entries in a lookup table. No algorithmic changes or complex logic
+modifications. **✅ Minimal Risk of Regression:** Adding new entries to a
+device-specific configuration table cannot break existing functionality
+for other devices. The changes only affect the three specific Acer
+laptop models. **✅ No Architectural Changes:** This is purely data-
+driven configuration, not structural code changes. **✅ Specific Hardware
+Support:** The SSID values (10251826, 1025182C, 10251844) are vendor-
+specific identifiers for Acer devices (1025 = Acer vendor ID), ensuring
+the fix only applies to the intended hardware. **4. Code Analysis
+Verification:** From examining the current kernel tree at
+`/home/sasha/linux/sound/pci/hda/cs35l41_hda_property.c`, I confirmed
+that: - The file exists and contains the same structure as the commit -
+No "1025" entries currently exist in the configuration table - The
+pattern matches exactly with other vendor entries (HP: 103C, ASUS: 1043,
+Lenovo: 17AA) **5. Risk Assessment:** - **Regression Risk: MINIMAL** -
+Adding device-specific entries cannot affect other hardware - **Side
+Effects: NONE** - Changes are isolated to specific Acer laptop models -
+**Complexity: LOW** - Simple data table additions with no logic changes
+**Conclusion:** This commit perfectly fits the stable tree criteria:
+it's an important hardware-specific bug fix that affects users, with
+minimal risk and no architectural changes. The historical precedent
+(Similar Commit #1 with identical nature receiving YES status) strongly
+supports backporting this fix.
 
- sound/pci/hda/patch_realtek.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/pci/hda/cs35l41_hda_property.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 20ab1fb2195ff..cd0d7ba7320ef 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8029,6 +8029,7 @@ enum {
- 	ALC283_FIXUP_DELL_HP_RESUME,
- 	ALC294_FIXUP_ASUS_CS35L41_SPI_2,
- 	ALC274_FIXUP_HP_AIO_BIND_DACS,
-+	ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2,
+diff --git a/sound/pci/hda/cs35l41_hda_property.c b/sound/pci/hda/cs35l41_hda_property.c
+index 61d2314834e7b..d8249d997c2a0 100644
+--- a/sound/pci/hda/cs35l41_hda_property.c
++++ b/sound/pci/hda/cs35l41_hda_property.c
+@@ -31,6 +31,9 @@ struct cs35l41_config {
  };
  
- /* A special fixup for Lenovo C940 and Yoga Duet 7;
-@@ -9301,6 +9302,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{ }
- 		}
- 	},
-+	[ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cs35l41_fixup_i2c_two,
-+		.chained = true,
-+		.chain_id = ALC255_FIXUP_PREDATOR_SUBWOOFER
-+	},
- 	[ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -10456,6 +10463,9 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x1534, "Acer Predator PH315-54", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1025, 0x159c, "Acer Nitro 5 AN515-58", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x169a, "Acer Swift SFG16", ALC256_FIXUP_ACER_SFG16_MICMUTE_LED),
-+	SND_PCI_QUIRK(0x1025, 0x1826, "Acer Helios ZPC", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x1025, 0x182c, "Acer Helios ZPD", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x1025, 0x1844, "Acer Helios ZPS", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x1028, 0x0470, "Dell M101z", ALC269_FIXUP_DELL_M101Z),
- 	SND_PCI_QUIRK(0x1028, 0x053c, "Dell Latitude E5430", ALC292_FIXUP_DELL_E7X),
- 	SND_PCI_QUIRK(0x1028, 0x054b, "Dell XPS one 2710", ALC275_FIXUP_DELL_XPS),
+ static const struct cs35l41_config cs35l41_config_table[] = {
++	{ "10251826", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
++	{ "1025182C", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
++	{ "10251844", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 0, -1, -1, 0, 0, 0 },
+ 	{ "10280B27", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
+ 	{ "10280B28", 2, INTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, 2, 0, 1000, 4500, 24 },
+ 	{ "10280BEB", 2, EXTERNAL, { CS35L41_LEFT, CS35L41_RIGHT, 0, 0 }, 1, -1, 0, 0, 0, 0 },
+@@ -452,6 +455,9 @@ struct cs35l41_prop_model {
+ static const struct cs35l41_prop_model cs35l41_prop_model_table[] = {
+ 	{ "CLSA0100", NULL, lenovo_legion_no_acpi },
+ 	{ "CLSA0101", NULL, lenovo_legion_no_acpi },
++	{ "CSC3551", "10251826", generic_dsd_config },
++	{ "CSC3551", "1025182C", generic_dsd_config },
++	{ "CSC3551", "10251844", generic_dsd_config },
+ 	{ "CSC3551", "10280B27", generic_dsd_config },
+ 	{ "CSC3551", "10280B28", generic_dsd_config },
+ 	{ "CSC3551", "10280BEB", generic_dsd_config },
 -- 
 2.39.5
 

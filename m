@@ -2,78 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65E45AC8DE1
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DCBAAC8DE5
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 May 2025 14:41:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA60B6020F;
-	Fri, 30 May 2025 14:40:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA60B6020F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 189F96021D;
+	Fri, 30 May 2025 14:41:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 189F96021D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748608869;
-	bh=tlfx5ZX8OiOfa8e2ECbTPm5rLjLNt+GxeR4ZUPgRF9g=;
+	s=default; t=1748608886;
+	bh=EKttNpmZVbSh+hAeJqOBvBleIb9NUy9aOzlzoJghR/I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lM9aFkPsR0C8rNCO5RGEGPdVvVolazDr1Gm/vkcxCKqDtFDmfJlFRzeKUTs9QaE++
-	 +dhmdqM3OVFj/gOIQ/vpzusppZu0s+LQmBmwPuWUPboHdIPElbKp0C2UX4DmrrNWWG
-	 0zkj2YL8L7tz+oNg25+KVYw1u6cMnXZw9nevlEEA=
+	b=iZoSKCk2w53l1Qp5BGLtPwog6wPFiScEFGZF52XNePKf4wAu2f7TjjDD7k7xlZ+Q/
+	 YTWZTDcUm/w6dNE8SCKxh/8OqtfM8XBb8AJMfWA8Ogr+h8Mu6c+Ar4eRccp+27HP5a
+	 FEuMGMRuj1pVcgU9qrRvUaR9TUwUQVeO+kBM+NGE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A50EF80691; Fri, 30 May 2025 14:39:27 +0200 (CEST)
+	id B98DAF80692; Fri, 30 May 2025 14:39:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03157F80690;
-	Fri, 30 May 2025 14:39:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B520F805AC;
+	Fri, 30 May 2025 14:39:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50921F8063C; Fri, 30 May 2025 14:39:23 +0200 (CEST)
+	id DCB8DF8069D; Fri, 30 May 2025 14:39:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 59294F8063A
-	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59294F8063A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1A167F80692
+	for <alsa-devel@alsa-project.org>; Fri, 30 May 2025 14:39:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A167F80692
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DOnWn7HJ
+ header.s=k20201202 header.b=bRUUndDn
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 34ED4A4ECE3;
-	Fri, 30 May 2025 12:39:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04B0C4CEEF;
-	Fri, 30 May 2025 12:39:18 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 456A5629C7;
+	Fri, 30 May 2025 12:39:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAAE9C4CEEA;
+	Fri, 30 May 2025 12:39:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748608759;
-	bh=tlfx5ZX8OiOfa8e2ECbTPm5rLjLNt+GxeR4ZUPgRF9g=;
+	s=k20201202; t=1748608765;
+	bh=EKttNpmZVbSh+hAeJqOBvBleIb9NUy9aOzlzoJghR/I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DOnWn7HJiytHGDmCmahf/6/pd2P2z2x+oPXDaZdJdLHW3S7lNt7EznjEIcFjy5JXo
-	 /drvN+PY7+n+dsi0vlkxuA6a/5p7mIUclV3wuo0PYfvDO4eqvnJKKJ09lWF313NyIY
-	 eWnVMajQyzm5Kvsklg2fTtMth5OPiJ9kX/vN8yGaKO0P4TJfgHcv73YX43BxOSl8AF
-	 ja17QZr1Jofi4bzdotkWkPst64c0KkrzApDhCX1crqV2B9Th/aQuijfSeHBA47X4Ms
-	 k2bMFwV+hqRlzmrbMprdh5UsDPwcQH4i3D0ACZNMB31dgxDOT6ZQ9EQzmA/s7oe8rt
-	 VV0YAfZFVdpLw==
+	b=bRUUndDnwJXK3LLwSd1dKaIElo7EOZ/dLFF6Z1ZRwwvO0gd57DksyXVRF5LVBolfI
+	 MJmfYanBOH0K4b2mRlsoGgs01OkUMhyEt9mDEAriphyupho8Yeox3IdnVNpFOi21al
+	 0iqyB/U3sakI4nfVeHBCep1f1mdGSIuTq3n9fsvfZG3jcE+khw03+dapxgXNNr/aaz
+	 KIoU7GgNaOuTrpEKehDp3agEHNTUqQ8Rj0sJMcjDURT/Vee5ERJxaGE7U/nMjz9drC
+	 j7GG6CMiWyFGvNnNGKwn//kmEUVhBM2jWWdwPpzpCyifGO0jFApW8ensmdYF0yLcYi
+	 fD9zKkSM9oVww==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+Cc: Yuanjun Gong <ruc_gongyuanjun@163.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	lgirdwood@gmail.com,
 	perex@perex.cz,
 	tiwai@suse.com,
+	thierry.reding@gmail.com,
+	jonathanh@nvidia.com,
 	alsa-devel@alsa-project.org,
+	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.15 20/30] ASoC: simple-card-utils: fixup dlc->xxx
- handling for error case
-Date: Fri, 30 May 2025 08:38:42 -0400
-Message-Id: <20250530123852.2574030-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.15 24/30] ASoC: tegra210_ahub: Add check to
+ of_device_get_match_data()
+Date: Fri, 30 May 2025 08:38:46 -0400
+Message-Id: <20250530123852.2574030-24-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250530123852.2574030-1-sashal@kernel.org>
 References: <20250530123852.2574030-1-sashal@kernel.org>
@@ -81,9 +85,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.15
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 67KB3FHJSQYE7Z3RHEZBHIP5FQXMC3NF
-X-Message-ID-Hash: 67KB3FHJSQYE7Z3RHEZBHIP5FQXMC3NF
+Message-ID-Hash: GY4WAZSLSXDKPOAOQA2Q7KNKAVFKILST
+X-Message-ID-Hash: GY4WAZSLSXDKPOAOQA2Q7KNKAVFKILST
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/67KB3FHJSQYE7Z3RHEZBHIP5FQXMC3NF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GY4WAZSLSXDKPOAOQA2Q7KNKAVFKILST/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,121 +110,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+From: Yuanjun Gong <ruc_gongyuanjun@163.com>
 
-[ Upstream commit 2b4ce994afca0690ab79b7860045e6883e8706db ]
+[ Upstream commit 04cb269c204398763a620d426cbee43064854000 ]
 
-Current graph_util_parse_dai() has 2 issue for dlc->xxx handling.
+In tegra_ahub_probe(), check the result of function
+of_device_get_match_data(), return an error code in case it fails.
 
-1) dlc->xxx might be filled if snd_soc_get_dai_via_args() (A) works.
-   In such case it will fill dlc->xxx first (B), and detect error
-   after that (C). We need to fill dlc->xxx in success case only.
-
-(A)	dai = snd_soc_get_dai_via_args(&args);
-	if (dai) {
-		ret = -ENOMEM;
- ^		dlc->of_node  = ...
-(B)		dlc->dai_name = ...
- v		dlc->dai_args = ...
-(C)		if (!dlc->dai_args)
-			goto end;
-		...
-	}
-
-2) graph_util_parse_dai() itself has 2 patterns (X)(Y) to fill dlc->xxx.
-   Both case, we need to call of_node_put(node) (Z) in error case, but we
-   are calling it only in (Y) case.
-
-	int graph_util_parse_dai(...)
-	{
-		...
-		dai = snd_soc_get_dai_via_args(&args);
-		if (dai) {
-			...
- ^			dlc->of_node  = ...
-(X)			dlc->dai_name = ...
- v			dlc->dai_args = ...
-			...
-		}
-		...
-(Y)		ret = snd_soc_get_dlc(&args, dlc);
-		if (ret < 0) {
-(Z)			of_node_put(node);
-			...
-		}
-		...
-	}
-
-This patch fixup both case. Make it easy to understand, update
-lavel "end" to "err", too.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://patch.msgid.link/87fribr2ns.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Yuanjun Gong <ruc_gongyuanjun@163.com>
+Link: https://patch.msgid.link/20250513123744.3041724-1-ruc_gongyuanjun@163.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
-**YES** - This commit should be backported to stable kernel trees. The
-commit fixes two clear bugs in `graph_util_parse_dai()` error handling:
-(1) premature assignment of `dlc->xxx` fields before error validation,
-causing inconsistent state when `snd_soc_copy_dai_args()` fails, and (2)
-missing `of_node_put(node)` cleanup in error paths, causing device tree
-node reference leaks. These are important resource management fixes that
-prevent memory leaks and state corruption in ASoC sound card
-initialization, with minimal regression risk since only error paths are
-modified.
+**YES** This commit should be backported to stable kernel trees.
+**Extensive Analysis:** **1. Nature of the Bug Fix:** This commit fixes
+a critical null pointer dereference vulnerability in the tegra210_ahub
+driver. The code calls `of_device_get_match_data(&pdev->dev)` but never
+validates the return value before using `ahub->soc_data`. Looking at the
+kernel tree, we can see that immediately after the assignment, the code
+accesses `ahub->soc_data->regmap_config` and later
+`ahub->soc_data->cmpnt_drv`, `ahub->soc_data->dai_drv`, and
+`ahub->soc_data->num_dais` without any null checking. **2. Severity and
+Impact:** - **High severity**: A null pointer dereference in the kernel
+probe function can cause kernel panic - **User impact**: Systems using
+Tegra210 audio hardware could crash during device initialization -
+**Subsystem criticality**: Audio subsystem failure affects multimedia
+functionality **3. Code Analysis:** The fix is minimal and surgical:
+```c ahub->soc_data = of_device_get_match_data(&pdev->dev); +if
+(!ahub->soc_data) + return -ENODEV; ``` This follows established kernel
+patterns and returns an appropriate error code (-ENODEV) when device
+match data cannot be found. **4. Consistency with Similar Fixes:**
+Examining the kernel tree reveals that other Tegra drivers have already
+been fixed with identical patterns: - `tegra30_ahub.c` already has this
+null check (returns -EINVAL) - `tegra30_i2s.c` already has this null
+check (returns -ENODEV) This indicates that tegra210_ahub was an
+oversight that should be corrected for consistency and safety. **5.
+Historical Reference Analysis:** While the provided historical commits
+all have "Backport Status: NO", they were primarily code cleanup and API
+migration commits (switching to `of_device_get_match_data`), not
+security/stability fixes. This commit is fundamentally different - it's
+a critical bug fix that prevents kernel crashes. **6. Stable Tree
+Criteria Compliance:** - ✅ **Important bugfix**: Prevents kernel panic -
+✅ **Minimal risk**: Two-line addition with well-established pattern - ✅
+**Small and contained**: No architectural changes - ✅ **Clear purpose**:
+Prevents null pointer dereference - ✅ **Subsystem confined**: Only
+affects tegra210_ahub driver **7. Risk Assessment:** - **Regression
+risk**: Extremely low - only adds a safety check - **Side effects**:
+None - failure case now returns clean error instead of crashing -
+**Testing impact**: Improves robustness without changing successful code
+paths **Conclusion:** This is a textbook example of a commit that should
+be backported to stable trees. It fixes a critical null pointer
+dereference that can cause kernel panics, uses minimal code changes
+following established patterns, and has virtually no risk of introducing
+regressions. The fix brings tegra210_ahub in line with other Tegra
+drivers that already have this protection.
 
- sound/soc/generic/simple-card-utils.c | 23 ++++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
+ sound/soc/tegra/tegra210_ahub.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 3ae2a212a2e38..355f7ec8943c2 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -1119,12 +1119,16 @@ int graph_util_parse_dai(struct simple_util_priv *priv, struct device_node *ep,
- 	args.np = ep;
- 	dai = snd_soc_get_dai_via_args(&args);
- 	if (dai) {
-+		const char *dai_name = snd_soc_dai_name_get(dai);
-+		const struct of_phandle_args *dai_args = snd_soc_copy_dai_args(dev, &args);
-+
- 		ret = -ENOMEM;
-+		if (!dai_args)
-+			goto err;
-+
- 		dlc->of_node  = node;
--		dlc->dai_name = snd_soc_dai_name_get(dai);
--		dlc->dai_args = snd_soc_copy_dai_args(dev, &args);
--		if (!dlc->dai_args)
--			goto end;
-+		dlc->dai_name = dai_name;
-+		dlc->dai_args = dai_args;
+diff --git a/sound/soc/tegra/tegra210_ahub.c b/sound/soc/tegra/tegra210_ahub.c
+index 99683f292b5d8..ae4965a9f7649 100644
+--- a/sound/soc/tegra/tegra210_ahub.c
++++ b/sound/soc/tegra/tegra210_ahub.c
+@@ -1359,6 +1359,8 @@ static int tegra_ahub_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
- 		goto parse_dai_end;
- 	}
-@@ -1154,16 +1158,17 @@ int graph_util_parse_dai(struct simple_util_priv *priv, struct device_node *ep,
- 	 *    if he unbinded CPU or Codec.
- 	 */
- 	ret = snd_soc_get_dlc(&args, dlc);
--	if (ret < 0) {
--		of_node_put(node);
--		goto end;
--	}
-+	if (ret < 0)
-+		goto err;
+ 	ahub->soc_data = of_device_get_match_data(&pdev->dev);
++	if (!ahub->soc_data)
++		return -ENODEV;
  
- parse_dai_end:
- 	if (is_single_link)
- 		*is_single_link = of_graph_get_endpoint_count(node) == 1;
- 	ret = 0;
--end:
-+err:
-+	if (ret < 0)
-+		of_node_put(node);
-+
- 	return simple_ret(priv, ret);
- }
- EXPORT_SYMBOL_GPL(graph_util_parse_dai);
+ 	platform_set_drvdata(pdev, ahub);
+ 
 -- 
 2.39.5
 

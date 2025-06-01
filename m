@@ -2,55 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D517AC9D4A
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Jun 2025 00:42:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEBBAAC9DBD
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Jun 2025 06:33:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6195060202;
-	Sun,  1 Jun 2025 00:42:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6195060202
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC3396022D;
+	Sun,  1 Jun 2025 06:33:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC3396022D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748731349;
-	bh=R1lHCGST9MdtteCbLmCHl+L/QVmRvDYrCJqdy0W46Eo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	s=default; t=1748752428;
+	bh=E+NDocvrVOO5ZktAdgvFBlQivdXUl5tXpW+Hle+4z7o=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=vCXNaVtPD1/LdG+pOZTr5bSj+Zk3Js5HUbqiClLwz6ijFlGwZj1E6QLxF5aUWuNHU
-	 95rIAP+jS45JDsT4UUrBspvAlRJ4DqAM8llQ2wvDGclM9N6V48gIhpCCYYyOWA+dUr
-	 PaHUmC9MB6ig7BYWqetqIglkNQ+Isi0Z1RXr47Lo=
+	b=i5nmqHQ3SRWza6sIF8x1CUlk/fTUFmKLYgVt9pA1KvHJCsKeHOZZo0oQYO0S1C1Pm
+	 cOLc8soriZqn5GFaK4IducRGZ5YD7eza5P2PJVJpyDJSy9rkJHUkt8+2HY4h4v5DcW
+	 KpRk9rQeitqxSTyzfvRvKnpgHpd9eFSCnFyFvhvY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8477FF805B6; Sun,  1 Jun 2025 00:41:54 +0200 (CEST)
+	id 3064FF805B2; Sun,  1 Jun 2025 06:33:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77D5FF805B5;
-	Sun,  1 Jun 2025 00:41:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5610F805C0;
+	Sun,  1 Jun 2025 06:33:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AA4C8F8013D; Sun,  1 Jun 2025 00:41:51 +0200 (CEST)
+	id AA0C3F80269; Sun,  1 Jun 2025 06:33:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0478CF8013D
-	for <alsa-devel@alsa-project.org>; Sun,  1 Jun 2025 00:41:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0478CF8013D
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4F205F8016D
+	for <alsa-devel@alsa-project.org>; Sun,  1 Jun 2025 06:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F205F8016D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=metafoo.de header.i=@metafoo.de header.a=rsa-sha256
+ header.s=default2002 header.b=ksA8DYZO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de;
+	s=default2002; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=seKVIG/wOZ86tOskLuXdLlBJwd/vemmgDGseqAnYRss=; b=ksA8DYZOzr0ttL/RoiClihYppX
+	tp8yDwGYODSz202qlRiewmNN/PsYCjleFo4wONBXUDiqIs18TwioInIVfiw6U2tVlpt2bMOGAHVRa
+	rZiQSakwwnKr/aeJUz09fLiJyM+PZcu/UcBxyZMGjs9w923Cj+1M7CN9ZdCoDu7+pzorgZbh5aPcX
+	MZvVW4iFL/9mNjuwbXSzCP4XRnMYgArrfJi872/CFZhcpl0Ke42FE+WjsAEsd8/3R7DfC5vowprP/
+	VJaI+75zoOYUgPtG6MNwLRRvEqY+X6u4vdacqAMmKZmlHz3W+EXfEifZVqSbmtpeVcEdYjnyY5++b
+	wt50Qo+w==;
+Received: from sslproxy03.your-server.de ([88.198.220.132])
+	by www381.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <lars@metafoo.de>)
+	id 1uLaNd-0000xu-36;
+	Sun, 01 Jun 2025 06:33:05 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls
+ TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <lars@metafoo.de>)
+	id 1uLaNd-000F49-1T;
+	Sun, 01 Jun 2025 06:33:05 +0200
+Message-ID: <4e315810-dcf5-48ac-ab86-f7c481a1c49d@metafoo.de>
+Date: Sat, 31 May 2025 21:33:03 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: Re: Request for help: How to upgrade a sound driver from kernel 4.14
+ to 6.6
+To: Steve Broshar <steve@palmerwirelessmedtech.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: 
+ <IA1PR15MB6008974A825847331B10762BB593A@IA1PR15MB6008.namprd15.prod.outlook.com>
+ <f278f7cf-dc78-4fac-b27d-2a7fbce08b62@metafoo.de>
+ <IA1PR15MB600894BEC69309E17E839812B561A@IA1PR15MB6008.namprd15.prod.outlook.com>
+Content-Language: en-US
+From: Lars-Peter Clausen <lars@metafoo.de>
+In-Reply-To: 
+ <IA1PR15MB600894BEC69309E17E839812B561A@IA1PR15MB6008.namprd15.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <1844bddc59f45200-webhooks-bot@alsa-project.org>
-In-Reply-To: <1844bddc596a4000-webhooks-bot@alsa-project.org>
-References: <1844bddc596a4000-webhooks-bot@alsa-project.org>
-Subject: aseqsend silently fails (ENODEV) with hardware port
-Date: Sun,  1 Jun 2025 00:41:51 +0200 (CEST)
-Message-ID-Hash: UC6LQBAFDUP3K7XSGBDHYXE3GD5WPDQU
-X-Message-ID-Hash: UC6LQBAFDUP3K7XSGBDHYXE3GD5WPDQU
-X-MailFrom: github@alsa-project.org
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 1.0.7/27654/Sat May 31 11:15:24 2025)
+Message-ID-Hash: OWRWBX3KOAI4IH6LTGTZ6AW62GG3YQXA
+X-Message-ID-Hash: OWRWBX3KOAI4IH6LTGTZ6AW62GG3YQXA
+X-MailFrom: lars@metafoo.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UC6LQBAFDUP3K7XSGBDHYXE3GD5WPDQU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OWRWBX3KOAI4IH6LTGTZ6AW62GG3YQXA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,63 +113,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #300 was opened from michaelforney:
+Hi,
 
-When I use `aseqsend` to send a sysex message to a device, it doesn't seem to work, though there is no error message. Running with strace, it seems it is failing with ENODEV.
+This seems to be one of the cases where chatgpt doesn't get it quite 
+right and just makes stuff up.
 
-```sh
-$ strace aseqsend -p 32:0 'F0 43 7D 10 41 30 01 00 00 01 F7'
-...
-open("/dev/snd/seq", O_WRONLY|O_LARGEFILE|O_CLOEXEC) = 3
-fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
-ioctl(3, SNDRV_SEQ_IOCTL_PVERSION, 0x7fffef1ae678) = 0
-ioctl(3, SNDRV_SEQ_IOCTL_USER_PVERSION, 0x7fffef1ae67c) = 0
-mmap(NULL, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6ae25f7000
-ioctl(3, SNDRV_SEQ_IOCTL_CLIENT_ID, 0x7fffef1ae67c) = 0
-ioctl(3, SNDRV_SEQ_IOCTL_RUNNING_MODE, 0x7fffef1ae680) = 0
-ioctl(3, SNDRV_SEQ_IOCTL_GET_CLIENT_INFO, 0x7fffef1ae940) = 0
-ioctl(3, SNDRV_SEQ_IOCTL_SET_CLIENT_INFO, 0x7fffef1ae940) = 0
-ioctl(3, SNDRV_SEQ_IOCTL_GET_CLIENT_INFO, 0x7fffef1ae940) = 0
-ioctl(3, SNDRV_SEQ_IOCTL_SET_CLIENT_INFO, 0x7fffef1ae940) = 0
-ioctl(3, SNDRV_SEQ_IOCTL_CREATE_PORT, 0x7fffef1ae960) = 0
-write(3, "\202\4\0\375\0\0\0\0\0\0\0\0\0\0 \0\v\0\0\0\320\212WN\361U\0\0\360C}\20"..., 39) = -1 ENODEV (No such device)
-nanosleep({tv_sec=0, tv_nsec=1000000}, 0x7fffef1aea20) = 0
-close(3)                                = 0
-munmap(0x7f6ae25f7000, 20480)           = 0
-exit_group(0)                           = ?
-+++ exited with 0 +++
-$
-```
+Generally you still need a simple driver for you codec that at least 
+specifies which formats and rates are supported. But this can be a 
+really simple driver, doesn't have to do anything other than registering 
+the codec.
 
-`amidi -S ...` works as expected. If I modify `aseqsend` to first subscribe to the port, it seems to work:
+On 5/30/25 14:47, Steve Broshar wrote:
+> Thanks for the help. I learned that to output I2S to a slave device, I shouldn't need a device-specific driver; that built-in drivers are all I need. I thought that was going to be easy to setup, but I have no luck with it. The boot log contains: platform sound-auditon: deferred probe pending
+>
+> I have been working with chatgpt extensively as it seems you do too. It has a deep understanding of the linux kernel codebase. But, so far I cannot get the device to initialize (probe). Do you agree that I should be able to avoid the use of a device-specific driver? Do you see any issues in the device tree below?
+>
+> Here's the device tree setup:
+>
+> &sai2 {
+> 	#sound-dai-cells = <0>;
+> 	pinctrl-names = "default";
+> 	pinctrl-0 = <&pinctrl_sai2>;
+> 	assigned-clocks = <&clk IMX8MN_CLK_SAI2>;
+> 	assigned-clock-parents = <&clk IMX8MN_AUDIO_PLL1_OUT>;
+> 	assigned-clock-rates = <24576000>;
+> 	fsl,sai-mclk-direction-output;
+> 	status = "okay";
+> };
+>
+> 	pinctrl_sai2: sai2grp {
+> 		fsl,pins = <
+> 			MX8MN_IOMUXC_SAI2_TXC_SAI2_TX_BCLK      0xd6
+> 			MX8MN_IOMUXC_SAI2_TXFS_SAI2_TX_SYNC     0xd6
+> 			MX8MN_IOMUXC_SAI2_TXD0_SAI2_TX_DATA0    0xd6
+> 			//MX8MN_IOMUXC_SAI2_RXD0_SAI2_RX_DATA0    0xd6
+> 			MX8MN_IOMUXC_SAI2_MCLK_SAI2_MCLK    0xd6
+> 		>;
+> 	};
+>
+>
+> 	// Compton audio output does not require a device-specific codec; the built-in, dummy driver is sufficient
+> 	codec_auditon: codec-snd-doc-dummy {
+> 		compatible = "linux,snd-soc-dummy";
+> 	 	#sound-dai-cells = <0>;
+> 	};
+>
+> 	// audio output for Compton can be accomplished via the built-in simple-audio-card driver
+> 	// since only need to stream I2S; device (ADAU1467) does not require setup/control
+> 	sound-auditon {
+> 		// specify the built-in simple sound card driver
+> 		compatible = "simple-audio-card";
+> 		
+> 		// description that shows in userland; i.e. via 'aplay -l'
+> 		// auditon: a quantum of sound ;)
+> 		simple-audio-card,name = "auditon";
+> 		
+> 		// specify stream format
+> 		// supported options: i2s, right_j, left_j, dsp_a, dsp_b, ac97, pdm, msb, lsb
+> 		//simple-audio-card,format = "i2s"; // with i2s, boot log shows: deferred probe pending and no device is setup
+> 		simple-audio-card,format = "dsp_a";
+> 		
+> 		// assign CPU as master for bit-clock
+> 		simple-audio-card,bitclock-master = <&cpu_link_auditon>;
+> 		
+> 		// assign CPU as master for frame-clock
+> 		simple-audio-card,frame-master = <&cpu_link_auditon>;
+>
+> 		status = "okay";
+>
+> 		cpu_link_auditon: simple-audio-card,cpu {
+> 			sound-dai = <&sai2>;
+> 			dai-tdm-slot-num = <2>; // 2=>stereo
+> 			dai-tdm-slot-width = <32>; // bits per slot
+> 		};
+>
+> 		simple-audio-card,codec {
+> 			sound-dai = <&codec_auditon>;
+> 		};
+> 	};
+>
+> Thanks in advance.
+>
+> Steve Broshar
+> Palmer Wireless Medtech
 
-```diff
-diff --git a/seq/aseqsend/aseqsend.c b/seq/aseqsend/aseqsend.c
-index 92354eb..ad0a636 100644
---- a/seq/aseqsend/aseqsend.c
-+++ b/seq/aseqsend/aseqsend.c
-@@ -364,6 +364,7 @@ int main(int argc, char *argv[])
- 	char do_port_list = 0;
- 	char verbose = 0;
- 	int k;
-+	int err;
- 
- 	while ((c = getopt_long(argc, argv, "hi:Vvlp:s:u:", long_options, NULL)) != -1) {
- 		switch (c) {
-@@ -439,6 +440,8 @@ int main(int argc, char *argv[])
- 		error("Unable to parse port name!");
- 		exit(EXIT_FAILURE);
- 	}
-+	err = snd_seq_connect_to(seq, 0, addr.client, addr.port);
-+	check_snd("connect to port", err);
- 
- 	sent_data_c = 0; //counter of actually sent bytes
-```
 
->From what I've read, I don't think it should be necessary to subscribe to a port to send it messages. However, I did find one sentence in the alsa-lib docs that seem to indicate that it is needed for hardware ports:
-> There is another subscription type for opposite direction: Suppose a MIDI sequencer program which sends events to a MIDI output device. In ALSA system, MIDI device is not opened until the associated MIDI port is accessed. Thus, in order to activate MIDI device, we have to subscribe to MIDI port for write. After this connection is established, events will be properly sent to MIDI output device.
-
-This seems to be a pretty basic use of `aseqsend`, so I am a bit surprised that it wasn't working. Is the subscription the right way to fix the problem, or am I doing something else wrong?
-
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/300
-Repository URL: https://github.com/alsa-project/alsa-utils

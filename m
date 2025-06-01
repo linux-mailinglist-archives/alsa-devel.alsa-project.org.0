@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8554CAC9F4A
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Jun 2025 18:08:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C14A9AC9F4B
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Jun 2025 18:09:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B581C601F2;
-	Sun,  1 Jun 2025 18:08:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B581C601F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96CAC6022E;
+	Sun,  1 Jun 2025 18:08:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96CAC6022E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1748794132;
-	bh=1e3CEuCD0HqESynF+S6bS6Q12OwsoPlbwB4JQIbanr0=;
+	s=default; t=1748794147;
+	bh=xHBZxQfiIybpl/QvBGjX+DZhlNmmIRF9FGSGtUDJnBg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=pyVRLrgKjH89qZWGS/LBfzOBPKeqawwBJcIzqxiiUzuVetQL6/43CZsNcbrnyesUv
-	 Qi3sRJWidbZPhEcelNuHn2fRhNne111q37N2nW3gqgUhzhGvkhtS9GFMmkBZ4jdMCR
-	 ad2E12hz9mpK+cKLwQ6aLAe/6sNgP7U9FY2yPQNA=
+	b=EKlhOoxk5UsS6ju7dXMs8VPRRWayoT7ApQsG+dl8gZ8ABmp/wPHnL5MqI7rUOwn0T
+	 r8VNfxFc2r/xpetJnDO1gTucWuogFZD/lZ+M2MnuyKcB/WOucEv3AYsGA7GxlgvzD9
+	 gabc46S7kbstnloL1JueSyn7QaKDGun18CvJklv0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F87AF805C1; Sun,  1 Jun 2025 18:08:17 +0200 (CEST)
+	id DFA79F805A8; Sun,  1 Jun 2025 18:08:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39628F805B1;
-	Sun,  1 Jun 2025 18:08:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCF1AF805D5;
+	Sun,  1 Jun 2025 18:08:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 949BBF80269; Sun,  1 Jun 2025 18:08:13 +0200 (CEST)
+	id 55E63F80528; Sun,  1 Jun 2025 18:08:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC38FF8013D
-	for <alsa-devel@alsa-project.org>; Sun,  1 Jun 2025 18:08:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC38FF8013D
+	by alsa1.perex.cz (Postfix) with ESMTP id AF581F8016D
+	for <alsa-devel@alsa-project.org>; Sun,  1 Jun 2025 18:08:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF581F8016D
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1844f6f5d94cce00-webhooks-bot@alsa-project.org>
-In-Reply-To: <1844f6f5d9371300-webhooks-bot@alsa-project.org>
-References: <1844f6f5d9371300-webhooks-bot@alsa-project.org>
-Subject: ALC4080 Mic In not working on ASUS ROG Strix B580-E Gaming WIFI
-Date: Sun,  1 Jun 2025 18:08:13 +0200 (CEST)
-Message-ID-Hash: U36XRSMH43CCRC43JLBSL2AUWJ2AQTHO
-X-Message-ID-Hash: U36XRSMH43CCRC43JLBSL2AUWJ2AQTHO
+Message-Id: <1844f6fc8125cc00-webhooks-bot@alsa-project.org>
+In-Reply-To: <1844f6fc8123f700-webhooks-bot@alsa-project.org>
+References: <1844f6fc8123f700-webhooks-bot@alsa-project.org>
+Subject: ALC4080 Mic In not working on ASUS ROG Strix B850-E Gaming WIFI
+Date: Sun,  1 Jun 2025 18:08:41 +0200 (CEST)
+Message-ID-Hash: B74OWJ7IIEI5E6IYDP2SMFHR3XUTYI66
+X-Message-ID-Hash: B74OWJ7IIEI5E6IYDP2SMFHR3XUTYI66
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U36XRSMH43CCRC43JLBSL2AUWJ2AQTHO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B74OWJ7IIEI5E6IYDP2SMFHR3XUTYI66/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,7 +71,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #569 was opened from kieran4333:
+alsa-project/alsa-ucm-conf issue #569 was edited from kieran4333:
 
 [alsa-info.sh](http://alsa-project.org/db/?f=edcbadeae18eb8f200b9625d2b0fb411c6146851)  
 

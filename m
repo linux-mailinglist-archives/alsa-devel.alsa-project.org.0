@@ -2,74 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724D3ACDC91
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jun 2025 13:32:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B7C6ACDD93
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Jun 2025 14:13:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2DAE601E5;
-	Wed,  4 Jun 2025 13:31:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2DAE601E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96DD2601F6;
+	Wed,  4 Jun 2025 14:12:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96DD2601F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1749036722;
-	bh=ZX0ItmnNbojzBHBC/dcRzu7609Te3f708c0QQ3pKAfI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=i6ikwVnz1PKK/7HneD24Wf4Xzk94tkWvp3W1UtWv7gx29umTDVcygotvwQT67qY1d
-	 h5iK6AtCsCS/Y5X2f4atbq5LaLI8+vq4YQdZ7rkdTB9ez6zl5ve6UI3jo1BLA2gHhv
-	 026mtpHKRSnu3NyGuY1D73ZwWlpr3Df6yRk35dCs=
+	s=default; t=1749039177;
+	bh=pTNoso6F3h4XPueGb/OB6k4YfmjgjbS4fl/u9V/Th0I=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=oHwfv+fGFvKl41Ptfx5Q0amObdQssv0iHlo7jjgFREsnYEs4En4CVHar6KlDI8sZe
+	 xyDiJEqmeD1JunT59FaanBdBagtOcarMJZRUe21RdhMXJ+wxFU7+zC7ojiYSNG0xLy
+	 bTy84cyqOM9GddfhTP451AwkBkyaKJ7rd3sbumkc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20F65F805B3; Wed,  4 Jun 2025 13:31:27 +0200 (CEST)
+	id 8DB2CF805C0; Wed,  4 Jun 2025 14:12:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14567F804F3;
-	Wed,  4 Jun 2025 13:31:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 739BCF805BF;
+	Wed,  4 Jun 2025 14:12:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0EA0DF8028B; Wed,  4 Jun 2025 13:31:24 +0200 (CEST)
+	id 96105F8028B; Wed,  4 Jun 2025 14:12:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	PP_MIME_FAKE_ASCII_TEXT,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 39BB3F800FA
-	for <alsa-devel@alsa-project.org>; Wed,  4 Jun 2025 13:31:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39BB3F800FA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=r9E3WoDp
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id C879D614AE;
-	Wed,  4 Jun 2025 11:31:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2424FC4CEE7;
-	Wed,  4 Jun 2025 11:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749036679;
-	bh=ZX0ItmnNbojzBHBC/dcRzu7609Te3f708c0QQ3pKAfI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=r9E3WoDp2CmCGjuSRqydrA1olIUkEOXP1FHFYujZXfDuZjFd7MfQP18sPaM5dCieo
-	 u5DnE1ew8CuxGHG2fKvW/SjZ6yJWlikphZmkh29HCk011ZDR9TSDW5m+BXrUgL2u8C
-	 oVhGAWSFEuqgBUbCuzQoZLVzjVyYetpkzzJij+qXMc0o6zMISxkTWZ0zXTmyzD3CF7
-	 8D5vR4u0fW5rd8Yuc5bdapqwElp+mU2oXAYt9rmogTo4xCivsbqaEbyZccLDOno9/l
-	 mnATWBH7OwFoV4Qn8gAAblDCJWvl4bhjNcxmcWyHyYcSPPuqT+qXwUzTWzMQ3f+hEK
-	 j5ZBB4Dg5QILg==
-Message-ID: <b1d4ad0e144128a16f88faa924f41432.broonie@kernel.org>
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.16-merge-window
-Date: Wed, 04 Jun 2025 12:31:09 +0100
-Message-ID-Hash: MOAIFBX6O5SKTOXMDXUF47QJFHQJFMLI
-X-Message-ID-Hash: MOAIFBX6O5SKTOXMDXUF47QJFHQJFMLI
-X-MailFrom: broonie@kernel.org
+X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id DD7C0F800FA
+	for <alsa-devel@alsa-project.org>; Wed,  4 Jun 2025 14:12:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD7C0F800FA
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+Message-Id: <1845d5d3e47f1a00-webhooks-bot@alsa-project.org>
+In-Reply-To: <alsa-project/alsa-ucm-conf/pr/571@alsa-project.org>
+References: <alsa-project/alsa-ucm-conf/pr/571@alsa-project.org>
+Subject: Intel: avs: Add new UCMs after recent kernel work
+Date: Wed,  4 Jun 2025 14:12:18 +0200 (CEST)
+Message-ID-Hash: ZFQ2S7O3FVVD77LLQBS5UXIR5XWRSCSS
+X-Message-ID-Hash: ZFQ2S7O3FVVD77LLQBS5UXIR5XWRSCSS
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -81,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MOAIFBX6O5SKTOXMDXUF47QJFHQJFMLI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZFQ2S7O3FVVD77LLQBS5UXIR5XWRSCSS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,87 +71,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 43a38a0ff8c63ee156d997cd13063c63cd55d812:
+alsa-project/alsa-ucm-conf pull request #571 was opened from amadeuszslawinski-intel:
 
-  ASoC: codecs: add support for ES8375 (2025-05-23 16:52:28 +0100)
+After recent work to rename cards [1], userspace expects different card names and device numbers.
 
-are available in the Git repository at:
+[1] https://lore.kernel.org/linux-sound/20250407124154.1713039-1-amadeuszx.slawinski@linux.intel.com/
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.16-merge-window
+There is one problem with HDMI not working. As far as I can tell, this is due to macro not handling pcm=0 correctly, but I have no idea how to fix that.
+```
+numid=1,iface=CARD,name='HDMI/DP Jack'
+numid=7,iface=CARD,name='HDMI/DP,pcm=1 Jack'
+numid=13,iface=CARD,name='HDMI/DP,pcm=2 Jack'
+```
 
-for you to fetch changes up to b7188a1c0d2d7b04f4558e10293651d49fcb2398:
+```
+ DefineMacro.HDMI.If.hdmi {
+        Condition {
+                Type ControlExists
+                Control "iface=CARD,name='HDMI/DP,pcm=${var:__Device} Jack'"
+        }
+```
 
-  ASoC: Intel: avs: boards: Fix rt5663 front end name (2025-06-03 17:04:32 +0100)
+I've opted for adding files instead of moving and editing them, because there may be users who currently use old card names.
 
-----------------------------------------------------------------
-ASoC: Fixes for v6.16
+Main differences are:
+* HDAudio macros can now be used for HD-Audio card
+* DMIC now automatically constraints number of channels, so no need for two separate files
+* rewrote some files to make use of conditional syntax
 
-A bunch of fixes, including a big batch for the Intel AVS driver, and
-one new device ID.  It's all device specific.
-
-----------------------------------------------------------------
-Amadeusz Sławiński (2):
-      ASoC: Intel: avs: Fix paths in MODULE_FIRMWARE hints
-      ASoC: Intel: avs: boards: Fix rt5663 front end name
-
-Bram Vlerick (2):
-      ASoC: tas571x: add separate tas5733 controls
-      ASoC: tas571x: fix tas5733 num_controls
-
-Cezary Rojewski (9):
-      ASoC: codecs: hda: Fix RPM usage count underflow
-      ASoC: Intel: avs: Fix deadlock when the failing IPC is SET_D0IX
-      ASoC: Intel: avs: Fix PPLCxFMT calculation
-      ASoC: Intel: avs: Fix possible null-ptr-deref when initing hw
-      ASoC: Intel: avs: Verify kcalloc() status when setting constraints
-      ASoC: Intel: avs: Verify content returned by parse_int_array()
-      ASoC: Intel: avs: Include missing string.h
-      ASoC: pcm: Do not open FEs with no BEs connected
-      ASoC: Intel: avs: Simplify verification of parse_int_array() result
-
-Jaroslav Kysela (2):
-      firmware: cs_dsp: Fix OOB memory read access in KUnit test (wmfw info)
-      firmware: cs_dsp: Fix OOB memory read access in KUnit test (ctl cache)
-
-Krzysztof Kozlowski (3):
-      ASoC: codecs: wcd9335: Fix missing free of regulator supplies
-      ASoC: codecs: wcd937x: Drop unused buck_supply
-      ASoC: codecs: wcd9375: Fix double free of regulator supplies
-
-Mark Brown (2):
-      ASoC: codecs: wcd93xx: Few regulator supplies fixes
-      ASoC: Intel: avs: Set of functional fixes
-
-Qasim Ijaz (1):
-      ASoC: codecs: fix out-of-bounds access on invalid clock config
-
-Shuming Fan (1):
-      ASoC: rt1320: fix speaker noise when volume bar is 100%
-
-Yuuki NAGAO (1):
-      ASoC: ti: omap-hdmi: Re-add dai_link->platform to fix card init
-
-meowmeowbeanz (1):
-      ASoC: amd: yc: Add support for Lenovo Yoga 7 16ARP8
-
- drivers/firmware/cirrus/test/cs_dsp_mock_wmfw.c    |  3 +-
- .../cirrus/test/cs_dsp_test_control_cache.c        |  1 -
- sound/soc/amd/yc/acp6x-mach.c                      |  7 +++
- sound/soc/codecs/es8375.c                          |  1 +
- sound/soc/codecs/hda.c                             |  4 +-
- sound/soc/codecs/rt1320-sdw.c                      | 17 +++++-
- sound/soc/codecs/tas571x.c                         | 67 +++++++++++++++++++++-
- sound/soc/codecs/tas571x.h                         | 34 +++++++++++
- sound/soc/codecs/wcd9335.c                         | 25 +++-----
- sound/soc/codecs/wcd937x.c                         |  7 +--
- sound/soc/intel/avs/board_selection.c              |  2 +-
- sound/soc/intel/avs/boards/rt5663.c                |  2 +-
- sound/soc/intel/avs/core.c                         | 20 +++----
- sound/soc/intel/avs/debugfs.c                      | 12 ++--
- sound/soc/intel/avs/ipc.c                          |  4 +-
- sound/soc/intel/avs/loader.c                       |  1 +
- sound/soc/intel/avs/path.c                         |  2 +
- sound/soc/intel/avs/pcm.c                          | 13 ++---
- sound/soc/soc-pcm.c                                | 23 ++++----
- sound/soc/ti/omap-hdmi.c                           |  7 ++-
- 20 files changed, 184 insertions(+), 68 deletions(-)
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/571
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/571.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

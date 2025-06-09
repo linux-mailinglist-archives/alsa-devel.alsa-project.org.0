@@ -2,90 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3AA0AD1730
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jun 2025 04:52:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4946BAD1950
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jun 2025 09:51:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9899B601FC;
-	Mon,  9 Jun 2025 04:52:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9899B601FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 809A46018A;
+	Mon,  9 Jun 2025 09:50:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 809A46018A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1749437537;
-	bh=VYoT670TJsnVTvEQzUtCn0lO/9G1UORjQ8W6EV8wX/o=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=X0M1YQwYEE0XdPtaYSRdYDprrXJaZlXSTSQMv8OOvvByftlyJ57TGDzvUUcoqli7O
-	 aX8nmakSdy/435LFFYH0GV3n50wgzAyQ4t1dHaQeOVxYVw8Plywqh/iQcP1Uw8nJRS
-	 j3Xf3qLpo13PpLYc2KOnDDf2m5RanQLMzTlPvTVM=
+	s=default; t=1749455469;
+	bh=VzgaAo83KGzaU5ZuakpXRFzCoWnX8INmaPf4LX4LN5g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=vPCuBgj2Ne/mIj2HaLPWgmFebvMHEKJ+pQtUE+jGbipQVe2y9MScfMvaQowfMhrE4
+	 oNz2Sv45CXOrhicCWgI7sk7PhjBVCeMwlDW388DxJq4x0DFjav2i48PLzhUX7JKinL
+	 ekGGvW3iFfZ3eVxskJpQJA7cVL0x+RVt1raFcG1A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C235F805C8; Mon,  9 Jun 2025 04:51:40 +0200 (CEST)
+	id 029F2F805C3; Mon,  9 Jun 2025 09:50:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3025F805C2;
-	Mon,  9 Jun 2025 04:51:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE7D4F805B3;
+	Mon,  9 Jun 2025 09:50:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86BF0F8049C; Mon,  9 Jun 2025 04:51:37 +0200 (CEST)
+	id 3C111F8049C; Mon,  9 Jun 2025 09:50:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0135F801F7
-	for <alsa-devel@alsa-project.org>; Mon,  9 Jun 2025 04:51:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0135F801F7
+	by alsa1.perex.cz (Postfix) with ESMTPS id 86BAAF801F7
+	for <alsa-devel@alsa-project.org>; Mon,  9 Jun 2025 09:50:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86BAAF801F7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=e40sBcvc
-Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
-	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 5592pRC9670443;
-	Sun, 8 Jun 2025 21:51:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1749437487;
-	bh=LkQkT+4I/VfRBh8xB9FA+9eo6P9+4MLSefFU2BeWUAE=;
-	h=From:To:CC:Subject:Date;
-	b=e40sBcvc+2kynMNSUuR+FObaBEbwIBwMk35xOJbWSZy7bHfNEpQv5iHzR+rQQ+55j
-	 Q3/i6Bkj1g9EZl+wlEUHnhZJvMarQ9qcrrwOxfg8j1xyd4ys9WmACUY2OcNn5fzsci
-	 BF9Z/TaRpYwiv5Sh/ZJPnvdS6e4+fhGAO7okpkaQ=
-Received: from DLEE101.ent.ti.com (dlee101.ent.ti.com [157.170.170.31])
-	by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 5592pRIv3935103
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Sun, 8 Jun 2025 21:51:27 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE101.ent.ti.com
- (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Sun, 8
- Jun 2025 21:51:27 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Sun, 8 Jun 2025 21:51:26 -0500
-Received: from LT5CG31242FY.dhcp.ti.com (lt5cg31242fy.dhcp.ti.com
- [10.85.14.55])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 5592pNTk550549;
-	Sun, 8 Jun 2025 21:51:24 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <tiwai@suse.de>,
-        <13916275206@139.com>, <13564923607@139.com>,
-        <alsa-devel@alsa-project.org>, <baojun.xu@ti.com>, <jesse-ji@ti.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [RESEND PATCH v1] ASoC: tas2781: Drop the unnecessary symbol imply
-Date: Mon, 9 Jun 2025 10:51:20 +0800
-Message-ID: <20250609025120.782-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Message-ID-Hash: 7UUFQOUUISZEEW6XPDONGDDQPFKP5F5T
-X-Message-ID-Hash: 7UUFQOUUISZEEW6XPDONGDDQPFKP5F5T
-X-MailFrom: shenghao-ding@ti.com
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=Z3Npbeah;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=RRCqypLW;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Z3Npbeah;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=RRCqypLW
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9092C21190;
+	Mon,  9 Jun 2025 07:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1749455425;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+l/DpDgLJJI3yYllWX98p7zZsbjEpFjKDookGd3rOPg=;
+	b=Z3NpbeahU8YinUHBwGKQ2k/kQSKJqB8rqlq9uMZJrlJ07c31i+DV7n+/EtqInb16o5rFFQ
+	EYThF0+zlA9H47EDAipXODyxdcHUAwWIcaoUcYMesTUT1CLMcJaKUAy8Jb6IY63poeTXRY
+	uLq2RnQIzuaPDtQhopTMkoH6eTdDRsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1749455425;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+l/DpDgLJJI3yYllWX98p7zZsbjEpFjKDookGd3rOPg=;
+	b=RRCqypLWs40Z7uh2wbDPsyI1ThdLY/RCCjrocF4Xbh5Eq4IHZcEhl0ib95QPcDyGdWuAuV
+	OBEkeDrs/CJHOJDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1749455425;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+l/DpDgLJJI3yYllWX98p7zZsbjEpFjKDookGd3rOPg=;
+	b=Z3NpbeahU8YinUHBwGKQ2k/kQSKJqB8rqlq9uMZJrlJ07c31i+DV7n+/EtqInb16o5rFFQ
+	EYThF0+zlA9H47EDAipXODyxdcHUAwWIcaoUcYMesTUT1CLMcJaKUAy8Jb6IY63poeTXRY
+	uLq2RnQIzuaPDtQhopTMkoH6eTdDRsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1749455425;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+l/DpDgLJJI3yYllWX98p7zZsbjEpFjKDookGd3rOPg=;
+	b=RRCqypLWs40Z7uh2wbDPsyI1ThdLY/RCCjrocF4Xbh5Eq4IHZcEhl0ib95QPcDyGdWuAuV
+	OBEkeDrs/CJHOJDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3E87813A1D;
+	Mon,  9 Jun 2025 07:50:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zlERDkGSRmj7fQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 09 Jun 2025 07:50:25 +0000
+Date: Mon, 09 Jun 2025 09:50:24 +0200
+Message-ID: <878qm18ibj.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Baojun Xu <baojun.xu@ti.com>
+Cc: <broonie@kernel.org>,
+	<andriy.shevchenko@linux.intel.com>,
+	<alsa-devel@alsa-project.org>,
+	<shenghao-ding@ti.com>,
+	<navada@ti.com>,
+	<13916275206@139.com>,
+	<v-hampiholi@ti.com>,
+	<v-po@ti.com>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] ALSA: hda/tas2781: Add missed brace and hardware id
+ re-order
+In-Reply-To: <20250602015809.20344-1-baojun.xu@ti.com>
+References: <20250602015809.20344-1-baojun.xu@ti.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[139.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,alsa-project.org,ti.com,139.com,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	URIBL_BLOCKED(0.00)[ti.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+Message-ID-Hash: GNDJQFRMGT47Q6FAYV26ARSBX5LUW52F
+X-Message-ID-Hash: GNDJQFRMGT47Q6FAYV26ARSBX5LUW52F
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +165,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7UUFQOUUISZEEW6XPDONGDDQPFKP5F5T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GNDJQFRMGT47Q6FAYV26ARSBX5LUW52F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,30 +174,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The unnecessary symbols for imply are SND_SOC_TAS2781_COMLIB,
-SND_SOC_TAS2781_COMLIB_I2C, and SND_SOC_TAS2781_FMWLIB. They all used for
-library compiling. All the symbols in the imply are used for codec driver
-compiling.
+On Mon, 02 Jun 2025 03:58:09 +0200,
+Baojun Xu wrote:
+> 
+> This patch is do code clean and prepare for next patch,
+> which is relative with hardware id.
+> 
+> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
----
- sound/soc/codecs/Kconfig | 3 ---
- 1 file changed, 3 deletions(-)
+Merged to for-next branch now.  Thanks.
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 8fe795504dbb..0e70064bc90c 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -262,9 +262,6 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_TAS2764
- 	imply SND_SOC_TAS2770
- 	imply SND_SOC_TAS2780
--	imply SND_SOC_TAS2781_COMLIB
--	imply SND_SOC_TAS2781_COMLIB_I2C
--	imply SND_SOC_TAS2781_FMWLIB
- 	imply SND_SOC_TAS2781_I2C
- 	imply SND_SOC_TAS5086
- 	imply SND_SOC_TAS571X
--- 
-2.43.0
 
+Takashi

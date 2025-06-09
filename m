@@ -2,90 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70673AD2851
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jun 2025 23:01:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D448EAD29DB
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Jun 2025 00:53:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6EEB601E8;
-	Mon,  9 Jun 2025 23:01:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6EEB601E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8E4C60199;
+	Tue, 10 Jun 2025 00:53:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8E4C60199
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1749502885;
-	bh=zqrMe1sn7XHdZVE7LCOKTyfEo8TpwJkf0G8jdLXjznM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=MV1QYCZp7ET3ACM+BBGFSDbLeQT17bo6yU03pHyeKn3TSajUTQXNDoTuHtckzmeUH
-	 mXJDKknjEIgFomUcleMh5k3EGY6ldlAQW1SJTAE/XLcPolwFvOOZanDiIYu1EeGpQK
-	 Yl2UV0AkoXiPV2yicJUj/HGxpWOA86F6K/+XBy60=
+	s=default; t=1749509632;
+	bh=dtqVLHodWd2MyMx4kp2rSNOmUMwd734aSgLfp3td8EE=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=h/l+vN+JpMbNJQCyip+FR3errURK/qnyfnXIVma3Qh2oxLTjfwiZ0LFXUnEpXOXUP
+	 ZAorTekKqNKXkCY1/Vci0G9dMCqJ/oqCTzyr45NHIgu/lPnUaNV/UUETtZOBDEertt
+	 vR5cV9uUCcVtg4zOFHTn4KDDice0eQbvOR8McYsA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFA8AF805E9; Mon,  9 Jun 2025 23:00:43 +0200 (CEST)
+	id 9A06CF8025F; Tue, 10 Jun 2025 00:53:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E205AF805E9;
-	Mon,  9 Jun 2025 23:00:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77DE6F805C1;
+	Tue, 10 Jun 2025 00:53:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D14FF805D4; Mon,  9 Jun 2025 23:00:41 +0200 (CEST)
+	id B50CDF804B2; Tue, 10 Jun 2025 00:53:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4C22F805CB
-	for <alsa-devel@alsa-project.org>; Mon,  9 Jun 2025 23:00:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4C22F805CB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 41C13F801F7
+	for <alsa-devel@alsa-project.org>; Tue, 10 Jun 2025 00:53:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41C13F801F7
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KUPkIIyl
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 117404A7E5;
-	Mon,  9 Jun 2025 21:00:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CCE7C4CEEF;
-	Mon,  9 Jun 2025 21:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749502837;
-	bh=zqrMe1sn7XHdZVE7LCOKTyfEo8TpwJkf0G8jdLXjznM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=KUPkIIyla7GStsdPfBCxwIp7zBZcKRNwfODNlQP68t8IhkD9BJKZ/FiALoJXLptA6
-	 +4cyStfaNISmp5STLNwFyfFhjYJH1rquAxXNX14e3H6tvnpAZFiABYqTQP8bSiS7MJ
-	 rpWpypO876E76VkRrsw7JsYtTX6wdnKcNgufLrihS79RAdwlqR3JCmnsA8e5bUXTLL
-	 azPyyEnaolGGbuJ/zdKLQXs6qnFq9uYe0R97005Wzen8+drUcMFB7JDwTuHh3Pb3bS
-	 mHmrxFYWBE1I1wwPpKe1KksyymrYu/vxQflKfBGGN4M3yzTzaCvO3jA3/4TxcZY6gF
-	 KXEXe/XveO+Ow==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <20250507-fp5-dp-sound-v4-0-4098e918a29e@fairphone.com>
-References: <20250507-fp5-dp-sound-v4-0-4098e918a29e@fairphone.com>
-Subject: Re: (subset) [PATCH v4 0/5] Add DisplayPort sound support for
- Fairphone 5 smartphone
-Message-Id: <174950283411.277844.1603420608213566024.b4-ty@kernel.org>
-Date: Mon, 09 Jun 2025 22:00:34 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=k/ovpG8Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1749509592; x=1781045592;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=dtqVLHodWd2MyMx4kp2rSNOmUMwd734aSgLfp3td8EE=;
+  b=k/ovpG8YwdDUVZaV0yyT/zyLofxiV1ck+0mRuJURGsw0tYAZoJaK1UJ+
+   /b4DfvbFceOwyh8NQppVkTsoPHNvih+VSB0xDhyb/KXYAMwhi5Ki4FGJD
+   BDrKwX2jC1sOY8/zqyF+UAoUIckk77pvMJ8MVymggqj6bA0+VILiicTfa
+   xe+SvyxWf9U2eQisJGEGnFk2wZC5a5uwMOvpQUykSOQzk6/Q3bbx24xcr
+   TwLIoJKLrKBP9CvxiGtsopLvMdrXfse2aeABdsvHhdU9vGRZoGLriq7wr
+   L8dIXlxUMiROZFjvOvy/tEC4z9ohpCFRgjrde6obIBPFsTeZfP85Gurgu
+   w==;
+X-CSE-ConnectionGUID: UIRHNlKbTCim1Cvrr21oMg==
+X-CSE-MsgGUID: pbQoMOrnRwCjZtGVexJ1Fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11459"; a="51512341"
+X-IronPort-AV: E=Sophos;i="6.16,223,1744095600";
+   d="scan'208";a="51512341"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2025 15:53:07 -0700
+X-CSE-ConnectionGUID: rybRjhzLQZa7KA5ZM+mmUQ==
+X-CSE-MsgGUID: cpc7LG0IQhuQ2P+gdfT87g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,223,1744095600";
+   d="scan'208";a="146561811"
+Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 09 Jun 2025 15:53:06 -0700
+Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1uOlMW-0007U7-00;
+	Mon, 09 Jun 2025 22:53:04 +0000
+Date: Tue, 10 Jun 2025 06:52:14 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lucy Thrun <lucy.thrun@digital-rabbithole.de>
+Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [tiwai-sound:for-next 12/13] sound/pci/hda/patch_ca0132.c:4413:27:
+ warning: '%s' directive writing up to 767 bytes into a region of size 44
+Message-ID: <202506100642.95jpuMY1-lkp@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-c25d1
-Message-ID-Hash: JRAQKFBKUHEGGUOHPD23YGLTCYWWPOHL
-X-Message-ID-Hash: JRAQKFBKUHEGGUOHPD23YGLTCYWWPOHL
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Message-ID-Hash: 76IKR4V6PUHN2DVZZLU4QWDD3YYALBK6
+X-Message-ID-Hash: 76IKR4V6PUHN2DVZZLU4QWDD3YYALBK6
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JRAQKFBKUHEGGUOHPD23YGLTCYWWPOHL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76IKR4V6PUHN2DVZZLU4QWDD3YYALBK6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,51 +108,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 07 May 2025 10:01:36 +0200, Luca Weiss wrote:
-> Add the necessary sound card bits and some dts additions to enable sound
-> over DisplayPort-over-USB-C, e.g. to a connected TV or monitor.
-> 
-> The UCM files can be found here:
-> https://gitlab.postmarketos.org/postmarketOS/pmaports/-/tree/master/device/testing/device-fairphone-fp5/ucm
-> 
-> This series - in spirit - depends on the series enabling DisplayPort in
-> the first place, but can land pretty independently, especially the ASoC
-> bits:
-> https://lore.kernel.org/linux-arm-msm/20250312-fp5-pmic-glink-dp-v2-0-a55927749d77@fairphone.com/
-> 
-> [...]
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+head:   92f59aeb13252265c20e7aef1379a8080c57e0a2
+commit: ed57a3d5a3118b9681de607692608fe573c5959d [12/13] ALSA: hda/ca0132: Enable hardware band EQ for Sound Blaster Core3D
+config: parisc-allyesconfig (https://download.01.org/0day-ci/archive/20250610/202506100642.95jpuMY1-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 15.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250610/202506100642.95jpuMY1-lkp@intel.com/reproduce)
 
-Applied to
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202506100642.95jpuMY1-lkp@intel.com/
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+All warnings (new ones prefixed by >>):
 
-Thanks!
+   sound/pci/hda/patch_ca0132.c: In function 'ca0132_build_controls':
+>> sound/pci/hda/patch_ca0132.c:4413:27: warning: '%s' directive writing up to 767 bytes into a region of size 44 [-Wformat-overflow=]
+    4413 |         sprintf(namestr, "%s %s Volume", name, dirstr[dir]);
+         |                           ^~
+   In function 'add_tuning_control',
+       inlined from 'add_tuning_ctls' at sound/pci/hda/patch_ca0132.c:4423:9,
+       inlined from 'ca0132_build_controls' at sound/pci/hda/patch_ca0132.c:7195:2:
+   sound/pci/hda/patch_ca0132.c:4413:9: note: 'sprintf' output 9 or more bytes (assuming 776) into a destination of size 44
+    4413 |         sprintf(namestr, "%s %s Volume", name, dirstr[dir]);
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[1/5] ASoC: dt-bindings: qcom,sm8250: Add Fairphone 5 sound card
-      (no commit info)
-[2/5] ASoC: qcom: sm8250: set card driver name from match data
-      commit: c4b79a2fbfb28308e958e4ffdd988f3cf678fe2a
-[3/5] ASoC: qcom: sm8250: add DisplayPort Jack support
-      commit: ed82808c6a0f333e51fee4e97cbe8e0189b7f354
-[4/5] ASoC: qcom: sm8250: Add Fairphone 5 soundcard compatible
-      commit: e6e8897995a9e6028563ce36c27877e5478c8571
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+vim +4413 sound/pci/hda/patch_ca0132.c
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+44f0c9782cc6ab Ian Minett   2012-12-20  4376  
+44f0c9782cc6ab Ian Minett   2012-12-20  4377  static int add_tuning_control(struct hda_codec *codec,
+44f0c9782cc6ab Ian Minett   2012-12-20  4378  				hda_nid_t pnid, hda_nid_t nid,
+44f0c9782cc6ab Ian Minett   2012-12-20  4379  				const char *name, int dir)
+44f0c9782cc6ab Ian Minett   2012-12-20  4380  {
+975cc02a904ae3 Takashi Iwai 2013-06-28  4381  	char namestr[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+44f0c9782cc6ab Ian Minett   2012-12-20  4382  	int type = dir ? HDA_INPUT : HDA_OUTPUT;
+44f0c9782cc6ab Ian Minett   2012-12-20  4383  	struct snd_kcontrol_new knew =
+44f0c9782cc6ab Ian Minett   2012-12-20  4384  		HDA_CODEC_VOLUME_MONO(namestr, nid, 1, 0, type);
+44f0c9782cc6ab Ian Minett   2012-12-20  4385  
+44f0c9782cc6ab Ian Minett   2012-12-20  4386  	knew.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
+44f0c9782cc6ab Ian Minett   2012-12-20  4387  			SNDRV_CTL_ELEM_ACCESS_TLV_READ;
+44f0c9782cc6ab Ian Minett   2012-12-20  4388  	knew.tlv.c = 0;
+44f0c9782cc6ab Ian Minett   2012-12-20  4389  	knew.tlv.p = 0;
+44f0c9782cc6ab Ian Minett   2012-12-20  4390  	switch (pnid) {
+44f0c9782cc6ab Ian Minett   2012-12-20  4391  	case VOICE_FOCUS:
+44f0c9782cc6ab Ian Minett   2012-12-20  4392  		knew.info = voice_focus_ctl_info;
+44f0c9782cc6ab Ian Minett   2012-12-20  4393  		knew.get = tuning_ctl_get;
+44f0c9782cc6ab Ian Minett   2012-12-20  4394  		knew.put = voice_focus_ctl_put;
+44f0c9782cc6ab Ian Minett   2012-12-20  4395  		knew.tlv.p = voice_focus_db_scale;
+44f0c9782cc6ab Ian Minett   2012-12-20  4396  		break;
+44f0c9782cc6ab Ian Minett   2012-12-20  4397  	case MIC_SVM:
+44f0c9782cc6ab Ian Minett   2012-12-20  4398  		knew.info = mic_svm_ctl_info;
+44f0c9782cc6ab Ian Minett   2012-12-20  4399  		knew.get = tuning_ctl_get;
+44f0c9782cc6ab Ian Minett   2012-12-20  4400  		knew.put = mic_svm_ctl_put;
+44f0c9782cc6ab Ian Minett   2012-12-20  4401  		break;
+44f0c9782cc6ab Ian Minett   2012-12-20  4402  	case EQUALIZER:
+44f0c9782cc6ab Ian Minett   2012-12-20  4403  		knew.info = equalizer_ctl_info;
+44f0c9782cc6ab Ian Minett   2012-12-20  4404  		knew.get = tuning_ctl_get;
+44f0c9782cc6ab Ian Minett   2012-12-20  4405  		knew.put = equalizer_ctl_put;
+44f0c9782cc6ab Ian Minett   2012-12-20  4406  		knew.tlv.p = eq_db_scale;
+44f0c9782cc6ab Ian Minett   2012-12-20  4407  		break;
+44f0c9782cc6ab Ian Minett   2012-12-20  4408  	default:
+44f0c9782cc6ab Ian Minett   2012-12-20  4409  		return 0;
+44f0c9782cc6ab Ian Minett   2012-12-20  4410  	}
+44f0c9782cc6ab Ian Minett   2012-12-20  4411  	knew.private_value =
+44f0c9782cc6ab Ian Minett   2012-12-20  4412  		HDA_COMPOSE_AMP_VAL(nid, 1, 0, type);
+44f0c9782cc6ab Ian Minett   2012-12-20 @4413  	sprintf(namestr, "%s %s Volume", name, dirstr[dir]);
+44f0c9782cc6ab Ian Minett   2012-12-20  4414  	return snd_hda_ctl_add(codec, nid, snd_ctl_new1(&knew, codec));
+44f0c9782cc6ab Ian Minett   2012-12-20  4415  }
+44f0c9782cc6ab Ian Minett   2012-12-20  4416  
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+:::::: The code at line 4413 was first introduced by commit
+:::::: 44f0c9782cc6ab71ea947f8f710a46f2078a151c ALSA: hda/ca0132: Add tuning controls
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+:::::: TO: Ian Minett <ian_minett@creativelabs.com>
+:::::: CC: Takashi Iwai <tiwai@suse.de>
 
-Thanks,
-Mark
-
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

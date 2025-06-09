@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E5DAD284B
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jun 2025 23:01:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70673AD2851
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jun 2025 23:01:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1CDC601BE;
-	Mon,  9 Jun 2025 23:00:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1CDC601BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6EEB601E8;
+	Mon,  9 Jun 2025 23:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6EEB601E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1749502859;
-	bh=rb09KVoRgPYdj7QLHoMRO84NfQkj5PkMlvENQEQzbWI=;
+	s=default; t=1749502885;
+	bh=zqrMe1sn7XHdZVE7LCOKTyfEo8TpwJkf0G8jdLXjznM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JZ0yEQSpUN+cRCUe34wSezMQ0DTx1Muv1Ky86qxqFq6LugeRd572qOD25V7FLDbkB
-	 JW5mjY/h3nkcfyPPjv+Wh9xdUvMxxmxFeaysWLt2dv3I8hnL2PKcfUT0A5+pJn4HLD
-	 j9fWufs9TKbqTYddKUdhESYM3WyLObDtHUvetXCM=
+	b=MV1QYCZp7ET3ACM+BBGFSDbLeQT17bo6yU03pHyeKn3TSajUTQXNDoTuHtckzmeUH
+	 mXJDKknjEIgFomUcleMh5k3EGY6ldlAQW1SJTAE/XLcPolwFvOOZanDiIYu1EeGpQK
+	 Yl2UV0AkoXiPV2yicJUj/HGxpWOA86F6K/+XBy60=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 948C9F805BD; Mon,  9 Jun 2025 23:00:37 +0200 (CEST)
+	id EFA8AF805E9; Mon,  9 Jun 2025 23:00:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 834F4F805C1;
-	Mon,  9 Jun 2025 23:00:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E205AF805E9;
+	Mon,  9 Jun 2025 23:00:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E438EF8049C; Mon,  9 Jun 2025 23:00:34 +0200 (CEST)
+	id 4D14FF805D4; Mon,  9 Jun 2025 23:00:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -35,31 +35,30 @@ X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 Received: from sea.source.kernel.org (sea.source.kernel.org
  [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7048F800D2
-	for <alsa-devel@alsa-project.org>; Mon,  9 Jun 2025 23:00:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7048F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id A4C22F805CB
+	for <alsa-devel@alsa-project.org>; Mon,  9 Jun 2025 23:00:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4C22F805CB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mzdhq/p/
+ header.s=k20201202 header.b=KUPkIIyl
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 9CAED42B7D;
-	Mon,  9 Jun 2025 21:00:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E586FC4CEEB;
-	Mon,  9 Jun 2025 21:00:25 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 117404A7E5;
+	Mon,  9 Jun 2025 21:00:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CCE7C4CEEF;
+	Mon,  9 Jun 2025 21:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749502829;
-	bh=rb09KVoRgPYdj7QLHoMRO84NfQkj5PkMlvENQEQzbWI=;
+	s=k20201202; t=1749502837;
+	bh=zqrMe1sn7XHdZVE7LCOKTyfEo8TpwJkf0G8jdLXjznM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=mzdhq/p/RMyPKICk+fpJ9eilkpF/nrEslcUp1ALKCKkfXoYpS6KLl907F41xBMv6f
-	 N1QepH13c/7A+qaST6XX9eekxghPv4vWMw8KJswYcBTDDxitumeFJdefSSzCgJJx6a
-	 R0wPVE8vRsyekCgxSmbJbzB5qPVSMpyIDMLkH6hpVB1MhXoKKtv6sn+AFQ1od4ZrDQ
-	 6j4Vc0fmoAGObXjw+fNvDfIKiYKAfSOJygYtBFw6mmGAijghElyqg6dd4yHrK4RXym
-	 XkS3JdPCSx/g/gjmR72DVYyk4Sj80QQrDwACFymmg1RU12n03tDOFpL0oLOXYzCgx7
-	 cg9vZIB5qRJxw==
+	b=KUPkIIyla7GStsdPfBCxwIp7zBZcKRNwfODNlQP68t8IhkD9BJKZ/FiALoJXLptA6
+	 +4cyStfaNISmp5STLNwFyfFhjYJH1rquAxXNX14e3H6tvnpAZFiABYqTQP8bSiS7MJ
+	 rpWpypO876E76VkRrsw7JsYtTX6wdnKcNgufLrihS79RAdwlqR3JCmnsA8e5bUXTLL
+	 azPyyEnaolGGbuJ/zdKLQXs6qnFq9uYe0R97005Wzen8+drUcMFB7JDwTuHh3Pb3bS
+	 mHmrxFYWBE1I1wwPpKe1KksyymrYu/vxQflKfBGGN4M3yzTzaCvO3jA3/4TxcZY6gF
+	 KXEXe/XveO+Ow==
 From: Mark Brown <broonie@kernel.org>
 To: Srinivas Kandagatla <srini@kernel.org>,
  Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -74,18 +73,18 @@ Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
  linux-kernel@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <20250425-fp5-dp-sound-v3-0-7cb45180091b@fairphone.com>
-References: <20250425-fp5-dp-sound-v3-0-7cb45180091b@fairphone.com>
-Subject: Re: (subset) [PATCH v3 0/5] Add DisplayPort sound support for
+In-Reply-To: <20250507-fp5-dp-sound-v4-0-4098e918a29e@fairphone.com>
+References: <20250507-fp5-dp-sound-v4-0-4098e918a29e@fairphone.com>
+Subject: Re: (subset) [PATCH v4 0/5] Add DisplayPort sound support for
  Fairphone 5 smartphone
-Message-Id: <174950282564.277844.4634804513095204160.b4-ty@kernel.org>
-Date: Mon, 09 Jun 2025 22:00:25 +0100
+Message-Id: <174950283411.277844.1603420608213566024.b4-ty@kernel.org>
+Date: Mon, 09 Jun 2025 22:00:34 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-c25d1
-Message-ID-Hash: R6RPDYX6VDNGZLQPA2MYDEIS67CAOAAJ
-X-Message-ID-Hash: R6RPDYX6VDNGZLQPA2MYDEIS67CAOAAJ
+Message-ID-Hash: JRAQKFBKUHEGGUOHPD23YGLTCYWWPOHL
+X-Message-ID-Hash: JRAQKFBKUHEGGUOHPD23YGLTCYWWPOHL
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R6RPDYX6VDNGZLQPA2MYDEIS67CAOAAJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JRAQKFBKUHEGGUOHPD23YGLTCYWWPOHL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,7 +106,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 25 Apr 2025 10:07:24 +0200, Luca Weiss wrote:
+On Wed, 07 May 2025 10:01:36 +0200, Luca Weiss wrote:
 > Add the necessary sound card bits and some dts additions to enable sound
 > over DisplayPort-over-USB-C, e.g. to a connected TV or monitor.
 > 

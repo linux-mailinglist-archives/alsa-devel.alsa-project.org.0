@@ -2,88 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5F2DAD22A3
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jun 2025 17:40:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36E5DAD284B
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Jun 2025 23:01:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 02C53601F6;
-	Mon,  9 Jun 2025 17:40:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02C53601F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1CDC601BE;
+	Mon,  9 Jun 2025 23:00:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1CDC601BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1749483642;
-	bh=79i4R9SAD/alYf7WTzRlygyu10EANW52xvy2M/Do+QY=;
+	s=default; t=1749502859;
+	bh=rb09KVoRgPYdj7QLHoMRO84NfQkj5PkMlvENQEQzbWI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rQ0iC/Axw9orOpKoqTnNSCCCOFhFij54BS2lfuvbJ8Dz3Dy2FftBBFwPYlr+LK7Uf
-	 a3WJB0FjTmqo4suD8D6oqtd2ZKq2+zvVsbgNAQ6+tWmWfOgC50BkmD/mRbvdKaqaw1
-	 lIFon7/WRpkteImDs+DvtVOSi7q6Z+ZlhuarhdbI=
+	b=JZ0yEQSpUN+cRCUe34wSezMQ0DTx1Muv1Ky86qxqFq6LugeRd572qOD25V7FLDbkB
+	 JW5mjY/h3nkcfyPPjv+Wh9xdUvMxxmxFeaysWLt2dv3I8hnL2PKcfUT0A5+pJn4HLD
+	 j9fWufs9TKbqTYddKUdhESYM3WyLObDtHUvetXCM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84DB0F805C2; Mon,  9 Jun 2025 17:40:08 +0200 (CEST)
+	id 948C9F805BD; Mon,  9 Jun 2025 23:00:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77564F805BE;
-	Mon,  9 Jun 2025 17:40:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 834F4F805C1;
+	Mon,  9 Jun 2025 23:00:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5EAEFF8049C; Mon,  9 Jun 2025 17:40:05 +0200 (CEST)
+	id E438EF8049C; Mon,  9 Jun 2025 23:00:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8E2CFF801F7
-	for <alsa-devel@alsa-project.org>; Mon,  9 Jun 2025 17:40:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E2CFF801F7
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7048F800D2
+	for <alsa-devel@alsa-project.org>; Mon,  9 Jun 2025 23:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7048F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=jkd8Z7hy
+ header.s=k20201202 header.b=mzdhq/p/
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 3146D629DF;
-	Mon,  9 Jun 2025 15:40:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77850C4CEEF;
-	Mon,  9 Jun 2025 15:39:58 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 9CAED42B7D;
+	Mon,  9 Jun 2025 21:00:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E586FC4CEEB;
+	Mon,  9 Jun 2025 21:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749483600;
-	bh=79i4R9SAD/alYf7WTzRlygyu10EANW52xvy2M/Do+QY=;
+	s=k20201202; t=1749502829;
+	bh=rb09KVoRgPYdj7QLHoMRO84NfQkj5PkMlvENQEQzbWI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=jkd8Z7hy9VcKFGVF/k3GMiuZNhA8hpfqrTKYXXW9Je8G7+feslv2lSkbwsZS8sFn5
-	 QHkWbADZUD9XV/luyZa1vbkWCt1YTgW7akHYZKWDy1u9qBHveFledA9n37B2QONLhc
-	 ZktHqXIL8WQg79ILLwbsqsTpd6QbQQChORr4D2Z059wold8li4fSPKbQ43s6UTBLk5
-	 upjF0NTuViNfBiXpLY8YpDs6hSLQJduk5+MecH8Rn1R99xoBKCITYInJG2v8E0UW5V
-	 wy4Iuom04TDjcvXLP3bV1uWBwQmfeOkoAp2zASX1+v/QVpagpQSE8hmgbp72YIZWE5
-	 LwbWi+g1AK2wg==
+	b=mzdhq/p/RMyPKICk+fpJ9eilkpF/nrEslcUp1ALKCKkfXoYpS6KLl907F41xBMv6f
+	 N1QepH13c/7A+qaST6XX9eekxghPv4vWMw8KJswYcBTDDxitumeFJdefSSzCgJJx6a
+	 R0wPVE8vRsyekCgxSmbJbzB5qPVSMpyIDMLkH6hpVB1MhXoKKtv6sn+AFQ1od4ZrDQ
+	 6j4Vc0fmoAGObXjw+fNvDfIKiYKAfSOJygYtBFw6mmGAijghElyqg6dd4yHrK4RXym
+	 XkS3JdPCSx/g/gjmR72DVYyk4Sj80QQrDwACFymmg1RU12n03tDOFpL0oLOXYzCgx7
+	 cg9vZIB5qRJxw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, syed.sabakareem@amd.com,
- mario.limonciello@amd.com, yung-chuan.liao@linux.intel.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20250609121251.639080-1-venkataprasad.potturu@amd.com>
-References: <20250609121251.639080-1-venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH] ASoC: amd: acp: Fix pointer assignments for
- snd_soc_acpi_mach structures
-Message-Id: <174948359821.187608.7932953931685705829.b4-ty@kernel.org>
-Date: Mon, 09 Jun 2025 16:39:58 +0100
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <20250425-fp5-dp-sound-v3-0-7cb45180091b@fairphone.com>
+References: <20250425-fp5-dp-sound-v3-0-7cb45180091b@fairphone.com>
+Subject: Re: (subset) [PATCH v3 0/5] Add DisplayPort sound support for
+ Fairphone 5 smartphone
+Message-Id: <174950282564.277844.4634804513095204160.b4-ty@kernel.org>
+Date: Mon, 09 Jun 2025 22:00:25 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-c25d1
-Message-ID-Hash: WEXFTZZK2SXEGWTZOULQJBUIWDIASM4Z
-X-Message-ID-Hash: WEXFTZZK2SXEGWTZOULQJBUIWDIASM4Z
+Message-ID-Hash: R6RPDYX6VDNGZLQPA2MYDEIS67CAOAAJ
+X-Message-ID-Hash: R6RPDYX6VDNGZLQPA2MYDEIS67CAOAAJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WEXFTZZK2SXEGWTZOULQJBUIWDIASM4Z/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R6RPDYX6VDNGZLQPA2MYDEIS67CAOAAJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,16 +107,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 09 Jun 2025 17:42:32 +0530, Venkata Prasad Potturu wrote:
-> This patch modifies the assignment of machine structure pointers in the
-> acp_pci_probe function. Previously, the machine pointers were assigned
-> using the address-of operator (&), which caused incompatibility issues
-> in type assignments.
+On Fri, 25 Apr 2025 10:07:24 +0200, Luca Weiss wrote:
+> Add the necessary sound card bits and some dts additions to enable sound
+> over DisplayPort-over-USB-C, e.g. to a connected TV or monitor.
 > 
-> Additionally, the declarations of the machine arrays in amd.h have been
-> updated to reflect that they are indeed arrays (`[]`). The code is
-> further cleaned up by declaring the codec structures in
-> amd-acpi-mach.c as static, reflecting their intended usage.
+> The UCM files can be found here:
+> https://gitlab.postmarketos.org/postmarketOS/pmaports/-/tree/master/device/testing/device-fairphone-fp5/ucm
+> 
+> This series - in spirit - depends on the series enabling DisplayPort in
+> the first place, but can land pretty independently, especially the ASoC
+> bits:
+> https://lore.kernel.org/linux-arm-msm/20250312-fp5-pmic-glink-dp-v2-0-a55927749d77@fairphone.com/
 > 
 > [...]
 
@@ -124,8 +127,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: acp: Fix pointer assignments for snd_soc_acpi_mach structures
-      commit: 0779c0ad2a7cc0ae1865860c9bc8732613cc56b1
+[1/5] ASoC: dt-bindings: qcom,sm8250: Add Fairphone 5 sound card
+      (no commit info)
+[2/5] ASoC: qcom: sm8250: set card driver name from match data
+      commit: c4b79a2fbfb28308e958e4ffdd988f3cf678fe2a
+[3/5] ASoC: qcom: sm8250: add DisplayPort Jack support
+      commit: ed82808c6a0f333e51fee4e97cbe8e0189b7f354
+[4/5] ASoC: qcom: sm8250: Add Fairphone 5 soundcard compatible
+      commit: e6e8897995a9e6028563ce36c27877e5478c8571
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

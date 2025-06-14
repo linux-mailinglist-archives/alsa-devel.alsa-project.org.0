@@ -2,164 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D22AD8558
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Jun 2025 10:19:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3F07AD9B10
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Jun 2025 09:59:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DB81601FC;
-	Fri, 13 Jun 2025 10:19:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DB81601FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B770601F9;
+	Sat, 14 Jun 2025 09:58:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B770601F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1749802756;
-	bh=cd1gpcpaehSCiuntUalvhcS4RFUKljD2NHaO+by7EFM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WKA1BZszNU0/4P5l2kGNmf5/4eLVgxs+y0gXvyjHOfRx6AeSaZSD1o7vollsROnVG
-	 9LDtLrG7KysPwWcrSkXydu4vnQIvuXVyikMAO9NNJuWs7g2Y5IVt4xNBxxIeDTf3hN
-	 RQw3utTKziaM5IkaZceNXRDPz++UREHK8Nbh+f5Q=
+	s=default; t=1749887948;
+	bh=6U3LoMMb0zR6bYi8hxmkVXXDtkEle5YjmN8gjnSmyQw=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Dwx/cxbxVxiu3QvEIVpfI+J0mGld8d5DoepY4Yll60pnlencQuD8RuOmmBeCEieV5
+	 XBLQWQupQcDxBpPHyOXr9ATlkYe5eoIpWimcsjRDd5DGDrh7Sg7C6pyvXJ1MX5BIEx
+	 08o9LlD9YE3eQNnI6id44VItcsag1PEvOIClvB3s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3836AF805CB; Fri, 13 Jun 2025 10:18:42 +0200 (CEST)
+	id D041DF805C1; Sat, 14 Jun 2025 09:58:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01C02F800F8;
-	Fri, 13 Jun 2025 10:18:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3782F805B6;
+	Sat, 14 Jun 2025 09:58:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C61DBF80424; Fri, 13 Jun 2025 10:18:37 +0200 (CEST)
+	id 94AF6F802DB; Sat, 14 Jun 2025 09:58:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EE35AF8013D
-	for <alsa-devel@alsa-project.org>; Fri, 13 Jun 2025 10:18:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE35AF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA679F80075
+	for <alsa-devel@alsa-project.org>; Sat, 14 Jun 2025 09:58:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA679F80075
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=f9OuD+eS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=T9hp0W+2;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=KDdbe7kG;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=4kgYUPC1
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id F26D61F78E;
-	Fri, 13 Jun 2025 08:18:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1749802715;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dYngPVyg9qshCZ52yRAqDK8NOAU0EdgeYM1QBPDSvGI=;
-	b=f9OuD+eS0qWOJwIgBRSd7f9w8gkuAivygEdXHg/0M8q78UUz57aOeAcYubT+hRfnF3MkSR
-	vTgfm7SZcLaBqw/llN99+vocOx86xcqKVe90gj8aoCKXkArzLk/6dLp2wn76fWgiTXb4B8
-	QeoA/E47uQP/3GUVDbk8whZoz68PBwk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1749802715;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dYngPVyg9qshCZ52yRAqDK8NOAU0EdgeYM1QBPDSvGI=;
-	b=T9hp0W+2/Ojs0cLZig3umY/6kkhNj7l6kWeSQ9fTvru6O+e6UE0Ja/sLBg0wLOalHP9kdi
-	sE8cV+33eUIbIvDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KDdbe7kG;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=4kgYUPC1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1749802714;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dYngPVyg9qshCZ52yRAqDK8NOAU0EdgeYM1QBPDSvGI=;
-	b=KDdbe7kGKMhPMOximCvmn4oEw+geeg71MDW52G40vn8TNZG7Vu2GDvpSZSaRIFWsVNqzJN
-	0zDg2FAmGCciVI8jLux+Q+i05COZ4LS7QAOzml/LG1eKRLz5jetHPlhlZ1stlHyDN03aQf
-	KbTZAOPpoUS7wDqNDiGakPiVU+RgFvg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1749802714;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dYngPVyg9qshCZ52yRAqDK8NOAU0EdgeYM1QBPDSvGI=;
-	b=4kgYUPC1BDb1jMXwztl2kzx+4j+lwwILOGUwflLIZgfnelgxQlBZnIyqKgXRL9X5dEcU9O
-	ivpFSm6xSTCrkYDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B284913782;
-	Fri, 13 Jun 2025 08:18:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QEg9KtreS2h6JwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 13 Jun 2025 08:18:34 +0000
-Date: Fri, 13 Jun 2025 10:18:34 +0200
-Message-ID: <87o6usrr51.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: wangdicheng <wangdich9700@163.com>
-Cc: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-arm-kernel@lists.infradead.org,
-	wangdicheng <wangdicheng@kylinos.cn>
-Subject: Re: [PATCH] ALSA: usb-audio: Rename ALSA kcontrol PCM and PCM1 for
- the KTMicro sound card
-In-Reply-To: <20250613063636.239683-1-wangdich9700@163.com>
-References: <20250613063636.239683-1-wangdich9700@163.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[163.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,perex.cz,suse.com,vger.kernel.org,alsa-project.org,lists.infradead.org,kylinos.cn];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: F26D61F78E
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: UBDZYXLZ4UJNHIMSJAIJF7B4LMAAJ7BA
-X-Message-ID-Hash: UBDZYXLZ4UJNHIMSJAIJF7B4LMAAJ7BA
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Ba2k/0Ew
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1749887901; x=1781423901;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=6U3LoMMb0zR6bYi8hxmkVXXDtkEle5YjmN8gjnSmyQw=;
+  b=Ba2k/0EwNgfuzniwo+mN41NnA3mTCjJ87Fa11/fGkclAiTJ52RYr5dAa
+   gauM9t/WZP2zmwY8BrfWqIr65JLLOgrGX1ujwVctY88CO4eE5QVHpDWAr
+   Gh4UnXeYaqWPYS23d7V59+0hie4lFrpwUrasRUihLwFVIt7h7kh1uSF1W
+   dFG5VZ5wBfo6dgduRrOff/+DR0qOgSGH4Cg/8KwIhSfYUAeJ16bOQxJx+
+   8R3s7reedWr9Q8FLcy+owqLDyi4Rjp+TwbsHo/Kh/ouKkAI6uY69rkjR2
+   gHcsghk0FqXznKjtX+GWuSJBdU/iR3Hl6r+xgR8peS3IEOr6AYkc4SXOJ
+   w==;
+X-CSE-ConnectionGUID: HlMcgG1JRg6ggzz8FldH+g==
+X-CSE-MsgGUID: 1MJo4oZoS6iIXVDyCx5cVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11463"; a="77494985"
+X-IronPort-AV: E=Sophos;i="6.16,236,1744095600";
+   d="scan'208";a="77494985"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2025 00:58:15 -0700
+X-CSE-ConnectionGUID: VO6EvP6URnyK4mk/c+plGw==
+X-CSE-MsgGUID: R4dUop8NSZW/PUi9Rncqow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,236,1744095600";
+   d="scan'208";a="148490284"
+Received: from lkp-server01.sh.intel.com (HELO e8142ee1dce2) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 14 Jun 2025 00:58:13 -0700
+Received: from kbuild by e8142ee1dce2 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1uQLmF-000DNS-0m;
+	Sat, 14 Jun 2025 07:58:11 +0000
+Date: Sat, 14 Jun 2025 15:57:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jonathan Lane <jon@borg.moe>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
+Subject: [tiwai-sound:for-linus 9/9] sound/pci/hda/patch_realtek.c:10513:2:
+ error: expected '}'
+Message-ID: <202506141519.MH0ZVMNd-lkp@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: AGPRRKJASJKHXL3RYGZXFHUF3DSPFNDA
+X-Message-ID-Hash: AGPRRKJASJKHXL3RYGZXFHUF3DSPFNDA
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -171,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UBDZYXLZ4UJNHIMSJAIJF7B4LMAAJ7BA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AGPRRKJASJKHXL3RYGZXFHUF3DSPFNDA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,16 +110,1028 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 13 Jun 2025 08:36:36 +0200,
-wangdicheng wrote:
-> 
-> From: wangdicheng <wangdicheng@kylinos.cn>
-> 
-> PCM1 not in Pulseaudio's control list;standardize control to "Speaker"and"Headphone"
-> 
-> Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-linus
+head:   203b8652a1642f17d0961b6bf670d19f6e8a3371
+commit: 203b8652a1642f17d0961b6bf670d19f6e8a3371 [9/9] ALSA: hda/realtek: enable headset mic on Latitude 5420 Rugged
+config: i386-buildonly-randconfig-006-20250614 (https://download.01.org/0day-ci/archive/20250614/202506141519.MH0ZVMNd-lkp@intel.com/config)
+compiler: clang version 20.1.2 (https://github.com/llvm/llvm-project 58df0ef89dd64126512e4ee27b4ac3fd8ddf6247)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250614/202506141519.MH0ZVMNd-lkp@intel.com/reproduce)
 
-Thanks, applied now.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202506141519.MH0ZVMNd-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> sound/pci/hda/patch_realtek.c:10513:2: error: expected '}'
+    10513 |         SND_PCI_QUIRK(0x1028, 0x08ad, "Dell WYSE AIO", ALC225_FIXUP_DELL_WYSE_AIO_MIC_NO_PRESENCE),
+          |         ^
+   include/sound/core.h:403:2: note: expanded from macro 'SND_PCI_QUIRK'
+     403 |         {_SND_PCI_QUIRK_ID(vend, dev), .value = (val), .name = (xname)}
+         |         ^
+   sound/pci/hda/patch_realtek.c:10419:52: note: to match this '{'
+    10419 | static const struct hda_quirk alc269_fixup_tbl[] = {
+          |                                                    ^
+   1 error generated.
 
 
-Takashi
+vim +10513 sound/pci/hda/patch_realtek.c
+
+f1d4e28b2dbd35 Kailang Yang                 2008-08-26  10418  
+5b1913a79c3e05 Takashi Iwai                 2024-10-08  10419  static const struct hda_quirk alc269_fixup_tbl[] = {
+a6b92b6650d010 Marius Knaust                2014-03-03  10420  	SND_PCI_QUIRK(0x1025, 0x0283, "Acer TravelMate 8371", ALC269_FIXUP_INV_DMIC),
+693b613dc4657e David Henningsson            2012-06-22  10421  	SND_PCI_QUIRK(0x1025, 0x029b, "Acer 1810TZ", ALC269_FIXUP_INV_DMIC),
+693b613dc4657e David Henningsson            2012-06-22  10422  	SND_PCI_QUIRK(0x1025, 0x0349, "Acer AOD260", ALC269_FIXUP_INV_DMIC),
+aaedfb4761697e David Henningsson            2013-08-16  10423  	SND_PCI_QUIRK(0x1025, 0x047c, "Acer AC700", ALC269_FIXUP_ACER_AC700),
+7819717b11346b Takashi Iwai                 2015-06-27  10424  	SND_PCI_QUIRK(0x1025, 0x072d, "Acer Aspire V5-571G", ALC269_FIXUP_ASPIRE_HEADSET_MIC),
+aaedfb4761697e David Henningsson            2013-08-16  10425  	SND_PCI_QUIRK(0x1025, 0x0740, "Acer AO725", ALC271_FIXUP_HP_GATE_MIC_JACK),
+aaedfb4761697e David Henningsson            2013-08-16  10426  	SND_PCI_QUIRK(0x1025, 0x0742, "Acer AO756", ALC271_FIXUP_HP_GATE_MIC_JACK),
+02322ac9dee9af Simon South                  2016-03-02  10427  	SND_PCI_QUIRK(0x1025, 0x0762, "Acer Aspire E1-472", ALC271_FIXUP_HP_GATE_MIC_JACK_E1_572),
+b1e8972e398aa9 Oleksij Rempel               2013-12-04  10428  	SND_PCI_QUIRK(0x1025, 0x0775, "Acer Aspire E1-572", ALC271_FIXUP_HP_GATE_MIC_JACK_E1_572),
+1a22e7758eabc4 Takashi Iwai                 2014-08-27  10429  	SND_PCI_QUIRK(0x1025, 0x079b, "Acer Aspire V5-573G", ALC282_FIXUP_ASPIRE_V5_PINS),
+433f894ec7fbd3 Takashi Iwai                 2021-04-28  10430  	SND_PCI_QUIRK(0x1025, 0x080d, "Acer Aspire V5-122P", ALC269_FIXUP_ASPIRE_HEADSET_MIC),
+c8426b2700b57d Takashi Iwai                 2021-04-07  10431  	SND_PCI_QUIRK(0x1025, 0x0840, "Acer Aspire E1", ALC269VB_FIXUP_ASPIRE_E1_COEF),
+3c0b6f924e1259 Mavroudis Chatzilazaridis    2024-07-28  10432  	SND_PCI_QUIRK(0x1025, 0x100c, "Acer Aspire E5-574G", ALC255_FIXUP_ACER_LIMIT_INT_MIC_BOOST),
+13be30f156fda7 Chris Chiu                   2020-12-22  10433  	SND_PCI_QUIRK(0x1025, 0x101c, "Acer Veriton N2510G", ALC269_FIXUP_LIFEBOOK),
+705b65f1074704 Chris Chiu                   2018-12-05  10434  	SND_PCI_QUIRK(0x1025, 0x102b, "Acer Aspire C24-860", ALC286_FIXUP_ACER_AIO_MIC_NO_PRESENCE),
+6e15d1261d522d Jian-Hong Pan                2020-07-06  10435  	SND_PCI_QUIRK(0x1025, 0x1065, "Acer Aspire C20-820", ALC269VC_FIXUP_ACER_HEADSET_MIC),
+b9c2fa52135d49 Takashi Iwai                 2015-11-19  10436  	SND_PCI_QUIRK(0x1025, 0x106d, "Acer Cloudbook 14", ALC283_FIXUP_CHROME_BOOK),
+495dc7637cb5ca Chris Chiu                   2021-01-14  10437  	SND_PCI_QUIRK(0x1025, 0x1094, "Acer Aspire E5-575T", ALC255_FIXUP_ACER_LIMIT_INT_MIC_BOOST),
+c7531e31c8a440 Chris Chiu                   2019-03-21  10438  	SND_PCI_QUIRK(0x1025, 0x1099, "Acer Aspire E5-523G", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+c7531e31c8a440 Chris Chiu                   2019-03-21  10439  	SND_PCI_QUIRK(0x1025, 0x110e, "Acer Aspire ES1-432", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+13be30f156fda7 Chris Chiu                   2020-12-22  10440  	SND_PCI_QUIRK(0x1025, 0x1166, "Acer Veriton N4640G", ALC269_FIXUP_LIFEBOOK),
+13be30f156fda7 Chris Chiu                   2020-12-22  10441  	SND_PCI_QUIRK(0x1025, 0x1167, "Acer Veriton N6640G", ALC269_FIXUP_LIFEBOOK),
+35fdc6e1c16099 José Relvas                  2024-10-20  10442  	SND_PCI_QUIRK(0x1025, 0x1177, "Acer Predator G9-593", ALC255_FIXUP_PREDATOR_SUBWOOFER),
+35fdc6e1c16099 José Relvas                  2024-10-20  10443  	SND_PCI_QUIRK(0x1025, 0x1178, "Acer Predator G9-593", ALC255_FIXUP_PREDATOR_SUBWOOFER),
+e2a829b3da01b9 Bernhard Rosenkraenzer       2019-03-05  10444  	SND_PCI_QUIRK(0x1025, 0x1246, "Acer Predator Helios 500", ALC299_FIXUP_PREDATOR_SPK),
+8eae7e9b3967f0 Jian-Hong Pan                2020-07-06  10445  	SND_PCI_QUIRK(0x1025, 0x1247, "Acer vCopperbox", ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS),
+781c90c034d994 Jian-Hong Pan                2020-07-06  10446  	SND_PCI_QUIRK(0x1025, 0x1248, "Acer Veriton N4660G", ALC269VC_FIXUP_ACER_MIC_NO_PRESENCE),
+d0e185616a0331 Chris Chiu                   2021-02-26  10447  	SND_PCI_QUIRK(0x1025, 0x1269, "Acer SWIFT SF314-54", ALC256_FIXUP_ACER_HEADSET_MIC),
+efb56d84dd9c3d David Senoner                2024-01-26  10448  	SND_PCI_QUIRK(0x1025, 0x126a, "Acer Swift SF114-32", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+667a8f73753908 Jian-Hong Pan                2019-03-15  10449  	SND_PCI_QUIRK(0x1025, 0x128f, "Acer Veriton Z6860G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+667a8f73753908 Jian-Hong Pan                2019-03-15  10450  	SND_PCI_QUIRK(0x1025, 0x1290, "Acer Veriton Z4860G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+667a8f73753908 Jian-Hong Pan                2019-03-15  10451  	SND_PCI_QUIRK(0x1025, 0x1291, "Acer Veriton Z4660G", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+d0e185616a0331 Chris Chiu                   2021-02-26  10452  	SND_PCI_QUIRK(0x1025, 0x129c, "Acer SWIFT SF314-55", ALC256_FIXUP_ACER_HEADSET_MIC),
+5f3fe25e70559f Meng Tang                    2022-07-11  10453  	SND_PCI_QUIRK(0x1025, 0x129d, "Acer SWIFT SF313-51", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+35171fbfc0d94a Nikos Liolios                2021-07-27  10454  	SND_PCI_QUIRK(0x1025, 0x1300, "Acer SWIFT SF314-56", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+2733ccebf4a937 Jian-Hong Pan                2019-03-21  10455  	SND_PCI_QUIRK(0x1025, 0x1308, "Acer Aspire Z24-890", ALC286_FIXUP_ACER_AIO_HEADSET_MIC),
+ea5c7eba216e83 Jian-Hong Pan                2019-04-01  10456  	SND_PCI_QUIRK(0x1025, 0x132a, "Acer TravelMate B114-21", ALC233_FIXUP_ACER_HEADSET_MIC),
+cbc05fd6708c17 Jian-Hong Pan                2019-03-13  10457  	SND_PCI_QUIRK(0x1025, 0x1330, "Acer TravelMate X514-51T", ALC255_FIXUP_ACER_HEADSET_MIC),
+5cb4e5b056772e Kailang Yang                 2024-12-30  10458  	SND_PCI_QUIRK(0x1025, 0x1360, "Acer Aspire A115", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+2a5bb694488bb6 Jaroslav Kysela              2021-11-04  10459  	SND_PCI_QUIRK(0x1025, 0x141f, "Acer Spin SP513-54N", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+0d4867a1854603 Alexander Monakov            2021-07-21  10460  	SND_PCI_QUIRK(0x1025, 0x142b, "Acer Swift SF314-42", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+f50a121d2f32bc Jian-Hong Pan                2020-07-13  10461  	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
+57c9e21a49b1c1 Hui Wang                     2021-06-08  10462  	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
+6a28a25d358079 Victor Shyba                 2023-01-23  10463  	SND_PCI_QUIRK(0x1025, 0x1534, "Acer Predator PH315-54", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+5a69e3d0a1b0f0 Hridesh MG                   2024-12-05  10464  	SND_PCI_QUIRK(0x1025, 0x159c, "Acer Nitro 5 AN515-58", ALC2XX_FIXUP_HEADSET_MIC),
+bd2d83058cc8a2 Ian Murphy                   2024-03-16  10465  	SND_PCI_QUIRK(0x1025, 0x169a, "Acer Swift SFG16", ALC256_FIXUP_ACER_SFG16_MICMUTE_LED),
+d64cbb5ed92275 Stefan Binding               2025-05-15  10466  	SND_PCI_QUIRK(0x1025, 0x1826, "Acer Helios ZPC", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
+d64cbb5ed92275 Stefan Binding               2025-05-15  10467  	SND_PCI_QUIRK(0x1025, 0x182c, "Acer Helios ZPD", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
+d64cbb5ed92275 Stefan Binding               2025-05-15  10468  	SND_PCI_QUIRK(0x1025, 0x1844, "Acer Helios ZPS", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
+aaedfb4761697e David Henningsson            2013-08-16  10469  	SND_PCI_QUIRK(0x1028, 0x0470, "Dell M101z", ALC269_FIXUP_DELL_M101Z),
+841bdf85c22680 Meng Tang                    2022-07-12  10470  	SND_PCI_QUIRK(0x1028, 0x053c, "Dell Latitude E5430", ALC292_FIXUP_DELL_E7X),
+6ed1131fe196ad Kailang Yang                 2015-10-26  10471  	SND_PCI_QUIRK(0x1028, 0x054b, "Dell XPS one 2710", ALC275_FIXUP_DELL_XPS),
+86f799b82f5c01 Takashi Iwai                 2015-11-14  10472  	SND_PCI_QUIRK(0x1028, 0x05bd, "Dell Latitude E6440", ALC292_FIXUP_DELL_E7X),
+cf52103a218744 Takashi Iwai                 2016-01-15  10473  	SND_PCI_QUIRK(0x1028, 0x05be, "Dell Latitude E6540", ALC292_FIXUP_DELL_E7X),
+8b99aba70c5f58 Takashi Iwai                 2015-06-15  10474  	SND_PCI_QUIRK(0x1028, 0x05ca, "Dell Latitude E7240", ALC292_FIXUP_DELL_E7X),
+8b99aba70c5f58 Takashi Iwai                 2015-06-15  10475  	SND_PCI_QUIRK(0x1028, 0x05cb, "Dell Latitude E7440", ALC292_FIXUP_DELL_E7X),
+0f4881dc1fd858 David Henningsson            2013-12-20  10476  	SND_PCI_QUIRK(0x1028, 0x05da, "Dell Vostro 5460", ALC290_FIXUP_SUBWOOFER),
+73bdd597823e22 David Henningsson            2013-04-15  10477  	SND_PCI_QUIRK(0x1028, 0x05f4, "Dell", ALC269_FIXUP_DELL1_MIC_NO_PRESENCE),
+73bdd597823e22 David Henningsson            2013-04-15  10478  	SND_PCI_QUIRK(0x1028, 0x05f5, "Dell", ALC269_FIXUP_DELL1_MIC_NO_PRESENCE),
+73bdd597823e22 David Henningsson            2013-04-15  10479  	SND_PCI_QUIRK(0x1028, 0x05f6, "Dell", ALC269_FIXUP_DELL1_MIC_NO_PRESENCE),
+8c2fa44132e8cd Takashi Iwai                 2025-01-30  10480  	SND_PCI_QUIRK(0x1028, 0x0604, "Dell Venue 11 Pro 7130", ALC283_FIXUP_DELL_HP_RESUME),
+0f4881dc1fd858 David Henningsson            2013-12-20  10481  	SND_PCI_QUIRK(0x1028, 0x0615, "Dell Vostro 5470", ALC290_FIXUP_SUBWOOFER_HSJACK),
+0f4881dc1fd858 David Henningsson            2013-12-20  10482  	SND_PCI_QUIRK(0x1028, 0x0616, "Dell Vostro 5470", ALC290_FIXUP_SUBWOOFER_HSJACK),
+98070576c4f775 Takashi Iwai                 2016-01-12  10483  	SND_PCI_QUIRK(0x1028, 0x062c, "Dell Latitude E5550", ALC292_FIXUP_DELL_E7X),
+4275554dccdf0a Takashi Iwai                 2015-06-29  10484  	SND_PCI_QUIRK(0x1028, 0x062e, "Dell Latitude E7450", ALC292_FIXUP_DELL_E7X),
+0f4881dc1fd858 David Henningsson            2013-12-20  10485  	SND_PCI_QUIRK(0x1028, 0x0638, "Dell Inspiron 5439", ALC290_FIXUP_MONO_SPEAKERS_HSJACK),
+a22aa26f754beb Kailang Yang                 2014-04-23  10486  	SND_PCI_QUIRK(0x1028, 0x064a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+a22aa26f754beb Kailang Yang                 2014-04-23  10487  	SND_PCI_QUIRK(0x1028, 0x064b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+831bfdf9520e38 Hui Wang                     2015-06-26  10488  	SND_PCI_QUIRK(0x1028, 0x0665, "Dell XPS 13", ALC288_FIXUP_DELL_XPS_13),
+afecb146d8d8a6 Bastien Nocera               2016-04-18  10489  	SND_PCI_QUIRK(0x1028, 0x0669, "Dell Optiplex 9020m", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE),
+3a05d12f46cb95 Takashi Iwai                 2015-07-29  10490  	SND_PCI_QUIRK(0x1028, 0x069a, "Dell Vostro 5480", ALC290_FIXUP_SUBWOOFER_HSJACK),
+8b72415d8aa8bb Kailang Yang                 2014-12-17  10491  	SND_PCI_QUIRK(0x1028, 0x06c7, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE),
+b734304f15ebe2 Kailang Yang                 2014-12-02  10492  	SND_PCI_QUIRK(0x1028, 0x06d9, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+b734304f15ebe2 Kailang Yang                 2014-12-02  10493  	SND_PCI_QUIRK(0x1028, 0x06da, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+c04017ea81dc1e David Henningsson            2015-12-15  10494  	SND_PCI_QUIRK(0x1028, 0x06db, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
+c04017ea81dc1e David Henningsson            2015-12-15  10495  	SND_PCI_QUIRK(0x1028, 0x06dd, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
+c04017ea81dc1e David Henningsson            2015-12-15  10496  	SND_PCI_QUIRK(0x1028, 0x06de, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
+c04017ea81dc1e David Henningsson            2015-12-15  10497  	SND_PCI_QUIRK(0x1028, 0x06df, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
+c04017ea81dc1e David Henningsson            2015-12-15  10498  	SND_PCI_QUIRK(0x1028, 0x06e0, "Dell", ALC293_FIXUP_DISABLE_AAMIX_MULTIJACK),
+fd06c77eb9200b Kai-Heng Feng                2016-08-30  10499  	SND_PCI_QUIRK(0x1028, 0x0706, "Dell Inspiron 7559", ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER),
+3b43b71f05d3ec Kai-Heng Feng                2016-02-25  10500  	SND_PCI_QUIRK(0x1028, 0x0725, "Dell Inspiron 3162", ALC255_FIXUP_DELL_SPK_NOISE),
+c0ca5eced22215 Takashi Iwai                 2019-02-20  10501  	SND_PCI_QUIRK(0x1028, 0x0738, "Dell Precision 5820", ALC269_FIXUP_NO_SHUTUP),
+709ae62e8e6d9a Kai-Heng Feng                2018-10-04  10502  	SND_PCI_QUIRK(0x1028, 0x075c, "Dell XPS 27 7760", ALC298_FIXUP_SPK_VOLUME),
+dd9aa335c88003 Hui Wang                     2016-08-01  10503  	SND_PCI_QUIRK(0x1028, 0x075d, "Dell AIO", ALC298_FIXUP_SPK_VOLUME),
+493de342748cc6 Takashi Iwai                 2017-02-28  10504  	SND_PCI_QUIRK(0x1028, 0x0798, "Dell Inspiron 17 7000 Gaming", ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER),
+aa143ad39a52d9 Takashi Iwai                 2021-04-28  10505  	SND_PCI_QUIRK(0x1028, 0x07b0, "Dell Precision 7520", ALC295_FIXUP_DISABLE_DAC3),
+5f36413526677b Kailang Yang                 2017-07-25  10506  	SND_PCI_QUIRK(0x1028, 0x080c, "Dell WYSE", ALC225_FIXUP_DELL_WYSE_MIC_NO_PRESENCE),
+40e2c4e5a7efcd Kailang Yang                 2018-02-02  10507  	SND_PCI_QUIRK(0x1028, 0x084b, "Dell", ALC274_FIXUP_DELL_AIO_LINEOUT_VERB),
+40e2c4e5a7efcd Kailang Yang                 2018-02-02  10508  	SND_PCI_QUIRK(0x1028, 0x084e, "Dell", ALC274_FIXUP_DELL_AIO_LINEOUT_VERB),
+f0ba9d699e5ca2 Kailang Yang                 2018-03-16  10509  	SND_PCI_QUIRK(0x1028, 0x0871, "Dell Precision 3630", ALC255_FIXUP_DELL_HEADSET_MIC),
+f0ba9d699e5ca2 Kailang Yang                 2018-03-16  10510  	SND_PCI_QUIRK(0x1028, 0x0872, "Dell Precision 3630", ALC255_FIXUP_DELL_HEADSET_MIC),
+ae104a21e52b1f Kailang Yang                 2018-02-05  10511  	SND_PCI_QUIRK(0x1028, 0x0873, "Dell Precision 3930", ALC255_FIXUP_DUMMY_LINEOUT_VERB),
+203b8652a1642f Jonathan Lane                2025-06-11  10512  	SND_PCI_QUIRK(0x1028, 0x0879, "Dell Latitude 5420 Rugged", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE)
+136824efaab2c0 Kailang Yang                 2019-03-14 @10513  	SND_PCI_QUIRK(0x1028, 0x08ad, "Dell WYSE AIO", ALC225_FIXUP_DELL_WYSE_AIO_MIC_NO_PRESENCE),
+da484d00f020af Kailang Yang                 2019-03-14  10514  	SND_PCI_QUIRK(0x1028, 0x08ae, "Dell WYSE NB", ALC225_FIXUP_DELL1_MIC_NO_PRESENCE),
+c2a7c55a04065c Kailang Yang                 2019-01-03  10515  	SND_PCI_QUIRK(0x1028, 0x0935, "Dell", ALC274_FIXUP_DELL_AIO_LINEOUT_VERB),
+e79c22695abd3b Kailang Yang                 2019-12-19  10516  	SND_PCI_QUIRK(0x1028, 0x097d, "Dell Precision", ALC289_FIXUP_DUAL_SPK),
+aa143ad39a52d9 Takashi Iwai                 2021-04-28  10517  	SND_PCI_QUIRK(0x1028, 0x097e, "Dell Precision", ALC289_FIXUP_DUAL_SPK),
+78def224f59c05 Kailang Yang                 2020-02-20  10518  	SND_PCI_QUIRK(0x1028, 0x098d, "Dell Precision", ALC233_FIXUP_ASUS_MIC_NO_PRESENCE),
+78def224f59c05 Kailang Yang                 2020-02-20  10519  	SND_PCI_QUIRK(0x1028, 0x09bf, "Dell Precision", ALC233_FIXUP_ASUS_MIC_NO_PRESENCE),
+92666d45adcfd4 Kailang Yang                 2020-11-19  10520  	SND_PCI_QUIRK(0x1028, 0x0a2e, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
+92666d45adcfd4 Kailang Yang                 2020-11-19  10521  	SND_PCI_QUIRK(0x1028, 0x0a30, "Dell", ALC236_FIXUP_DELL_AIO_HEADSET_MIC),
+1efcdd9c1f34f5 Gabriele Mazzotta            2022-05-01  10522  	SND_PCI_QUIRK(0x1028, 0x0a38, "Dell Latitude 7520", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE_QUIET),
+c1e8952395c1f4 Kailang Yang                 2020-12-23  10523  	SND_PCI_QUIRK(0x1028, 0x0a58, "Dell", ALC255_FIXUP_DELL_HEADSET_MIC),
+da94692001ea45 Kristin Paget                2021-08-14  10524  	SND_PCI_QUIRK(0x1028, 0x0a61, "Dell XPS 15 9510", ALC289_FIXUP_DUAL_SPK),
+eb676622846b34 John Liu                     2021-09-30  10525  	SND_PCI_QUIRK(0x1028, 0x0a62, "Dell Precision 5560", ALC289_FIXUP_DUAL_SPK),
+2b987fe8442936 Chris Chiu                   2021-10-01  10526  	SND_PCI_QUIRK(0x1028, 0x0a9d, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
+2b987fe8442936 Chris Chiu                   2021-10-01  10527  	SND_PCI_QUIRK(0x1028, 0x0a9e, "Dell Latitude 5430", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
+15dad62f4bdb5d Rik van der Kemp             2022-05-27  10528  	SND_PCI_QUIRK(0x1028, 0x0b19, "Dell XPS 15 9520", ALC289_FIXUP_DUAL_SPK),
+bdc9b7396f7d4d Callum Osmotherly            2022-09-14  10529  	SND_PCI_QUIRK(0x1028, 0x0b1a, "Dell Precision 5570", ALC289_FIXUP_DUAL_SPK),
+423206604b2817 Stefan Binding               2023-12-21  10530  	SND_PCI_QUIRK(0x1028, 0x0b27, "Dell", ALC245_FIXUP_CS35L41_SPI_2),
+423206604b2817 Stefan Binding               2023-12-21  10531  	SND_PCI_QUIRK(0x1028, 0x0b28, "Dell", ALC245_FIXUP_CS35L41_SPI_2),
+2912cdda734d91 Philipp Jungkamp             2022-12-05  10532  	SND_PCI_QUIRK(0x1028, 0x0b37, "Dell Inspiron 16 Plus 7620 2-in-1", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
+2912cdda734d91 Philipp Jungkamp             2022-12-05  10533  	SND_PCI_QUIRK(0x1028, 0x0b71, "Dell Inspiron 16 Plus 7620", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
+cd14dedf15be43 Aleksandrs Vinarskis         2023-12-04  10534  	SND_PCI_QUIRK(0x1028, 0x0beb, "Dell XPS 15 9530 (2023)", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+a5751933a7f6ab Chris Chiu                   2023-01-03  10535  	SND_PCI_QUIRK(0x1028, 0x0c03, "Dell Precision 5340", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE),
+fddab35fd06441 Shuming Fan                  2024-02-05  10536  	SND_PCI_QUIRK(0x1028, 0x0c0b, "Dell Oasis 14 RPL-P", ALC289_FIXUP_RTK_AMP_DUAL_SPK),
+fcfc9f711d1e2f Kailang Yang                 2024-01-24  10537  	SND_PCI_QUIRK(0x1028, 0x0c0d, "Dell Oasis", ALC289_FIXUP_RTK_AMP_DUAL_SPK),
+fddab35fd06441 Shuming Fan                  2024-02-05  10538  	SND_PCI_QUIRK(0x1028, 0x0c0e, "Dell Oasis 16", ALC289_FIXUP_RTK_AMP_DUAL_SPK),
+a4517c4f3423c7 Chris Chiu                   2022-12-26  10539  	SND_PCI_QUIRK(0x1028, 0x0c19, "Dell Precision 3340", ALC236_FIXUP_DELL_DUAL_CODECS),
+a4517c4f3423c7 Chris Chiu                   2022-12-26  10540  	SND_PCI_QUIRK(0x1028, 0x0c1a, "Dell Precision 3340", ALC236_FIXUP_DELL_DUAL_CODECS),
+a4517c4f3423c7 Chris Chiu                   2022-12-26  10541  	SND_PCI_QUIRK(0x1028, 0x0c1b, "Dell Precision 3440", ALC236_FIXUP_DELL_DUAL_CODECS),
+a4517c4f3423c7 Chris Chiu                   2022-12-26  10542  	SND_PCI_QUIRK(0x1028, 0x0c1c, "Dell Precision 3540", ALC236_FIXUP_DELL_DUAL_CODECS),
+a4517c4f3423c7 Chris Chiu                   2022-12-26  10543  	SND_PCI_QUIRK(0x1028, 0x0c1d, "Dell Precision 3440", ALC236_FIXUP_DELL_DUAL_CODECS),
+a4517c4f3423c7 Chris Chiu                   2022-12-26  10544  	SND_PCI_QUIRK(0x1028, 0x0c1e, "Dell Precision 3540", ALC236_FIXUP_DELL_DUAL_CODECS),
+89a0dff6105e06 Jay Ajit Mate                2024-02-19  10545  	SND_PCI_QUIRK(0x1028, 0x0c28, "Dell Inspiron 16 Plus 7630", ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS),
+423206604b2817 Stefan Binding               2023-12-21  10546  	SND_PCI_QUIRK(0x1028, 0x0c4d, "Dell", ALC287_FIXUP_CS35L41_I2C_4),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  10547  	SND_PCI_QUIRK(0x1028, 0x0c94, "Dell Polaris 3 metal", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  10548  	SND_PCI_QUIRK(0x1028, 0x0c96, "Dell Polaris 2in1", ALC287_FIXUP_TAS2781_I2C),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10549  	SND_PCI_QUIRK(0x1028, 0x0cbd, "Dell Oasis 13 CS MTL-U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10550  	SND_PCI_QUIRK(0x1028, 0x0cbe, "Dell Oasis 13 2-IN-1 MTL-U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10551  	SND_PCI_QUIRK(0x1028, 0x0cbf, "Dell Oasis 13 Low Weight MTU-L", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10552  	SND_PCI_QUIRK(0x1028, 0x0cc0, "Dell Oasis 13", ALC289_FIXUP_RTK_AMP_DUAL_SPK),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10553  	SND_PCI_QUIRK(0x1028, 0x0cc1, "Dell Oasis 14 MTL-H/U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10554  	SND_PCI_QUIRK(0x1028, 0x0cc2, "Dell Oasis 14 2-in-1 MTL-H/U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10555  	SND_PCI_QUIRK(0x1028, 0x0cc3, "Dell Oasis 14 Low Weight MTL-U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10556  	SND_PCI_QUIRK(0x1028, 0x0cc4, "Dell Oasis 16 MTL-H/U", ALC289_FIXUP_DELL_CS35L41_SPI_2),
+f0d9da19d7de9e Kailang Yang                 2023-11-08  10557  	SND_PCI_QUIRK(0x1028, 0x0cc5, "Dell Oasis 14", ALC289_FIXUP_RTK_AMP_DUAL_SPK),
+a22aa26f754beb Kailang Yang                 2014-04-23  10558  	SND_PCI_QUIRK(0x1028, 0x164a, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+a22aa26f754beb Kailang Yang                 2014-04-23  10559  	SND_PCI_QUIRK(0x1028, 0x164b, "Dell", ALC293_FIXUP_DELL1_MIC_NO_PRESENCE),
+08fb0d0ee1b9c7 Takashi Iwai                 2013-01-10  10560  	SND_PCI_QUIRK(0x103c, 0x1586, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC2),
+9f5c6faf72d5ec Takashi Iwai                 2013-03-18  10561  	SND_PCI_QUIRK(0x103c, 0x18e6, "HP", ALC269_FIXUP_HP_GPIO_LED),
+8e35cd4ac99676 David Henningsson            2013-11-06  10562  	SND_PCI_QUIRK(0x103c, 0x218b, "HP", ALC269_FIXUP_LIMIT_INT_MIC_BOOST_MUTE_LED),
+7976eb49cbd138 Hui Wang                     2015-02-13  10563  	SND_PCI_QUIRK(0x103c, 0x21f9, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+8a02b164d4bfac Kailang Yang                 2014-06-13  10564  	SND_PCI_QUIRK(0x103c, 0x2210, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+8a02b164d4bfac Kailang Yang                 2014-06-13  10565  	SND_PCI_QUIRK(0x103c, 0x2214, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10566  	SND_PCI_QUIRK(0x103c, 0x221b, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10567  	SND_PCI_QUIRK(0x103c, 0x221c, "HP EliteBook 755 G2", ALC280_FIXUP_HP_HEADSET_MIC),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10568  	SND_PCI_QUIRK(0x103c, 0x2221, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10569  	SND_PCI_QUIRK(0x103c, 0x2225, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10570  	SND_PCI_QUIRK(0x103c, 0x2236, "HP", ALC269_FIXUP_HP_LINE1_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10571  	SND_PCI_QUIRK(0x103c, 0x2237, "HP", ALC269_FIXUP_HP_LINE1_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10572  	SND_PCI_QUIRK(0x103c, 0x2238, "HP", ALC269_FIXUP_HP_LINE1_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10573  	SND_PCI_QUIRK(0x103c, 0x2239, "HP", ALC269_FIXUP_HP_LINE1_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10574  	SND_PCI_QUIRK(0x103c, 0x224b, "HP", ALC269_FIXUP_HP_LINE1_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10575  	SND_PCI_QUIRK(0x103c, 0x2253, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10576  	SND_PCI_QUIRK(0x103c, 0x2254, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10577  	SND_PCI_QUIRK(0x103c, 0x2255, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10578  	SND_PCI_QUIRK(0x103c, 0x2256, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10579  	SND_PCI_QUIRK(0x103c, 0x2257, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10580  	SND_PCI_QUIRK(0x103c, 0x2259, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+04d5466a976b09 Jaroslav Kysela              2017-03-09  10581  	SND_PCI_QUIRK(0x103c, 0x225a, "HP", ALC269_FIXUP_HP_DOCK_GPIO_MIC1_LED),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10582  	SND_PCI_QUIRK(0x103c, 0x225f, "HP", ALC280_FIXUP_HP_GPIO2_MIC_HOTKEY),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10583  	SND_PCI_QUIRK(0x103c, 0x2260, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10584  	SND_PCI_QUIRK(0x103c, 0x2263, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10585  	SND_PCI_QUIRK(0x103c, 0x2264, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10586  	SND_PCI_QUIRK(0x103c, 0x2265, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10587  	SND_PCI_QUIRK(0x103c, 0x2268, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10588  	SND_PCI_QUIRK(0x103c, 0x226a, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10589  	SND_PCI_QUIRK(0x103c, 0x226b, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10590  	SND_PCI_QUIRK(0x103c, 0x226e, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10591  	SND_PCI_QUIRK(0x103c, 0x2271, "HP", ALC286_FIXUP_HP_GPIO_LED),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10592  	SND_PCI_QUIRK(0x103c, 0x2272, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10593  	SND_PCI_QUIRK(0x103c, 0x2272, "HP", ALC280_FIXUP_HP_DOCK_PINS),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10594  	SND_PCI_QUIRK(0x103c, 0x2273, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10595  	SND_PCI_QUIRK(0x103c, 0x2273, "HP", ALC280_FIXUP_HP_DOCK_PINS),
+9c5dc3bf121b10 Kailang Yang                 2014-06-19  10596  	SND_PCI_QUIRK(0x103c, 0x2278, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10597  	SND_PCI_QUIRK(0x103c, 0x227f, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10598  	SND_PCI_QUIRK(0x103c, 0x2282, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10599  	SND_PCI_QUIRK(0x103c, 0x228b, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10600  	SND_PCI_QUIRK(0x103c, 0x228e, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10601  	SND_PCI_QUIRK(0x103c, 0x229e, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10602  	SND_PCI_QUIRK(0x103c, 0x22b2, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10603  	SND_PCI_QUIRK(0x103c, 0x22b7, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10604  	SND_PCI_QUIRK(0x103c, 0x22bf, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10605  	SND_PCI_QUIRK(0x103c, 0x22c4, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10606  	SND_PCI_QUIRK(0x103c, 0x22c5, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10607  	SND_PCI_QUIRK(0x103c, 0x22c7, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+c60666bd2224a3 Kailang Yang                 2014-02-21  10608  	SND_PCI_QUIRK(0x103c, 0x22c8, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10609  	SND_PCI_QUIRK(0x103c, 0x22cf, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10610  	SND_PCI_QUIRK(0x103c, 0x22db, "HP", ALC280_FIXUP_HP_9480M),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10611  	SND_PCI_QUIRK(0x103c, 0x22dc, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+45461e3b554c75 Takashi Iwai                 2021-04-28  10612  	SND_PCI_QUIRK(0x103c, 0x22fb, "HP", ALC269_FIXUP_HP_GPIO_MIC1_LED),
+8a02b164d4bfac Kailang Yang                 2014-06-13  10613  	SND_PCI_QUIRK(0x103c, 0x2334, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+8a02b164d4bfac Kailang Yang                 2014-06-13  10614  	SND_PCI_QUIRK(0x103c, 0x2335, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+8a02b164d4bfac Kailang Yang                 2014-06-13  10615  	SND_PCI_QUIRK(0x103c, 0x2336, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+8a02b164d4bfac Kailang Yang                 2014-06-13  10616  	SND_PCI_QUIRK(0x103c, 0x2337, "HP", ALC269_FIXUP_HP_MUTE_LED_MIC1),
+4ba5c853d7945b Meng Tang                    2022-07-13  10617  	SND_PCI_QUIRK(0x103c, 0x2b5e, "HP 288 Pro G2 MT", ALC221_FIXUP_HP_288PRO_MIC_NO_PRESENCE),
+167897f4b32c2b Jaroslav Kysela              2019-03-13  10618  	SND_PCI_QUIRK(0x103c, 0x802e, "HP Z240 SFF", ALC221_FIXUP_HP_MIC_NO_PRESENCE),
+167897f4b32c2b Jaroslav Kysela              2019-03-13  10619  	SND_PCI_QUIRK(0x103c, 0x802f, "HP Z240", ALC221_FIXUP_HP_MIC_NO_PRESENCE),
+1c9d9dfd2d2542 Kailang Yang                 2021-04-20  10620  	SND_PCI_QUIRK(0x103c, 0x8077, "HP", ALC256_FIXUP_HP_HEADSET_MIC),
+1c9d9dfd2d2542 Kailang Yang                 2021-04-20  10621  	SND_PCI_QUIRK(0x103c, 0x8158, "HP", ALC256_FIXUP_HP_HEADSET_MIC),
+92553ee03166ef Ryan C. Underwood            2023-05-11  10622  	SND_PCI_QUIRK(0x103c, 0x820d, "HP Pavilion 15", ALC295_FIXUP_HP_X360),
+e549d190f7b5f9 Hui Wang                     2016-04-01  10623  	SND_PCI_QUIRK(0x103c, 0x8256, "HP", ALC221_FIXUP_HP_FRONT_MIC),
+bbf8ff6b1d2ae7 Tom Briden                   2018-05-29  10624  	SND_PCI_QUIRK(0x103c, 0x827e, "HP x360", ALC295_FIXUP_HP_X360),
+aeedad2504997b Takashi Iwai                 2020-11-28  10625  	SND_PCI_QUIRK(0x103c, 0x827f, "HP x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+167897f4b32c2b Jaroslav Kysela              2019-03-13  10626  	SND_PCI_QUIRK(0x103c, 0x82bf, "HP G3 mini", ALC221_FIXUP_HP_MIC_NO_PRESENCE),
+167897f4b32c2b Jaroslav Kysela              2019-03-13  10627  	SND_PCI_QUIRK(0x103c, 0x82c0, "HP G3 mini premium", ALC221_FIXUP_HP_MIC_NO_PRESENCE),
+56e40eb6d65619 Alexandru Gagniuc            2018-08-04  10628  	SND_PCI_QUIRK(0x103c, 0x83b9, "HP Spectre x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+901be145a46eb7 Carlos M                     2021-05-31  10629  	SND_PCI_QUIRK(0x103c, 0x841c, "HP Pavilion 15-CK0xx", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+190d03814eb3b4 Takashi Iwai                 2019-08-13  10630  	SND_PCI_QUIRK(0x103c, 0x8497, "HP Envy x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+b46953029c52bd Nazar Bilinskyi              2024-07-09  10631  	SND_PCI_QUIRK(0x103c, 0x84a6, "HP 250 G7 Notebook PC", ALC269_FIXUP_HP_LINE1_MIC1_LED),
+9b726bf6ae11ad Hartmut Knaack               2023-12-09  10632  	SND_PCI_QUIRK(0x103c, 0x84ae, "HP 15-db0403ng", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+5d84b5318d860c Takashi Iwai                 2021-05-04  10633  	SND_PCI_QUIRK(0x103c, 0x84da, "HP OMEN dc0019-ur", ALC295_FIXUP_HP_OMEN),
+d33cd42d86671b Sam Bazley                   2019-09-01  10634  	SND_PCI_QUIRK(0x103c, 0x84e7, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+f2be77fee648dd Elia Devito                  2021-05-11  10635  	SND_PCI_QUIRK(0x103c, 0x8519, "HP Spectre x360 15-df0xxx", ALC285_FIXUP_HP_SPECTRE_X360),
+b6ce6e6c79e4ec Siddhesh Dharme              2024-01-04  10636  	SND_PCI_QUIRK(0x103c, 0x8537, "HP ProBook 440 G6", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+b11a74ac4f5456 Navon John Lukose            2025-03-08  10637  	SND_PCI_QUIRK(0x103c, 0x85c6, "HP Pavilion x360 Convertible 14-dy1xxx", ALC295_FIXUP_HP_MUTE_LED_COEFBIT11),
+c062166995c9e5 Athaariq Ardhiansyah         2024-03-10  10638  	SND_PCI_QUIRK(0x103c, 0x85de, "HP Envy x360 13-ar0xxx", ALC285_FIXUP_HP_ENVY_X360),
+d296a74b7b59ff Bradley Scott                2021-12-13  10639  	SND_PCI_QUIRK(0x103c, 0x860f, "HP ZBook 15 G6", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+0ac05b25c3dd82 Takashi Iwai                 2021-06-23  10640  	SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+b2c22910fe5aae Kai-Heng Feng                2020-06-17  10641  	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+2d5af3ab9e6f1c Aman Dhoot                   2024-04-22  10642  	SND_PCI_QUIRK(0x103c, 0x86c1, "HP Laptop 15-da3001TU", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+622464c893142f Takashi Iwai                 2021-05-04  10643  	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
+24df5428ef9d1c Ivan Hasenkampf              2022-08-03  10644  	SND_PCI_QUIRK(0x103c, 0x86e7, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
+be0c40da888840 Takashi Iwai                 2025-04-27  10645  	SND_PCI_QUIRK(0x103c, 0x863e, "HP Spectre x360 15-df1xxx", ALC285_FIXUP_HP_SPECTRE_X360_DF1),
+24df5428ef9d1c Ivan Hasenkampf              2022-08-03  10646  	SND_PCI_QUIRK(0x103c, 0x86e8, "HP Spectre x360 15-eb0xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
+ca88eeb308a221 Luka Guzenko                 2023-01-10  10647  	SND_PCI_QUIRK(0x103c, 0x86f9, "HP Spectre x360 13-aw0xxx", ALC285_FIXUP_HP_SPECTRE_X360_MUTE_LED),
+15d295b560e6dd Jeremy Szu                   2021-06-05  10648  	SND_PCI_QUIRK(0x103c, 0x8716, "HP Elite Dragonfly G2 Notebook PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+61d3e87468fad8 Jeremy Szu                   2021-06-05  10649  	SND_PCI_QUIRK(0x103c, 0x8720, "HP EliteBook x360 1040 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+a598098cc9737f Kai-Heng Feng                2020-12-30  10650  	SND_PCI_QUIRK(0x103c, 0x8724, "HP EliteBook 850 G7", ALC285_FIXUP_HP_GPIO_LED),
+c058493df7edce Kai-Heng Feng                2021-11-10  10651  	SND_PCI_QUIRK(0x103c, 0x8728, "HP EliteBook 840 G7", ALC285_FIXUP_HP_GPIO_LED),
+b2c22910fe5aae Kai-Heng Feng                2020-06-17  10652  	SND_PCI_QUIRK(0x103c, 0x8729, "HP", ALC285_FIXUP_HP_GPIO_LED),
+75b62ab65d2715 Jonas Witschel               2021-04-16  10653  	SND_PCI_QUIRK(0x103c, 0x8730, "HP ProBook 445 G7", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+05ec7161084565 Takashi Iwai                 2021-11-18  10654  	SND_PCI_QUIRK(0x103c, 0x8735, "HP ProBook 435 G7", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+5649625344fe1f Kailang Yang                 2020-07-29  10655  	SND_PCI_QUIRK(0x103c, 0x8736, "HP", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+aa85822c611aef Maciej S. Szmigiero          2025-02-16  10656  	SND_PCI_QUIRK(0x103c, 0x8760, "HP EliteBook 8{4,5}5 G7", ALC285_FIXUP_HP_BEEP_MICMUTE_LED),
+6b3d14b7f9b1ac Tom Jason Schwanke           2024-01-08  10657  	SND_PCI_QUIRK(0x103c, 0x876e, "HP ENVY x360 Convertible 13-ay0xxx", ALC245_FIXUP_HP_X360_MUTE_LEDS),
+431e76c3edd76d Kailang Yang                 2020-04-07  10658  	SND_PCI_QUIRK(0x103c, 0x877a, "HP", ALC285_FIXUP_HP_MUTE_LED),
+24164f434dc9c2 Kailang Yang                 2020-04-07  10659  	SND_PCI_QUIRK(0x103c, 0x877d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+91bc156817a3c2 Jeremy Szu                   2021-01-06  10660  	SND_PCI_QUIRK(0x103c, 0x8780, "HP ZBook Fury 17 G7 Mobile Workstation",
+91bc156817a3c2 Jeremy Szu                   2021-01-06  10661  		      ALC285_FIXUP_HP_GPIO_AMP_INIT),
+91bc156817a3c2 Jeremy Szu                   2021-01-06  10662  	SND_PCI_QUIRK(0x103c, 0x8783, "HP ZBook Fury 15 G7 Mobile Workstation",
+91bc156817a3c2 Jeremy Szu                   2021-01-06  10663  		      ALC285_FIXUP_HP_GPIO_AMP_INIT),
+30267718fe2d4d Bedant Patnaik               2022-08-09  10664  	SND_PCI_QUIRK(0x103c, 0x8786, "HP OMEN 15", ALC285_FIXUP_HP_MUTE_LED),
+b2e6b3d9bbb0a5 Soham Sen                    2022-06-09  10665  	SND_PCI_QUIRK(0x103c, 0x8787, "HP OMEN 15", ALC285_FIXUP_HP_MUTE_LED),
+375f8426ed994a Takashi Iwai                 2021-10-28  10666  	SND_PCI_QUIRK(0x103c, 0x8788, "HP OMEN 15", ALC285_FIXUP_HP_MUTE_LED),
+f0d78972f27dc1 Luka Guzenko                 2024-01-28  10667  	SND_PCI_QUIRK(0x103c, 0x87b7, "HP Laptop 14-fq0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+484229585a5e91 Manuel Jiménez               2020-12-29  10668  	SND_PCI_QUIRK(0x103c, 0x87c8, "HP", ALC287_FIXUP_HP_GPIO_LED),
+1d091a98c399c1 Aivaz Latypov                2024-06-25  10669  	SND_PCI_QUIRK(0x103c, 0x87d3, "HP Laptop 15-gw0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+3a83f7baf1346a Nazar Bilinskyi              2024-12-01  10670  	SND_PCI_QUIRK(0x103c, 0x87df, "HP ProBook 430 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+e7d66cf7993901 Jeremy Szu                   2021-03-16  10671  	SND_PCI_QUIRK(0x103c, 0x87e5, "HP ProBook 440 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+2b70b264d34d39 Andy Chi                     2021-07-01  10672  	SND_PCI_QUIRK(0x103c, 0x87e7, "HP ProBook 450 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+fb3acdb2ba289a Andy Chi                     2021-07-01  10673  	SND_PCI_QUIRK(0x103c, 0x87f1, "HP ProBook 630 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+417eadfdd9e251 Jeremy Szu                   2021-03-30  10674  	SND_PCI_QUIRK(0x103c, 0x87f2, "HP ProBook 640 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+a0ccbc5319d57b Kailang Yang                 2020-11-06  10675  	SND_PCI_QUIRK(0x103c, 0x87f4, "HP", ALC287_FIXUP_HP_GPIO_LED),
+a0ccbc5319d57b Kailang Yang                 2020-11-06  10676  	SND_PCI_QUIRK(0x103c, 0x87f5, "HP", ALC287_FIXUP_HP_GPIO_LED),
+93ab3eafb0b355 Johnathon Clark              2021-08-23  10677  	SND_PCI_QUIRK(0x103c, 0x87f6, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
+c3bb2b521944ff Takashi Iwai                 2021-02-15  10678  	SND_PCI_QUIRK(0x103c, 0x87f7, "HP Spectre x360 14", ALC245_FIXUP_HP_X360_AMP),
+47a9e8dbb8d471 Maximilien Perreault         2024-09-03  10679  	SND_PCI_QUIRK(0x103c, 0x87fd, "HP Laptop 14-dq2xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+bc7863d18677df Çağhan Demir                 2024-01-15  10680  	SND_PCI_QUIRK(0x103c, 0x87fe, "HP Laptop 15s-fq2xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+d07149aba2ef42 Jeremy Szu                   2021-08-10  10681  	SND_PCI_QUIRK(0x103c, 0x8805, "HP ProBook 650 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+dfc2e8ae4066a9 Jeremy Szu                   2021-06-25  10682  	SND_PCI_QUIRK(0x103c, 0x880d, "HP EliteBook 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+d94befbb5ae379 Davide Baldo                 2021-10-15  10683  	SND_PCI_QUIRK(0x103c, 0x8811, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
+d94befbb5ae379 Davide Baldo                 2021-10-15  10684  	SND_PCI_QUIRK(0x103c, 0x8812, "HP Spectre x360 15-eb1xxx", ALC285_FIXUP_HP_SPECTRE_X360_EB1),
+d510acb610e6aa Luka Guzenko                 2023-07-25  10685  	SND_PCI_QUIRK(0x103c, 0x881d, "HP 250 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+35ef1c79d2e09e Dhruv Deshpande              2025-03-17  10686  	SND_PCI_QUIRK(0x103c, 0x881e, "HP Laptop 15s-du3xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+53b861bec737c1 Jeremy Szu                   2021-03-16  10687  	SND_PCI_QUIRK(0x103c, 0x8846, "HP EliteBook 850 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+c3d2c88209e850 Jeremy Szu                   2021-06-18  10688  	SND_PCI_QUIRK(0x103c, 0x8847, "HP EliteBook x360 830 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+dfb06401b4cdfc Jeremy Szu                   2021-06-05  10689  	SND_PCI_QUIRK(0x103c, 0x884b, "HP EliteBook 840 Aero G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+ca6883393f0fa7 Jeremy Szu                   2021-03-16  10690  	SND_PCI_QUIRK(0x103c, 0x884c, "HP EliteBook 840 G8 Notebook PC", ALC285_FIXUP_HP_GPIO_LED),
+8903376dc69949 Kai-Heng Feng                2021-08-18  10691  	SND_PCI_QUIRK(0x103c, 0x8862, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+8903376dc69949 Kai-Heng Feng                2021-08-18  10692  	SND_PCI_QUIRK(0x103c, 0x8863, "HP ProBook 445 G8 Notebook PC", ALC236_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+50dbfae972cbe0 Jeremy Szu                   2021-05-20  10693  	SND_PCI_QUIRK(0x103c, 0x886d, "HP ZBook Fury 17.3 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+e650c1a959da49 Jeremy Szu                   2021-05-20  10694  	SND_PCI_QUIRK(0x103c, 0x8870, "HP ZBook Fury 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+bbe183e07817a4 Jeremy Szu                   2021-05-20  10695  	SND_PCI_QUIRK(0x103c, 0x8873, "HP ZBook Studio 15.6 Inch G8 Mobile Workstation PC", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+0659400f18c0e6 Luka Guzenko                 2023-07-18  10696  	SND_PCI_QUIRK(0x103c, 0x887a, "HP Laptop 15s-eq2xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+711aad3c43a985 Sebastian Wiese-Wagner       2025-01-20  10697  	SND_PCI_QUIRK(0x103c, 0x887c, "HP Laptop 14s-fq1xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+c99c26b16c1544 Fabian Vogt                  2023-08-24  10698  	SND_PCI_QUIRK(0x103c, 0x888a, "HP ENVY x360 Convertible 15-eu0xxx", ALC245_FIXUP_HP_X360_MUTE_LEDS),
+600dd2a7e8b621 Jeremy Szu                   2021-06-08  10699  	SND_PCI_QUIRK(0x103c, 0x888d, "HP ZBook Power 15.6 inch G8 Mobile Workstation PC", ALC236_FIXUP_HP_GPIO_LED),
+91502a9a0b0d52 Alexander Sergeyev           2022-01-14  10700  	SND_PCI_QUIRK(0x103c, 0x8895, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_SPEAKERS_MICMUTE_LED),
+0e68c4b11f1e66 Jeremy Szu                   2021-05-20  10701  	SND_PCI_QUIRK(0x103c, 0x8896, "HP EliteBook 855 G8 Notebook PC", ALC285_FIXUP_HP_MUTE_LED),
+bd15b15523fd31 Kai-Heng Feng                2021-04-20  10702  	SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+42334fbc219eb1 Frank Schäfer                2021-07-03  10703  	SND_PCI_QUIRK(0x103c, 0x88d0, "HP Pavilion 15-eh1xxx (mainboard 88D0)", ALC287_FIXUP_HP_GPIO_LED),
+d75dba49744478 Abhishek Tamboli             2024-09-30  10704  	SND_PCI_QUIRK(0x103c, 0x88dd, "HP Pavilion 15z-ec200", ALC285_FIXUP_HP_MUTE_LED),
+496322302bf1e5 Daniel Houldsworth           2022-09-18  10705  	SND_PCI_QUIRK(0x103c, 0x8902, "HP OMEN 16", ALC285_FIXUP_HP_MUTE_LED),
+8384c0baf223e1 Eymen Yigit                  2023-11-10  10706  	SND_PCI_QUIRK(0x103c, 0x890e, "HP 255 G8 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+e7477cb97607b3 Caleb Harper                 2023-05-03  10707  	SND_PCI_QUIRK(0x103c, 0x8919, "HP Pavilion Aero Laptop 13-be0xxx", ALC287_FIXUP_HP_GPIO_LED),
+f86bfeb689f2c4 Takashi Iwai                 2022-10-22  10708  	SND_PCI_QUIRK(0x103c, 0x896d, "HP ZBook Firefly 16 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+5f5d8890789c90 Andy Chi                     2022-04-22  10709  	SND_PCI_QUIRK(0x103c, 0x896e, "HP EliteBook x360 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+5f5d8890789c90 Andy Chi                     2022-04-22  10710  	SND_PCI_QUIRK(0x103c, 0x8971, "HP EliteBook 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+5f5d8890789c90 Andy Chi                     2022-04-22  10711  	SND_PCI_QUIRK(0x103c, 0x8972, "HP EliteBook 840 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+5f5d8890789c90 Andy Chi                     2022-04-22  10712  	SND_PCI_QUIRK(0x103c, 0x8973, "HP EliteBook 860 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+5f5d8890789c90 Andy Chi                     2022-04-22  10713  	SND_PCI_QUIRK(0x103c, 0x8974, "HP EliteBook 840 Aero G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+5f5d8890789c90 Andy Chi                     2022-04-22  10714  	SND_PCI_QUIRK(0x103c, 0x8975, "HP EliteBook x360 840 Aero G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+67c3d7717efbd4 Eniac Zhang                  2024-02-20  10715  	SND_PCI_QUIRK(0x103c, 0x897d, "HP mt440 Mobile Thin Client U74", ALC236_FIXUP_HP_GPIO_LED),
+07bcab93946cd9 Lucas Tanure                 2022-01-21  10716  	SND_PCI_QUIRK(0x103c, 0x8981, "HP Elite Dragonfly G3", ALC245_FIXUP_CS35L41_SPI_4),
+07bcab93946cd9 Lucas Tanure                 2022-01-21  10717  	SND_PCI_QUIRK(0x103c, 0x898e, "HP EliteBook 835 G9", ALC287_FIXUP_CS35L41_I2C_2),
+07bcab93946cd9 Lucas Tanure                 2022-01-21  10718  	SND_PCI_QUIRK(0x103c, 0x898f, "HP EliteBook 835 G9", ALC287_FIXUP_CS35L41_I2C_2),
+b3fbe53610b5ed Andy Chi                     2022-04-21  10719  	SND_PCI_QUIRK(0x103c, 0x8991, "HP EliteBook 845 G9", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+07bcab93946cd9 Lucas Tanure                 2022-01-21  10720  	SND_PCI_QUIRK(0x103c, 0x8992, "HP EliteBook 845 G9", ALC287_FIXUP_CS35L41_I2C_2),
+b3fbe53610b5ed Andy Chi                     2022-04-21  10721  	SND_PCI_QUIRK(0x103c, 0x8994, "HP EliteBook 855 G9", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+07bcab93946cd9 Lucas Tanure                 2022-01-21  10722  	SND_PCI_QUIRK(0x103c, 0x8995, "HP EliteBook 855 G9", ALC287_FIXUP_CS35L41_I2C_2),
+e6194c8d065389 Andy Chi                     2022-03-14  10723  	SND_PCI_QUIRK(0x103c, 0x89a4, "HP ProBook 440 G9", ALC236_FIXUP_HP_GPIO_LED),
+e6194c8d065389 Andy Chi                     2022-03-14  10724  	SND_PCI_QUIRK(0x103c, 0x89a6, "HP ProBook 450 G9", ALC236_FIXUP_HP_GPIO_LED),
+024a7ad9eb4df6 Andy Chi                     2022-05-13  10725  	SND_PCI_QUIRK(0x103c, 0x89aa, "HP EliteBook 630 G9", ALC236_FIXUP_HP_GPIO_LED),
+e6194c8d065389 Andy Chi                     2022-03-14  10726  	SND_PCI_QUIRK(0x103c, 0x89ac, "HP EliteBook 640 G9", ALC236_FIXUP_HP_GPIO_LED),
+e6194c8d065389 Andy Chi                     2022-03-14  10727  	SND_PCI_QUIRK(0x103c, 0x89ae, "HP EliteBook 650 G9", ALC236_FIXUP_HP_GPIO_LED),
+f86bfeb689f2c4 Takashi Iwai                 2022-10-22  10728  	SND_PCI_QUIRK(0x103c, 0x89c0, "HP ZBook Power 15.6 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+07bcab93946cd9 Lucas Tanure                 2022-01-21  10729  	SND_PCI_QUIRK(0x103c, 0x89c3, "Zbook Studio G9", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+ce18f905a50087 Kai-Heng Feng                2022-03-24  10730  	SND_PCI_QUIRK(0x103c, 0x89c6, "Zbook Fury 17 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+f7ac570d0f026c Jeremy Szu                   2021-12-15  10731  	SND_PCI_QUIRK(0x103c, 0x89ca, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+9a6804aa1c92cd Elvis Angelaccio             2023-02-05  10732  	SND_PCI_QUIRK(0x103c, 0x89d3, "HP EliteBook 645 G9 (MB 89D2)", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10733  	SND_PCI_QUIRK(0x103c, 0x89e7, "HP Elite x2 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+13a5b21197587a Aabish Malik                 2023-12-29  10734  	SND_PCI_QUIRK(0x103c, 0x8a0f, "HP Pavilion 14-ec1xxx", ALC287_FIXUP_HP_GPIO_LED),
+56e85993896b91 Luka Guzenko                 2023-10-17  10735  	SND_PCI_QUIRK(0x103c, 0x8a20, "HP Laptop 15s-fq5xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+93dc18e11b1ab2 SungHwan Jung                2023-08-23  10736  	SND_PCI_QUIRK(0x103c, 0x8a25, "HP Victus 16-d1xxx (MB 8A25)", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10737  	SND_PCI_QUIRK(0x103c, 0x8a28, "HP Envy 13", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10738  	SND_PCI_QUIRK(0x103c, 0x8a29, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10739  	SND_PCI_QUIRK(0x103c, 0x8a2a, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10740  	SND_PCI_QUIRK(0x103c, 0x8a2b, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10741  	SND_PCI_QUIRK(0x103c, 0x8a2c, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10742  	SND_PCI_QUIRK(0x103c, 0x8a2d, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10743  	SND_PCI_QUIRK(0x103c, 0x8a2e, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10744  	SND_PCI_QUIRK(0x103c, 0x8a30, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10745  	SND_PCI_QUIRK(0x103c, 0x8a31, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10746  	SND_PCI_QUIRK(0x103c, 0x8a6e, "HP EDNA 360", ALC287_FIXUP_CS35L41_I2C_4),
+300ab0dfbf3903 Valentine Altair             2024-03-12  10747  	SND_PCI_QUIRK(0x103c, 0x8a74, "HP ProBook 440 G8 Notebook PC", ALC236_FIXUP_HP_GPIO_LED),
+5f3d696eea9166 Jeremy Soller                2022-06-08  10748  	SND_PCI_QUIRK(0x103c, 0x8a78, "HP Dev One", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
+61d307855eb1a2 Jeremy Szu                   2022-07-13  10749  	SND_PCI_QUIRK(0x103c, 0x8aa0, "HP ProBook 440 G9 (MB 8A9E)", ALC236_FIXUP_HP_GPIO_LED),
+61d307855eb1a2 Jeremy Szu                   2022-07-13  10750  	SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
+61d307855eb1a2 Jeremy Szu                   2022-07-13  10751  	SND_PCI_QUIRK(0x103c, 0x8aa8, "HP EliteBook 640 G9 (MB 8AA6)", ALC236_FIXUP_HP_GPIO_LED),
+61d307855eb1a2 Jeremy Szu                   2022-07-13  10752  	SND_PCI_QUIRK(0x103c, 0x8aab, "HP EliteBook 650 G9 (MB 8AA9)", ALC236_FIXUP_HP_GPIO_LED),
+1fdf4e8be7059e Hans Peter                   2024-02-19  10753  	SND_PCI_QUIRK(0x103c, 0x8ab9, "HP EliteBook 840 G8 (MB 8AB8)", ALC285_FIXUP_HP_GPIO_LED),
+35a17444237432 Takashi Iwai                 2022-09-30  10754  	SND_PCI_QUIRK(0x103c, 0x8abb, "HP ZBook Firefly 14 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+c578d5da10dc42 Kai-Heng Feng                2022-07-19  10755  	SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+c578d5da10dc42 Kai-Heng Feng                2022-07-19  10756  	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10757  	SND_PCI_QUIRK(0x103c, 0x8ad8, "HP 800 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+32f03f4002c5df Eniac Zhang                  2024-02-15  10758  	SND_PCI_QUIRK(0x103c, 0x8b0f, "HP Elite mt645 G7 Mobile Thin Client U81", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+b944aa9d86d5f7 Matus Malych                 2023-11-14  10759  	SND_PCI_QUIRK(0x103c, 0x8b2f, "HP 255 15.6 inch G10 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10760  	SND_PCI_QUIRK(0x103c, 0x8b3a, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+67c3d7717efbd4 Eniac Zhang                  2024-02-20  10761  	SND_PCI_QUIRK(0x103c, 0x8b3f, "HP mt440 Mobile Thin Client U91", ALC236_FIXUP_HP_GPIO_LED),
+9251584af09285 Andy Chi                     2023-02-14  10762  	SND_PCI_QUIRK(0x103c, 0x8b42, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+9251584af09285 Andy Chi                     2023-02-14  10763  	SND_PCI_QUIRK(0x103c, 0x8b43, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+9251584af09285 Andy Chi                     2023-02-14  10764  	SND_PCI_QUIRK(0x103c, 0x8b44, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+9251584af09285 Andy Chi                     2023-02-14  10765  	SND_PCI_QUIRK(0x103c, 0x8b45, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+9251584af09285 Andy Chi                     2023-02-14  10766  	SND_PCI_QUIRK(0x103c, 0x8b46, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+9251584af09285 Andy Chi                     2023-02-14  10767  	SND_PCI_QUIRK(0x103c, 0x8b47, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+32f03f4002c5df Eniac Zhang                  2024-02-15  10768  	SND_PCI_QUIRK(0x103c, 0x8b59, "HP Elite mt645 G7 Mobile Thin Client U89", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+1d8025ec722d5e Andy Chi                     2022-11-28  10769  	SND_PCI_QUIRK(0x103c, 0x8b5d, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+1d8025ec722d5e Andy Chi                     2022-11-28  10770  	SND_PCI_QUIRK(0x103c, 0x8b5e, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+96409eeab8cdd3 Maksym Glubokiy              2024-11-12  10771  	SND_PCI_QUIRK(0x103c, 0x8b5f, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+3e10f6ca76c4d0 Vitaly Rodionov              2023-05-10  10772  	SND_PCI_QUIRK(0x103c, 0x8b63, "HP Elite Dragonfly 13.5 inch G4", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+2ae147d643d326 Andy Chi                     2023-04-20  10773  	SND_PCI_QUIRK(0x103c, 0x8b65, "HP ProBook 455 15.6 inch G10 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+9fdc1605c50420 Andy Chi                     2023-03-31  10774  	SND_PCI_QUIRK(0x103c, 0x8b66, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+e94f1f96f108ba Andy Chi                     2023-06-26  10775  	SND_PCI_QUIRK(0x103c, 0x8b70, "HP EliteBook 835 G10", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+e94f1f96f108ba Andy Chi                     2023-06-26  10776  	SND_PCI_QUIRK(0x103c, 0x8b72, "HP EliteBook 845 G10", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+e94f1f96f108ba Andy Chi                     2023-06-26  10777  	SND_PCI_QUIRK(0x103c, 0x8b74, "HP EliteBook 845W G10", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+3e10f6ca76c4d0 Vitaly Rodionov              2023-05-10  10778  	SND_PCI_QUIRK(0x103c, 0x8b77, "HP ElieBook 865 G10", ALC287_FIXUP_CS35L41_I2C_2),
+6c4715aa5b0ab1 Andy Chi                     2023-02-07  10779  	SND_PCI_QUIRK(0x103c, 0x8b7a, "HP", ALC236_FIXUP_HP_GPIO_LED),
+6c4715aa5b0ab1 Andy Chi                     2023-02-07  10780  	SND_PCI_QUIRK(0x103c, 0x8b7d, "HP", ALC236_FIXUP_HP_GPIO_LED),
+5007b848ff2234 Andy Chi                     2023-02-14  10781  	SND_PCI_QUIRK(0x103c, 0x8b87, "HP", ALC236_FIXUP_HP_GPIO_LED),
+6c4715aa5b0ab1 Andy Chi                     2023-02-07  10782  	SND_PCI_QUIRK(0x103c, 0x8b8a, "HP", ALC236_FIXUP_HP_GPIO_LED),
+6c4715aa5b0ab1 Andy Chi                     2023-02-07  10783  	SND_PCI_QUIRK(0x103c, 0x8b8b, "HP", ALC236_FIXUP_HP_GPIO_LED),
+6c4715aa5b0ab1 Andy Chi                     2023-02-07  10784  	SND_PCI_QUIRK(0x103c, 0x8b8d, "HP", ALC236_FIXUP_HP_GPIO_LED),
+b752a385b584d3 Chris Chiu                   2023-06-06  10785  	SND_PCI_QUIRK(0x103c, 0x8b8f, "HP", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+858c54152658cc Jeremy Szu                   2023-01-18  10786  	SND_PCI_QUIRK(0x103c, 0x8b92, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+56fc217f0db4fc Kai-Heng Feng                2023-05-05  10787  	SND_PCI_QUIRK(0x103c, 0x8b96, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+9dc68a4fe70893 Kai-Heng Feng                2023-05-12  10788  	SND_PCI_QUIRK(0x103c, 0x8b97, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+875e0cd59758a3 Stefan Binding               2024-04-11  10789  	SND_PCI_QUIRK(0x103c, 0x8bb3, "HP Slim OMEN", ALC287_FIXUP_CS35L41_I2C_2),
+875e0cd59758a3 Stefan Binding               2024-04-11  10790  	SND_PCI_QUIRK(0x103c, 0x8bb4, "HP Slim OMEN", ALC287_FIXUP_CS35L41_I2C_2),
+a0914bf56e26d2 Edip Hazuri                  2025-06-09  10791  	SND_PCI_QUIRK(0x103c, 0x8bc8, "HP Victus 15-fa1xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+e5182305a51992 Sharan Kumar M               2025-03-29  10792  	SND_PCI_QUIRK(0x103c, 0x8bcd, "HP Omen 16-xd0xxx", ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10793  	SND_PCI_QUIRK(0x103c, 0x8bdd, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10794  	SND_PCI_QUIRK(0x103c, 0x8bde, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10795  	SND_PCI_QUIRK(0x103c, 0x8bdf, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10796  	SND_PCI_QUIRK(0x103c, 0x8be0, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10797  	SND_PCI_QUIRK(0x103c, 0x8be1, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10798  	SND_PCI_QUIRK(0x103c, 0x8be2, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10799  	SND_PCI_QUIRK(0x103c, 0x8be3, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10800  	SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10801  	SND_PCI_QUIRK(0x103c, 0x8be6, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10802  	SND_PCI_QUIRK(0x103c, 0x8be7, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10803  	SND_PCI_QUIRK(0x103c, 0x8be8, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10804  	SND_PCI_QUIRK(0x103c, 0x8be9, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+9c694fbfe6f360 Jeremy Szu                   2023-01-05  10805  	SND_PCI_QUIRK(0x103c, 0x8bf0, "HP", ALC236_FIXUP_HP_GPIO_LED),
+61456da04602ba Anthony I Gilea              2024-03-18  10806  	SND_PCI_QUIRK(0x103c, 0x8c15, "HP Spectre x360 2-in-1 Laptop 14-eu0xxx", ALC245_FIXUP_HP_SPECTRE_X360_EU0XXX),
+557f6e4ab5ba60 christoph.plattner           2024-10-05  10807  	SND_PCI_QUIRK(0x103c, 0x8c16, "HP Spectre x360 2-in-1 Laptop 16-aa0xxx", ALC245_FIXUP_HP_SPECTRE_X360_16_AA0XXX),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10808  	SND_PCI_QUIRK(0x103c, 0x8c17, "HP Spectre 16", ALC287_FIXUP_CS35L41_I2C_2),
+56314c0d78d6f5 John Sweeney                 2024-08-18  10809  	SND_PCI_QUIRK(0x103c, 0x8c21, "HP Pavilion Plus Laptop 14-ey0XXX", ALC245_FIXUP_HP_X360_MUTE_LEDS),
+b474f60f6a0c90 Adam Queler                  2024-09-03  10810  	SND_PCI_QUIRK(0x103c, 0x8c30, "HP Victus 15-fb1xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+fb8cce69e5e56e Stefan Binding               2023-08-09  10811  	SND_PCI_QUIRK(0x103c, 0x8c46, "HP EliteBook 830 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+fb8cce69e5e56e Stefan Binding               2023-08-09  10812  	SND_PCI_QUIRK(0x103c, 0x8c47, "HP EliteBook 840 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+fb8cce69e5e56e Stefan Binding               2023-08-09  10813  	SND_PCI_QUIRK(0x103c, 0x8c48, "HP EliteBook 860 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+fb8cce69e5e56e Stefan Binding               2023-08-09  10814  	SND_PCI_QUIRK(0x103c, 0x8c49, "HP Elite x360 830 2-in-1 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+875e0cd59758a3 Stefan Binding               2024-04-11  10815  	SND_PCI_QUIRK(0x103c, 0x8c4d, "HP Omen", ALC287_FIXUP_CS35L41_I2C_2),
+875e0cd59758a3 Stefan Binding               2024-04-11  10816  	SND_PCI_QUIRK(0x103c, 0x8c4e, "HP Omen", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10817  	SND_PCI_QUIRK(0x103c, 0x8c4f, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10818  	SND_PCI_QUIRK(0x103c, 0x8c50, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10819  	SND_PCI_QUIRK(0x103c, 0x8c51, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+2186fe21e57aad Simon Trimmer                2024-08-29  10820  	SND_PCI_QUIRK(0x103c, 0x8c52, "HP EliteBook 1040 G11", ALC285_FIXUP_HP_GPIO_LED),
+2186fe21e57aad Simon Trimmer                2024-08-29  10821  	SND_PCI_QUIRK(0x103c, 0x8c53, "HP Elite x360 1040 2-in-1 G11", ALC285_FIXUP_HP_GPIO_LED),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10822  	SND_PCI_QUIRK(0x103c, 0x8c66, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10823  	SND_PCI_QUIRK(0x103c, 0x8c67, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10824  	SND_PCI_QUIRK(0x103c, 0x8c68, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+aa8e3ef4fe5332 Stefan Binding               2024-01-26  10825  	SND_PCI_QUIRK(0x103c, 0x8c6a, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+fb8cce69e5e56e Stefan Binding               2023-08-09  10826  	SND_PCI_QUIRK(0x103c, 0x8c70, "HP EliteBook 835 G11", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+fb8cce69e5e56e Stefan Binding               2023-08-09  10827  	SND_PCI_QUIRK(0x103c, 0x8c71, "HP EliteBook 845 G11", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+fb8cce69e5e56e Stefan Binding               2023-08-09  10828  	SND_PCI_QUIRK(0x103c, 0x8c72, "HP EliteBook 865 G11", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+ea5f8c4cffcd8a Andy Chi                     2024-06-05  10829  	SND_PCI_QUIRK(0x103c, 0x8c7b, "HP ProBook 445 G11", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ea5f8c4cffcd8a Andy Chi                     2024-06-05  10830  	SND_PCI_QUIRK(0x103c, 0x8c7c, "HP ProBook 445 G11", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ea5f8c4cffcd8a Andy Chi                     2024-06-05  10831  	SND_PCI_QUIRK(0x103c, 0x8c7d, "HP ProBook 465 G11", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ea5f8c4cffcd8a Andy Chi                     2024-06-05  10832  	SND_PCI_QUIRK(0x103c, 0x8c7e, "HP ProBook 465 G11", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+3cd59d8ef8df7d Dirk Su                      2024-06-26  10833  	SND_PCI_QUIRK(0x103c, 0x8c7f, "HP EliteBook 645 G11", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+3cd59d8ef8df7d Dirk Su                      2024-06-26  10834  	SND_PCI_QUIRK(0x103c, 0x8c80, "HP EliteBook 645 G11", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+3cd59d8ef8df7d Dirk Su                      2024-06-26  10835  	SND_PCI_QUIRK(0x103c, 0x8c81, "HP EliteBook 665 G11", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+b3b6f125da2773 Andy Chi                     2024-05-23  10836  	SND_PCI_QUIRK(0x103c, 0x8c89, "HP ProBook 460 G11", ALC236_FIXUP_HP_GPIO_LED),
+a17bd44c0146b0 Andy Chi                     2024-03-04  10837  	SND_PCI_QUIRK(0x103c, 0x8c8a, "HP EliteBook 630", ALC236_FIXUP_HP_GPIO_LED),
+a17bd44c0146b0 Andy Chi                     2024-03-04  10838  	SND_PCI_QUIRK(0x103c, 0x8c8c, "HP EliteBook 660", ALC236_FIXUP_HP_GPIO_LED),
+b3b6f125da2773 Andy Chi                     2024-05-23  10839  	SND_PCI_QUIRK(0x103c, 0x8c8d, "HP ProBook 440 G11", ALC236_FIXUP_HP_GPIO_LED),
+b3b6f125da2773 Andy Chi                     2024-05-23  10840  	SND_PCI_QUIRK(0x103c, 0x8c8e, "HP ProBook 460 G11", ALC236_FIXUP_HP_GPIO_LED),
+a17bd44c0146b0 Andy Chi                     2024-03-04  10841  	SND_PCI_QUIRK(0x103c, 0x8c90, "HP EliteBook 640", ALC236_FIXUP_HP_GPIO_LED),
+a17bd44c0146b0 Andy Chi                     2024-03-04  10842  	SND_PCI_QUIRK(0x103c, 0x8c91, "HP EliteBook 660", ALC236_FIXUP_HP_GPIO_LED),
+18a434f32fa61b Andy Chi                     2024-01-02  10843  	SND_PCI_QUIRK(0x103c, 0x8c96, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+b018cee7369896 Yo-Jung Lin                  2024-01-16  10844  	SND_PCI_QUIRK(0x103c, 0x8c97, "HP ZBook", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+a0914bf56e26d2 Edip Hazuri                  2025-06-09  10845  	SND_PCI_QUIRK(0x103c, 0x8c9c, "HP Victus 16-s1xxx (MB 8C9C)", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+1513664f340289 Andy Chi                     2024-01-22  10846  	SND_PCI_QUIRK(0x103c, 0x8ca1, "HP ZBook Power", ALC236_FIXUP_HP_GPIO_LED),
+1513664f340289 Andy Chi                     2024-01-22  10847  	SND_PCI_QUIRK(0x103c, 0x8ca2, "HP ZBook Power", ALC236_FIXUP_HP_GPIO_LED),
+5d639b60971f00 Stefan Binding               2023-11-15  10848  	SND_PCI_QUIRK(0x103c, 0x8ca4, "HP ZBook Fury", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+5d639b60971f00 Stefan Binding               2023-11-15  10849  	SND_PCI_QUIRK(0x103c, 0x8ca7, "HP ZBook Fury", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+cb2deca056d579 Nikolai Afanasenkov          2024-09-16  10850  	SND_PCI_QUIRK(0x103c, 0x8caf, "HP Elite mt645 G8 Mobile Thin Client", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+2dc43c5e212036 Hendrik Borghorst            2024-08-25  10851  	SND_PCI_QUIRK(0x103c, 0x8cbd, "HP Pavilion Aero Laptop 13-bg0xxx", ALC245_FIXUP_HP_X360_MUTE_LEDS),
+494d0939b1bda4 Kailang Yang                 2025-04-01  10852  	SND_PCI_QUIRK(0x103c, 0x8cdd, "HP Spectre", ALC245_FIXUP_HP_SPECTRE_X360_EU0XXX),
+494d0939b1bda4 Kailang Yang                 2025-04-01  10853  	SND_PCI_QUIRK(0x103c, 0x8cde, "HP OmniBook Ultra Flip Laptop 14t", ALC245_FIXUP_HP_SPECTRE_X360_EU0XXX),
+84471d01c92c33 Vitaly Rodionov              2024-04-05  10854  	SND_PCI_QUIRK(0x103c, 0x8cdf, "HP SnowWhite", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+84471d01c92c33 Vitaly Rodionov              2024-04-05  10855  	SND_PCI_QUIRK(0x103c, 0x8ce0, "HP SnowWhite", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
+5d639b60971f00 Stefan Binding               2023-11-15  10856  	SND_PCI_QUIRK(0x103c, 0x8cf5, "HP ZBook Studio 16", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+0d08f0eec961ac Chris Chiu                   2024-12-02  10857  	SND_PCI_QUIRK(0x103c, 0x8d01, "HP ZBook Power 14 G12", ALC285_FIXUP_HP_GPIO_LED),
+e8fa236e288114 Chris Chiu                   2025-04-25  10858  	SND_PCI_QUIRK(0x103c, 0x8d18, "HP EliteStudio 8 AIO", ALC274_FIXUP_HP_AIO_BIND_DACS),
+7ba81e4c3aa0ca Dirk Su                      2024-11-26  10859  	SND_PCI_QUIRK(0x103c, 0x8d84, "HP EliteBook X G1i", ALC285_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10860  	SND_PCI_QUIRK(0x103c, 0x8d85, "HP EliteBook 14 G12", ALC285_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10861  	SND_PCI_QUIRK(0x103c, 0x8d86, "HP Elite X360 14 G12", ALC285_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10862  	SND_PCI_QUIRK(0x103c, 0x8d8c, "HP EliteBook 13 G12", ALC285_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10863  	SND_PCI_QUIRK(0x103c, 0x8d8d, "HP Elite X360 13 G12", ALC285_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10864  	SND_PCI_QUIRK(0x103c, 0x8d8e, "HP EliteBook 14 G12", ALC285_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10865  	SND_PCI_QUIRK(0x103c, 0x8d8f, "HP EliteBook 14 G12", ALC285_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10866  	SND_PCI_QUIRK(0x103c, 0x8d90, "HP EliteBook 16 G12", ALC285_FIXUP_HP_GPIO_LED),
+0d08f0eec961ac Chris Chiu                   2024-12-02  10867  	SND_PCI_QUIRK(0x103c, 0x8d91, "HP ZBook Firefly 14 G12", ALC285_FIXUP_HP_GPIO_LED),
+0d08f0eec961ac Chris Chiu                   2024-12-02  10868  	SND_PCI_QUIRK(0x103c, 0x8d92, "HP ZBook Firefly 16 G12", ALC285_FIXUP_HP_GPIO_LED),
+29951021367f3a Stefan Binding               2025-03-21  10869  	SND_PCI_QUIRK(0x103c, 0x8d9b, "HP 17 Turbine OmniBook 7 UMA", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10870  	SND_PCI_QUIRK(0x103c, 0x8d9c, "HP 17 Turbine OmniBook 7 DIS", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10871  	SND_PCI_QUIRK(0x103c, 0x8d9d, "HP 17 Turbine OmniBook X UMA", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10872  	SND_PCI_QUIRK(0x103c, 0x8d9e, "HP 17 Turbine OmniBook X DIS", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10873  	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10874  	SND_PCI_QUIRK(0x103c, 0x8da0, "HP 16 Clipper OmniBook 7(X360)", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10875  	SND_PCI_QUIRK(0x103c, 0x8da1, "HP 16 Clipper OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10876  	SND_PCI_QUIRK(0x103c, 0x8da7, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10877  	SND_PCI_QUIRK(0x103c, 0x8da8, "HP 16 Piston OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+e8fa236e288114 Chris Chiu                   2025-04-25  10878  	SND_PCI_QUIRK(0x103c, 0x8dd4, "HP EliteStudio 8 AIO", ALC274_FIXUP_HP_AIO_BIND_DACS),
+bb5f86ea50ffb2 Baojun Xu                    2024-12-16  10879  	SND_PCI_QUIRK(0x103c, 0x8de8, "HP Gemtree", ALC245_FIXUP_TAS2781_SPI_2),
+bb5f86ea50ffb2 Baojun Xu                    2024-12-16  10880  	SND_PCI_QUIRK(0x103c, 0x8de9, "HP Gemtree", ALC245_FIXUP_TAS2781_SPI_2),
+78f4ca3c6f6fd3 Chris Chiu                   2025-03-21  10881  	SND_PCI_QUIRK(0x103c, 0x8dec, "HP EliteBook 640 G12", ALC236_FIXUP_HP_GPIO_LED),
+63f5235e029115 Chris Chiu                   2025-04-30  10882  	SND_PCI_QUIRK(0x103c, 0x8ded, "HP EliteBook 640 G12", ALC236_FIXUP_HP_GPIO_LED),
+78f4ca3c6f6fd3 Chris Chiu                   2025-03-21  10883  	SND_PCI_QUIRK(0x103c, 0x8dee, "HP EliteBook 660 G12", ALC236_FIXUP_HP_GPIO_LED),
+63f5235e029115 Chris Chiu                   2025-04-30  10884  	SND_PCI_QUIRK(0x103c, 0x8def, "HP EliteBook 660 G12", ALC236_FIXUP_HP_GPIO_LED),
+78f4ca3c6f6fd3 Chris Chiu                   2025-03-21  10885  	SND_PCI_QUIRK(0x103c, 0x8df0, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
+63f5235e029115 Chris Chiu                   2025-04-30  10886  	SND_PCI_QUIRK(0x103c, 0x8df1, "HP EliteBook 630 G12", ALC236_FIXUP_HP_GPIO_LED),
+78f4ca3c6f6fd3 Chris Chiu                   2025-03-21  10887  	SND_PCI_QUIRK(0x103c, 0x8dfc, "HP EliteBook 645 G12", ALC236_FIXUP_HP_GPIO_LED),
+78f4ca3c6f6fd3 Chris Chiu                   2025-03-21  10888  	SND_PCI_QUIRK(0x103c, 0x8dfe, "HP EliteBook 665 G12", ALC236_FIXUP_HP_GPIO_LED),
+29951021367f3a Stefan Binding               2025-03-21  10889  	SND_PCI_QUIRK(0x103c, 0x8e11, "HP Trekker", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10890  	SND_PCI_QUIRK(0x103c, 0x8e12, "HP Trekker", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10891  	SND_PCI_QUIRK(0x103c, 0x8e13, "HP Trekker", ALC287_FIXUP_CS35L41_I2C_2),
+22c7f77247a84d Kailang Yang                 2025-04-01  10892  	SND_PCI_QUIRK(0x103c, 0x8e14, "HP ZBook Firefly 14 G12", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10893  	SND_PCI_QUIRK(0x103c, 0x8e15, "HP ZBook Firefly 14 G12", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10894  	SND_PCI_QUIRK(0x103c, 0x8e16, "HP ZBook Firefly 14 G12", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10895  	SND_PCI_QUIRK(0x103c, 0x8e17, "HP ZBook Firefly 14 G12", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10896  	SND_PCI_QUIRK(0x103c, 0x8e18, "HP ZBook Firefly 14 G12A", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10897  	SND_PCI_QUIRK(0x103c, 0x8e19, "HP ZBook Firefly 14 G12A", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10898  	SND_PCI_QUIRK(0x103c, 0x8e1a, "HP ZBook Firefly 14 G12A", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10899  	SND_PCI_QUIRK(0x103c, 0x8e1b, "HP EliteBook G12", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+22c7f77247a84d Kailang Yang                 2025-04-01  10900  	SND_PCI_QUIRK(0x103c, 0x8e1c, "HP EliteBook G12", ALC245_FIXUP_HP_ZBOOK_FIREFLY_G12A),
+f709b78aecab51 Chris Chiu                   2025-05-20  10901  	SND_PCI_QUIRK(0x103c, 0x8e1d, "HP ZBook X Gli 16 G12", ALC236_FIXUP_HP_GPIO_LED),
+0b1b5161648f35 Chris Chiu                   2025-03-21  10902  	SND_PCI_QUIRK(0x103c, 0x8e2c, "HP EliteBook 16 G12", ALC285_FIXUP_HP_GPIO_LED),
+29951021367f3a Stefan Binding               2025-03-21  10903  	SND_PCI_QUIRK(0x103c, 0x8e36, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10904  	SND_PCI_QUIRK(0x103c, 0x8e37, "HP 16 Piston OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+7150d57c370f9e Stefan Binding               2025-05-20  10905  	SND_PCI_QUIRK(0x103c, 0x8e3a, "HP Agusta", ALC287_FIXUP_CS35L41_I2C_2),
+7150d57c370f9e Stefan Binding               2025-05-20  10906  	SND_PCI_QUIRK(0x103c, 0x8e3b, "HP Agusta", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10907  	SND_PCI_QUIRK(0x103c, 0x8e60, "HP Trekker ", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10908  	SND_PCI_QUIRK(0x103c, 0x8e61, "HP Trekker ", ALC287_FIXUP_CS35L41_I2C_2),
+29951021367f3a Stefan Binding               2025-03-21  10909  	SND_PCI_QUIRK(0x103c, 0x8e62, "HP Trekker ", ALC287_FIXUP_CS35L41_I2C_2),
+c6451a7325874c Chris Chiu                   2025-06-10  10910  	SND_PCI_QUIRK(0x1043, 0x1032, "ASUS VivoBook X513EA", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+7b23887a0c70d1 Richard Fitzgerald           2025-06-09  10911  	SND_PCI_QUIRK(0x1043, 0x1034, "ASUS GU605C", ALC285_FIXUP_ASUS_GU605_SPI_SPEAKER2_TO_DAC1),
+c1732ede5e8008 Chris Chiu                   2017-02-28  10912  	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+7bba2157c5d3ee Takashi Iwai                 2013-09-06  10913  	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+9120b2b4ad0dad Stefan Binding               2025-03-05  10914  	SND_PCI_QUIRK(0x1043, 0x1054, "ASUS G614FH/FM/FP", ALC287_FIXUP_CS35L41_I2C_2),
+3e0d611b2045b2 David Henningsson            2013-04-22  10915  	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+829ee558f3527f Takashi Iwai                 2025-03-24  10916  	SND_PCI_QUIRK(0x1043, 0x106f, "ASUS VivoBook X515UA", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+9120b2b4ad0dad Stefan Binding               2025-03-05  10917  	SND_PCI_QUIRK(0x1043, 0x1074, "ASUS G614PH/PM/PP", ALC287_FIXUP_CS35L41_I2C_2),
+9cf6533e8060d3 Wandrille RONCE              2018-12-19  10918  	SND_PCI_QUIRK(0x1043, 0x10a1, "ASUS UX391UA", ALC294_FIXUP_ASUS_SPK),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  10919  	SND_PCI_QUIRK(0x1043, 0x10a4, "ASUS TP3407SA", ALC287_FIXUP_TAS2781_I2C),
+c1732ede5e8008 Chris Chiu                   2017-02-28  10920  	SND_PCI_QUIRK(0x1043, 0x10c0, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+4eab0ea196f569 Takashi Iwai                 2017-06-06  10921  	SND_PCI_QUIRK(0x1043, 0x10d0, "ASUS X540LA/X540LJ", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
+713f040cd22285 Chandradeep Dey              2023-11-11  10922  	SND_PCI_QUIRK(0x1043, 0x10d3, "ASUS K6500ZC", ALC294_FIXUP_ASUS_SPK),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  10923  	SND_PCI_QUIRK(0x1043, 0x1154, "ASUS TP3607SH", ALC287_FIXUP_TAS2781_I2C),
+3e0d611b2045b2 David Henningsson            2013-04-22  10924  	SND_PCI_QUIRK(0x1043, 0x115d, "Asus 1015E", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+8463d2adbe1901 Stefan Binding               2025-03-05  10925  	SND_PCI_QUIRK(0x1043, 0x1194, "ASUS UM3406KA", ALC287_FIXUP_CS35L41_I2C_2),
+4eab0ea196f569 Takashi Iwai                 2017-06-06  10926  	SND_PCI_QUIRK(0x1043, 0x11c0, "ASUS X556UR", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  10927  	SND_PCI_QUIRK(0x1043, 0x1204, "ASUS Strix G615JHR_JMR_JPR", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  10928  	SND_PCI_QUIRK(0x1043, 0x1214, "ASUS Strix G615LH_LM_LP", ALC287_FIXUP_TAS2781_I2C),
+3cd0ed636dd19e Takashi Iwai                 2021-04-28  10929  	SND_PCI_QUIRK(0x1043, 0x125e, "ASUS Q524UQK", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
+5cfca59604e423 Chris Chiu                   2020-12-07  10930  	SND_PCI_QUIRK(0x1043, 0x1271, "ASUS X430UN", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+4eab0ea196f569 Takashi Iwai                 2017-06-06  10931  	SND_PCI_QUIRK(0x1043, 0x1290, "ASUS X441SA", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
+859a1191700142 Stefan Binding               2025-03-05  10932  	SND_PCI_QUIRK(0x1043, 0x1294, "ASUS B3405CVA", ALC245_FIXUP_CS35L41_SPI_2),
+4eab0ea196f569 Takashi Iwai                 2017-06-06  10933  	SND_PCI_QUIRK(0x1043, 0x12a0, "ASUS X441UV", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
+e959f2beec8e65 Pierre-Louis Bossart         2023-04-06  10934  	SND_PCI_QUIRK(0x1043, 0x12a3, "Asus N7691ZM", ALC269_FIXUP_ASUS_N7601ZM),
+461122b999bda2 Stefan Binding               2022-08-15  10935  	SND_PCI_QUIRK(0x1043, 0x12af, "ASUS UX582ZS", ALC245_FIXUP_CS35L41_SPI_2),
+b5458fcabd96ce Kailang Yang                 2025-04-09  10936  	SND_PCI_QUIRK(0x1043, 0x12b4, "ASUS B3405CCA / P3405CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+4d5b71b487291d Takashi Iwai                 2025-04-30  10937  	SND_PCI_QUIRK(0x1043, 0x12e0, "ASUS X541SA", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+4d5b71b487291d Takashi Iwai                 2025-04-30  10938  	SND_PCI_QUIRK(0x1043, 0x12f0, "ASUS X541UV", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+f882c4bef9cb91 Meng Tang                    2022-08-05  10939  	SND_PCI_QUIRK(0x1043, 0x1313, "Asus K42JZ", ALC269VB_FIXUP_ASUS_MIC_NO_PRESENCE),
+4d5b71b487291d Takashi Iwai                 2025-04-30  10940  	SND_PCI_QUIRK(0x1043, 0x13b0, "ASUS Z550SA", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+2cede30379f3fe Oleksij Rempel               2013-11-27  10941  	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10942  	SND_PCI_QUIRK(0x1043, 0x1433, "ASUS GX650PY/PZ/PV/PU/PYV/PZV/PIV/PVV", ALC285_FIXUP_ASUS_I2C_HEADSET_MIC),
+9e7c6779e3530b Takashi Iwai                 2025-02-25  10943  	SND_PCI_QUIRK(0x1043, 0x1460, "Asus VivoBook 15", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10944  	SND_PCI_QUIRK(0x1043, 0x1463, "Asus GA402X/GA402N", ALC285_FIXUP_ASUS_I2C_HEADSET_MIC),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10945  	SND_PCI_QUIRK(0x1043, 0x1473, "ASUS GU604VI/VC/VE/VG/VJ/VQ/VU/VV/VY/VZ", ALC285_FIXUP_ASUS_HEADSET_MIC),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10946  	SND_PCI_QUIRK(0x1043, 0x1483, "ASUS GU603VQ/VU/VV/VJ/VI", ALC285_FIXUP_ASUS_HEADSET_MIC),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10947  	SND_PCI_QUIRK(0x1043, 0x1493, "ASUS GV601VV/VU/VJ/VQ/VI", ALC285_FIXUP_ASUS_HEADSET_MIC),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10948  	SND_PCI_QUIRK(0x1043, 0x14d3, "ASUS G614JY/JZ/JG", ALC245_FIXUP_CS35L41_SPI_2),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10949  	SND_PCI_QUIRK(0x1043, 0x14e3, "ASUS G513PI/PU/PV", ALC287_FIXUP_CS35L41_I2C_2),
+84c3c08f5a6c2e Takashi Iwai                 2025-03-26  10950  	SND_PCI_QUIRK(0x1043, 0x14f2, "ASUS VivoBook X515JA", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10951  	SND_PCI_QUIRK(0x1043, 0x1503, "ASUS G733PY/PZ/PZV/PYV", ALC287_FIXUP_CS35L41_I2C_2),
+2387083157b858 Takashi Iwai                 2013-11-29  10952  	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10953  	SND_PCI_QUIRK(0x1043, 0x1533, "ASUS GV302XA/XJ/XQ/XU/XV/XI", ALC287_FIXUP_CS35L41_I2C_2),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10954  	SND_PCI_QUIRK(0x1043, 0x1573, "ASUS GZ301VV/VQ/VU/VJ/VA/VC/VE/VVC/VQC/VUC/VJC/VEC/VCC", ALC285_FIXUP_ASUS_HEADSET_MIC),
+b16c8f229a58ea Takashi Iwai                 2022-09-15  10955  	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10956  	SND_PCI_QUIRK(0x1043, 0x1663, "ASUS GU603ZI/ZJ/ZQ/ZU/ZV", ALC285_FIXUP_ASUS_HEADSET_MIC),
+7e2d06628aab63 Mark Asselstine              2023-05-01  10957  	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_2),
+852d432a14dbcd Jean-Loïc Charroud           2024-02-14  10958  	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC245_FIXUP_CS35L41_SPI_2),
+b16c8f229a58ea Takashi Iwai                 2022-09-15  10959  	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
+ae53e2198cb811 Stefan Binding               2023-12-18  10960  	SND_PCI_QUIRK(0x1043, 0x16d3, "ASUS UX5304VA", ALC245_FIXUP_CS35L41_SPI_2),
+3e0d611b2045b2 David Henningsson            2013-04-22  10961  	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+ae53e2198cb811 Stefan Binding               2023-12-18  10962  	SND_PCI_QUIRK(0x1043, 0x16f3, "ASUS UX7602VI/BZ", ALC245_FIXUP_CS35L41_SPI_2),
+8eedd3a70a70f5 Takashi Iwai                 2021-05-04  10963  	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA", ALC295_FIXUP_ASUS_DACS),
+48e01504cf5315 Chris Chiu                   2019-12-30  10964  	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10965  	SND_PCI_QUIRK(0x1043, 0x17f3, "ROG Ally NR2301L/X", ALC294_FIXUP_ASUS_ALLY),
+ae53e2198cb811 Stefan Binding               2023-12-18  10966  	SND_PCI_QUIRK(0x1043, 0x1863, "ASUS UX6404VI/VV", ALC245_FIXUP_CS35L41_SPI_2),
+3cd0ed636dd19e Takashi Iwai                 2021-04-28  10967  	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
+8c8967a7dc01a2 Daniel Drake                 2019-10-17  10968  	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
+c5c325bb584986 Pascal Noël                  2023-12-01  10969  	SND_PCI_QUIRK(0x1043, 0x18d3, "ASUS UM3504DA", ALC294_FIXUP_CS35L41_I2C_2),
+4963d66b8a26c4 Adam Barber                  2020-04-10  10970  	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
+158ae2f5e6fead Kailang Yang                 2020-07-16  10971  	SND_PCI_QUIRK(0x1043, 0x194e, "ASUS UX563FD", ALC294_FIXUP_ASUS_HPE),
+4fad4fb9871b43 Takashi Iwai                 2021-11-07  10972  	SND_PCI_QUIRK(0x1043, 0x1970, "ASUS UX550VE", ALC289_FIXUP_ASUS_GA401),
+5de3b9430221b1 Jian-Hong Pan                2021-01-22  10973  	SND_PCI_QUIRK(0x1043, 0x1982, "ASUS B1400CEPE", ALC256_FIXUP_ASUS_HPE),
+8b33a134a9cc2a Jian-Hong Pan                2020-02-25  10974  	SND_PCI_QUIRK(0x1043, 0x19ce, "ASUS B9450FA", ALC294_FIXUP_ASUS_HPE),
+7900e81797613b Jian-Hong Pan                2020-05-12  10975  	SND_PCI_QUIRK(0x1043, 0x19e1, "ASUS UX581LV", ALC295_FIXUP_ASUS_MIC_NO_PRESENCE),
+017f2a104c7fed Takashi Iwai                 2011-07-09  10976  	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
+61cbc08fdb04fd Stefan Binding               2023-11-15  10977  	SND_PCI_QUIRK(0x1043, 0x1a63, "ASUS UX3405MA", ALC245_FIXUP_CS35L41_SPI_2),
+6ae90e906aed72 Vitalii Torshyn              2023-11-09  10978  	SND_PCI_QUIRK(0x1043, 0x1a83, "ASUS UM5302LA", ALC294_FIXUP_CS35L41_I2C_2),
+461122b999bda2 Stefan Binding               2022-08-15  10979  	SND_PCI_QUIRK(0x1043, 0x1a8f, "ASUS UX582ZS", ALC245_FIXUP_CS35L41_SPI_2),
+1b94e59d30afec Takashi Iwai                 2020-05-12  10980  	SND_PCI_QUIRK(0x1043, 0x1b11, "ASUS UX431DA", ALC294_FIXUP_ASUS_COEF_1B),
+0672b017324b14 Vitalii Torshyn              2024-04-11  10981  	SND_PCI_QUIRK(0x1043, 0x1b13, "ASUS U41SV/GA403U", ALC285_FIXUP_ASUS_GA403U_HEADSET_MIC),
+811dd426a9b16c Stefan Binding               2023-06-05  10982  	SND_PCI_QUIRK(0x1043, 0x1b93, "ASUS G614JVR/JIR", ALC245_FIXUP_CS35L41_SPI_2),
+615966adc4b616 Chris Chiu                   2017-02-28  10983  	SND_PCI_QUIRK(0x1043, 0x1bbd, "ASUS Z550MA", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
+61cbc08fdb04fd Stefan Binding               2023-11-15  10984  	SND_PCI_QUIRK(0x1043, 0x1c03, "ASUS UM3406HA", ALC287_FIXUP_CS35L41_I2C_2),
+4eab0ea196f569 Takashi Iwai                 2017-06-06  10985  	SND_PCI_QUIRK(0x1043, 0x1c23, "Asus X55U", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+61cbc08fdb04fd Stefan Binding               2023-11-15  10986  	SND_PCI_QUIRK(0x1043, 0x1c33, "ASUS UX5304MA", ALC245_FIXUP_CS35L41_SPI_2),
+61cbc08fdb04fd Stefan Binding               2023-11-15  10987  	SND_PCI_QUIRK(0x1043, 0x1c43, "ASUS UX8406MA", ALC245_FIXUP_CS35L41_SPI_2),
+a4671b7fba5977 Luke D. Jones                2023-05-06  10988  	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
+0672b017324b14 Vitalii Torshyn              2024-04-11  10989  	SND_PCI_QUIRK(0x1043, 0x1c63, "ASUS GU605M", ALC285_FIXUP_ASUS_GU605_SPI_SPEAKER2_TO_DAC1),
+8983dc1b66c0e1 Takashi Iwai                 2025-04-02  10990  	SND_PCI_QUIRK(0x1043, 0x1c80, "ASUS VivoBook TP401", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+bc2c23549ccd71 Luke D. Jones                2022-09-15  10991  	SND_PCI_QUIRK(0x1043, 0x1c92, "ASUS ROG Strix G15", ALC285_FIXUP_ASUS_G533Z_PINS),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10992  	SND_PCI_QUIRK(0x1043, 0x1c9f, "ASUS G614JU/JV/JI", ALC285_FIXUP_ASUS_HEADSET_MIC),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10993  	SND_PCI_QUIRK(0x1043, 0x1caf, "ASUS G634JY/JZ/JI/JG", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
+4d5b71b487291d Takashi Iwai                 2025-04-30  10994  	SND_PCI_QUIRK(0x1043, 0x1ccd, "ASUS X555UB", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10995  	SND_PCI_QUIRK(0x1043, 0x1ccf, "ASUS G814JU/JV/JI", ALC245_FIXUP_CS35L41_SPI_2),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10996  	SND_PCI_QUIRK(0x1043, 0x1cdf, "ASUS G814JY/JZ/JG", ALC245_FIXUP_CS35L41_SPI_2),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10997  	SND_PCI_QUIRK(0x1043, 0x1cef, "ASUS G834JY/JZ/JI/JG", ALC285_FIXUP_ASUS_HEADSET_MIC),
+a40ce9f4bdbebf Stefan Binding               2023-12-18  10998  	SND_PCI_QUIRK(0x1043, 0x1d1f, "ASUS G713PI/PU/PV/PVN", ALC287_FIXUP_CS35L41_I2C_2),
+b16c8f229a58ea Takashi Iwai                 2022-09-15  10999  	SND_PCI_QUIRK(0x1043, 0x1d42, "ASUS Zephyrus G14 2022", ALC289_FIXUP_ASUS_GA401),
+ef9ce66fab959c Kailang Yang                 2020-11-03  11000  	SND_PCI_QUIRK(0x1043, 0x1d4e, "ASUS TM420", ALC256_FIXUP_ASUS_HPE),
+51d976079976c8 Stefan Binding               2023-12-18  11001  	SND_PCI_QUIRK(0x1043, 0x1da2, "ASUS UP6502ZA/ZD", ALC245_FIXUP_CS35L41_SPI_2),
+a7df7f909cec96 Jaroslav Kysela              2024-11-28  11002  	SND_PCI_QUIRK(0x1043, 0x1df3, "ASUS UM5606WA", ALC294_FIXUP_BASS_SPEAKER_15),
+be8cd366beb80c Andres Traumann              2025-03-25  11003  	SND_PCI_QUIRK(0x1043, 0x1264, "ASUS UM5606KA", ALC294_FIXUP_BASS_SPEAKER_15),
+07058dceb038a4 Knyazev Arseniy              2023-09-13  11004  	SND_PCI_QUIRK(0x1043, 0x1e02, "ASUS UX3402ZA", ALC245_FIXUP_CS35L41_SPI_2),
+4b43d05a1978a9 Armas Spann                  2020-07-24  11005  	SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA502),
+b9105044889766 Jean-Loïc Charroud           2024-02-14  11006  	SND_PCI_QUIRK(0x1043, 0x1e12, "ASUS UM3402", ALC287_FIXUP_CS35L41_I2C_2),
+a83e4c97ddd747 Vasiliy Kovalev              2024-09-05  11007  	SND_PCI_QUIRK(0x1043, 0x1e1f, "ASUS Vivobook 15 X1504VAP", ALC2XX_FIXUP_HEADSET_MIC),
+c1b55029493879 Daniel Cordova A             2021-05-07  11008  	SND_PCI_QUIRK(0x1043, 0x1e51, "ASUS Zephyrus M15", ALC294_FIXUP_ASUS_GU502_PINS),
+c611e659044168 Luke D. Jones                2022-09-15  11009  	SND_PCI_QUIRK(0x1043, 0x1e5e, "ASUS ROG Strix G513", ALC294_FIXUP_ASUS_G513_PINS),
+44a48b26639e59 Luke D. Jones                2025-01-11  11010  	SND_PCI_QUIRK(0x1043, 0x1e63, "ASUS H7606W", ALC285_FIXUP_ASUS_GU605_SPI_SPEAKER2_TO_DAC1),
+f67b1ef261f437 Luke D. Jones                2025-01-11  11011  	SND_PCI_QUIRK(0x1043, 0x1e83, "ASUS GA605W", ALC285_FIXUP_ASUS_GU605_SPI_SPEAKER2_TO_DAC1),
+76fae6185f5456 Luke D Jones                 2021-04-19  11012  	SND_PCI_QUIRK(0x1043, 0x1e8e, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA401),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11013  	SND_PCI_QUIRK(0x1043, 0x1eb3, "ASUS Ally RCLA72", ALC287_FIXUP_TAS2781_I2C),
+21a522f935e476 Stefan Binding               2024-05-07  11014  	SND_PCI_QUIRK(0x1043, 0x1ed3, "ASUS HN7306W", ALC287_FIXUP_CS35L41_I2C_2),
+b9105044889766 Jean-Loïc Charroud           2024-02-14  11015  	SND_PCI_QUIRK(0x1043, 0x1ee2, "ASUS UM6702RA/RC", ALC287_FIXUP_CS35L41_I2C_2),
+ba1f818053b066 Luke D. Jones                2022-09-15  11016  	SND_PCI_QUIRK(0x1043, 0x1c52, "ASUS Zephyrus G15 2022", ALC289_FIXUP_ASUS_GA401),
+293a92c1d99132 Armas Spann                  2020-07-24  11017  	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
+8d06679b25fc68 Stefan Binding               2022-10-28  11018  	SND_PCI_QUIRK(0x1043, 0x1f12, "ASUS UM5302", ALC287_FIXUP_CS35L41_I2C_2),
+ae53e2198cb811 Stefan Binding               2023-12-18  11019  	SND_PCI_QUIRK(0x1043, 0x1f1f, "ASUS H7604JI/JV/J3D", ALC245_FIXUP_CS35L41_SPI_2),
+51d976079976c8 Stefan Binding               2023-12-18  11020  	SND_PCI_QUIRK(0x1043, 0x1f62, "ASUS UX7602ZM", ALC245_FIXUP_CS35L41_SPI_2),
+f479ecc5ef15ed Daniel Bárta                 2025-02-27  11021  	SND_PCI_QUIRK(0x1043, 0x1f63, "ASUS P5405CSA", ALC245_FIXUP_CS35L41_SPI_2),
+2ea8e1297801f7 Luke D. Jones                2022-10-10  11022  	SND_PCI_QUIRK(0x1043, 0x1f92, "ASUS ROG Flow X16", ALC289_FIXUP_ASUS_GA401),
+12784ca33b62fd Antheas Kapenekakis          2025-02-27  11023  	SND_PCI_QUIRK(0x1043, 0x1fb3, "ASUS ROG Flow Z13 GZ302EA", ALC287_FIXUP_CS35L41_I2C_2),
+859a1191700142 Stefan Binding               2025-03-05  11024  	SND_PCI_QUIRK(0x1043, 0x3011, "ASUS B5605CVA", ALC245_FIXUP_CS35L41_SPI_2),
+eeed4cd15ae0a8 Chris Chiu                   2017-02-28  11025  	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE", ALC256_FIXUP_ASUS_AIO_GPIO2),
+b5458fcabd96ce Kailang Yang                 2025-04-09  11026  	SND_PCI_QUIRK(0x1043, 0x3061, "ASUS B3405CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+b5458fcabd96ce Kailang Yang                 2025-04-09  11027  	SND_PCI_QUIRK(0x1043, 0x3071, "ASUS B5405CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+b5458fcabd96ce Kailang Yang                 2025-04-09  11028  	SND_PCI_QUIRK(0x1043, 0x30c1, "ASUS B3605CCA / P3605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+b5458fcabd96ce Kailang Yang                 2025-04-09  11029  	SND_PCI_QUIRK(0x1043, 0x30d1, "ASUS B5405CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+b5458fcabd96ce Kailang Yang                 2025-04-09  11030  	SND_PCI_QUIRK(0x1043, 0x30e1, "ASUS B5605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+1b452c2de5555d Vasiliy Kovalev              2024-12-06  11031  	SND_PCI_QUIRK(0x1043, 0x31d0, "ASUS Zen AIO 27 Z272SD_A272SD", ALC274_FIXUP_ASUS_ZEN_AIO_27),
+b5458fcabd96ce Kailang Yang                 2025-04-09  11032  	SND_PCI_QUIRK(0x1043, 0x31e1, "ASUS B5605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+b5458fcabd96ce Kailang Yang                 2025-04-09  11033  	SND_PCI_QUIRK(0x1043, 0x31f1, "ASUS B3605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
+e6e18021ddd0dc Luke D. Jones                2024-07-23  11034  	SND_PCI_QUIRK(0x1043, 0x3a20, "ASUS G614JZR", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
+e6e18021ddd0dc Luke D. Jones                2024-07-23  11035  	SND_PCI_QUIRK(0x1043, 0x3a30, "ASUS G814JVR/JIR", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
+2be46155d792d6 Luke D. Jones                2024-05-26  11036  	SND_PCI_QUIRK(0x1043, 0x3a40, "ASUS G814JZR", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
+e6e18021ddd0dc Luke D. Jones                2024-07-23  11037  	SND_PCI_QUIRK(0x1043, 0x3a50, "ASUS G834JYR/JZR", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
+0bfe105018bd2d Luke D. Jones                2024-04-02  11038  	SND_PCI_QUIRK(0x1043, 0x3a60, "ASUS G634JYR/JZR", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
+16dc157346dd44 Stefan Binding               2025-03-05  11039  	SND_PCI_QUIRK(0x1043, 0x3d78, "ASUS GA603KH", ALC287_FIXUP_CS35L41_I2C_2),
+16dc157346dd44 Stefan Binding               2025-03-05  11040  	SND_PCI_QUIRK(0x1043, 0x3d88, "ASUS GA603KM", ALC287_FIXUP_CS35L41_I2C_2),
+f2c11231b57b51 Stefan Binding               2025-03-05  11041  	SND_PCI_QUIRK(0x1043, 0x3e00, "ASUS G814FH/FM/FP", ALC287_FIXUP_CS35L41_I2C_2),
+f2c11231b57b51 Stefan Binding               2025-03-05  11042  	SND_PCI_QUIRK(0x1043, 0x3e20, "ASUS G814PH/PM/PP", ALC287_FIXUP_CS35L41_I2C_2),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11043  	SND_PCI_QUIRK(0x1043, 0x3e30, "ASUS TP3607SA", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11044  	SND_PCI_QUIRK(0x1043, 0x3ee0, "ASUS Strix G815_JHR_JMR_JPR", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11045  	SND_PCI_QUIRK(0x1043, 0x3ef0, "ASUS Strix G635LR_LW_LX", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11046  	SND_PCI_QUIRK(0x1043, 0x3f00, "ASUS Strix G815LH_LM_LP", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11047  	SND_PCI_QUIRK(0x1043, 0x3f10, "ASUS Strix G835LR_LW_LX", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11048  	SND_PCI_QUIRK(0x1043, 0x3f20, "ASUS Strix G615LR_LW", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11049  	SND_PCI_QUIRK(0x1043, 0x3f30, "ASUS Strix G815LR_LW", ALC287_FIXUP_TAS2781_I2C),
+859a1191700142 Stefan Binding               2025-03-05  11050  	SND_PCI_QUIRK(0x1043, 0x3fd0, "ASUS B3605CVA", ALC245_FIXUP_CS35L41_SPI_2),
+859a1191700142 Stefan Binding               2025-03-05  11051  	SND_PCI_QUIRK(0x1043, 0x3ff0, "ASUS B5405CVA", ALC245_FIXUP_CS35L41_SPI_2),
+adabb3ec8b0bcb Takashi Iwai                 2011-08-03  11052  	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
+adabb3ec8b0bcb Takashi Iwai                 2011-08-03  11053  	SND_PCI_QUIRK(0x1043, 0x834a, "ASUS S101", ALC269_FIXUP_STEREO_DMIC),
+adabb3ec8b0bcb Takashi Iwai                 2011-08-03  11054  	SND_PCI_QUIRK(0x1043, 0x8398, "ASUS P1005", ALC269_FIXUP_STEREO_DMIC),
+adabb3ec8b0bcb Takashi Iwai                 2011-08-03  11055  	SND_PCI_QUIRK(0x1043, 0x83ce, "ASUS P1005", ALC269_FIXUP_STEREO_DMIC),
+d240d1dcd5b42d David Henningsson            2013-04-15  11056  	SND_PCI_QUIRK(0x1043, 0x8516, "ASUS X101CH", ALC269_FIXUP_ASUS_X101),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11057  	SND_PCI_QUIRK(0x104d, 0x9073, "Sony VAIO", ALC275_FIXUP_SONY_VAIO_GPIO2),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11058  	SND_PCI_QUIRK(0x104d, 0x907b, "Sony VAIO", ALC275_FIXUP_SONY_HWEQ),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11059  	SND_PCI_QUIRK(0x104d, 0x9084, "Sony VAIO", ALC275_FIXUP_SONY_HWEQ),
+e9bd7d5ce8d145 Takashi Iwai                 2014-05-21  11060  	SND_PCI_QUIRK(0x104d, 0x9099, "Sony VAIO S13", ALC275_FIXUP_SONY_DISABLE_AAMIX),
+cab561f8d4bc9b Takashi Iwai                 2021-04-28  11061  	SND_PCI_QUIRK(0x104d, 0x90b5, "Sony VAIO Pro 11", ALC286_FIXUP_SONY_MIC_NO_PRESENCE),
+cab561f8d4bc9b Takashi Iwai                 2021-04-28  11062  	SND_PCI_QUIRK(0x104d, 0x90b6, "Sony VAIO Pro 13", ALC286_FIXUP_SONY_MIC_NO_PRESENCE),
+24519911673eb5 Takashi Iwai                 2011-08-16  11063  	SND_PCI_QUIRK(0x10cf, 0x1475, "Lifebook", ALC269_FIXUP_LIFEBOOK),
+4df3fd1700abbb Takashi Iwai                 2015-06-29  11064  	SND_PCI_QUIRK(0x10cf, 0x159f, "Lifebook E780", ALC269_FIXUP_LIFEBOOK_NO_HP_TO_LINEOUT),
+cc7016ab1a22fb Takashi Iwai                 2015-04-08  11065  	SND_PCI_QUIRK(0x10cf, 0x15dc, "Lifebook T731", ALC269_FIXUP_LIFEBOOK_HP_PIN),
+fdcc968a3b2904 Jan-Marek Glogowski          2018-02-14  11066  	SND_PCI_QUIRK(0x10cf, 0x1629, "Lifebook U7x7", ALC255_FIXUP_LIFEBOOK_U7x7_HEADSET_MIC),
+c656f747df151a Takashi Iwai                 2021-04-28  11067  	SND_PCI_QUIRK(0x10cf, 0x1757, "Lifebook E752", ALC269_FIXUP_LIFEBOOK_HP_PIN),
+2041d56464a067 David Henningsson            2014-06-13  11068  	SND_PCI_QUIRK(0x10cf, 0x1845, "Lifebook U904", ALC269_FIXUP_LIFEBOOK_EXTMIC),
+b84e843644f211 PeiSen Hou                   2017-09-01  11069  	SND_PCI_QUIRK(0x10ec, 0x10f2, "Intel Reference board", ALC700_FIXUP_INTEL_REFERENCE),
+c656f747df151a Takashi Iwai                 2021-04-28  11070  	SND_PCI_QUIRK(0x10ec, 0x118c, "Medion EE4254 MD62100", ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE),
+8fc1e8b2307714 Edson Juliano Drosdeck       2024-07-12  11071  	SND_PCI_QUIRK(0x10ec, 0x119e, "Positivo SU C1400", ALC269_FIXUP_ASPIRE_HEADSET_MIC),
+6db03b1929e207 Edson Juliano Drosdeck       2024-07-05  11072  	SND_PCI_QUIRK(0x10ec, 0x11bc, "VAIO VJFE-IL", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+6fa38ef1534e7e PeiSen Hou                   2020-07-27  11073  	SND_PCI_QUIRK(0x10ec, 0x1230, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+4f2e56a59b9947 Saranya Gopal                2022-10-11  11074  	SND_PCI_QUIRK(0x10ec, 0x124c, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+ce2e79b223867b PeiSen Hou                   2020-12-31  11075  	SND_PCI_QUIRK(0x10ec, 0x1252, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+ce2e79b223867b PeiSen Hou                   2020-12-31  11076  	SND_PCI_QUIRK(0x10ec, 0x1254, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+ccbd88be057a38 Kailang Yang                 2023-10-06  11077  	SND_PCI_QUIRK(0x10ec, 0x12cc, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+a097812310b574 Sayed, Karimuddin            2024-02-08  11078  	SND_PCI_QUIRK(0x10ec, 0x12f6, "Intel Reference board", ALC295_FIXUP_CHROME_BOOK),
+1576f263ee2147 I Gede Agastya Darma Laksana 2024-04-02  11079  	SND_PCI_QUIRK(0x10f7, 0x8338, "Panasonic CF-SZ6", ALC269_FIXUP_ASPIRE_HEADSET_MIC),
+a33cc48d28b4ff David Henningsson            2014-10-07  11080  	SND_PCI_QUIRK(0x144d, 0xc109, "Samsung Ativ book 9 (NP900X3G)", ALC269_FIXUP_INV_DMIC),
+a2d57ebec1e15f Kacper Michajłow             2022-08-27  11081  	SND_PCI_QUIRK(0x144d, 0xc169, "Samsung Notebook 9 Pen (NP930SBE-K01US)", ALC298_FIXUP_SAMSUNG_AMP),
+a2d57ebec1e15f Kacper Michajłow             2022-08-27  11082  	SND_PCI_QUIRK(0x144d, 0xc176, "Samsung Notebook 9 Pro (NP930MBE-K04US)", ALC298_FIXUP_SAMSUNG_AMP),
+a2d57ebec1e15f Kacper Michajłow             2022-08-27  11083  	SND_PCI_QUIRK(0x144d, 0xc189, "Samsung Galaxy Flex Book (NT950QCG-X716)", ALC298_FIXUP_SAMSUNG_AMP),
+a2d57ebec1e15f Kacper Michajłow             2022-08-27  11084  	SND_PCI_QUIRK(0x144d, 0xc18a, "Samsung Galaxy Book Ion (NP930XCJ-K01US)", ALC298_FIXUP_SAMSUNG_AMP),
+b18a456330e1c1 Emil Flink                   2022-11-15  11085  	SND_PCI_QUIRK(0x144d, 0xc1a3, "Samsung Galaxy Book Pro (NP935XDB-KC1SE)", ALC298_FIXUP_SAMSUNG_AMP),
+d7063c08738573 Seunghun Han                 2024-07-18  11086  	SND_PCI_QUIRK(0x144d, 0xc1a4, "Samsung Galaxy Book Pro 360 (NT935QBD)", ALC298_FIXUP_SAMSUNG_AMP),
+1abfd71ee8f3ed Takashi Iwai                 2022-11-15  11087  	SND_PCI_QUIRK(0x144d, 0xc1a6, "Samsung Galaxy Book Pro 360 (NP930QBD)", ALC298_FIXUP_SAMSUNG_AMP),
+823ff161fe5117 Gabriele Mazzotta            2016-12-24  11088  	SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)", ALC269_FIXUP_ATIV_BOOK_8),
+a2d57ebec1e15f Kacper Michajłow             2022-08-27  11089  	SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)", ALC298_FIXUP_SAMSUNG_AMP),
+a2d57ebec1e15f Kacper Michajłow             2022-08-27  11090  	SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_AMP),
+ef248d9bd616b0 Matt Kramer                  2022-03-22  11091  	SND_PCI_QUIRK(0x144d, 0xc832, "Samsung Galaxy Book Flex Alpha (NP730QCJ)", ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
+bd401fd730cbcb Guillaume Pinot              2023-01-29  11092  	SND_PCI_QUIRK(0x144d, 0xca03, "Samsung Galaxy Book2 Pro 360 (NP930QED)", ALC298_FIXUP_SAMSUNG_AMP),
+e2974a220594c0 Sahas Leelodharry            2024-12-02  11093  	SND_PCI_QUIRK(0x144d, 0xca06, "Samsung Galaxy Book3 360 (NP730QFG)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
+a86e79e3015f5d Hamidreza H. Fard            2023-03-07  11094  	SND_PCI_QUIRK(0x144d, 0xc868, "Samsung Galaxy Book2 Pro (NP930XED)", ALC298_FIXUP_SAMSUNG_AMP),
+7e4d4b32ab9532 Joshua Grisham               2024-09-09  11095  	SND_PCI_QUIRK(0x144d, 0xc870, "Samsung Galaxy Book2 Pro (NP950XED)", ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS),
+5740434e1e0f51 Joshua Grisham               2024-09-13  11096  	SND_PCI_QUIRK(0x144d, 0xc872, "Samsung Galaxy Book2 Pro (NP950XEE)", ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS),
+7e4d4b32ab9532 Joshua Grisham               2024-09-09  11097  	SND_PCI_QUIRK(0x144d, 0xc886, "Samsung Galaxy Book3 Pro (NP964XFG)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+7e4d4b32ab9532 Joshua Grisham               2024-09-09  11098  	SND_PCI_QUIRK(0x144d, 0xc1ca, "Samsung Galaxy Book3 Pro 360 (NP960QFG)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+7e4d4b32ab9532 Joshua Grisham               2024-09-09  11099  	SND_PCI_QUIRK(0x144d, 0xc1cc, "Samsung Galaxy Book3 Ultra (NT960XFH)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+abaa2274811d60 Anisse Astier                2016-08-24  11100  	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
+abaa2274811d60 Anisse Astier                2016-08-24  11101  	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
+8cd65271f8e545 Anisse Astier                2018-11-23  11102  	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
+6ca653e3f73a1a Chris Chiu                   2020-12-22  11103  	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
+7caf3daaaf0436 Mauro Carvalho Chehab        2024-04-17  11104  	SND_PCI_QUIRK(0x152d, 0x1262, "Huawei NBLB-WAX9N", ALC2XX_FIXUP_HEADSET_MIC),
+33affa7fb46c0c Tim Crawford                 2024-03-19  11105  	SND_PCI_QUIRK(0x1558, 0x0353, "Clevo V35[05]SN[CDE]Q", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11106  	SND_PCI_QUIRK(0x1558, 0x1323, "Clevo N130ZU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+745f260b77e5e9 Werner Sembach               2021-06-04  11107  	SND_PCI_QUIRK(0x1558, 0x1325, "Clevo N15[01][CW]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11108  	SND_PCI_QUIRK(0x1558, 0x1401, "Clevo L140[CZ]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11109  	SND_PCI_QUIRK(0x1558, 0x1403, "Clevo N140CU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11110  	SND_PCI_QUIRK(0x1558, 0x1404, "Clevo N150CU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11111  	SND_PCI_QUIRK(0x1558, 0x14a1, "Clevo L141MU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+33affa7fb46c0c Tim Crawford                 2024-03-19  11112  	SND_PCI_QUIRK(0x1558, 0x2624, "Clevo L240TU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+0b04fbe886b427 Christoffer Sandberg         2024-10-29  11113  	SND_PCI_QUIRK(0x1558, 0x28c1, "Clevo V370VND", ALC2XX_FIXUP_HEADSET_MIC),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11114  	SND_PCI_QUIRK(0x1558, 0x4018, "Clevo NV40M[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11115  	SND_PCI_QUIRK(0x1558, 0x4019, "Clevo NV40MZ", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11116  	SND_PCI_QUIRK(0x1558, 0x4020, "Clevo NV40MB", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+be561ffad708f0 Tim Crawford                 2022-07-30  11117  	SND_PCI_QUIRK(0x1558, 0x4041, "Clevo NV4[15]PZ", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11118  	SND_PCI_QUIRK(0x1558, 0x40a1, "Clevo NL40GU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11119  	SND_PCI_QUIRK(0x1558, 0x40c1, "Clevo NL40[CZ]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11120  	SND_PCI_QUIRK(0x1558, 0x40d1, "Clevo NL41DU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1278cc5ac2f96b Jeremy Soller                2021-11-02  11121  	SND_PCI_QUIRK(0x1558, 0x5015, "Clevo NH5[58]H[HJK]Q", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1278cc5ac2f96b Jeremy Soller                2021-11-02  11122  	SND_PCI_QUIRK(0x1558, 0x5017, "Clevo NH7[79]H[HJK]Q", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11123  	SND_PCI_QUIRK(0x1558, 0x50a3, "Clevo NJ51GU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11124  	SND_PCI_QUIRK(0x1558, 0x50b3, "Clevo NK50S[BEZ]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11125  	SND_PCI_QUIRK(0x1558, 0x50b6, "Clevo NK50S5", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11126  	SND_PCI_QUIRK(0x1558, 0x50b8, "Clevo NK50SZ", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11127  	SND_PCI_QUIRK(0x1558, 0x50d5, "Clevo NP50D5", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1278cc5ac2f96b Jeremy Soller                2021-11-02  11128  	SND_PCI_QUIRK(0x1558, 0x50e1, "Clevo NH5[58]HPQ", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1278cc5ac2f96b Jeremy Soller                2021-11-02  11129  	SND_PCI_QUIRK(0x1558, 0x50e2, "Clevo NH7[79]HPQ", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11130  	SND_PCI_QUIRK(0x1558, 0x50f0, "Clevo NH50A[CDF]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11131  	SND_PCI_QUIRK(0x1558, 0x50f2, "Clevo NH50E[PR]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11132  	SND_PCI_QUIRK(0x1558, 0x50f3, "Clevo NH58DPQ", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11133  	SND_PCI_QUIRK(0x1558, 0x50f5, "Clevo NH55EPY", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11134  	SND_PCI_QUIRK(0x1558, 0x50f6, "Clevo NH55DPQ", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11135  	SND_PCI_QUIRK(0x1558, 0x5101, "Clevo S510WU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11136  	SND_PCI_QUIRK(0x1558, 0x5157, "Clevo W517GU1", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11137  	SND_PCI_QUIRK(0x1558, 0x51a1, "Clevo NS50MU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+da209f7a80dd63 Tim Crawford                 2023-06-05  11138  	SND_PCI_QUIRK(0x1558, 0x51b1, "Clevo NS50AU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+c250ef8954eda2 Christoffer Sandberg         2023-07-18  11139  	SND_PCI_QUIRK(0x1558, 0x51b3, "Clevo NS70AU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b7a5822810c439 Tim Crawford                 2023-03-17  11140  	SND_PCI_QUIRK(0x1558, 0x5630, "Clevo NP50RNJS", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11141  	SND_PCI_QUIRK(0x1558, 0x70a1, "Clevo NB70T[HJK]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11142  	SND_PCI_QUIRK(0x1558, 0x70b3, "Clevo NK70SB", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11143  	SND_PCI_QUIRK(0x1558, 0x70f2, "Clevo NH79EPY", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11144  	SND_PCI_QUIRK(0x1558, 0x70f3, "Clevo NH77DPQ", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11145  	SND_PCI_QUIRK(0x1558, 0x70f4, "Clevo NH77EPY", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11146  	SND_PCI_QUIRK(0x1558, 0x70f6, "Clevo NH77DPQ-Y", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+627ce0d68eb4b5 Tim Crawford                 2022-06-22  11147  	SND_PCI_QUIRK(0x1558, 0x7716, "Clevo NS50PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+90d74fdbd8059b Christoffer Sandberg         2022-08-17  11148  	SND_PCI_QUIRK(0x1558, 0x7717, "Clevo NS70PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+11bea26929a1a3 Tim Crawford                 2022-06-24  11149  	SND_PCI_QUIRK(0x1558, 0x7718, "Clevo L140PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+0a6b36c5dc3dda Jeremy Soller                2023-05-05  11150  	SND_PCI_QUIRK(0x1558, 0x7724, "Clevo L140AU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11151  	SND_PCI_QUIRK(0x1558, 0x8228, "Clevo NR40BU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11152  	SND_PCI_QUIRK(0x1558, 0x8520, "Clevo NH50D[CD]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11153  	SND_PCI_QUIRK(0x1558, 0x8521, "Clevo NH77D[CD]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11154  	SND_PCI_QUIRK(0x1558, 0x8535, "Clevo NH50D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11155  	SND_PCI_QUIRK(0x1558, 0x8536, "Clevo NH79D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+745f260b77e5e9 Werner Sembach               2021-06-04  11156  	SND_PCI_QUIRK(0x1558, 0x8550, "Clevo NH[57][0-9][ER][ACDH]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+745f260b77e5e9 Werner Sembach               2021-06-04  11157  	SND_PCI_QUIRK(0x1558, 0x8551, "Clevo NH[57][0-9][ER][ACDH]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+745f260b77e5e9 Werner Sembach               2021-06-04  11158  	SND_PCI_QUIRK(0x1558, 0x8560, "Clevo NH[57][0-9][ER][ACDH]Q", ALC269_FIXUP_HEADSET_MIC),
+745f260b77e5e9 Werner Sembach               2021-06-04  11159  	SND_PCI_QUIRK(0x1558, 0x8561, "Clevo NH[57][0-9][ER][ACDH]Q", ALC269_FIXUP_HEADSET_MIC),
+745f260b77e5e9 Werner Sembach               2021-06-04  11160  	SND_PCI_QUIRK(0x1558, 0x8562, "Clevo NH[57][0-9]RZ[Q]", ALC269_FIXUP_DMIC),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11161  	SND_PCI_QUIRK(0x1558, 0x8668, "Clevo NP50B[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+9cb727506704b5 Tim Crawford                 2022-03-07  11162  	SND_PCI_QUIRK(0x1558, 0x866d, "Clevo NP5[05]PN[HJK]", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+86222af07abf1f Tim Crawford                 2022-04-21  11163  	SND_PCI_QUIRK(0x1558, 0x867c, "Clevo NP7[01]PNP", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+0c20fce13e6e11 Tim Crawford                 2022-03-04  11164  	SND_PCI_QUIRK(0x1558, 0x867d, "Clevo NP7[01]PN[HJK]", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11165  	SND_PCI_QUIRK(0x1558, 0x8680, "Clevo NJ50LU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+edca7cc4b0accf Werner Sembach               2021-12-15  11166  	SND_PCI_QUIRK(0x1558, 0x8686, "Clevo NH50[CZ]U", ALC256_FIXUP_MIC_NO_PRESENCE_AND_RESUME),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11167  	SND_PCI_QUIRK(0x1558, 0x8a20, "Clevo NH55DCQ-Y", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11168  	SND_PCI_QUIRK(0x1558, 0x8a51, "Clevo NH70RCQ-Y", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11169  	SND_PCI_QUIRK(0x1558, 0x8d50, "Clevo NH55RCQ-M", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11170  	SND_PCI_QUIRK(0x1558, 0x951d, "Clevo N950T[CDF]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11171  	SND_PCI_QUIRK(0x1558, 0x9600, "Clevo N960K[PR]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11172  	SND_PCI_QUIRK(0x1558, 0x961d, "Clevo N960S[CDF]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b5acfe152abaa2 PeiSen Hou                   2020-11-11  11173  	SND_PCI_QUIRK(0x1558, 0x971d, "Clevo N970T[CDF]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+745f260b77e5e9 Werner Sembach               2021-06-04  11174  	SND_PCI_QUIRK(0x1558, 0xa500, "Clevo NL5[03]RU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+fc09ea51ddc011 Edson Juliano Drosdeck       2024-09-09  11175  	SND_PCI_QUIRK(0x1558, 0xa554, "VAIO VJFH52", ALC269_FIXUP_VAIO_VJFH52_MIC_NO_PRESENCE),
+745f260b77e5e9 Werner Sembach               2021-06-04  11176  	SND_PCI_QUIRK(0x1558, 0xa600, "Clevo NL50NU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+22065e4214c119 Werner Sembach               2023-06-28  11177  	SND_PCI_QUIRK(0x1558, 0xa650, "Clevo NP[567]0SN[CD]", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+b7a5822810c439 Tim Crawford                 2023-03-17  11178  	SND_PCI_QUIRK(0x1558, 0xa671, "Clevo NP70SN[CDE]", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+562755501d44cf Marek Marczykowski-Górecki   2024-09-03  11179  	SND_PCI_QUIRK(0x1558, 0xa741, "Clevo V54x_6x_TNE", ALC245_FIXUP_CLEVO_NOISY_MIC),
+562755501d44cf Marek Marczykowski-Górecki   2024-09-03  11180  	SND_PCI_QUIRK(0x1558, 0xa763, "Clevo V54x_6x_TU", ALC245_FIXUP_CLEVO_NOISY_MIC),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11181  	SND_PCI_QUIRK(0x1558, 0xb018, "Clevo NP50D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11182  	SND_PCI_QUIRK(0x1558, 0xb019, "Clevo NH77D[BE]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11183  	SND_PCI_QUIRK(0x1558, 0xb022, "Clevo NH77D[DC][QW]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11184  	SND_PCI_QUIRK(0x1558, 0xc018, "Clevo NP50D[BE]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11185  	SND_PCI_QUIRK(0x1558, 0xc019, "Clevo NH77D[BE]Q", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+1d5cfca286178c PeiSen Hou                   2021-05-14  11186  	SND_PCI_QUIRK(0x1558, 0xc022, "Clevo NH77[DC][QW]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ca169cc2f9e1f8 Kailang Yang                 2017-04-25  11187  	SND_PCI_QUIRK(0x17aa, 0x1036, "Lenovo P520", ALC233_FIXUP_LENOVO_MULTI_CODECS),
+29c8f40b54a45d Peter Ujfalusi               2021-05-24  11188  	SND_PCI_QUIRK(0x17aa, 0x1048, "ThinkCentre Station", ALC623_FIXUP_LENOVO_THINKSTATION_P340),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11189  	SND_PCI_QUIRK(0x17aa, 0x20f2, "Thinkpad SL410/510", ALC269_FIXUP_SKU_IGNORE),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11190  	SND_PCI_QUIRK(0x17aa, 0x215e, "Thinkpad L512", ALC269_FIXUP_SKU_IGNORE),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11191  	SND_PCI_QUIRK(0x17aa, 0x21b8, "Thinkpad Edge 14", ALC269_FIXUP_SKU_IGNORE),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11192  	SND_PCI_QUIRK(0x17aa, 0x21ca, "Thinkpad L412", ALC269_FIXUP_SKU_IGNORE),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11193  	SND_PCI_QUIRK(0x17aa, 0x21e9, "Thinkpad Edge 15", ALC269_FIXUP_SKU_IGNORE),
+f552ff54c2a700 Takashi Iwai                 2021-04-28  11194  	SND_PCI_QUIRK(0x17aa, 0x21f3, "Thinkpad T430", ALC269_FIXUP_LENOVO_DOCK),
+b590b38ca305d6 Takashi Iwai                 2020-05-14  11195  	SND_PCI_QUIRK(0x17aa, 0x21f6, "Thinkpad T530", ALC269_FIXUP_LENOVO_DOCK_LIMIT_BOOST),
+c8415a48fcb7a2 Felix Kaechele               2012-08-06  11196  	SND_PCI_QUIRK(0x17aa, 0x21fa, "Thinkpad X230", ALC269_FIXUP_LENOVO_DOCK),
+4407be6ba21751 Philipp A. Mohrenweiser      2012-08-06  11197  	SND_PCI_QUIRK(0x17aa, 0x21fb, "Thinkpad T430s", ALC269_FIXUP_LENOVO_DOCK),
+108cc108a3bb42 David Henningsson            2012-07-20  11198  	SND_PCI_QUIRK(0x17aa, 0x2203, "Thinkpad X230 Tablet", ALC269_FIXUP_LENOVO_DOCK),
+aaedfb4761697e David Henningsson            2013-08-16  11199  	SND_PCI_QUIRK(0x17aa, 0x2208, "Thinkpad T431s", ALC269_FIXUP_LENOVO_DOCK),
+9a811230481243 Takashi Iwai                 2015-12-09  11200  	SND_PCI_QUIRK(0x17aa, 0x220c, "Thinkpad T440s", ALC292_FIXUP_TPT440),
+1c37c22332a2d2 Takashi Iwai                 2014-05-06  11201  	SND_PCI_QUIRK(0x17aa, 0x220e, "Thinkpad T440p", ALC292_FIXUP_TPT440_DOCK),
+a12137e779e174 Takashi Iwai                 2014-06-27  11202  	SND_PCI_QUIRK(0x17aa, 0x2210, "Thinkpad T540p", ALC292_FIXUP_TPT440_DOCK),
+59a51a6b4b94ed Rick Sherman                 2015-08-18  11203  	SND_PCI_QUIRK(0x17aa, 0x2211, "Thinkpad W541", ALC292_FIXUP_TPT440_DOCK),
+6d16941aee6eb4 Takashi Iwai                 2014-10-07  11204  	SND_PCI_QUIRK(0x17aa, 0x2212, "Thinkpad T440", ALC292_FIXUP_TPT440_DOCK),
+7c21539c45eace Lukas Bossard                2014-10-29  11205  	SND_PCI_QUIRK(0x17aa, 0x2214, "Thinkpad X240", ALC292_FIXUP_TPT440_DOCK),
+a4a9e082671d2f David Henningsson            2013-08-16  11206  	SND_PCI_QUIRK(0x17aa, 0x2215, "Thinkpad", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+b6903c0ed9f0bc Takashi Iwai                 2015-12-10  11207  	SND_PCI_QUIRK(0x17aa, 0x2218, "Thinkpad X1 Carbon 2nd", ALC292_FIXUP_TPT440_DOCK),
+d05ea7da0e8f6d Laura Abbott                 2015-10-02  11208  	SND_PCI_QUIRK(0x17aa, 0x2223, "ThinkPad T550", ALC292_FIXUP_TPT440_DOCK),
+c0278669fb6159 Yves-Alexis Perez            2015-04-11  11209  	SND_PCI_QUIRK(0x17aa, 0x2226, "ThinkPad X250", ALC292_FIXUP_TPT440_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11210  	SND_PCI_QUIRK(0x17aa, 0x222d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11211  	SND_PCI_QUIRK(0x17aa, 0x222e, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+dab38e43b29850 Torsten Hilbrich             2016-06-07  11212  	SND_PCI_QUIRK(0x17aa, 0x2231, "Thinkpad T560", ALC292_FIXUP_TPT460),
+c636b95ec59803 Sven Eckelmann               2016-04-11  11213  	SND_PCI_QUIRK(0x17aa, 0x2233, "Thinkpad", ALC292_FIXUP_TPT460),
+f74ab0c5e5947b Shenghao Ding                2024-04-11  11214  	SND_PCI_QUIRK(0x17aa, 0x2234, "Thinkpad ICE-1", ALC287_FIXUP_TAS2781_I2C),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11215  	SND_PCI_QUIRK(0x17aa, 0x2245, "Thinkpad T470", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11216  	SND_PCI_QUIRK(0x17aa, 0x2246, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11217  	SND_PCI_QUIRK(0x17aa, 0x2247, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+e4c07b3b66b7d6 Dennis Wassenberg            2018-03-08  11218  	SND_PCI_QUIRK(0x17aa, 0x2249, "Thinkpad", ALC292_FIXUP_TPT460),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11219  	SND_PCI_QUIRK(0x17aa, 0x224b, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11220  	SND_PCI_QUIRK(0x17aa, 0x224c, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11221  	SND_PCI_QUIRK(0x17aa, 0x224d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+85981dfd6b0a0f Benjamin Berg                2018-02-14  11222  	SND_PCI_QUIRK(0x17aa, 0x225d, "Thinkpad T480", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+9774dc218bb628 Benjamin Poirier             2020-07-03  11223  	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
+ca707b3f00b4f3 Hans de Goede                2020-04-02  11224  	SND_PCI_QUIRK(0x17aa, 0x22be, "Thinkpad X1 Carbon 8th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
+446b8185f0c39a Kailang Yang                 2020-11-02  11225  	SND_PCI_QUIRK(0x17aa, 0x22c1, "Thinkpad P1 Gen 3", ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK),
+446b8185f0c39a Kailang Yang                 2020-11-02  11226  	SND_PCI_QUIRK(0x17aa, 0x22c2, "Thinkpad X1 Extreme Gen 3", ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK),
+d93eeca627db51 Kailang Yang                 2023-09-21  11227  	SND_PCI_QUIRK(0x17aa, 0x22f1, "Thinkpad", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+d93eeca627db51 Kailang Yang                 2023-09-21  11228  	SND_PCI_QUIRK(0x17aa, 0x22f2, "Thinkpad", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+d93eeca627db51 Kailang Yang                 2023-09-21  11229  	SND_PCI_QUIRK(0x17aa, 0x22f3, "Thinkpad", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+d93eeca627db51 Kailang Yang                 2023-09-21  11230  	SND_PCI_QUIRK(0x17aa, 0x2316, "Thinkpad P1 Gen 6", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+d93eeca627db51 Kailang Yang                 2023-09-21  11231  	SND_PCI_QUIRK(0x17aa, 0x2317, "Thinkpad P1 Gen 6", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+d93eeca627db51 Kailang Yang                 2023-09-21  11232  	SND_PCI_QUIRK(0x17aa, 0x2318, "Thinkpad Z13 Gen2", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+d93eeca627db51 Kailang Yang                 2023-09-21  11233  	SND_PCI_QUIRK(0x17aa, 0x2319, "Thinkpad Z16 Gen2", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+d93eeca627db51 Kailang Yang                 2023-09-21  11234  	SND_PCI_QUIRK(0x17aa, 0x231a, "Thinkpad Z16 Gen2", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+1e707769df0727 Kailang Yang                 2024-04-30  11235  	SND_PCI_QUIRK(0x17aa, 0x231e, "Thinkpad", ALC287_FIXUP_LENOVO_THKPAD_WH_ALC1318),
+1e707769df0727 Kailang Yang                 2024-04-30  11236  	SND_PCI_QUIRK(0x17aa, 0x231f, "Thinkpad", ALC287_FIXUP_LENOVO_THKPAD_WH_ALC1318),
+1e5597e5ff18d4 Shenghao Ding                2024-07-17  11237  	SND_PCI_QUIRK(0x17aa, 0x2326, "Hera2", ALC287_FIXUP_TAS2781_I2C),
+3694cb2947db50 Kailang                      2015-12-28  11238  	SND_PCI_QUIRK(0x17aa, 0x30bb, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
+6ef2f68fa38bf4 Hui Wang                     2016-03-11  11239  	SND_PCI_QUIRK(0x17aa, 0x30e2, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
+f33f79f3d0e5ca Hui Wang                     2017-07-07  11240  	SND_PCI_QUIRK(0x17aa, 0x310c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+bef33e19203dde Dennis Wassenberg            2019-06-28  11241  	SND_PCI_QUIRK(0x17aa, 0x3111, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+e41fc8c5bd41b9 Hui Wang                     2018-06-25  11242  	SND_PCI_QUIRK(0x17aa, 0x312a, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+65811834ba56e9 Kailang Yang                 2018-04-25  11243  	SND_PCI_QUIRK(0x17aa, 0x312f, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+8da5bbfc7cbba9 Hui Wang                     2017-12-22  11244  	SND_PCI_QUIRK(0x17aa, 0x313c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+2a36c16efab254 Hui Wang                     2019-09-04  11245  	SND_PCI_QUIRK(0x17aa, 0x3151, "ThinkCentre Station", ALC283_FIXUP_HEADSET_MIC),
+8a6c55d0f883e9 Aaron Ma                     2019-10-24  11246  	SND_PCI_QUIRK(0x17aa, 0x3176, "ThinkCentre Station", ALC283_FIXUP_HEADSET_MIC),
+8a6c55d0f883e9 Aaron Ma                     2019-10-24  11247  	SND_PCI_QUIRK(0x17aa, 0x3178, "ThinkCentre Station", ALC283_FIXUP_HEADSET_MIC),
+e4efa82660e6d8 Hui Wang                     2021-07-19  11248  	SND_PCI_QUIRK(0x17aa, 0x31af, "ThinkCentre Station", ALC623_FIXUP_LENOVO_THINKSTATION_P340),
+fb3c007fde80d9 Bin Li                       2024-01-17  11249  	SND_PCI_QUIRK(0x17aa, 0x334b, "Lenovo ThinkCentre M70 Gen5", ALC283_FIXUP_HEADSET_MIC),
+f603b159231b0c Kailang Yang                 2025-03-03  11250  	SND_PCI_QUIRK(0x17aa, 0x3384, "ThinkCentre M90a PRO", ALC233_FIXUP_LENOVO_L2MH_LOW_ENLED),
+f603b159231b0c Kailang Yang                 2025-03-03  11251  	SND_PCI_QUIRK(0x17aa, 0x3386, "ThinkCentre M90a Gen6", ALC233_FIXUP_LENOVO_L2MH_LOW_ENLED),
+f603b159231b0c Kailang Yang                 2025-03-03  11252  	SND_PCI_QUIRK(0x17aa, 0x3387, "ThinkCentre M70a Gen6", ALC233_FIXUP_LENOVO_L2MH_LOW_ENLED),
+3790a3d6dbbc48 Philipp Jungkamp             2022-07-29  11253  	SND_PCI_QUIRK(0x17aa, 0x3801, "Lenovo Yoga9 14IAP7", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+504f052aa3435a Takashi Iwai                 2024-10-08  11254  	HDA_CODEC_QUIRK(0x17aa, 0x3802, "DuetITL 2021", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+504f052aa3435a Takashi Iwai                 2024-10-08  11255  	SND_PCI_QUIRK(0x17aa, 0x3802, "Lenovo Yoga Pro 9 14IRP8", ALC287_FIXUP_TAS2781_I2C),
+2aac550da3257a Takashi Iwai                 2022-01-05  11256  	SND_PCI_QUIRK(0x17aa, 0x3813, "Legion 7i 15IMHG05", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
+56ec3e755bd104 Takashi Iwai                 2022-06-14  11257  	SND_PCI_QUIRK(0x17aa, 0x3818, "Lenovo C940 / Yoga Duet 7", ALC298_FIXUP_LENOVO_C940_DUET7),
+2aac550da3257a Takashi Iwai                 2022-01-05  11258  	SND_PCI_QUIRK(0x17aa, 0x3819, "Lenovo 13s Gen2 ITL", ALC287_FIXUP_13S_GEN2_SPEAKERS),
+504f052aa3435a Takashi Iwai                 2024-10-08  11259  	HDA_CODEC_QUIRK(0x17aa, 0x3820, "IdeaPad 330-17IKB 81DM", ALC269_FIXUP_ASPIRE_HEADSET_MIC),
+504f052aa3435a Takashi Iwai                 2024-10-08  11260  	SND_PCI_QUIRK(0x17aa, 0x3820, "Yoga Duet 7 13ITL6", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+8f4c90427a8f0c Baole Fang                   2022-01-05  11261  	SND_PCI_QUIRK(0x17aa, 0x3824, "Legion Y9000X 2020", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
+2aac550da3257a Takashi Iwai                 2022-01-05  11262  	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
+b81e9e5c723de9 Bart Kroon                   2021-12-13  11263  	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+c07f2c7b45413a Yu Huang                     2022-02-13  11264  	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
+9ebaef0540a981 Hui Wang                     2021-05-22  11265  	SND_PCI_QUIRK(0x17aa, 0x3843, "Yoga 9i", ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP),
+d3dca026375f2b Lucas Tanure                 2021-12-17  11266  	SND_PCI_QUIRK(0x17aa, 0x3847, "Legion 7 16ACHG6", ALC287_FIXUP_LEGION_16ACHG6),
+2aac550da3257a Takashi Iwai                 2022-01-05  11267  	SND_PCI_QUIRK(0x17aa, 0x384a, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ad7cc2d41b7a8d Cameron Berkenpas            2021-09-13  11268  	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ad7cc2d41b7a8d Cameron Berkenpas            2021-09-13  11269  	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+1e24881d8b2a7c Lucas Tanure                 2022-07-27  11270  	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
+25f46354dca912 Stefan Binding               2024-04-23  11271  	SND_PCI_QUIRK(0x17aa, 0x3865, "Lenovo 13X", ALC287_FIXUP_CS35L41_I2C_2),
+25f46354dca912 Stefan Binding               2024-04-23  11272  	SND_PCI_QUIRK(0x17aa, 0x3866, "Lenovo 13X", ALC287_FIXUP_CS35L41_I2C_2),
+70cfdd0365acf5 Takashi Iwai                 2022-08-16  11273  	SND_PCI_QUIRK(0x17aa, 0x3869, "Lenovo Yoga7 14IAL7", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+504f052aa3435a Takashi Iwai                 2024-10-08  11274  	HDA_CODEC_QUIRK(0x17aa, 0x386e, "Legion Y9000X 2022 IAH7", ALC287_FIXUP_CS35L41_I2C_2),
+504f052aa3435a Takashi Iwai                 2024-10-08  11275  	SND_PCI_QUIRK(0x17aa, 0x386e, "Yoga Pro 7 14ARP8", ALC285_FIXUP_SPEAKER2_TO_DAC1),
+0f3a822ae2254a Takashi Iwai                 2025-01-25  11276  	HDA_CODEC_QUIRK(0x17aa, 0x38a8, "Legion Pro 7 16ARX8H", ALC287_FIXUP_TAS2781_I2C), /* this must match before PCI SSID 17aa:386f below */
+504f052aa3435a Takashi Iwai                 2024-10-08  11277  	SND_PCI_QUIRK(0x17aa, 0x386f, "Legion Pro 7i 16IAX7", ALC287_FIXUP_CS35L41_I2C_2),
+b5cb53fd32779f Gergo Koteles                2023-12-30  11278  	SND_PCI_QUIRK(0x17aa, 0x3870, "Lenovo Yoga 7 14ARB7", ALC287_FIXUP_YOGA7_14ARB7_I2C),
+b67a7dc418aabb Christian Bendiksen          2024-04-01  11279  	SND_PCI_QUIRK(0x17aa, 0x3877, "Lenovo Legion 7 Slim 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
+b67a7dc418aabb Christian Bendiksen          2024-04-01  11280  	SND_PCI_QUIRK(0x17aa, 0x3878, "Lenovo Legion 7 Slim 16ARHA7", ALC287_FIXUP_CS35L41_I2C_2),
+3babae915f4c15 Shenghao Ding                2023-08-18  11281  	SND_PCI_QUIRK(0x17aa, 0x387d, "Yoga S780-16 pro Quad AAC", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11282  	SND_PCI_QUIRK(0x17aa, 0x387e, "Yoga S780-16 pro Quad YC", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11283  	SND_PCI_QUIRK(0x17aa, 0x387f, "Yoga S780-16 pro dual LX", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11284  	SND_PCI_QUIRK(0x17aa, 0x3880, "Yoga S780-16 pro dual YC", ALC287_FIXUP_TAS2781_I2C),
+f286620b5dc974 Colin Ian King               2023-08-21  11285  	SND_PCI_QUIRK(0x17aa, 0x3881, "YB9 dual power mode2 YC", ALC287_FIXUP_TAS2781_I2C),
+634e5e1e06f5cd Takashi Iwai                 2023-12-07  11286  	SND_PCI_QUIRK(0x17aa, 0x3882, "Lenovo Yoga Pro 7 14APH8", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+3babae915f4c15 Shenghao Ding                2023-08-18  11287  	SND_PCI_QUIRK(0x17aa, 0x3884, "Y780 YG DUAL", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11288  	SND_PCI_QUIRK(0x17aa, 0x3886, "Y780 VECO DUAL", ALC287_FIXUP_TAS2781_I2C),
+ad22051afdad96 Pablo Caño                   2024-06-20  11289  	SND_PCI_QUIRK(0x17aa, 0x3891, "Lenovo Yoga Pro 7 14AHP9", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11290  	SND_PCI_QUIRK(0x17aa, 0x38a5, "Y580P AMD dual", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11291  	SND_PCI_QUIRK(0x17aa, 0x38a7, "Y780P AMD YG dual", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11292  	SND_PCI_QUIRK(0x17aa, 0x38a8, "Y780P AMD VECO dual", ALC287_FIXUP_TAS2781_I2C),
+dca5f4dfa925b5 Huayu Zhang                  2024-04-13  11293  	SND_PCI_QUIRK(0x17aa, 0x38a9, "Thinkbook 16P", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+dca5f4dfa925b5 Huayu Zhang                  2024-04-13  11294  	SND_PCI_QUIRK(0x17aa, 0x38ab, "Thinkbook 16P", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+99af5b11c57d33 Dorian Cruveiller            2023-12-30  11295  	SND_PCI_QUIRK(0x17aa, 0x38b4, "Legion Slim 7 16IRH8", ALC287_FIXUP_CS35L41_I2C_2),
+99af5b11c57d33 Dorian Cruveiller            2023-12-30  11296  	SND_PCI_QUIRK(0x17aa, 0x38b5, "Legion Slim 7 16IRH8", ALC287_FIXUP_CS35L41_I2C_2),
+99af5b11c57d33 Dorian Cruveiller            2023-12-30  11297  	SND_PCI_QUIRK(0x17aa, 0x38b6, "Legion Slim 7 16APH8", ALC287_FIXUP_CS35L41_I2C_2),
+99af5b11c57d33 Dorian Cruveiller            2023-12-30  11298  	SND_PCI_QUIRK(0x17aa, 0x38b7, "Legion Slim 7 16APH8", ALC287_FIXUP_CS35L41_I2C_2),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11299  	SND_PCI_QUIRK(0x17aa, 0x38b8, "Yoga S780-14.5 proX AMD YC Dual", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11300  	SND_PCI_QUIRK(0x17aa, 0x38b9, "Yoga S780-14.5 proX AMD LX Dual", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11301  	SND_PCI_QUIRK(0x17aa, 0x38ba, "Yoga S780-14.5 Air AMD quad YC", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11302  	SND_PCI_QUIRK(0x17aa, 0x38bb, "Yoga S780-14.5 Air AMD quad AAC", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11303  	SND_PCI_QUIRK(0x17aa, 0x38be, "Yoga S980-14.5 proX YC Dual", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11304  	SND_PCI_QUIRK(0x17aa, 0x38bf, "Yoga S980-14.5 proX LX Dual", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11305  	SND_PCI_QUIRK(0x17aa, 0x38c3, "Y980 DUAL", ALC287_FIXUP_TAS2781_I2C),
+4ecb16d9250e6f Stefan Binding               2024-06-06  11306  	SND_PCI_QUIRK(0x17aa, 0x38c7, "Thinkbook 13x Gen 4", ALC287_FIXUP_CS35L41_I2C_4),
+4ecb16d9250e6f Stefan Binding               2024-06-06  11307  	SND_PCI_QUIRK(0x17aa, 0x38c8, "Thinkbook 13x Gen 4", ALC287_FIXUP_CS35L41_I2C_4),
+3babae915f4c15 Shenghao Ding                2023-08-18  11308  	SND_PCI_QUIRK(0x17aa, 0x38cb, "Y790 YG DUAL", ALC287_FIXUP_TAS2781_I2C),
+3babae915f4c15 Shenghao Ding                2023-08-18  11309  	SND_PCI_QUIRK(0x17aa, 0x38cd, "Y790 VECO DUAL", ALC287_FIXUP_TAS2781_I2C),
+9b714a59b719b1 Jichi Zhang                  2024-03-15  11310  	SND_PCI_QUIRK(0x17aa, 0x38d2, "Lenovo Yoga 9 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11311  	SND_PCI_QUIRK(0x17aa, 0x38d3, "Yoga S990-16 Pro IMH YC Dual", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11312  	SND_PCI_QUIRK(0x17aa, 0x38d4, "Yoga S990-16 Pro IMH VECO Dual", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11313  	SND_PCI_QUIRK(0x17aa, 0x38d5, "Yoga S990-16 Pro IMH YC Quad", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11314  	SND_PCI_QUIRK(0x17aa, 0x38d6, "Yoga S990-16 Pro IMH VECO Quad", ALC287_FIXUP_TAS2781_I2C),
+9b714a59b719b1 Jichi Zhang                  2024-03-15  11315  	SND_PCI_QUIRK(0x17aa, 0x38d7, "Lenovo Yoga 9 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11316  	SND_PCI_QUIRK(0x17aa, 0x38df, "Yoga Y990 Intel YC Dual", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11317  	SND_PCI_QUIRK(0x17aa, 0x38e0, "Yoga Y990 Intel VECO Dual", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11318  	SND_PCI_QUIRK(0x17aa, 0x38f8, "Yoga Book 9i", ALC287_FIXUP_TAS2781_I2C),
+49f5ee951f11f4 Baojun Xu                    2024-09-19  11319  	SND_PCI_QUIRK(0x17aa, 0x38df, "Y990 YG DUAL", ALC287_FIXUP_TAS2781_I2C),
+34c8e74cd6667e Yage Geng                    2025-01-13  11320  	SND_PCI_QUIRK(0x17aa, 0x38f9, "Thinkbook 16P Gen5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+34c8e74cd6667e Yage Geng                    2025-01-13  11321  	SND_PCI_QUIRK(0x17aa, 0x38fa, "Thinkbook 16P Gen5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11322  	SND_PCI_QUIRK(0x17aa, 0x38fd, "ThinkBook plus Gen5 Hybrid", ALC287_FIXUP_TAS2781_I2C),
+56f27013482c08 David Henningsson            2016-01-11  11323  	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+8d70503068510e Ed Burcher                   2025-05-19  11324  	SND_PCI_QUIRK(0x17aa, 0x390d, "Lenovo Yoga Pro 7 14ASP10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
+ef27e89e7f3015 Terry Cheong                 2024-08-30  11325  	SND_PCI_QUIRK(0x17aa, 0x3913, "Lenovo 145", ALC236_FIXUP_LENOVO_INV_DMIC),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11326  	SND_PCI_QUIRK(0x17aa, 0x391f, "Yoga S990-16 pro Quad YC Quad", ALC287_FIXUP_TAS2781_I2C),
+1e9c708dc3ae72 Baojun Xu                    2024-10-11  11327  	SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", ALC287_FIXUP_TAS2781_I2C),
+fedb2245cbb8d8 Takashi Iwai                 2014-11-13  11328  	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
+56df90b631fc02 Michał Wadowski              2019-05-14  11329  	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+f552ff54c2a700 Takashi Iwai                 2021-04-28  11330  	SND_PCI_QUIRK(0x17aa, 0x3bf8, "Quanta FL1", ALC269_FIXUP_PCM_44K),
+a4a9e082671d2f David Henningsson            2013-08-16  11331  	SND_PCI_QUIRK(0x17aa, 0x5013, "Thinkpad", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+1bb3e062d4006b Kailang Yang                 2013-09-27  11332  	SND_PCI_QUIRK(0x17aa, 0x501a, "Thinkpad", ALC283_FIXUP_INT_MIC),
+c497d9f917542a Takashi Iwai                 2014-10-08  11333  	SND_PCI_QUIRK(0x17aa, 0x501e, "Thinkpad L440", ALC292_FIXUP_TPT440_DOCK),
+cd5302c0d4b79b David Henningsson            2013-08-19  11334  	SND_PCI_QUIRK(0x17aa, 0x5026, "Thinkpad", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+f2aa111041ce36 Jo-Philipp Wich              2015-04-13  11335  	SND_PCI_QUIRK(0x17aa, 0x5034, "Thinkpad T450", ALC292_FIXUP_TPT440_DOCK),
+80b311d3118842 Sebastian Wicki              2015-03-23  11336  	SND_PCI_QUIRK(0x17aa, 0x5036, "Thinkpad T450s", ALC292_FIXUP_TPT440_DOCK),
+09ea997677cd44 Ansgar Hegerfeld             2015-05-14  11337  	SND_PCI_QUIRK(0x17aa, 0x503c, "Thinkpad L450", ALC292_FIXUP_TPT440_DOCK),
+037e119738120c Conrad Kostecki              2016-04-26  11338  	SND_PCI_QUIRK(0x17aa, 0x504a, "ThinkPad X260", ALC292_FIXUP_TPT440_DOCK),
+23adc192b862b6 Hui Wang                     2015-12-08  11339  	SND_PCI_QUIRK(0x17aa, 0x504b, "Thinkpad", ALC293_FIXUP_LENOVO_SPK_NOISE),
+0f087ee3f3b86a Jaroslav Kysela              2016-06-24  11340  	SND_PCI_QUIRK(0x17aa, 0x5050, "Thinkpad T560p", ALC292_FIXUP_TPT460),
+9cd25743765cfe Torsten Hilbrich             2016-07-05  11341  	SND_PCI_QUIRK(0x17aa, 0x5051, "Thinkpad L460", ALC292_FIXUP_TPT460),
+0f087ee3f3b86a Jaroslav Kysela              2016-06-24  11342  	SND_PCI_QUIRK(0x17aa, 0x5053, "Thinkpad T460", ALC292_FIXUP_TPT460),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11343  	SND_PCI_QUIRK(0x17aa, 0x505d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11344  	SND_PCI_QUIRK(0x17aa, 0x505f, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11345  	SND_PCI_QUIRK(0x17aa, 0x5062, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+264fb03497ec1c Tao Jin                      2022-04-09  11346  	SND_PCI_QUIRK(0x17aa, 0x508b, "Thinkpad X12 Gen 1", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
+cd5302c0d4b79b David Henningsson            2013-08-19  11347  	SND_PCI_QUIRK(0x17aa, 0x5109, "Thinkpad", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11348  	SND_PCI_QUIRK(0x17aa, 0x511e, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+61fcf8ece9b6b0 Kailang Yang                 2018-02-02  11349  	SND_PCI_QUIRK(0x17aa, 0x511f, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+1d045db96ad9b8 Takashi Iwai                 2011-07-07  11350  	SND_PCI_QUIRK(0x17aa, 0x9e54, "LENOVO NB", ALC269_FIXUP_LENOVO_EAPD),
+52aad39385e1bf huangwenhui                  2023-03-28  11351  	SND_PCI_QUIRK(0x17aa, 0x9e56, "Lenovo ZhaoYang CF4620Z", ALC286_FIXUP_SONY_MIC_NO_PRESENCE),
+1aec3ed2e3e151 Edson Juliano Drosdeck       2025-01-14  11352  	SND_PCI_QUIRK(0x1849, 0x0269, "Positivo Master C6400", ALC269VB_FIXUP_ASUS_ZENBOOK),
+174a7fb3859ae7 Werner Sembach               2021-11-12  11353  	SND_PCI_QUIRK(0x1849, 0x1233, "ASRock NUC Box 1100", ALC233_FIXUP_NO_AUDIO_JACK),
+79e28f2ab3440e Edson Juliano Drosdeck       2022-11-09  11354  	SND_PCI_QUIRK(0x1849, 0xa233, "Positivo Master C6300", ALC269_FIXUP_HEADSET_MIC),
+1e5dc3989a20cc Hui Wang                     2024-03-18  11355  	SND_PCI_QUIRK(0x1854, 0x0440, "LG CQ6", ALC256_FIXUP_HEADPHONE_AMP_VOL),
+1e5dc3989a20cc Hui Wang                     2024-03-18  11356  	SND_PCI_QUIRK(0x1854, 0x0441, "LG CQ6 AIO", ALC256_FIXUP_HEADPHONE_AMP_VOL),
+7e4d4b32ab9532 Joshua Grisham               2024-09-09  11357  	SND_PCI_QUIRK(0x1854, 0x0488, "LG gram 16 (16Z90R)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+7e4d4b32ab9532 Joshua Grisham               2024-09-09  11358  	SND_PCI_QUIRK(0x1854, 0x048a, "LG gram 17 (17ZD90R)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+0fbf21c3b36a99 Ayman Bagabas                2019-05-23  11359  	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MACH-WX9", ALC256_FIXUP_HUAWEI_MACH_WX9_PINS),
+cbcdf8c4d35cd7 huangwenhui                  2022-09-13  11360  	SND_PCI_QUIRK(0x19e5, 0x320f, "Huawei WRT-WX9 ", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+dee476950cbd83 Ai Chao                      2024-09-26  11361  	SND_PCI_QUIRK(0x19e5, 0x3212, "Huawei KLV-WX9 ", ALC256_FIXUP_ACER_HEADSET_MIC),
+f1ec5be17b9aaf Huacai Chen                  2020-08-02  11362  	SND_PCI_QUIRK(0x1b35, 0x1235, "CZC B20", ALC269_FIXUP_CZC_B20),
+f1ec5be17b9aaf Huacai Chen                  2020-08-02  11363  	SND_PCI_QUIRK(0x1b35, 0x1236, "CZC TMI", ALC269_FIXUP_CZC_TMI),
+f1ec5be17b9aaf Huacai Chen                  2020-08-02  11364  	SND_PCI_QUIRK(0x1b35, 0x1237, "CZC L101", ALC269_FIXUP_CZC_L101),
+02b504d9d8e565 Anisse Astier                2013-06-03  11365  	SND_PCI_QUIRK(0x1b7d, 0xa831, "Ordissimo EVE2 ", ALC269VB_FIXUP_ORDISSIMO_EVE2), /* Also known as Malata PC-B1303 */
+c656f747df151a Takashi Iwai                 2021-04-28  11366  	SND_PCI_QUIRK(0x1c06, 0x2013, "Lemote A1802", ALC269_FIXUP_LEMOTE_A1802),
+c656f747df151a Takashi Iwai                 2021-04-28  11367  	SND_PCI_QUIRK(0x1c06, 0x2015, "Lemote A190X", ALC269_FIXUP_LEMOTE_A190X),
+86a433862912f5 Edson Juliano Drosdeck       2024-06-05  11368  	SND_PCI_QUIRK(0x1c6c, 0x122a, "Positivo N14AP7", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+88d18b8896bd98 Edson Juliano Drosdeck       2023-02-07  11369  	SND_PCI_QUIRK(0x1c6c, 0x1251, "Positivo N14KP6-TG", ALC288_FIXUP_DELL1_MIC_NO_PRESENCE),
+619764cc2ec9ce Werner Sembach               2021-12-02  11370  	SND_PCI_QUIRK(0x1d05, 0x1132, "TongFang PHxTxX1", ALC256_FIXUP_SET_COEF_DEFAULTS),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11371  	SND_PCI_QUIRK(0x1d05, 0x1096, "TongFang GMxMRxx", ALC269_FIXUP_NO_SHUTUP),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11372  	SND_PCI_QUIRK(0x1d05, 0x1100, "TongFang GKxNRxx", ALC269_FIXUP_NO_SHUTUP),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11373  	SND_PCI_QUIRK(0x1d05, 0x1111, "TongFang GMxZGxx", ALC269_FIXUP_NO_SHUTUP),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11374  	SND_PCI_QUIRK(0x1d05, 0x1119, "TongFang GMxZGxx", ALC269_FIXUP_NO_SHUTUP),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11375  	SND_PCI_QUIRK(0x1d05, 0x1129, "TongFang GMxZGxx", ALC269_FIXUP_NO_SHUTUP),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11376  	SND_PCI_QUIRK(0x1d05, 0x1147, "TongFang GMxTGxx", ALC269_FIXUP_NO_SHUTUP),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11377  	SND_PCI_QUIRK(0x1d05, 0x115c, "TongFang GMxTGxx", ALC269_FIXUP_NO_SHUTUP),
+8b3b2392ed68bc Werner Sembach               2022-05-12  11378  	SND_PCI_QUIRK(0x1d05, 0x121b, "TongFang GMxAGxx", ALC269_FIXUP_NO_SHUTUP),
+daf6c4681a7403 Christoffer Sandberg         2024-03-28  11379  	SND_PCI_QUIRK(0x1d05, 0x1387, "TongFang GMxIXxx", ALC2XX_FIXUP_HEADSET_MIC),
+e49370d769e714 Christoffer Sandberg         2024-10-29  11380  	SND_PCI_QUIRK(0x1d05, 0x1409, "TongFang GMxIXxx", ALC2XX_FIXUP_HEADSET_MIC),
+7ee5faad0f8c3a Ai Chao                      2024-04-19  11381  	SND_PCI_QUIRK(0x1d17, 0x3288, "Haier Boyue G42", ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS),
+fc19d559b0d31b Hui Wang                     2020-09-09  11382  	SND_PCI_QUIRK(0x1d72, 0x1602, "RedmiBook", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
+b95bc12e0412d1 Xiaoliang Yu                 2021-03-16  11383  	SND_PCI_QUIRK(0x1d72, 0x1701, "XiaomiNotebook Pro", ALC298_FIXUP_DELL1_MIC_NO_PRESENCE),
+695d1ec3994f9d Hui Wang                     2019-11-21  11384  	SND_PCI_QUIRK(0x1d72, 0x1901, "RedmiBook 14", ALC256_FIXUP_ASUS_HEADSET_MIC),
+9b043a8f386485 Meng Tang                    2022-07-13  11385  	SND_PCI_QUIRK(0x1d72, 0x1945, "Redmi G", ALC256_FIXUP_ASUS_HEADSET_MIC),
+e1c86210fe2742 Xiaoliang Yu                 2021-03-13  11386  	SND_PCI_QUIRK(0x1d72, 0x1947, "RedmiBook Air", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
+de5afaddd5a7af Stefan Binding               2025-01-09  11387  	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
+76b0a22d4cf7dc Edson Juliano Drosdeck       2025-02-01  11388  	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+6db03b1929e207 Edson Juliano Drosdeck       2024-07-05  11389  	SND_PCI_QUIRK(0x2782, 0x0214, "VAIO VJFE-CL", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ef5fbdf732a158 Piyush Raj Chouhan           2024-10-28  11390  	SND_PCI_QUIRK(0x2782, 0x0228, "Infinix ZERO BOOK 13", ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13),
+7c9caa299335df Vasiliy Kovalev              2023-11-17  11391  	SND_PCI_QUIRK(0x2782, 0x0232, "CHUWI CoreBook XPro", ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO),
+5ebe792a5139f1 Dinesh Kumar                 2024-11-25  11392  	SND_PCI_QUIRK(0x2782, 0x1701, "Infinix Y4 Max", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ca0f79f0286046 Takashi Iwai                 2024-11-28  11393  	SND_PCI_QUIRK(0x2782, 0x1705, "MEDION E15433", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+c7de2d9bb68a5f Edson Juliano Drosdeck       2024-02-01  11394  	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
+31917b7bd892de Kailang Yang                 2024-11-21  11395  	SND_PCI_QUIRK(0x2782, 0x4900, "MEDION E15443", ALC233_FIXUP_MEDION_MTL_SPK),
+d1ee66c5d3c5a0 Phil Calvin                  2021-04-15  11396  	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
+e2d2fded6bdf3f Kai-Heng Feng                2020-08-07  11397  	SND_PCI_QUIRK(0x8086, 0x2080, "Intel NUC 8 Rugged", ALC256_FIXUP_INTEL_NUC8_RUGGED),
+73e7161eab5dee Werner Sembach               2021-03-02  11398  	SND_PCI_QUIRK(0x8086, 0x2081, "Intel NUC 10", ALC256_FIXUP_INTEL_NUC10),
+ccbd88be057a38 Kailang Yang                 2023-10-06  11399  	SND_PCI_QUIRK(0x8086, 0x3038, "Intel NUC 13", ALC295_FIXUP_CHROME_BOOK),
+309d7363ca3d9f Dustin L. Howett             2022-05-10  11400  	SND_PCI_QUIRK(0xf111, 0x0001, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
+33038efb64f757 Tim Bosse                    2023-12-06  11401  	SND_PCI_QUIRK(0xf111, 0x0006, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
+eb91c456f3714c Dustin L. Howett             2024-08-06  11402  	SND_PCI_QUIRK(0xf111, 0x0009, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
+7b509910b3ad6d Daniel Schaefer              2024-12-31  11403  	SND_PCI_QUIRK(0xf111, 0x000c, "Framework Laptop", ALC295_FIXUP_FRAMEWORK_LAPTOP_MIC_NO_PRESENCE),
+a4297b5db0da01 Takashi Iwai                 2011-08-23  11404  
+
+:::::: The code at line 10513 was first introduced by commit
+:::::: 136824efaab2c095fc911048f7c7ddeda258c965 ALSA: hda/realtek - Add support headset mode for DELL WYSE AIO
+
+:::::: TO: Kailang Yang <kailang@realtek.com>
+:::::: CC: Takashi Iwai <tiwai@suse.de>
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

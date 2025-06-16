@@ -2,168 +2,154 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56166ADA844
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jun 2025 08:31:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0097ADA9EB
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Jun 2025 09:54:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08992601E7;
-	Mon, 16 Jun 2025 08:31:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08992601E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7453960196;
+	Mon, 16 Jun 2025 09:53:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7453960196
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1750055518;
-	bh=Z3Dhen/NIhRUrb2lRopKSmga+Bncrc0GJH/fiyjtzdk=;
+	s=default; t=1750060447;
+	bh=ebymilIdH2RPN1vU7186PFlWF+PCkIs7nw3lXShNXgU=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ncXvoi9aSYNxg6Lz8WlEanwQeeZLmOSZEy+RWY4htFHsz8XY9RMo0SWZ0PyUPq8vi
-	 UZAQXHwOAR44GAoSrc6WtQPD1bZlZXu1GnHiJwEnVPhPQBqYjDGOsJR+GrPoTSrnLi
-	 WgGSoziBRzeeYgPOA9At01YATE1mD6FVp0NToNu0=
+	b=mcIvyMpLmhaJdf8+jXQEwZCBMY1HUzGaqtS5EaFVu6VEvxr8qKQykaxCffYJO8l43
+	 2DIydX+jdm8ZVbjTcLIP5cpUZjDSZCDvxzkBL9SMtA1j+2PdnvgXH1iw60pyjb56Bo
+	 fisiy5F5eYh9kIRVbH1XDWcPVcUgOdsSm6m6syOg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C16FEF805D4; Mon, 16 Jun 2025 08:31:24 +0200 (CEST)
+	id 4CBBEF805C6; Mon, 16 Jun 2025 09:53:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CFC1F805C6;
-	Mon, 16 Jun 2025 08:31:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DA30F805C6;
+	Mon, 16 Jun 2025 09:53:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8D17F80124; Mon, 16 Jun 2025 08:31:20 +0200 (CEST)
+	id 62D04F80124; Mon, 16 Jun 2025 09:53:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2a07:de40:b251:101:10:150:64:1])
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F979F800E4
-	for <alsa-devel@alsa-project.org>; Mon, 16 Jun 2025 08:31:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F979F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9329EF800E4
+	for <alsa-devel@alsa-project.org>; Mon, 16 Jun 2025 09:53:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9329EF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=W7UZT+DR;
+ header.s=susede2_rsa header.b=jA8Tl/bc;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=YarI5pGg;
+ header.s=susede2_ed25519 header.b=L/xo79Zs;
 	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=11JZj6M8;
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=jA8Tl/bc;
 	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=jr5LLV0P
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ header.s=susede2_ed25519 header.b=L/xo79Zs
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E2E83211FE;
-	Mon, 16 Jun 2025 06:31:17 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C0A6E211FE;
+	Mon, 16 Jun 2025 07:53:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1750055478;
+	t=1750060408;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=e76VJmfpP2Yor4xtdesgaAQgCirhh2iFdOwvdjWCaUs=;
-	b=W7UZT+DR84iwZYYpmKkbdtVF15N80oTV8W5kyTypX2S8MW9Q0x7CZ+ZtewDrzueHRWaoZU
-	bCekQeak9ZqwribcMYnN/bK2R84efjHOYmx5bac0HclTnQCY2wERYceZ6e17AFMh8CaYe5
-	YC008p6YaIMayGW2IffiHruiiCNnOA4=
+	bh=LB1res4W8p6ly24QgM7h7EjascWL4QS0qJXjRzw05QM=;
+	b=jA8Tl/bcm1QKccJM+Lx2zE+F5jR85TlQ7FlI5b6T4IhRFkWvzUAoAwMupyjFDtYatgK8Oj
+	pSpp4V10oPOstwTxwjNwXYhunLVkn7ekDvT+vTY/CyDashEJUomAyGD2xY3jebA+KqM6Hg
+	xspwxd6gLYkK6VrIo61aIJuIio+Qxl8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1750055478;
+	s=susede2_ed25519; t=1750060408;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=e76VJmfpP2Yor4xtdesgaAQgCirhh2iFdOwvdjWCaUs=;
-	b=YarI5pGg/zNpctUjy8aFQL/fhieWyPOwSqtCPoFXGoeoRuxMTrVbJx50+EfhQhOdkeMrIl
-	uRdreMUzGy0I6zBw==
+	bh=LB1res4W8p6ly24QgM7h7EjascWL4QS0qJXjRzw05QM=;
+	b=L/xo79ZsURSH2a98r12zuA0hZPl/AeTJLT0eHDdrkAUHOP/wOvVojpKQ9GuHz5tHIxgb/f
+	cq/qpmhyLeJr3ACg==
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=11JZj6M8;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jr5LLV0P
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1750055477;
+	t=1750060408;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=e76VJmfpP2Yor4xtdesgaAQgCirhh2iFdOwvdjWCaUs=;
-	b=11JZj6M8Exqvd2NV3iCmKcMT1S8xMOiqWIG+h8NqXsg9LD+iSoYyjsAWT27CfSggO0OXaO
-	rqYIqLN+58ut2nvJtAWwTHOI9Cgv+srVNRqYnBR/wYOf1pdHAt9gD3MoxWSs0wSHwuzMtp
-	/ervomuAaar11PiRCIEScKZwjElZU3c=
+	bh=LB1res4W8p6ly24QgM7h7EjascWL4QS0qJXjRzw05QM=;
+	b=jA8Tl/bcm1QKccJM+Lx2zE+F5jR85TlQ7FlI5b6T4IhRFkWvzUAoAwMupyjFDtYatgK8Oj
+	pSpp4V10oPOstwTxwjNwXYhunLVkn7ekDvT+vTY/CyDashEJUomAyGD2xY3jebA+KqM6Hg
+	xspwxd6gLYkK6VrIo61aIJuIio+Qxl8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1750055477;
+	s=susede2_ed25519; t=1750060408;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=e76VJmfpP2Yor4xtdesgaAQgCirhh2iFdOwvdjWCaUs=;
-	b=jr5LLV0P94CMoGYS1cnD6b4RXzP3AdyYIwakUo2lEVnige5BqntQZlCSFHQ1XyMzgckfoZ
-	yo3/mhHEzToAX+Cg==
+	bh=LB1res4W8p6ly24QgM7h7EjascWL4QS0qJXjRzw05QM=;
+	b=L/xo79ZsURSH2a98r12zuA0hZPl/AeTJLT0eHDdrkAUHOP/wOvVojpKQ9GuHz5tHIxgb/f
+	cq/qpmhyLeJr3ACg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 91247139E2;
-	Mon, 16 Jun 2025 06:31:17 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 78F8E13A6B;
+	Mon, 16 Jun 2025 07:53:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4VEYIjW6T2g2FAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 16 Jun 2025 06:31:17 +0000
-Date: Mon, 16 Jun 2025 08:31:17 +0200
-Message-ID: <87msa8p58q.wl-tiwai@suse.de>
+	id 7fARHHjNT2ieLAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 16 Jun 2025 07:53:28 +0000
+Date: Mon, 16 Jun 2025 09:53:28 +0200
+Message-ID: <87frg0p1fr.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Baojun Xu <baojun.xu@ti.com>
-Cc: <broonie@kernel.org>,
-	<andriy.shevchenko@linux.intel.com>,
-	<alsa-devel@alsa-project.org>,
-	<shenghao-ding@ti.com>,
-	<navada@ti.com>,
-	<13916275206@139.com>,
-	<v-hampiholi@ti.com>,
-	<v-po@ti.com>,
-	<linux-sound@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1] ALSA: hda/tas2781: Add compatible for hardware id
- TIAS2781 and TXNW2781
-In-Reply-To: <20250616035607.2569-1-baojun.xu@ti.com>
-References: <20250616035607.2569-1-baojun.xu@ti.com>
+To: wangdicheng <wangdich9700@163.com>
+Cc: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	wangdicheng <wangdicheng@kylinos.cn>
+Subject: Re: [PATCH] ALSA: hda/realtek: Fixup ft alc257 rename alc3328
+In-Reply-To: <20250616074520.582138-1-wangdich9700@163.com>
+References: <20250616074520.582138-1-wangdich9700@163.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
 	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[163.com];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[139.com];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	RCVD_TLS_ALL(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,alsa-project.org,ti.com,139.com,vger.kernel.org];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	DKIM_TRACE(0.00)[suse.de:+];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,ti.com:email]
-X-Rspamd-Queue-Id: E2E83211FE
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-Message-ID-Hash: E6FHPVUQADJTC2IDTFBQIERT5Q5TPZW6
-X-Message-ID-Hash: E6FHPVUQADJTC2IDTFBQIERT5Q5TPZW6
+	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,perex.cz,suse.com,vger.kernel.org,alsa-project.org,lists.infradead.org,kylinos.cn];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+Message-ID-Hash: 6DEYZA5Q6HQXCRF23D25UJJT5YEDTJHP
+X-Message-ID-Hash: 6DEYZA5Q6HQXCRF23D25UJJT5YEDTJHP
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -176,7 +162,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E6FHPVUQADJTC2IDTFBQIERT5Q5TPZW6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6DEYZA5Q6HQXCRF23D25UJJT5YEDTJHP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -185,22 +171,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 16 Jun 2025 05:56:07 +0200,
-Baojun Xu wrote:
+On Mon, 16 Jun 2025 09:45:20 +0200,
+wangdicheng wrote:
 > 
-> TIAS2781 is unofficial hardware id in ACPI for tas2781 in HDA,
-> has been used for several projects. TXNW is the official hardware
-> id for TI, will be used in new projects, including device on SPI bus,
-> which was enumerated by drivers/acpi/scan.c, and probed by smi_probe()
-> in drivers/platform/x86/serial-multi-instantiate.c.
-> This patch will support both TIAS2781 and TXNW2781 in ACPI with
-> tas2781 under HDA.
-> As our I2C driver will handle all of slaver devices, so we probe
-> first device only: "TXNW2781:00-tas2781-hda.0"
+> Audio ALC3328 recognized as ALC257, updated PCI ID0x10EC12F0 to rename it to 3328
 > 
-> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
+> Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
 
-Thanks, applied now.
+Try to fix up via either rename_tbl[] or rename_pci_tbl[] instead.
 
+
+thanks,
 
 Takashi
+
+> ---
+>  sound/pci/hda/patch_realtek.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index d3c9ed963588..e18b2a2acba8 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -6712,6 +6712,13 @@ static void alc_fixup_disable_mic_vref(struct hda_codec *codec,
+>  		snd_hda_codec_set_pin_target(codec, 0x19, PIN_VREFHIZ);
+>  }
+>  
+> +static void alc_fixup_ft_alc257_rename(struct hda_codec *codec,
+> +                                 const struct hda_fixup *fix, int action)
+> +{
+> +       int err;
+> +       if (action == HDA_FIXUP_ACT_PRE_PROBE)
+> +               err = alc_codec_rename(codec, "ALC3328");
+> +}
+>  
+>  static void alc294_gx502_toggle_output(struct hda_codec *codec,
+>  					struct hda_jack_callback *cb)
+> @@ -7799,6 +7806,7 @@ enum {
+>  	ALC269_FIXUP_VAIO_VJFH52_MIC_NO_PRESENCE,
+>  	ALC233_FIXUP_MEDION_MTL_SPK,
+>  	ALC294_FIXUP_BASS_SPEAKER_15,
+> +	ALC257_FIXUP_FT_RENAME,
+>  };
+>  
+>  /* A special fixup for Lenovo C940 and Yoga Duet 7;
+> @@ -10143,6 +10151,10 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.type = HDA_FIXUP_FUNC,
+>  		.v.func = alc294_fixup_bass_speaker_15,
+>  	},
+> +	[ALC257_FIXUP_FT_RENAME] = {
+> +		.type = HDA_FIXUP_FUNC,
+> +		.v.func = alc_fixup_ft_alc257_rename,
+> +	},
+>  };
+>  
+>  static const struct hda_quirk alc269_fixup_tbl[] = {
+> @@ -10715,6 +10727,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x10cf, 0x1757, "Lifebook E752", ALC269_FIXUP_LIFEBOOK_HP_PIN),
+>  	SND_PCI_QUIRK(0x10cf, 0x1845, "Lifebook U904", ALC269_FIXUP_LIFEBOOK_EXTMIC),
+>  	SND_PCI_QUIRK(0x10ec, 0x10f2, "Intel Reference board", ALC700_FIXUP_INTEL_REFERENCE),
+> +	SND_PCI_QUIRK(0x10ec, 0x12f0, "BXC NF271B FT board", ALC257_FIXUP_FT_RENAME),
+>  	SND_PCI_QUIRK(0x10ec, 0x118c, "Medion EE4254 MD62100", ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE),
+>  	SND_PCI_QUIRK(0x10ec, 0x119e, "Positivo SU C1400", ALC269_FIXUP_ASPIRE_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x10ec, 0x11bc, "VAIO VJFE-IL", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+> -- 
+> 2.25.1
+> 

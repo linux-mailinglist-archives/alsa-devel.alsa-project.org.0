@@ -2,100 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B64AEB5DF
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 13:07:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED996AEB8C5
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 15:23:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E474601F7;
-	Fri, 27 Jun 2025 13:07:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E474601F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A96B601D5;
+	Fri, 27 Jun 2025 15:23:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A96B601D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1751022432;
-	bh=bVWOOL4faoBRQXF/xYY6NJ8izpkf/HCkgoN+v13YK3s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Ejwu2DuVtGpxN1luzlDXSAi4zBn8u7cJFO4PFQePCglnjOmJXYO86zllIFWR/w8Rs
-	 mrGWOJmSF13Wn8cJQPQRpQ5dfiqXKylwGOcMl+YaJKXEJ1z7bszx0ocBltVcp3judQ
-	 9FxSMeNRGo5bDW2TQg+m4tdBWy59lNRAgzDvgO2I=
+	s=default; t=1751030591;
+	bh=mGfdFbhfI+Pnn4crkrnlT+qDY+DyTPa3VFRA2Zf2mvc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=eSg1Da0OnE7Sh6aNkubG8F8GM86FsI5A6TvTXimO8j+NahjLXuc71IIo1eB4TaX6l
+	 cpYa148bykyPVcow5HmME6F/cXobH7FHWBUAKeUTlto5u12YIdjw8eC3D/Nmm4ZCni
+	 +RbHdTX+KbqBpsMmIEqCspgSzZ1ODZw4FkI5NWw8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3F66F805C6; Fri, 27 Jun 2025 13:06:39 +0200 (CEST)
+	id D135EF805B6; Fri, 27 Jun 2025 15:22:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5417F805BE;
-	Fri, 27 Jun 2025 13:06:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2827F805C7;
+	Fri, 27 Jun 2025 15:22:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C38A2F800FA; Fri, 27 Jun 2025 13:06:36 +0200 (CEST)
+	id 009B9F8021D; Thu, 19 Jun 2025 09:17:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A2A4F800FA
-	for <alsa-devel@alsa-project.org>; Fri, 27 Jun 2025 13:06:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A2A4F800FA
+X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A966F800C1
+	for <alsa-devel@alsa-project.org>; Thu, 19 Jun 2025 09:17:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A966F800C1
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ou3J0iDP
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id C1B5CA52DBD;
-	Fri, 27 Jun 2025 11:06:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B472FC4CEE3;
-	Fri, 27 Jun 2025 11:06:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751022393;
-	bh=bVWOOL4faoBRQXF/xYY6NJ8izpkf/HCkgoN+v13YK3s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ou3J0iDPmZ0hL//QIxbIbsVw8hljd3RcGemzdL9tU3Syt9dK5QUfHyE19QWGWDuoa
-	 Htd2NkaSkU55vWrUVTBDWuPumYe9mDmUTSQCc/0lwTkrizSyp5vmAmGMg9WFl6EAWb
-	 kS1MTf+RU/9ReXEsOR/OGRGqh5CYTLmqmB1OlB9n1m2aA7ENzK2mvYbA/cTZuFiYDk
-	 n2CJgq32AmyHai1D457CMRTusIIgUyN/Vz1tNfUEDpqUSkr8SWxhk8LK4bjTqNZ88R
-	 C02WXeaHNZAZZiI9F08mrGvLtSREPuKmEnFEJ5TrwMGzEGpNKYw7E4WOX0JGxbSpJX
-	 3ldxbeKk7J1Hg==
-Date: Fri, 27 Jun 2025 12:06:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Niranjan H Y <niranjan.hy@ti.com>, krzk+dt@kernel.org,
-	conor+dt@kernel.org, andriy.shevchenko@linux.intel.com,
-	tiwai@suse.de, alsa-devel@alsa-project.org, baojun.xu@ti.com,
-	shenghao-ding@ti.com, liam.r.girdwood@intel.com,
-	lgirdwood@gmail.com, robh@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, navada@ti.com, v-hampiholi@ti.com
-Subject: Re: [PATCH v3 4/4] dt-bindings: sound: device support list for
- pcm6240
-Message-ID: <aF57GqVuSqmF9W6H@finisterre.sirena.org.uk>
-References: <20250626181334.1200-1-niranjan.hy@ti.com>
- <20250626181334.1200-5-niranjan.hy@ti.com>
- <20250627-lean-pumpkin-giraffe-6fad55@krzk-bin>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=HtxkfpH8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ge
+	3/1dKmjOlli2sCo/IoWSdyQdAy14557ORsoDHz+LE=; b=HtxkfpH8k1iIB82ztg
+	tNvThswZWG27I8lbt9xo2KM6s1z1X5e4wBqtIAvJR7KDQ0z5Y9WbvAYeb8+E5joh
+	jDvdlCvDyO8x8uzq5PyL3MOwwNVu080jLwkWZ/s/kboy9LmoOM3dMMQ6UKFCHcwl
+	YizXFvdqfmAmslfn4H0n51WZE=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDHUY2buVNow9j6AA--.3773S2;
+	Thu, 19 Jun 2025 15:17:48 +0800 (CST)
+From: wangdicheng <wangdich9700@163.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	wangdicheng <wangdich9700@163.com>,
+	wangdicheng <wangdicheng@kylinos.cn>
+Subject: [PATCH v2] ALSA: hda/realtek: Fixup ft alc257 rename alc3328
+Date: Thu, 19 Jun 2025 15:17:45 +0800
+Message-Id: <20250619071745.149299-1-wangdich9700@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="L/1FwRqNDWC7Bpnh"
-Content-Disposition: inline
-In-Reply-To: <20250627-lean-pumpkin-giraffe-6fad55@krzk-bin>
-X-Cookie: Do not cut switchbacks.
-Message-ID-Hash: ATSLQBUGBNG44F72QQ75TTBE63X2GVL6
-X-Message-ID-Hash: ATSLQBUGBNG44F72QQ75TTBE63X2GVL6
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PygvCgDHUY2buVNow9j6AA--.3773S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrur1UuF1rZr48Zry5AF4ruFg_yoWxtwc_Cr
+	Z5Xr48uayUJ3Wq9rnxAF9YyrW8t39xXayagFyxtF45Xay3Ga4rZFW8JFn0yFyxK3yfWFyx
+	JrWqgw4YgryjkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUUj-ntUUUUU==
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbiMBVxT2hTs0e1KgAAsL
+X-MailFrom: wangdich9700@163.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 32TY5XS5Y5JWIKOKOV6LT2BBT7UFBSWW
+X-Message-ID-Hash: 32TY5XS5Y5JWIKOKOV6LT2BBT7UFBSWW
+X-Mailman-Approved-At: Fri, 27 Jun 2025 13:22:30 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ATSLQBUGBNG44F72QQ75TTBE63X2GVL6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/32TY5XS5Y5JWIKOKOV6LT2BBT7UFBSWW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,37 +97,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Audio ALC3328 recognized as ALC257, updated PCI ID0x10EC12F0 to rename it to 3328
 
---L/1FwRqNDWC7Bpnh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Fri, Jun 27, 2025 at 09:43:54AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jun 26, 2025 at 11:43:33PM +0530, Niranjan H Y wrote:
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index cd0d7ba7320e..2a08115d8c17 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -1088,6 +1088,7 @@ static const struct alc_codec_rename_pci_table rename_pci_tbl[] = {
+ 	{ 0x10ec0668, 0x103c, 0, "ALC3662" },
+ 	{ 0x10ec0283, 0x17aa, 0, "ALC3239" },
+ 	{ 0x10ec0292, 0x17aa, 0, "ALC3232" },
++	{ 0x10ec0257, 0x12f0, 0, "ALC3328" },
+ 	{ } /* terminator */
+ };
+ 
+-- 
+2.25.1
 
-> > Removed taa* and tad* device from the support list
-> > as these devices are supported by tac5x1x codec driver
-
-> No, why? Hardware does not change.
-
-So long as the bindings are compatible it's not a problem, this does
-happen sometimes when people realise that a device needs more specific
-support and it's more managable to split out from a common binding.  The
-commit log should have the analysis of this though.
-
---L/1FwRqNDWC7Bpnh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmheeyQACgkQJNaLcl1U
-h9DyPgf+LF0seUI/8gy07VYzrbR9kb4Uq5D3IqvRW9NElICJOf/2BKvtpG0f3VDK
-NngwP1Oc7Ar181ggqHicixWwXdG++jRtcad6n63NtPu+Sw8iZxtSGQzGxpn5k3My
-ORksh4s+htR/aNA8Yyyql68+ogE8DgSYS+RJI/pDeAI3JixmHb9WBAbMWrJiu8YA
-GMRwtkSLCOVgl5bcpitoml6gqrgXVPvhMLpR5xjGHB372nJZ9MSjONS5Zc8N0Zsu
-asTk8mOvvi0t7ho/dSmOR2Aj/CPP1NUJYnOkKx9ZyX9ojb1xHxH1G8cgXQTXsAjK
-tfl1RJ7neqO97GcW8VT+5nwK5QfVUw==
-=g2hR
------END PGP SIGNATURE-----
-
---L/1FwRqNDWC7Bpnh--

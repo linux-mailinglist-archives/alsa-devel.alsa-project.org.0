@@ -2,56 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65FC5AE413D
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jun 2025 14:56:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB4CBAE4979
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jun 2025 18:01:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D320860198;
-	Mon, 23 Jun 2025 14:56:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D320860198
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09AA760199;
+	Mon, 23 Jun 2025 18:01:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09AA760199
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1750683377;
-	bh=fYYfARf/tCieNKzkwcoElWi8/WegeqoBwdnu3qk6e7c=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=XrkqP6xvFAnkUs/DNjozJI/OMj4bHibYeDCYmOcrxbo2BZcDs8DovVj+daviltzHS
-	 UB6CErKEha6t6KgrDl8pwSBvwoPkeB4w08MzxA/xpsOnkCq33Ty4raJRyjafWbDn0k
-	 grMg8BY1Dl2IA80TsMikkyJEBejVqo5M+42r73SA=
+	s=default; t=1750694471;
+	bh=/XfB/j+cPABLGx5W4G9axzM4iG9aT2NRr5DMyD1JrgQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=AaXcYRsIQ6L0hae8r9q+AQYfIyp2SBkcqvcxhFWUx+9bSHfCFcXS8KOjp6Mcz5csI
+	 G5DRRSXdNcoQdkLXaEU1T7+Gv8TJePmfJoHv1Ep9v1+H7VCfYfgiLHKVRRSxxmfU3b
+	 CuGFZDh2Iw3hubdP6LzgUoMXqGRzm9TQItvm0Jwc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F05AF805CB; Mon, 23 Jun 2025 14:55:43 +0200 (CEST)
+	id 2F8FDF805C5; Mon, 23 Jun 2025 18:00:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7270BF805C0;
-	Mon, 23 Jun 2025 14:55:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A9A8F805C5;
+	Mon, 23 Jun 2025 18:00:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 293F8F80424; Mon, 23 Jun 2025 14:55:40 +0200 (CEST)
+	id 9B97EF80424; Mon, 23 Jun 2025 18:00:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A8DBF8013D
-	for <alsa-devel@alsa-project.org>; Mon, 23 Jun 2025 14:55:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A8DBF8013D
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [IPv6:2600:3c04:e001:324:0:1991:8:25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2F01F80087
+	for <alsa-devel@alsa-project.org>; Mon, 23 Jun 2025 18:00:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2F01F80087
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Th8Fp3aS
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id E76C7614B4;
+	Mon, 23 Jun 2025 16:00:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43558C4CEEA;
+	Mon, 23 Jun 2025 16:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1750694427;
+	bh=/XfB/j+cPABLGx5W4G9axzM4iG9aT2NRr5DMyD1JrgQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Th8Fp3aSp+rD+Xjx69NGZ2eQwj5hmhmUtl68Mdwju8t7fD7yjia6PK5qJIg9Rf/lD
+	 v2MuXQq+XCyX/SzQpFFxpHOPh+oxQnZIM9qYnozCBj/M3IHbKJgEwCFZYwGarSeaQ7
+	 gxL2uTJHwCjXrfKj05kxJ3S/ZqQRtpAgdCmk20DNgozgmkhK+K9suiYdh+KDL87aEq
+	 9rrp1sb1mXHxsXItA/cWyqb/E9urQrQgg78KY9+oQqPIdls1hLjEVzcGpCwKZ4a818
+	 nZKPI3TyQHl8fG5TQfZZz9lzUcN56Rphg6yhLvQ8e3ov8xIIoUq2ZH2PdCHRUsewvp
+	 2y5xwpsBg/u1Q==
+From: Mark Brown <broonie@kernel.org>
+To: Yuzuru10 <yuzuru_10@proton.me>
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20250621180223.14677-1-yuzuru_10@proton.me>
+References: <20250621180223.14677-1-yuzuru_10@proton.me>
+Subject: Re: [PATCH] ASoC: amd: yc: add quirk for Acer Nitro ANV15-41
+ internal mic
+Message-Id: <175069442578.140181.10389639011596283594.b4-ty@kernel.org>
+Date: Mon, 23 Jun 2025 17:00:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <184bad38693da800-webhooks-bot@alsa-project.org>
-In-Reply-To: <184bad3869381000-webhooks-bot@alsa-project.org>
-References: <184bad3869381000-webhooks-bot@alsa-project.org>
-Subject: Call to snd_pcm_hw_params_get_buffer_size causes memory corruption in
- calling program
-Date: Mon, 23 Jun 2025 14:55:40 +0200 (CEST)
-Message-ID-Hash: BAGK7NCDJT6I375BRKECNDC72I4UVD5X
-X-Message-ID-Hash: BAGK7NCDJT6I375BRKECNDC72I4UVD5X
-X-MailFrom: github@alsa-project.org
+X-Mailer: b4 0.15-dev-08c49
+Message-ID-Hash: WVKCTQ63TKHUAJF6ZQK5BN2MB6X5PKFJ
+X-Message-ID-Hash: WVKCTQ63TKHUAJF6ZQK5BN2MB6X5PKFJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -63,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BAGK7NCDJT6I375BRKECNDC72I4UVD5X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WVKCTQ63TKHUAJF6ZQK5BN2MB6X5PKFJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,131 +97,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #461 was opened from harryrowe01:
+On Sat, 21 Jun 2025 18:02:28 +0000, Yuzuru10 wrote:
+> This patch adds DMI-based quirk for the Acer Nitro ANV15-41,
+> allowing the internal microphone to be detected correctly on
+> machines with "RB" as board vendor.
+> 
 
-Calling snd_pcm_hw_params_get_buffer_size is causing memory corruption in the calling program.
+Applied to
 
-The following C program demonstrates the issue. 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-/*
+Thanks!
 
-This example opens the default PCM device, sets
-some parameters, and then displays the value
-of some of the hardware parameters. It does not
-perform any sound playback or recording.
+[1/1] ASoC: amd: yc: add quirk for Acer Nitro ANV15-41 internal mic
+      commit: 7186b81807b4a08f8bf834b6bdc72d6ed8ba1587
 
-*/
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-/* Use the newer ALSA API */
-#define ALSA_PCM_NEW_HW_PARAMS_API
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-/* All of the ALSA library API is defined
- * in this header */
-#include <alsa/asoundlib.h>
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-int main() {
-  int rc;
-  snd_pcm_t *handle;
-  snd_pcm_hw_params_t *params, *save_params;
-  unsigned int val, val2;
-  int dir;
-  snd_pcm_uframes_t frames;
-  
-  /* Open PCM device for playback. */
-  rc = snd_pcm_open(&handle, "default",
-                    SND_PCM_STREAM_PLAYBACK, 0);
-  if (rc < 0) {
-    fprintf(stderr,
-            "unable to open pcm device: %s\n",
-            snd_strerror(rc));
-    exit(1);
-  }
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-  /* Allocate a hardware parameters object. */
-  snd_pcm_hw_params_alloca(&params);
+Thanks,
+Mark
 
-  /* Fill it in with default values. */
-  snd_pcm_hw_params_any(handle, params);
-
-  /* Set the desired hardware parameters. */
-
-  /* Interleaved mode */
-  snd_pcm_hw_params_set_access(handle, params,
-                      SND_PCM_ACCESS_RW_INTERLEAVED);
-
-  /* Signed 16-bit little-endian format */
-  snd_pcm_hw_params_set_format(handle, params,
-                              SND_PCM_FORMAT_S16_LE);
-
-  /* Two channels (stereo) */
-  snd_pcm_hw_params_set_channels(handle, params, 2);
-
-  /* 44100 bits/second sampling rate (CD quality) */
-  val = 44100;
-//  val = 8000;
-  snd_pcm_hw_params_set_rate_near(handle,
-                                 params, &val, &dir);
-
-  /* Write the parameters to the driver */
-  rc = snd_pcm_hw_params(handle, params);
-  if (rc < 0) {
-    fprintf(stderr,
-            "unable to set hw parameters: %s\n",
-            snd_strerror(rc));
-    exit(1);
-  }
-
-  /* Display information about the PCM interface */
-
-// Before calling snd_pcm_hw_params_get_buffer_size, save
-// a copy of params which points to the parameter block.
-  save_params = params;
-  
-// This call to snd_pcm_hw_params_get_buffer_size causes
-// the value of params in main to be corrupted.
-// Since the params argument to the function is passed
-// by value, the function itself should not have access to
-// the original variable in main.
-
-  snd_pcm_hw_params_get_buffer_size(params,
-                         (snd_pcm_uframes_t *)&val);
-// Then if the pointer has been modified, flag the problem and
-// restore the pointer from the saved value.
-  if( params != save_params )
-  {
-     printf( "The pointer to the parameter block has been corrupted!\n" );
-     printf( "was %lx \n", save_params );
-     printf( "is now %lx \n", params );
-     printf( "So I'm fixing it.\n" );
-     params = save_params;
-  }
-
-  printf("buffer size = %u frames\n", val);
-
-  snd_pcm_close(handle);
-
-  return 0;
-}
-
-Compiled and run as follows:
-
-harry@idun:~/Documents/morse$ cc bad_alsa.c -lasound -o bad_alsa
-harry@idun:~/Documents/morse$ ./bad_alsa
-The pointer to the parameter block has been corrupted!
-was 7ffcd2011610 
-is now 7ffc00000000 
-So I'm fixing it.
-buffer size = 1048576 frames
-harry@idun:~/Documents/morse$ cc bad_alsa.c -lasound -o bad_alsa
-harry@idun:~/Documents/morse$ ./bad_alsa
-The pointer to the parameter block has been corrupted!
-was 7fffc7483030 
-is now 7fff00000000 
-So I'm fixing it.
-buffer size = 1048576 frames
-harry@idun:~/Documents/morse$ 
-
-Host is an AMD64 version of Debian 12. Installed version of ALSA library is libasound2 1.2.8-1+b1
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/461
-Repository URL: https://github.com/alsa-project/alsa-lib

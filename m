@@ -2,80 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4CBAE4979
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jun 2025 18:01:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05853AE497C
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Jun 2025 18:01:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09AA760199;
-	Mon, 23 Jun 2025 18:01:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09AA760199
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69E1260203;
+	Mon, 23 Jun 2025 18:01:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69E1260203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1750694471;
-	bh=/XfB/j+cPABLGx5W4G9axzM4iG9aT2NRr5DMyD1JrgQ=;
+	s=default; t=1750694486;
+	bh=hIn8HQlDO+pApqiZiANU0y9WNLKRLEwJhisgrOwz1mE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AaXcYRsIQ6L0hae8r9q+AQYfIyp2SBkcqvcxhFWUx+9bSHfCFcXS8KOjp6Mcz5csI
-	 G5DRRSXdNcoQdkLXaEU1T7+Gv8TJePmfJoHv1Ep9v1+H7VCfYfgiLHKVRRSxxmfU3b
-	 CuGFZDh2Iw3hubdP6LzgUoMXqGRzm9TQItvm0Jwc=
+	b=bfANqqaxzZCPb/9NvmbU92CL8SnTXYCAuqwnOOaHFT0at065U6dUBzcbsTuid0qxs
+	 oomsI9famvWXoxchzU8WUavxoXlqj4v3Co/waUlFSRnvGpNPBIW6GBqXxNi2i5yNIV
+	 QBYfCazdloo5kb1VKG0arW4KWM4Re+9hYtWTZZZ4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F8FDF805C5; Mon, 23 Jun 2025 18:00:37 +0200 (CEST)
+	id 8DAB1F805F1; Mon, 23 Jun 2025 18:00:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A9A8F805C5;
-	Mon, 23 Jun 2025 18:00:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F0BBF805D7;
+	Mon, 23 Jun 2025 18:00:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B97EF80424; Mon, 23 Jun 2025 18:00:32 +0200 (CEST)
+	id D4D84F80495; Mon, 23 Jun 2025 18:00:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [IPv6:2600:3c04:e001:324:0:1991:8:25])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A2F01F80087
-	for <alsa-devel@alsa-project.org>; Mon, 23 Jun 2025 18:00:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2F01F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1ACCAF8013D
+	for <alsa-devel@alsa-project.org>; Mon, 23 Jun 2025 18:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ACCAF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Th8Fp3aS
+ header.s=k20201202 header.b=rK3Vfo7U
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id E76C7614B4;
-	Mon, 23 Jun 2025 16:00:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43558C4CEEA;
-	Mon, 23 Jun 2025 16:00:26 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTP id DC0545C5F76;
+	Mon, 23 Jun 2025 15:58:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1B9C4CEEA;
+	Mon, 23 Jun 2025 16:00:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750694427;
-	bh=/XfB/j+cPABLGx5W4G9axzM4iG9aT2NRr5DMyD1JrgQ=;
+	s=k20201202; t=1750694430;
+	bh=hIn8HQlDO+pApqiZiANU0y9WNLKRLEwJhisgrOwz1mE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Th8Fp3aSp+rD+Xjx69NGZ2eQwj5hmhmUtl68Mdwju8t7fD7yjia6PK5qJIg9Rf/lD
-	 v2MuXQq+XCyX/SzQpFFxpHOPh+oxQnZIM9qYnozCBj/M3IHbKJgEwCFZYwGarSeaQ7
-	 gxL2uTJHwCjXrfKj05kxJ3S/ZqQRtpAgdCmk20DNgozgmkhK+K9suiYdh+KDL87aEq
-	 9rrp1sb1mXHxsXItA/cWyqb/E9urQrQgg78KY9+oQqPIdls1hLjEVzcGpCwKZ4a818
-	 nZKPI3TyQHl8fG5TQfZZz9lzUcN56Rphg6yhLvQ8e3ov8xIIoUq2ZH2PdCHRUsewvp
-	 2y5xwpsBg/u1Q==
+	b=rK3Vfo7U4i7VY/RwH6myXTp1fUDq106EJfmM9IzbME+izSc12TBRPu+51FJq1yvfu
+	 LJ69rJ27UwcnFmf4fSp1wD6Iabhve7neLADUr5oR/NfQFjQhgiWAe78WN0t4CdukL5
+	 ewVH9V/dNal/qMeVdsqpno5WX2R2Va6GyNeZkGuEVrXx0sqEdryjEZBTPH2KTSSK3a
+	 mbD5PIAsH6VsTBlrZdBqpYR8OKSNve4AV3dSuSiPKdO8GZClQc/zCyggnLvsuBcEP7
+	 +1kaUJ/iQ/swlRqZw5lD81HJxnNyMxK8Gry62WLl5rKMSBcp7iTMMVIeKXNLdaskrO
+	 n8RhNGIVC8Ezw==
 From: Mark Brown <broonie@kernel.org>
-To: Yuzuru10 <yuzuru_10@proton.me>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20250621180223.14677-1-yuzuru_10@proton.me>
-References: <20250621180223.14677-1-yuzuru_10@proton.me>
-Subject: Re: [PATCH] ASoC: amd: yc: add quirk for Acer Nitro ANV15-41
- internal mic
-Message-Id: <175069442578.140181.10389639011596283594.b4-ty@kernel.org>
-Date: Mon, 23 Jun 2025 17:00:25 +0100
+To: Takashi Iwai <tiwai@suse.com>,
+ Oliver Schramm <oliver.schramm97@gmail.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+In-Reply-To: <20250621223000.11817-2-oliver.schramm97@gmail.com>
+References: <20250621223000.11817-2-oliver.schramm97@gmail.com>
+Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for Lenovo IdeaPad Slim 5
+ 15
+Message-Id: <175069442786.140181.17086249250006921001.b4-ty@kernel.org>
+Date: Mon, 23 Jun 2025 17:00:27 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-08c49
-Message-ID-Hash: WVKCTQ63TKHUAJF6ZQK5BN2MB6X5PKFJ
-X-Message-ID-Hash: WVKCTQ63TKHUAJF6ZQK5BN2MB6X5PKFJ
+Message-ID-Hash: 3OH3GO3C4O4V5AVCY4ILZ4TNUVYOUE5K
+X-Message-ID-Hash: 3OH3GO3C4O4V5AVCY4ILZ4TNUVYOUE5K
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WVKCTQ63TKHUAJF6ZQK5BN2MB6X5PKFJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3OH3GO3C4O4V5AVCY4ILZ4TNUVYOUE5K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,10 +98,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 21 Jun 2025 18:02:28 +0000, Yuzuru10 wrote:
-> This patch adds DMI-based quirk for the Acer Nitro ANV15-41,
-> allowing the internal microphone to be detected correctly on
-> machines with "RB" as board vendor.
+On Sun, 22 Jun 2025 00:30:01 +0200, Oliver Schramm wrote:
+> It's smaller brother has already received the patch to enable the microphone,
+> now add it too to the DMI quirk table.
+> 
 > 
 
 Applied to
@@ -109,8 +110,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: yc: add quirk for Acer Nitro ANV15-41 internal mic
-      commit: 7186b81807b4a08f8bf834b6bdc72d6ed8ba1587
+[1/1] ASoC: amd: yc: Add DMI quirk for Lenovo IdeaPad Slim 5 15
+      commit: bf39286adc5e10ce3e32eb86ad316ae56f3b52a0
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

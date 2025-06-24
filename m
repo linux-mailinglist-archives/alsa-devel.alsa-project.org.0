@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E234AE65A3
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jun 2025 14:55:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC19AE6A25
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Jun 2025 17:08:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2CA0601D3;
-	Tue, 24 Jun 2025 14:55:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2CA0601D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6140601A7;
+	Tue, 24 Jun 2025 17:08:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6140601A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1750769748;
-	bh=IJYkSqmI2lMK8gEM/9IKh/oXnySNxv0ffD9AZxQ1rA8=;
+	s=default; t=1750777713;
+	bh=lNuGpTglA1xWVARRppW3/GXkc1nKOENfAIdFsAdOPmc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vJ6+YDrfQOs5NwDebqa+0HB5hyF3SUF+dLZfXtN5ZKoxGG/YxmEwNV/mr8/he45L4
-	 LrxVye0LfZUK/Cgt28fmTu0kIY6vq/I8oeyuLTwBbdAQ3U8FaUFpC8BkmgBXOvKqyL
-	 srzBPYNPTiXsOoDnwHtx21ZRkQJIfAoaP2S3dVmo=
+	b=aVzIKMsIdMcaLn+kGNZjL/LgQO5J9XgU7qqFywKTPOouRDD4rs2Nkqqo659J4dRb6
+	 wFaP3SpbQPFpwi0MFzOSJzfwOvvozpwGtqjqc6LMTkmyBubVKjPVqAxpfwm2fO9B6Q
+	 kSTbby4JYsTmPJWcGMiUBZfFoSOvk6Z0fZ00orI4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31558F80087; Tue, 24 Jun 2025 14:55:14 +0200 (CEST)
+	id 5CAE3F805C8; Tue, 24 Jun 2025 17:08:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26AF3F805B4;
-	Tue, 24 Jun 2025 14:55:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4199AF805BA;
+	Tue, 24 Jun 2025 17:08:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A683F804CF; Tue, 24 Jun 2025 14:55:11 +0200 (CEST)
+	id 9C533F804CF; Tue, 24 Jun 2025 17:07:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [IPv6:2604:1380:45d1:ec00::3])
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4E28DF80087
-	for <alsa-devel@alsa-project.org>; Tue, 24 Jun 2025 14:55:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E28DF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2FC56F80087
+	for <alsa-devel@alsa-project.org>; Tue, 24 Jun 2025 17:07:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FC56F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=jTEzbD/0
+ header.s=k20201202 header.b=KWkIi62G
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 268C6A51745;
-	Tue, 24 Jun 2025 12:55:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6369C4CEE3;
-	Tue, 24 Jun 2025 12:55:04 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id DAC7660010;
+	Tue, 24 Jun 2025 15:07:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17997C4CEF0;
+	Tue, 24 Jun 2025 15:07:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750769706;
-	bh=IJYkSqmI2lMK8gEM/9IKh/oXnySNxv0ffD9AZxQ1rA8=;
+	s=k20201202; t=1750777671;
+	bh=lNuGpTglA1xWVARRppW3/GXkc1nKOENfAIdFsAdOPmc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=jTEzbD/0bzea63+HNBffdDghe2VA1xDqGsFrviqJLpRZOfYEujbBWMwk7URaV7+Mp
-	 hx+Ab6hSWpkVyxWL4Z7E87bxd+5+Qp2C2xC8Y5g8ErMVnR/lxp3QWrjTHsgO+ig6BP
-	 5cGSoxRJbdB8hTCjwj6JPhxANgVqGw2iUNDGRABX6mZaprowdIpnamz4WfhYB1lZ+7
-	 a2RirP39euxMe3d/iJinyCNZG4own0H14nE2EGAXpn68vG7UW7FsDNxhd6M1GoTQk0
-	 yayQev010U3QaVuagdbTnqAqVBk46dxKXml5Pca1CBK3+TC0f/wQ02/iV6st3KSYVe
-	 KegFSWjhbzb7g==
+	b=KWkIi62GbS4u/xjxNj+cVWe93yKi/Vf8G4EUkXEFzDHMe6s93ri8yBtQp+g3Gg9mS
+	 DFfUmjTJstkWXpTOGukBuB/EHsofRX2TQrD59eGuREXQU4BFMo3DGeFyVJ19erS8WA
+	 60SesLa9tenv7GhXfcRRX7ejICyXXkK5KDAkTK3bu0JOWk/CdaVSLeuGfnFnHEDK11
+	 8MCj8Z40aC/FYbKVmXoiyul3aiNqbqykbeq3wTbYUc6Cbrm2qdcFIOk+UOUlSg6FHq
+	 0O1j0Z1jM9Zhh6OMy6VHFGD+UIu4FabsFEOFm85jAwroAJDxRnMsy7mTkAI7st5XXF
+	 P/sf6HJhgiaxA==
 From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20250623084630.3100279-1-Vijendar.Mukunda@amd.com>
-References: <20250623084630.3100279-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH V2] ASoC: amd: ps: fix for soundwire failures during
- hibernation exit sequence
-Message-Id: <175076970454.77119.16488039769676863649.b4-ty@kernel.org>
-Date: Tue, 24 Jun 2025 13:55:04 +0100
+To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de,
+ "Flove(HsinFu)" <flove@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
+ =?utf-8?q?Shuming_=5B=E8=8C=83=E6=9B=B8=E9=8A=98=5D?= <shumingf@realtek.com>,
+ =?utf-8?q?Derek_=5B=E6=96=B9=E5=BE=B7=E7=BE=A9=5D?= <derek.fang@realtek.com>
+In-Reply-To: <1b18fcde41c64d6fa85451d523c0434a@realtek.com>
+References: <1b18fcde41c64d6fa85451d523c0434a@realtek.com>
+Subject: Re: [PATCH] ASoC: rt721-sdca: fix boost gain calculation error
+Message-Id: <175077766983.151254.7246369941022166859.b4-ty@kernel.org>
+Date: Tue, 24 Jun 2025 16:07:49 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-08c49
-Message-ID-Hash: JFTBQ5ZUS72BJTMZ7YARBHZULQSGVBSM
-X-Message-ID-Hash: JFTBQ5ZUS72BJTMZ7YARBHZULQSGVBSM
+Message-ID-Hash: RY5HWY3MGTLCN2SMR3XGMRTLBSL7GI34
+X-Message-ID-Hash: RY5HWY3MGTLCN2SMR3XGMRTLBSL7GI34
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JFTBQ5ZUS72BJTMZ7YARBHZULQSGVBSM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RY5HWY3MGTLCN2SMR3XGMRTLBSL7GI34/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,16 +99,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 23 Jun 2025 14:14:55 +0530, Vijendar Mukunda wrote:
-> During the hibernate entry sequence, ACP registers will be reset to
-> default values and acp ip will be completely powered off including acp
-> SoundWire pads. During resume sequence, if acp SoundWire pad keeper enable
-> register is not restored along with pad pulldown control register value,
-> then SoundWire manager links won't be powered on correctly results in
-> peripheral register access failures and completely audio function is
-> broken.
+On Tue, 24 Jun 2025 02:59:28 +0000, Jack Yu wrote:
+> Fix the boost gain calculation error in rt721_sdca_set_gain_get.
+> This patch is specific for "FU33 Boost Volume".
 > 
-> [...]
+> 
 
 Applied to
 
@@ -116,8 +111,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: ps: fix for soundwire failures during hibernation exit sequence
-      commit: dc6458ed95e40146699f9c523e34cb13ff127170
+[1/1] ASoC: rt721-sdca: fix boost gain calculation error
+      commit: ff21a6ec0f27c126db0a86d96751bd6e5d1d9874
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

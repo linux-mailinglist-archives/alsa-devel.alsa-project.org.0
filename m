@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DDA0AEB8D7
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 15:26:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0201AEB8D9
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 15:27:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD488602D7;
-	Fri, 27 Jun 2025 15:26:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD488602D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76CE4601D5;
+	Fri, 27 Jun 2025 15:27:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76CE4601D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1751030810;
-	bh=yJ98fbXaJ8dYySyczhkhqZGBsbvy1hfPiCjEeLTlNGA=;
+	s=default; t=1751030833;
+	bh=nxa3PYsW5o+v8bg44bRchymZgJvbA1YySSHeKd9Iwao=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hc1hg7d0+tqBJu22Jx3JfV6dHwDM5kyVJzdqnKI1MUpOA3BeU7J11NNXVVqnVgKyt
-	 dyaOvXMbVMJgR5OauCvcVuYApgdg0XchTz5bUIT0M01yT9trQJWjMqkWvec0sBvhBv
-	 ngZefIw5gMjr/oK4q8dZ2zf7gtaci6E8MAH8fKx0=
+	b=VA0cNUVsdyWIwZytkLidZO/0p8P3dCekmz6LccfspDllHlYLQKHvQqREO4RNGNCEq
+	 0RhqRlhnZSAMZ/S5u4FE/ieEerFg4hbUnu3l7Gw6Kb4/yoUxI/AvrxFl/uV2y5nmpq
+	 awsu7u9TKfsjcwO/i3iu9CWyTDugdWgwgmCy/Dqs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0587F80766; Fri, 27 Jun 2025 15:23:54 +0200 (CEST)
+	id 7B9A6F807CA; Fri, 27 Jun 2025 15:23:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 879CDF80759;
-	Fri, 27 Jun 2025 15:23:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C1A0F807D1;
+	Fri, 27 Jun 2025 15:23:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8BD1F80548; Tue, 24 Jun 2025 17:38:07 +0200 (CEST)
+	id 73575F804CF; Tue, 24 Jun 2025 17:38:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -37,48 +37,48 @@ X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8DCD6F802DB
-	for <alsa-devel@alsa-project.org>; Tue, 24 Jun 2025 17:38:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DCD6F802DB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1ED9CF8026D
+	for <alsa-devel@alsa-project.org>; Tue, 24 Jun 2025 17:38:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ED9CF8026D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=KKBQi09K
-Received: from lelvem-sh02.itg.ti.com ([10.180.78.226])
-	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 55OFc2c31904447;
-	Tue, 24 Jun 2025 10:38:02 -0500
+ header.s=ti-com-17Q1 header.b=lVGJlRTf
+Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
+	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 55OFc6Ke1904457;
+	Tue, 24 Jun 2025 10:38:06 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1750779482;
-	bh=e/EDAcgieEolLEM17+u2DuePmdQVB+EEBP+Is4DAErA=;
+	s=ti-com-17Q1; t=1750779486;
+	bh=IL0UbWjx4pPSayogeWKWnaFYfqNTkvm+cXMiKv5fADM=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=KKBQi09KcUBARBWAFa9ZZnM7kLPjHwDZWA5ngE90SXtXpb5dEXwFRYDauzTG8WDKO
-	 XRwB0qpIb9OlnWrKo1G6ss/mabUmb1EIq9KNPrE2HxsgAYx7kFy+2IWAVq1kxcsyXc
-	 Iy77dSO/7izQiUT40hG6BPfz56kV47hlb/HdCNZQ=
-Received: from DFLE102.ent.ti.com (dfle102.ent.ti.com [10.64.6.23])
-	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 55OFc2DL1840478
+	b=lVGJlRTfkIKC5TWCO5ZyIvY1hN+YZzzayFqK69exRwG8bxkG8ln8QQ9mZSqDCzoPm
+	 xDiB51Y7yg0F8/HfqgejVkfbD7hBxtYkE89Gogm0ozEayaSeLcfW3cIAWAzot+FZ8y
+	 Th/vNnuzf0+zN5AurcxXZuc6aJ2426qHY1NL3z1w=
+Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
+	by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 55OFc6c51671305
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Tue, 24 Jun 2025 10:38:02 -0500
-Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
+	Tue, 24 Jun 2025 10:38:06 -0500
+Received: from DFLE111.ent.ti.com (10.64.6.32) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Tue, 24
- Jun 2025 10:38:01 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ Jun 2025 10:38:05 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE111.ent.ti.com
+ (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Tue, 24 Jun 2025 10:38:01 -0500
+ Frontend Transport; Tue, 24 Jun 2025 10:38:05 -0500
 Received: from LTPW0EX92E.dhcp.ti.com (ltpw0ex92e.dhcp.ti.com [10.82.30.14]
  (may be forged))
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 55OFboxm1744431;
-	Tue, 24 Jun 2025 10:37:59 -0500
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 55OFboxn1744431;
+	Tue, 24 Jun 2025 10:38:03 -0500
 From: Niranjan H Y <niranjan.hy@ti.com>
 To: <broonie@kernel.org>
 CC: <andriy.shevchenko@linux.intel.com>, <tiwai@suse.de>,
         <alsa-devel@alsa-project.org>, <baojun.xu@ti.com>,
         <shenghao-ding@ti.com>, <liam.r.girdwood@intel.com>, <navada@ti.com>,
         <v-hampiholi@ti.com>, <niranjan.hy@ti.com>
-Subject: [PATCH v2 2/4] Asoc: tac5x1x: document tac5x1x codec
-Date: Tue, 24 Jun 2025 21:07:40 +0530
-Message-ID: <20250624153742.1507-3-niranjan.hy@ti.com>
+Subject: [PATCH v2 3/4] Asoc: pcm6240: remove support for taac5x1x family
+Date: Tue, 24 Jun 2025 21:07:41 +0530
+Message-ID: <20250624153742.1507-4-niranjan.hy@ti.com>
 X-Mailer: git-send-email 2.33.0.windows.2
 In-Reply-To: <20250624153742.1507-1-niranjan.hy@ti.com>
 References: <20250624153742.1507-1-niranjan.hy@ti.com>
@@ -92,15 +92,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 2UCMWZD3PDSQAAYYRBZYZIK3Z2EVZUFS
-X-Message-ID-Hash: 2UCMWZD3PDSQAAYYRBZYZIK3Z2EVZUFS
-X-Mailman-Approved-At: Fri, 27 Jun 2025 13:23:48 +0000
+Message-ID-Hash: QCVMXYFMR57CXYTAAYY7SQJ4VV2PQYUK
+X-Message-ID-Hash: QCVMXYFMR57CXYTAAYY7SQJ4VV2PQYUK
+X-Mailman-Approved-At: Fri, 27 Jun 2025 13:23:54 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UCMWZD3PDSQAAYYRBZYZIK3Z2EVZUFS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QCVMXYFMR57CXYTAAYY7SQJ4VV2PQYUK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,278 +109,208 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tac5x1x family are series of low-power and high performance
-mono/stereo audio codecs consists of ADC and DAC combinations.
-The family consist of Codecs(DAC & ADC), ADC only and DAC only
-configurations. The documentation explains the list of devices
-in the family, their power supply configurations and gpio
-configuration options available for various functionality.
+tac5x1x codec driver suporrts tac5x1x family which includes
+the following ADCs and DACs. So removed the duplicate entries
+in the pcm6240 i2c driver.
 
 Signed-off-by: Niranjan H Y <niranjan.hy@ti.com>
-
 ---
-v2:
-- Document newly added dts entries ti,adc1-impedance,
-  ti,adc2-impedance, ti,out2x-vcom-cfg
----
- .../devicetree/bindings/sound/ti,tac5x1x.yaml | 248 ++++++++++++++++++
- 1 file changed, 248 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/ti,tac5x1x.yaml
+ sound/soc/codecs/pcm6240.c | 124 +------------------------------------
+ sound/soc/codecs/pcm6240.h |   4 --
+ 2 files changed, 3 insertions(+), 125 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/ti,tac5x1x.yaml b/Documentation/devicetree/bindings/sound/ti,tac5x1x.yaml
-new file mode 100644
-index 000000000000..c1aba0632b95
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ti,tac5x1x.yaml
-@@ -0,0 +1,248 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+# Copyright (C) 2025 Texas Instruments Incorporated
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,tac5x1x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TAC5X1X Codec
-+
-+description: |
-+  TAC5X1X are series of low-power and high performance mono or stereo
-+  audio codecs, as well as multiple inputs and outputs programmable in
-+  single-ended or fully differential configurations. Device supports both
-+  Microphone and Line In input on ADC Channel. DAC Output can be configured
-+  for either Line Out or Head Phone Load.
-+
-+  The serial control bus supports SPI or I2C protocols, while the serial audio
-+  data bus is programmable for I2S, left/right-justified, DSP, or TDM modes.
-+
-+  Specification about the codecs can be found at:
-+    https://www.ti.com/lit/gpn/taa5212
-+    https://www.ti.com/lit/gpn/taa5412-q1
-+    https://www.ti.com/lit/gpn/tac5111
-+    https://www.ti.com/lit/gpn/tac5112
-+    https://www.ti.com/lit/gpn/tac5211
-+    https://www.ti.com/lit/gpn/tac5212
-+    https://www.ti.com/lit/gpn/tac5311-q1
-+    https://www.ti.com/lit/gpn/tac5312-q1
-+    https://www.ti.com/lit/gpn/tac5411-q1
-+    https://www.ti.com/lit/gpn/tac5412-q1
-+    https://www.ti.com/lit/gpn/tad5112
-+    https://www.ti.com/lit/gpn/tad5212
-+
-+maintainers:
-+  - Niranjan H Y <niranjan.hy@ti.com>
-+  - Kevin Lu <kevin-lu@ti.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,taa5212
-+      - ti,taa5412
-+      - ti,tac5111
-+      - ti,tac5112
-+      - ti,tac5211
-+      - ti,tac5212
-+      - ti,tac5311
-+      - ti,tac5312
-+      - ti,tac5411
-+      - ti,tac5412
-+      - ti,tad5112
-+      - ti,tad5212
-+
-+  reg:
-+    maxItems: 1
-+
-+  ti,vref:
-+    description: VREF required voltage. If node is omitted then VREF is powered down.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    oneOf:
-+      - const: 0
-+        description: VREF output is powered to 2.75V.
-+      - const: 1
-+        description: VREF output is powered to 2.5V.
-+      - const: 2
-+        description: VREF output is powered to 1.375V.
-+
-+  ti,micbias-vg:
-+    description: MicBias required voltage. If node is omitted then MicBias is powered down.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    oneOf:
-+      - const: 0
-+        description: MICBIAS output is same as the VREF output
-+      - const: 1
-+        description: MICBIAS output is 0.5 times the VREF output
-+      - const: 3
-+        description: MICBIAS output is same as the AVDD
-+
-+  avdd-supply:
-+    description: Analog DAC voltage.
-+
-+  iovdd-supply:
-+    description: I/O voltage.
-+
-+  ti,gpios-func:
-+    description: |
-+      Array indicating the GPIO1, GPIO2, GPO1 Functionality in the same order.
-+      Each integer elemnent in the array represent the following
-+      - 0  TAC5X1X_GPIO_DISABLE        - GPIO is Disabled
-+      - 1  TAC5X1X_GPIO_GPI            - General Purpose Input
-+      - 2  ADC3XXX_GPIO_GPO            - General Purpose Output
-+      - 3  TAC5X1X_GPIO_IRQ            - Chip Interrupt
-+      - 4  TAC5X1X_GPIO_PDMCLK         - PDM CLK Output
-+      - 5  TAC5X1X_GPIO_P_DOUT         - Primary ASI DOUT
-+      - 6  TAC5X1X_GPIO_P_DOUT2        - Primary ASI DOUT2
-+      - 7  TAC5X1X_GPIO_S_DOUT         - Secondary ASI DOUT
-+      - 8  TAC5X1X_GPIO_S_DOUT2        - Secondary ASI DOUT2
-+      - 9  TAC5X1X_GPIO_S_BCLK         - Secondary BCLK Output
-+      - 10 TAC5X1X_GPIO_S_FSYNC       - Secondary FSYNC Output
-+      - 11 TAC5X1X_GPIO_CLKOUT        - General Purpose Output
-+      - 12 TAC5X1X_GPIO_DOUT_MUX
-+      - 13 TAC5X1X_GPIO_DAISY_OUT
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 3
-+    maxItems: 3
-+
-+  ti,gpios-drive:
-+    description: |
-+      Array indicating the GPIO1, GPIO2, GPO1 Driver values
-+      Each number in the array indicate the following driver values.
-+      - 0 # Hi-Z Output
-+      - 1 # Drive active low and active High
-+      - 2 # Drive active low and weak High
-+      - 3 # Drive acive low and Hi-Z
-+      - 4 # Drive weak low and active High
-+      - 5 # Drive Hi-Z and active High
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 3
-+    maxItems: 3
-+
-+  ti,gpi1-func:
-+    description: GPI1 Functionality
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # TAC5X1X_GPIO_DISABLE       - I/O buffers powered down and not used
-+      - 1 # TAC5X1X_GPIO_GPI          - General purpose input
-+    default: 0
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  clocks:
-+    maxItems: 1
-+
-+  ti,gpa-gpio:
-+    description: GPA using GPIO1 configuration
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # GPA using GPIO1 is disabled
-+      - 1 # GPA using GPIO1
-+    default: 0
-+
-+  ti,in-ch-en:
-+    description: Enable Input channel diagnostics for TAC54XX and TAC53XX device.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # Disable input channel diagnostics
-+      - 1 # Enable input channel diagnostics
-+
-+  ti,out-ch-en:
-+    description: Enable Output channel diagnostics for TAC54XX and TAC53XX device
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # Disable Output channel diagnostics
-+      - 1 # Enable Output channel Diagnostics
-+
-+  ti,incl-se-inm:
-+    description: INxM pin Diagnostics Scan Selection for Single Ended Configuration
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # INxM pin Diagnostics Scan Selection for Single Ended excluded for diagnosis
-+      - 1 # INxM pin Diagnostics Scan Selection for Single Ended included for diagnosis
-+
-+  ti,incl-ac-coup:
-+    description: AC coupled channels pins Scan Selection for Diagnostics
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # AC coupled channels pins Scan Selection for Diagnostics exluded for diagnosis
-+      - 1 # AC coupled channels pins Scan Selection for Diagnostics included for diagnosis
-+
-+  ti,micbias-threshold:
-+    description: Micbias Low and High threshold values for TAC54XX and TAC53XX series
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    maxItems: 2
-+    minItems: 2
-+    items:
-+      minimum: 72
-+      maximum: 162
-+
-+  ti,gpa-threshold:
-+    description: GPA Low and High threshold Values
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    maxItems: 2
-+    minItems: 2
-+    items:
-+      minimum: 75
-+      maximum: 186
-+
-+  ti,adc1-impedance:
-+    description: Channel 1 Input Impedance Value
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # 5 kOhm
-+      - 1 # 10 kOhm
-+      - 2 # 40 kOhm
-+    default: 0
-+
-+  ti,adc2-impedance:
-+    description: Channel 2 Input Impedance Value
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # 5 kOhm
-+      - 1 # 10 kOhm
-+      - 2 # 40 kOhm
-+    default: 0
-+
-+  ti,out2x-vcom-cfg:
-+    description: Channel OUT2x VCOM configuration
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # 0.6 * Vref
-+      - 1 # AVDD by 2
-+    default: 0
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      tac5x1x: tac5x1x@52 {
-+        compatible = "ti,tac5212";
-+        reg = <0x52>;
-+        #sound-dai-cells = <0>;
-+        avdd-supply = <&vdd_3v3_reg>;
-+        iovdd-supply = <&vdd_3v3_reg>;
-+        ti,vref = <0>;
-+        ti,micbias-vg = <3>;
-+        ti,gpi1-func = <0>;
-+        ti,gpios-func = <4>, <1>, <0>;
-+        ti,gpios-drive = <0>, <0>, <0>;
-+        ti,gpa-gpio = <0>;
-+        ti,in-ch-en = <1>;
-+        ti,out-ch-en = <1>;
-+        ti,incl-ac-coup = <0>;
-+        ti,incl-se-inm = <0>;
-+        ti,gpa-threshold = <75>, <186>;
-+      };
-+    };
-+...
---
+diff --git a/sound/soc/codecs/pcm6240.c b/sound/soc/codecs/pcm6240.c
+index 75af12231d1d..bbf3eb18bf54 100644
+--- a/sound/soc/codecs/pcm6240.c
++++ b/sound/soc/codecs/pcm6240.c
+@@ -44,10 +44,6 @@ static const struct i2c_device_id pcmdevice_i2c_id[] = {
+ 	{ "pcmd3140", PCMD3140 },
+ 	{ "pcmd3180", PCMD3180 },
+ 	{ "pcmd512x", PCMD512X },
+-	{ "taa5212",  TAA5212  },
+-	{ "taa5412",  TAA5412  },
+-	{ "tad5212",  TAD5212  },
+-	{ "tad5412",  TAD5412  },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(i2c, pcmdevice_i2c_id);
+@@ -442,60 +438,6 @@ static const struct pcmdevice_mixer_control pcmd3180_fine_gain_ctl[] = {
+ 	}
+ };
+ 
+-static const struct pcmdevice_mixer_control taa5412_digi_vol_ctl[] = {
+-	{
+-		.shift = 0,
+-		.reg = TAA5412_REG_CH1_DIGITAL_VOLUME,
+-		.max = 0xff,
+-		.invert = 0,
+-	},
+-	{
+-		.shift = 0,
+-		.reg = TAA5412_REG_CH2_DIGITAL_VOLUME,
+-		.max = 0xff,
+-		.invert = 0,
+-	},
+-	{
+-		.shift = 0,
+-		.reg = TAA5412_REG_CH3_DIGITAL_VOLUME,
+-		.max = 0xff,
+-		.invert = 0,
+-	},
+-	{
+-		.shift = 0,
+-		.reg = TAA5412_REG_CH4_DIGITAL_VOLUME,
+-		.max = 0xff,
+-		.invert = 0,
+-	}
+-};
+-
+-static const struct pcmdevice_mixer_control taa5412_fine_gain_ctl[] = {
+-	{
+-		.shift = 4,
+-		.reg = TAA5412_REG_CH1_FINE_GAIN,
+-		.max = 0xf,
+-		.invert = 0,
+-	},
+-	{
+-		.shift = 4,
+-		.reg = TAA5412_REG_CH2_FINE_GAIN,
+-		.max = 0xf,
+-		.invert = 0,
+-	},
+-	{
+-		.shift = 4,
+-		.reg = TAA5412_REG_CH3_FINE_GAIN,
+-		.max = 0xf,
+-		.invert = 4,
+-	},
+-	{
+-		.shift = 0,
+-		.reg = TAA5412_REG_CH4_FINE_GAIN,
+-		.max = 0xf,
+-		.invert = 4,
+-	}
+-};
+-
+ static const DECLARE_TLV_DB_MINMAX_MUTE(pcmd3140_dig_gain_tlv,
+ 	-10000, 2700);
+ static const DECLARE_TLV_DB_MINMAX_MUTE(pcm1690_fine_dig_gain_tlv,
+@@ -512,7 +454,7 @@ static const DECLARE_TLV_DB_MINMAX_MUTE(pcm6260_fgain_tlv,
+ static const DECLARE_TLV_DB_LINEAR(pcm6260_chgain_tlv, 0, 4200);
+ static const DECLARE_TLV_DB_MINMAX_MUTE(taa5412_dig_vol_tlv,
+ 	-8050, 4700);
+-static const DECLARE_TLV_DB_LINEAR(taa5412_fine_gain_tlv,
++static const DECLARE_TLV_DB_LINEAR(pcmd31x0_fine_gain_tlv,
+ 	-80, 70);
+ 
+ static int pcmdev_change_dev(struct pcmdevice_priv *pcm_priv,
+@@ -981,7 +923,7 @@ static const struct pcmdev_ctrl_info pcmdev_gain_ctl_info[][2] = {
+ 	// PCMD3140
+ 	{
+ 		{
+-			.gain = taa5412_fine_gain_tlv,
++			.gain = pcmd31x0_fine_gain_tlv,
+ 			.pcmdev_ctrl = pcmd3140_fine_gain_ctl,
+ 			.ctrl_array_size = ARRAY_SIZE(pcmd3140_fine_gain_ctl),
+ 			.get = pcmdevice_get_volsw,
+@@ -1000,7 +942,7 @@ static const struct pcmdev_ctrl_info pcmdev_gain_ctl_info[][2] = {
+ 	// PCMD3180
+ 	{
+ 		{
+-			.gain = taa5412_fine_gain_tlv,
++			.gain = pcmd31x0_fine_gain_tlv,
+ 			.pcmdev_ctrl = pcmd3180_fine_gain_ctl,
+ 			.ctrl_array_size = ARRAY_SIZE(pcmd3180_fine_gain_ctl),
+ 			.get = pcmdevice_get_volsw,
+@@ -1025,62 +967,6 @@ static const struct pcmdev_ctrl_info pcmdev_gain_ctl_info[][2] = {
+ 			.ctrl_array_size = 0,
+ 		},
+ 	},
+-	// TAA5212
+-	{
+-		{
+-			.gain = taa5412_fine_gain_tlv,
+-			.pcmdev_ctrl = taa5412_fine_gain_ctl,
+-			.ctrl_array_size = ARRAY_SIZE(taa5412_fine_gain_ctl),
+-			.get = pcmdevice_get_volsw,
+-			.put = pcmdevice_put_volsw,
+-			.pcmdev_ctrl_name_id = 2,
+-		},
+-		{
+-			.gain = taa5412_dig_vol_tlv,
+-			.pcmdev_ctrl = taa5412_digi_vol_ctl,
+-			.ctrl_array_size = ARRAY_SIZE(taa5412_digi_vol_ctl),
+-			.get = pcmdevice_get_volsw,
+-			.put = pcmdevice_put_volsw,
+-			.pcmdev_ctrl_name_id = 1,
+-		},
+-	},
+-	// TAA5412
+-	{
+-		{
+-			.gain = taa5412_fine_gain_tlv,
+-			.pcmdev_ctrl = taa5412_fine_gain_ctl,
+-			.ctrl_array_size = ARRAY_SIZE(taa5412_fine_gain_ctl),
+-			.get = pcmdevice_get_volsw,
+-			.put = pcmdevice_put_volsw,
+-			.pcmdev_ctrl_name_id = 2,
+-		},
+-		{
+-			.gain = taa5412_dig_vol_tlv,
+-			.pcmdev_ctrl = taa5412_digi_vol_ctl,
+-			.ctrl_array_size = ARRAY_SIZE(taa5412_digi_vol_ctl),
+-			.get = pcmdevice_get_volsw,
+-			.put = pcmdevice_put_volsw,
+-			.pcmdev_ctrl_name_id = 1,
+-		},
+-	},
+-	// TAD5212
+-	{
+-		{
+-			.ctrl_array_size = 0,
+-		},
+-		{
+-			.ctrl_array_size = 0,
+-		},
+-	},
+-	// TAD5412
+-	{
+-		{
+-			.ctrl_array_size = 0,
+-		},
+-		{
+-			.ctrl_array_size = 0,
+-		},
+-	},
+ };
+ 
+ static int pcmdev_dev_bulk_write(struct pcmdevice_priv *pcm_dev,
+@@ -2002,10 +1888,6 @@ static const struct of_device_id pcmdevice_of_match[] = {
+ 	{ .compatible = "ti,pcmd3140" },
+ 	{ .compatible = "ti,pcmd3180" },
+ 	{ .compatible = "ti,pcmd512x" },
+-	{ .compatible = "ti,taa5212"  },
+-	{ .compatible = "ti,taa5412"  },
+-	{ .compatible = "ti,tad5212"  },
+-	{ .compatible = "ti,tad5412"  },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, pcmdevice_of_match);
+diff --git a/sound/soc/codecs/pcm6240.h b/sound/soc/codecs/pcm6240.h
+index 2d8f9e798139..86b1ef734a3d 100644
+--- a/sound/soc/codecs/pcm6240.h
++++ b/sound/soc/codecs/pcm6240.h
+@@ -33,10 +33,6 @@ enum pcm_device {
+ 	PCMD3140,
+ 	PCMD3180,
+ 	PCMD512X,
+-	TAA5212,
+-	TAA5412,
+-	TAD5212,
+-	TAD5412,
+ 	MAX_DEVICE,
+ };
+ 
+-- 
 2.45.2
 

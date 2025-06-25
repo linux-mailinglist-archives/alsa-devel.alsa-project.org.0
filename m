@@ -2,101 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61599AE868D
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Jun 2025 16:32:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1D8AE8BA7
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Jun 2025 19:40:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63E49601F7;
-	Wed, 25 Jun 2025 16:32:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63E49601F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D904601EF;
+	Wed, 25 Jun 2025 19:40:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D904601EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1750861973;
-	bh=rCq+10V8kvQVQDCpo3gDQO1W/xhhokZmr/PSfH38bpI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1750873227;
+	bh=ExdVo+xqNNHCrzpD1GLmq96PFFu7gyIf98fc4flcU+o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BYKb48E+fzj6ybvTmtsbNdmVnpDBsV4VktkeE90Pqnd9A6Pj/ReL69cyWqc1zbiRL
-	 D6QiimFBSbwAql2m4ifNcvg63z+oyoOyDWvor8gcExKS6sf9Q0Wv3/mCbyyy+s2XUZ
-	 M/gbaHHZ1JorX5d5sHNzS/3UHnBjq3kYiOu1j/OM=
+	b=Xj2LXJPYIK7NhMtKT51Zseki0B/OjynrTrQwq0LKv7+RUnKn/vwQGCAl2GGAeFKIV
+	 7lenRx8rR+wPitmQ01TCIV5DSS/wZ16my7IQhqhrfudan7RElrHmCsDNRdaTTWUHFd
+	 BwfLFNy4f4ymjOS5ySuhBNbyCL4rNL7ncMBauICk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10BD7F805BD; Wed, 25 Jun 2025 16:32:18 +0200 (CEST)
+	id 42FDFF805C3; Wed, 25 Jun 2025 19:40:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2517F805C7;
-	Wed, 25 Jun 2025 16:32:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 093DCF805BE;
+	Wed, 25 Jun 2025 19:40:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C60A3F804FB; Wed, 25 Jun 2025 16:32:15 +0200 (CEST)
+	id BAC6AF804FB; Wed, 25 Jun 2025 19:40:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94F6FF800B6
-	for <alsa-devel@alsa-project.org>; Wed, 25 Jun 2025 16:32:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94F6FF800B6
+	by alsa1.perex.cz (Postfix) with ESMTPS id 751C3F80236;
+	Wed, 25 Jun 2025 19:39:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 751C3F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=BMOHLRZt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1750861934; x=1782397934;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rCq+10V8kvQVQDCpo3gDQO1W/xhhokZmr/PSfH38bpI=;
-  b=BMOHLRZt+ERItfDpweeTTct5XazlqqviP3MT8/Ikws/zU4GO2c+ItODK
-   AsoLirg4NLoaoVDycqRZ78T7JUcIcmItRwe/q9TUB1sf4fU/OGDTZ38Do
-   zFFVvPPjMaPRGwghpHXEcAueVjA0y4ONoQIXeiXZTFr9sbu2lVyvz5jU+
-   7rt4+VyWvBeNPlEZuVYgdOx0iDGYG2TpehMZg+6T+VwCtdgLmN2eU4EMH
-   gK2FIaR54G3f3qmAGDwgCN6agFNrwwxARNxZuMa+tfXZKb9QVwqRoZxH5
-   TGe9jgy/PP9bvm46xMtAAJW/A8IOslik5Pp2VNeS1GADTrwkBzC4Et+o4
-   Q==;
-X-CSE-ConnectionGUID: TfFg9jh2T4SNq02wRsG2gQ==
-X-CSE-MsgGUID: j0lTesWNQyCioKOXkMjtlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11475"; a="63737750"
-X-IronPort-AV: E=Sophos;i="6.16,264,1744095600";
-   d="scan'208";a="63737750"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2025 07:32:08 -0700
-X-CSE-ConnectionGUID: 7hRUrgYkTA+5k8UPvD7FLQ==
-X-CSE-MsgGUID: VhfC+rgERpaF9NjLsQkh8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,264,1744095600";
-   d="scan'208";a="152942933"
-Received: from smile.fi.intel.com ([10.237.72.52])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2025 07:32:06 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1uURAR-00000009ns2-3Ee7;
-	Wed, 25 Jun 2025 17:32:03 +0300
-Date: Wed, 25 Jun 2025 17:32:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Niranjan H Y <niranjan.hy@ti.com>
-Cc: broonie@kernel.org, tiwai@suse.de, alsa-devel@alsa-project.org,
-	baojun.xu@ti.com, shenghao-ding@ti.com, liam.r.girdwood@intel.com,
-	navada@ti.com, v-hampiholi@ti.com
-Subject: Re: [PATCH v2 4/4] ASoc: pcm6240: dt-bindings device support list
- update
-Message-ID: <aFwIY98_PzcVogoW@smile.fi.intel.com>
-References: <20250624153742.1507-1-niranjan.hy@ti.com>
- <20250624153742.1507-5-niranjan.hy@ti.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=HCq2UUXm
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id A1FCB5C5401;
+	Wed, 25 Jun 2025 17:37:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1FBC4CEEE;
+	Wed, 25 Jun 2025 17:39:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1750873194;
+	bh=ExdVo+xqNNHCrzpD1GLmq96PFFu7gyIf98fc4flcU+o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=HCq2UUXmnpJnMHOp1LKjbUbMqcUjFgHFhgjCtrtXmiqEa3Tu7sLNtf0c/LOaacRZu
+	 LcKlDFNNKyM9kbtofh5TiHAb2GdfMZ1FeKqaUVCFjV/0PzQpkwfyGZDPHYE1cNBfFy
+	 8Yb5bi6gsNyEN3iU0Kui9N6y6FTvQqxOEyFx4IIqbhtox2BX2ozbj574tJuBa100lT
+	 28ZYUz1bz9Aoj18kSMGkKgb78QoNOrEkUTqKxl/YGNHRZFKILpv8h13FdKrQf+JJYK
+	 6RVFu2C4HzcBw05TXyY3Gc/abUBDD6tjJoDwVL/2lveyJR+2Lm0uY41cMu60Ete9Ui
+	 ycYADo8bFTeQQ==
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+ perex@perex.cz, tiwai@suse.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ mario.limonciello@amd.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sound-open-firmware@alsa-project.org
+In-Reply-To: <20250620120942.1168827-1-Vijendar.Mukunda@amd.com>
+References: <20250620120942.1168827-1-Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 0/2] Add SoundWire machines for ACP7.0/ACP7.1 sof stack
+Message-Id: <175087319206.198995.12597800532047615959.b4-ty@kernel.org>
+Date: Wed, 25 Jun 2025 18:39:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250624153742.1507-5-niranjan.hy@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Message-ID-Hash: NFB57UPVCIOIPLQ4IGSNRF77ZFWMRDLU
-X-Message-ID-Hash: NFB57UPVCIOIPLQ4IGSNRF77ZFWMRDLU
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-08c49
+Message-ID-Hash: 3QY6SKKLCFUNUZURSPHRCFUZQHINYEGY
+X-Message-ID-Hash: 3QY6SKKLCFUNUZURSPHRCFUZQHINYEGY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NFB57UPVCIOIPLQ4IGSNRF77ZFWMRDLU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3QY6SKKLCFUNUZURSPHRCFUZQHINYEGY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,15 +101,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jun 24, 2025 at 09:07:42PM +0530, Niranjan H Y wrote:
-> Removed taa* and tad* device from the support list
-> as these devices are supported by tac5x1x codec driver
+On Fri, 20 Jun 2025 17:38:41 +0530, Vijendar Mukunda wrote:
+> Add SoundWire machines as alternate machines for ACP7.0 & ACP7.1
+> platforms with the below machine configuration.
+> Link 0: RT722 codec with three endpoints: Headset, Speaker, and DMIC.
+> 
+> Vijendar Mukunda (2):
+>   ASoC: amd: acp: add soundwire machine for ACP7.0 and ACP7.1 sof stack
+>   ASoC: SOF: amd: add alternate machines for ACP7.0 and ACP7.1 platforms
+> 
+> [...]
 
-Same question, why are DT mailing list and maintainers excluded from the
-distribution?
+Applied to
 
--- 
-With Best Regards,
-Andy Shevchenko
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/2] ASoC: amd: acp: add soundwire machine for ACP7.0 and ACP7.1 sof stack
+      commit: 8b04b766714e93ca5a8021ff3408c9ef89d9eb85
+[2/2] ASoC: SOF: amd: add alternate machines for ACP7.0 and ACP7.1 platforms
+      commit: 59566923d955b69bfb1e1163f07dff437dde8c9c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

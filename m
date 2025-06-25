@@ -2,105 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B437AEB8DA
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 15:27:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94921AEB8DD
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 15:27:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E47F2602E0;
-	Fri, 27 Jun 2025 15:27:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E47F2602E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27F6A6030D;
+	Fri, 27 Jun 2025 15:27:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27F6A6030D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1751030846;
-	bh=/r9pwoqHSypc19PvCxVj/r8Ve69yToxx+Vy37CM3NUI=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=NFyPg7zKN5ZpCescpS18NVl81ZjeBK2weuGBNcxdPNhseLtJqM/eCy9NeXnZpN9X8
-	 ixSgDqK009k56XsJo8gfhN4VwqwedWyFWFK6BkhkEOnCb2mcAKVztylzuvo3Nw9g6f
-	 YC9lEmGfHRWKwqRBILidl/owWmttXNtPb9rbHtKc=
+	s=default; t=1751030861;
+	bh=Fxe07255Q5DSoqbrbd8KHRY/vNZJy2QIvGkVl0SiJqQ=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=IEzIbQfxxmJoxR7l2a//Mj6uAJ5XSHQ/DfCVqwsatXcag8xDGljQFIcYRH4esv4A8
+	 oUwBrs6oXPtFkWE7EcZIBHm9XlvP4ab+PgmZwYoQ3HyKkroYgRu5CTa69kEMMHTe9x
+	 hMFvxONY0ERx2fasxZOGjaLOMvQ/vC8qhrQWteAg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2231F80852; Fri, 27 Jun 2025 15:23:57 +0200 (CEST)
+	id 509E5F808C0; Fri, 27 Jun 2025 15:24:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C89C8F80854;
-	Fri, 27 Jun 2025 15:23:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36335F80633;
+	Fri, 27 Jun 2025 15:24:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78A06F804E5; Tue, 24 Jun 2025 17:38:14 +0200 (CEST)
+	id B5A96F804FB; Wed, 25 Jun 2025 05:29:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=BAYES_05,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 53333F80087
-	for <alsa-devel@alsa-project.org>; Tue, 24 Jun 2025 17:38:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53333F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8465F80236
+	for <alsa-devel@alsa-project.org>; Wed, 25 Jun 2025 05:29:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8465F80236
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=WmL0V8/H
-Received: from fllvem-sh04.itg.ti.com ([10.64.41.54])
-	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 55OFcA951904465;
-	Tue, 24 Jun 2025 10:38:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1750779490;
-	bh=WWmGvKTM9mfHp7Y8pdnp8aSwGoQqZcaC+mkl9jwP7YU=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=WmL0V8/HHtw9eFsFE2V6W8rfNg+G6Zv440c6N/5yN7TXNFA1KgABUac1bGv2g3u4b
-	 IxnAnD9GhjEY7tQx3ligVG5Y6vZzgS6QYVOW6DJAqA5PcEOoUgI87N4j/8wiEo5QwF
-	 ERfDTLCp1vOmYC7bLbGrRJiwJRzi7ww5Y/wLnDvU=
-Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
-	by fllvem-sh04.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 55OFcA2T398757
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Tue, 24 Jun 2025 10:38:10 -0500
-Received: from DFLE112.ent.ti.com (10.64.6.33) by DFLE103.ent.ti.com
- (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Tue, 24
- Jun 2025 10:38:10 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE112.ent.ti.com
- (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Tue, 24 Jun 2025 10:38:10 -0500
-Received: from LTPW0EX92E.dhcp.ti.com (ltpw0ex92e.dhcp.ti.com [10.82.30.14]
- (may be forged))
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 55OFboxo1744431;
-	Tue, 24 Jun 2025 10:38:07 -0500
-From: Niranjan H Y <niranjan.hy@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <tiwai@suse.de>,
-        <alsa-devel@alsa-project.org>, <baojun.xu@ti.com>,
-        <shenghao-ding@ti.com>, <liam.r.girdwood@intel.com>, <navada@ti.com>,
-        <v-hampiholi@ti.com>, <niranjan.hy@ti.com>
-Subject: [PATCH v2 4/4] ASoc: pcm6240: dt-bindings device support list update
-Date: Tue, 24 Jun 2025 21:07:42 +0530
-Message-ID: <20250624153742.1507-5-niranjan.hy@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
-In-Reply-To: <20250624153742.1507-1-niranjan.hy@ti.com>
-References: <20250624153742.1507-1-niranjan.hy@ti.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=NWJEJDs6
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-453634d8609so8203395e9.3
+        for <alsa-devel@alsa-project.org>;
+ Tue, 24 Jun 2025 20:29:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750822195; x=1751426995;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6bhPQBFMjtSrCJf/UbjX7aGIZfnHT53vMSO0jsz74hU=;
+        b=NWJEJDs6sU1C4bElzJkNCWEV7EozjFHJH9YkzlNa8A+iJaTznkh271z0zYG+B96Mah
+         Iv8GLXAcD5ZOxpnK4bakALxeLIBWUESdE75JWtTaFT9+EpMFE0//nCg49aRL/42IqF5r
+         4DkGC3wO6IDfJu+uUnkWa+TC4+X/nJY/0/yZytvkvbPX6NcdJyk9o21NApLX/rh7oywd
+         9pUPB06eFHZobUUA8j2946mbet+kTk43t576HAqABHp0usJahFcQ+AofJ5wYyv05hQPT
+         ymGZZwTCWP8tJTOpxCtMu8eJHZ7LDd68xmK0Juz3s+oGbwuonAv3NoN+a0uFqoa9tWrF
+         iQzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750822195; x=1751426995;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6bhPQBFMjtSrCJf/UbjX7aGIZfnHT53vMSO0jsz74hU=;
+        b=ajhxVUV5Ncjp8u8J+d+j8dQuatZ9cYe+iSZhbK0m/1LnrNNYPoitdqJpRkbYFPWhPs
+         8rnnUv0OQqE2PpY6j+2ldwP55RzZMD2WnIb6X+UJGg2o4+uWu/03TxLWG/pJwgRD2pRn
+         98aDo2uYOSYFJzlO31lhaWxIz/w2IRVjYVo2n8LgR1A44INTNJZBD7iRGHFLfYihTAKo
+         Du8xuogwjOblDcsIFA2ZItycMDrZHcfM0eQj4wJrxQWo7ejloh+I641EQr6PFbEplr35
+         uRlVsZnMSZnM4uUmjEpMs7aYAPyFJNi8Jd5pLMiKmwnyvmk1l+h6hSgamd6Ax48UCK/V
+         PnCw==
+X-Gm-Message-State: AOJu0Ywl68FSc9YfHUKx0+nxR1JOqpiREd4G9NGAWR5NcHUXB5J0EtIB
+	q5muThNl8J9YqDXgQcgsGNCsQ59E9yO2K69syWtzQicXUgbj4r3SW3mUUKXsuVLK0pBavUCAawc
+	EhUS3nCMuT9tTEyuzTji7Ox9BbeMLFbnbziRn
+X-Gm-Gg: ASbGncvimjoNGMyQS8VeV05ZwyRYCduG9o0JpjAc1O54fV7AxMb1d/I00RVMhjtzfxg
+	u5J+HkSs8HNGY2pL/xISNmFyWEMA3/OupM2qZejNc/6AOMcltadC7krHSoHZgZFajXiuZ5ypLnu
+	siUYftos1tGNxlXMqJtLOwFTbYCtdqAsXx31c8Ngk=
+X-Google-Smtp-Source: 
+ AGHT+IESj5s3Q2UHMLbp1ZuYP2OBLXnLvLYWERJrZq9NyxqH+N9QXi/TPbFWuY6SDbf4BGdO8jf3x4F3xHfMEdnXC3E=
+X-Received: by 2002:a05:600c:1f10:b0:453:84a:8cf1 with SMTP id
+ 5b1f17b1804b1-45381af85femr8974985e9.33.1750822194957; Tue, 24 Jun 2025
+ 20:29:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-MailFrom: niranjan.hy@ti.com
+From: Sandeep Verma <kv.sandeep1807@gmail.com>
+Date: Wed, 25 Jun 2025 08:59:43 +0530
+X-Gm-Features: Ac12FXxW1_4CvU8_hkdEJnnr-kTfmsphsaWEYL-MbaAEsfo0m4v2EMhRAnREge8
+Message-ID: 
+ <CAMvEac3q50CSfagMXgRzuVOJUniBa1NrbQQHL4R0SZrn0KFZPA@mail.gmail.com>
+Subject: Handling Lost Audio IRQs in ALSA: Triggering XRUN on Timer Detection?
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+X-MailFrom: kv.sandeep1807@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: VH64EMU2CFBT3KO7RY7DDKLNBGC6LCIW
-X-Message-ID-Hash: VH64EMU2CFBT3KO7RY7DDKLNBGC6LCIW
-X-Mailman-Approved-At: Fri, 27 Jun 2025 13:23:54 +0000
+Message-ID-Hash: BCH44UJN372VJM5DXQ7THJXWM7MPOCGU
+X-Message-ID-Hash: BCH44UJN372VJM5DXQ7THJXWM7MPOCGU
+X-Mailman-Approved-At: Fri, 27 Jun 2025 13:24:08 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VH64EMU2CFBT3KO7RY7DDKLNBGC6LCIW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BCH44UJN372VJM5DXQ7THJXWM7MPOCGU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,56 +117,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Removed taa* and tad* device from the support list
-as these devices are supported by tac5x1x codec driver
-
-Signed-off-by: Niranjan H Y <niranjan.hy@ti.com>
----
- .../devicetree/bindings/sound/ti,pcm6240.yaml          | 10 ----------
- 1 file changed, 10 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/ti,pcm6240.yaml b/Documentation/devicetree/bindings/sound/ti,pcm6240.yaml
-index d89b4255b51c..b0d5f57dc0f5 100644
---- a/Documentation/devicetree/bindings/sound/ti,pcm6240.yaml
-+++ b/Documentation/devicetree/bindings/sound/ti,pcm6240.yaml
-@@ -29,8 +29,6 @@ description: |
-     https://www.ti.com/lit/gpn/pcm9211
-     https://www.ti.com/lit/gpn/pcmd3140
-     https://www.ti.com/lit/gpn/pcmd3180
--    https://www.ti.com/lit/gpn/taa5212
--    https://www.ti.com/lit/gpn/tad5212
- 
- properties:
-   compatible:
-@@ -81,10 +79,6 @@ properties:
-       ti,pcmd3180: Eight-channel pulse-density-modulation input to TDM or
-       I2S output converter.
- 
--      ti,taa5212: Low-power high-performance stereo audio ADC with 118-dB
--      dynamic range.
--
--      ti,tad5212: Low-power stereo audio DAC with 120-dB dynamic range.
-     oneOf:
-       - items:
-           - enum:
-@@ -98,8 +92,6 @@ properties:
-           - enum:
-               - ti,pcmd512x
-               - ti,pcm9211
--              - ti,taa5212
--              - ti,tad5212
-           - const: ti,adc6120
-       - items:
-           - enum:
-@@ -114,8 +106,6 @@ properties:
-               - ti,pcmd3140
-               - ti,pcmd3180
-               - ti,pcm1690
--              - ti,taa5412
--              - ti,tad5412
-           - const: ti,pcm6240
-       - enum:
-           - ti,adc6120
--- 
-2.45.2
-
+SGkgYWxsLEnigJltIGN1cnJlbnRseSBpbnZlc3RpZ2F0aW5nIGEgc3BvcmFkaWMgaXNzdWUgaW4g
+b3VyIHN5c3RlbSB3aGVyZSBhbg0KYXVkaW8gaW50ZXJydXB0IGlzIG9jY2FzaW9uYWxseSBsb3N0
+LiBXaGVuIHRoaXMgaGFwcGVucywgQUxTQSBkZXRlY3RzIHRoZQ0KYW5vbWFseSAocHJlc3VtYWJs
+eSB0aHJvdWdoIGl0cyBpbnRlcm5hbCB0aW1lc3RhbXAgb3IgZGVsYXkgZGV0ZWN0aW9uKSwgYnV0
+DQppdCBkb2VzbuKAmXQgYXBwZWFyIHRvIHRha2UgY29ycmVjdGl2ZSBhY3Rpb27igJRsZWFkaW5n
+IHRvIHBlcnNpc3RlbnQgYXVkaW8NCmppdHRlciBhZnRlcndhcmQuVG8gYWRkcmVzcyB0aGlzLCBJ
+4oCZbSBjb25zaWRlcmluZyBpbXBsZW1lbnRpbmcgYSBtZWNoYW5pc20NCmluIG91ciBkcml2ZXIg
+b3IgcGxhdGZvcm0gbGF5ZXIgdGhhdCB1c2VzIGEgdGltZXIgdG8gY2hlY2sgaWYgdGhlIGV4cGVj
+dGVkDQphdWRpbyBpbnRlcnJ1cHQgaGFzbuKAmXQgYXJyaXZlZCB3aXRoaW4gYSBjZXJ0YWluIHRp
+bWVmcmFtZSAoZS5nLiwgMnggdGhlDQpwZXJpb2Qgc2l6ZSkuIElmIHRoaXMgY29uZGl0aW9uIGlz
+IG1ldCwgSSBwbGFuIHRvIGV4cGxpY2l0bHkgdHJpZ2dlciBhbg0KWFJVTiB0byByZXNldCB0aGUg
+cGlwZWxpbmUgYW5kIHJlY292ZXIgY2xlYW5seS5NeSBxdWVzdGlvbnMgYXJlOg0KDQogICAxLiBJ
+cyB0aGlzIGFuIGFjY2VwdGFibGUgYW5kIOKAnEFMU0EtZnJpZW5kbHnigJ0gd2F5IHRvIGhhbmRs
+ZSBsb3N0IElSUXM/DQogICAyLiBJZiB0aGlzIGlzIGEgcmVhc29uYWJsZSBhcHByb2FjaCwgd2h5
+IGRvZXNu4oCZdCBBTFNBIGRvIHRoaXMgYnkgZGVmYXVsdD8NCiAgIDMuIElzIHRoZXJlIGEgYmV0
+dGVyIG9yIHJlY29tbWVuZGVkIHdheSB3aXRoaW4gdGhlIEFMU0EgZnJhbWV3b3JrIHRvDQogICBk
+ZXRlY3QgYW5kIHJlY292ZXIgZnJvbSBzdWNoIG1pc3NlZCBpbnRlcnJ1cHRzPw0KDQpJ4oCZZCBh
+cHByZWNpYXRlIGFueSBndWlkYW5jZSBvciBzdWdnZXN0aW9ucy4gSWYgdGhpcyBraW5kIG9mIHRp
+bWVyLWJhc2VkDQpyZWNvdmVyeSB3b3VsZCBiZSBicm9hZGx5IHVzZWZ1bCwgSeKAmWQgYWxzbyBi
+ZSBoYXBweSB0byBleHBsb3JlIHdoZXRoZXIgaXQNCmNvdWxkIGJlIHByb3Bvc2VkIHVwc3RyZWFt
+Lg0KDQpUaGFua3MsDQpTYW5kZWVwDQo=

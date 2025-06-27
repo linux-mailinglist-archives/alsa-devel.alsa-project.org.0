@@ -2,86 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFCB9AEB5C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 13:04:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B64AEB5DF
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Jun 2025 13:07:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59D50601FE;
-	Fri, 27 Jun 2025 13:04:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59D50601FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E474601F7;
+	Fri, 27 Jun 2025 13:07:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E474601F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1751022297;
-	bh=ILopEhlpi3Ezeg8jJ09kRy0qj4a+MztRff2cwbyCFPM=;
+	s=default; t=1751022432;
+	bh=bVWOOL4faoBRQXF/xYY6NJ8izpkf/HCkgoN+v13YK3s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=t3M+CkVex32tmCZATuUZuXHSl+FOcjtRNJMe7tU9Pm4QDGOpQYnGbWeoBtv5KbaPg
-	 /OOiW7/o8KXrTSVILqYdvUR0me4PPmVQmIEaQ7UbvuFktIqWmc3UfbajlmLVNgFm1q
-	 M3mi0gxJqfXbE9yoEZMGD4cMXfFjeGIXMw5xB7x0=
+	b=Ejwu2DuVtGpxN1luzlDXSAi4zBn8u7cJFO4PFQePCglnjOmJXYO86zllIFWR/w8Rs
+	 mrGWOJmSF13Wn8cJQPQRpQ5dfiqXKylwGOcMl+YaJKXEJ1z7bszx0ocBltVcp3judQ
+	 9FxSMeNRGo5bDW2TQg+m4tdBWy59lNRAgzDvgO2I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 737DAF805C9; Fri, 27 Jun 2025 13:04:22 +0200 (CEST)
+	id D3F66F805C6; Fri, 27 Jun 2025 13:06:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F39DF805C7;
-	Fri, 27 Jun 2025 13:04:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5417F805BE;
+	Fri, 27 Jun 2025 13:06:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D91BAF80217; Fri, 27 Jun 2025 13:04:20 +0200 (CEST)
+	id C38A2F800FA; Fri, 27 Jun 2025 13:06:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org
+ [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CA2AEF800FA
-	for <alsa-devel@alsa-project.org>; Fri, 27 Jun 2025 13:04:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA2AEF800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A2A4F800FA
+	for <alsa-devel@alsa-project.org>; Fri, 27 Jun 2025 13:06:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A2A4F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Vy9i0A8c
+ header.s=k20201202 header.b=ou3J0iDP
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 1CA9BA52D27;
-	Fri, 27 Jun 2025 11:04:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D469BC4CEE3;
-	Fri, 27 Jun 2025 11:04:15 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id C1B5CA52DBD;
+	Fri, 27 Jun 2025 11:06:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B472FC4CEE3;
+	Fri, 27 Jun 2025 11:06:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751022256;
-	bh=ILopEhlpi3Ezeg8jJ09kRy0qj4a+MztRff2cwbyCFPM=;
+	s=k20201202; t=1751022393;
+	bh=bVWOOL4faoBRQXF/xYY6NJ8izpkf/HCkgoN+v13YK3s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Vy9i0A8cL2ZjxXzbz19E5J+jC1wg0IdB+sMIxrILXvSbcN/mpOqZbHGCMOwQElk4b
-	 V4KsRKKvZNtFTNkEMtyv/z8uJ3h4EngYfas/CncPPRw7Oj93m9ZJb1CgSIbUAb3bMs
-	 b8C214qGctg9UiZzJkKHnD0Ltwz0w5VYR4VFGMpUFyRX+B6bxM/0bsJbGXBm4KGuAG
-	 /h6Tqs6Vnxps8wNQGrlNpARvOAH9/OKg73LXn+TYp83XeMIO5GUb7yg4/6A+tVn6Ag
-	 9QHYPsB3oI6hYsFJRC0Ph2eFZqOn4s8o+wAIu21lMW0mOxRPTH4SSFX35KdxUQCpg8
-	 3CGqRLgQLK4Dw==
-Date: Fri, 27 Jun 2025 12:04:11 +0100
+	b=ou3J0iDPmZ0hL//QIxbIbsVw8hljd3RcGemzdL9tU3Syt9dK5QUfHyE19QWGWDuoa
+	 Htd2NkaSkU55vWrUVTBDWuPumYe9mDmUTSQCc/0lwTkrizSyp5vmAmGMg9WFl6EAWb
+	 kS1MTf+RU/9ReXEsOR/OGRGqh5CYTLmqmB1OlB9n1m2aA7ENzK2mvYbA/cTZuFiYDk
+	 n2CJgq32AmyHai1D457CMRTusIIgUyN/Vz1tNfUEDpqUSkr8SWxhk8LK4bjTqNZ88R
+	 C02WXeaHNZAZZiI9F08mrGvLtSREPuKmEnFEJ5TrwMGzEGpNKYw7E4WOX0JGxbSpJX
+	 3ldxbeKk7J1Hg==
+Date: Fri, 27 Jun 2025 12:06:12 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Niranjan H Y <niranjan.hy@ti.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org,
-	andriy.shevchenko@linux.intel.com, tiwai@suse.de,
-	alsa-devel@alsa-project.org, baojun.xu@ti.com, shenghao-ding@ti.com,
-	liam.r.girdwood@intel.com, lgirdwood@gmail.com, robh@kernel.org,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	navada@ti.com, v-hampiholi@ti.com
-Subject: Re: [PATCH v3 1/4] ASoc: tac5x1x: add codec driver tac5x1x family
-Message-ID: <aF56q4eOqFdy7rsr@finisterre.sirena.org.uk>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Niranjan H Y <niranjan.hy@ti.com>, krzk+dt@kernel.org,
+	conor+dt@kernel.org, andriy.shevchenko@linux.intel.com,
+	tiwai@suse.de, alsa-devel@alsa-project.org, baojun.xu@ti.com,
+	shenghao-ding@ti.com, liam.r.girdwood@intel.com,
+	lgirdwood@gmail.com, robh@kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, navada@ti.com, v-hampiholi@ti.com
+Subject: Re: [PATCH v3 4/4] dt-bindings: sound: device support list for
+ pcm6240
+Message-ID: <aF57GqVuSqmF9W6H@finisterre.sirena.org.uk>
 References: <20250626181334.1200-1-niranjan.hy@ti.com>
- <20250626181334.1200-2-niranjan.hy@ti.com>
+ <20250626181334.1200-5-niranjan.hy@ti.com>
+ <20250627-lean-pumpkin-giraffe-6fad55@krzk-bin>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="90qajOVw17IHWpFd"
+	protocol="application/pgp-signature"; boundary="L/1FwRqNDWC7Bpnh"
 Content-Disposition: inline
-In-Reply-To: <20250626181334.1200-2-niranjan.hy@ti.com>
+In-Reply-To: <20250627-lean-pumpkin-giraffe-6fad55@krzk-bin>
 X-Cookie: Do not cut switchbacks.
-Message-ID-Hash: SHAMRR27ZS5HGPGOYYWL7GJKJUUOJO4R
-X-Message-ID-Hash: SHAMRR27ZS5HGPGOYYWL7GJKJUUOJO4R
+Message-ID-Hash: ATSLQBUGBNG44F72QQ75TTBE63X2GVL6
+X-Message-ID-Hash: ATSLQBUGBNG44F72QQ75TTBE63X2GVL6
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SHAMRR27ZS5HGPGOYYWL7GJKJUUOJO4R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ATSLQBUGBNG44F72QQ75TTBE63X2GVL6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,32 +105,36 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---90qajOVw17IHWpFd
+--L/1FwRqNDWC7Bpnh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Jun 26, 2025 at 11:43:30PM +0530, Niranjan H Y wrote:
-> tac5x1x family are series of low-power and high performance
-> mono/stereo audio codecs consists of ADC and DAC combinations.
-> The patch adds supports for Codecs(DAC & ADC), ADC only and
-> DAC only configurations available in the tac5x1x family.
+On Fri, Jun 27, 2025 at 09:43:54AM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Jun 26, 2025 at 11:43:33PM +0530, Niranjan H Y wrote:
 
-This looks basically good from a driver point of view, but I see there
-will be some more changes needed due to the DT bindings review.
+> > Removed taa* and tad* device from the support list
+> > as these devices are supported by tac5x1x codec driver
 
---90qajOVw17IHWpFd
+> No, why? Hardware does not change.
+
+So long as the bindings are compatible it's not a problem, this does
+happen sometimes when people realise that a device needs more specific
+support and it's more managable to split out from a common binding.  The
+commit log should have the analysis of this though.
+
+--L/1FwRqNDWC7Bpnh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmheepUACgkQJNaLcl1U
-h9Ciiwf+PegXUaWt830Lu6e+CvncsslfB6PB+MiJe2C+Yki1zkMxYh/7bwkRjti9
-dUal9lk+Iiazjv8BzYWmtKRytZFgKZFOabl0gNWiq+nKn8nOXzvPkSkmFtDNYJqC
-5BerNIJrxomntBEimgLHB44Q4IlYC207EeaBHPcdQRWEFw3KSQ/MVbnGf6hupE19
-7KOMvPjM2yxSDHe8qhZT2qasE3Mz4S/NpYCknvb8sccDVpqMmOKvm1aWxz39w6Ev
-fmzMuxvwn6mahln7YTiOHcLDk4hz3FOtzorNJpPtK0dg5Q6BF0tqvGP7rtiGX47D
-DVOOWMdOxAxmxofskITqSLL9efGsVA==
-=B1lY
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmheeyQACgkQJNaLcl1U
+h9DyPgf+LF0seUI/8gy07VYzrbR9kb4Uq5D3IqvRW9NElICJOf/2BKvtpG0f3VDK
+NngwP1Oc7Ar181ggqHicixWwXdG++jRtcad6n63NtPu+Sw8iZxtSGQzGxpn5k3My
+ORksh4s+htR/aNA8Yyyql68+ogE8DgSYS+RJI/pDeAI3JixmHb9WBAbMWrJiu8YA
+GMRwtkSLCOVgl5bcpitoml6gqrgXVPvhMLpR5xjGHB372nJZ9MSjONS5Zc8N0Zsu
+asTk8mOvvi0t7ho/dSmOR2Aj/CPP1NUJYnOkKx9ZyX9ojb1xHxH1G8cgXQTXsAjK
+tfl1RJ7neqO97GcW8VT+5nwK5QfVUw==
+=g2hR
 -----END PGP SIGNATURE-----
 
---90qajOVw17IHWpFd--
+--L/1FwRqNDWC7Bpnh--

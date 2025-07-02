@@ -2,74 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A95AAF105C
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jul 2025 11:45:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7204AF105F
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Jul 2025 11:46:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 654FB601F6;
-	Wed,  2 Jul 2025 11:45:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 654FB601F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A4E160213;
+	Wed,  2 Jul 2025 11:45:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A4E160213
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1751449555;
-	bh=r4XpBy2L8ItiGNLUvRRkn5PJgQUKmyuAvpklO8JJEto=;
+	s=default; t=1751449566;
+	bh=k8rUujp8cB9v9m4AjwQrqyUSbM+Qie/d0PY91a+hKAk=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ko+Dat+usl31CPwE5V+GLnVQ91kWuEsvmO/Rbx62ZuVNSJpNjvLThr18NyIpabUZH
-	 rcU0Og/3BOd+L4H9apIKkl0tBxi8P1ffhGUMA6xpNxe+Yp9H0YNl64Ae5w+pFcCSN0
-	 l1SV5pK0xlr4mz4/ZnEaLqawKL3xwWrCou+FAwzM=
+	b=NhrwgskcVBt1yOQVm4XTsRl/DOURh+XKO6X5l4crMhyk+M2CCGHuWbG3lQI8jJkqa
+	 ei8ZOMRcw1T+8LQcKNqL8ovrG6FIRjHjaLcb1J0ynnTfIqc5kO8ccxvlw2nSnGprZD
+	 dO8a/zddAsfLB/lPlGfAf1we0qM3EB4RjB0a30Wg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 944B5F80604; Wed,  2 Jul 2025 11:44:59 +0200 (CEST)
+	id 087B2F80636; Wed,  2 Jul 2025 11:45:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C46BF80616;
-	Wed,  2 Jul 2025 11:44:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8E28F80636;
+	Wed,  2 Jul 2025 11:45:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68D46F804FF; Wed,  2 Jul 2025 11:44:56 +0200 (CEST)
+	id 85D28F80610; Wed,  2 Jul 2025 11:44:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
 	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2407::61a])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2414::62c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7CDF6F80601
-	for <alsa-devel@alsa-project.org>; Wed,  2 Jul 2025 11:44:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CDF6F80601
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8C887F800D0
+	for <alsa-devel@alsa-project.org>; Wed,  2 Jul 2025 11:44:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C887F800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=whms5Dme
+ header.s=selector1 header.b=FK+RJaBS
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Icb6Qp9a6D9VJaolr1RMeHF4xRQhfIw1ttgKP6bKvrm836JFAXbgaDj6ohh94g8gjrAQkV3mrcWsLeK3eePzRMkZf3mJq8G8SBMLenxS/KfgQk8JHA+USeLCKPqUDBgvnam70msjEn+agsRGPxdWRpEmNUqLjaGRDZ1cRMrxg8YhPFKqA51iDm2hgzjUZIT4gW+mYKQXL6A6CJVdVMqktwz391yuxRGLxl7+Y/V88xRaVZJL8vZE+SC486YADAT1EpmskvEtdNLnzd45aIWZ7VfiZ3uYB3pPmWUfLOBpYG4xOj/2jgq6DTLo2eZmlH6pluxWnFvipsovdLeHTsY2Ig==
+ b=aM5dp6KZP07sn6bzjD/IKFTvTFoVu3MxNIamQr5vaYXGgm9wKXG6LUpbLYvryQYoiEAq9MBbMFVsSsDIpi7FsQ/KNaqAulzM3KizPac2Li57c5uJ8gN8Ymz++bIGmJ1N47w1VjMQJKp2nMoxtqVGR6pUM77eZsdpyXcqxzkapNDryTOk3vl8/I3KfTxBR9dj+k2RdFH1mUVLsC9XsU27G88QLyRPqCdwyd2wl9YBbTLefgWzFYbhafav9lwhj1OkG419brzmCWSuxMHCcPLGzhZq/0Mlc9anqnoPZHDCawQPu9kOLKDDOtxGWT1coNdgJGXCrbnRbF2ftMBWc7WOhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1qnNw5s/gOlWiSrI3GbkQsHhTSCsPwcd3TLAo28DI5I=;
- b=y/y3V4lDIAYqY6FcVWzPDgZbK2spDyhWxIvbSvE0AgH9CsGYrb9oTHIfbj9WK/STXwvpVYbFP3++i0lOpbwN6mkG+UJ8dRFPaB15HYaFe+Vx9qwc3it9V4tmJ4iuiX4jCCWsqKBVrXTaxp9++RYj3+7iKdvZUcr3S4Co+F06WwuoTXwJlS/eteobJMf6yVFyQPU3SP5ytAyIPaMN1ih004JgFeKx0mkhFi+2ZxQvoFBxQvEKqSsW9/H7kxhtzEpU/0OTEhb0Ti9vciq7ukxk3CBUyQQP6qAmR93gi8TUclw0K1ZuSRBp6JCt6yH7NQ7ZxhXViVpgM+gxxFt8UeJu1A==
+ bh=jrQsf5wH9yMMgg0Wa9EckcpAt6+rxU0wuykLiKmtZpc=;
+ b=v3J4KzUQrne6U4aM7PO9h/QuQlIrnWDOub+2gShrY99BqIH/8Q+YpD4PIJwXCXxXt4nG/MUfq+J/b+cVXNfcu3Vbxxxl4Gtm9hw4MuW8wALjAx4joqs6xKyD3ZBqvT0BO+emtOlueDJPgjdBdbBuMn964FE49p6kDKzHaC9yJcS1GxOKOYh5s9nrPUgfiCstDxZbnfs62++xhkf0RVAu4hbURAP1ZaFcYoSRInnKivLhk2e4rdyaAtJXXG0fq2UuZiKAZhqe9djEiCCpF1/zJyGsMWfuoznhSuBQFxkx97AoFlphF3rJ+OmbtAfJbtE0tZj27r5qdjet+WQ3NCNUTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1qnNw5s/gOlWiSrI3GbkQsHhTSCsPwcd3TLAo28DI5I=;
- b=whms5Dme5Gyr2C6ghkOgtYPXf/iVRc160kzIPAjNAvDsMK8PqVl56D+mPpar8qnWjvo5rMLKU5VhGnBKNQhUtWn31Xgm1iSWsPJFKJz1MBvYpkUXK8jisvK6SoNagD5IZAjQTvUu8cQqhakmCBxr0L6MffV3h64XGPfFbAyy7Hc=
-Received: from MN2PR20CA0054.namprd20.prod.outlook.com (2603:10b6:208:235::23)
- by MW4PR12MB7029.namprd12.prod.outlook.com (2603:10b6:303:1eb::17) with
+ bh=jrQsf5wH9yMMgg0Wa9EckcpAt6+rxU0wuykLiKmtZpc=;
+ b=FK+RJaBSF5ZBP23pFcKmj9Pf7EgSpNiFDnQOCOAJWycfU6v/HzeRjk1t3qgRPBjn2AY9EYLQRH5xrTuMlqkWM2/fFgk1oNseGlMTUR5anoOhmP3plj1V3XXNP0fq/ekTF9atgFow4ZLPhWSFmzt+Lii8Z0Ek4bZvl1/xtepJS2g=
+Received: from BN9PR03CA0205.namprd03.prod.outlook.com (2603:10b6:408:f9::30)
+ by LV8PR12MB9714.namprd12.prod.outlook.com (2603:10b6:408:2a0::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.31; Wed, 2 Jul
- 2025 09:44:48 +0000
-Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
- (2603:10b6:208:235:cafe::b2) by MN2PR20CA0054.outlook.office365.com
- (2603:10b6:208:235::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.34; Wed, 2 Jul
+ 2025 09:44:52 +0000
+Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
+ (2603:10b6:408:f9:cafe::a4) by BN9PR03CA0205.outlook.office365.com
+ (2603:10b6:408:f9::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.19 via Frontend Transport; Wed,
- 2 Jul 2025 09:44:48 +0000
+ 2 Jul 2025 09:44:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -77,95 +79,91 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
+ BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Wed, 2 Jul 2025 09:44:48 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.8901.15 via Frontend Transport; Wed, 2 Jul 2025 09:44:52 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Jul
- 2025 04:44:47 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Jul
- 2025 04:44:47 -0500
+ 2025 04:44:52 -0500
 Received: from r9-mach.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 2 Jul 2025 04:44:43 -0500
+ Transport; Wed, 2 Jul 2025 04:44:48 -0500
 From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
 CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
 	<Sunil-kumar.Dommati@amd.com>, <syed.sabakareem@amd.com>, "Venkata Prasad
  Potturu" <venkataprasad.potturu@amd.com>, Liam Girdwood
 	<lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, "Ranjani
- Sridharan" <ranjani.sridharan@linux.intel.com>, Daniel Baluta
-	<daniel.baluta@nxp.com>, Peter Zijlstra <peterz@infradead.org>, "open
- list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
-	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/3] ASoC: amd: acp: Enable I2S support for acp7.2 based
- platforms
-Date: Wed, 2 Jul 2025 15:14:11 +0530
-Message-ID: <20250702094425.155185-3-venkataprasad.potturu@amd.com>
+	<tiwai@suse.com>, "Kuninori Morimoto" <kuninori.morimoto.gx@renesas.com>,
+	Mario Limonciello <mario.limonciello@amd.com>, Peter Zijlstra
+	<peterz@infradead.org>, "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER
+ MANAGEM..." <linux-sound@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 3/3] ASoC: amd: acp: Enable acp7.2 platform based DMIC support
+ in machine driver
+Date: Wed, 2 Jul 2025 15:14:12 +0530
+Message-ID: <20250702094425.155185-4-venkataprasad.potturu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250702094425.155185-1-venkataprasad.potturu@amd.com>
 References: <20250702094425.155185-1-venkataprasad.potturu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: venkataprasad.potturu@amd.com does not
+Received-SPF: None (SATLEXMB03.amd.com: venkataprasad.potturu@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|MW4PR12MB7029:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7acfcdc-0297-4ecf-8e2f-08ddb94d159b
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|LV8PR12MB9714:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf06ed9e-2f39-4dc4-f550-08ddb94d184e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014|7416014;
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
 X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?PGnRffHRW8kIIsszaILRtFpreghcEE7RaTaKEhXURtzd1W1XQCvFGVq12c/Z?=
- =?us-ascii?Q?fwcKZkg3fHxJmmPkVmFDNYpUH7w1VwosyM1WglXfnjEvVOiP85nqBeHCbsho?=
- =?us-ascii?Q?CMaW46u5zYdz9fBJ7J+j3YZbPw3Uy2WsjzxwKBTFoXf6rKBC21QSSAPvNBZf?=
- =?us-ascii?Q?5dXQYsZuR+fr2l8vEEQkgHo3SVg5Dfwklh0uggHu66f08lq12OJmXYcw+O+P?=
- =?us-ascii?Q?fxw3ZZ+urgzDfzPotxaJkqxtwJ6eKuEmQCjKuA1ep558omYpAWADDIG6qt3a?=
- =?us-ascii?Q?L8CDwh4vfCgHAfjCwLPi0G6gCQG5ibJPVyi1zSJV/eh5g8pcLrN8LWlVDfs4?=
- =?us-ascii?Q?J8VWBvwzcRMVaiOZx7QX84t17Pi/3OTpXgoPP6PZGFToGpaSh1MM69ZixENw?=
- =?us-ascii?Q?yJ/UzI+qEcRKqLD5zHn97dpjTOwwcX7DNwZMuxkQ89yTwgGNFd0niCUhATvf?=
- =?us-ascii?Q?pzmUeJPILlVHXrYfyhgm5DNT1SZGjq5RBQczCtUSKabp8F9rHUdrrQoSTacS?=
- =?us-ascii?Q?s8tsdf++aKxjvnidHQ33VAHpi5FHXr1bPEc1aJKF81e/IpCjDtI+ygAbv7Fd?=
- =?us-ascii?Q?UtwiHJYfyDUskWTPlYpKGQ0sGVu4aeRBkR2uwOvT6Biv0DqGMI9EZZPQfQT/?=
- =?us-ascii?Q?S6/lf9N8TRB0A+6Hj9fk/4OPtFZj3wj4XW2L2Xk1QW24ceeAp6MzA+I9SxmC?=
- =?us-ascii?Q?SubeNBWx+YdXp3gpfE6az0NOzcd9EVLXMorq4/+V07yPT753mIhOEkhPWh+b?=
- =?us-ascii?Q?x0Violri6MdiPXpNIbN3o1MK1s9nK3z+dGKzksXBJ9t2YglPv8bt5ypDH1Xm?=
- =?us-ascii?Q?k3mj9U0oIHjMtoZsHN7jhehSzPGMQP74pM5ZdNHJOmhKpTor0WEbji98iyQd?=
- =?us-ascii?Q?G9F4SvVCxDzZpsFveRcUSCAij2yB5/etemzFfmXDmK1irrx5OereQKXGiNZu?=
- =?us-ascii?Q?k1yeSDtNn9KBGnVQL52YjjAa2kuBwgklEHtL4id68889oY3K7pAPE0xirbYK?=
- =?us-ascii?Q?uNZ6ex6A/2VbY2D6lV3ysB6oP5I2W+5PcWXn1pAV7X52F1XaB6WObKec6sR3?=
- =?us-ascii?Q?ff4HOsCu3MdR9IBzmYHyja5/QUja7n2DpmE3rbUflWZmeSy/+pF5glvM/nEQ?=
- =?us-ascii?Q?R/JxzEbd3JaBppJQGAnkXdMwxwRdhrBPfCS8ZSCO4C98OwQOUaWAaPEMEmTf?=
- =?us-ascii?Q?a7tH4VkwxBO3jpvHonUgCka/fftTpeKwPW17HETbRBbl7r4o6UaBRif8Pa6s?=
- =?us-ascii?Q?eNk423MJ8zdakPeNNSF+jQVjrHAb1lu8smBh0FtzlDg467/c+UKMEeZTgD+G?=
- =?us-ascii?Q?IOZt33WGmF3pe5GU8VdzK9hIjgDzWnfQZipRlSR49346DdV080wce4+vQfcc?=
- =?us-ascii?Q?MZP5g/e5eqqjaDDrCmJTwN9XWFlsKDpAJEeXp+TeaEokqZ9DrOcGUHxym3xv?=
- =?us-ascii?Q?O+172X0yOyuI87y+MbP17qRR/ukHVoiTlm4PmmfrZpon20WHI99PnqVmFtya?=
- =?us-ascii?Q?6c7CyQIeOsQNVdxOjJr9HNQzlyOHaF9YIZzI?=
+	=?us-ascii?Q?AMaenZdG2KcwhdbLErYKZ7oSfHVnZxzp7JM73umF+muUWV5871cw4Xi9oHvj?=
+ =?us-ascii?Q?CJVhYHOiMnht33wIkijxaW7JuBeXgzxnqBXh+2CAqzPbIFZj790BLnQ1qMiy?=
+ =?us-ascii?Q?69OmE5LD2ZHcMrCvxwteltJtgJCNRheyqqDcslKua3zXrAbiGNFisxWyurQM?=
+ =?us-ascii?Q?nfeqWjZ75hgLLBduuRP9z1P+XBLnPZFJL3eT/mKPxgJarlOi6KFfdQ96VNBL?=
+ =?us-ascii?Q?JKgM1dlqCY0I4r6Iv9eHGiB3wVNaptBdPCPBMcb0PeDBTRoPmSi3BGMnck+V?=
+ =?us-ascii?Q?mZ9lVTexaE49Sbgo2n7ibwO3PgXpJJIVp5AqF7zcYtp3BFJyAhHNGFYd72Pv?=
+ =?us-ascii?Q?jpmjaE4WqEBF0/YzTHqurxey7KWl3bZScNZTd4TClnfpVcSYT5lCBdv7edS4?=
+ =?us-ascii?Q?8epVBNy3k8hoXw7/RVP4hxTz5kfNAh3yttCmo+SHPvdS0hqYy9nsywAaEt0P?=
+ =?us-ascii?Q?f8HfN9zuN4SKsbpHy+Y/x85hUV0ZbiU8kCNpYMRFRPNiP+stFUgM8KcMbhKF?=
+ =?us-ascii?Q?ATcfrQd8S6QbUeXxg13LrFSHNe6fH6+RdjbWnEQ3WPfWaCNhye6H3/W4IxbW?=
+ =?us-ascii?Q?CLjNs/kvG5k580leymGFv0RvI82PqlYKMxPMo56Fypi7W6mvefxa4S88Xuwd?=
+ =?us-ascii?Q?xa3SZ932fkiDGjuFTN13fw4bBRPwK2K6PnrKWbIUFWmQD4jsEKg5Yv/6GatO?=
+ =?us-ascii?Q?Bz86ilxGaE9EzqHt1syZoAtS7f/VeFznUQrPmfxTkQlWSKm3JBVMoBhaKgKx?=
+ =?us-ascii?Q?xU4egyrsnrOt8vqYimMeZnTbBxdVguDm2Hlfmh8OyftXo1fNIbsY/ETyTYa5?=
+ =?us-ascii?Q?ci+fP8TZgTbVc9rJjHC+2jDPXE918I5hNHUCz8BiBoreCXYDtAhZPZAvXnAh?=
+ =?us-ascii?Q?Swp1lBeChQ2MoU2YeXkR1vDX/Dtp478GBn4CZCazQu8YVUZ0GVtvkUI9QQ1l?=
+ =?us-ascii?Q?v/gUlMpccvRnRilMaeDzvE8xOrFlrQaEw3IQo5lVlndNbf0sbw1Ts9/O26p1?=
+ =?us-ascii?Q?qH0BL1++rZRh7iYWwjtiNeO//lyrSL0Xjx9TKMNbfJdi83EAaZvisQaj+Ah6?=
+ =?us-ascii?Q?yem4hQzXtgVbTeZ38vG049naGdLiyENqoyiF3BY63oX47bdeso20Jm99apeZ?=
+ =?us-ascii?Q?MQqftSDG6LeTlavMaykYhyLlRD4vzSa6OQsFH+56rjO7+v1rlnCJhC+Flzky?=
+ =?us-ascii?Q?qd+yJ5R4a83ikBPIKqoNnT7dCljqf4LxmBiqEmO4RUhqe8P0zUDwg3ut7aM3?=
+ =?us-ascii?Q?y2dbxcBE5B2niGntMzkHQwwQK1wYmDyKZ7klDHsdR+wcYcWG+5bjHQvAu4Sw?=
+ =?us-ascii?Q?Qs22dH9XL8TX60W0N7/u6jC8tbi6SZO5ZHvWmz4O7oHAjBKOSm9C9WPhL9SJ?=
+ =?us-ascii?Q?bSDSQSHu9pHYT0fiO5W/KtepfMlJMdl/o5Pj7+fgGS1cMNSPS23eHGrpci87?=
+ =?us-ascii?Q?cDdaRJEQ8XXMO3uaX2j5VygvSqfzG1AWwV09NxlO8LgIM4B4hKlqF7bU8tB1?=
+ =?us-ascii?Q?ueGXG6y7ShF8JmLEv9jv2xfyf2ubF3QUtJoa?=
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7416014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 09:44:48.2154
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 09:44:52.7491
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d7acfcdc-0297-4ecf-8e2f-08ddb94d159b
+ bf06ed9e-2f39-4dc4-f550-08ddb94d184e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
  TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	BN2PEPF00004FC1.namprd04.prod.outlook.com
+	BN2PEPF00004FBF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7029
-Message-ID-Hash: DQR25PC25KJI2NAR47LUJWFC3WZHLIXF
-X-Message-ID-Hash: DQR25PC25KJI2NAR47LUJWFC3WZHLIXF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9714
+Message-ID-Hash: IYZAFE5MQKTA7DUYQYVTNUNRSPHCQX3H
+X-Message-ID-Hash: IYZAFE5MQKTA7DUYQYVTNUNRSPHCQX3H
 X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -178,7 +176,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQR25PC25KJI2NAR47LUJWFC3WZHLIXF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IYZAFE5MQKTA7DUYQYVTNUNRSPHCQX3H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -187,41 +185,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Enable I2S dai driver support for acp7.2 based platforms.
+Enable acp7.2 platform based DMIC support in machine driver.
 
 Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
 ---
- sound/soc/amd/acp/acp-i2s.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/amd/acp/acp-mach-common.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/amd/acp/acp-i2s.c b/sound/soc/amd/acp/acp-i2s.c
-index 70fa54d568ef..617690362ad7 100644
---- a/sound/soc/amd/acp/acp-i2s.c
-+++ b/sound/soc/amd/acp/acp-i2s.c
-@@ -58,6 +58,7 @@ static inline void acp_set_i2s_clk(struct acp_chip_info *chip, int dai_id)
- 	case ACP63_PCI_ID:
- 	case ACP70_PCI_ID:
- 	case ACP71_PCI_ID:
-+	case ACP72_PCI_ID:
- 		val |= FIELD_PREP(ACP63_LRCLK_DIV_FIELD, chip->lrclk_div);
- 		val |= FIELD_PREP(ACP63_BCLK_DIV_FIELD, chip->bclk_div);
- 		break;
-@@ -134,6 +135,7 @@ static int acp_i2s_set_tdm_slot(struct snd_soc_dai *dai, u32 tx_mask, u32 rx_mas
- 	case ACP63_PCI_ID:
- 	case ACP70_PCI_ID:
- 	case ACP71_PCI_ID:
-+	case ACP72_PCI_ID:
- 		switch (slots) {
- 		case 1 ... 31:
- 			no_of_slots = slots;
-@@ -168,6 +170,7 @@ static int acp_i2s_set_tdm_slot(struct snd_soc_dai *dai, u32 tx_mask, u32 rx_mas
- 		case ACP63_PCI_ID:
+diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+index a0dab85088ec..c4bc8e849284 100644
+--- a/sound/soc/amd/acp/acp-mach-common.c
++++ b/sound/soc/amd/acp/acp-mach-common.c
+@@ -1772,6 +1772,7 @@ int acp_legacy_dai_links_create(struct snd_soc_card *card)
+ 			break;
  		case ACP70_PCI_ID:
  		case ACP71_PCI_ID:
 +		case ACP72_PCI_ID:
- 			if (tx_mask && stream->dir == SNDRV_PCM_STREAM_PLAYBACK)
- 				chip->tdm_tx_fmt[stream->dai_id - 1] =
- 						FRM_LEN | (slots << 13) | (slot_len << 18);
+ 			links[i].platforms = platform_acp70_component;
+ 			links[i].num_platforms = ARRAY_SIZE(platform_acp70_component);
+ 			break;
 -- 
 2.43.0
 

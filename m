@@ -2,109 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DDE0B011BC
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jul 2025 05:49:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC347B01EA5
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jul 2025 16:06:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D104601FC;
-	Fri, 11 Jul 2025 05:49:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D104601FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B92D560204;
+	Fri, 11 Jul 2025 16:06:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B92D560204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1752205765;
-	bh=fZn1g+ihhpy2vlHflSPcOL1EA3Kp3JEsRyEMaaqHwxw=;
+	s=default; t=1752242808;
+	bh=fuV+f3p68eVNJtrMd5iPj26dCWv88/YV5dLdtehWBsI=;
 	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=m+XFgpJMKeA1B13bcmaOZOLV5akufsvOrCIHCR/A1sWK7vfmfr5ctdHf0ollQEI1M
-	 457J+Gym7r41sN7N4QikUCfjemvC+93+AZeWcCj2vYbv4ZF3ygN7R/mMhQLu7F4rwr
-	 IBmqxd7SO33hEMDY2O1leyWGD3NY6R3euVq/f9OM=
+	b=pCK8jN3ol5v2e/Vp+ZXKi7hmptWFybnPTMcJB1XTtHr+ZyRYkw1b4KJgatj1B7mXb
+	 6mAau5bI4SUV/YWpB0jSvAOMHxZwBpM2I1cEoqG8opu33vWc45/Cu/Vfbp97rgawpg
+	 ID694Ewg5hk5wjV/WEYEXI/B59ADdUIz1SvjnEJU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 944F0F805D5; Fri, 11 Jul 2025 05:48:46 +0200 (CEST)
+	id DD039F805BA; Fri, 11 Jul 2025 16:06:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DA85F805C4;
-	Fri, 11 Jul 2025 05:48:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B910BF805C4;
+	Fri, 11 Jul 2025 16:06:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BFC4F8052D; Fri, 11 Jul 2025 05:48:37 +0200 (CEST)
+	id 3B154F804CF; Sat,  5 Jul 2025 04:54:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 56699F8025F
-	for <alsa-devel@alsa-project.org>; Fri, 11 Jul 2025 05:48:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56699F8025F
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0CC4CF800D0
+	for <alsa-devel@alsa-project.org>; Sat,  5 Jul 2025 04:54:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CC4CF800D0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=FQFqzjdR
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 56B3mMUK1368711,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1752205702; bh=5QrPpkWZN5CcgFGnYsQKqUnVnC1YJGEeq3p/71oyRGM=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	b=FQFqzjdRA07Dv+JfcKdbYrC/fsNNf9IWUQxFT8fjlJms2ZBJARrVgfr9oeOC0u469
-	 RmqrwL67/F2XZy9epPIUPW42kXwXttq+g/LGd5B3areF7cjstC8ESSulzTw7jumPEU
-	 6m0nQZc+/PYx23p6VoJ0QesnBCh0WYYwqmCpnpY8oC4XTVWLZU9pRT12YdaTtVKAdD
-	 EY2diiPUC5OD8KE7p6z+E9fa/YDo5B9qSHTjxKs9vh3zB0AK26wrjPC3LARG0Yq39v
-	 DrxlOgEhPm3eZup9ufxz3qRXjMCLy1tfohyBvh/695g4RxTU2K1pKNul/mUl8F7V08
-	 PzNZv/3aYKDXg==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.13/5.93) with ESMTPS id 56B3mMUK1368711
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 11 Jul 2025 11:48:22 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 11 Jul 2025 11:48:23 +0800
-Received: from sw-server.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Fri, 11 Jul 2025 11:48:22 +0800
-From: Oder Chiou <oder_chiou@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-CC: <alsa-devel@alsa-project.org>, <flove@realtek.com>,
- <shumingf@realtek.com>,
-        <jack.yu@realtek.com>, <derek.fang@realtek.com>,
-        Oder
- Chiou <oder_chiou@realtek.com>
-Subject: [PATCH] ASoC: rt5660: Fix the dmic data source from GPIO2
-Date: Fri, 11 Jul 2025 11:48:13 +0800
-Message-ID: <20250711034813.3278989-1-oder_chiou@realtek.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=H/N106NL
+Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
+	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 5652s4M23947785;
+	Fri, 4 Jul 2025 21:54:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1751684044;
+	bh=b8BA+LiOkFB87eg4JOa5d7p9svdb3m3qLq/OtPj0Dy4=;
+	h=From:To:CC:Subject:Date;
+	b=H/N106NL3BEderp8KVLUEH7m77o5gBT6uolPYrLPna2CF0AZ2Bikv/QXThYDjk6Mv
+	 qpYgowVOY/XfgjSdaUFnzHYqCC0XuJI4hf6BN0eWAnATV2jseVoNFuQ/I7dCIURj71
+	 p3H6r9o35iggsqY20/c8ebY/GO8Q/cIfgxRaOr5U=
+Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
+	by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 5652s3mB3984965
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Fri, 4 Jul 2025 21:54:04 -0500
+Received: from DLEE100.ent.ti.com (157.170.170.30) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Fri, 4
+ Jul 2025 21:54:02 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Fri, 4 Jul 2025 21:54:03 -0500
+Received: from lelvem-mr05.itg.ti.com ([10.250.165.138])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 5652rvIb3841032;
+	Fri, 4 Jul 2025 21:53:58 -0500
+From: Baojun Xu <baojun.xu@ti.com>
+To: <tiwai@suse.de>
+CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <alsa-devel@alsa-project.org>, <shenghao-ding@ti.com>,
+ <navada@ti.com>,
+        <13916275206@139.com>, <v-hampiholi@ti.com>, <v-po@ti.com>,
+        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <baojun.xu@ti.com>
+Subject: [PATCH v1] ALSA: hda/tas2781: Add bus name in device name check
+Date: Sat, 5 Jul 2025 10:53:33 +0800
+Message-ID: <20250705025333.24346-1-baojun.xu@ti.com>
+X-Mailer: git-send-email 2.43.0.windows.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXH36506.realtek.com.tw (172.21.6.27) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: JUPJCKVC23JDMKJJFUQSOH2QKJXJK2DZ
-X-Message-ID-Hash: JUPJCKVC23JDMKJJFUQSOH2QKJXJK2DZ
-X-MailFrom: oder_chiou@realtek.com
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-MailFrom: baojun.xu@ti.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: DYAPWRIP5LABXM7K3F4SFQHBNUYQWDTW
+X-Message-ID-Hash: DYAPWRIP5LABXM7K3F4SFQHBNUYQWDTW
+X-Mailman-Approved-At: Fri, 11 Jul 2025 14:06:05 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JUPJCKVC23JDMKJJFUQSOH2QKJXJK2DZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DYAPWRIP5LABXM7K3F4SFQHBNUYQWDTW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,37 +107,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The patch fixes an issue with the dmic data pin connected to GPIO2.
+Device name start from bus name, as we use strstarts()
+to do compare, need add it for TXNW2781 device.
 
-Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+Fixes: b2904df0a347 ("ALSA: hda/tas2781: Add compatible for hardware id TIAS2781 and TXNW2781")
+
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 ---
- sound/soc/codecs/rt5660.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ sound/pci/hda/tas2781_hda_i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt5660.c b/sound/soc/codecs/rt5660.c
-index 82b92e83be4c..44c3a3b92f98 100644
---- a/sound/soc/codecs/rt5660.c
-+++ b/sound/soc/codecs/rt5660.c
-@@ -1315,14 +1315,17 @@ static int rt5660_i2c_probe(struct i2c_client *i2c)
- 		regmap_update_bits(rt5660->regmap, RT5660_GPIO_CTRL1,
- 			RT5660_GP1_PIN_MASK, RT5660_GP1_PIN_DMIC1_SCL);
- 
--		if (rt5660->pdata.dmic1_data_pin == RT5660_DMIC1_DATA_GPIO2)
-+		if (rt5660->pdata.dmic1_data_pin == RT5660_DMIC1_DATA_GPIO2) {
- 			regmap_update_bits(rt5660->regmap, RT5660_DMIC_CTRL1,
- 				RT5660_SEL_DMIC_DATA_MASK,
- 				RT5660_SEL_DMIC_DATA_GPIO2);
--		else if (rt5660->pdata.dmic1_data_pin == RT5660_DMIC1_DATA_IN1P)
-+			regmap_update_bits(rt5660->regmap, RT5660_GPIO_CTRL1,
-+				RT5660_GP2_PIN_MASK, RT5660_GP2_PIN_DMIC1_SDA);
-+		} else if (rt5660->pdata.dmic1_data_pin == RT5660_DMIC1_DATA_IN1P) {
- 			regmap_update_bits(rt5660->regmap, RT5660_DMIC_CTRL1,
- 				RT5660_SEL_DMIC_DATA_MASK,
- 				RT5660_SEL_DMIC_DATA_IN1P);
-+		}
- 	}
- 
- 	return devm_snd_soc_register_component(&i2c->dev,
+diff --git a/sound/pci/hda/tas2781_hda_i2c.c b/sound/pci/hda/tas2781_hda_i2c.c
+index b9cdbca951e4..530c2266ab3b 100644
+--- a/sound/pci/hda/tas2781_hda_i2c.c
++++ b/sound/pci/hda/tas2781_hda_i2c.c
+@@ -588,7 +588,7 @@ static int tas2781_hda_i2c_probe(struct i2c_client *clt)
+ 		hda_priv->save_calibration = tas2781_save_calibration;
+ 		tas_hda->priv->global_addr = TAS2781_GLOBAL_ADDR;
+ 	} else if (strstarts(dev_name(&clt->dev),
+-			     "TXNW2781:00-tas2781-hda.0")) {
++			     "i2c-TXNW2781:00-tas2781-hda.0")) {
+ 		device_name = "TXNW2781";
+ 		hda_priv->save_calibration = tas2781_save_calibration;
+ 		tas_hda->priv->global_addr = TAS2781_GLOBAL_ADDR;
 -- 
-2.34.1
+2.43.0
 

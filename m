@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696E0AFDD36
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jul 2025 04:01:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C733AAFE024
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Jul 2025 08:42:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFF6D60176;
-	Wed,  9 Jul 2025 04:01:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFF6D60176
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9488360191;
+	Wed,  9 Jul 2025 08:42:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9488360191
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1752026491;
-	bh=SCd2Rskvq412sYYjzoMaYjBEDDWKuLbV0h++4NRJ7Hs=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1752043376;
+	bh=7+vCqZFN7U4lnW639qGXUMHfGK51a943czZTXZl01Rw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kd9GCzT2J6c+DYYQudIfHmKH2TknGnYTH5cJqtLMtBDYec3JzV7LPADl9AQJ8DvIg
-	 k/zYu88wHZ0AVy5JWUkj8kJ1iOSsbH1KJy2aenUuPmxWOykxqmJhBJIgxkdAxZLEe7
-	 AEzFCaDeK6cGVbOF3Q885WhmLRa2m5l49VFYRUqs=
+	b=OEmNaRcRAyTCABEhOpgMuddXD5y/FAOjpI5iO31sV6viWrNpZ/UVRNfNpePJBBi9O
+	 qcdB8iuyQ6kkb9O2cgyOYP1K7E11CzFOgSOS8wZ+d5ywqXtc68uNLfpVLnv8nWPQ2t
+	 SyqZBNrIlf7ZhmGYfoUJi7Ux95s7zH6Ql1QZJr1w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0582F805C9; Wed,  9 Jul 2025 04:00:56 +0200 (CEST)
+	id AC70BF805C6; Wed,  9 Jul 2025 08:42:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9637F805BD;
-	Wed,  9 Jul 2025 04:00:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F497F805C4;
+	Wed,  9 Jul 2025 08:42:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 576E8F804F2; Wed,  9 Jul 2025 04:00:38 +0200 (CEST)
+	id 1F793F804F2; Wed,  9 Jul 2025 08:42:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -39,48 +39,93 @@ Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 17921F80124
-	for <alsa-devel@alsa-project.org>; Wed,  9 Jul 2025 04:00:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17921F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id E71C5F800E4
+	for <alsa-devel@alsa-project.org>; Wed,  9 Jul 2025 08:42:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E71C5F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=vPp/d4xm
+ header.s=k20201202 header.b=S17CPSJn
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id D811C61151;
-	Wed,  9 Jul 2025 02:00:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614DFC4CEED;
-	Wed,  9 Jul 2025 02:00:29 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 643B861496;
+	Wed,  9 Jul 2025 06:42:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80BCEC4CEF0;
+	Wed,  9 Jul 2025 06:42:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752026429;
-	bh=SCd2Rskvq412sYYjzoMaYjBEDDWKuLbV0h++4NRJ7Hs=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=vPp/d4xmieKxl3KV4U+NXVMO0UtLsKDJYyTkoEpjqNWtAzrJyoM/zofD8TJXrbAPm
-	 SWnAnNcwkdNkA/zFbs1EHhiobFGc3f3wk9LJM303f27o49ETNfZRnriXDIL5rX7/tB
-	 UO9TKqLMhcq1N2vtM72KRIBoasNtxtoyas7T35Rz96orCLumUejoob5PinY1+cmdtb
-	 Dfw93GcD1O1epJevRBYtH+tuGkhau9TpxKvsp4S2GL66e5OVjBRcOMSxChCkLKzTqK
-	 J6Vg3BY7OhyWCFMaV+1F6ikOwi82usmJmxaYfqGD4hZ9aszzXiGqy9hcmb72CVO8SB
-	 YYaXQi7gnQ5BA==
-Date: Tue, 08 Jul 2025 21:00:28 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1752043327;
+	bh=7+vCqZFN7U4lnW639qGXUMHfGK51a943czZTXZl01Rw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=S17CPSJnTZsiKwFWyk3hbEFT/5JvQJaEWZfiwyG1YJJ5CWMFFeHYkiD0WEgH+1yhF
+	 FFV+trtzovMtt+RcP7nQFjQE3BIU/PubAiRXnylnSuxxNgxhs22UHNnUl74y8Sh61Q
+	 Q3dfaPuamWXn1d8vNXPC6Udygiy0450ILB3zLFpnSiB+RBsMfacwq0E4f5yc4K8C2t
+	 YnoBbvJvuJ9A9DKn/EfQVPfCfb5wEqKbGqTZnksf5iyGPs5ZNr1Mk4DKYYIo72Ppwd
+	 Q0jiQXZbXGTNkRZ7w1/tFkis6SMAlNiLU2x3UjJpD0nQxc0fBr7YEKTEY2hXTdlc7e
+	 BMhrycdhvlvTQ==
+Message-ID: <91f183dc-7294-451f-96ce-4d24c073fbbf@kernel.org>
+Date: Wed, 9 Jul 2025 08:42:02 +0200
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- krzk+dt@kernel.org, s.nawrocki@samsung.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, lgirdwood@gmail.com,
- broonie@kernel.org
-To: ew kim <ew.kim@samsung.com>
-In-Reply-To: <20250709001239.379695-1-ew.kim@samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: dt-bindings: Add samsung,abox-generic document
+To: ew kim <ew.kim@samsung.com>, broonie@kernel.org, lgirdwood@gmail.com,
+ s.nawrocki@samsung.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 References: 
  <CGME20250709002434epcas2p29b2368f0de6c760b17565ad7f2c37a19@epcas2p2.samsung.com>
  <20250709001239.379695-1-ew.kim@samsung.com>
-Message-Id: <175202642853.1975547.14734415377016191511.robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: Add samsung,abox-generic document
-Message-ID-Hash: MMNHDNUL56HA3QK4C3OGO3KT476FPX3F
-X-Message-ID-Hash: MMNHDNUL56HA3QK4C3OGO3KT476FPX3F
-X-MailFrom: robh@kernel.org
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20250709001239.379695-1-ew.kim@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: DBA2K5TBEHPNVYGK5BXZNQ2NURFX52SH
+X-Message-ID-Hash: DBA2K5TBEHPNVYGK5BXZNQ2NURFX52SH
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +137,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MMNHDNUL56HA3QK4C3OGO3KT476FPX3F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DBA2K5TBEHPNVYGK5BXZNQ2NURFX52SH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,9 +146,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Wed, 09 Jul 2025 09:12:39 +0900, ew kim wrote:
+On 09/07/2025 02:12, ew kim wrote:
 > Add soundcard bindings for the abox generic of exynus automotive.
+
+This wasn't ever tested, so very short review. You have typos here and
+there. But more important - this should not be a "generic" thing, but
+binding for your sound card.
+
+What's more important, there is no user of it, so anyway this cannot be
+accepted as it makes no sense without user.
+
 > 
 > Signed-off-by: ew kim <ew.kim@samsung.com>
 > ---
@@ -111,50 +163,21 @@ On Wed, 09 Jul 2025 09:12:39 +0900, ew kim wrote:
 >  1 file changed, 77 insertions(+)
 >  create mode 100644 Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml
 > 
+> diff --git a/Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml b/Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml
+> new file mode 100644
+> index 000000000000..bf641a197903
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml
+> @@ -0,0 +1,77 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: "http://devicetree.org/schemas/soc/samsung/abox-generic.yaml#"
+> +$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 
-My bot found errors running 'make dt_binding_check' on your patch:
+But the quality of the patch and lack of testing makes me thinking if
+you could not get some help inside Samsung in posting a proper patch?
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml:4:6: [error] string value is redundantly quoted with any quotes (quoted-strings)
-./Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml:5:10: [error] string value is redundantly quoted with any quotes (quoted-strings)
-./Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml:43:13: [error] string value is redundantly quoted with any quotes (quoted-strings)
-./Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml:43:21: [error] string value is redundantly quoted with any quotes (quoted-strings)
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml: maintainers:0: {'name': 'Eunwoo Kim', 'email': 'ew.kim@samsung.com'} is not of type 'string'
-	from schema $id: http://devicetree.org/meta-schemas/base.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml: properties:ranges: 'anyOf' conditional failed, one must be fixed:
-	'maxItems' is a required property
-		hint: Only "maxItems" is required for a single entry if there are no constraints defined for the values.
-	'type' is not one of ['maxItems', 'description', 'deprecated']
-		hint: Only "maxItems" is required for a single entry if there are no constraints defined for the values.
-	Additional properties are not allowed ('type' was unexpected)
-		hint: Arrays must be described with a combination of minItems/maxItems/items
-	'type' is not one of ['description', 'deprecated', 'const', 'enum', 'minimum', 'maximum', 'multipleOf', 'default', '$ref', 'oneOf']
-	hint: cell array properties must define how many entries and what the entries are when there is more than one entry.
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml: $id: Cannot determine base path from $id, relative path/filename doesn't match actual path or filename
- 	 $id: http://devicetree.org/schemas/soc/samsung/abox-generic.yaml
- 	file: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/samsung,abox-generic.yaml
-Documentation/devicetree/bindings/sound/samsung,abox-generic.example.dts:26.11-18: Warning (ranges_format): /example-0/abox_generic@generic:ranges: empty "ranges" property but its #address-cells (2) differs from /example-0 (1)
-Documentation/devicetree/bindings/sound/samsung,abox-generic.example.dts:18.44-27.11: Warning (unit_address_vs_reg): /example-0/abox_generic@generic: node has a unit name, but no reg or ranges property
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/samsung,abox-generic.example.dtb: abox_generic@generic (samsung,abox_generic): ranges: True is not of type 'object'
-	from schema $id: http://devicetree.org/schemas/soc/samsung/abox-generic.yaml#
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20250709001239.379695-1-ew.kim@samsung.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best regards,
+Krzysztof

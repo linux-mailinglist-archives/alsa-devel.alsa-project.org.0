@@ -2,107 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 790EEAFFA98
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jul 2025 09:14:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56258AFFAA4
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Jul 2025 09:18:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09FF06018C;
-	Thu, 10 Jul 2025 09:14:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09FF06018C
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4322601F6;
+	Thu, 10 Jul 2025 09:17:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4322601F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1752131693;
-	bh=knkp7wMKbsABbkeqQGYzCKn8oUpavpWUPxjTLnM5OpQ=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:List-Id:
+	s=default; t=1752131883;
+	bh=dYHTt30jn0HJON45ps6wRhM9waB9aEuCZHTB38SrkRI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=czXPCj3lgFj5mj+eGHPh9PmbJLINHBL7jMTFOPR6kjMkLaRiphYpWl6T7ZxlhAgDO
-	 qrzR+YHOhQOQ81+HXIsw5BxMGVQcS1E9elvcktIOVs2yA0q7oBQZ2ZuK/qhAjjeNOT
-	 1bCkgDmYRsET922xPnV88FLmgMb5jwyIibX+9YhU=
+	b=nKIohcUcLk9US0CZJbBD+bHThKiSKzvyVF0kNLY1Li77B4kCsy2vARSp2TmYXPvjq
+	 OF5agcCh91RnDPuGa7xImqIQNfJL5m0H3Nh9l+YZ/fAWtBEnz+Tks99MRXFfY03KrX
+	 cuAt6GHjY4oeosJVKrfIAkwTf4WuzF9K4que0GTs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8345F805BF; Thu, 10 Jul 2025 09:14:19 +0200 (CEST)
+	id C0A19F8057B; Thu, 10 Jul 2025 09:17:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 398EFF805C5;
-	Thu, 10 Jul 2025 09:14:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC03BF805BF;
+	Thu, 10 Jul 2025 09:17:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C9ECF80526; Thu, 10 Jul 2025 09:14:10 +0200 (CEST)
+	id D3320F80526; Thu, 10 Jul 2025 09:17:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 87AC0F800FA
-	for <alsa-devel@alsa-project.org>; Thu, 10 Jul 2025 09:14:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87AC0F800FA
+	by alsa1.perex.cz (Postfix) with ESMTPS id A0D7EF800FA
+	for <alsa-devel@alsa-project.org>; Thu, 10 Jul 2025 09:17:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0D7EF800FA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
- header.s=mail20170921 header.b=bnY1v6Nn
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20250710071359epoutp0191910a6fd443777ea5e21c16fde46f0d~Q0nF6IDYf0036700367epoutp01S
-	for <alsa-devel@alsa-project.org>; Thu, 10 Jul 2025 07:13:59 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20250710071359epoutp0191910a6fd443777ea5e21c16fde46f0d~Q0nF6IDYf0036700367epoutp01S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1752131639;
-	bh=db3k/JVyQIT3D+uIpPvlN0puBLX9tVayW0NaKXlwODE=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=bnY1v6NntowXy68ixRhpJzT0tTSTItYocpf/08pcqzXgd9v9Hro8DLNxP/s5WAwmC
-	 imsg25/oY/XIOd6nHghuPI0A6Kha1vlQW95ofVr51CYMMLOCMGD06zhr1ujJGEL8ZN
-	 Bvwu+x9AUhz45vDowzlLrypiTFQ/USzxF2LJQpvg=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20250710071359epcas2p40556834430e3072773cb6a064010719d~Q0nFnmFFV0398403984epcas2p4X;
-	Thu, 10 Jul 2025 07:13:59 +0000 (GMT)
-Received: from epcas2p2.samsung.com (unknown [182.195.36.90]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4bd5gB4sz7z6B9mG; Thu, 10 Jul
-	2025 07:13:58 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20250710071358epcas2p3ea3c58a4f178a8a61d79b9442d71d29e~Q0nEMgXPa1715817158epcas2p3y;
-	Thu, 10 Jul 2025 07:13:58 +0000 (GMT)
-Received: from KORCO193562 (unknown [12.36.160.57]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20250710071357epsmtip2a55452f835a0527fa20e47a9ce589a7a~Q0nEJmIT63222932229epsmtip2G;
-	Thu, 10 Jul 2025 07:13:57 +0000 (GMT)
-From: =?UTF-8?B?6rmA7J2A7Jqw?= <ew.kim@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, <s.nawrocki@samsung.com>,
-	<lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
-	<tiwai@suse.com>
-Cc: <linux-sound@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>
-In-Reply-To: <7d2401d6-d897-49d7-a3be-50de0727b037@kernel.org>
-Subject: RE: [PATCH] ASoC: samsung: Implement abox generic structure
-Date: Thu, 10 Jul 2025 16:13:57 +0900
-Message-ID: <01a401dbf16a$33fbd0d0$9bf37270$@samsung.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bLjJfgM+
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 5DBA5A53FAA;
+	Thu, 10 Jul 2025 07:17:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430E4C4CEE3;
+	Thu, 10 Jul 2025 07:17:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752131835;
+	bh=dYHTt30jn0HJON45ps6wRhM9waB9aEuCZHTB38SrkRI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bLjJfgM+ZAGyBvHyNubFyxyMcZKvKNl/bvhCwj8fHZgoFL12ObuOQoyRPJAVk+3Cq
+	 f6EArTI0NKXe/I5HVkkCcntwoCG9lKcv9YlWk5BQGGtgKUhyFiHc2acVESXSaJPDKA
+	 /3uAgR7Y7emot2UpdmO/Li+NunTzHJnN/uSgOfJOUG3lrLcPeeM/3sIriD0R8izClT
+	 BsR93QFhBlFxx2JTAubuNfT3A5mhFgN1D6IvYsZzd3bLKD018VNMHGJIf6Q4lGgn7x
+	 CvSSpRl8aWZsgHxDC16NUe0hOblntOoDNFuxB/72022lPA0jEApPAyuBBFbQjgE+X6
+	 grLE025/vApcQ==
+Message-ID: <9627b253-5c43-4cfc-83c1-d5b4d36fd967@kernel.org>
+Date: Thu, 10 Jul 2025 09:17:09 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGD3td0XDcdc/GKkWKGNfQw8ZJQZQD9NwnZAq8SWvi0vbM/0A==
-Content-Language: ko
-X-CMS-MailID: 20250710071358epcas2p3ea3c58a4f178a8a61d79b9442d71d29e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20250709002150epcas2p467416bdbc16754726599a0cacb1feecc
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: samsung: Implement abox generic structure
+To: =?UTF-8?B?6rmA7J2A7Jqw?= <ew.kim@samsung.com>, s.nawrocki@samsung.com,
+ lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Cc: linux-sound@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 References: 
  <CGME20250709002150epcas2p467416bdbc16754726599a0cacb1feecc@epcas2p4.samsung.com>
-	<20250709001002.378246-1-ew.kim@samsung.com>
-	<7d2401d6-d897-49d7-a3be-50de0727b037@kernel.org>
-Message-ID-Hash: E7PRF6GQVI2CL45RJJ3HBGHUOUZ7NYCN
-X-Message-ID-Hash: E7PRF6GQVI2CL45RJJ3HBGHUOUZ7NYCN
-X-MailFrom: ew.kim@samsung.com
+ <20250709001002.378246-1-ew.kim@samsung.com>
+ <7d2401d6-d897-49d7-a3be-50de0727b037@kernel.org>
+ <01a401dbf16a$33fbd0d0$9bf37270$@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <01a401dbf16a$33fbd0d0$9bf37270$@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: CJRQMAKPXILHBJCCIVMHWWQ4H3ANO3YB
+X-Message-ID-Hash: CJRQMAKPXILHBJCCIVMHWWQ4H3ANO3YB
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +137,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E7PRF6GQVI2CL45RJJ3HBGHUOUZ7NYCN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CJRQMAKPXILHBJCCIVMHWWQ4H3ANO3YB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,223 +146,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Thank you for your review.
-We will proceed to remove unnecessary Doxygen comments and logs as suggeste=
-d.
+On 10/07/2025 09:13, 김은우 wrote:
+> Thank you for your review.
+> We will proceed to remove unnecessary Doxygen comments and logs as suggested.
 
-Based on the feedback provided, we will revise the work accordingly and res=
-ubmit it for further review.
+Only these, but what about all other comments? Please implement all
+comments and do a thorough internal review cleaning all the downstream
+stuff from here. Your patchset is also not correctly threaded, so please
+read submitting patches or just use `b4`.
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski <krzk=40kernel.org>
-> Sent: Wednesday, July 9, 2025 10:58 PM
-> To: ew.kim=40samsung.com; s.nawrocki=40samsung.com; lgirdwood=40gmail.com=
-;
-> broonie=40kernel.org; perex=40perex.cz; tiwai=40suse.com
-> Cc: linux-sound=40vger.kernel.org; alsa-devel=40alsa-project.org; linux-
-> kernel=40vger.kernel.org
-> Subject: Re: =5BPATCH=5D ASoC: samsung: Implement abox generic structure
->=20
-> On 09/07/2025 02:10, ew.kim=40samsung.com wrote:
-> > +/**
-> > + * =40cnotice
-> > + * =40prdcode
-> > + * =40Sub_SW_Component=7Babox generic=7D
-> > + * =40ALM_Link =7Bwork item url=7D
-> > + * =40purpose =22Disbaling the abox generic=22
-> > + * =40logic =22Disbale the abox generic=22
-> > + * =5Cimage html
-> > + * =40params
-> > + * =40param=7Bin, pdev->dev, struct::device, =21NULL=7D
-> > + * =40endparam
-> > + * =40noret
-> > + */
-> > +static void samsung_abox_generic_remove(struct platform_device *pdev)
-> > +=7B
-> > +	struct device *dev =3D &pdev->dev;
-> > +	struct abox_generic_data *data =3D dev_get_drvdata(dev);
-> > +
-> > +	dev_info(dev, =22%s=5Cn=22, __func__);
->=20
-> This is just poor code. Clean it up from all such oddities popular in
-> downstream. Look at upstream code. Do you see such code there? No.
->=20
-> > +
-> > +	if (=21data) =7B
-> > +		dev_err(dev, =22%s: Invalid abox generic data=5Cn=22, __func__);
-> > +		return;
-> > +	=7D
-> > +	return;
-> > +=7D
-> > +
-> > +/**
-> > + * =40cnotice
-> > + * =40prdcode
-> > + * =40Sub_SW_Component=7Babox generic=7D
-> > + * =40ALM_Link =7Bwork item url=7D
-> > + * =40purpose =22shutdown of the abox generic=22
-> > + * =40logic =22Disbale the abox hardware by calling the following
-> > +function
-> > + * pm_runtime_disable(dev)=22
-> > + * =5Cimage html
-> > + * =40params
-> > + * =40param=7Bin, pdev->dev, struct:: device, =21NULL=7D
-> > + * =40endparam
-> > + * =40noret
-> > + */
-> > +static void samsung_abox_generic_shutdown(struct platform_device
-> > +*pdev) =7B
-> > +	struct device *dev =3D &pdev->dev;
-> > +	struct abox_generic_data *data =3D dev_get_drvdata(dev);
-> > +
-> > +	if (=21data) =7B
-> > +		dev_err(dev, =22%s: Invalid abox generic data=5Cn=22, __func__);
-> > +		return;
-> > +	=7D
-> > +	return;
-> > +=7D
-> > +
-> > +static const struct of_device_id samsung_abox_generic_match=5B=5D =3D =
-=7B
-> > +	=7B
-> > +		.compatible =3D =22samsung,abox_generic=22,
-> > +	=7D,
-> > +	=7B=7D,
-> > +=7D;
-> > +MODULE_DEVICE_TABLE(of, samsung_abox_generic_match);
-> > +
-> > +static const struct dev_pm_ops samsung_abox_generic_pm =3D =7B
-> > +	SET_SYSTEM_SLEEP_PM_OPS(abox_generic_suspend, abox_generic_resume)
-> > +=7D;
-> > +
-> > +struct platform_driver samsung_abox_generic_driver =3D =7B
-> > +	.probe  =3D samsung_abox_generic_probe,
-> > +	.remove =3D samsung_abox_generic_remove,
-> > +	.shutdown =3D samsung_abox_generic_shutdown,
-> > +	.driver =3D =7B
-> > +		.name =3D =22samsung-abox-generic=22,
-> > +		.owner =3D THIS_MODULE,
->=20
-> So that's indeed 2013 code you upstream. We really want you to clean it u=
-p
-> before you post some ancient stuff like that.
->=20
->=20
-> > +		.of_match_table =3D of_match_ptr(samsung_abox_generic_match),
-> > +		.pm =3D &samsung_abox_generic_pm,
-> > +	=7D,
-> > +=7D;
-> > +
-> > +module_platform_driver(samsung_abox_generic_driver);
-> > +/* Module information */
->=20
-> Useless comment.
->=20
-> > +MODULE_AUTHOR(=22Eunwoo Kim, <ew.kim=40samsung.com>=22);
-> > +MODULE_DESCRIPTION(=22Samsung ASoC A-Box Generic Driver=22);
-> > +MODULE_ALIAS(=22platform:samsung-abox-generic=22);
->=20
-> No, drop. This was raised so many times already...
->=20
-> > +MODULE_LICENSE(=22GPL v2=22);
-> > +
-> > diff --git
-> > a/sound/soc/samsung/auto_abox/generic/include/abox_generic.h
-> > b/sound/soc/samsung/auto_abox/generic/include/abox_generic.h
-> > new file mode 100644
-> > index 000000000000..1c954272e2b5
-> > --- /dev/null
-> > +++ b/sound/soc/samsung/auto_abox/generic/include/abox_generic.h
-> > =40=40 -0,0 +1,87 =40=40
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * ALSA SoC - Samsung ABOX Share Function and Data structure
-> > + * for Exynos specific extensions
-> > + *
-> > + * Copyright (C) 2013-2020 Samsung Electronics Co., Ltd.
-> > + *
-> > + * EXYNOS - sound/soc/samsung/abox/include/abox_generic.h
->=20
-> Same with paths. Do you see them anywhere in the kernel?
->=20
-> > + */
-> > +
-> > +=23ifndef __SND_SOC_ABOX_GENERIC_BASE_H =23define
-> > +__SND_SOC_ABOX_GENERIC_BASE_H
-> > +
-> > +=23define ABOX_GENERIC_DATA
-> 	abox_generic_get_abox_generic_data();
-> > +
-> > +struct snd_soc_pcm_runtime;
-> > +
-> > +enum abox_soc_ioctl_cmd =7B
-> > +	ABOX_SOC_IOCTL_GET_NUM_OF_RDMA,
-> > +	ABOX_SOC_IOCTL_GET_NUM_OF_WDMA,
-> > +	ABOX_SOC_IOCTL_GET_NUM_OF_UAIF,
-> > +	ABOX_SOC_IOCTL_GET_SOC_TIMER,
-> > +	ABOX_SOC_IOCTL_SET_DMA_BUFFER,
-> > +	ABOX_SOC_IOCTL_SET_PP_POINTER,
-> > +	ABOX_SOC_IOCTL_SET_PERF_PERIOD,
-> > +	ABOX_SOC_IOCTL_CHECK_TIME_MUTEX,
-> > +	ABOX_SOC_IOCTL_CHECK_TIME_NO_MUTEX,
-> > +	ABOX_SOC_IOCTL_PCM_DUMP_INTR,
-> > +	ABOX_SOC_IOCTL_PCM_DUMP_CLOSE,
-> > +	ABOX_SOC_IOCTL_PCM_DUMP_ADD_CONTROL,
-> > +	ABOX_SOC_IOCTL_MAX
-> > +=7D;
-> > +
-> > +typedef int (*SOC_IOCTL)(struct device *soc_dev, enum
-> > +abox_soc_ioctl_cmd cmd, void *data);
->=20
-> Follow coding style.
->=20
-> > +
-> > +struct abox_generic_data =7B
-> > +	struct platform_device *pdev;
-> > +	struct platform_device **pdev_pcm_playback;
-> > +	struct platform_device **pdev_pcm_capture;
-> > +	unsigned int num_of_pcm_playback;
-> > +	unsigned int num_of_pcm_capture;
-> > +	unsigned int num_of_i2s_dummy;
-> > +	unsigned int num_of_rdma;
-> > +	unsigned int num_of_wdma;
-> > +	unsigned int num_of_uaif;
-> > +	struct device *soc_dev;
-> > +	SOC_IOCTL soc_ioctl;
-> > +=7D;
-> > +
-> > +
-> > +/************ Internal API ************/
->=20
-> Then why do you expose it via header?
->=20
-> > +
-> > +struct abox_generic_data *abox_generic_get_abox_generic_data(void);
-> > +
-> > +int abox_generic_set_dma_buffer(struct device *pcm_dev);
-> > +
-> > +int abox_generic_request_soc_ioctl(struct device *generic_dev, enum
-> abox_soc_ioctl_cmd cmd,
-> > +	void *data);
-> > +
-> > +int abox_generic_set_pp_pointer(struct device *pcm_dev);
-> > +
-> > +
-> > +
-> > +
-> > +/************ External API ************/
-> > +
-> > +extern struct device *abox_generic_find_fe_dev_from_rtd(struct
-> > +snd_soc_pcm_runtime *be);
->=20
-> You cannot have external API. All API is internal first.
->=20
-> > +
-> > +extern struct platform_device *abox_generic_get_pcm_platform_dev(int
-> pcm_id,
-> > +	int stream_type);
-> > +
-> Best regards,
-> Krzysztof
+Please avoid top-posting.
+
+> 
+> Based on the feedback provided, we will revise the work accordingly and resubmit it for further review.
+> 
 
 
+
+Best regards,
+Krzysztof

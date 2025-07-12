@@ -2,123 +2,168 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E921B01EAF
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Jul 2025 16:07:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4CF1B02A19
+	for <lists+alsa-devel@lfdr.de>; Sat, 12 Jul 2025 10:29:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 455A460226;
-	Fri, 11 Jul 2025 16:07:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 455A460226
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E1006019D;
+	Sat, 12 Jul 2025 10:29:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E1006019D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1752242866;
-	bh=d3VuuLyyyFCxbPwe3G26jzyJnAQAWypz048/oVjpCEA=;
-	h=Date:To:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=X0PMfbW6v1oor7YQgIUsSweNJQ8c22dp9lyoXIi2yzNtYZADZ+he2VIm66yAboXWV
-	 hoTkCK63/aPeqHxkMm13eBC3Ffl5s/+78mOTG+MYDb5UL32TFPvJEHM4NEOi3bfaMe
-	 cCip1oEjRVtY0mXyYES2DefxnLX/94CYzbJFGIN0=
+	s=default; t=1752308992;
+	bh=o5OSowyX0g2NZm20gpmAfN8NRzD6c4FUxrFvjquJBdw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=b5KHQPn7RPfQrCG9vN640wTgwem36ZijyjvnAxfrCgjr348mJwvzGZzb+pb3tqLpP
+	 oeTMoCrHGzOGqHHtIa/3Bu61SfvWI9oH2Fp7RCT5Tt6SBbipFesJ1/Y7xXvxYM/pit
+	 nVVdipPHjPdlPzexGZNl/nNP00eP/xbzZqNcl7jQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB523F8025F; Fri, 11 Jul 2025 16:07:33 +0200 (CEST)
+	id CFEA5F805BB; Sat, 12 Jul 2025 10:29:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81D52F8057A;
-	Fri, 11 Jul 2025 16:07:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BADF5F805BB;
+	Sat, 12 Jul 2025 10:29:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04871F8052D; Fri, 11 Jul 2025 13:49:15 +0200 (CEST)
+	id BE2B8F80510; Sat, 12 Jul 2025 10:29:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_20,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EE2F3F8025A
-	for <alsa-devel@alsa-project.org>; Fri, 11 Jul 2025 13:49:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE2F3F8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id E366EF800F3
+	for <alsa-devel@alsa-project.org>; Sat, 12 Jul 2025 10:29:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E366EF800F3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=YwJo4cV9
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-45526dec171so6557855e9.2
-        for <alsa-devel@alsa-project.org>;
- Fri, 11 Jul 2025 04:49:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1752234490; x=1752839290;
- darn=alsa-project.org;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sKRTWRGRaRXNdY43MREvRUNqAcZEQ7jm5dwyk+F4vEA=;
-        b=YwJo4cV9u64ZJijjKsLhLFr+sc1K6DcNlzh56pydDB0mN+eNWy7MidIgNce9kNxeaT
-         tOWg6Q5RpOqYtWYg5BjnaAkbmSQ65mWJkz/6ZuJYWMFEPum8CQpwVWlHar3vQ6RFfvkV
-         3TPoMwFkuK4QsmqhpdtfTcdtUmkG+yGHil++D+sh/n8MK8F3bb2CLWJo7egQEXaxbCYM
-         h3ArsPmZgmGy2yjGMHs+BHGnj0+bDnbOf+XDlVtjyWlk0tpqzVtDiL+kOBPUn1FhE9XC
-         2YY3o9sdg02PTctFGtU8ODfX2PPMKjc8jSCT7WQPVl2hinvhW2LYglkrgHVywoAyEw19
-         uvDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752234490; x=1752839290;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sKRTWRGRaRXNdY43MREvRUNqAcZEQ7jm5dwyk+F4vEA=;
-        b=QVTEfJj0ZV2c8rHJ+qJ7U39IQqa8EgKC5+vKhSdsJHpVpWL1O8y1kfyzbbDIoWZTkn
-         1JCQzRtpwvYplI5Bs4kJ03Ie5JZUMA5QvnrCf1+IW00yJWG97e5eY5HuP3vzy3o1iv8k
-         Bdu+12Xy5ZbV8M/Ykk5dbK3iQ//BHh3NOKQZxBsybQoxdEoPG4kPgMU/nCO1ohYUXOIZ
-         PjF4+NWoaJAVqLVSRYuiihgZlfCuW0RLhyHMgKNb6ZGshT/uumRexVBtqeIOnBSU43KS
-         IEU4pzGxwD7Avo8O2ELqiYcjY5cRPsObJr0+c9JE7SO05T4+Iz2I4ribev/Kap4kN6M1
-         CTDg==
-X-Gm-Message-State: AOJu0Yz1t3rfAk5hqoStAIpmotXplpeurX34vbSVdie7n+W03JG+DlHu
-	dOtB4kQeZX5tUiIT56p/C906NjnI42HsPWo0l7PTWVx/ISypsmNFB+FeSqAcOMU=
-X-Gm-Gg: ASbGncslQBXOf1kbVPX9/os0GQUKC71rGloXLM8c0Dq5mRFQDxLkxZOT1QVQvERupJ8
-	4A2oHAcl3XDyjldtWM1ZyoPMkyaG2chEfPe0UkQDF3pTbbX7tPYLTvPU/Euoh4zrOJDi7gMSQxh
-	PfoHeehnAG0d83m6HkvpDEdknh+H1PUzfwG5v/jIURNskfSuSXvrIUGgUrsD1Y6cz2ErVAEF6WZ
-	V/Sw8KxZud6TAXWsdEd/dw/lvNkmLNQLpS8urv45t0MkiS5j5+O3wnuzrT/rr5OBKoBtlMd+R7p
-	zw2F/bDMfo6fUtFpbdnSyTaaIAPfi9fQdBXI/VGao4KgJW098P8mutNZ2Pbrd1H5ov9Jzyxf4+j
-	gSUXQEjXdip+taA5J3aZJbjM=
-X-Google-Smtp-Source: 
- AGHT+IH4u9eDZ1R67V++QJYP0FZofanwtgs9YBXZsSGT96FI7O9/QW4te/5UVR2MwoVduHiuEEawbA==
-X-Received: by 2002:a05:600d:7:b0:454:a37a:db67 with SMTP id
- 5b1f17b1804b1-455174751acmr19663465e9.17.1752234489701;
-        Fri, 11 Jul 2025 04:48:09 -0700 (PDT)
-Received: from [172.20.0.183] ([85.195.207.189])
-        by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-454d5062119sm86298455e9.18.2025.07.11.04.48.09
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Jul 2025 04:48:09 -0700 (PDT)
-Message-ID: <8692b1e6-70d4-405a-a02f-361d1e8d6bb2@gmail.com>
-Date: Fri, 11 Jul 2025 13:48:08 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: alsa-devel@alsa-project.org
-From: =?UTF-8?Q?Sandro_G=C3=A4hler?= <gaehlers@gmail.com>
-Subject: Lenovo Yoga 7 2-in-1 16AKP10 volume control bug
-X-MailFrom: gaehlers@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=2UQI6HGo;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=sY3Nf1/k;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=HhzT0oVm;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=g8dpR2tz
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F1DC51F388;
+	Sat, 12 Jul 2025 08:29:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1752308948;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eBVbV/Lie/jK+I+MUg0l6hv/MvUm9iT369FmLVySVqc=;
+	b=2UQI6HGoRfa+2uWYxrcF77ASgzK4yIF8V/tOK/BvLpu1pZ/pci7AzVDUnDTTqFKuEPiiNd
+	KTfXJAneuCHdoWJtQE9ETeehwam5kguzAHg4P2AXg2iGGnAHl8cSxPeRXaJny68/Rm6h1N
+	ddvYivLf3UbDnDF8iGwsMkzHXyXFH+Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1752308948;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eBVbV/Lie/jK+I+MUg0l6hv/MvUm9iT369FmLVySVqc=;
+	b=sY3Nf1/kR84u03nBJvFIYQNAUdvBTtSWv/yzHbAGmk3g6zUO3dGeXSXc+2Hfmd54Fy8TL1
+	GG3edwuurp3LBABw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1752308946;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eBVbV/Lie/jK+I+MUg0l6hv/MvUm9iT369FmLVySVqc=;
+	b=HhzT0oVmj+AxKCW0yVg2W+QMtIIwokFrRQrx/ZfCNT3q/idp7lB/LvEuRsPVq2dMV2Pnvl
+	pDveQ8EwOIQk+DeZHrmGq7tSRaIpk7MDE5YZXwMpzsweNpKUbP67Lh+jlF6xYwfBzN8KfK
+	SDAGJhqQM0nvG0apfhlH8+9WiKbHi28=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1752308946;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eBVbV/Lie/jK+I+MUg0l6hv/MvUm9iT369FmLVySVqc=;
+	b=g8dpR2tzIkAyQGmyA9V8uTCyh7OnDxN+BncBzKLnDQVhuwtKfx8cp7hUaevvfqaG7+Obkk
+	A4eSA3uHoT5J/HBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A20EA138A1;
+	Sat, 12 Jul 2025 08:29:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id T2KyJdIccmiWcQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 12 Jul 2025 08:29:06 +0000
+Date: Sat, 12 Jul 2025 10:29:06 +0200
+Message-ID: <87ple5olrh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Baojun Xu <baojun.xu@ti.com>
+Cc: <broonie@kernel.org>,
+	<andriy.shevchenko@linux.intel.com>,
+	<alsa-devel@alsa-project.org>,
+	<shenghao-ding@ti.com>,
+	<navada@ti.com>,
+	<13916275206@139.com>,
+	<v-hampiholi@ti.com>,
+	<v-po@ti.com>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] ALSA: hda/tas2781: Add TAS2770 support
+In-Reply-To: <20250712081733.12881-1-baojun.xu@ti.com>
+References: <20250712081733.12881-1-baojun.xu@ti.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[139.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,alsa-project.org,ti.com,139.com,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,ti.com:email]
+Message-ID-Hash: IV5QEJVPGXOAXD42TXENL5WKDU3UA43S
+X-Message-ID-Hash: IV5QEJVPGXOAXD42TXENL5WKDU3UA43S
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 4QUG4I4PWD4X3Y2ID4UZLWCRIDVZ5XAN
-X-Message-ID-Hash: 4QUG4I4PWD4X3Y2ID4UZLWCRIDVZ5XAN
-X-Mailman-Approved-At: Fri, 11 Jul 2025 14:07:23 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4QUG4I4PWD4X3Y2ID4UZLWCRIDVZ5XAN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IV5QEJVPGXOAXD42TXENL5WKDU3UA43S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,18 +172,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGVsbG8NCg0KSSB3b3VsZCBsaWtlIHRvIHJlcG9ydCBhIGJ1ZyBmb3IgdGhlIGJyYW5kIG5ldyBM
-ZW5vdm8gWW9nYSA3IDItaW4tMSAxNkFLUDEwLiBJdCBoYXMgdGhlIHNhbWUgc291bmQgY2hpcCBh
-bmQgYWxzbyB0aGUgc2FtZSB2b2x1bWUgY29udHJvbCBidWcgYXMgc2V2ZXJhbCBvbGRlciBtb2Rl
-bHMuIEkgdGh1cyBhc3N1bWUgdGhhdCB0aGUgc2FtZSB3b3JrYXJvdW5kLCB3cml0dGVuIGJ5IFBo
-aWxpcHAgSnVuZ2thbXAgYW5kIGxhdGVyIGJ5IFBhc2NhbCBHcm9zcywgd2lsbCBhbHNvIHdvcmsg
-Zm9yIHRoaXMgbW9kZWwuDQoNClRoZXJlIGFyZSBzZXZlcmFsIGxpbmVzIHdpdGggbGFwdG9wcyB0
-aGF0IGFwcGx5IHRoaXMgd29ya2Fyb3VuZCwgZm9yIGV4YW1wbGUgdGhpcyBsaW5lIGluIGxpbnV4
-L3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jOg0KDQpTTkRfUENJX1FVSVJLKDB4MTdhYSwg
-MHgzODAxLCAiTGVub3ZvIFlvZ2E5IDE0SUFQNyIsDQpBTEMyODdfRklYVVBfWU9HQTlfMTRJQVA3
-X0JBU1NfU1BLX1BJTikNCg0KQ291bGQgeW91IHBsZWFzZSBhZGQgdGhpcyBsaW5lIGZvciBteSBt
-b2RlbD8NCg0KU05EX1BDSV9RVUlSSygweD8/Pz8sIDB4Pz8/PywgIkxlbm92byBZb2dhIDcgMi1p
-bi0xIDE2QUtQMTAiLA0KQUxDMjg3X0ZJWFVQX1lPR0E5XzE0SUFQN19CQVNTX1NQS19QSU4pLA0K
-DQpQbGVhc2UgYWR2aXNlIG9uIGhvdyB0byBkZXRlcm1pbmUgdGhlIGZpcnN0IHR3byBwYXJhbWV0
-ZXJzLg0KDQpUaGFua3MgYSBsb3QgZm9yIHlvdXIgZ3JlYXQgd29yayBhbmQgc3VwcG9ydC4NCg0K
-QmVzdCByZWdhcmRzLA0KLS1TYW5kcm8gR8OkaGxlcg0K
+On Sat, 12 Jul 2025 10:17:33 +0200,
+Baojun Xu wrote:
+> 
+> Add TAS2770 support in HDA.
+> Create a header file include/sound/tas2770-tlv.h,
+> Set chip_id in i2c probe, check it while sound control is created,
+> and the DSP firmware binary file parser.
+> 
+> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
+> ---
+>  include/sound/tas2770-tlv.h     | 20 ++++++++++++
+>  include/sound/tas2781.h         |  4 +++
+>  sound/pci/hda/tas2781_hda_i2c.c | 58 +++++++++++++++++++++++++--------
+
+The whole HD-audio stuff has been moved under sound/hda recently.
+Please create a patch based on for-next branch of sound git tree.
+
+
+thanks,
+
+Takashi

@@ -2,64 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C52E8B03A60
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jul 2025 11:10:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A9FB03BFB
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Jul 2025 12:34:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19CF06018A;
-	Mon, 14 Jul 2025 11:10:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19CF06018A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18EA860200;
+	Mon, 14 Jul 2025 12:34:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18EA860200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1752484225;
-	bh=W6MLzXYXJPcg5WN58R02rSNnTGUN0RMxhJBvqYuQEuE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=rLh8zGmdsuCyzcmOG8dV7jZQqtY8rxzA5gxzfUfxtpc3mvKoNkJXA5e12QNP8VzJg
-	 I76t6diV+YyNMhHjtzzigix2jMcofFgeP0eZSicqjQpAXc9eVqkDouJmxFiq1AMqpK
-	 RXDwd17RdGxY0ushk5+EHoWE3I0VGcvYqyYcTuyY=
+	s=default; t=1752489272;
+	bh=yI8EfP8IXLrM7V/tHScyWULlwSdLP8DcCGe3U71eCUI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ahdlz86jXH/DoXGBqqMewMpDdPt4Rs4kmGewHsL6O5njgheGj5G2C2dKlw/4+jdAI
+	 lLEhbNg2LcmOQhTQuFBmjbbrnvF36MK5ZhumnSn8PgOBpFOgx7wAwK9NXuWHFVTlfG
+	 baI8D52gZNzwPTcCUIxOj6TdktYz6TvoyViaTEK8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 385EBF805C6; Mon, 14 Jul 2025 11:09:50 +0200 (CEST)
+	id CBD31F805BF; Mon, 14 Jul 2025 12:33:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D2E2F805C4;
-	Mon, 14 Jul 2025 11:09:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6853F805C2;
+	Mon, 14 Jul 2025 12:33:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9BC83F804E5; Mon, 14 Jul 2025 11:09:41 +0200 (CEST)
+	id 2E9B4F804E5; Mon, 14 Jul 2025 12:33:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF31AF800F3
-	for <alsa-devel@alsa-project.org>; Mon, 14 Jul 2025 11:09:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF31AF800F3
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C2AC4F800F8
+	for <alsa-devel@alsa-project.org>; Mon, 14 Jul 2025 12:33:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2AC4F800F8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=LATsXYy7
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id DA4C34426C;
+	Mon, 14 Jul 2025 10:33:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B386C4CEF4;
+	Mon, 14 Jul 2025 10:33:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752489209;
+	bh=yI8EfP8IXLrM7V/tHScyWULlwSdLP8DcCGe3U71eCUI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=LATsXYy741y/jS6q8W0GAT84DCA8DkSeF5tIHVPbVRhcsx44cy2wsH0qX4HUuN/Kx
+	 fY8D6orciZj6wshTIzGRnKmtDOIrWHbTheWZMUx6GOPhVTUhrcEWo+Fd7wJyGLWnnw
+	 xLU64Qou3271qTc5zpWS7+p37mBnRpaegkA+skbBw4BKDX4qd6POYim2RqjGVjMZVH
+	 3SdFQAk7uN9GA72DxhjhblNYUhyAPJQvAKf1bhkqtM37z+ss+pALxgAvqXX+naMPgQ
+	 rne7p8QCJJ+WPlebcHAKQiVa6mnn8M/qeUwygyvlzBUvMbuVLkTaMePrkPdoBONd/q
+	 bpD/Z6PwiAqSA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Oder Chiou <oder_chiou@realtek.com>
+Cc: alsa-devel@alsa-project.org, flove@realtek.com, shumingf@realtek.com,
+ jack.yu@realtek.com, derek.fang@realtek.com
+In-Reply-To: <20250711034813.3278989-1-oder_chiou@realtek.com>
+References: <20250711034813.3278989-1-oder_chiou@realtek.com>
+Subject: Re: [PATCH] ASoC: rt5660: Fix the dmic data source from GPIO2
+Message-Id: <175248920817.18169.12928022931333712208.b4-ty@kernel.org>
+Date: Mon, 14 Jul 2025 11:33:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <185213138a0e2800-webhooks-bot@alsa-project.org>
-In-Reply-To: <185213138a04bc00-webhooks-bot@alsa-project.org>
-References: <185213138a04bc00-webhooks-bot@alsa-project.org>
-Subject: I'm using Ubuntu 24.04.2 LTS with Wayland on an iMac 27" (2017)
- equipped with the Cirrus Logic CS8409 audio codec.  After compiling the
- driver manually (https://github.com/egorenar/snd-hda-codec-cs8409),
- ALSA detects the audio device correctly and it works properly with PipeWire
- and PulseAudio. However, it breaks with each kernel update,
- requiring recompilation.  **Request**: Please consider adding native support
- for CS8409 in `alsa-ucm-conf`. Modern systems like Ubuntu 24.04.2 handle the
- device well,
- and integration would improve support for Apple hardware dramatically. I'm
- happy to assist with testing and diagnostics.
-Date: Mon, 14 Jul 2025 11:09:41 +0200 (CEST)
-Message-ID-Hash: ZCIIZYSSGA6OWLADA65UXQJEC7FT4QFJ
-X-Message-ID-Hash: ZCIIZYSSGA6OWLADA65UXQJEC7FT4QFJ
-X-MailFrom: github@alsa-project.org
+X-Mailer: b4 0.15-dev-cff91
+Message-ID-Hash: OIN5ICWJPVRVSTRRDZDXJP3Y3FTPJAPV
+X-Message-ID-Hash: OIN5ICWJPVRVSTRRDZDXJP3Y3FTPJAPV
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -71,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZCIIZYSSGA6OWLADA65UXQJEC7FT4QFJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OIN5ICWJPVRVSTRRDZDXJP3Y3FTPJAPV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -80,9 +97,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #592 was edited from Marek-mahav:
+On Fri, 11 Jul 2025 11:48:13 +0800, Oder Chiou wrote:
+> The patch fixes an issue with the dmic data pin connected to GPIO2.
+> 
+> 
 
--w
+Applied to
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/592
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: rt5660: Fix the dmic data source from GPIO2
+      commit: d235538723e6c95f354b49a8c4760be43c234579
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

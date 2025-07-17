@@ -2,53 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57032B0875E
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jul 2025 09:57:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31000B08CF9
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jul 2025 14:33:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80D3E6019A;
-	Thu, 17 Jul 2025 09:56:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80D3E6019A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75CAE60173;
+	Thu, 17 Jul 2025 14:33:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75CAE60173
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1752739021;
-	bh=GHP5iHTfr4QzVlKWqV8F3TWa0dSIjpMi9zPoEZx1sDk=;
-	h=Subject:From:To:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=pJjKWv8oPqpDgl7FbLhDSwfhGSw7FusDh9VzorSCTfiCZZs1vKVtWGY2/+y3UC9k+
-	 RPJp71zYfdnEY/fRhBAhHdrjeWDRalLudpM/GrskoeLFLLvs7F7gBSdNOY0IF//EFi
-	 we0FWqF6j/X8ChyJOYn/oQNnym4HHGuk180ui8/I=
+	s=default; t=1752755618;
+	bh=DW8ZX5jR8T9jfhyWJl3ToBeKvu6TzfqYWQoW2sx+CB8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gP8PWTsFBX6LfWcZM4EEVNH/9J66nuigjQ08/xsX0+fTFRj0yTRxMU/RyGXfroB4W
+	 MTDSe77EQVPWW9MhmIK70aXzW95SN3SdH9gQDv6MsgUxwbBoIG2Qf8MsCll/59UZsT
+	 jJlJOUoWimIobPSjBmXcdhrhlhSqigCSJqS0vQP8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D83B1F805C1; Thu, 17 Jul 2025 09:56:47 +0200 (CEST)
+	id B7F15F805C0; Thu, 17 Jul 2025 14:33:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93E6EF805C3;
-	Thu, 17 Jul 2025 09:56:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96875F805C3;
+	Thu, 17 Jul 2025 14:33:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD3B1F80236; Thu, 17 Jul 2025 09:56:39 +0200 (CEST)
-Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
- [10.254.200.11])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81FEDF800B6
-	for <alsa-devel@alsa-project.org>; Thu, 17 Jul 2025 09:56:39 +0200 (CEST)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: Re: [alsa-devel] Applied "ASoC: tlv320aic32x4: Model CODEC_CLKIN in
- CCF" to
- the asoc tree
-From: 21basic@mechanicspedia.com
-To: alsa-devel@alsa-project.org
-Date: Thu, 17 Jul 2025 07:56:39 -0000
-Message-ID: <175273899951.21.2439672690330855254@mailman-web.alsa-project.org>
-In-Reply-To: 
- <175013023511.22.16458694387384303213@mailman-web.alsa-project.org>
-References: 
- <175013023511.22.16458694387384303213@mailman-web.alsa-project.org>
-User-Agent: HyperKitty on https://mailman.alsa-project.org/
-Message-ID-Hash: 46ZNB4DARSQNSZOQBG44RP6SSW7CPGUH
-X-Message-ID-Hash: 46ZNB4DARSQNSZOQBG44RP6SSW7CPGUH
-X-MailFrom: 21basic@mechanicspedia.com
+	id AE55CF80217; Thu, 17 Jul 2025 14:32:47 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	PP_MIME_FAKE_ASCII_TEXT,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62254F800F3
+	for <alsa-devel@alsa-project.org>; Thu, 17 Jul 2025 14:32:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62254F800F3
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Cw/DxDhV
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 63C6BA578DB;
+	Thu, 17 Jul 2025 12:32:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F18C4CEE3;
+	Thu, 17 Jul 2025 12:32:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752755562;
+	bh=DW8ZX5jR8T9jfhyWJl3ToBeKvu6TzfqYWQoW2sx+CB8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Cw/DxDhV4ajCwPtyxeqOpUiU8UWlKE4YSZG/HD2TFDxyAR7nhTWvJOovloGQWa9LJ
+	 LsJBjWDS0ELxdTOtZActzyx88np+lksDFR1lhWDJSIgUYq7kg0L5AVEnPQ0SIC9j+P
+	 ehkNdvWn0dXc5jMPQLoYlQf7o/HZh6lC5Ms5uFYr0HAadFIQXQ1IWJ72VVyhGjdtEy
+	 fN2FObdKLfYL9tvLTbJXGLHcoeEqC2pj4AwCIj7uKiDHfZPZHwqtU6YtGjxKVR4DQu
+	 VthvU2zbQB3PLK1UFFWuTF//yEz7CzpFfhZMPJJF+Np2KfVm7171KvRkXAotfi8ShU
+	 bKY/1BqFxXA2Q==
+Message-ID: <1814b1eaab5c1e3c09807b0e2862b706.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.16-rc5
+Date: Thu, 17 Jul 2025 13:32:38 +0100
+Message-ID-Hash: GAKERC6XTCB5NVQ2RBVKL5HXCCTUEYGK
+X-Message-ID-Hash: GAKERC6XTCB5NVQ2RBVKL5HXCCTUEYGK
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +82,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/46ZNB4DARSQNSZOQBG44RP6SSW7CPGUH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GAKERC6XTCB5NVQ2RBVKL5HXCCTUEYGK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,4 +91,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-I wonder if anyone has implemented similar tweaks while playing Uno Online, needing minimal audio delay for perfect timing? Any insights on clock synchronization methods used here would be appreciated. https://unoonlinefree.com
+The following changes since commit 3b3312f28ee2d9c386602f8521e419cfc69f4823:
+
+  ASoC: cs35l56: probe() should fail if the device ID is not recognized (2025-07-03 12:22:27 +0100)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.16-rc5
+
+for you to fetch changes up to a609bd74b8680dba62c44f7e6d00d381ddb2d3c0:
+
+  ASoC: Intel: avs: Fix NULL ptr deref on rmmod (2025-07-08 14:54:40 +0100)
+
+----------------------------------------------------------------
+ASoC: Fixes for v6.16
+
+Two patches here, one quirk for an AMD system and a fix for an issue on
+remove of the AVS driver.
+
+----------------------------------------------------------------
+Alexandru Andries (1):
+      ASoC: amd: yc: add DMI quirk for ASUS M6501RM
+
+Amadeusz Sławiński (1):
+      ASoC: Intel: avs: Fix NULL ptr deref on rmmod
+
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ sound/soc/intel/avs/pcm.c     | 4 +++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)

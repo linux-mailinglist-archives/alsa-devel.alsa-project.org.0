@@ -2,149 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48434B08DA0
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jul 2025 14:55:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9097AB08FA7
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Jul 2025 16:38:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 868C160190;
-	Thu, 17 Jul 2025 14:55:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 868C160190
+	by alsa0.perex.cz (Postfix) with ESMTPS id 334BB601EC;
+	Thu, 17 Jul 2025 16:38:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 334BB601EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1752756955;
-	bh=7WhetJ5wf4BPVPCgjGiJPfQF02jcOWcQnWrBaoIyiEA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jvQEmKPSVGLIqdTEUNnEtJun7yzpsHwUfM3jakEueSMoE/dJg/OpwAK234uTG3Fd7
-	 5P0+rTn6IoW4wU+vlK9atYLHYqWQif52wZOXb8SM072nJSI0A67tSL26rF3KKMwn85
-	 kTfjomDeDNNUH44PpKiR5aTsedntwPSxn313pDrk=
+	s=default; t=1752763132;
+	bh=b8LqU2RYzTXfbShhzjcijyYq94bb+NhoDzFyqLstqXs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Izj8WgFlM/UNE4Oq2r17184iTqhPF5yyU9wfe48PuXRYL8XhJha24osciEOH/AER2
+	 uLe/Fx+wvQ6UEWG63OnVXjEIhDUJqh8cgJYzaGqzudp9Y3SvTQPrWU25yPHDOgZyFn
+	 gAnzl/GmJ+QLDaz3/Dg1ZitiDvfyN4GRQ2ulIlxc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D300EF805BE; Thu, 17 Jul 2025 14:55:18 +0200 (CEST)
+	id 4CD7BF805B5; Thu, 17 Jul 2025 16:38:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06B73F80169;
-	Thu, 17 Jul 2025 14:55:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9C0CF805C3;
+	Thu, 17 Jul 2025 16:38:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C17B0F80217; Thu, 17 Jul 2025 14:55:08 +0200 (CEST)
+	id 5C6D4F80217; Thu, 17 Jul 2025 16:38:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4744DF800B6
-	for <alsa-devel@alsa-project.org>; Thu, 17 Jul 2025 14:55:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4744DF800B6
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=EF9+IgXX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=iMDqvDoy;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=EF9+IgXX;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=iMDqvDoy
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1B9001F399;
-	Thu, 17 Jul 2025 12:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1752756902;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTVqjV+8dgnMiClKeXRTNqjNXMqnlcDvCnCG0TjUplg=;
-	b=EF9+IgXXLXLceKyqx92q/baaiNzHq96FZQY4I1FFu+RU78ed1qVZYGOXutcqdRd8oQV/Bp
-	0ZICiOo1ObSs51H3dRZxwH1EPk2CsksQbtUcZExltbk1BV89ZBR0lUG+7sPuntDboP43l8
-	iA/YOZQh8h0R6Edb4EbiQYupmRHKrs0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1752756902;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTVqjV+8dgnMiClKeXRTNqjNXMqnlcDvCnCG0TjUplg=;
-	b=iMDqvDoy6t8Hg/b120z7dOZ+MZ2sSG2pegQW+XLFLkWUGMc8NCtyAPDdwQbmaB3YL6D335
-	tcUSgXoIylycmgDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1752756902;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTVqjV+8dgnMiClKeXRTNqjNXMqnlcDvCnCG0TjUplg=;
-	b=EF9+IgXXLXLceKyqx92q/baaiNzHq96FZQY4I1FFu+RU78ed1qVZYGOXutcqdRd8oQV/Bp
-	0ZICiOo1ObSs51H3dRZxwH1EPk2CsksQbtUcZExltbk1BV89ZBR0lUG+7sPuntDboP43l8
-	iA/YOZQh8h0R6Edb4EbiQYupmRHKrs0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1752756902;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vTVqjV+8dgnMiClKeXRTNqjNXMqnlcDvCnCG0TjUplg=;
-	b=iMDqvDoy6t8Hg/b120z7dOZ+MZ2sSG2pegQW+XLFLkWUGMc8NCtyAPDdwQbmaB3YL6D335
-	tcUSgXoIylycmgDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E27941392A;
-	Thu, 17 Jul 2025 12:55:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 9ooMNqXyeGiJFgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 17 Jul 2025 12:55:01 +0000
-Date: Thu, 17 Jul 2025 14:55:01 +0200
-Message-ID: <8734av9dui.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.16-rc6
-In-Reply-To: <1d784c862857c2d2f3870c0e140863da.broonie@kernel.org>
-References: <1d784c862857c2d2f3870c0e140863da.broonie@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,alsa-project.org];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
-Message-ID-Hash: WM4XCYTMPREQTCIHKJW7RXTRBIO7CBK4
-X-Message-ID-Hash: WM4XCYTMPREQTCIHKJW7RXTRBIO7CBK4
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 42313F80100
+	for <alsa-devel@alsa-project.org>; Thu, 17 Jul 2025 16:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42313F80100
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+Message-Id: <185310bfbe7d7e00-webhooks-bot@alsa-project.org>
+In-Reply-To: <185310bfbdf53900-webhooks-bot@alsa-project.org>
+References: <185310bfbdf53900-webhooks-bot@alsa-project.org>
+Subject: speaker-test 1.2.13 dose not produce 20kHz sine wav
+Date: Thu, 17 Jul 2025 16:38:20 +0200 (CEST)
+Message-ID-Hash: TGBS532P3WFI45UNLVIAVY4PASNHSST6
+X-Message-ID-Hash: TGBS532P3WFI45UNLVIAVY4PASNHSST6
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -156,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WM4XCYTMPREQTCIHKJW7RXTRBIO7CBK4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TGBS532P3WFI45UNLVIAVY4PASNHSST6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -165,30 +71,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 17 Jul 2025 14:32:44 +0200,
-Mark Brown wrote:
-> 
-> The following changes since commit 3b3312f28ee2d9c386602f8521e419cfc69f4823:
-> 
->   ASoC: cs35l56: probe() should fail if the device ID is not recognized (2025-07-03 12:22:27 +0100)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.16-rc6
-> 
-> for you to fetch changes up to 7bab1bd9fdf15b9fa7e6a4b0151deab93df3c80d:
-> 
->   ASoC: amd: yc: Add DMI quirk for HP Laptop 17 cp-2033dx (2025-07-16 11:50:33 +0100)
-> 
-> ----------------------------------------------------------------
-> ASoC: Fixes for v6.16
-> 
-> A relatively large set of changes, but most of them are quirk
-> information for various x86 systems.  There is one more substantial fix
-> for a NULL pointer dereference when removing the AVS driver, plus one
-> for Kconfig dependencies.
-
-Thanks, pulled now.
-
-
-Takashi
+YWxzYS1wcm9qZWN0L2Fsc2EtdXRpbHMgaXNzdWUgIzMwNCB3YXMgb3BlbmVkIGZyb20gZ2hhcmln
+OgoKSGVsbG8gQWxzYS1EZXYsCiAKSSBob3BlIHRoYXQgSeKAmW0gd3JpdGluZyB0byB0aGUgcHJv
+cGVyIHBsYWNlIHRvIHJlcG9ydCBhIHByb2JsZW0sIHBsZWFzZSBhZHZpc2UgaWYgbm904oCmCiAK
+SeKAmW0gbm90IGFibGUgdG8gcHJvZHVjZSAyMGtIeiBzaW5lIHdhdiB3aXRoIHNwZWFrZXItdGVz
+dCAxLjIuMTMgUnVubmluZyBvbiBUaW55Y29yZSAxNi4wIC4gICAKIApCZWxvdyBpcyB3aGF0IEkg
+c3VibWl0dGVkIHRvIFRpbnljb3JlIFRlYW0sIGFuZCB0aGV5IHN1Z2dlc3RlZCB0aGF0IEkgY29u
+dGFjdCB5b3Ugd2l0aCBteSBmaW5kaW5ncy4KIApUaGUgaGFyZHdhcmUgSeKAmW0gdXNpbmcgaXMg
+V2luc3lzdGVtcyAgCkUzODI1IGR1YWwtY29yZSwgMS4zM0dIegpTQVRBIDIuMCBjaGFubmVsIG1T
+QVRBIHNvY2tldCAoc2hhcmVkIHdpdGggbWluaVBDSWUpCjIgR0Igb2YgU29sZGVyZWQgRG93biBE
+RFIzCiBbaHR0cHM6Ly93aW5zeXN0ZW1zLmNvbS9wcm9kdWN0L3BwbS1jNDA3L10odXJsKQoKVGlu
+eWNvcmUgVGVhbTsKIApNeSBwcm9ibGVtIHRvZGF5IGlzIHRoYXQgc3BlYWtlci10ZXN0IGRvZXMg
+bm90IHByb2R1Y2UgYSAyMGtIeiBzaW5lIHdhdmUgb24gVGlueWNvcmUgMTYuMCB0byB0aGUgbGlu
+ZSBvdXQuICBzcGVha2VyLXRlc3QgZG9lcyBwcm9kdWNlIHNvbWV0aGluZyBqdXN0IG5vdCBhIDIw
+a0h6IHNpbmUgd2F2ZS4KIApDb2RlOgpgICAgICBzcGVha2VyLXRlc3QgLXQgc2luZSAtZiAyMDAw
+MCAtWCAtbCAwYAogCkhvd2V2ZXIsIHVzaW5nIHRoZSBleGFjdCBzYW1lIGhhcmR3YXJlIHJ1bm5p
+bmcgVWJ1bnR1IDIwLjI0IG9yIDIyLjA0IHRoZSBmb2xsb3dpbmcgY29kZSB3b3JrcyBhbmQgYSAy
+MGtIeiBzaW5lIHdhdmUgaXMgcHJvZHVjZWQuClRoZSBkaWZmZXJlbmNlIGJlaW5nIHRoYXQgdGhl
+IGFsc2EgdmVyc2lvbnMgYXJlIGRpZmZlcmVudCBiZXR3ZWVuIHRoZSAzIE9wZXJhdGluZyBTeXN0
+ZW1zLgogClRpbnljb3JlIDE2LjAgQWxzYSB2ZXJzaW9uIGlzIDEuMi4xMyAtIGZhaWx1cmUKVWJ1
+bnR1IDIwLjA0IEFsc2EgdmVyc2lvbiBpcyAxLjIuMiAgLSBzdWNjZXNzClVidW50dSAyMi4wNCBB
+bHNhIHZlcnNpb24gaXMgMS4yLjYgLSBzdWNjZXNzCiAKIApUaHJvdWdoIG15IHRlc3RpbmcsIHN0
+YXJ0aW5nIGF0IDgwMDAgSHosIGFuZCBpbmNyZW1lbnRpbmcgYnkgMTAwMCBIeiwgc3BlYWtlci10
+ZXN0IGRvZXMgcHJvZHVjZSBhIHNpbmUgd2F2ZSwgdW50aWwgSSB3ZW50IG92ZXIgMTUwMDAgSHog
+dGhlbiBubyBtb3JlIHNpbmUgd2F2ZS4gIDopCjopCkNvZGU6CmBgYAogICAgIHNwZWFrZXItdGVz
+dCAtdCBzaW5lIC1mIDgwMDAgLVggLWwgMAogICAgIHNwZWFrZXItdGVzdCAtdCBzaW5lIC1mIDE1
+MDAwIC1YIC1sIDAKYGBgCiAKOigKQ29kZTogCmAgICAgc3BlYWtlci10ZXN0IC10IHNpbmUgLWYg
+MTYwMDAgLVggLWwgMGAKIAogClRoZSB3b3JrIGFyb3VuZCBmb3IgdGhlIHRpbWUgYmVpbmcgaXMg
+dG8gY29uZmlndXJlIHNwZWFrZXItdGVzdCAgdG8gcGxheSBhIDIwa0h6IHdhdiBmaWxlLCAgdGhp
+cyBkb3NlIHdvcmsgYW5kIHByb2R1Y2VzIGEgYmVhdXRpZnVsIHNpbmUgd2F2IDopCiAKQ29kZTog
+CmAgICAgc3BlYWtlci10ZXN0IC10IHdhdiAtZiAvb3B0LzIwa0h6LndhdiAtbCAwYAogCk5vdyBm
+b3IgdGhlIHBlb3BsZSB3aG8gd2lsbCBzYXkgd2h5IG9uIGVhcnRoIGRvIHlvdSB3YW50IHRvIHBy
+b2R1Y2UgYSBzb3VuZCB0aGF0IG5vIG9uZSBjYW4gaGVhciwgYW5kIG15IHJlcGx5IGlzICJFeGFj
+dGx5Ii4KSSBzZW5kIHRoZSAyMGtIeiBzaW5lIHdhdiBhY3Jvc3MgdGhlIGF1ZGlvIGxpbmUgYXMg
+YSB3YXkgdG8gc3VwZXJ2aXNlIHRoYXQgdGhlIGF1ZGlvIGxpbmUgaXMgZnVsbHkgZnVuY3Rpb25p
+bmcuIFRoZSBzZWNvbmQgdGhlIDIwa0h6IHRvbmUgc3RvcHMgd2UgYXJlIG5vdGlmaWVkIGFuZCBz
+ZW5kIHNvbWVvbmUgb3V0IHRvIGZpeCB0aGUgcHJvYmxlbSwgd2hldGhlciBpdCBiZSBoYXJkd2Fy
+ZSBvciBzb21lb25lIGFjY2lkZW50YWxpdHkgY3V0cyB0aGUgd2lyZSwgd2Ugd2FudCB0byBrbm93
+LiAgQmFzaWNhbGx5IHRoZSAyMCBrSHogc2luZSB3YXZlIGRvZXMgbm90IGludGVyZmVyZXIgd2l0
+aCBwYWdpbmcgaW4gdGhlIHN5c3RlbS4KIApNeSBmaXJzdCB0aG91Z2h0cyBvbiB3aHkgdGhlIDIw
+IGtIeiBzaW5lIGlzIG5vdCBwcm9kdWNlZCwgaXMgYmVjYXVzZSBvZiBtaXNzaW5nIGRyaXZlci4g
+IEJ1dCBJIG1hZGUgc3VyZSB0aGF0IGV2ZXJ5IHNvdW5kIGRyaXZlciB0aGF0IHdhcyBsb2FkZWQg
+b24gVWJ1bnR1IHdhcyBsb2FkZWQgb24gVGlueWNvcmUuCiAKQ29kZTogCiAgICBgIHN1ZG8gbW9k
+cHJvYmUgc25kX3NlcV9taWRpIHNuZF9zZXFfbWlkaV9ldmVudCBzbmRfaW50ZWxfZHNwY2ZnYAog
+CkkgYWxzbyBsb2FkZWQgQWxzYVBsdWdpbnMudGN6IGp1c3QgaW5jYXNlLCBidXQgdGhhdCBkaWQg
+bm90IG1ha2UgYSBkaWZmZXJlbmNlLiAKIApDb2RlOiAKYCAgICAgdGNlbG9hZCAtaSBhbHNhLXBs
+dWdpbnMudGN6YAogClRoZSBsYXN0IHRoaW5nIEkgdHJpZWQgYWZ0ZXIgd2FzIHRvIHNldCB0aGUg
+Zm9ybWF0IHNhbXBsZSAtRiBwYXJhbWV0ZXIgdG8gOTYwMDAKIApDb2RlOgogICAgIGBzcGVha2Vy
+LXRlc3QgLXQgc2luZSAtZiAyMDAwMCAtWCAtbCAwIC1GIDk2MDAwYAogCkF0IGZpcnN0IHdoZW4g
+SSBkaWQgdGhpcyBJIHRob3VnaHQgSSB3YXMgc28gc21hcnQuICBBIHNpbmUgd2F2ZSBhcHBlYXJl
+ZCwgaG93ZXZlciBJIGRpZCBub3QgaGF2ZSBhIHNwZWFrZXIgaG9va2VkIHVwLCBidXQgd2hlbiB0
+aGUgc3BlYWtlciBnb3QgcGx1Z2dlZCBpbiBJIGhlYXJkIGEgaGlnaCBwaXRjaGVkIG5vaXNlLiBT
+byB0aGUgcGFyYW1ldGVyIGFmZmVjdGVkIHRoZSBvdXRwdXQgYnV0IG5vdCB0aGUgZGVzaXJlZCBv
+dXRwdXQgdGhhdCAgSSBuZWVkLgogCiAKQW5vdGhlciB0aG91Z2h0IHRoYXQgcGFzcyB0aHJvdWdo
+IG15IG1pbmQgaXMgY291bGQgdGhpcyBiZSBhIGNvbmZpZ3VyYXRpb24gc2V0dGluZyBkdXJpbmcg
+dGhlIGJ1aWxkIG9mIGFsc2EgdGhhdCBuZWVkIHRvIGJlIHR1cm5lZCBvbi4KQWZ0ZXIgYWxsIDE1
+MDAwIEh6IGRvZXMgd29yay4gCiAKIAogCiAKVGhpcyBpcyBzbGlnaHRseSByZWxhdGVkIHRvIGEg
+cHJldmlvdXMgcG9zdCBsaW5rZWQgYmVsb3cuCltodHRwczovL2ZvcnVtLnRpbnljb3JlbGludXgu
+bmV0L2luZGV4LnBocC90b3BpYywyNzY3My4wLmh0bWxdKHVybCkKIAogClRoYW5rIHlvdQpBbnkg
+aGVscCBpcyBncmVhdGx5IGFwcHJlY2lhdGVkCmdoYXJpZwoKSXNzdWUgVVJMICAgICA6IGh0dHBz
+Oi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS11dGlscy9pc3N1ZXMvMzA0ClJlcG9zaXRv
+cnkgVVJMOiBodHRwczovL2dpdGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtdXRpbHMK

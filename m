@@ -2,95 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2978EB0BB84
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jul 2025 05:48:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3AD1B0C737
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Jul 2025 17:05:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 561D5601F5;
-	Mon, 21 Jul 2025 05:48:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 561D5601F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CFC3601D9;
+	Mon, 21 Jul 2025 17:05:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CFC3601D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1753069726;
-	bh=7Rm57k7veSjdFO+a4h/wJrro/UFyvV0kiCpihtzRLNo=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JWsR9YpoxyBfvI3L4HtwYLzyC1mJ6sTOMhJ6QgV885IXIHLt8TAh/wtXfc3b9mrTt
-	 YJF8Nc/tF3FvCDN5D1ZXiz/UxeT0c9e86CJnsbVBCiODd5v0H7IwBYHSnOvNCcizVg
-	 MtHaYjKbR78btO74AchVLLIObMfvWYfPKFtycoh4=
+	s=default; t=1753110320;
+	bh=D92QQ2V8WIctVtXz1PyamXc9LFaEhqZq46t2dRwRLH4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=DW1xRkMnq/knIxIodiGESMjHuW29Ti/xw1Li7Fnll76LhcI9dFDKj6pAcfVRXidvI
+	 XyQTfKc+jAvKV1g6YBA7byxAWhzZQ5cMGOuKMCqGQFaTrq+rnipBqgNUZU/8h96QdR
+	 mpBQ+yyvWl9WTIGogi2vddrxbF/yOtA5tApijkHA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E8F5F805C5; Mon, 21 Jul 2025 05:48:22 +0200 (CEST)
+	id 209F4F805C0; Mon, 21 Jul 2025 17:04:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96E31F8052D;
-	Mon, 21 Jul 2025 05:48:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4BF7F800E4;
+	Mon, 21 Jul 2025 17:04:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C77AF8025F; Mon, 21 Jul 2025 05:47:55 +0200 (CEST)
+	id 7F88AF8025F; Mon, 21 Jul 2025 17:04:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CE02CF800AC
-	for <alsa-devel@alsa-project.org>; Mon, 21 Jul 2025 05:47:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE02CF800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id D8BACF80086
+	for <alsa-devel@alsa-project.org>; Mon, 21 Jul 2025 17:04:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8BACF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=KTygal08
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 56L3lboR71918134,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1753069658; bh=K5njW+HHNFQpe615bI1y8J4R5fmwrGlCWaIW0ZLlUe0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	b=KTygal08rnsGhyrR4c++WI8bIzmMqnZ1OI7gQGkJQYQ6OsFFvmaxNmwISMfl5ZRYX
-	 GkMl8YULQTSi92QFL6/eKmIufgwEAwnfHt6pC25GNK+iuhRYD0/ZzYo6ftCXJ7/qam
-	 Wwf4PydFxx/P7adb1tcSCHR9tKwt9/Nlk8GgW6QOizq2DhEud9v6tcnlzk4tJ37dbB
-	 CTippfO0EBK1JEfybUPWRw/3RjKlgYxDG+HlQsBak01lmvo529HPt3g2c5qPNUqyte
-	 bvMlLMMlKtfQfDmge0P8rB3SRty+oPvL1Kq4ejL3ZUEYdEcb9hZc2jfGOSI4GaMOvv
-	 YmrhHcFjAU80w==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.13/5.93) with ESMTPS id 56L3lboR71918134
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Jul 2025 11:47:37 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 21 Jul 2025 11:47:38 +0800
-Received: from localhost.localdomain (172.22.102.113) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Mon, 21 Jul 2025 11:47:37 +0800
-From: <derek.fang@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-CC: <alsa-devel@alsa-project.org>, <lars@metafoo.de>, <flove@realtek.com>,
-        <oder_chiou@realtek.com>, <jack.yu@realtek.com>,
-        <shumingf@realtek.com>, Derek Fang <derek.fang@realtek.com>
-Subject: [PATCH RESEND] ASoC: rt5650: Eliminate the high frequency glitch
-Date: Mon, 21 Jul 2025 11:47:28 +0800
-Message-ID: <20250721034728.1396238-1-derek.fang@realtek.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=D7KhsbxP
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 531F35C5DB9;
+	Mon, 21 Jul 2025 15:04:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79ACEC4CEED;
+	Mon, 21 Jul 2025 15:04:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1753110272;
+	bh=D92QQ2V8WIctVtXz1PyamXc9LFaEhqZq46t2dRwRLH4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=D7KhsbxPVpcqyPX/2fBrfUcQwrYrfsUvBKQuA4ijQNKjPoNC++6hUFGQ8idwwuff2
+	 LuQKA6wKCWh0WPJUNzQGE83XG/yWcqybRbqIn5MhoSjJ1LKUGcANGluWyk5AJhAB1/
+	 2snnxOHGGSa+IFKE680yWvUeFDO0hWZhHliQuDwxkCXaDDlNRe8zbTFM+VtsQx4Cud
+	 iezgd3nw9+3LnlVLnfeF9mXisOkLa4ctqTIGg1GYQY3v4Dym16va4rFxR+65p4XCiz
+	 BAFLs0iePZeLHrYuBgFPkOcmHdmrNEKO628Uh4bpwK09+swLAQtQT88rqXq1+ruygf
+	 wphdJUsvXFQHg==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, derek.fang@realtek.com
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, jack.yu@realtek.com, shumingf@realtek.com
+In-Reply-To: <20250721034728.1396238-1-derek.fang@realtek.com>
+References: <20250721034728.1396238-1-derek.fang@realtek.com>
+Subject: Re: [PATCH RESEND] ASoC: rt5650: Eliminate the high frequency
+ glitch
+Message-Id: <175311027023.206895.11348480447323095812.b4-ty@kernel.org>
+Date: Mon, 21 Jul 2025 16:04:30 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.113]
-X-ClientProxiedBy: RTEXH36505.realtek.com.tw (172.21.6.25) To
- RTEXMBS01.realtek.com.tw (172.21.6.94)
-X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: RI544XUYEISKMTMDZEPYLE5NXSABUM7H
-X-Message-ID-Hash: RI544XUYEISKMTMDZEPYLE5NXSABUM7H
-X-MailFrom: derek.fang@realtek.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-cff91
+Message-ID-Hash: N7AG4AMJUZ7RHG4IJKIE6XTGZZIBRD67
+X-Message-ID-Hash: N7AG4AMJUZ7RHG4IJKIE6XTGZZIBRD67
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RI544XUYEISKMTMDZEPYLE5NXSABUM7H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N7AG4AMJUZ7RHG4IJKIE6XTGZZIBRD67/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,29 +98,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Derek Fang <derek.fang@realtek.com>
+On Mon, 21 Jul 2025 11:47:28 +0800, derek.fang@realtek.com wrote:
+> The glitch was detected in the high frequency of the HP playback.
+> This patch adjusts the DAC dither setting to avoid this situation
+> for almost all cases.
+> 
+> 
 
-The glitch was detected in the high frequency of the HP playback.
-This patch adjusts the DAC dither setting to avoid this situation
-for almost all cases.
+Applied to
 
-Signed-off-by: Derek Fang <derek.fang@realtek.com>
----
- sound/soc/codecs/rt5645.c | 1 +
- 1 file changed, 1 insertion(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 08df87238..29a403526 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -82,6 +82,7 @@ static const struct reg_sequence rt5650_init_list[] = {
- 	{0xf6,	0x0100},
- 	{RT5645_PWR_ANLG1, 0x02},
- 	{RT5645_IL_CMD3, 0x6728},
-+	{RT5645_PR_BASE + 0x3a,	0x0000},
- };
- 
- static const struct reg_default rt5645_reg[] = {
--- 
-2.34.1
+Thanks!
+
+[1/1] ASoC: rt5650: Eliminate the high frequency glitch
+      commit: d312962188dd1f682b0351ccf9933334738ac462
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

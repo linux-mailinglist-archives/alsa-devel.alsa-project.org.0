@@ -2,116 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B359BB0FAE7
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Jul 2025 21:25:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A73B0FFB7
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jul 2025 06:50:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 460B860216;
-	Wed, 23 Jul 2025 21:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 460B860216
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40E7360216;
+	Thu, 24 Jul 2025 06:50:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40E7360216
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1753298747;
-	bh=sig7TyFSUtXnUCQoADvnPFowerhR2vTFdTq4RROGxTw=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=piWjLdlXZ7JItIbQ0a913i1vnR+kWNZkzC96Chc103CqjWRCccd3dQDX/4Gjms5ec
-	 cncGeq0NaEs+IAgnhOfpWAE7gcoSEvoRGQ1pbWjK5gjZONFqL7pAfqDv8G+VYr8kEy
-	 HvSO3PVzuJDIYobifJjDynf/gIvaK8n6n3qHtarU=
+	s=default; t=1753332653;
+	bh=ZBJ4+J8VQ5Xb5rkqPTJXFJw2FkGS6kWGNq0yXVeJbgk=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=TjQBzzG42/5v7AkDv2XpbtOBLGp60rfIQXP0X3CEiZZ3X9WlAvRnAqoOYnLX+bahs
+	 hvSTB8kokNp/IFWi4ikMekdoAdaUJvymcvdZb7/HVFHokUc2reUlJ+a1Al/WoIQ6EW
+	 FFQaG8Dgn59BgwoV+8PXgcWkhUJmfJ3raysTGToY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17A7FF805C8; Wed, 23 Jul 2025 21:25:14 +0200 (CEST)
+	id 9BC1DF805BF; Thu, 24 Jul 2025 06:50:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E47D5F805C4;
-	Wed, 23 Jul 2025 21:25:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CB21F805C5;
+	Thu, 24 Jul 2025 06:50:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C735FF8042F; Wed, 23 Jul 2025 21:25:06 +0200 (CEST)
+	id 4BBE6F804E5; Thu, 24 Jul 2025 06:49:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=BAYES_40,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-yb1-f194.google.com (mail-yb1-f194.google.com
- [209.85.219.194])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 181D3F800B8
-	for <alsa-devel@alsa-project.org>; Wed, 23 Jul 2025 21:25:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 181D3F800B8
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=IOrhGmtJ
-Received: by mail-yb1-f194.google.com with SMTP id
- 3f1490d57ef6-e8db886dab8so122253276.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 23 Jul 2025 12:25:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753298702; x=1753903502;
- darn=alsa-project.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=j/VJ1kBTfKlbwLWcKB77roe/aiqt1LFHBrCODuAJa/c=;
-        b=IOrhGmtJNUogRPbsTASaXM4gGlA/V+pPdXDWxxfZQrRgG9W362T9QtewEKjk75sRNX
-         Ikc5M7Pc5M+RiB+j+cvIZXOKQJyY96U7vIBhs2pbKdPxJgO4gBgtwba+kKFOShBkAJUG
-         Nw7LAB/+5lJnbI23yrpUky1SzTCRRrRb62sCl5tEvRtQ4VnC06UQQzl4eM+0jwxJj9TM
-         r5jvcy8LytI/hq8w/ucHxQno6v/KNxKauN86alcaHESod9FyMVm+3DEyNbHOIKqTVDr1
-         CWh1AtC2OD9/08IZzo6nOUB2jSZ2WIzKzLitP1e3GNivnTcfi+QtLL+tII9jA8hwr7Fq
-         iwGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753298702; x=1753903502;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=j/VJ1kBTfKlbwLWcKB77roe/aiqt1LFHBrCODuAJa/c=;
-        b=hXqqgum+jTf5jHL7xM/FM6Ep5Xc1wHsbawTHlAt9WfxsRYaQVitU4GmO40fcIyWowE
-         s7t9gebH2OIWg+WNiE/5tTYY6OTcNUZF8DN0fn63cFWwuko3BD6hGN4bqIXP4pKc8mgn
-         X6xBiAl53H9JOd8//9x9qPqJBWINmKRjfkoWLZXT79M64AN07Kh35kdSDLwPARyjFqXV
-         OishQaq3NRD0Axr1Vd2lmnXGimnkTZDvvIunO/WJ/OiCbN8sdFulLH05i/vkxJ9h1eul
-         48iARMVhyKMPIFG0c+wAMN6z2tGYSOuud2UAfuaF778KUxcRt9fFJy+zHMQ9/qf9ftfF
-         qV/g==
-X-Gm-Message-State: AOJu0YyeVzQOvL2NAOAIyMknglFaCPxF0y7zGct4AipqpHB4mS9Ylyho
-	3JXhkCwoQt+IynLmTcPWZDRoFqnHggg5e7L/MKzM3eCvVAmbNh3E3xJTijo3ZD8YjOtf4kkyKnn
-	ktKJhT1G2dcXE3MgIzxksDZMqHeXgVDqlkSQWOpgbIA==
-X-Gm-Gg: ASbGncsTwhq0KYTtq2yqdECN9fetvOuUzZbGM92ua/bxWraAXgrFXgENw1VZEv3ABq8
-	iiinlBk5olo8+JSNeJrQRQ+jtjVBNq52kVGJvVH2NW6Ttj6nYmdMS5mgYKJ2nmC9OpGS7KscCAJ
-	MMqgQOtOHAiNoPG9kp7Ag4NeSBshJxMr4wYGSyMEQwwIOttJ8ub5nDCzGsPdHY0ABMuXYTiz+a4
-	LCiTEG6
-X-Google-Smtp-Source: 
- AGHT+IHd3Srubct9eBtGhDPxpUczWpk2UVALuqHoXoaSbJTsz/cu+EHvh4J0N+UKwg/Ri+YJT72q3EIErXmllT6sqdM=
-X-Received: by 2002:a05:6902:288d:b0:e8b:d47e:b461 with SMTP id
- 3f1490d57ef6-e8dc59a84camr4769219276.32.1753298701866; Wed, 23 Jul 2025
- 12:25:01 -0700 (PDT)
+X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E6E3F80134
+	for <alsa-devel@alsa-project.org>; Thu, 24 Jul 2025 06:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E6E3F80134
 MIME-Version: 1.0
-From: walid falcon <pikolasikolatest2@gmail.com>
-Date: Wed, 23 Jul 2025 20:24:51 +0100
-X-Gm-Features: Ac12FXw_aVVtLKLPOvSFgSYauiiHimxcstap1dAj8nIi6IUDlfXd0M0UEv63qpk
-Message-ID: 
- <CAEDhREoDmoFuGVYf3-Gsd+3veSG5Wc9DEjNfbFJ3Q95buG6fkw@mail.gmail.com>
-Subject: =?UTF-8?B?2LTZh9in2K/YqSDYp9mE2KPYqNmI2Kkg2YHZiiDYp9mE2YXYutix2Kg=?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - reopened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-ID-Hash: S5BJUK3ZX5VK52VARFIVAFSLQMP6YLV2
-X-Message-ID-Hash: S5BJUK3ZX5VK52VARFIVAFSLQMP6YLV2
-X-MailFrom: pikolasikolatest2@gmail.com
+Message-Id: <185516b03b8ad700-webhooks-bot@alsa-project.org>
+In-Reply-To: <185516b0380ae500-webhooks-bot@alsa-project.org>
+References: <185516b0380ae500-webhooks-bot@alsa-project.org>
+Subject: New Card: ESI Juli@ eX
+Date: Thu, 24 Jul 2025 06:49:43 +0200 (CEST)
+Message-ID-Hash: L4QNTGD3UNTOYVJJ72555AQYRZKNVGR6
+X-Message-ID-Hash: L4QNTGD3UNTOYVJJ72555AQYRZKNVGR6
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S5BJUK3ZX5VK52VARFIVAFSLQMP6YLV2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L4QNTGD3UNTOYVJJ72555AQYRZKNVGR6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,137 +71,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-2YPZhCDZhdinINiq2K3Yqtin2Kwg2YXYudix2YHYqtmHINit2YjZhCDYtNmH2KfYr9ipINin2YTY
-o9io2YjYqSDYqNin2YTZhdi62LHYqA0KDQoNCg0KDQog2YrZhdmD2YbZgyDYqtit2YXZitmEINin
-2YTYt9mE2Kgg2YXZhiDYrtmE2KfZhCDYp9mE2LHYp9io2Lcg2KfZhNmF2KjYp9i02LENCmh0dHBz
-Oi8vd3d3LnRhcmdpci5jb20vMjAyNS8wNC9ibG9nLXBvc3RfMTQuaHRtbA0KDQoNCg0K2YXYudmE
-2YjZhdin2Kog2LTYp9mF2YTYqSDZhNin2LPYqtiu2LHYp9isINi02YfYp9iv2Kkg2KfZhNij2KjZ
-iNipINmI2KfZhNil2KzYsdin2KHYp9iqINin2YTZgtin2YbZiNmG2YrYqSDYp9mE2YXYsdiq2KjY
-t9ipINio2YfYpw0KDQoNCg0KDQrZhdinINmH2Yog2LTZh9in2K/YqSDYp9mE2KPYqNmI2Kkg2YHZ
-iiDYp9mE2YXYutix2KjYnw0KDQoNCg0KDQrYtNmH2KfYr9ipINin2YTYo9io2YjYqSDZiNir2YrZ
-gtipINmC2KfZhtmI2YbZitipINiq2LXYr9ixINio2YbYp9ih2Ysg2LnZhNmJINit2YPZhSDZgti2
-2KfYptmK2Iwg2YjYqtmP2KvYqNiqINin2YTYudmE2KfZgtipINin2YTYqNmG2YjZitipDQrYqNmK
-2YYg2KfZhNi32YHZhCDZiNmI2KfZhNiv2Ycg2KfZhNio2YrZiNmE2YjYrNmK2Iwg2YHZiiDYrdin
-2YQg2LnYr9mFINmI2KzZiNivINi52YLYryDYstmI2KfYrCDYsdiz2YXZiiDYo9mIINiq2LPYrNmK
-2YQg2LPYp9io2YIuDQrYqtmP2LnZjtivINmH2LDZhyDYp9mE2LTZh9in2K/YqSDYrNiy2KHZi9in
-INmF2YYg2KfZhNil2KzYsdin2KHYp9iqINin2YTZgti22KfYptmK2Kkg2KfZhNiq2Yog2KrYr9iu
-2YQg2LbZhdmGINmC2LbYp9mK2Kcg2KfZhNit2KfZhNipDQrYp9mE2YXYr9mG2YrYqS4NCg0KDQoN
-Cg0K2KfZhNit2KfZhNin2Kog2KfZhNiq2Yog2KrYs9iq2YjYrNioINin2LPYqtiu2LHYp9isINi0
-2YfYp9iv2Kkg2KfZhNij2KjZiNipDQoxLiDYp9mE2KPYt9mB2KfZhCDYutmK2LEg2KfZhNmF2LPY
-rNmE2YrZhiDZgdmKINin2YTYrdin2YTYqSDYp9mE2YXYr9mG2YrYqQ0K2LnZhtiv2YXYpyDZitmI
-2YTYryDYt9mB2YQg2K7Yp9ix2Kwg2KXYt9in2LEg2KfZhNiy2YjYp9isINij2Ygg2YTZhSDZitmP
-2LPYrNmR2Y7ZhCDYqNi12YHYqSDZgtin2YbZiNmG2YrYqSDZgdmKINiv2YHYqtixINin2YTYrdin
-2YTYqQ0K2KfZhNmF2K/ZhtmK2KnYjCDZitit2KrYp9isINin2YTYo9ioINil2YTZiSDYsdmB2Lkg
-2K/YudmI2Ykg2YTZhNit2LXZiNmEINi52YTZiSDYtNmH2KfYr9ipINin2YTYo9io2YjYqS4NCg0K
-DQoNCg0KMi4g2KXYq9io2KfYqiDYp9mE2YbYs9ioINmB2Yog2LrZitin2Kgg2LnZgtivINiy2YjY
-p9isDQrZgdmKINit2KfZhNin2Kog2LnYr9mFINiq2YjZgdixINmI2KvZitmC2Kkg2KfZhNiy2YjY
-p9isINio2YrZhiDYp9mE2KPYqNmI2YrZhtiMINmK2Y/ZhNis2KMg2KXZhNmJINin2YTZhdit2YPZ
-hdipINmE2KrZgtiv2YrZhQ0K2KfZhNiq2LXYsdmK2K0g2KjYp9mE2KPYqNmI2KkuDQoNCg0KDQoN
-Ctil2KzYsdin2KHYp9iqINin2YTYrdi12YjZhCDYudmE2Ykg2LTZh9in2K/YqSDYp9mE2KPYqNmI
-2KkNCtij2YjZhNinOiDYsdmB2Lkg2K/YudmI2Ykg2KPZhdin2YUg2KfZhNmF2K3Zg9mF2KkNCtmK
-2KrZiNis2Kgg2LnZhNmJINin2YTYo9ioINij2Ygg2YjZhNmKINij2YXYsSDYp9mE2LfZgdmEINiq
-2YLYr9mK2YUg2LfZhNioINil2YTZiSDYp9mE2YXYrdmD2YXYqSDYp9mE2KfYqNiq2K/Yp9im2YrY
-qSDYp9mE2KrZiiDZitmC2LkNCtmB2YrZh9inINmF2YLYsSDYs9mD2YYg2KfZhNi32YHZhCDYo9mI
-INin2YTYo9io2Iwg2YjYsNmE2YMg2YXZhiDYo9is2YQg2KXYtdiv2KfYsSDYrdmD2YUg2YLYttin
-2KbZiiDYqNil2KvYqNin2Kog2KfZhNij2KjZiNipLg0KDQoNCg0KDQrYq9in2YbZitin2Ys6INin
-2YTZiNir2KfYptmCINin2YTZhdi32YTZiNio2KkNCtmG2LPYrtipINmF2YYg2KjYt9in2YLYqSDY
-p9mE2KrYudix2YrZgSDYp9mE2YjYt9mG2YrYqQ0K2LnZgtivINin2YTYp9iy2K/Zitin2K8g2KfZ
-hNiu2KfYtSDYqNin2YTYt9mB2YQgKNil2YYg2YjZj9is2K8pDQrYtNmH2KfYr9ipINi32KjZitip
-INmE2YTZiNmE2KfYr9ipDQrYtNmH2KfYr9ipINin2YTYs9mD2YbZiQ0K2YjYq9in2KbZgiDYo9mI
-INil2KvYqNin2KrYp9iqINiq2K/YudmFINi52YTYp9mC2Kkg2KfZhNij2Kgg2KjYp9mE2LfZgdmE
-DQrZhtmF2YjYsNisINi02YfYp9iv2Kkg2KfZhNij2KjZiNipIHBkZg0K2KrYqtmK2K0g2KjYudi2
-INin2YTZhdmI2KfZgti5INin2YTYpdmE2YPYqtix2YjZhtmK2Kkg2KrYrdmF2YrZhCDZhtmF2YjY
-sNisINi02YfYp9iv2Kkg2KfZhNij2KjZiNipIFBERiDZgtin2KjZhCDZhNmE2LfYqNin2LnYqdiM
-INi62YrYsQ0K2KPZhiDYpdi12K/Yp9ix2YfYpyDYp9mE2LHYs9mF2Yog2YTYpyDZitiq2YUg2KXZ
-hNinINio2LnYryDYrdmD2YUg2YLYttin2KbZitiMINmI2YrYqtmFINiq2YjYrNmK2YfZh9inINmE
-2YXYtdmE2K3YqSDYp9mE2K3Yp9mE2KkNCtin2YTZhdiv2YbZitipINmE2KrYs9is2YrZhCDYp9mE
-2LfZgdmELg0KDQoNCg0KDQrYp9mE2KPYs9im2YTYqSDYp9mE2LTYp9im2LnYqSDYrdmI2YQg2LTZ
-h9in2K/YqSDYp9mE2KPYqNmI2KkNCtmH2YQg2YrZhdmD2YYg2KrZgtiv2YrZhSDYt9mE2Kgg2LTZ
-h9in2K/YqSDYp9mE2KPYqNmI2Kkg2KXZhNmD2KrYsdmI2YbZitin2YvYnw0K2YTYp9iMINin2YTZ
-hdiz2LfYsdipINiq2LjZhCDZgti22KfYptmK2Kkg2YjYqtiq2LfZhNioINin2YTYrdi22YjYsSDY
-o9mF2KfZhSDYp9mE2YXYrdmD2YXYqS4NCg0KDQoNCg0K2YXYpyDZh9mKINmF2K/YqSDYp9mE2K3Y
-tdmI2YQg2LnZhNmJINi02YfYp9iv2Kkg2KfZhNij2KjZiNip2J8NCtmC2K8g2KrYrtiq2YTZgSDY
-p9mE2YXYr9ipINit2LPYqCDYudiv2K8g2KfZhNis2YTYs9in2KrYjCDZiNmE2YPZhiDYudin2K/Y
-qSDZhdinINiq2LPYqti62LHZgiDYqNmK2YYg2LTZh9ixINil2YTZiSDYq9mE2KfYq9ipINij2LTZ
-h9ix2IwNCtit2LPYqCDYqti52YLZitivINin2YTZhdmE2YEuDQoNCg0KDQoNCti12YTYqSDYqNmK
-2YYg2LTZh9in2K/YqSDYp9mE2KPYqNmI2Kkg2YjYqNi52LYg2KfZhNiq2LXYp9ix2YrYrSDYp9mE
-2YLYp9mG2YjZhtmK2Kkg2KfZhNij2K7YsdmJDQrYqtmFINin2YTYsdio2Lcg2LbZhdmGINmH2LDY
-pyDYp9mE2K/ZhNmK2YQg2KjZitmGINi02YfYp9iv2Kkg2KfZhNij2KjZiNipINmI2KjYudi2INin
-2YTZhdmB2KfZh9mK2YUg2KfZhNmC2KfZhtmI2YbZitipINin2YTYo9iu2LHZiQ0K2KfZhNiq2Yog
-2YrYqNit2Ksg2LnZhtmH2Kcg2KfZhNmD2KvZitix2Iwg2YXYq9mEOg0KDQoNCg0KDQoxLiDYp9mE
-2KrYtdix2YrYrSDYp9mE2KPZhdmG2Yog2YjYqti12LHZititINin2YTYs9mB2LENCti62KfZhNio
-2KfZiyDZhdinINmK2Y/Yt9mE2Kgg2YHZiiDYqNi52LYg2KfZhNit2KfZhNin2Kog2KfZhNmC2KfZ
-htmI2YbZitipINiq2YjZgdmK2LEg2KrYtdix2YrYrSDYo9mF2YbZiiDYudmG2K8g2KfYs9iq2K7Y
-sdin2Kwg2KPZiNix2KfZgg0K2KvYqNmI2KrZitip2Iwg2YPZhdinINmH2Ygg2KfZhNit2KfZhCDZ
-gdmKOg0KDQoNCg0KDQrYp9mE2KPZiNix2KfZgiDYp9mE2YXYt9mE2YjYqNipINmE2KfYs9iq2K7Y
-sdin2Kwg2KrYtdix2YrYrSDYp9mE2LPZgdixINmF2YYg2YXZhti32YLYqSDYp9mE2KrYrNmG2YrY
-rw0K2KrYtdix2YrYrSDYo9mF2YbZiiDZhdiz2KrYudis2YQNCtin2YTYqti12LHZititINin2YTY
-o9mF2YbZiiDYp9mE2KXZhNmD2KrYsdmI2YbZig0KMi4g2KfYs9iq2KjYr9in2YQg2KfZhNiq2LXY
-sdmK2K0g2KjYsdiu2LXYqSDZgtmK2KfYr9ipDQrZgdmKINit2KfZhNin2Kog2YXYq9mEINi02LHZ
-iNi3INil2LXYr9in2LEg2LHYrti12Kkg2YLZitin2K/YqSDYqNi52K8g2KfZhNiq2LXYsdmK2K0g
-2KPZiCDYqtis2K/ZitivINin2YTYqti12LHZititINil2YTZiSDYsdiu2LXYqdiMDQrZhdmGINin
-2YTZhdmH2YUg2KfZhNiq2KPZg9ivINmF2YYg2KXYq9io2KfYqiDYp9mE2YfZiNmK2Kkg2KfZhNmC
-2KfZhtmI2YbZitip2Iwg2YjZh9mIINmF2Kcg2YrYrNi52YQg2LTZh9in2K/YqSDYp9mE2KPYqNmI
-2Kkg2LbYsdmI2LHZitipDQrZgdmKINio2LnYtiDYp9mE2K3Yp9mE2KfYqiDYp9mE2YLYp9mG2YjZ
-htmK2Kkg2KfZhNiu2KfYtdipLg0KDQoNCg0KDQrYtNmH2KfYr9ipINin2YTYo9io2YjYqQ0K2KfZ
-hNi62KfZitipINmF2YYg2YfYsNmHINin2YTZiNir2YrZgtipINmH2Yog2KXYq9io2KfYqiDYudmE
-2KfZgtipINin2YTYo9io2YjYqSDYqNin2YTYp9io2YYg2LPZiNin2KEg2YPYp9mGINix2KfYtNiv
-2Kcg2KPZhSDZgtin2LXYsdinDQrZiNi62KfZhNio2Kcg2YXYpyDYqti32YTYqCDZgdmKINio2LnY
-tiDYp9mE2YXYs9in2LfYsSDYp9mE2KXYr9in2LHZitipLg0KDQoNCg0KDQrYtdin2K3YqCDYp9mE
-2LfZhNioDQrYp9mE2YXYutix2KjZiiDYp9mE2YXZgtmK2YUg2KjYp9mE2K7Yp9ix2KwNCg0KDQoN
-Cg0K2KfZhNmI2KvYp9im2YIg2KfZhNmF2LfZhNmI2KjYqQ0K2KjYp9mE2YbYs9io2Kkg2YTZhNix
-2KfYtNivIDoNCg0KDQoNCg0KwrcgICAgICAg2KjYt9in2YLYqSDYp9mE2KrYs9is2YrZhCDYmw0K
-DQoNCg0KDQrCtyAgICAgICDYp9mE2K/Zgdiq2LEg2KfZhNi52KfYptmE2YoNCg0KDQoNCg0K2KjY
-p9mE2YbYs9io2Kkg2YTZhNmC2KfYtdixIDoNCg0KDQoNCg0KwrcgICAgICAg2KjYt9in2YLYqSDY
-qtiz2KzZitmEINin2YTYo9ioINibDQoNCg0KDQoNCsK3ICAgICAgINin2YTYr9mB2KrYsSDYp9mE
-2LnYp9im2YTZiiAuDQoNCg0KDQoNCtin2YTZhdi12YTYrdipINin2YTZhdmD2YTZgdipINio2KfY
-s9iq2YTYp9mFINin2YTZiNir2KfYptmCINin2YTZhdi32YTZiNio2KkNCtin2YTZhdi12KfZhNit
-INin2YTZgtmG2LXZhNmK2Kkg2KfZhNiq2KfYqNi52Kkg2YTZhdit2YQg2KXZgtin2YXYqSDYtdin
-2K3YqCDYp9mE2LfZhNioDQoNCg0KDQoNCtin2YTZhdi12YTYrdipINin2YTZhdmD2YTZgdipINio
-2KrZgtiv2YrZhSDYp9mE2K7Yr9mF2KkNCtin2YTZhdi12KfZhNitINin2YTZgtmG2LXZhNmK2Kkg
-2KfZhNiq2KfYqNi52Kkg2YTZhdit2YQg2KXZgtin2YXYqSDYtdin2K3YqCDYp9mE2LfZhNioDQoN
-Cg0KDQoNCtmB2Yog2K3Yp9mE2Kkg2KrYudiw2LEg2KfZhNit2LXZiNmEINi52YTZiSDYp9mE2K7Y
-r9mF2KkNCtmF2KTYs9iz2Kkg2KfZhNmI2LPZiti3DQoNCg0KDQoNCtmE2KPYrNmEINin2YTYp9iq
-2LXYp9mEDQrZiNiy2KfYsdipINin2YTYtNik2YjZhiDYp9mE2K7Yp9ix2KzZitipINmI2KfZhNiq
-2LnYp9mI2YYNCg0KDQoNCg0K2YXYtdiv2LEg2KfZhNmF2LnZhNmI2YXYp9iqICjYp9mE2KXYr9in
-2LHYqSDYp9mE2YXYudmG2YrYqSkNCtmI2LLYp9ix2Kkg2KfZhNi02KTZiNmGINin2YTYrtin2LHY
-rNmK2Kkg2YjYp9mE2KrYudin2YjZhl/Yo9ix2LTZitmBDQoNCg0KDQoNCtmK2YXZg9mG2YMg2KrY
-rdmF2YrZhCDYp9mE2LfZhNioINmF2YYg2K7ZhNin2YQg2KfZhNix2KfYqNi3INin2YTZhdio2KfY
-tNixDQoNCg0KDQoNCtmG2YXZiNiw2Kwg2LTZh9in2K/YqSDYp9mE2KPYqNmI2Kkg2KjYp9mE2YXY
-utix2KgNCtmF2K3Zg9mF2Kkg2KfZhNij2LPYsdipINio2YA6IFvYp9iz2YUg2KfZhNmF2K/ZitmG
-2KldDQrYsdmC2YUg2KfZhNmF2YTZgTogW9mK2Y/Yqtix2YMg2YTZhNmF2K3Zg9mF2KldDQrYsdmC
-2YUg2KfZhNmC2LbZitipOiBb2YrZj9iq2LHZgyDZhNmE2YXYrdmD2YXYqV0NCg0KDQoNCg0K2KjZ
-itin2YYg2KrYtdix2YrYrSDYqNin2YTYo9io2YjYqQ0K2KPZhtinINin2YTZhdmI2YLYuSDYo9iz
-2YHZhNmHOg0KDQoNCg0KDQrYp9mE2KfYs9mFINin2YTZg9in2YXZhDogW9in2YTYp9iz2YUg2KfZ
-hNmD2KfZhdmEINmE2YTYo9ioXQ0KDQoNCg0KDQrYsdmC2YUg2KjYt9in2YLYqSDYp9mE2KrYudix
-2YrZgSDYp9mE2YjYt9mG2YrYqTogW9ix2YLZhSBDSU5dDQoNCg0KDQoNCtiq2KfYsdmK2K4g2YjZ
-hdmD2KfZhiDYp9mE2KfYstiv2YrYp9ivOiBb2KrYp9ix2YrYriDZiNmF2YPYp9mGINmI2YTYp9iv
-2Kkg2KfZhNij2KhdDQoNCg0KDQoNCtin2YTYudmG2YjYp9mGINin2YTZg9in2YXZhDogW9i52YbZ
-iNin2YYg2KfZhNil2YLYp9mF2KldDQoNCg0KDQoNCtin2YTZhdmH2YbYqTogW9in2YTZhdmH2YbY
-qSDYp9mE2K3Yp9mE2YrYqV0NCg0KDQoNCg0K2KPZj9i12LHZkditINio2YXZiNis2Kgg2YfYsNin
-2Iwg2YjYqNmD2KfZhdmEINmC2YjYp9mKINin2YTYudmC2YTZitipINmI2KfZhNmC2KfZhtmI2YbZ
-itip2Iwg2KjZhdinINmK2YTZijoNCg0KDQoNCg0K2KPZhiDYp9mE2LfZgdmEICjYqSkg2KfZhNmF
-2LPZhdmJICjYqSk6IFvYp9iz2YUg2KfZhNi32YHZhC/YqV0NCtin2YTZhdmI2YTZiNivICjYqSkg
-2KjYqtin2LHZitiuOiBb2KrYp9ix2YrYriDYp9mE2YjZhNin2K/YqV0NCtio2YA6IFvZhdmD2KfZ
-hiDYp9mE2YjZhNin2K/YqV0NCg0KDQoNCg0K2YfZiCjZh9mKKSDYp9io2YbZii/Yp9io2YbYqtmK
-INin2YTYqNmK2YjZhNmI2KzZiijYqSnYjCDZiNmC2K8g2YjZj9mE2K8o2KopINmG2KrZitis2Kkg
-2LnZhNin2YLYqSDYo9io2YjZitipINmC2KfYptmF2Kkg2KjZitmG2YoNCtmI2KjZitmGINin2YTY
-s9mK2K/YqToNClvYp9iz2YUg2KfZhNij2YVd2Iwg2KfZhNmF2YjZhNmI2K/YqSDYqNiq2KfYsdmK
-2K46IFvYqtin2LHZitiuINmF2YrZhNin2K8g2KfZhNij2YVd2Iwg2YjYp9mE2K3Yp9mF2YTYqSDZ
-hNix2YLZhSDYqNi32KfZgtipDQrYp9mE2KrYudix2YrZgSDYp9mE2YjYt9mG2YrYqTogW9ix2YLZ
-hSBDSU4g2KfZhNij2YVdLg0KDQoNCg0KDQrZiNij2KrYrdmF2YQg2YPYp9mF2YQg2KfZhNmF2LPY
-pNmI2YTZitipINin2YTZgtin2YbZiNmG2YrYqSDZiNin2YTYo9io2YjZitipINiq2KzYp9mHINmH
-2LDYpyDYp9mE2LfZgdmEL9ip2Iwg2YjYo9i32YTYqCDZhdmGINin2YTZhdit2YPZhdipDQrYp9mE
-2YXZiNmC2LHYqSDYpdi12K/Yp9ixINit2YPZhSDZgti22KfYptmKINmK2KvYqNiqINmG2LPYqCDY
-p9mE2LfZgdmEINmE2YrYjCDZiNiq2YXZg9mK2YbZhyDZhdmGINin2YTYqtiz2KzZitmEINmB2Yog
-2KfZhNit2KfZhNipDQrYp9mE2YXYr9mG2YrYqS4NCg0KDQrYp9mE2KXZhdi22KfYoQ0K2KfZhNil
-2LPZhSDYp9mE2YPYp9mF2YQ6IF9fX19fX19fX19fX19fX19fX19fXw0K2KfZhNiq2YjZgtmK2Lk6
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fXw0K2KfZhNiq2KfYsdmK2K46IF9fX18gLyBfX19f
-IC8gX19fX19fX18NCg0K2YXZhNin2K3YuNin2KogOg0K2YrZj9ix2YHZgiDZh9iw2Kcg2KfZhNmG
-2YXZiNiw2Kwg2KjYp9mE2YjYq9in2KbZgiDYp9mE2K/Yp9i52YXYqSDZg9mAOiDZhtiz2K7YqSDY
-p9mE2KjYt9in2YLYqSDYp9mE2YjYt9mG2YrYqdiMINi02YfYp9iv2Kkg2KfZhNiz2YPZhtmJ2IwN
-Cti02YfYp9iv2Kkg2KfZhNmI2YTYp9iv2KnYjCDZiNi62YrYsdmH2KcuDQrZitmP2YjYr9mO2Lkg
-2YTYr9mJINmD2KrYp9io2Kkg2LbYqNi3INin2YTZhdit2YPZhdipINin2YTYp9io2KrYr9in2KbZ
-itipICjZgtiz2YUg2YLYttin2KEg2KfZhNij2LPYsdipKSDYp9mE2KrZiiDZitmC2Lkg2LbZhdmG
-DQrYp9iu2KrYtdin2LXZh9inINmF2K3ZhCDZiNmE2KfYr9ipINin2YTYt9mB2YQg2KPZiCDZhdit
-2YQg2LPZg9mGINin2YTYo9ioLg0K
+alsa-project/alsa-lib issue #462 was reopened from Carlisle96:
+
+I am not sure where to ask or how to report this:
+
+There was a new card released ESI-Audio Juli@ eX
+https://www.esi-audio.com/products/juliaex/ 
+
+I am wondering if this is supported or planned to be supported. 
+It is not yet listed here: https://www.alsa-project.org/wiki/Matrix:Vendor-ESI
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/462
+Repository URL: https://github.com/alsa-project/alsa-lib

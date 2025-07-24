@@ -2,134 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3108AB107E4
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jul 2025 12:39:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ACEFB10972
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Jul 2025 13:43:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0835A60217;
-	Thu, 24 Jul 2025 12:39:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0835A60217
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EC7760231;
+	Thu, 24 Jul 2025 13:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EC7760231
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1753353553;
-	bh=3Pj2SH5FgbIeAmKIiuoplVMkWL3ENE2Pph3bvN8CpPU=;
-	h=Date:From:To:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1753357415;
+	bh=G01r62YGlPGBz9IK9CShlW8dRRy3/X7m5AH+ZCs8gqo=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=m0d15NWCNmcLfDSTLLbWhAeIGC1GAoP5UeFpoa7KqRBb8nlSbJTogfoVyjYeQyMlV
-	 AlT7sfVNaHWNASyz39bhYPAKKNa0eTscY8Pci37gFzIf7RQ5xgOlTNLgvYwTnYqT2g
-	 2oubQ/ooGhfh7Ee3bCcDH3em+xk/E3O1iGC860Aw=
+	b=b9z+HLzMSWfOjPtDbMIZnvXEYCuxNtEbqZU1sGbjrzEU6/MH+x0Qm0mxlpS1bR7LB
+	 m45LD5U8H4ehf6EX8/8lGcgri2Ma10RezNRlXOLHFWcfTI1AHzmkFJl4c6p0dYwf6m
+	 dHCwV0t8i2vnvIEOlNhyUxsbeFRt6mFLFW7TfblE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF515F805C1; Thu, 24 Jul 2025 12:38:40 +0200 (CEST)
+	id 5B127F80548; Thu, 24 Jul 2025 13:43:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B38AF805C2;
-	Thu, 24 Jul 2025 12:38:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17299F805BA;
+	Thu, 24 Jul 2025 13:43:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 55242F80134; Thu, 24 Jul 2025 12:37:59 +0200 (CEST)
+	id B9979F804E5; Thu, 24 Jul 2025 13:42:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5791EF80134
-	for <alsa-devel@alsa-project.org>; Thu, 24 Jul 2025 12:37:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5791EF80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id AD937F800D2
+	for <alsa-devel@alsa-project.org>; Thu, 24 Jul 2025 13:42:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD937F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmx.de header.i=m.armsby@gmx.de header.a=rsa-sha256
- header.s=s31663417 header.b=N209nSGt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1753353470; x=1753958270; i=m.armsby@gmx.de;
-	bh=3Pj2SH5FgbIeAmKIiuoplVMkWL3ENE2Pph3bvN8CpPU=;
-	h=X-UI-Sender-Class:Date:From:To:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=N209nSGt7DgNvI8mZINicMf5YqCpmehfaa4x3ZmX+dhqI/SJRZVYr/J5Gt45O6t1
-	 4CfSvJXV15DR0kkMcNedxeX/HhaGesOXw5r2Lpy1RS/6S4fTH2sGjCZYvw7W3kHBk
-	 7XnNgynKyg6v0n4vLOmVbTZhrSxr109fQKAL61io4wkds3f1g+RChwBxfhfLULGH0
-	 mJ4PhTIRn/AWkl8LzS9qZxgQmcsYmX6NXt5IWBsY/9HJtt/VQ0QiueKoj6xAFfVvP
-	 R7FbaOQh+Ro55fJFAva/LgsrZ33cueNJh94NNfaWMk66WDjUB693bL7qWnFoSujJR
-	 Wip9TX69F/qO4agAgw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [127.0.0.1] ([47.64.51.164]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mf07E-1uBtIa03ha-00kUK9 for
- <alsa-devel@alsa-project.org>; Thu, 24 Jul 2025 12:37:50 +0200
-Date: Thu, 24 Jul 2025 12:37:48 +0200
-From: "M. Armsby" <m.armsby@gmx.de>
-To: ALSA mail List <alsa-devel@alsa-project.org>
-Subject: ALSAfirewire broken
-User-Agent: K-9 Mail for Android
-Message-ID: <224C5A41-DCED-4FA2-BE82-898F257DA2E9@gmx.de>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:q/zukmq2c2qicjWx9Lc/iRpHSpsKnYYwHf1aDMa84Ezrl2mhQYi
- A6CBtBz9TCnrZYjqQ2A5nOHtUx4Bl9Vh9g1lhecALNTfO0p7rDe/yyxYJBFpezIwVIbQkkv
- RmQ5+mC+QHn7D2e2LXG4eKXqjk1IrLNDBkn2g6BQ4SjkIe4bOjRjDNH6KtoWdZGnVI5IWkJ
- JE5WRE/VqYEfJH96T2pHg==
-UI-OutboundReport: notjunk:1;M01:P0:I7NvcGPJIP0=;2RMP+0hcNj6Y9NQe9xtsb8j2lAu
- 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
-Message-ID-Hash: DB2IU7FQGVCMUEKOJMRKVZXHGK7ZEA7U
-X-Message-ID-Hash: DB2IU7FQGVCMUEKOJMRKVZXHGK7ZEA7U
-X-MailFrom: m.armsby@gmx.de
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Xo7ZMGUx
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 56489A562E2;
+	Thu, 24 Jul 2025 11:42:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E29AC4CEF5;
+	Thu, 24 Jul 2025 11:42:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1753357339;
+	bh=G01r62YGlPGBz9IK9CShlW8dRRy3/X7m5AH+ZCs8gqo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Xo7ZMGUxArSX3kX/cjUFnnJXcNr4VAnUNtgfn4vTJNmUusq6kzJOA2CTvTNc2Tnq+
+	 xy8zT14s6Fxaf16/URgIrWC7znKBtvRU77pxWD/she7QFsJfGzo9jEA9juy4w478s5
+	 fYX+Iw9yUJIbr/6KFHEeefcQN8AeBQdWmROf+CrZpwXPUB8rE/MjC1jumGv06K8fZ/
+	 tBucskfWMLywLUJREQryIfEYXSh2kq+gVFdzPXNAxvX+8krCgbtzUpqGKuMBiNpD53
+	 9qO9bbfeIwyOvbOWvGbhv47jXT4ylyw0o1+bjI97DboPaXty+m6c5vbeZleOQP3aSQ
+	 FrxwoEPsV9+Uw==
+Message-ID: <492f6d2b51bc6aeeda03fb8ac85ee34a.broonie@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC updates for v6.17
+Date: Thu, 24 Jul 2025 12:42:08 +0100
+Message-ID-Hash: TFVKUGOLFZEOHHMITTRKOD3VKXOZDJ2Y
+X-Message-ID-Hash: TFVKUGOLFZEOHHMITTRKOD3VKXOZDJ2Y
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -141,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DB2IU7FQGVCMUEKOJMRKVZXHGK7ZEA7U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TFVKUGOLFZEOHHMITTRKOD3VKXOZDJ2Y/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,56 +90,616 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The following changes since commit 347e9f5043c89695b01e66b3ed111755afcf1911:
 
-Hello everyone=2E=C2=A0
+  Linux 6.16-rc6 (2025-07-13 14:25:58 -0700)
 
+are available in the Git repository at:
 
-2 Firewire problems with ALSAfirewire=2E=C2=A0
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v6.17
 
-1=2E
-Firewire Midi was working fine with kernel 5=2E10 with Reaper=2E Then obvi=
-ously a lot changed with the Firewire Stack=2E=C2=A0
+for you to fetch changes up to c58c35ef6ae62e36927f506a5afc66610b7261d9:
 
-The midi output from Reaper has not changed according to it's developer - =
-Justin=2E The problem is direct ALSA-Midi=2E
+  ASoC: qcom: sm8250: Add Fairphone 4 soundcard compatible (2025-07-23 15:09:30 +0100)
 
-We tested the midi app from=C2=A0www=2Ealsa-project=2Eorg/alsa-doc/alsa-li=
-b/_2test_2rawmidi_8c-example=2Ehtml#a0=C2=A0=C2=A0yesterday and it freezes =
-Debian and just breaks Arch with kernel 6=2E15
+----------------------------------------------------------------
+ASoC: Updates for v6.17
 
+There's a few new drivers here and quite a lot of cleanup work from
+Morimoto-san but generally this has been quite a quiet release,
+resulting in a fairly small diffstat.  Highlights include:
 
-Thread at Reaper Bugs forum:
+ - Refactoring of the Kconfig menus to be hopefully more consistant and
+   easier to navigate.
+ - Refactoring of the DAPM code, mainly hiding functionality that
+   doesn't need to be exposed to drivers.
+ - Removal of the unused upstream weak paths DAPM functionality.
+ - Further work on the generic handling for SoundWire SDCA devices.
+ - Cleanups of our usage of the PM autosuspend functions, this pulls in
+   some PM core changes on a shared tag.
+ - Support for AMD ACP7.2 and SoundWire on ACP 7.1, Fairphone 4 & 5,
+   various Intel systems, Qualcomm QCS8275, Richtek RTQ9124 and TI TAS5753.
 
-https://forum=2Ecockos=2Ecom/showthread=2Ephp?t=3D300278=C2=A0
+----------------------------------------------------------------
+Ai Chao (3):
+      ASoC: renesas: Use helper function for_each_child_of_node_scoped()
+      ASoC: meson: Use helper function for_each_child_of_node_scoped()
+      ASoC: imx-card: Use helper function for_each_child_of_node_scoped()
 
-Has low level ALSA-Midi API changed?=C2=A0
+Alexander Stein (1):
+      ASoC: codec: tlv320aic32x4: Fix reset GPIO check
 
-2=2E
-If using Pipewire-Jack with ALSAfirewire the Reaper midi output works fine=
- but unfortunately Pipewire adds 90ms delay when playing back through any F=
-irewire interface compared with an onboard soundcard=2E=C2=A0
+Arnd Bergmann (2):
+      ASoC: ops: dynamically allocate struct snd_ctl_elem_value
+      ASoC: SDCA: fix HID dependency
 
+Balamurugan C (3):
+      ASoC: Intel: soc-acpi: Add entry for sof_es8336 in PTL match table.
+      ASoC: Intel: soc-acpi: Add entry for HDMI_In capture support in PTL match table
+      ASoC: Intel: sof_rt5682: Add HDMI-In capture with rt5682 support for PTL.
 
-The pipewire dev Wim Tayman, says it's ALSAfirewire fault but I proved it =
-is not - see thread:=C2=A0
+Bard Liao (2):
+      ASoC: sdw_utils: add component_name string to dai_info
+      ASoC: sdw_utils: generate combined spk components string
 
-https://gitlab=2Efreedesktop=2Eorg/pipewire/pipewire/-/issues?show=3DeyJpa=
-WQiOiI0Nzg1IiwiZnVsbF9wYXRoIjoicGlwZXdpcmUvcGlwZXdpcmUiLCJpZCI6MTM0OTgyfQ%3=
-D%3D
+Bram Vlerick (2):
+      ASoC: tas571x: add support for tas5753
+      ASoC: dt-bindings: tas57xx: add tas5753 compatibility
 
-The ALSA recording and playback is confirmed by my tests to be working und=
-er 10ms RTT with Echo, Motu and Bebop interfaces=2E=20
+Brian Masney (6):
+      ASoC: codecs: da7219: convert from round_rate() to determine_rate()
+      ASoC: codecs: rt5682: convert from round_rate() to determine_rate()
+      ASoC: codecs: rt5682s: convert from round_rate() to determine_rate()
+      ASoC: qcom: qdsp6: q6dsp-lpass-clocks: convert from round_rate() to determine_rate()
+      ASoC: stm: stm32_i2s: convert from round_rate() to determine_rate()
+      ASoC: stm: stm32_sai_sub: convert from round_rate() to determine_rate()
 
+Cezary Rojewski (2):
+      ASoC: codecs: rt5640: Drop dummy register names
+      ASoC: Intel: avs: Add rt5640 machine board
 
-Is this problem related to first?=C2=A0=C2=A0
-Low level communication error?=C2=A0
+Charles Keepax (21):
+      HID: core: Add bus define for SoundWire bus
+      MAINTAINERS: Add SDCA maintainers entry
+      ASoC: SDCA: Add missing default in switch in entity_pde_event()
+      ASoC: SDCA: Fixup some kernel doc errors
+      ASoC: SDCA: Minor selected/detected mode control fixups
+      ASoC: SDCA: Add flag for unused IRQs
+      ASoC: SDCA: Add some initial IRQ handlers
+      ASoC: SDCA: Kconfig/Makefile fixups
+      ASoC: SDCA: Pull HID and IRQ into the primary SDCA module
+      ASoC: SDCA: Fix off by one error in IRQ bound check
+      ASoC: SDCA: Avoid use of uninitialised local name variable
+      ASoC: SDCA: Update memory allocations to zero initialise
+      ASoC: SDCA: Allow read-only controls to be deferrable
+      ASoC: SDCA: Remove overly chatty input pin list warning
+      ASoC: SDCA: Move SDCA search functions and export
+      ASoC: soc-dai: Add private data to snd_soc_dai
+      ASoC: SDCA: Add helper to add DAI constraints
+      ASoC: SDCA: Add a helper to get the SoundWire port number
+      ASoC: SDCA: Add hw_params() helper function
+      ASoC: SDCA: Shrink detected_mode_handler() stack frame
+      ASoC: SDCA: Fix implicit cast from le16
 
-=C2=A0Cheers - and let me know if I can help in any way, although I'm not =
-a programmer=2E=20
+Chen Ni (1):
+      ASoC: tegra: AHUB: Remove unneeded semicolon
 
+Chen-Yu Tsai (9):
+      ASoC: dt-bindings: Convert MT8173 AFE binding to dt-schema
+      ASoC: dt-bindings: mt8173-afe-pcm: Add power domain
+      ASoC: dt-bindings: mt8173-afe-pcm: Allow specifying reserved memory region
+      ASoC: dt-bindings: mt8186-afe-pcm: Allow specifying reserved memory region
+      ASoC: dt-bindings: mt8192-afe-pcm: Allow specifying reserved memory region
+      ASoC: mediatek: use reserved memory or enable buffer pre-allocation
+      ASoC: mediatek: mt8183-afe-pcm: Support >32 bit DMA addresses
+      ASoC: mediatek: mt8173-afe-pcm: use local `dev` pointer in driver callbacks
+      ASoC: mediatek: mt8183-afe-pcm: use local `dev` pointer in driver callbacks
 
-P=2E S=2E I hope you can read my post as I loaded up K-9 eMail client so a=
-s to deliver text only=2E=20
+ChiYuan Huang (2):
+      ASoC: dt-bindings: rt9123: Append RTQ9124 description
+      ASoC: codecs: Add support for Richtek RTQ9124
 
+Frank Li (1):
+      ASoC: dt-bindings: covert mxs-audio-sgtl5000.txt to yaml format
 
--- Martin Armsby
+Geert Uytterhoeven (2):
+      ASoC: renesas: msiof: Convert to <linux/spi/sh_msiof.h>
+      ASoC: img: Imagination Technologies sound should depend on MIPS
+
+Jyri Sarha (3):
+      ASoC: SOF: ipc4: Add sof_ipc4_pipeline_state_str() for debugging
+      ASoC: SOF: ipc4-pcm: Pipe instances to dev_dbg in multi_pipeline_state()
+      ASoC: SOF: ipc4-pcm: Harmonize sof_ipc4_set_pipeline_state() dbg print
+
+Krzysztof Kozlowski (20):
+      ASoC: codecs: Constify regmap configuration static variables
+      ASoC: fsl: Constify reg_default array
+      ASoC: codecs: wcd9335: Drop unused sido_input_src field
+      ASoC: codecs: wcd934x: Drop unused num_rx_port/num_tx_port fields
+      ASoC: codecs: wcd937x: Drop unused 'struct wcd937x_priv' fields
+      ASoC: codecs: wcd938x: Drop unused 'struct wcd938x_priv' fields
+      ASoC: codecs: wcd938x: Drop unused variant field
+      ASoC: codecs: wcd939x: Drop unused 'struct wcd939x_priv' fields
+      ASoC: codecs: wcd937x: Simplify with devm_regulator_bulk_get_enable()
+      ASoC: codecs: wcd938x: Simplify with devm_regulator_bulk_get_enable()
+      ASoC: codecs: wcd939x: Simplify with devm_regulator_bulk_get_enable()
+      ASoC: codecs: wcd939x: Simplify return from devm_gpiod_get() error
+      ASoC: dt-bindings: qcom,wcd939x: Document missing VDD_PX supply
+      ASoC: codecs: wcd939x: Add VDD_PX supply
+      ASoC: codecs: lpass: Drop unused AIF_INVALID first DAI identifier
+      ASoC: codecs: wcd937x: Use simple defines for chipid register value
+      ASoC: codecs: wcd938x: Use simple defines for chipid register value
+      ASoC: codecs: wcd939x: Use simple defines for chipid register value
+      ASoC: codecs: wcd939x: Add defines for major/minor version decoding
+      ASoC: dt-bindings: qcom,lpass-va-macro: Define clock-names in top-level
+
+Kuninori Morimoto (62):
+      ASoC: soc-core: save ID if param was set in fmt_single_name()
+      ASoC: remove component->id
+      ASoC: hdac_hdmi: remove hdac_hdmi_jack[_port]_init()
+      ASoC: soc-dai: tidyup return value of snd_soc_xlate_tdm_slot_mask()
+      ASoC: soc-ops-test: dynamically allocate struct snd_ctl_elem_value
+      ASoC: ti: Standardize ASoC menu
+      ASoC: adi: Standardize ASoC menu
+      ASoC: amd: Standardize ASoC menu
+      ASoC: bcm: Standardize ASoC menu
+      ASoC: dwc: Standardize ASoC menu
+      ASoC: fsl: Standardize ASoC menu
+      ASoC: img: Standardize ASoC menu
+      ASoC: mxs: Standardize ASoC menu
+      ASoC: pxa: Standardize ASoC menu
+      ASoC: sti: Standardize ASoC menu
+      ASoC: stm: Standardize ASoC menu
+      ASoC: sof: Standardize ASoC menu
+      ASoC: au1x: Standardize ASoC menu
+      ASoC: sdca: Standardize ASoC menu
+      ASoC: sprd: Standardize ASoC menu
+      ASoC: qcom: Standardize ASoC menu
+      ASoC: meson: Standardize ASoC menu
+      ASoC: apple: Standardize ASoC menu
+      ASoC: atmel: Standardize ASoC menu
+      ASoC: intel: Standardize ASoC menu
+      ASoC: spear: Standardize ASoC menu
+      ASoC: sunxi: Standardize ASoC menu
+      ASoC: tegra: Standardize ASoC menu
+      ASoC: ux500: Standardize ASoC menu
+      ASoC: cirrus: Standardize ASoC menu
+      ASoC: google: Standardize ASoC menu
+      ASoC: jz4740: Standardize ASoC menu
+      ASoC: xilinx: Standardize ASoC menu
+      ASoC: xtensa: Standardize ASoC menu
+      ASoC: renesas: Standardize ASoC menu
+      ASoC: generic: Standardize ASoC menu
+      ASoC: samsung: Standardize ASoC menu
+      ASoC: kirkwood: Standardize ASoC menu
+      ASoC: loongson: Standardize ASoC menu
+      ASoC: mediatek: Standardize ASoC menu
+      ASoC: rockchip: Standardize ASoC menu
+      ASoC: starfive: Standardize ASoC menu
+      ASoC: uniphier: Standardize ASoC menu
+      ASoC: hisilicon: Standardize ASoC menu
+      ASoC: soc-dapm: remove unnecessary definition
+      ASoC: soc-dapm: remove EXPORT_SYMBOL_GPL() for snd_soc_dapm_free()
+      ASoC: soc-dapm: remove snd_soc_dapm_nc_pin[_unlocked]()
+      ASoC: soc-dapm: remove snd_soc_dapm_weak_routes()
+      ASoC: soc-dapm: reordering function definitions
+      ASoC: soc-dapm: reordering header definitions
+      ASoC: soc-dapm: use component instead of cmpnt
+      ASoC: soc-dapm: use common name for dapm
+      ASoC: soc-dapm: add prefix on dapm_mark_endpoints_dirty()
+      ASoC: soc-dapm: add prefix on dapm_xxx_event()
+      ASoC: soc-dapm: add prefix on soc_dapm_dev_attrs
+      ASoC: rt700: don't set dapm->bias_level
+      ASoC: rt715: don't set dapm->bias_level
+      ASoC: soc-dapm: set bias_level if snd_soc_dapm_set_bias_level() was successed
+      ASoC: samsung: bell: don't set dapm->bias_level directly
+      ASoC: samsung: speyside: don't set dapm->bias_level directly
+      ASoC: samsung: tobermory: don't set dapm->bias_level directly
+      ASoC: samsung: littlemill: don't set dapm->bias_level directly
+
+Laurentiu Mihalcea (1):
+      ASoC: dt-bindings: cirrus,cs42xx8: add 'port' property
+
+Luca Weiss (6):
+      ASoC: qcom: sm8250: set card driver name from match data
+      ASoC: qcom: sm8250: add DisplayPort Jack support
+      ASoC: qcom: sm8250: Add Fairphone 5 soundcard compatible
+      ASoC: dt-bindings: qcom,q6afe: Document q6usb subnode
+      ASoC: dt-bindings: qcom,sm8250: Add Fairphone 4 sound card
+      ASoC: qcom: sm8250: Add Fairphone 4 soundcard compatible
+
+Mac Chiang (2):
+      ASoC: Intel: soc-acpi-intel-ptl-match: add support ptl-rt721-l0
+      ASoC: Intel: soc-acpi-intel-lnl-match: add rt1320_l12_rt714_l0 support
+
+Maciej Strozek (1):
+      ASoC: SDCA: Generic interrupt support
+
+Mark Brown (30):
+      ASoC: codecs: wcd93xx: Few simplifications of code and
+      ASoC: Intel: avs: Add rt5640 board support
+      Use helper function for_each_child_of_node_scoped()
+      ASoC: tas571x: add support for tas5753
+      ASoC: remove component->id
+      Cleanup in rockchip_sai.c
+      ASoC: Add Richtek RTQ9124 support
+      Add DisplayPort sound support for Fairphone 5
+      ASoC: codecs: More const and unused member cleanups
+      ASoC: mediatek: use reserved memory or enable
+      ASoC: core/topology/Intel:
+      ASoC: SOF: ipc4/Intel: Support for partial context
+      ASoC: SOF: ipc4-pcm: Harmonize set pipeline state dbg
+      ASoC: hdac_hdmi: Rate limit logging on connection and disconnection
+      ASoC: codecs: wcd93xx: Drop enums for chipid values
+      Add SoundWire machines for ACP7.0/ACP7.1 sof stack
+      ASoC: Standardize ASoC menu
+      ASoC: sdw_utils: generate combined spk components
+      ASoC: Add SDCA IRQ support and some misc fixups
+      Add sound card support for QCS8275
+      treewide: Remove redundant
+      ASoC: soc-dapm: cleanups
+      ASoC: Intel: add support for new devices
+      ASoC: don't set dapm->bias_level directly
+      ASoC: set bias_level at if
+      Update SDCA Kconfig
+      ASoC: codec: Convert to GPIO descriptors for
+      ASoC: convert from clk round_rate() to
+      SDCA Bug Fixes
+      Add SDCA DAI ops helpers
+
+Pei Xiao (2):
+      ASOC: rockchip: fix capture stream handling in rockchip_sai_xfer_stop
+      ASOC: rockchip: Use helper function devm_clk_get_enabled()
+
+Peng Fan (4):
+      ASoC: codec: rockchip_sai: Remove including of_gpio.h
+      ASoC: codec: tlv320aic32x4: Drop aic32x4_pdata usage
+      ASoC: codec: tlv320aic32x4: Sort headers alphabetically
+      ASoC: codec: tlv320aic32x4: Convert to GPIO descriptors
+
+Peter Ujfalusi (13):
+      ASoC: topology: Do not call snd_soc_remove_pcm_runtime() for ignored links
+      ASoC: core: Check for rtd == NULL in snd_soc_remove_pcm_runtime()
+      ASoC: Intel: skl_hda_dsp_generic: Implement add_dai_link to filter HDMI PCMs
+      ASoC: Intel: sof_sdw: Implement add_dai_link to filter HDMI PCMs
+      ASoC: SOF: ipc4-priv: Add kernel doc for fw_context_save of sof_ipc4_fw_data
+      ASoC: SOF: ipc4/Intel: Add support for library restore firmware functionality
+      ASoC: SOF: ipc4-pcm: Look for best matching hw_config for SSP
+      ASoC: SOF: pcm: Remove local create_page_table() wrapper function
+      ASoC: SOF: topology: Parse the dapm_widget_tokens in case of DSPless mode
+      ASoC: SOF: pcm: Reverse check for prepared stream in sof_pcm_hw_params()
+      ASoC: SOF: Intel: hda: Do not probe Soundwire in nocodec mode
+      ASoC: SOF: ipc4-pcm: Enable delay reporting for ChainDMA streams
+      ASoC: sdw_utils: Add missed component_name strings for speaker amps
+
+Prasad Kumpatla (2):
+      ASoC: dt-bindings: qcom,sm8250: Add QCS8275 sound card
+      ASoC: qcom: sc8280xp: Add support for QCS8275
+
+Richard Fitzgerald (1):
+      firmware: cs_dsp: Remove unused struct list_head from cs_dsp_coeff_ctl
+
+Rob Herring (Arm) (1):
+      ASoC: Use of_reserved_mem_region_to_resource() for "memory-region"
+
+Sachin Mokashi (1):
+      ASoC: Intel: Replace deprecated strcpy() with strscpy()
+
+Sakari Ailus (11):
+      PM: runtime: Document return values of suspend-related API functions
+      PM: runtime: Mark last busy stamp in pm_runtime_put_autosuspend()
+      PM: runtime: Mark last busy stamp in pm_runtime_put_sync_autosuspend()
+      PM: runtime: Mark last busy stamp in pm_runtime_autosuspend()
+      PM: runtime: Mark last busy stamp in pm_request_autosuspend()
+      Documentation: PM: *_autosuspend() functions update last busy time
+      ASoC: atmel: Remove redundant pm_runtime_mark_last_busy() calls
+      ASoC: codecs: Remove redundant pm_runtime_mark_last_busy() calls
+      ASoC: Intel: Remove redundant pm_runtime_mark_last_busy() calls
+      ASoC: component: Remove redundant pm_runtime_mark_last_busy() calls
+      ASoC: SOF: Remove redundant pm_runtime_mark_last_busy() calls
+
+Seppo Ingalsuo (1):
+      ASoC: SOF: ipc4-topology: Add load of ASRC component
+
+Shenghao Ding (2):
+      ASoC: tas2781: Drop the unnecessary symbol imply
+      ASoC: tas2781: Move the "include linux/debugfs.h" into tas2781.h
+
+Shengjiu Wang (4):
+      ASoC: wm8524: enable constraints when sysclk is configured.
+      ASoC: fsl_mqs: Distinguish different modules by system manager indices
+      ASoC: fsl_mqs: rename system manager indices for i.MX95
+      ASoC: fsl-asoc-card: add sysclk_ratio for calculate sysclk frequency
+
+Shuming Fan (3):
+      ASoC: SDCA: add support for HIDE entity properties and HID descriptor/report
+      ASoC: SDCA: add a HID device for HIDE entity
+      ASoC: SDCA: add route by the number of input pins in MU entity
+
+Srinivas Kandagatla (1):
+      ASoC: qcom: use drvdata instead of component to keep id
+
+Stephen Rothwell (1):
+      ASoC: SDCA: Check devm_mutex_init() return value
+
+Terry Cheong (1):
+      ASoC: hdmi-codec: use SND_JACK_AVOUT as jack status
+
+Venkata Prasad Potturu (4):
+      ASoC: amd: acp: Fix pointer assignments for snd_soc_acpi_mach structures
+      ASoC: amd: acp: Add legacy driver support acp7.2 based platforms
+      ASoC: amd: acp: Enable I2S support for acp7.2 based platforms
+      ASoC: amd: acp: Enable acp7.2 platform based DMIC support in machine driver
+
+Vijendar Mukunda (2):
+      ASoC: amd: acp: add soundwire machine for ACP7.0 and ACP7.1 sof stack
+      ASoC: SOF: amd: add alternate machines for ACP7.0 and ACP7.1 platforms
+
+Weidong Wang (1):
+      ASoC: codecs: Add calibration function to aw88399 chip
+
+Xinxin Wan (1):
+      ASoC: codecs: rt5640: Retry DEVICE_ID verification
+
+ .../devicetree/bindings/sound/cirrus,cs42xx8.yaml  |    4 +
+ .../bindings/sound/fsl,mxs-audio-sgtl5000.yaml     |   81 ++
+ .../bindings/sound/mediatek,mt8173-afe-pcm.yaml    |   98 ++
+ .../devicetree/bindings/sound/mt8186-afe-pcm.yaml  |    5 +
+ .../devicetree/bindings/sound/mt8192-afe-pcm.yaml  |    5 +
+ .../devicetree/bindings/sound/mtk-afe-pcm.txt      |   45 -
+ .../bindings/sound/mxs-audio-sgtl5000.txt          |   42 -
+ .../bindings/sound/qcom,lpass-va-macro.yaml        |   28 +-
+ .../devicetree/bindings/sound/qcom,q6afe.yaml      |   13 +
+ .../devicetree/bindings/sound/qcom,sm8250.yaml     |    2 +
+ .../devicetree/bindings/sound/qcom,wcd939x.yaml    |    3 +
+ .../devicetree/bindings/sound/richtek,rt9123.yaml  |    9 +-
+ .../devicetree/bindings/sound/ti,tas57xx.yaml      |    2 +
+ Documentation/power/runtime_pm.rst                 |   50 +-
+ MAINTAINERS                                        |   11 +
+ arch/mips/configs/generic/board-marduk.config      |    1 -
+ drivers/firmware/cirrus/cs_dsp.c                   |   45 +-
+ drivers/hid/hid-core.c                             |    3 +
+ include/linux/firmware/cirrus/cs_dsp.h             |    2 -
+ include/linux/firmware/imx/sm.h                    |   20 +-
+ include/linux/pm_runtime.h                         |  187 +++-
+ include/sound/sdca_asoc.h                          |   19 +
+ include/sound/sdca_function.h                      |   71 ++
+ include/sound/sdca_hid.h                           |   25 +
+ include/sound/sdca_interrupts.h                    |   78 ++
+ include/sound/soc-component.h                      |    1 -
+ include/sound/soc-dai.h                            |    3 +
+ include/sound/soc-dapm.h                           |  236 +++--
+ include/sound/soc_sdw_utils.h                      |    1 +
+ include/sound/sof/ipc4/header.h                    |    2 +
+ include/sound/tas2781.h                            |    4 +
+ include/sound/tlv320aic32x4.h                      |    9 -
+ include/uapi/linux/input.h                         |    1 +
+ sound/soc/Kconfig                                  |    8 +-
+ sound/soc/adi/Kconfig                              |    9 +-
+ sound/soc/amd/Kconfig                              |    3 +
+ sound/soc/amd/acp/Kconfig                          |    1 +
+ sound/soc/amd/acp/acp-i2s.c                        |    3 +
+ sound/soc/amd/acp/acp-legacy-common.c              |    2 +
+ sound/soc/amd/acp/acp-mach-common.c                |    1 +
+ sound/soc/amd/acp/acp-pci.c                        |    9 +-
+ sound/soc/amd/acp/acp-platform.c                   |    2 +
+ sound/soc/amd/acp/acp70.c                          |    1 +
+ sound/soc/amd/acp/acp_common.h                     |    1 +
+ sound/soc/amd/acp/amd-acp70-acpi-match.c           |   12 +
+ sound/soc/amd/acp/amd-acpi-mach.c                  |    4 +-
+ sound/soc/amd/acp/amd.h                            |    8 +-
+ sound/soc/amd/mach-config.h                        |    1 +
+ sound/soc/apple/Kconfig                            |    4 +
+ sound/soc/atmel/Kconfig                            |   11 +-
+ sound/soc/atmel/mchp-spdifrx.c                     |    6 -
+ sound/soc/au1x/Kconfig                             |    4 +
+ sound/soc/bcm/Kconfig                              |    4 +
+ sound/soc/cirrus/Kconfig                           |    3 +
+ sound/soc/codecs/Kconfig                           |   12 +-
+ sound/soc/codecs/Makefile                          |    4 +-
+ sound/soc/codecs/arizona-jack.c                    |    2 -
+ sound/soc/codecs/aw88395/aw88395_device.h          |   21 +
+ sound/soc/codecs/aw88399.c                         |  440 ++++++++-
+ sound/soc/codecs/aw88399.h                         |   34 +
+ sound/soc/codecs/cros_ec_codec.c                   |   30 +-
+ sound/soc/codecs/cs35l36.c                         |    2 +-
+ sound/soc/codecs/cs35l41.c                         |    2 -
+ sound/soc/codecs/cs35l45.c                         |    1 -
+ sound/soc/codecs/cs35l56-sdw.c                     |    1 -
+ sound/soc/codecs/cs35l56.c                         |    1 -
+ sound/soc/codecs/cs42l42.c                         |    1 -
+ sound/soc/codecs/cs42l43-jack.c                    |    5 -
+ sound/soc/codecs/cs42l43.c                         |    2 -
+ sound/soc/codecs/cs48l32.c                         |    1 -
+ sound/soc/codecs/da7218.c                          |    2 +-
+ sound/soc/codecs/da7219.c                          |   68 +-
+ sound/soc/codecs/es8375.c                          |    2 +-
+ sound/soc/codecs/hda.c                             |    3 -
+ sound/soc/codecs/hdac_hdmi.c                       |  307 +-----
+ sound/soc/codecs/hdac_hdmi.h                       |   10 -
+ sound/soc/codecs/hdmi-codec.c                      |    6 +-
+ sound/soc/codecs/lpass-rx-macro.c                  |    1 -
+ sound/soc/codecs/lpass-tx-macro.c                  |    1 -
+ sound/soc/codecs/lpass-va-macro.c                  |    1 -
+ sound/soc/codecs/lpass-wsa-macro.c                 |    1 -
+ sound/soc/codecs/max98363.c                        |    3 +-
+ sound/soc/codecs/max98373-i2c.c                    |    2 +-
+ sound/soc/codecs/max98373-sdw.c                    |    3 +-
+ sound/soc/codecs/max98388.c                        |    2 +-
+ sound/soc/codecs/max98390.c                        |    2 +-
+ sound/soc/codecs/max98396.c                        |    4 +-
+ sound/soc/codecs/max98504.c                        |    2 +-
+ sound/soc/codecs/max98520.c                        |    2 +-
+ sound/soc/codecs/max98927.c                        |    2 +-
+ sound/soc/codecs/rt1017-sdca-sdw.c                 |    1 -
+ sound/soc/codecs/rt1308-sdw.c                      |    1 -
+ sound/soc/codecs/rt1316-sdw.c                      |    1 -
+ sound/soc/codecs/rt1318-sdw.c                      |    1 -
+ sound/soc/codecs/rt1320-sdw.c                      |    1 -
+ sound/soc/codecs/rt5640.c                          |   43 +-
+ sound/soc/codecs/rt5640.h                          |    6 +-
+ sound/soc/codecs/rt5682-sdw.c                      |    1 -
+ sound/soc/codecs/rt5682.c                          |   26 +-
+ sound/soc/codecs/rt5682s.c                         |   26 +-
+ sound/soc/codecs/rt700.c                           |    4 +-
+ sound/soc/codecs/rt711-sdca.c                      |    2 -
+ sound/soc/codecs/rt711.c                           |    2 -
+ sound/soc/codecs/rt712-sdca-dmic.c                 |    1 -
+ sound/soc/codecs/rt712-sdca.c                      |    2 -
+ sound/soc/codecs/rt715-sdca.c                      |    1 -
+ sound/soc/codecs/rt715.c                           |    3 +-
+ sound/soc/codecs/rt721-sdca.c                      |    2 -
+ sound/soc/codecs/rt722-sdca-sdw.c                  |    2 +-
+ sound/soc/codecs/rt722-sdca.c                      |    2 -
+ sound/soc/codecs/rt9123.c                          |    3 -
+ sound/soc/codecs/rtq9124.c                         |  543 +++++++++++
+ sound/soc/codecs/tas2552.c                         |    1 -
+ sound/soc/codecs/tas2781-i2c.c                     |    3 -
+ sound/soc/codecs/tas571x.c                         |   52 +
+ sound/soc/codecs/tlv320aic32x4.c                   |   53 +-
+ sound/soc/codecs/wcd-mbhc-v2.c                     |    2 -
+ sound/soc/codecs/wcd9335.c                         |    5 -
+ sound/soc/codecs/wcd934x.c                         |    4 -
+ sound/soc/codecs/wcd937x.c                         |   38 +-
+ sound/soc/codecs/wcd937x.h                         |    1 -
+ sound/soc/codecs/wcd938x.c                         |   64 +-
+ sound/soc/codecs/wcd939x.c                         |   69 +-
+ sound/soc/codecs/wm8524.c                          |   55 +-
+ sound/soc/codecs/wsa881x.c                         |    5 +-
+ sound/soc/codecs/wsa883x.c                         |    3 +-
+ sound/soc/codecs/wsa884x.c                         |    3 +-
+ sound/soc/dwc/Kconfig                              |    3 +
+ sound/soc/fsl/Kconfig                              |    2 +-
+ sound/soc/fsl/fsl-asoc-card.c                      |   13 +-
+ sound/soc/fsl/fsl_asrc.c                           |    2 +-
+ sound/soc/fsl/fsl_mqs.c                            |   11 +-
+ sound/soc/fsl/fsl_sai.c                            |    4 +-
+ sound/soc/fsl/imx-card.c                           |   13 +-
+ sound/soc/generic/Kconfig                          |    4 +
+ sound/soc/google/Kconfig                           |    3 +
+ sound/soc/hisilicon/Kconfig                        |    4 +
+ sound/soc/img/Kconfig                              |   14 +-
+ sound/soc/intel/Kconfig                            |    4 +
+ sound/soc/intel/atom/sst/sst_pvt.c                 |    1 -
+ sound/soc/intel/avs/board_selection.c              |   27 +
+ sound/soc/intel/avs/boards/Kconfig                 |   12 +
+ sound/soc/intel/avs/boards/Makefile                |    2 +
+ sound/soc/intel/avs/boards/rt5640.c                |  270 ++++++
+ sound/soc/intel/avs/core.c                         |    1 -
+ sound/soc/intel/avs/debugfs.c                      |    2 -
+ sound/soc/intel/avs/ipc.c                          |    1 -
+ sound/soc/intel/avs/pcm.c                          |    1 -
+ sound/soc/intel/boards/cht_bsw_rt5672.c            |    3 +-
+ sound/soc/intel/boards/skl_hda_dsp_generic.c       |   13 +
+ sound/soc/intel/boards/sof_es8336.c                |   10 +
+ sound/soc/intel/boards/sof_rt5682.c                |    7 +
+ sound/soc/intel/boards/sof_sdw.c                   |   14 +
+ sound/soc/intel/catpt/pcm.c                        |    6 -
+ sound/soc/intel/catpt/sysfs.c                      |    1 -
+ sound/soc/intel/common/soc-acpi-intel-lnl-match.c  |   34 +
+ sound/soc/intel/common/soc-acpi-intel-ptl-match.c  |   57 ++
+ sound/soc/jz4740/Kconfig                           |    4 +
+ sound/soc/kirkwood/Kconfig                         |    3 +
+ sound/soc/loongson/Kconfig                         |    2 +-
+ sound/soc/mediatek/Kconfig                         |    4 +
+ .../soc/mediatek/common/mtk-afe-platform-driver.c  |    4 +-
+ sound/soc/mediatek/common/mtk-base-afe.h           |    1 +
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c         |   66 +-
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c         |   56 +-
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c         |    7 +
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c          |    4 +-
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c         |    7 +
+ sound/soc/meson/Kconfig                            |    2 +-
+ sound/soc/meson/axg-card.c                         |    3 +-
+ sound/soc/meson/meson-card-utils.c                 |   16 +-
+ sound/soc/mxs/Kconfig                              |    2 +-
+ sound/soc/pxa/Kconfig                              |    4 +
+ sound/soc/qcom/Kconfig                             |    2 +-
+ sound/soc/qcom/lpass-platform.c                    |   27 +-
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c          |    8 +-
+ sound/soc/qcom/sc8280xp.c                          |    1 +
+ sound/soc/qcom/sm8250.c                            |   28 +-
+ sound/soc/renesas/Kconfig                          |    2 +-
+ sound/soc/renesas/rcar/core.c                      |   35 +-
+ sound/soc/renesas/rcar/ctu.c                       |    8 +-
+ sound/soc/renesas/rcar/dma.c                       |    4 +-
+ sound/soc/renesas/rcar/dvc.c                       |    8 +-
+ sound/soc/renesas/rcar/mix.c                       |    8 +-
+ sound/soc/renesas/rcar/msiof.c                     |   94 +-
+ sound/soc/renesas/rcar/src.c                       |   10 +-
+ sound/soc/renesas/rcar/ssi.c                       |   18 +-
+ sound/soc/renesas/rcar/ssiu.c                      |    7 +-
+ sound/soc/rockchip/Kconfig                         |   23 +-
+ sound/soc/rockchip/rockchip_sai.c                  |   52 +-
+ sound/soc/samsung/Kconfig                          |    2 +-
+ sound/soc/samsung/bells.c                          |    2 -
+ sound/soc/samsung/littlemill.c                     |    2 -
+ sound/soc/samsung/speyside.c                       |    2 -
+ sound/soc/samsung/tobermory.c                      |    2 -
+ sound/soc/sdca/Kconfig                             |   20 +
+ sound/soc/sdca/Makefile                            |    6 +-
+ sound/soc/sdca/sdca_asoc.c                         |  469 +++++++--
+ sound/soc/sdca/sdca_functions.c                    |  165 +++-
+ sound/soc/sdca/sdca_hid.c                          |  127 +++
+ sound/soc/sdca/sdca_interrupts.c                   |  444 +++++++++
+ sound/soc/sdw_utils/soc_sdw_cs_amp.c               |   10 -
+ sound/soc/sdw_utils/soc_sdw_maxim.c                |    9 -
+ sound/soc/sdw_utils/soc_sdw_rt_amp.c               |    6 -
+ sound/soc/sdw_utils/soc_sdw_rt_mf_sdca.c           |    7 -
+ sound/soc/sdw_utils/soc_sdw_utils.c                |   38 +
+ sound/soc/soc-component.c                          |    1 -
+ sound/soc/soc-core.c                               |   25 +-
+ sound/soc/soc-dai.c                                |   16 +-
+ sound/soc/soc-dapm.c                               | 1018 +++++++++-----------
+ sound/soc/soc-ops-test.c                           |   29 +-
+ sound/soc/soc-ops.c                                |   26 +-
+ sound/soc/soc-topology.c                           |    7 +-
+ sound/soc/sof/Kconfig                              |    2 +-
+ sound/soc/sof/amd/pci-acp70.c                      |    1 +
+ sound/soc/sof/control.c                            |    1 -
+ sound/soc/sof/debug.c                              |    1 -
+ sound/soc/sof/imx/imx-common.c                     |   36 +-
+ sound/soc/sof/intel/hda-loader.c                   |    7 +-
+ sound/soc/sof/intel/hda.c                          |    5 +
+ sound/soc/sof/ipc3-dtrace.c                        |    1 -
+ sound/soc/sof/ipc4-loader.c                        |    7 +-
+ sound/soc/sof/ipc4-pcm.c                           |  137 ++-
+ sound/soc/sof/ipc4-priv.h                          |    6 +
+ sound/soc/sof/ipc4-topology.c                      |   94 +-
+ sound/soc/sof/ipc4-topology.h                      |   25 +
+ sound/soc/sof/ipc4.c                               |   39 +-
+ sound/soc/sof/mediatek/mt8186/mt8186.c             |   11 +-
+ sound/soc/sof/mediatek/mt8195/mt8195.c             |   11 +-
+ sound/soc/sof/pcm.c                                |   27 +-
+ sound/soc/sof/sof-client-ipc-flood-test.c          |    1 -
+ sound/soc/sof/sof-client-ipc-kernel-injector.c     |    1 -
+ sound/soc/sof/sof-client-ipc-msg-injector.c        |    1 -
+ sound/soc/sof/sof-client-probes.c                  |    3 -
+ sound/soc/sof/topology.c                           |   15 +-
+ sound/soc/spear/Kconfig                            |    4 +
+ sound/soc/sprd/Kconfig                             |    4 +
+ sound/soc/starfive/Kconfig                         |   12 +-
+ sound/soc/sti/Kconfig                              |    2 +-
+ sound/soc/stm/Kconfig                              |    2 +-
+ sound/soc/stm/stm32_i2s.c                          |   21 +-
+ sound/soc/stm/stm32_sai_sub.c                      |   14 +-
+ sound/soc/sunxi/Kconfig                            |    2 +-
+ sound/soc/tegra/Kconfig                            |    4 +
+ sound/soc/tegra/tegra210_ahub.c                    |    2 +-
+ sound/soc/ti/Kconfig                               |    2 +-
+ sound/soc/uniphier/Kconfig                         |   14 +-
+ sound/soc/ux500/Kconfig                            |    2 +-
+ sound/soc/xilinx/Kconfig                           |    4 +
+ sound/soc/xtensa/Kconfig                           |    4 +
+ 250 files changed, 4999 insertions(+), 2236 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,mxs-audio-sgtl5000.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt8173-afe-pcm.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/mtk-afe-pcm.txt
+ delete mode 100644 Documentation/devicetree/bindings/sound/mxs-audio-sgtl5000.txt
+ create mode 100644 include/sound/sdca_hid.h
+ create mode 100644 include/sound/sdca_interrupts.h
+ delete mode 100644 sound/soc/codecs/hdac_hdmi.h
+ create mode 100644 sound/soc/codecs/rtq9124.c
+ create mode 100644 sound/soc/intel/avs/boards/rt5640.c
+ create mode 100644 sound/soc/sdca/sdca_hid.c
+ create mode 100644 sound/soc/sdca/sdca_interrupts.c

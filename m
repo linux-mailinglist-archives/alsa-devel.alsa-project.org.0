@@ -2,116 +2,179 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF152B15FCB
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Jul 2025 13:51:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7153BB137DD
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Jul 2025 11:44:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1ABE46021C;
-	Wed, 30 Jul 2025 13:50:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ABE46021C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD79460231;
+	Mon, 28 Jul 2025 11:44:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD79460231
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1753876269;
-	bh=l6TuRz5EzLqeFVgvRZk84SkmxztLVYklXrBbwvkzRAk=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=T2DGZT3olgc/n89R3LqT7jvXVz9RI1dfkwlqfwU/uLzch0GqGJAueaxoOlGUl3NjE
-	 Let/4zT7fgFsSbCB1qGIm8KyDyWqV1wPyOxZjRZn0nOYaYnQkfS6lUFu23VcbvZQng
-	 34UuxVGZ0AQYJojx1i73i1EXLdeKySM4/qxxJS/g=
+	s=default; t=1753695857;
+	bh=Ac/e3WOlI1BK6L0MOb2bSDzeMco9hftuTLwPesefgWY=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=aB2cbzdC7XBl4zSiUtRzLrmyZ+2IVtN9wpkwgNdxUt4GiVjQnOhirdAJVQnZ6g5JM
+	 +kfaP3ME571EGWf5lFfFCzQ9cWDVnHXPaaieQ7HguFvlT7FAFn7/ik9+a+uHyltdWK
+	 jfNM7xuxRTTFe2RRKhkQTNZcPQeiQpKYM7xyq8tw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6B3CF805C2; Wed, 30 Jul 2025 13:50:36 +0200 (CEST)
+	id 1BCB0F805C8; Mon, 28 Jul 2025 11:43:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F4CBF805BD;
-	Wed, 30 Jul 2025 13:50:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4671F805C3;
+	Mon, 28 Jul 2025 11:43:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97E4BF8053D; Sat, 26 Jul 2025 13:34:47 +0200 (CEST)
+	id B9032F80494; Mon, 28 Jul 2025 11:43:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2075.outbound.protection.outlook.com [40.107.243.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9909FF800BF
-	for <alsa-devel@alsa-project.org>; Sat, 26 Jul 2025 13:34:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9909FF800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id A06F2F80093
+	for <alsa-devel@alsa-project.org>; Mon, 28 Jul 2025 11:42:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A06F2F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=jHNETpN5
-Received: from fllvem-sh03.itg.ti.com ([10.64.41.86])
-	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTP id 56QBYTIp1912008;
-	Sat, 26 Jul 2025 06:34:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1753529669;
-	bh=l6TuRz5EzLqeFVgvRZk84SkmxztLVYklXrBbwvkzRAk=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=jHNETpN5yGHM1rH/FSBAtl2HbNLrJDbJLc+EW/8a/sIrqx5V5W3yf1mJzQpRKdEvl
-	 Y23ErP3Q1Ad+zhpaMqyxw/OjGcEztN7GPKzLMG48hUH6GcG1ACKC+q4pCuC9HSGs/h
-	 9b0Khdtc5iSkU3UORwGvgWjCiYevWZ5wRM2LVLEU=
-Received: from DLEE107.ent.ti.com (dlee107.ent.ti.com [157.170.170.37])
-	by fllvem-sh03.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 56QBYS6R3880166
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Sat, 26 Jul 2025 06:34:29 -0500
-Received: from DLEE100.ent.ti.com (157.170.170.30) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Sat, 26
- Jul 2025 06:34:28 -0500
-Received: from DLEE100.ent.ti.com ([fe80::ad4d:c227:3f85:880d]) by
- DLEE100.ent.ti.com ([fe80::ad4d:c227:3f85:880d%17]) with mapi id
- 15.01.2507.055; Sat, 26 Jul 2025 06:34:28 -0500
-From: "Xu, Baojun" <baojun.xu@ti.com>
-To: Takashi Iwai <tiwai@suse.de>
-CC: "broonie@kernel.org" <broonie@kernel.org>,
-        "andriy.shevchenko@linux.intel.com"
- <andriy.shevchenko@linux.intel.com>,
-        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-        "Ding, Shenghao"
-	<shenghao-ding@ti.com>,
-        "13916275206@139.com" <13916275206@139.com>,
-        "P O,
- Vijeth" <v-po@ti.com>,
-        "linux-sound@vger.kernel.org"
-	<linux-sound@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [EXTERNAL] Re: [PATCH v2] ALSA: hda: Add TAS2770 support
-Thread-Topic: [EXTERNAL] Re: [PATCH v2] ALSA: hda: Add TAS2770 support
-Thread-Index: AQHb+92VnCyYVy56v0qMsWwwberg3LRAG64AgAQtmUE=
-Date: Sat, 26 Jul 2025 11:34:28 +0000
-Message-ID: <cc99c78e042b47cca92f4a3050f36a9c@ti.com>
-References: 
- <20250723142423.38768-1-baojun.xu@ti.com>,<87bjpbm0lj.wl-tiwai@suse.de>
-In-Reply-To: <87bjpbm0lj.wl-tiwai@suse.de>
-Accept-Language: en-GB, zh-CN, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.250.165.138]
-x-c2processedorg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=physhgb8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xa2kh30wh+lqIiLhKApbecNn3bei5HYllMnVXTLWmayUS4Ekhfz63Ytlt1NLA6fIyoHVMeDF3rZz5YzbOiYrNhINGA/Ibuw3n2VUYMjr0uaS0f8H+NJIcB0E0TBw0cwx60jWapVxG7eAwcpnkkAtYSpfmGOSXgjG1Wcw6EbsX2lPtNFni3mW+/CSAD+iSXOxmuvQorBSm0GlR3M4AbT8uMBN6WR5DfTc9V1nYW2Y72y1ec86B/p1kZfVQP75x1ggeXckmnqwZmel924xcZTsyU57NP1jZjAWGp4fnM+4bt5xMKkadhN8Re1t/qXbiaCwTOzIpUqws/3zF55zE0vQkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3exCClgwMZGUEiF2WOxyqU1W7XFOhZdQBiEwgfAbFEU=;
+ b=CjDdLn+QcSE2PHmWB7wq9/Jy36AYwSMlSRhqtZSWyup2kf7/FDslDQvWJjblncjV9XXQXltHUOXDLykJ7P7Z4zq71zzgA7VsB+Hj9+dwx6jB1LwIH5udreM5nWaethHKejSn9xTxuUQjwZTVHBjvZ4F93iYSEL86Lo/iKRaEI2SmIkU7detpRDscvugLQ65QVNuYWqVqWKd25SSI1QqBiDLQhINeEOK9QbHSxCgPv2t/HjUNGtSAHaLToIX1oNmhdu2JtpD06NWyuAfm8XP0hv7nKMNYSnmOptkNC8s7gIBiZjUTRBMm4L4clTQDvSrLU1MZc2kbsCrwhdLRG/vV9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3exCClgwMZGUEiF2WOxyqU1W7XFOhZdQBiEwgfAbFEU=;
+ b=physhgb8BKYfRcCLRU1TbETTIOmDdZgd8MxMQmAp43fI6qQl31NmI91w0tELAwrz5kvxSRVU7RYje687kQji/8zS0jmOTsSjheCS5pycvtjGkssNVZj11S1YvgLzuuQC5vdJrqiZifwqXQrBs3wOgiU2kDm2N82l4yn3PxTlABg=
+Received: from CH0PR03CA0346.namprd03.prod.outlook.com (2603:10b6:610:11a::32)
+ by DM3PR12MB9392.namprd12.prod.outlook.com (2603:10b6:0:44::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8964.26; Mon, 28 Jul 2025 09:42:51 +0000
+Received: from DS3PEPF000099DA.namprd04.prod.outlook.com
+ (2603:10b6:610:11a:cafe::df) by CH0PR03CA0346.outlook.office365.com
+ (2603:10b6:610:11a::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.25 via Frontend Transport; Mon,
+ 28 Jul 2025 09:42:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF000099DA.mail.protection.outlook.com (10.167.17.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.10 via Frontend Transport; Mon, 28 Jul 2025 09:42:49 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Jul
+ 2025 04:42:49 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Jul
+ 2025 04:42:48 -0500
+Received: from r9-mach.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 28 Jul 2025 04:42:44 -0500
+From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <syed.sabakareem@amd.com>, "Venkata Prasad
+ Potturu" <venkataprasad.potturu@amd.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+	<tiwai@suse.com>, Mario Limonciello <mario.limonciello@amd.com>, "Peter
+ Zijlstra" <peterz@infradead.org>, Greg KH <gregkh@linuxfoundation.org>, "open
+ list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: amd: acp: Adjust pdm dmic gain using module parameter
+Date: Mon, 28 Jul 2025 15:12:27 +0530
+Message-ID: <20250728094243.3824450-1-venkataprasad.potturu@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MailFrom: baojun.xu@ti.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: venkataprasad.potturu@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DA:EE_|DM3PR12MB9392:EE_
+X-MS-Office365-Filtering-Correlation-Id: 45f052d3-51a3-4d80-48cf-08ddcdbb1d95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: 
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info: 
+	=?us-ascii?Q?M7N0dtsqisR71kn8TKAfdAsTgdR3blfJu2SL2VMIBlXKPeWfzX2qSOkxqtFO?=
+ =?us-ascii?Q?oO40h3LTu77McRDJ1YIzXlyuyiu7Z7Sj6jB7qRDLeL1G6g0cmFVfo6CrHM15?=
+ =?us-ascii?Q?4c+6V5yPfVgy2MXzQ2oxZht20OK5gOQ1SsFyJ4pk9B3PSru/qoLPG4ML3w1Z?=
+ =?us-ascii?Q?y9xgTd/83N8Uq+uWeft44SJaL/4hx6k0gNZfweE+DbQLlFKoPLKwRrEaJk9/?=
+ =?us-ascii?Q?MI9cB1GZDMSrt3B2/A1+v7xg13bSnNXJiqZYhHoYRwCIVMXOIg7ElVyZ421P?=
+ =?us-ascii?Q?ukLCa8X4/wXeo5o0h7nAXYSOLGw06Znc7TZAjuyAixyig8VRwyGOSNjESmmA?=
+ =?us-ascii?Q?lAFlmiULbG5PhQaumnu+pXBW9zdG8sn7OzEhgNIQU+9AaxYPEL0xdUffI4GK?=
+ =?us-ascii?Q?dtHs9ytK5WFMrdT5YOzNvJP83s8bJ1uHNT1jEX/UdZFdDW8ZVaTYyYEDAVrp?=
+ =?us-ascii?Q?Sq8fqqTFN5eme4sHbDtkpwA8+SBn5XD6l13Cng+kZibA5u6qRf0ASpvZ1Lgh?=
+ =?us-ascii?Q?V9I6sOXVk2MuyLv848xVynGWswg0wQFKJ4o3HSRYxdzimPpjuWegGO5zW+51?=
+ =?us-ascii?Q?LTXT+NNSFCVnyU5YzzYV9f8TmNhAY94rQYw5+W2XHBiSbkbIsxxEchOxXdxK?=
+ =?us-ascii?Q?X0my9UWF7iaNzkVgm3bj0rZPPLAqVFdf+gk9mD65iHfx4tMIKeydP7oiNrka?=
+ =?us-ascii?Q?Ib9AlpFfwTXCiA8DNNKw/Jb1zg1/GxR7VXptDl3ENreNWjyNsOly7uQVSq2d?=
+ =?us-ascii?Q?ldxeF2n6QvudlWVGi9vGfZbbHAJTSjIRWs8RQnvu0222FST4yutCijIuCD8O?=
+ =?us-ascii?Q?G86xtGTtb0fB/HSNxCxTLE3XYLOHRfockLSHsMgi4djmeaYUtofKaVaZL5Dr?=
+ =?us-ascii?Q?HIFz4N6Deg21b3OFOzJeERQviBcwqT7qCydvnXdmmS5Bha8RZTpCl1QKaq0o?=
+ =?us-ascii?Q?L2yDCHlgGv/tLdxKt3yaS0pdDIXN15R0T60aNYiuMt5cEZdufKNiDNJytrYL?=
+ =?us-ascii?Q?EIvjx+o+1s0eEeimXPr+pdeGYDdUkfi06xYnE7+2GOY8FhZN9WXatkGy51mP?=
+ =?us-ascii?Q?DX1Qoj1L3HYX86BNoeJHffdJsS1fnUDeo23/YXFP2bML2i0AVZehKPisuyz9?=
+ =?us-ascii?Q?kGMCGP6ohlTWTRCCkKxTdAG4Nh6FfQI0+t+cAwmbzR76ce3IQQNmZ4ALn29D?=
+ =?us-ascii?Q?FtLjU+rLT4mQzF3MUGq/fhk7jJlYoY2pfJftvCJ6wAxafi/ZmxVkZvHRhBCg?=
+ =?us-ascii?Q?IIySpU5tVBKL1xvC246uXWQMmVR5Vuk7M1l2DlnIKuvlAs0YE1jz6qv+Ldx1?=
+ =?us-ascii?Q?MRZWq+Pxf6Vc9K2W6S//qABkzGJsVyQLnXAlS8ARXei/pqlMTsayy5qi53+E?=
+ =?us-ascii?Q?r9qzuCx6rPKI5T7aTt0PGBnXf8+AEaXTXZiXUC/RMOs08ugwu0n/ze2zmvAv?=
+ =?us-ascii?Q?iIRShse9a/d4fy3etFyhAmBB3Etl0Pt+qsLDuWG2R4NRuDIuhh2cXJxVsF27?=
+ =?us-ascii?Q?lRBZ7IX4+8ecOpUBHAyM5p97t6k9Up/lQIRE?=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2025 09:42:49.4571
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 45f052d3-51a3-4d80-48cf-08ddcdbb1d95
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	DS3PEPF000099DA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9392
+Message-ID-Hash: 3EKKXXLL4ICUQXJUWIQQRZTLKS3IM73S
+X-Message-ID-Hash: 3EKKXXLL4ICUQXJUWIQQRZTLKS3IM73S
+X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: WWBPKDUR7N44LXVHJ7VG2C22FJUAOI34
-X-Message-ID-Hash: WWBPKDUR7N44LXVHJ7VG2C22FJUAOI34
-X-Mailman-Approved-At: Wed, 30 Jul 2025 11:50:21 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WWBPKDUR7N44LXVHJ7VG2C22FJUAOI34/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3EKKXXLL4ICUQXJUWIQQRZTLKS3IM73S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,37 +183,76 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-PiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBGcm9tOiBU
-YWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+DQo+IFNlbnQ6IDIzIEp1bHkgMjAyNSAyMjo0MA0K
-PiBUbzogWHUsIEJhb2p1bg0KPiBDYzogYnJvb25pZUBrZXJuZWwub3JnOyBhbmRyaXkuc2hldmNo
-ZW5rb0BsaW51eC5pbnRlbC5jb207IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsgRGluZywg
-U2hlbmdoYW87IDEzOTE2Mjc1MjA2QDEzOS5jb207IFAgTywgVmlqZXRoOyBsaW51eC1zb3VuZEB2
-Z2VyLmtlcm5lbC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcNCj4gU3ViamVjdDog
-W0VYVEVSTkFMXSBSZTogW1BBVENIIHYyXSBBTFNBOiBoZGE6IEFkZCBUQVMyNzcwIHN1cHBvcnQN
-Cj4gDQo+IE9uIFdlZCwgMjMgSnVsIDIwMjUgMTY64oCKMjQ64oCKMjMgKzAyMDAsIEJhb2p1biBY
-dSB3cm90ZTogPiA+IEFkZCBUQVMyNzcwIHN1cHBvcnQgaW4gVEkncyBIREEgZHJpdmVyLiBBbmQg
-YWRkIGhkYV9jaGlwX2lkIGZvciA+IG1vcmUgcHJvZHVjdHMuIERpc3Rpbmd1aXNoIERTUCBhbmQg
-bm9uLURTUCBpbiBmaXJtd2FyZSA+IGxvYWRpbmcgZnVuY3Rpb24uID4gPiBTaWduZWQtb2ZmLWJ5
-OiBCYW9qdW4NCj4gWmpRY21RUllGcGZwdEJhbm5lclN0YXJ0DQo+IFRoaXMgbWVzc2FnZSB3YXMg
-c2VudCBmcm9tIG91dHNpZGUgb2YgVGV4YXMgSW5zdHJ1bWVudHMuDQo+IERvIG5vdCBjbGljayBs
-aW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgcmVjb2duaXplIHRoZSBzb3VyY2Ug
-b2YgdGhpcyBlbWFpbCBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLg0KPiA8aHR0cHM6Ly91
-cy1waGlzaGFsYXJtLWV3dC5wcm9vZnBvaW50LmNvbS9FV1QvdjEvRzN2SyF2eGRySGYzRVBtZFFp
-ZzN2Znh0b1gwZ2EtWlcyZ3JiNHBKLTkweEVhb20tblZzSFQ4eEhZM0Qybks4djVtZFdsRXcwdDNR
-JD4NCj4gUmVwb3J0IFN1c3BpY2lvdXMNCj4gDQo+IFpqUWNtUVJZRnBmcHRCYW5uZXJFbmQNCj4g
-DQo+IE9uIFdlZCwgMjMgSnVsIDIwMjUgMTY6MjQ6MjMgKzAyMDAsDQo+IEJhb2p1biBYdSB3cm90
-ZToNCj4gPg0KPiA+IEFkZCBUQVMyNzcwIHN1cHBvcnQgaW4gVEkncyBIREEgZHJpdmVyLiBBbmQg
-YWRkIGhkYV9jaGlwX2lkIGZvcg0KPiA+IG1vcmUgcHJvZHVjdHMuIERpc3Rpbmd1aXNoIERTUCBh
-bmQgbm9uLURTUCBpbiBmaXJtd2FyZQ0KPiA+IGxvYWRpbmcgZnVuY3Rpb24uDQo+ID4NCj4gPiBT
-aWduZWQtb2ZmLWJ5OiBCYW9qdW4gWHUgPGJhb2p1bi54dUB0aS5jb20+DQo+IA0KPiBBcHBsaWVk
-IG5vdywgdGhhbmtzLg0KPiANCj4gDQo+IEJUVywgaXMgaW5jbHVkZS9zb3VuZC90YXMyNzcwLXRs
-di5oIHVzZWQgYnkgYW55IG90aGVyIGRyaXZlcj8NCj4gKEFsc28gaW5jbHVkZS9zb3VuZC90YXMy
-NzgxLXRsdi5oKS4NCj4gDQo+IElmIHRob3NlIGFyZSB1c2VkIG9ubHkgYnkgdGFzMjc4MS1oZGEt
-aTJzL3NwaSBkcml2ZXJzLCB0aGUgZmlsZXMgY2FuDQo+IGJlIG1vdmVkIHRvIHNvdW5kL2hkYS9j
-b2RlY3Mvc2lkZS1jb2RlY3MgYXMgbG9jYWwgaGVhZGVycy4NCj4gDQo+IEluIGdlbmVyYWwsIGlu
-Y2x1ZGUvc291bmQgaXMgcmF0aGVyIGZvciBwdWJsaWMgaGVhZGVycyB0aGF0IGFyZSByZWFkDQo+
-IGJ5IG11bHRpcGxlIGRyaXZlcnMgaW4gZGlmZmVyZW50IHBsYWNlcy4NCg0KVGhhbmtzIGZvciB0
-aGUgYXBwbHkhDQpZZXMsIGluY2x1ZGUvc291bmQvdGFzeHh4eC10bHYuaCB3aWxsIGFsc28gYmUg
-dXNlZCBieSBvdGhlciBkcml2ZXJzDQooZm9yIGV4YW1wbGUsIHNvdW5kL3NvYy9jb2RlY3MvdGFz
-Mnh4eC1pMmMuYykNCg0KPiANCj4gDQo+IHRoYW5rcywNCj4gDQo+IFRha2FzaGkNCj4gDQoNCkJl
-c3QgUmVnYXJkcw0KSmltDQo=
+Adjust pdm dimc gain value using module param.
+In case of regressions for any users that the new pdm_gain value is
+too high and for additional debugging, introduce a module parameter
+that would let them configure it.
+
+This parameter should be removed in the future:
+ * If it's determined that the parameter is not needed, just hardcode
+   the correct value as before
+ * If users do end up using it to debug and report different values
+   we should introduce a config knob that can have policy set by ucm.
+
+Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+---
+ sound/soc/amd/acp/acp-legacy-common.c | 3 ++-
+ sound/soc/amd/acp/acp-pdm.c           | 3 ++-
+ sound/soc/amd/acp/amd.h               | 6 +++++-
+ 3 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/amd/acp/acp-legacy-common.c b/sound/soc/amd/acp/acp-legacy-common.c
+index 57982d057c3a..dd804fb95790 100644
+--- a/sound/soc/amd/acp/acp-legacy-common.c
++++ b/sound/soc/amd/acp/acp-legacy-common.c
+@@ -173,7 +173,8 @@ static void set_acp_pdm_clk(struct snd_pcm_substream *substream,
+ 	/* Enable default ACP PDM clk */
+ 	writel(PDM_CLK_FREQ_MASK, chip->base + ACP_WOV_CLK_CTRL);
+ 	pdm_ctrl = readl(chip->base + ACP_WOV_MISC_CTRL);
+-	pdm_ctrl |= PDM_MISC_CTRL_MASK;
++	pdm_ctrl &= ~ACP_WOV_GAIN_CONTROL;
++	pdm_ctrl |= FIELD_PREP(ACP_WOV_GAIN_CONTROL, clamp(pdm_gain, 0, 3));
+ 	writel(pdm_ctrl, chip->base + ACP_WOV_MISC_CTRL);
+ 	set_acp_pdm_ring_buffer(substream, dai);
+ }
+diff --git a/sound/soc/amd/acp/acp-pdm.c b/sound/soc/amd/acp/acp-pdm.c
+index 1bfc34c2aa53..ffb622a7a69a 100644
+--- a/sound/soc/amd/acp/acp-pdm.c
++++ b/sound/soc/amd/acp/acp-pdm.c
+@@ -38,7 +38,8 @@ static int acp_dmic_prepare(struct snd_pcm_substream *substream,
+ 	/* Enable default DMIC clk */
+ 	writel(PDM_CLK_FREQ_MASK, chip->base + ACP_WOV_CLK_CTRL);
+ 	dmic_ctrl = readl(chip->base + ACP_WOV_MISC_CTRL);
+-	dmic_ctrl |= PDM_MISC_CTRL_MASK;
++	dmic_ctrl &= ~ACP_WOV_GAIN_CONTROL;
++	dmic_ctrl |= FIELD_PREP(ACP_WOV_GAIN_CONTROL, clamp(pdm_gain, 0, 3));
+ 	writel(dmic_ctrl, chip->base + ACP_WOV_MISC_CTRL);
+ 
+ 	period_bytes = frames_to_bytes(substream->runtime,
+diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
+index cb8d97122f95..f2567e06ccd3 100644
+--- a/sound/soc/amd/acp/amd.h
++++ b/sound/soc/amd/acp/amd.h
+@@ -130,7 +130,7 @@
+ #define PDM_DMA_INTR_MASK       0x10000
+ #define PDM_DEC_64              0x2
+ #define PDM_CLK_FREQ_MASK       0x07
+-#define PDM_MISC_CTRL_MASK      0x10
++#define ACP_WOV_GAIN_CONTROL	GENMASK(4, 3)
+ #define PDM_ENABLE              0x01
+ #define PDM_DISABLE             0x00
+ #define DMA_EN_MASK             0x02
+@@ -138,6 +138,10 @@
+ #define PDM_TIMEOUT             1000
+ #define ACP_REGION2_OFFSET      0x02000000
+ 
++static int pdm_gain = 3;
++module_param(pdm_gain, int, 0644);
++MODULE_PARM_DESC(pdm_gain, "Gain control (0-3)");
++
+ struct acp_chip_info {
+ 	char *name;		/* Platform name */
+ 	struct resource *res;
+-- 
+2.43.0
+

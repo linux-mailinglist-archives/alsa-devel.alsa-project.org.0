@@ -2,103 +2,166 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E9A8B15FF2
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Jul 2025 14:06:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3C3EB15071
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Jul 2025 17:49:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EFB9601D7;
-	Wed, 30 Jul 2025 14:06:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EFB9601D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AD2F60211;
+	Tue, 29 Jul 2025 17:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AD2F60211
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1753877193;
-	bh=NvAofT5zbEiIg42/fo5kKEV+hVJkFwbLzEa1TzVctGc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Vf8SUNGsbg5m75RcYASLeFnkr/snQa2PDpXQBzj9bbry64384bYtAlJwYDWb2fUkQ
-	 zGWoRC6OFscbBuz/Q06Ijn1DqDI2DMjkkrQmuSpzNT19naV0fx4Ala8+SpcwaodMUN
-	 dqOrXrRTpJhjuJEsIozrt3Lclzxr3iIpUM1cFamk=
+	s=default; t=1753804198;
+	bh=IVNy6v9HGzm94qke8swRbmLaY42nxP91LpFEJqAQ4l0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=jn7LxvSAivVRRtT0a5FbH2m6tTpYFfn63PFdMXDbonhOOn+9ZkRwu3wGl4bkr06Hz
+	 VvV6LQsdulJeAfelqVT5iqLA/dOxERL8VBd99e3aZh2/2ISpkuecDU8S8az8lbnXE3
+	 5hYS5V2Oqy90R6B1QHrfSAeJyyz6HscIC6FNja08=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24989F805E9; Wed, 30 Jul 2025 14:05:44 +0200 (CEST)
+	id 66A59F805C0; Tue, 29 Jul 2025 17:49:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEB3CF805F1;
-	Wed, 30 Jul 2025 14:05:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED197F805C0;
+	Tue, 29 Jul 2025 17:49:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 687C5F80254; Tue, 29 Jul 2025 16:59:38 +0200 (CEST)
+	id E4E4CF80254; Tue, 29 Jul 2025 17:49:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1F330F80152
-	for <alsa-devel@alsa-project.org>; Tue, 29 Jul 2025 16:59:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F330F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B1BDF80124
+	for <alsa-devel@alsa-project.org>; Tue, 29 Jul 2025 17:49:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B1BDF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=k+YvA+co
-Received: from fllvem-sh04.itg.ti.com ([10.64.41.54])
-	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 56TExRgG2988219;
-	Tue, 29 Jul 2025 09:59:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1753801167;
-	bh=Nr6k0opRMmNIsTVpjRSCji0D/6qwAjqm6iJkhWySxFE=;
-	h=From:To:CC:Subject:Date;
-	b=k+YvA+coNPbxmIz5T/gZvIAcZINBtL5VtwDufNsomMTg5b8HgEgGcDXESs+KR1AuK
-	 LKkwmRCn/fhny0MErNgTXE7jZ9T0z39RoH6Hl+FvQwm4F+whCSTY7VfCk1Cr7xT1Z3
-	 kCSOg8OprOdce8GEbpy3vJEfBRulTm9u+HUJhot0=
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
-	by fllvem-sh04.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 56TExQKF2526231
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Tue, 29 Jul 2025 09:59:26 -0500
-Received: from DLEE109.ent.ti.com (157.170.170.41) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Tue, 29
- Jul 2025 09:59:25 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Tue, 29 Jul 2025 09:59:25 -0500
-Received: from lelvem-mr06.itg.ti.com ([10.250.165.138])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 56TExDiX3600953;
-	Tue, 29 Jul 2025 09:59:15 -0500
-From: Baojun Xu <baojun.xu@ti.com>
-To: <tiwai@suse.de>
-CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
-        <alsa-devel@alsa-project.org>, <shenghao-ding@ti.com>,
-        <13916275206@139.com>, <linux-sound@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <baojun.xu@ti.com>
-Subject: [PATCH v2] ALSA: hda: Fix the wrong register was used for DVC of
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=Ai7G92Bu;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=X9z8Bcm6;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=Ai7G92Bu;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=X9z8Bcm6
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 64DF11F397;
+	Tue, 29 Jul 2025 15:49:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1753804148;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cpUU701DImrDdhgMT8J+8eS3XOnIAyB/YwvE+FSAL4M=;
+	b=Ai7G92BuqFGZXtbhwbN0/wqybH13lSuUBzlkavMBR8p6xsTzs+EMVYyX+2wLSdB9aOguoe
+	+uQ1ONwfJ2VVLIjaihWnmch3vfWuKjKSgblxbS12FBOxwQu9RPD2Fcv/2QqYJ4Tu6Al8hQ
+	bIp77nrgNthZ3vEnh9qnVHkv71ydB4A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1753804148;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cpUU701DImrDdhgMT8J+8eS3XOnIAyB/YwvE+FSAL4M=;
+	b=X9z8Bcm6sYXYHh1OFKCmWnsi2eeutNHmilCSnz6pg36gXXONGiKNFnKV8+hCDI3RRR3YeE
+	dLhHhedtkxWYChBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1753804148;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cpUU701DImrDdhgMT8J+8eS3XOnIAyB/YwvE+FSAL4M=;
+	b=Ai7G92BuqFGZXtbhwbN0/wqybH13lSuUBzlkavMBR8p6xsTzs+EMVYyX+2wLSdB9aOguoe
+	+uQ1ONwfJ2VVLIjaihWnmch3vfWuKjKSgblxbS12FBOxwQu9RPD2Fcv/2QqYJ4Tu6Al8hQ
+	bIp77nrgNthZ3vEnh9qnVHkv71ydB4A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1753804148;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cpUU701DImrDdhgMT8J+8eS3XOnIAyB/YwvE+FSAL4M=;
+	b=X9z8Bcm6sYXYHh1OFKCmWnsi2eeutNHmilCSnz6pg36gXXONGiKNFnKV8+hCDI3RRR3YeE
+	dLhHhedtkxWYChBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 273EF13A73;
+	Tue, 29 Jul 2025 15:49:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id OXfrB3TtiGjMUQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 29 Jul 2025 15:49:08 +0000
+Date: Tue, 29 Jul 2025 17:49:07 +0200
+Message-ID: <877bzrt2to.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Baojun Xu <baojun.xu@ti.com>
+Cc: <broonie@kernel.org>,
+	<andriy.shevchenko@linux.intel.com>,
+	<alsa-devel@alsa-project.org>,
+	<shenghao-ding@ti.com>,
+	<13916275206@139.com>,
+	<linux-sound@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] ALSA: hda: Fix the wrong register was used for DVC of
  TAS2770
-Date: Tue, 29 Jul 2025 22:58:49 +0800
-Message-ID: <20250729145849.55057-1-baojun.xu@ti.com>
-X-Mailer: git-send-email 2.43.0.windows.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-MailFrom: baojun.xu@ti.com
-X-Mailman-Rule-Hits: nonmember-moderation
+In-Reply-To: <20250729145849.55057-1-baojun.xu@ti.com>
+References: <20250729145849.55057-1-baojun.xu@ti.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FREEMAIL_ENVRCPT(0.00)[139.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,alsa-project.org,ti.com,139.com,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ti.com:email,suse.de:mid]
+Message-ID-Hash: 5YVSERFF6EWV7BPRDURFXWGBC7ZNECKI
+X-Message-ID-Hash: 5YVSERFF6EWV7BPRDURFXWGBC7ZNECKI
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: U257AZQMEN7L456T4OJYXOBCNZAMORRC
-X-Message-ID-Hash: U257AZQMEN7L456T4OJYXOBCNZAMORRC
-X-Mailman-Approved-At: Wed, 30 Jul 2025 12:05:25 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U257AZQMEN7L456T4OJYXOBCNZAMORRC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5YVSERFF6EWV7BPRDURFXWGBC7ZNECKI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,51 +170,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The wrong register was used for digital volume control of TAS2770,
-The definition was changed, and usage was also updated.
+On Tue, 29 Jul 2025 16:58:49 +0200,
+Baojun Xu wrote:
+> 
+> The wrong register was used for digital volume control of TAS2770,
+> The definition was changed, and usage was also updated.
+> 
+> Fixes: ab29b3460c5c ("ALSA: hda: Add TAS2770 support")
+> 
+> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 
-Fixes: ab29b3460c5c ("ALSA: hda: Add TAS2770 support")
+Applied now.  Thanks.
 
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 
----
-v2
- - Correct number from -1000 to -10000 for DVC.
----
- include/sound/tas2770-tlv.h                    | 4 ++--
- sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/include/sound/tas2770-tlv.h b/include/sound/tas2770-tlv.h
-index c0bd495b4a07..c7380925417a 100644
---- a/include/sound/tas2770-tlv.h
-+++ b/include/sound/tas2770-tlv.h
-@@ -14,10 +14,10 @@
- #ifndef __TAS2770_TLV_H__
- #define __TAS2770_TLV_H__
- 
--#define TAS2770_DVC_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x17)
-+#define TAS2770_DVC_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x05)
- #define TAS2770_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
- 
--static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2770_dvc_tlv, 1650, 50, 0);
-+static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2770_dvc_tlv, -10000, 50, 0);
- static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2770_amp_tlv, 1100, 50, 0);
- 
- #endif
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-index a0b132681804..45ac5e41bd4f 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-@@ -260,7 +260,7 @@ static const struct snd_kcontrol_new tas2770_snd_controls[] = {
- 		0, 0, 20, 0, tas2781_amp_getvol,
- 		tas2781_amp_putvol, tas2770_amp_tlv),
- 	ACARD_SINGLE_RANGE_EXT_TLV("Speaker Digital Volume", TAS2770_DVC_LEVEL,
--		0, 0, 31, 0, tas2781_amp_getvol,
-+		0, 0, 200, 1, tas2781_amp_getvol,
- 		tas2781_amp_putvol, tas2770_dvc_tlv),
- };
- 
--- 
-2.43.0
-
+Takashi

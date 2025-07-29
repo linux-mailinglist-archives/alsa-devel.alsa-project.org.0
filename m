@@ -2,105 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB7AB14C51
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Jul 2025 12:37:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 094FFB15FF1
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Jul 2025 14:06:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B96160210;
-	Tue, 29 Jul 2025 12:37:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B96160210
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE89660222;
+	Wed, 30 Jul 2025 14:06:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE89660222
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1753785434;
-	bh=PAmGFz6fuvJ0+txbapj32eZ4+ppJS2V2a0z1iKAPypQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=M+9QvisDFRKMVBxxKVzct9krkudcVQGfizchlBOBrYtXQiutqAvvdN2iidjFIzex1
-	 WEasUkmbW+WAUVvFu6RxHMPxsnMaRFFfc7vcFXkZ5kadz6JQl+Ur6TdONtiTMK1T3O
-	 xgxvHOmYsKEqf3KIo7rJmg0OpOSIrZRl6doLju2k=
+	s=default; t=1753877173;
+	bh=cphQ01oXi2gDkQyo0GXS1R2C6OmqmjfzGSY01/UYKQI=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jHeHFMMHkIIptXldXxr6wYevjZKiEsZYjzrtU3k/xafllqwCKv+o8OXQmTtpJTvUG
+	 97aGgh+9oD9cDiM+hBZ31M/N7F+irVi6mhcbh+undqgIAc4sXcfnMrUCbArolIQeXB
+	 m3kss0RT1x3uv39NdFTdizN8BJizTBADMBdTDy6E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C42DF805C3; Tue, 29 Jul 2025 12:36:38 +0200 (CEST)
+	id 58596F805C7; Wed, 30 Jul 2025 14:05:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC39BF805C5;
-	Tue, 29 Jul 2025 12:36:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1744DF805C5;
+	Wed, 30 Jul 2025 14:05:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5229AF80254; Tue, 29 Jul 2025 12:36:19 +0200 (CEST)
+	id CC1F3F80254; Tue, 29 Jul 2025 15:00:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94E15F80152
-	for <alsa-devel@alsa-project.org>; Tue, 29 Jul 2025 12:36:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94E15F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1149AF80217
+	for <alsa-devel@alsa-project.org>; Tue, 29 Jul 2025 15:00:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1149AF80217
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZRXove43
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 3968EA54F42;
-	Tue, 29 Jul 2025 10:36:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D8AC4CEEF;
-	Tue, 29 Jul 2025 10:36:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1753785371;
-	bh=PAmGFz6fuvJ0+txbapj32eZ4+ppJS2V2a0z1iKAPypQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZRXove43Flq4L54vJ/Z175oQc5lr+hBuqUtZvXhosonDQ1jR4OM7hDYnQP2/geo8p
-	 wB5S+sMG+CSMIOsNZwRC15xJm/riWcvFAmRPNSni3JVIotvqOkENlD/g5l1A0Uz4Fk
-	 jLGNtVa8L8GnSDgi+RbpbJYt0I3Py05f3rGbpwkrdbli/dJ31DwEcLQq2YupYb2tJg
-	 fUnPxaSQZio7bEm9ykw02FQxzM/FwH8kQOr9SF5hlQOw5d/m1BBYO+I2IvQMk277gQ
-	 HNdFd93jdnxkYsoIWbOriRUR3QjrfD4p8kNcnj0D11XpxA3urIWCyup0yIb1HfSk0W
-	 ejk7Irz42kf9A==
-Date: Tue, 29 Jul 2025 11:36:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	alsa-devel@alsa-project.org, Vijendar.Mukunda@amd.com,
-	Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
-	syed.sabakareem@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ASoC: amd: acp: Adjust pdm dmic gain using module
- parameter
-Message-ID: <d7326f95-13fb-4f3b-86e5-69797b9235f8@sirena.org.uk>
-References: <20250728094243.3824450-1-venkataprasad.potturu@amd.com>
- <2025072814-stardom-anointer-0a62@gregkh>
- <7d8c0bbf-2911-4e18-8287-e7c72fab396c@amd.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=X5wory8M
+Received: from fllvem-sh04.itg.ti.com ([10.64.41.54])
+	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 56TD0LpF2967271;
+	Tue, 29 Jul 2025 08:00:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1753794021;
+	bh=QqAobOTYQe6WECehT+kMwZtUBsShs9456vNKAow6d+s=;
+	h=From:To:CC:Subject:Date;
+	b=X5wory8MKkZNlFH5Qz6P0+XNppoYf2fOx4mw5r+FuHwwKXUdgtMptafmZELaooWwY
+	 ZHfDLKjIto0L8UJI6JGjyZX2PRy2JFhdCUO1snsAmWkEJWEOjIMup8ShTJ/lFwXaFj
+	 VMQtLsB8apo2Lgdkso71YNC6ABhwP8K1joi7ctpE=
+Received: from DLEE107.ent.ti.com (dlee107.ent.ti.com [157.170.170.37])
+	by fllvem-sh04.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 56TD0KxX2461250
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Tue, 29 Jul 2025 08:00:21 -0500
+Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Tue, 29
+ Jul 2025 08:00:20 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Tue, 29 Jul 2025 08:00:20 -0500
+Received: from lelvem-mr05.itg.ti.com ([10.250.165.138])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 56TD0D7t3745895;
+	Tue, 29 Jul 2025 08:00:14 -0500
+From: Baojun Xu <baojun.xu@ti.com>
+To: <tiwai@suse.de>
+CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <alsa-devel@alsa-project.org>, <shenghao-ding@ti.com>,
+        <13916275206@139.com>, <linux-sound@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <baojun.xu@ti.com>
+Subject: [PATCH v1] ALSA: hda: Fix the wrong register was used for DVC of
+ TAS2770
+Date: Tue, 29 Jul 2025 20:59:38 +0800
+Message-ID: <20250729125938.54696-1-baojun.xu@ti.com>
+X-Mailer: git-send-email 2.43.0.windows.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="THCj9nB3gw2irpsq"
-Content-Disposition: inline
-In-Reply-To: <7d8c0bbf-2911-4e18-8287-e7c72fab396c@amd.com>
-X-Cookie: Short people get rained on last.
-Message-ID-Hash: BSAAIZBMHS473LEAWLXIOE37UBX2SU6K
-X-Message-ID-Hash: BSAAIZBMHS473LEAWLXIOE37UBX2SU6K
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-MailFrom: baojun.xu@ti.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: XFE2LMLPIKYXA3VVCRG5OIOTI6GSETSY
+X-Message-ID-Hash: XFE2LMLPIKYXA3VVCRG5OIOTI6GSETSY
+X-Mailman-Approved-At: Wed, 30 Jul 2025 12:05:24 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BSAAIZBMHS473LEAWLXIOE37UBX2SU6K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XFE2LMLPIKYXA3VVCRG5OIOTI6GSETSY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,42 +107,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The wrong register was used for digital volume control of TAS2770,
+The definition was changed, and usage was also updated.
 
---THCj9nB3gw2irpsq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: ab29b3460c5c ("ALSA: hda: Add TAS2770 support")
 
-On Tue, Jul 29, 2025 at 11:34:59AM +0530, Mario Limonciello wrote:
-> On 7/28/2025 4:22 PM, Greg KH wrote:
-> > On Mon, Jul 28, 2025 at 03:12:27PM +0530, Venkata Prasad Potturu wrote:
+Signed-off-by: Baojun Xu <baojun.xu@ti.com>
+---
+ include/sound/tas2770-tlv.h                    | 4 ++--
+ sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-> > >   * If users do end up using it to debug and report different values
-> > >     we should introduce a config knob that can have policy set by ucm.
+diff --git a/include/sound/tas2770-tlv.h b/include/sound/tas2770-tlv.h
+index c0bd495b4a07..5518b34abdde 100644
+--- a/include/sound/tas2770-tlv.h
++++ b/include/sound/tas2770-tlv.h
+@@ -14,10 +14,10 @@
+ #ifndef __TAS2770_TLV_H__
+ #define __TAS2770_TLV_H__
+ 
+-#define TAS2770_DVC_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x17)
++#define TAS2770_DVC_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x05)
+ #define TAS2770_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
+ 
+-static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2770_dvc_tlv, 1650, 50, 0);
++static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2770_dvc_tlv, -1000, 50, 0);
+ static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2770_amp_tlv, 1100, 50, 0);
+ 
+ #endif
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+index a0b132681804..45ac5e41bd4f 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+@@ -260,7 +260,7 @@ static const struct snd_kcontrol_new tas2770_snd_controls[] = {
+ 		0, 0, 20, 0, tas2781_amp_getvol,
+ 		tas2781_amp_putvol, tas2770_amp_tlv),
+ 	ACARD_SINGLE_RANGE_EXT_TLV("Speaker Digital Volume", TAS2770_DVC_LEVEL,
+-		0, 0, 31, 0, tas2781_amp_getvol,
++		0, 0, 200, 1, tas2781_amp_getvol,
+ 		tas2781_amp_putvol, tas2770_dvc_tlv),
+ };
+ 
+-- 
+2.43.0
 
-> > Please do this properly, with a per-device setting.
-
-> As the main purpose for this parameter is for being able to tune whether the
-> property is correct, how about adding a debugfs file instead?
-
-> AFAICT it should just be a single register write, so debugfs to read current
-> value and write the debugging value seems pretty straightforward.
-
-Or you could just go direct to making it user tunable like a normal gain
-control?
-
---THCj9nB3gw2irpsq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmiIpBQACgkQJNaLcl1U
-h9Af2Af/ZHOIDdRyN8oESG5QLmQLs7d0Oelgs8FwkLMeecheCioZ4xlxslIC7tjW
-AMnSumzY3xrWiRha8JFBiO7jyxN32o27AgNbXa0nVxKmpczL5Pp1UVU62QfpuBJX
-1Lu8BIKYeiT8vTPGfZfhZ/ypGtehBJPiPepn0+nlsTPQkGwtdnbyShpNihbrnhUs
-YpVBANMyEeroYqcDE0P74QSiA8NqWmY7TlIeFnPXbd6PWsLWkV4vmfGK9oyXWKtX
-cv2Q2p512BtnrGv5snTVctWJrJIk2ucLVFDPUrF9+NW6u6vChdEOs10Ix6OXl623
-OGpb2W9g/8YA5ReOLrsz+fSDphNJLQ==
-=pQ9m
------END PGP SIGNATURE-----
-
---THCj9nB3gw2irpsq--

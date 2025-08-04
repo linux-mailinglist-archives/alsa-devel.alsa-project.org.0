@@ -2,101 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C947B19411
-	for <lists+alsa-devel@lfdr.de>; Sun,  3 Aug 2025 15:12:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA482B19C64
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Aug 2025 09:22:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 649A860230;
-	Sun,  3 Aug 2025 15:12:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 649A860230
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7056760279;
+	Mon,  4 Aug 2025 09:22:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7056760279
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754226769;
-	bh=JnX7v/Gp+gnaB7U2gkvF91bxFsfKeg03xA5Q8qIGeWw=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1754292166;
+	bh=XKr5AQLTpe/9o2Ut4mAq8cRpm/bxnnJLpr/to5+kjwI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=TBgolJU1kxBebKLsykrA/nUwq7zd57GV63nW1si17FQON9hfG9Z9tcr+MmUbFRoHl
-	 AlhZFMpHiPT+7RspXfya0JWMRwmjTJSVFYsEF7L2i8FH1vMAxG+vdKFjHGc8fjHPbn
-	 yOJgQNJPUbdkTrOXmX45p2GLdtb8RhY2NFHHdSG0=
+	b=Kzx9MX2Sp9H1G1JtOIxkUWoJ7Q8vUuyZvfo+CblBID1Jo2Urm25924YCYYYyBGPbi
+	 5HmrOUodx0VAC3LTy4hnhE8EvX1/nFCYufgY3tSxu71UX5C0++VCRd8leqjRQKCN2b
+	 ZAVpr/uDFgLQlAgW0m30SJaGK2krWA04iupgBgco=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7FDCF805C2; Sun,  3 Aug 2025 15:12:16 +0200 (CEST)
+	id 0ABEEF805C2; Mon,  4 Aug 2025 09:22:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAC75F805C0;
-	Sun,  3 Aug 2025 15:12:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58113F80553;
+	Mon,  4 Aug 2025 09:22:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03882F8016D; Sun,  3 Aug 2025 15:11:35 +0200 (CEST)
+	id 400AAF804FB; Mon,  4 Aug 2025 05:05:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 82CE7F800B8
-	for <alsa-devel@alsa-project.org>; Sun,  3 Aug 2025 15:11:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82CE7F800B8
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,
+	RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	by alsa1.perex.cz (Postfix) with ESMTP id 68C8EF800E4
+	for <alsa-devel@alsa-project.org>; Mon,  4 Aug 2025 05:05:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68C8EF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=cgf9HvBf
-Received: from fllvem-sh04.itg.ti.com ([10.64.41.54])
-	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 573DBM6G3632619;
-	Sun, 3 Aug 2025 08:11:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1754226682;
-	bh=y2+XRvpUJF7U0oOqq/78i+ZbTpAbuYrUPGRdZ9+Z7sQ=;
-	h=From:To:CC:Subject:Date;
-	b=cgf9HvBfZGiB+gSOhQ4hZDBdL25MnahNOiNw7wws9BUre2fDcF389QYTqluOm0kmd
-	 9f4FE0FLqoky5GqmshtbbNZkiRIHobga2BKqA1MY1uf2tj2K2imJbBf4+tUMOmHcSc
-	 4KdPKUuDVydp6kVNXHjuX5NMnpRbWHu7FGG/cQ4E=
-Received: from DLEE104.ent.ti.com (dlee104.ent.ti.com [157.170.170.34])
-	by fllvem-sh04.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 573DBLWA1943319
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Sun, 3 Aug 2025 08:11:21 -0500
-Received: from DLEE111.ent.ti.com (157.170.170.22) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Sun, 3
- Aug 2025 08:11:21 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE111.ent.ti.com
- (157.170.170.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Sun, 3 Aug 2025 08:11:21 -0500
-Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.79])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 573DBH1P2847875;
-	Sun, 3 Aug 2025 08:11:18 -0500
-From: Shenghao Ding <shenghao-ding@ti.com>
-To: <broonie@kernel.org>
-CC: <andriy.shevchenko@linux.intel.com>, <tiwai@suse.de>,
-        <13916275206@139.com>, <13564923607@139.com>,
-        <alsa-devel@alsa-project.org>, <baojun.xu@ti.com>, <jesse-ji@ti.com>,
-        Shenghao Ding <shenghao-ding@ti.com>
-Subject: [PATCH v1] ASoC: tas2781: Add keyword "init" in profile section
-Date: Sun, 3 Aug 2025 21:11:10 +0800
-Message-ID: <20250803131110.1443-1-shenghao-ding@ti.com>
-X-Mailer: git-send-email 2.33.0.windows.2
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=V7JUQ43v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ys
+	qQmWamYIYco22fUSPqUsEq0HJ6AU5htrVCYU+nqmE=; b=V7JUQ43v2It6MWY9oK
+	7cPQOitHNMn/Bmbm0xRNn4pPkgBgAR6rxWPWE0HaaOPt4jJZjCKFcKKV2WEmd0XS
+	Tl2Talb1JlOkjlM+0Mer0VDVSWCrVV1xEEs5gsMgVFRU4SlZE7GDRuFT8HdljgSh
+	Xst/KdJA+5ZnV0dJJ2vYmHjLs=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
+ _____wBHOs5_I5BoPnvzJQ--.25158S2;
+	Mon, 04 Aug 2025 11:05:39 +0800 (CST)
+From: wangdich9700@163.com
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	wangdicheng <wangdicheng@kylinos.cn>
+Subject: [PATCH 1/2] ALSA: hda/realtek: Accelerate the front MIC charging and
+ discharging of the 897 codec
+Date: Mon,  4 Aug 2025 11:05:17 +0800
+Message-Id: <20250804030518.424229-1-wangdich9700@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Message-ID-Hash: NJGM232XPUB3AK44DV36LBQTNCPYOSAG
-X-Message-ID-Hash: NJGM232XPUB3AK44DV36LBQTNCPYOSAG
-X-MailFrom: shenghao-ding@ti.com
+X-CM-TRANSID: _____wBHOs5_I5BoPnvzJQ--.25158S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF13Xry8XFW8uw1DWry8Xwb_yoW8JFWfpr
+	WrCFy3XFs3Xr4jyw48tr4fua4kGa45ZrW3C3yYk3W7XrsxuryktFyrG342v3W7KFWYkr1j
+	qr1Fy34kJ3y5Kr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZ6pQUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbibgSfT2iQGr-xBwAAsR
+X-MailFrom: wangdich9700@163.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: EPKAV5SSLKYENZG4XPSRKZNXHPSPQKAM
+X-Message-ID-Hash: EPKAV5SSLKYENZG4XPSRKZNXHPSPQKAM
+X-Mailman-Approved-At: Mon, 04 Aug 2025 07:21:39 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJGM232XPUB3AK44DV36LBQTNCPYOSAG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EPKAV5SSLKYENZG4XPSRKZNXHPSPQKAM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,83 +98,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Since version 0x105, the keyword 'init' was introduced into the profile,
-which is used for chip initialization, particularly to store common
-settings for other non-initialization profiles.
+From: wangdicheng <wangdicheng@kylinos.cn>
 
-Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+The front MIC capacitance of the Inspur board is too large, resulting in a longer charging and discharging time required,
+which in turn prevents recording for 5 seconds before startup.
+Therefore, software is used to increase the delay by 2 seconds to avoid this issue.
+
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
 ---
- include/sound/tas2781-dsp.h       |  8 ++++++++
- sound/soc/codecs/tas2781-fmwlib.c | 12 ++++++++++++
- sound/soc/codecs/tas2781-i2c.c    |  6 ++++++
- 3 files changed, 26 insertions(+)
+ sound/pci/hda/patch_realtek.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
-index c3a9efa73d5d..a21f34c0266e 100644
---- a/include/sound/tas2781-dsp.h
-+++ b/include/sound/tas2781-dsp.h
-@@ -198,6 +198,14 @@ struct tasdevice_rca {
- 	int ncfgs;
- 	struct tasdevice_config_info **cfg_info;
- 	int profile_cfg_id;
-+	/*
-+	 * Since version 0x105, the keyword 'init' was introduced into the
-+	 * profile, which is used for chip initialization, particularly to
-+	 * store common settings for other non-initialization profiles.
-+	 * if (init_profile_id < 0)
-+	 *         No init profile inside the RCA firmware.
-+	 */
-+	int init_profile_id;
- };
- 
- void tasdevice_select_cfg_blk(void *context, int conf_no,
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index c9c1e608ddb7..8baf56237624 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -180,6 +180,16 @@ static struct tasdevice_config_info *tasdevice_add_config(
- 			dev_err(tas_priv->dev, "add conf: Out of boundary\n");
- 			goto out;
- 		}
-+		/* If in the RCA bin file are several profiles with the
-+		 * keyword "init", init_profile_id only store the last
-+		 * init profile id.
-+		 */
-+		if (strnstr(&config_data[config_offset], "init", 64)) {
-+			tas_priv->rcabin.init_profile_id =
-+				tas_priv->rcabin.ncfgs - 1;
-+			dev_dbg(tas_priv->dev, "%s: init profile id = %d\n",
-+				__func__, tas_priv->rcabin.init_profile_id);
-+		}
- 		config_offset += 64;
- 	}
- 
-@@ -283,6 +293,8 @@ int tasdevice_rca_parser(void *context, const struct firmware *fmw)
- 	int i;
- 
- 	rca = &(tas_priv->rcabin);
-+	/* Initialize to none */
-+	rca->init_profile_id = -1;
- 	fw_hdr = &(rca->fw_hdr);
- 	if (!fmw || !fmw->data) {
- 		dev_err(tas_priv->dev, "Failed to read %s\n",
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index 9f4d965a1335..f8faeffd983d 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -1641,6 +1641,12 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	tasdevice_prmg_load(tas_priv, 0);
- 	tas_priv->cur_prog = 0;
- 
-+	/* Init common setting for different audio profiles */
-+	if (tas_priv->rcabin.init_profile_id >= 0)
-+		tasdevice_select_cfg_blk(tas_priv,
-+			tas_priv->rcabin.init_profile_id,
-+			TASDEVICE_BIN_BLK_PRE_POWER_UP);
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 877137cb09ac..88675eae9447 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -1001,6 +1001,14 @@ static int alc_resume(struct hda_codec *codec)
+ 	if (!spec->no_depop_delay)
+ 		msleep(150); /* to avoid pop noise */
+ 	codec->patch_ops.init(codec);
 +
- #ifdef CONFIG_SND_SOC_TAS2781_ACOUST_I2C
- 	if (tas_priv->name_prefix)
- 		acoustic_debugfs_node = devm_kasprintf(tas_priv->dev,
++	if (codec->core.subsystem_id == 0x10ec1304) {
++		snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x04);
++		msleep(50);
++		snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x44);
++		msleep(2000);
++		snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL, PIN_VREF80);
++	}
+ 	snd_hda_regmap_sync(codec);
+ 	hda_call_check_power_status(codec, 0x01);
+ 	return 0;
 -- 
-2.43.0
+2.25.1
 

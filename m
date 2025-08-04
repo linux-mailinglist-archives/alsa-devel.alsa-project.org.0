@@ -2,55 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E847CB1A93A
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Aug 2025 20:39:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BECEB1A9A0
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Aug 2025 21:26:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C50A96024F;
-	Mon,  4 Aug 2025 20:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C50A96024F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EE736025F;
+	Mon,  4 Aug 2025 21:25:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EE736025F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754332757;
-	bh=2NmHUfC/ffCtRXtLj+H9mxKTy0vQUZHa6MoZeUzNVmI=;
+	s=default; t=1754335566;
+	bh=GbFytaznhp3Xrjodzowg4ipvGnU/ddTW4zfXuEu8J54=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=VkK0DPotKS511MuxWwfmIu7e3UMxi3gIGmLIR1FKUPvsbETkAF6CYkX2YGA/YaW1V
-	 P1kZfDtb70u8xMhuRNnP7XbNo+p/NSKozwIP2BOm7WTF7RmLuIzqQb85/gUV5pt73p
-	 gMu9dQ4qpGpL4FTtijqWSEnnW/g75Jk1i1/9O78Y=
+	b=R+okj0iEnBOfqHRRzE1QSapymej9HChp2QlJ1cl/bkgESIVBTYvd7g2nka9+7cn0n
+	 jJGRRCJBPT778lSxoQH+gZx/NXdLiKWf9ZkZr9vIO7ObJ7QvqSobQ6gYh6MZjR/w4i
+	 lDnm0B/KZsrhNMCqQDkXo7vFNW1k/Sr5Mqpava0c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23A04F805CB; Mon,  4 Aug 2025 20:38:45 +0200 (CEST)
+	id A1828F805D4; Mon,  4 Aug 2025 21:25:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2866F80553;
-	Mon,  4 Aug 2025 20:38:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FFA8F805C9;
+	Mon,  4 Aug 2025 21:25:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04F9DF804CF; Mon,  4 Aug 2025 20:37:40 +0200 (CEST)
+	id 1FA25F804CF; Mon,  4 Aug 2025 21:25:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20274F800FE
-	for <alsa-devel@alsa-project.org>; Mon,  4 Aug 2025 20:37:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20274F800FE
+	by alsa1.perex.cz (Postfix) with ESMTP id 0374FF800B6
+	for <alsa-devel@alsa-project.org>; Mon,  4 Aug 2025 21:25:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0374FF800B6
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1858a440daddbf00-webhooks-bot@alsa-project.org>
-In-Reply-To: <1858a440d847c100-webhooks-bot@alsa-project.org>
-References: <1858a440d847c100-webhooks-bot@alsa-project.org>
+Message-Id: <1858a6da9797f000-webhooks-bot@alsa-project.org>
+In-Reply-To: <1858a6da97723200-webhooks-bot@alsa-project.org>
+References: <1858a6da97723200-webhooks-bot@alsa-project.org>
 Subject: ALC4082: S/PDIF volume redirecting to headphone volume - asus rog
  crosshair x670e hero
-Date: Mon,  4 Aug 2025 20:37:40 +0200 (CEST)
-Message-ID-Hash: XS6I4ROQTCLGPM46XHM7X7T6XNN3DKHR
-X-Message-ID-Hash: XS6I4ROQTCLGPM46XHM7X7T6XNN3DKHR
+Date: Mon,  4 Aug 2025 21:25:16 +0200 (CEST)
+Message-ID-Hash: UZTWBPTJ2M2OGXOPL3B3FMSYSTMLKNJK
+X-Message-ID-Hash: UZTWBPTJ2M2OGXOPL3B3FMSYSTMLKNJK
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -63,7 +63,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XS6I4ROQTCLGPM46XHM7X7T6XNN3DKHR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UZTWBPTJ2M2OGXOPL3B3FMSYSTMLKNJK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,7 +72,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #598 was opened from LuanVSO:
+alsa-project/alsa-ucm-conf issue #598 was edited from LuanVSO:
 
 hi, i had a problem where opening the kde plasma volume applet would make the volume on my headphone jump to the maximum.
 after muting the "PCM 2" channel on alsamixer i notice that the volume on the headphone would go muted instead.
@@ -87,7 +87,8 @@ i think this happens because the "PCM 2" volume controls is redirecting to headp
 
 (also the S/PDIF aways appeared as connected even though i did not have anything connected to it, don't know if it is expected)
 
-[alsa-info.sh](https://paste.centos.org/view/c6545d44)
+[alsa-info.txt](https://github.com/user-attachments/files/21583734/alsa-info.txt)
+
 <details>
 <summary>edited ALC4080-HiFi.conf</summary>
 

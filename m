@@ -2,67 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76E9AB1AA34
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Aug 2025 22:43:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E41B1F9B0
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Aug 2025 12:49:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A03E560274;
-	Mon,  4 Aug 2025 22:42:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A03E560274
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39231601F8;
+	Sun, 10 Aug 2025 12:49:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39231601F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754340186;
-	bh=EyWLHpc0gEM6x9QnMChX731Xco0qt4R8bZflWEooJg8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=BgufigRh3nzenum0MAxwwphXJ10rF+3X3yzxhsQY1WRWK3x+6x0+7yK1ogcpLUvww
-	 /35Pt+CsEV7MEYxE2DjiavRX0lZsy4Tid1umXyepxfK5H1jhJLgGpepzqSvfYRwmHV
-	 iZ/OFtnpCGeLPO7mMlkHQyaQ8QoEzTwQfWuo9YWU=
+	s=default; t=1754822984;
+	bh=RiuVR+JOwMH5EVZEGQtiTP5S8pqPT/1nc2hCJgeRVVs=;
+	h=Date:To:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=at68i0UntI1Vr+xdVy5gkVNPm1cODoTjAfSbiZ4mnjDduAg7kUyaBOmNKlAaVNCe1
+	 T0h7tEY+jpQEiKSNS0kJqIo4O1OKJpZLaNY2kgsU70eY1nlvoCcIeLOrMcozISjmoi
+	 5VYwgk2RXghZDtiNnXfqTdXgXFdftZnb3yF7Gy68=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF3EEF805C9; Mon,  4 Aug 2025 22:42:31 +0200 (CEST)
+	id 42362F805C2; Sun, 10 Aug 2025 12:49:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98656F805BF;
-	Mon,  4 Aug 2025 22:42:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C187F805C2;
+	Sun, 10 Aug 2025 12:49:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 236CEF804CF; Mon,  4 Aug 2025 22:42:04 +0200 (CEST)
+	id A5315F804B3; Tue,  5 Aug 2025 07:51:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6C06F800DF
-	for <alsa-devel@alsa-project.org>; Mon,  4 Aug 2025 22:42:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6C06F800DF
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	HTML_FONT_LOW_CONTRAST,HTML_MESSAGE,RCVD_IN_DNSWL_LOW,
+	RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+	T_KAM_HTML_FONT_INVALID,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id D1C4BF800DF
+	for <alsa-devel@alsa-project.org>; Tue,  5 Aug 2025 07:51:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1C4BF800DF
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmx.de header.i=thomas.vanhouten@gmx.de
+ header.a=rsa-sha256 header.s=s31663417 header.b=dzLERl1p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1754373066; x=1754977866; i=thomas.vanhouten@gmx.de;
+	bh=7b534+O7Rl0lP5yVpFaiqgfJG5i+c/HKgZvUlm4cH2M=;
+	h=X-UI-Sender-Class:Content-Type:Message-ID:Date:MIME-Version:To:
+	 From:Subject:cc:content-transfer-encoding:content-type:date:from:
+	 message-id:mime-version:reply-to:subject:to;
+	b=dzLERl1pzWkENLOtPFpYoWgKEUZlkR3UDUi/Ek+AqOPdad9174S8vyK77CMkekM+
+	 w0BW9uAK6pQEr2bwsB6lKuzxaZfr5dkX7QAd8tYHbg/BAGyBoJIklJK+LCMwNiT7Y
+	 Z99GElj5AO1WcdlWdY5dLHZ+BOIZjfWMldDGzuELcGuYRr3QWSfvQh9EStvLwwgec
+	 KYiNFFJRoTwm222djUaVXI5HYWTZdD4pgri8G61FWbYSTO2TSLK8vuCFOSO8tieEH
+	 XV0hYnEsQUOrGx+CBbT3ZnoByy1NNUa7v6tObtapXm09gbFZFIfEUzpTMZBF4O6t5
+	 B2/+hE4mN5f2P9mCTw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.178.21] ([89.246.47.227]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MN5if-1v1fIa4C0r-00NMEc; Tue, 05
+ Aug 2025 07:51:06 +0200
+Message-ID: <28456399-b155-4993-a062-9297a3d3750b@gmx.de>
+Date: Tue, 5 Aug 2025 07:51:05 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <1858ab0b5a590300-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-ucm-conf/pr/599@alsa-project.org>
-References: <alsa-project/alsa-ucm-conf/pr/599@alsa-project.org>
-Subject: ucm2: Qualcomm: add Lenovo Ideapad 5 (Slim 5x / 2in1) support
-Date: Mon,  4 Aug 2025 22:42:04 +0200 (CEST)
-Message-ID-Hash: WZBPP5BVNHWRPOSDFBN6CNXNABDCPSJB
-X-Message-ID-Hash: WZBPP5BVNHWRPOSDFBN6CNXNABDCPSJB
-X-MailFrom: github@alsa-project.org
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US, de-DE
+To: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+From: Thomas van Houten <thomas.vanhouten@gmx.de>
+Subject: Subject: [BUG] snd_hda_intel runtime power management unsupported on
+ MSI MPG Z390 GAMING PLUS with Realtek codec (kernel 6.8.0) causing excessive
+ audio power draw
+X-Provags-ID: V03:K1:vTaPYownMRjxIqMsX0yJ1UcMP/7AXE+z2SI9Hk8zWOp/xNSSaju
+ lpe/y60c7phuiznCi7ggo//aB8bSZo3pG5RbXn4UdZZZ9JHj5wUm7tT9q78Kyq89rwnqrF4
+ wztRvENjMARwnVHm1iRZVx3M58D/UGy7kgkRdPLxClSt5qrAExsfVG2+K7B8pob/DOHWLME
+ S/zSDYj6RfyC1auR2Wg0g==
+UI-OutboundReport: notjunk:1;M01:P0:JrrJzzx8Qt8=;/IJYAhrRL2d+Wi8qlasuB0dxUsq
+ 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
+X-MailFrom: thomas.vanhouten@gmx.de
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: E4KOVYZQB6EZBSLMPOAR2LBKEVBV3OCS
+X-Message-ID-Hash: E4KOVYZQB6EZBSLMPOAR2LBKEVBV3OCS
+X-Mailman-Approved-At: Sun, 10 Aug 2025 10:48:51 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZBPP5BVNHWRPOSDFBN6CNXNABDCPSJB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E4KOVYZQB6EZBSLMPOAR2LBKEVBV3OCS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,12 +160,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #599 was opened from jglathe:
-
-Same layout as T14s, 2 speakers, headphone jack, DMIC
-
-Tested on Ideapad 5 2in1 14Q8X9.
-
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/599
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/599.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+RGVhciBMaW51eCBrZXJuZWwgYW5kIEFMU0EgZGV2ZWxvcGVycywNCg0KSSBhbSByZXBvcnRpbmcg
+YW4gaXNzdWUgcmVsYXRlZCB0byBydW50aW1lIHBvd2VyIG1hbmFnZW1lbnQgc3VwcG9ydCBmb3Ig
+DQp0aGUgb25ib2FyZCBSZWFsdGVrIGF1ZGlvIGNvZGVjIG9uIG15IGRlc2t0b3AgbW90aGVyYm9h
+cmQsIHdoaWNoIHJlc3VsdHMgDQppbiBjb250aW51b3VzbHkgaGlnaCBhdWRpbyBoYXJkd2FyZSBw
+b3dlciB1c2FnZSBhbmQgaW5jcmVhc2VkIGlkbGUgDQpzeXN0ZW0gcG93ZXIgZHJhdy4NCg0KKlN5
+c3RlbSBJbmZvcm1hdGlvbjoqDQoNCiAgKg0KDQogICAgS2VybmVsOiA2LjguMC02NC1nZW5lcmlj
+IHg4Nl82NA0KDQogICoNCg0KICAgIERpc3RyaWJ1dGlvbjogTGludXggTWludCAyMS4zIFZpcmdp
+bmlhDQoNCiAgKg0KDQogICAgTW90aGVyYm9hcmQ6IE1TSSBNUEcgWjM5MCBHQU1JTkcgUExVUyAo
+TVMtN0I1MSkNCg0KICAqDQoNCiAgICBDUFU6IEludGVsIENvcmUgaTUtOTQwMEYNCg0KICAqDQoN
+CiAgICBBdWRpbyBEcml2ZXI6IHNuZF9oZGFfaW50ZWwNCg0KICAqDQoNCiAgICBBdWRpbyBDb2Rl
+YzogUmVhbHRlayAobGlrZWx5IEFMQzEyMjAgb3Igc2ltaWxhcikNCg0KKklzc3VlIFN1bW1hcnk6
+Kg0KVGhlIG9uYm9hcmQgUmVhbHRlayBhdWRpbyBjb2RlYyBkb2VzIG5vdCBlbnRlciBydW50aW1l
+IHBvd2VyIG1hbmFnZW1lbnQgDQpsb3ctcG93ZXIgc3RhdGVzLCBjYXVzaW5nIGl0IHRvIHJlbWFp
+biBhdCAxMDAlIHBvd2VyIHVzYWdlIGV2ZW4gd2hlbiANCmlkbGUuIFRoaXMgc2lnbmlmaWNhbnRs
+eSBjb250cmlidXRlcyB0byBteSBzeXN0ZW0ncyBoaWdoIGlkbGUgcG93ZXIgDQpjb25zdW1wdGlv
+biAofjE2MFcgdG90YWwpLCBkZXNwaXRlIGxvdyBDUFUgYW5kIEdQVSBkcmF3Lg0KDQoqRGV0YWls
+ZWQgRGlhZ25vc3RpY3M6Kg0KDQogMS4NCg0KICAgICpQQ0kgQXVkaW8gRGV2aWNlczoqDQoNCnRl
+eHQNCnwwMDoxZi4zIEF1ZGlvIGRldmljZSBbMDQwM106IEludGVsIENvcnBvcmF0aW9uIENhbm5v
+biBMYWtlIFBDSCBjQVZTIA0KWzgwODY6YTM0OF0gKHJldiAxMCkgMDM6MDAuMSBBdWRpbyBkZXZp
+Y2UgWzA0MDNdOiBBZHZhbmNlZCBNaWNybyANCkRldmljZXMsIEluYy4gW0FNRC9BVEldIE5hdmkg
+MzEgSERNSS9EUCBBdWRpbyBbMTAwMjphYjMwXSAwNzowMC4xIEF1ZGlvIA0KZGV2aWNlIFswNDAz
+XTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EL0FUSV0gTmF2aSAyMS8yMyBIRE1J
+L0RQIA0KQXVkaW8gQ29udHJvbGxlciBbMTAwMjphYjI4XSB8DQoNCiAyLg0KDQogICAgKktlcm5l
+bCBNZXNzYWdlcyByZWxhdGVkIHRvIHNuZF9oZGFfaW50ZWwgb3IgYXVkaW86Kg0KICAgIE5vIGxv
+Z3MgZm91bmQgdmlhfGRtZXNnIHwgZ3JlcCAtaSBzbmRfaGRhX2ludGVsfG9yfGRtZXNnIHwgZ3Jl
+cCAtaQ0KICAgIGF1ZGlvfC4NCg0KIDMuDQoNCiAgICAqUG93ZXIgbWFuYWdlbWVudCBzeXNmcyBz
+ZXR0aW5nczoqDQoNCnRleHQNCnxjYXQgL3N5cy9tb2R1bGUvc25kX2hkYV9pbnRlbC9wYXJhbWV0
+ZXJzL3Bvd2VyX3NhdmUgMTAgY2F0IA0KL3N5cy9jbGFzcy9zb3VuZC9od0MqL3Bvd2VyL3J1bnRp
+bWVfc3RhdHVzIHVuc3VwcG9ydGVkIHVuc3VwcG9ydGVkIA0KdW5zdXBwb3J0ZWQgY2F0IC9zeXMv
+Y2xhc3Mvc291bmQvaHdDKi9wb3dlci9jb250cm9sIGF1dG8gYXV0byBhdXRvIHwNCg0KVGhlfHJ1
+bnRpbWVfc3RhdHVzfHJlcG9ydHMgInVuc3VwcG9ydGVkIiwgaW5kaWNhdGluZyBubyBydW50aW1l
+IFBNIA0Kc3VwcG9ydCBpcyBhdmFpbGFibGUgZm9yIHRoZXNlIGF1ZGlvIGRldmljZXMuDQoNCiA0
+Lg0KDQogICAgKlB1bHNlQXVkaW8gYW5kIHVzZXItc3BhY2UgcHJvY2Vzc2VzIGluc3BlY3Rpb246
+Kg0KICAgIFN0b3BwZWQgUHVsc2VBdWRpbyBhbmQgYWxsIGF1ZGlvIGNsaWVudHMsIHdpdGggbm8g
+Y2hhbmdlIGluIHBvd2VyDQogICAgdXNhZ2Ugb3IgZGV2aWNlIG93bmVyc2hpcCBvZiBhdWRpbyBj
+b250cm9scywgY29uZmlybWluZyB0aGlzIGlzIG5vdA0KICAgIGNhdXNlZCBieSB1c2VyLXNwYWNl
+IGF1ZGlvIGFwcGxpY2F0aW9ucy4NCg0KIDUuDQoNCiAgICAqUG93ZXJ0b3AgUmVwb3J0czoqDQoN
+CnRleHQNCnwxMDAuMCUgRGV2aWNlIEF1ZGlvIGNvZGVjIGh3QzJEMDogUmVhbHRlayB8DQoNCkNv
+bnNpc3RlbnRseSAxMDAlIHVzYWdlIGZyb20gdGhlIFJlYWx0ZWsgYXVkaW8gY29kZWMsIGNvbmZp
+cm1lZCBieSBwb3dlcnRvcC4NCg0KIDYuDQoNCiAgICAqRHJpdmVyIHBhcmFtZXRlciBzZXQ6Kg0K
+ICAgIHxzbmRfaGRhX2ludGVsfG1vZHVsZXxwb3dlcl9zYXZlfHBhcmFtZXRlciBzdWNjZXNzZnVs
+bHkgc2V0IHRvIDEwDQogICAgc2Vjb25kcyAodmFsdWUgMTApLCBidXQgbm8gZWZmZWN0aXZlIHBv
+d2VyIHNhdmluZyBvYnNlcnZlZC4NCg0KKkltcGFjdDoqDQpUaGUgbGFjayBvZiBydW50aW1lIHBv
+d2VyIG1hbmFnZW1lbnQgc3VwcG9ydCBmb3IgdGhpcyBhdWRpbyBjb2RlYyBjYXVzZXMgDQpjb250
+aW51b3VzIGhpZ2ggcG93ZXIgZHJhdywgaW5jcmVhc2luZyBzeXN0ZW0gaWRsZSBwb3dlciBjb25z
+dW1wdGlvbiANCnNpZ25pZmljYW50bHksIHJlZHVjaW5nIGVuZXJneSBlZmZpY2llbmN5Lg0KDQoq
+UmVxdWVzdDoqDQpQbGVhc2UgaW52ZXN0aWdhdGUgd2hldGhlciB0aGlzIGlzIGEgZHJpdmVyIGxp
+bWl0YXRpb24sIG1pc3NpbmcgZmlybXdhcmUgDQpxdWlyaywgb3IgY29uZmlndXJhdGlvbiBpc3N1
+ZSB3aXRofHNuZF9oZGFfaW50ZWx8b24gdGhlIE1TSSBNUEcgWjM5MCANCkdBTUlORyBQTFVTIG1v
+dGhlcmJvYXJkJ3MgUmVhbHRlayBjb2RlYy4gR3VpZGFuY2UsIHdvcmthcm91bmRzLCBvciANCnBh
+dGNoZXMgdG8gZW5hYmxlIHJ1bnRpbWUgcG93ZXIgbWFuYWdlbWVudCB3b3VsZCBiZSBhcHByZWNp
+YXRlZC4NCg0KKkFkZGl0aW9uYWwgbm90ZXM6Kg0KDQogICoNCg0KICAgIFRlc3RlZCBwb3dlciBt
+YW5hZ2VtZW50IHNldHRpbmdzIGFjY29yZGluZyB0byBjdXJyZW50IGJlc3QgcHJhY3RpY2VzLg0K
+DQogICoNCg0KICAgIEJJT1MgaXMgdXAgdG8gZGF0ZSBhcyBvZiB0aGUgbGF0ZXN0IE1TSSByZWxl
+YXNlLg0KDQogICoNCg0KICAgIFN5c3RlbSBiZWhhdmlvciBjb25zaXN0ZW50IG9uIExpdmUgVVNC
+IG9mIHRoZSBzYW1lIExpbnV4IE1pbnQNCiAgICB2ZXJzaW9u4oCUcHJvYmxlbSBub3QgZHVlIHRv
+IGxvY2FsIGNvbmZpZ3VyYXRpb24uDQoNClRoYW5rIHlvdSBmb3IgeW91ciBhdHRlbnRpb24gdG8g
+dGhpcyBtYXR0ZXIuIEnigJltIGhhcHB5IHRvIHByb3ZpZGUgDQphZGRpdGlvbmFsIGxvZ3Mgb3Ig
+YXNzaXN0IHdpdGggdGVzdGluZyBwYXRjaGVzLg0KDQoNCkJlc3QgcmVnYXJkcywNCg0KDQpUaG9t
+YXMgdmFuIEhvdXRlbg0K

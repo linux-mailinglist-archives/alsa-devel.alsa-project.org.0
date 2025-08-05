@@ -2,100 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E392B1BBCF
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Aug 2025 23:37:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19C32B1BD6A
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Aug 2025 01:38:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04D586029D;
-	Tue,  5 Aug 2025 23:37:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04D586029D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F26160286;
+	Wed,  6 Aug 2025 01:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F26160286
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754429853;
-	bh=bvg20eZHbAjBzTXGeTHpnNdERiU2rFxDpliw0tBwoPE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SFP2GAYm2foSK1P5UP40Br4Jouo0N5o6wAGiYM60kv1MGaUkSQRl0psuQHJA70iQJ
-	 upf6kMJZscIi4sYIA0Mzqfm2m1lFhPtfy0udKDd0ApCFxMrmdMV3WcweTbZoNuH90Y
-	 xjoneqyki0mjFF0t0WsMAErTo4zpDPKJnr9ZBVwU=
+	s=default; t=1754437116;
+	bh=GbFytaznhp3Xrjodzowg4ipvGnU/ddTW4zfXuEu8J54=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=BIZTk3PUz0xBI2pEO2eknrd/u2u/HJEzgP7QOw6r0iduyhSdXb/RcCjuxWzCcQQCG
+	 od10ObExY2FtHy5UpHJGLx0IPadQFSUvk3qGm+zQvYqAVPiRuAwgRJ49pL68ByIkj8
+	 h9ihM9Vf2DNFMoBxSLOy/gp2mPdbrNfGZAT6CZ3k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3FF45F805D3; Tue,  5 Aug 2025 23:36:57 +0200 (CEST)
+	id DF5B0F805C8; Wed,  6 Aug 2025 01:38:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10668F805C5;
-	Tue,  5 Aug 2025 23:36:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CED1F805C1;
+	Wed,  6 Aug 2025 01:38:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DDF4EF804B3; Tue,  5 Aug 2025 23:36:38 +0200 (CEST)
+	id AEB57F80423; Wed,  6 Aug 2025 01:37:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0232FF800FE
-	for <alsa-devel@alsa-project.org>; Tue,  5 Aug 2025 23:36:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0232FF800FE
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=EjPsImCH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1754429790; x=1785965790;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bvg20eZHbAjBzTXGeTHpnNdERiU2rFxDpliw0tBwoPE=;
-  b=EjPsImCHUICnhXfOZd/vIVzL9+wMGk848E4EplzBG5Z/8GKxIaB/91Wn
-   GkVxskFOkoMoeonVpCNvflX5H4vVFQxTxOoJ8jFABPdXs5NTQXFFJHaAA
-   yEH47h0SgV9KKyFBbkJdMrBtHUzOx6tFMKTHQgx65Wdd3nVjPTk66B3LL
-   I5N4ZZFpVsdZQeULuEeqApyby/R6RCSB4W11TVfF0Teg2gVwSSQXTfATO
-   sVgViluVHVz+d0mi4HW7b9q6/awNx87sW90WO9wRSC1GjIVdGNW8YXxLH
-   +hS+OZrfOvk9tR0wucUbARmuD60J1+3hINzNiVTdGSwVQhyyVF0kFnQTO
-   Q==;
-X-CSE-ConnectionGUID: kz0uwjp/Seawam1+A+1osQ==
-X-CSE-MsgGUID: +FHJlaOkRPWpI3WqI2LC2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11513"; a="56701690"
-X-IronPort-AV: E=Sophos;i="6.17,268,1747724400";
-   d="scan'208";a="56701690"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2025 14:36:24 -0700
-X-CSE-ConnectionGUID: nOC0iUIlSl+MAHietDD5yg==
-X-CSE-MsgGUID: 9PWR2VPuRp2nQ5Sw9S/twg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.17,268,1747724400";
-   d="scan'208";a="169870691"
-Received: from smile.fi.intel.com ([10.237.72.52])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2025 14:36:21 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1ujPKU-00000003rKU-1KDk;
-	Wed, 06 Aug 2025 00:36:18 +0300
-Date: Wed, 6 Aug 2025 00:36:18 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Baojun Xu <baojun.xu@ti.com>
-Cc: tiwai@suse.de, broonie@kernel.org, alsa-devel@alsa-project.org,
-	shenghao-ding@ti.com, 13916275206@139.com,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ALSA: hda: Fix the wrong register was used for DVC of
- TAS2770
-Message-ID: <aJJ5UgpSw8A5IqeG@smile.fi.intel.com>
-References: <20250729125938.54696-1-baojun.xu@ti.com>
+X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 5622CF80016
+	for <alsa-devel@alsa-project.org>; Wed,  6 Aug 2025 01:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5622CF80016
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250729125938.54696-1-baojun.xu@ti.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Message-ID-Hash: ZAZX2VL5KJ3KSRSMKW3NPAXFL7PKTHGT
-X-Message-ID-Hash: ZAZX2VL5KJ3KSRSMKW3NPAXFL7PKTHGT
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+Message-Id: <185903368cf81f00-webhooks-bot@alsa-project.org>
+In-Reply-To: <185903368c3a9900-webhooks-bot@alsa-project.org>
+References: <185903368c3a9900-webhooks-bot@alsa-project.org>
+Subject: ALC4082: capturing S/PDIF output causes volume to jump to max - asus
+ rog crosshair x670e hero
+Date: Wed,  6 Aug 2025 01:37:46 +0200 (CEST)
+Message-ID-Hash: AKGTBLRTV4IDG2QRJ42Y2LEJYSZESF5I
+X-Message-ID-Hash: AKGTBLRTV4IDG2QRJ42Y2LEJYSZESF5I
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +63,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZAZX2VL5KJ3KSRSMKW3NPAXFL7PKTHGT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKGTBLRTV4IDG2QRJ42Y2LEJYSZESF5I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,19 +72,359 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 29, 2025 at 08:59:38PM +0800, Baojun Xu wrote:
-> The wrong register was used for digital volume control of TAS2770,
-> The definition was changed, and usage was also updated.
+alsa-project/alsa-ucm-conf issue #598 was edited from LuanVSO:
 
-> Fixes: ab29b3460c5c ("ALSA: hda: Add TAS2770 support")
-> 
+hi, i had a problem where opening the kde plasma volume applet would make the volume on my headphone jump to the maximum.
+after muting the "PCM 2" channel on alsamixer i notice that the volume on the headphone would go muted instead.
+so i edited the ALC4080-HiFi.conf file and remove every mention of S/PDIF and rebooted my machine.
 
-To make Fixes to be a tag, remove this blank line.
+after the change the problem didn't happen anymore.
+what do you need to fix the mapping problem?
 
-> Signed-off-by: Baojun Xu <baojun.xu@ti.com>
+i think this happens because the "PCM 2" volume controls is redirecting to headphone output, but it doenst have a slider, so it is either max or muted:
 
--- 
-With Best Regards,
-Andy Shevchenko
+<img width="1259" height="967" alt="Image" src="https://github.com/user-attachments/assets/3b266bb7-7e1c-4a7a-b448-affabf06b01c" />
 
+(also the S/PDIF aways appeared as connected even though i did not have anything connected to it, don't know if it is expected)
 
+[alsa-info.txt](https://github.com/user-attachments/files/21583734/alsa-info.txt)
+
+<details>
+<summary>edited ALC4080-HiFi.conf</summary>
+
+```
+Define {
+	SpeakerMixer "PCM"
+	SpeakerMindex "0"
+	SpeakerJack "Speaker - Output Jack"
+	SpeakerPCM "hw:${CardId}"
+
+	HeadphonesName "Front Headphones"
+	HeadphonesMixer "PCM"
+	HeadphonesMindex "1"
+	HeadphonesJack "Headphone - Output Jack"
+	HeadphonesPCM "hw:${CardId},1"
+
+	Mic1Name "Microphone"
+	Mic1Mixer "Mic"
+	Mic1Mindex "0"
+	Mic1Jack "Mic - Input Jack"
+	Mic1PCM "hw:${CardId},2"
+
+	Mic2Name ""
+	Mic2Mixer ""
+	Mic2Mindex "0"
+	Mic2Jack ""
+	Mic2PCM ""
+
+	Line1Name "Line Input"
+	Line1Mixer "Line"
+	Line1Mindex "0"
+	Line1Jack "Line - Input Jack"
+	Line1PCM "hw:${CardId},1"
+
+#	SpdifName "S/PDIF Output"
+#	SpdifPCM "hw:${CardId},3"
+#	SpdifMixer "PCM"
+#	SpdifMindex "2"
+}
+
+If.speaker_ctl {
+	Condition {
+		Type ControlExists
+		Control "name='Speaker Playback Switch'"
+	}
+	True.Define.SpeakerMixer "Speaker"
+}
+
+If.front_hp_ctl {
+	Condition {
+		Type ControlExists
+		Control "name='Front Headphone Playback Switch'"
+	}
+	True.Define {
+		HeadphonesMixer "Front Headphone"
+		HeadphonesMindex "0"
+	}
+}
+
+#If.spdif_ctl {
+#	Condition {
+#		Type ControlExists
+#		Control "name='IEC958 Playback Switch'"
+#	}
+#	True.Define {
+#		SpdifMixer "IEC958"
+#		SpdifMindex "0"
+#	}
+#}
+
+#If.spdif_nodev {
+#	Condition {
+#		Type RegexMatch
+#		String "${CardComponents}"
+#		Regex "USB(0db0:36e7)"
+#	}
+#	True.Define.SpdifName ""
+#}
+
+#If.spdif_dev2 {
+#	Condition {
+#		Type RegexMatch
+#		String "${CardComponents}"
+#		Regex "USB(0b05:(1996|1a5[23c])|0db0:1feb)"
+#	}
+#	True.Define.SpdifPCM "hw:${CardId},2"
+#}
+
+If.gigabyte-aorus-ultra {
+	Condition {
+		Type RegexMatch
+		String "${CardComponents}"
+		Regex "USB(0414:a014)"
+	}
+	True.Define {
+		Mic1Name "Front Microphone"
+		Mic1PCM "hw:${CardId},0"
+		Mic2Name "Rear Microphone"
+		Mic2Mixer "Mic"
+		Mic2Mindex "1"
+		Mic2Jack "name='Mic - Input Jack',index=1"
+		Mic2PCM "hw:${CardId},1"
+		SpdifName ""
+		Line1Name ""
+	}
+}
+
+If.asus-rog-usb {
+	Condition {
+		Type RegexMatch
+		String "${CardComponents}"
+		Regex "USB(0b05:1996)"
+	}
+	True.Define {
+		Mic1Name "Front Microphone"
+		Mic2Name "Microphone"
+		Mic2Mixer "Analog In"
+		Mic2Jack "Analog In - Input Jack"
+		Mic2PCM "hw:${CardId}"
+	}
+}
+
+If.asrock-taichi {
+	Condition {
+		Type RegexMatch
+		String "${CardComponents}"
+		Regex "USB(26ce:0a0[68b])"
+	}
+	True.Define {
+		Line1Name ""
+		Mic1Name "Rear Input"
+		Mic1PCM "hw:${CardId},0"
+		Mic2Name "Front Microphone"
+		Mic2Mixer "Mic"
+		Mic2Jack "Front Mic - Input Jack"
+		Mic2PCM "hw:${CardId},1"
+	}
+}
+
+If.wrx80-sage {
+	Condition {
+		Type RegexMatch
+		String "${CardComponents}"
+		Regex "USB(0b05:1984)"
+	}
+	True.Define {
+		Mic2Name "Front Microphone"
+		Mic2Mixer "Analog In"
+		Mic2Jack "Analog In - Input Jack"
+		Mic2PCM "hw:${CardId}"
+	}
+}
+
+If.msi-meg-unify {
+	Condition {
+		Type RegexMatch
+		String "${CardComponents}"
+		Regex "USB(0db0:82c7)"
+	}
+	True.Define {
+		HeadphonesName ""
+		SpdifName ""
+	}
+}
+
+If.asus-rog-strix {
+	Condition {
+		Type RegexMatch
+		String "${CardComponents}"
+		Regex "USB(0b05:1999)"
+	}
+	True.Define {
+		Line1PCM "hw:${CardId},3"
+		HeadphonesName ""
+		SpdifName ""
+	}
+}
+
+SectionVerb {
+	EnableSequence [
+		disdevall ""
+	]
+
+	Value.TQ "HiFi"
+}
+
+SectionDevice."Speaker" {
+	Comment "Speakers"
+
+	EnableSequence [
+		cset "name='${var:SpeakerMixer} Playback Switch',index=${var:SpeakerMindex} on"
+	]
+
+	DisableSequence [
+		cset "name='${var:SpeakerMixer} Playback Switch',index=${var:SpeakerMindex} off"
+	]
+
+	Value {
+		PlaybackChannels 2
+		PlaybackPriority 200
+		PlaybackPCM "${var:SpeakerPCM}"
+		JackControl "${var:SpeakerJack}"
+		PlaybackMixerElem "${var:SpeakerMixer},${var:SpeakerMindex}"
+	}
+
+	Variant."HiFi 5+1".Value.PlaybackChannels 6
+	Variant."HiFi 7+1".Value.PlaybackChannels 8
+}
+
+If.headphones {
+	Condition {
+		Type String
+		Empty "${var:HeadphonesName}"
+	}
+	False.SectionDevice."Headphones" {
+		Comment "${var:HeadphonesName}"
+
+		EnableSequence [
+			cset "name='${var:HeadphonesMixer} Playback Switch',index=${var:HeadphonesMindex} on"
+		]
+
+		DisableSequence [
+			cset "name='${var:HeadphonesMixer} Playback Switch',index=${var:HeadphonesMindex} off"
+		]
+
+		Value {
+			PlaybackPriority 300
+			PlaybackPCM "${var:HeadphonesPCM}"
+			JackControl "${var:HeadphonesJack}"
+			PlaybackMixerElem "${var:HeadphonesMixer},${var:HeadphonesMindex}"
+		}
+	}
+}
+
+#If.spdif {
+#	Condition {
+#		Type String
+#		Empty "${var:SpdifName}"
+#	}
+#	False.SectionDevice."SPDIF" {
+#		Comment "${var:SpdifName}"
+#
+#		EnableSequence [
+#			cset "name='${var:SpdifMixer} Playback Switch',index=${var:SpdifMindex} on"
+#		]
+#
+#		DisableSequence [
+#			cset "name='${var:SpdifMixer} Playback Switch',index=${var:SpdifMindex} off"
+#		]
+#
+#		Value {
+#			PlaybackPriority 100
+#			PlaybackPCM "${var:SpdifPCM}"
+#			PlaybackMixerElem "${var:SpdifMixer},${var:SpdifMindex}"
+#		}
+#	}
+#}
+
+If.line1 {
+	Condition {
+		Type String
+		Empty "${var:Line1Name}"
+	}
+	False.SectionDevice."Line1" {
+		Comment "${var:Line1Name}"
+
+		EnableSequence [
+			cset "name='${var:Line1Mixer} Capture Switch',index=${var:Line1Mindex} on"
+		]
+
+		DisableSequence [
+			cset "name='${var:Line1Mixer} Capture Switch',index=${var:Line1Mindex} off"
+		]
+
+		Value {
+			CapturePriority 100
+			CapturePCM "${var:Line1PCM}"
+			JackControl "${var:Line1Jack}"
+			CaptureMixerElem "${var:Line1Mixer},${var:Line1Mindex}"
+		}
+	}
+}
+
+If.mic1 {
+	Condition {
+		Type String
+		Empty "${var:Mic1Name}"
+	}
+	False.SectionDevice."Mic1" {
+		Comment "${var:Mic1Name}"
+
+		EnableSequence [
+			cset "name='${var:Mic1Mixer} Capture Switch',index=${var:Mic1Mindex} on"
+		]
+
+		DisableSequence [
+			cset "name='${var:Mic1Mixer} Capture Switch',index=${var:Mic1Mindex} off"
+		]
+
+		Value {
+			CapturePriority 300
+			CapturePCM "${var:Mic1PCM}"
+			JackControl "${var:Mic1Jack}"
+			CaptureMixerElem "${var:Mic1Mixer},${var:Mic1Mindex}"
+		}
+	}
+}
+
+If.mic2 {
+	Condition {
+		Type String
+		Empty "${var:Mic2Name}"
+	}
+	False.SectionDevice."Mic2" {
+		Comment "${var:Mic2Name}"
+
+		EnableSequence [
+			cset "name='${var:Mic2Mixer} Capture Switch',index=${var:Mic2Mindex} on"
+		]
+
+		DisableSequence [
+			cset "name='${var:Mic2Mixer} Capture Switch',index=${var:Mic2Mindex} off"
+		]
+
+		Value {
+			CapturePriority 400
+			CapturePCM "${var:Mic2PCM}"
+			JackControl "${var:Mic2Jack}"
+			CaptureMixerElem "${var:Mic2Mixer},${var:Mic2Mindex}"
+		}
+	}
+}
+
+```
+
+</details>
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/598
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

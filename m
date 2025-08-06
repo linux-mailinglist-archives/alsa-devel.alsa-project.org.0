@@ -2,123 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C8EB1F9B1
-	for <lists+alsa-devel@lfdr.de>; Sun, 10 Aug 2025 12:50:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7DF7B1F9B2
+	for <lists+alsa-devel@lfdr.de>; Sun, 10 Aug 2025 12:50:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C4CA601F8;
-	Sun, 10 Aug 2025 12:50:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C4CA601F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61E7C601EB;
+	Sun, 10 Aug 2025 12:50:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61E7C601EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754823039;
-	bh=qS8TpbhAP4WjL5cs5ytUd9H7Pe4HhPz8faFscYw61Lc=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=scG7mTvKI+ZEUlKbjcBT/EIBFC3JycSJ9hT4fWTzEV4gjgFhUraj4MoFjXEyozgRP
-	 FaQudUoZAlwXIk/hRVnR8uaHJ4Xm7FkL9NOltHTIrgGl/odx07yUR0pGosXZRYyzYR
-	 KSJ8Cj4s6540VqmyHDUIpA2HbiKF18umCRqaHyX4=
+	s=default; t=1754823058;
+	bh=M0Q+UjO0DAw6vRy8bYdy1az/QsuI/Ao9CWZcCKLVAPU=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tQ40b/2scQ6Aou1KYRLCIddRf8FvmH6pCs4VcxFWEIQ3DNboCW3idIouKqIqrpKo0
+	 Zwlx96kUA3pPaNbrjyfa0hzPifzTmuM+VKMB2E/yMFX+U+C4QNwUtNTuz37XuPHPs2
+	 iG7MUxrXjim5DokkK2paDjZdM8KmThQ4N7SBy+bE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D35BF805D3; Sun, 10 Aug 2025 12:50:05 +0200 (CEST)
+	id DB5BEF805BA; Sun, 10 Aug 2025 12:50:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EED91F805CB;
-	Sun, 10 Aug 2025 12:50:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE784F805EA;
+	Sun, 10 Aug 2025 12:50:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1A7FF80154; Wed,  6 Aug 2025 12:01:55 +0200 (CEST)
+	id C3BBBF80423; Wed,  6 Aug 2025 12:58:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_40,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=0.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
- [209.85.221.182])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6EE6CF80134
-	for <alsa-devel@alsa-project.org>; Wed,  6 Aug 2025 12:01:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EE6CF80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id 96DA8F80134
+	for <alsa-devel@alsa-project.org>; Wed,  6 Aug 2025 12:57:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96DA8F80134
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=riscv-rocks.de header.i=@riscv-rocks.de
- header.a=rsa-sha256 header.s=google header.b=FrrRQz4y
-Received: by mail-vk1-f182.google.com with SMTP id
- 71dfb90a1353d-5392bf8b590so3691945e0c.3
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=c4KW5rb5
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-76bf3dafaa5so775652b3a.0
         for <alsa-devel@alsa-project.org>;
- Wed, 06 Aug 2025 03:01:45 -0700 (PDT)
+ Wed, 06 Aug 2025 03:57:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscv-rocks.de; s=google; t=1754474503; x=1755079303;
+        d=gmail.com; s=20230601; t=1754477876; x=1755082676;
  darn=alsa-project.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=R5dE86/gwg8v34qkAE2TEB8lhTTeYs/JThQrdrmyw5A=;
-        b=FrrRQz4yEBsDCHQb4q29/KTiO+N+Wb5vpaFjq2D5gwxOad8eQdGudEvLp5J12a23Zx
-         Kq72XaT5ltdv3z1w+ENtzK6WaW+ltNYGRU8sHGmIZiIBT/eEvI1II2H2E7nJMWddhw2R
-         v1+CJIbOGaRA63rFtXEWDZpN/Qhcqh9cPiBLlhbqNpRoTL5ZoDr1oBnP9gBC4F0Vh/4V
-         F7xJTrM11lZOdoKBvLMvxiY4pvNq4qG6aiXrGidkADvQ8P87/QVfaXSGVDMI+A+x0ww7
-         xcILdc6V7fDyTU4U0eDnA7LVmW1TOnqxvqlt+LmG9IkHf+YaySH3lNy1UPYM2D7to6QS
-         be9Q==
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=jSUVe1M5X2sr8gMyPVkbhKuzUsLrNdV6VGIOxTXvzgk=;
+        b=c4KW5rb5ltGDJ9p/JXBkhBHreo3zu73e31p8Eu6AlxvL9WZO6hmIhuOm+7+F37/eX7
+         c53mNM/Bt8XAsKKcgZAIc70oVYMk/RLUn0dfjqSO6Aykb8rU/Bt6XgIeBiROMXgg6nZM
+         eXW3U2zB+JPzPcSvolnqz2wQQ15Mla2ajOVHMOzqIiEjTzRYumux8Jt2R09G8EsnrL5K
+         OWeVMJASZ2kbq8rXDe+JISvivWEMuk1NZ4ee/9nHuD2BT9nYLgsFXIBczwCQllBeGeA5
+         iIwANVf7aHk+NKbyw4jWnRLuaS9rtuc2tq1bfi0eCR/OnbrN0IDR/aSBwltvNZ5zoMsz
+         /8sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754474503; x=1755079303;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=R5dE86/gwg8v34qkAE2TEB8lhTTeYs/JThQrdrmyw5A=;
-        b=pfrVINAHe7tuQs+ctS8adLM+WJDfAn5tpgNsI7I8DvgCFVE1JVEo+L2go7FyCL6viZ
-         inJidzMMQXLlYAduW2puIJlKX22EJi6sXBASFEzhBxr9zRn6S9TS69hf63bo69lJGLlc
-         iTx67wshHYPKRrluEh78uEdPnNjembc4d+mEw48f1YxBawIVSlEYgsa08vaK9uAuN1YR
-         WeTyPW50x9uCbs6oBEzGu8kL35kwE1r4MqFHm3m3SSGa2I7t3hax4Wax5khuXr813o49
-         +lO3ePm0ZBfoUW7mYSj4ZT4P+kdBPfq46HRBHmYYYAlR/YCEGP8RmHcGVMz7hbBZwus6
-         S6XA==
-X-Gm-Message-State: AOJu0YxG5CkviKuaE7YFNBnWzcE1sQW66w/EsY369sZ2EAfKzu3tv1LQ
-	S+sUZUgKvfI291gIfi6sSvuYbWsWho/JLd7fOFwTJyEGV6jJBkyUX95qGTI023ivnUTnbxuRHxX
-	0HvnKSk5FCLztK58EZwxhkaDhmz0LmEHIfPpGhIEfJB+vHNinGlQwRbCDyhSH/r8=
-X-Gm-Gg: ASbGncvAgh4vvaDB2RDfyjYMwTexcQIsZIroJ3JTh0u+53FOWKn53lKbQN1SKjd2UVr
-	dtlNPGL2V723VFJJMeAihGctarhQafUxI1wUu6Gs62eaIc0W8MOPP/BkAi92rgIw3YXL7U68+0C
-	rdOIEJhXoSbqGzYpEp3UBJ310fFtIQ0XnTiRiObVX16kir29uvr9wXJik5PzHZq81J+MmvK0iFX
-	EcYNlILUp1OmD0pLGULmnyGy3ynksU9yNjgHg==
+        d=1e100.net; s=20230601; t=1754477876; x=1755082676;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jSUVe1M5X2sr8gMyPVkbhKuzUsLrNdV6VGIOxTXvzgk=;
+        b=xNcPOJpr13a/JTV/v9U25h5u1LFWG12++033l8sHJeuMJwEAZf2ll3k6qUE2JcbVdq
+         w78sFX/DOTi+7OJyFHTqCjpSjyOAV3A72CRShWc6g58mBWQTJvvKVqv6KrQDThiMvgCZ
+         ir5sSRIc5Gm3Pu+mLxZd4mv4uCTNgTQkG5BQh9m9k5N0EtDlOzcpMOGPfHw6GNM1OEns
+         yWRjrljNFJtYS2gHB3Bxr/VyiKmbcuSzBWsMcX/rbMTS46lKb3cPAs9179jJOsVF/anu
+         Gp0pNFpj243lA1Q1C3iNKEhJk+F6+oJCv9pgIYRTRX8qyNlMI+X7CeK0gyt50rVEUEKe
+         FUlQ==
+X-Gm-Message-State: AOJu0Ywf1AUNNikckJmggeg5dwv6sT9fB6IqIiwrPZeILsMxg0ak2U7q
+	gC9BEpGFBX8FkSPpPqrmIggI6j+pUkkwSsIJuz/jSvUMP8SgldLbmj0U1aAWjcZPwcTKUqfQTRF
+	hWEzqxrs43yHxbGzpj0CZO5ObDEWwjofPv6jF
+X-Gm-Gg: ASbGnctEeNW2AILLPEKtoWjmfslT+PP7aewpDbyL/5SoevV+o2DbvrvcNyXnkpMnZIw
+	+9oxX1UzuYaNCOcYLLrbDWoEyvIzJJq7acpx7wg3Cc8zEGKmAvqoFhHd5vyfod8oRMDhLYhlTEH
+	gwsyiqTMAa0WEqpdXZhZpjjUIudchwizmKqJ/bColHtI9epldoxNbgzFlacRHA3QK6W9e2Jc6g5
+	e+s7d/4
 X-Google-Smtp-Source: 
- AGHT+IE6r1J6qlMWgviQ+yxewLA2Nrkn4/twZpiqvHYa1jicNDRPEMHTTOHmNrgYST9R5Gr4uGai7fT/DT6T5M0mo10=
-X-Received: by 2002:a05:6122:3094:b0:539:1a61:9058 with SMTP id
- 71dfb90a1353d-539a03a49eemr862032e0c.3.1754474503195; Wed, 06 Aug 2025
- 03:01:43 -0700 (PDT)
+ AGHT+IGi9Piw9nX5VppOYO77FTiQz+7PY46zybRCizrG+es7+rAfnc3PsvEb0JmGqAbD3A2NzqgnSJWvJIUz/t/YrNs=
+X-Received: by 2002:a05:6a20:5491:b0:1f3:31fe:c1da with SMTP id
+ adf61e73a8af0-24031ab86c4mr3490887637.11.1754477875735; Wed, 06 Aug 2025
+ 03:57:55 -0700 (PDT)
 MIME-Version: 1.0
-References: 
- <CAL=B37=-_dBswNrQHc4dgfgZhoyjmaYQxE5dGZhQeB0ZGf0GtA@mail.gmail.com>
-In-Reply-To: 
- <CAL=B37=-_dBswNrQHc4dgfgZhoyjmaYQxE5dGZhQeB0ZGf0GtA@mail.gmail.com>
-From: Damian Tometzki <damian@riscv-rocks.de>
-Date: Wed, 6 Aug 2025 12:01:31 +0200
-X-Gm-Features: Ac12FXywPlNq7SfgsHizNX3R18WSAMYHzCjLnsGZ3T5P7n0cymx8Xvg9OE8AgJY
+From: Goran Kovac <gorankovacstudio@gmail.com>
+Date: Wed, 6 Aug 2025 12:57:44 +0200
+X-Gm-Features: Ac12FXxOzJUIbG3qOzSU4Q3sFyNzFuK0fkVrTyfdYomflOBkGgjiwDLFkuHO5MM
 Message-ID: 
- <CAL=B37kfXQ1kcVCYGCZrcP4PqYhU43km+NLtv3eP0XyspjEktg@mail.gmail.com>
-Subject: Re: ASoC HDMI errors with sof-hda-dsp on Intel platform (no PCM for
- intel-hdmi-hifiX)
+ <CA+GtZPW1b4KMRyoWx3Jc3G8bsegdFGCoPj=o=3yi_5evNX1=yA@mail.gmail.com>
+Subject: Re: ALSAfirewire broken / Pipewire 90ms delay
 To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: damian@tometzki.de
+X-MailFrom: gorankovacstudio@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: RZWJBGFVHYJ6RBRGFILQEETDCHPGFSZ2
-X-Message-ID-Hash: RZWJBGFVHYJ6RBRGFILQEETDCHPGFSZ2
+Message-ID-Hash: ZGXMR7PTEIA424F5IFAS2KA2LGPGEOY3
+X-Message-ID-Hash: ZGXMR7PTEIA424F5IFAS2KA2LGPGEOY3
 X-Mailman-Approved-At: Sun, 10 Aug 2025 10:49:57 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZWJBGFVHYJ6RBRGFILQEETDCHPGFSZ2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZGXMR7PTEIA424F5IFAS2KA2LGPGEOY3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,57 +120,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi all,
-
-I'm experiencing ASoC errors on an Intel-based system using the
-`sof-hda-dsp` driver. After boot, the kernel logs repeated errors
-related to HDMI outputs:
-
-[   90.933290] snd_hda_codec_generic ehdaudio0D2:
-snd_soc_find_pcm_from_dai: didn't find PCM for DAI intel-hdmi-hifi1
-[   90.933295] snd_hda_codec_generic ehdaudio0D2: ASoC error (-22): at
-snd_soc_dai_startup() on intel-hdmi-hifi1
-...
-[   91.016259] HDMI3: ASoC error (-22): at dpcm_fe_dai_startup() on HDMI3
-
-These errors are repeated for HDMI1, HDMI2, and HDMI3. It appears that
-`snd_soc_find_pcm_from_dai()` fails to resolve the DAI to a PCM, and
-this breaks HDMI audio initialization.
-
-**System info:**
-- Kernel: current Linus build 2938ae2fa7cd
-- Distro: Fedora 42
-- HDMI monitor with audio capability isn=C2=B4t connected
-
-Is there a known fix or workaround?
-Thanks in advance,
-Damian
-
-On Sat, Aug 2, 2025 at 12:46=E2=80=AFPM Damian Tometzki <damian@riscv-rocks=
-.de> wrote:
->
-> Hi all,
->
-> I'm experiencing ASoC errors on an Intel-based system using the
-> `sof-hda-dsp` driver. After boot, the kernel logs repeated errors
-> related to HDMI outputs:
->
-> [   90.933290] snd_hda_codec_generic ehdaudio0D2:
-> snd_soc_find_pcm_from_dai: didn't find PCM for DAI intel-hdmi-hifi1
-> [   90.933295] snd_hda_codec_generic ehdaudio0D2: ASoC error (-22): at
-> snd_soc_dai_startup() on intel-hdmi-hifi1
-> ...
-> [   91.016259] HDMI3: ASoC error (-22): at dpcm_fe_dai_startup() on HDMI3
->
-> These errors are repeated for HDMI1, HDMI2, and HDMI3. It appears that
-> `snd_soc_find_pcm_from_dai()` fails to resolve the DAI to a PCM, and
-> this breaks HDMI audio initialization.
->
-> **System info:**
-> - Kernel: current Linus build 2938ae2fa7cd
-> - Distro: Fedora 42
-> - HDMI monitor with audio capability isn=C2=B4t connected
->
-> Is there a known fix or workaround?
-> Thanks in advance,
-> Damian
+V2hpbGUgdGhpcyBpcyBtb3N0bHkgYSBub24gaXNzdWUgZm9yIHBsYXliYWNrIG9ubHksIHJlY29y
+ZGluZyBpbg0Kc3R1ZGlvIGVudmlyb25tZW50IGlzIHVuZm9ydHVuYXRlbHkgdW51c2FibGUuIFdv
+dWxkIGJlIHJlYWxseSBuaWNlIGlmIHRoaXMNCmNhbiBiZSBzb2x2ZWQuIE15IFJNRSA4MDAgY2Fu
+IGdvIHJlYWxseSBsb3cgd2l0aCBidWZmZXIgc2l6ZSBidXQgaXRzDQphbHdheXMgKzkwbXMuDQo=

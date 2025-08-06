@@ -2,81 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EF03B1C5FC
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Aug 2025 14:37:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0E5FB1CA70
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Aug 2025 19:15:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB7DD60272;
-	Wed,  6 Aug 2025 14:37:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB7DD60272
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA4EA601BC;
+	Wed,  6 Aug 2025 19:15:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA4EA601BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754483861;
-	bh=ugoVhQHbxpxicy+yvfLzFYQthVuUyMFjby3B3/SZtCM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=mmJ3XdAuQXAywzvlR9u7MOhER6FjzwVgwXc3hfyqjr5hOE03gucFnW1TqVSQ70Qab
-	 +KCROd18ViuO8fZgWYsLvafJ7oapYFaZbFkTj2ZUa2bTrPxeS0X4OTGLFfXmTsezZO
-	 h1iyU78iskaCLDo40KiLw3Ymgid0LjEZzsOW5s+4=
+	s=default; t=1754500546;
+	bh=72AVAJ87rVtXseew9hAgk98phf0ztd1QJ80ILDYTB4Q=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=uB30wgUy1BCJhoKnY6blgGqAaXWttLKYpq2IA7eiThcRzfd71jNz6ckApe2LG0aMO
+	 yQjPXg9D5Zc76rSKdBtXfog0Oi/635uujl4ofMyeFFX4DiDaCHs8TaO+G2Rgc/KXTW
+	 NDuZuKyQY1xVR+WSqprY9THNNoZXYdVucTsyNTXM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34768F805E5; Wed,  6 Aug 2025 14:37:19 +0200 (CEST)
+	id 064CBF805C3; Wed,  6 Aug 2025 19:15:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D749DF805C5;
-	Wed,  6 Aug 2025 14:37:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 595FDF805CA;
+	Wed,  6 Aug 2025 19:15:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C490FF80423; Wed,  6 Aug 2025 14:32:08 +0200 (CEST)
+	id 92B38F80423; Wed,  6 Aug 2025 19:14:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 76D92F800F8
-	for <alsa-devel@alsa-project.org>; Wed,  6 Aug 2025 14:31:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76D92F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46E36F80134
+	for <alsa-devel@alsa-project.org>; Wed,  6 Aug 2025 19:14:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E36F80134
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZJ8p1qyK
+ header.s=k20201202 header.b=AE5iPxkS
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id AD9A860200;
-	Wed,  6 Aug 2025 12:31:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C06C4CEF7;
-	Wed,  6 Aug 2025 12:31:06 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 88BC9601DC;
+	Wed,  6 Aug 2025 17:14:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36C1C4CEE7;
+	Wed,  6 Aug 2025 17:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1754483468;
-	bh=ugoVhQHbxpxicy+yvfLzFYQthVuUyMFjby3B3/SZtCM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ZJ8p1qyK58NCihD2YTnyscO7HufPzXRUOT33W6vZXygT38Id4Qoc84kmP6ncgMnWy
-	 Y4DF8ePC08LtCUHFRsDG9pTULNsGO9UD+LhOUjzw/vUsm3NNUFxQi0z6fKtlx5OblP
-	 +Z+HQJYogVYXFrfrcMOBrJ2Ig9HQgsbZ0zwRGbawpg2GQ1qHynm7Hz44nZtH1tHZoU
-	 VaSjsQyllJq9AzqT/lCnIBsHsCBWEyODIt73UCymcgLJtOpajPYPIbmKBjPXFRCJ9A
-	 pHb5YvFRcBuyoB2kaCqbYS/QlW9sse3yE+swEEO5OTk/aMjetI0OBOp//eH+6m3hw5
-	 yU7P52XDQ/5bw==
+	s=k20201202; t=1754500490;
+	bh=72AVAJ87rVtXseew9hAgk98phf0ztd1QJ80ILDYTB4Q=;
+	h=From:To:Cc:Subject:Date:From;
+	b=AE5iPxkSwCPkPGCYLseEkh5RJxNxyCZAi6wt+xx6hyF1wiGFUK/4meiOCBeRzV3Yh
+	 oYzQevZcR8KwT7rOtU2PzigMsZnr9oFaa8cHv8NSRj+B4r36qmw1rdNDIykOt4v4E0
+	 L8yDEyxAvNTCnMufgXat9vjGs/cWAT1AFSRrrM2xhnqypYlGuXindiXk/W31owl0ri
+	 CIUWui+cgtfw5l8Ij0mCHxl/d8Uhjr69Zfxe2XF305IJZ8fxNk+Psm30v6TUm8JgX5
+	 SCrsOCWY/sZdyQyufktVRMZpAqhRhgb/o+9jkk+UCZiYcnoq93ssk/OornPwUBVOkm
+	 zunjuiiRIj+jA==
+Message-ID: <97abce5e5d42120dc07961f73b548c7d.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, syed.sabakareem@amd.com
-In-Reply-To: <20250801062207.579388-1-venkataprasad.potturu@amd.com>
-References: <20250801062207.579388-1-venkataprasad.potturu@amd.com>
-Subject: Re: [PATCH 0/4] Add audio support for acp7.2 platform
-Message-Id: <175448346634.51650.6553312678264736417.b4-ty@kernel.org>
-Date: Wed, 06 Aug 2025 13:31:06 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-cff91
-Message-ID-Hash: HQQ2OZ554CMCVOZ7KCKB6DX2YO3UWEFJ
-X-Message-ID-Hash: HQQ2OZ554CMCVOZ7KCKB6DX2YO3UWEFJ
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.17-merge-window
+Date: Wed, 06 Aug 2025 18:14:43 +0100
+Message-ID-Hash: DK4R77SBY52525PNK466DORDUN53XHXR
+X-Message-ID-Hash: DK4R77SBY52525PNK466DORDUN53XHXR
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HQQ2OZ554CMCVOZ7KCKB6DX2YO3UWEFJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DK4R77SBY52525PNK466DORDUN53XHXR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,52 +90,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 01 Aug 2025 11:51:34 +0530, Venkata Prasad Potturu wrote:
-> This patch series is to add legacy and sof audio support
-> for acp7.2 platform.
-> 
-> Venkata Prasad Potturu (4):
->   ASoC: SOF: amd: Add sof audio support for acp7.2 platform
->   ASoC: amd: ps: Add SoundWire pci and dma driver support for acp7.2
->     platform
->   ASoC: amd: acp: Add SoundWire legacy machine driver support for acp7.2
->     platform
->   ASoC: amd: acp: Add SoundWire SOF machine driver support for acp7.2
->     platform
-> 
-> [...]
+The following changes since commit e95122a32e777309412e30dc638dbc88b9036811:
 
-Applied to
+  ASoC: codecs: Add acpi_match_table for aw88399 driver (2025-07-25 13:44:29 +0100)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.17-merge-window
 
-[1/4] ASoC: SOF: amd: Add sof audio support for acp7.2 platform
-      commit: 918b744af3d4d11a087814ebb6c390016e5242f2
-[2/4] ASoC: amd: ps: Add SoundWire pci and dma driver support for acp7.2 platform
-      commit: 60e5b2441d7c035e732e4a1166779c6cc316c46b
-[3/4] ASoC: amd: acp: Add SoundWire legacy machine driver support for acp7.2 platform
-      commit: 0df24f34794d2eea4bdc819fba0ba28f226286e6
-[4/4] ASoC: amd: acp: Add SoundWire SOF machine driver support for acp7.2 platform
-      commit: 1c4c768d068616fa8948826ab714a4ac1f3b9aa9
+for you to fetch changes up to 614d416dd8aee2675fb591c598308a901a660db8:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: SOF: Intel: hda-sdw-bpt: fix SND_SOF_SOF_HDA_SDW_BPT dependencies (2025-08-06 12:02:32 +0100)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.17
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+This is a relatively small set of fixes and device quirks that came in
+during the merge window, the AMD changes adding support for ACP 7.2
+systems are all just adding IDs for the devices rather than any
+substantial code - the actual code is the same as for prior versions of
+the platform.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Arnd Bergmann (1):
+      ASoC: SOF: Intel: hda-sdw-bpt: fix SND_SOF_SOF_HDA_SDW_BPT dependencies
 
-Thanks,
-Mark
+Baojun Xu (1):
+      ASoC: tas2781: Fix the wrong step for TLV on tas2781
 
+Cezary Rojewski (1):
+      ASoC: Intel: avs: Fix uninitialized pointer error in probe()
+
+Mark Brown (1):
+      Add audio support for acp7.2 platform
+
+Muhammad Usama Anjum (1):
+      ASoC: SOF: amd: acp-loader: Use GFP_KERNEL for DMA allocations in resume context
+
+Peter Jakubek (1):
+      ASoC: Intel: sof_sdw: Add quirk for Alienware Area 51 (2025) 0CCC SKU
+
+Shengjiu Wang (1):
+      ASoC: wm8962: Clear master mode when enter runtime suspend
+
+Venkata Prasad Potturu (4):
+      ASoC: SOF: amd: Add sof audio support for acp7.2 platform
+      ASoC: amd: ps: Add SoundWire pci and dma driver support for acp7.2 platform
+      ASoC: amd: acp: Add SoundWire legacy machine driver support for acp7.2 platform
+      ASoC: amd: acp: Add SoundWire SOF machine driver support for acp7.2 platform
+
+ include/sound/tas2781-tlv.h             |  2 +-
+ sound/soc/amd/acp/acp-sdw-legacy-mach.c |  3 +++
+ sound/soc/amd/acp/acp-sdw-sof-mach.c    |  1 +
+ sound/soc/amd/acp/soc_amd_sdw_common.h  |  2 ++
+ sound/soc/amd/ps/acp63.h                |  1 +
+ sound/soc/amd/ps/pci-ps.c               |  4 ++++
+ sound/soc/amd/ps/ps-sdw-dma.c           |  5 +++++
+ sound/soc/codecs/wm8962.c               | 11 +++++++++++
+ sound/soc/intel/avs/core.c              |  3 ++-
+ sound/soc/intel/boards/sof_sdw.c        |  8 ++++++++
+ sound/soc/sof/amd/acp-loader.c          |  6 +++---
+ sound/soc/sof/amd/acp.c                 |  8 ++++++++
+ sound/soc/sof/amd/acp.h                 |  1 +
+ sound/soc/sof/amd/pci-acp70.c           |  1 +
+ sound/soc/sof/intel/Kconfig             |  3 ++-
+ 15 files changed, 53 insertions(+), 6 deletions(-)

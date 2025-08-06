@@ -2,56 +2,165 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C32B1BD6A
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Aug 2025 01:38:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 045FFB1C04A
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Aug 2025 08:08:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F26160286;
-	Wed,  6 Aug 2025 01:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F26160286
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5903C6028A;
+	Wed,  6 Aug 2025 08:08:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5903C6028A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754437116;
-	bh=GbFytaznhp3Xrjodzowg4ipvGnU/ddTW4zfXuEu8J54=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=BIZTk3PUz0xBI2pEO2eknrd/u2u/HJEzgP7QOw6r0iduyhSdXb/RcCjuxWzCcQQCG
-	 od10ObExY2FtHy5UpHJGLx0IPadQFSUvk3qGm+zQvYqAVPiRuAwgRJ49pL68ByIkj8
-	 h9ihM9Vf2DNFMoBxSLOy/gp2mPdbrNfGZAT6CZ3k=
+	s=default; t=1754460523;
+	bh=Uy3EGkN+yEao1BDIEWmakFyqpZgqt3NXDN9LMoE0mOY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=FXDElZrwAOWFqX9plxEColF0XcoPFDI9w4t38/e/0+7FkizwOuzrML8BtUGrDQjlY
+	 GZx/ddFf1YW5NaaCdFEm6kBj7/ulI+RveqTrQKo8Y1yjGAVYh4qNnjD3gooVX7r30+
+	 H6tmrBaIX1S2ALFrCyzUEFhKZICjdyZfzZyP6ZgE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF5B0F805C8; Wed,  6 Aug 2025 01:38:02 +0200 (CEST)
+	id 887AFF805C7; Wed,  6 Aug 2025 08:08:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CED1F805C1;
-	Wed,  6 Aug 2025 01:38:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 157B9F805BF;
+	Wed,  6 Aug 2025 08:08:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEB57F80423; Wed,  6 Aug 2025 01:37:46 +0200 (CEST)
+	id 2A0AEF80423; Wed,  6 Aug 2025 08:07:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5622CF80016
-	for <alsa-devel@alsa-project.org>; Wed,  6 Aug 2025 01:37:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5622CF80016
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <185903368cf81f00-webhooks-bot@alsa-project.org>
-In-Reply-To: <185903368c3a9900-webhooks-bot@alsa-project.org>
-References: <185903368c3a9900-webhooks-bot@alsa-project.org>
-Subject: ALC4082: capturing S/PDIF output causes volume to jump to max - asus
- rog crosshair x670e hero
-Date: Wed,  6 Aug 2025 01:37:46 +0200 (CEST)
-Message-ID-Hash: AKGTBLRTV4IDG2QRJ42Y2LEJYSZESF5I
-X-Message-ID-Hash: AKGTBLRTV4IDG2QRJ42Y2LEJYSZESF5I
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 03B33F80134
+	for <alsa-devel@alsa-project.org>; Wed,  6 Aug 2025 08:07:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03B33F80134
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=LgLVtzaP;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=x5llDXoB;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=HxBGyS05;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=biHsbHpv
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0547B211F8;
+	Wed,  6 Aug 2025 06:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1754460441;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rDfyXIz/VJptEYZ0UR6/796YxobUugzCV7SvGmQWBc4=;
+	b=LgLVtzaPtf44Srix8w6BFqTVQlvtCT9JvVZxPAbJrJxusu7ExOizdCqFfBhRG4Ozk6Kco5
+	CarBBn2jD1lvIVlc9R4bPBOd+j7UedAQooedTzfL6DNDVJQLRoGuICX/JHeuaA0GHGoC9o
+	L08nWe2PVeuuU9p2KzmGBq4o9Ycdi7g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1754460441;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rDfyXIz/VJptEYZ0UR6/796YxobUugzCV7SvGmQWBc4=;
+	b=x5llDXoBfnSjm8BxyO+GhyOOaqQvab8OajNItBij20nYlUmq3xvOhp4gZATV9dCTtkPaBC
+	kyEz/yn9bQzpPkBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HxBGyS05;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=biHsbHpv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1754460440;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rDfyXIz/VJptEYZ0UR6/796YxobUugzCV7SvGmQWBc4=;
+	b=HxBGyS05O+hF78GZtxy60yPCMiaXhRAiplZgixjajT0S38hr8NDd1jDRPqh9RjEXcYHorp
+	LtvFMPKAePCMSQzRP8CS3gglaN6Daq+QbNvLNAlVqqPO7i4r0eltVTJFWyqyWu1TsNS0Gq
+	EzhKhWUrzPgziXVZQtc6jolzxCryLEY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1754460440;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rDfyXIz/VJptEYZ0UR6/796YxobUugzCV7SvGmQWBc4=;
+	b=biHsbHpvpj3qrIkcglH4Ne7evp9M5juykBYeWNnRRh5ZsUlYWNrBv6HT2G2rjZwVZDGK5v
+	yq/JYcPROXpeybBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B771013AB5;
+	Wed,  6 Aug 2025 06:07:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id yi6oKxfxkmhoXAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 06 Aug 2025 06:07:19 +0000
+Date: Wed, 06 Aug 2025 08:07:19 +0200
+Message-ID: <87ikj1rnjc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shenghao Ding <shenghao-ding@ti.com>
+Cc: <broonie@kernel.org>,
+	<andriy.shevchenko@linux.intel.com>,
+	<13564923607@139.com>,
+	<13916275206@139.com>,
+	<alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>,
+	<baojun.xu@ti.com>,
+	<Baojun.Xu@fpt.com>,
+	<jesse-ji@ti.com>
+Subject: Re: [PATCH v1] ALSA: hda/tas2781: Support L"SmartAmpCalibrationData"
+ to save calibrated data
+In-Reply-To: <20250805070945.524-1-shenghao-ding@ti.com>
+References: <20250805070945.524-1-shenghao-ding@ti.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[139.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,139.com,alsa-project.org,vger.kernel.org,ti.com,fpt.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ti.com:email,suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Queue-Id: 0547B211F8
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+Message-ID-Hash: KQIVBKU7WHDLNGG6WFGPW46PWCATVMTM
+X-Message-ID-Hash: KQIVBKU7WHDLNGG6WFGPW46PWCATVMTM
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -63,7 +172,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKGTBLRTV4IDG2QRJ42Y2LEJYSZESF5I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQIVBKU7WHDLNGG6WFGPW46PWCATVMTM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,359 +181,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #598 was edited from LuanVSO:
+On Tue, 05 Aug 2025 09:09:45 +0200,
+Shenghao Ding wrote:
+> 
+> Some devices save the calibrated data into L"CALI_DATA", and others into
+> L"SmartAmpCalibrationData". Driver code will support both.
+> 
+> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-hi, i had a problem where opening the kde plasma volume applet would make the volume on my headphone jump to the maximum.
-after muting the "PCM 2" channel on alsamixer i notice that the volume on the headphone would go muted instead.
-so i edited the ALC4080-HiFi.conf file and remove every mention of S/PDIF and rebooted my machine.
+Thanks, applied.
 
-after the change the problem didn't happen anymore.
-what do you need to fix the mapping problem?
 
-i think this happens because the "PCM 2" volume controls is redirecting to headphone output, but it doenst have a slider, so it is either max or muted:
-
-<img width="1259" height="967" alt="Image" src="https://github.com/user-attachments/assets/3b266bb7-7e1c-4a7a-b448-affabf06b01c" />
-
-(also the S/PDIF aways appeared as connected even though i did not have anything connected to it, don't know if it is expected)
-
-[alsa-info.txt](https://github.com/user-attachments/files/21583734/alsa-info.txt)
-
-<details>
-<summary>edited ALC4080-HiFi.conf</summary>
-
-```
-Define {
-	SpeakerMixer "PCM"
-	SpeakerMindex "0"
-	SpeakerJack "Speaker - Output Jack"
-	SpeakerPCM "hw:${CardId}"
-
-	HeadphonesName "Front Headphones"
-	HeadphonesMixer "PCM"
-	HeadphonesMindex "1"
-	HeadphonesJack "Headphone - Output Jack"
-	HeadphonesPCM "hw:${CardId},1"
-
-	Mic1Name "Microphone"
-	Mic1Mixer "Mic"
-	Mic1Mindex "0"
-	Mic1Jack "Mic - Input Jack"
-	Mic1PCM "hw:${CardId},2"
-
-	Mic2Name ""
-	Mic2Mixer ""
-	Mic2Mindex "0"
-	Mic2Jack ""
-	Mic2PCM ""
-
-	Line1Name "Line Input"
-	Line1Mixer "Line"
-	Line1Mindex "0"
-	Line1Jack "Line - Input Jack"
-	Line1PCM "hw:${CardId},1"
-
-#	SpdifName "S/PDIF Output"
-#	SpdifPCM "hw:${CardId},3"
-#	SpdifMixer "PCM"
-#	SpdifMindex "2"
-}
-
-If.speaker_ctl {
-	Condition {
-		Type ControlExists
-		Control "name='Speaker Playback Switch'"
-	}
-	True.Define.SpeakerMixer "Speaker"
-}
-
-If.front_hp_ctl {
-	Condition {
-		Type ControlExists
-		Control "name='Front Headphone Playback Switch'"
-	}
-	True.Define {
-		HeadphonesMixer "Front Headphone"
-		HeadphonesMindex "0"
-	}
-}
-
-#If.spdif_ctl {
-#	Condition {
-#		Type ControlExists
-#		Control "name='IEC958 Playback Switch'"
-#	}
-#	True.Define {
-#		SpdifMixer "IEC958"
-#		SpdifMindex "0"
-#	}
-#}
-
-#If.spdif_nodev {
-#	Condition {
-#		Type RegexMatch
-#		String "${CardComponents}"
-#		Regex "USB(0db0:36e7)"
-#	}
-#	True.Define.SpdifName ""
-#}
-
-#If.spdif_dev2 {
-#	Condition {
-#		Type RegexMatch
-#		String "${CardComponents}"
-#		Regex "USB(0b05:(1996|1a5[23c])|0db0:1feb)"
-#	}
-#	True.Define.SpdifPCM "hw:${CardId},2"
-#}
-
-If.gigabyte-aorus-ultra {
-	Condition {
-		Type RegexMatch
-		String "${CardComponents}"
-		Regex "USB(0414:a014)"
-	}
-	True.Define {
-		Mic1Name "Front Microphone"
-		Mic1PCM "hw:${CardId},0"
-		Mic2Name "Rear Microphone"
-		Mic2Mixer "Mic"
-		Mic2Mindex "1"
-		Mic2Jack "name='Mic - Input Jack',index=1"
-		Mic2PCM "hw:${CardId},1"
-		SpdifName ""
-		Line1Name ""
-	}
-}
-
-If.asus-rog-usb {
-	Condition {
-		Type RegexMatch
-		String "${CardComponents}"
-		Regex "USB(0b05:1996)"
-	}
-	True.Define {
-		Mic1Name "Front Microphone"
-		Mic2Name "Microphone"
-		Mic2Mixer "Analog In"
-		Mic2Jack "Analog In - Input Jack"
-		Mic2PCM "hw:${CardId}"
-	}
-}
-
-If.asrock-taichi {
-	Condition {
-		Type RegexMatch
-		String "${CardComponents}"
-		Regex "USB(26ce:0a0[68b])"
-	}
-	True.Define {
-		Line1Name ""
-		Mic1Name "Rear Input"
-		Mic1PCM "hw:${CardId},0"
-		Mic2Name "Front Microphone"
-		Mic2Mixer "Mic"
-		Mic2Jack "Front Mic - Input Jack"
-		Mic2PCM "hw:${CardId},1"
-	}
-}
-
-If.wrx80-sage {
-	Condition {
-		Type RegexMatch
-		String "${CardComponents}"
-		Regex "USB(0b05:1984)"
-	}
-	True.Define {
-		Mic2Name "Front Microphone"
-		Mic2Mixer "Analog In"
-		Mic2Jack "Analog In - Input Jack"
-		Mic2PCM "hw:${CardId}"
-	}
-}
-
-If.msi-meg-unify {
-	Condition {
-		Type RegexMatch
-		String "${CardComponents}"
-		Regex "USB(0db0:82c7)"
-	}
-	True.Define {
-		HeadphonesName ""
-		SpdifName ""
-	}
-}
-
-If.asus-rog-strix {
-	Condition {
-		Type RegexMatch
-		String "${CardComponents}"
-		Regex "USB(0b05:1999)"
-	}
-	True.Define {
-		Line1PCM "hw:${CardId},3"
-		HeadphonesName ""
-		SpdifName ""
-	}
-}
-
-SectionVerb {
-	EnableSequence [
-		disdevall ""
-	]
-
-	Value.TQ "HiFi"
-}
-
-SectionDevice."Speaker" {
-	Comment "Speakers"
-
-	EnableSequence [
-		cset "name='${var:SpeakerMixer} Playback Switch',index=${var:SpeakerMindex} on"
-	]
-
-	DisableSequence [
-		cset "name='${var:SpeakerMixer} Playback Switch',index=${var:SpeakerMindex} off"
-	]
-
-	Value {
-		PlaybackChannels 2
-		PlaybackPriority 200
-		PlaybackPCM "${var:SpeakerPCM}"
-		JackControl "${var:SpeakerJack}"
-		PlaybackMixerElem "${var:SpeakerMixer},${var:SpeakerMindex}"
-	}
-
-	Variant."HiFi 5+1".Value.PlaybackChannels 6
-	Variant."HiFi 7+1".Value.PlaybackChannels 8
-}
-
-If.headphones {
-	Condition {
-		Type String
-		Empty "${var:HeadphonesName}"
-	}
-	False.SectionDevice."Headphones" {
-		Comment "${var:HeadphonesName}"
-
-		EnableSequence [
-			cset "name='${var:HeadphonesMixer} Playback Switch',index=${var:HeadphonesMindex} on"
-		]
-
-		DisableSequence [
-			cset "name='${var:HeadphonesMixer} Playback Switch',index=${var:HeadphonesMindex} off"
-		]
-
-		Value {
-			PlaybackPriority 300
-			PlaybackPCM "${var:HeadphonesPCM}"
-			JackControl "${var:HeadphonesJack}"
-			PlaybackMixerElem "${var:HeadphonesMixer},${var:HeadphonesMindex}"
-		}
-	}
-}
-
-#If.spdif {
-#	Condition {
-#		Type String
-#		Empty "${var:SpdifName}"
-#	}
-#	False.SectionDevice."SPDIF" {
-#		Comment "${var:SpdifName}"
-#
-#		EnableSequence [
-#			cset "name='${var:SpdifMixer} Playback Switch',index=${var:SpdifMindex} on"
-#		]
-#
-#		DisableSequence [
-#			cset "name='${var:SpdifMixer} Playback Switch',index=${var:SpdifMindex} off"
-#		]
-#
-#		Value {
-#			PlaybackPriority 100
-#			PlaybackPCM "${var:SpdifPCM}"
-#			PlaybackMixerElem "${var:SpdifMixer},${var:SpdifMindex}"
-#		}
-#	}
-#}
-
-If.line1 {
-	Condition {
-		Type String
-		Empty "${var:Line1Name}"
-	}
-	False.SectionDevice."Line1" {
-		Comment "${var:Line1Name}"
-
-		EnableSequence [
-			cset "name='${var:Line1Mixer} Capture Switch',index=${var:Line1Mindex} on"
-		]
-
-		DisableSequence [
-			cset "name='${var:Line1Mixer} Capture Switch',index=${var:Line1Mindex} off"
-		]
-
-		Value {
-			CapturePriority 100
-			CapturePCM "${var:Line1PCM}"
-			JackControl "${var:Line1Jack}"
-			CaptureMixerElem "${var:Line1Mixer},${var:Line1Mindex}"
-		}
-	}
-}
-
-If.mic1 {
-	Condition {
-		Type String
-		Empty "${var:Mic1Name}"
-	}
-	False.SectionDevice."Mic1" {
-		Comment "${var:Mic1Name}"
-
-		EnableSequence [
-			cset "name='${var:Mic1Mixer} Capture Switch',index=${var:Mic1Mindex} on"
-		]
-
-		DisableSequence [
-			cset "name='${var:Mic1Mixer} Capture Switch',index=${var:Mic1Mindex} off"
-		]
-
-		Value {
-			CapturePriority 300
-			CapturePCM "${var:Mic1PCM}"
-			JackControl "${var:Mic1Jack}"
-			CaptureMixerElem "${var:Mic1Mixer},${var:Mic1Mindex}"
-		}
-	}
-}
-
-If.mic2 {
-	Condition {
-		Type String
-		Empty "${var:Mic2Name}"
-	}
-	False.SectionDevice."Mic2" {
-		Comment "${var:Mic2Name}"
-
-		EnableSequence [
-			cset "name='${var:Mic2Mixer} Capture Switch',index=${var:Mic2Mindex} on"
-		]
-
-		DisableSequence [
-			cset "name='${var:Mic2Mixer} Capture Switch',index=${var:Mic2Mindex} off"
-		]
-
-		Value {
-			CapturePriority 400
-			CapturePCM "${var:Mic2PCM}"
-			JackControl "${var:Mic2Jack}"
-			CaptureMixerElem "${var:Mic2Mixer},${var:Mic2Mindex}"
-		}
-	}
-}
-
-```
-
-</details>
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/598
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Takashi

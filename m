@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E3AEB1EB26
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Aug 2025 17:10:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDECB1EB3A
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Aug 2025 17:12:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA60260208;
-	Fri,  8 Aug 2025 17:10:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA60260208
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9B1360252;
+	Fri,  8 Aug 2025 17:12:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9B1360252
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754665820;
+	s=default; t=1754665978;
 	bh=+IwMcAOi/B+6zoGv185j1mv1dVr16U85aWFpziZtmXY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=oAIIxVl5HxbrIcJqwrsymGyLTVe4tttg8ywxvIZdFjfuMkwIh2qfr25PitV8TB+eS
-	 5SbNDIVtywJsBgnayR7FHDyPqN7hyb2EZxZrMbQIYRQKisXpQ0mtzWeKnx3wFbHwff
-	 uthL2AN+s7ATEss9x0m4pM5ZhAsp4jPtNDBuAWKw=
+	b=GwmmnHAOUudZuxtQ3HW3JnbS64E9WRE7p36d8vwyGLm+o+0mPRJOmLpvShB4HrtPE
+	 yE72wTuHJvT+EntcOdrulntvfRqwyiRe9/cGxFSQ9gXfiXJu+FwC38Xq2P/b9HfnrG
+	 qSllwUGREBQUWtI/jr3PweE4TwYJ3He7xo14zx2E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5726F805FB; Fri,  8 Aug 2025 17:09:39 +0200 (CEST)
+	id 82737F805D5; Fri,  8 Aug 2025 17:12:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D4DCF805F3;
-	Fri,  8 Aug 2025 17:09:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AC8EF805CB;
+	Fri,  8 Aug 2025 17:12:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F97EF805DA; Fri,  8 Aug 2025 17:09:31 +0200 (CEST)
+	id 77CE6F8024C; Fri,  8 Aug 2025 17:12:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF1A0F805D5
-	for <alsa-devel@alsa-project.org>; Fri,  8 Aug 2025 17:09:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF1A0F805D5
+	by alsa1.perex.cz (Postfix) with ESMTP id D0680F800F8
+	for <alsa-devel@alsa-project.org>; Fri,  8 Aug 2025 17:12:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0680F800F8
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1859d3388b70ee00-webhooks-bot@alsa-project.org>
+Message-Id: <1859d35ec2a08d00-webhooks-bot@alsa-project.org>
 In-Reply-To: <alsa-project/alsa-ucm-conf/pr/597@alsa-project.org>
 References: <alsa-project/alsa-ucm-conf/pr/597@alsa-project.org>
-Subject: Qualcomm: Add MONACO-EVK HiFi config
-Date: Fri,  8 Aug 2025 17:09:31 +0200 (CEST)
-Message-ID-Hash: Q4YDUJVDI74VKMMEOXZI3EHPLXTUOUUV
-X-Message-ID-Hash: Q4YDUJVDI74VKMMEOXZI3EHPLXTUOUUV
+Subject: ucm2: Qualcomm: Add MONACO-EVK HiFi config
+Date: Fri,  8 Aug 2025 17:12:15 +0200 (CEST)
+Message-ID-Hash: NJVZH4AP2JUCNGVLUWN2AB33US3VWWU5
+X-Message-ID-Hash: NJVZH4AP2JUCNGVLUWN2AB33US3VWWU5
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q4YDUJVDI74VKMMEOXZI3EHPLXTUOUUV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJVZH4AP2JUCNGVLUWN2AB33US3VWWU5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

@@ -2,35 +2,35 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 703DBB1FDC6
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Aug 2025 04:25:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7289EB1FDFF
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Aug 2025 04:43:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7339060257;
-	Mon, 11 Aug 2025 04:24:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7339060257
+	by alsa0.perex.cz (Postfix) with ESMTPS id E25746024B;
+	Mon, 11 Aug 2025 04:43:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E25746024B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1754879106;
-	bh=1uxyidhdfJ+bIsWil/noGUPH2CFS5GISLdngkglzveg=;
+	s=default; t=1754880234;
+	bh=Vk3O7cOSnrME/aUptbIS2hDZ5FCLRKY74bVAo638txE=;
 	h=Subject:From:To:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=nktA2WBA3qH2kyUWk0xdOEPKFyYeSDwrfy4In0QodGIcfeHw7axUyirfvEW4XeKOO
-	 hLJ4s3ij332hd+wHA3M1dyD2b41GsV0lzYDvMUFNOchTMdk0mA4DokyH0ixjoBoNzH
-	 toWGFJeRZmQYR00/sNhV8+0hm8vcUQrsQCvfBTBw=
+	b=exi7BigTwq+D6958keQED/vkXMjxPHgSxll33foRQdK2iheU9SlqcrvpBDqym7Khd
+	 j5SBm5vgB1rDfHRa+atpfxoPVEh2w0vbMNXLqBNtXW27fLz6BUMO49XAU+u6NnJ191
+	 iIql2uTq9p3a/Au7yY6As0XU3lsNA4zf8549oZy4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4163F805E1; Mon, 11 Aug 2025 04:24:43 +0200 (CEST)
+	id C9B76F805C5; Mon, 11 Aug 2025 04:43:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FD6AF805D7;
-	Mon, 11 Aug 2025 04:24:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA905F805C2;
+	Mon, 11 Aug 2025 04:43:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE692F80518; Mon, 11 Aug 2025 04:24:37 +0200 (CEST)
+	id C446CF80518; Mon, 11 Aug 2025 04:43:12 +0200 (CEST)
 Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
  [10.254.200.11])
-	by alsa1.perex.cz (Postfix) with ESMTP id B461DF8010B
-	for <alsa-devel@alsa-project.org>; Mon, 11 Aug 2025 04:24:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADFE8F8021D
+	for <alsa-devel@alsa-project.org>; Mon, 11 Aug 2025 04:43:12 +0200 (CEST)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -39,13 +39,13 @@ Subject: Re: [alsa-devel] Applied "ASoC: tlv320aic32x4: Model CODEC_CLKIN in
  the asoc tree
 From: rinfo4080@gmail.com
 To: alsa-devel@alsa-project.org
-Date: Mon, 11 Aug 2025 02:24:37 -0000
-Message-ID: <175487907773.20.610252790119139799@mailman-web.alsa-project.org>
+Date: Mon, 11 Aug 2025 02:43:12 -0000
+Message-ID: <175488019266.22.7389632412711969070@mailman-web.alsa-project.org>
 In-Reply-To: <20190325161140.A0E0111288F1@debutante.sirena.org.uk>
 References: <20190325161140.A0E0111288F1@debutante.sirena.org.uk>
 User-Agent: HyperKitty on https://mailman.alsa-project.org/
-Message-ID-Hash: KS6TV235UPU6RZVMLXECYED7ZX454Z3M
-X-Message-ID-Hash: KS6TV235UPU6RZVMLXECYED7ZX454Z3M
+Message-ID-Hash: 2VIOLIR7CUTZVR7PT2KNQPVESQDCN3U2
+X-Message-ID-Hash: 2VIOLIR7CUTZVR7PT2KNQPVESQDCN3U2
 X-MailFrom: rinfo4080@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -58,7 +58,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KS6TV235UPU6RZVMLXECYED7ZX454Z3M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2VIOLIR7CUTZVR7PT2KNQPVESQDCN3U2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -67,6 +67,4 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-If you want to turn text or images into videos fast, <a href="https://veo3.im/">Veo3 Video</a>  is the way to go — super simple and really powerful. Perfect for anyone looking to create videos in minutes
-
-https://veo3.im/
+I tried <a href="https://textideo.com/">ai video generator</a> and was blown away — typed a single sentence and got a 1080p motion video. Game-changer for content creators!

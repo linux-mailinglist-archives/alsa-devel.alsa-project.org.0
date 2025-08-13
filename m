@@ -2,81 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51BA7B25403
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Aug 2025 21:36:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB23BB25410
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Aug 2025 21:47:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1BC26025A;
-	Wed, 13 Aug 2025 21:36:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1BC26025A
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDAE860203;
+	Wed, 13 Aug 2025 21:47:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDAE860203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1755113772;
-	bh=ouxbFcVrUS9hvxkMdGRbOfAKnaBDJG/JEQxiQR2jMWo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Qxw/Z7lnqN7M4aT1ZZWglPeBvWDKDK/r5pwtGtODH8us7QNOZsPwwqdQAZuaA5DlK
-	 im5RLfLwBsLLMiUbmXVz4EmbjCWSxyCJyv3clObRka8cOL6J0sRoeU8/7APQx2114A
-	 D/XnoTWPz5D6gIplR/u4iMfxAys/k+6CuhQcLL18=
+	s=default; t=1755114459;
+	bh=/8GBopGctd7ROLW5s7uQq/RaW7OuHdELmXU9Ltqdl7g=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=H3wJ0A1aOfxBzvEwxUBcfGRNmCnGpjJV6UyRgS06+owsQCeaSzC6sqg6XvxrwLUBk
+	 JR2pydWwx9EqTMGL5wbiqs389LDFCnLwgdBCmUVTDpqh3ypBwZb4tpBgjTRsJG73lC
+	 tQ8eRXtt/DY7BPGs0VraQ5S6/0uXJFVWm+Ywy3TQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5AA3F805EE; Wed, 13 Aug 2025 21:35:30 +0200 (CEST)
+	id 87C95F805D3; Wed, 13 Aug 2025 21:47:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45E00F805EE;
-	Wed, 13 Aug 2025 21:35:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C943F805C1;
+	Wed, 13 Aug 2025 21:47:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C123F8021D; Wed, 13 Aug 2025 21:35:00 +0200 (CEST)
+	id A74ACF8021D; Wed, 13 Aug 2025 21:46:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0C56EF8012A
-	for <alsa-devel@alsa-project.org>; Wed, 13 Aug 2025 21:34:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C56EF8012A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5742CF800F3
+	for <alsa-devel@alsa-project.org>; Wed, 13 Aug 2025 21:46:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5742CF800F3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=DmOBO6JJ
+ header.s=k20201202 header.b=WgnSZTwS
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 8F05C45CAE;
-	Wed, 13 Aug 2025 19:34:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38C1C4CEEF;
-	Wed, 13 Aug 2025 19:34:51 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id BE91C601D6;
+	Wed, 13 Aug 2025 19:46:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23972C4CEEB;
+	Wed, 13 Aug 2025 19:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755113693;
-	bh=ouxbFcVrUS9hvxkMdGRbOfAKnaBDJG/JEQxiQR2jMWo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=DmOBO6JJETxAhR0VJijHavL/SKMgHxEADMQxsONS1H1Zt09SSiRETXQfY+a7uRy1C
-	 lYPfKF4GxN/+fh0dO7ooDwiMrWBqYN9k5wiZlBcCgCgJd5XO4ilR0RGXTQK0tkr2y+
-	 JFpycRB7EGSjnmAd4AxlFDt+n4OO7b3k+wwpf+AkRp878rcps8ggcCqs5kR33ARA13
-	 +rbdKe89aJ7WGsxpm25x21zTLUGs20cOPN8kaYGCZivYi4HcbXRbAbv249J6PQLUcD
-	 t+uP+cEhZWgGZ353Sq5+2Akj5nJ1nKPqDoP+WbRPQ8RiVrgQ7FfhvYnMNPRfnZXZqS
-	 VFr7sh4pOj7IA==
+	s=k20201202; t=1755114408;
+	bh=/8GBopGctd7ROLW5s7uQq/RaW7OuHdELmXU9Ltqdl7g=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WgnSZTwSETUEu/h7nicYifJetu9VnL3pDmPI1LWzi2WgPSGWYiln6DVClUsPldILk
+	 Hh+t4G5Nc1S5jRlxHBvq4YKcLif0DBwyYpOWQfCnGxloN0wgTnljb0ZEWJPeVT/vQw
+	 2IaYdEEM8a9yYDSNtyabIzphzWNE8lVw2bGIdDsOFQCnzeqHEVXR+hDfU4/ucDvpgw
+	 GoelD1XJlkG0ntXxR1UnRP8z+VP5SpAVDBcVYh5UbMRnwJmbcXgiWAR61oIrpzVmGS
+	 SreBNvnJNMCzmfWVhTlGZi2kSTj8PzHGy/RNfXyLiE9avQuQ8dgpoYl/Q2ofd94p3p
+	 iciw5r6Ruyjyw==
+Message-ID: <c50400ae698f3d9f5d0a46ad05fbd0fa.broonie@kernel.org>
 From: Mark Brown <broonie@kernel.org>
-To: Baojun Xu <baojun.xu@ti.com>
-Cc: tiwai@suse.de, andriy.shevchenko@linux.intel.com, 13916275206@139.com,
- alsa-devel@alsa-project.org, shenghao-ding@ti.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20250813100708.12197-1-baojun.xu@ti.com>
-References: <20250813100708.12197-1-baojun.xu@ti.com>
-Subject: Re: [PATCH v1] ASoC: tas2781: Normalize the volume kcontrol name
-Message-Id: <175511369173.254480.2972663584944434542.b4-ty@kernel.org>
-Date: Wed, 13 Aug 2025 20:34:51 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-cff91
-Message-ID-Hash: T5QSPNNQTQN7LOQYJATA5KXU64BQEJVT
-X-Message-ID-Hash: T5QSPNNQTQN7LOQYJATA5KXU64BQEJVT
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.17-rc1
+Date: Wed, 13 Aug 2025 20:46:40 +0100
+Message-ID-Hash: KXHUBHTMXIVNOVKTQOG47X2WH7LP2DLQ
+X-Message-ID-Hash: KXHUBHTMXIVNOVKTQOG47X2WH7LP2DLQ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T5QSPNNQTQN7LOQYJATA5KXU64BQEJVT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KXHUBHTMXIVNOVKTQOG47X2WH7LP2DLQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,36 +90,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 13 Aug 2025 18:07:08 +0800, Baojun Xu wrote:
-> Change the name of the kcontrol from "Gain" to "Volume".
-> 
-> 
+The following changes since commit 8f5ae30d69d7543eee0d70083daf4de8fe15d585:
 
-Applied to
+  Linux 6.17-rc1 (2025-08-10 19:41:16 +0300)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+are available in the Git repository at:
 
-Thanks!
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.17-rc1
 
-[1/1] ASoC: tas2781: Normalize the volume kcontrol name
-      commit: 47ed64db8c17eb16541098add865178fb7e68744
+for you to fetch changes up to 47ed64db8c17eb16541098add865178fb7e68744:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+  ASoC: tas2781: Normalize the volume kcontrol name (2025-08-13 15:52:53 +0100)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+----------------------------------------------------------------
+ASoC: Fixes for v6.17
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+A reasonably small collection of fixes that came in since the merge
+window, mostly small and driver specific plus a cleanup of the menu
+reorganisation to address some user confusion with the way the generic
+drivers had been handled.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+----------------------------------------------------------------
+Alexey Klimov (1):
+      ASoC: codecs: tx-macro: correct tx_macro_component_drv name
 
-Thanks,
-Mark
+Baojun Xu (1):
+      ASoC: tas2781: Normalize the volume kcontrol name
 
+Colin Ian King (2):
+      ASoC: codec: sma1307: replace spelling mistake with new error message
+      ASoC: tas2781: Fix spelling mistake "dismatch" -> "mismatch"
+
+Kuninori Morimoto (1):
+      ASoC: generic: tidyup standardized ASoC menu for generic
+
+Sergio Perez Gonzalez (1):
+      ASoC: stm: stm32_i2s: Fix calc_clk_div() error handling in determine_rate()
+
+Shengjiu Wang (1):
+      ASoC: fsl_sai: replace regmap_write with regmap_update_bits
+
+Shuming Fan (2):
+      ASoC: rt721: fix FU33 Boost Volume control not working
+      ASoC: rt1320: fix random cycle mute issue
+
+Thorsten Blum (1):
+      ASoC: codecs: Call strscpy() with correct size argument
+
+ sound/soc/Kconfig                  |  4 +++-
+ sound/soc/codecs/aw87390.c         |  8 +++-----
+ sound/soc/codecs/aw88081.c         |  5 ++---
+ sound/soc/codecs/aw88166.c         |  8 +++-----
+ sound/soc/codecs/aw88261.c         |  8 +++-----
+ sound/soc/codecs/aw88395/aw88395.c |  8 +++-----
+ sound/soc/codecs/aw88399.c         |  8 +++-----
+ sound/soc/codecs/lpass-tx-macro.c  |  2 +-
+ sound/soc/codecs/rt1320-sdw.c      |  3 ++-
+ sound/soc/codecs/rt721-sdca.c      |  2 ++
+ sound/soc/codecs/rt721-sdca.h      |  4 ++++
+ sound/soc/codecs/sma1307.c         |  2 +-
+ sound/soc/codecs/tas2781-i2c.c     |  6 +++---
+ sound/soc/fsl/fsl_sai.c            | 20 ++++++++++----------
+ sound/soc/stm/stm32_i2s.c          |  7 ++-----
+ 15 files changed, 45 insertions(+), 50 deletions(-)

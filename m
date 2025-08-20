@@ -2,56 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2003DB2E828
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Aug 2025 00:26:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6B79B2E8A4
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Aug 2025 01:26:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67F626020A;
-	Thu, 21 Aug 2025 00:25:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67F626020A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 868EA60206;
+	Thu, 21 Aug 2025 01:26:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 868EA60206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1755728764;
-	bh=ZaP7XxuguDCdIa6AEOp4RVkYDnGk5sXDCSAoRWVYVCw=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=sWA9pbJFase57NMDD4HEj4p9ExtScD7nr3uS/iru0xoUc9leZXyAKnd1YisvmJdql
-	 CZ78hcvzL4E2RkBzzST+AqPBA3bfLdMfK7tkFQ1xNn4tWZHJFdvZVARV4OmX9w1upY
-	 RAm9VVbZfKxPfuQ3NqunVbaTp00AmzBa9U0CXQ5g=
+	s=default; t=1755732418;
+	bh=8I4ftgLEbGLAsbQ4rJdlUw9RZIk2vsRaxRC8gVRcUBI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=dGzLmHmfcknHtjpO4DBXhTAake0tG5f2lZ97pxnN4ijtSjQmQ0l7mLwfsTIKZTc9E
+	 EHkdLxuqKHmcaFqfE4mOP8pPly4wTJOnhy7djHr26vw/JFat3OOag6jU50EfMZCWUJ
+	 PoJlOg9tTWAlRerOMAN6cHCT73xre02nKkacm/Tw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9760EF805CB; Thu, 21 Aug 2025 00:25:30 +0200 (CEST)
+	id 6F92AF805C7; Thu, 21 Aug 2025 01:26:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 186E5F805C9;
-	Thu, 21 Aug 2025 00:25:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AD5EF80518;
+	Thu, 21 Aug 2025 01:26:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E2ADF80518; Thu, 21 Aug 2025 00:25:24 +0200 (CEST)
+	id 18D7AF80518; Thu, 21 Aug 2025 01:26:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A579F80152
-	for <alsa-devel@alsa-project.org>; Thu, 21 Aug 2025 00:25:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A579F80152
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <185d99f876c2d600-webhooks-bot@alsa-project.org>
-In-Reply-To: <185d99f875f80700-webhooks-bot@alsa-project.org>
-References: <185d99f875f80700-webhooks-bot@alsa-project.org>
-Subject: Audio garbled when using Multi plugin to record from 2+ USB
- soundcards on Raspberry Pi
-Date: Thu, 21 Aug 2025 00:25:24 +0200 (CEST)
-Message-ID-Hash: PTV3Z7ZV3B5BQJ5C24IS4QS76J4DR3DX
-X-Message-ID-Hash: PTV3Z7ZV3B5BQJ5C24IS4QS76J4DR3DX
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C88C7F80152
+	for <alsa-devel@alsa-project.org>; Thu, 21 Aug 2025 01:26:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C88C7F80152
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ol3KDShL
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 474ED61444;
+	Wed, 20 Aug 2025 23:26:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB2CC4CEE7;
+	Wed, 20 Aug 2025 23:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755732368;
+	bh=8I4ftgLEbGLAsbQ4rJdlUw9RZIk2vsRaxRC8gVRcUBI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ol3KDShLyM5dgHcPQXvonlDJkV920x10p257fYnrd8UpHg45fIgO2nTogOzLv5CzO
+	 6z4TXejX//PI4SzjLn+0yzuA1aey3wtIHCs21Nr3crHrfO34oNEM58WXC2ygsklssO
+	 KGGJFENwkDUCylP4ThQR7s0DaZQh23CYasWvaHNiTmKh3ClBmiAEhb39IBGQzzyM/I
+	 mEzKeoV6VamZghB8SM0osepoVzGikejnNM1e1dyCFsP6cWqMqrkHlF8PXwD8lKHquI
+	 ezyiAWXsxdrVeNIiBntoyaje14/tl0uM94IdXaCudIiloh9M7JrlJmThapIjIG64n4
+	 tE7Xwe+Ty9cUw==
+Message-ID: <c76f8af82172ef5d00fce6f17a50eae6@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.17-rc2
+Date: Thu, 21 Aug 2025 00:25:59 +0100
+Message-ID-Hash: OTAKYG6RJZRVFRIZOXL5MGDL26STD74O
+X-Message-ID-Hash: OTAKYG6RJZRVFRIZOXL5MGDL26STD74O
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -63,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PTV3Z7ZV3B5BQJ5C24IS4QS76J4DR3DX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OTAKYG6RJZRVFRIZOXL5MGDL26STD74O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,21 +90,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #472 was opened from TommyKaneko:
+The following changes since commit c17b750b3ad9f45f2b6f7e6f7f4679844244f0b9:
 
-I have been trying to use the multi plugin to record multiple channels from mutliple soundcards on the Raspberry Pi.  The results are a garbled mess.
+  Linux 6.17-rc2 (2025-08-17 15:22:10 -0700)
 
-I have diagnosed the reasons as thus:
-- current raspberry Pi OS uses alsa v1.2.8+rpt1
-- the "fix" for the multi plugin was implemented in v1.2.9 : https://github.com/alsa-project/alsa-lib/commit/369df322577034ea872978d6470edbadf30d81a9
+are available in the Git repository at:
 
-I am aware that the multi plugin was not meant to be used on multiple soundcards that are not in sync, however if the clock drifts over time, this is ok for my application.
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.17-rc2
 
-I am here to seek advice on how I should go about creating a workaround.  The limitations are that I need to use cheap USB microphones (it is a weight issue).
+for you to fetch changes up to 7c15e4cabfa96ed3cd717a2ed7a9961268ab21f7:
 
-Without going along the microcontroller route, I thought one way was to make an [external plugin](https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_external_plugins.html), based on the newly patched pcm_multi plugin.  I am working on this, while climbing the steep learning curve.  Perhaps I can contribute an external plugin for the project...
+  ASoC: cs35l56: Fixes for CS35L63 for production (2025-08-20 19:56:20 +0100)
 
-In the meantime, does a developer have a better suggestion that I might have success with?  Or any tips if you are familiar with the pcm_multi plugin? @perexg ?
+----------------------------------------------------------------
+ASoC: Fixes for v6.17
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/472
-Repository URL: https://github.com/alsa-project/alsa-lib
+A few fixes that came in during the past week, there's some updates for
+the CS35L56 which adjust the driver for production silicon and a fix for
+buggy resume of the ES9389.
+
+----------------------------------------------------------------
+Mark Brown (1):
+      ASoC: cs35l56: Fixes for CS35L63 for production
+
+Richard Fitzgerald (1):
+      ASoC: cs35l56: Handle new algorithms IDs for CS35L63
+
+Stefan Binding (2):
+      ASoC: cs35l56: Update Firmware Addresses for CS35L63 for production silicon
+      ASoC: cs35l56: Remove SoundWire Clock Divider workaround for CS35L63
+
+Zhang Yi (1):
+      ASoC: codecs: ES9389: Modify the standby configuration
+
+ include/sound/cs35l56.h           |  5 +--
+ sound/soc/codecs/cs35l56-sdw.c    | 69 ---------------------------------------
+ sound/soc/codecs/cs35l56-shared.c | 29 ++++++++++++++--
+ sound/soc/codecs/cs35l56.c        |  2 +-
+ sound/soc/codecs/cs35l56.h        |  3 --
+ sound/soc/codecs/es8389.c         |  2 +-
+ 6 files changed, 31 insertions(+), 79 deletions(-)

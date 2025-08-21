@@ -2,105 +2,168 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B82CB2F326
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Aug 2025 11:02:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 706F9B2F3F4
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Aug 2025 11:31:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E79446022B;
-	Thu, 21 Aug 2025 11:02:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E79446022B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDDB56021B;
+	Thu, 21 Aug 2025 11:31:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDDB56021B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1755766959;
-	bh=HUkFskVt/kLCNuvUrc419aqi6V/csSGTs5pBRhqs7ic=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1755768690;
+	bh=SJ4YW3Ea2q45XCUNkHVpMntDMPBiHzmCLeelC1nqS54=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iT5HLv4N0ljRvz5eELjs4Tqrze2gmjSY7U1Xup+LfV8AabjvPyb+PFW+W8iKCNZoY
-	 r3D8wglTCvnEMJluQaqMfFtsfFNsocHfJ+PRZbYEshxKaGsu/T1TnzWqsF3mXVo4LM
-	 aBayz/P2eOPbzX8ZTCWE0nuHQphdcIOS7Q08x+S4=
+	b=nbGzvQs1rxZuV0vNlj9sJI+a10z5XO3sZlyB9qMQejyHijloVmnnAn92xoc1GxV61
+	 m22oIZJpFmHWbLCFQgJwpadVQQ+gfbN5fEe2o+Z4OMKmI9ScIr46346Sphm+InhHHC
+	 UxNFKe3Dav6fasXoe8Kl5LXmZmR8kpdcUe7dE1UE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7B63F805C4; Thu, 21 Aug 2025 11:02:05 +0200 (CEST)
+	id 92B5BF805C0; Thu, 21 Aug 2025 11:30:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AE1DF805C1;
-	Thu, 21 Aug 2025 11:02:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBC32F805CA;
+	Thu, 21 Aug 2025 11:30:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C8BEF80518; Thu, 21 Aug 2025 11:01:56 +0200 (CEST)
+	id 6A151F80518; Thu, 21 Aug 2025 11:30:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06424F80152
-	for <alsa-devel@alsa-project.org>; Thu, 21 Aug 2025 11:01:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06424F80152
+	by alsa1.perex.cz (Postfix) with ESMTPS id 04F56F80152
+	for <alsa-devel@alsa-project.org>; Thu, 21 Aug 2025 11:30:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04F56F80152
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=wVFILoIx
-Received: from lelvem-sh02.itg.ti.com ([10.180.78.226])
-	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57L91k6A452181;
-	Thu, 21 Aug 2025 04:01:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1755766906;
-	bh=HUkFskVt/kLCNuvUrc419aqi6V/csSGTs5pBRhqs7ic=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=wVFILoIxvQSNFr9l3L7odWSGigO9fQYHcM2JxW46dwIy7F37Lrt58sGiTesCcn+hw
-	 YyYpflXXg/MZ4WsccfLeQ5w2yKPvLRbhRUG/Hg02WqQMfF4xm3xVAjaZsTfZJ7/5h6
-	 wOr8MVlE1mZwnXYLNJynH09Zvw3GdnbEjKXu8BJ8=
-Received: from DLEE104.ent.ti.com (dlee104.ent.ti.com [157.170.170.34])
-	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57L91kUw2421733
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Thu, 21 Aug 2025 04:01:46 -0500
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Thu, 21
- Aug 2025 04:01:45 -0500
-Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
- DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
- 15.01.2507.055; Thu, 21 Aug 2025 04:01:45 -0500
-From: "Ding, Shenghao" <shenghao-ding@ti.com>
-To: Takashi Iwai <tiwai@suse.de>
-CC: "broonie@kernel.org" <broonie@kernel.org>,
-        "andriy.shevchenko@linux.intel.com"
- <andriy.shevchenko@linux.intel.com>,
-        "13564923607@139.com" <13564923607@139.com>,
-        "13916275206@139.com"
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=0d9yE5Cq;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=li2XxLbt;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=0d9yE5Cq;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=li2XxLbt
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7E3A21F38C;
+	Thu, 21 Aug 2025 09:30:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1755768639;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hbyz8wtHEYy0Ae85OaDqxH7p8zTasJ948wOCcSpwgi8=;
+	b=0d9yE5Cqv1hav8mNmuUknQe0tHr8L4hkHo06Zdkq7hdzLb+HZBZqQ67G+ibruiMuX00VxR
+	hG0PYPjP9W5mgXMh+BUeL8gY5YW6Q2Aty1gLS9JK2ID9oHtKv/R0pM3g2shxY6jczibrLy
+	M8kV3PRYq+MtH4heutHyK7AQuDU0YVo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1755768639;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hbyz8wtHEYy0Ae85OaDqxH7p8zTasJ948wOCcSpwgi8=;
+	b=li2XxLbtrxxODjBBd3auPfGlTAy0YpKkueYXtur2KaDQYq2Dn35iCmZKXjLua0oq27tdFG
+	8lCkwSBB7V0Zw/AA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1755768639;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hbyz8wtHEYy0Ae85OaDqxH7p8zTasJ948wOCcSpwgi8=;
+	b=0d9yE5Cqv1hav8mNmuUknQe0tHr8L4hkHo06Zdkq7hdzLb+HZBZqQ67G+ibruiMuX00VxR
+	hG0PYPjP9W5mgXMh+BUeL8gY5YW6Q2Aty1gLS9JK2ID9oHtKv/R0pM3g2shxY6jczibrLy
+	M8kV3PRYq+MtH4heutHyK7AQuDU0YVo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1755768639;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hbyz8wtHEYy0Ae85OaDqxH7p8zTasJ948wOCcSpwgi8=;
+	b=li2XxLbtrxxODjBBd3auPfGlTAy0YpKkueYXtur2KaDQYq2Dn35iCmZKXjLua0oq27tdFG
+	8lCkwSBB7V0Zw/AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 35AF9139A8;
+	Thu, 21 Aug 2025 09:30:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id sLTHCz/npmgyJwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 21 Aug 2025 09:30:39 +0000
+Date: Thu, 21 Aug 2025 11:30:38 +0200
+Message-ID: <87349l6myp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Ding, Shenghao" <shenghao-ding@ti.com>
+Cc: "broonie@kernel.org" <broonie@kernel.org>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"13564923607@139.com" <13564923607@139.com>,
+	"13916275206@139.com"
 	<13916275206@139.com>,
-        "alsa-devel@alsa-project.org"
+	"alsa-devel@alsa-project.org"
 	<alsa-devel@alsa-project.org>,
-        "linux-kernel@vger.kernel.org"
+	"linux-kernel@vger.kernel.org"
 	<linux-kernel@vger.kernel.org>,
-        "Xu, Baojun" <baojun.xu@ti.com>,
-        "Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>, "Ji, Jesse" <jesse-ji@ti.com>
-Subject: RE: [EXTERNAL] Re: [PATCH v1] ALSA: hda/tas2781: Enable
+	"Xu, Baojun" <baojun.xu@ti.com>,
+	"Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>,
+	"Ji, Jesse" <jesse-ji@ti.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v1] ALSA: hda/tas2781: Enable
  init_profile_id for device initialization
-Thread-Topic: [EXTERNAL] Re: [PATCH v1] ALSA: hda/tas2781: Enable
- init_profile_id for device initialization
-Thread-Index: AQHcEatvZvlPwIjp+Em7/sG1clBO2bRtB8AA///I1EA=
-Date: Thu, 21 Aug 2025 09:01:45 +0000
-Message-ID: <203d0937f1974417ac64b4ed6a6f2e69@ti.com>
+In-Reply-To: <203d0937f1974417ac64b4ed6a6f2e69@ti.com>
 References: <20250820082123.1125-1-shenghao-ding@ti.com>
- <87cy8p6t4t.wl-tiwai@suse.de>
-In-Reply-To: <87cy8p6t4t.wl-tiwai@suse.de>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.250.161.79]
-x-c2processedorg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-Message-ID-Hash: JZD5GE7ZA3OW6TGPPLGNOQ2A2HSV7UZR
-X-Message-ID-Hash: JZD5GE7ZA3OW6TGPPLGNOQ2A2HSV7UZR
-X-MailFrom: shenghao-ding@ti.com
+	<87cy8p6t4t.wl-tiwai@suse.de>
+	<203d0937f1974417ac64b4ed6a6f2e69@ti.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	REDIRECTOR_URL(0.00)[proofpoint.com];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[139.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,139.com,alsa-project.org,vger.kernel.org,ti.com,fpt.com];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,intel.com:email]
+Message-ID-Hash: A3XYWPNRLJ3F4R232JOFPJDENY4DS6BT
+X-Message-ID-Hash: A3XYWPNRLJ3F4R232JOFPJDENY4DS6BT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JZD5GE7ZA3OW6TGPPLGNOQ2A2HSV7UZR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A3XYWPNRLJ3F4R232JOFPJDENY4DS6BT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,39 +184,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBUYWthc2hpIEl3YWkgPHRpd2Fp
-QHN1c2UuZGU+DQo+IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMjEsIDIwMjUgMzoxNyBQTQ0KPiBU
-bzogRGluZywgU2hlbmdoYW8gPHNoZW5naGFvLWRpbmdAdGkuY29tPg0KPiBDYzogYnJvb25pZUBr
-ZXJuZWwub3JnOyBhbmRyaXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb207DQo+IDEzNTY0OTIz
-NjA3QDEzOS5jb207IDEzOTE2Mjc1MjA2QDEzOS5jb207IGFsc2EtZGV2ZWxAYWxzYS0NCj4gcHJv
-amVjdC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IFh1LCBCYW9qdW4gPGJhb2p1
-bi54dUB0aS5jb20+Ow0KPiBCYW9qdW4uWHVAZnB0LmNvbTsgSmksIEplc3NlIDxqZXNzZS1qaUB0
-aS5jb20+DQo+IFN1YmplY3Q6IFtFWFRFUk5BTF0gUmU6IFtQQVRDSCB2MV0gQUxTQTogaGRhL3Rh
-czI3ODE6IEVuYWJsZQ0KPiBpbml0X3Byb2ZpbGVfaWQgZm9yIGRldmljZSBpbml0aWFsaXphdGlv
-bg0KPiANCj4gT24gV2VkLCAyMCBBdWcgMjAyNSAxMDrigIoyMTrigIoyMyArMDIwMCwgU2hlbmdo
-YW8gRGluZyB3cm90ZTogPiA+IE9wdGltaXplDQo+IHRoZSB0aW1lIGNvbnN1bXB0aW9uIG9mIHBy
-b2ZpbGUgc3dpdGNoaW5nLCBpbml0X3Byb2ZpbGUgc2F2ZXMgPiB0aGUgY29tbW9uDQo+IHNldHRp
-bmdzIG9mIGRpZmZlcmVudCBwcm9maWxlcywgc3VjaCBhcyB0aGUgZHNwIGNvZWZmaWNpZW50cywg
-PiBldGMsIHdoaWNoIGNhbg0KPiBncmVhdGx5IFpqUWNtUVJZRnBmcHRCYW5uZXJTdGFydCBUaGlz
-IG1lc3NhZ2Ugd2FzIHNlbnQgZnJvbSBvdXRzaWRlIG9mDQo+IFRleGFzIEluc3RydW1lbnRzLg0K
-PiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91IHJlY29n
-bml6ZSB0aGUgc291cmNlIG9mDQo+IHRoaXMgZW1haWwgYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMg
-c2FmZS4NCj4gPGh0dHBzOi8vdXMtcGhpc2hhbGFybS0NCj4gZXd0LnByb29mcG9pbnQuY29tL0VX
-VC92MS9HM3ZLIXZ4ZHJIZjNtVjJVYjRvYnN2eHRvWDRGVFYteVlkX0MtDQo+IDZuZ1F0RmVVRnBD
-UmFFRVNqOF9CLXNaWG11WDVKTjJJMnU0UXgtbEQkPg0KPiBSZXBvcnQgU3VzcGljaW91cw0KPiAN
-Cj4gWmpRY21RUllGcGZwdEJhbm5lckVuZA0KPiBPbiBXZWQsIDIwIEF1ZyAyMDI1IDEwOjIxOjIz
-ICswMjAwLA0KPiBTaGVuZ2hhbyBEaW5nIHdyb3RlOg0KPiA+DQo+ID4gT3B0aW1pemUgdGhlIHRp
-bWUgY29uc3VtcHRpb24gb2YgcHJvZmlsZSBzd2l0Y2hpbmcsIGluaXRfcHJvZmlsZSBzYXZlcw0K
-PiA+IHRoZSBjb21tb24gc2V0dGluZ3Mgb2YgZGlmZmVyZW50IHByb2ZpbGVzLCBzdWNoIGFzIHRo
-ZSBkc3ANCj4gPiBjb2VmZmljaWVudHMsIGV0Yywgd2hpY2ggY2FuIGdyZWF0bHkgcmVkdWNlIHRo
-ZSBwcm9maWxlIHN3aXRjaGluZyB0aW1lDQo+ID4gY29tc3VtcHRpb24gYW5kIHJlbW92ZSB0aGUg
-cmVwZXRpdGl2ZSBzZXR0aW5ncy4NCj4gPg0KLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u
-DQo+IFRoZSBwYXRjaCBjYXVzZXMgYnVpbGQgZXJyb3JzOg0KPiANCj4gc291bmQvaGRhL2NvZGVj
-cy9zaWRlLWNvZGVjcy90YXMyNzgxX2hkYV9pMmMuYzogSW4gZnVuY3Rpb24NCj4gyr10YXNkZXZp
-Y2VfZHNwZndfaW5pdMq8Og0KPiBzb3VuZC9oZGEvY29kZWNzL3NpZGUtY29kZWNzL3RhczI3ODFf
-aGRhX2kyYy5jOjQ2ODoyOTogZXJyb3I6IMq9c3RydWN0DQo+IHRhc2RldmljZV9yY2HKvCBoYXMg
-bm8gbWVtYmVyIG5hbWVkIMq9aW5pdF9wcm9maWxlX2lkyrwNCj4gICA0NjggfCAgICAgICAgIGlm
-ICh0YXNfcHJpdi0+cmNhYmluLmluaXRfcHJvZmlsZV9pZCA+PSAwKQ0KPiAgICAgICB8ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBeDQo+IC4uLi4NCj4gDQo+IFNvbWV0aGluZyBzdGlsbCBu
-b3QgbGFuZGVkIGluIG15IHRyZWUgeWV0Lg0KSSB3aWxsIHJlc3VibWl0IGl0IGFmdGVyIHlvdXIg
-dHJlZSBpcyByZWFkeS4NCj4gDQo+IA0KPiB0aGFua3MsDQo+IA0KPiBUYWthc2hpDQo=
+On Thu, 21 Aug 2025 11:01:45 +0200,
+Ding, Shenghao wrote:
+> 
+> > -----Original Message-----
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Sent: Thursday, August 21, 2025 3:17 PM
+> > To: Ding, Shenghao <shenghao-ding@ti.com>
+> > Cc: broonie@kernel.org; andriy.shevchenko@linux.intel.com;
+> > 13564923607@139.com; 13916275206@139.com; alsa-devel@alsa-
+> > project.org; linux-kernel@vger.kernel.org; Xu, Baojun <baojun.xu@ti.com>;
+> > Baojun.Xu@fpt.com; Ji, Jesse <jesse-ji@ti.com>
+> > Subject: [EXTERNAL] Re: [PATCH v1] ALSA: hda/tas2781: Enable
+> > init_profile_id for device initialization
+> > 
+> > On Wed, 20 Aug 2025 10: 21: 23 +0200, Shenghao Ding wrote: > > Optimize
+> > the time consumption of profile switching, init_profile saves > the common
+> > settings of different profiles, such as the dsp coefficients, > etc, which can
+> > greatly ZjQcmQRYFpfptBannerStart This message was sent from outside of
+> > Texas Instruments.
+> > Do not click links or open attachments unless you recognize the source of
+> > this email and know the content is safe.
+> > <https://us-phishalarm-
+> > ewt.proofpoint.com/EWT/v1/G3vK!vxdrHf3mV2Ub4obsvxtoX4FTV-yYd_C-
+> > 6ngQtFeUFpCRaEESj8_B-sZXmuX5JN2I2u4Qx-lD$>
+> > Report Suspicious
+> > 
+> > ZjQcmQRYFpfptBannerEnd
+> > On Wed, 20 Aug 2025 10:21:23 +0200,
+> > Shenghao Ding wrote:
+> > >
+> > > Optimize the time consumption of profile switching, init_profile saves
+> > > the common settings of different profiles, such as the dsp
+> > > coefficients, etc, which can greatly reduce the profile switching time
+> > > comsumption and remove the repetitive settings.
+> > >
+> ..............................
+> > The patch causes build errors:
+> > 
+> > sound/hda/codecs/side-codecs/tas2781_hda_i2c.c: In function
+> > ʽtasdevice_dspfw_initʼ:
+> > sound/hda/codecs/side-codecs/tas2781_hda_i2c.c:468:29: error: ʽstruct
+> > tasdevice_rcaʼ has no member named ʽinit_profile_idʼ
+> >   468 |         if (tas_priv->rcabin.init_profile_id >= 0)
+> >       |                             ^
+> > ....
+> > 
+> > Something still not landed in my tree yet.
+> I will resubmit it after your tree is ready.
+
+So it's currently only in ASoC tree?
+Then maybe it's easier to put Mark's tree instead.
+
+In that case, feel free to take my ack:
+Acked-by: Takashi Iwai <tiwai@suse.de>
+
+But, the current situation of TAS driver support is messy, a part of
+changes are found in my tree while another part in Mark's tree
+individually...
+
+
+thanks,
+
+Takashi

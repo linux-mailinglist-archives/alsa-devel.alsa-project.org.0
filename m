@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EE2CB33B5A
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Aug 2025 11:43:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837F5B34CB3
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Aug 2025 22:51:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB48601BC;
-	Mon, 25 Aug 2025 11:42:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB48601BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7C70601F0;
+	Mon, 25 Aug 2025 22:51:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7C70601F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1756114983;
-	bh=xehP/gpBrPL437K1//bUcRGUZpTV7yfva3B1SIEtmnY=;
+	s=default; t=1756155077;
+	bh=cHXDdyiNo6b19R4yUV3vrvDh4+5xHSygmj+5Ns5ccz8=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=lUhQkbjw9cpkvi2Jk/hTVxeSKIFF2IlcXVMdGmJN5dQMixDvP/Gt2yJW1QBbJ9jG/
-	 JrJdFP96tiTAfzE6hpPfyadG0cTzCpWywJkx32/wBuNOerrMkVGufnXpLoARPJHOJ7
-	 iod/bAoQs0Q1h+fJJUwkwGiQkPgEN8EnG+dHBKYs=
+	b=Pli7ugWYcNTOyEHLwiQewZqCVhG+TYIhbqeaemuDaoJSuTRjvbabEMrh8LSXouArN
+	 QI4zwWHG/PyRH5oYK5heUKUV6BLsy3+jrd3g8tnTm5tN6jKF316MzdJdneudu1k3xI
+	 4OS2N0wA5gY6ueTFDiuLv06uw0wJWia/Jv2+qDkk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 16481F805C1; Mon, 25 Aug 2025 11:42:30 +0200 (CEST)
+	id D756EF805D5; Mon, 25 Aug 2025 22:50:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CF0BF805C8;
-	Mon, 25 Aug 2025 11:42:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90783F805BB;
+	Mon, 25 Aug 2025 22:50:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49E45F804B0; Mon, 25 Aug 2025 11:41:59 +0200 (CEST)
+	id 39CC5F804B0; Mon, 25 Aug 2025 22:50:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,21 +35,21 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0217F800B0
-	for <alsa-devel@alsa-project.org>; Mon, 25 Aug 2025 11:41:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0217F800B0
+	by alsa1.perex.cz (Postfix) with ESMTP id A5843F800B0
+	for <alsa-devel@alsa-project.org>; Mon, 25 Aug 2025 22:50:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5843F800B0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
+From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <185ef935cd764700-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-ucm-conf/pr/549@alsa-project.org>
-References: <alsa-project/alsa-ucm-conf/pr/549@alsa-project.org>
-Subject: ucm2: MediaTek: mt8395-evk: Add support for SOF
-Date: Mon, 25 Aug 2025 11:41:59 +0200 (CEST)
-Message-ID-Hash: KHPPD4VJIKLS77SQ3UT37LFMKUG6JCMW
-X-Message-ID-Hash: KHPPD4VJIKLS77SQ3UT37LFMKUG6JCMW
+Message-Id: <185f1db067fd9d00-webhooks-bot@alsa-project.org>
+In-Reply-To: <185f1db0667bdd00-webhooks-bot@alsa-project.org>
+References: <185f1db0667bdd00-webhooks-bot@alsa-project.org>
+Subject: my duo cast volume is too low
+Date: Mon, 25 Aug 2025 22:50:27 +0200 (CEST)
+Message-ID-Hash: JHISCPC7LKSR5ODREJPVGXMBZMLP4PY2
+X-Message-ID-Hash: JHISCPC7LKSR5ODREJPVGXMBZMLP4PY2
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KHPPD4VJIKLS77SQ3UT37LFMKUG6JCMW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHISCPC7LKSR5ODREJPVGXMBZMLP4PY2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,10 +71,9 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #549 was edited from julien-massot:
+alsa-project/alsa-ucm-conf issue #604 was opened from reflexionn:
 
-Add support for sof-mt8395-evk. Currently, enable only the minimum: earphone output and HDMI output.
+hello i bought the hyperx duocast mic for recording reasons i have a small youtube channel that goes by the name vironio i was dissapointed with the mic performance because it has very low volume and if i wanna record i have to be uncomfortably close to the microphone i thought thats just how the mic is and i lived with it i set the gain to around 70% because anything more would lead to weird noise that comes from the mic itself and i just record and then put the recording in adobe audition add a lot of effects and noise cancelation and audio gate and then i amplify the audio by around 9db so its hearable but not so long ago i saw a tiktoker with the same mic but he has a much higher volume and can use the microphone from around 2 to 3 inches away with the quality being really good so i thought its not actually the mics fault and i just didnt set it up right can anyone help me?
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/549
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/549.patch
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/604
 Repository URL: https://github.com/alsa-project/alsa-ucm-conf

@@ -2,109 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADFFCB4F377
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Sep 2025 14:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EE2CB33B5A
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Aug 2025 11:43:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C130260200;
-	Tue,  9 Sep 2025 14:10:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C130260200
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB48601BC;
+	Mon, 25 Aug 2025 11:42:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB48601BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1757419818;
-	bh=9wCu/lE2SNLmZXDPJs5KY9qxCt+InQjCHI78p4ydt6g=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ICbNNjLzB9fU5VcXKmzd0V0RXlSuiZYL2NSPWP3V+aLql0JQ6swCDJ2/P773YufbJ
-	 9pISRwXmW1x/jHK6DLVtuItvM2cy4XN7sLmlozsIv8xwkG1KumYVZWEBZX+pRLnbZU
-	 QKcJZhXGFqSuoZOcAIzrA6FNyCY/rwMaVL74nQKs=
+	s=default; t=1756114983;
+	bh=xehP/gpBrPL437K1//bUcRGUZpTV7yfva3B1SIEtmnY=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=lUhQkbjw9cpkvi2Jk/hTVxeSKIFF2IlcXVMdGmJN5dQMixDvP/Gt2yJW1QBbJ9jG/
+	 JrJdFP96tiTAfzE6hpPfyadG0cTzCpWywJkx32/wBuNOerrMkVGufnXpLoARPJHOJ7
+	 iod/bAoQs0Q1h+fJJUwkwGiQkPgEN8EnG+dHBKYs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E95EF805FA; Tue,  9 Sep 2025 14:09:26 +0200 (CEST)
+	id 16481F805C1; Mon, 25 Aug 2025 11:42:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63DD0F80272;
-	Tue,  9 Sep 2025 14:09:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CF0BF805C8;
+	Mon, 25 Aug 2025 11:42:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95A78F804B3; Mon, 25 Aug 2025 05:41:31 +0200 (CEST)
+	id 49E45F804B0; Mon, 25 Aug 2025 11:41:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5481F80542
-	for <alsa-devel@alsa-project.org>; Mon, 25 Aug 2025 05:41:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5481F80542
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=mXo1DXJr
-Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
-	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57P3fMO0722096;
-	Sun, 24 Aug 2025 22:41:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1756093282;
-	bh=PAKLNDoNCamNc9LnfInvHhH4CKOHwMXGWqkEML1o8kU=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=mXo1DXJrXWkTESNddbOcffC6kRrPPjibc1ncCwXsE8PrMd178SXxzMbJ7HE/2jpvW
-	 vS1hXZEf3Y33teDc5v4SWGq40miU+Zmzk9YBAWHq5EnQk/mIgVrDLKp8L9Bln81Kcd
-	 ZxkC1EaBajZg1yrCTPnaELMw2TiyKsJLLV4+5JkY=
-Received: from DLEE110.ent.ti.com (dlee110.ent.ti.com [157.170.170.21])
-	by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57P3fMVU322700
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Sun, 24 Aug 2025 22:41:22 -0500
-Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Sun, 24
- Aug 2025 22:41:21 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Sun, 24 Aug 2025 22:41:21 -0500
-Received: from lelvem-mr05.itg.ti.com ([10.250.165.138])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57P3f5UR3241916;
-	Sun, 24 Aug 2025 22:41:14 -0500
-From: Baojun Xu <baojun.xu@ti.com>
-To: <broonie@kernel.org>
-CC: <tiwai@suse.de>, <andriy.shevchenko@linux.intel.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <shenghao-ding@ti.com>, <baojun.xu@ti.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <lgirdwood@gmail.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <k-yi@ti.com>,
-        <henry.lo@ti.com>, <robinchen@ti.com>, <jesse-ji@ti.com>,
-        <will-wang@ti.com>, <jim.shil@goertek.com>, <toastcheng@google.com>,
-        <chinkaiting@google.com>
-Subject: [PATCH v3 2/2] ASoC: tas2781: Add tas2118, tas2x20, tas5825 support
-Date: Mon, 25 Aug 2025 11:40:39 +0800
-Message-ID: <20250825034039.9713-2-baojun.xu@ti.com>
-X-Mailer: git-send-email 2.43.0.windows.1
-In-Reply-To: <20250825034039.9713-1-baojun.xu@ti.com>
-References: <20250825034039.9713-1-baojun.xu@ti.com>
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id C0217F800B0
+	for <alsa-devel@alsa-project.org>; Mon, 25 Aug 2025 11:41:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0217F800B0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-MailFrom: baojun.xu@ti.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+Message-Id: <185ef935cd764700-webhooks-bot@alsa-project.org>
+In-Reply-To: <alsa-project/alsa-ucm-conf/pr/549@alsa-project.org>
+References: <alsa-project/alsa-ucm-conf/pr/549@alsa-project.org>
+Subject: ucm2: MediaTek: mt8395-evk: Add support for SOF
+Date: Mon, 25 Aug 2025 11:41:59 +0200 (CEST)
+Message-ID-Hash: KHPPD4VJIKLS77SQ3UT37LFMKUG6JCMW
+X-Message-ID-Hash: KHPPD4VJIKLS77SQ3UT37LFMKUG6JCMW
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 2RCJTRGKVXT2QPM22CVH5TIU6TWUVNK5
-X-Message-ID-Hash: 2RCJTRGKVXT2QPM22CVH5TIU6TWUVNK5
-X-Mailman-Approved-At: Tue, 09 Sep 2025 12:09:16 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2RCJTRGKVXT2QPM22CVH5TIU6TWUVNK5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KHPPD4VJIKLS77SQ3UT37LFMKUG6JCMW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,142 +71,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Update ti,tas2781.yaml for adding tas2118, tas2x20, tas5825.
+alsa-project/alsa-ucm-conf pull request #549 was edited from julien-massot:
 
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
+Add support for sof-mt8395-evk. Currently, enable only the minimum: earphone output and HDMI output.
 
----
-v3:
- - Remove unnecessary minItems.
- - Remove unnecessary description for tas5825.
-v2:
- - Update the mail list for maintainers of yaml file
----
- .../devicetree/bindings/sound/ti,tas2781.yaml | 68 ++++++++++++++++++-
- 1 file changed, 67 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-index 5ea1cdc593b5..a31355a4c2fe 100644
---- a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-+++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
--# Copyright (C) 2022 - 2023 Texas Instruments Incorporated
-+# Copyright (C) 2022 - 2025 Texas Instruments Incorporated
- %YAML 1.2
- ---
- $id: http://devicetree.org/schemas/sound/ti,tas2781.yaml#
-@@ -11,30 +11,62 @@ maintainers:
-   - Shenghao Ding <shenghao-ding@ti.com>
- 
- description: |
-+  The TAS2118/TAS2X20 is mono, digital input Class-D audio amplifier
-+  optimized for efficiently driving high peak power into small loudspeakers.
-+  Integrated speaker voltage and current sense provides for
-+  real time monitoring of loudspeaker behavior.
-   The TAS2563/TAS2781 is a mono, digital input Class-D audio
-   amplifier optimized for efficiently driving high peak power into
-   small loudspeakers. An integrated on-chip DSP supports Texas
-   Instruments Smart Amp speaker protection algorithm. The
-   integrated speaker voltage and current sense provides for real time
-   monitoring of loudspeaker behavior.
-+  The TAS5825 is a stereo, digital input Class-D audio
-+  amplifier optimized for efficiently driving high peak power into
-+  small loudspeakers. An integrated on-chip DSP supports Texas
-+  Instruments Smart Amp speaker protection algorithm. The
-+  integrated speaker voltage and current sense provides for real time
-+  monitoring of loudspeaker behavior.
- 
-   Specifications about the audio amplifier can be found at:
-+    https://www.ti.com/lit/gpn/tas2120
-+    https://www.ti.com/lit/gpn/tas2320
-     https://www.ti.com/lit/gpn/tas2563
-     https://www.ti.com/lit/gpn/tas2781
-+    https://www.ti.com/lit/gpn/tas5825m
- 
- properties:
-   compatible:
-     description: |
-+      ti,tas2020: 3.2-W Mono Digital Input Class-D Speaker Amp with 5.5V PVDD
-+      Support.
-+
-+      ti,tas2118: 5-W Mono Digital Input Class-D Speaker Amp with Integrated
-+      8.4-V Class-H Boost.
-+
-+      ti,tas2120: 8.2-W Mono Digital Input Class-D Speaker Amp with
-+      Integrated 14.75V Class-H Boost.
-+
-+      ti,tas2320: 15-W Mono Digital Input Class-D Speaker Amp with 15V Support.
-+
-       ti,tas2563: 6.1-W Boosted Class-D Audio Amplifier With Integrated
-       DSP and IV Sense, 16/20/24/32bit stereo I2S or multichannel TDM.
- 
-       ti,tas2781: 24-V Class-D Amplifier with Real Time Integrated Speaker
-       Protection and Audio Processing, 16/20/24/32bit stereo I2S or
-       multichannel TDM.
-+
-+      ti,tas5825: 38-W Stereo, Inductor-Less, Digital Input, Closed-Loop 4.5V
-+      to 26.4V Class-D Audio Amplifier with 192-kHz Extended Audio Processing.
-     oneOf:
-       - items:
-           - enum:
-+              - ti,tas2020
-+              - ti,tas2118
-+              - ti,tas2120
-+              - ti,tas2320
-               - ti,tas2563
-+              - ti,tas5825
-           - const: ti,tas2781
-       - enum:
-           - ti,tas2781
-@@ -61,6 +93,26 @@ required:
- 
- allOf:
-   - $ref: dai-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,tas2020
-+              - ti,tas2118
-+              - ti,tas2120
-+              - ti,tas2320
-+    then:
-+      properties:
-+        reg:
-+          description:
-+            I2C address, in multiple-AMP case, all the i2c address
-+            aggregate as one Audio Device to support multiple audio slots.
-+          maxItems: 4
-+          items:
-+            minimum: 0x48
-+            maximum: 0x4b
-+
-   - if:
-       properties:
-         compatible:
-@@ -97,6 +149,20 @@ allOf:
-             minimum: 0x38
-             maximum: 0x3f
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,tas5825
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 4
-+          items:
-+            minimum: 0x4c
-+            maximum: 0x4f
-+
- additionalProperties: false
- 
- examples:
--- 
-2.43.0
-
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/549
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/549.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

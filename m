@@ -2,56 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47C6FB37242
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Aug 2025 20:32:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C38D4B375A3
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Aug 2025 01:49:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38394602AB;
-	Tue, 26 Aug 2025 20:32:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38394602AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 460546027C;
+	Wed, 27 Aug 2025 01:49:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 460546027C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1756233146;
-	bh=gBSOaDDbkdJl8GzXTzo4hGweN4hdOnhu5nJ1OQU/HyQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Bd2NdigWBKDCUElhXZgXrj4Nm3kL1Z6aqRYW389kD0d3YcE/bERlECHeZRVElwtwi
-	 iRrKPP2xk+YxirkECq+yTY6ZSuewEt53SEe/5p8BqqyVQIwynV7xMcnBnRdzyDfx5F
-	 xXdyLxe7Nzl3FciBz/L9cKlYWjpINz1A1C6EI9wk=
+	s=default; t=1756252155;
+	bh=hZd7DMon6nfo9tAnosKX54eivkP18xoOYKwiqLXaORg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Zq8LAAsrNn9tsmtWl+X2WCOoiNUZNu3eh7f8MMmF7hUfbWcvPfjd1h52lRpW/WAWq
+	 Gvw3NTLeHBcR3xau8R8s8pIRznGx2iJE7w8TspHZiFjB6C8iYaFl687fpdH97zKU9A
+	 GdXAiTbe2W6QcUFMdIwv1D4XLhlo0d+a2zZ/bhWc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F375F805E7; Tue, 26 Aug 2025 20:32:01 +0200 (CEST)
+	id 94331F805C5; Wed, 27 Aug 2025 01:48:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FC79F80153;
-	Tue, 26 Aug 2025 20:32:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB0B5F80495;
+	Wed, 27 Aug 2025 01:48:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E4B1F805B5; Tue, 26 Aug 2025 20:31:51 +0200 (CEST)
+	id 83029F80495; Wed, 27 Aug 2025 01:48:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 898F3F80557
-	for <alsa-devel@alsa-project.org>; Tue, 26 Aug 2025 20:31:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 898F3F80557
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from irl.hu (irl.hu [95.85.9.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with UTF8SMTPS id 1D5CAF800DF
+	for <alsa-devel@alsa-project.org>; Wed, 27 Aug 2025 01:48:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D5CAF800DF
+Received: from [192.168.2.4] (51b68eac.dsl.pool.telekom.hu
+ [::ffff:81.182.142.172])
+  (AUTH: CRAM-MD5 soyer@irl.hu, )
+  by irl.hu with ESMTPSA
+  id 0000000000088D34.0000000068AE47BF.00233BCC;
+ Wed, 27 Aug 2025 01:48:15 +0200
+Message-ID: <7d64e317bc748fbc1853bb4bc714cd088450fe02.camel@irl.hu>
+Subject: Re: [PATCH v2] ALSA: hda/tas2781: Fix EFI name for calibration
+ beginning with 1 instead of 0
+From: Gergo Koteles <soyer@irl.hu>
+To: Shenghao Ding <shenghao-ding@ti.com>, tiwai@suse.de
+Cc: broonie@kernel.org, andriy.shevchenko@linux.intel.com,
+  13564923607@139.com, 13916275206@139.com,
+  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+  baojun.xu@ti.com, Baojun.Xu@fpt.com, jesse-ji@ti.com
+Date: Wed, 27 Aug 2025 01:48:14 +0200
+In-Reply-To: <20250826094105.1325-1-shenghao-ding@ti.com>
+References: <20250826094105.1325-1-shenghao-ding@ti.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-1.fc42) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <185f64b54ae2ff00-webhooks-bot@alsa-project.org>
-In-Reply-To: <185f64b54adc5d00-webhooks-bot@alsa-project.org>
-References: <185f64b54adc5d00-webhooks-bot@alsa-project.org>
-Subject: Audio garbled when using Multi plugin to record from 2+ USB
- soundcards on Raspberry Pi
-Date: Tue, 26 Aug 2025 20:31:51 +0200 (CEST)
-Message-ID-Hash: VHURVGQM3GJVMYDIBTDS5KPB2AVSKAXO
-X-Message-ID-Hash: VHURVGQM3GJVMYDIBTDS5KPB2AVSKAXO
-X-MailFrom: github@alsa-project.org
+Message-ID-Hash: VX6A4Y4FP3I66ZQU4R4VRZ4ZS6AF3PLZ
+X-Message-ID-Hash: VX6A4Y4FP3I66ZQU4R4VRZ4ZS6AF3PLZ
+X-MailFrom: soyer@irl.hu
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -63,7 +77,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VHURVGQM3GJVMYDIBTDS5KPB2AVSKAXO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VX6A4Y4FP3I66ZQU4R4VRZ4ZS6AF3PLZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,50 +86,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #472 was edited from TommyKaneko:
+Hi Shenghao,
 
-I have been trying to use the multi plugin to record multiple channels from multiple soundcards on the Raspberry Pi.  The results are a garbled mess.
+On Tue, 2025-08-26 at 17:41 +0800, Shenghao Ding wrote:
+> A bug reported by one of my customers that EFI name beginning with 0
+> instead of 1.
+>=20
+> Fixes: 4fe238513407 ("ALSA: hda/tas2781: Move and unified the calibrated-=
+data getting function for SPI and I2C into the tas2781_hda lib")
+> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+>=20
+> ---
+> v2:
+>  - remove unrelated change
+> v1:
+>  - Fix EFI name beginning with 1 instead of 0
+>  - Add extra comments on EFI name for calibration
+>  - Remove an extra space
+> ---
+>  sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/c=
+odecs/side-codecs/tas2781_hda_i2c.c
+> index ed7771ab9475..635cbd8820ac 100644
+> --- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+> +++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+> @@ -340,7 +340,8 @@ static int tas2563_save_calibration(struct tas2781_hd=
+a *h)
+>  		data[offset] =3D i;
+>  		offset++;
+>  		for (j =3D 0; j < TASDEV_CALIB_N; ++j) {
+> -			ret =3D snprintf(var8, sizeof(var8), vars[j], i);
+> +			/* EFI name for calibration started with 1, not 0 */
+> +			ret =3D snprintf(var8, sizeof(var8), vars[j], i + 1);
+> =20
+>  			if (ret < 0 || ret >=3D sizeof(var8) - 1) {
+>  				dev_err(p->dev, "%s: Read %s failed\n",
+> @@ -349,7 +350,7 @@ static int tas2563_save_calibration(struct tas2781_hd=
+a *h)
+>  			}
+>  			/*
+>  			 * Our variable names are ASCII by construction, but
+> -			 * EFI names are wide chars.  Convert and zero-pad.
+> +			 * EFI names are wide chars. Convert and zero-pad.
+>  			 */
+>  			memset(efi_name, 0, sizeof(efi_name));
+>  			for (k =3D 0; k < sizeof(var8) && var8[k]; k++)
 
-==== EDIT 26/08 ====
+The previous tas2781_apply_calib() and tas2563_apply_calib() functions
+performed a big endian conversion on the data readed from the EFI
+variables.
 
-Having probed the issue some more, I would like to add more detail:
+I couldn't find this in either fmwlib or this file.
+Could you please recheck if this happens somewhere?
 
-The devices and drivers I try to use are:
-```**** List of CAPTURE Hardware Devices ****
-card 0: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: Device_1 [USB PnP Sound Device], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-```
-...Curiously, I have actually had success using the multi plugin to record using a pro audio interface AND ONE `USB PnP Sound Device`, in this set up
-```**** List of CAPTURE Hardware Devices ****
-card 0: Device [USB PnP Sound Device], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: USB [Scarlett 2i2 USB], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-```
-
-HOWEVER, if I try to add another `USB PnP Sound Device` to the multi setup, then the result is a garbled mess.  My conclusion is that the multi plugin works generally, but it does NOT work for two or more `USB PnP Sound Device`.  Something tells me that the plugin cannot differentiate the addresses of the audio frames held in two or more of these cheap USB microphones.
-
-I have a more verbose post of my issue here: https://www.reddit.com/r/linuxaudio/comments/1m24po8/recording_on_multiple_usb_mics_on_raspberry_pi/
-
-
-===EDIT 26/08 The following diagnosis was wrong:
-I have diagnosed the reasons as thus:
-- current raspberry Pi OS uses alsa v1.2.8+rpt1
-- the "fix" for the multi plugin was implemented in v1.2.9 : https://github.com/alsa-project/alsa-lib/commit/369df322577034ea872978d6470edbadf30d81a9
-
-I am aware that the multi plugin was not meant to be used on multiple soundcards that are not in sync, however if the clock drifts over time, this is ok for my application.
-
-I am here to seek advice on how I should go about creating a workaround.  The limitations are that I need to use cheap USB microphones (it is a weight issue).
-
-Without going along the microcontroller route, I thought one way was to make an [external plugin](https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_external_plugins.html), based on the newly patched pcm_multi plugin.  I am working on this, while climbing the steep learning curve.  Perhaps I can contribute an external plugin for the project...
-
-In the meantime, does a developer have a better suggestion that I might have success with?  Or any tips if you are familiar with the pcm_multi plugin? @perexg ?
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/472
-Repository URL: https://github.com/alsa-project/alsa-lib
+Thanks,
+Gergo

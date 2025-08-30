@@ -2,30 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69571B4F3D2
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Sep 2025 14:10:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9589B4F406
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Sep 2025 14:11:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05FF06023B;
-	Tue,  9 Sep 2025 14:10:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05FF06023B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D68F66023A;
+	Tue,  9 Sep 2025 14:11:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D68F66023A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1757419852;
-	bh=8qiiAMANwygiAjSo9v7Z1RznRbPqHUO4mi8g3rNkM9o=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=KJFZmsF+uJJzgu1dYgYhJ/ne344uSWUmdM+xbiDnv7vpciBPonSgUUTi6wTsw77Uk
-	 gI0xKWQ589MEppq97paW2IziISGcd3lJSUrWqVVTpDlEu+o8QjRG9MnW88A1vwgKfv
-	 N9mdS85+E+EPB6Z5M8QzfJnNMpUxLmgBbNCo2BGE=
+	s=default; t=1757419883;
+	bh=qfyv3oMp3domLy8FxDk2uV8pVIu7xX53qtHqe1eXx6w=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=SUNBC704/UXKwehbOX1ewpeuD5ZuE1+c7sF/lXI3mNhUqBUQeLEwFVCfnBrJrukT4
+	 m+zCUjERma53binQ9chAm9qRPVt2qk784l0tWdq1KIEm/hngsYWaxDwpd+0bAvnICG
+	 iMhgrk1w3OapYpeM1wcSFZokhP4ZNQwMA4rgZJao=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C533AF805D3; Tue,  9 Sep 2025 14:10:28 +0200 (CEST)
+	id 60A8FF80602; Tue,  9 Sep 2025 14:10:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79F85F805C4;
-	Tue,  9 Sep 2025 14:10:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D2DDF805FF;
+	Tue,  9 Sep 2025 14:10:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C9F3F8027B; Sat, 30 Aug 2025 08:15:50 +0200 (CEST)
+	id 7FBF6F80272; Sat, 30 Aug 2025 08:15:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
@@ -33,41 +34,41 @@ X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
 	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
+Received: from lelvem-ot02.ext.ti.com (lelvem-ot02.ext.ti.com [198.47.23.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0DED0F80072
-	for <alsa-devel@alsa-project.org>; Sat, 30 Aug 2025 08:15:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DED0F80072
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F384F80072
+	for <alsa-devel@alsa-project.org>; Sat, 30 Aug 2025 08:15:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F384F80072
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=I5rPCfX9
-Received: from lelvem-sh02.itg.ti.com ([10.180.78.226])
-	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57U6FXZw1955394;
-	Sat, 30 Aug 2025 01:15:33 -0500
+ header.s=ti-com-17Q1 header.b=t7ep6Dr8
+Received: from fllvem-sh03.itg.ti.com ([10.64.41.86])
+	by lelvem-ot02.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57U6Fg3Y2393700;
+	Sat, 30 Aug 2025 01:15:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1756534533;
-	bh=vzjlf0Zfxl1kqHdYpbx58+RwAFb8OBFp3G87hCfoZqo=;
-	h=From:To:CC:Subject:Date;
-	b=I5rPCfX9H6yV3l33sPvtOuHKTVJEoCAThLiX0lc49ZC+JYiElnpN5lPypM+xm2Ngt
-	 PdmfrDJbCO1uY2T3YhKdacZb3MspWvUd2jV1+3Jyn4tn8nTxVPIZijnFGRgqw9KgL3
-	 o1DiWAQ2QKD/4JEA+rBdsnhmBmH2wL19Hs2+Jtcg=
-Received: from DFLE102.ent.ti.com (dfle102.ent.ti.com [10.64.6.23])
-	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57U6FWcD547621
+	s=ti-com-17Q1; t=1756534542;
+	bh=/3h3pBMnXj801ChBgkwa7CRTuzA6xKhT1CxYrz6psP0=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References;
+	b=t7ep6Dr8S6toVvLaDdT+/g/m1lFrpte9ZARxJZt7p83oqWyRXYEzAl6DXkUBm43ba
+	 1zV7fwXTnZNMM+G7yXHqqZSFuVBzif620XzFKimVFSn7XpMeaf0BwWfyfXH3n8cDzC
+	 cYMqSKtaoGxLLSQV56maPqCVgn3QgiD8nsNj3x90=
+Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
+	by fllvem-sh03.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57U6Fgeo366883
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Sat, 30 Aug 2025 01:15:32 -0500
-Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
+	Sat, 30 Aug 2025 01:15:42 -0500
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE115.ent.ti.com
+ (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Sat, 30
- Aug 2025 01:15:32 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE110.ent.ti.com
- (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
+ Aug 2025 01:15:41 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Sat, 30 Aug 2025 01:15:32 -0500
+ Frontend Transport; Sat, 30 Aug 2025 01:15:42 -0500
 Received: from lelvem-mr06.itg.ti.com ([10.250.165.138])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57U6FLts3461942;
-	Sat, 30 Aug 2025 01:15:22 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57U6FLtt3461942;
+	Sat, 30 Aug 2025 01:15:33 -0500
 From: Baojun Xu <baojun.xu@ti.com>
 To: <broonie@kernel.org>
 CC: <tiwai@suse.de>, <andriy.shevchenko@linux.intel.com>,
@@ -79,10 +80,12 @@ CC: <tiwai@suse.de>, <andriy.shevchenko@linux.intel.com>,
         <henry.lo@ti.com>, <robinchen@ti.com>, <jesse-ji@ti.com>,
         <will-wang@ti.com>, <jim.shil@goertek.com>, <toastcheng@google.com>,
         <chinkaiting@google.com>
-Subject: [PATCH v4 1/2] ASoC: tas2781: Add tas2118, tas2x20, tas5825 support
-Date: Sat, 30 Aug 2025 14:14:58 +0800
-Message-ID: <20250830061459.24371-1-baojun.xu@ti.com>
+Subject: [PATCH v4 2/2] ASoC: tas2781: Add tas2118, tas2x20, tas5825 support
+Date: Sat, 30 Aug 2025 14:14:59 +0800
+Message-ID: <20250830061459.24371-2-baojun.xu@ti.com>
 X-Mailer: git-send-email 2.43.0.windows.1
+In-Reply-To: <20250830061459.24371-1-baojun.xu@ti.com>
+References: <20250830061459.24371-1-baojun.xu@ti.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -93,15 +96,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OQLDZQ3JJVFJMBMWFJWNK2IACAKBZQRL
-X-Message-ID-Hash: OQLDZQ3JJVFJMBMWFJWNK2IACAKBZQRL
-X-Mailman-Approved-At: Tue, 09 Sep 2025 12:10:16 +0000
+Message-ID-Hash: FAQULZCSJCG54GB3FZMOPKX35AFXKGAI
+X-Message-ID-Hash: FAQULZCSJCG54GB3FZMOPKX35AFXKGAI
+X-Mailman-Approved-At: Tue, 09 Sep 2025 12:10:17 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OQLDZQ3JJVFJMBMWFJWNK2IACAKBZQRL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FAQULZCSJCG54GB3FZMOPKX35AFXKGAI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,716 +113,181 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add tas2020, tas2118, tas2120, tas2320, tas2570, tas2572, tas5825
-tas5827 support in tas2781 driver.
-Tas2118, tas2x20, tas257x have no on-chip DSP, tas582x have on-chip
-DSP but have no calibration required stereo smart amplifier.
+Update ti,tas2781.yaml for adding tas2118, tas2x20, tas257x and tas582x.
 
 Signed-off-by: Baojun Xu <baojun.xu@ti.com>
 
 ---
 v4:
- - Change description for adding tas2570, tas2572 and tas5827
- - Add tas2570, tas2572, tas5827 in device enumerate
- - Change the check for reset value, from "== TAS5825"
-   to  ">= TAS5825" as TAS5827 was added.
- - Add tas2570, tas2572, tas5827 in i2c_device_id list
- - Add tas2570, tas2572, tas5827 in of_device_id list
- - Change max of device ID from TAS2781 to TAS_OTHERS
- - Change the check for non-DSP chip, from "< TAS2563" to switch case,
-   as TAS2570 and TAS2572 also have no on-chip DSP
- - Add TAS5827 in comments for calibration check
- - Change the check for on-chip DSP, from ">= TAS2563" to switch
-   case, as TAS2570 and TAS2572 also have no on-chip DSP
- - Add tas2570, tas2572, tas5827 initialyze in codec probe
- - Add tas2570, tas2572, tas5827 in ACPI device id list
+ - Change description for adding tas257x and tas5827
+ - Added descriptions for tas2570, tas2572 and tas5827
+ - Remove unnecessary description for I2C register
 v3:
- - No update.
+ - Remove unnecessary minItems.
+ - Remove unnecessary description for tas5825.
 v2:
  - Update the mail list for maintainers of yaml file
 ---
- include/sound/tas2781.h               |  14 +-
- include/sound/tas2x20-tlv.h           | 259 ++++++++++++++++++++++++++
- sound/soc/codecs/tas2781-comlib-i2c.c |   2 +
- sound/soc/codecs/tas2781-i2c.c        | 184 +++++++++++++-----
- 4 files changed, 410 insertions(+), 49 deletions(-)
- create mode 100644 include/sound/tas2x20-tlv.h
+ .../devicetree/bindings/sound/ti,tas2781.yaml | 96 ++++++++++++++++++-
+ 1 file changed, 95 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
-index f0aefc04a957..ddd997ac3216 100644
---- a/include/sound/tas2781.h
-+++ b/include/sound/tas2781.h
-@@ -51,7 +51,9 @@
+diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+index 5ea1cdc593b5..0f1da803253e 100644
+--- a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
++++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+@@ -1,5 +1,5 @@
+ # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+-# Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++# Copyright (C) 2022 - 2025 Texas Instruments Incorporated
+ %YAML 1.2
+ ---
+ $id: http://devicetree.org/schemas/sound/ti,tas2781.yaml#
+@@ -11,30 +11,77 @@ maintainers:
+   - Shenghao Ding <shenghao-ding@ti.com>
  
- /* Software Reset, compatble with new device (TAS5825). */
- #define TASDEVICE_REG_SWRESET		TASDEVICE_REG(0x0, 0x0, 0x01)
--#define TASDEVICE_REG_SWRESET_RESET	(BIT(0) | BIT(4))
-+#define TASDEVICE_REG_SWRESET_RESET	BIT(0)
+ description: |
++  The TAS2118/TAS2X20/TAS257x is mono, digital input Class-D audio
++  amplifier optimized for efficiently driving high peak power into
++  small loudspeakers.
++  Integrated speaker voltage and current sense provides for
++  real time monitoring of loudspeaker behavior.
+   The TAS2563/TAS2781 is a mono, digital input Class-D audio
+   amplifier optimized for efficiently driving high peak power into
+   small loudspeakers. An integrated on-chip DSP supports Texas
+   Instruments Smart Amp speaker protection algorithm. The
+   integrated speaker voltage and current sense provides for real time
+   monitoring of loudspeaker behavior.
++  The TAS5825/TAS5827 is a stereo, digital input Class-D audio
++  amplifier optimized for efficiently driving high peak power into
++  small loudspeakers. An integrated on-chip DSP supports Texas
++  Instruments Smart Amp speaker protection algorithm. The
++  integrated speaker voltage and current sense provides for real time
++  monitoring of loudspeaker behavior.
+ 
+   Specifications about the audio amplifier can be found at:
++    https://www.ti.com/lit/gpn/tas2120
++    https://www.ti.com/lit/gpn/tas2320
+     https://www.ti.com/lit/gpn/tas2563
++    https://www.ti.com/lit/gpn/tas2572
+     https://www.ti.com/lit/gpn/tas2781
++    https://www.ti.com/lit/gpn/tas5825m
++    https://www.ti.com/lit/gpn/tas5827
+ 
+ properties:
+   compatible:
+     description: |
++      ti,tas2020: 3.2-W Mono Digital Input Class-D Speaker Amp with 5.5V PVDD
++      Support.
 +
-+#define TAS5825_REG_SWRESET_RESET	(BIT(0) | BIT(4))
- 
- /* Checksum */
- #define TASDEVICE_CHECKSUM_REG		TASDEVICE_REG(0x0, 0x0, 0x7e)
-@@ -110,8 +112,17 @@
- #define TAS2781_RUNTIME_RE_REG		TASDEVICE_REG(0x64, 0x63, 0x44)
- 
- enum audio_device {
-+	TAS2020,
-+	TAS2118,
-+	TAS2120,
-+	TAS2320,
- 	TAS2563,
-+	TAS2570,
-+	TAS2572,
- 	TAS2781,
-+	TAS5825,
-+	TAS5827,
-+	TAS_OTHERS,
- };
- 
- enum dspbin_type {
-@@ -194,6 +205,7 @@ struct tasdevice_priv {
- 	unsigned char coef_binaryname[64];
- 	unsigned char rca_binaryname[64];
- 	unsigned char dev_name[32];
-+	const unsigned char (*dvc_tlv_table)[4];
- 	const char *name_prefix;
- 	unsigned char ndev;
- 	unsigned int dspbin_typ;
-diff --git a/include/sound/tas2x20-tlv.h b/include/sound/tas2x20-tlv.h
-new file mode 100644
-index 000000000000..6e6bcec4a0a1
---- /dev/null
-+++ b/include/sound/tas2x20-tlv.h
-@@ -0,0 +1,259 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+//
-+// ALSA SoC Texas Instruments TAS2x20/TAS2118 Audio Smart Amplifier
-+//
-+// Copyright (C) 2025 Texas Instruments Incorporated
-+// https://www.ti.com
-+//
-+// The TAS2x20/TAS2118 hda driver implements for one, two, or even multiple
-+// TAS2x20/TAS2118 chips.
-+//
-+// Author: Baojun Xu <baojun.xu@ti.com>
-+//
++      ti,tas2118: 5-W Mono Digital Input Class-D Speaker Amp with Integrated
++      8.4-V Class-H Boost.
 +
-+#ifndef __TAS2X20_TLV_H__
-+#define __TAS2X20_TLV_H__
++      ti,tas2120: 8.2-W Mono Digital Input Class-D Speaker Amp with
++      Integrated 14.75V Class-H Boost.
 +
-+#define TAS2X20_DVC_LEVEL		TASDEVICE_REG(0x0, 0x2, 0x0c)
-+#define TAS2X20_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x07)
++      ti,tas2320: 15-W Mono Digital Input Class-D Speaker Amp with 15V Support.
 +
-+static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2x20_dvc_tlv, 1650, 50, 0);
-+static const __maybe_unused DECLARE_TLV_DB_SCALE(tas2x20_amp_tlv, 2100, 50, 0);
+       ti,tas2563: 6.1-W Boosted Class-D Audio Amplifier With Integrated
+       DSP and IV Sense, 16/20/24/32bit stereo I2S or multichannel TDM.
 +
-+/* pow(10, db/20) * pow(2,22) */
-+static const __maybe_unused unsigned char tas2x20_dvc_table[][4] = {
-+	{ 0X00, 0X00, 0X0D, 0X00 }, /* -110.0db */
-+	{ 0X00, 0X00, 0X0E, 0X00 }, /* -109.5db */
-+	{ 0X00, 0X00, 0X0E, 0X00 }, /* -109.0db */
-+	{ 0X00, 0X00, 0X0F, 0X00 }, /* -108.5db */
-+	{ 0X00, 0X00, 0X10, 0X00 }, /* -108.0db */
-+	{ 0X00, 0X00, 0X11, 0X00 }, /* -107.5db */
-+	{ 0X00, 0X00, 0X12, 0X00 }, /* -107.0db */
-+	{ 0X00, 0X00, 0X13, 0X00 }, /* -106.5db */
-+	{ 0X00, 0X00, 0X15, 0X00 }, /* -106.0db */
-+	{ 0X00, 0X00, 0X16, 0X00 }, /* -105.5db */
-+	{ 0X00, 0X00, 0X17, 0X00 }, /* -105.0db */
-+	{ 0X00, 0X00, 0X18, 0X00 }, /* -104.5db */
-+	{ 0X00, 0X00, 0X1A, 0X00 }, /* -104.0db */
-+	{ 0X00, 0X00, 0X1C, 0X00 }, /* -103.5db */
-+	{ 0X00, 0X00, 0X1D, 0X00 }, /* -103.0db */
-+	{ 0X00, 0X00, 0X1F, 0X00 }, /* -102.5db */
-+	{ 0X00, 0X00, 0X21, 0X00 }, /* -102.0db */
-+	{ 0X00, 0X00, 0X23, 0X00 }, /* -101.5db */
-+	{ 0X00, 0X00, 0X25, 0X00 }, /* -101.0db */
-+	{ 0X00, 0X00, 0X27, 0X00 }, /* -100.5db */
-+	{ 0X00, 0X00, 0X29, 0X00 }, /* -100.0db */
-+	{ 0X00, 0X00, 0X2C, 0X00 }, /* -99.5db */
-+	{ 0X00, 0X00, 0X2F, 0X00 }, /* -99.0db */
-+	{ 0X00, 0X00, 0X31, 0X00 }, /* -98.5db */
-+	{ 0X00, 0X00, 0X34, 0X00 }, /* -98.0db */
-+	{ 0X00, 0X00, 0X37, 0X00 }, /* -97.5db */
-+	{ 0X00, 0X00, 0X3B, 0X00 }, /* -97.0db */
-+	{ 0X00, 0X00, 0X3E, 0X00 }, /* -96.5db */
-+	{ 0X00, 0X00, 0X42, 0X00 }, /* -96.0db */
-+	{ 0X00, 0X00, 0X46, 0X00 }, /* -95.5db */
-+	{ 0X00, 0X00, 0X4A, 0X00 }, /* -95.0db */
-+	{ 0X00, 0X00, 0X4F, 0X00 }, /* -94.5db */
-+	{ 0X00, 0X00, 0X53, 0X00 }, /* -94.0db */
-+	{ 0X00, 0X00, 0X58, 0X00 }, /* -93.5db */
-+	{ 0X00, 0X00, 0X5D, 0X00 }, /* -93.0db */
-+	{ 0X00, 0X00, 0X63, 0X00 }, /* -92.5db */
-+	{ 0X00, 0X00, 0X69, 0X00 }, /* -92.0db */
-+	{ 0X00, 0X00, 0X6F, 0X00 }, /* -91.5db */
-+	{ 0X00, 0X00, 0X76, 0X00 }, /* -91.0db */
-+	{ 0X00, 0X00, 0X7D, 0X00 }, /* -90.5db */
-+	{ 0X00, 0X00, 0X84, 0X00 }, /* -90.0db */
-+	{ 0X00, 0X00, 0X8C, 0X00 }, /* -89.5db */
-+	{ 0X00, 0X00, 0X94, 0X00 }, /* -89.0db */
-+	{ 0X00, 0X00, 0X9D, 0X00 }, /* -88.5db */
-+	{ 0X00, 0X00, 0XA6, 0X00 }, /* -88.0db */
-+	{ 0X00, 0X00, 0XB0, 0X00 }, /* -87.5db */
-+	{ 0X00, 0X00, 0XBB, 0X00 }, /* -87.0db */
-+	{ 0X00, 0X00, 0XC6, 0X00 }, /* -86.5db */
-+	{ 0X00, 0X00, 0XD2, 0X00 }, /* -86.0db */
-+	{ 0X00, 0X00, 0XDE, 0X00 }, /* -85.5db */
-+	{ 0X00, 0X00, 0XEB, 0X00 }, /* -85.0db */
-+	{ 0X00, 0X00, 0XF9, 0X00 }, /* -84.5db */
-+	{ 0X00, 0X01, 0X08, 0X00 }, /* -84.0db */
-+	{ 0X00, 0X01, 0X18, 0X00 }, /* -83.5db */
-+	{ 0X00, 0X01, 0X28, 0X00 }, /* -83.0db */
-+	{ 0X00, 0X01, 0X3A, 0X00 }, /* -82.5db */
-+	{ 0X00, 0X01, 0X4D, 0X00 }, /* -82.0db */
-+	{ 0X00, 0X01, 0X60, 0X00 }, /* -81.5db */
-+	{ 0X00, 0X01, 0X75, 0X00 }, /* -81.0db */
-+	{ 0X00, 0X01, 0X8B, 0X00 }, /* -80.5db */
-+	{ 0X00, 0X01, 0XA3, 0X00 }, /* -80.0db */
-+	{ 0X00, 0X01, 0XBC, 0X00 }, /* -79.5db */
-+	{ 0X00, 0X01, 0XD6, 0X00 }, /* -79.0db */
-+	{ 0X00, 0X01, 0XF2, 0X00 }, /* -78.5db */
-+	{ 0X00, 0X02, 0X10, 0X00 }, /* -78.0db */
-+	{ 0X00, 0X02, 0X2F, 0X00 }, /* -77.5db */
-+	{ 0X00, 0X02, 0X50, 0X00 }, /* -77.0db */
-+	{ 0X00, 0X02, 0X73, 0X00 }, /* -76.5db */
-+	{ 0X00, 0X02, 0X98, 0X00 }, /* -76.0db */
-+	{ 0X00, 0X02, 0XC0, 0X00 }, /* -75.5db */
-+	{ 0X00, 0X02, 0XE9, 0X00 }, /* -75.0db */
-+	{ 0X00, 0X03, 0X16, 0X00 }, /* -74.5db */
-+	{ 0X00, 0X03, 0X44, 0X00 }, /* -74.0db */
-+	{ 0X00, 0X03, 0X76, 0X00 }, /* -73.5db */
-+	{ 0X00, 0X03, 0XAA, 0X00 }, /* -73.0db */
-+	{ 0X00, 0X03, 0XE2, 0X00 }, /* -72.5db */
-+	{ 0X00, 0X04, 0X1D, 0X00 }, /* -72.0db */
-+	{ 0X00, 0X04, 0X5B, 0X00 }, /* -71.5db */
-+	{ 0X00, 0X04, 0X9E, 0X00 }, /* -71.0db */
-+	{ 0X00, 0X04, 0XE4, 0X00 }, /* -70.5db */
-+	{ 0X00, 0X05, 0X2E, 0X00 }, /* -70.0db */
-+	{ 0X00, 0X05, 0X7C, 0X00 }, /* -69.5db */
-+	{ 0X00, 0X05, 0XD0, 0X00 }, /* -69.0db */
-+	{ 0X00, 0X06, 0X28, 0X00 }, /* -68.5db */
-+	{ 0X00, 0X06, 0X85, 0X00 }, /* -68.0db */
-+	{ 0X00, 0X06, 0XE8, 0X00 }, /* -67.5db */
-+	{ 0X00, 0X07, 0X51, 0X00 }, /* -67.0db */
-+	{ 0X00, 0X07, 0XC0, 0X00 }, /* -66.5db */
-+	{ 0X00, 0X08, 0X36, 0X00 }, /* -66.0db */
-+	{ 0X00, 0X08, 0XB2, 0X00 }, /* -65.5db */
-+	{ 0X00, 0X09, 0X36, 0X00 }, /* -65.0db */
-+	{ 0X00, 0X09, 0XC2, 0X00 }, /* -64.5db */
-+	{ 0X00, 0X0A, 0X56, 0X00 }, /* -64.0db */
-+	{ 0X00, 0X0A, 0XF3, 0X00 }, /* -63.5db */
-+	{ 0X00, 0X0B, 0X99, 0X00 }, /* -63.0db */
-+	{ 0X00, 0X0C, 0X49, 0X00 }, /* -62.5db */
-+	{ 0X00, 0X0D, 0X03, 0X00 }, /* -62.0db */
-+	{ 0X00, 0X0D, 0XC9, 0X00 }, /* -61.5db */
-+	{ 0X00, 0X0E, 0X9A, 0X00 }, /* -61.0db */
-+	{ 0X00, 0X0F, 0X77, 0X00 }, /* -60.5db */
-+	{ 0X00, 0X10, 0X62, 0X00 }, /* -60.0db */
-+	{ 0X00, 0X11, 0X5A, 0X00 }, /* -59.5db */
-+	{ 0X00, 0X12, 0X62, 0X00 }, /* -59.0db */
-+	{ 0X00, 0X13, 0X78, 0X00 }, /* -58.5db */
-+	{ 0X00, 0X14, 0XA0, 0X00 }, /* -58.0db */
-+	{ 0X00, 0X15, 0XD9, 0X00 }, /* -57.5db */
-+	{ 0X00, 0X17, 0X24, 0X00 }, /* -57.0db */
-+	{ 0X00, 0X18, 0X83, 0X00 }, /* -56.5db */
-+	{ 0X00, 0X19, 0XF7, 0X00 }, /* -56.0db */
-+	{ 0X00, 0X1B, 0X81, 0X00 }, /* -55.5db */
-+	{ 0X00, 0X1D, 0X22, 0X00 }, /* -55.0db */
-+	{ 0X00, 0X1E, 0XDC, 0X00 }, /* -54.5db */
-+	{ 0X00, 0X20, 0XB0, 0X00 }, /* -54.0db */
-+	{ 0X00, 0X22, 0XA0, 0X00 }, /* -53.5db */
-+	{ 0X00, 0X24, 0XAD, 0X00 }, /* -53.0db */
-+	{ 0X00, 0X26, 0XDA, 0X00 }, /* -52.5db */
-+	{ 0X00, 0X29, 0X27, 0X00 }, /* -52.0db */
-+	{ 0X00, 0X2B, 0X97, 0X00 }, /* -51.5db */
-+	{ 0X00, 0X2E, 0X2D, 0X00 }, /* -51.0db */
-+	{ 0X00, 0X30, 0XE9, 0X00 }, /* -50.5db */
-+	{ 0X00, 0X33, 0XCF, 0X00 }, /* -50.0db */
-+	{ 0X00, 0X36, 0XE1, 0X00 }, /* -49.5db */
-+	{ 0X00, 0X3A, 0X21, 0X00 }, /* -49.0db */
-+	{ 0X00, 0X3D, 0X93, 0X00 }, /* -48.5db */
-+	{ 0X00, 0X41, 0X39, 0X00 }, /* -48.0db */
-+	{ 0X00, 0X45, 0X17, 0X00 }, /* -47.5db */
-+	{ 0X00, 0X49, 0X2F, 0X00 }, /* -47.0db */
-+	{ 0X00, 0X4D, 0X85, 0X00 }, /* -46.5db */
-+	{ 0X00, 0X52, 0X1D, 0X00 }, /* -46.0db */
-+	{ 0X00, 0X56, 0XFA, 0X00 }, /* -45.5db */
-+	{ 0X00, 0X5C, 0X22, 0X00 }, /* -45.0db */
-+	{ 0X00, 0X61, 0X97, 0X00 }, /* -44.5db */
-+	{ 0X00, 0X67, 0X60, 0X00 }, /* -44.0db */
-+	{ 0X00, 0X6D, 0X80, 0X00 }, /* -43.5db */
-+	{ 0X00, 0X73, 0XFD, 0X00 }, /* -43.0db */
-+	{ 0X00, 0X7A, 0XDC, 0X00 }, /* -42.5db */
-+	{ 0X00, 0X82, 0X24, 0X00 }, /* -42.0db */
-+	{ 0X00, 0X89, 0XDA, 0X00 }, /* -41.5db */
-+	{ 0X00, 0X92, 0X05, 0X00 }, /* -41.0db */
-+	{ 0X00, 0X9A, 0XAC, 0X00 }, /* -40.5db */
-+	{ 0X00, 0XA3, 0XD7, 0X00 }, /* -40.0db */
-+	{ 0X00, 0XAD, 0X8C, 0X00 }, /* -39.5db */
-+	{ 0X00, 0XB7, 0XD4, 0X00 }, /* -39.0db */
-+	{ 0X00, 0XC2, 0XB9, 0X00 }, /* -38.5db */
-+	{ 0X00, 0XCE, 0X43, 0X00 }, /* -38.0db */
-+	{ 0X00, 0XDA, 0X7B, 0X00 }, /* -37.5db */
-+	{ 0X00, 0XE7, 0X6E, 0X00 }, /* -37.0db */
-+	{ 0X00, 0XF5, 0X24, 0X00 }, /* -36.5db */
-+	{ 0X01, 0X03, 0XAB, 0X00 }, /* -36.0db */
-+	{ 0X01, 0X13, 0X0E, 0X00 }, /* -35.5db */
-+	{ 0X01, 0X23, 0X5A, 0X00 }, /* -35.0db */
-+	{ 0X01, 0X34, 0X9D, 0X00 }, /* -34.5db */
-+	{ 0X01, 0X46, 0XE7, 0X00 }, /* -34.0db */
-+	{ 0X01, 0X5A, 0X46, 0X00 }, /* -33.5db */
-+	{ 0X01, 0X6E, 0XCA, 0X00 }, /* -33.0db */
-+	{ 0X01, 0X84, 0X86, 0X00 }, /* -32.5db */
-+	{ 0X01, 0X9B, 0X8C, 0X00 }, /* -32.0db */
-+	{ 0X01, 0XB3, 0XEE, 0X00 }, /* -31.5db */
-+	{ 0X01, 0XCD, 0XC3, 0X00 }, /* -31.0db */
-+	{ 0X01, 0XE9, 0X20, 0X00 }, /* -30.5db */
-+	{ 0X02, 0X06, 0X1B, 0X00 }, /* -30.0db */
-+	{ 0X02, 0X24, 0XCE, 0X00 }, /* -29.5db */
-+	{ 0X02, 0X45, 0X53, 0X00 }, /* -29.0db */
-+	{ 0X02, 0X67, 0XC5, 0X00 }, /* -28.5db */
-+	{ 0X02, 0X8C, 0X42, 0X00 }, /* -28.0db */
-+	{ 0X02, 0XB2, 0XE8, 0X00 }, /* -27.5db */
-+	{ 0X02, 0XDB, 0XD8, 0X00 }, /* -27.0db */
-+	{ 0X03, 0X07, 0X36, 0X00 }, /* -26.5db */
-+	{ 0X03, 0X35, 0X25, 0X00 }, /* -26.0db */
-+	{ 0X03, 0X65, 0XCD, 0X00 }, /* -25.5db */
-+	{ 0X03, 0X99, 0X57, 0X00 }, /* -25.0db */
-+	{ 0X03, 0XCF, 0XEE, 0X00 }, /* -24.5db */
-+	{ 0X04, 0X09, 0XC2, 0X00 }, /* -24.0db */
-+	{ 0X04, 0X47, 0X03, 0X00 }, /* -23.5db */
-+	{ 0X04, 0X87, 0XE5, 0X00 }, /* -23.0db */
-+	{ 0X04, 0XCC, 0XA0, 0X00 }, /* -22.5db */
-+	{ 0X05, 0X15, 0X6D, 0X00 }, /* -22.0db */
-+	{ 0X05, 0X62, 0X8A, 0X00 }, /* -21.5db */
-+	{ 0X05, 0XB4, 0X39, 0X00 }, /* -21.0db */
-+	{ 0X06, 0X0A, 0XBF, 0X00 }, /* -20.5db */
-+	{ 0X06, 0X66, 0X66, 0X00 }, /* -20.0db */
-+	{ 0X06, 0XC7, 0X7B, 0X00 }, /* -19.5db */
-+	{ 0X07, 0X2E, 0X50, 0X00 }, /* -19.0db */
-+	{ 0X07, 0X9B, 0X3D, 0X00 }, /* -18.5db */
-+	{ 0X08, 0X0E, 0X9F, 0X00 }, /* -18.0db */
-+	{ 0X08, 0X88, 0XD7, 0X00 }, /* -17.5db */
-+	{ 0X09, 0X0A, 0X4D, 0X00 }, /* -17.0db */
-+	{ 0X09, 0X93, 0X6E, 0X00 }, /* -16.5db */
-+	{ 0X0A, 0X24, 0XB0, 0X00 }, /* -16.0db */
-+	{ 0X0A, 0XBE, 0X8D, 0X00 }, /* -15.5db */
-+	{ 0X0B, 0X61, 0X88, 0X00 }, /* -15.0db */
-+	{ 0X0C, 0X0E, 0X2B, 0X00 }, /* -14.5db */
-+	{ 0X0C, 0XC5, 0X09, 0X00 }, /* -14.0db */
-+	{ 0X0D, 0X86, 0XBD, 0X00 }, /* -13.5db */
-+	{ 0X0E, 0X53, 0XEB, 0X00 }, /* -13.0db */
-+	{ 0X0F, 0X2D, 0X42, 0X00 }, /* -12.5db */
-+	{ 0X10, 0X13, 0X79, 0X00 }, /* -12.0db */
-+	{ 0X11, 0X07, 0X54, 0X00 }, /* -11.5db */
-+	{ 0X12, 0X09, 0XA3, 0X00 }, /* -11.0db */
-+	{ 0X13, 0X1B, 0X40, 0X00 }, /* -10.5db */
-+	{ 0X14, 0X3D, 0X13, 0X00 }, /* -10.0db */
-+	{ 0X15, 0X70, 0X12, 0X00 }, /* -9.5db */
-+	{ 0X16, 0XB5, 0X43, 0X00 }, /* -9.0db */
-+	{ 0X18, 0X0D, 0XB8, 0X00 }, /* -8.5db */
-+	{ 0X19, 0X7A, 0X96, 0X00 }, /* -8.0db */
-+	{ 0X1A, 0XFD, 0X13, 0X00 }, /* -7.5db */
-+	{ 0X1C, 0X96, 0X76, 0X00 }, /* -7.0db */
-+	{ 0X1E, 0X48, 0X1C, 0X00 }, /* -6.5db */
-+	{ 0X20, 0X13, 0X73, 0X00 }, /* -6.0db */
-+	{ 0X21, 0XFA, 0X02, 0X00 }, /* -5.5db */
-+	{ 0X23, 0XFD, 0X66, 0X00 }, /* -5.0db */
-+	{ 0X26, 0X1F, 0X54, 0X00 }, /* -4.5db */
-+	{ 0X28, 0X61, 0X9A, 0X00 }, /* -4.0db */
-+	{ 0X2A, 0XC6, 0X25, 0X00 }, /* -3.5db */
-+	{ 0X2D, 0X4E, 0XFB, 0X00 }, /* -3.0db */
-+	{ 0X2F, 0XFE, 0X44, 0X00 }, /* -2.5db */
-+	{ 0X32, 0XD6, 0X46, 0X00 }, /* -2.0db */
-+	{ 0X35, 0XD9, 0X6B, 0X00 }, /* -1.5db */
-+	{ 0X39, 0X0A, 0X41, 0X00 }, /* -1.0db */
-+	{ 0X3C, 0X6B, 0X7E, 0X00 }, /* -0.5db */
-+	{ 0X40, 0X00, 0X00, 0X00 }, /* 0.0db */
-+	{ 0X43, 0XCA, 0XD0, 0X00 }, /* 0.5db */
-+	{ 0X47, 0XCF, 0X26, 0X00 }, /* 1.0db */
-+	{ 0X4C, 0X10, 0X6B, 0X00 }, /* 1.5db */
-+	{ 0X50, 0X92, 0X3B, 0X00 }, /* 2.0db */
-+	{ 0X55, 0X58, 0X6A, 0X00 }, /* 2.5db */
-+	{ 0X5A, 0X67, 0X03, 0X00 }, /* 3.0db */
-+	{ 0X5F, 0XC2, 0X53, 0X00 }, /* 3.5db */
-+	{ 0X65, 0X6E, 0XE3, 0X00 }, /* 4.0db */
-+	{ 0X6B, 0X71, 0X86, 0X00 }, /* 4.5db */
-+	{ 0X71, 0XCF, 0X54, 0X00 }, /* 5.0db */
-+	{ 0X78, 0X8D, 0XB4, 0X00 }, /* 5.5db */
-+	{ 0X7F, 0XB2, 0X61, 0X00 }, /* 6.0db */
-+};
-+#endif
-diff --git a/sound/soc/codecs/tas2781-comlib-i2c.c b/sound/soc/codecs/tas2781-comlib-i2c.c
-index c078bb0a8437..b3fd7350143b 100644
---- a/sound/soc/codecs/tas2781-comlib-i2c.c
-+++ b/sound/soc/codecs/tas2781-comlib-i2c.c
-@@ -320,6 +320,8 @@ void tasdevice_reset(struct tasdevice_priv *tas_dev)
- 		for (i = 0; i < tas_dev->ndev; i++) {
- 			ret = tasdevice_dev_write(tas_dev, i,
- 				TASDEVICE_REG_SWRESET,
-+				tas_dev->chip_id >= TAS5825 ?
-+				TAS5825_REG_SWRESET_RESET :
- 				TASDEVICE_REG_SWRESET_RESET);
- 			if (ret < 0)
- 				dev_err(tas_dev->dev,
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index ea3cdb8553de..1539b70881d1 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -30,8 +30,10 @@
- #include <sound/tas2781.h>
- #include <sound/tas2781-comlib-i2c.h>
- #include <sound/tlv.h>
-+#include <sound/tas2x20-tlv.h>
- #include <sound/tas2563-tlv.h>
- #include <sound/tas2781-tlv.h>
-+#include <sound/tas5825-tlv.h>
- #include <linux/unaligned.h>
- 
- #define X2563_CL_STT_VAL(xreg, xval) \
-@@ -98,16 +100,32 @@ static const struct bulk_reg_val tas2781_cali_start_reg[] = {
- };
- 
- static const struct i2c_device_id tasdevice_id[] = {
-+	{ "tas2020", TAS2020 },
-+	{ "tas2118", TAS2118 },
-+	{ "tas2120", TAS2120 },
-+	{ "tas2320", TAS2320 },
- 	{ "tas2563", TAS2563 },
-+	{ "tas2570", TAS2570 },
-+	{ "tas2572", TAS2572 },
- 	{ "tas2781", TAS2781 },
-+	{ "tas5825", TAS5825 },
-+	{ "tas5827", TAS5827 },
- 	{}
- };
- MODULE_DEVICE_TABLE(i2c, tasdevice_id);
- 
- #ifdef CONFIG_OF
- static const struct of_device_id tasdevice_of_match[] = {
-+	{ .compatible = "ti,tas2020" },
-+	{ .compatible = "ti,tas2118" },
-+	{ .compatible = "ti,tas2120" },
-+	{ .compatible = "ti,tas2320" },
- 	{ .compatible = "ti,tas2563" },
-+	{ .compatible = "ti,tas2570" },
-+	{ .compatible = "ti,tas2572" },
- 	{ .compatible = "ti,tas2781" },
-+	{ .compatible = "ti,tas5825" },
-+	{ .compatible = "ti,tas5827" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, tasdevice_of_match);
-@@ -797,7 +815,7 @@ static int tasdev_nop_get(
- 	return 0;
- }
- 
--static int tas2563_digital_gain_get(
-+static int tasdevice_digital_gain_get(
- 	struct snd_kcontrol *kcontrol,
- 	struct snd_ctl_elem_value *ucontrol)
- {
-@@ -823,15 +841,15 @@ static int tas2563_digital_gain_get(
- 
- 	while (r > 1 + l) {
- 		mid = (l + r) / 2;
--		ar_mid = get_unaligned_be32(tas2563_dvc_table[mid]);
-+		ar_mid = get_unaligned_be32(tas_dev->dvc_tlv_table[mid]);
- 		if (target < ar_mid)
- 			r = mid;
- 		else
- 			l = mid;
- 	}
- 
--	ar_l = get_unaligned_be32(tas2563_dvc_table[l]);
--	ar_r = get_unaligned_be32(tas2563_dvc_table[r]);
-+	ar_l = get_unaligned_be32(tas_dev->dvc_tlv_table[l]);
-+	ar_r = get_unaligned_be32(tas_dev->dvc_tlv_table[r]);
- 
- 	/* find out the member same as or closer to the current volume */
- 	ucontrol->value.integer.value[0] =
-@@ -841,7 +859,7 @@ static int tas2563_digital_gain_get(
- 	return 0;
- }
- 
--static int tas2563_digital_gain_put(
-+static int tasdevice_digital_gain_put(
- 	struct snd_kcontrol *kcontrol,
- 	struct snd_ctl_elem_value *ucontrol)
- {
-@@ -867,7 +885,7 @@ static int tas2563_digital_gain_put(
- 	}
- 
- 	volrd = get_unaligned_be32(&data[0]);
--	volwr = get_unaligned_be32(tas2563_dvc_table[vol]);
-+	volwr = get_unaligned_be32(tas_dev->dvc_tlv_table[vol]);
- 
- 	if (volrd == volwr) {
- 		rc = 0;
-@@ -876,7 +894,7 @@ static int tas2563_digital_gain_put(
- 
- 	for (i = 0; i < tas_dev->ndev; i++) {
- 		ret = tasdevice_dev_bulk_write(tas_dev, i, reg,
--			(unsigned char *)tas2563_dvc_table[vol], 4);
-+			(unsigned char *)tas_dev->dvc_tlv_table[vol], 4);
- 		if (ret) {
- 			dev_err(tas_dev->dev,
- 				"%s, set digital vol error in dev %d\n",
-@@ -892,11 +910,6 @@ static int tas2563_digital_gain_put(
- 	return rc;
- }
- 
--static const struct snd_kcontrol_new tasdevice_snd_controls[] = {
--	SOC_SINGLE_BOOL_EXT("Speaker Force Firmware Load", 0,
--		tasdev_force_fwload_get, tasdev_force_fwload_put),
--};
--
- static const struct snd_kcontrol_new tasdevice_cali_controls[] = {
- 	SOC_SINGLE_EXT("Calibration Stop", SND_SOC_NOPM, 0, 1, 0,
- 		tasdev_nop_get, tasdev_calib_stop_put),
-@@ -907,6 +920,16 @@ static const struct snd_kcontrol_new tasdevice_cali_controls[] = {
- 	SND_SOC_BYTES_EXT("Amp XMA2 Data", 6, tasdev_XMA2_data_get, NULL),
- };
- 
-+static const struct snd_kcontrol_new tas2x20_snd_controls[] = {
-+	SOC_SINGLE_RANGE_EXT_TLV("Speaker Analog Volume", TAS2X20_AMP_LEVEL,
-+		0, 0, 42, 1, tas2781_amp_getvol,
-+		tas2781_amp_putvol, tas2x20_amp_tlv),
-+	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Volume", TAS2X20_DVC_LEVEL,
-+		0, 0, ARRAY_SIZE(tas2x20_dvc_table) - 1, 0,
-+		tasdevice_digital_gain_get, tasdevice_digital_gain_put,
-+		tas2x20_dvc_tlv),
-+};
++      ti,tas2570: 5.8-W Digital Input smart amp with I/V sense and integrated
++      11-V Class-H Boost
 +
- static const struct snd_kcontrol_new tas2781_snd_controls[] = {
- 	SOC_SINGLE_RANGE_EXT_TLV("Speaker Analog Volume", TAS2781_AMP_LEVEL,
- 		1, 0, 20, 0, tas2781_amp_getvol,
-@@ -916,6 +939,15 @@ static const struct snd_kcontrol_new tas2781_snd_controls[] = {
- 		tas2781_digital_putvol, tas2781_dvc_tlv),
- };
++      ti,tas2572: 6.6-W Digital Input smart amp with I/V sense and integrated
++      13-V Class-H Boost
  
-+static const struct snd_kcontrol_new tas5825_snd_controls[] = {
-+	SOC_SINGLE_RANGE_EXT_TLV("Speaker Analog Volume", TAS5825_AMP_LEVEL,
-+		0, 0, 31, 1, tas2781_amp_getvol,
-+		tas2781_amp_putvol, tas5825_amp_tlv),
-+	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Volume", TAS5825_DVC_LEVEL,
-+		0, 0, 254, 1, tas2781_amp_getvol,
-+		tas2781_amp_putvol, tas5825_dvc_tlv),
-+};
+       ti,tas2781: 24-V Class-D Amplifier with Real Time Integrated Speaker
+       Protection and Audio Processing, 16/20/24/32bit stereo I2S or
+       multichannel TDM.
 +
- static const struct snd_kcontrol_new tas2781_cali_controls[] = {
- 	SND_SOC_BYTES_EXT("Amp Latch Data", 3, tas2781_latch_reg_get, NULL),
- };
-@@ -923,7 +955,7 @@ static const struct snd_kcontrol_new tas2781_cali_controls[] = {
- static const struct snd_kcontrol_new tas2563_snd_controls[] = {
- 	SOC_SINGLE_RANGE_EXT_TLV("Speaker Digital Volume", TAS2563_DVC_LVL, 0,
- 		0, ARRAY_SIZE(tas2563_dvc_table) - 1, 0,
--		tas2563_digital_gain_get, tas2563_digital_gain_put,
-+		tasdevice_digital_gain_get, tasdevice_digital_gain_put,
- 		tas2563_dvc_tlv),
- };
- 
-@@ -968,8 +1000,8 @@ static int tasdevice_info_chip_id(struct snd_kcontrol *kcontrol,
- {
- 	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
- 	uinfo->count = 1;
--	uinfo->value.integer.min = TAS2563;
--	uinfo->value.integer.max = TAS2781;
-+	uinfo->value.integer.min = TAS2020;
-+	uinfo->value.integer.max = TAS_OTHERS;
- 
- 	return 0;
- }
-@@ -1168,9 +1200,9 @@ static int tasdevice_active_num_put(struct snd_kcontrol *kcontrol,
- static int tasdevice_dsp_create_ctrls(struct tasdevice_priv *tas_priv)
- {
- 	struct snd_kcontrol_new *dsp_ctrls;
--	char *active_dev_num, *chip_id;
-+	char *active_dev_num, *chip_id, *fw_load;
- 	char *conf_name, *prog_name;
--	int nr_controls = 4;
-+	int nr_controls = 5;
- 	int mix_index = 0;
- 
- 	/* Alloc kcontrol via devm_kzalloc, which don't manually
-@@ -1228,6 +1260,19 @@ static int tasdevice_dsp_create_ctrls(struct tasdevice_priv *tas_priv)
- 	dsp_ctrls[mix_index].get = tasdevice_get_chip_id;
- 	mix_index++;
- 
-+	fw_load = devm_kstrdup(tas_priv->dev, "Speaker Force Firmware Load",
-+		GFP_KERNEL);
-+	if (!fw_load)
-+		return -ENOMEM;
++      ti,tas5825: 38-W Stereo, Inductor-Less, Digital Input, Closed-Loop 4.5V
++      to 26.4V Class-D Audio Amplifier with 192-kHz Extended Audio Processing.
 +
-+	dsp_ctrls[mix_index].name = fw_load;
-+	dsp_ctrls[mix_index].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
-+	dsp_ctrls[mix_index].info = snd_soc_info_bool_ext;
-+	dsp_ctrls[mix_index].put = tasdev_force_fwload_put;
-+	dsp_ctrls[mix_index].get = tasdev_force_fwload_get;
-+	dsp_ctrls[mix_index].private_value = 0UL;
-+	mix_index++;
++      ti,tas5827: 47-W Stereo, Digital Input, High Efficiency Closed-Loop Class-D
++      Amplifier with Class-H Algorithm
+     oneOf:
+       - items:
+           - enum:
++              - ti,tas2020
++              - ti,tas2118
++              - ti,tas2120
++              - ti,tas2320
+               - ti,tas2563
++              - ti,tas2570
++              - ti,tas2572
++              - ti,tas5825
++              - ti,tas5827
+           - const: ti,tas2781
+       - enum:
+           - ti,tas2781
+@@ -61,6 +108,23 @@ required:
+ 
+ allOf:
+   - $ref: dai-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - ti,tas2020
++              - ti,tas2118
++              - ti,tas2120
++              - ti,tas2320
++    then:
++      properties:
++        reg:
++          maxItems: 4
++          items:
++            minimum: 0x48
++            maximum: 0x4b
 +
- 	return snd_soc_add_component_controls(tas_priv->codec, dsp_ctrls,
- 		nr_controls < mix_index ? nr_controls : mix_index);
- }
-@@ -1587,6 +1632,16 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	 * failing to load DSP firmware is NOT an error.
- 	 */
- 	tas_priv->fw_state = TASDEVICE_RCA_FW_OK;
-+	/* There is no DSP firmware required for TAS2118/2X20/257X. */
-+	switch (tas_priv->chip_id) {
-+	case TAS2020:
-+	case TAS2118:
-+	case TAS2120:
-+	case TAS2320:
-+	case TAS2570:
-+	case TAS2572:
-+		goto out;
-+	}
- 	if (tas_priv->name_prefix)
- 		scnprintf(tas_priv->coef_binaryname, 64, "%s-%s_coef.bin",
- 			tas_priv->name_prefix, tas_priv->dev_name);
-@@ -1608,34 +1663,37 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 		dev_err(tas_priv->dev, "dsp controls error\n");
- 		goto out;
- 	}
--
--	ret = tasdevice_create_cali_ctrls(tas_priv);
--	if (ret) {
--		dev_err(tas_priv->dev, "cali controls error\n");
--		goto out;
--	}
--
- 	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
+   - if:
+       properties:
+         compatible:
+@@ -79,6 +143,21 @@ allOf:
+             minimum: 0x4c
+             maximum: 0x4f
  
--	/* If calibrated data occurs error, dsp will still works with default
--	 * calibrated data inside algo.
--	 */
--	for (i = 0; i < tas_priv->ndev; i++) {
--		if (tas_priv->name_prefix)
--			scnprintf(tas_priv->cal_binaryname[i], 64,
--				"%s-%s_cal_0x%02x.bin", tas_priv->name_prefix,
--				tas_priv->dev_name,
--				tas_priv->tasdevice[i].dev_addr);
--		else
--			scnprintf(tas_priv->cal_binaryname[i], 64,
--				"%s_cal_0x%02x.bin", tas_priv->dev_name,
--				tas_priv->tasdevice[i].dev_addr);
--		ret = tas2781_load_calibration(tas_priv,
--			tas_priv->cal_binaryname[i], i);
--		if (ret != 0)
--			dev_err(tas_priv->dev,
--				"%s: load %s error, default will effect\n",
--				__func__, tas_priv->cal_binaryname[i]);
-+	/* There is no calibration required for TAS5825/TAS5827. */
-+	if (tas_priv->chip_id < TAS5825) {
-+		ret = tasdevice_create_cali_ctrls(tas_priv);
-+		if (ret) {
-+			dev_err(tas_priv->dev, "cali controls error\n");
-+			goto out;
-+		}
-+		/* If calibrated data occurs error, dsp will still works
-+		 * with default calibrated data inside algo.
-+		 */
-+		for (i = 0; i < tas_priv->ndev; i++) {
-+			if (tas_priv->name_prefix)
-+				scnprintf(tas_priv->cal_binaryname[i], 64,
-+					  "%s-%s_cal_0x%02x.bin",
-+					  tas_priv->name_prefix,
-+					  tas_priv->dev_name,
-+					  tas_priv->tasdevice[i].dev_addr);
-+			else
-+				scnprintf(tas_priv->cal_binaryname[i], 64,
-+					  "%s_cal_0x%02x.bin",
-+					  tas_priv->dev_name,
-+					  tas_priv->tasdevice[i].dev_addr);
-+			ret = tas2781_load_calibration(tas_priv,
-+				tas_priv->cal_binaryname[i], i);
-+			if (ret != 0)
-+				dev_err(tas_priv->dev,
-+					"%s: load %s error, keep default.\n",
-+					__func__, tas_priv->cal_binaryname[i]);
-+		}
- 	}
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - ti,tas2570
++              - ti,tas2572
++    then:
++      properties:
++        reg:
++          maxItems: 4
++          items:
++            minimum: 0x48
++            maximum: 0x4b
++
+   - if:
+       properties:
+         compatible:
+@@ -97,6 +176,21 @@ allOf:
+             minimum: 0x38
+             maximum: 0x3f
  
- 	tasdevice_prmg_load(tas_priv, 0);
-@@ -1659,8 +1717,14 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- #endif
- out:
- 	if (tas_priv->fw_state == TASDEVICE_RCA_FW_OK) {
--		/* If DSP FW fail, DSP kcontrol won't be created. */
--		tasdevice_dsp_remove(tas_priv);
-+		switch (tas_priv->chip_id) {
-+		case TAS2563:
-+		case TAS2781:
-+		case TAS5825:
-+		case TAS5827:
-+			/* If DSP FW fail, DSP kcontrol won't be created. */
-+			tasdevice_dsp_remove(tas_priv);
-+		}
- 	}
- 	mutex_unlock(&tas_priv->codec_lock);
- 	release_firmware(fmw);
-@@ -1804,13 +1868,30 @@ static int tasdevice_codec_probe(struct snd_soc_component *codec)
- 	int rc;
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - ti,tas5825
++              - ti,tas5827
++    then:
++      properties:
++        reg:
++          maxItems: 4
++          items:
++            minimum: 0x4c
++            maximum: 0x4f
++
+ additionalProperties: false
  
- 	switch (tas_priv->chip_id) {
-+	case TAS2020:
-+	case TAS2118:
-+	case TAS2120:
-+	case TAS2320:
-+	case TAS2570:
-+	case TAS2572:
-+		p = (struct snd_kcontrol_new *)tas2x20_snd_controls;
-+		size = ARRAY_SIZE(tas2x20_snd_controls);
-+		tas_priv->dvc_tlv_table = tas2x20_dvc_table;
-+		break;
- 	case TAS2781:
- 		p = (struct snd_kcontrol_new *)tas2781_snd_controls;
- 		size = ARRAY_SIZE(tas2781_snd_controls);
- 		break;
-+	case TAS5825:
-+	case TAS5827:
-+		p = (struct snd_kcontrol_new *)tas5825_snd_controls;
-+		size = ARRAY_SIZE(tas5825_snd_controls);
-+		break;
- 	default:
- 		p = (struct snd_kcontrol_new *)tas2563_snd_controls;
- 		size = ARRAY_SIZE(tas2563_snd_controls);
-+		tas_priv->dvc_tlv_table = tas2563_dvc_table;
-+		break;
- 	}
- 
- 	rc = snd_soc_add_component_controls(codec, p, size);
-@@ -1850,8 +1931,6 @@ static const struct snd_soc_component_driver
- 	soc_codec_driver_tasdevice = {
- 	.probe			= tasdevice_codec_probe,
- 	.remove			= tasdevice_codec_remove,
--	.controls		= tasdevice_snd_controls,
--	.num_controls		= ARRAY_SIZE(tasdevice_snd_controls),
- 	.dapm_widgets		= tasdevice_dapm_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(tasdevice_dapm_widgets),
- 	.dapm_routes		= tasdevice_audio_map,
-@@ -1967,7 +2046,16 @@ static void tasdevice_i2c_remove(struct i2c_client *client)
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id tasdevice_acpi_match[] = {
--	{ "TAS2781", TAS2781 },
-+	{ "TXNW2020", TAS2020 },
-+	{ "TXNW2118", TAS2118 },
-+	{ "TXNW2120", TAS2120 },
-+	{ "TXNW2320", TAS2320 },
-+	{ "TXNW2563", TAS2563 },
-+	{ "TXNW2570", TAS2570 },
-+	{ "TXNW2572", TAS2572 },
-+	{ "TXNW2781", TAS2781 },
-+	{ "TXNW5825", TAS5825 },
-+	{ "TXNW5827", TAS5827 },
- 	{},
- };
- 
+ examples:
 -- 
 2.43.0
 

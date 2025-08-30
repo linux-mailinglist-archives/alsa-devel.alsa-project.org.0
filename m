@@ -2,109 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9589B4F406
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Sep 2025 14:11:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3438B4F4D5
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Sep 2025 14:11:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D68F66023A;
-	Tue,  9 Sep 2025 14:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D68F66023A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4786C6023F;
+	Tue,  9 Sep 2025 14:11:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4786C6023F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1757419883;
-	bh=qfyv3oMp3domLy8FxDk2uV8pVIu7xX53qtHqe1eXx6w=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SUNBC704/UXKwehbOX1ewpeuD5ZuE1+c7sF/lXI3mNhUqBUQeLEwFVCfnBrJrukT4
-	 m+zCUjERma53binQ9chAm9qRPVt2qk784l0tWdq1KIEm/hngsYWaxDwpd+0bAvnICG
-	 iMhgrk1w3OapYpeM1wcSFZokhP4ZNQwMA4rgZJao=
+	s=default; t=1757419908;
+	bh=xDgRCiKniaebTiq7rNP8KOVfb8jibs9ht16PEIBWK3A=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=X24RPRMoHsYvgC2gaz7pZRTY+PyAs0xuVDlb0LtJOmhZNB4lumkDd7iJkpmsD261q
+	 SJdPykOEuiPtUjzAuAg69VNLRhVUpxSeqWyA/FpMFEz6mGuCOtdsGm9p105p8loXKa
+	 ji05c6UQ3Je6L7vzEdk+YP0cQLawB+q9N+nNTlGk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60A8FF80602; Tue,  9 Sep 2025 14:10:34 +0200 (CEST)
+	id 571ACF8060B; Tue,  9 Sep 2025 14:10:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D2DDF805FF;
-	Tue,  9 Sep 2025 14:10:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2710AF80619;
+	Tue,  9 Sep 2025 14:10:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7FBF6F80272; Sat, 30 Aug 2025 08:15:59 +0200 (CEST)
+	id DCEA3F8027B; Sat, 30 Aug 2025 09:01:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelvem-ot02.ext.ti.com (lelvem-ot02.ext.ti.com [198.47.23.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_20,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7F384F80072
-	for <alsa-devel@alsa-project.org>; Sat, 30 Aug 2025 08:15:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F384F80072
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7438FF80134
+	for <alsa-devel@alsa-project.org>; Sat, 30 Aug 2025 09:01:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7438FF80134
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=t7ep6Dr8
-Received: from fllvem-sh03.itg.ti.com ([10.64.41.86])
-	by lelvem-ot02.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57U6Fg3Y2393700;
-	Sat, 30 Aug 2025 01:15:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1756534542;
-	bh=/3h3pBMnXj801ChBgkwa7CRTuzA6xKhT1CxYrz6psP0=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=t7ep6Dr8S6toVvLaDdT+/g/m1lFrpte9ZARxJZt7p83oqWyRXYEzAl6DXkUBm43ba
-	 1zV7fwXTnZNMM+G7yXHqqZSFuVBzif620XzFKimVFSn7XpMeaf0BwWfyfXH3n8cDzC
-	 cYMqSKtaoGxLLSQV56maPqCVgn3QgiD8nsNj3x90=
-Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
-	by fllvem-sh03.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57U6Fgeo366883
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Sat, 30 Aug 2025 01:15:42 -0500
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE115.ent.ti.com
- (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Sat, 30
- Aug 2025 01:15:41 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Sat, 30 Aug 2025 01:15:42 -0500
-Received: from lelvem-mr06.itg.ti.com ([10.250.165.138])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57U6FLtt3461942;
-	Sat, 30 Aug 2025 01:15:33 -0500
-From: Baojun Xu <baojun.xu@ti.com>
-To: <broonie@kernel.org>
-CC: <tiwai@suse.de>, <andriy.shevchenko@linux.intel.com>,
-        <13916275206@139.com>, <alsa-devel@alsa-project.org>,
-        <shenghao-ding@ti.com>, <baojun.xu@ti.com>,
-        <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <lgirdwood@gmail.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <k-yi@ti.com>,
-        <henry.lo@ti.com>, <robinchen@ti.com>, <jesse-ji@ti.com>,
-        <will-wang@ti.com>, <jim.shil@goertek.com>, <toastcheng@google.com>,
-        <chinkaiting@google.com>
-Subject: [PATCH v4 2/2] ASoC: tas2781: Add tas2118, tas2x20, tas5825 support
-Date: Sat, 30 Aug 2025 14:14:59 +0800
-Message-ID: <20250830061459.24371-2-baojun.xu@ti.com>
-X-Mailer: git-send-email 2.43.0.windows.1
-In-Reply-To: <20250830061459.24371-1-baojun.xu@ti.com>
-References: <20250830061459.24371-1-baojun.xu@ti.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=cfGxz7mg
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-3280264a6e8so709168a91.3
+        for <alsa-devel@alsa-project.org>;
+ Sat, 30 Aug 2025 00:01:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756537310; x=1757142110;
+ darn=alsa-project.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=DUEw253wvzPX1uxeJuCosw4/ZlysOTpWbyGZ+cXPuaU=;
+        b=cfGxz7mgEqOTUO4LM3k4YL8pGOLFLsNdffyl1dWvqCHmuinzGr0sppxd5YlYB8xYuU
+         AbvhaD/cjQldoUP/uXLqfjXN/6RDBIfia9T5grBFfnzW1XrvdG2gi3DPnKzWBrXgFQBM
+         kvQqwgda3FtPHDukvL1rJ2ssjROl5ivieAUxSGCSeynGNbTlhje0V4vLunM2GVx0km9i
+         M+/vkOK662QvFEGtMifdSXmSpD6lCcfNQo85rlg8klHLXl1+dC8UdvhNn/rDSK3QST0v
+         oeeEmIw6KVkBkISFjluOV38BhmjZ3kug6jXhEkuwFZCtytGIWfka/nsyip62ihYvr9Fk
+         q7HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756537310; x=1757142110;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DUEw253wvzPX1uxeJuCosw4/ZlysOTpWbyGZ+cXPuaU=;
+        b=snJUZnnhiNw0pZCGYO7fhGP21OfYN4LHR06iSC/IoGIkt4gaIEOhWxAXFx2lkyEo3I
+         H3TWyVQWpjglchCM/IOKuWC3j//XLYZl+V8yFZaJaradTppY7tQ+k+BJJdv6eQckJqHO
+         55nQSkz+CMOKHvSinC8SHP/1Di9DtfJnr5Qcaju/C1emFNOZybaGOoTPEkUlWEhHtsRd
+         ZY6A7ZS7sVfcRx2PIZcNL/p1Bn+83XJBaNIXcGuWtmnNqbcG+n6De0sIT2koyXctyIrZ
+         swKftlkXuKnx5r/E5FP89Pd47FCBwLGJaxsfRvh3K1DMdFVg1aa60n+2OosZXD5+XCVO
+         hvYg==
+X-Gm-Message-State: AOJu0YwqYR9HNgBbu+SOJNJAtEQO8xrmcpDaX0DTQ/0+SjXDTsK+MI+G
+	kB9WQpieg/DJFXeQ8fulUHPrHmnVyf1cspaqgKNxM8kOWGu3qda4rPwAbOgkiGpnT/Lv3Gcx0Oc
+	+DylpgeKjvSdIYljP7PRfSDjX30XxKgT6pj7Gpm1XcQ==
+X-Gm-Gg: ASbGncvxG8iVH9DOstWNrkOkEWgRg5zczBNpZK0oG34YoArp8KLJdY/S6bhHrrbuVcY
+	xN0XgR3nvy/gwEwkPVjRbhbNOAownIinKYfCZVTzKrjjscy0v8UPwRboPNnXSlMpeULDVIoEtDA
+	O459Vz2kvr2c5+JBmwu1d73ylsDZ0tPLkcecNT4+oZXXuWxBy0SDsz0t1uyXDsB9fw57FOAes8C
+	45ejQ==
+X-Google-Smtp-Source: 
+ AGHT+IFUaUfMymi+z9MefJSuWIWIaETyvna8gbxVIm+CCtVJ60X3M+WhiKt63Ar8ng45dqUdtu0MyrZlzxJrh2maw/c=
+X-Received: by 2002:a17:90b:48c3:b0:327:f216:4360 with SMTP id
+ 98e67ed59e1d1-3281541434dmr1827045a91.8.1756537309170; Sat, 30 Aug 2025
+ 00:01:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-MailFrom: baojun.xu@ti.com
+From: =?UTF-8?B?0JjQu9GM0Y8g0JrRg9C30L3QtdGG0L7Qsg==?=
+ <zloy.technic@gmail.com>
+Date: Sat, 30 Aug 2025 12:01:37 +0500
+X-Gm-Features: Ac12FXzM802hjTT5zj5Co3zgURFLwswrxTbNGdbKTnB-cQuCfIcAd7URRROyXBQ
+Message-ID: 
+ <CAAnsHS6ve4+Zx5s63vCBtwUPF=FTHhTxPSjJTBcj6PkC=oyLYQ@mail.gmail.com>
+Subject: 
+ =?UTF-8?Q?=5BBUG=5D_ALSA_FireWire=3A_poll_timeout_causes_JACK_to_sto?=
+	=?UTF-8?Q?p_=286=2E10_=E2=80=93_6=2E17=2Drc2=29?=
+To: alsa-devel@alsa-project.org
+X-MailFrom: zloy.technic@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FAQULZCSJCG54GB3FZMOPKX35AFXKGAI
-X-Message-ID-Hash: FAQULZCSJCG54GB3FZMOPKX35AFXKGAI
+Message-ID-Hash: LMGC6GI646TNXZGEQNE4WAFXROQALLZK
+X-Message-ID-Hash: LMGC6GI646TNXZGEQNE4WAFXROQALLZK
 X-Mailman-Approved-At: Tue, 09 Sep 2025 12:10:17 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FAQULZCSJCG54GB3FZMOPKX35AFXKGAI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LMGC6GI646TNXZGEQNE4WAFXROQALLZK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,181 +123,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Update ti,tas2781.yaml for adding tas2118, tas2x20, tas257x and tas582x.
-
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
-
----
-v4:
- - Change description for adding tas257x and tas5827
- - Added descriptions for tas2570, tas2572 and tas5827
- - Remove unnecessary description for I2C register
-v3:
- - Remove unnecessary minItems.
- - Remove unnecessary description for tas5825.
-v2:
- - Update the mail list for maintainers of yaml file
----
- .../devicetree/bindings/sound/ti,tas2781.yaml | 96 ++++++++++++++++++-
- 1 file changed, 95 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-index 5ea1cdc593b5..0f1da803253e 100644
---- a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-+++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
--# Copyright (C) 2022 - 2023 Texas Instruments Incorporated
-+# Copyright (C) 2022 - 2025 Texas Instruments Incorporated
- %YAML 1.2
- ---
- $id: http://devicetree.org/schemas/sound/ti,tas2781.yaml#
-@@ -11,30 +11,77 @@ maintainers:
-   - Shenghao Ding <shenghao-ding@ti.com>
- 
- description: |
-+  The TAS2118/TAS2X20/TAS257x is mono, digital input Class-D audio
-+  amplifier optimized for efficiently driving high peak power into
-+  small loudspeakers.
-+  Integrated speaker voltage and current sense provides for
-+  real time monitoring of loudspeaker behavior.
-   The TAS2563/TAS2781 is a mono, digital input Class-D audio
-   amplifier optimized for efficiently driving high peak power into
-   small loudspeakers. An integrated on-chip DSP supports Texas
-   Instruments Smart Amp speaker protection algorithm. The
-   integrated speaker voltage and current sense provides for real time
-   monitoring of loudspeaker behavior.
-+  The TAS5825/TAS5827 is a stereo, digital input Class-D audio
-+  amplifier optimized for efficiently driving high peak power into
-+  small loudspeakers. An integrated on-chip DSP supports Texas
-+  Instruments Smart Amp speaker protection algorithm. The
-+  integrated speaker voltage and current sense provides for real time
-+  monitoring of loudspeaker behavior.
- 
-   Specifications about the audio amplifier can be found at:
-+    https://www.ti.com/lit/gpn/tas2120
-+    https://www.ti.com/lit/gpn/tas2320
-     https://www.ti.com/lit/gpn/tas2563
-+    https://www.ti.com/lit/gpn/tas2572
-     https://www.ti.com/lit/gpn/tas2781
-+    https://www.ti.com/lit/gpn/tas5825m
-+    https://www.ti.com/lit/gpn/tas5827
- 
- properties:
-   compatible:
-     description: |
-+      ti,tas2020: 3.2-W Mono Digital Input Class-D Speaker Amp with 5.5V PVDD
-+      Support.
-+
-+      ti,tas2118: 5-W Mono Digital Input Class-D Speaker Amp with Integrated
-+      8.4-V Class-H Boost.
-+
-+      ti,tas2120: 8.2-W Mono Digital Input Class-D Speaker Amp with
-+      Integrated 14.75V Class-H Boost.
-+
-+      ti,tas2320: 15-W Mono Digital Input Class-D Speaker Amp with 15V Support.
-+
-       ti,tas2563: 6.1-W Boosted Class-D Audio Amplifier With Integrated
-       DSP and IV Sense, 16/20/24/32bit stereo I2S or multichannel TDM.
-+
-+      ti,tas2570: 5.8-W Digital Input smart amp with I/V sense and integrated
-+      11-V Class-H Boost
-+
-+      ti,tas2572: 6.6-W Digital Input smart amp with I/V sense and integrated
-+      13-V Class-H Boost
- 
-       ti,tas2781: 24-V Class-D Amplifier with Real Time Integrated Speaker
-       Protection and Audio Processing, 16/20/24/32bit stereo I2S or
-       multichannel TDM.
-+
-+      ti,tas5825: 38-W Stereo, Inductor-Less, Digital Input, Closed-Loop 4.5V
-+      to 26.4V Class-D Audio Amplifier with 192-kHz Extended Audio Processing.
-+
-+      ti,tas5827: 47-W Stereo, Digital Input, High Efficiency Closed-Loop Class-D
-+      Amplifier with Class-H Algorithm
-     oneOf:
-       - items:
-           - enum:
-+              - ti,tas2020
-+              - ti,tas2118
-+              - ti,tas2120
-+              - ti,tas2320
-               - ti,tas2563
-+              - ti,tas2570
-+              - ti,tas2572
-+              - ti,tas5825
-+              - ti,tas5827
-           - const: ti,tas2781
-       - enum:
-           - ti,tas2781
-@@ -61,6 +108,23 @@ required:
- 
- allOf:
-   - $ref: dai-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,tas2020
-+              - ti,tas2118
-+              - ti,tas2120
-+              - ti,tas2320
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 4
-+          items:
-+            minimum: 0x48
-+            maximum: 0x4b
-+
-   - if:
-       properties:
-         compatible:
-@@ -79,6 +143,21 @@ allOf:
-             minimum: 0x4c
-             maximum: 0x4f
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,tas2570
-+              - ti,tas2572
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 4
-+          items:
-+            minimum: 0x48
-+            maximum: 0x4b
-+
-   - if:
-       properties:
-         compatible:
-@@ -97,6 +176,21 @@ allOf:
-             minimum: 0x38
-             maximum: 0x3f
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,tas5825
-+              - ti,tas5827
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 4
-+          items:
-+            minimum: 0x4c
-+            maximum: 0x4f
-+
- additionalProperties: false
- 
- examples:
--- 
-2.43.0
-
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCkhlbGxvIEFMU0EgZGV2ZWxvcGVycywN
+Cg0KSSB3b3VsZCBsaWtlIHRvIHJlcG9ydCBhIHJlcHJvZHVjaWJsZSBpc3N1ZSB3aXRoICpzbmQt
+ZmlyZWZhY2UqIG9uIExpbnV4DQprZXJuZWxzIDYuMTAgdGhyb3VnaCA2LjE3LXJjMi4NCi0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KU3lzdGVtIEluZm9ybWF0aW9uDQoNCiAgIC0NCg0K
+ICAgKktlcm5lbCB2ZXJzaW9ucyB0ZXN0ZWQ6KiA2LjEwIOKGkiA2LjE3LXJjMg0KICAgLQ0KDQog
+ICAqQXVkaW8gaW50ZXJmYWNlOiogUk1FIEZpcmVmYWNlIDgwMA0KICAgLQ0KDQogICAqRHJpdmVy
+IGluIHVzZToqIHNuZC1maXJlZmFjZQ0KICAgLQ0KDQogICAqQXVkaW8gc2VydmVyOiogSkFDSyAo
+dGVzdGVkIHdpdGggamFja2QgYW5kIFFKYWNrQ3RsKQ0KICAgLQ0KDQogICAqRGlzdHJpYnV0aW9u
+OiogRGViaWFuIDEyDQogICAtDQoNCiAgICpLZXJuZWwgY29uZmlnOiogQUxTQSBGaXJlV2lyZSBk
+cml2ZXJzIGVuYWJsZWQsIG5vIEZGQURPIGluIHVzZQ0KICAgLSAqQ2hpcCAxMzk0OiAqVGV4YXMg
+SW5zdHJ1bWV0cw0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NClN0ZXBzIHRvIFJl
+cHJvZHVjZQ0KDQogICAxLg0KDQogICBCb290IGtlcm5lbCA2LjEwIOKApiA2LjE3LXJjMiB3aXRo
+IHNuZC1maXJlZmFjZSBsb2FkZWQuDQogICAyLg0KDQogICBTdGFydCBKQUNLIHdpdGggQUxTQSBi
+YWNrZW5kLCBmb3IgZXhhbXBsZToNCg0KICAgamFja2QgLWQgYWxzYSAtZCBodzpGaXJlZmFjZSAt
+cCA2NCAtbiAzDQoNCiAgIDMuIFVzZSB0aGUgc3lzdGVtIG5vcm1hbGx5IOKAlCBkdXJpbmcgcGxh
+eWJhY2ssIHJlY29yZGluZywgb3IgZXZlbiB3aGVuDQogICBpZGxlLiBUaGUgaXNzdWUgbWF5IG9j
+Y3VyIGF0IGFueSB0aW1lIHdpdGhvdXQgYXBwYXJlbnQgZXh0ZXJuYWwgY2F1c2UuDQoNCiAgIEFj
+dHVhbCBCZWhhdmlvcg0KDQogICBBZnRlciBzb21lIGlkbGUgdGltZSwgQUxTQSBzdG9wcyByZXNw
+b25kaW5nIGFuZCBKQUNLIHByaW50czoNCg0KICAgRVJST1I6IEFMU0E6IHBvbGwgdGltZSBvdXQs
+IHBvbGxlZCBmb3IgLi4uIHVzZWNzDQogICBFUlJPUjogSmFja0F1ZGlvRHJpdmVyOjpQcm9jZXNz
+QXN5bmM6IHJlYWQgZXJyb3IsIHN0b3BwaW5nLi4uDQoNCiAgIEpBQ0sgaW1tZWRpYXRlbHkgdGVy
+bWluYXRlcy4gVGhlIEZpcmVmYWNlIDgwMCBkb2VzIG5vdCByZWNvdmVyIHVudGlsDQogICBKQUNL
+IGlzIHJlc3RhcnRlZC4NCiAgIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KICAgRXhw
+ZWN0ZWQgQmVoYXZpb3INCg0KICAgVGhlIEFMU0EgRmlyZVdpcmUgZHJpdmVyIHNob3VsZCBtYWlu
+dGFpbiB0aGUgc3RyZWFtIGFuZCBhbGxvdyBKQUNLIHRvDQogICBjb250aW51ZSBydW5uaW5nIHdp
+dGhvdXQgbWFudWFsIHJlc3RhcnQsIGV2ZW4gd2hlbiBpZGxlLg0KICAgLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tDQogICBOb3Rlcw0KICAgNC4NCg0KICAgV2l0aCAqRkZBRE8qIGJhY2tl
+bmQgKGphY2tkIC1kIGZpcmV3aXJlKSwgdGhlIHNhbWUgaGFyZHdhcmUgd29ya3MNCiAgIHJlbGlh
+Ymx5IGFuZCBkb2VzIG5vdCBleGhpYml0IHRoaXMgaXNzdWUuDQogICA1Lg0KDQogICBUaGlzIHN1
+Z2dlc3RzIHRoYXQgdGhlIHByb2JsZW0gbGllcyBpbiB0aGUgQUxTQSBGaXJlV2lyZSBzdHJlYW1p
+bmcNCiAgIGVuZ2luZSByYXRoZXIgdGhhbiB0aGUgaGFyZHdhcmUgaXRzZWxmLg0KICAgNi4NCg0K
+ICAgVGhlIHByb2JsZW0gaGFzIGJlZW4gcmVwcm9kdWNpYmxlIGFjcm9zcyBhbGwgdGVzdGVkIGtl
+cm5lbHMgKHZhbmlsYSwgcnQsDQogICBsaXF1b3JpeCkgZnJvbSAqNi4xMCB0aHJvdWdoIDYuMTct
+cmMyKi4NCg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQpSZXF1ZXN0DQoNCkNvdWxk
+IHlvdSBwbGVhc2UgY29uZmlybSBpZiB0aGlzIGlzc3VlIGlzIGtub3duPw0KSXMgdGhlcmUgYW55
+IG9uZ29pbmcgd29yayBvbiB0aGUgQUxTQSBGaXJlV2lyZSBzdHJlYW1pbmcgZW5naW5lICgNCnNu
+ZC1maXJlZmFjZSkgdG8gYWRkcmVzcyB0aGVzZSBwb2xsIHRpbWVvdXQgY29uZGl0aW9ucz8NCg0K
+SSBjYW4gcHJvdmlkZSBhZGRpdGlvbmFsIGxvZ3MgKGRtZXNnLCBqb3VybmFsY3RsKSBvciB0ZXN0
+IHBhdGNoZXMgaWYgbmVlZGVkLg0KDQpUaGFuayB5b3UsDQoNCklseWEgS3V6bmV0c292Lg0K

@@ -2,153 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C371B3C8E0
-	for <lists+alsa-devel@lfdr.de>; Sat, 30 Aug 2025 09:44:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 041C5B3D358
+	for <lists+alsa-devel@lfdr.de>; Sun, 31 Aug 2025 14:44:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0A03602CE;
-	Sat, 30 Aug 2025 09:43:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0A03602CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F0E560205;
+	Sun, 31 Aug 2025 14:44:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F0E560205
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1756539839;
-	bh=h3XcFgrNF8Sgup5YIQEI/aLE9bPnfguKvj4TjQMUQac=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jtmbyRMrxK79370s3Td3mcIsaQXsU++4VwDXmEhT9DGF7cnyLxUXZKNEX9yxHk002
-	 233SB3WXSZhmKp4sGOfIZLMJsatkPBmz9i57DSzASbs3P4fq8yEjysxUOS2QysvwlG
-	 lxE3IptVt1GH7k/h64KUtThGCYN8z6PCVrwo9eIU=
+	s=default; t=1756644276;
+	bh=iIAKHof11fAVYhzQAKE53fSrCBZGSQf+qWtF0xf2WjE=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FZ2EyfxRuetyv++nrC+fOt+Z7CsgLU/uDZ9F5+k4RlBSlFpxtjln0og+8V8llRDg+
+	 KmmjNq4FQx64rD4Qfz7renRhgXgB+NuoO13efZ2RdUDOW9H7ymyNpphJsb6Q/+dayF
+	 TTI77vk/46otXETuubSioA3hTxFf7dgjGWrGsDIs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69599F805D2; Sat, 30 Aug 2025 09:43:22 +0200 (CEST)
+	id A3120F805C2; Sun, 31 Aug 2025 14:44:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1A72F805C5;
-	Sat, 30 Aug 2025 09:43:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FD49F805BD;
+	Sun, 31 Aug 2025 14:44:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F98AF8027B; Sat, 30 Aug 2025 09:42:10 +0200 (CEST)
+	id 9698FF8049C; Sun, 31 Aug 2025 14:43:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 11629F80134
-	for <alsa-devel@alsa-project.org>; Sat, 30 Aug 2025 09:42:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11629F80134
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4C7E8F802DB
+	for <alsa-devel@alsa-project.org>; Sun, 31 Aug 2025 14:43:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C7E8F802DB
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Zt61LiXM;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=V/OZoirX;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=Zt61LiXM;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=V/OZoirX
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8CA18336BE;
-	Sat, 30 Aug 2025 07:42:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1756539725;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oPJMcdjKXkKG89xb2emN+RVyypynR6wa9yGi5gvh1Fc=;
-	b=Zt61LiXMPjqbd743gCjs8wn2xudd2/dl+D+MzlNAY+bsHIRYaGOhb/cEF6diQudpLooZ4N
-	iRkZZLk5SJGRFtcuYIxanahqR9Zdqv2PNMhLU+yYXthfud3yGxtR0+bsA8EdLxwbK4MmrQ
-	5Stbm4h4K9oQU86vkpxnYiGocyByIlg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1756539725;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oPJMcdjKXkKG89xb2emN+RVyypynR6wa9yGi5gvh1Fc=;
-	b=V/OZoirXzHPCISSwrbIwlQGloB3A4w0JPWOnKzX4JI7oYcE0b5hu7Jp+8wX3swlejyEFqZ
-	VaAjCbI66jE1Q0Bg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1756539725;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oPJMcdjKXkKG89xb2emN+RVyypynR6wa9yGi5gvh1Fc=;
-	b=Zt61LiXMPjqbd743gCjs8wn2xudd2/dl+D+MzlNAY+bsHIRYaGOhb/cEF6diQudpLooZ4N
-	iRkZZLk5SJGRFtcuYIxanahqR9Zdqv2PNMhLU+yYXthfud3yGxtR0+bsA8EdLxwbK4MmrQ
-	5Stbm4h4K9oQU86vkpxnYiGocyByIlg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1756539725;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oPJMcdjKXkKG89xb2emN+RVyypynR6wa9yGi5gvh1Fc=;
-	b=V/OZoirXzHPCISSwrbIwlQGloB3A4w0JPWOnKzX4JI7oYcE0b5hu7Jp+8wX3swlejyEFqZ
-	VaAjCbI66jE1Q0Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 444A4139B1;
-	Sat, 30 Aug 2025 07:42:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id wQgTD02rsmg4HQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 30 Aug 2025 07:42:05 +0000
-Date: Sat, 30 Aug 2025 09:42:04 +0200
-Message-ID: <87tt1pfe7n.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Gergo Koteles <soyer@irl.hu>
-Cc: Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] ALSA: hda: tas2781: fix tas2563 EFI data endianness
-In-Reply-To: <20250829160450.66623-1-soyer@irl.hu>
-References: <20250829160450.66623-1-soyer@irl.hu>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
-Message-ID-Hash: EFK43HBHROLAEOD26CNYZUAO6E4DIJJE
-X-Message-ID-Hash: EFK43HBHROLAEOD26CNYZUAO6E4DIJJE
-X-MailFrom: tiwai@suse.de
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=fsTmnzJN
+Received: from lelvem-sh02.itg.ti.com ([10.180.78.226])
+	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57VChMbH2569465;
+	Sun, 31 Aug 2025 07:43:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1756644202;
+	bh=D8jZXZ3zxLtPtXA8pqoacFTvxgd1XyL1X0N76RV+LCA=;
+	h=From:To:CC:Subject:Date;
+	b=fsTmnzJNnenR/iZQaBIFL936KwNPO4e05Qkxb3q8XosSB8XxdNTxa9t3A3NqTSQUP
+	 uV5GUIm1lgMIypocI9JgJjHo7EgsqDwqPMvSHrYJW7tcoAINWuk4+pNR0qaQqhFqU4
+	 v98ruHKV/y7y41suQSNISfTDDcvX0vivBGemvSYE=
+Received: from DFLE104.ent.ti.com (dfle104.ent.ti.com [10.64.6.25])
+	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57VChMKG1388187
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Sun, 31 Aug 2025 07:43:22 -0500
+Received: from DFLE101.ent.ti.com (10.64.6.22) by DFLE104.ent.ti.com
+ (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Sun, 31
+ Aug 2025 07:43:21 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE101.ent.ti.com
+ (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Sun, 31 Aug 2025 07:43:21 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.79])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57VChHpU665680;
+	Sun, 31 Aug 2025 07:43:18 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <tiwai@suse.de>
+CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <13564923607@139.com>, <13916275206@139.com>,
+        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <baojun.xu@ti.com>, <Baojun.Xu@fpt.com>,
+        Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v1] ALSA: hda/tas2781: Fix the order of TAS2563
+ calibrated-data
+Date: Sun, 31 Aug 2025 20:43:13 +0800
+Message-ID: <20250831124313.438-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: WXXGBF7DVHPZ3NWGEXRDXN4XQ3BPHC6Q
+X-Message-ID-Hash: WXXGBF7DVHPZ3NWGEXRDXN4XQ3BPHC6Q
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -160,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EFK43HBHROLAEOD26CNYZUAO6E4DIJJE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WXXGBF7DVHPZ3NWGEXRDXN4XQ3BPHC6Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -169,24 +107,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 29 Aug 2025 18:04:49 +0200,
-Gergo Koteles wrote:
-> 
-> Before conversion to unify the calibration data management, the
-> tas2563_apply_calib() function performed the big endian conversion and
-> wrote the calibration data to the device. The writing is now done by the
-> common tasdev_load_calibrated_data() function, but without conversion.
-> 
-> Put the values into the calibration data buffer with the expected
-> endianness.
-> 
-> Fixes: 4fe238513407 ("ALSA: hda/tas2781: Move and unified the calibrated-data getting function for SPI and I2C into the tas2781_hda lib")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Gergo Koteles <soyer@irl.hu>
+A bug reported by one of my customers that the order of TAS2563
+calibrated-data is incorrect, the correct way is to move R0_Low_%d
+and insert it between R0_%d and InvR0_%d.
 
-Applied both patches now.
+Fixes: 4fe238513407 ("ALSA: hda/tas2781: Move and unified the calibrated-data getting function for SPI and I2C into the tas2781_hda lib")
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
+---
+ sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+index dbd71e173119..853ff5d87966 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+@@ -313,7 +313,7 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
+ {
+ 	efi_guid_t efi_guid = tasdev_fct_efi_guid[LENOVO];
+ 	char *vars[TASDEV_CALIB_N] = {
+-		"R0_%d", "InvR0_%d", "R0_Low_%d", "Power_%d", "TLim_%d"
++		"R0_%d", "R0_Low_%d", "InvR0_%d", "Power_%d", "TLim_%d"
+ 	};
+ 	efi_char16_t efi_name[TAS2563_CAL_VAR_NAME_MAX];
+ 	unsigned long max_size = TAS2563_CAL_DATA_SIZE;
+-- 
+2.43.0
 
-thanks,
-
-Takashi

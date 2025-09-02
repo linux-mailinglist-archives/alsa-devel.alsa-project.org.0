@@ -2,107 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6AE5B3FBFB
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Sep 2025 12:13:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39F32B3FDD5
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Sep 2025 13:33:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 686F1601E7;
-	Tue,  2 Sep 2025 12:13:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 686F1601E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED2D9601AE;
+	Tue,  2 Sep 2025 13:33:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED2D9601AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1756808030;
-	bh=tXG90RW+oXYa96MCp5cAXkyfLjtBPEQG4RRX5DWBbac=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1756812793;
+	bh=B7Q6e1fGUD698B8nanmE3DpXv6VN9uNL/uEtkYnUmAI=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=U+O0wc83dKbgxdelrI5gFyTItlCX8PbWlFl+hgVqBHWs4FF7iKMVul1XQv5Ohkudz
-	 7yF7UQZsQ/Rp9EOU/CwnuNJZPvacc0MO+UPeD2e8MZiNhtc8nqNcMXKzisiZuAcHKx
-	 uZa6+HtCPjdgafVriVmCiyku+H952A23ZxT8Rlgw=
+	b=AMn8M5ks0a7rCTe2QDKCMbQ+JmGvJ69p3WQn0vW2mf6iG/J1RYqM4pEhj2VT2gmSZ
+	 +ieqDKK2YT/C/W6Swt2hV6uPgza7/naDj3SZIRiqEP5JKShZWiDh5rOFDbwa+fj0aF
+	 roosUSAZvL0YgWmZTUhh3Oe698hIbWKH8HY69U6Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04F95F8051D; Tue,  2 Sep 2025 12:13:16 +0200 (CEST)
+	id 688ACF801F5; Tue,  2 Sep 2025 13:32:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37FDFF8051D;
-	Tue,  2 Sep 2025 12:13:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C35A9F805CB;
+	Tue,  2 Sep 2025 13:32:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E345BF801F5; Tue,  2 Sep 2025 12:12:08 +0200 (CEST)
+	id 87DC5F80254; Tue,  2 Sep 2025 13:32:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 26828F801F5
-	for <alsa-devel@alsa-project.org>; Tue,  2 Sep 2025 12:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26828F801F5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5926FF8021D
+	for <alsa-devel@alsa-project.org>; Tue,  2 Sep 2025 13:32:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5926FF8021D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=l9OcGiwF
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-76e1fc69f86so4637753b3a.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 02 Sep 2025 03:12:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756807924; x=1757412724;
- darn=alsa-project.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=tXG90RW+oXYa96MCp5cAXkyfLjtBPEQG4RRX5DWBbac=;
-        b=l9OcGiwFpRG0+AOOR9FQVFQ2fgE24wA8e23URu2iGuTD2sHNEKbwuhUwS+kwyjE6gv
-         YNsvf/ZEHsIbgWwkzKlzGLIC6Z2GQt6zUIYC6SvaD/dI51pxBZclgM1du3QfnEEBW4rs
-         TLDE5eptDaulVNWI2/oYdcCYvzbpm4cBNHe9fx94TTLhWzaeLEVwuBGmiQ43hnpj26p6
-         QMWoRv/Z1mrlOmTNHZBExtani9amTfhhSvR4nvO8E10oQgZWsicjLY0ZXL+bUbZvmIbi
-         +8gDKHXDtG+wZ+a8NjWWWAAh1lYtxPaOPm6L0Td3lDuF+j2gZjx2YXsvb8GqqeryGtrV
-         Akeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756807924; x=1757412724;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tXG90RW+oXYa96MCp5cAXkyfLjtBPEQG4RRX5DWBbac=;
-        b=T7nQFbrgPRsPijzEEBBlRecHJKcSxBVbYkC1/auOr+3HsvUwex6r00NE/72pw5GsKA
-         5rixU1mRxHFJ1vnfXRWyHNyjBJca84a65R7fdb16cMnQKIGt4gpGfF7F9rbl8/q2Kd4i
-         6oowIsCAZiPaNyKlie9d89r4ZZqJF65+K6S5fJDeBSmPhdDlDa3EQArygAvjdvQT83IM
-         VZJq6BxcyQY6alTbedvXSIfd+KipxZkkmCu4+WEFp6RxGMlHYGHrc4krdOR8FVVgdoiX
-         gmZFE/Kx0xTphuoX+XxPqK3G/7M7ha5bANVd0VWvZp8SjMPyoSiTGTJtIM+EOnFb3nFR
-         BUWQ==
-X-Gm-Message-State: AOJu0YzSsx1wUXJ4K5VybZM8R1/TsIpJXpxFDbVxYyuGw5N7///qN5Xu
-	kmxMv8+5qdxFg9U7BuWBc4SpAmjTxp1SjZRgU717TCOqEq+N5u4XVEAT8/z6nMfrJQOkTrs98Aj
-	jUO7YfANh+in1fKEK7/pKaTEKorztCr+z8wZJSxvzgQ==
-X-Gm-Gg: ASbGncsPIA45caVpwz7BXkMnU/okSNUhyuN/aJF7TTrc4uKGPHEuYZ41Q2mafZg8/zz
-	P62tcbDUWOxnCl2gUpYolxvZrbreD01tfjwLlkIJ51C/bgtA2hdZCrUNqu1AjV+B+DWlQO2Eyo/
-	zuXq/LpQGPJa0ytSJfQKILO4T4f00g03+pfbN4WuVRIdXP/M6y23X/t/pwrHamNm+8pW1yzUXlR
-	E60tA==
-X-Google-Smtp-Source: 
- AGHT+IGtKO/nLrd0pns0lHlz5h5syqpIEQ8b9I0sKfEF+jddMI80/OvPuR0GlVEiMsANKn6z6iE9VIxFIE9KtPrRn5k=
-X-Received: by 2002:a05:6a20:7490:b0:240:792:e87a with SMTP id
- adf61e73a8af0-243d6dc18c0mr15167055637.3.1756807923427; Tue, 02 Sep 2025
- 03:12:03 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=sF13f8AQ
+Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
+	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTP id 582BW6RT2517181;
+	Tue, 2 Sep 2025 06:32:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1756812726;
+	bh=X8211DHn8F1sx9uoZMlrsZGVUgL8PBpTKRkugMeHX8I=;
+	h=From:To:CC:Subject:Date;
+	b=sF13f8AQu82RjmoCt3ggHJZvayiNM1S9CDqx319rZSlhEbMGyGgHRZS/VKczIq4BM
+	 MvKR0HXKOD66a967ijpp2+K3mXhTbIT3rjHzUNOovl0/bGC4agwGaIueYMHyz1lPtw
+	 HM+XLvSkDoRUM0FEeDD1Bto0JumNwyXL+jkWxCXA=
+Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
+	by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 582BW5vK2242925
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Tue, 2 Sep 2025 06:32:05 -0500
+Received: from DFLE108.ent.ti.com (10.64.6.29) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Tue, 2
+ Sep 2025 06:32:05 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE108.ent.ti.com
+ (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Tue, 2 Sep 2025 06:32:05 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.79])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 582BVx1j3715141;
+	Tue, 2 Sep 2025 06:32:00 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <tiwai@suse.de>
+CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <13564923607@139.com>, <13916275206@139.com>,
+        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <baojun.xu@ti.com>, <Baojun.Xu@fpt.com>,
+        Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v1] ALSA: hda/tas2781: Fix the order of TAS2781
+ calibrated-data
+Date: Tue, 2 Sep 2025 19:31:55 +0800
+Message-ID: <20250902113155.1761-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-From: =?UTF-8?B?0JjQu9GM0Y8g0JrRg9C30L3QtdGG0L7Qsg==?=
- <zloy.technic@gmail.com>
-Date: Tue, 2 Sep 2025 15:11:52 +0500
-X-Gm-Features: Ac12FXykzJ7eqwiSWql148Wle7s72EJKmWQe63mL9Zo26C8BNNIshebOSsWtJFw
-Message-ID: 
- <CAAnsHS64Pt9N2Ct3D6X=f6JytCiii9ntQ=MYqvweC=QaFpXPNw@mail.gmail.com>
-Subject: 
- =?UTF-8?Q?=5BBUG=5D_ALSA_FireWire=3A_poll_timeout_causes_JACK_to_sto?=
-	=?UTF-8?Q?p_=286=2E10_=E2=80=93_6=2E17=2Drc2=29?=
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: QPZBO7D7N2SC4ZK7P534B35FFK4NB6J6
-X-Message-ID-Hash: QPZBO7D7N2SC4ZK7P534B35FFK4NB6J6
-X-MailFrom: zloy.technic@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: EIQENVVVFOMU25NW5G2EGCO4GJY6WM62
+X-Message-ID-Hash: EIQENVVVFOMU25NW5G2EGCO4GJY6WM62
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QPZBO7D7N2SC4ZK7P534B35FFK4NB6J6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EIQENVVVFOMU25NW5G2EGCO4GJY6WM62/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,85 +107,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-________________________________
+A bug reported by one of my customers that the order of TAS2781
+calibrated-data is incorrect, the correct way is to move R0_Low_%d
+and insert it between R0_%d and InvR0_%d.
 
-Hello ALSA developers,
+Fixes: 4fe238513407 ("ALSA: hda/tas2781: Move and unified the calibrated-data getting function for SPI and I2C into the tas2781_hda lib")
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-I would like to report a reproducible issue with snd-fireface on Linux
-kernels 6.10 through 6.17-rc2.
+---
+v1:
+ - Add varialbe csz to store cali_data->cali_dat_sz_per_dev, which is long
+   enough to need two lines.
+ - Add more comments on calibrated-data order
+---
+ sound/hda/codecs/side-codecs/tas2781_hda.c | 43 ++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 8 deletions(-)
 
-________________________________
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda.c b/sound/hda/codecs/side-codecs/tas2781_hda.c
+index f46d2e06c64f..d5913a727be4 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda.c
+@@ -33,6 +33,32 @@ const efi_guid_t tasdev_fct_efi_guid[] = {
+ };
+ EXPORT_SYMBOL_NS_GPL(tasdev_fct_efi_guid, "SND_HDA_SCODEC_TAS2781");
+ 
++/*
++ * The order of calibrated-data writing is a bit different from the order
++ * in UEFI. Here is the conversion to match the order of calibrated-data
++ * writing.
++ */
++static void cali_cnv(unsigned char *data, unsigned int base, int offset)
++{
++	__be32 bedata[TASDEV_CALIB_N];
++	int i;
++
++	/* r0_reg */
++	bedata[0] = cpu_to_be32(*(uint32_t *)&data[base]);
++	/* r0_low_reg */
++	bedata[1] = cpu_to_be32(*(uint32_t *)&data[base + 8]);
++	/* invr0_reg */
++	bedata[2] = cpu_to_be32(*(uint32_t *)&data[base + 4]);
++	/* pow_reg */
++	bedata[3] = cpu_to_be32(*(uint32_t *)&data[base + 12]);
++	/* tlimit_reg */
++	bedata[4] = cpu_to_be32(*(uint32_t *)&data[base + 16]);
++
++	for (i = 0; i < TASDEV_CALIB_N; i++)
++		memcpy(&data[offset + i * 4 + 1], &bedata[i],
++			sizeof(bedata[i]));
++}
++
+ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ {
+ 	struct calidata *cali_data = &p->cali_data;
+@@ -46,6 +72,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 		TASDEVICE_REG(0, 0x13, 0x70),
+ 		TASDEVICE_REG(0, 0x18, 0x7c),
+ 	};
++	unsigned int csz = cali_data->cali_dat_sz_per_dev;
+ 	unsigned int crc, oft, node_num;
+ 	unsigned char *buf;
+ 	int i, j, k, l;
+@@ -86,6 +113,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 
+ 		for (j = 0, k = 0; j < node_num; j++) {
+ 			oft = j * 6 + 3;
++			/* Calibration registers address */
+ 			if (tmp_val[oft] == TASDEV_UEFI_CALI_REG_ADDR_FLG) {
+ 				for (i = 0; i < TASDEV_CALIB_N; i++) {
+ 					buf = &data[(oft + i + 1) * 4];
+@@ -93,7 +121,8 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 						buf[2], buf[3]);
+ 				}
+ 			} else {
+-				l = j * (cali_data->cali_dat_sz_per_dev + 1);
++				/* Calibrated data */
++				l = j * (csz + 1);
+ 				if (k >= p->ndev || l > oft * 4) {
+ 					dev_err(p->dev, "%s: dev sum error\n",
+ 						__func__);
+@@ -103,8 +132,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 
+ 				data[l] = k;
+ 				oft++;
+-				for (i = 0; i < TASDEV_CALIB_N * 4; i++)
+-					data[l + i + 1] = data[4 * oft + i];
++				cali_cnv(data, 4 * oft, l);
+ 				k++;
+ 			}
+ 		}
+@@ -127,12 +155,11 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 			dev_err(p->dev, "%s: V1 CRC error\n", __func__);
+ 			return;
+ 		}
+-
++		/* reverse rearrangement in case of overlap */
+ 		for (j = p->ndev - 1; j >= 0; j--) {
+-			l = j * (cali_data->cali_dat_sz_per_dev + 1);
+-			for (i = TASDEV_CALIB_N * 4; i > 0 ; i--)
+-				data[l + i] = data[p->index * 5 + i];
+-			data[l+i] = j;
++			l = j * (csz + 1);
++			cali_cnv(data, csz * j, l);
++			data[l] = j;
+ 		}
+ 	}
+ 
+-- 
+2.43.0
 
-System Information
-
-Kernel versions tested: 6.10 =E2=86=92 6.17-rc2
-
-Audio interface: RME Fireface 800
-
-Driver in use: snd-fireface
-
-Audio server: JACK (tested with jackd and QJackCtl)
-
-Distribution: Debian 12
-
-Kernel config: ALSA FireWire drivers enabled, no FFADO in use
-
-Chip 1394: Texas Instrumets
-
-________________________________
-
-Steps to Reproduce
-
-Boot kernel 6.10 =E2=80=A6 6.17-rc2 with snd-fireface loaded.
-
-Start JACK with ALSA backend, for example:
-
-jackd -d alsa -d hw:Fireface -p 64 -n 3
-
-Use the system normally =E2=80=94 during playback, recording, or even when
-idle. The issue may occur at any time without apparent external cause.
-
-Actual Behavior
-
-After some idle time, ALSA stops responding and JACK prints:
-
-ERROR: ALSA: poll time out, polled for ... usecs
-ERROR: JackAudioDriver::ProcessAsync: read error, stopping...
-
-JACK immediately terminates. The Fireface 800 does not recover until
-JACK is restarted.
-
-________________________________
-
-Expected Behavior
-
-The ALSA FireWire driver should maintain the stream and allow JACK to
-continue running without manual restart, even when idle.
-
-________________________________
-
-Notes
-
-With FFADO backend (jackd -d firewire), the same hardware works
-reliably and does not exhibit this issue.
-
-This suggests that the problem lies in the ALSA FireWire streaming
-engine rather than the hardware itself.
-
-The problem has been reproducible across all tested kernels (vanila,
-rt, liquorix) from 6.10 through 6.17-rc2.
-
-________________________________
-
-Request
-
-Could you please confirm if this issue is known?
-Is there any ongoing work on the ALSA FireWire streaming engine
-(snd-fireface) to address these poll timeout conditions?
-
-I can provide additional logs (dmesg, journalctl) or test patches if needed=
-.
-
-Thank you,
-
-Ilya Kuznetsov.

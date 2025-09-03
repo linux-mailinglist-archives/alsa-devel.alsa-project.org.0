@@ -2,90 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56687B42BCE
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Sep 2025 23:24:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D214B42C85
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Sep 2025 00:08:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C63D60200;
-	Wed,  3 Sep 2025 23:23:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C63D60200
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAAEF601F8;
+	Thu,  4 Sep 2025 00:08:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAAEF601F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1756934640;
-	bh=oYD045PFx4IfNHTb8kF36GnmgwvDxgzMVkLuEyhReU0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1756937302;
+	bh=col8Y7Eem9lM+HE0Ipmc8MDoWyA6faG97Wn640ziFi4=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rEWABZ93F6yuxxmgvSAqr3duOk53T5JvpFLQVga1q20kZ7J9NicXlNk5G1/+i/X4u
-	 wxG3jaBwh/JPcTcxtvzwMkWkgxujDv3BcujZe0a+1KniPj51xiBtD5nbzBdI7wE/IR
-	 2s1nts4O4A3OuXn6QorD0m0XSSuLPAziM1oFjrxw=
+	b=vgHZM7NJnliBwAFtg/xKjBbqFcXbi3kboXY8GUaf8vSkdJws4S1ojiCgdhmY6CCtS
+	 IV/QILv0XVbPfzi9kGy/UPPh7BZQbZXYzw16LUEbSDGt8ic14la61HHlK88Y9MsPt2
+	 Dez4PQZ7PMbPRvTWDig6FdBmBk2JdtlNU2ojy5Ho=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77899F805D4; Wed,  3 Sep 2025 23:23:22 +0200 (CEST)
+	id 6151BF805D3; Thu,  4 Sep 2025 00:07:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90013F80527;
-	Wed,  3 Sep 2025 23:23:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A301AF805C1;
+	Thu,  4 Sep 2025 00:07:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5E4CF804D6; Wed,  3 Sep 2025 23:23:04 +0200 (CEST)
+	id 6DB32F804B0; Thu,  4 Sep 2025 00:07:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 15323F8011B
-	for <alsa-devel@alsa-project.org>; Wed,  3 Sep 2025 23:22:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15323F8011B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36A40F800B0
+	for <alsa-devel@alsa-project.org>; Thu,  4 Sep 2025 00:06:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36A40F800B0
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ShGCTxeB
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 6FE4F6013F;
-	Wed,  3 Sep 2025 21:22:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E705C4CEE7;
-	Wed,  3 Sep 2025 21:22:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756934577;
-	bh=oYD045PFx4IfNHTb8kF36GnmgwvDxgzMVkLuEyhReU0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ShGCTxeBX/lrduwrXSmirkUcRIIJNOmhZB3TUI7soO7c+0TjrVEzVz/rw+2CBhw/Z
-	 IQsBXLo6GDRyJhX2HzKaWtUX8v7h148A0qnCwBsYOW9ViCIlbFxGk/eMzjU9gC/Orf
-	 V/f53B4JkxYn6Z66HEUYRjIUc1MCG1Lt2xrC2XliV1rLSUbwTD56QjKrYxTZX/KzqY
-	 iGdBYeHKALKaHpv14sMbgwIABax3STRcDPR+G2kbOHaOSBBq5SpgDHVkpUzqsp9Pzs
-	 b5HeXZ8481m3g++GKFAIUm2xkVOuBk6nGFhfZvi6Yk7rV1VvoLQ6qenDq84gUhYtyW
-	 rZ/9ZBgr5fwYA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Syed Saba Kareem <syed.sabakareem@amd.com>
-Cc: Vijendar.Mukunda@amd.com, Sunil-kumar.Dommati@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- Peter Zijlstra <peterz@infradead.org>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20250903171817.2549507-1-syed.sabakareem@amd.com>
-References: <20250903171817.2549507-1-syed.sabakareem@amd.com>
-Subject: Re: [PATCH] ASoC: amd: amd_sdw: Add quirks for some new Dell
- laptops
-Message-Id: <175693457437.292968.9677235604719840326.b4-ty@kernel.org>
-Date: Wed, 03 Sep 2025 22:22:54 +0100
-MIME-Version: 1.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=dfioB0GM
+Received: from fllvem-sh03.itg.ti.com ([10.64.41.86])
+	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 583M6pVE2930104;
+	Wed, 3 Sep 2025 17:06:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1756937211;
+	bh=col8Y7Eem9lM+HE0Ipmc8MDoWyA6faG97Wn640ziFi4=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=dfioB0GMQESOdByUWXjjzQqJmKpACXoBwvQHYek/MFGuDZQu9JZelDV3Xcn1iSQfz
+	 vVDciG9yFaPyn5ejGOQGjsIKlxLDCGQtIBYw+X+/CdnEI8WdezD72DQSXeG3x/+Cnv
+	 /b78jKLXZDSWSBozNz/rTa4bWleLHmoXxmilOiPw=
+Received: from DLEE106.ent.ti.com (dlee106.ent.ti.com [157.170.170.36])
+	by fllvem-sh03.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 583M6oaj3837597
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Wed, 3 Sep 2025 17:06:50 -0500
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE106.ent.ti.com
+ (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Wed, 3
+ Sep 2025 17:06:50 -0500
+Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
+ DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
+ 15.01.2507.055; Wed, 3 Sep 2025 17:06:50 -0500
+From: "Ding, Shenghao" <shenghao-ding@ti.com>
+To: Takashi Iwai <tiwai@suse.de>
+CC: "broonie@kernel.org" <broonie@kernel.org>,
+        "andriy.shevchenko@linux.intel.com"
+ <andriy.shevchenko@linux.intel.com>,
+        "13564923607@139.com" <13564923607@139.com>,
+        "13916275206@139.com"
+	<13916275206@139.com>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "Xu, Baojun" <baojun.xu@ti.com>,
+        "Baojun.Xu@fpt.com" <Baojun.Xu@fpt.com>
+Subject: RE: [EXTERNAL] Re: [PATCH v2] ALSA: hda/tas2781: Fix the order of
+ TAS2781 calibrated-data
+Thread-Topic: [EXTERNAL] Re: [PATCH v2] ALSA: hda/tas2781: Fix the order of
+ TAS2781 calibrated-data
+Thread-Index: AQHcHIktAJvNMNT5vE+BhvDY5ZGSArSBgAoAgACC1lA=
+Date: Wed, 3 Sep 2025 22:06:50 +0000
+Message-ID: <d032c064b5324641b19b3c0b31dcd2e2@ti.com>
+References: <20250903041351.143-1-shenghao-ding@ti.com>
+ <875xdzx5nn.wl-tiwai@suse.de>
+In-Reply-To: <875xdzx5nn.wl-tiwai@suse.de>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.250.161.79]
+x-c2processedorg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-dfb17
-Message-ID-Hash: GTTA5EAPLPRPQS2MMM5Y725YB3V4XPZR
-X-Message-ID-Hash: GTTA5EAPLPRPQS2MMM5Y725YB3V4XPZR
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Message-ID-Hash: SRJV2AFMWKQZGOYUVHBLZHRV77MPWUGR
+X-Message-ID-Hash: SRJV2AFMWKQZGOYUVHBLZHRV77MPWUGR
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GTTA5EAPLPRPQS2MMM5Y725YB3V4XPZR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SRJV2AFMWKQZGOYUVHBLZHRV77MPWUGR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,39 +121,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 03 Sep 2025 22:47:47 +0530, Syed Saba Kareem wrote:
-> Add a quirk to include the codec amplifier function
-> for Dell SKU's listed in quirk table.
-> Note: In these SKU's, the RT722 codec amplifier is excluded,
-> and an external amplifier is used instead.
-> 
-> 
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: amd: amd_sdw: Add quirks for some new Dell laptops
-      commit: 3254959b4dd065eae396cf78ccc1361460b2f53e
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+DQpUaGFua3MgZm9ywqB5b3VyIHJlZiBjb2RlDQo+ID4gKy8qDQo+ID4gKyAqIFRoZSBvcmRlciBv
+ZiBjYWxpYnJhdGVkLWRhdGEgd3JpdGluZyBpcyBhIGJpdCBkaWZmZXJlbnQgZnJvbSB0aGUNCj4g
+PiArb3JkZXINCj4gPiArICogaW4gVUVGSS4gSGVyZSBpcyB0aGUgY29udmVyc2lvbiB0byBtYXRj
+aCB0aGUgb3JkZXIgb2YNCj4gPiArY2FsaWJyYXRlZC1kYXRhDQo+ID4gKyAqIHdyaXRpbmcuDQo+
+ID4gKyAqLw0KPiA+ICtzdGF0aWMgdm9pZCBjYWxpX2Nudih1bnNpZ25lZCBjaGFyICpkYXRhLCB1
+bnNpZ25lZCBpbnQgYmFzZSwgaW50DQo+ID4gK29mZnNldCkgew0KPiA+ICsJX19iZTMyIGJlZGF0
+YVtUQVNERVZfQ0FMSUJfTl07DQo+ID4gKwlpbnQgaTsNCj4gPiArDQo+ID4gKwkvKiByMF9yZWcg
+Ki8NCj4gPiArCWJlZGF0YVswXSA9IGNwdV90b19iZTMyKCoodWludDMyX3QgKikmZGF0YVtiYXNl
+XSk7DQo+ID4gKwkvKiByMF9sb3dfcmVnICovDQo+ID4gKwliZWRhdGFbMV0gPSBjcHVfdG9fYmUz
+MigqKHVpbnQzMl90ICopJmRhdGFbYmFzZSArIDhdKTsNCj4gPiArCS8qIGludnIwX3JlZyAqLw0K
+PiA+ICsJYmVkYXRhWzJdID0gY3B1X3RvX2JlMzIoKih1aW50MzJfdCAqKSZkYXRhW2Jhc2UgKyA0
+XSk7DQo+ID4gKwkvKiBwb3dfcmVnICovDQo+ID4gKwliZWRhdGFbM10gPSBjcHVfdG9fYmUzMigq
+KHVpbnQzMl90ICopJmRhdGFbYmFzZSArIDEyXSk7DQo+ID4gKwkvKiB0bGltaXRfcmVnICovDQo+
+ID4gKwliZWRhdGFbNF0gPSBjcHVfdG9fYmUzMigqKHVpbnQzMl90ICopJmRhdGFbYmFzZSArIDE2
+XSk7DQo+ID4gKw0KPiA+ICsJZm9yIChpID0gMDsgaSA8IFRBU0RFVl9DQUxJQl9OOyBpKyspDQo+
+ID4gKwkJbWVtY3B5KCZkYXRhW29mZnNldCArIGkgKiA0ICsgMV0sICZiZWRhdGFbaV0sDQo+ID4g
+KwkJCXNpemVvZihiZWRhdGFbaV0pKTsNCj4gPiArfQ0KPiANCj4gSU1PLCB0aGlzIGNhbiBiZSBt
+b3JlIHJlYWRhYmxlIHdoZW4geW91IHVzZSBzdHJ1Y3QgY2FsaWRhdGEsIGUuZy4NCj4gDQo+IHN0
+YXRpYyB2b2lkIGNhbGlfY252KHVuc2lnbmVkIGNoYXIgKmRhdGEsIHVuc2lnbmVkIGludCBiYXNl
+LCBpbnQgb2Zmc2V0KSB7DQo+IAlzdHJ1Y3QgY2FsaWRhdGEgcmVnOw0KPiANCj4gCXJlZy5yMF9y
+ZWcgPSAqKHUzMiAqKSZkYXRhW2Jhc2VdDQo+IAlyZWcucjBfbG93X3JlZyA9ICoodTMyICopJmRh
+dGFbYmFzZSArIDhdDQo+IAlyZWcuaW52cjBfcmVnID0gKih1MzIgKikmZGF0YVtiYXNlICsgNF0N
+Cj4gCXJlZy5wb3dfcmVnID0gKih1MzIgKikmZGF0YVtiYXNlICsgMTJdOw0KPiAJcmVnLnRsaW1p
+dF9yZWcgPSAqKHUzMiAqKSZkYXRhW2Jhc2UgKyAxNl0pOw0KPiANCj4gCWNwdV90b19iZTMyX2Fy
+cmF5KChfX2ZvcmNlIF9fYmUzMiAqKShkYXRhICsgb2Zmc2V0ICsgMSksICZyZWcsDQo+IAkJCSAg
+VEFTREVWX0NBTElCX04pOw0KPiB9DQo+IA0KPiAuLi4gb3IgZXZlbiBzaW1wbGVyIGxpa2U6DQo+
+IA0KPiBzdGF0aWMgdm9pZCBjYWxpX2Nudih1bnNpZ25lZCBjaGFyICpkYXRhLCB1bnNpZ25lZCBp
+bnQgYmFzZSwgaW50IG9mZnNldCkgew0KPiAJc3RydWN0IGNhbGlkYXRhIHJlZzsNCj4gDQo+IAlt
+ZW1jcHkoJnJlZywgZGF0YSwgc2l6ZW9mKHJlZykpOw0KPiAJLyogdGhlIGRhdGEgb3JkZXIgaGFz
+IHRvIGJlIHN3YXBwZWQgYmV0d2VlbiByMF9sb3dfcmVnIGFuZCBpbnYwX3JlZw0KPiAqLw0KPiAJ
+c3dhcChyZWcucjBfbG93X3JlZywgcmVnLmludnIwX3JlZyk7DQo+IA0KPiAJY3B1X3RvX2JlMzJf
+YXJyYXkoKF9fZm9yY2UgX19iZTMyICopKGRhdGEgKyBvZmZzZXQgKyAxKSwgJnJlZywNCj4gCQkJ
+ICBUQVNERVZfQ0FMSUJfTik7DQo+IH0NCkkgbGlrZSB0aGlzIGNvZGUgc28gbXVjaC4gSXQncyBl
+bGVnYW50IHNpbXBsaWNpdHkuDQoNClRoYW5rcywNClNoZW5naGFvIERpbmcNCg==

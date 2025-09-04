@@ -2,70 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 840B0B43D4E
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Sep 2025 15:33:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97F23B447A3
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Sep 2025 22:45:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C09AA601F8;
-	Thu,  4 Sep 2025 15:33:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C09AA601F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1560C601A6;
+	Thu,  4 Sep 2025 22:45:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1560C601A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1756992822;
-	bh=PW5kXIRFLwL+fxJf7ks3y5OVmZKeqvOAfO82HG95t0I=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=R6j3FPzvZP8HXmjYjxLhZ4S87x0572OOPV21kco81pVGET8c0Cz/XD4l2uuINLZZR
-	 hbITiJZBtjuOQ1/7HxtIKuYAsMw31VD02ytGEhotAjznUE0KJUxBPXlH8kO5wEvAm/
-	 lcc6o36Ey8cauIF9V6yMkteSBBGIFWLxlGkxvZhk=
+	s=default; t=1757018745;
+	bh=NsmwmA5tOa3vgabv5NsiZjX/EZg/TUGmR8Clzjc8hqQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=PSPUNZ20UCtgUU2LcyXymRHXFdHjvoSLKT6a50XuuYzMdx+jDc4LL8oYSz51wiN/W
+	 XAaXXYpqfGDYkRmuG7XjZOMJHlEIn/U5MLd9+T3pBDpo9tjY94Otw182VBWhiXSADU
+	 6ViVeqZlO6pJcT7O0kywbJs6pSrfUuqdvEt+IxUs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4CADF805DF; Thu,  4 Sep 2025 15:33:07 +0200 (CEST)
+	id C713FF805C6; Thu,  4 Sep 2025 22:45:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E384F805C6;
-	Thu,  4 Sep 2025 15:33:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A562F805C1;
+	Thu,  4 Sep 2025 22:45:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DAA4F804B0; Thu,  4 Sep 2025 15:33:02 +0200 (CEST)
+	id 60C0FF804B0; Thu,  4 Sep 2025 22:45:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from fhigh-b4-smtp.messagingengine.com
+ (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9F18F800B0
-	for <alsa-devel@alsa-project.org>; Thu,  4 Sep 2025 15:32:59 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BC2686C7D;
-	Thu,  4 Sep 2025 15:32:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BC2686C7D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1756992778; bh=JtRGO8uwi8mBGvn+c6qB+KKAyArUJaFD4X1AqLtgwgo=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=08y3GvXv9kHziTB7+oQw7CNgVXjj47IqRtVt+LVi/KDjn4cP53kzeSQfpHDlnWdaV
-	 pBur4tlxYnzpWZpyFyHMNlS5Xuy9VWbdKhpIpemSYt42DM0ASutYswOPxYwmvTruzq
-	 A/2/UOsHf87tD9xw4W/CV/1d3CiNG0HhvZhYgK5w=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Thu,  4 Sep 2025 15:32:52 +0200 (CEST)
-Message-ID: <13e0868a-6528-42fa-ab9a-2b5e37e095f3@perex.cz>
-Date: Thu, 4 Sep 2025 15:32:52 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+	by alsa1.perex.cz (Postfix) with ESMTPS id B5372F80086
+	for <alsa-devel@alsa-project.org>; Thu,  4 Sep 2025 22:44:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5372F80086
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm1 header.b=exIiaumB;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=bUNA2azQ
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 7810E7A05C3;
+	Thu,  4 Sep 2025 16:44:56 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Thu, 04 Sep 2025 16:44:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1757018696; x=
+	1757105096; bh=NsmwmA5tOa3vgabv5NsiZjX/EZg/TUGmR8Clzjc8hqQ=; b=e
+	xIiaumBvpXJ/U3R3V9IVKg9EqaRcHJ9K/VaOHwUUnamPa0vUEUVe3pGonX1qmXQt
+	TUbAVsTqtmon/Ac8T371kqYeAKShLzcpWn+6LiHaAdWDK2z6ywISGp3kxrmRjtoB
+	u56djA2N5FYnTwba5ukAk2IVYNsKd7t7fWVj/F6sbTNykuxsYb2BYcQNb/NeBf9R
+	4rowj1lbjfeCo9ids2L8hxSsUL/sVrsB1Do2Kc0vgRSUiZgo6NFK1Ov7T+dh/MpY
+	AM6saIV+EYLkiZxjr7mAtNLrtpbN0dxGKaAe6gv5vXUcX+uGOosKw/4CStCl/t5T
+	57+Xq1GAtXNHObfEsjy6Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1757018696; x=1757105096; bh=NsmwmA5tOa3vgabv5NsiZjX/EZg/TUGmR8C
+	lzjc8hqQ=; b=bUNA2azQqj7VZMhEWMj1BqRE55CnXFhXjVQs9ecKfFpWh9uI7fH
+	sHl8RTgmC9gom6kumNr1OIN6ErCr5qWWB7XUjtj0yQoQdarlPOFkMqmot8UhN3hY
+	qVicbKjcNDksy/hX7dh8c4MRUaZULERn4yO5WeIQrvxzeXKdkEJ4oK6BhRues8jV
+	RKdFUEKgerfzNupz/1aER63iuoJz7/U7mlwUn8P353wGTGdyuPQsXQYpSpfeCIyR
+	obJVQcMUaEfjtTQEo8ylAHiQkgI9MQJ5pK7s3iVtpnw4Ea6glSzIXQJJYKjUroBi
+	WInGXXp81UuNyY82qRcilGwU9Bc1/UjfRBA==
+X-ME-Sender: <xms:R_q5aP_PlvXLW688xIW_auLmJjDiuEATI3Jtc7UOMZiMZ5Cl3BVT0Q>
+    <xme:R_q5aGmz_F5r8ItzzkBhRnPo84BYcSlqJQk01P29MZ4By8Rd24KgDuaJcd05dfwjG
+    W5Iwf7JRJCCJhrGOug>
+X-ME-Received: 
+ <xmr:R_q5aE16w1BJbNIgdPOIwNGPWhex5lZn3Vh0uMwIIClDNCuSjONzjDXGZCXyovTke0Cn0gBpd0I95Io_K4g9ahZeugqogSEbtBc>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdejtdduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhhihcu
+    ufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjpheqne
+    cuggftrfgrthhtvghrnhephefhhfettefgkedvieeuffevveeufedtlefhjeeiieetvdel
+    fedtgfefuedukeeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+    hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjphdpnhgspghrtghp
+    thhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepphgvrhgvgiesphgvrh
+    gvgidrtgiipdhrtghpthhtohepmhdrrghrmhhssgihsehgmhigrdguvgdprhgtphhtthho
+    pegrlhhsrgdquggvvhgvlhesrghlshgrqdhprhhojhgvtghtrdhorhhgpdhrtghpthhtoh
+    epthgrkhgrshifihgvsehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:R_q5aJpOAvbof3pGeJthZcI1OOYhdGN7MIqU9pxALY7wyq9-QdAKUQ>
+    <xmx:R_q5aJfhsay3OUKuikddvMJc4OEOS_L-TXHN4v3NKvt4zJvcbkv-Vw>
+    <xmx:R_q5aArt3-5qOrDeortkJ2ahNZSJyNbDGeKn7VUgvSBLlB7iqS4SCA>
+    <xmx:R_q5aCE3HWTXI1hVDxsK-GbQxnX-aOG-u7sj0tmvfhPZXRiAdNLXAg>
+    <xmx:SPq5aI_2-zBDT-fwoTCSpuTqGyn3jpA0vMQ3jjLKuqhYtQjTsZeZbXsE>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 4 Sep 2025 16:44:54 -0400 (EDT)
+Date: Fri, 5 Sep 2025 05:44:50 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: "M. Armsby" <m.armsby@gmx.de>, alsa-devel@alsa-project.org,
+	Takashi Sakamoto <takaswie@kernel.org>
 Subject: Re: ALSAfirewire broken / Pipewire 90ms delay
-To: "M. Armsby" <m.armsby@gmx.de>, alsa-devel@alsa-project.org,
- Takashi Sakamoto <takaswie@kernel.org>
+Message-ID: <20250904204450.GA221422@workstation.local>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
+	"M. Armsby" <m.armsby@gmx.de>, alsa-devel@alsa-project.org,
+	Takashi Sakamoto <takaswie@kernel.org>
 References: <224C5A41-DCED-4FA2-BE82-898F257DA2E9@gmx.de>
  <20250724143813.GA23616@workstation.local>
  <FD6FDA7B-D958-47BB-B90C-1A82349F94E4@gmx.de>
@@ -75,57 +123,14 @@ References: <224C5A41-DCED-4FA2-BE82-898F257DA2E9@gmx.de>
  <20250903111519.GA76122@workstation.local>
  <3e07de0a-affa-4776-9172-83b2b071fbe8@perex.cz>
  <20250904131807.GA209723@workstation.local>
-From: Jaroslav Kysela <perex@perex.cz>
-Content-Language: en-US
-Autocrypt: addr=perex@perex.cz; keydata=
- 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
-In-Reply-To: <20250904131807.GA209723@workstation.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: XQJQJQLEN6EL6DEH74GFVCDOHO6464LR
-X-Message-ID-Hash: XQJQJQLEN6EL6DEH74GFVCDOHO6464LR
-X-MailFrom: perex@perex.cz
+ <13e0868a-6528-42fa-ab9a-2b5e37e095f3@perex.cz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <13e0868a-6528-42fa-ab9a-2b5e37e095f3@perex.cz>
+Message-ID-Hash: JLKWXKN4SXPZXNVB47HPOG3UNGKIQ7IK
+X-Message-ID-Hash: JLKWXKN4SXPZXNVB47HPOG3UNGKIQ7IK
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -137,7 +142,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQJQJQLEN6EL6DEH74GFVCDOHO6464LR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JLKWXKN4SXPZXNVB47HPOG3UNGKIQ7IK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,70 +151,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 04. 09. 25 15:18, Takashi Sakamoto wrote:
-> Hi,
-> 
-> On Wed, Sep 03, 2025 at 02:19:59PM +0200, Jaroslav Kysela wrote:
->> On 03. 09. 25 13:15, Takashi Sakamoto wrote:
->>> Hi Jaroslav,
->>>
->>> On Wed, Sep 03, 2025 at 10:47:32AM +0200, Jaroslav Kysela wrote:
->>>> For Takashi Sakamoto:
->>>>
->>>> The hw_params constraints in the firewire driver should be improved based on
->>>> [1]. The drivers may also require the SNDRV_PCM_INFO_BATCH info flag.
->>>
->>> How it works in this case?
->>
->> I guess that the question is for the BATCH flag. It's just an information
->> that the stream queuing is not granular enough like for PCI cards and the
->> samples are queued in chunks to the hardware. Applications can handle the
->> queuing differently in this case.
-> 
-> Hm. A packet can multiplex several Multi Bit Linear Audio (MBLA) data
-> frames defined in IEC 61883-1/6 (e.g. 0, 6-8 frames per packet at 48.0
-> kHz sampling transmission rate) When considering the frame count reported
-> by typical serial sound interface in embedded SoCs, this granularity is
-> not particularly unusual, even if DMA transmission occurs between system
-> buffer and the interface buffer. Since the ALSA PCM interface does not
-> expose this granularity, it remains invisible to userspace applications,
-> and application therefore cannot distinguish its origin. This is why
-> these drivers does not report the BATCH flag[1].
-> 
-> Nevertheless, one likely reason might be that i programmed the
-> IEC 61883-1/6 packet stream engine to recycle retired packet buffers as
-> quickly as possible, using a "sequence replay" approach. This behaviour
-> may appear as though it follow the concept of the BATCH flag.
-> 
-> I plan to redesign both the engine and PCM operation implementations of
-> each driver to address this point, as well as to add support for
-> SNDRV_PCM_INFO_SYNC_APPLPTR to packetize in application processes.
-> However, it is not yet the right time (I still have some items in Linux
-> firewire stack itself).
+On Thu, Sep 04, 2025 at 03:32:52PM +0200, Jaroslav Kysela wrote:
+> It would be nice to check the buffer size / period size values using procfs
+> for the problematic 2048 setup (see the referred thread), if there's a
+> demand to fix this. Maybe there's a mismatch between GUI/sound server
+> settings and driver settings.
 
-Thanks for this update.
+Please suggest that all people involved in the discussion use strace(1)
+to determine whether the failure originates from SNDRV_PCM_IOCTL_HW_PARAMS
+or SNDRV_PCM_IOCTL_PREPARE, since the alsa-lib API, 'snd_pcm_hw_params()',
+involves both and can be misleading.
 
->> See also proposed (and applied) change in [2]. Please, read [1] thread
->> referred in my previous e-mail to see the problematic buffer size
->> configurations for firewire drivers.
-> 
-> In Linux FireWire subsystem, there is a size restriction on the context
-> header within the.structure specific to isochronous context[2]. This
-> software-side restriction determines the upper limit of the PCM
-> buffer. The content of IEC 61883-1/6 CIP header is stored into this
-> buffer, The frame count in each PCM period/buffer, as well as the total
-> count itself, are governed by the computation of the number of headers
-> fitting into the context header buffer[3]. The count differs by the
-> design of target device. The design of protocol mentioned in the above
-> appends more constraints[4].
 
-It would be nice to check the buffer size / period size values using procfs 
-for the problematic 2048 setup (see the referred thread), if there's a demand 
-to fix this. Maybe there's a mismatch between GUI/sound server settings and 
-driver settings.
+Thanks
 
-				Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi Sakamoto

@@ -2,147 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F23B447A3
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Sep 2025 22:45:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 647E5B4FAB7
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Sep 2025 14:25:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1560C601A6;
-	Thu,  4 Sep 2025 22:45:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1560C601A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09CAC60201;
+	Tue,  9 Sep 2025 14:17:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09CAC60201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1757018745;
-	bh=NsmwmA5tOa3vgabv5NsiZjX/EZg/TUGmR8Clzjc8hqQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1757420235;
+	bh=ud7JbkiHOCmI6mqhWepWfvvmpT1R+N/RUvTs7iar6HY=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PSPUNZ20UCtgUU2LcyXymRHXFdHjvoSLKT6a50XuuYzMdx+jDc4LL8oYSz51wiN/W
-	 XAaXXYpqfGDYkRmuG7XjZOMJHlEIn/U5MLd9+T3pBDpo9tjY94Otw182VBWhiXSADU
-	 6ViVeqZlO6pJcT7O0kywbJs6pSrfUuqdvEt+IxUs=
+	b=uwBdjQqS6s2TuvcpcjxgWS1WvFPbH+yzVM5uiacU5uL41Ft6Z6h7nP3xnxy0VWYiy
+	 ZtsAzEfG+zIAEr8ufjmiGr9ZCQ5Gf4Qhq4ByH5uRlGxz6MBO5LNngOlF30agSelXwO
+	 vEnJWeb3lBbBxWcIuuuqlIz5iyQ2sUEc18/lvrNc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C713FF805C6; Thu,  4 Sep 2025 22:45:11 +0200 (CEST)
+	id 490DBF805D3; Tue,  9 Sep 2025 14:16:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A562F805C1;
-	Thu,  4 Sep 2025 22:45:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BB1AF805C9;
+	Tue,  9 Sep 2025 14:16:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60C0FF804B0; Thu,  4 Sep 2025 22:45:03 +0200 (CEST)
+	id 537FEF80508; Fri,  5 Sep 2025 06:16:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
 	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
 	SPF_HELO_PASS,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from fhigh-b4-smtp.messagingengine.com
- (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B5372F80086
-	for <alsa-devel@alsa-project.org>; Thu,  4 Sep 2025 22:44:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5372F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3483FF800AE
+	for <alsa-devel@alsa-project.org>; Fri,  5 Sep 2025 06:15:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3483FF800AE
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm1 header.b=exIiaumB;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=bUNA2azQ
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 7810E7A05C3;
-	Thu,  4 Sep 2025 16:44:56 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Thu, 04 Sep 2025 16:44:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1757018696; x=
-	1757105096; bh=NsmwmA5tOa3vgabv5NsiZjX/EZg/TUGmR8Clzjc8hqQ=; b=e
-	xIiaumBvpXJ/U3R3V9IVKg9EqaRcHJ9K/VaOHwUUnamPa0vUEUVe3pGonX1qmXQt
-	TUbAVsTqtmon/Ac8T371kqYeAKShLzcpWn+6LiHaAdWDK2z6ywISGp3kxrmRjtoB
-	u56djA2N5FYnTwba5ukAk2IVYNsKd7t7fWVj/F6sbTNykuxsYb2BYcQNb/NeBf9R
-	4rowj1lbjfeCo9ids2L8hxSsUL/sVrsB1Do2Kc0vgRSUiZgo6NFK1Ov7T+dh/MpY
-	AM6saIV+EYLkiZxjr7mAtNLrtpbN0dxGKaAe6gv5vXUcX+uGOosKw/4CStCl/t5T
-	57+Xq1GAtXNHObfEsjy6Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1757018696; x=1757105096; bh=NsmwmA5tOa3vgabv5NsiZjX/EZg/TUGmR8C
-	lzjc8hqQ=; b=bUNA2azQqj7VZMhEWMj1BqRE55CnXFhXjVQs9ecKfFpWh9uI7fH
-	sHl8RTgmC9gom6kumNr1OIN6ErCr5qWWB7XUjtj0yQoQdarlPOFkMqmot8UhN3hY
-	qVicbKjcNDksy/hX7dh8c4MRUaZULERn4yO5WeIQrvxzeXKdkEJ4oK6BhRues8jV
-	RKdFUEKgerfzNupz/1aER63iuoJz7/U7mlwUn8P353wGTGdyuPQsXQYpSpfeCIyR
-	obJVQcMUaEfjtTQEo8ylAHiQkgI9MQJ5pK7s3iVtpnw4Ea6glSzIXQJJYKjUroBi
-	WInGXXp81UuNyY82qRcilGwU9Bc1/UjfRBA==
-X-ME-Sender: <xms:R_q5aP_PlvXLW688xIW_auLmJjDiuEATI3Jtc7UOMZiMZ5Cl3BVT0Q>
-    <xme:R_q5aGmz_F5r8ItzzkBhRnPo84BYcSlqJQk01P29MZ4By8Rd24KgDuaJcd05dfwjG
-    W5Iwf7JRJCCJhrGOug>
-X-ME-Received: 
- <xmr:R_q5aE16w1BJbNIgdPOIwNGPWhex5lZn3Vh0uMwIIClDNCuSjONzjDXGZCXyovTke0Cn0gBpd0I95Io_K4g9ahZeugqogSEbtBc>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdejtdduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
-    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    epfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhhihcu
-    ufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjpheqne
-    cuggftrfgrthhtvghrnhephefhhfettefgkedvieeuffevveeufedtlefhjeeiieetvdel
-    fedtgfefuedukeeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
-    hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjphdpnhgspghrtghp
-    thhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepphgvrhgvgiesphgvrh
-    gvgidrtgiipdhrtghpthhtohepmhdrrghrmhhssgihsehgmhigrdguvgdprhgtphhtthho
-    pegrlhhsrgdquggvvhgvlhesrghlshgrqdhprhhojhgvtghtrdhorhhgpdhrtghpthhtoh
-    epthgrkhgrshifihgvsehkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:R_q5aJpOAvbof3pGeJthZcI1OOYhdGN7MIqU9pxALY7wyq9-QdAKUQ>
-    <xmx:R_q5aJfhsay3OUKuikddvMJc4OEOS_L-TXHN4v3NKvt4zJvcbkv-Vw>
-    <xmx:R_q5aArt3-5qOrDeortkJ2ahNZSJyNbDGeKn7VUgvSBLlB7iqS4SCA>
-    <xmx:R_q5aCE3HWTXI1hVDxsK-GbQxnX-aOG-u7sj0tmvfhPZXRiAdNLXAg>
-    <xmx:SPq5aI_2-zBDT-fwoTCSpuTqGyn3jpA0vMQ3jjLKuqhYtQjTsZeZbXsE>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 4 Sep 2025 16:44:54 -0400 (EDT)
-Date: Fri, 5 Sep 2025 05:44:50 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: "M. Armsby" <m.armsby@gmx.de>, alsa-devel@alsa-project.org,
-	Takashi Sakamoto <takaswie@kernel.org>
-Subject: Re: ALSAfirewire broken / Pipewire 90ms delay
-Message-ID: <20250904204450.GA221422@workstation.local>
-Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
-	"M. Armsby" <m.armsby@gmx.de>, alsa-devel@alsa-project.org,
-	Takashi Sakamoto <takaswie@kernel.org>
-References: <224C5A41-DCED-4FA2-BE82-898F257DA2E9@gmx.de>
- <20250724143813.GA23616@workstation.local>
- <FD6FDA7B-D958-47BB-B90C-1A82349F94E4@gmx.de>
- <48A27ABA-5EF6-400D-A47A-103C1A4ABC6D@gmx.de>
- <1B53DD0F-1D85-49EC-BA7F-970BE9AEF457@gmx.de>
- <d21fb84e-d72e-4747-a9ff-92722b93f835@perex.cz>
- <20250903111519.GA76122@workstation.local>
- <3e07de0a-affa-4776-9172-83b2b071fbe8@perex.cz>
- <20250904131807.GA209723@workstation.local>
- <13e0868a-6528-42fa-ab9a-2b5e37e095f3@perex.cz>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=yvNHDBHe
+Received: from fllvem-sh04.itg.ti.com ([10.64.41.54])
+	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 5854Flm43627524;
+	Thu, 4 Sep 2025 23:15:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1757045747;
+	bh=ud7JbkiHOCmI6mqhWepWfvvmpT1R+N/RUvTs7iar6HY=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=yvNHDBHeQN8D64rb4EC6U2OgdKFZghuqRyPQSidhtzSBVvukbFUUHDl7EQ/GV8EA9
+	 UfcZLNxIn+6pOolcu8jjJu0W5f8JAksOp9CkgaqgwMHB2oTZNNREF7BPuFjM+HxO2I
+	 dZNkiIvfDuYanMGDiKvop1QAKmeQ1LM/o8J2sm9U=
+Received: from DLEE106.ent.ti.com (dlee106.ent.ti.com [157.170.170.36])
+	by fllvem-sh04.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 5854FkZ11367942
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Thu, 4 Sep 2025 23:15:46 -0500
+Received: from DLEE100.ent.ti.com (157.170.170.30) by DLEE106.ent.ti.com
+ (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Thu, 4
+ Sep 2025 23:15:45 -0500
+Received: from DLEE100.ent.ti.com ([fe80::ad4d:c227:3f85:880d]) by
+ DLEE100.ent.ti.com ([fe80::ad4d:c227:3f85:880d%17]) with mapi id
+ 15.01.2507.055; Thu, 4 Sep 2025 23:15:45 -0500
+From: "Xu, Baojun" <baojun.xu@ti.com>
+To: Mark Brown <broonie@kernel.org>
+CC: "tiwai@suse.de" <tiwai@suse.de>,
+        "andriy.shevchenko@linux.intel.com"
+	<andriy.shevchenko@linux.intel.com>,
+        "13916275206@139.com"
+	<13916275206@139.com>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>,
+        "Ding, Shenghao" <shenghao-ding@ti.com>,
+        "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "robh@kernel.org"
+	<robh@kernel.org>,
+        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+        "conor+dt@kernel.org" <conor+dt@kernel.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+        "Yi, Ken" <k-yi@ti.com>, "Lo, Henry"
+	<henry.lo@ti.com>,
+        "Chen, Robin" <robinchen@ti.com>, "Ji, Jesse"
+	<jesse-ji@ti.com>,
+        "Wang, Will" <will-wang@ti.com>,
+        "jim.shil@goertek.com"
+	<jim.shil@goertek.com>,
+        "toastcheng@google.com" <toastcheng@google.com>,
+        "chinkaiting@google.com" <chinkaiting@google.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v4 1/2] ASoC: tas2781: Add tas2118,
+ tas2x20, tas5825 support
+Thread-Topic: [EXTERNAL] Re: [PATCH v4 1/2] ASoC: tas2781: Add tas2118,
+ tas2x20, tas5825 support
+Thread-Index: AQHcGXV+g3xOktIe00qAtAz2a1355LSBruqAgAJSFIw=
+Date: Fri, 5 Sep 2025 04:15:45 +0000
+Message-ID: <12aa63e694c94213aeb6b48959d02b45@ti.com>
+References: 
+ <20250830061459.24371-1-baojun.xu@ti.com>,<993d7fe7-5206-45a9-acb6-0d610a3a2136@sirena.org.uk>
+In-Reply-To: <993d7fe7-5206-45a9-acb6-0d610a3a2136@sirena.org.uk>
+Accept-Language: en-GB, zh-CN, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.250.241.91]
+x-c2processedorg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <13e0868a-6528-42fa-ab9a-2b5e37e095f3@perex.cz>
-Message-ID-Hash: JLKWXKN4SXPZXNVB47HPOG3UNGKIQ7IK
-X-Message-ID-Hash: JLKWXKN4SXPZXNVB47HPOG3UNGKIQ7IK
-X-MailFrom: o-takashi@sakamocchi.jp
+X-MailFrom: baojun.xu@ti.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 65WYT24YZA4MHNDHXOHMP2LREJP6Q73P
+X-Message-ID-Hash: 65WYT24YZA4MHNDHXOHMP2LREJP6Q73P
+X-Mailman-Approved-At: Tue, 09 Sep 2025 12:16:30 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JLKWXKN4SXPZXNVB47HPOG3UNGKIQ7IK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/65WYT24YZA4MHNDHXOHMP2LREJP6Q73P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -151,18 +135,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Sep 04, 2025 at 03:32:52PM +0200, Jaroslav Kysela wrote:
-> It would be nice to check the buffer size / period size values using procfs
-> for the problematic 2048 setup (see the referred thread), if there's a
-> demand to fix this. Maybe there's a mismatch between GUI/sound server
-> settings and driver settings.
+>=20
+> ________________________________________
+> From: Mark Brown <broonie@kernel.org>
+> Sent: 03 September 2025 19:36
+> To: Xu, Baojun
+> Cc: tiwai@suse.de; andriy.shevchenko@linux.intel.com; 13916275206@139.com=
+; alsa-devel@alsa-project.org; Ding, Shenghao; linux-sound@vger.kernel.org;=
+ linux-kernel@vger.kernel.org; lgirdwood@gmail.com; robh@kernel.org; krzk+d=
+t@kernel.org; conor+dt@kernel.org; devicetree@vger.kernel.org; Yi, Ken; Lo,=
+ Henry; Chen, Robin; Ji, Jesse; Wang, Will; jim.shil@goertek.com; toastchen=
+g@google.com; chinkaiting@google.com
+> Subject: [EXTERNAL] Re: [PATCH v4 1/2] ASoC: tas2781: Add tas2118, tas2x2=
+0, tas5825 support
+>=20
+> On Sat, Aug 30, 2025 at 02:14:58PM +0800, Baojun Xu wrote:
+> > Add tas2020, tas2118, tas2120, tas2320, tas2570, tas2572, tas5825
+> > tas5827 support in tas2781 driver.
+> > Tas2118, tas2x20, tas257x have no on-chip DSP, tas582x have on-chip
+> > DSP but have no calibration required stereo smart amplifier.
+>=20
+> This doesn't apply against current code, please check and resend.
+>=20
 
-Please suggest that all people involved in the discussion use strace(1)
-to determine whether the failure originates from SNDRV_PCM_IOCTL_HW_PARAMS
-or SNDRV_PCM_IOCTL_PREPARE, since the alsa-lib API, 'snd_pcm_hw_params()',
-involves both and can be misleading.
+Hi, do you mean I need a re-patch for the newest (next/linux-next.git) code=
+?
+Or need to create patches on tree broonie/linux.git?
 
-
-Thanks
-
-Takashi Sakamoto
+Best Regards
+Jim=

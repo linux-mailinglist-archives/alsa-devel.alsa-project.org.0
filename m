@@ -2,101 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26363B454F0
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Sep 2025 12:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67443B46AAD
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 Sep 2025 11:22:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E6BF60155;
-	Fri,  5 Sep 2025 12:42:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E6BF60155
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C486601F9;
+	Sat,  6 Sep 2025 11:21:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C486601F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1757068947;
-	bh=0YT3gSVmaRAfERZsP5juwTay+cdaKDtqbsQUs+7eD3E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=RT3WnKPahsqSpiInSQ+GYFrc4Jb5FnSul+xATIzeshDFYHo2YFrObC34b6T0VEyna
-	 NHdm0OfYDs7BcRfO5Xz7KoExhZxji6Jg28Dzcc5MCm0rJAW+/Nli2gxbnsdSs261TP
-	 aVegSqQ/vWfDJXlGD/d03USEvccFrX8Tzje/P3VA=
+	s=default; t=1757150523;
+	bh=9bNmYoNLsFa8unIWulNLAELWJUoXGwU8yuTvkUzNN1s=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=EGj1uoDsoMVws0cSVoTMzXw+rUGGDXsfRmckWdLpQVY9O5DxPXFxz+5ia26outcap
+	 2sZjXCsGpEIUlTSylvyhK1HUGC9cZ4RgPzkHlICxYqDmEZSuzhwj3X+DKeBdDehy/N
+	 x+zT2ku5u+VOSgdQCfBBjWLxlYny+FHlPHvg4+qQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E056F805B6; Fri,  5 Sep 2025 12:41:52 +0200 (CEST)
+	id AA269F805D3; Sat,  6 Sep 2025 11:21:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA48BF805CA;
-	Fri,  5 Sep 2025 12:41:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58918F805BF;
+	Sat,  6 Sep 2025 11:21:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 909E9F80508; Fri,  5 Sep 2025 12:41:38 +0200 (CEST)
+	id 78BADF804FC; Sat,  6 Sep 2025 11:20:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from lelvem-ot02.ext.ti.com (lelvem-ot02.ext.ti.com [198.47.23.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B69DF80086
-	for <alsa-devel@alsa-project.org>; Fri,  5 Sep 2025 12:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B69DF80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9641DF8010B
+	for <alsa-devel@alsa-project.org>; Sat,  6 Sep 2025 11:19:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9641DF8010B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kjzmTBtw
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 7F4966027D;
-	Fri,  5 Sep 2025 10:41:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BABFC4CEFE;
-	Fri,  5 Sep 2025 10:41:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1757068893;
-	bh=0YT3gSVmaRAfERZsP5juwTay+cdaKDtqbsQUs+7eD3E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kjzmTBtwHMLhywCZLnQFDomzZH7m1TsQMv1EkpTVegEsDO/Dr+j+V+AAoGzxyhbFQ
-	 Zq4TaV709BfJux6xejkxhabNoARA64dJeK1SivofU/vwK8EzB98+KPNLd2uuBTzBsT
-	 6UQ8PgjtmZcKB9opyRYmcwF0m/+A/S9X6sSV7tLEWyhMbVMd+8pHd+byw5G/1oiPA+
-	 eDTpDXwlIFB+SlewvXlPXeN+1tpTR6cc83qwvHwbiiAgql1vOrQ/4b6cwXgKCENmJ2
-	 Ntn47s86EbF876fkk2M0/m/2ymR2MBAZ9A31kJUw5+B5gqq+THnl8dcLoh//zmbjbi
-	 Gxd6DD2zf7XCg==
-Date: Fri, 5 Sep 2025 11:41:24 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Xu, Baojun" <baojun.xu@ti.com>
-Cc: "tiwai@suse.de" <tiwai@suse.de>,
-	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	"13916275206@139.com" <13916275206@139.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"Ding, Shenghao" <shenghao-ding@ti.com>,
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"Yi, Ken" <k-yi@ti.com>, "Lo, Henry" <henry.lo@ti.com>,
-	"Chen, Robin" <robinchen@ti.com>, "Ji, Jesse" <jesse-ji@ti.com>,
-	"Wang, Will" <will-wang@ti.com>,
-	"jim.shil@goertek.com" <jim.shil@goertek.com>,
-	"toastcheng@google.com" <toastcheng@google.com>,
-	"chinkaiting@google.com" <chinkaiting@google.com>
-Subject: Re: [EXTERNAL] Re: [PATCH v4 1/2] ASoC: tas2781: Add tas2118,
- tas2x20, tas5825 support
-Message-ID: <b70314db-357f-4c39-a9b4-088d8ebed2b0@sirena.org.uk>
-References: <20250830061459.24371-1-baojun.xu@ti.com>
- <993d7fe7-5206-45a9-acb6-0d610a3a2136@sirena.org.uk>
- <12aa63e694c94213aeb6b48959d02b45@ti.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=s3j3gS3j
+Received: from lelvem-sh02.itg.ti.com ([10.180.78.226])
+	by lelvem-ot02.ext.ti.com (8.15.2/8.15.2) with ESMTP id 5869JW8t3925761;
+	Sat, 6 Sep 2025 04:19:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1757150372;
+	bh=YLNYxp/FSpxPNcyK6bIyluYzJiMr2F1DgAnGcWIhwgM=;
+	h=From:To:CC:Subject:Date;
+	b=s3j3gS3jzpe1YJY636MxtJ+jpXCJm8H8wMdfGSJxNyzztPY5G2W/NwIo9AlEFr64L
+	 UH3uESkHtLPlKpFGkQkiKS1hLQbGd/+0wVNfV2NL2Mye1AxLL61RcYiMVk2F/mQD8o
+	 Y0TTLhTUrjmOtQhlwinjbBvXnvbl6UAheS86tTEY=
+Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
+	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 5869JVhv1518945
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Sat, 6 Sep 2025 04:19:31 -0500
+Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE103.ent.ti.com
+ (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Sat, 6
+ Sep 2025 04:19:31 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Sat, 6 Sep 2025 04:19:31 -0500
+Received: from LT5CG31242FY.dhcp.ti.com ([10.250.161.79])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 5869JRgP2028007;
+	Sat, 6 Sep 2025 04:19:28 -0500
+From: Shenghao Ding <shenghao-ding@ti.com>
+To: <tiwai@suse.de>
+CC: <broonie@kernel.org>, <andriy.shevchenko@linux.intel.com>,
+        <13564923607@139.com>, <13916275206@139.com>,
+        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <baojun.xu@ti.com>, <Baojun.Xu@fpt.com>,
+        Shenghao Ding <shenghao-ding@ti.com>
+Subject: [PATCH v3] ALSA: hda/tas2781: Fix the order of TAS2781
+ calibrated-data
+Date: Sat, 6 Sep 2025 17:19:23 +0800
+Message-ID: <20250906091923.1760-1-shenghao-ding@ti.com>
+X-Mailer: git-send-email 2.33.0.windows.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="W/8Zc+tPZVZu2YRi"
-Content-Disposition: inline
-In-Reply-To: <12aa63e694c94213aeb6b48959d02b45@ti.com>
-X-Cookie: He who laughs, lasts.
-Message-ID-Hash: 3RFBE4C3ABSG55XXFU2VFZSHOEHEW3J6
-X-Message-ID-Hash: 3RFBE4C3ABSG55XXFU2VFZSHOEHEW3J6
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+Message-ID-Hash: TY7NWKTNVCYJQUDPDFVDKW2GHIJMAGFX
+X-Message-ID-Hash: TY7NWKTNVCYJQUDPDFVDKW2GHIJMAGFX
+X-MailFrom: shenghao-ding@ti.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3RFBE4C3ABSG55XXFU2VFZSHOEHEW3J6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TY7NWKTNVCYJQUDPDFVDKW2GHIJMAGFX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,33 +107,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+A bug reported by one of my customers that the order of TAS2781
+calibrated-data is incorrect, the correct way is to move R0_Low
+and insert it between R0 and InvR0.
 
---W/8Zc+tPZVZu2YRi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: 4fe238513407 ("ALSA: hda/tas2781: Move and unified the calibrated-data getting function for SPI and I2C into the tas2781_hda lib")
+Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-On Fri, Sep 05, 2025 at 04:15:45AM +0000, Xu, Baojun wrote:
+---
+v3:
+ - Take Tiwai's advice on cali_cnv() to make it more simpler.
+v2:
+ - Submit to sound branch maintianed by Tiwai instead of linux-next branch
+ - Drop other fix
+---
+ sound/hda/codecs/side-codecs/tas2781_hda.c | 25 +++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
-> > This doesn't apply against current code, please check and resend.
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda.c b/sound/hda/codecs/side-codecs/tas2781_hda.c
+index f46d2e06c64f..f4a44c6b0234 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda.c
+@@ -33,6 +33,23 @@ const efi_guid_t tasdev_fct_efi_guid[] = {
+ };
+ EXPORT_SYMBOL_NS_GPL(tasdev_fct_efi_guid, "SND_HDA_SCODEC_TAS2781");
+ 
++/*
++ * The order of calibrated-data writing function is a bit different from the
++ * order in UEFI. Here is the conversion to match the order of calibrated-data
++ * writing function.
++ */
++static void cali_cnv(unsigned char *data, unsigned int base, int offset)
++{
++	struct cali_reg reg_data;
++
++	memcpy(&reg_data, data, sizeof(reg_data));
++	/* the data order has to be swapped between r0_low_reg and inv0_reg */
++	swap(reg_data.r0_low_reg, reg_data.invr0_reg);
++
++	cpu_to_be32_array((__force __be32 *)(data + offset + 1),
++		(u32 *)&reg_data, TASDEV_CALIB_N);
++}
++
+ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ {
+ 	struct calidata *cali_data = &p->cali_data;
+@@ -103,8 +120,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 
+ 				data[l] = k;
+ 				oft++;
+-				for (i = 0; i < TASDEV_CALIB_N * 4; i++)
+-					data[l + i + 1] = data[4 * oft + i];
++				cali_cnv(data, 4 * oft, l);
+ 				k++;
+ 			}
+ 		}
+@@ -130,9 +146,8 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 
+ 		for (j = p->ndev - 1; j >= 0; j--) {
+ 			l = j * (cali_data->cali_dat_sz_per_dev + 1);
+-			for (i = TASDEV_CALIB_N * 4; i > 0 ; i--)
+-				data[l + i] = data[p->index * 5 + i];
+-			data[l+i] = j;
++			cali_cnv(data, cali_data->cali_dat_sz_per_dev * j, l);
++			data[l] = j;
+ 		}
+ 	}
+ 
+-- 
+2.43.0
 
-> Hi, do you mean I need a re-patch for the newest (next/linux-next.git) code?
-> Or need to create patches on tree broonie/linux.git?
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-6.18
-
---W/8Zc+tPZVZu2YRi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmi6vlQACgkQJNaLcl1U
-h9DyYgf+JzOcCB2e4kN0lqPPMtGy3W9chZ/RtSZ7X58/3sxxM8IFEG4/LZR9KOlK
-I4tkBJu1o5TcaojTKjg7wJiw44Es1g5I5ZzgObWS1rjngU5k3aW9eH3x5dGTwhOC
-XozX6auMJbj8HjxzxIeDo0azbnyMGpUGNDDhMGa91uzxMcyHwyOzLr8p9DqHn+zp
-cL0NlkMQVQzfluQa3HN7xkEXwj2xqw1CRmZN4HmI6petXnNHh5DuGeEgrkErrZRf
-lFYXKinXgmw8485n9K2g54si/TKeS+d55xfNihEaHufwSu6aWY1/AhP/7Z4eE6Hm
-mM+7Uw+83YmCbmYsaxEW7tlKxO6G0g==
-=1xzx
------END PGP SIGNATURE-----
-
---W/8Zc+tPZVZu2YRi--

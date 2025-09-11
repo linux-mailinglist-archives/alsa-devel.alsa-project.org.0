@@ -2,163 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1F38B538D4
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Sep 2025 18:12:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 865ACB53B74
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Sep 2025 20:33:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4980E60214;
-	Thu, 11 Sep 2025 18:12:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4980E60214
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3054860219;
+	Thu, 11 Sep 2025 20:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3054860219
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1757607155;
-	bh=J0568fuHDPQs5XgBA87Fya7l6DWdCy/Y/1a5dGyC6cA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1757615596;
+	bh=HVawjMcQczynRglGSlCyy+kwMjziDRllYDRfqUgmecQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qckS5gZqISUwyi2rElUSR85AiGH5h05c4IKFV+gGlg4U736FRJUXyv9TCe7/V7wps
-	 9GKiM2hKO7og+fuztH41ibqcbfBHfrbNb9w29hV8R/eM4wiWArVoqnpM+oVDVAN1pb
-	 zamVNrbMtdygxxFaz0GqJylMRU+bRDBElc5IVXEE=
+	b=sVyxx/jaxMOjDlm2S76ieomUp217cD9l2NsQLCBmLyT+XAhkZ3+WHz3ur4oNz191c
+	 nZle54AMJIPfHjT9ISJrkQoZQFdUfGgOGTuwq5Ep12UFob5axlqL/TR0Bj0BztLWwg
+	 QbQhIFPV6bz6ZOUOs2KeiCWLN8SqM+sQwKwbOAoU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DAB1DF8057A; Thu, 11 Sep 2025 18:12:02 +0200 (CEST)
+	id 18627F805C1; Thu, 11 Sep 2025 20:32:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFB19F8057A;
-	Thu, 11 Sep 2025 18:12:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75C1EF805C0;
+	Thu, 11 Sep 2025 20:32:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6981F80518; Thu, 11 Sep 2025 18:11:49 +0200 (CEST)
+	id C29CCF80518; Thu, 11 Sep 2025 20:32:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CA368F802DB
-	for <alsa-devel@alsa-project.org>; Thu, 11 Sep 2025 18:11:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA368F802DB
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73680F801F7
+	for <alsa-devel@alsa-project.org>; Thu, 11 Sep 2025 20:32:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73680F801F7
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=o1ZbPeP9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Bp+O9nsz;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
- header.a=rsa-sha256 header.s=susede2_rsa header.b=o1ZbPeP9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Bp+O9nsz
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 927C640420;
-	Thu, 11 Sep 2025 16:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1757607105;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FMhm+cdLuSxLHqNMT9K0iB0b3U0RJDOdoZ55n3U8Gmg=;
-	b=o1ZbPeP90sIbG72AgHgDNwGox7kAd4ML3rzANTxIbXdeBQVeEiSgE2D3BjmD+pNfAkZ8P/
-	T8Qf0iYBPPQHsOHrSLrBzl+shKZv4RUQYGFwCRtumFEcHrAwEPkfQd4L3a56J1ddNv9/b2
-	MNJxMWUk09OkgiVnQ6L4G+E5+aRHP4c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1757607105;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FMhm+cdLuSxLHqNMT9K0iB0b3U0RJDOdoZ55n3U8Gmg=;
-	b=Bp+O9nszTgoQ7UcGBrRfnGGmNKkvgVkHR0Ga4gVmmVb89ZVTBMEeHKVzuQIgN1PfhS6pUA
-	OogKSUGQR8ZXGtCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=o1ZbPeP9;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Bp+O9nsz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1757607105;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FMhm+cdLuSxLHqNMT9K0iB0b3U0RJDOdoZ55n3U8Gmg=;
-	b=o1ZbPeP90sIbG72AgHgDNwGox7kAd4ML3rzANTxIbXdeBQVeEiSgE2D3BjmD+pNfAkZ8P/
-	T8Qf0iYBPPQHsOHrSLrBzl+shKZv4RUQYGFwCRtumFEcHrAwEPkfQd4L3a56J1ddNv9/b2
-	MNJxMWUk09OkgiVnQ6L4G+E5+aRHP4c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1757607105;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FMhm+cdLuSxLHqNMT9K0iB0b3U0RJDOdoZ55n3U8Gmg=;
-	b=Bp+O9nszTgoQ7UcGBrRfnGGmNKkvgVkHR0Ga4gVmmVb89ZVTBMEeHKVzuQIgN1PfhS6pUA
-	OogKSUGQR8ZXGtCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5544513A56;
-	Thu, 11 Sep 2025 16:11:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 7qVmE8H0wmj+EwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 11 Sep 2025 16:11:45 +0000
-Date: Thu, 11 Sep 2025 18:11:44 +0200
-Message-ID: <87h5x9rmtb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Shenghao Ding <shenghao-ding@ti.com>
-Cc: <broonie@kernel.org>,
-	<andriy.shevchenko@linux.intel.com>,
-	<13564923607@139.com>,
-	<13916275206@139.com>,
-	<alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>,
-	<baojun.xu@ti.com>,
-	<Baojun.Xu@fpt.com>
-Subject: Re: [PATCH v1] ALSA: hda/tas2781: Fix a potential race condition that
- causes a NULL pointer in case no efi.get_variable exsits
-In-Reply-To: <20250911071131.1886-1-shenghao-ding@ti.com>
-References: <20250911071131.1886-1-shenghao-ding@ti.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[139.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,139.com,alsa-project.org,vger.kernel.org,ti.com,fpt.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ti.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 927C640420
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-Message-ID-Hash: HHMYPFSAGYRB6UOUNDTPHWMQKDQZXWM3
-X-Message-ID-Hash: HHMYPFSAGYRB6UOUNDTPHWMQKDQZXWM3
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=fTlhMwFq
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 7828B437D0;
+	Thu, 11 Sep 2025 18:32:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55962C4CEF0;
+	Thu, 11 Sep 2025 18:32:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1757615526;
+	bh=HVawjMcQczynRglGSlCyy+kwMjziDRllYDRfqUgmecQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fTlhMwFq+63syrURiIERJz6aKhuNRgLCWi/pHK97ZgyFSfmlPWyey5+fwBCdSW5Ht
+	 ZbyPIuu2E/ePFfiHHuRMclEybQY4Jbd8lFix6gbTpRQPEb385sy4YySFOE0/044h+s
+	 L0p5BHVYfJ85Vbq2RHy/QfDbZRHSTu2vhVoIhjgYiEWPSdp0zVwKxB4akdXKmu2R92
+	 lSlzIKh++DVmPOg/uorXgdWfRXkjFxJnND+qw6zFnPa0bKl4dmZWoPrTCl4AsfB8E5
+	 3BgsM2UxrdQrFrb6hK/hc4IULjkuet5CRL/4/AHARvBQ7sbZjPnEwF3b/aQMpZU6L8
+	 Yw9aDTGEuYUog==
+Date: Thu, 11 Sep 2025 19:32:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Holalu Yogendra, Niranjan" <niranjan.hy@ti.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"perex@perex.cz" <perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+	"cezary.rojewski@intel.com" <cezary.rojewski@intel.com>,
+	"peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>,
+	"ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
+	"kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>,
+	"pierre-louis.bossart@linux.dev" <pierre-louis.bossart@linux.dev>,
+	"Navada Kanyana, Mukund" <navada@ti.com>,
+	"Ding, Shenghao" <shenghao-ding@ti.com>,
+	"Hampiholi, Vallabha" <v-hampiholi@ti.com>,
+	"Xu, Baojun" <baojun.xu@ti.com>
+Subject: Re: [EXTERNAL] Re: [PATCH v4 2/6] ASoC: ops: add
+ snd_soc_get_volsw_clamped
+Message-ID: <fcde8a20-dcd1-4f2f-8257-b8e29369305e@sirena.org.uk>
+References: <20250911155704.2236-1-niranjan.hy@ti.com>
+ <20250911155704.2236-2-niranjan.hy@ti.com>
+ <652726cc-b286-4ba0-b49c-8b981d6d0244@sirena.org.uk>
+ <41a87c2b7f21467d833b7eefde8e63a0@ti.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wz+D+05ykIzKd/3V"
+Content-Disposition: inline
+In-Reply-To: <41a87c2b7f21467d833b7eefde8e63a0@ti.com>
+X-Cookie: Your domestic life may be harmonious.
+Message-ID-Hash: CGZAXKAAS2UFRBUYC6DLRBOUISOMLOE2
+X-Message-ID-Hash: CGZAXKAAS2UFRBUYC6DLRBOUISOMLOE2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -170,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HHMYPFSAGYRB6UOUNDTPHWMQKDQZXWM3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CGZAXKAAS2UFRBUYC6DLRBOUISOMLOE2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,17 +115,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 11 Sep 2025 09:11:31 +0200,
-Shenghao Ding wrote:
-> 
-> A a potential race condition reported by one of my customers that leads to
-> a NULL pointer dereference, where the call to efi.get_variable should be
-> guarded with efi_rt_services_supported() to ensure that function exists.
-> 
-> Fixes: 4fe238513407 ("ALSA: hda/tas2781: Move and unified the calibrated-data getting function for SPI and I2C into the tas2781_hda lib")
-> Signed-off-by: Shenghao Ding <shenghao-ding@ti.com>
 
-Thanks, applied now.
+--wz+D+05ykIzKd/3V
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Sep 11, 2025 at 05:21:14PM +0000, Holalu Yogendra, Niranjan wrote:
+> > From: Mark Brown <broonie@kernel.org>
 
-Takashi
+> > Why is this a separate API, what is the situation where we would want to
+> > report an invalid value from a control?  I was thinking of just adding
+> > this to the existing operations rather than adding separate ones that
+> > need to be explicitly set.
+
+>   Since few of the drivers as still using the original API, and was not s=
+ure if
+> everyone wanted to clamp the register value, did not want to disturb the
+> original API snd_soc_get_volsw. Per my analysis, if register read fails d=
+ue to=20
+In what situation would anything want to report an invalid value?
+
+> some issue (like IO) and, for some reason if register value was modified
+> to have the value greater than mc->max value, the volume is report errone=
+ously.
+>   Are you thinking that this patch could be dropped and clamp the value t=
+o max in =20
+> 'soc_get_volsw' (as in 1st patch) and use the same API ? Please suggest.
+
+Yes, everything should report valid values.  I/O errors should be
+propagated as errors.
+
+--wz+D+05ykIzKd/3V
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmjDFZ8ACgkQJNaLcl1U
+h9DhDwf/VutNkY/S+yvt/e7kV3OOg13DJI2Uc58GTgBOZ47hylTbuSNRU1eNFmCN
+gy6RwcjBoitXHIQ+snFV4EPHOzKwBYtKTvc97rS41zBEFm8bfWwQuT23CcT9rBTa
+VHAz8PxWo/JoTa9o6URi6NAIWs8Pp3ijTqDV5RDveCpWtY9i4VJTFdfPlY8JAw94
+52PDO0L+nUNb2bNgF6CevLZSRU+GxvegUFsAfbye9Ljo8283SmD6RZBtfXlQWJ/x
+UZoPCwhvGhM1fSRH7l20fnSEoGMAzsK+CPOqMEJW5xLajqmvqzzCQhe35lyyFO79
+T8VCl0FEi3j3YVC0vk0gHj7eTRbbqg==
+=AhOl
+-----END PGP SIGNATURE-----
+
+--wz+D+05ykIzKd/3V--

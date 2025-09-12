@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF707B555D0
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Sep 2025 20:06:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B3C6B555D1
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Sep 2025 20:07:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 994C560215;
-	Fri, 12 Sep 2025 20:06:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 994C560215
+	by alsa0.perex.cz (Postfix) with ESMTPS id E78636021E;
+	Fri, 12 Sep 2025 20:06:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E78636021E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1757700411;
+	s=default; t=1757700422;
 	bh=Vhk6ESTGtqFDxX56/q8gP6w760O74sUCFpLBJh7N468=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=f8xhXOuOTWEkBt9Efo9bTfGGwARP/i/Q8qOEaAzX9Fn9j2RH1d3Y5IC9T16gQ30uc
-	 Yro4xdjYwXVsmkhJ5ClqvxsVk0I0LI8gXUS30hPQU4pd64c3MLX027lHn/XSur9QOJ
-	 Mle9B895MEeyzY6mbeW/v7UHAbQ913Nj6IhTQRo4=
+	b=rkIsUOKGnPva6BbsSnIPc3ExBWmEnpkYoYMX0lC0EcrU9SorIxByOdmc2z9pLDhHT
+	 W1+IeEQrtEDVzt0IOVfjw8d7iFiNvbJgTqqpn+gGSlDYs+wxMyDjNG6AkSslIGkQfO
+	 Hh2A7EiKvQUlDtKq5x5oQQROs/FfOfWhRJ+h4meY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E23DF805D4; Fri, 12 Sep 2025 20:06:15 +0200 (CEST)
+	id CBD20F805F3; Fri, 12 Sep 2025 20:06:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03478F805C9;
-	Fri, 12 Sep 2025 20:06:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E5D4F805F1;
+	Fri, 12 Sep 2025 20:06:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5394F80254; Fri, 12 Sep 2025 20:04:56 +0200 (CEST)
+	id 6DBF1F80254; Fri, 12 Sep 2025 20:05:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
@@ -35,23 +35,22 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_00,MISSING_DATE,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 822EBF8021D
-	for <alsa-devel@alsa-project.org>; Fri, 12 Sep 2025 20:04:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 822EBF8021D
+	by alsa1.perex.cz (Postfix) with ESMTP id AAFE6F8021D
+	for <alsa-devel@alsa-project.org>; Fri, 12 Sep 2025 20:05:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAFE6F8021D
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <18649b1ac337ba00-webhooks-bot@alsa-project.org>
-In-Reply-To: <18649b1aba103300-webhooks-bot@alsa-project.org>
-References: <18649b1aba103300-webhooks-bot@alsa-project.org>
-Subject: Internal microphone (Conexant SN6140) detected but shows
- inactive/unplugged on Lenovo IdeaPad Slim 5 16AKP10 83HY after alsa-ucm-conf
- 1.2.14
-Date: Fri, 12 Sep 2025 20:04:56 +0200 (CEST)
-Message-ID-Hash: GSNUGZEX2V6YFD6RK4VZV2JUGJPGPEWH
-X-Message-ID-Hash: GSNUGZEX2V6YFD6RK4VZV2JUGJPGPEWH
+Message-Id: <18649b1c7ac8db00-webhooks-bot@alsa-project.org>
+In-Reply-To: <18649b1c7ac32d00-webhooks-bot@alsa-project.org>
+References: <18649b1c7ac32d00-webhooks-bot@alsa-project.org>
+Subject: Internal microphone (Conexant SN6140) nonfunctional on Lenovo IdeaPad
+ Slim 5 16AKP10 83HY after alsa-ucm-conf 1.2.14+
+Date: Fri, 12 Sep 2025 20:05:03 +0200 (CEST)
+Message-ID-Hash: MOZHRTUHTY5DRDACPRJOBBBQSXUBN2BB
+X-Message-ID-Hash: MOZHRTUHTY5DRDACPRJOBBBQSXUBN2BB
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -64,7 +63,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSNUGZEX2V6YFD6RK4VZV2JUGJPGPEWH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MOZHRTUHTY5DRDACPRJOBBBQSXUBN2BB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

@@ -2,87 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB301B963ED
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Sep 2025 16:29:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3F90B9A8F2
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Sep 2025 17:17:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3824C601F4;
-	Tue, 23 Sep 2025 16:29:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3824C601F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3981601C0;
+	Wed, 24 Sep 2025 17:17:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3981601C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1758637759;
-	bh=rmmj9wXFWfuHcEZMkyqgIliZ8H2TGNCsCHWPDoP83DQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Cr6PFsgHEqn3ykCeL8Y1WxBVCumHxSl4wBHCmH/qhGbxvwVoTUjExQZi52EPcodv/
-	 YEq731s0CLpcogcuu1qK2ufp400tm2cnaQpL72z8rqe0TcW3J4EwwBLXU2ov//W9uV
-	 P5OYNt2ZXCDH+sUVhY+uGZzuD8G5EEpKLGok4JU8=
+	s=default; t=1758727041;
+	bh=2VbBzvLvFZoo4XGwnxkRJZBI+Gx42jrX0GoxKkjapX0=;
+	h=Subject:From:To:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=kFW8vvCU2VLC/yJRjNKdaS5QVS0xHNReAIzZaEPj9ss3BFxmJD3LPltJgYZdKP7pp
+	 zwNfNXNXVAw8SnBBrMy+0w0P+0yqD2WJ4qCNgoZ7yUirhle5wxZQT8Efy6dY4a3KzD
+	 cIaXyot3F+1hhU4Cxbdo610s+KsQ+ep8YNpaw7qA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64E47F805B6; Tue, 23 Sep 2025 16:28:46 +0200 (CEST)
+	id 331F3F805D6; Wed, 24 Sep 2025 17:16:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 545CFF805B6;
-	Tue, 23 Sep 2025 16:28:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5607F805C9;
+	Wed, 24 Sep 2025 17:16:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46FC7F8021D; Tue, 23 Sep 2025 16:28:41 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
-	RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64C38F800E3
-	for <alsa-devel@alsa-project.org>; Tue, 23 Sep 2025 16:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64C38F800E3
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=T8aW4IYl
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 3383F60283;
-	Tue, 23 Sep 2025 14:28:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7499CC113CF;
-	Tue, 23 Sep 2025 14:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1758637716;
-	bh=rmmj9wXFWfuHcEZMkyqgIliZ8H2TGNCsCHWPDoP83DQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T8aW4IYlLETDIWKEwMmCZ/xODRW6wpv/2YiTYojdOzS7K8HaRsJcrQelppRQYlHOT
-	 BgLw7AH9Ocd0IQ/W5qP2I0PMdP9Htjo0kmwMwWUTda/bP0rwys+mQEYkP589krp9Nw
-	 qGE9odjTaxSBtEqxceFCWJPfeI39UW8BnYsl0RyZwU15QvMVd4MkC1rEljfLDCefpL
-	 FEmwHXZ0WCSmvnq5gihdJeVfaoXjwhkhubCa60wlT8lmPDezldO65eEdCOmj9L1yWN
-	 y8Z6M6RBaaBpZVSlumbl5sJ+JTC+TUeL20GoWW+CdkZTSqHe9uCPTKZMd9wChlt8ng
-	 49Ji3A3P0ak9g==
-Date: Tue, 23 Sep 2025 16:28:30 +0200
-From: Mark Brown <broonie@kernel.org>
-To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"Girdwood, Liam R" <liam.r.girdwood@intel.com>,
-	"peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>,
-	"ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>
-Subject: Re: Looking for inputs on hostless playback with the DSP
-Message-ID: <aNKujttqDJj3T94H@finisterre.sirena.org.uk>
-References: 
- <CH3PR11MB79166FB88C912EC164D2670AE812A@CH3PR11MB7916.namprd11.prod.outlook.com>
+	id 9CB7CF80301; Wed, 24 Sep 2025 17:16:18 +0200 (CEST)
+Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
+ [10.254.200.11])
+	by alsa1.perex.cz (Postfix) with ESMTP id 88529F800E3
+	for <alsa-devel@alsa-project.org>; Wed, 24 Sep 2025 17:16:18 +0200 (CEST)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JeigzpBrcPuM9i8Z"
-Content-Disposition: inline
-In-Reply-To: 
- <CH3PR11MB79166FB88C912EC164D2670AE812A@CH3PR11MB7916.namprd11.prod.outlook.com>
-X-Cookie: Filmed before a live audience.
-Message-ID-Hash: PCJE3RFR5VKE5R7OQ3R7FHDD2C2NICUA
-X-Message-ID-Hash: PCJE3RFR5VKE5R7OQ3R7FHDD2C2NICUA
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 7bit
+Subject: ASOC - Manage sound card with multiple optional codecs
+From: claudio.mocci@abinsula.com
+To: alsa-devel@alsa-project.org
+Date: Wed, 24 Sep 2025 15:16:18 -0000
+Message-ID: 
+ <175872697852.20.16571469264981576402@mailman-web.alsa-project.org>
+User-Agent: HyperKitty on https://mailman.alsa-project.org/
+Message-ID-Hash: 4I6A3KYNZZWHGIN4JOWZMK7ATVTCFQSJ
+X-Message-ID-Hash: 4I6A3KYNZZWHGIN4JOWZMK7ATVTCFQSJ
+X-MailFrom: claudio.mocci@abinsula.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +54,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PCJE3RFR5VKE5R7OQ3R7FHDD2C2NICUA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JJBKEUO2TEJP3K4RACGEDBX2RJ5E55U2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,39 +63,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+I'm working on a custom driver for an embedded device that should manage an audio card with multiple codecs. Each codec  can be hotplugged or removed because is placed on an external display that extends an i2cbus.
 
---JeigzpBrcPuM9i8Z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I used the orginal fsl/imx-card.c driver as a starting point and my device tree looks like this:
 
-On Mon, Sep 22, 2025 at 03:27:36PM +0000, Sridharan, Ranjani wrote:
+sound_card: sound {
+        compatible = "display-audio-card";
+        model = "disp-audio";
+        pri-dai-link {            
+            link-name = "disp-codec-1";
+            format = "dsp_b";
+            dai-tdm-slot-num = <4>;
+            dai-tdm-slot-width = <32>;
+            dai-tdm-slot-tx-mask = <1 1 1 1 0 0 0 0>;
+            fsl,mclk-equal-bclk;
+            cpu {
+                 sound-dai = <&esai0>;
+            };
+            codec {
+                 sound-dai = <&speaker_dac_1>, <&speaker_dac_2>;
+            };
+        };
+	};
 
-> Without a PCM frontend, how would I go about activating this path in
-> my topology? While I can think of adding a kcontrol for the tone
-> generator widget to enable the pipeline in the DSP, I'm wondering how
-> to do the hw_params, startup/shutdown for the backend speaker codec.
-> Could you please help me with some pointers on how to do this?
+The first issue I encountered was that if both of the codecs were not present at the system start the snd_soc_of_get_dai_link_codecs was returning probe_defer, so I made an internal customization to set one of the two codecs to dummy and continuing registering the card that works as required.
+Now the problem I am facing is when I have both displays connected and when I unplug one of them all the card gets unregistered instead of the single codec. I tried implementing the codec_i2c_remove where I removed the component from the component list
 
-The thing we always used to do was have a userspace process that
-configured a CODEC to CODEC link and held it open but never started any
-data transfers itself.  I guess the equivalent thing with DPCM would be
-a just a normal FE PCM that's opened but doesn't have data sent from
-userspace?  It's not exactly elegant, it's going back to the whole we
-need digital DAPM thing.
+        snd_soc_component_remove(component);
+        list_del(&component->list);        
+        devm_kfree(dev, component->name);
 
---JeigzpBrcPuM9i8Z
-Content-Type: application/pgp-signature; name="signature.asc"
+and this did not unregistered the card, but something is odd. So I tried to replace the component with a dummy codec to be transparent but without success
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmjSro0ACgkQJNaLcl1U
-h9BTYwf/cOu7SyTWNWAWzKSuN9nJwqjuMUOw3w5uyUcpoZFs5tg0UCdzMgkIGYRw
-ITJVezzduuhqqB3YlGmjwP6oelj+XF2Kw85vCww/7v6x9CXVYEIetrX5EF2JUKQ5
-7kKYtysKnvbB3ojpkK8e5jjQ4lyADauVLpCSBMQuk24qCoRcyOSVeo9BkOBTCzjb
-WLASBcu34JXnRlcr/6pQDm10SD7qVX+eCBazucR0w+GVVwLp1QCvXGpUH5dHy8nK
-PjCznHZ9mGQzjKbH3mtbhZHlDG2Hp7oAhsy+GBHrHJleelKpbd2eV6Yj8pMn1mf+
-Aiaydf53owrNnWMMLktiZ5GgZ8ZzBw==
-=H+lN
------END PGP SIGNATURE-----
-
---JeigzpBrcPuM9i8Z--
+There is some other architecture instead of imx-card that I can use to implement the feature? I remember firsly I tried with audio-graph-card but without success.

@@ -2,72 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBBE4BECEE4
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Oct 2025 13:58:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BE80BECEE7
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Oct 2025 13:59:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EAE060236;
-	Sat, 18 Oct 2025 13:58:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EAE060236
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27B1E60235;
+	Sat, 18 Oct 2025 13:58:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27B1E60235
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1760788731;
-	bh=l7P8vgL5pJ7GxVy8Nsi8UoZgOcV57M3R6XY5X0LFIb4=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=BsMHD9PCGdgqo7YsBnzLogWfIHy4I54MuAufpTV/IT54ss8RqiZBXorxcXgMzCQYh
-	 o/2uIJ1CfaGYXp3oIYVhCPKKMzIelxYZyaXLgAW3PBYVyexP04pYB1uq49hzPKJjvX
-	 ZPWFoUuLaoNUBripykijrCsZ8RMviJ/e3h1cfK9I=
+	s=default; t=1760788747;
+	bh=r7V9iP+qICC9tlKBg73FN3NIr0qQ+HP+pQAEe8GVRpI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=a73KpKNVIkp6PtT8WEWf4mJXOYKAObZhNaCQADKOxxDRALPrCZ5ZlzkZGeZTSr5Lu
+	 Lyzh1o7ixS4WZxCMPKtyhWHQ+ITnsLJTNWeZn4R8Izeibm5UFIfCRhh9wKG3XvbeIV
+	 oRM1Pu4E0jYd2O6vo38Tf8VzMfLTtiCQwKLwttRo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B987F80678; Sat, 18 Oct 2025 13:57:17 +0200 (CEST)
+	id D9E33F80695; Sat, 18 Oct 2025 13:57:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A552F80676;
-	Sat, 18 Oct 2025 13:57:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C183AF80696;
+	Sat, 18 Oct 2025 13:57:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C08AF805FA; Thu, 16 Oct 2025 19:04:17 +0200 (CEST)
+	id DB514F80602; Thu, 16 Oct 2025 20:19:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0FC54F8016A
-	for <alsa-devel@alsa-project.org>; Thu, 16 Oct 2025 19:04:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FC54F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 03395F80272
+	for <alsa-devel@alsa-project.org>; Thu, 16 Oct 2025 20:19:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03395F80272
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JZK6rCOq
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 1FDCD4397E;
-	Thu, 16 Oct 2025 17:04:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782DDC4CEFB;
-	Thu, 16 Oct 2025 17:04:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760634252;
-	bh=AZDRJ6u8NLAI0+WZkR6rDMpVycU/yadnAjlDLNNuHr0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=JZK6rCOqkDBatvaz7ceUxcTjWF18bxZdN8TAriuKNVbfg788rDuv1iOZvcwMPww7w
-	 UnPCP7e32BSY9j7tAlbHDG4TD/nonc2cAZ3N63KvbA7i8e0FxsngOZUfthcD66PfUY
-	 6v+BQsBzAHjM1g0yeARelxGR6hP6j8q5rg55OEKFs4VVrw4fMGHxVwHwfFg0axqkp2
-	 yVOxLxPYr180NGnz8hWoaPAOO7y6q8zX1EXIwve1KF1Pb7nrFiWyJI99dYyPXu9uw+
-	 BOlqrg0aEZpsrTlrz5bvNwJa54LB/gDCRsX/Gp+LuZkAlMpQ/Lucy5iua7jMTqYZQe
-	 uRIdRODiFcAhA==
-Message-ID: <e26bc312636de276f8c7e46cba269b7f@kernel.org>
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.18-rc1
-Date: Thu, 16 Oct 2025 18:04:02 +0100
-Message-ID-Hash: 23PB7E56FK2XRCE6CN57TC4OAQKLZBHN
-X-Message-ID-Hash: 23PB7E56FK2XRCE6CN57TC4OAQKLZBHN
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=n4MxHswO;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=J+rKLfPX;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=n4MxHswO;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=J+rKLfPX
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2143F21DEC;
+	Thu, 16 Oct 2025 18:19:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1760638745;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0XQk2jtiUQF9M2Rh3SYURt/G9ZpH/KRHN004e7QFSMM=;
+	b=n4MxHswO5wewn3IDNMqCBhJR4LrLBFVZx5NKog/yQtmjPqgkDVHvPc3qHUqvMHgoY+4BcF
+	vdHNJOKSrlMNeuzEiqC0YKYeb3ZJ/9FfM7iFykwo7vtkdQV462vL0e3T0taU5gMQnBjI+C
+	d4K8lZluyTXVm6xhfAM93zU1ybaKyvQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1760638745;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0XQk2jtiUQF9M2Rh3SYURt/G9ZpH/KRHN004e7QFSMM=;
+	b=J+rKLfPXIkhnVxnJhuKXTmzKJQenAwhdmAkhfOncw3XWsCDWSUCsrUiQKPw3grYMjADq6s
+	BApgNUbtHXXdaEBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1760638745;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0XQk2jtiUQF9M2Rh3SYURt/G9ZpH/KRHN004e7QFSMM=;
+	b=n4MxHswO5wewn3IDNMqCBhJR4LrLBFVZx5NKog/yQtmjPqgkDVHvPc3qHUqvMHgoY+4BcF
+	vdHNJOKSrlMNeuzEiqC0YKYeb3ZJ/9FfM7iFykwo7vtkdQV462vL0e3T0taU5gMQnBjI+C
+	d4K8lZluyTXVm6xhfAM93zU1ybaKyvQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1760638745;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0XQk2jtiUQF9M2Rh3SYURt/G9ZpH/KRHN004e7QFSMM=;
+	b=J+rKLfPXIkhnVxnJhuKXTmzKJQenAwhdmAkhfOncw3XWsCDWSUCsrUiQKPw3grYMjADq6s
+	BApgNUbtHXXdaEBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF5CC1376E;
+	Thu, 16 Oct 2025 18:19:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 0/c7NRg38WjlYAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 16 Oct 2025 18:19:04 +0000
+Date: Thu, 16 Oct 2025 20:19:04 +0200
+Message-ID: <874iry7lrb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	linux-sound@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.18-rc1
+In-Reply-To: <e26bc312636de276f8c7e46cba269b7f@kernel.org>
+References: <e26bc312636de276f8c7e46cba269b7f@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,alsa-project.org];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+Message-ID-Hash: 4LUHQ75WROPRQ5E4QJXZXAQK352I5SMY
+X-Message-ID-Hash: 4LUHQ75WROPRQ5E4QJXZXAQK352I5SMY
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -85,81 +160,35 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The following changes since commit 3a8660878839faadb4f1a6dd72c3179c1df56787:
+On Thu, 16 Oct 2025 19:04:02 +0200,
+Mark Brown wrote:
+> 
+> The following changes since commit 3a8660878839faadb4f1a6dd72c3179c1df56787:
+> 
+>   Linux 6.18-rc1 (2025-10-12 13:42:36 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.18-rc1
+> 
+> for you to fetch changes up to f1a450f9e17d341f69f8fb19f6d13ef9f1aa508b:
+> 
+>   ASoC: nau8821: Fix IRQ handling and improve jack (2025-10-16 12:41:35 +0100)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.18
+> 
+> A moderately large collection of driver specific fixes, plus a few new
+> quirks and device IDs.  The NAU8821 changes are a little large but more
+> in mechanical ways than in ways that are complex.
 
-  Linux 6.18-rc1 (2025-10-12 13:42:36 -0700)
+Pulled now.  Thanks.
 
-are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.18-rc1
-
-for you to fetch changes up to f1a450f9e17d341f69f8fb19f6d13ef9f1aa508b:
-
-  ASoC: nau8821: Fix IRQ handling and improve jack (2025-10-16 12:41:35 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.18
-
-A moderately large collection of driver specific fixes, plus a few new
-quirks and device IDs.  The NAU8821 changes are a little large but more
-in mechanical ways than in ways that are complex.
-
-----------------------------------------------------------------
-Baojun Xu (2):
-      ASoC: tas2781: Support more newly-released amplifiers tas58xx in the driver
-      ASoC: tas2781: Update ti,tas2781.yaml for adding tas58xx
-
-Christophe Leroy (1):
-      ASoC: codecs: Fix gain setting ranges for Renesas IDT821034 codec
-
-Cristian Ciocaltea (5):
-      ASoC: nau8821: Cancel jdet_work before handling jack ejection
-      ASoC: nau8821: Generalize helper to clear IRQ status
-      ASoC: nau8821: Consistently clear interrupts before unmasking
-      ASoC: nau8821: Add DMI quirk to bypass jack debounce circuit
-      ASoC: nau8821: Avoid unnecessary blocking in IRQ handler
-
-Frank Li (1):
-      ASoC: dt-bindings: Add compatible string fsl,imx-audio-tlv320
-
-Le Qi (2):
-      ASoC: dt-bindings: qcom,sm8250: Add QCS615 sound card
-      ASoC: qcom: sc8280xp: Add support for QCS615
-
-Li Qiang (1):
-      ASoC: amd/sdw_utils: avoid NULL deref when devm_kasprintf() fails
-
-Mark Brown (2):
-      ASoC: Add QCS615 sound card support
-      ASoC: nau8821: Fix IRQ handling and improve jack
-
-Sharique Mohammad (1):
-      ASoC: max98090/91: fixed max98091 ALSA widget powering up/down
-
-Shuming Fan (1):
-      ASoC: sdw_utils: add rt1321 part id to codec_info_list
-
-Srinivas Kandagatla (1):
-      ASoC: codecs: wcd938x-sdw: remove redundant runtime pm calls
-
- .../devicetree/bindings/sound/fsl-asoc-card.yaml   |   1 +
- .../devicetree/bindings/sound/qcom,sm8250.yaml     |   1 +
- .../devicetree/bindings/sound/ti,tas2781.yaml      |  43 ++++++-
- include/sound/tas2781.h                            |   3 +
- sound/soc/amd/acp/acp-sdw-sof-mach.c               |   2 +-
- sound/soc/codecs/idt821034.c                       |  12 +-
- sound/soc/codecs/max98090.c                        |   6 +-
- sound/soc/codecs/nau8821.c                         | 129 +++++++++++++--------
- sound/soc/codecs/nau8821.h                         |   2 +-
- sound/soc/codecs/tas2781-i2c.c                     |  21 +++-
- sound/soc/codecs/wcd938x-sdw.c                     |  20 +---
- sound/soc/qcom/sc8280xp.c                          |   1 +
- sound/soc/sdw_utils/soc_sdw_utils.c                |  20 ++++
- 13 files changed, 177 insertions(+), 84 deletions(-)
+Takashi
 _______________________________________________
 Alsa-devel mailing list -- alsa-devel@alsa-project.org
 To unsubscribe send an email to alsa-devel-leave@alsa-project.org

@@ -2,124 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A72BED1AC
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 Oct 2025 16:45:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 426DDBED1C1
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Oct 2025 16:53:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07E886020D;
-	Sat, 18 Oct 2025 16:45:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E886020D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EB8460208;
+	Sat, 18 Oct 2025 16:53:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EB8460208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1760798717;
-	bh=6GmPJdRVC5skB4kdyF0cuvmTBpYMd5yRgP2BukOVh0Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1760799207;
+	bh=ss3msW3ez0J0KL/I1/sIxQcqbu/nUB2XvbWyURNEvY8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hXr1i9LZigyOK1EhT+41gOyPGr9hQ5k0tO2i5DBHkwbE+LYxhtv9890n5m/zoovK5
-	 eljggqIhFAU/HR7NZXJF9RtKAizvvaXmW4DUc1zWwGGqrQyCb5V/A2mrkm6sYqPDbI
-	 ep8sxxtXEJXmoU3mt92G3J14ptzeBZspPuk+dh7g=
+	b=hiV8J0Zt9VjwNr2QFj8FEB/xxgQtG8pUynPfrAs9MkQOsPN1QByoPvHugatSRbMHc
+	 RGi+GU1MoxLvMGXurgfGF3BUxVXGp0HpTr615/8PU8HaBXeUdgUL7qvlDxM7/j3SJf
+	 K9QIlrucLKdDTzVx+UhKCoIGOcNumTj2RNJT8jnw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E5A6F80579; Sat, 18 Oct 2025 16:44:44 +0200 (CEST)
+	id 404E3F800C1; Sat, 18 Oct 2025 16:52:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC3CAF8003C;
-	Sat, 18 Oct 2025 16:44:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 324C9F8051F;
+	Sat, 18 Oct 2025 16:52:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6589F800C1; Sat, 18 Oct 2025 16:44:39 +0200 (CEST)
+	id C7BDEF800C1; Sat, 18 Oct 2025 16:52:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A793AF80086
-	for <alsa-devel@alsa-project.org>; Sat, 18 Oct 2025 16:44:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A793AF80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9CF50F80086
+	for <alsa-devel@alsa-project.org>; Sat, 18 Oct 2025 16:52:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CF50F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JVHdzfXk
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 4BBF46034D;
-	Sat, 18 Oct 2025 14:44:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A318C4CEF8;
-	Sat, 18 Oct 2025 14:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1760798675;
-	bh=xHJQLsHm3c4vedPvC7+Areb28QSZtB9lD96mlCbA3Lw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JVHdzfXkgLNQzqyh5a99XozUjjd8R2k1wwTCqBbBCV39flMg4W5PuIERm+bqjaW7H
-	 MICWZAdq9k63ghAvEZwlENr2ANV83UnfgGH/OHp+AsOBVg9aKN1X+T0xUuOf4beK5X
-	 eXmR8kvdoKdm48T4E4p82pGG3+G+hh5HWJ5OBtyx6GIXSigdA90WJUwmq2V5WZyhi+
-	 Osvda7SBx7gKPTIq/hR2epfq7G1z18YZYoxrdpjLh2v2pzeqMXXiqf7JwW7dXpltDM
-	 pHd7XVJNruZyuY5nOTopRt/of7VGJyeQHJJPi8Lff74R3WxwyuLktXZJYaWvCV3EM/
-	 ERq229UdZTFyw==
-Message-ID: <a0afee57-00e4-4ec6-a995-44417a71f72c@kernel.org>
-Date: Sat, 18 Oct 2025 16:44:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] ASoC: dt-bindings: realtek,rt5575: add bindings
- for ALC5575
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=NZIZ0oKn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1760799169; x=1792335169;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GH6yt844+jXIfXMA5SG8a+s6Xwg5qdClbehUeU5rSus=;
+  b=NZIZ0oKnKjst9XMks8pGBLCbV42OmYUVdT6I0P1zztKdo2GMl+XygH2z
+   cmYQ6+Judk6KPaUf1V88GXDn6Y0/bn93ni/Si02zObyqYen+MBryPfQos
+   Xqli+0F2fJqJmj8zD5YNV4Kp/cFY9ymj4pMVlnng87RPHMS06RTs8QxLs
+   8CGtvF0ra8kcVWxgLqpJfwnT+aJ8c8y5k9eVKWceEX8wxt1LiGWFs0JYS
+   vrz4LslNqwFshpu+EdVQoCPWjcf1Q7WJ7nveSpLKctzIE+sP4jCpkmeHB
+   c3YudAy1lvEwguUzTKLdzvSY0K6wtf63xi0DOmOH5/lk1i9Ee4UGRvZUa
+   g==;
+X-CSE-ConnectionGUID: MgQF/D9+Tqmkk5LsjiEUzg==
+X-CSE-MsgGUID: NBfLznjnQXG76sptWFoC8A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="74430671"
+X-IronPort-AV: E=Sophos;i="6.19,239,1754982000";
+   d="scan'208";a="74430671"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2025 07:52:46 -0700
+X-CSE-ConnectionGUID: KaEh6rMdSo+wXLsS3EtNfQ==
+X-CSE-MsgGUID: ZXa+7TXyTQCgHr6FfSeKPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,239,1754982000";
+   d="scan'208";a="183380908"
+Received: from lkp-server02.sh.intel.com (HELO 66d7546c76b2) ([10.239.97.151])
+  by fmviesa008.fm.intel.com with ESMTP; 18 Oct 2025 07:52:44 -0700
+Received: from kbuild by 66d7546c76b2 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1vA8IN-0008L7-0u;
+	Sat, 18 Oct 2025 14:52:36 +0000
+Date: Sat, 18 Oct 2025 22:52:07 +0800
+From: kernel test robot <lkp@intel.com>
 To: Oder Chiou <oder_chiou@realtek.com>, broonie@kernel.org,
- lgirdwood@gmail.com
-Cc: alsa-devel@alsa-project.org, flove@realtek.com, shumingf@realtek.com,
- jack.yu@realtek.com, derek.fang@realtek.com
+	lgirdwood@gmail.com
+Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+	flove@realtek.com, shumingf@realtek.com, jack.yu@realtek.com,
+	derek.fang@realtek.com, Oder Chiou <oder_chiou@realtek.com>
+Subject: Re: [PATCH v5 1/2] ASoC: rt5575: Add the codec driver for the ALC5575
+Message-ID: <202510182222.lSFRBRdo-lkp@intel.com>
 References: <20251015103404.3075684-1-oder_chiou@realtek.com>
- <20251015103404.3075684-2-oder_chiou@realtek.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20251015103404.3075684-2-oder_chiou@realtek.com>
-Message-ID-Hash: IT25DUYA33HG74TOJZO5RLWYTRXSOLG3
-X-Message-ID-Hash: IT25DUYA33HG74TOJZO5RLWYTRXSOLG3
-X-MailFrom: krzk@kernel.org
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20251015103404.3075684-1-oder_chiou@realtek.com>
+Message-ID-Hash: QSVHJLWQJVF2XVQQPNLEZ3K2RK4YK2DG
+X-Message-ID-Hash: QSVHJLWQJVF2XVQQPNLEZ3K2RK4YK2DG
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -140,37 +110,51 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 15/10/2025 12:34, Oder Chiou wrote:
-> Realtek ALC5575 codec has a built-in DSP.
-> 
-> Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
-> ---
+Hi Oder,
 
+kernel test robot noticed the following build warnings:
 
-Missing changelog.
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on linus/master v6.18-rc1 next-20251017]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-<form letter>
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
+url:    https://github.com/intel-lab-lkp/linux/commits/Oder-Chiou/ASoC-dt-bindings-realtek-rt5575-add-bindings-for-ALC5575/20251017-203710
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20251015103404.3075684-1-oder_chiou%40realtek.com
+patch subject: [PATCH v5 1/2] ASoC: rt5575: Add the codec driver for the ALC5575
+config: riscv-randconfig-r131-20251018 (https://download.01.org/0day-ci/archive/20251018/202510182222.lSFRBRdo-lkp@intel.com/config)
+compiler: riscv32-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251018/202510182222.lSFRBRdo-lkp@intel.com/reproduce)
 
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202510182222.lSFRBRdo-lkp@intel.com/
 
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
+sparse warnings: (new ones prefixed by >>)
+>> sound/soc/codecs/rt5575.c:298:39: sparse: sparse: symbol 'rt5575_soc_component_dev' was not declared. Should it be static?
 
-Please kindly resend and include all necessary To/Cc entries.
-</form letter>
+vim +/rt5575_soc_component_dev +298 sound/soc/codecs/rt5575.c
 
-Best regards,
-Krzysztof
+   297	
+ > 298	const struct snd_soc_component_driver rt5575_soc_component_dev = {
+   299		.probe = rt5575_probe,
+   300		.controls = rt5575_snd_controls,
+   301		.num_controls = ARRAY_SIZE(rt5575_snd_controls),
+   302		.dapm_widgets = rt5575_dapm_widgets,
+   303		.num_dapm_widgets = ARRAY_SIZE(rt5575_dapm_widgets),
+   304		.dapm_routes = rt5575_dapm_routes,
+   305		.num_dapm_routes = ARRAY_SIZE(rt5575_dapm_routes),
+   306		.use_pmdown_time = 1,
+   307		.endianness = 1,
+   308	};
+   309	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Alsa-devel mailing list -- alsa-devel@alsa-project.org
 To unsubscribe send an email to alsa-devel-leave@alsa-project.org

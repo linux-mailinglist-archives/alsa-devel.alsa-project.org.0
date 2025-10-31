@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8302AC239DB
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Oct 2025 08:54:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2501C239DE
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Oct 2025 08:55:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D241160219;
-	Fri, 31 Oct 2025 08:54:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D241160219
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA6FC60216;
+	Fri, 31 Oct 2025 08:55:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA6FC60216
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1761897268;
-	bh=TEmV3DvoMvcovX8Iy//y0HS/c7Rpz0EML97sW4rvLGc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1761897320;
+	bh=Xyss3X4OjNQuefr4IF8v5GoDr3UB90uJ3VejivcRMSw=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tLYvRYpi8AcLuZ6irt4H7TpIVhbFLDSkJKe4WBgsL8NF0+JpicIa9kDzO+ItHMhre
-	 x7MeQf9DvoiXW7fopBW5L8Sxyl+NE7V3xSux2vCMS4DcD44MvER+mev+g6LB+bduK3
-	 2K9/Ubwc9idtWdKWE2KvHthtfo4qgNPQamiLhtQg=
+	b=UHLNWM1ezEkV1FDmYhnSax1dHSXER+Nayv1aIZLllcevXWkKiY/y9mrA6rH6rARFD
+	 YmojIIT3xv/kX61qzB90XfqnjKMHh5v7i72nJbIJiGi2alP7r6AXkosofsr2OD1sFF
+	 m9wv7bfqYust30qVFMUdZrmsnvwd00kRKpvBdFbQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75247F805CA; Fri, 31 Oct 2025 08:53:53 +0100 (CET)
+	id 87CD9F805C8; Fri, 31 Oct 2025 08:54:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F072AF805CA;
-	Fri, 31 Oct 2025 08:53:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5C13F805BD;
+	Fri, 31 Oct 2025 08:54:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4210FF8021D; Fri, 31 Oct 2025 08:53:49 +0100 (CET)
+	id 317C7F8021D; Fri, 31 Oct 2025 08:54:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
@@ -36,41 +36,42 @@ Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58868F80071
-	for <alsa-devel@alsa-project.org>; Fri, 31 Oct 2025 08:53:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58868F80071
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1A58CF80071
+	for <alsa-devel@alsa-project.org>; Fri, 31 Oct 2025 08:54:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A58CF80071
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GHWsK53A
+ header.s=k20201202 header.b=KmjTdKhS
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 4AB1C43F48;
-	Fri, 31 Oct 2025 07:53:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C69C4CEF1;
-	Fri, 31 Oct 2025 07:53:43 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 6FC5C44379;
+	Fri, 31 Oct 2025 07:54:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C463C4CEF1;
+	Fri, 31 Oct 2025 07:54:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1761897225;
-	bh=TEmV3DvoMvcovX8Iy//y0HS/c7Rpz0EML97sW4rvLGc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GHWsK53AihHkspH28a04WqsLbc8IjAGO0MGz1LKBf1no86BGkl3EdUKPOsfeBZXiM
-	 xCNxGtcZcnyYVCwnTCt5S4UafQPr0nWxTYAfAZu1eag4wvs8Z860He2PJnTundJ8Tc
-	 bFbFXCrfdTnLffDjlXRuuJU/iYFWiA5CsJmeL/XniWn52RQLkueCVICiDzUVBlSDnY
-	 VeABKiFlQbBaRwcKBbQZIjtUNoXecO5s7YagBvlkFnhmCaLmDG8i6TvmVqhcnRXHBC
-	 +cnd9iHGtH1+9WoW5e2VYZBNGSJfw4MRQsSKzdSdubgkhHVt6LPQGiKjFgzUlfF0Nb
-	 JD062P6Eq71Hg==
-Message-ID: <800dc39f-68d4-4670-bdc7-74d8813cf909@kernel.org>
-Date: Fri, 31 Oct 2025 08:53:41 +0100
+	s=k20201202; t=1761897277;
+	bh=Xyss3X4OjNQuefr4IF8v5GoDr3UB90uJ3VejivcRMSw=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=KmjTdKhSJ+wyqIe317Q7Y9A6GXrq/4Mp9oZ5mStC9dblosC6ZQBh7+foCZcDmGFQT
+	 VQQmf2sZGEF7BpZqJr/6j2FzdTKzGJIndeyrPb+XEPIn66FC3Thjg3LSQFdukTDFS8
+	 kLuU4Qa7jrtud0UreWtHEbT4GMm9UWpCBERijlH9UezAM2wxYhJaSOkwx8M8HU01sE
+	 Iqnf1ta1ac9GWhLNY84hVlSEyWT0HKwtF/rqGitxUqB4BAWRDmC5w/C+8I9ty4GZQm
+	 lQ2zF1+ISdEzaFqp5DJXMbHcqIskKIm6+Rj8cd0QCVN/KiXA8eh1MvS7MOPM8BnDDk
+	 vn4HvyBr4VXuQ==
+Message-ID: <49d6fe18-d8bf-42fd-b7d8-ba17c5e968ad@kernel.org>
+Date: Fri, 31 Oct 2025 08:54:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 2/2] ASoC: dt-bindings: realtek,rt5575: add bindings
  for ALC5575
+From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Oder Chiou <oder_chiou@realtek.com>, broonie@kernel.org,
  lgirdwood@gmail.com
 Cc: alsa-devel@alsa-project.org, flove@realtek.com, shumingf@realtek.com,
  jack.yu@realtek.com, derek.fang@realtek.com
 References: <20251031073245.3629060-1-oder_chiou@realtek.com>
  <20251031073245.3629060-2-oder_chiou@realtek.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <800dc39f-68d4-4670-bdc7-74d8813cf909@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -115,11 +116,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20251031073245.3629060-2-oder_chiou@realtek.com>
+In-Reply-To: <800dc39f-68d4-4670-bdc7-74d8813cf909@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: NWQ7Z5CHUA6VBHSK6F2UOO3R2TTAABSK
-X-Message-ID-Hash: NWQ7Z5CHUA6VBHSK6F2UOO3R2TTAABSK
+Message-ID-Hash: 5WVK3KY75CINOWHU3F6NPZOSNP5S7BEF
+X-Message-ID-Hash: 5WVK3KY75CINOWHU3F6NPZOSNP5S7BEF
 X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -132,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NWQ7Z5CHUA6VBHSK6F2UOO3R2TTAABSK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5WVK3KY75CINOWHU3F6NPZOSNP5S7BEF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,65 +142,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 31/10/2025 08:32, Oder Chiou wrote:
-> The ALC5575 integrates an audio DSP that typically loads its firmware
-> from an external flash via its own SPI host interface. In certain
-> hardware configurations, the firmware can alternatively be loaded
-> through the SPI client interface. The driver provides basic mute and
-
-Don't describe driver, but hardware.
-
-> volume control functions. When the SPI client interface is enabled,
-> firmware loading is handled by the SPI driver.
-
-<form letter>
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
-
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
-
-Please kindly resend and include all necessary To/Cc entries.
-</form letter>
-
+On 31/10/2025 08:53, Krzysztof Kozlowski wrote:
+> On 31/10/2025 08:32, Oder Chiou wrote:
+>> The ALC5575 integrates an audio DSP that typically loads its firmware
+>> from an external flash via its own SPI host interface. In certain
+>> hardware configurations, the firmware can alternatively be loaded
+>> through the SPI client interface. The driver provides basic mute and
 > 
-> Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
-> ---
->  .../bindings/sound/realtek,rt5575.yaml        | 42 +++++++++++++++++++
->  1 file changed, 42 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
+> Don't describe driver, but hardware.
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
-> new file mode 100644
-> index 000000000000..4250a9231f66
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
-> @@ -0,0 +1,42 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/realtek,rt5575.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ALC5575 audio CODEC
-> +
-> +maintainers:
-> +  - Oder Chiou <oder_chiou@realtek.com>
-> +
-> +description: |
-> +  The device supports both I2C and SPI. I2C is mandatory, while SPI is optional depending on the
+>> volume control functions. When the SPI client interface is enabled,
+>> firmware loading is handled by the SPI driver.
+> 
+> <form letter>
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC. It might happen, that command when run on an older
+> kernel, gives you outdated entries. Therefore please be sure you base
+> your patches on recent Linux kernel.
+> 
+> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+> people, so fix your workflow. Tools might also fail if you work on some
+> ancient tree (don't, instead use mainline) or work on fork of kernel
+> (don't, instead use mainline). Just use b4 and everything should be
+> fine, although remember about `b4 prep --auto-to-cc` if you added new
+> patches to the patchset.
+> 
+> You missed at least devicetree list (maybe more), so this won't be
+> tested by automated tooling. Performing review on untested code might be
+> a waste of time.
+> 
+> Please kindly resend and include all necessary To/Cc entries.
+> </form letter>
+> 
 
-Please wrap at 80 (see coding style) and drop |.
+
+Now I see I already asked you all this. I also asked for changelog and
+you just ignored me.
+
+NAK
 
 Best regards,
 Krzysztof

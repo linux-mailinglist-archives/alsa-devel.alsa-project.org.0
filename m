@@ -2,58 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C20DEC4755B
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Nov 2025 15:49:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC33FC47561
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Nov 2025 15:49:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37ECB60329;
-	Mon, 10 Nov 2025 15:49:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37ECB60329
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00D3560366;
+	Mon, 10 Nov 2025 15:49:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00D3560366
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1762786180;
-	bh=tOMroa1xSvKfWn7TAO2OTvWdTUvzXj9eyPyMmDlgprE=;
+	s=default; t=1762786195;
+	bh=ltchXPMv96JdPyCrTc0ftaYXloAglH6tv2WFEm/8NWY=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Dz51RKCTXiqJ6uVXP3WkrbEg3ETb2zdo+XNALeSjdjBIovifwwji6OqbNGtPwL4bd
-	 bxHKYMPjuavSOCXalp4ZGBcVgpQb4jX7DltmhFuF5H1b/TclYUqm+h0DFjR+3pmS/P
-	 gxnyjX7RsAgTSfYka/4uLA42UG528LGa9Rp02yc0=
+	b=jPaa8/cuFzSRLWLkBxYDoLIBHXEJwGjoyPeoNTwd1BTXYW2kIhGvpgG12jfErLTk4
+	 QZcox5wOJJqYbhZqTOS/nGtrn5y+9IuJAhiSPwztmujqwANLwokQolqfMwTvewUPFC
+	 yLxwA94YkcvXctlaDTGlhuhLnREuSVKzIASrLTzw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25D3EF805C4; Mon, 10 Nov 2025 15:42:21 +0100 (CET)
+	id 2629EF89800; Mon, 10 Nov 2025 15:42:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D608F897E3;
-	Mon, 10 Nov 2025 15:42:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 132EBF89815;
+	Mon, 10 Nov 2025 15:42:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74881F8026A; Tue,  4 Nov 2025 08:26:50 +0100 (CET)
+	id ECA74F804F3; Wed,  5 Nov 2025 02:59:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,SPOOFED_FREEMAIL,
 	T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR,UNPARSEABLE_RELAY shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C928F800E5
-	for <alsa-devel@alsa-project.org>; Tue,  4 Nov 2025 08:26:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C928F800E5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 544F7F8020D
+	for <alsa-devel@alsa-project.org>; Wed,  5 Nov 2025 02:59:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 544F7F8020D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=Dfb2nEYL
+ header.s=s110527 header.b=RG6996gE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
-	Content-Type; bh=1QSw+y5HT3TcUyd3F/MxUjly0CwHD5TKPc20p//UxFU=;
-	b=Dfb2nEYLHz9ugFUai5yaYyh41iCkUtEucW/HteS14/qsk5VLqFehetkHer7Ff+
-	nUoMz3NzdnuIIVSRaQ4mMT6oal7cqK5mjaqqcuNzwdV3W8vY/pQ+gXISzoOjmGv1
-	eTk0u6SNsBz9aC0dRPDcaRVlZrEDeFmNkRRZQ2BsDE10k=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Fy
+	fi61jM2svcV8LogP79yM0QO8FIFwLxqSWXYdFojMQ=; b=RG6996gE6cIYRcld1j
+	Oc5N692OgZ+R+H88ndUGCw78Cc9u2FPYq35WJ4lZ+UPNq5p5vijJxcWH80PV+JLW
+	8s0kk8Sq/EZauahf76L7iq3XZ3P3hhUNwsAwpRi6ZRga6i3V8yjhnmZzDBYS3FLh
+	RETk8mkdwanxzFCoPV+axH8dg=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id
- _____wDn74SuqglpdwI+Bg--.673S2;
-	Tue, 04 Nov 2025 15:26:40 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDn7w9xrwppK5sjCw--.36001S2;
+	Wed, 05 Nov 2025 09:59:14 +0800 (CST)
 From: wangdich9700@163.com
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -64,35 +63,34 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	wangdicheng <wangdich9700@163.com>,
 	wangdicheng <wangdicheng@kylinos.cn>
-Subject: [PATCH] ALSA: au88x0: Fix array bounds warning in EQ drivers
-Date: Tue,  4 Nov 2025 15:26:36 +0800
-Message-Id: <20251104072636.93214-1-wangdich9700@163.com>
+Subject: [PATCH] ALSA: hda/conexant: Fix pop noise on conexant codec
+Date: Wed,  5 Nov 2025 09:59:11 +0800
+Message-Id: <20251105015911.26309-1-wangdich9700@163.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDn74SuqglpdwI+Bg--.673S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF47JryDCrW7Cry8tr1kKrg_yoW8XFWfpr
-	Z3C3s7ArWUJrsrCwnYva1UZ34UJFs8XayxAa12kws7Cws8JFWUGr90k3yDJw4IvrZxCF1F
-	9FW7Xw13J3Z8JaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEGYLsUUUUU=
+X-CM-TRANSID: PigvCgDn7w9xrwppK5sjCw--.36001S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4fXFWxZryxKw15Wr1xXwb_yoW5tryDpr
+	15Ga43GrZ3JF1I9r4fJr4fA3WrKFykWFsxJw1Sy3W3Jw43Kry7Wa1jqFyI9F1xJrW7Kry2
+	vF42vFWUKrW5JFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi0D7xUUUUU=
 X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbibhH7T2kJpNSSNwAAs+
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbCvxPkNGkKr3MNewAA31
 X-MailFrom: wangdich9700@163.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: CWIL2YXSH2V4QAESPL25UGTVNPDNL7Y5
-X-Message-ID-Hash: CWIL2YXSH2V4QAESPL25UGTVNPDNL7Y5
-X-Mailman-Approved-At: Mon, 10 Nov 2025 14:40:54 +0000
+Message-ID-Hash: FCMTJYZ63KWSYTWSSROV2SOMIDEBQ7SN
+X-Message-ID-Hash: FCMTJYZ63KWSYTWSSROV2SOMIDEBQ7SN
+X-Mailman-Approved-At: Mon, 10 Nov 2025 14:41:40 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CWIL2YXSH2V4QAESPL25UGTVNPDNL7Y5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCMTJYZ63KWSYTWSSROV2SOMIDEBQ7SN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,33 +101,111 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: wangdicheng <wangdich9700@163.com>
 
-In file included from ../sound/pci/au88x0/au8830.c:15:
-In function ‘vortex_Eqlzr_SetAllBandsFromActiveCoeffSet’,
-../sound/pci/au88x0/au88x0_eq.c:571:9: error: ‘vortex_EqHw_SetRightGainsTarget’ reading 2 bytes from a region of size 0 [-Werror=stringop-overread]
-	vortex_EqHw_SetRightGainsTarget(vortex, &(eq->this130[eq->this10]));
-
-Modified the array access in vortex_Eqlzr_SetAllBandsFromActiveCoeffSet() to use pointer arithmetic instead of array indexing.
-This resolves a compiler warning that incorrectly flagged a buffer overread when accessing the EQ gain array.
-The this130 array has fixed size 20 and the index is safely within bounds, making the original code correct but confusing to static analysis.
+Pop noise mitigation: When headphones are unplugged during playback,mute
+speaker DAC(0x17)immediately and restore after 20ms delay to avoid
+audible popping.
 
 Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
 ---
- sound/pci/au88x0/au88x0_eq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/hda/codecs/conexant.c | 64 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-diff --git a/sound/pci/au88x0/au88x0_eq.c b/sound/pci/au88x0/au88x0_eq.c
-index 71c13100d7ef..81a63b5bb31c 100644
---- a/sound/pci/au88x0/au88x0_eq.c
-+++ b/sound/pci/au88x0/au88x0_eq.c
-@@ -568,7 +568,7 @@ static int vortex_Eqlzr_SetAllBandsFromActiveCoeffSet(vortex_t * vortex)
- 	eqlzr_t *eq = &(vortex->eq);
+diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
+index 5fcbc1312c69..641cb738901d 100644
+--- a/sound/hda/codecs/conexant.c
++++ b/sound/hda/codecs/conexant.c
+@@ -43,6 +43,8 @@ struct conexant_spec {
+ 	unsigned int gpio_mute_led_mask;
+ 	unsigned int gpio_mic_led_mask;
+ 	bool is_cx11880_sn6140;
++
++	struct delayed_work change_pinctl_work;
+ };
  
- 	vortex_EqHw_SetLeftGainsTarget(vortex, eq->this130);
--	vortex_EqHw_SetRightGainsTarget(vortex, &(eq->this130[eq->this10]));
-+	vortex_EqHw_SetRightGainsTarget(vortex, eq->this130 + eq->this10);
  
- 	return 0;
+@@ -216,6 +218,63 @@ static void cx_remove(struct hda_codec *codec)
+ 	snd_hda_gen_remove(codec);
  }
+ 
++static void mute_unmute_speaker(struct hda_codec *codec, hda_nid_t nid, bool mute)
++{
++	unsigned int conn_sel, dac, conn_list, gain_left, gain_right;
++
++	conn_sel = snd_hda_codec_read(codec, nid, 0, 0xf01, 0x0);
++	conn_list = snd_hda_codec_read(codec, nid, 0, 0xf02, 0x0);
++
++	dac = ((conn_list >> (conn_sel * 8)) & 0xff);
++	if (dac == 0)
++		return;
++
++	gain_left = snd_hda_codec_read(codec, dac, 0, 0xba0, 0x0);
++	gain_right = snd_hda_codec_read(codec, dac, 0, 0xb80, 0x0);
++
++	if (mute) {
++		gain_left |= 0x80;
++		gain_right |= 0x80;
++	} else {
++		gain_left &= (~(0x80));
++		gain_right &= (~(0x80));
++	}
++
++	snd_hda_codec_write(codec, dac, 0, 0x3a0, gain_left);
++	snd_hda_codec_write(codec, dac, 0, 0x390, gain_right);
++
++	if (mute) {
++		snd_hda_codec_write(codec, nid, 0, 0x707, 0);
++		codec_dbg(codec, "mute_speaker, set 0x%x  PinCtrl to 0.\n", nid);
++	} else {
++		snd_hda_codec_write(codec, nid, 0, 0x707, 0x40);
++		codec_dbg(codec, "unmute_speaker, set 0x%x  PinCtrl to 0x40.\n", nid);
++	}
++}
++
++static void change_pinctl_worker(struct work_struct *work)
++{
++	struct hda_codec *codec;
++	struct conexant_spec *spec;
++
++	spec = container_of(work, struct conexant_spec, change_pinctl_work.work);
++	codec = spec->conexant_codec;
++
++	return mute_unmute_speaker(codec, 0x17, false);
++}
++
++static void cx_auto_mute_unmute_speaker(struct hda_codec *codec, struct hda_jack_callback *event)
++{
++	struct conexant_spec *spec = codec->spec;
++	int phone_present;
++
++	phone_present = snd_hda_codec_read(codec, 0x16, 0, 0xf09, 0x0);
++	if (!(phone_present & 0x80000000)) {
++		mute_unmute_speaker(codec, 0x17, true);
++		schedule_delayed_work(&spec->change_pinctl_work, 20);
++	}
++}
++
+ static void cx_process_headset_plugin(struct hda_codec *codec)
+ {
+ 	unsigned int val;
+@@ -1178,6 +1237,10 @@ static int cx_probe(struct hda_codec *codec, const struct hda_device_id *id)
+ 	spec = kzalloc(sizeof(*spec), GFP_KERNEL);
+ 	if (!spec)
+ 		return -ENOMEM;
++
++	INIT_DELAYED_WORK(&spec->change_pinctl_work, change_pinctl_worker);
++	spec->conexant_codec = codec;
++
+ 	snd_hda_gen_spec_init(&spec->gen);
+ 	codec->spec = spec;
+ 
+@@ -1187,6 +1250,7 @@ static int cx_probe(struct hda_codec *codec, const struct hda_device_id *id)
+ 	case 0x14f11f87:
+ 		spec->is_cx11880_sn6140 = true;
+ 		snd_hda_jack_detect_enable_callback(codec, 0x19, cx_update_headset_mic_vref);
++		snd_hda_jack_detect_enable_callback(codec, 0x16, cx_auto_mute_unmute_speaker);
+ 		break;
+ 	}
+ 
 -- 
 2.25.1
 

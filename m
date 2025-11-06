@@ -2,58 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD59C4757F
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Nov 2025 15:50:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11190C47582
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Nov 2025 15:50:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E40466038B;
-	Mon, 10 Nov 2025 15:50:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E40466038B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C77A6039B;
+	Mon, 10 Nov 2025 15:50:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C77A6039B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1762786229;
-	bh=BA5DN392L5pMC/hE704tkepVLlbE3jtRvAkCi+fzRaA=;
+	s=default; t=1762786247;
+	bh=6dIncYsw2AUWCpJdPdju0yIAxmplRyqmcuOaj53NKtI=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=DQWc2uze0xTLoSTd/sm/CVNC+/guZnbwYLe0bHc9w7tZZtZarbiqM3xmZZzVrqEdd
-	 7fhvUpaPPajIuYSASoLwGTOu/6uDbfDLiI6GiHFO8Xo7IkEPCzoMFqAA5uLJ05k8As
-	 p9/KUfs6gZDE6xtBUAeJefzmCJr3qql/X36ecTdw=
+	b=NzW9erMgsnxEJQMXUyk7UXPfkM/vovK/cEq1RqL9bo2MtDlQTf2zcFbNd7nnZHNx7
+	 6+rEf3RXWgDQQAID93if1aTNoT+lFAaiWEWK/kGFZ/jlg0HvWZvmQSL3MBqcPqw0rc
+	 zy+hnqIZ/Ireu1QBhOw/7GSSf09BFXofRdlBlV9E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7BE63F806FA; Mon, 10 Nov 2025 15:42:36 +0100 (CET)
+	id CC9DCF8984A; Mon, 10 Nov 2025 15:42:42 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6B82F8983F;
-	Mon, 10 Nov 2025 15:42:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A49AF806FC;
+	Mon, 10 Nov 2025 15:42:42 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D9F4F80272; Thu,  6 Nov 2025 03:38:24 +0100 (CET)
+	id 21B57F80272; Thu,  6 Nov 2025 03:45:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.0 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,SPOOFED_FREEMAIL,
 	T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR,UNPARSEABLE_RELAY shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 616F5F800D2
-	for <alsa-devel@alsa-project.org>; Thu,  6 Nov 2025 03:38:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 616F5F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 16E04F800FA
+	for <alsa-devel@alsa-project.org>; Thu,  6 Nov 2025 03:45:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16E04F800FA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=flx61ELH
+ header.s=s110527 header.b=a4Ov3bDl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0b
-	4R35jSS/yUbZ/j8tv6hexOvyBCIsa6naKN2CvBI5A=; b=flx61ELHtHf/djU+6x
-	qzS+D/GFkbb1BCYVzBwK/9kA2yPjxHR8NfnNGcu+JZFrotnLBzs3pJR/J7viZdo8
-	LUOb+8XCZXjpsM9mMoFwfybCROk4GILxlBdipeAbj3Y8NLtbia76l3/BGFQ58WJs
-	pb42bhUVuQUqzK5x8/JlsixIU=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=vq
+	V83Z6jyR2ex1aXweIWz+uIiWlYmXUgywvYFJHDbYY=; b=a4Ov3bDl94yfakajqC
+	oYekMkiBJqaKNELmZVCDjIaReVaP5l4DoJ9YRE9GUx5VgtX750SCpQO4ZpR2f50s
+	wizN4UCAM3AeLImggFmwsvKd+gnYLOguNIxwgyHOp0HdOZqkP15TGTMKL2V3RqPB
+	+CrxRlFjZU8SPgw8WWt8zjqbI=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id
- _____wD3B_kSCgxpGD7kBw--.791S2;
-	Thu, 06 Nov 2025 10:38:11 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id
+ _____wCnb2vHCwxpGdHxBw--.24507S2;
+	Thu, 06 Nov 2025 10:45:28 +0800 (CST)
 From: wangdich9700@163.com
 To: lgirdwood@gmail.com,
 	broonie@kernel.org,
@@ -67,33 +67,33 @@ Cc: linux-kernel@vger.kernel.org,
 	wangdicheng <wangdicheng@kylinos.cn>
 Subject: [PATCH] [PATCH v3] ALSA: hda/conexant: Fix pop noise on
  CX11880/SN6140 codecs
-Date: Thu,  6 Nov 2025 10:38:09 +0800
-Message-Id: <20251106023809.70002-1-wangdich9700@163.com>
+Date: Thu,  6 Nov 2025 10:45:21 +0800
+Message-Id: <20251106024521.71812-1-wangdich9700@163.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3B_kSCgxpGD7kBw--.791S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1kAr47GrW3XrWkJr4kCrg_yoWrWF17pr
-	15Ka43K393JF1Ivr4fJr48A3WFgF95WFsrJw13t3W3JwsxKryxWa1jgryxKF1rJryqgry2
-	vF429FWUKr45AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piOBMAUUUUU=
+X-CM-TRANSID: _____wCnb2vHCwxpGdHxBw--.24507S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1fZw43Kr48uF4kCw1UGFg_yoWrCFW8pr
+	15Ka43K393JF1Ivr4fJr48Z3WFgF95WFsrJ343t3W3JwsxKry7Wa1jgryxKF1rJryqgFW2
+	vF42vryUKr45AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piw0ePUUUUU=
 X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbCwBPjM2kMChNt-gAA3s
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/1tbibgD9T2kMCCtr9wAAsG
 X-MailFrom: wangdich9700@163.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: PZIZSOVFZOFZ7UZYBNQDRJKGCAJRML3Y
-X-Message-ID-Hash: PZIZSOVFZOFZ7UZYBNQDRJKGCAJRML3Y
+Message-ID-Hash: G6NKJWMOYJ2JWAF6JTZUE3B2RHXCL4WJ
+X-Message-ID-Hash: G6NKJWMOYJ2JWAF6JTZUE3B2RHXCL4WJ
 X-Mailman-Approved-At: Mon, 10 Nov 2025 14:42:05 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PZIZSOVFZOFZ7UZYBNQDRJKGCAJRML3Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G6NKJWMOYJ2JWAF6JTZUE3B2RHXCL4WJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,6 +111,12 @@ SN6140 (0x14f11f87) codecs based on testing verification.
 
 Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
 ---
+V2 -> V3:
+- Fixed container_of usage by storing codec pointer in spec structure
+- Added cancellation of delayed work when headphone is re-plugged
+- Limited the fix to specific device IDs (0x14f11f86, 0x14f11f87) based on testing
+- Added proper cleanup in remove function
+
  sound/hda/codecs/conexant.c | 73 +++++++++++++++++++++++++++++++++++++
  1 file changed, 73 insertions(+)
 

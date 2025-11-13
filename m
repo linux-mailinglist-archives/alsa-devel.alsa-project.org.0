@@ -2,115 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 133DBC7573C
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Nov 2025 17:46:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB79DC59E42
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Nov 2025 21:01:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8477C60210;
-	Thu, 20 Nov 2025 17:46:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8477C60210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01203601A8;
+	Thu, 13 Nov 2025 21:01:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01203601A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1763657179;
-	bh=trWFku7IEMyE6QXugMH17HG0kv+gRoRUQRGAQNXwZYc=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1763064083;
+	bh=DgxwAHRpzhGKnOM66CN/pWdJ+seG7F0kvnk02SRFFEs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=GIAhaeuDEQIdVHx2kc2BQ7Vk/5hnQ6VRzTEDhY1Sh8SN5UDlMSbtgW4aoW/AWkKFL
-	 DZFzE4Ee1fqKlW1pEelXKTy56N73quYaLFhBOwvuux24omB8x1isF3Lshfi8IUwXPN
-	 008w/2QyEDJcDTMcKCZTnQnJJzNZtPSgX9QYK9Q4=
+	b=aKkLd92Wpwa7vCVtj/xMVrBvgoffsNko8pruRjlEIqRMS3ns3ZVJNFkhJIeCfzZh0
+	 8Z/RkpqrWbbR4zU2j7acDsMA/3Jx2ZMMLe20o2eL3USOa6zaECsL/G4RliTxX8OG28
+	 nQ9O/M9+LyXr1w2Ou4p7B7LdPWLBjAMvZRvodhLE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BCF3F80149; Thu, 20 Nov 2025 17:45:42 +0100 (CET)
+	id D352AF805BD; Thu, 13 Nov 2025 21:00:41 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8F55F805CA;
-	Thu, 20 Nov 2025 17:45:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 902FBF805BF;
+	Thu, 13 Nov 2025 21:00:41 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A90D5F80533; Thu, 13 Nov 2025 17:56:16 +0100 (CET)
+	id 862B1F80533; Thu, 13 Nov 2025 21:00:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_20,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	HTML_MESSAGE,NML_ADSP_CUSTOM_MED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
- [209.85.219.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A4FEF8012A
-	for <alsa-devel@alsa-project.org>; Thu, 13 Nov 2025 17:56:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A4FEF8012A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F089F80027
+	for <alsa-devel@alsa-project.org>; Thu, 13 Nov 2025 20:59:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F089F80027
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=OlNBl1do
-Received: by mail-qv1-f41.google.com with SMTP id
- 6a1803df08f44-88043139c35so11182626d6.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 13 Nov 2025 08:56:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763052962; x=1763657762;
- darn=alsa-project.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=EH0XQ4yggO9jsgYpE1PsUGa43+hLdJ6IA6lwMPPXe5A=;
-        b=OlNBl1doVQOzGX50kgsjLi3AUPOjSD2On1K/ukk4cT5++zG4uCnpq+B4W/KLzU1kPV
-         jRZUmYTqkyTsZqGcXmBR4y8KYemtaBpgTXKxugfluNtCbc9AYdRxYgcvsYliw3J9rC4X
-         2ymJJkOA5lXJu9LDqDZntmf1un9ViM6qG70eX5rOPM1GUU9RvdGc2pbX9es5lG+Hs6dM
-         NPQvhdfjvNEd7CpI1G6IS198sTVhJTcKzPpmhcESt3i+GqRuNo0j+jSLpNeOxSL3YtHJ
-         o13xzEcTkg8nh+kq8eHyiqADBbm9xZ6ehtp1ROvAIAmOJ17+ti7QaysamMFGXKUrbldE
-         5Q6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763052962; x=1763657762;
-        h=to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EH0XQ4yggO9jsgYpE1PsUGa43+hLdJ6IA6lwMPPXe5A=;
-        b=JmfCODoh3DHJi/cdPg+hS4vGFlfTPArOw9e/UEgK7BN5Zn9WjfCexuM4Ompi1qnS+/
-         pTtPTAPJRrhLoM6yQy1AlHrFAX7mkRBHtnRikjq/SO66j36hHDxKMV1Em3xNpWqbqdaV
-         XdJDpyZ8wdgLgtC+R0iIUWY/S8SYl6Qz7Vz0TEclMspZE0fsrAeNbAEWqHiLDaCNS3RR
-         tRPO4/uS32iuWujnobN/jNeM5zTu8cj4UaxqOijUONqe/ZZ4E59BGaIH1YlgZoTempWd
-         5DbI9Q2mTo0hSXeJZ1S6KEMDQHBzMe6oQNPCnbazL4FXCclgNskGO6HQji29+zFShA1Q
-         g7fQ==
-X-Gm-Message-State: AOJu0YwvAm9RBLiI5uje4nPtOBhd0ARMJLdhMfRWypTXwdwMvXQJmwv6
-	ye6YyupV02DY09ZC8edZNU+x2Sur3tTea+yTq6hhtEwE3pbhpaaELebqDFnycjiMH97PWGKBxiJ
-	baW6Cm+ouaYdCLCRV06DdpIfGn2ELgI6J4HY69lw=
-X-Gm-Gg: ASbGnctjTxThtbkmDqWavMVERfqPdiUJKwF4IR3LmPD28XCbeW7nMS+Ew+eMju09ZFt
-	T8spqEAmcfLizQfIySPk2pTgoivC6hhNuIlEz+HYRcahHWwy/OY/7AZTPCDW/u8nirLXaoSylcc
-	N5IaE75E+cEbVWtjbSc9ffsegm4GHe18AH/EInx5npNaQDWTw+h14k8KTY9S8cZ8c/yByP10HIC
-	nxRIs6Bom51GZfVsy4lC2WLUJ2/qgohTDI+nJVFV5lzNvXv6N6uO5BrzfdAZYY=
-X-Google-Smtp-Source: 
- AGHT+IG9ORIregv5fDJyYnItIBf0pbVBO/DxiMaUycijOhWZwiXgCvSeCp7DSIdj1+X4J/9tfE5QYyAmMILSGQVdW18=
-X-Received: by 2002:a05:6214:4003:b0:87c:27c2:2c0e with SMTP id
- 6a1803df08f44-88271a40735mr113925526d6.59.1763052962081; Thu, 13 Nov 2025
- 08:56:02 -0800 (PST)
-MIME-Version: 1.0
-From: Pape Samba Mbodj Sarr <papesambambodjsarr3@gmail.com>
-Date: Thu, 13 Nov 2025 16:55:50 +0000
-X-Gm-Features: AWmQ_bmEDq2F6yUNCMa2wbR8SqPueumVEJOfZ4Miv03f_B0IDHIcK_LOELgcIzs
-Message-ID: 
- <CAEsrb=A=4Rdh_yu9Uvh+pvdS08z-=pNMtMrZa2ED=YELVaZLYA@mail.gmail.com>
-Subject: [BUG] Realtek ALC236 Internal Mic not working on HP 255 G10
- (Subsystem ID 103c:8b2f)
-To: alsa-devel@alsa-project.org
-X-MailFrom: papesambambodjsarr3@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=fSIEKYTV
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 0E01E60121;
+	Thu, 13 Nov 2025 19:59:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E49BC4CEFB;
+	Thu, 13 Nov 2025 19:59:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1763063964;
+	bh=DgxwAHRpzhGKnOM66CN/pWdJ+seG7F0kvnk02SRFFEs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fSIEKYTVm2uY8XdWgVNLyUcl3hp6zcN8jm8B/BZokC28RCWq/4/mR90f+Vv8dSIWl
+	 UHoKSbKS1eqQgd/Q90e1DsjlF2U12ddYyhTQA/gn7qbpVEf5kyNRADeQyBxDLFcs16
+	 w4Y60hUqJ9Y2l+CcCaYFBlqu5JOl6m/wL6KbnNofNx/z+DgNCz4GN7eqQpDdiQyrbU
+	 ItnaA+r5cEKRIx1Elfzwy7hKaQ328EHr+u86yMJI0y2e0vtrPpSoPlDr4WXs8Q/OFS
+	 +xzOjo+813NyRVIsrbQ7qk2+gKiEsc63o3Ze7Lp8kOcat6EwP7SoiqmTgNlMdgXgaE
+	 i9UhO1AiBp1JA==
+Message-ID: <979d5936ff7b727be317ba6d8c3a5e36@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.18-rc5
+Date: Thu, 13 Nov 2025 19:59:09 +0000
+Message-ID-Hash: JAGJUZWVNP4UPRJVBT22D2K6ER636UPS
+X-Message-ID-Hash: JAGJUZWVNP4UPRJVBT22D2K6ER636UPS
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: S5SQAQKV6UVQWP4VT5BILKAWA7KBW4G5
-X-Message-ID-Hash: S5SQAQKV6UVQWP4VT5BILKAWA7KBW4G5
-X-Mailman-Approved-At: Thu, 20 Nov 2025 16:45:35 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.9
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S5SQAQKV6UVQWP4VT5BILKAWA7KBW4G5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JAGJUZWVNP4UPRJVBT22D2K6ER636UPS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,22 +88,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Qm9uam91ciwNCg0KSidhaSB1biBwcm9ibMOobWUgYXZlYyBsZSBtaWNyb3Bob25lIGludGVybmUg
-KGludMOpZ3LDqSkgcXVpIG4nZXN0IHBhcw0KZMOpdGVjdMOpIHBhciBsZSBzeXN0w6htZSAoYWZm
-aWNow6kgY29tbWUgIm5vbiBicmFuY2jDqSIgLyAibm90IGF2YWlsYWJsZSIpDQpzdXIgbW9uIG9y
-ZGluYXRldXIgcG9ydGFibGUgSFAuIEonYWkgw6lwdWlzw6kgdG91dGVzIGxlcyBvcHRpb25zIGRl
-DQpjb25maWd1cmF0aW9uIHV0aWxpc2F0ZXVyIChtb2TDqGxlIEFMU0EsIHBhdGNocyBtYW51ZWxz
-KS4NCg0KQ2VjaSBzZW1ibGUgw6p0cmUgdW4gInF1aXJrIiAoY29ycmVjdGlmKSBtYW5xdWFudCBw
-b3VyIGxlIHBpbG90ZS4NCg0KKipJbmZvcm1hdGlvbnMgZHUgc3lzdMOobWUgOioqDQoqICoqT3Jk
-aW5hdGV1ciA6KiogSFAgMjU1IDE1LjYgaW5jaCBHMTAgTm90ZWJvb2sgUEMNCiogKipDb2RlYyBB
-dWRpbyA6KiogUmVhbHRlayBBTEMyMzYNCiogKipTdWJzeXN0ZW0gSUQgOioqIDEwM2M6OGIyZiAo
-SGV3bGV0dC1QYWNrYXJkIENvbXBhbnkpDQoqICoqTm95YXUgTGludXggOioqIDYuMTQuMC0zNS1n
-ZW5lcmljIChWZXJzaW9uIHRyw6hzIHLDqWNlbnRlKQ0KDQoqKlVSTCBkdSByYXBwb3J0IGFsc2Et
-aW5mby5zaCAoQ29kZWMgRHVtcCkNCjoqKmh0dHA6Ly9hbHNhLXByb2plY3Qub3JnL2RiLz9mPTU1
-ZGE0NGY2MGY1ZGViNjA3M2M5ZWRmZTJmNDljM2IxY2IwM2I1M2UNCg0KTCdlbnRyw6llIG1pY3Jv
-cGhvbmUgKGFuYWxvZy1pbnB1dC1taWMpIGVzdCBtYXJxdcOpZSBjb21tZSAibm90DQphdmFpbGFi
-bGUiIChub24gZGlzcG9uaWJsZSkgZGFucyBwYWN0bC4gSmUgc291cMOnb25uZSBxdWUgbGUgcGls
-b3RlIG5lDQpwYXJ2aWVudCBwYXMgw6AgaW5pdGlhbGlzZXIgbGUgbWljcm9waG9uZSBudW3DqXJp
-cXVlIChETUlDKSBvdSBjb25mb25kDQpsJ2VudHLDqWUgaW50ZXJuZSBhdmVjIGxlIGphY2sgZXh0
-ZXJuZS4NCg0KTWVyY2kgZCdhdmFuY2UgZGUgdm90cmUgYWlkZSBwb3VyIGwnaW50w6lncmF0aW9u
-IGRlIGNlIGNvcnJlY3RpZi4NCg0KQ29yZGlhbGVtZW50LA0KDQpTQVJSIE1ib2RqDQo=
+The following changes since commit 6146a0f1dfae5d37442a9ddcba012add260bceb0:
+
+  Linux 6.18-rc4 (2025-11-02 11:28:02 -0800)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.18-rc5
+
+for you to fetch changes up to 360b3730f8eab6c4467c6cca4cb0e30902174a63:
+
+  ASoC: rsnd: fix OF node reference leak in rsnd_ssiu_probe() (2025-11-13 00:36:01 +0000)
+
+----------------------------------------------------------------
+ASoC: Fixes for v6.18
+
+A small collection of fixes, all driver specific and none especially
+remarkable unless you have the hardware (many not even then).
+
+----------------------------------------------------------------
+Claudiu Beznea (1):
+      ASoC: da7213: Use component driver suspend/resume
+
+Haotian Zhang (3):
+      ASoC: cs4271: Fix regulator leak on probe failure
+      ASoC: codecs: va-macro: fix resource leak in probe error path
+      ASoC: rsnd: fix OF node reference leak in rsnd_ssiu_probe()
+
+Miaoqian Lin (1):
+      ASoC: sdw_utils: fix device reference leak in is_sdca_endpoint_present()
+
+Niranjan H Y (2):
+      ASoC: tas2783A: Fix issues in firmware parsing
+      ASoC: SDCA: bug fix while parsing mipi-sdca-control-cn-list
+
+Richard Fitzgerald (1):
+      ASoC: doc: cs35l56: Update firmware filename description for B0 silicon
+
+Shenghao Ding (1):
+      ASoC: tas2781: fix getting the wrong device number
+
+ Documentation/sound/codecs/cs35l56.rst |  9 ++---
+ sound/soc/codecs/cs4271.c              | 10 +++--
+ sound/soc/codecs/da7213.c              | 69 ++++++++++++++++++++++------------
+ sound/soc/codecs/da7213.h              |  1 +
+ sound/soc/codecs/lpass-va-macro.c      |  2 +-
+ sound/soc/codecs/tas2781-i2c.c         |  9 ++++-
+ sound/soc/codecs/tas2783-sdw.c         | 20 +++++++++-
+ sound/soc/renesas/rcar/ssiu.c          |  3 +-
+ sound/soc/sdca/sdca_functions.c        |  3 +-
+ sound/soc/sdw_utils/soc_sdw_utils.c    | 20 +++++++---
+ 10 files changed, 99 insertions(+), 47 deletions(-)

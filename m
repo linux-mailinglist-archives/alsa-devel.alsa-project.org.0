@@ -2,93 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72E04C8DEAF
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Nov 2025 12:15:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC79FCB00F2
+	for <lists+alsa-devel@lfdr.de>; Tue, 09 Dec 2025 14:30:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D449560198;
-	Thu, 27 Nov 2025 12:14:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D449560198
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0A1D60217;
+	Tue,  9 Dec 2025 14:30:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0A1D60217
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1764242106;
-	bh=hnylFDNiB2RskzMImuvbdxX/ijKlS7OOQ/eMp7B9Xik=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1765287016;
+	bh=+UPd69c3uCQEUerH3JffVdWKFCrvfaGg3OFt42G6gFM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Vn2QjNdhpcEdW0FZRZJ0iQIy5IzUjVX1nChZIxCram/aLRB9ImW02IeRPKmwFmb2S
-	 U6BRnn/esfwnP7HhJtscdk5Ch5Ye3q4aD4Xiwl1mxFxTBQKQj5eK1s48Zvq2nPq+i0
-	 wZBGeQLsaoVqCQOhJe3Kmizss66s3zIOLiBu5D1Q=
+	b=HVWtsDm8Cx01iMdYzDYo7hR1lIjyBSAGDQ+dzPAsIkje/t1eX2nP/2UGjE3Mzhh/V
+	 /2jM6/clZWFZV4kpq7SQZgqz0jhCol3lIbEGB3EWmkaIIwC06Nw4B1L79uRz7U6USN
+	 sX13Rjf48/fknCtU5mkYtB2mQTLy8XJoBv1OGEY8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 67E7EF805C8; Thu, 27 Nov 2025 12:14:33 +0100 (CET)
+	id E09FCF80634; Tue,  9 Dec 2025 14:29:19 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7430F805BA;
-	Thu, 27 Nov 2025 12:14:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60F49F8063C;
+	Tue,  9 Dec 2025 14:29:19 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A755F8055C; Thu, 27 Nov 2025 12:13:52 +0100 (CET)
+	id 7083BF804B3; Fri, 28 Nov 2025 11:25:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A7951F80087
-	for <alsa-devel@alsa-project.org>; Thu, 27 Nov 2025 12:13:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7951F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9A4BF80086
+	for <alsa-devel@alsa-project.org>; Fri, 28 Nov 2025 11:25:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9A4BF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bb9J9g71
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 1E33160141;
-	Thu, 27 Nov 2025 11:13:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE09FC4CEF8;
-	Thu, 27 Nov 2025 11:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1764242027;
-	bh=hnylFDNiB2RskzMImuvbdxX/ijKlS7OOQ/eMp7B9Xik=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bb9J9g71hk9lklZrbxKpksypwhs8MjjXdtXGvTmsMezYP4147YFMnXftcKwjkxGob
-	 j7R/3MwaT4fEskvuOOlmoLv8iQ/mVRTFzX8OaJQMTnRAPQuS4eGtd063BbaPGgM89C
-	 zEwEbnM1ZjaEi2dLi5J0g10eHSiwMXWCLeW8s1y+WbQ+nk69abEiH16ZZekmBeqQjK
-	 DOd/bmzPrO0aX6MGeBETZpYhiBbIZJ8wWHFJKYJ9PgyRVcSQM22JjsBX8dghOp5fO8
-	 gsED1Tfh7cijSD3cbaRWdAIGyLMus7r/0idPra01vHPhX5MYgvlzURXmngraahUjqJ
-	 JrQ/E17aeNSAA==
-Date: Thu, 27 Nov 2025 11:13:44 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [GIT PULL] ASoC fixes for v6.18-rc7
-Message-ID: <0827deaa-1b97-4902-af08-98bea70487c9@sirena.org.uk>
-References: <25d5b5826b2e8d821caf7a37dea59186@kernel.org>
- <87jyzc9erk.wl-tiwai@suse.de>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=K9TsZUkL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1764325534; x=1795861534;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=+UPd69c3uCQEUerH3JffVdWKFCrvfaGg3OFt42G6gFM=;
+  b=K9TsZUkLKY7wiP1JsWo0AmJXNXoMkqbPHVUTkiFacEFomMeYl7bq7kA6
+   sU1/8uAkMQ0xTEQvZ7Jo2Y34vp7euoP/sVCR6xSKigLjR5TMcd6+UalZn
+   Q42iBIxRa25swvyNy908TDUtfdd84wHW3oQ1xYDU6/zxJCncy9eJYm+09
+   scS5gctFg9R6Hye7RSMvHEL7a/EAwxjI/kMeKgPctf3Rv/60bg+UuTm1n
+   h3DCIhweMYMXAGJXWN/jUOImoPD4za8X1kWq9FBeFxpu9QIwOee9Ab39f
+   SWHIdar5s5lWqfn2s3eELJ1Qp8DDXFQfjjZOoTItjFpcWPtHilmnBslf7
+   w==;
+X-CSE-ConnectionGUID: vDvHP3kKQKW3UGCF/rnTIg==
+X-CSE-MsgGUID: SesbxOQzQjCfxr9QG/pCmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11626"; a="66255995"
+X-IronPort-AV: E=Sophos;i="6.20,232,1758610800";
+   d="scan'208";a="66255995"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2025 02:25:28 -0800
+X-CSE-ConnectionGUID: vd5D/beaTMqQLgv6t21X1g==
+X-CSE-MsgGUID: KuZn0GKDSp+sCJo2CzdZDA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,232,1758610800";
+   d="scan'208";a="197905542"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.229])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Nov 2025 02:25:22 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: tiwai@suse.de, hansg@kernel.org, Baojun Xu <baojun.xu@ti.com>
+Cc: broonie@kernel.org, andriy.shevchenko@linux.intel.com,
+ alsa-devel@alsa-project.org, shenghao-ding@ti.com, 13916275206@139.com,
+ platform-driver-x86@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, letitia.tsai@hp.com
+In-Reply-To: <20251126141434.11110-1-baojun.xu@ti.com>
+References: <20251126141434.11110-1-baojun.xu@ti.com>
+Subject: Re: [PATCH v5] platform/x86: serial-multi-instantiate: Add
+ IRQ_RESOURCE_OPT for IRQ missing projects
+Message-Id: <176432551630.7427.14238398482885718801.b4-ty@linux.intel.com>
+Date: Fri, 28 Nov 2025 12:25:16 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZVKWcNAbUDNYy2F+"
-Content-Disposition: inline
-In-Reply-To: <87jyzc9erk.wl-tiwai@suse.de>
-X-Cookie: But they went to MARS around 1953!!
-Message-ID-Hash: 6UTVDBQCWW7YVAHKE32HN5ESBX5BONY2
-X-Message-ID-Hash: 6UTVDBQCWW7YVAHKE32HN5ESBX5BONY2
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+X-MailFrom: ilpo.jarvinen@linux.intel.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: EXILRG3IHSMZM2BNK5HRVXN6C6T2U3O6
+X-Message-ID-Hash: EXILRG3IHSMZM2BNK5HRVXN6C6T2U3O6
+X-Mailman-Approved-At: Tue, 09 Dec 2025 13:28:57 +0000
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6UTVDBQCWW7YVAHKE32HN5ESBX5BONY2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EXILRG3IHSMZM2BNK5HRVXN6C6T2U3O6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,32 +111,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 26 Nov 2025 22:14:33 +0800, Baojun Xu wrote:
 
---ZVKWcNAbUDNYy2F+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> The tas2781-hda supports multi-projects. In some projects, GpioInt() was
+> dropped due to no IRQ connection. See the example code below:
+> 
+> Device (SPKR)
+> {
+>     Name (_ADR, One)
+>     Name (_HID, "TXNW2781")
+>     Method (_CRS, 0, NotSerialized)
+>     {
+>         Name (RBUF, ResourceTemplate ()
+>         {
+>             I2cSerialBusV2 (0x0038, ...)
+>             I2cSerialBusV2 (0x0039, ...)
+>             // GpioInt (Edge, ...) { 0x0000 }
+>             //"GpioInt (...) {}" was commented out due to no IRQ connection.
+>         })
+>         Return (RBUF)
+>     }
+> }
+> 
+> [...]
 
-On Thu, Nov 27, 2025 at 07:21:51AM +0100, Takashi Iwai wrote:
 
-> Pulled now.  But not sure whether I'll send another PR for 6.18.
-> Might be postponed in the next week for 6.19 merge window.
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-Either way works, I don't think there's anything there where that'd make
-a huge difference.
+The list of commits applied:
+[1/1] platform/x86: serial-multi-instantiate: Add IRQ_RESOURCE_OPT for IRQ missing projects
+      commit: 1d1b8b0734af5149946e687415bf6be05ae55bd6
 
---ZVKWcNAbUDNYy2F+
-Content-Type: application/pgp-signature; name="signature.asc"
+--
+ i.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmkoMmcACgkQJNaLcl1U
-h9AO0Qf9FmD6C72FkRelmiKuo5Aq0lKbAzi9T0gUOyblaSYkqHixta+3zS+YWDZI
-oxkxDY8pzwRspiYAIno5+je8HBSEpfdybxcAJKnID0UkRlT2gqOiP2gqFEwIpVLo
-RvslafLOs36VGzs8/i1UAlkKuhGj12ulpyPONg6wyd2Iu3VxaomoiXw6zfiijTMq
-tbak7jQ1dTGPx4zado872SpJZ204oLAmReGp6JZonVgSGyvE88i0N5f1WblwtK0l
-AJID0jGzBjgBTYUow3agNMJ7YzKNswHG470tsyr3jf1HCgCogrRVCbN6QNonNajh
-KImKvQe+UIRnK8iu2Gr30LL2ySIJRg==
-=ysCz
------END PGP SIGNATURE-----
-
---ZVKWcNAbUDNYy2F+--

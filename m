@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A93C990A8
-	for <lists+alsa-devel@lfdr.de>; Mon, 01 Dec 2025 21:33:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 888A2C990B1
+	for <lists+alsa-devel@lfdr.de>; Mon, 01 Dec 2025 21:35:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A86D06021F;
-	Mon,  1 Dec 2025 21:33:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A86D06021F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A20E6020E;
+	Mon,  1 Dec 2025 21:35:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A20E6020E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1764621238;
-	bh=NNV9J/XgxvYb+KX2SDfaXe3493u1mHD/vSyLNIBfYqc=;
+	s=default; t=1764621322;
+	bh=pyNVC7GqR901RHppuQOJXqCsUREa4yoHs1bBGaSXhqs=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=KD7tFgnx2p+E+kWu03+5308DPtuPaBE4jn4SqpryyMbzfcBwaBH79LCtVcL5acbvb
-	 MfTrAOC6bqwTna/QTcwlurSMfa7VMAfbcwLwKPwWhrm8TVfjqh5b0UJI1wuAAwRgTN
-	 D6GnVyeEdKmWz8uZS3T0WVxfaBT/H/SbHtld8P9Y=
+	b=PecP9fdybKSkAwQO3jCDh+OvrJrroGO2HX4NiCi2PXByCF7coO6tj9CxhytexLoVV
+	 Pqq3J3kvu5oh7YUgR91NkIoaooQ/6RizmbFFdDNmyQYK/Tv3lT44neBXUxu5C4EJkI
+	 zyHI/FrVc3sZEQZl8yD18SbG5pOfE845inegYouU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81AB2F80588; Mon,  1 Dec 2025 21:33:37 +0100 (CET)
+	id 182F5F805C4; Mon,  1 Dec 2025 21:34:46 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1B44F805CB;
-	Mon,  1 Dec 2025 21:33:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F83AF805C4;
+	Mon,  1 Dec 2025 21:34:46 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9018BF804FF; Mon,  1 Dec 2025 21:33:26 +0100 (CET)
+	id 46B31F805D9; Mon,  1 Dec 2025 21:33:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1658BF80448
-	for <alsa-devel@alsa-project.org>; Mon,  1 Dec 2025 21:33:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1658BF80448
+	by alsa1.perex.cz (Postfix) with ESMTP id A3B60F805CB
+	for <alsa-devel@alsa-project.org>; Mon,  1 Dec 2025 21:33:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3B60F805CB
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <187d31a2eb957300-webhooks-bot@alsa-project.org>
+Message-Id: <187d31a7c38dca00-webhooks-bot@alsa-project.org>
 In-Reply-To: <alsa-project/alsa-tools/pr/42@alsa-project.org>
 References: <alsa-project/alsa-tools/pr/42@alsa-project.org>
 Subject: hdspmixer: fix null pointer dereference in HDSPMixerWindow:handler_cb
-Date: Mon,  1 Dec 2025 21:33:26 +0100 (CET)
-Message-ID-Hash: USNGBA7TBGWTBZPDRZTZXQMM5HR3BHG2
-X-Message-ID-Hash: USNGBA7TBGWTBZPDRZTZXQMM5HR3BHG2
+Date: Mon,  1 Dec 2025 21:33:47 +0100 (CET)
+Message-ID-Hash: BXL2XHFF66IEN4CN37A5WVGAYDZF5QLC
+X-Message-ID-Hash: BXL2XHFF66IEN4CN37A5WVGAYDZF5QLC
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/USNGBA7TBGWTBZPDRZTZXQMM5HR3BHG2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BXL2XHFF66IEN4CN37A5WVGAYDZF5QLC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -75,6 +75,8 @@ alsa-project/alsa-tools pull request #42 was edited from cheldt:
 Fixes following error:
 
 ```
+Program received signal SIGSEGV, Segmentation fault.
+handler_cb () at /home/kenoby/dev/alsa-tools/hdspmixer/src/HDSPMixerWindow.cxx:278
 278             if (fl_win->label()) {
 (gdb) bt
 #0  handler_cb () at /home/kenoby/dev/alsa-tools/hdspmixer/src/HDSPMixerWindow.cxx:278

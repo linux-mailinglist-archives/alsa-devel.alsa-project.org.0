@@ -2,54 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6251EC952D2
-	for <lists+alsa-devel@lfdr.de>; Sun, 30 Nov 2025 18:18:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DC4C96CA5
+	for <lists+alsa-devel@lfdr.de>; Mon, 01 Dec 2025 12:01:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35E21601FD;
-	Sun, 30 Nov 2025 18:18:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35E21601FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DC196017B;
+	Mon,  1 Dec 2025 12:01:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DC196017B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1764523097;
-	bh=+lHKVIzn2tfaV2NgBWf7VB/cHGtpn8Avl7Dfkld1UxI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=uMl/A7uRcrq2C6AsXXvrji7goTFchAN7BdDI85QXUGReDPqqi/2TuXyHIo1CH+JU7
-	 +byCi50TiK09S0dDpiKdyty6lO2A3mZkAweIZ0RPEHQBPMCvlvzCgeuB7T9u37gbq5
-	 C3xKqmtyl/ON0XN8oCKlYuA5wNN3zoWuMiJKCUYw=
+	s=default; t=1764586886;
+	bh=8r2cz961nsC0cNe19rdESv9XFy7If29g71vEelE+Y/4=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=fgAxIiFxE/LbrwvaoCE+9/z5xCkfSr0YuNkYETD9HeHj3ale/ZWCzoh7SLgJpHjNn
+	 1yoFXsMuqcw8iORybqMIWHUm9hXYTIBBRh9T4buIySefwUXW91Yfu9pbJ5r5D5J1RD
+	 GmiTEzQmyV4uGo2Nw48slD4LEiAM646hbwTpooMU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9AABF805C9; Sun, 30 Nov 2025 18:17:44 +0100 (CET)
+	id 585FDF805D8; Mon,  1 Dec 2025 12:00:32 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BA5BF804FF;
-	Sun, 30 Nov 2025 18:17:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 877A9F805F1;
+	Mon,  1 Dec 2025 12:00:32 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ECC2BF8049C; Sun, 30 Nov 2025 18:15:51 +0100 (CET)
+	id 72625F804FF; Mon,  1 Dec 2025 11:58:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
-	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4C68F8012B
-	for <alsa-devel@alsa-project.org>; Sun, 30 Nov 2025 18:15:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4C68F8012B
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id E71A6F80448
+	for <alsa-devel@alsa-project.org>; Mon,  1 Dec 2025 11:58:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E71A6F80448
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=ExEQ3QTn
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 5B1AvvZ832042567,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1764586677; bh=dhT0pZQ7+FUA2QobktyRUIDGF0JquEOJ7p/lovReEkk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=ExEQ3QTngGrackKUHi2U+YunbV+9cjHQHDYcavE9F9ZWAzhVmKlrgoHpag5buCK4S
+	 i+M+sa22U5v3v/MlwEHkik4PLA0GyH25gjsbH11i+C/JnYtiynbyG5LtYvHAx58Ps5
+	 DNyJVnIOaj/ZiGtAnUDS00FDVqnwjV+tX8wlvEroZWPTg1kjJ408FwnB2QTnf81e99
+	 8WXzfEAbJ45P7gAmRM0hLCYYgtC3rq/TfV9VtA1LuWYzRn9iaIBCDqPRV2xc92l+8/
+	 M/Y2elIpZBMpSzbGjCBDTYu7g1CCQcLZCh1aC9pCaHx6IlKwQew2oz3dIN3L4sXtzz
+	 rFhBD2uXfC88A==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.21/5.94) with ESMTPS id 5B1AvvZ832042567
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 1 Dec 2025 18:57:57 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.27; Mon, 1 Dec 2025 18:57:57 +0800
+Received: from sw-server.localdomain (172.24.54.4) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server id
+ 15.2.1544.27 via Frontend Transport; Mon, 1 Dec 2025 18:57:57 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <cezary.rojewski@intel.com>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <perex@perex.cz>, <linux-sound@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <flove@realtek.com>, <shumingf@realtek.com>, <jack.yu@realtek.com>,
+        <derek.fang@realtek.com>, Oder Chiou <oder_chiou@realtek.com>
+Subject: [PATCH v8 0/2] ASoC: rt5575: Add the codec driver for the ALC5575
+Date: Mon, 1 Dec 2025 18:59:24 +0800
+Message-ID: <20251201105926.1714341-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <187cd84468f31e00-webhooks-bot@alsa-project.org>
-In-Reply-To: <187cd84467719900-webhooks-bot@alsa-project.org>
-References: <187cd84467719900-webhooks-bot@alsa-project.org>
-Subject: HDSPmixer coredumps on Arch Linux
-Date: Sun, 30 Nov 2025 18:15:51 +0100 (CET)
-Message-ID-Hash: Y5DYZ76BK6PQQ2EWHPUH5Z5OLVIJKNS5
-X-Message-ID-Hash: Y5DYZ76BK6PQQ2EWHPUH5Z5OLVIJKNS5
-X-MailFrom: github@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Message-ID-Hash: V34TFICGGGGRTR4U4JZFI3JRDYWSHPS4
+X-Message-ID-Hash: V34TFICGGGGRTR4U4JZFI3JRDYWSHPS4
+X-MailFrom: oder_chiou@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y5DYZ76BK6PQQ2EWHPUH5Z5OLVIJKNS5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V34TFICGGGGRTR4U4JZFI3JRDYWSHPS4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,86 +103,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-tools issue #43 was opened from rubin55:
+Hi all,
 
-This is recent, I suspect after fltk upgrade to 1.4.x november the 25th. Here is the bt:
-```
-HDSPMixer 1.11 - Copyright (C) 2003 Thomas Charbonnel <thomas@undata.org>
-This program comes with ABSOLUTELY NO WARRANTY
-HDSPMixer is free software, see the file COPYING for details
+This patch series adds support for the Realtek ALC5575 audio codec.
 
-Looking for RME cards:
-Card 0: HDA Intel PCH at 0x4802120000 irq 201
-Card 1: RME AIO Pro S/N 24093311 at 0x82500000 irq 16
-RME AIO found!
-Card 2: Logi 4K Stream Edition at usb-0000:00:14.0-5, super speed
-Card 3: HDA NVidia at 0x82080000 irq 17
-1 RME cards card found.
-Initializing default presets
+Changes in v8:
+- Patch 1/2:
+  - remove the variable rt5575_spi_ready
+  - use the multiple compatible names to distinguish between w/wo flash
+- Patch 2/2
+  - add compatible enum "realtek,rt5575-with-spi"
 
-Program received signal SIGSEGV, Segmentation fault.
-Downloading 47.21 K source file /usr/src/debug/alsa-tools/alsa-tools-1.2.14/hdspmixer/src/HDSPMixerWindow.cxx
-handler_cb (event=24) at /usr/src/debug/alsa-tools/alsa-tools-1.2.14/hdspmixer/src/HDSPMixerWindow.cxx:278
-278		if (fl_win->label()) {
-(gdb) bt
-#0  handler_cb (event=24) at /usr/src/debug/alsa-tools/alsa-tools-1.2.14/hdspmixer/src/HDSPMixerWindow.cxx:278
-#1  0x00007ffff7c69009 in send_handlers (e=24) at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl.cxx:935
-#2  Fl::handle_ (e=<optimized out>, window=<optimized out>) at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl.cxx:1620
-#3  Fl::handle_ (e=<optimized out>, window=<optimized out>) at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl.cxx:1384
-#4  0x00007ffff6b9cac6 in ffi_call_unix64 () at ../src/x86/unix64.S:104
-#5  0x00007ffff6b9976b in ffi_call_int
-    (cif=cif@entry=0x7fffffffc9e0, fn=fn@entry=0x7ffff7cfcd40 <output_done(void*, wl_output*)>, rvalue=<optimized out>,
-    rvalue@entry=0x0, avalue=avalue@entry=0x7fffffffcab0, closure=closure@entry=0x0) at ../src/x86/ffi64.c:676
-#6  0x00007ffff6b9c06e in ffi_call
-    (cif=cif@entry=0x7fffffffc9e0, fn=0x7ffff7cfcd40 <output_done(void*, wl_output*)>, rvalue=rvalue@entry=0x0, avalue=avalue@entry=0x7fffffffcab0) at ../src/x86/ffi64.c:713
-#7  0x00007ffff763c48d in wl_closure_invoke (closure=closure@entry=0x55555596e0f0, target=<optimized out>,
-    target@entry=0x555555971060, opcode=opcode@entry=2, data=<optimized out>, flags=1) at ../wayland-1.24.0/src/connection.c:1241
-#8  0x00007ffff763d2e9 in dispatch_event (display=display@entry=0x5555555a9b70, queue=queue@entry=0x5555555a9c68)
-    at ../wayland-1.24.0/src/wayland-client.c:1707
-#9  0x00007ffff763d6f3 in dispatch_queue (display=0x5555555a9b70, queue=0x5555555a9c68)
-    at ../wayland-1.24.0/src/wayland-client.c:1853
-#10 wl_display_dispatch_queue_pending (display=display@entry=0x5555555a9b70, queue=queue@entry=0x5555555a9c68)
-    at ../wayland-1.24.0/src/wayland-client.c:2190
-#11 0x00007ffff7640f34 in wl_display_dispatch_queue_timeout
-    (display=0x5555555a9b70, queue=0x5555555a9c68, timeout=timeout@entry=0x0) at ../wayland-1.24.0/src/wayland-client.c:2096
-#12 0x00007ffff7641010 in wl_display_dispatch_queue (display=<optimized out>, queue=<optimized out>)
-    at ../wayland-1.24.0/src/wayland-client.c:2163
-#13 0x00007ffff7cf9aba in sync_done (data=<optimized out>, cb=<optimized out>, time=<optimized out>)
-    at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1389
-#14 0x00007ffff6b9cac6 in ffi_call_unix64 () at ../src/x86/unix64.S:104
-#15 0x00007ffff6b9976b in ffi_call_int
-    (cif=cif@entry=0x7fffffffced0, fn=fn@entry=0x7ffff7cf9a60 <sync_done(void*, wl_callback*, uint32_t)>, rvalue=<optimized out>,
-    rvalue@entry=0x0, avalue=avalue@entry=0x7fffffffcfa0, closure=closure@entry=0x0) at ../src/x86/ffi64.c:676
-#16 0x00007ffff6b9c06e in ffi_call
-    (cif=cif@entry=0x7fffffffced0, fn=0x7ffff7cf9a60 <sync_done(void*, wl_callback*, uint32_t)>, rvalue=rvalue@entry=0x0, avalue=avalue@entry=0x7fffffffcfa0) at ../src/x86/ffi64.c:713
-#17 0x00007ffff763c48d in wl_closure_invoke (closure=closure@entry=0x555555970da0, target=<optimized out>,
-    target@entry=0x55555596e1d0, opcode=opcode@entry=0, data=<optimized out>, flags=1) at ../wayland-1.24.0/src/connection.c:1241
-#18 0x00007ffff763d2e9 in dispatch_event (display=display@entry=0x5555555a9b70, queue=queue@entry=0x5555555a9c68)
-    at ../wayland-1.24.0/src/wayland-client.c:1707
-#19 0x00007ffff763d6f3 in dispatch_queue (display=0x5555555a9b70, queue=0x5555555a9c68)
-    at ../wayland-1.24.0/src/wayland-client.c:1853
-#20 wl_display_dispatch_queue_pending (display=display@entry=0x5555555a9b70, queue=queue@entry=0x5555555a9c68)
-    at ../wayland-1.24.0/src/wayland-client.c:2190
-#21 0x00007ffff7640f34 in wl_display_dispatch_queue_timeout
-    (display=0x5555555a9b70, queue=0x5555555a9c68, timeout=timeout@entry=0x0) at ../wayland-1.24.0/src/wayland-client.c:2096
---Type <RET> for more, q to quit, c to continue without paging--
-#22 0x00007ffff7641010 in wl_display_dispatch_queue (display=<optimized out>, queue=<optimized out>)
-    at ../wayland-1.24.0/src/wayland-client.c:2163
-#23 0x00007ffff7cfa169 in Fl_Wayland_Screen_Driver::open_display_platform (this=<optimized out>)
-    at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1426
-#24 Fl_Wayland_Screen_Driver::open_display_platform (this=<optimized out>)
-    at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1406
-#25 0x00007ffff7cacafa in Fl_Screen_Driver::open_display (this=0x55555596df60)
-    at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl_Screen_Driver.cxx:605
-#26 Fl_Screen_Driver::open_display (this=0x55555596df60) at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl_Screen_Driver.cxx:600
-#27 0x00007ffff7cfd942 in Fl_Wayland_Screen_Driver::get_system_colors (this=<optimized out>)
-    at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1708
-#28 0x00007ffff7ce301e in Fl_Window::show (this=0x5555555c75a0, argc=1, argv=0x7fffffffd558)
-    at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl_arg.cxx:290
-#29 0x000055555555aa17 in Fl_Double_Window::show (this=<optimized out>, a=1, b=0x7fffffffd558)
-    at /usr/include/FL/Fl_Double_Window.H:36
-#30 main (argc=1, argv=0x7fffffffd558) at /usr/src/debug/alsa-tools/alsa-tools-1.2.14/hdspmixer/src/hdspmixer.cxx:120
-```
+Changes in v7:
+- Patch 1/2:
+  - add a caption for the tristates
+  - remove the redundant enum of the SPI command
+  - add the error log in the request firmware failure
+  - change the function name rt5575_spi_fw_loaded to rt5575_fw_load_by_spi
+  - minor fixes
+- Patch 2/2
+  - modify commit message
+- Link to v7: https://lore.kernel.org/all/20251121084112.743518-1-oder_chiou@realtek.com/
 
-Issue URL     : https://github.com/alsa-project/alsa-tools/issues/43
-Repository URL: https://github.com/alsa-project/alsa-tools
+Changes in v6:
+- Patch 1/2:
+  - modify commit message
+  - add select SND_SOC_RT5575 to config SND_SOC_RT5575_SPI in the Kconfig
+  - revise the boiler plate in the head of the file
+  - sort the include files
+  - use a structure to transfer the spi data
+  - use the poll() related function instead the for-loop
+  - revise the UUID to the private ID
+  - minor fixes
+- Patch 2/2
+  - modify description
+- Link to v6: https://lore.kernel.org/all/20251031073245.3629060-1-oder_chiou@realtek.com/
+
+Changes in v2 to v5:
+- Patch 1/2:
+  - move the firmware to the subdirectory
+  - remove the empty functions
+  - remove the cache_type in the regmap_config
+  - add the error log in the run firmware failure
+- Patch 2/2:
+  - nothing
+- Link to v5: https://lore.kernel.org/all/20251015103404.3075684-1-oder_chiou@realtek.com/
+
+Oder Chiou (2):
+  ASoC: rt5575: Add the codec driver for the ALC5575
+  ASoC: dt-bindings: realtek,rt5575: add bindings for ALC5575
+
+ .../bindings/sound/realtek,rt5575.yaml        |  44 ++
+ sound/soc/codecs/Kconfig                      |  10 +
+ sound/soc/codecs/Makefile                     |   4 +
+ sound/soc/codecs/rt5575-spi.c                 |  84 ++++
+ sound/soc/codecs/rt5575-spi.h                 |  16 +
+ sound/soc/codecs/rt5575.c                     | 375 ++++++++++++++++++
+ sound/soc/codecs/rt5575.h                     |  54 +++
+ 7 files changed, 587 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
+ create mode 100644 sound/soc/codecs/rt5575-spi.c
+ create mode 100644 sound/soc/codecs/rt5575-spi.h
+ create mode 100644 sound/soc/codecs/rt5575.c
+ create mode 100644 sound/soc/codecs/rt5575.h
+
+-- 
+2.52.0
+

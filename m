@@ -2,54 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B3A8C990B7
-	for <lists+alsa-devel@lfdr.de>; Mon, 01 Dec 2025 21:36:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2179C99F64
+	for <lists+alsa-devel@lfdr.de>; Tue, 02 Dec 2025 04:25:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8376960214;
-	Mon,  1 Dec 2025 21:36:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8376960214
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAE42601FA;
+	Tue,  2 Dec 2025 04:25:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAE42601FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1764621398;
-	bh=2a4wIb/OwxXPzxJvM0rqMwvRmYQ9IZmSQJvcwStFm7c=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	s=default; t=1764645912;
+	bh=j4wrihKJ12A0j83orNKlndV6pgKdRu9PO4SMm25zyFs=;
+	h=Subject:From:To:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=onADrPJIPyK1zKSkZBYOeixcV5bKAyWDNxlf86IcWzZ+d9AXYo/huJor58swujK7h
-	 Im+ppB7LW4QHBvcOOEl8PZVeXg1z3kRaeHcUI1u5GeEEqw3DqZwk0PknVbyLpJjNYk
-	 uU13xWLKHgyU/XCvLlaQaEXRr+LoQOGngEgnE25U=
+	b=pddNpjX8vP4gOrWMMFz5Fm1J+znU3z615Zfi5BzW34cyg967L9TY8xC0busSyIekw
+	 gfJzH/xD9VwzBUeRHl71o01LG3I+WS8pc2cXeJ/jtrZiXJ1GLi5xSwJlDTLdQ9EJm+
+	 CDSidTzKVRxO0tTl8dSdXddEcHZ3vLhBQAJtoxZA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 344C8F805B6; Mon,  1 Dec 2025 21:36:05 +0100 (CET)
+	id C0676F805BD; Tue,  2 Dec 2025 04:24:50 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B34E8F805C9;
-	Mon,  1 Dec 2025 21:36:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F73EF805C0;
+	Tue,  2 Dec 2025 04:24:50 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC00BF8049C; Mon,  1 Dec 2025 21:35:46 +0100 (CET)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
-	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1778DF800B5
-	for <alsa-devel@alsa-project.org>; Mon,  1 Dec 2025 21:35:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1778DF800B5
+	id 177D8F80246; Tue,  2 Dec 2025 04:24:35 +0100 (CET)
+Received: from mailman-web.alsa-project.org (mailman-web.alsa-project.org
+ [10.254.200.11])
+	by alsa1.perex.cz (Postfix) with ESMTP id 018FAF800B5
+	for <alsa-devel@alsa-project.org>; Tue,  2 Dec 2025 04:24:34 +0100 (CET)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
+Subject: Re: [alsa-devel] Applied "ASoC: tlv320aic32x4: Model CODEC_CLKIN in
+ CCF" to
+ the asoc tree
+From: satisfied.shrimp.ital@protectsmail.net
 To: alsa-devel@alsa-project.org
-Message-Id: <187d31c391674300-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-tools/pr/42@alsa-project.org>
-References: <alsa-project/alsa-tools/pr/42@alsa-project.org>
-Subject: hdspmixer: fix null pointer dereference in HDSPMixerWindow:handler_cb
-Date: Mon,  1 Dec 2025 21:35:46 +0100 (CET)
-Message-ID-Hash: E2VHIFIVMTI6Q3F5RIQSYCXA7RVPODHU
-X-Message-ID-Hash: E2VHIFIVMTI6Q3F5RIQSYCXA7RVPODHU
-X-MailFrom: github@alsa-project.org
+Date: Tue, 02 Dec 2025 03:24:34 -0000
+Message-ID: <176464587496.22.3926790229994363966@mailman-web.alsa-project.org>
+In-Reply-To: <20190325161140.A0E0111288F1@debutante.sirena.org.uk>
+References: <20190325161140.A0E0111288F1@debutante.sirena.org.uk>
+User-Agent: HyperKitty on https://mailman.alsa-project.org/
+Message-ID-Hash: MTPNLNXCDQH6L7V3YTR3IRCUWMAAI2KS
+X-Message-ID-Hash: MTPNLNXCDQH6L7V3YTR3IRCUWMAAI2KS
+X-MailFrom: satisfied.shrimp.ital@protectsmail.net
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +58,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2VHIFIVMTI6Q3F5RIQSYCXA7RVPODHU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MTPNLNXCDQH6L7V3YTR3IRCUWMAAI2KS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,63 +67,4 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-tools pull request #42 was edited from cheldt:
-
-Fixes following error:
-
-```
-HDSPMixer 1.11 - Copyright (C) 2003 Thomas Charbonnel <thomas@undata.org>
-This program comes with ABSOLUTELY NO WARRANTY
-HDSPMixer is free software, see the file COPYING for details
-
-Looking for RME cards:
-Card 0: RME AIO Pro S/N 24102214 at 0x43d00000 irq 16
-RME AIO found!
-Card 1: HDA Intel PCH at 0x44710000 irq 214
-Card 2: HDA NVidia at 0x43080000 irq 17
-1 RME cards card found.
-Restoring last presets used
-
-Program received signal SIGSEGV, Segmentation fault.
-handler_cb () at /home/snaut/dev/alsa-tools/hdspmixer/src/HDSPMixerWindow.cxx:278
-278             if (fl_win->label()) {
-(gdb) bt
-#0  handler_cb () at /home/kenoby/dev/alsa-tools/hdspmixer/src/HDSPMixerWindow.cxx:278
-#1  0x00007ffff7c5c791 in send_handlers () at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl.cxx:935
-#2  Fl::handle_ () at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl.cxx:1620
-#3  Fl::handle_ () at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl.cxx:1384
-#4  0x00007ffff6dfb2ee in ffi_call_unix64 () at ../src/x86/unix64.S:104
-#5  0x00007ffff6df79f8 in ffi_call_int () at ../src/x86/ffi64.c:676
-#6  0x00007ffff6dfa6ce in ffi_call () at ../src/x86/ffi64.c:713
-#7  0x00007ffff732d47a in wl_closure_invoke () at ../wayland-1.24.0/src/connection.c:1241
-#8  0x00007ffff732e2e9 in dispatch_event () at ../wayland-1.24.0/src/wayland-client.c:1707
-#9  0x00007ffff732e6bb in dispatch_queue () at ../wayland-1.24.0/src/wayland-client.c:1853
-#10 wl_display_dispatch_queue_pending () at ../wayland-1.24.0/src/wayland-client.c:2190
-#11 0x00007ffff7332776 in wl_display_dispatch_queue_timeout () at ../wayland-1.24.0/src/wayland-client.c:2096
-#12 0x00007ffff7332860 in wl_display_dispatch_queue () at ../wayland-1.24.0/src/wayland-client.c:2163
-#13 0x00007ffff7d017b2 in sync_done () at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1389
-#14 0x00007ffff6dfb2ee in ffi_call_unix64 () at ../src/x86/unix64.S:104
-#15 0x00007ffff6df79f8 in ffi_call_int () at ../src/x86/ffi64.c:676
-#16 0x00007ffff6dfa6ce in ffi_call () at ../src/x86/ffi64.c:713
-#17 0x00007ffff732d47a in wl_closure_invoke () at ../wayland-1.24.0/src/connection.c:1241
-#18 0x00007ffff732e2e9 in dispatch_event () at ../wayland-1.24.0/src/wayland-client.c:1707
-#19 0x00007ffff732e6bb in dispatch_queue () at ../wayland-1.24.0/src/wayland-client.c:1853
-#20 wl_display_dispatch_queue_pending () at ../wayland-1.24.0/src/wayland-client.c:2190
-#21 0x00007ffff7332776 in wl_display_dispatch_queue_timeout () at ../wayland-1.24.0/src/wayland-client.c:2096
-#22 0x00007ffff7332860 in wl_display_dispatch_queue () at ../wayland-1.24.0/src/wayland-client.c:2163
-#23 0x00007ffff7d03561 in Fl_Wayland_Screen_Driver::open_display_platform () at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1426
-#24 Fl_Wayland_Screen_Driver::open_display_platform () at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1406
-#25 0x00007ffff7ca6da7 in Fl_Screen_Driver::open_display () at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl_Screen_Driver.cxx:605
-#26 Fl_Screen_Driver::open_display () at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl_Screen_Driver.cxx:600
-#27 0x00007ffff7d03d14 in Fl_Wayland_Screen_Driver::get_system_colors () at /usr/src/debug/fltk/fltk-release-1.4.4/src/drivers/Wayland/Fl_Wayland_Screen_Driver.cxx:1708
-#28 0x00007ffff7cec929 in Fl_Window::show () at /usr/src/debug/fltk/fltk-release-1.4.4/src/Fl_arg.cxx:290
-#29 0x000055555557b8aa in Fl_Double_Window::show () at /usr/include/FL/Fl_Double_Window.H:36
-#30 main () at /home/kenoby/dev/alsa-tools/hdspmixer/src/hdspmixer.cxx:120
-```
-
-
-Related [Issue](https://github.com/alsa-project/alsa-tools/issues/43)
-
-Request URL   : https://github.com/alsa-project/alsa-tools/pull/42
-Patch URL     : https://github.com/alsa-project/alsa-tools/pull/42.patch
-Repository URL: https://github.com/alsa-project/alsa-tools
+Okay, so the asoc tree patch seems to be moving through the pipeline, interesting. It's heading toward linux-next and then, potentially, the big boss Linus himself! Good luck with that; I hope everything goes smoothly. Keep an eye out for those automated tests, though! Speaking of potential issues, I remember one time Slope Unblocked, when I submitted a code change and didn't properly account for edge cases. Got immediately flagged by the build system; learned my lesson fast. Fingers crossed this asoc patch has smoother sailing. https://slopeunblocked3d.com

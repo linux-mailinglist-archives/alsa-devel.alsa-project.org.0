@@ -2,112 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16BB7C9FF3A
-	for <lists+alsa-devel@lfdr.de>; Wed, 03 Dec 2025 17:27:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73185CA16C3
+	for <lists+alsa-devel@lfdr.de>; Wed, 03 Dec 2025 20:37:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8564B601CC;
-	Wed,  3 Dec 2025 17:26:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8564B601CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CD7C60207;
+	Wed,  3 Dec 2025 20:37:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CD7C60207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1764779209;
-	bh=2DdsCcnSizR/b2VYv53Or+2+0YruRp1/YIJ4C1DFzAk=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=t4KiyabVCqIGEHGe/Bl204i8vUwYtz6gPAjzD3UtNuu9UpbtVXeolaSw3/stJVJAu
-	 bWsqSKb+z8pHcIB2QvkSqnsCd0chFaO1dJM17/GsVpfHvafa9cEbcK3roehgCn1c4N
-	 8OLUnpUnwgLVwKnWBeFr38IsUoj72IJPzEyxM6yU=
+	s=default; t=1764790652;
+	bh=xj24tb0eYWhgF60bJsEdfnZffdWdGpC4WJdSyf+o8F8=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=AnPLOXzHe47c5R2+Q81ocrhFfq44YF43HZCOJHuvPhaF9umvmI/HsHIQpilFEeMQY
+	 sRJiYLmuoDyZSa2clunsJo0SjArDj5IQTAXZGqs8Ofzq8JRtEp0GCFP7IHq0YszGT4
+	 DBTBhiFfa0FpCzKPEzWj6m24rMmU3cSQpDpvxPZ8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABEF1F80528; Wed,  3 Dec 2025 17:26:16 +0100 (CET)
+	id 378B2F805CB; Wed,  3 Dec 2025 20:36:59 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3511BF80528;
-	Wed,  3 Dec 2025 17:26:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91E4AF800BA;
+	Wed,  3 Dec 2025 20:36:58 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44BAEF8051D; Wed,  3 Dec 2025 17:25:21 +0100 (CET)
+	id 75236F8051D; Wed,  3 Dec 2025 20:36:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-0.8 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,
-	T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no autolearn=no
-	autolearn_force=no version=3.4.6
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6DF19F800E4
-	for <alsa-devel@alsa-project.org>; Wed,  3 Dec 2025 17:25:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DF19F800E4
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=QnvHQTNu
-Received: by mail-qk1-f175.google.com with SMTP id
- af79cd13be357-8b25dd7ab33so437539385a.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 03 Dec 2025 08:25:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1764779114; x=1765383914;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=odA/XIGtQ8Aefzv2T8xnxO8nMXdmxqb0qbtjU51/Sdo=;
-        b=QnvHQTNun25xl72ULCgyj0Tp281AMYwubyVqS6Hr4DXWz2Xd+X33hXc+JOO2sK+fuF
-         JCdjlC3hjUTeewS9ysPPaCNH9zODDuOkDaMkMLC0Mhrh70XC72r9ELYJK+DnEMxVUn/E
-         j8niWdhqg/De6zcD4nwreZUgxs/XEkgSXCzduvoYi8iXADfR8K/6oR90QhtG9kH4alxr
-         graVome9OTAMzyIFwgxhM6Rvm6X0B+Okw8DJcxDkBhgDiBZIUx7qHq7zMBWh3D4CW88w
-         IynaMoekGEv6vVdtawruJuUyML51NjEz1X5+c6r5Mu5a44syaSO2+aSFu2xgNc9mHrcv
-         jYzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764779114; x=1765383914;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=odA/XIGtQ8Aefzv2T8xnxO8nMXdmxqb0qbtjU51/Sdo=;
-        b=hZlRUtOdVz/6Z1uWTPLx4gZ3pa3ZMUhVJQzXeGXcvpKiA2HHi6qMOtwWUzKVGRM+z8
-         pnGvVwLA+7wdkvzijc6EW1CdbHkGWooz9NtNphlgjSC376dpk+MZT13+cf9bYBfE3sQ9
-         jREFh80TqDS9fcFJpPU4GwEpIQjHSlfcCAxwgpELJftIHpTgUOYFja0hYXzWZao1P33I
-         F2MVFCHsgP/DQreMv6xqjjkpJy1M6sV53xs7Eu8Q9mVvcElsjGyu8XtllIl8onA1W5Dc
-         GRYCHHMb+HtnyQDPvXAqjC0bAJtvkKeMSB4kp2W9S413a1/toLyrKrWMasGJ34SVtfLT
-         aOcg==
-X-Gm-Message-State: AOJu0Yxei4E9iIBsGaxm28Ejhujhy9y51M5i4mrdf3kOWNuZmU10HGsf
-	J1f3wjkxWY1BRPsGycFCeaj5XSEa39UwfVffllxAOLrJd07WT1h6pr/A
-X-Gm-Gg: ASbGncv/EIGzt2mxCYjmnXm5MoKLabbImgjtaNN3o6OjtcQbj24MVR9h+rdRvbZ3/su
-	Fd6QdWx6z7FfovvlM3SCSTsJLVqBWTwOgMCkwC0K5TIdrCU40iQX5dlMpYnDT2RBykgvGqGSVAc
-	LYLbFIzA9A10GxMAEUft6HcFtovprQt0AEG0ULuGEaUMd7N5CLSdZ2VYwK4WLzXXkqz/qh7mp2q
-	pjazoQP6giyaChuOzsO0LQysM+k+cRq6TggWtSZW5BLSXDP+ebrNFPc80j+7Dof7tKhKiEmYAH/
-	Z0hrVSRbDeCkyb/d6cI899GvdZ2c+4g/OpX6Ek2wAPxqDGLCp10ybaM3Mj3Odcbt6ZX41Y9w58Z
-	g9tsgQb2io+ouKxL5WCQo/tKLH1aymF0ync3oqfyPmQYzyYUEVBSF/pdFqy3oLdnT+JG20Qy0Hw
-	sJGi9n8OsPn9U0WEGJyc5yk5WrngQpavXjX1RpqzdduasqIGq6YIba6SYRWD+bgdvJoVTsWzJjG
-	Gea5SfEYRNnCowj9+FU
-X-Google-Smtp-Source: 
- AGHT+IHzLTx09P/leFARnY6X5Rw+RTT4Z6ydiWIlqntcpCfQO5C9TvqgolhWSXC+nuZWkpXrCICBjw==
-X-Received: by 2002:a05:622a:4d1:b0:4f0:441:96be with SMTP id
- d75a77b69052e-4f017652ebbmr37276351cf.51.1764779114397;
-        Wed, 03 Dec 2025 08:25:14 -0800 (PST)
-Received: from 30-134-MSI-RED (c-98-227-27-249.hsd1.il.comcast.net.
- [98.227.27.249])
-        by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4efd341f0ecsm115975311cf.16.2025.12.03.08.25.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Dec 2025 08:25:14 -0800 (PST)
-From: Andres J Rosa <andyrosa@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: alsa-devel@alsa-project.org,
-	Andres J Rosa <andyrosa@gmail.com>
-Subject: [PATCH] ALSA: uapi: Fix typo in asound.h comment
-Date: Wed,  3 Dec 2025 10:25:01 -0600
-Message-ID: <20251203162509.1822-1-andyrosa@gmail.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
+	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id A643FF800BA
+	for <alsa-devel@alsa-project.org>; Wed,  3 Dec 2025 20:36:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A643FF800BA
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: AFWPLKYFCTLEIUO4KIQLSMNQ7K6S4LP5
-X-Message-ID-Hash: AFWPLKYFCTLEIUO4KIQLSMNQ7K6S4LP5
-X-MailFrom: andyrosa@gmail.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+Message-Id: <187dcbaf8e561b00-webhooks-bot@alsa-project.org>
+In-Reply-To: <187dcbaf8dbf5f00-webhooks-bot@alsa-project.org>
+References: <187dcbaf8dbf5f00-webhooks-bot@alsa-project.org>
+Subject: Asus ROG Crosshair X870E hero (ACL4082) - No audio from rear
+ microphone
+Date: Wed,  3 Dec 2025 20:36:34 +0100 (CET)
+Message-ID-Hash: CHPAX7MLOXUQETLQXPVHWS5XCQPXO6M4
+X-Message-ID-Hash: CHPAX7MLOXUQETLQXPVHWS5XCQPXO6M4
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AFWPLKYFCTLEIUO4KIQLSMNQ7K6S4LP5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CHPAX7MLOXUQETLQXPVHWS5XCQPXO6M4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,26 +71,371 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fix 'level-shit' to 'level-shift' in struct snd_cea_861_aud_if comment.
+alsa-project/alsa-ucm-conf issue #652 was opened from fixed77:
 
-Signed-off-by: Andres J Rosa <andyrosa@gmail.com>
----
- include/uapi/sound/asound.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The Rear Microphone is detected as Line In when I plug in my mic. There is no sound from the microphone. I don't use the Front Audio connection as my case doesn't have I/O for it, I just used the 2 audio ports in the rear.
 
-diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-index 5a049eeae..d3ce75ba9 100644
---- a/include/uapi/sound/asound.h
-+++ b/include/uapi/sound/asound.h
-@@ -60,7 +60,7 @@ struct snd_cea_861_aud_if {
- 	unsigned char db2_sf_ss; /* sample frequency and size */
- 	unsigned char db3; /* not used, all zeros */
- 	unsigned char db4_ca; /* channel allocation code */
--	unsigned char db5_dminh_lsv; /* downmix inhibit & level-shit values */
-+	unsigned char db5_dminh_lsv; /* downmix inhibit & level-shift values */
- };
- 
- /****************************************************************************
--- 
-2.52.0.windows.1
+Motherboard: Asus ROG Crosshair X870E hero
+Audio Device: ALC4082
+Distro: Ubuntu 24.04
+Window Manager: Gnome-Shell
+Packages:
+```
+alsa-base/noble,noble,now 1.0.25+dfsg-0ubuntu7
+alsa-topology-conf/noble,noble,now 1.2.5.1-2
+alsa-ucm-conf/noble-updates,noble-updates,now 1.2.10-1ubuntu5.7
+alsa-utils/noble,now 1.2.9-1ubuntu5
+gstreamer1.0-alsa/noble-updates,noble-security,now 1.24.2-1ubuntu0.3
+gstreamer1.0-pipewire/noble-updates,now 1.0.5-1ubuntu3.1
+gstreamer1.0-pulseaudio/noble-updates,noble-security,now 1.24.2-1ubuntu1.2
+libpipewire-0.3-0t64/noble-updates,now 1.0.5-1ubuntu3.1
+libpipewire-0.3-common/noble-updates,noble-updates,now 1.0.5-1ubuntu3.1
+libpipewire-0.3-modules/noble-updates,now 1.0.5-1ubuntu3.1
+pipewire-alsa/noble-updates,now 1.0.5-1ubuntu3.1
+pipewire-audio/noble-updates,noble-updates,now 1.0.5-1ubuntu3.1
+pipewire-bin/noble-updates,now 1.0.5-1ubuntu3.1
+pipewire-pulse/noble-updates,now 1.0.5-1ubuntu3.1
+pipewire/noble-updates,now 1.0.5-1ubuntu3.1
+pulseaudio-utils/noble-updates,now 1:16.1+dfsg1-2ubuntu10.1
+```
 
+`lsusb | grep -i audio`
+```
+Bus 001 Device 009: ID 0b05:1b7c ASUSTek Computer, Inc. USB Audio
+```
+
+`alsactl monitor` (unplugging and plugging mic)
+```
+node hw:2, #12 (0,0,0,Line - Input Jack,0) VALUE
+node hw:2, #12 (0,0,0,Line - Input Jack,0) VALUE
+node hw:2, #12 (0,0,0,Line - Input Jack,0) VALUE
+node hw:2, #12 (0,0,0,Line - Input Jack,0) VALUE
+```
+
+`amixer -c 2 contents`
+```
+numid=8,iface=CARD,name='Analog In - Input Jack'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=11,iface=CARD,name='Clock Source 1 Validity'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=15,iface=CARD,name='Clock Source 3 Validity'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=19,iface=CARD,name='Clock Source 4 Validity'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=22,iface=CARD,name='Clock Source 5 Validity'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=26,iface=CARD,name='Clock Source 7 Validity'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=29,iface=CARD,name='Clock Source 8 Validity'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=27,iface=CARD,name='Headphone - Output Jack'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=off
+numid=30,iface=CARD,name='IEC958 In - Output Jack'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=12,iface=CARD,name='Line - Input Jack'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=16,iface=CARD,name='Mic - Input Jack'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=off
+numid=23,iface=CARD,name='Speaker - Output Jack'
+  ; type=BOOLEAN,access=r-------,values=1
+  : values=on
+numid=20,iface=MIXER,name='PCM Playback Switch'
+  ; type=BOOLEAN,access=rw------,values=1
+  : values=on
+numid=24,iface=MIXER,name='PCM Playback Switch',index=1
+  ; type=BOOLEAN,access=rw------,values=1
+  : values=off
+numid=28,iface=MIXER,name='PCM Playback Switch',index=2
+  ; type=BOOLEAN,access=rw------,values=1
+  : values=on
+numid=21,iface=MIXER,name='PCM Playback Volume'
+  ; type=INTEGER,access=rw---R--,values=8,min=0,max=87,step=0
+  : values=56,56,56,56,56,56,56,56
+  | dBminmax-min=-65.25dB,max=0.00dB
+numid=25,iface=MIXER,name='PCM Playback Volume',index=1
+  ; type=INTEGER,access=rw---R--,values=2,min=0,max=255,step=0
+  : values=215,215
+  | dBminmax-min=-127.50dB,max=0.00dB
+numid=13,iface=MIXER,name='Line Capture Switch'
+  ; type=BOOLEAN,access=rw------,values=1
+  : values=on
+numid=14,iface=MIXER,name='Line Capture Volume'
+  ; type=INTEGER,access=rw---R--,values=2,min=0,max=39,step=0
+  : values=39,39
+  | dBminmax-min=-17.25dB,max=12.00dB
+numid=17,iface=MIXER,name='Mic Capture Switch'
+  ; type=BOOLEAN,access=rw------,values=1
+  : values=off
+numid=18,iface=MIXER,name='Mic Capture Volume'
+  ; type=INTEGER,access=rw---R--,values=2,min=0,max=39,step=0
+  : values=39,39
+  | dBminmax-min=-17.25dB,max=12.00dB
+numid=9,iface=MIXER,name='Analog In Capture Switch'
+  ; type=BOOLEAN,access=rw------,values=1
+  : values=on
+numid=10,iface=MIXER,name='Analog In Capture Volume'
+  ; type=INTEGER,access=rw---R--,values=2,min=0,max=39,step=0
+  : values=39,39
+  | dBminmax-min=-17.25dB,max=12.00dB
+numid=1,iface=PCM,name='Capture Channel Map'
+  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
+  : values=0,0
+  | container
+    | chmap-fixed=FL,FR
+numid=4,iface=PCM,name='Playback Channel Map'
+  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
+  : values=3,4
+  | container
+    | chmap-fixed=FL,FR
+    | chmap-fixed=FL,FR,RL,RR
+    | chmap-fixed=FL,FR,FC,LFE,RL,RR
+    | chmap-fixed=FL,FR,FC,LFE,RL,RR,SL,SR
+numid=2,iface=PCM,name='Capture Channel Map',device=1
+  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
+  : values=3,4
+  | container
+    | chmap-fixed=FL,FR
+numid=5,iface=PCM,name='Playback Channel Map',device=1
+  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
+  : values=0,0
+  | container
+    | chmap-fixed=FL,FR
+numid=3,iface=PCM,name='Capture Channel Map',device=2
+  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
+  : values=0,0
+  | container
+    | chmap-fixed=FL,FR
+numid=6,iface=PCM,name='Playback Channel Map',device=2
+  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
+  : values=0,0
+  | container
+    | chmap-fixed=FL,FR
+numid=7,iface=PCM,name='Playback Channel Map',device=3
+  ; type=INTEGER,access=r--v-R--,values=2,min=0,max=36,step=0
+  : values=0,0
+  | container
+    | chmap-fixed=FL,FR
+```
+
+`arecord -l`
+```
+**** List of CAPTURE Hardware Devices ****
+card 2: Audio [USB Audio], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: Audio [USB Audio], device 1: USB Audio [USB Audio #1]
+  Subdevices: 0/1
+  Subdevice #0: subdevice #0
+card 2: Audio [USB Audio], device 2: USB Audio [USB Audio #2]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+```
+
+`alsaucm -c hw:2 dump text`
+```
+Verb.HiFi {
+	Comment "HiFi 2.0 channels"
+	Device.Speaker {
+		Comment Speakers
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			JackControl "Speaker - Output Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackChannels 2
+			PlaybackMixerElem PCM,0
+			PlaybackPCM "_ucm0001.hw:Audio"
+			PlaybackPriority 200
+			TQ HiFi
+		}
+	}
+	Device.Headphones {
+		Comment "Front Headphones"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			JackControl "Headphone - Output Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackMixerElem PCM,1
+			PlaybackPCM "_ucm0001.hw:Audio,1"
+			PlaybackPriority 300
+			TQ HiFi
+		}
+	}
+	Device.SPDIF {
+		Comment "S/PDIF Output"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackMixerElem PCM,2
+			PlaybackPCM "_ucm0001.hw:Audio,3"
+			PlaybackPriority 100
+			TQ HiFi
+		}
+	}
+	Device.Line1 {
+		Comment "Line Input"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			CaptureMixerElem Line,0
+			CapturePCM "_ucm0001.hw:Audio,1"
+			CapturePriority 100
+			JackControl "Line - Input Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			TQ HiFi
+		}
+	}
+	Device.Mic1 {
+		Comment Microphone
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			CaptureMixerElem Mic,0
+			CapturePCM "_ucm0001.hw:Audio,2"
+			CapturePriority 300
+			JackControl "Mic - Input Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			TQ HiFi
+		}
+	}
+}
+Verb."HiFi 5+1" {
+	Comment "HiFi 5.1 channels"
+	Device.Speaker {
+		Comment Speakers
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			JackControl "Speaker - Output Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackChannels 6
+			PlaybackMixerElem PCM,0
+			PlaybackPCM "_ucm0001.hw:Audio"
+			PlaybackPriority 200
+			TQ HiFi
+		}
+	}
+	Device.Headphones {
+		Comment "Front Headphones"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			JackControl "Headphone - Output Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackMixerElem PCM,1
+			PlaybackPCM "_ucm0001.hw:Audio,1"
+			PlaybackPriority 300
+			TQ HiFi
+		}
+	}
+	Device.SPDIF {
+		Comment "S/PDIF Output"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackMixerElem PCM,2
+			PlaybackPCM "_ucm0001.hw:Audio,3"
+			PlaybackPriority 100
+			TQ HiFi
+		}
+	}
+	Device.Line1 {
+		Comment "Line Input"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			CaptureMixerElem Line,0
+			CapturePCM "_ucm0001.hw:Audio,1"
+			CapturePriority 100
+			JackControl "Line - Input Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			TQ HiFi
+		}
+	}
+	Device.Mic1 {
+		Comment Microphone
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			CaptureMixerElem Mic,0
+			CapturePCM "_ucm0001.hw:Audio,2"
+			CapturePriority 300
+			JackControl "Mic - Input Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			TQ HiFi
+		}
+	}
+}
+Verb."HiFi 7+1" {
+	Comment "HiFi 7.1 channels"
+	Device.Speaker {
+		Comment Speakers
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			JackControl "Speaker - Output Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackChannels 8
+			PlaybackMixerElem PCM,0
+			PlaybackPCM "_ucm0001.hw:Audio"
+			PlaybackPriority 200
+			TQ HiFi
+		}
+	}
+	Device.Headphones {
+		Comment "Front Headphones"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			JackControl "Headphone - Output Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackMixerElem PCM,1
+			PlaybackPCM "_ucm0001.hw:Audio,1"
+			PlaybackPriority 300
+			TQ HiFi
+		}
+	}
+	Device.SPDIF {
+		Comment "S/PDIF Output"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			PlaybackMixerElem PCM,2
+			PlaybackPCM "_ucm0001.hw:Audio,3"
+			PlaybackPriority 100
+			TQ HiFi
+		}
+	}
+	Device.Line1 {
+		Comment "Line Input"
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			CaptureMixerElem Line,0
+			CapturePCM "_ucm0001.hw:Audio,1"
+			CapturePriority 100
+			JackControl "Line - Input Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			TQ HiFi
+		}
+	}
+	Device.Mic1 {
+		Comment Microphone
+		Values {
+			CaptureCTL "_ucm0001.hw:Audio"
+			CaptureMixerElem Mic,0
+			CapturePCM "_ucm0001.hw:Audio,2"
+			CapturePriority 300
+			JackControl "Mic - Input Jack"
+			PlaybackCTL "_ucm0001.hw:Audio"
+			TQ HiFi
+		}
+	}
+}
+```
+
+[alsa-info.txt](https://github.com/user-attachments/files/23915492/alsa-info.txt)
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/652
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

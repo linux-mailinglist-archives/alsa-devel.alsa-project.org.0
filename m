@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C00FAC9F615
-	for <lists+alsa-devel@lfdr.de>; Wed, 03 Dec 2025 15:56:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F3C2C9F61B
+	for <lists+alsa-devel@lfdr.de>; Wed, 03 Dec 2025 15:57:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4587601D1;
-	Wed,  3 Dec 2025 15:56:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4587601D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6C296021F;
+	Wed,  3 Dec 2025 15:56:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6C296021F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1764773799;
-	bh=heEwWGYaT6SNGxBWgFrYIuACgmsZuCCbIJrxQibpcqA=;
+	s=default; t=1764773811;
+	bh=T/mpkoDkRkQznJ4tY5RNjZro2rZBg1u/C0IJ2SPDB+0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iNoC9PXIQZcsZvggriWnitc7fI3szVmRrOQgCA8MrBceIyfM22Pufe9CWuu5g/Wf/
-	 nzKPB6Smpejf994AobsT2ZShSuE0ziDZnec0YiEmDY61wQC0O5kB5TiMXy/OigplFh
-	 +iPKtA9Ev+lCuOVEEZlBLLv9mQnbLods2oXNHLSs=
+	b=ON31yv4kwNUXD7mMyDl7ZRavQX0zzySvbyWvabEvWZ5YjPTOeY4xnPb5c57Gvs1O/
+	 6PTRthJVwv1ruC+WBPPJK2fkmUyYhNzYD+DcZx71FFVUPDC6RfC3glXY2X66OogYvw
+	 aY15f8hY6rbHaXp3PK1YgS3TmuJaakC0fgcoexak=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0B94F805C2; Wed,  3 Dec 2025 15:56:06 +0100 (CET)
+	id 30F98F805F2; Wed,  3 Dec 2025 15:56:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D79CF805C8;
-	Wed,  3 Dec 2025 15:56:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8920F805F3;
+	Wed,  3 Dec 2025 15:56:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B59FF8051F; Wed,  3 Dec 2025 15:54:21 +0100 (CET)
+	id 4178EF8051D; Wed,  3 Dec 2025 15:54:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B80C1F80269
-	for <alsa-devel@alsa-project.org>; Wed,  3 Dec 2025 15:54:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B80C1F80269
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3DF4BF800BA
+	for <alsa-devel@alsa-project.org>; Wed,  3 Dec 2025 15:54:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DF4BF800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=t9pLrSHt
+ header.s=k20201202 header.b=Dn6g1MAY
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id CB8A3441CD;
+	by tor.source.kernel.org (Postfix) with ESMTP id 035786019D;
+	Wed,  3 Dec 2025 14:54:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C87AC116B1;
 	Wed,  3 Dec 2025 14:54:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFD3C4CEF5;
-	Wed,  3 Dec 2025 14:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1764773653;
-	bh=heEwWGYaT6SNGxBWgFrYIuACgmsZuCCbIJrxQibpcqA=;
+	s=k20201202; t=1764773656;
+	bh=T/mpkoDkRkQznJ4tY5RNjZro2rZBg1u/C0IJ2SPDB+0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=t9pLrSHtmoNs3ktOHnroaQ5XFE56xllTUiICQVgbqdkJipVDLRhrM5J4AwbfIuWNq
-	 eTHob3DuktZAGL1q9KCbN4ROG4Jyh4VVzucHP9V750CWfuRCMmPjgMywxLCNwQc4Sm
-	 wEhmbqQzL1CCrvuNLuiUFYWfrNCfTQdKtXfUB+fJi6UetLw1MpzGHdJwfv3jwwYhBU
-	 Et6WWfaHGtNe8w2e6Co+xmUO4BtCzHvdmv3l9ngsuCgtm0Qg9BUy0qnd0VPgqnV9c0
-	 S8hyUrMaFatr/wVrEoB//OcPE6hxE6tbbAmJ6t+zj5IOoOuakz5sjhemLaY6J9zdfh
-	 I4ipQSI22eFZg==
+	b=Dn6g1MAYfs5NC3bpq41ehLyOzxgWqU66/H1pIM+zKcs8YORIuJPiyZt6cb5ekottE
+	 9le65haKP8JA91ZopVYFiKhASiJMg0qcbytVDNhNWtgMxpxOnNvtT4/eEWPVN2ie1t
+	 pah10Cip1WFL2nPO+yFOMbKqQgCC0g80MZyahRLXfLVK9THeOattuM4+7Pg999F3xs
+	 Q8CbTPe/zKrlYFsuHMl/xJXL5UOCCv2y1TVVRKWG5BJsPOTT7D8y2K99KrX7lhQwCo
+	 po+bmTV9dQohroLP19DMvcZEo2K5pgbNP+9AMJtVitq/IMS1uJnkDY64QM4i8gQG73
+	 lU9gSGbb5/pOg==
 From: Mark Brown <broonie@kernel.org>
 To: alsa-devel@alsa-project.org,
  Raghavendra Prasad Mallela <raghavendraprasad.mallela@amd.com>
@@ -69,21 +69,20 @@ Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
  Takashi Iwai <tiwai@suse.com>,
  Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
- Peter Zijlstra <peterz@infradead.org>,
  "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
  <linux-sound@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <20251202175616.2213054-1-raghavendraprasad.mallela@amd.com>
-References: <20251202175616.2213054-1-raghavendraprasad.mallela@amd.com>
-Subject: Re: [PATCH v1] ASoC: amd: acp: Audio is not resuming after s0ix
-Message-Id: <176477365049.48347.16119915786526806162.b4-ty@kernel.org>
-Date: Wed, 03 Dec 2025 14:54:10 +0000
+In-Reply-To: <20251203064650.2554625-1-raghavendraprasad.mallela@amd.com>
+References: <20251203064650.2554625-1-raghavendraprasad.mallela@amd.com>
+Subject: Re: [PATCH v2] ASoC: amd: acp: Audio is not resuming after s0ix
+Message-Id: <176477365389.48347.3477237517341563967.b4-ty@kernel.org>
+Date: Wed, 03 Dec 2025 14:54:13 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15-dev-88d78
-Message-ID-Hash: 3AZ5SVPIBUNBWURBP4XNXYEVULHKW34U
-X-Message-ID-Hash: 3AZ5SVPIBUNBWURBP4XNXYEVULHKW34U
+Message-ID-Hash: AQ5JROTZTHWUY44WTBZMENBPFAC7L4UB
+X-Message-ID-Hash: AQ5JROTZTHWUY44WTBZMENBPFAC7L4UB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3AZ5SVPIBUNBWURBP4XNXYEVULHKW34U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AQ5JROTZTHWUY44WTBZMENBPFAC7L4UB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,7 +104,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 02 Dec 2025 23:26:14 +0530, Raghavendra Prasad Mallela wrote:
+On Wed, 03 Dec 2025 12:16:48 +0530, Raghavendra Prasad Mallela wrote:
 > Audio fails to resume after system exits suspend mode
 > due to accessing incorrect ring buffer address during
 > resume. This patch resolves issue by selecting correct

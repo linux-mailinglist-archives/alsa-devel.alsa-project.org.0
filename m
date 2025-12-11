@@ -2,54 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 623A9CB2A8A
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Dec 2025 11:17:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 927ABCB45EB
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Dec 2025 01:51:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1E64601EA;
-	Wed, 10 Dec 2025 11:17:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1E64601EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D147E6020F;
+	Thu, 11 Dec 2025 01:51:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D147E6020F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1765361838;
-	bh=HJIQ8Hay2nNLe+mxbdBLcnFO/wxuMyAUokp0oDaIhMo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=Ai+QvbYkUaeQOvOkEhXm0Nd9WVIrR9VLbyKWRlSYU7v56wkN4On7MV0KL1mxX4T1x
-	 +3eiAtpZKQ9cMsbm1/b/+lscdo/NYnBnQalt0sQjzjFdoRtOfgz8w8+zpszeU9ONZF
-	 5PWL+NBHbjW1KOroCQ02z9lf/lqg91jnHfe8zbcI=
+	s=default; t=1765414307;
+	bh=ugYzIIND/LcIOVmEMPIMFDr53DhGYIWESwbexiw2vIY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HKxTBcjn7EXBWLKDZ0ArQ/n95qEV8hWEFi/EaoeH4tJRyySdauE1EAr7ltl6GwwO2
+	 m/31Dd2oIsSaPmUCIHiA7DW3zKvifLTOvip55y7Ign8qarYAT/ef1bAeP3trBCN0zh
+	 Zjfh4Omm04POn4yr7Sy+Epiyb9bNOl16+Q5tLFeI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 667AFF805DF; Wed, 10 Dec 2025 11:16:39 +0100 (CET)
+	id AA36DF805C8; Thu, 11 Dec 2025 01:51:12 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06C9BF80579;
-	Wed, 10 Dec 2025 11:16:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84EB8F805D8;
+	Thu, 11 Dec 2025 01:51:12 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F9AEF804F2; Wed, 10 Dec 2025 11:14:31 +0100 (CET)
+	id 9D417F804CC; Thu, 11 Dec 2025 01:49:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
-	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5543EF80095
-	for <alsa-devel@alsa-project.org>; Wed, 10 Dec 2025 11:14:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5543EF80095
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <187fd313063e6700-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-ucm-conf/pr/659@alsa-project.org>
-References: <alsa-project/alsa-ucm-conf/pr/659@alsa-project.org>
-Subject: USB-Audio: Antelope Audio Zen Go: add UCM2 configuration files
-Date: Wed, 10 Dec 2025 11:14:31 +0100 (CET)
-Message-ID-Hash: 2KVOQKUJLEDGG22VNJJ2HJB4GSEXXAEU
-X-Message-ID-Hash: 2KVOQKUJLEDGG22VNJJ2HJB4GSEXXAEU
-X-MailFrom: github@alsa-project.org
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2B645F80448
+	for <alsa-devel@alsa-project.org>; Thu, 11 Dec 2025 01:48:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B645F80448
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=UQeYRf6n
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 0765A41869;
+	Thu, 11 Dec 2025 00:48:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4FAAC4CEF1;
+	Thu, 11 Dec 2025 00:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1765414129;
+	bh=ugYzIIND/LcIOVmEMPIMFDr53DhGYIWESwbexiw2vIY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=UQeYRf6nMfdNfoY9qa+qNYjSPErFlkrtdsanbnxGUPj5IzJRKTBYconp7FFoa/zXL
+	 RyoV5ahEfAMk6kFIBE2VSG9oewfJoxlV9oTDrBxnH4uD7IbsQIL7e37EB7P1SB+/PA
+	 k/FgZy1nj4VPGUrH7JfLrppnh5L9gc/+4JJrvpU6w0GPR1/M0zf5mtm0eMpbIVr3BR
+	 T2qENNRKjz3/eDLJ9N6ITecE8BNKJsRZoeIU4u+J3vlJMwAlqmxCWBxP+Uf41GotFy
+	 +6cfxtWlKKzrd127lRq/nKw9SZBetPwLReWxlYalM+wKfz5nY7/qKzqb6buLWTCwCH
+	 5qD0U23WUXEAw==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 5B15D1ACB974; Thu, 11 Dec 2025 00:48:47 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.19-merge-window
+Date: Thu, 11 Dec 2025 09:48:41 +0900
+Message-Id: <20251211004847.5B15D1ACB974@finisterre.sirena.org.uk>
+Message-ID-Hash: U4TXUPB5G67T3X64JQEVGBZ6H2QAAFUM
+X-Message-ID-Hash: U4TXUPB5G67T3X64JQEVGBZ6H2QAAFUM
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2KVOQKUJLEDGG22VNJJ2HJB4GSEXXAEU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U4TXUPB5G67T3X64JQEVGBZ6H2QAAFUM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,13 +90,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #659 was opened from ryodeushii:
+The following changes since commit c5fae31f60a91dbe884ef2789fb3440bb4cddf05:
 
-Add support for Antelope Audio Zen Go SC
+  ASoC: fsl_micfil: Set default quality and channel (2025-11-29 00:59:00 +0000)
 
+are available in the Git repository at:
 
-[alsa-info.txt](https://github.com/user-attachments/files/24074814/alsa-info.txt)
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.19-merge-window
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/659
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/659.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+for you to fetch changes up to f34836a8ddf9216ff919927cddb705022bf30aab:
+
+  ASoC: amd: acp: update tdm channels for specific DAI (2025-12-10 09:17:53 +0900)
+
+----------------------------------------------------------------
+ASoC: Fixes for v6.19
+
+A small pile of fixes that came in during the merge window, it's all
+fairly standard device specific stuff.
+
+----------------------------------------------------------------
+Eric Biggers (1):
+      ASoC: cros_ec_codec: Remove unnecessary selection of CRYPTO
+
+Eric Naim (1):
+      ASoC: cs35l41: Always return 0 when a subsystem ID is found
+
+Haotian Zhang (1):
+      ASoC: bcm: bcm63xx-pcm-whistler: Check return value of of_dma_configure()
+
+Hemalatha Pinnamreddy (2):
+      ASoC: amd: acp: Audio is not resuming after s0ix
+      ASoC: amd: acp: update tdm channels for specific DAI
+
+Johan Hovold (4):
+      ASoC: codecs: wcd937x: fix OF node leaks on probe failure
+      ASoC: codecs: wcd938x: fix OF node leaks on probe failure
+      ASoC: codecs: wcd939x: fix OF node leaks on probe failure
+      ASoc: qcom: q6afe: fix bad guard conversion
+
+Krzysztof Kozlowski (2):
+      ASoC: codecs: nau8325: Silence uninitialized variables warnings
+      ASoC: rockchip: Fix Wvoid-pointer-to-enum-cast warning (again)
+
+Mark Brown (2):
+      ASoC: ak4458 & ak5558: disable regulator if error
+      ASoC: codecs: wcd93xx: fix OF node leaks on probe
+
+Richard Fitzgerald (2):
+      ASoC: cs-amp-lib: Revert use of __free(kfree) back to normal C cleanup
+      ASoC: cs35l56: Fix incorrect select SND_SOC_CS35L56_CAL_SYSFS_COMMON
+
+Shengjiu Wang (3):
+      ASoC: dt-bindings: cirrus,cs42xx8: Reference common DAI properties
+      ASoC: ak4458: Disable regulator when error happens
+      ASoC: ak5558: Disable regulator when error happens
+
+ .../devicetree/bindings/sound/cirrus,cs42xx8.yaml  |  5 +++-
+ sound/soc/amd/acp/acp-i2s.c                        |  2 ++
+ sound/soc/amd/acp/acp-legacy-common.c              | 30 +++++++++++++++++-----
+ sound/soc/bcm/bcm63xx-pcm-whistler.c               |  4 ++-
+ sound/soc/codecs/Kconfig                           |  3 +--
+ sound/soc/codecs/ak4458.c                          | 10 +++++++-
+ sound/soc/codecs/ak5558.c                          | 10 +++++++-
+ sound/soc/codecs/cs-amp-lib.c                      | 29 ++++++++++++---------
+ sound/soc/codecs/cs35l41.c                         |  7 ++---
+ sound/soc/codecs/nau8325.c                         |  4 +--
+ sound/soc/codecs/wcd937x.c                         |  4 +--
+ sound/soc/codecs/wcd938x.c                         |  3 +--
+ sound/soc/codecs/wcd939x.c                         |  3 +--
+ sound/soc/qcom/qdsp6/q6afe.c                       |  4 +--
+ sound/soc/rockchip/rockchip_pdm.c                  |  2 +-
+ 15 files changed, 82 insertions(+), 38 deletions(-)

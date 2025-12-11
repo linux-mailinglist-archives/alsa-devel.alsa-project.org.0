@@ -2,95 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2AC8CB65BF
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Dec 2025 16:39:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC474CB95D0
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Dec 2025 17:53:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 328C160218;
-	Thu, 11 Dec 2025 16:39:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 328C160218
+	by alsa0.perex.cz (Postfix) with ESMTPS id A45626022B;
+	Fri, 12 Dec 2025 17:53:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A45626022B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1765467562;
-	bh=MJ1gyPr6loaROZIhwYVOWWE3NQ2VnakiFje9rVBA03A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=q4kEmI168ZxOBJ0XiTkHVuT2LQetVSetfVhRBOYcDVedvyK26p9rwz6SlPYq0Kvfp
-	 8k7ZY3P/6fnziftgnOpxZ+fli7I54oKEXtqS4eOqec2phNT56lodh5W/B49rA7+gGL
-	 ZQyeVPO4O3gCul3jHlN1nMjUqVwayKqiCstNmJbo=
+	s=default; t=1765558413;
+	bh=Wmpr4pr1mhCk4pLJpnqXY89idV/XZ6Fo3O6pNoZIXYA=;
+	h=Date:To:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=pZ74CyoZB4i7ImUwaExmK5QlAn7kK2ESN982DKO87/1+h6s8yveW1FTIbCcBvYnWU
+	 f5Z85vvRZuaYoi9ZoDyiwX2bKL672xQ3EOIva0YFpP7FOtTUaplP8lQUzMsgrOnDkH
+	 axrCuVN0TVG0VOdi4NlB2PpCBEIlkRShi/hqcNao=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40553F80095; Thu, 11 Dec 2025 16:38:48 +0100 (CET)
+	id C88DBF805DA; Fri, 12 Dec 2025 17:53:08 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18BF1F805D3;
-	Thu, 11 Dec 2025 16:38:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8465AF805E0;
+	Fri, 12 Dec 2025 17:53:08 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5AB9F804CC; Thu, 11 Dec 2025 16:38:42 +0100 (CET)
+	id 68AB1F804CC; Thu, 11 Dec 2025 19:39:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	DKIM_SIGNED,HTML_MESSAGE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-24426.protonmail.ch (mail-24426.protonmail.ch
+ [109.224.244.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C226F80095
-	for <alsa-devel@alsa-project.org>; Thu, 11 Dec 2025 16:38:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C226F80095
+	by alsa1.perex.cz (Postfix) with ESMTPS id CBB12F80095
+	for <alsa-devel@alsa-project.org>; Thu, 11 Dec 2025 19:39:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBB12F80095
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=iYmsbdks
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id EA3F46013A;
-	Thu, 11 Dec 2025 15:38:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7135FC4CEF7;
-	Thu, 11 Dec 2025 15:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765467517;
-	bh=MJ1gyPr6loaROZIhwYVOWWE3NQ2VnakiFje9rVBA03A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iYmsbdksd51pbb6IQ5HDxAIc00S35FJfwV8+PYbKjb3iBFHNPjIYoDxgNeeuqZWnG
-	 xmc5H/BpzfZLNf1BNrVf7DdYDzkfHAH0RsF+6gFzS017zmuj7wTAcTlfrlmx4IFPAS
-	 MulEDVczs4nwE9MxPpdye46j0CI468/+L0ABzIBYWZpHA/1vjl7SXOnPmDBQo9eixs
-	 +28mf7NwhritHgY6wPYy3/ags07NcAR9/d9Gva42e1ZJHO+nbN3RDtUfWZ0Wnw65xO
-	 eRYn/+vPepXOnS8k0pQ2pdi0sjyT2XoAjQAWecvZhSWuPCyrSWZJgB5CA8GcAJuVOx
-	 fX5Gg+6YoKpvg==
-Date: Thu, 11 Dec 2025 09:38:35 -0600
-From: Rob Herring <robh@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>
-Cc: cezary.rojewski@intel.com, broonie@kernel.org, lgirdwood@gmail.com,
-	krzk+dt@kernel.org, conor+dt@kernel.org, perex@perex.cz,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	alsa-devel@alsa-project.org, flove@realtek.com,
-	shumingf@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com
-Subject: Re: [PATCH v9 1/2] ASoC: dt-bindings: realtek,rt5575: add support
- for ALC5575
-Message-ID: <20251211153835.GA1251928-robh@kernel.org>
-References: <20251211110130.2925541-1-oder_chiou@realtek.com>
- <20251211110130.2925541-2-oder_chiou@realtek.com>
+ unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256
+ header.s=protonmail header.b=hxCeQ/e8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1765478351; x=1765737551;
+	bh=QXgF+KCOT2SOYNag1bBLCX0ogeOrBRfsd0XTrvTD0Ww=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=hxCeQ/e84lSewVtFPzq7t/siwE1PBFw9sdqYwnLtghcpITRp8YFY9He4ioL11Ntux
+	 PG77043u/5EZOdQ61W1pa1JVZYuvRPbvsEA59aMRrvBBmZ3QYvTTumtSTQe6u1vJyg
+	 n177uvU3+YrhIdc8ZEV6bW8Kct2h8/8IlHmQJosbCvEabgdu34gIvYUZMyBtCvI8SI
+	 gWNbwDuCHN+/EFj9tG+DlxWUj6LU6nMTGxXLUTZqC9nA+h0MsiOoD8bg+UHQY5A5CZ
+	 OF7j2C1ybWaFsop96XAZ/h/GWH/qgy+HfsoxWGVRvjEJudwKa0MXtHHtheHqR6q8Mm
+	 6Xd5bZNeg3dhA==
+Date: Thu, 11 Dec 2025 18:39:07 +0000
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+From: immoralimmortality <immoralimmortality@proton.me>
+Subject: [PATCH REQUEST] Add support for Pioneer DJM-900nexus (missing quirk,
+ NXS2 already supported)
+Message-ID: 
+ <pj2vlgaUxLVacsv-dPyR6ruPjXi7Gblbc-4H9Q7m7vHVgpuyydYO9Jo7UFZJC604g-NTSFG5iGlm0uNZ4nlZ6IkTaP5P127cOUGsSuU6htg=@proton.me>
+Feedback-ID: 112725322:user:proton
+X-Pm-Message-ID: 226130abb887c8b6e4fbc9256b5c667e1b5180a8
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251211110130.2925541-2-oder_chiou@realtek.com>
-Message-ID-Hash: XKSFBJCQNWE3X6CSV73CSVKAVMQBFYRG
-X-Message-ID-Hash: XKSFBJCQNWE3X6CSV73CSVKAVMQBFYRG
-X-MailFrom: robh@kernel.org
+Content-Type: multipart/mixed;
+ boundary="b1=_8OXEoX8x5bUCMzi4U4UtJQMHPcHIQ1Aqa8hg1k33bGY"
+X-MailFrom: immoralimmortality@proton.me
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: FMOH2ID6WZ25T76LF5G2CGXOSZUN3IRZ
+X-Message-ID-Hash: FMOH2ID6WZ25T76LF5G2CGXOSZUN3IRZ
+X-Mailman-Approved-At: Fri, 12 Dec 2025 16:52:27 +0000
+X-Content-Filtered-By: Mailman/MimeDel 3.3.9
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XKSFBJCQNWE3X6CSV73CSVKAVMQBFYRG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FMOH2ID6WZ25T76LF5G2CGXOSZUN3IRZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,98 +91,152 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Dec 11, 2025 at 07:01:29PM +0800, Oder Chiou wrote:
-> Audio codec with I2S, I2C and SPI.
-> 
-> Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
-> ---
->  .../bindings/sound/realtek,rt5575.yaml        | 44 +++++++++++++++++++
->  1 file changed, 44 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
-> new file mode 100644
-> index 000000000000..60f9af399dd2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
-> @@ -0,0 +1,44 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/realtek,rt5575.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ALC5575 audio CODEC
-> +
-> +maintainers:
-> +  - Oder Chiou <oder_chiou@realtek.com>
-> +
-> +description:
-> +  The device supports both I2C and SPI. I2C is mandatory, while SPI is
-> +  optional depending on the hardware configuration.
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - realtek,rt5575
-> +      - realtek,rt5575-use-spi
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +        codec@57 {
-> +            compatible = "realtek,rt5575";
-> +            reg = <0x57>;
-> +        };
-> +    };
+--b1=_8OXEoX8x5bUCMzi4U4UtJQMHPcHIQ1Aqa8hg1k33bGY
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-It is completely unclear what you are doing in the SPI case. I 
-deciphered it studying the driver. I shouldn't have to do that, your 
-binding should make that clear. 
+SGkgQUxTQSBtYWludGFpbmVycyEKCkknbSByZXF1ZXN0aW5nIHN1cHBvcnQgZm9yIHRoZSBQaW9u
+ZWVyIERKTS05MDBuZXh1cyBVU0IgYXVkaW8gaW50ZXJmYWNlIChWSUQ6UElEIDA4ZTQ6MDE1OCku
+CgpCQUNLR1JPVU5EOgpUaGUgREpNLTkwMG5leHVzIGlzIHRoZSBwcmVkZWNlc3NvciB0byB0aGUg
+REpNLTkwME5YUzIsIHdoaWNoIGlzIGFscmVhZHkgc3VwcG9ydGVkIGluIHRoZSBrZXJuZWwgKHF1
+aXJrcy10YWJsZS5oLCBtaXhlcl9xdWlya3MuYykuCgpDVVJSRU5UIEJFSEFWSU9SOgotIERldmlj
+ZSBlbnVtZXJhdGVzIHN1Y2Nlc3NmdWxseSAobHN1c2Igc2hvd3MgMDhlNDowMTU4KQotIHNuZC11
+c2ItYXVkaW8gbG9hZHMgYnV0IHByb2JlIGZhaWxzIHdpdGggImNhbm5vdCBmaW5kIFVBQ19IRUFE
+RVIiCi0gS2VybmVsIGxvZ3M6ICJzbmQtdXNiLWF1ZGlvIDMtNDoxLjA6IHByb2JlIHdpdGggZHJp
+dmVyIHNuZC11c2ItYXVkaW8gZmFpbGVkIHdpdGggZXJyb3IgLTIyIgotIEZhbGxzIGJhY2sgdG8g
+TUlESS1vbmx5OiAiUXVpcmsgb3Igbm8gYWx0c2V0OyBmYWxsaW5nIGJhY2sgdG8gTUlESSAxLjAi
+Ci0gTm8gQUxTQSBQQ00gZGV2aWNlcyBjcmVhdGVkIGRlc3BpdGUgaXNvY2hyb25vdXMgZW5kcG9p
+bnRzIGJlaW5nIHByZXNlbnQKCkRFVklDRSBERVRBSUxTOgotIFdvcmtzIGNvcnJlY3RseSBvbiBX
+aW5kb3dzIHdpdGggUGlvbmVlcidzIGRyaXZlcgotIFVTQiBkZXNjcmlwdG9yIHNob3dzIHZlbmRv
+ci1zcGVjaWZpYyBhdWRpbyBzdHJlYW1pbmcgaW50ZXJmYWNlIChJbnRlcmZhY2UgMCwgQ2xhc3Mg
+MHhGRikKLSBBbHRlcm5hdGUgU2V0dGluZyAxIGhhcyBpc29jaHJvbm91cyBlbmRwb2ludHMgKEVQ
+NSBPVVQgMHgwNSwgRVA2IElOIDB4ODYpIGZvciBhdWRpbwotIE1JREkgaW50ZXJmYWNlIChJbnRl
+cmZhY2UgMikgd29ya3MgY29ycmVjdGx5IG9uIExpbnV4CgpURVNUSU5HIFBFUkZPUk1FRDoKLSBB
+dHRlbXB0ZWQgYWRkaW5nIHRvIG5ld19pZDogZWNobyAiMDhlNCAwMTU4IiA+IC9zeXMvYnVzL3Vz
+Yi9kcml2ZXJzL3NuZC11c2ItYXVkaW8vbmV3X2lkClJlc3VsdDogRHJpdmVyIGF0dGVtcHRlZCBw
+cm9iZSBidXQgc3RpbGwgZmFpbGVkIHdpdGggImNhbm5vdCBmaW5kIFVBQ19IRUFERVIiCi0gTXVs
+dGlwbGUgcmVwbHVnL3JlbG9hZCBjeWNsZXMgLSBubyBjaGFuZ2UKClJFUVVFU1RFRCBGSVg6CkFk
+ZCBxdWlyayBlbnRyeSBmb3IgMDhlNDowMTU4IChESk0tOTAwbmV4dXMpIGZvbGxvd2luZyB0aGUg
+cGF0dGVybiBvZiB0aGUgZXhpc3RpbmcgREpNLTkwME5YUzIgKDJiNzM6MDAwYSkgc3VwcG9ydC4g
+QmFzZWQgb24gdGhlIGRlc2NyaXB0b3IgbGF5b3V0LCB0aGlzIGRldmljZSBzaG91bGQgbmVlZCBz
+aW1pbGFyIHZlbmRvci1zcGVjaWZpYyBoYW5kbGluZy4KClRoZSBmaXggc2hvdWxkIGludm9sdmUg
+YWRkaW5nIFVTQl9ERVZJQ0VfVkVORE9SX1NQRUMoMHgwOGU0LCAweDAxNTgpIGVudHJ5IGluIHNv
+dW5kL3VzYi9xdWlya3MtdGFibGUuaCB3aXRoIGFwcHJvcHJpYXRlIGF1ZGlvIGZvcm1hdCBkZWZp
+bml0aW9ucyBmb3I6Ci0gSW50ZXJmYWNlIDAsIEFsdGVybmF0ZSBTZXR0aW5nIDEKLSBQbGF5YmFj
+azogRVAgMHgwNSAoT1VUKQotIENhcHR1cmU6IEVQIDB4ODYgKElOKQotIEZvcm1hdDogUzI0XzNM
+RSwgNDhrSHogc3RlcmVvICgyIGNoYW5uZWxzKQotIEFsc28gaW5jbHVkZSBNSURJIG9uIEludGVy
+ZmFjZSAyCgpJJ3ZlIGF0dGFjaGVkIGEgcHJvcG9zZWQgcGF0Y2ggYmFzZWQgb24gdGhlIERKTS05
+MDBOWFMyIHF1aXJrIHBhdHRlcm4uCgpTVVBQT1JUSU5HIERBVEEgQVRUQUNIRUQ6Ci0gZGptLTkw
+MG5leHVzLXF1aXJrLnBhdGNoIC0gUHJvcG9zZWQga2VybmVsIHBhdGNoCi0gZGptLWRtZXNnLmxv
+ZyAtIEtlcm5lbCBwcm9iZSBmYWlsdXJlIGxvZ3MKLSBkam0tYXNvdW5kLWNhcmRzLnR4dCAtIEN1
+cnJlbnQgQUxTQSBzdGF0ZQotIGRqbS1hcmVjb3JkLnR4dCAtIGFyZWNvcmQgLWwgb3V0cHV0CgpF
+TlZJUk9OTUVOVDoKLSBLZXJuZWw6IDYuMTcuMTAtMzAwLmZjNDMueDg2XzY0IChGZWRvcmEgNDMp
+Ci0gRGV2aWNlIGZpcm13YXJlOiBiY2REZXZpY2U9MTAuMDUKClNpbmNlIHRoZSBuZXdlciBESk0t
+OTAwTlhTMiBhbHJlYWR5IGhhcyBmdWxsIHN1cHBvcnQsIEkgYmVsaWV2ZSBhZGRpbmcgc3VwcG9y
+dCBmb3IgdGhlIG9yaWdpbmFsIG5leHVzIHNob3VsZCBiZSBzdHJhaWdodGZvcndhcmQuIFRoZSBk
+ZXZpY2VzIGFyZSB2ZXJ5IHNpbWlsYXIgaW4gZnVuY3Rpb25hbGl0eS4KCkknbSBoYXBweSB0byB0
+ZXN0IGFueSBwYXRjaGVzIG9yIHByb3ZpZGUgYWRkaXRpb25hbCBpbmZvcm1hdGlvbi90cmFjZXMg
+YXMgbmVlZGVkLgoKVGhhbmsgeW91IGZvciBjb25zaWRlcmluZyB0aGlzIHJlcXVlc3QhCgpLaW5k
+IHJlZ2FyZHMsCgpm
 
-So your DT must look like this:
+--b1=_8OXEoX8x5bUCMzi4U4UtJQMHPcHIQ1Aqa8hg1k33bGY
+Content-Type: text/x-patch; name=djm-900nexus-quirk.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=djm-900nexus-quirk.patch
 
-i2c {
-	codec@57 {
-		compatible = "realtek,rt5575-use-spi";
-		reg = <0x57>;
-	};
-};
+LS0tIGEvc291bmQvdXNiL3F1aXJrcy10YWJsZS5oCisrKyBiL3NvdW5kL3VzYi9xdWlya3MtdGFi
+bGUuaApAQCAtMzAyNSw2ICszMDI1LDY2IEBAIFlBTUFIQV9ERVZJQ0UoMHg3MDEwLCAiVUI5OSIp
+LAogICAgICAgIH0KIH0sCiB7CisgICAgICAgLyoKKyAgICAgICAgKiBQaW9uZWVyIERKIERKTS05
+MDBuZXh1cworICAgICAgICAqIEF1ZGlvIGNhcHR1cmUgKFJFQyBPVVQpIEAgNDhrSHoKKyAgICAg
+ICAgKiBCYXNlZCBvbiBESk0tOTAwTlhTMiBxdWlyayBwYXR0ZXJuCisgICAgICAgICovCisgICAg
+ICAgVVNCX0RFVklDRV9WRU5ET1JfU1BFQygweDA4ZTQsIDB4MDE1OCksCisgICAgICAgUVVJUktf
+RFJJVkVSX0lORk8geworICAgICAgICAgICAgICAgUVVJUktfREFUQV9DT01QT1NJVEUgeworICAg
+ICAgICAgICAgICAgICAgICAgICB7CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUVVJ
+UktfREFUQV9BVURJT0ZPUk1BVCgwKSB7CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAuZm9ybWF0cyA9IFNORFJWX1BDTV9GTVRCSVRfUzI0XzNMRSwKKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5jaGFubmVscyA9IDIsCisgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAuaWZhY2UgPSAwLAorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgLmFsdHNldHRpbmcgPSAxLAorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgLmFsdHNldF9pZHggPSAxLAorICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgLmVuZHBvaW50ID0gMHgwNSwKKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIC5lcF9hdHRyID0gVVNCX0VORFBPSU5UX1hGRVJfSVNPQ3wK
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBVU0JfRU5EUE9JTlRf
+U1lOQ19BU1lOQywKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5yYXRl
+cyA9IFNORFJWX1BDTV9SQVRFXzQ4MDAwLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgLnJhdGVfbWluID0gNDgwMDAsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAucmF0ZV9tYXggPSA0ODAwMCwKKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIC5ucl9yYXRlcyA9IDEsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAucmF0ZV90YWJsZSA9ICh1bnNpZ25lZCBpbnRbXSkgeworICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA0ODAwMAorICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgfQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IH0KKyAgICAgICAgICAgICAgICAgICAgICAgfSwKKyAgICAgICAgICAgICAgICAgICAgICAgewor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFFVSVJLX0RBVEFfQVVESU9GT1JNQVQoMCkg
+eworICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLmZvcm1hdHMgPSBTTkRS
+Vl9QQ01fRk1UQklUX1MyNF8zTEUsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAuY2hhbm5lbHMgPSAyLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgLmlmYWNlID0gMCwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5h
+bHRzZXR0aW5nID0gMSwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5h
+bHRzZXRfaWR4ID0gMSwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5l
+bmRwb2ludCA9IDB4ODYsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAu
+ZXBfaWR4ID0gMSwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5lcF9h
+dHRyID0gVVNCX0VORFBPSU5UX1hGRVJfSVNPQ3wKKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBVU0JfRU5EUE9JTlRfU1lOQ19BU1lOQ3wKKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBVU0JfRU5EUE9JTlRfVVNBR0VfSU1QTElDSVRf
+RkIsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAucmF0ZXMgPSBTTkRS
+Vl9QQ01fUkFURV80ODAwMCwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IC5yYXRlX21pbiA9IDQ4MDAwLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgLnJhdGVfbWF4ID0gNDgwMDAsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAubnJfcmF0ZXMgPSAxLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgLnJhdGVfdGFibGUgPSAodW5zaWduZWQgaW50W10pIHsKKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgNDgwMDAKKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIH0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9CisgICAg
+ICAgICAgICAgICAgICAgICAgIH0sCisgICAgICAgICAgICAgICAgICAgICAgIHsKKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBRVUlSS19EQVRBX01JRElfU1RBTkRBUkRfSU5URVJGQUNF
+KDIpCisgICAgICAgICAgICAgICAgICAgICAgIH0sCisgICAgICAgICAgICAgICAgICAgICAgIFFV
+SVJLX0NPTVBPU0lURV9FTkQKKyAgICAgICAgICAgICAgIH0KKyAgICAgICB9Cit9LAorewogICAg
+ICAgIC8qCiAgICAgICAgICogUGlvbmVlciBESiBESk0tOTAwTlhTMgogICAgICAgICAqIDEwIGNo
+YW5uZWxzIHBsYXliYWNrICYgMTIgY2hhbm5lbHMgY2FwdHVyZSBAIDQ0LjEvNDgvOTZrSHogUzI0
+TEUK
 
-spi {
-	codec@1 {
-		compatible = "realtek,rt5575";
-		reg = <0x1>;
-	};
-};
+--b1=_8OXEoX8x5bUCMzi4U4UtJQMHPcHIQ1Aqa8hg1k33bGY
+Content-Type: text/x-log; name=djm-dmesg.log
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=djm-dmesg.log
 
-First, there's no need for "-use-spi" because you can just check if 
-there is a rt5575 SPI device and use it if there is. Why would you have 
-the SPI device and not use it?
+WyAzMzc2LjgwNDI4Nl0gd2xwMHMyMGYzOiBhc3NvY2lhdGUgd2l0aCA3NDo0Mjo3ZjowNzo5ODpj
+YyAodHJ5IDEvMykKWyAzMzc2LjgxMTU3MV0gd2xwMHMyMGYzOiBSWCBBc3NvY1Jlc3AgZnJvbSA3
+NDo0Mjo3ZjowNzo5ODpjYyAoY2FwYWI9MHgxNTExIHN0YXR1cz0wIGFpZD00KQpbIDMzNzYuODIz
+ODIyXSB3bHAwczIwZjM6IGFzc29jaWF0ZWQKWyAzMzc2Ljg4MTk1N10gd2xwMHMyMGYzOiBMaW1p
+dGluZyBUWCBwb3dlciB0byAyMyAoMzAgLSA3KSBkQm0gYXMgYWR2ZXJ0aXNlZCBieSA3NDo0Mjo3
+ZjowNzo5ODpjYwpbIDQ0NzAuNTU3OTA5XSB1c2IgMy00OiBuZXcgaGlnaC1zcGVlZCBVU0IgZGV2
+aWNlIG51bWJlciA1IHVzaW5nIHhoY2lfaGNkClsgNDQ3MC43NDM1NDVdIHVzYiAzLTQ6IE5ldyBV
+U0IgZGV2aWNlIGZvdW5kLCBpZFZlbmRvcj0wOGU0LCBpZFByb2R1Y3Q9MDE1OCwgYmNkRGV2aWNl
+PTEwLjA1ClsgNDQ3MC43NDM1NjJdIHVzYiAzLTQ6IE5ldyBVU0IgZGV2aWNlIHN0cmluZ3M6IE1m
+cj0xLCBQcm9kdWN0PTIsIFNlcmlhbE51bWJlcj0wClsgNDQ3MC43NDM1NjZdIHVzYiAzLTQ6IFBy
+b2R1Y3Q6IERKTS05MDBuZXh1cwpbIDQ0NzAuNzQzNTcwXSB1c2IgMy00OiBNYW51ZmFjdHVyZXI6
+IFBpb25lZXIgQ29ycG9yYXRpb24KWyA0NDcwLjk1NzM2MV0gdXNiIDMtNDogUXVpcmsgb3Igbm8g
+YWx0c2V0OyBmYWxsaW5nIGJhY2sgdG8gTUlESSAxLjAKWyA0NDcwLjk1ODQzOF0gdXNiY29yZTog
+cmVnaXN0ZXJlZCBuZXcgaW50ZXJmYWNlIGRyaXZlciBzbmQtdXNiLWF1ZGlvCg==
 
-But really it is not ideal having 2 device nodes for a single device. It 
-would be much simpler to just have something like this in the i2c node:
+--b1=_8OXEoX8x5bUCMzi4U4UtJQMHPcHIQ1Aqa8hg1k33bGY
+Content-Type: text/plain; name=djm-asound-cards.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=djm-asound-cards.txt
 
-spi-parent = <&spi0 1>;
+IDAgW1BDSCAgICAgICAgICAgIF06IEhEQS1JbnRlbCAtIEhEQSBJbnRlbCBQQ0gKICAgICAgICAg
+ICAgICAgICAgICAgIEhEQSBJbnRlbCBQQ0ggYXQgMHg2MDAxMTQwMDAwIGlycSAxNzAKIDEgW0RK
+TTkwMG5leHVzICAgIF06IFVTQi1BdWRpbyAtIERKTS05MDBuZXh1cwogICAgICAgICAgICAgICAg
+ICAgICAgUGlvbmVlciBDb3Jwb3JhdGlvbiBESk0tOTAwbmV4dXMgYXQgdXNiLTAwMDA6MDA6MTQu
+MC00LCBoaWdoIHNwZWVkCg==
 
-Where the cell is the chip-select #.
+--b1=_8OXEoX8x5bUCMzi4U4UtJQMHPcHIQ1Aqa8hg1k33bGY
+Content-Type: text/plain; name=djm-arecord.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=djm-arecord.txt
 
-We have an 'i2c-parent' already for similar reasons when there are 2 
-bus connections.
+KioqKiBMaXN0IG9mIENBUFRVUkUgSGFyZHdhcmUgRGV2aWNlcyAqKioqCmNhcmQgMDogUENIIFtI
+REEgSW50ZWwgUENIXSwgZGV2aWNlIDA6IEFMQzI4NSBBbmFsb2cgW0FMQzI4NSBBbmFsb2ddCiAg
+U3ViZGV2aWNlczogMS8xCiAgU3ViZGV2aWNlICMwOiBzdWJkZXZpY2UgIzAK
 
-Rob
+--b1=_8OXEoX8x5bUCMzi4U4UtJQMHPcHIQ1Aqa8hg1k33bGY--
+

@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08E61CC4459
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Dec 2025 17:27:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D7CCC50A6
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Dec 2025 20:51:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09B38601F6;
-	Tue, 16 Dec 2025 17:26:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09B38601F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C3EE60226;
+	Tue, 16 Dec 2025 20:50:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C3EE60226
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1765902419;
-	bh=SA1KtDDJ/IaXElkb3uO/9E8GKNQQpVB/w4BxUnOErWI=;
+	s=default; t=1765914667;
+	bh=v72b1037DGoyY0kKmpIAU3+7I48+iz/TsvTF+IPxn9k=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=vlsFuq1ZMReTd+FEowW7K5D8pCL2fnURboMdhLXpkenLmR/70V381d6ly5nRBdWwA
-	 s42UKlOJFw/ICvHg7K89A71/RdoLWV+0U5jiNel+Tsn6eRNes9MFvu2ALKLV/XpZS1
-	 mXKKsfg99JiUHuFuAk1/GoGjyo6aCDKTLsaWoha8=
+	b=PWf74kOll7tp64JJfXPHbPyIWVo/P/7scJKAtZXYp1DkLn8nThg+7Uoy0LYi3YFIC
+	 5aktwXKmG2BSqHergpAGvOEGeNlfWBgiolZYDm5UxtRUCcy4Du+Gipnm0fHnXMNSR+
+	 Zhx/DdbL4redCK917YhzJw39/pOZec7PlExOYqp4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E415F805D3; Tue, 16 Dec 2025 17:26:25 +0100 (CET)
+	id 841BBF805DF; Tue, 16 Dec 2025 20:50:29 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D660F805D7;
-	Tue, 16 Dec 2025 17:26:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 063CEF805D9;
+	Tue, 16 Dec 2025 20:50:29 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D91CF80217; Tue, 16 Dec 2025 17:26:06 +0100 (CET)
+	id 3B91AF80217; Tue, 16 Dec 2025 20:50:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
@@ -34,21 +34,22 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB9D3F80087
-	for <alsa-devel@alsa-project.org>; Tue, 16 Dec 2025 17:26:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB9D3F80087
+	by alsa1.perex.cz (Postfix) with ESMTP id 86861F80087
+	for <alsa-devel@alsa-project.org>; Tue, 16 Dec 2025 20:50:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86861F80087
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1881bed7cdd5dc00-webhooks-bot@alsa-project.org>
-In-Reply-To: <1881bed7cb509900-webhooks-bot@alsa-project.org>
-References: <1881bed7cb509900-webhooks-bot@alsa-project.org>
-Subject: alsa-lib 1.2.15: only fallback stereo available (bisected)
-Date: Tue, 16 Dec 2025 17:26:06 +0100 (CET)
-Message-ID-Hash: N4QTNOHSKQJCSA6IDXKFZDKFP6V7QTLA
-X-Message-ID-Hash: N4QTNOHSKQJCSA6IDXKFZDKFP6V7QTLA
+Message-Id: <1881c9fb78a2d000-webhooks-bot@alsa-project.org>
+In-Reply-To: <1881c9fb781f0500-webhooks-bot@alsa-project.org>
+References: <1881c9fb781f0500-webhooks-bot@alsa-project.org>
+Subject: Behringer UMC404HD Line A/B volume too low when used in "Pro Audio"
+ mode
+Date: Tue, 16 Dec 2025 20:50:14 +0100 (CET)
+Message-ID-Hash: DG3KRXSZHUCNJM3N6EZ7I4DGJJSKLDP5
+X-Message-ID-Hash: DG3KRXSZHUCNJM3N6EZ7I4DGJJSKLDP5
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +62,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N4QTNOHSKQJCSA6IDXKFZDKFP6V7QTLA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DG3KRXSZHUCNJM3N6EZ7I4DGJJSKLDP5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,28 +71,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #491 was opened from Just4GH:
+alsa-project/alsa-ucm-conf issue #662 was opened from mrbumpy409:
 
-With alsa-lib 1.2.15 only stereo is available.
+The Behringer UMC404HD shows five volume faders in alsamixer:
+* **Line A** and **UMC404HD 192k Output Front**: These faders are linked (changing one changes the other) and control the level of **L & R MAIN OUT** and **PLAYBACK OUTPUT A 1/L & 2/R** on the back of the unit.
+* **Line B** and **UMC404HD 192k Output Back**: These faders are linked and control the level of **PLAYBACK OUTPUT B 3/L & 4/R**.
+* **UMC404HD 192k Output 1**: The primary volume control for the unit.
 
-```
-git bisect bad
-Bisecting: 0 revisions left to test after this (roughly 0 steps)
-[ eda76146c5653ff1d5bc4b4c53f7a2d5ccc17da2 ] conf: fix load_for_all_cards() - do not merge the card specific contents
-```
+How these sliders are used by Pipewire depends on the mode selected for the Behringer:
+* **Default**: Two output devices are presented to the user:
+  - **UMC404HD 192k Line A**: Controls the "Line A" volume in alsamixer.
+  - **UMC404HD 192k Line B**: Controls the "Line B" volume in alsamixer.
+  - The "UMC404HD 192k Output 1" slider in alsamixer appears to be unused.
+* **Direct UMC404HD 192k**: One output device is presented to the user:
+  - **Direct UMC404HD 192k**: Doesn't seem to be manipulating any of the hardware output levels in alsamixer.
+  - The "Line A" and "Line B" channels are not available via Pipewire in this mode.
+* **Pro Audio**: One output device is presented to the user:
+  - **UMC404HD 192k Pro**: Controls the "UMC404HD 192k Output 1" output level in alsamixer.
+  - The "Line A" and "Line B" channels are not available via Pipewire in this mode.
 
-Reverting eda76146c5653ff1d5bc4b4c53f7a2d5ccc17da2 allows the usual profiles to load and 5.1 output.
+I would imagine most people are using a Behringer UMC404HD for recording purposes, and therefore would likely be using it in "Pro Audio" mode (or at least they should be if they care about latency).
 
-```
-$ aplay -l 
-**** List of PLAYBACK Hardware Devices ****
-card 0: PCH [HDA Intel PCH], device 0: ALC1150 Analog [ALC1150 Analog]
-  Subdevices: 0/1
-  Subdevice #0: subdevice #0
-card 0: PCH [HDA Intel PCH], device 1: ALC1150 Digital [ALC1150 Digital]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-```
+Since a recent update (Fedora 43 KDE), the levels of the "Line A" and "Line B" channels (and their linked pairs) are being set by default to **41**, which results in audio that is far too quiet when using the line outputs (headphone output is unaffected). Furthermore, these low levels throw off the balance between the computer's output and the UMC404HD's live input monitoring. "Line A" and "Line B" channels should both be at **100** by default to match the Windows driver (and previous ALSA version?) and provide correct balance with the live monitoring feature.
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/491
-Repository URL: https://github.com/alsa-project/alsa-lib
+Currently, I have to run alsamixer on every boot to adjust "Line A" and "Line B" to **100**. Am I right to report this to ALSA, or is this something Pipewire should be handling? Pipewire doesn't appear to touch the "Line A" or "Line B" levels at all when in "Pro Audio" mode, so I'd assume this is ALSA's doing, but I don't really know.
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/662
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

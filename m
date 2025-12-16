@@ -2,109 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38F36CC6BCC
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Dec 2025 10:13:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F492CC1472
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Dec 2025 08:20:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F32B60234;
-	Wed, 17 Dec 2025 10:12:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F32B60234
+	by alsa0.perex.cz (Postfix) with ESMTPS id E87E06023C;
+	Tue, 16 Dec 2025 08:20:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E87E06023C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1765962788;
-	bh=qf2DToJKcVofOC+wLSCtVPxKtD+NtVQkWXwsI0GMHtM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1765869615;
+	bh=XQy4TWjfNmtoZZIcqLmXVjX+tRvz4vSkRQZ+aofJ8Ro=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ER49ZjrsY5wK6UQR/zYL7R4UNniexKEW/Dd2V9pTjXL1D/cRGMNB5OrdKMs5vtAe0
-	 Ig+FPkl6HpbE+mCoOZdw/j5QVsDvMHIgJXnxzM1CWxVkGobVFyzwDyIGr4cwUgUu66
-	 0i5aW056UbAvhDA+8SvvxLfoh5yYSdSjwpiK2SgY=
+	b=FIMKcGhxXbr17s0FuEhwRk+OGnh5WaeKdpZKii50NtXBlBLc2fJTAdeWKh0pALXYA
+	 sh2Z8L7GjbRRwtiaXr+k+BuJUSOLIssk1x5gBmICSkdpbVy6clUBKtAKF+IvJFd3+8
+	 JP40beRVklQyL6Llf9TRyeq2i2XhVzotjcPZu60k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4ABDAF8075A; Wed, 17 Dec 2025 10:10:36 +0100 (CET)
+	id 3E48AF805E6; Tue, 16 Dec 2025 08:19:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E80FBF80751;
-	Wed, 17 Dec 2025 10:10:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 127FEF804FB;
+	Tue, 16 Dec 2025 08:19:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97323F800DF; Tue, 16 Dec 2025 07:02:40 +0100 (CET)
+	id 11D6BF80087; Tue, 16 Dec 2025 08:17:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1FDACF800DF
-	for <alsa-devel@alsa-project.org>; Tue, 16 Dec 2025 07:02:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FDACF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A833F80087
+	for <alsa-devel@alsa-project.org>; Tue, 16 Dec 2025 08:17:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A833F80087
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=darknavy.com header.i=@darknavy.com header.a=rsa-sha256
- header.s=litx2311 header.b=JWoOipna
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=darknavy.com;
-	s=litx2311; t=1765864944;
-	bh=Qg6eCpBsOaOXTHBmaq1NQahZu3HYrOD54TuA171nEmw=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=JWoOipna7iwZYUBtT2DGeLy5R1O8ThyRoT/ovUpsqcUiyKsIZgFkiIJxmERhorg35
-	 nxkkL2MMzHwo0tclPqcc9jdi1MOaMJGZA7ER1fUI8OBaP1bxUxqboxdm9I6TXNrvKz
-	 MWYOgVaNLDBvnYTNKbe+2Ce6Qr62aYQ21J94nnnE=
-X-QQ-mid: esmtpsz20t1765864938teeba9f43
-X-QQ-Originating-IP: nJoj9iCtCkLkpvIYaJwyL4D5UcurBASJvz3QvVoWGx4=
-Received: from localhost.localdomain ( [223.166.168.213])
-	by bizesmtp.qq.com (ESMTP) with
-	id ; Tue, 16 Dec 2025 14:02:12 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14045563849092445381
-EX-QQ-RecipientCnt: 6
-From: Shipei Qu <qu@darknavy.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Shipei Qu <qu@darknavy.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	DARKNAVY <vr@darknavy.com>
-Subject: [PATCH v2] ALSA: usb-mixer: us16x08: validate meter packet indices
-Date: Tue, 16 Dec 2025 14:01:56 +0800
-Message-Id: <20251216060156.41320-4-qu@darknavy.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=hsEMRXEd
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 5BG7HLFR03480193,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1765869441; bh=COjTHkGOHQwpngrKIj3D+ebT53bbr8374fx3+LVak/o=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=hsEMRXEdCvxZcZlxJbU8WYFzyAkoBRWrNs+rLtB5jOiDQttcWQV3J7r+Lhx6Zagt2
+	 cfbLL+pY/Qwy/XCTzNgsAMwoJJUv4mw+97fHRyufl+7YhmGAa4GG7pHJAhGAiECLNW
+	 B/yzGZe+v1X3t5qiQfsSOT/ELaDSaRvDCoGieG8m18c+HYUDeLTu7vl54c5tU8Rww2
+	 rw1h2N494kSDof+3Maqeo6gUSNTvhF9U4VTAqGUS82Ev+kCBO96MBjGIoSJvSbo3m5
+	 ebB740E1pmgQbavJ/BkV1u6jdLyNrL5GZhFRjRAw7ZobBW1KijPHc9y1z9y2npUnj4
+	 a3HHUHKID+1oA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.21/5.94) with ESMTPS id 5BG7HLFR03480193
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 16 Dec 2025 15:17:21 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Tue, 16 Dec 2025 15:17:22 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Tue, 16 Dec 2025 15:17:21 +0800
+Received: from sw-server.localdomain (172.24.54.4) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server id
+ 15.2.1748.10 via Frontend Transport; Tue, 16 Dec 2025 15:17:21 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <cezary.rojewski@intel.com>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <linux-spi@vger.kernel.org>, <perex@perex.cz>,
+        <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <flove@realtek.com>,
+        <shumingf@realtek.com>, <jack.yu@realtek.com>,
+        <derek.fang@realtek.com>, Oder Chiou
+	<oder_chiou@realtek.com>
+Subject: [PATCH v10 0/3] ASoC: rt5575: Add the codec driver for the ALC5575
+Date: Tue, 16 Dec 2025 15:18:50 +0800
+Message-ID: <20251216071853.3929135-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:darknavy.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NJ/+omVLhVgau0Cu4IckbaQfHuNUYDl0pApOy69J+9SefH4vyoebKGxr
-	bQKK+XoAzRirncElo+evHX0cMHjAFa2JJBMW0hnUkCpNCD/is8gsiL7D7Tv5fXQ6aj+X95i
-	YK7Flxxe3Ti0KDttO1Ha7XJ8r+YAcdANLNDjn/c/O4LQoZWZtTy5Xd3VvhQ9tOcgRzJa8CN
-	huO8SlpWy1qy9tyxg1HFGtNElsdWqFm2tVEKkY9x4zcwOjTMPrVHXgB36VLKcfOFW2y5LJR
-	rR8cMai0eETpS51PHVgKASjKPwXmlzejDzm1BtdpWQbUwMPl/h5nZOisr4QWqyXhGzn/NuL
-	KImPfl2kvm/2RDCFKTS7jAWPeDapX5VDJJJA7aWN7MhyuISR2gmT3d99A7WFGSCBdRNJuL4
-	aSMhbOg4zPOQS7iR4XrCPeN+sMafPL1b4KkiFWbo3dq+ZYEvfO6Ak6NdhkfyOeQPJoC8e6i
-	+XmuQRPyL8FDx3fc3n+NXffkvbG2PHULObrE25zTzQ1ejNlBYwa2eHF/QKa+MDGaZwKjgEN
-	U7W8iwNbjpAT71ahM/Y1SFaOe+SE+NjpoxnZOj3dbVvsM7uyFstuVuPSbU+1mijZ3TZrKtO
-	gasIkb4vLrakIv8LnrYNIFv+l2u3MwtkXv8LXSU38YBWNyu2gm7oJTbrsPINPy98HUFspZ7
-	estwyHJNP3GlhNwsMHyVpt8dvfgEsyDb6EvqurdlplSsoo7K76Nc/+wzzeKzbD0wxheoikk
-	qpSCkem+2IS542ZfgUD+luFqI3uKh6X4yqL6EqtyMxL4L6ls47QjLb4pz8nfqXHQRd6h2AM
-	S/hep3whvX3f+Zs+hwz9jwE+Xw1pqrClTzzUmcCpjqoYoIfRpDrVETNfF8+OeBjXSdfUwEY
-	2Xr2mrQfMseFdJn5EQiPYlvStFVvT98hmzxSQTT6Sk4otsehYhceQBGIFPj0RqC4uYQm4mB
-	+QEj5jLopMvFnYtYiaMZnfdFhJuKf+a773prKV4LXfIyKYK5f75AwGvv1kB9CFMDc8nMLCD
-	65XxTc8IKwKqzn0KgZ
-X-QQ-XMRINFO: NI4Ajvh11aEj8Xl/2s1/T8w=
-X-QQ-RECHKSPAM: 0
-X-MailFrom: qu@darknavy.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain
+Message-ID-Hash: IHOTSQPCKT4XOBWZJFDOIF5KEUR3VV5A
+X-Message-ID-Hash: IHOTSQPCKT4XOBWZJFDOIF5KEUR3VV5A
+X-MailFrom: oder_chiou@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: LBYWXXO6OCQ4J4WCLBZVS6DGE6PIGS2W
-X-Message-ID-Hash: LBYWXXO6OCQ4J4WCLBZVS6DGE6PIGS2W
-X-Mailman-Approved-At: Wed, 17 Dec 2025 09:10:08 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LBYWXXO6OCQ4J4WCLBZVS6DGE6PIGS2W/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHOTSQPCKT4XOBWZJFDOIF5KEUR3VV5A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,73 +109,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Hi all,
 
-resending with a properly formatted diff (the previous email had a malformed
-patch header). The change itself is the same: while fuzzing a USB gadget that
-emulates a Tascam US-16x08 we found that get_meter_levels_from_urb() in
-mixer_us16x08.c uses a channel index taken directly from the 64-byte meter
-packet to index meter_level[], comp_level[] and master_level[] without any
-bounds checking. A malformed packet can therefore cause out-of-bounds writes in
-the snd_us16x08_meter_store.
+This patch series adds support for the Realtek ALC5575 audio codec.
 
-A malicious USB audio device (or USB gadget implementation) that pretends to be
-a US-16x08-compatible interface can trigger this by sending crafted meter
-packets. We have a small USB gadget-based PoC for this behaviour and can share
-it if that would be helpful.
+Changes in v10:
+- Patch 1/3:
+  - export of_find_spi_controller_by_node()
+- Patch 2/3:
+  - remove realtek,rt5575-use-spi
+  - add spi-parent for firmware-loading
+- Patch 3/3:
+  - use of_find_spi_controller_by_node() to get the SPI controller and add
+    the spi device for firmware-loading
 
-This driver is used by common distributions (e.g. Ubuntu) when a US-16x08 or
-compatible USB audio device is present. The same pattern is present in current
-mainline kernels.
+Changes in v9:
+- Patch 1/2:
+  - modify the comment
+  - change the compatible name to "realtek,rt5575-use-spi"
+- Patch 2/2:
+  - remove the standalone rt5575_spi_driver module and integrate its
+    functionality into the I2C driver
+  - move the SPI firmware-loading function to rt5575-spi.c
+  - use the match data to distinguish between w/wo flash
+  - minor fixes
+- Link to v9: https://lore.kernel.org/all/20251211110130.2925541-1-oder_chiou@realtek.com/
 
-This issue was first reported via security@kernel.org. The kernel security team
-explained that, in the upstream threat model, USB endpoints are expected to be
-trusted (i.e. only trusted devices should be bound to drivers), so they
-consider this a normal bug rather than a security vulnerability, and asked us
-to send a fix to the development lists. The patch below adds simple range
-checks before updating these arrays.
+Changes in v8:
+- Patch 1/2:
+  - remove the variable rt5575_spi_ready
+  - use the multiple compatible names to distinguish between w/wo flash
+- Patch 2/2:
+  - add compatible enum "realtek,rt5575-with-spi"
+- Link to v8: https://lore.kernel.org/all/20251201105926.1714341-1-oder_chiou@realtek.com/
 
-Reported-by: DARKNAVY (@DarkNavyOrg) <vr@darknavy.com>
-Signed-off-by: Shipei Qu <qu@darknavy.com>
----
- sound/usb/mixer_us16x08.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+Changes in v7:
+- Patch 1/2:
+  - add a caption for the tristates
+  - remove the redundant enum of the SPI command
+  - add the error log in the request firmware failure
+  - change the function name rt5575_spi_fw_loaded to rt5575_fw_load_by_spi
+  - minor fixes
+- Patch 2/2:
+  - modify commit message
+- Link to v7: https://lore.kernel.org/all/20251121084112.743518-1-oder_chiou@realtek.com/
 
-diff --git a/sound/usb/mixer_us16x08.c b/sound/usb/mixer_us16x08.c
-index 1c5712c31..f9df40730 100644
---- a/sound/usb/mixer_us16x08.c
-+++ b/sound/usb/mixer_us16x08.c
-@@ -655,17 +655,25 @@ static void get_meter_levels_from_urb(int s,
- 	u8 *meter_urb)
- {
- 	int val = MUC2(meter_urb, s) + (MUC3(meter_urb, s) << 8);
-+	int ch = MUB2(meter_urb, s) - 1;
-+
-+	if (ch < 0)
-+		return;
- 
- 	if (MUA0(meter_urb, s) == 0x61 && MUA1(meter_urb, s) == 0x02 &&
- 		MUA2(meter_urb, s) == 0x04 && MUB0(meter_urb, s) == 0x62) {
--		if (MUC0(meter_urb, s) == 0x72)
--			store->meter_level[MUB2(meter_urb, s) - 1] = val;
--		if (MUC0(meter_urb, s) == 0xb2)
--			store->comp_level[MUB2(meter_urb, s) - 1] = val;
-+		if (ch < SND_US16X08_MAX_CHANNELS) {
-+			if (MUC0(meter_urb, s) == 0x72)
-+				store->meter_level[ch] = val;
-+			if (MUC0(meter_urb, s) == 0xb2)
-+				store->comp_level[ch] = val;
-+		}
- 	}
- 	if (MUA0(meter_urb, s) == 0x61 && MUA1(meter_urb, s) == 0x02 &&
--		MUA2(meter_urb, s) == 0x02 && MUB0(meter_urb, s) == 0x62)
--		store->master_level[MUB2(meter_urb, s) - 1] = val;
-+		MUA2(meter_urb, s) == 0x02 && MUB0(meter_urb, s) == 0x62) {
-+		if (ch < ARRAY_SIZE(store->master_level))
-+			store->master_level[ch] = val;
-+	}
- }
- 
- /* Function to retrieve current meter values from the device.
+Changes in v6:
+- Patch 1/2:
+  - modify commit message
+  - add select SND_SOC_RT5575 to config SND_SOC_RT5575_SPI in the Kconfig
+  - revise the boiler plate in the head of the file
+  - sort the include files
+  - use a structure to transfer the spi data
+  - use the poll() related function instead the for-loop
+  - revise the UUID to the private ID
+  - minor fixes
+- Patch 2/2:
+  - modify description
+- Link to v6: https://lore.kernel.org/all/20251031073245.3629060-1-oder_chiou@realtek.com/
+
+Changes in v2 to v5:
+- Patch 1/2:
+  - move the firmware to the subdirectory
+  - remove the empty functions
+  - remove the cache_type in the regmap_config
+  - add the error log in the run firmware failure
+- Patch 2/2:
+  - nothing
+- Link to v5: https://lore.kernel.org/all/20251015103404.3075684-1-oder_chiou@realtek.com/
+
+Oder Chiou (3):
+  spi: export of_find_spi_controller_by_node()
+  ASoC: dt-bindings: realtek,rt5575: add support for ALC5575
+  ASoC: rt5575: Add the codec driver for the ALC5575
+
+ .../bindings/sound/realtek,rt5575.yaml        |  61 +++
+ drivers/spi/spi.c                             |   3 +-
+ include/linux/spi/spi.h                       |  11 +
+ sound/soc/codecs/Kconfig                      |  10 +
+ sound/soc/codecs/Makefile                     |   3 +
+ sound/soc/codecs/rt5575-spi.c                 | 119 ++++++
+ sound/soc/codecs/rt5575-spi.h                 |  26 ++
+ sound/soc/codecs/rt5575.c                     | 359 ++++++++++++++++++
+ sound/soc/codecs/rt5575.h                     |  54 +++
+ 9 files changed, 645 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
+ create mode 100644 sound/soc/codecs/rt5575-spi.c
+ create mode 100644 sound/soc/codecs/rt5575-spi.h
+ create mode 100644 sound/soc/codecs/rt5575.c
+ create mode 100644 sound/soc/codecs/rt5575.h
+
 -- 
-2.45.1
+2.52.0
+

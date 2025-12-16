@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B41CC146F
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Dec 2025 08:19:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7129CC1496
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Dec 2025 08:22:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25D4E60223;
-	Tue, 16 Dec 2025 08:19:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25D4E60223
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C39860227;
+	Tue, 16 Dec 2025 08:22:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C39860227
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1765869598;
-	bh=+nOCJtKm6LqEC57WeGgYv6jRNGhDOLF+UTQE1MdkbQo=;
+	s=default; t=1765869753;
+	bh=I/a2fvl5cM973mSNSEqBU8ga1TYoVjNL+XdtwVAdlyk=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JR8oBp8l1WFgVrD4On5wrC7pWwf4PyAkYuGMPfng4sh9CVgleIEBdGXxLlRzV/8T0
-	 6+1HsfB2B7qI70UGFrVrAnY32JqU9+fML/5TU7CygKUIWti9/GRxhMZrCYfcm83wSe
-	 Xn32FUNd5rM0ffvofi5cduQtQJvov/K/MbxaESyY=
+	b=iAHLbUQMz+Z+IgnZgtlIRuIfrfNpGvk0NHYB0zNkI/fgkFh5W+p96L6t8UuvYhFzA
+	 rFdOEkv8h3koJC62ZcbwhvZMM37lT0xKFcPyBdE6MSM4z6/VxTjKGzkKocDxtqw9Jz
+	 T3IcTy9G3Uft3kHkTwWM8xgTPBIXEVXVZOLitczE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AFBCEF805D8; Tue, 16 Dec 2025 08:19:24 +0100 (CET)
+	id 6987FF805C7; Tue, 16 Dec 2025 08:21:57 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19AC7F805D9;
-	Tue, 16 Dec 2025 08:19:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4471F805C7;
+	Tue, 16 Dec 2025 08:21:57 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07466F80571; Tue, 16 Dec 2025 08:17:41 +0100 (CET)
+	id 9933AF8016E; Tue, 16 Dec 2025 08:17:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
@@ -37,40 +37,36 @@ Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5EFA1F8016E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6C3C2F80217
 	for <alsa-devel@alsa-project.org>; Tue, 16 Dec 2025 08:17:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EFA1F8016E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C3C2F80217
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=g2jkpNeN
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 5BG7HLn243480195,
+ header.s=dkim header.b=RpLAtZ/t
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 5BG7HNiwC3480197,
  This message is accepted by code: ctloc85258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1765869441; bh=fjuHIIyTDdtwtVvJNBPuw1E2RWlC5vK7HA/qU8tD4S4=;
+	t=1765869443; bh=O9P1ZmwkNILnvEnOhiWwKahZCFj/t+KyiynfI1j6KqQ=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=g2jkpNeNJ5Wy8hiEPkavsJ8YzxPONb7aXNOpVRWdgGaPaWoIhnTvd+G1qdcCYFGc8
-	 dyPGpt5fSy+tgwjdXBV/M7WvqUD586W1N36ImpHiF7vSOVP3/ykg5xcdhRCLY/Rv3f
-	 77aoNm9bkdUfwJGNXQ7Ep1xlckG2LtIvIMJR3ua+MPOJQAhPzNFf2E5qwgewBW2EId
-	 gU1LAcpDROBr+cIMC5yIdmrddYrLifEs1wtkuuTE+IwgcI56P4Kwqa4J86qd/S/bvY
-	 KyZvFbIG0d7g+co1bR9uCRlFWfpGlEm1l/PpcZw9bPR8zJXfYXJUtYuQaBJR7zlnti
-	 ew/l0JHWK1V5g==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.21/5.94) with ESMTPS id 5BG7HLn243480195
+	b=RpLAtZ/tZSFNkspgJjkVha7X/DloMdTbskKkDtlabRQ2K4XmESkF64smMGfu8U8Kn
+	 cqXQsFTZPIF3447ZgGN2xeOp67uMbHN/NQW9RjJTmOnmV8Kmw/XLptUDfJ3t2mSSoW
+	 TIhIZb+ocyIPq5QLTvGml4mVV2XQdoljzZrgfgvwhEEsBbBrI+u+ZJMnQLafAo0QJK
+	 UsXpS5Bt6BAkVQ7wfj+A8kpIrrXbj1RGvLUcocwMmpaoJRn6+h+AeY2yV4sJOH10ix
+	 0dd0PzoOoak57fwZXBiQEdUsJgY6awJbP37DlExe+QH/TjEzzeJ5wavBk2SlhUHVuY
+	 SrfDcRI2SP2ow==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.21/5.94) with ESMTPS id 5BG7HNiwC3480197
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 16 Dec 2025 15:17:21 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+	Tue, 16 Dec 2025 15:17:23 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.2.1748.10; Tue, 16 Dec 2025 15:17:22 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Tue, 16 Dec 2025 15:17:21 +0800
 Received: from sw-server.localdomain (172.24.54.4) by
  RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server id
- 15.2.1748.10 via Frontend Transport; Tue, 16 Dec 2025 15:17:21 +0800
+ 15.2.1748.10 via Frontend Transport; Tue, 16 Dec 2025 15:17:22 +0800
 From: Oder Chiou <oder_chiou@realtek.com>
 To: <cezary.rojewski@intel.com>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
         <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
@@ -80,17 +76,18 @@ CC: <linux-spi@vger.kernel.org>, <perex@perex.cz>,
         <shumingf@realtek.com>, <jack.yu@realtek.com>,
         <derek.fang@realtek.com>, Oder Chiou
 	<oder_chiou@realtek.com>
-Subject: [PATCH v10 1/3] spi: export of_find_spi_controller_by_node()
-Date: Tue, 16 Dec 2025 15:18:51 +0800
-Message-ID: <20251216071853.3929135-2-oder_chiou@realtek.com>
+Subject: [PATCH v10 2/3] ASoC: dt-bindings: realtek,rt5575: add support for
+ ALC5575
+Date: Tue, 16 Dec 2025 15:18:52 +0800
+Message-ID: <20251216071853.3929135-3-oder_chiou@realtek.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251216071853.3929135-1-oder_chiou@realtek.com>
 References: <20251216071853.3929135-1-oder_chiou@realtek.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Message-ID-Hash: T7YSG3TXHNV6MR4WSPOPD7HZ6SPZLH3Q
-X-Message-ID-Hash: T7YSG3TXHNV6MR4WSPOPD7HZ6SPZLH3Q
+Message-ID-Hash: UAIELPC57RWFVSAS33QATM3G2YJVZHIM
+X-Message-ID-Hash: UAIELPC57RWFVSAS33QATM3G2YJVZHIM
 X-MailFrom: oder_chiou@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T7YSG3TXHNV6MR4WSPOPD7HZ6SPZLH3Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UAIELPC57RWFVSAS33QATM3G2YJVZHIM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,60 +109,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Some devices are primarily described on another bus (e.g. I2C) but also
-have an additional SPI connection that serves as a transport for
-firmware loading. Export of_find_spi_controller_by_node() so drivers can
-obtain the SPI controller referenced by a DT phandle.
+Audio codec with I2S, I2C and SPI.
 
 Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
 ---
- drivers/spi/spi.c       |  3 ++-
- include/linux/spi/spi.h | 11 +++++++++++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ .../bindings/sound/realtek,rt5575.yaml        | 61 +++++++++++++++++++
+ 1 file changed, 61 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index e25df9990f82..ecb5281b04a2 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -4771,7 +4771,7 @@ static struct spi_device *of_find_spi_device_by_node(struct device_node *node)
- }
- 
- /* The spi controllers are not using spi_bus, so we find it with another way */
--static struct spi_controller *of_find_spi_controller_by_node(struct device_node *node)
-+struct spi_controller *of_find_spi_controller_by_node(struct device_node *node)
- {
- 	struct device *dev;
- 
-@@ -4784,6 +4784,7 @@ static struct spi_controller *of_find_spi_controller_by_node(struct device_node
- 	/* Reference got in class_find_device */
- 	return container_of(dev, struct spi_controller, dev);
- }
-+EXPORT_SYMBOL_GPL(of_find_spi_controller_by_node);
- 
- static int of_spi_notify(struct notifier_block *nb, unsigned long action,
- 			 void *arg)
-diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index cb2c2df31089..1eb04a96cc1c 100644
---- a/include/linux/spi/spi.h
-+++ b/include/linux/spi/spi.h
-@@ -882,6 +882,17 @@ extern int devm_spi_register_controller(struct device *dev,
- 					struct spi_controller *ctlr);
- extern void spi_unregister_controller(struct spi_controller *ctlr);
- 
-+#if IS_ENABLED(CONFIG_OF_DYNAMIC)
-+extern struct spi_controller *of_find_spi_controller_by_node(
-+	struct device_node *node);
-+#else
-+static inline struct spi_controller *of_find_spi_controller_by_node(
-+	struct device_node *node)
-+{
-+	return NULL;
-+}
-+#endif
+diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
+new file mode 100644
+index 000000000000..981ebc39b195
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/realtek,rt5575.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- #if IS_ENABLED(CONFIG_ACPI) && IS_ENABLED(CONFIG_SPI_MASTER)
- extern struct spi_controller *acpi_spi_find_controller_by_adev(struct acpi_device *adev);
- extern struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
++title: ALC5575 audio CODEC
++
++maintainers:
++  - Oder Chiou <oder_chiou@realtek.com>
++
++description:
++  The device supports both I2C and SPI. I2C is mandatory, while SPI is
++  optional depending on the hardware configuration. SPI is used for
++  firmware loading if present.
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: realtek,rt5575
++
++  reg:
++    maxItems: 1
++
++  spi-parent:
++    description:
++      Optional phandle reference to the SPI controller used for firmware
++      loading. The argument specifies the chip select.
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  # I2C-only node
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        codec@57 {
++            compatible = "realtek,rt5575";
++            reg = <0x57>;
++        };
++    };
++
++  # I2C + optional SPI node
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        codec@57 {
++            compatible = "realtek,rt5575";
++            reg = <0x57>;
++            spi-parent = <&spi0 0>; /* chip-select 0 */
++        };
++    };
 -- 
 2.52.0
 

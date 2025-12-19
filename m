@@ -2,120 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A986CCFE6D
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Dec 2025 13:53:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 667E9CD07F1
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Dec 2025 16:27:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60FA0601A9;
-	Fri, 19 Dec 2025 13:53:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60FA0601A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A17B601AF;
+	Fri, 19 Dec 2025 16:27:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A17B601AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1766148834;
-	bh=hkQTLFoZPDg52QyzeNWMewF6IZRbEZQw/pEPN0kloDc=;
-	h=Date:Subject:References:From:To:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=UxFWNdBedEkykNgfw56Cs2hFT80FASoeG5FYyAUllEuq+Jzbd4yxxLuHa6WyckVFi
-	 oMXZ3eeF4R+BIl0dlPHgKPmK/seARN9uXDZo8B2B83ChuJGPfgAZl+oF+Y3HefxQRS
-	 mSl3HJAtWfVNHYu5XZmO2OXM5sdOqA1lli8qlcuI=
+	s=default; t=1766158036;
+	bh=j1GOTP4uW+ablI4hgNqOr9maHcvcticbqrr0oiC53Lk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=s5T4dvhtetXft0XOV4n0p6SyigAOZw8v5KSCioUQ12Ia5/GRr2k8vdIKvO5TqE8A0
+	 pdj2blHHPqbonhUzl6wspKrondDKcEIzMKgIKk7l4OXrNy9uowtDzWuC0112yvnZuw
+	 dQbTGlT8IAjKsGmQGZ/5FZ1n5wV1PlJyJVdp/TfE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2979DF805DF; Fri, 19 Dec 2025 13:53:26 +0100 (CET)
+	id A28FFF805E2; Fri, 19 Dec 2025 16:26:44 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECD48F80538;
-	Fri, 19 Dec 2025 13:53:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CEDCF805CB;
+	Fri, 19 Dec 2025 16:26:44 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39E00F805C2; Fri, 19 Dec 2025 13:52:23 +0100 (CET)
+	id C9680F805C2; Fri, 19 Dec 2025 16:25:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6426DF80538
-	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 13:52:18 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5345211F8
-	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 13:52:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5345211F8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1766148735; bh=wwVwWNsm00bZtwAeLjOrRLweghDFH0PXYcOelNVfvmQ=;
-	h=Date:Subject:References:From:To:In-Reply-To:From;
-	b=WQTCMN2hxBqk/m66oWd7JFjqkr6Epq0mT+Fp/xoaPvfHfkzzrwHjrOOuTu2yYkIV0
-	 UIyHO7Rta9IcIpfyI1DKtdNhOtSiYXaELhdW97jLOaFkG40ddCCI4L2hU6MMK9yaqy
-	 8PZVXz8HnklzZ/2PM/b396y493dxPB1aWBI3KuyQ=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA
-	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 13:52:14 +0100 (CET)
-Message-ID: <b60207fd-e214-4d8c-8a56-9d2b1f3509ff@perex.cz>
-Date: Fri, 19 Dec 2025 13:52:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: ALSA 1.2.15.1 release
-Content-Language: en-US
-References: <b783cfa7-66a4-4231-ae5c-62b06bf5ba0b@perex.cz>
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Autocrypt: addr=perex@perex.cz; keydata=
- xsFNBFvNeCsBEACUu2ZgwoGXmVFGukNPWjA68/7eMWI7AvNHpekSGv3z42Iy4DGZabs2Jtvk
- ZeWulJmMOh9ktP9rVWYKL9H54gH5LSdxjYYTQpSCPzM37nisJaksC8XCwD4yTDR+VFCtB5z/
- E7U0qujGhU5jDTne3dZpVv1QnYHlVHk4noKxLjvEQIdJWzsF6e2EMp4SLG/OXhdC9ZeNt5IU
- HQpcKgyIOUdq+44B4VCzAMniaNLKNAZkTQ6Hc0sz0jXdq+8ZpaoPEgLlt7IlztT/MUcH3ABD
- LwcFvCsuPLLmiczk6/38iIjqMtrN7/gP8nvZuvCValLyzlArtbHFH8v7qO8o/5KXX62acCZ4
- aHXaUHk7ahr15VbOsaqUIFfNxpthxYFuWDu9u0lhvEef5tDWb/FX+TOa8iSLjNoe69vMCj1F
- srZ9x2gjbqS2NgGfpQPwwoBxG0YRf6ierZK3I6A15N0RY5/KSFCQvJOX0aW8TztisbmJvX54
- GNGzWurrztj690XLp/clewmfIUS3CYFqKLErT4761BpiK5XWUB4oxYVwc+L8btk1GOCOBVsp
- 4xAVD2m7M+9YKitNiYM4RtFiXwqfLk1uUTEvsaFkC1vu3C9aVDn3KQrZ9M8MBh/f2c8VcKbN
- njxs6x6tOdF5IhUc2E+janDLPZIfWDjYJ6syHadicPiATruKvwARAQABzSBKYXJvc2xhdiBL
- eXNlbGEgPHBlcmV4QHBlcmV4LmN6PsLBjgQTAQgAOBYhBF7f7LZepM3UTvmsRTCsxHw/elMJ
- BQJbzXgrAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEDCsxHw/elMJDGAP/ReIRiRw
- lSzijpsGF/AslLEljncG5tvb/xHwCxK5JawIpViwwyJss06/IAvdY5vn5AdfUfCl2J+OakaR
- VM/hdHjCYNu4bdBYZQBmEiKsPccZG2YFDRudEmiaoaJ1e8ZsiA3rSf4SiWWsbcBOYHr/unTf
- 4KQsdUHzPUt8Ffi9HrAFzI2wjjiyV5yUGp3x58ZypAIMcKFtA1aDwhA6YmQ6lb8/bC0LTC6l
- cAAS1tj7YF5nFfXsodCOKK5rKf5/QOF0OCD2Gy+mGLNQnq6S+kD+ujQfOLaUHeyfcNBEBxda
- nZID7gzd65bHUMAeWttZr3m5ESrlt2SaNBddbN7NVpVa/292cuwDCLw2j+fAZbiVOYyqMSY4
- LaNqmfa0wJAv30BMKeRAovozJy62j0AnntqrvtDqqvuXgYirj2BEDxx0OhZVqlI8o5qB6rA5
- Pfp2xKRE8Fw3mASYRDNad08JDhJgsR/N5JDGbh4+6sznOA5J63TJ+vCFGM37M5WXInrZJBM3
- ABicmpClXn42zX3Gdf/GMM3SQBrIriBtB9iEHQcRG/F+kkGOY4QDi4BZxo45KraANGmCkDk0
- +xLZVfWh8YOBep+x2Sf83up5IMmIZAtYnxr77VlMYHDWjnpFnfuja+fcnkuzvvy7AHJZUO1A
- aKexwcBjfTxtlX4BiNoK+MgrjYywzsFNBFvNeCsBEACb8FXFMOw1g+IGVicWVB+9AvOLOhqI
- FMhUuDWmlsnT8B/aLxcRVUTXoNgJpt0y0SpWD3eEJOkqjHuvHfk+VhKWDsg6vlNUmF1Ttvob
- 18rce0UH1s+wlE8YX8zFgODbtRx8h/BpykwnuWNTiotu9itlE83yOUbv/kHOPUz4Ul1+LoCf
- V2xXssYSEnNr+uUG6/xPnaTvKj+pC7YCl38Jd5PgxsP3omW2Pi9T3rDO6cztu6VvR9/vlQ8Z
- t0p+eeiGqQV3I+7k+S0J6TxMEHI8xmfYFcaVDlKeA5asxkqu5PDZm3Dzgb0XmFbVeakI0be8
- +mS6s0Y4ATtn/D84PQo4bvYqTsqAAJkApEbHEIHPwRyaXjI7fq5BTXfUO+++UXlBCkiH8Sle
- 2a8IGI1aBzuL7G9suORQUlBCxy+0H7ugr2uku1e0S/3LhdfAQRUAQm+K7NfSljtGuL8RjXWQ
- f3B6Vs7vo+17jOU7tzviahgeRTcYBss3e264RkL62zdZyyArbVbK7uIU6utvv0eYqG9cni+o
- z7CAe7vMbb5KfNOAJ16+znlOFTieKGyFQBtByHkhh86BQNQn77aESJRQdXvo5YCGX3BuRUaQ
- zydmrgwauQTSnIhgLZPv5pphuKOmkzvlCDX+tmaCrNdNc+0geSAXNe4CqYQlSnJv6odbrQlD
- Qotm9QARAQABwsF2BBgBCAAgFiEEXt/stl6kzdRO+axFMKzEfD96UwkFAlvNeCsCGwwACgkQ
- MKzEfD96Uwlkjg/+MZVS4M/vBbIkH3byGId/MWPy13QdDzBvV0WBqfnr6n99lf7tKKp85bpB
- y7KRAPtXu+9WBzbbIe42sxmWJtDFIeT0HJxPn64l9a1btPnaILblE1mrfZYAxIOMk3UZA3PH
- uFdyhQDJbDGi3LklDhsJFTAhBZI5xMSnqhaMmWCL99OWwfyJn2omp8R+lBfAJZR31vW6wzsj
- ssOvKIbgBpV/o3oGyAofIXPYzhY+jhWgOYtiPw9bknu748K+kK3fk0OeEG6doO4leB7LuWig
- dmLZkcLlJzSE6UhEwHZ8WREOMIGJnMF51WcF0A3JUeKpYYEvSJNDEm7dRtpb0x/Y5HIfrg5/
- qAKutAYPY7ClQLu5RHv5uqshiwyfGPaiE8Coyphvd5YbOlMm3mC/DbEstHG7zA89fN9gAzsJ
- 0TFL5lNz1s/fo+//ktlG9H28EHD8WOwkpibsngpvY+FKUGfJgIxpmdXVOkiORWQpndWyRIqw
- k8vz1gDNeG7HOIh46GnKIrQiUXVzAuUvM5vI9YaW3YRNTcn3pguQRt+Tl9Y6G+j+yvuLL173
- m4zRUU6DOygmpQAVYSOJvKAJ07AhQGaWAAi5msM6BcTU4YGcpW7FHr6+xaFDlRHzf1lkvavX
- WoxP1IA1DFuBMeYMzfyi4qDWjXc+C51ZaQd39EulYMh+JVaWRoY=
-In-Reply-To: <b783cfa7-66a4-4231-ae5c-62b06bf5ba0b@perex.cz>
-X-Forwarded-Message-Id: <b783cfa7-66a4-4231-ae5c-62b06bf5ba0b@perex.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 34QSEM4NHGDVPCR2YQVGKBP3H6UTHEUJ
-X-Message-ID-Hash: 34QSEM4NHGDVPCR2YQVGKBP3H6UTHEUJ
-X-MailFrom: perex@perex.cz
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1F614F80423
+	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 16:25:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F614F80423
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=nyX7FEpw
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 2C51B435DC;
+	Fri, 19 Dec 2025 15:25:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9743EC113D0;
+	Fri, 19 Dec 2025 15:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1766157931;
+	bh=j1GOTP4uW+ablI4hgNqOr9maHcvcticbqrr0oiC53Lk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nyX7FEpwkg7JE399N61Ilfq3PAB+7QFOoeShUwdERSdxBhVb15FaMW9sB3gSZFIJY
+	 iJt9GuMPHKPLfgA09dHvDHpKzWJ9rZ7wePL2NpiuIPbbOlck8EnUcWMob4k4Afqu/p
+	 zEfAKXSGNncb/EH8X1c31cvi/ri/19aNwKQIxSFypXkWfwOl47hIIyWck9C5YEGQVo
+	 DPtbiIIqGOb9D7tf7gwNO0gyoLvU9RaVcHcwnLM1I17aW5Um5hS6IhejbwQnKb7N8e
+	 vFyMMoBigZI/KPDgwlaa7iZWoJdc6TwTKM5gaUQF4fBCDYfkaUQ64IIr/+hN50e2aL
+	 jJAmRZ3DpTEdQ==
+Message-ID: <00e012c86db2f59544afb66176c25978@kernel.org>
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.19-rc1
+Date: Fri, 19 Dec 2025 15:25:22 +0000
+Message-ID-Hash: NT3UCQM3TJT7WEVQOLPBHYFD6CRG4SW7
+X-Message-ID-Hash: NT3UCQM3TJT7WEVQOLPBHYFD6CRG4SW7
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/34QSEM4NHGDVPCR2YQVGKBP3H6UTHEUJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NT3UCQM3TJT7WEVQOLPBHYFD6CRG4SW7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,30 +88,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello all,
+The following changes since commit 8f0b4cce4481fb22653697cced8d0d04027cb1e8:
 
-	new ALSA userspace packages were released. You may download them from
-the ALSA website http://www.alsa-project.org or directly:
+  Linux 6.19-rc1 (2025-12-14 16:05:07 +1200)
 
-	HTTP: https://www.alsa-project.org/files/pub
-	FTP:  ftp://ftp.alsa-project.org/pub
+are available in the Git repository at:
 
-Released packages:
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.19-rc1
 
-	alsa-lib
-	alsa-utils
-	alsa-ucm-conf
+for you to fetch changes up to 56d953a8d0da5e53c2594edde23465ec49385b1c:
 
-Full list of changes:
+  ASoC: Intel: mtl-match: Add 6-amp matches for CS35L56 (2025-12-19 13:25:16 +0000)
 
-	https://www.alsa-project.org/wiki/Changes_v1.2.15_v1.2.15.1
+----------------------------------------------------------------
+ASoC: Fixes for v6.19
 
-The fingerprint of the public signing key is:
+We've been quite busy with fixes since the merge window, though not in
+any particularly exciting ways - the standout thing is the fix for _SX
+controls which were broken by a change to how we do clamping, otherwise
+it's all fairly run of the mill fixes and quirks.
 
-	F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
+----------------------------------------------------------------
+Alexander Stein (4):
+      ASoC: fsl_easrc: fix duplicate debugfs directory error
+      ASoC: fsl_asrc_dma: fix duplicate debugfs directory error
+      ASoC: fsl_sai: Add missing registers to cache default
+      ASoC: fsl_xcvr: provide regmap names
 
-				Have fun,
-					Jaroslav
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Andrew Elantsev (1):
+      ASoC: amd: yc: Add quirk for Honor MagicBook X16 2025
+
+Bard Liao (2):
+      ASoC: sdw_utils: subtract the endpoint that is not present
+      ASoC: SOF: ipc4-topology: set playback channel mask
+
+Chancel Liu (2):
+      ASoC: fsl_sai: Constrain sample rates from audio PLLs only in master mode
+      ASoC: fsl-asoc-card: Use of_property_present() for non-boolean properties
+
+Mark Brown (4):
+      ASoC: Intel: common / SOF: Use function topologies for
+      ASoC: SOF: ipc4-topology: fixes for 'exotic' format
+      ASoC: fsl_easrc: Fix duplicate debufs entries
+      ASoC: Intel: mtl-match: Add 6-amp matches for CS35L56
+
+Peter Ujfalusi (6):
+      ASoC: SOF: ipc4-topology: Prefer 32-bit DMIC blobs for 8-bit formats as well
+      ASoC: SOF: ipc4-topology: Convert FLOAT to S32 during blob selection
+      ASoC: SOF: topology: Add context when sink or source widget is missing
+      ASoC: SOF: Intel: pci-mtl: Change the topology path to intel/sof-ipc4-tplg
+      ASoC: soc-acpi / SOF: Add best_effort flag to get_function_tplg_files op
+      ASoC: Intel: soc-acpi-intel-nvl-match: Drop rt722 l3 from the match table
+
+Robert Oscilowski (1):
+      ASoC: qcom: sdm845: set quaternary MI2S codec DAI to I2S format
+
+Shengjiu Wang (1):
+      ASoC: ak4458: remove the reset operation in probe and remove
+
+Shuming Fan (1):
+      ASoC: rt1320: update VC blind write settings
+
+Stefan Binding (3):
+      ASoC: Intel: soc-acpi-intel-mtl-match: Add 6 amp CS35L56 with feedback
+      ASoC: Intel: soc-acpi-intel-mtl-match: Add 6 amp CS35L63 with feedback
+      ASoC: ops: fix snd_soc_get_volsw for sx controls
+
+sheetal (1):
+      ASoC: tegra: Fix uninitialized flat cache warning in tegra210_ahub
+
+ include/sound/soc-acpi.h                           |   5 +-
+ sound/soc/amd/yc/acp6x-mach.c                      |   7 ++
+ sound/soc/codecs/ak4458.c                          |   4 -
+ sound/soc/codecs/rt1320-sdw.c                      |  16 ++--
+ sound/soc/fsl/fsl-asoc-card.c                      |   8 +-
+ sound/soc/fsl/fsl_asrc_dma.c                       |   3 +
+ sound/soc/fsl/fsl_easrc.c                          |   3 +
+ sound/soc/fsl/fsl_sai.c                            |  13 ++-
+ sound/soc/fsl/fsl_xcvr.c                           |   3 +
+ sound/soc/intel/common/soc-acpi-intel-mtl-match.c  | 104 +++++++++++++++++++++
+ sound/soc/intel/common/soc-acpi-intel-nvl-match.c  |  49 ----------
+ sound/soc/intel/common/sof-function-topology-lib.c |   5 +-
+ sound/soc/intel/common/sof-function-topology-lib.h |   2 +-
+ sound/soc/qcom/sdm845.c                            |   2 +
+ sound/soc/sdw_utils/soc_sdw_utils.c                |   8 +-
+ sound/soc/soc-ops.c                                |  32 ++++---
+ sound/soc/sof/intel/pci-mtl.c                      |   6 +-
+ sound/soc/sof/ipc4-topology.c                      |  49 ++++++----
+ sound/soc/sof/topology.c                           |  26 +++++-
+ sound/soc/tegra/tegra210_ahub.c                    |   6 +-
+ 20 files changed, 238 insertions(+), 113 deletions(-)

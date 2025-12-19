@@ -2,84 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C285CCC7E9
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Dec 2025 16:34:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 606BECCE1B7
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Dec 2025 01:59:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAC7260227;
-	Thu, 18 Dec 2025 16:34:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAC7260227
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7B1860207;
+	Fri, 19 Dec 2025 01:59:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7B1860207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1766072071;
-	bh=z0fXM45sgVSyfzITVbX/gHZahLGojvuS7/CdlK1LMwI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FJZ/+YcBREIsmgpbSt3WOOO0UMNhk2FJPFqqic0rnypo9sR7HJZu1t9H+iTpCOrC3
-	 ssgzCK2JnUHtaBx/rsXJiidilUws/CuswP7VXOxm62pKAgzoQnD/z0bgXAKkylDm3X
-	 bIsCGHYzqk01TSmL371eQvIFPFfA4E/325REK7Qk=
+	s=default; t=1766105995;
+	bh=JG25kOi0Dhwx5eg5sk/8izfK+vAzUNPQUBbhGKk2pu4=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=sWuEQHuZ3kTp9O9AALgJsBAwo7zo/YhUWNaKzjzXNL5wzPnw/exNPskoLF9lfCH49
+	 xqmsqZCBcNdpEUlEUwl7HkK9Img1RA7UVnIj6ux6wuqDxz7u29niCp9cmZjvbQdOJY
+	 P2EAPP7XuttWG16SvrxWgXwFt2B9ZAyZ89R9z/mM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CB31F805C5; Thu, 18 Dec 2025 16:33:58 +0100 (CET)
+	id 1F9E6F805D8; Fri, 19 Dec 2025 01:59:20 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C01EF805D7;
-	Thu, 18 Dec 2025 16:33:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF0DCF80508;
+	Fri, 19 Dec 2025 01:59:20 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 190EAF8053B; Thu, 18 Dec 2025 16:32:29 +0100 (CET)
+	id B741AF8028B; Fri, 19 Dec 2025 01:59:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
+	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 80554F804B3
-	for <alsa-devel@alsa-project.org>; Thu, 18 Dec 2025 16:32:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80554F804B3
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=oR3hYIMV
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 855DF409A6;
-	Thu, 18 Dec 2025 15:32:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B17BC4CEFB;
-	Thu, 18 Dec 2025 15:32:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766071941;
-	bh=z0fXM45sgVSyfzITVbX/gHZahLGojvuS7/CdlK1LMwI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=oR3hYIMVuO4xyRuNfYiB/VVU4RsKge+4vc30KdPDexk8F2c+x7crBNSrgkE6MrbQq
-	 +H3BbHMk4rDifHN/PRWFbt5EbJyKsDN3SZCNmXpczkrfcsCHS6csw5XWWcYEHpvIOB
-	 0O0+M38TJvmQs2xoefU0FJGsPGA/1mKk4CBT1H4n80QSw87GpjWMTKTTpZo93KPiRQ
-	 YdLJX60PcgK/6dkjznaa5+d2wv3GgMUqOCmNrOKgtofG+LM2KFRAiAaEki6eO7lEc2
-	 Kqpn82/GaitrAJMn9noE8HR7X2WBGVwFnWJB8dbErNSGxsKlgWQlrXbUpd2XMc61yG
-	 b/BNmu7XZ8N5Q==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Niranjan H Y <niranjan.hy@ti.com>
-Cc: linux-sound@vger.kernel.org, ckeepax@opensource.cirrus.com,
- lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, perex@perex.cz, tiwai@suse.com,
- cezary.rojewski@intel.com, peter.ujfalusi@linux.intel.com,
- kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.dev,
- shenghao-ding@ti.com, v-hampiholi@ti.com, baojun.xu@ti.com,
- dan.carpenter@linaro.org, sandeepk@ti.com
-In-Reply-To: <20251215153219.810-1-niranjan.hy@ti.com>
-References: <20251215153219.810-1-niranjan.hy@ti.com>
-Subject: Re: [PATCH v2 1/8] ASoC: tas2783A: sdw_utils: support ch 3 & 4
-Message-Id: <176607193812.209701.4994905607089165654.b4-ty@kernel.org>
-Date: Thu, 18 Dec 2025 15:32:18 +0000
+Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
+ [45.14.194.44])
+	by alsa1.perex.cz (Postfix) with ESMTP id 3357AF8001F
+	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 01:59:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3357AF8001F
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-47773
-Message-ID-Hash: ZXGREQQXRCCDWCNIP3TN5TSSIB4J36P5
-X-Message-ID-Hash: ZXGREQQXRCCDWCNIP3TN5TSSIB4J36P5
-X-MailFrom: broonie@kernel.org
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+Message-Id: <188278008b7bcd00-webhooks-bot@alsa-project.org>
+In-Reply-To: <18827800856b6700-webhooks-bot@alsa-project.org>
+References: <18827800856b6700-webhooks-bot@alsa-project.org>
+Subject: MSI Z790I EDGE WiFI not detecting front panel audio
+Date: Fri, 19 Dec 2025 01:59:10 +0100 (CET)
+Message-ID-Hash: OBTSZQPTDBU5FTQQEIAPUDOCUU4ZCCLT
+X-Message-ID-Hash: OBTSZQPTDBU5FTQQEIAPUDOCUU4ZCCLT
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZXGREQQXRCCDWCNIP3TN5TSSIB4J36P5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBTSZQPTDBU5FTQQEIAPUDOCUU4ZCCLT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,52 +70,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 15 Dec 2025 21:02:12 +0530, Niranjan H Y wrote:
->  Currently the machine driver for tas2783A can only
-> support 2 channels. This patch adds support for
-> 2 channel playback with 4 device setup.
-> 
-> 
+alsa-project/alsa-ucm-conf issue #664 was opened from abhisas:
 
-Applied to
+This Motherboard is in already in the UCM conf list for the ALC4080, but the front panel audio still does not work, and I am not sure why. 
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I am on Fedora version 43. Any help would be appreciated. 
 
-Thanks!
+Below is output from lsusb
+` us 001 Device 007: ID 0db0:62a4 Micro Star International USB Audio `
 
-[1/8] ASoC: tas2783A: sdw_utils: support ch 3 & 4
-      commit: 5965df0670d9f4a092aa111a01c62a450e689c8a
-[2/8] ASoC: tas2783A: use custom firmware
-      commit: a3b0cd63f212686dd57eacd5d685ac259631248f
-[3/8] ASoC: tas2783A: update default init writes
-      commit: f8f1f0d8f0255d1e7c758dba9e3deb5a58a51aa1
-[4/8] ASoC: tas2783A: fix error log for calibration data
-      commit: ce65a90222e94eec1e5b7d0224b4d647af644cdc
-[5/8] ASoc: tas2783A: fw name based on system details
-      commit: 2bc4b4f77cb70df3ef05b80d0cb19edba17f04a6
-[6/8] ASoc: tas2783A: acpi match for 4 channel for mtl
-      commit: a6b5629e131c76c4ab8f2036f09a05f976f7eb73
-[7/8] ASoC: tas2783A: use acpi initialisation table
-      commit: ca8f3611dcf85489cae315f4844cccf858bbe9b3
-[8/8] ASoC: tas2783A: read slave properties from acpi table
-      commit: 961f20faa4b950c449dc98fa95a056ef368a24fc
+Alsa info.sh output: http://alsa-project.org/db/?f=01026cd96771a91f619f9c36abb51b6bfe9321f6 
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Output from plugging in front panel jack (alsactl monitor)
+```node hw:3, #14 (0,0,0,Mic - Input Jack,0) VALUE
+node hw:3, #25 (0,0,0,Headphone - Output Jack,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
+node hw:3, #14 (0,0,0,Mic - Input Jack,0) VALUE
+```
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+alsaucm -c hw:2 dump text"
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+```
+ALSA lib parser.c:305:(error_node) [error.ucm] UCM is not supported for this HDA model (HDA NVidia at 0x82080000 irq 17)
+ALSA lib main.c:1804:(snd_use_case_mgr_open) [error.ucm] failed to import hw:2 use case configuration -6
+alsaucm: error failed to open sound card hw:2: No such device or address
+```
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+aplay -l:
 
-Thanks,
-Mark
+```
+**** List of PLAYBACK Hardware Devices ****
+card 0: Stream [JBL Quantum Stream], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 1: PCH [HDA Intel PCH], device 9: HDMI 3 [HDMI 3]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: NVidia [HDA NVidia], device 3: HDMI 0 [Odyssey G50A]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: NVidia [HDA NVidia], device 7: HDMI 1 [HDMI 1]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: NVidia [HDA NVidia], device 8: HDMI 2 [HDMI 2]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 2: NVidia [HDA NVidia], device 9: HDMI 3 [HDMI 3]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 3: Audio [USB Audio], device 0: USB Audio [USB Audio]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 3: Audio [USB Audio], device 1: USB Audio [USB Audio #1]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
 
+```
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/664
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

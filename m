@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 606BECCE1B7
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Dec 2025 01:59:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384F6CCF642
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Dec 2025 11:36:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7B1860207;
-	Fri, 19 Dec 2025 01:59:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7B1860207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7052C6022C;
+	Fri, 19 Dec 2025 11:36:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7052C6022C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1766105995;
-	bh=JG25kOi0Dhwx5eg5sk/8izfK+vAzUNPQUBbhGKk2pu4=;
+	s=default; t=1766140591;
+	bh=HGWi7u17oEmmxwIN0H81tTTdggZetuSWaM8RnFyxKww=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=sWuEQHuZ3kTp9O9AALgJsBAwo7zo/YhUWNaKzjzXNL5wzPnw/exNPskoLF9lfCH49
-	 xqmsqZCBcNdpEUlEUwl7HkK9Img1RA7UVnIj6ux6wuqDxz7u29niCp9cmZjvbQdOJY
-	 P2EAPP7XuttWG16SvrxWgXwFt2B9ZAyZ89R9z/mM=
+	b=dsNwQFf2Hi88o3SsRN2OZcnjpzWdq7Gpu9yGStmq9FmI5RoBa6hAWcKdSj97jJo40
+	 7VSppVbgmEkV2okxEHwtq/VDiR9T4dXdKHgDgbWc+itltY3bN/4rDmEdyT/OIMtzWn
+	 0+CmtYRZwVBctUS1LofeYg7SKtYpPEu98VVcq+NQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1F9E6F805D8; Fri, 19 Dec 2025 01:59:20 +0100 (CET)
+	id 7E329F805D9; Fri, 19 Dec 2025 11:35:51 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF0DCF80508;
-	Fri, 19 Dec 2025 01:59:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9CC1F805C5;
+	Fri, 19 Dec 2025 11:35:51 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B741AF8028B; Fri, 19 Dec 2025 01:59:10 +0100 (CET)
+	id AC303F8028B; Fri, 19 Dec 2025 11:34:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3357AF8001F
-	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 01:59:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3357AF8001F
+	by alsa1.perex.cz (Postfix) with ESMTP id D548CF800ED
+	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 11:34:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D548CF800ED
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub pull_request - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <188278008b7bcd00-webhooks-bot@alsa-project.org>
-In-Reply-To: <18827800856b6700-webhooks-bot@alsa-project.org>
-References: <18827800856b6700-webhooks-bot@alsa-project.org>
-Subject: MSI Z790I EDGE WiFI not detecting front panel audio
-Date: Fri, 19 Dec 2025 01:59:10 +0100 (CET)
-Message-ID-Hash: OBTSZQPTDBU5FTQQEIAPUDOCUU4ZCCLT
-X-Message-ID-Hash: OBTSZQPTDBU5FTQQEIAPUDOCUU4ZCCLT
+Message-Id: <1882976af3735100-webhooks-bot@alsa-project.org>
+In-Reply-To: <alsa-project/alsa-ucm-conf/pr/665@alsa-project.org>
+References: <alsa-project/alsa-ucm-conf/pr/665@alsa-project.org>
+Subject: ucm2: sof-soundwire: Add support for CS42L43B variant
+Date: Fri, 19 Dec 2025 11:34:51 +0100 (CET)
+Message-ID-Hash: WJHQXWZA5DTFHIUF4CNGMCA3AT7X2RHI
+X-Message-ID-Hash: WJHQXWZA5DTFHIUF4CNGMCA3AT7X2RHI
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -61,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBTSZQPTDBU5FTQQEIAPUDOCUU4ZCCLT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJHQXWZA5DTFHIUF4CNGMCA3AT7X2RHI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,78 +70,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #664 was opened from abhisas:
+alsa-project/alsa-ucm-conf pull request #665 was opened from mstrozek:
 
-This Motherboard is in already in the UCM conf list for the ALC4080, but the front panel audio still does not work, and I am not sure why. 
+>From UCM point of view CS42L43B codec adds 2 new decimators and removes a control to change Decimator 1 mode from base CS42L43. Thus reuse CS42L43 files, and guard the CS42L43B additions behind a condition that the new Decimator controls exist.
 
-I am on Fedora version 43. Any help would be appreciated. 
+Link: https://lore.kernel.org/all/20251219100235.1247053-1-mstrozek@opensource.cirrus.com/
 
-Below is output from lsusb
-` us 001 Device 007: ID 0db0:62a4 Micro Star International USB Audio `
+Set as Draft PR until kernel support is merged.
 
-Alsa info.sh output: http://alsa-project.org/db/?f=01026cd96771a91f619f9c36abb51b6bfe9321f6 
-
-Output from plugging in front panel jack (alsactl monitor)
-```node hw:3, #14 (0,0,0,Mic - Input Jack,0) VALUE
-node hw:3, #25 (0,0,0,Headphone - Output Jack,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #19 (2,0,0,PCM Playback Volume,0) VALUE
-node hw:3, #14 (0,0,0,Mic - Input Jack,0) VALUE
-```
-
-alsaucm -c hw:2 dump text"
-
-```
-ALSA lib parser.c:305:(error_node) [error.ucm] UCM is not supported for this HDA model (HDA NVidia at 0x82080000 irq 17)
-ALSA lib main.c:1804:(snd_use_case_mgr_open) [error.ucm] failed to import hw:2 use case configuration -6
-alsaucm: error failed to open sound card hw:2: No such device or address
-```
-
-aplay -l:
-
-```
-**** List of PLAYBACK Hardware Devices ****
-card 0: Stream [JBL Quantum Stream], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: PCH [HDA Intel PCH], device 3: HDMI 0 [HDMI 0]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: PCH [HDA Intel PCH], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: PCH [HDA Intel PCH], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 1: PCH [HDA Intel PCH], device 9: HDMI 3 [HDMI 3]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: NVidia [HDA NVidia], device 3: HDMI 0 [Odyssey G50A]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: NVidia [HDA NVidia], device 7: HDMI 1 [HDMI 1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: NVidia [HDA NVidia], device 8: HDMI 2 [HDMI 2]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 2: NVidia [HDA NVidia], device 9: HDMI 3 [HDMI 3]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 3: Audio [USB Audio], device 0: USB Audio [USB Audio]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-card 3: Audio [USB Audio], device 1: USB Audio [USB Audio #1]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/664
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/665
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/665.patch
 Repository URL: https://github.com/alsa-project/alsa-ucm-conf

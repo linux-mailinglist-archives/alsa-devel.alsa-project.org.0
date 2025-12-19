@@ -2,55 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72854CCF86B
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Dec 2025 12:07:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A986CCFE6D
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Dec 2025 13:53:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA6226022B;
-	Fri, 19 Dec 2025 12:07:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA6226022B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60FA0601A9;
+	Fri, 19 Dec 2025 13:53:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60FA0601A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1766142451;
-	bh=ixAinEGK8ak593S43HCKdCqI27oqKZXW3EWvb0K5MjU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	s=default; t=1766148834;
+	bh=hkQTLFoZPDg52QyzeNWMewF6IZRbEZQw/pEPN0kloDc=;
+	h=Date:Subject:References:From:To:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=pfOMPc2yGMkrvn9ri++RexWj746zc7eiIiKdn2xZ4omoSFsEL3rGCuwUzTYOo9pLS
-	 q+4rTHqIR3W8V8qez0xHdeupUeFc9x7OmE6Ac1H/wDxDG/CU9xgQPrzVYMZ2o/1Gsm
-	 SyYDEHFvU+6EeNjDhT/7mhQzzVVkB71PaLJGc/8k=
+	b=UxFWNdBedEkykNgfw56Cs2hFT80FASoeG5FYyAUllEuq+Jzbd4yxxLuHa6WyckVFi
+	 oMXZ3eeF4R+BIl0dlPHgKPmK/seARN9uXDZo8B2B83ChuJGPfgAZl+oF+Y3HefxQRS
+	 mSl3HJAtWfVNHYu5XZmO2OXM5sdOqA1lli8qlcuI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39D36F805D8; Fri, 19 Dec 2025 12:06:52 +0100 (CET)
+	id 2979DF805DF; Fri, 19 Dec 2025 13:53:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A763EF805D3;
-	Fri, 19 Dec 2025 12:06:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECD48F80538;
+	Fri, 19 Dec 2025 13:53:25 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0F10F80508; Fri, 19 Dec 2025 12:05:37 +0100 (CET)
+	id 39E00F805C2; Fri, 19 Dec 2025 13:52:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
-	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id D150FF800B8
-	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 12:05:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D150FF800B8
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6426DF80538
+	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 13:52:18 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5345211F8
+	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 13:52:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5345211F8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1766148735; bh=wwVwWNsm00bZtwAeLjOrRLweghDFH0PXYcOelNVfvmQ=;
+	h=Date:Subject:References:From:To:In-Reply-To:From;
+	b=WQTCMN2hxBqk/m66oWd7JFjqkr6Epq0mT+Fp/xoaPvfHfkzzrwHjrOOuTu2yYkIV0
+	 UIyHO7Rta9IcIpfyI1DKtdNhOtSiYXaELhdW97jLOaFkG40ddCCI4L2hU6MMK9yaqy
+	 8PZVXz8HnklzZ/2PM/b396y493dxPB1aWBI3KuyQ=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA
+	for <alsa-devel@alsa-project.org>; Fri, 19 Dec 2025 13:52:14 +0100 (CET)
+Message-ID: <b60207fd-e214-4d8c-8a56-9d2b1f3509ff@perex.cz>
+Date: Fri, 19 Dec 2025 13:52:13 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: ALSA 1.2.15.1 release
+Content-Language: en-US
+References: <b783cfa7-66a4-4231-ae5c-62b06bf5ba0b@perex.cz>
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Autocrypt: addr=perex@perex.cz; keydata=
+ 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
+In-Reply-To: <b783cfa7-66a4-4231-ae5c-62b06bf5ba0b@perex.cz>
+X-Forwarded-Message-Id: <b783cfa7-66a4-4231-ae5c-62b06bf5ba0b@perex.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - reopened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <188299187bf20900-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-ucm-conf/pr/633@alsa-project.org>
-References: <alsa-project/alsa-ucm-conf/pr/633@alsa-project.org>
-Subject: ucm2: sof: hdmi: Add 5.1 and 7.1 variants of HDMI devices when using
- IPC4
-Date: Fri, 19 Dec 2025 12:05:37 +0100 (CET)
-Message-ID-Hash: ERSIIFO44ZEFKTTXJ2AR7HNVRHSTO44H
-X-Message-ID-Hash: ERSIIFO44ZEFKTTXJ2AR7HNVRHSTO44H
-X-MailFrom: github@alsa-project.org
+Message-ID-Hash: 34QSEM4NHGDVPCR2YQVGKBP3H6UTHEUJ
+X-Message-ID-Hash: 34QSEM4NHGDVPCR2YQVGKBP3H6UTHEUJ
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ERSIIFO44ZEFKTTXJ2AR7HNVRHSTO44H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/34QSEM4NHGDVPCR2YQVGKBP3H6UTHEUJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,19 +136,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #633 was reopened from ujfalusi:
+Hello all,
 
-Systems using IPC4 can support up to 8 channels of audio (and passthrough) via HDMI.
+	new ALSA userspace packages were released. You may download them from
+the ALSA website http://www.alsa-project.org or directly:
 
-In UCM the default PlaybackChannels is set to 2, which prevents users from selecting multichannel configurations.
+	HTTP: https://www.alsa-project.org/files/pub
+	FTP:  ftp://ftp.alsa-project.org/pub
 
-When probing the card, Pipewire will drop configurations that are not supported either by the PCM device or based on ELD information.
-This means that if the equipment supports only stereo then the 5.1 and 7.1 variants should not be visible, if the equipment is 5.1 capable, then only the 7.1 variant is removed.
+Released packages:
 
-The kernel will refine the PCM parameters based on the ELD information as wall when https://lore.kernel.org/linux-sound/20251029073600.13624-1-peter.ujfalusi@linux.intel.com/ is applied.
+	alsa-lib
+	alsa-utils
+	alsa-ucm-conf
 
-@perexg, @wtay, @ford-prefect, is this something which can help PW and user space to handle the HDMI a bit better with SOF?
+Full list of changes:
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/633
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/633.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+	https://www.alsa-project.org/wiki/Changes_v1.2.15_v1.2.15.1
+
+The fingerprint of the public signing key is:
+
+	F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
+
+				Have fun,
+					Jaroslav
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

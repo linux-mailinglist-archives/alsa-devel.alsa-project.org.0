@@ -2,74 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4F85CD38A8
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Dec 2025 23:59:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1839CD3E6A
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 Dec 2025 11:20:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B144C60206;
-	Sat, 20 Dec 2025 23:58:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B144C60206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72B2560203;
+	Sun, 21 Dec 2025 11:19:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72B2560203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1766271541;
-	bh=j1GOTP4uW+ablI4hgNqOr9maHcvcticbqrr0oiC53Lk=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Sn/22K+YwLZ6VTB2KIb4B47eA5CZ8cKtJK7r0CgggPzV3gLAocFZ/wCABh9ZYnRp+
-	 XsPz5+Hs67nztwgYPlD5NKmXEOsVHwAu9S9d4VHiwvfISHm+ZweWlTvJiPG3nCFfyM
-	 t2szqEuCwFgr1N54KHus+bipelro+MQPrKWi5jhw=
+	s=default; t=1766312402;
+	bh=2M2PKj+6AxdWiFnBbhl1tCsgFwbldzqTE+iLle8YIo8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=q49IOCKgCmWkevhoXHKv1IbvVzp7pmFcMNQENEz48SBTyqSx/6YtNg5W2DJRX3dC1
+	 eIjxK+o/9fesVWeAIcmh7qU4PeC0kd/H8RxOt07JJGCLZpygFURbVhtNLStkc6mEC7
+	 sJGmqlYleKYKdjZxQ4/Fwkr5t2ZAgSPycXPbev9c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D65E1F80579; Sat, 20 Dec 2025 23:58:27 +0100 (CET)
+	id 5CCA5F805DF; Sun, 21 Dec 2025 11:19:28 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 483A0F805D8;
-	Sat, 20 Dec 2025 23:58:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C315F805C8;
+	Sun, 21 Dec 2025 11:19:27 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEFDCF804D6; Sat, 20 Dec 2025 23:58:11 +0100 (CET)
+	id 513ACF80496; Sun, 21 Dec 2025 11:19:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3CDE5F80171
-	for <alsa-devel@alsa-project.org>; Sat, 20 Dec 2025 23:58:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CDE5F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id A836FF801F5
+	for <alsa-devel@alsa-project.org>; Sun, 21 Dec 2025 11:19:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A836FF801F5
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Do6HH5c0
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 71C3260053;
-	Sat, 20 Dec 2025 22:58:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D761C4CEF5;
-	Sat, 20 Dec 2025 22:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766271480;
-	bh=j1GOTP4uW+ablI4hgNqOr9maHcvcticbqrr0oiC53Lk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Do6HH5c0QWYitZLtSX3srYlmB3d0h6ClRkgb6CjTRmAg0jbJmARjOeGcAqN7OtqLa
-	 OJQV0IQhBynNdV9oF1EtskzIuC/umvXRfbO/btSk59AZHGaI/GjBm/xzoM1lOsQrlC
-	 FMOvC6W0u6pedDn3uS82sk08ulxhViYc4RBsd9Q04CS5Rc1+HyllqEhH0hXbPGkmEq
-	 GCmJdA1Qk+s5tVSpwo05EyDOsmUOIVSzLSQrVAU8xI9zClS4374zqv8aB60WDNhfx+
-	 ny3uKrN9eWsoMSgJHyTyzXhSr4uCobki+XjsKoKSLxBx9QKa46NFkkdDWXGppPA8hn
-	 YAxK1xWXLSReQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id D29B21AC56B2; Sun, 21 Dec 2025 07:57:55 +0900 (JST)
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] ASoC fixes for v6.19-rc1
-Date: Sat, 20 Dec 2025 22:57:55 +0000
-Message-Id: <20251220225755.D29B21AC56B2@finisterre.sirena.org.uk>
-Message-ID-Hash: 7HDPSLF6JO3O3IZIPB2ZGU5VP7635AAR
-X-Message-ID-Hash: 7HDPSLF6JO3O3IZIPB2ZGU5VP7635AAR
-X-MailFrom: broonie@kernel.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=W9V5HAm2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=recEkCfq;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de
+ header.a=rsa-sha256 header.s=susede2_rsa header.b=W9V5HAm2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=recEkCfq
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C87E55BE1B;
+	Sun, 21 Dec 2025 10:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1766312343;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hukJl7JVHsaVHjhuHp29w14ZTDridEdHML4mF4NsPvI=;
+	b=W9V5HAm2NbasGqYotesJE2Oe1WuKLXQS3hEP2oaavGrpg/ZpqRJCTK6O4AcHeFXNHB481L
+	4GF+M9ZorT+oXbWaVd9JOrQh+Vl4lCM5Q+cm5iPhSg33vlsO0/rlz5MNLxM3WtXeoi8xug
+	19tSyDgMZQi6X/RWjMYLpEv3xgJA1N0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1766312343;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hukJl7JVHsaVHjhuHp29w14ZTDridEdHML4mF4NsPvI=;
+	b=recEkCfqGM93u2jmS1dm9IC9KbjAZjlsDOGlc0on0YKNJYAoBBz/IesCkqaQBltu316Knw
+	/p+0KfO1osHR4YAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1766312343;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hukJl7JVHsaVHjhuHp29w14ZTDridEdHML4mF4NsPvI=;
+	b=W9V5HAm2NbasGqYotesJE2Oe1WuKLXQS3hEP2oaavGrpg/ZpqRJCTK6O4AcHeFXNHB481L
+	4GF+M9ZorT+oXbWaVd9JOrQh+Vl4lCM5Q+cm5iPhSg33vlsO0/rlz5MNLxM3WtXeoi8xug
+	19tSyDgMZQi6X/RWjMYLpEv3xgJA1N0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1766312343;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hukJl7JVHsaVHjhuHp29w14ZTDridEdHML4mF4NsPvI=;
+	b=recEkCfqGM93u2jmS1dm9IC9KbjAZjlsDOGlc0on0YKNJYAoBBz/IesCkqaQBltu316Knw
+	/p+0KfO1osHR4YAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6759313A54;
+	Sun, 21 Dec 2025 10:19:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 95NqFZfJR2lVfQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 21 Dec 2025 10:19:03 +0000
+Date: Sun, 21 Dec 2025 11:18:58 +0100
+Message-ID: <87y0mwyw6l.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	linux-sound@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [GIT PULL] ASoC fixes for v6.19-rc1
+In-Reply-To: <00e012c86db2f59544afb66176c25978@kernel.org>
+References: <00e012c86db2f59544afb66176c25978@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.1 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,alsa-project.org];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+Message-ID-Hash: LPQSMDJVXGHYS752HKGK63CX72ZKMGKS
+X-Message-ID-Hash: LPQSMDJVXGHYS752HKGK63CX72ZKMGKS
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -81,7 +155,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7HDPSLF6JO3O3IZIPB2ZGU5VP7635AAR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LPQSMDJVXGHYS752HKGK63CX72ZKMGKS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,93 +164,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The following changes since commit 8f0b4cce4481fb22653697cced8d0d04027cb1e8:
+On Fri, 19 Dec 2025 16:25:22 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit 8f0b4cce4481fb22653697cced8d0d04027cb1e8:
+> 
+>   Linux 6.19-rc1 (2025-12-14 16:05:07 +1200)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.19-rc1
+> 
+> for you to fetch changes up to 56d953a8d0da5e53c2594edde23465ec49385b1c:
+> 
+>   ASoC: Intel: mtl-match: Add 6-amp matches for CS35L56 (2025-12-19 13:25:16 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v6.19
+> 
+> We've been quite busy with fixes since the merge window, though not in
+> any particularly exciting ways - the standout thing is the fix for _SX
+> controls which were broken by a change to how we do clamping, otherwise
+> it's all fairly run of the mill fixes and quirks.
 
-  Linux 6.19-rc1 (2025-12-14 16:05:07 +1200)
+Pulled now.  Thanks.
 
-are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.19-rc1
-
-for you to fetch changes up to 56d953a8d0da5e53c2594edde23465ec49385b1c:
-
-  ASoC: Intel: mtl-match: Add 6-amp matches for CS35L56 (2025-12-19 13:25:16 +0000)
-
-----------------------------------------------------------------
-ASoC: Fixes for v6.19
-
-We've been quite busy with fixes since the merge window, though not in
-any particularly exciting ways - the standout thing is the fix for _SX
-controls which were broken by a change to how we do clamping, otherwise
-it's all fairly run of the mill fixes and quirks.
-
-----------------------------------------------------------------
-Alexander Stein (4):
-      ASoC: fsl_easrc: fix duplicate debugfs directory error
-      ASoC: fsl_asrc_dma: fix duplicate debugfs directory error
-      ASoC: fsl_sai: Add missing registers to cache default
-      ASoC: fsl_xcvr: provide regmap names
-
-Andrew Elantsev (1):
-      ASoC: amd: yc: Add quirk for Honor MagicBook X16 2025
-
-Bard Liao (2):
-      ASoC: sdw_utils: subtract the endpoint that is not present
-      ASoC: SOF: ipc4-topology: set playback channel mask
-
-Chancel Liu (2):
-      ASoC: fsl_sai: Constrain sample rates from audio PLLs only in master mode
-      ASoC: fsl-asoc-card: Use of_property_present() for non-boolean properties
-
-Mark Brown (4):
-      ASoC: Intel: common / SOF: Use function topologies for
-      ASoC: SOF: ipc4-topology: fixes for 'exotic' format
-      ASoC: fsl_easrc: Fix duplicate debufs entries
-      ASoC: Intel: mtl-match: Add 6-amp matches for CS35L56
-
-Peter Ujfalusi (6):
-      ASoC: SOF: ipc4-topology: Prefer 32-bit DMIC blobs for 8-bit formats as well
-      ASoC: SOF: ipc4-topology: Convert FLOAT to S32 during blob selection
-      ASoC: SOF: topology: Add context when sink or source widget is missing
-      ASoC: SOF: Intel: pci-mtl: Change the topology path to intel/sof-ipc4-tplg
-      ASoC: soc-acpi / SOF: Add best_effort flag to get_function_tplg_files op
-      ASoC: Intel: soc-acpi-intel-nvl-match: Drop rt722 l3 from the match table
-
-Robert Oscilowski (1):
-      ASoC: qcom: sdm845: set quaternary MI2S codec DAI to I2S format
-
-Shengjiu Wang (1):
-      ASoC: ak4458: remove the reset operation in probe and remove
-
-Shuming Fan (1):
-      ASoC: rt1320: update VC blind write settings
-
-Stefan Binding (3):
-      ASoC: Intel: soc-acpi-intel-mtl-match: Add 6 amp CS35L56 with feedback
-      ASoC: Intel: soc-acpi-intel-mtl-match: Add 6 amp CS35L63 with feedback
-      ASoC: ops: fix snd_soc_get_volsw for sx controls
-
-sheetal (1):
-      ASoC: tegra: Fix uninitialized flat cache warning in tegra210_ahub
-
- include/sound/soc-acpi.h                           |   5 +-
- sound/soc/amd/yc/acp6x-mach.c                      |   7 ++
- sound/soc/codecs/ak4458.c                          |   4 -
- sound/soc/codecs/rt1320-sdw.c                      |  16 ++--
- sound/soc/fsl/fsl-asoc-card.c                      |   8 +-
- sound/soc/fsl/fsl_asrc_dma.c                       |   3 +
- sound/soc/fsl/fsl_easrc.c                          |   3 +
- sound/soc/fsl/fsl_sai.c                            |  13 ++-
- sound/soc/fsl/fsl_xcvr.c                           |   3 +
- sound/soc/intel/common/soc-acpi-intel-mtl-match.c  | 104 +++++++++++++++++++++
- sound/soc/intel/common/soc-acpi-intel-nvl-match.c  |  49 ----------
- sound/soc/intel/common/sof-function-topology-lib.c |   5 +-
- sound/soc/intel/common/sof-function-topology-lib.h |   2 +-
- sound/soc/qcom/sdm845.c                            |   2 +
- sound/soc/sdw_utils/soc_sdw_utils.c                |   8 +-
- sound/soc/soc-ops.c                                |  32 ++++---
- sound/soc/sof/intel/pci-mtl.c                      |   6 +-
- sound/soc/sof/ipc4-topology.c                      |  49 ++++++----
- sound/soc/sof/topology.c                           |  26 +++++-
- sound/soc/tegra/tegra210_ahub.c                    |   6 +-
- 20 files changed, 238 insertions(+), 113 deletions(-)
+Takashi

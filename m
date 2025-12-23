@@ -1,210 +1,120 @@
 Return-Path: <alsa-devel-bounces@alsa-project.org>
-X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
+Received: from mail.lfdr.de
+	by lfdr with LMTP
+	id 0CikA3hNqGmvsgAAu9opvQ
+	(envelope-from <alsa-devel-bounces@alsa-project.org>)
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 16:19:20 +0100
+X-Original-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94498D19A9F
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jan 2026 15:58:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7187D2027C6
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 16:19:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96A29601E7;
-	Tue, 13 Jan 2026 15:58:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96A29601E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98E1060240;
+	Wed,  4 Mar 2026 16:19:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98E1060240
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1768316332;
-	bh=xxg79ebGwhhpPqifU8rus7+NjCYBZK/Orel67uqyHqc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=o/obBMvMfXc2RqWixnj1C4O26FeJB+lijy/MO0RE0KiPIhL0V6zMoi2qoZYC5+0zP
-	 cCG8N6LpaXpDhGmudHFEoESXOTi1n9ckgPI5hprReuAkxq9dN1jaezrtkAOFN6NnA1
-	 DrZtsAGBzs99w92MHXQnyw+BRoiNhfh7S5XQcphE=
+	s=default; t=1772637558;
+	bh=wCBKVGFXs37f/ebeUUbxojZSNW/DgwoWSbQJYbG8Egw=;
+	h=Date:Subject:To:Cc:From:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=VogU+a9inQ3pysswS9IClvIEN+Lu3yfdddtmOgg9C62sUVpzL94K7lOhdH4aGSIFR
+	 00cE9HoTbFnS/JSzHs7hfBE4vgBu7QhcB5+yiM6rKqdpkIZdHxXhVKf6DtWAe1Lu7L
+	 rJSwW2NP9HMpWeYIo6wCrvJvHyN6NZcGUP0kNzlo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B01EF805E9; Tue, 13 Jan 2026 15:58:19 +0100 (CET)
+	id 0FEECF805EC; Wed,  4 Mar 2026 16:18:45 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA12EF805DA;
-	Tue, 13 Jan 2026 15:58:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA53FF805EE;
+	Wed,  4 Mar 2026 16:18:45 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4AF9F805CA; Tue, 13 Jan 2026 15:57:32 +0100 (CET)
+	id D0638F80134; Tue, 23 Dec 2025 20:48:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,KHOP_HELO_FCRDNS,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011048.outbound.protection.outlook.com [40.107.208.48])
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch
+ [45.157.188.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B56D2F80016
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 15:57:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B56D2F80016
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8971BF80100
+	for <alsa-devel@alsa-project.org>; Tue, 23 Dec 2025 20:48:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8971BF80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=uMaj2Vk0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jcP88VutlZCN0k5TGhOQdWUGYQX/Y7rod3aCZKkdQIjEOkP8ILPqPcPfylceqEqv/gmrFXe9vFzcZD6V9XY1XvDc7LMPqQU8D8qVdOncdc3LARZtq5sG1zOi2qMWzJBpgJVE6O0yCyEqJBvihzejYLLmJ6ooO2PAG8PdkRj2zyd9SZQhNHCVzrVJjgiCcMISO3s5zFeyxXMqhp84uPASDLyN4//yOoA3M9BwNXaVFIr5pbIo3v7on51oqp31Km5KN7YJL5Bm3WEHyXbB690AyOyoQLi3PcBeYVKHfJtzvl2v/yBYlFGVDAVoP1o6Uklx4/xCYueaQCqboeDzCcoqRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9yPOx3ZItACM/jQPGFGXaA3iNU5ePj2f9GpGs52SIZM=;
- b=X8xLe9s74gAdAHWGhVwnQOV5XDJgCvqU2KAjr1ZZG22NMJx41PHaHhZSrUPu8bo7rMGMo4jYrsyEcfCkX9vWdaw610DjoNYFWSrABy9CwmNHiP1rF6IMNX5dl1trsf2YwPTqGi21s/G7MdwKVnYAoK9ltHvjYXTRtkkz1myKIc3FbgDF/hW30ZGYdyYsKK/PnTco2r9+uu2l/uZhneHKocEEE8T/cdgVe2sToR3DYOO+caxQqih8sv976D6ul1TF2QyvJ9BQzawSj18+PZ8KlQmZ3r/8EuIBDJ7j5FReLime2ZiP9Vb815pWFgJKEOIYJITtsG8QP+D8Sv/v/TM2NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9yPOx3ZItACM/jQPGFGXaA3iNU5ePj2f9GpGs52SIZM=;
- b=uMaj2Vk0xy4b8ur258XX1mtD4SHXW0YHLmbFoSfpCTQwL0ARnha3hNQeo0QKuRrT2a4PbxgDNyBhK09jnETb7UTY1DQQO3k6RKGfyW0VGVrSQ9aj+/RR2omRqLX9fVTvui9w9IFdb0XD95gxPOgH1Pogoz4A+7rG3AsTRkYNclk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
- DS7PR12MB6333.namprd12.prod.outlook.com (2603:10b6:8:96::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9499.6; Tue, 13 Jan 2026 14:57:19 +0000
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5%3]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
- 14:57:18 +0000
-Message-ID: <80125d69-334d-4b07-b3bc-7b9fb657f466@amd.com>
-Date: Tue, 13 Jan 2026 20:27:11 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: amd: acp: soc-acpi: add is_device_rt712_vb() helper
-To: kernel test robot <lkp@intel.com>, broonie@kernel.org
-Cc: Paul Gazzillo <paul@pgazz.com>,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>,
- oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- yung-chuan.liao@linux.intel.com, simont@opensource.cirrus.com,
- Sunil-kumar.Dommati@amd.com, mario.limonciello@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260110064505.1485927-1-Vijendar.Mukunda@amd.com>
- <202601131155.RXGj4KHv-lkp@intel.com>
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <202601131155.RXGj4KHv-lkp@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0020.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26e::6) To DS2PR12MB9567.namprd12.prod.outlook.com
- (2603:10b6:8:27c::8)
+ unprotected) header.d=fbengineering.ch header.i=@fbengineering.ch
+ header.a=rsa-sha256 header.s=20220212 header.b=OLE2IDHg
+Received: from smtp-4-0000.mail.infomaniak.ch (unknown
+ [IPv6:2001:1600:7:10::a6b])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4dbQYZ60VFzDlT;
+	Tue, 23 Dec 2025 20:48:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fbengineering.ch;
+	s=20220212; t=1766519330;
+	bh=qzqQ+fQOaa8t6swjF7C7Dy5OclUz6OJFgAhcoEc0g1Q=;
+	h=Date:Subject:To:Cc:From:From;
+	b=OLE2IDHgEFNlMUavCoxXdhxhCO6a3dXffaTydG2gr6fOKtWMeVIcR3S2TY8jUKhFV
+	 Jq59nDj6gOaPU14XY56eAVcjUfxCvtgqfDf2tEzdQlf8niuiXu390Oejah+ovgEmqf
+	 nTad32mH8CqmSmClQOF3QAHy3x5IdlwVh6iKQ0X8=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4dbQYZ28VqzTJj;
+	Tue, 23 Dec 2025 20:48:50 +0100 (CET)
+Message-ID: <b59edf1e-3735-4d16-84d7-631bc0ad81da@fbengineering.ch>
+Date: Tue, 23 Dec 2025 20:48:49 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|DS7PR12MB6333:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6cbdfe12-805f-4a49-fdc2-08de52b40c35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: 
-	=?utf-8?B?a3dUYzlBOW9hdHZoOWhWMjZOK1RlWnBGa1Z3UjRlTG9lL1RNUHZPOExyL2xE?=
- =?utf-8?B?OVdGeUFoN1VnZ2VhbUh3d01QY0xaeGdCNTROaHdNTWw0R1RNZjk4RFh0ak14?=
- =?utf-8?B?SndTb2ZqQWN3MUhua2dJMVV4ZUZ2SmpoUzFvbjF4QlNsMGJKZktZNmtPVnVQ?=
- =?utf-8?B?QnVzdUhRZDJldWxNbWs1eDNDZGNwRk1KU0Rua1E0RG5waHZZeTN1V3dCQ2x1?=
- =?utf-8?B?dlU5WUxqTVZtYTZodjhRKzlZQWZSSFFnMm16M2YySGZnV0d0YWVsM3pVQ3I3?=
- =?utf-8?B?dElFdWRTaTFqSDFxRDBFNjBOeFpZWVEwR2N3L2c4UG5UcUJRZnM4bjBVWXlM?=
- =?utf-8?B?NENjVmc3aXNoQUFrNGUwQ3p3VTZEYkVpVWVqcWprSVpNeS9HcFQ2eUFieE8w?=
- =?utf-8?B?em9ZOUV6dVhsUlFtdlMvQjkwRkEzbUs1bUN4YWJkTWNKTVJOcjNwZUVLdUhU?=
- =?utf-8?B?cVpYQVFYVEVTS2hIYURwa2pPNFNTd2NlR080WE5iYUo0UGNFZmhQM01nZDVz?=
- =?utf-8?B?VmR0cFY4Mkl1dlhINlJsdEwzVW5CNWd0dFRvRHJ2aWlNTTk2bE5HUUpiUDFC?=
- =?utf-8?B?aFZ4Q0xBMW1TZWh0a1RyYU1vTmpXZHdmZ3VMK3diVFNudXVPUzBNVmxxT2RG?=
- =?utf-8?B?QnU0K2pIVzZCQVpMQkpYQ1VQdDlCd3pIUFR5TVZveWNKdXE5dSs4R2xiTEFJ?=
- =?utf-8?B?eVBVYk53L3dlcDFoTjJhVkE1YzZkSEROY2toVzJPNmQ2VkR5cFk1NXlYemdo?=
- =?utf-8?B?MzBlbmdmL3Mra25BdE55ZGw0M3BxNklQVFBCaTBNY21NNk81ZXdma2pvME1l?=
- =?utf-8?B?RGcxMVRpbGI0dTJTWGNFOFZscFUvbzU1QzlYOGJTb09zSWhCbkl6cG0zSVNz?=
- =?utf-8?B?dU5nMk9yVUlBY3l1d3ZSenViRnFjbXlIc3YxQncwTExUbTYraUZEbXhqdGx6?=
- =?utf-8?B?OFFDYjVTYXhtTHlDTGpHY29hTHkrK1N6RHlRYlNZakt5VDBPSlRwSFB6UUxs?=
- =?utf-8?B?QU5JRTgzWGdxSlY4bXdVWWdsdGk0aHdFNWg5YUdiNVVBQlc1NTkwb21wb0hY?=
- =?utf-8?B?WHNZMXptYVZPNzlxdzlrQ1lMREVmcy9CTG9pUTI0cjNFaHlKUTduK0lJL01a?=
- =?utf-8?B?VGpiTmRzbUUxMFlSRUxBZHhhZDEzdHYrV3VsL0l5YkY0YTJNR0UyOTRoSFF5?=
- =?utf-8?B?dDErYWpHMDJTbTQyMjJXRE5hcVFhc2R3TkhHczgxQlpsUlNoQzJpenBEWEdk?=
- =?utf-8?B?Y2pkK2s0NjhQZGRiQWJ6cmpqbWJpakxOY1lveXlESVNzUWdBaW9sdFZkaUZl?=
- =?utf-8?B?SGhEUVJseXdHNnRWN1Y4a01pejlVQzl5ZG5jMFd6cENuMUh6WmJWbEtPM3Jk?=
- =?utf-8?B?T3k5MEdZOW9WTEJsOU1jRDZPTW1ydVFEYWdiZHlrM1h5MnVuV0d4QlByQnll?=
- =?utf-8?B?Y1Q5dGY3dWxqOGl6eXZQeGlFb3lmQjNsT2dwKzAydU51dUprS1BGbVArVXNF?=
- =?utf-8?B?UGJKY3NEL1huTzdCV3JpWGlkb3VlSnB0MG1QQkloRWgrYTNMMXhJYmE1d0FM?=
- =?utf-8?B?WmhsWHhwV2ZPWDBTOHAzdHJLY2swYjNaNUd1NmNsNWJjREwyblVzWkVrbDVC?=
- =?utf-8?B?RXd3dVNISmlOaElKR2piQmdJci81S3ZaeTB2VndseHFSMlJUTkF4c1hTbTk3?=
- =?utf-8?B?YUp3MWFrdGhOUkhlZWNKRWkxemtuck9KUjJoYWNuenduY0ZiNmtmenlEbjc3?=
- =?utf-8?B?UC9LOHUzaGNpQVVYUStPWks4M05JT0lBaEtwM0FIL0FJMG8xL3l4K2NIV3Jr?=
- =?utf-8?B?K0lyRGNYK1hVUHRtblVtNTZESUl2UXBoRlpxRUc3Vk9lTVFTUTVQREFEVG5q?=
- =?utf-8?B?SzB0d0JqY1NPL280RzFERkdHalUyd0M3OXNmZGJKNkwrZmt6azNoS0QxU1BH?=
- =?utf-8?B?UjkrTG9ZY2FHNzFkZnBmdjVPaFo1dUdUTVBVODJ4QkM0MXljbEJac1NpTmFR?=
- =?utf-8?B?UjV6WHhxR1lRPT0=?=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?dTdKNDFxZXNWSFRSbm5FZWxuVnRhejIxOTByL3FUcDNJaUhzSEpsMzNFN2d1?=
- =?utf-8?B?MTFrYWoxbUNuV0tpZHdNL052dlc0ZGRiZnVxekZ4RVFGUjI1V3FOZlo0ZzFm?=
- =?utf-8?B?NC96MXRsYXBFSWtxWDFPaENlOTd1K09rZlpwKzRoUExWQmdGRWxqdEczNGhl?=
- =?utf-8?B?UG1hRGljSGdKVGFjR3AxdHZDdHVEMHNMWHo4N2ZackwzVzRGbGJoWUxDbjc3?=
- =?utf-8?B?UzUzWGQ4WDNYL2dnYnIvbjZWY0xXSWQzbGYrRHV2RjF4SUl5TkVaNEgrMTZS?=
- =?utf-8?B?YjFrRXRQMWYyUXJUS0tGek5xZG5LVlBmRDBGMWxaVE53Q3preE04YmFBSnY2?=
- =?utf-8?B?VTlLL0pSMjdaajdwLzlCdlo3cXJmMzUxQ2VSb1BUUy9JVzFpdERPNCtMM1VD?=
- =?utf-8?B?YVkvS1QwLzFORXlQWmZIY2RPVWVjdVdoMmI0N3FGb0NLTThtdjFtZFRBQjNL?=
- =?utf-8?B?MTlCUTJvWncxSlFjZXJPeGdDS1JFdGFOOVcvNE9vUHdXQmlKK3pzSlhaVVFV?=
- =?utf-8?B?SXU0KzdTQ3J1WWNWL1ZqYkp3Tjdtbml3YUs4RHp3YzBHRmtROTFWTVNyWkh5?=
- =?utf-8?B?RDhUejJINStJN3RWQ2kxK0ZtaVFyVXo5RDRMeFJ3RnBLOE8vaXBpWmUvN3o0?=
- =?utf-8?B?ckZBU2JLaVZjcksrMTQ5RkdmMUxoZlBxZHJUWkFoWWlUeDhpYTU4bTRjZDl4?=
- =?utf-8?B?OGN3ZGVxSzdOYWhxVDBmTlF2ZEMwSjNYWG14Nzc0cVgwNVJqQnVhdzlnOFlx?=
- =?utf-8?B?b1VLZHd6NFV1NFlIRlBSVnRENEpYYVZJYWhoejI3YWdYM0NyR3JDR05oZjhq?=
- =?utf-8?B?YTlEcUVPUzliSGJPbUdEVWhqSXdCL3Y3b2swZktrMDV0dUhac2dWSW53L0h1?=
- =?utf-8?B?dE4rWGcrMzZpc09KTDdHZmI1WTdoMy9namRsRTlVTEM5S0JpL2cxRGY5dVlB?=
- =?utf-8?B?SmxxNmoxMzI3cURWV21rOHoxTnRMNExjT3IvalNtc2VUQUhjVjdLam9VcUdn?=
- =?utf-8?B?Zy95Y0toaEdUellVK282V09aUWpRSlZtcERaWmNEQlZuSHJCeHQ2a2s0cjI1?=
- =?utf-8?B?eFUzbHM3VTFubEhSQVkyUE1xRFhwOVBzUy9jc1pWV1RLUDNWUFJwWWxFVk5a?=
- =?utf-8?B?Mk5IMkpkMXVzeVQrbWZBSlRaZVAveWVFaXA0Zm13WFU3bW5yT2FWWlNJYzlh?=
- =?utf-8?B?UTU1MFBTZHlYMTl2QlR6OEl2M3B6M3ZzdTY1VmdCZUN1VXJYaHNKcFk2aEJr?=
- =?utf-8?B?MXFxUkpNdGZEK2VPSlVNeWU0cFc3bm5obUxQMFZHUy9sYllkdUh0UEtoN240?=
- =?utf-8?B?MHJWeUZFejBianIvV2Q4QXMwcEVkMDJVZk0rZys1d29MRUROMDBFenpvdDNT?=
- =?utf-8?B?VVN4cUNFUUVNZFFzL3BlbVV4dm5ISXBwNG9TME1GSm5PNnNRWitiTXhPYnNH?=
- =?utf-8?B?MldUR3orbmxpeWh3ajY3WVJxVGl0K3Z4YURYNGhXRDZoR2c0bU5VbmpKa245?=
- =?utf-8?B?WHlZRG93ZmRsLzE3MEtSVEtBSEVSVkRlNXVlSVd6RXZPS1VMU09Bb0M3Ykpa?=
- =?utf-8?B?VWgvTmlJeDZNRzJ0WDlMdXVzMklCVmlSczY0dzdxTHNpelVWNEVKcGtkV0l4?=
- =?utf-8?B?eWE3NExGL3RXK2NZRlpDeVMvejdoMmFnM0V1M2VPWWQySTRERFZnTXBDQXRN?=
- =?utf-8?B?bElwbVBWdmk5aVlkdFdrQlpXVGpITVRWSVZ1T0FzMDlSOVo0YW1vK2kyYTd2?=
- =?utf-8?B?R2xkTXRKa3piM0dsUjZUQVBjdEJNR2FPdVVkZktnQS9rWmZhOE1SbElYWG40?=
- =?utf-8?B?ZUtjZXpzeFUxV2oxV3RnODFwVW5MbGVkL2UweGt5N25kYmFPY3QxYTQ0Rm5D?=
- =?utf-8?B?ZGdpRENPY3A1dDBlOFFUa2JXbXVKK0t5dGhmNmVwU2FqT2hOaDdCVHZiWXFH?=
- =?utf-8?B?eHRBUHBKa0pQdnA1eFpaTDhIbG1lMXc5cDBTSlczcDJhRjlKSGVsRjh4VFRT?=
- =?utf-8?B?UzltMmFsTTFxb1VNU1F0UWVIbUxLbVUrN0lQeUlDK0ZGbjh5aGEwUFRrV0NV?=
- =?utf-8?B?TTdTd2RkYW43aVM0ZEF1cnFCZnBObmRVaE9wNnhkM0JodmdaWGtwT2I0QVp5?=
- =?utf-8?B?ZUthdHVXdWVqbkxuakVlMmlaTUNhZ3dtOUY0NTJFcDg3N0d5bldINVZWWTFi?=
- =?utf-8?B?YVZEWmJaODFYcm1Wb1c2eXA3RlZ3L0xPODhtWFlYS3o1VkI5ODJlRjUvOXJ5?=
- =?utf-8?B?ZFdxYXNCUU16eDA5NW02VTJNZHpIeGFRbVB3NUM0cjdnZkttUGNveFJZcnBZ?=
- =?utf-8?B?bytpeFRyZzNjUWJYY2g2TTlDb0hPK3U1b0hnb0VHRW96OHZCN2FIQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 6cbdfe12-805f-4a49-fdc2-08de52b40c35
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 14:57:18.7918
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- QKp8+aIjotP1YIL18msAdpiCEBoYkho7rxJ6wsPfdfxps1o4acgMJunFwvOQU5NSI7pwCHiEoSWtmAI4D3Nejw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6333
-Message-ID-Hash: LFZ37TXXE6DSLXP6UW6M2AG2RSMWRVS3
-X-Message-ID-Hash: LFZ37TXXE6DSLXP6UW6M2AG2RSMWRVS3
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla Thunderbird
+Subject: USB Audio: AlphaTheta / Pioneer DJM-S11 (2b73:0037) fails UAC2 clock
+ enumeration
+Content-Language: en-US
+To: alsa-devel@alsa-project.org
+Cc: linux-usb@vger.kernel.org
+From: Federico Beffa <federico.beffa@fbengineering.ch>
+Autocrypt: addr=federico.beffa@fbengineering.ch; keydata=
+ xsBNBFgAga0BCADIY78eSt/I4vGPo/UMBMQhcM8O2tptvlN0B2F6Z8sDAOwgWnQpd0x2AVM8
+ I39VymnmbEQfWf/Y0U9XJqrmOz91NreTsZUsR9BSZy1fVIUbdoQTI8m8CGpjDBnloX+cQwwD
+ PDS2RL2/a0rZciXUMunVvM/o2zLHUIyO/GeoqKN5mU4d4nZYPHtBOBpmzfvfyZLM1uyu/flb
+ KGFqW0uKmS8MQWhyUdvIsiAU/Aofuf0dVp2C/Z5w01Vyw38fReZ20onxbabSjLrOT+K6vzrV
+ /9P+6435Ptoek+5BoQX50f+cMYq4d2rE2PBenDy4xAloL/qOUj6XqwW9ZWAkLLiqYiJdABEB
+ AAHNMEZlZGVyaWNvIEJlZmZhIDxmZWRlcmljby5iZWZmYUBmYmVuZ2luZWVyaW5nLmNoPsLA
+ kQQTAQgAOxYhBDd0gCSID9P/3KLJq1iTbg4vG1pMBQJjXqXsAhsDBQsJCAcCAiICBhUKCQgL
+ AgQWAgMBAh4HAheAAAoJEFiTbg4vG1pMv1sH/1K4SI0+6tmpPLGwCUqpeUk5AScmqntZ41rT
+ 9W8XF1QgZVsgSqFrVfQLpW+MC5VoMJJmdcPLD8gLLBhViavw8LrQzO8jO90US70MnUnniFB7
+ c0YabBsd2cGa25a+LOZ/f1lZCtHvlq46Trxcn9DM+pfexlM6AyN8+FGGIstSwXC96AOfr41U
+ lSQqaLbD9ecf+VzPvOPozKLOpQaakuUFLeo9KB1VmK3UxWU3JQ96fJ+Aw8PXJLJFH8bSK/an
+ OCzZPPFvICGUcqBKIDirUKzRyiCHQaUx9MGVtZEWsrZeA1ZE0sNa3wIfG0DQ9tUnPHXAzxoP
+ Lbni2AHCs0m43Rp7DDLOwE0EWACBrQEIAMsqA2oLmPYfdE1uhsOfDDrt72Lx7BADKqhzk8Nq
+ ny45ISPe03MjOkVUwuClceuZDGByZ/u7fslcWvAzcjcLDO4thWj1a9s1PUmH5evVBfFQNaHa
+ Z5gdRdIuE+O/Vkv+pbbcR1zckBSj4PCZCBF2rQgukxNaeRB4rTAC0VgozLRK/OgDV8nyCA/0
+ Lx1GAFoUj+KgIIUI0mPQzPuCMJHBoOVoWQit9qANTQN089P/6r8dj/3AVPnUmnpENul1gtxa
+ 2k7ck9F9hH7ePD3djL2tYtQcH720eqrV70KdgSp7Q/N4Kujw7b9RgNmo2cUuTkRfiqR+grp7
+ XR9BD552haU8a5EAEQEAAcLAXwQYAQIACQUCWACBrQIbDAAKCRBYk24OLxtaTBr5B/4vmneq
+ SuuMYmWcurgk2sv+WKky81Q0z4OkXfwBVz+H6wdpmij0de6ZMbFqD6GjtsAMmEXKdQtbElcr
+ yibSXJSCcF6zd534yOdkC0ptOH09thCE8SoZQ6QLQ+wkcqqCBQSNujN+TNG3L7a50p91wLg1
+ AXYXF+cOJ2bND8p3g5RjxGk4EEjTHycc9BMA1SRvAZsJG7WB63q1oKPwdVPy7FnNvV6HOR1D
+ Jeh4Fkmq0cJCoQ6AOQ4AhVBRXv74XT+rnjVblT3ISSEyneF4IfsztGboIzac7M/2czPyFWuI
+ D9mjiEcRbormFsV0Pz3huJ4AMlmCb/96ZKPAWQYVa7EmPy5Q
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
+X-MailFrom: federico.beffa@fbengineering.ch
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.9
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: NRJ3MDHAHMPJA3BXOA5OMEKOZLMV3SJJ
+X-Message-ID-Hash: NRJ3MDHAHMPJA3BXOA5OMEKOZLMV3SJJ
+X-Mailman-Approved-At: Wed, 04 Mar 2026 15:18:35 +0000
+X-Mailman-Version: 3.3.10
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LFZ37TXXE6DSLXP6UW6M2AG2RSMWRVS3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NRJ3MDHAHMPJA3BXOA5OMEKOZLMV3SJJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -212,37 +122,101 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+X-Rspamd-Queue-Id: 7187D2027C6
+X-Rspamd-Server: lfdr
+X-Spamd-Result: default: False [-0.21 / 15.00];
+	DATE_IN_PAST(1.00)[1699];
+	DMARC_POLICY_ALLOW(-0.50)[fbengineering.ch,reject];
+	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default,fbengineering.ch:s=20220212];
+	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+mx:c];
+	MIME_GOOD(-0.10)[text/plain];
+	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa0.perex.cz:rdns,alsa0.perex.cz:helo,alsa-project.org:dkim,fbengineering.ch:dkim,fbengineering.ch:mid];
+	RCPT_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[alsa-project.org:+,fbengineering.ch:+];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[federico.beffa@fbengineering.ch,alsa-devel-bounces@alsa-project.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:16019, ipnet:77.48.128.0/17, country:CZ];
+	PREVIOUSLY_DELIVERED(0.00)[alsa-devel@alsa-project.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[alsa-devel];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Action: no action
 
-On 13/01/26 15:55, kernel test robot wrote:
-> Hi Vijendar,
->
-> kernel test robot noticed the following build warnings:
->
-> [auto build test WARNING on broonie-sound/for-next]
-> [also build test WARNING on next-20260113]
-> [cannot apply to linus/master v6.16-rc1]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Vijendar-Mukunda/ASoC-amd-acp-soc-acpi-add-is_device_rt712_vb-helper/20260110-144723
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> patch link:    https://lore.kernel.org/r/20260110064505.1485927-1-Vijendar.Mukunda%40amd.com
-> patch subject: [PATCH] ASoC: amd: acp: soc-acpi: add is_device_rt712_vb() helper
-> config: x86_64-kismet-CONFIG_SND_SOC_ACPI_AMD_SDCA_QUIRKS-CONFIG_SND_SOC_ACPI_AMD_MATCH-0-0 (https://download.01.org/0day-ci/archive/20260113/202601131155.RXGj4KHv-lkp@intel.com/config)
-> reproduce: (https://download.01.org/0day-ci/archive/20260113/202601131155.RXGj4KHv-lkp@intel.com/reproduce)
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202601131155.RXGj4KHv-lkp@intel.com/
->
-> kismet warnings: (new ones prefixed by >>)
->>> kismet: WARNING: unmet direct dependencies detected for SND_SOC_ACPI_AMD_SDCA_QUIRKS when selected by SND_SOC_ACPI_AMD_MATCH
-Will check this issue.
->    WARNING: unmet direct dependencies detected for SND_SOC_ACPI_AMD_SDCA_QUIRKS
->      Depends on [n]: SOUND [=y] && SND [=y] && SND_SOC [=y] && ACPI [=y] && SND_SOC_SDCA [=n]
->      Selected by [y]:
->      - SND_SOC_ACPI_AMD_MATCH [=y] && SOUND [=y] && SND [=y] && SND_SOC [=y]
->
+Hello ALSA developers,
 
+I am investigating Linux support for the AlphaTheta / Pioneer DJM-S11 
+mixer and would like to report the current behavior and ask for guidance 
+on possible driver or quirk development.
+
+Device:
+Vendor ID: 2b73 (AlphaTheta Corporation)
+Product ID: 0037 (DJM-S11)
+Firmware: bcdDevice 1.05
+USB speed: High Speed (480 Mbps)
+
+Environment:
+NixOS 25.11
+Kernel: Linux 6.12.62
+Driver: snd-usb-audio
+
+Summary of the issue:
+The DJM-S11 enumerates correctly on USB and exposes AudioControl, 
+AudioStreaming, MIDI, and HID interfaces. However, ALSA fails to create 
+any PCM devices, and the mixer does not appear in aplay -l.
+
+Kernel log shows the following errors during enumeration:
+
+parse_audio_format_rates_v2v3(): unable to retrieve number of sample 
+rates (clock 1)
+Quirk or no altset; falling back to MIDI 1.0
+
+As a result, only MIDI and HID interfaces are exposed; audio streaming 
+is disabled.
+
+Descriptor observations:
+
+- The device advertises itself as USB Audio Class 2.0 (bcdADC 2.00, 
+InterfaceProtocol 32).
+- A CLOCK_SOURCE descriptor is present (ClockID 1) with Clock Frequency 
+Control marked as read/write.
+- No valid clock rate list can be retrieved by the driver (GET_RANGE 
+appears to fail).
+- Audio streaming endpoints do exist:
+- Playback: 14 channels, 24-bit PCM, isochronous async OUT
+- Capture: 10 channels, 24-bit PCM, isochronous async IN (implicit feedback)
+
+ From inspection of lsusb -vv, this appears to be a case where the 
+device advertises UAC2 but requires vendor-specific clock initialization 
+before audio streaming becomes usable. Without that, snd-usb-audio 
+correctly refuses to expose PCM devices.
+
+I can provide the full lsusb -vv output and additional logs if helpful.
+
+Questions:
+
+1. Is this a known pattern for newer Pioneer/AlphaTheta mixers, and has 
+similar hardware been handled via ALSA quirks in the past?
+2. Would it be acceptable to experiment with a quirk that forces a fixed 
+sample rate (e.g. 48 kHz) and bypasses clock queries, for 
+development/testing purposes?
+3. Or does this class of device realistically require vendor-specific 
+control handling beyond what snd-usb-audio quirks can support?
+
+I am interested in starting development work on this (initially 
+out-of-tree) and would appreciate any guidance on the most appropriate 
+direction.
+
+Thank you for your time and for ALSA’s continued work.
+
+Best regards,
+Federico

@@ -2,54 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3723FCDE6DE
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Dec 2025 08:38:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94717CDE7DD
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Dec 2025 09:31:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9184E601EC;
-	Fri, 26 Dec 2025 08:37:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9184E601EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 337256017E;
+	Fri, 26 Dec 2025 09:31:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 337256017E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1766734686;
-	bh=5y8aLB9MruEmoDRc1oGdX0zRmLW4x4NVPMkyD2q/V18=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=u6c1z2Jg7MLH469dU7JlEgEZSbu22uBIpQcZ321mCF9YeVNSW49sWjr7KZm7Nf+yh
-	 AGKlvsLCVcKyD/WEXQkDpigIOPeEpcsnnAxwUSQlHGdZNAQuauSKrKZRqCgt42GU7v
-	 PXaTebuYE/bDYJ1pRb38wLHPC+yL+zLeV2Hexq5U=
+	s=default; t=1766737909;
+	bh=50qYJ2DZ96TiSEEgFQEJGsQA5DUBzpAAjzlrDEelmgU=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=aKbTPzz3Htkt7brfXy6n+CKKR1SaRlaP649iWBq2GzTFK2SImFXYznedgNNT6zUcq
+	 YL4Zjp29qItDhZ1AADYwP3aPubSo1r415DNAUpmZOvq3usYna5KppWYAfBxJsCnB+n
+	 EL9u+XFBtntNSs6TZFb2Rr14U6pD0loP0c+OvaGA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22EB8F805D6; Fri, 26 Dec 2025 08:37:32 +0100 (CET)
+	id 051C4F805D9; Fri, 26 Dec 2025 09:31:16 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AA35F805D9;
-	Fri, 26 Dec 2025 08:37:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 840B8F805D4;
+	Fri, 26 Dec 2025 09:31:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 288A7F8025F; Fri, 26 Dec 2025 08:36:25 +0100 (CET)
+	id 5B39CF8025F; Fri, 26 Dec 2025 09:29:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
-	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3E78F800BA
-	for <alsa-devel@alsa-project.org>; Fri, 26 Dec 2025 08:36:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3E78F800BA
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7AB8DF800DF
+	for <alsa-devel@alsa-project.org>; Fri, 26 Dec 2025 09:29:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AB8DF800DF
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
+ header.s=dkim header.b=R33qWfpQ
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 5BQ8TLtN43288529,
+ This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1766737761; bh=/YCmdqLFVOU0Zv6DNVRLclyXRlZ/6iZL3but2jGhJRk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=R33qWfpQqxycHJ0/c9ZSc/Xsb8yZ3G2kPzYydqhK7L9baoeZrXInQwJCwW3+SKvhh
+	 U9npH1VI772x4HAa9icmYMthPIcLraNJy4TP6mC1IA7fDBxzaP/2A82scwHeBLWLEM
+	 j6jqekONumrPQrCQ7rOifE/2sgVQVuxX9rqm6Rb3iixu75uL1mq6hBKM+FB2ucrv8p
+	 akWyS+gFPLPpNIsmVAV8XERXjspupm+xQvfkMFpb/hNvvZxJJY+uRKUruk052inTV7
+	 hlg2TToUpgc3yDCf/C5H08x1zqsnOa+ot3SuCRXhp4TrlhzL+9bX8RuDPdBetJDhnO
+	 clYRHFPSdI+2Q==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.21/5.94) with ESMTPS id 5BQ8TLtN43288529
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 26 Dec 2025 16:29:21 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 26 Dec 2025 16:29:21 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 26 Dec 2025 16:29:21 +0800
+Received: from sw-server.localdomain (172.24.54.4) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server id
+ 15.2.1748.10 via Frontend Transport; Fri, 26 Dec 2025 16:29:20 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <cezary.rojewski@intel.com>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
+        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <linux-spi@vger.kernel.org>, <perex@perex.cz>,
+        <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <alsa-devel@alsa-project.org>, <flove@realtek.com>,
+        <shumingf@realtek.com>, <jack.yu@realtek.com>,
+        <derek.fang@realtek.com>, Oder Chiou
+	<oder_chiou@realtek.com>
+Subject: [PATCH 0/4] ASoC: rt5575: Add the codec driver for the ALC5575
+Date: Fri, 26 Dec 2025 16:30:15 +0800
+Message-ID: <20251226083015.1052120-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <1884b3bc82d21300-webhooks-bot@alsa-project.org>
-In-Reply-To: <alsa-project/alsa-tools/pr/44@alsa-project.org>
-References: <alsa-project/alsa-tools/pr/44@alsa-project.org>
-Subject: envy24control: update README
-Date: Fri, 26 Dec 2025 08:36:25 +0100 (CET)
-Message-ID-Hash: RNVHDIEHMRYRR25LQJGZ2XIMZLBEW7MG
-X-Message-ID-Hash: RNVHDIEHMRYRR25LQJGZ2XIMZLBEW7MG
-X-MailFrom: github@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Message-ID-Hash: Y5QOZYZEWJLN3EJX33QG7I4IGXFYB52H
+X-Message-ID-Hash: Y5QOZYZEWJLN3EJX33QG7I4IGXFYB52H
+X-MailFrom: oder_chiou@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RNVHDIEHMRYRR25LQJGZ2XIMZLBEW7MG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y5QOZYZEWJLN3EJX33QG7I4IGXFYB52H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,10 +109,111 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-tools pull request #44 was opened from qaqland:
+Hi all,
 
-A minor change to prevent downstream from mistakenly removing this GTK4-based package when dropping GTK2.
+This patch series adds support for the Realtek ALC5575 audio codec.
 
-Request URL   : https://github.com/alsa-project/alsa-tools/pull/44
-Patch URL     : https://github.com/alsa-project/alsa-tools/pull/44.patch
-Repository URL: https://github.com/alsa-project/alsa-tools
+Changes in v11:
+- Patch 1/4:
+  - minor fixes
+- Patch 2/4:
+  - change of_find_spi_controller_by_node() gating to CONFIG_OF
+- Patch 3/4:
+  - nothing
+- Patch 4/4:
+  - achieve reverse-christmas-tree notation
+  - remove formal version check
+  - revise check whether the firmware boots from SPI or not
+  - minor fixes
+
+Changes in v10:
+- Patch 1/3:
+  - export of_find_spi_controller_by_node()
+- Patch 2/3:
+  - remove realtek,rt5575-use-spi
+  - add spi-parent for firmware-loading
+- Patch 3/3:
+  - use of_find_spi_controller_by_node() to get the SPI controller and add
+    the spi device for firmware-loading
+- Link to v10: https://lore.kernel.org/all/20251216071853.3929135-1-oder_chiou@realtek.com/
+
+Changes in v9:
+- Patch 1/2:
+  - modify the comment
+  - change the compatible name to "realtek,rt5575-use-spi"
+- Patch 2/2:
+  - remove the standalone rt5575_spi_driver module and integrate its
+    functionality into the I2C driver
+  - move the SPI firmware-loading function to rt5575-spi.c
+  - use the match data to distinguish between w/wo flash
+  - minor fixes
+- Link to v9: https://lore.kernel.org/all/20251211110130.2925541-1-oder_chiou@realtek.com/
+
+Changes in v8:
+- Patch 1/2:
+  - remove the variable rt5575_spi_ready
+  - use the multiple compatible names to distinguish between w/wo flash
+- Patch 2/2:
+  - add compatible enum "realtek,rt5575-with-spi"
+- Link to v8: https://lore.kernel.org/all/20251201105926.1714341-1-oder_chiou@realtek.com/
+
+Changes in v7:
+- Patch 1/2:
+  - add a caption for the tristates
+  - remove the redundant enum of the SPI command
+  - add the error log in the request firmware failure
+  - change the function name rt5575_spi_fw_loaded to rt5575_fw_load_by_spi
+  - minor fixes
+- Patch 2/2:
+  - modify commit message
+- Link to v7: https://lore.kernel.org/all/20251121084112.743518-1-oder_chiou@realtek.com/
+
+Changes in v6:
+- Patch 1/2:
+  - modify commit message
+  - add select SND_SOC_RT5575 to config SND_SOC_RT5575_SPI in the Kconfig
+  - revise the boiler plate in the head of the file
+  - sort the include files
+  - use a structure to transfer the spi data
+  - use the poll() related function instead the for-loop
+  - revise the UUID to the private ID
+  - minor fixes
+- Patch 2/2:
+  - modify description
+- Link to v6: https://lore.kernel.org/all/20251031073245.3629060-1-oder_chiou@realtek.com/
+
+Changes in v2 to v5:
+- Patch 1/2:
+  - move the firmware to the subdirectory
+  - remove the empty functions
+  - remove the cache_type in the regmap_config
+  - add the error log in the run firmware failure
+- Patch 2/2:
+  - nothing
+- Link to v5: https://lore.kernel.org/all/20251015103404.3075684-1-oder_chiou@realtek.com/
+
+Oder Chiou (4):
+  spi: export of_find_spi_controller_by_node()
+  spi: change of_find_spi_controller_by_node() gating to CONFIG_OF
+  ASoC: dt-bindings: realtek,rt5575: add support for ALC5575
+  ASoC: rt5575: Add the codec driver for the ALC5575
+
+ .../bindings/sound/realtek,rt5575.yaml        |  61 +++
+ drivers/spi/spi.c                             |  23 +-
+ include/linux/spi/spi.h                       |   9 +
+ sound/soc/codecs/Kconfig                      |  10 +
+ sound/soc/codecs/Makefile                     |   3 +
+ sound/soc/codecs/rt5575-spi.c                 | 118 ++++++
+ sound/soc/codecs/rt5575-spi.h                 |  27 ++
+ sound/soc/codecs/rt5575.c                     | 352 ++++++++++++++++++
+ sound/soc/codecs/rt5575.h                     |  58 +++
+ 9 files changed, 651 insertions(+), 10 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/realtek,rt5575.yaml
+ create mode 100644 sound/soc/codecs/rt5575-spi.c
+ create mode 100644 sound/soc/codecs/rt5575-spi.h
+ create mode 100644 sound/soc/codecs/rt5575.c
+ create mode 100644 sound/soc/codecs/rt5575.h
+
+-- 
+2.52.0
+

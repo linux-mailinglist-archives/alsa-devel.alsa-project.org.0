@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D380ECEFD33
-	for <lists+alsa-devel@lfdr.de>; Sat, 03 Jan 2026 10:09:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37CEECF06B7
+	for <lists+alsa-devel@lfdr.de>; Sat, 03 Jan 2026 23:22:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E065601ED;
-	Sat,  3 Jan 2026 10:09:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E065601ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D184601BA;
+	Sat,  3 Jan 2026 23:21:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D184601BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1767431369;
-	bh=B8bebhDzURESSHWtksUpKjsGqWiscHrSNvfU6KTdxoE=;
+	s=default; t=1767478923;
+	bh=oV68q1kZsyK0lmo0dNZ/N2Wsn2Gc6WPz7qNtn5LxqH8=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=KOnZ2E9863pbb55tn0o3q/A6/DcO7YkjU41LW88V+hzcN2+BjJlfgFlOiJ1IkgX0f
-	 fjS1GIfKCdpz5XXcnavUGfxpmi/4FyiL8T2KYzGJKGi01umqXO4YHrg4V3JTENlyRt
-	 1yOjqpGNuyfsEA39KvuxbiHfpkAzbHz7JQ0CoAII=
+	b=acUs3fJ5t3AyDCt8CV/NavBStLParkJSZS9Zgy7FcK44wHJjHgA3GUt/n76Z5070G
+	 y/JT1Ej7EVKQBKNsrTvZSPkvd7l+WGOk4AZ3eK6PLchT6n/70RiNF7eSDPkOoU81TP
+	 kuutsfuTFkrJpFYzeCsF3MfhT7L3kPAQq3kJNfBw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1687F805E1; Sat,  3 Jan 2026 10:09:03 +0100 (CET)
+	id 9BFDCF805E1; Sat,  3 Jan 2026 23:21:30 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 815F2F805D8;
-	Sat,  3 Jan 2026 10:09:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CCFAF805C8;
+	Sat,  3 Jan 2026 23:21:30 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54277F80236; Sat,  3 Jan 2026 10:08:22 +0100 (CET)
+	id 15360F80236; Sat,  3 Jan 2026 23:21:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
@@ -34,23 +34,21 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 337D5F800AC
-	for <alsa-devel@alsa-project.org>; Sat,  3 Jan 2026 10:08:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 337D5F800AC
-Content-Type: text/plain; charset="utf-8"
+	by alsa1.perex.cz (Postfix) with ESMTP id A7C82F8010B
+	for <alsa-devel@alsa-project.org>; Sat,  3 Jan 2026 23:21:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7C82F8010B
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <18872d6537bfbd00-webhooks-bot@alsa-project.org>
-In-Reply-To: <18872d6535fb4300-webhooks-bot@alsa-project.org>
-References: <18872d6535fb4300-webhooks-bot@alsa-project.org>
-Subject: Generic HDA UCM (HDA/HiFi-analog.conf + HiFi-mic.conf) creates
- phantom devices on jackless Framework Laptop 16 (ALC285,
- f111:000d) causing wrong PipeWire defaults
-Date: Sat,  3 Jan 2026 10:08:22 +0100 (CET)
-Message-ID-Hash: ZXRYYOC7DGBPFA5LOHUD3KNSS2OFSYDH
-X-Message-ID-Hash: ZXRYYOC7DGBPFA5LOHUD3KNSS2OFSYDH
+Message-Id: <188758aafa6a6500-webhooks-bot@alsa-project.org>
+In-Reply-To: <188758aaf8512800-webhooks-bot@alsa-project.org>
+References: <188758aaf8512800-webhooks-bot@alsa-project.org>
+Subject: Bluetooth: Suddenly corrupted SCO packet
+Date: Sat,  3 Jan 2026 23:21:18 +0100 (CET)
+Message-ID-Hash: E3MQVZSIAKH6MF7CNJCH3PW7Y6AQDSEG
+X-Message-ID-Hash: E3MQVZSIAKH6MF7CNJCH3PW7Y6AQDSEG
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -63,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZXRYYOC7DGBPFA5LOHUD3KNSS2OFSYDH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E3MQVZSIAKH6MF7CNJCH3PW7Y6AQDSEG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -72,85 +70,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-YWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYgaXNzdWUgIzY3MyB3YXMgb3BlbmVkIGZyb20gZG5p
-a3U6CgoqKkRJU0NMT1NVUkUqKjogdGhlIHRleHQgYmVsb3cgd2FzIHdyaXR0ZW4gd2l0aCBoZWF2
-eSBhc3Npc3RhbmNlIGZyb20gYSBsYW5ndWFnZSBtb2RlbC4KCi0tLQoKIyMjIFN1bW1hcnkKCk9u
-IEZyYW1ld29yayBMYXB0b3AgMTYgKEFNRCBSeXplbiBBSSAzMDAgc2VyaWVzKSB3aXRoIGBhbHNh
-Lm1peGVyX25hbWUgPSAiUmVhbHRlayBBTEMyODUiYCwgYGFsc2EuY29tcG9uZW50cyA9ICJIREE6
-MTBlYzAyODUsZjExMTAwMGQsMDAxMDAwMDIiYCwgdGhlIGdlbmVyaWMgSERBIFVDTSBwcm9maWxl
-IGNyZWF0ZXMgYSBgSGVhZHBob25lc2AgcGxheWJhY2sgZGV2aWNlIGV2ZW4gdGhvdWdoIHRoZSBj
-b2RlYyBleHBvc2VzIG5vIGhlYWRwaG9uZSBqYWNrL2NvbnRyb2xzLiBXaXJlUGx1bWJlciB0aGVu
-IHNlbGVjdHMgYSBwaGFudG9tIGBIZWFkcGhvbmVzYCBzaW5rIGJ5IGRlZmF1bHQgKGhpZ2hlciBV
-Q00gcHJpb3JpdHkgdGhhbiBgU3BlYWtlcmApLCByZXF1aXJpbmcgYSBtYW51YWwgc3dpdGNoIHRv
-IGBTcGVha2VyYC4KClNlcGFyYXRlbHk6IFVDTSBhbHNvIGV4cG9zZXMgYW4gSERBIOKAnFN0ZXJl
-byBNaWNyb3Bob25l4oCdIGNhcHR1cmUgcGF0aCAoYE1pYzJgKSB3aGljaCByZWNvcmRzIHNpbGVu
-Y2U7IHRoZSByZWFsIG1pY3JvcGhvbmUgaXMgcHJvdmlkZWQgYnkgdGhlIEFDUC9ETUlDIHBhdGgu
-CgpUaGlzIGlzIHJlcHJvZHVjaWJsZSBhZnRlciB3aXBpbmcgV2lyZVBsdW1iZXIgc3RhdGUgYW5k
-IHJlc3RhcnRpbmcgUGlwZVdpcmUvV2lyZVBsdW1iZXIuCgojIyMgSGFyZHdhcmUgLyBzb2Z0d2Fy
-ZQotIE1hY2hpbmU6IEZyYW1ld29yayBMYXB0b3AgMTYgKEFNRCBSeXplbiBBSSAzMDAgc2VyaWVz
-KQotIENvZGVjOiBSZWFsdGVrIEFMQzI4NSwgc3Vic3lzdGVtIGlkIGYxMTE6MDAwZAotIERpc3Ry
-bzogTml4T1MgMjUuMTEKLSBQaXBlV2lyZTogMS40LjkKLSBXaXJlUGx1bWJlcjogMC41LjEyCi0g
-YWxzYS11Y20tY29uZjogMS4yLjE0CgojIyMgU3RlcHMgdG8gcmVwcm9kdWNlCjEuIEVuc3VyZSB5
-b3UgYXJlIHVzaW5nIHRoZSBzdG9jayBhbHNhLXVjbS1jb25mIFVDTTIgZmlsZXMgKG5vIG92ZXJy
-aWRlcykuCjIuIENsZWFyIFdQIHN0YXRlIGFuZCByZXN0YXJ0IHVzZXIgYXVkaW8gc2VydmljZXM6
-CiAgIGBgYHNoCiAgIHdwY3RsIGNsZWFyLWRlZmF1bHQKICAgcm0gLXJmIH4vLmxvY2FsL3N0YXRl
-L3dpcmVwbHVtYmVyCiAgIHN5c3RlbWN0bCAtLXVzZXIgcmVzdGFydCB3aXJlcGx1bWJlciBwaXBl
-d2lyZSBwaXBld2lyZS1wdWxzZQogICBgYGAKCjMuIE9ic2VydmUgdGhlIGRlZmF1bHQgc2luazoK
-CiAgIGBgYHNoCiAgIHdwY3RsIHN0YXR1cyAtbgogICB3cGN0bCBpbnNwZWN0IEBERUZBVUxUX0FV
-RElPX1NJTktACiAgIGBgYAoKIyMjIE9ic2VydmVkIGJlaGF2aW9yIChiZWZvcmUgZml4KQoKRGVm
-YXVsdCBzaW5rIGJlY29tZXMgdGhlIHBoYW50b20gSGVhZHBob25lcyBwcm9maWxlOgoKYGBgc2gK
-JCB3cGN0bCBzdGF0dXMgLW4KIyAuLi4KIOKUnOKUgCBTaW5rczoKIOKUgiAgKiAgIDU5LiBhbHNh
-X291dHB1dC5wY2ktMDAwMF9jMl8wMC42LkhpRmlfX0hlYWRwaG9uZXNfX3NpbmsgW3ZvbDogMC40
-MF0KYGBgCgpgYGBzaAokIHdwY3RsIGluc3BlY3QgQERFRkFVTFRfQVVESU9fU0lOS0AKIyAuLi4K
-ICAgIGRldmljZS5wcm9maWxlLm5hbWUgPSAiSGlGaTogSGVhZHBob25lczogc2luayIKICAqIG5v
-ZGUubmFtZSA9ICJhbHNhX291dHB1dC5wY2ktMDAwMF9jMl8wMC42LkhpRmlfX0hlYWRwaG9uZXNf
-X3NpbmsiCmBgYAoKQnV0IEFMU0EgZXhwb3NlcyBubyBoZWFkcGhvbmUgY29udHJvbHMgb24gdGhh
-dCBjb2RlYy9jYXJkOgoKYGBgc2gKJCBhbWl4ZXIgLWMgMiBzY29udHJvbHMKU2ltcGxlIG1peGVy
-IGNvbnRyb2wgJ01hc3RlcicsMApTaW1wbGUgbWl4ZXIgY29udHJvbCAnU3BlYWtlcicsMApTaW1w
-bGUgbWl4ZXIgY29udHJvbCAnQmFzcyBTcGVha2VyJywwClNpbXBsZSBtaXhlciBjb250cm9sICdQ
-Q00nLDAKCiQgYW1peGVyIC1jIDIgY29udHJvbHMKbnVtaWQ9NyxpZmFjZT1DQVJELG5hbWU9J1Nw
-ZWFrZXIgRnJvbnQgUGhhbnRvbSBKYWNrJwpudW1pZD04LGlmYWNlPUNBUkQsbmFtZT0nU3BlYWtl
-ciBTdXJyb3VuZCBQaGFudG9tIEphY2snCm51bWlkPTYsaWZhY2U9TUlYRVIsbmFtZT0nTWFzdGVy
-IFBsYXliYWNrIFN3aXRjaCcKbnVtaWQ9NSxpZmFjZT1NSVhFUixuYW1lPSdNYXN0ZXIgUGxheWJh
-Y2sgVm9sdW1lJwpudW1pZD0xMyxpZmFjZT1NSVhFUixuYW1lPSdQQ00gUGxheWJhY2sgVm9sdW1l
-JwpudW1pZD00LGlmYWNlPU1JWEVSLG5hbWU9J0Jhc3MgU3BlYWtlciBQbGF5YmFjayBTd2l0Y2gn
-Cm51bWlkPTMsaWZhY2U9TUlYRVIsbmFtZT0nQmFzcyBTcGVha2VyIFBsYXliYWNrIFZvbHVtZScK
-bnVtaWQ9MixpZmFjZT1NSVhFUixuYW1lPSdTcGVha2VyIFBsYXliYWNrIFN3aXRjaCcKbnVtaWQ9
-MSxpZmFjZT1NSVhFUixuYW1lPSdTcGVha2VyIFBsYXliYWNrIFZvbHVtZScKbnVtaWQ9MTAsaWZh
-Y2U9UENNLG5hbWU9J0NhcHR1cmUgQ2hhbm5lbCBNYXAnCm51bWlkPTksaWZhY2U9UENNLG5hbWU9
-J1BsYXliYWNrIENoYW5uZWwgTWFwJwpudW1pZD0xMSxpZmFjZT1QQ00sbmFtZT0nQ2FwdHVyZSBD
-aGFubmVsIE1hcCcsZGV2aWNlPTIKbnVtaWQ9MTIsaWZhY2U9UENNLG5hbWU9J0NhcHR1cmUgQ2hh
-bm5lbCBNYXAnLGluZGV4PTEsZGV2aWNlPTIKYGBgCgpUaGUgY29kZWMgZHVtcCBhbHNvIGNvbnRh
-aW5zIG5vIOKAnEhlYWRwaG9uZS9IZWFkc2V04oCdIHBpbnM6CgpgYGBzaAokIGdyZXAgLW5FaSAn
-SGVhZHBob25lfEhlYWRzZXR8RnJvbnQgSGVhZHBob25lJyAvcHJvYy9hc291bmQvY2FyZDIvY29k
-ZWNcIzAKIyAobm8gb3V0cHV0KQpgYGAKCiMjIyBSb290IGNhdXNlIGh5cG90aGVzaXMKCltgdWNt
-Mi9IREEvSGlGaS1hbmFsb2cuY29uZmBdKGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3Qv
-YWxzYS11Y20tY29uZi9ibG9iLzVkMTc1ZTFmN2UzZGYxNTk3Mzk0NWE5Y2MxNWU4MmZhN2NhMGQ3
-YjYvdWNtMi9IREEvSGlGaS1hbmFsb2cuY29uZikgZGVmaW5lcyBgU2VjdGlvbkRldmljZS4iSGVh
-ZHBob25lcyJgIHVuY29uZGl0aW9uYWxseSBhbmQgYXNzaWducyBpdCBgUGxheWJhY2tQcmlvcml0
-eSAyMDBgLCB3aGlsZSBgU3BlYWtlcmAgaXMgYFBsYXliYWNrUHJpb3JpdHkgMTAwYC4gT24gamFj
-a2xlc3MgaGFyZHdhcmUgd2l0aCBubyBoZWFkcGhvbmUgY29udHJvbHMvamFjaywgdGhpcyByZXN1
-bHRzIGluIGEg4oCcSGVhZHBob25lc+KAnSBVQ00gZGV2aWNlIHRoYXQgV2lyZVBsdW1iZXIgcHJl
-ZmVycy4KClNpbWlsYXIgcHJvYmxlbSBleGlzdHMgaW4gW2B1Y20yL0hEQS9IaUZpLW1pYy5jb25m
-YF0oaHR0cHM6Ly9naXRodWIuY29tL2Fsc2EtcHJvamVjdC9hbHNhLXVjbS1jb25mL2Jsb2IvNWQx
-NzVlMWY3ZTNkZjE1OTczOTQ1YTljYzE1ZTgyZmE3Y2EwZDdiNi91Y20yL0hEQS9IaUZpLW1pYy5j
-b25mKQoKIyMjIFByb3Bvc2VkIGZpeAoKR3VhcmQgY3JlYXRpb24gb2YgYFNlY3Rpb25EZXZpY2Uu
-IkhlYWRwaG9uZXMiYCBzbyBpdCBpcyBvbmx5IGluc3RhbnRpYXRlZCB3aGVuIHJlbGV2YW50IGhl
-YWRwaG9uZSBjb250cm9scy9qYWNrIGNvbnRyb2xzIGV4aXN0IChlLmcuIGBIZWFkcGhvbmUgUGxh
-eWJhY2sgVm9sdW1lYCwgYEhlYWRwaG9uZSBQbGF5YmFjayBTd2l0Y2hgLCBvciBgaWZhY2U9Q0FS
-RCxuYW1lPSdIZWFkcGhvbmUgSmFjaydgKS4KClNpbWlsYXJseSBndWFyZCB0aGUgSERBIGFuYWxv
-ZyBjYXB0dXJlIGRldmljZSBvbiB0aGlzIHBsYXRmb3JtIHdoZW4gaXQgaXMgbm90IGZ1bmN0aW9u
-YWwsIGxlYXZpbmcgdGhlIHdvcmtpbmcgQUNQL0RNSUMgY2FwdHVyZSBwYXRoIGFzIHRoZSBvbmx5
-IG1pYy4KCi0tLQoKKGVuZCBvZiBzZWN0aW9uIHdyaXR0ZW4gd2l0aCBsYW5ndWFnZSBtb2RlbCBh
-c3Npc3RhbmNlKQoKSSBoYXZlIHByb3Bvc2VkIGEgcGF0Y2ggZm9yIEZyYW1ld29yayAxNiBpbiBo
-dHRwczovL2dpdGh1Yi5jb20vTml4T1Mvbml4b3MtaGFyZHdhcmUvcHVsbC8xNzE4LiBQbGVhc2Ug
-c2VlIHRoZSBkaWFnbm9zdGljcyBzaGFyZWQgaW4gdGhhdCBQUi4gSSB3b3VsZCBhcHByZWNpYXRl
-IGZlZWRiYWNrIG9uIHRoZSBzcGVjaWZpYyB3b3JrYXJvdW5kIHRoYXQgaXMgaW1wbGVtZW50ZWQg
-dGhlcmUgZnJvbSBzb21lb25lIGZhbWlsaWFyIHdpdGggYGFsc2EtdWNtLWNvbmZgLgoKRm9yIHRo
-ZSBvdXRwdXQgb2YgYG5peCBzaGVsbCBuaXhwa2dzI2Fsc2EtdXRpbHMgLWMgYWxzYS1pbmZvIC0t
-bm8tdXBsb2FkIC0tc3Rkb3V0YCBiZWZvcmUvYWZ0ZXIgYXBwbHlpbmcgdGhlIHBhdGNoLCBhcyB3
-ZWxsIGFzIHRoZSBkaWZmIGJldHdlZW4gdGhlIHR3bywgcGxlYXNlIHNlZSBbdGhpcyBnaXN0XSho
-dHRwczovL2dpc3QuZ2l0aHViLmNvbS9kbmlrdS9kOWI1MDk1YWVmMGU5MjYzOTllYmQ3NzJkMGI0
-MGJkMCkuCgpJc3N1ZSBVUkwgICAgIDogaHR0cHM6Ly9naXRodWIuY29tL2Fsc2EtcHJvamVjdC9h
-bHNhLXVjbS1jb25mL2lzc3Vlcy82NzMKUmVwb3NpdG9yeSBVUkw6IGh0dHBzOi8vZ2l0aHViLmNv
-bS9hbHNhLXByb2plY3QvYWxzYS11Y20tY29uZgo=
+alsa-project/alsa-ucm-conf issue #674 was opened from wwidesoft:
+
+Bluetooth headset stopped working after upgrading package alsa-ucm-conf to version 1.2.15.1-1 (Arch Linux kernel 6.18.2-zen2-1-zen 64-bit)
+
+downgrading to version 1.2.14-2 solved the issue
+
+**dmesg**
+
+kernel: Bluetooth: hci0: corrupted SCO packet
+kernel: Bluetooth: hci0: SCO packet for unknown connection handle 257
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/674
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

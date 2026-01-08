@@ -2,96 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D11DD01787
-	for <lists+alsa-devel@lfdr.de>; Thu, 08 Jan 2026 08:56:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB344D04524
+	for <lists+alsa-devel@lfdr.de>; Thu, 08 Jan 2026 17:23:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90C1560203;
-	Thu,  8 Jan 2026 08:55:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90C1560203
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C7F760202;
+	Thu,  8 Jan 2026 17:23:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C7F760202
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1767858963;
-	bh=Oat8Ou69Boc/QWkzBIaS0AdsCze4tkLUTDL+HxfGJK0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=TjnphPNAIh1FXNwOvwB80jJ44lmesskvYcZ9YWUqahahkEhBWam5ntyJ9FkP4jBIV
-	 xfLyk6ZM7eqg9jk8mJONAimeoVQglASTWTm5uw+CS82oPWPTx+w0BKneEDWnWcMsJT
-	 Hp503ya7VyaS0WpFIroAZMka54gHTJ/Q5qB3jNXw=
+	s=default; t=1767889434;
+	bh=kv0YNBqHhP6W/0mf5h8FMujXf6Ma2VgaIF3USFyhne4=;
+	h=Date:Subject:References:To:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=o82sRbUn0rXlY4yk236NhVSLwhQHSiXNwusIt+FbYvZSTHd5vYVjwEvXL6Fhx0aoR
+	 KDEUSL2td9oIXV3aPkWlQnkisJ39ojrgpeKgBy0u/gmBNJBLoGDMMc1lG19IA25FdE
+	 iTVy/WRVYq9LLTkC0koen5ygAhAlVBxF+3z7aM1I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A65FF805F0; Thu,  8 Jan 2026 08:55:29 +0100 (CET)
+	id 7BF5EF805ED; Thu,  8 Jan 2026 17:23:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48126F805AB;
-	Thu,  8 Jan 2026 08:55:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C82D9F805D6;
+	Thu,  8 Jan 2026 17:23:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25B78F80254; Thu,  8 Jan 2026 08:54:08 +0100 (CET)
+	id CB930F805C8; Thu,  8 Jan 2026 17:22:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9EC45F80087
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jan 2026 08:54:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EC45F80087
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Lw3oNabD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1767858844; x=1799394844;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Oat8Ou69Boc/QWkzBIaS0AdsCze4tkLUTDL+HxfGJK0=;
-  b=Lw3oNabDf6FkEENhKqgJtavfRDb5WVO62wvfKhokpu7CmEOGOO/RjG5Y
-   6lLN3Kr1WwSMXTq2D2HZE6HNoUTBu40c09uOS0OUbU79YLmJ+Yf8LvQqn
-   gpQgtNj+dGTUJVpDNAuNOOs4aes5+WpzYvAmTojj4prjq4Fzl78oaIAJD
-   ixhZtwB5iLYOByPS+YH1pYh/amqV1mQLpBpWiKs+s70BwAQ4gNEiuCRrD
-   wvg1IUETk9QJhcplzlyMqAO1D6ZdIE5AF9Hsx//O00kn7yduF+IVAS6Yi
-   dpdv/UkW2x07D4hVqyn1r4P5lPQueYBKfVUvmDGMgUfo0ekOULPkpBTY1
-   Q==;
-X-CSE-ConnectionGUID: IxZ0OjARTVy6qBZAbo2kzQ==
-X-CSE-MsgGUID: NhVCb9UIRTGDRRxa4ZXx5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11664"; a="69145177"
-X-IronPort-AV: E=Sophos;i="6.21,210,1763452800";
-   d="scan'208";a="69145177"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2026 23:53:58 -0800
-X-CSE-ConnectionGUID: BLtfOUCgQEKaL5ANX05Clw==
-X-CSE-MsgGUID: w9c9+4rnQrS2SNMkEYMgcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,210,1763452800";
-   d="scan'208";a="207273581"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO [10.245.246.92])
- ([10.245.246.92])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jan 2026 23:53:57 -0800
-Message-ID: <0a0234c5-b6c6-4318-b627-d75e75a7598c@linux.intel.com>
-Date: Thu, 8 Jan 2026 09:53:17 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 658C6F80087
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jan 2026 17:22:23 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id DB73E4101
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jan 2026 17:22:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz DB73E4101
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1767889341; bh=MrGrG/gJpkPjdtxMEQqrSEVTZFqBaVpHo+V6ozQtepE=;
+	h=Date:Subject:References:To:From:In-Reply-To:From;
+	b=GzPNi8LHPbsNWRKHeZ+spr3oE29XEUGHTPm3WUf84FL4W7G6b7piPNg2nyrhcobXK
+	 y2znwL0EwyrwvkQHpUnG5CFWueDWP0Q+tef5Caw3XswfHx+IKXfyzPLFpsL2EoNXAD
+	 JWCaLeeVw9wpeMuo6Syfo0VAi7P50KujkXiq7+Bs=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jan 2026 17:22:20 +0100 (CET)
+Message-ID: <0db687d8-3f81-41a4-8b33-7132f775efde@perex.cz>
+Date: Thu, 8 Jan 2026 17:22:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] Samsung Galaxy Book 4 Ultra - MAX98390 speakers not
- supported on MTL platform
-To: =?UTF-8?Q?Jos=C3=A9_Augusto_de_Almeida_Neto?= <jaalneto@hotmail.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Cc: "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
-References: 
- <PH3PPF0A8D5CDB5873FA91A7F768F4E2F10D984A@PH3PPF0A8D5CDB5.namprd10.prod.outlook.com>
+Subject: ALSA 1.2.15.2 release
 Content-Language: en-US
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: 
- <PH3PPF0A8D5CDB5873FA91A7F768F4E2F10D984A@PH3PPF0A8D5CDB5.namprd10.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LABDYGP3W7ALLFDFFI6NPB6LEQJD5YMD
-X-Message-ID-Hash: LABDYGP3W7ALLFDFFI6NPB6LEQJD5YMD
-X-MailFrom: peter.ujfalusi@linux.intel.com
+References: <b60207fd-e214-4d8c-8a56-9d2b1f3509ff@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+From: Jaroslav Kysela <perex@perex.cz>
+Autocrypt: addr=perex@perex.cz; keydata=
+ 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
+In-Reply-To: <b60207fd-e214-4d8c-8a56-9d2b1f3509ff@perex.cz>
+X-Forwarded-Message-Id: <b60207fd-e214-4d8c-8a56-9d2b1f3509ff@perex.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: LEXPEU5P6A7H4HZX6CRMRNWQHFBHYFTU
+X-Message-ID-Hash: LEXPEU5P6A7H4HZX6CRMRNWQHFBHYFTU
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LABDYGP3W7ALLFDFFI6NPB6LEQJD5YMD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LEXPEU5P6A7H4HZX6CRMRNWQHFBHYFTU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,70 +136,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi José,
+Hello all,
 
-The machine likely similar to Book 4 Pro, it is an HDA+companion amp setup:
-https://github.com/thesofproject/linux/issues/5002
+	new ALSA userspace packages were released. You may download them from
+the ALSA website http://www.alsa-project.org or directly:
 
-The bounty for Book 4 Pro resulted (as far as I know) working audio,
-which can be replicated:
-https://github.com/stephanlensky/galaxy-book4-linux-sound
+	HTTP: https://www.alsa-project.org/files/pub
+	FTP:  ftp://ftp.alsa-project.org/pub
 
-You might need to add the quirk for the Ultra and by luck it might work
-as well.
+Released packages:
 
-SOF is not needed, used in these machines as they are pure HDA devices.
+	alsa-lib
+	alsa-utils
+	alsa-ucm-conf
+
+Full list of changes:
+
+	https://www.alsa-project.org/wiki/Changes_v1.2.15.1_v1.2.15.2
+
+The fingerprint of the public signing key is:
+
+	F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
+
+				Have fun,
+					Jaroslav
 
 -- 
-Péter
-
-On 08/01/2026 00:26, José Augusto de Almeida Neto wrote:
-> Hi ALSA developers,
-> 
-> I'm reporting a hardware support issue with the Samsung Galaxy Book 4 Ultra
-> (NP960XGL-XG1BR) running on Intel Meteor Lake (MTL) platform.
-> 
-> SUMMARY:
-> The laptop has MAX98390 smart speaker amplifiers that are not supported in
-> the current Linux kernel. Headphones work (ALC298 HDA codec) but speakers
-> are completely non-functional.
-> 
-> HARDWARE:
-> - System: Samsung Galaxy Book 4 Ultra (NP960XGL-XG1BR)
-> - CPU: Intel Meteor Lake-P
-> - Audio Controller: Intel MTL HD Audio (8086:7728)
-> - HDA Codec: Realtek ALC298 (working for headphones)
-> - Speaker Amps: 4x Maxim MAX98390 on I2C bus 2 (addresses 0x38, 0x39,
-> 0x3C, 0x3D)
-> - Kernel: 6.17.9 (also tested on 6.8.0 mainline)
-> 
-> ROOT CAUSE:
-> 1. No machine driver match in soc-acpi-intel-mtl-match.c for Samsung +
-> MAX98390
-> 2. No SOF topology file for MTL + HDA + MAX98390 combination
-> 3. NHLT only shows SSP2 (Bluetooth), no SSP configured for speakers
-> 4. SOF falls back to generic skl_hda_dsp_generic (2-channel HDA only)
-> 
-> VERIFICATION:
-> - MAX98390 chips respond on I2C (revision 0x42 confirmed on all 4 chips)
-> - ACPI device MAX98390:00 present (status 15 - enabled)
-> - ALC298 speaker DAC receives audio but no output from physical speakers
-> - No I2S/TDM connection to MAX98390 amplifiers
-> 
-> I have collected detailed technical information including:
-> - DSDT and NHLT ACPI tables
-> - Full HDA codec dump
-> - I2C bus scans and MAX98390 register reads
-> - dmesg logs showing current SOF behavior
-> 
-> Full detailed report: BUG_REPORT.md attached
-> 
-> QUESTION:
-> Is there ongoing work to support MAX98390 on Meteor Lake platforms?
-> I'm willing to test patches and provide additional debugging information.
-> 
-> Thank you,
-> Jose
-> 
-
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

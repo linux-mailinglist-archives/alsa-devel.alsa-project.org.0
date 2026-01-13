@@ -2,31 +2,31 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D691D110ED
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jan 2026 09:06:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA8F2D1607A
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jan 2026 01:34:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C4EF6020B;
-	Mon, 12 Jan 2026 09:06:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C4EF6020B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48CBB60192;
+	Tue, 13 Jan 2026 01:34:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48CBB60192
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1768205194;
-	bh=Bx93G3B40bgyUnrI7C8mLpvYYXSXHwigaJ6Jmb8dtHU=;
+	s=default; t=1768264491;
+	bh=t2Z20IASmSRekpthgRp6LZoWnu/7JRhNC1LqmcNBaUY=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=l41dTiSDwMa6quPRY2wPY0g/NNUyA4kcbTcNTfNzZIPnRYLkRFGg5vnXUJep8gasP
-	 0Zz6Kta+0c9YPYrPrTyQH9nslL5AdDhTuTP9GllU2OPEW8GW9CUoHyxkjI7B6Ilqkj
-	 Ic28qELlyytrvI/QAQ2+hPHbslSjws5NjF1O2kc4=
+	b=U2FwZ5FThoVFLIzB7HfL/vWNIrIWVLp0UmRavfvltjCAoRZdUbN4hlPppJkOLfsHI
+	 8j/mek27oS5Oc41Qd6TLFSYLl4uw+8+5n/lQf3AjIcwJzlXKN50aaiQsXSheJ54TDW
+	 vqTb1AlfhS9cbzjdolswSCGWVOxr6BOiv5RcJicQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDCAEF805E7; Mon, 12 Jan 2026 09:06:01 +0100 (CET)
+	id 502AFF805E6; Tue, 13 Jan 2026 01:34:17 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAFE1F805E2;
-	Mon, 12 Jan 2026 09:06:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD1E3F805D5;
+	Tue, 13 Jan 2026 01:34:16 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5913F80152; Mon, 12 Jan 2026 09:04:24 +0100 (CET)
+	id D8621F8016D; Tue, 13 Jan 2026 01:28:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
@@ -34,22 +34,21 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
 	autolearn=no autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id E419FF800D0
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jan 2026 09:04:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E419FF800D0
-Content-Type: text/plain; charset="utf-8"
+	by alsa1.perex.cz (Postfix) with ESMTP id CE881F800E4
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 01:28:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE881F800E4
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <1889ed2197494600-webhooks-bot@alsa-project.org>
-In-Reply-To: <1889ed21959d8400-webhooks-bot@alsa-project.org>
-References: <1889ed21959d8400-webhooks-bot@alsa-project.org>
-Subject: SOF HiFi profile fails to detect headphone jack on ASUS ZenBook
- UX425EA (ALC294)
-Date: Mon, 12 Jan 2026 09:04:24 +0100 (CET)
-Message-ID-Hash: GQPMIPJ5LJ5SPIHZZGWKD5X6UFF2O4WX
-X-Message-ID-Hash: GQPMIPJ5LJ5SPIHZZGWKD5X6UFF2O4WX
+Message-Id: <188a22d3b63fcc00-webhooks-bot@alsa-project.org>
+In-Reply-To: <188a22d3b514b800-webhooks-bot@alsa-project.org>
+References: <188a22d3b514b800-webhooks-bot@alsa-project.org>
+Subject: snd_seq_drain_output change breaks existing code.
+Date: Tue, 13 Jan 2026 01:28:22 +0100 (CET)
+Message-ID-Hash: 5ASCCMALY5IMOPNS5FWV7IVBAMCEVWCW
+X-Message-ID-Hash: 5ASCCMALY5IMOPNS5FWV7IVBAMCEVWCW
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -62,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GQPMIPJ5LJ5SPIHZZGWKD5X6UFF2O4WX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ASCCMALY5IMOPNS5FWV7IVBAMCEVWCW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,92 +70,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-YWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYgaXNzdWUgIzY4NiB3YXMgb3BlbmVkIGZyb20gYWtp
-bmNhbm86CgpDb21wb25lbnQ6IFNvdW5kKEFMU0EpIOKGkiBQQ0kKCkRlc2NyaXB0aW9uOgpIYXJk
-d2FyZToKCkxhcHRvcDogQVNVUyBaZW5Cb29rIFVYNDI1RUFfVVg0MjVFQQpBdWRpbyBDb250cm9s
-bGVyOiBJbnRlbCBUaWdlciBMYWtlLUxQIFNtYXJ0IFNvdW5kIFRlY2hub2xvZ3kgQXVkaW8gQ29u
-dHJvbGxlciAoUENJIElEOiAweDgwODY6MHhhMGM4KQpDb2RlYzogUmVhbHRlayBBTEMyOTQgKFZl
-bmRvciBJRDogMHgxMGVjMDI5NCwgU3Vic3lzdGVtIElEOiAweDEwNDMxY2VlKQpLZXJuZWw6IDYu
-MTguNC1hcmNoMS0xCkRpc3RyaWJ1dGlvbjogQXJjaCBMaW51eApBTFNBIGNvbXBvbmVudHM6IEhE
-QTo4MDg2MjgxMiw4MDg2MDEwMSwwMDEwMDAwMCBIREE6MTBlYzAyOTQsMTA0MzFjZWUsMDAxMDAw
-MDQgY2ZnLWRtaWNzOjIKClByb2JsZW06CldoZW4gdXNpbmcgdGhlIFNPRiAoU291bmQgT3BlbiBG
-aXJtd2FyZSkgZHJpdmVyLCB0aGUgSGlGaSBwcm9maWxlIGZhaWxzIHRvIGNyZWF0ZSBhdWRpbyBz
-aW5rcy9zb3VyY2VzIGZvciB0aGUgaGVhZHBob25lIGphY2suIFdpcmVQbHVtYmVyIGxvZ3Mgc2hv
-dzoKc3BhLmFsc2E6IE5vIHNpbmsgYW5kIHNvdXJjZSBhdCBIaUZpOiBIZWFkcGhvbmVzClRoZSBI
-aUZpIHByb2ZpbGUgc2hvd3MgYXMgYXZhaWxhYmxlOiBubyBhbmQgdGhlIGFjdGl2ZSBwcm9maWxl
-IGRlZmF1bHRzIHRvIG9mZi4gQXR0ZW1wdGluZyB0byBzd2l0Y2ggdG8gSGlGaSByZXN1bHRzIGlu
-IG9ubHkgSERNSSBvdXRwdXRzIGJlaW5nIGF2YWlsYWJsZSwgd2l0aCBubyBhbmFsb2cgc3BlYWtl
-ciBvciBoZWFkcGhvbmUgb3V0cHV0cy4KVGhlIGhlYWRwaG9uZSBqYWNrIChwaW4gMHgyMSkgaXMg
-bWlzY29uZmlndXJlZDoKTm9kZSAweDIxIFtQaW4gQ29tcGxleF0gd2NhcHMgMHg0MDA1OGQ6IFN0
-ZXJlbyBBbXAtT3V0CiAgQW1wLU91dCBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBzPTB4MDAsIHN0ZXBz
-aXplPTB4MDAsIG11dGU9MQogIEFtcC1PdXQgdmFsczogIFsweDgwIDB4ODBdCiAgUGluY2FwIDB4
-MDAwMTAwMWM6IE9VVCBIUCBFQVBEIERldGVjdAogIEVBUEQgMHgyOiBFQVBECiAgUGluIERlZmF1
-bHQgMHg0MTExMTFmMDogW04vQV0gU3BlYWtlciBhdCBFeHQgUmVhcgogICAgQ29ubiA9IDEvOCwg
-Q29sb3IgPSBCbGFjawogICAgRGVmQXNzb2NpYXRpb24gPSAweGYsIFNlcXVlbmNlID0gMHgwCiAg
-ICBNaXNjID0gTk9fUFJFU0VOQ0UKICBQaW4tY3RsczogMHgwMDoKICBVbnNvbGljaXRlZDogdGFn
-PTAwLCBlbmFibGVkPTAKICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6
-IHNldHRpbmc9RDAsIGFjdHVhbD1EMAogIENvbm5lY3Rpb246IDIKICAgICAweDAyIDB4MDMqClRo
-ZSBrZXkgaXNzdWVzIGFyZToKClBpbiBEZWZhdWx0IDB4NDExMTExZjAgLSBjb25maWd1cmVkIGFz
-ICJOL0EiIGluc3RlYWQgb2YgaGVhZHBob25lIGphY2sKTWlzYyA9IE5PX1BSRVNFTkNFIC0gbm8g
-amFjayBkZXRlY3Rpb24gZW5hYmxlZApQaW4tY3RsczogMHgwMCAtIHBpbiBub3QgY29uZmlndXJl
-ZCBmb3Igb3V0cHV0ClVuc29saWNpdGVkOiB0YWc9MDAsIGVuYWJsZWQ9MCAtIGphY2sgZGV0ZWN0
-aW9uIGV2ZW50cyBkaXNhYmxlZAoKVGhpcyBjYXVzZXMgUGlwZVdpcmUvV2lyZVBsdW1iZXIgdG8g
-b25seSBjcmVhdGUgSERNSSBvdXRwdXRzIGluIHRoZSBIaUZpIHByb2ZpbGUsIHdpdGggbm8gYW5h
-bG9nIGF1ZGlvIGRldmljZXMuCkV4cGVjdGVkIEJlaGF2aW9yOgpUaGUgSGlGaSBwcm9maWxlIHNo
-b3VsZCBkZXRlY3QgYW5kIGV4cG9zZToKCkludGVybmFsIHNwZWFrZXJzCkhlYWRwaG9uZSBqYWNr
-IHdpdGggamFjayBkZXRlY3Rpb24KQXV0b21hdGljIHN3aXRjaGluZyBiZXR3ZWVuIHNwZWFrZXJz
-IGFuZCBoZWFkcGhvbmVzIHdoZW4gcGx1Z2dpbmcvdW5wbHVnZ2luZwpEaWdpdGFsIG1pY3JvcGhv
-bmUKCkN1cnJlbnQgV29ya2Fyb3VuZDoKQmxhY2tsaXN0aW5nIFNPRiBhbmQgZm9yY2luZyBsZWdh
-Y3kgSERBIGRyaXZlciB3b3JrcyBwZXJmZWN0bHk6CmBgYGJhc2gKIyAvZXRjL21vZHByb2JlLmQv
-YWxzYS1iYXNlLmNvbmYKYmxhY2tsaXN0IHNuZF9zb2ZfcGNpX2ludGVsX3RnbApibGFja2xpc3Qg
-c25kX3NvZl9pbnRlbF9oZGFfY29tbW9uCmJsYWNrbGlzdCBzbmRfc29mCm9wdGlvbnMgc25kLWlu
-dGVsLWRzcGNmZyBkc3BfZHJpdmVyPTEKYGBgCgpXaXRoIGxlZ2FjeSBIREEgZHJpdmVyLCB0aGUg
-c2FtZSBwaW4gMHgyMSBpcyBwcm9wZXJseSBjb25maWd1cmVkOgpgYGBiYXNoClBpbi1jdGxzOiAw
-eGMwOiBPVVQgSFAKVW5zb2xpY2l0ZWQ6IHRhZz0wMSwgZW5hYmxlZD0xCkNvbnRyb2w6IG5hbWU9
-IkhlYWRwaG9uZSBQbGF5YmFjayBTd2l0Y2giLCBpbmRleD0wLCBkZXZpY2U9MApgYGAKClRoZSBg
-b3V0cHV0OmFuYWxvZy1zdGVyZW9gIHByb2ZpbGUgd29ya3MgcGVyZmVjdGx5IHdpdGggYXV0b21h
-dGljIGphY2sgZGV0ZWN0aW9uIGFuZCBzd2l0Y2hpbmcuCgoqKlJlcHJvZHVjdGlvbjoqKgoxLiBC
-b290IEFTVVMgWmVuQm9vayBVWDQyNUVBIHdpdGggZGVmYXVsdCBTT0YgZHJpdmVyIChubyBibGFj
-a2xpc3RpbmcpCjIuIENoZWNrIGBwYWN0bCBsaXN0IGNhcmRzYCAtIHNob3dzOgogICAtIEhpRmkg
-cHJvZmlsZTogYGF2YWlsYWJsZTogbm9gCiAgIC0gQWN0aXZlIHByb2ZpbGU6IGBvZmZgCiAgIC0g
-T25seSBIRE1JIHBvcnRzIGxpc3RlZCB1bmRlciBIaUZpIHByb2ZpbGUsIG5vIGFuYWxvZyBvdXRw
-dXRzCjMuIENoZWNrIGBqb3VybmFsY3RsIC0tdXNlciAtdSB3aXJlcGx1bWJlcmAgLSBzZWUgZXJy
-b3I6IGBzcGEuYWxzYTogTm8gc2luayBhbmQgc291cmNlIGF0IEhpRmk6IEhlYWRwaG9uZXNgCjQu
-IEF0dGVtcHRpbmcgdG8gdXNlIEhpRmkgb3IgZXZlbiBwcm8tYXVkaW8gcHJvZmlsZSByZXN1bHRz
-IGluIG5vIHdvcmtpbmcgYW5hbG9nIGF1ZGlvCgoqKlNPRiBGaXJtd2FyZS9Ub3BvbG9neSBJbmZv
-cm1hdGlvbjoqKgpgYGBiYXNoCnNvZi1hdWRpby1wY2ktaW50ZWwtdGdsIDAwMDA6MDA6MWYuMzog
-RmlybXdhcmUgZmlsZTogaW50ZWwvc29mL3NvZi10Z2wucmkKc29mLWF1ZGlvLXBjaS1pbnRlbC10
-Z2wgMDAwMDowMDoxZi4zOiBUb3BvbG9neSBmaWxlOiBpbnRlbC9zb2YtdHBsZy9zb2YtaGRhLWdl
-bmVyaWMtMmNoLnRwbGcKc29mLWF1ZGlvLXBjaS1pbnRlbC10Z2wgMDAwMDowMDoxZi4zOiBGaXJt
-d2FyZSBpbmZvOiB2ZXJzaW9uIDI6MjowLTU3ODY0CnNvZi1hdWRpby1wY2ktaW50ZWwtdGdsIDAw
-MDA6MDA6MWYuMzogRmlybXdhcmU6IEFCSSAzOjIyOjEgS2VybmVsIEFCSSAzOjIzOjEKc29mLWF1
-ZGlvLXBjaS1pbnRlbC10Z2wgMDAwMDowMDoxZi4zOiBUb3BvbG9neTogQUJJIDM6MjI6MSBLZXJu
-ZWwgQUJJIDM6MjM6MQpzb2YtYXVkaW8tcGNpLWludGVsLXRnbCAwMDAwOjAwOjFmLjM6IERNSUNz
-IGRldGVjdGVkIGluIE5ITFQgdGFibGVzOiAyCmBgYAoKKipDYXJkIENvbmZpZ3VyYXRpb24gKFNP
-Rik6KioKYGBgCk5hbWU6IGFsc2FfY2FyZC5wY2ktMDAwMF8wMF8xZi4zLXBsYXRmb3JtLXNrbF9o
-ZGFfZHNwX2dlbmVyaWMKYXBpLmFsc2EuY2FyZC5uYW1lID0gInNvZi1oZGEtZHNwIgphbHNhLmxv
-bmdfY2FyZF9uYW1lID0gIkFTVVNUZUtDT01QVVRFUklOQy4tWmVuQm9va1VYNDI1RUFfVVg0MjVF
-QS0xLjAtVVg0MjVFQSIKYWxzYS5kcml2ZXJfbmFtZSA9ICJzbmRfc29jX3NrbF9oZGFfZHNwIgph
-bHNhLm1peGVyX25hbWUgPSAiUmVhbHRlayBBTEMyOTQiCgpQcm9maWxlczoKICAgIG9mZjogT2Zm
-IChzaW5rczogMCwgc291cmNlczogMCwgcHJpb3JpdHk6IDAsIGF2YWlsYWJsZTogeWVzKQogICAg
-SGlGaTogUGxheSBIaUZpIHF1YWxpdHkgTXVzaWMgKHNpbmtzOiAzLCBzb3VyY2VzOiAxLCBwcmlv
-cml0eTogOTkwMCwgYXZhaWxhYmxlOiBubykKICAgIHByby1hdWRpbzogUHJvIEF1ZGlvIChzaW5r
-czogNSwgc291cmNlczogMywgcHJpb3JpdHk6IDEsIGF2YWlsYWJsZTogeWVzKQpBY3RpdmUgUHJv
-ZmlsZTogb2ZmCgpIaUZpIHByb2ZpbGUgcG9ydHMgKG5vIGFuYWxvZyBvdXRwdXRzKToKICAgIFtP
-dXRdIEhETUkzOiBIRE1JIC8gRGlzcGxheVBvcnQgMyBPdXRwdXQKICAgIFtPdXRdIEhETUkyOiBI
-RE1JIC8gRGlzcGxheVBvcnQgMiBPdXRwdXQgIAogICAgW091dF0gSERNSTE6IEhETUkgLyBEaXNw
-bGF5UG9ydCAxIE91dHB1dAogICAgW0luXSBNaWMxOiBEaWdpdGFsIE1pY3JvcGhvbmUKUmVxdWVz
-dDoKVGhlIEFTVVMgWmVuQm9vayBVWDQyNUVBIG5lZWRzIGVpdGhlcjoKCkEgVUNNIGNvbmZpZ3Vy
-YXRpb24gdGhhdCBwcm9wZXJseSBtYXBzIHBpbiAweDIxIGFzIGEgaGVhZHBob25lIGphY2sgd2l0
-aCBwcmVzZW5jZSBkZXRlY3Rpb24sIE9SCkEga2VybmVsIHF1aXJrIHRvIHNldCB0aGUgY29ycmVj
-dCBwaW4gY29uZmlndXJhdGlvbiBmb3IgdGhpcyBsYXB0b3AgbW9kZWwsIE9SCkFuIHVwZGF0ZWQg
-U09GIHRvcG9sb2d5IGZpbGUgdGhhdCBpbmNsdWRlcyB0aGUgYW5hbG9nIG91dHB1dHMKClRoZSBo
-YXJkd2FyZSBjbGVhcmx5IHN1cHBvcnRzIGhlYWRwaG9uZSBqYWNrIGRldGVjdGlvbiAodGhlIGxl
-Z2FjeSBIREEgZHJpdmVyIHByb3ZlcyB0aGlzKSwgYnV0IFNPRiBpcyBub3QgdXRpbGl6aW5nIGl0
-IGNvcnJlY3RseS4KCkltcGFjdDoKVGhpcyBhZmZlY3RzIGFsbCBBU1VTIFplbkJvb2sgVVg0MjVF
-QSB1c2VycyBydW5uaW5nIG1vZGVybiBrZXJuZWxzIHdpdGggU09GIGFzIHRoZSBkZWZhdWx0IGRy
-aXZlci4gVXNlcnMgZWl0aGVyIGhhdmUgbm8gYXVkaW8gb3IgbXVzdCBtYW51YWxseSBibGFja2xp
-c3QgU09GIHRvIHVzZSB0aGUgbGVnYWN5IEhEQSBkcml2ZXIuCgpJc3N1ZSBVUkwgICAgIDogaHR0
-cHM6Ly9naXRodWIuY29tL2Fsc2EtcHJvamVjdC9hbHNhLXVjbS1jb25mL2lzc3Vlcy82ODYKUmVw
-b3NpdG9yeSBVUkw6IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS11Y20tY29u
-Zgo=
+alsa-project/alsa-lib issue #493 was opened from Hoosier-Beagler:
+
+The little gem shown below has broken a lot of code.  Previously, no positive results were returned and software relied on -EAGAIN to detect remaining data.  That result is no longer returned if some data was processed.  This has broken the old and stable version of my application written in C(++) which is no longer being maintained.  I have ported my app to python but this change has also broken public python wrappers for the alsa library.  In [alsa-python / pyalsa / alsaseq.c](https://github.com/alsa-project/alsa-python/blob/master/pyalsa/alsaseq.c) below line 2800 and also [python-alsa-midi / alsa_midi / client.py](https://github.com/Jajcus/python-alsa-midi/blob/main/alsa_midi/client.py) at line 626 and possibly the sub-classes as well (lines 1679, 1871).  None of these wrappers expected a valid return value and do not pass along said value returned from the c library call.
+
+```
+--- alsa-lib-1.2.14/src/seq/seq.c  2025-04-14 11:42:04.000000000 -0500
++++ alsa-lib-1.2.15.2/src/seq/seq.c       2026-01-08 08:27:57.000000000 -0600
+@@ -4445,21 +4445,22 @@
+ int snd_seq_drain_output(snd_seq_t *seq)
+ {
+        ssize_t result, processed = 0;
+        assert(seq);
+        while (seq->obufused > 0) {
+                result = seq->ops->write(seq, seq->obuf, seq->obufused);
+                if (result < 0) {
+-                       if (result == -EAGAIN && processed)
++                       if (result == -EAGAIN && processed > 0)
+                                return seq->obufused;
+                        return result;
+                }
+                if ((size_t)result < seq->obufused)
+                        memmove(seq->obuf, seq->obuf + result, seq->obufused - result);
+                seq->obufused -= result;
++               processed += result;
+        }
+        return 0;
+ }
+ 
+ /**
+  * \brief extract the first event in output buffer
+  * \param seq sequencer handle
+
+```
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/493
+Repository URL: https://github.com/alsa-project/alsa-lib

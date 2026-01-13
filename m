@@ -2,55 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B03DCD1788B
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jan 2026 10:13:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06273D1803B
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jan 2026 11:28:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B4E2601F1;
-	Tue, 13 Jan 2026 10:13:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B4E2601F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22145601E7;
+	Tue, 13 Jan 2026 11:28:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22145601E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1768295613;
-	bh=dyWqA2Oou4ep5hsloxGKIWj0LGvWl76sm+1VVdSq1rk=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=p1ozQtnwj13F/q4BTytlGrU0VUyN3DBrxJj6t3+/pTQ/ta9OEiJHeEPhnfjvjYT7F
-	 rxEKXE3P2VgQOBoYnPncoAd3Qu8wWcjuT3m7FRsSVStL0YTP1FcRH2Jejzymwk4DfH
-	 miMbrJIhlDf1glPhhf9WeTmrAGzvZGUvz8taovhQ=
+	s=default; t=1768300128;
+	bh=L03h2gpK9PrBWkWHVwlCcFgNsiTqhpYrjmjQsxgLzrU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=TPD4+hO3O4RlLRQgiAw2y4NAgNmZqFWgTABrR6/sft0BpP/s5YCtCXgwUGwPndqeo
+	 OcUlMyc3mFmROaAGRaPyGQ6+JwfVMydbccKR7NfYuUoRQEiRnHuo/AxspamXXCK+oy
+	 iFYf6YCL2zkeBPydmqwlFsVBO+RHv4gw3UXUR87Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48939F805DA; Tue, 13 Jan 2026 10:12:58 +0100 (CET)
+	id 2C200F805E2; Tue, 13 Jan 2026 11:28:10 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 125EDF805E2;
-	Tue, 13 Jan 2026 10:12:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCAFEF805E1;
+	Tue, 13 Jan 2026 11:28:10 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBD56F805CA; Tue, 13 Jan 2026 10:11:07 +0100 (CET)
+	id C378BF805CA; Tue, 13 Jan 2026 11:26:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
-	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8916F80016
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 10:11:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8916F80016
-Content-Type: text/plain; charset="utf-8"
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 65F15F8016D
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 11:26:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65F15F8016D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=JswYoKJ6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1768300013; x=1799836013;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=L03h2gpK9PrBWkWHVwlCcFgNsiTqhpYrjmjQsxgLzrU=;
+  b=JswYoKJ6TsTJO4ddzkbUSHNrZmmGWrRaKSoUA/B+XZ9FaXMPpOU9maBZ
+   +SqDXrFphc+bTrrAZud+ryhRB+bfCbIyLe/I2pLtbYj2BQ/zKfCieMu3C
+   plcSpJQzovRVLtKl39E979VQ7nXo0jxbUz2noxUv1ckT56yEOAfOFluaX
+   h8OSLunkVouYRBSrdU4sCSqHnYeNF2BlicrLV5TLGibodDyPaUo2VjFcq
+   iHmL9NueFNzVDmgBQB5gUvNtQL8ygci57Qr9K6lvxJTcnpl4xX8orpgTZ
+   fHXwVdUVzJw4imC3HlnLFZeqc8yUc5gG8zUXdnk5HPDtDBSnowEbfzGTO
+   A==;
+X-CSE-ConnectionGUID: SxnRompZS7KbYhsAsiRt+g==
+X-CSE-MsgGUID: 6yoF9YArRfOVCCrUAi/1TA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="69564570"
+X-IronPort-AV: E=Sophos;i="6.21,222,1763452800";
+   d="scan'208";a="69564570"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2026 02:26:49 -0800
+X-CSE-ConnectionGUID: Ma2498XvSt2EEHpnji4w2w==
+X-CSE-MsgGUID: LigmJqi8Tkifoedb7juyjA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,222,1763452800";
+   d="scan'208";a="209185836"
+Received: from igk-lkp-server01.igk.intel.com (HELO 8581b2e2a62c)
+ ([10.211.93.152])
+  by fmviesa004.fm.intel.com with ESMTP; 13 Jan 2026 02:26:45 -0800
+Received: from kbuild by 8581b2e2a62c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1vfbbn-0000000017h-0mLj;
+	Tue, 13 Jan 2026 10:26:43 +0000
+Date: Tue, 13 Jan 2026 11:25:49 +0100
+From: kernel test robot <lkp@intel.com>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
+Cc: Paul Gazzillo <paul@pgazz.com>,
+	Necip Fazil Yildiran <fazilyildiran@gmail.com>,
+	oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	yung-chuan.liao@linux.intel.com, simont@opensource.cirrus.com,
+	Sunil-kumar.Dommati@amd.com, mario.limonciello@amd.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH] ASoC: amd: acp: soc-acpi: add is_device_rt712_vb() helper
+Message-ID: <202601131155.RXGj4KHv-lkp@intel.com>
+References: <20260110064505.1485927-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <188a3f5b62a8a400-webhooks-bot@alsa-project.org>
-In-Reply-To: <188a3f5b629de600-webhooks-bot@alsa-project.org>
-References: <188a3f5b629de600-webhooks-bot@alsa-project.org>
-Subject: UCM HiFi profile fails on hardware with Master volume instead of
- Headphone volume controls (ASUS ZenBook UX425EA)
-Date: Tue, 13 Jan 2026 10:11:07 +0100 (CET)
-Message-ID-Hash: 5HNTZWACDCU6QIUNALYESVUEP4JO5CEF
-X-Message-ID-Hash: 5HNTZWACDCU6QIUNALYESVUEP4JO5CEF
-X-MailFrom: github@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260110064505.1485927-1-Vijendar.Mukunda@amd.com>
+Message-ID-Hash: DNITTLWM5UR46OUHR72OJY4W26BAXI5F
+X-Message-ID-Hash: DNITTLWM5UR46OUHR72OJY4W26BAXI5F
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5HNTZWACDCU6QIUNALYESVUEP4JO5CEF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DNITTLWM5UR46OUHR72OJY4W26BAXI5F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,108 +116,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-YWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYgaXNzdWUgIzY4NyB3YXMgb3BlbmVkIGZyb20gYWtp
-bmNhbm86CgojIyMgSGFyZHdhcmUgSW5mb3JtYXRpb24KLSBMYXB0b3A6IEFTVVMgWmVuQm9vayBV
-WDQyNUVBX1VYNDI1RUEKLSBBdWRpbyBDb250cm9sbGVyOiBJbnRlbCBUaWdlciBMYWtlLUxQIFNt
-YXJ0IFNvdW5kIFRlY2hub2xvZ3kKLSBBdWRpbyBDb250cm9sbGVyIChQQ0kgSUQ6IDB4ODA4Njow
-eGEwYzgpCi0gQ29kZWM6IFJlYWx0ZWsgQUxDMjk0IChWZW5kb3IgSUQ6IDB4MTBlYzAyOTQsIFN1
-YnN5c3RlbSBJRDogMHgxMDQzMWNlZSkKLSBLZXJuZWw6IDYuMTguNS5hcmNoMS0xCi0gRGlzdHJp
-YnV0aW9uOiBBcmNoIExpbnV4CgojIyMgU29mdHdhcmUgVmVyc2lvbnMKYGBgYmFzaAphbHNhLXVj
-bS1jb25mIDEuMi4xNS4yLTEKc29mLWZpcm13YXJlIDIwMjUuMTItMQpsaW51eCA2LjE4LjUuYXJj
-aDEtMQpgYGAKCiMjIyBQcm9ibGVtIERlc2NyaXB0aW9uClRoZSBTT0YgSGlGaSBwcm9maWxlIGZh
-aWxzIHRvIGNyZWF0ZSBzcGVha2VyL2hlYWRwaG9uZSBhdWRpbyBkZXZpY2VzIG9uIHRoaXMgaGFy
-ZHdhcmUuIFdpcmVQbHVtYmVyIHJlcG9ydHM6CmBgYGJhc2gKc3BhLmFsc2E6IE5vIHNpbmsgYW5k
-IHNvdXJjZSBhdCBIaUZpOiBIZWFkcGhvbmVzCmBgYApUaGUgSGlGaSBwcm9maWxlIHNob3dzIGFz
-IGF2YWlsYWJsZTogbm8gYW5kIG9ubHkgSERNSSBvdXRwdXRzIGFyZSBleHBvc2VkLCB3aXRoIG5v
-IGFuYWxvZyBhdWRpbyBkZXZpY2VzLgoKIyMjIFJvb3QgQ2F1c2UKKipUaGlzIGlzIGEgVUNNIGNv
-bmZpZ3VyYXRpb24gaXNzdWUqKiwgbm90IGEga2VybmVsIGRyaXZlciBpc3N1ZS4gVGhlIHByb2Js
-ZW0gaXMgdGhhdCAvdXNyL3NoYXJlL2Fsc2EvdWNtMi9IREEvSGlGaS1hbmFsb2cuY29uZiBjaGVj
-a3MgZm9yIEFMU0EgY29udHJvbHMgdGhhdCBkb24ndCBleGlzdCBvbiB0aGlzIGhhcmR3YXJlLgoK
-KipBTFNBIGNvbnRyb2xzIGV4cG9zZWQgYnkgdGhpcyBoYXJkd2FyZSAoaWRlbnRpY2FsIGZvciBi
-b3RoIFNPRiBhbmQgSERBKToqKgpgYGBiYXNoCm51bWlkPTMsaWZhY2U9Q0FSRCxuYW1lPSdTcGVh
-a2VyIFBoYW50b20gSmFjaycKbnVtaWQ9MixpZmFjZT1NSVhFUixuYW1lPSdNYXN0ZXIgUGxheWJh
-Y2sgU3dpdGNoJwpudW1pZD0xLGlmYWNlPU1JWEVSLG5hbWU9J01hc3RlciBQbGF5YmFjayBWb2x1
-bWUnCltIRE1JL0lFQzk1OCBjb250cm9scyBvbWl0dGVkIGZvciBicmV2aXR5XQpgYGAKCioqQ29u
-dHJvbHMgdGhlIFVDTSBjb25maWcgZXhwZWN0cyBidXQgZG9uJ3QgZXhpc3Q6KioKLSBIZWFkcGhv
-bmUgUGxheWJhY2sgVm9sdW1lIOKdjCAob25seSBNYXN0ZXIgUGxheWJhY2sgVm9sdW1lIGV4aXN0
-cykKLSBIZWFkcGhvbmUgUGxheWJhY2sgU3dpdGNoIOKdjCAob25seSBNYXN0ZXIgUGxheWJhY2sg
-U3dpdGNoIGV4aXN0cykKLSBIZWFkcGhvbmUgSmFjayDinYwgKG9ubHkgU3BlYWtlciBQaGFudG9t
-IEphY2sgZXhpc3RzKQoKKipVQ00gY29uZmlnIGxvZ2ljIHRoYXQgZmFpbHM6KioKSW4gL3Vzci9z
-aGFyZS9hbHNhL3VjbTIvSERBL0hpRmktYW5hbG9nLmNvbmY6CmBgYGJhc2gKSWYuaHB2b2wgewog
-ICAgQ29uZGl0aW9uIHsKICAgICAgICBUeXBlIENvbnRyb2xFeGlzdHMKICAgICAgICBDb250cm9s
-ICJuYW1lPSdIZWFkcGhvbmUgUGxheWJhY2sgVm9sdW1lJyIKICAgIH0KICAgIEZhbHNlLkRlZmlu
-ZS5ocHZvbCAiIgp9CgpJZi5ocCB7CiAgICBDb25kaXRpb24gewogICAgICAgIFR5cGUgU3RyaW5n
-CiAgICAgICAgRW1wdHkgIiR7dmFyOmhwdm9sfSIKICAgIH0KICAgIEZhbHNlLlNlY3Rpb25EZXZp
-Y2UuIkhlYWRwaG9uZXMiIHsKICAgICAgICAjIC4uLiBjcmVhdGVzIGhlYWRwaG9uZSBkZXZpY2UK
-ICAgIH0KfQpgYGAKQmVjYXVzZSBIZWFkcGhvbmUgUGxheWJhY2sgVm9sdW1lIGRvZXNuJ3QgZXhp
-c3QsIGhwdm9sIGlzIHNldCB0byBlbXB0eSBzdHJpbmcsIGFuZCB0aGUgSWYuaHAgY29uZGl0aW9u
-IHByZXZlbnRzIHRoZSBoZWFkcGhvbmUgZGV2aWNlIGZyb20gYmVpbmcgY3JlYXRlZC4KClNpbWls
-YXJseSwgdGhlIGphY2sgZGV0ZWN0aW9uIGxvZ2ljIGNoZWNrcyBmb3I6CmBgYGJhc2gKRGVmaW5l
-LmhwamFjayAiSGVhZHBob25lIEphY2siCklmLmhwamFjayB7CiAgICBDb25kaXRpb24gewogICAg
-ICAgIFR5cGUgQ29udHJvbEV4aXN0cwogICAgICAgIENvbnRyb2wgImlmYWNlPUNBUkQsbmFtZT0n
-SGVhZHBob25lIE1pYyBKYWNrJyIKICAgIH0KICAgICMgLi4uIGZhbGxzIGJhY2sgdG8gY2hlY2tp
-bmcgJ0Zyb250IEhlYWRwaG9uZSBKYWNrJwp9CmBgYApCdXQgbmV2ZXIgY2hlY2tzIGZvciBTcGVh
-a2VyIFBoYW50b20gSmFjaywgd2hpY2ggaXMgd2hhdCB0aGlzIGhhcmR3YXJlIGV4cG9zZXMuCgoj
-IyMgV29ya2luZyBDb25maWd1cmF0aW9uIChMZWdhY3kgSERBIERyaXZlcikKV2l0aCB0aGUgbGVn
-YWN5IHNuZF9oZGFfaW50ZWwgZHJpdmVyIChmb3JjZWQgdmlhIGJsYWNrbGlzdGluZyBTT0YpLCBQ
-dWxzZUF1ZGlvJ3MgYnVpbHQtaW4gcHJvZmlsZSBsb2dpYyBjb3JyZWN0bHkgaGFuZGxlcyB0aGlz
-IGhhcmR3YXJlOgoKKipXb3JraW5nIHByb2ZpbGU6Kiogb3V0cHV0OmFuYWxvZy1zdGVyZW8raW5w
-dXQ6YW5hbG9nLXN0ZXJlbwoKKipFeHBvc2VkIHBvcnRzOioqCi0gYW5hbG9nLW91dHB1dC1zcGVh
-a2VyOiBTcGVha2VycyAodXNlcyBNYXN0ZXIgUGxheWJhY2sgVm9sdW1lL1N3aXRjaCkKLSBhbmFs
-b2ctb3V0cHV0LWhlYWRwaG9uZXM6IEhlYWRwaG9uZXMgKHVzZXMgTWFzdGVyIFBsYXliYWNrIFZv
-bHVtZS9Td2l0Y2gpCi0gQXV0b21hdGljIGphY2sgZGV0ZWN0aW9uIHZpYSBTcGVha2VyIFBoYW50
-b20gSmFjawoKVGhlIGxlZ2FjeSBIREEgZHJpdmVyIHdvcmtzIGJlY2F1c2UgUHVsc2VBdWRpbyBo
-YXMgZmFsbGJhY2sgbG9naWMgdGhhdCBoYW5kbGVzIGhhcmR3YXJlIHdpdGggb25seSBNYXN0ZXIg
-dm9sdW1lIGNvbnRyb2xzLCBidXQgU09GJ3MgVUNNLWJhc2VkIGNvbmZpZ3VyYXRpb24gZG9lc24n
-dCBoYXZlIHRoaXMgZmFsbGJhY2suCgojIyMgUHJvcG9zZWQgU29sdXRpb24KVGhlIFVDTSBjb25m
-aWd1cmF0aW9uIG5lZWRzIHRvIGJlIHVwZGF0ZWQgdG8gaGFuZGxlIGhhcmR3YXJlIHRoYXQgb25s
-eSBleHBvc2VzIE1hc3RlciBQbGF5YmFjayBWb2x1bWUvU3dpdGNoIGluc3RlYWQgb2YgZGVkaWNh
-dGVkIEhlYWRwaG9uZSBjb250cm9scy4KCioqT3B0aW9uIDE6IEFkZCBmYWxsYmFjayBsb2dpYyB0
-byBIaUZpLWFuYWxvZy5jb25mKioKCkNoZWNrIGZvciBNYXN0ZXIgUGxheWJhY2sgVm9sdW1lIHdo
-ZW4gSGVhZHBob25lIFBsYXliYWNrIFZvbHVtZSBkb2Vzbid0IGV4aXN0OgpgYGBiYXNoCklmLmhw
-dm9sIHsKICAgIENvbmRpdGlvbiB7CiAgICAgICAgVHlwZSBDb250cm9sRXhpc3RzCiAgICAgICAg
-Q29udHJvbCAibmFtZT0nSGVhZHBob25lIFBsYXliYWNrIFZvbHVtZSciCiAgICB9CiAgICBGYWxz
-ZS5JZi5tYXN0ZXIgewogICAgICAgIENvbmRpdGlvbiB7CiAgICAgICAgICAgIFR5cGUgQ29udHJv
-bEV4aXN0cwogICAgICAgICAgICBDb250cm9sICJuYW1lPSdNYXN0ZXIgUGxheWJhY2sgVm9sdW1l
-JyIKICAgICAgICB9CiAgICAgICAgVHJ1ZS5EZWZpbmUuaHB2b2wgIk1hc3RlciIKICAgIH0KfQpg
-YGAKClNpbWlsYXJseSBmb3IgamFjayBkZXRlY3Rpb24sIGNoZWNrIFNwZWFrZXIgUGhhbnRvbSBK
-YWNrOgpgYGBiYXNoCklmLmhwamFjayB7CiAgICBDb25kaXRpb24gewogICAgICAgIFR5cGUgQ29u
-dHJvbEV4aXN0cwogICAgICAgIENvbnRyb2wgImlmYWNlPUNBUkQsbmFtZT0nSGVhZHBob25lIE1p
-YyBKYWNrJyIKICAgIH0KICAgIFRydWUuRGVmaW5lLmhwamFjayAiSGVhZHBob25lIE1pYyBKYWNr
-IgogICAgRmFsc2UuSWYuZnJvbnQgewogICAgICAgIENvbmRpdGlvbiB7CiAgICAgICAgICAgIFR5
-cGUgQ29udHJvbEV4aXN0cwogICAgICAgICAgICBDb250cm9sICJpZmFjZT1DQVJELG5hbWU9J0Zy
-b250IEhlYWRwaG9uZSBKYWNrJyIKICAgICAgICB9CiAgICAgICAgVHJ1ZS5EZWZpbmUuaHBqYWNr
-ICJGcm9udCBIZWFkcGhvbmUgSmFjayIKICAgICAgICBGYWxzZS5JZi5zcGVha2VyIHsKICAgICAg
-ICAgICAgQ29uZGl0aW9uIHsKICAgICAgICAgICAgICAgIFR5cGUgQ29udHJvbEV4aXN0cwogICAg
-ICAgICAgICAgICAgQ29udHJvbCAiaWZhY2U9Q0FSRCxuYW1lPSdTcGVha2VyIFBoYW50b20gSmFj
-ayciCiAgICAgICAgICAgIH0KICAgICAgICAgICAgVHJ1ZS5EZWZpbmUuaHBqYWNrICJTcGVha2Vy
-IFBoYW50b20gSmFjayIKICAgICAgICB9CiAgICB9Cn0KYGBgCgoqKk9wdGlvbiAyOiBDcmVhdGUg
-YSBzcGVjaWZpYyBwcm9maWxlIGZvciB0aGlzIGhhcmR3YXJlKioKCkNyZWF0ZSBhIFVDTSBwcm9m
-aWxlIHNwZWNpZmljYWxseSBmb3IgVGlnZXIgTGFrZSBzeXN0ZW1zIHdpdGggUmVhbHRlayBBTEMy
-OTQgdGhhdCBvbmx5IGV4cG9zZSBNYXN0ZXIgY29udHJvbHMuCgoqKk9wdGlvbiAzOiBVcGRhdGUg
-U09GIHRvcG9sb2d5KioKSWYgdGhpcyBpcyBhIFNPRiB0b3BvbG9neSBpc3N1ZSwgdXBkYXRlIHRo
-ZSB0b3BvbG9neSB0byBleHBvc2UgcHJvcGVyIEhlYWRwaG9uZSBjb250cm9scyBpbnN0ZWFkIG9m
-IGp1c3QgTWFzdGVyLgoKIyMjIEFkZGl0aW9uYWwgRGVidWcgSW5mb3JtYXRpb24KKipQaW4gMHgy
-MSBjb25maWd1cmF0aW9uIChoZWFkcGhvbmUgamFjayk6KioKYGBgYmFzaApOb2RlIDB4MjEgW1Bp
-biBDb21wbGV4XSB3Y2FwcyAweDQwMDU4ZDogU3RlcmVvIEFtcC1PdXQKICBQaW5jYXAgMHgwMDAx
-MDAxYzogT1VUIEhQIEVBUEQgRGV0ZWN0CiAgUGluIERlZmF1bHQgMHg0MTExMTFmMDogW04vQV0g
-U3BlYWtlciBhdCBFeHQgUmVhcgogICAgTWlzYyA9IE5PX1BSRVNFTkNFCiAgUGluLWN0bHM6IDB4
-MDA6CiAgVW5zb2xpY2l0ZWQ6IHRhZz0wMCwgZW5hYmxlZD0wCmBgYApUaGUgcGluIGlzIGNhcGFi
-bGUgb2YgamFjayBkZXRlY3Rpb24gKEVBUEQgRGV0ZWN0IGluIGNhcGFiaWxpdGllcykgYnV0IGlz
-IG1pc2NvbmZpZ3VyZWQgYXMgIk4vQSIgd2l0aCAiTk9fUFJFU0VOQ0UiLiBIb3dldmVyLCB0aGUg
-amFjayBkZXRlY3Rpb24gc3RpbGwgd29ya3MgdmlhIHRoZSBTcGVha2VyIFBoYW50b20gSmFjayBB
-TFNBIGNvbnRyb2wuCgoqKkZ1bGwgY29kZWMgaW5mb3JtYXRpb246KiogQXZhaWxhYmxlIHVwb24g
-cmVxdWVzdAoKKipGdWxsIFdpcmVQbHVtYmVyIGxvZ3M6KiogQXZhaWxhYmxlIHVwb24gcmVxdWVz
-dAoKIyMjIEltcGFjdApUaGlzIGFmZmVjdHMgYWxsIEFTVVMgWmVuQm9vayBVWDQyNUVBIHVzZXJz
-IChhbmQgcG90ZW50aWFsbHkgb3RoZXIgbGFwdG9wcyB3aXRoIHNpbWlsYXIgaGFyZHdhcmUgY29u
-ZmlndXJhdGlvbnMpIHJ1bm5pbmcgU09GLiBVc2VycyBtdXN0IGVpdGhlcjoKCjEuIFVzZSBwcm8t
-YXVkaW8gcHJvZmlsZSAobm8gYXV0b21hdGljIGhlYWRwaG9uZS9zcGVha2VyIHN3aXRjaGluZykK
-Mi4gQmxhY2tsaXN0IFNPRiBhbmQgZm9yY2UgbGVnYWN5IEhEQSBkcml2ZXIgKG5vdCBhIGxvbmct
-dGVybSBzb2x1dGlvbikKCiMjIyBSZWxhdGVkIElzc3VlcwpUaGlzIHdhcyBpbml0aWFsbHkgcmVw
-b3J0ZWQgaW4gIzY4NiB3aGljaCB3YXMgY2xvc2VkIGFzIGEga2VybmVsIGlzc3VlLCBidXQgZnVy
-dGhlciBpbnZlc3RpZ2F0aW9uIHJldmVhbGVkIGl0J3MgYWN0dWFsbHkgYSBVQ00gY29uZmlndXJh
-dGlvbiBwcm9ibGVtLiBUaGUga2VybmVsIGRyaXZlciBpcyBleHBvc2luZyB0aGUgQUxTQSBjb250
-cm9scyBjb3JyZWN0bHk7IHRoZSBVQ00gY29uZmlnIGp1c3QgZG9lc24ndCBrbm93IGhvdyB0byBo
-YW5kbGUgdGhpcyBoYXJkd2FyZSBjb25maWd1cmF0aW9uLgoKSXNzdWUgVVJMICAgICA6IGh0dHBz
-Oi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS11Y20tY29uZi9pc3N1ZXMvNjg3ClJlcG9z
-aXRvcnkgVVJMOiBodHRwczovL2dpdGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYK
+Hi Vijendar,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on broonie-sound/for-next]
+[also build test WARNING on next-20260113]
+[cannot apply to linus/master v6.16-rc1]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Vijendar-Mukunda/ASoC-amd-acp-soc-acpi-add-is_device_rt712_vb-helper/20260110-144723
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20260110064505.1485927-1-Vijendar.Mukunda%40amd.com
+patch subject: [PATCH] ASoC: amd: acp: soc-acpi: add is_device_rt712_vb() helper
+config: x86_64-kismet-CONFIG_SND_SOC_ACPI_AMD_SDCA_QUIRKS-CONFIG_SND_SOC_ACPI_AMD_MATCH-0-0 (https://download.01.org/0day-ci/archive/20260113/202601131155.RXGj4KHv-lkp@intel.com/config)
+reproduce: (https://download.01.org/0day-ci/archive/20260113/202601131155.RXGj4KHv-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202601131155.RXGj4KHv-lkp@intel.com/
+
+kismet warnings: (new ones prefixed by >>)
+>> kismet: WARNING: unmet direct dependencies detected for SND_SOC_ACPI_AMD_SDCA_QUIRKS when selected by SND_SOC_ACPI_AMD_MATCH
+   WARNING: unmet direct dependencies detected for SND_SOC_ACPI_AMD_SDCA_QUIRKS
+     Depends on [n]: SOUND [=y] && SND [=y] && SND_SOC [=y] && ACPI [=y] && SND_SOC_SDCA [=n]
+     Selected by [y]:
+     - SND_SOC_ACPI_AMD_MATCH [=y] && SOUND [=y] && SND [=y] && SND_SOC [=y]
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

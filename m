@@ -2,54 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FD88D16122
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jan 2026 01:41:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C566D17626
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jan 2026 09:52:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D32AD6016E;
-	Tue, 13 Jan 2026 01:41:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D32AD6016E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF30B601F6;
+	Tue, 13 Jan 2026 09:52:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF30B601F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1768264880;
-	bh=33iU3qhPEihTm2d9/LSYBx1/CY6fykjLzXo+/RZC8j8=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	s=default; t=1768294332;
+	bh=7KTtotwNnGJGVrQAlxK2T++97fUrODVHNjtb2DkGXB0=;
+	h=Date:Subject:References:To:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=e+W4IEgQ/5g4EMG3LBG6C9gu45xTP86lCIUQ8NazbMi5si6hQDsXAHeV9ogfwpwlK
-	 +aep8oWU3QGcDySboEWRU1i9q/bGxl0LuXh7U/4/fqJzW+ioa+gVlQ+2Gd4S149SSB
-	 KMOKgLhIfAMmrjkRJ/hfyPi8vO/DYZpDfEk+Z9e0=
+	b=DuZIrJB7EXBcJG+hc1+vxCihqaKRQiHMqtekclP+tOU2f+VOzRvslmXzGv/r6Db6R
+	 Pwo3zxaJpD3kEiGLCHcr+/zbZs1EwPrwy6xgMgDZMP6sea+2mMKzaMJpUY7T/9L5wb
+	 w6B2p6jy6oMpLM8/z8ObivfRwLWbOxnyCMf13cGs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F0A19F805E0; Tue, 13 Jan 2026 01:40:47 +0100 (CET)
+	id 184B7F805D6; Tue, 13 Jan 2026 09:51:38 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC0AAF805E2;
-	Tue, 13 Jan 2026 01:40:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 640B8F805E7;
+	Tue, 13 Jan 2026 09:51:38 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4860F8016D; Tue, 13 Jan 2026 01:38:27 +0100 (CET)
+	id 41476F8058C; Tue, 13 Jan 2026 09:50:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,KHOP_HELO_FCRDNS,
-	MISSING_DATE,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,T_SPF_HELO_TEMPERROR,T_SPF_TEMPERROR shortcircuit=no
 	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
- [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id 035C6F80086
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 01:38:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 035C6F80086
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id EA2F7F8025A
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 09:49:59 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 08AA136CA4
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 09:49:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 08AA136CA4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1768294196; bh=+6SxkJDotUwhoVTQEnJAjowK+1Uq1cSCLOscwzhk3+Y=;
+	h=Date:Subject:References:To:From:In-Reply-To:From;
+	b=dOdLnJtdEC5gMubSE2SSGeU9xMvh95KFKcEQBWEOTHZhsvB4WAvh+2686aVRP3QpX
+	 x3XxDgdKQgzw3amWPeDAvearPT4+yuZCJWXRhVhXh2Lf7ioBD0dZWQMV8A/zgG6TDQ
+	 HxIcrquSamMprIuHbYikZh4i9ZCMvTign7Q3VEnA=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jan 2026 09:49:54 +0100 (CET)
+Message-ID: <68e2779a-374f-4965-bfaa-9f9760914c68@perex.cz>
+Date: Tue, 13 Jan 2026 09:49:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+User-Agent: Mozilla Thunderbird
+Subject: ALSA 1.2.15.3 release
+Content-Language: en-US
+References: <0db687d8-3f81-41a4-8b33-7132f775efde@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+From: Jaroslav Kysela <perex@perex.cz>
+Autocrypt: addr=perex@perex.cz; keydata=
+ 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
+In-Reply-To: <0db687d8-3f81-41a4-8b33-7132f775efde@perex.cz>
+X-Forwarded-Message-Id: <0db687d8-3f81-41a4-8b33-7132f775efde@perex.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-Message-Id: <188a23611a8fc400-webhooks-bot@alsa-project.org>
-In-Reply-To: <188a23611a73cd00-webhooks-bot@alsa-project.org>
-References: <188a23611a73cd00-webhooks-bot@alsa-project.org>
-Subject: snd_seq_drain_output change breaks existing code.
-Date: Tue, 13 Jan 2026 01:38:27 +0100 (CET)
-Message-ID-Hash: 3BSRFEBHRB5PERQMYZRASBJPDCNKIIAD
-X-Message-ID-Hash: 3BSRFEBHRB5PERQMYZRASBJPDCNKIIAD
-X-MailFrom: github@alsa-project.org
+Message-ID-Hash: VV2OQWDPXUASZ7ERNAXLPSCGJXYSL2LJ
+X-Message-ID-Hash: VV2OQWDPXUASZ7ERNAXLPSCGJXYSL2LJ
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -61,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BSRFEBHRB5PERQMYZRASBJPDCNKIIAD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VV2OQWDPXUASZ7ERNAXLPSCGJXYSL2LJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -70,39 +136,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #493 was edited from Hoosier-Beagler:
+Hello all,
 
-The little gem shown below has broken a lot of code.  Previously, no positive results were returned and software relied on -EAGAIN to detect remaining data.  That result is no longer returned if some data was processed.  This has broken the old and stable version of my application written in C(++) which is no longer being maintained.  I have ported my app to python but this change has also broken public python wrappers for the alsa library.  In [alsa-python / pyalsa / alsaseq.c](https://github.com/alsa-project/alsa-python/blob/master/pyalsa/alsaseq.c) below line 2800 and also [python-alsa-midi / alsa_midi / client.py](https://github.com/Jajcus/python-alsa-midi/blob/main/alsa_midi/client.py) at line 626 and possibly the sub-classes as well (lines 1679, 1871).  None of these wrappers expected a valid return value and do not pass along said value returned from the c library call.  Consequently, there is no longer an indication that the output has not been fully drained.
+	new ALSA userspace packages were released. You may download them from
+the ALSA website http://www.alsa-project.org or directly:
 
-```
---- alsa-lib-1.2.14/src/seq/seq.c  2025-04-14 11:42:04.000000000 -0500
-+++ alsa-lib-1.2.15.2/src/seq/seq.c       2026-01-08 08:27:57.000000000 -0600
-@@ -4445,21 +4445,22 @@
- int snd_seq_drain_output(snd_seq_t *seq)
- {
-        ssize_t result, processed = 0;
-        assert(seq);
-        while (seq->obufused > 0) {
-                result = seq->ops->write(seq, seq->obuf, seq->obufused);
-                if (result < 0) {
--                       if (result == -EAGAIN && processed)
-+                       if (result == -EAGAIN && processed > 0)
-                                return seq->obufused;
-                        return result;
-                }
-                if ((size_t)result < seq->obufused)
-                        memmove(seq->obuf, seq->obuf + result, seq->obufused - result);
-                seq->obufused -= result;
-+               processed += result;
-        }
-        return 0;
- }
- 
- /**
-  * \brief extract the first event in output buffer
-  * \param seq sequencer handle
+	HTTP: https://www.alsa-project.org/files/pub
+	FTP:  ftp://ftp.alsa-project.org/pub
 
-```
+Released packages:
 
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/493
-Repository URL: https://github.com/alsa-project/alsa-lib
+	alsa-lib
+	alsa-ucm-conf
+
+Full list of changes:
+
+	https://www.alsa-project.org/wiki/Changes_v1.2.15.2_v1.2.15.3
+
+The fingerprint of the public signing key is:
+
+	F04D F507 37AC 1A88 4C4B 3D71 8380 596D A6E5 9C91
+
+				Have fun,
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

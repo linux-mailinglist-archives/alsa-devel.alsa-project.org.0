@@ -2,130 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iP7rNypdqGmZtgAAu9opvQ
+	id eDRHB+Bki2kMUQAAu9opvQ
 	(envelope-from <alsa-devel-bounces@alsa-project.org>)
-	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:26:18 +0100
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Feb 2026 18:03:28 +0100
 X-Original-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BC33204368
-	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:26:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2E8E11D80C
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Feb 2026 18:03:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84553602A2;
-	Wed,  4 Mar 2026 17:26:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84553602A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A4E560205;
+	Tue, 10 Feb 2026 18:03:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A4E560205
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1772641577;
-	bh=+JHjufB3LEg/r3kx5N0o14L2zrHU9TKE8m4ej17mLC8=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Pe4MzXQsAhYUWuueQXlNP6C1qSPH8nIAvEckLqSgvOJpIEFTa/NeJSlK6JiJM/y6c
-	 IBf59AGI8wmdlXqRjYanUPFZlbYjUK/R0VkC+swYyGFqsZEqnzVpUTZFCtobEW/86+
-	 Qt+zR26iu4zysfTHIXoIUjsZpDVaLMGVmn18PTDs=
+	s=default; t=1770743001;
+	bh=GKxMsvF8513dldSNQ4piHGgHfcbGjskmI0BUIrYWREA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KT/47EGZm6rVYoDs4tFGbb2QbqE3oOzqiJdnOVdqTBzboM/DmJbrE22hffCMtOni/
+	 7TGqV3Q+Y+nEQIf0dsZLfOwzg1d9n+fbmrOA0Z40H3zyEE1Pmg+uE2mYu+/tmX7hoS
+	 ssJCBGaOacCod52QNsFVTKVhmxcNY09a26oLwQSU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7DA7F80659; Wed,  4 Mar 2026 17:25:09 +0100 (CET)
+	id EE7AAF805F1; Tue, 10 Feb 2026 18:02:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1107CF8065A;
-	Wed,  4 Mar 2026 17:25:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B733CF8015B;
+	Tue, 10 Feb 2026 18:02:47 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85447F801F7; Tue, 10 Feb 2026 16:53:01 +0100 (CET)
+	id A6327F801F7; Tue, 10 Feb 2026 18:01:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A60AF800F3
-	for <alsa-devel@alsa-project.org>; Tue, 10 Feb 2026 16:52:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A60AF800F3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 142C2F800BD
+	for <alsa-devel@alsa-project.org>; Tue, 10 Feb 2026 18:01:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 142C2F800BD
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20230601 header.b=UkPmbr3d
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-7948e902fadso51460417b3.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 10 Feb 2026 07:52:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770738769; x=1771343569;
- darn=alsa-project.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PsdoeDEVnIgEyOgR/pPJak/Bop4P70sJ/00MCCs+jug=;
-        b=UkPmbr3ddKzAqCumoRcufTfl+3WEcibIoV1RNiCktHoU3xzPiwVHhF2o1fHChhn6PD
-         N9M2kfl3X9jok5tkmB28QVI8USaWDnYSDY4m/f/KnuaXz3RIG8PAMKDLB6aNW/G62DbP
-         hDj8uGh3DT5TY7DnTS1TTid8PCA0r7c2jMDLrwsPjwDJT/lN0dPxIwYvKtRxF9YQr55M
-         Bf0qbJY0gd7THhOkl0765JfiljsHSN7uLKomjUGMI1DdZnLSZx8OPmlM2AmhOnGp1CZE
-         3q80gILM4h+wimgMkXUQpH19u0ghmAt7CyySvogrAebG40wJtVyXqbFs78so98szLQn2
-         Yw0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770738769; x=1771343569;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PsdoeDEVnIgEyOgR/pPJak/Bop4P70sJ/00MCCs+jug=;
-        b=MC+pq5dv7DgAIq8w8V9OLA6ani5V2JbyAYvmVTO8Brr+iE786D9TZpS2GLj5z9D7rq
-         SIiyj7lBCL2WnH9QvEsyXhieYRprV+UYCNn2x3BKTeeOeuNlyc2byn+S0WaoEYEzSaPj
-         WeLzqbkR8idfcTfCgVVCTrWJ1NkAkW6B2YynuY2P0EnowrkcbJBdoNNWQc1W0pYXs2RW
-         QIXyHk5IrWEEB6pnDo002pJBCrSqthhb6rb8iLIKjKCy2yqhFTXsPBjq/9F2W8cQE9lq
-         5825ewsIBBknr2bHwHgGyevTKKbEujH2jv0fT2EZ+CyNuKXYyi20zA2rIe+5wZ8hGl8j
-         7YQw==
-X-Gm-Message-State: AOJu0YzpkeAYN/7eh0pe03GyrggwPDCFvci0fZKo05ed1zMWaD9eu5eP
-	zx1PC072HeC/NnEGbTSMtI6QDLsg5VWeeWsWIWla4qDLdaCgmz3zCqOu
-X-Gm-Gg: AZuq6aK5HPZ9MEao2YIqOl6mtnJOg/pZBz+0B/UAZ7t+VYDth3yF+uCc5G0gw7zg8XK
-	PG9QnwXnqrH0mKtp9xF7qHbdXa14yL6iYCcS2F0dTGJEyMQn92pqyBEUlgZaK+tDy03LrQKoXa1
-	POwuZleK3M86QCZHbv4gdb75JvwIcghI9mP6bpO4/WVsHeBnit7WgrUt/JaPHszu6Y5eo36Gp2X
-	c/8R4fcKjkg1CECgynCibaVNJDY8qtpLWON5/KyDM7S8wobuUA1kP6V3H+G1RYeV+YzarFBen4K
-	SW2uICNc/ZYAP2yU1naCMAXSAr4qyhSUJVKdDuzwF+0p5W9me7NBIDsDgWImF1aaVv393+qux6I
-	Y72duYoCNcoxFZPBhySKipWc0HWCfWwt9SiO5Is63QtcwW9vKeNlJHLnwmNp6TUgMIxY1dyjG7N
-	aRfeB43qTZ7pz9VvmeA5HRfYT7oowoDdjZgPQPKH500Ys83bu6MEQAW+L2
-X-Received: by 2002:a05:690c:60c1:b0:795:294c:fd2c with SMTP id
- 00721157ae682-7952ab3faf5mr115261447b3.43.1770738769451;
-        Tue, 10 Feb 2026 07:52:49 -0800 (PST)
-Received: from fedora ([2802:8010:26eb:6900:67c8:420d:6b48:1a65])
-        by smtp.gmail.com with ESMTPSA id
- 00721157ae682-796506f1dddsm42994797b3.25.2026.02.10.07.52.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Feb 2026 07:52:48 -0800 (PST)
-From: Gustavo Salvini <guspatagonico@gmail.com>
-To: broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	mario.limonciello@amd.com,
-	Vijendar.Mukunda@amd.com,
-	tiwai@suse.com,
-	stable@vger.kernel.org,
-	Gustavo Salvini <guspatagonico@gmail.com>
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for ASUS Vivobook Pro 15X
- M6501RR
-Date: Tue, 10 Feb 2026 12:51:56 -0300
-Message-ID: <20260210155156.29079-1-guspatagonico@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=YyiwPKiQ
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 2EB3B443D7;
+	Tue, 10 Feb 2026 17:01:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FFF6C116C6;
+	Tue, 10 Feb 2026 17:01:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1770742870;
+	bh=GKxMsvF8513dldSNQ4piHGgHfcbGjskmI0BUIrYWREA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=YyiwPKiQ0qKyweuyY9xgnBf1hKbeDkIau4SqiZsjSXoLRpuVS3XmIwKutR3JVpPG4
+	 6IF1iQOLh+eBf/Iu7zMMTIsUGyrT4ibiBZrCDwn8zXtLSDuu8HDt3qcZZDLffO4I0G
+	 7QZ0WFt3dKec1XYKPP9ygWE1ILfnssQsGYXYkBRA4zT5EgHMCSUGL5/qdffD/EuWVK
+	 0vMY5nFqjoZMUEmPhJ5Pp4CRdfH0eerZKolqEYM/Lmvti2wQdN4eEtonEFIKZiJ+O4
+	 2RBLC9EyKT0S0MUPYT/3135oU+DLr2IQQcUo6MiOAhznePs97+gM3GLD/HMmz7f+U7
+	 RfvoB6SWUMEiA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, jack.yu@realtek.com
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, shumingf@realtek.com, derek.fang@realtek.com
+In-Reply-To: <20260210074335.2337830-1-jack.yu@realtek.com>
+References: <20260210074335.2337830-1-jack.yu@realtek.com>
+Subject: Re: [PATCH] ASoC: rt721-sdca: Fix issue of fail to detect OMTP
+ jack type
+Message-Id: <177074286825.290644.270301711122471622.b4-ty@kernel.org>
+Date: Tue, 10 Feb 2026 17:01:08 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: guspatagonico@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-47773
+Message-ID-Hash: 2FR7SAENVONTGUEC3EW4OWSYYWWWMPFF
+X-Message-ID-Hash: 2FR7SAENVONTGUEC3EW4OWSYYWWWMPFF
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JPUU34YOTLBOCLHTEUQM4NSJVVTPQUDN
-X-Message-ID-Hash: JPUU34YOTLBOCLHTEUQM4NSJVVTPQUDN
-X-Mailman-Approved-At: Wed, 04 Mar 2026 16:24:48 +0000
-X-Mailman-Version: 3.3.10
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+X-Mailman-Version: 3.3.9
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JPUU34YOTLBOCLHTEUQM4NSJVVTPQUDN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2FR7SAENVONTGUEC3EW4OWSYYWWWMPFF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,77 +100,71 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-X-Rspamd-Queue-Id: 5BC33204368
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.89 / 15.00];
-	DATE_IN_PAST(1.00)[528];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [-1.21 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default,kernel.org:s=k20201202];
+	R_SPF_ALLOW(-0.20)[+mx];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default];
-	R_SPF_ALLOW(-0.20)[+mx:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), DKIM not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[alsa-devel@alsa-project.org];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[alsa-project.org,vger.kernel.org,amd.com,suse.com,gmail.com];
-	FORGED_SENDER(0.00)[guspatagonico@gmail.com,alsa-devel-bounces@alsa-project.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:alsa-devel@alsa-project.org,m:linux-kernel@vger.kernel.org,m:mario.limonciello@amd.com,m:Vijendar.Mukunda@amd.com,m:tiwai@suse.com,m:stable@vger.kernel.org,m:guspatagonico@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:lgirdwood@gmail.com,m:jack.yu@realtek.com,m:alsa-devel@alsa-project.org,m:lars@metafoo.de,m:flove@realtek.com,m:oder_chiou@realtek.com,m:shumingf@realtek.com,m:derek.fang@realtek.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com,realtek.com];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[broonie@kernel.org,alsa-devel-bounces@alsa-project.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RSPAMD_URIBL_FAIL(0.00)[alsa-project.org:query timed out];
+	FORWARDED(0.00)[alsa-devel@alsa-project.org];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[alsa-project.org:+,kernel.org:+];
+	ASN(0.00)[asn:16019, ipnet:77.48.128.0/17, country:CZ];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa0.perex.cz:rdns,alsa0.perex.cz:helo,alsa-project.org:dkim];
+	TO_DN_NONE(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[alsa-devel@alsa-project.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[guspatagonico@gmail.com,alsa-devel-bounces@alsa-project.org];
-	DKIM_TRACE(0.00)[alsa-project.org:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:16019, ipnet:77.48.128.0/17, country:CZ];
+	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,alsa-devel-bounces@alsa-project.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[alsa-devel];
 	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: A2E8E11D80C
 X-Rspamd-Action: no action
 
-The ASUS Vivobook Pro 15X (M6501RR) with AMD Ryzen 9 6900HX has an
-internal DMIC that is not detected without a DMI quirk entry, as the
-BIOS does not set the AcpDmicConnected ACPI _DSD property.
+On Tue, 10 Feb 2026 15:43:35 +0800, jack.yu@realtek.com wrote:
+> Add related HP-JD settings to fix issue of fail to detect
+> OMTP jack type.
+> 
+> 
 
-Adding the DMI entry enables the ACP6x DMIC machine driver to probe
-successfully.
+Applied to
 
-Cc: stable@vger.kernel.org
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Signed-off-by: Gustavo Salvini <guspatagonico@gmail.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Thanks!
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 67f2fee19398..f1a63475100d 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -696,7 +696,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "XyloD5_RBU"),
- 		}
- 	},
--
-+	{
-+			.driver_data = &acp6x_card,
-+			.matches = {
-+				DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
-+				DMI_MATCH(DMI_PRODUCT_NAME, "Vivobook_ASUSLaptop M6501RR_M6501RR"),
-+			}
-+		},
- 	{}
- };
- 
--- 
-2.53.0
+[1/1] ASoC: rt721-sdca: Fix issue of fail to detect OMTP jack type
+      commit: 5578da7d957fbaf91f6c39ba2363c2d2e4273183
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

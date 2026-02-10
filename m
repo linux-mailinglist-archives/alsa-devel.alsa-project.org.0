@@ -2,107 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id VRgmFenhimmTOgAAu9opvQ
+	id iP7rNypdqGmZtgAAu9opvQ
 	(envelope-from <alsa-devel-bounces@alsa-project.org>)
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Feb 2026 08:44:41 +0100
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:26:18 +0100
 X-Original-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6D88118048
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Feb 2026 08:44:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC33204368
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:26:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6035601AF;
-	Tue, 10 Feb 2026 08:44:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6035601AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84553602A2;
+	Wed,  4 Mar 2026 17:26:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84553602A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1770709480;
-	bh=VTeyvXtIr0ei7nbiJ0E5uYCjbmgKy8bz3CVeqNS0HRI=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1772641577;
+	bh=+JHjufB3LEg/r3kx5N0o14L2zrHU9TKE8m4ej17mLC8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=kJtZr5AOABaU0SznqdzaeP33kl1zBWKA9RnzkH2DqnF52vDAGJXC9Mi0FF8+gztJM
-	 enAKuq5m2TftR9bi2yafO+ke6uEZNNKTEaWf44Zvvzvr5uN8OcC08/Us1ymyLKBFBB
-	 lGLRc4hOQcV//0JO0iYeLXEDxa+Sga8Bk+kyv5w8=
+	b=Pe4MzXQsAhYUWuueQXlNP6C1qSPH8nIAvEckLqSgvOJpIEFTa/NeJSlK6JiJM/y6c
+	 IBf59AGI8wmdlXqRjYanUPFZlbYjUK/R0VkC+swYyGFqsZEqnzVpUTZFCtobEW/86+
+	 Qt+zR26iu4zysfTHIXoIUjsZpDVaLMGVmn18PTDs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82376F805EA; Tue, 10 Feb 2026 08:44:07 +0100 (CET)
+	id B7DA7F80659; Wed,  4 Mar 2026 17:25:09 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16723F805E5;
-	Tue, 10 Feb 2026 08:44:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1107CF8065A;
+	Wed,  4 Mar 2026 17:25:09 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31C00F801F7; Tue, 10 Feb 2026 08:43:58 +0100 (CET)
+	id 85447F801F7; Tue, 10 Feb 2026 16:53:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 730E0F80087
-	for <alsa-devel@alsa-project.org>; Tue, 10 Feb 2026 08:43:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 730E0F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A60AF800F3
+	for <alsa-devel@alsa-project.org>; Tue, 10 Feb 2026 16:52:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A60AF800F3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256
- header.s=dkim header.b=YCDz49D9
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 61A7hdKR33295320,
- This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1770709419; bh=qIGkj9YdG7HxXAYAUuLKy1zy3WCVSP+8nAg6IGn9sTc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	b=YCDz49D9OAbL44j6VQfGn5FjcyO64wsZZNJ5kFM30nBRukUfdQLcEONIPJIQCyEi8
-	 PJyL1zscc3I860YpSoNm4PWtbCP21JUjW/JpGUWAR8bhvwEX3hZ17VEFWjjU1Swnxy
-	 /8JmehQhGhgvUz6sVcTlAX6ksXD6om4CCE9dH0rG75M80IfvBZofAyW2UKdrrWyb9q
-	 O0WhaIb7yvc0ivrsWWSOGha2oMC3psTZ6RyJAFspzKlG0mCWsqRZ/EI6Zz43VlvWgY
-	 cux96OsVCSgRx4jgD+NdA3KpJN6qgy8lJtETvrqSdhLGHSIiqSBY6FIIC7cxqgsLj1
-	 Yyp9pyvEqSvjQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.21/5.94) with ESMTPS id 61A7hdKR33295320
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 10 Feb 2026 15:43:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Tue, 10 Feb 2026 15:43:38 +0800
-Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Tue, 10 Feb 2026 15:43:38 +0800
-Received: from sw-server.localdomain (172.24.54.4) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server id
- 15.2.1748.10 via Frontend Transport; Tue, 10 Feb 2026 15:43:38 +0800
-From: <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-CC: <alsa-devel@alsa-project.org>, <lars@metafoo.de>, <flove@realtek.com>,
-        <oder_chiou@realtek.com>, <shumingf@realtek.com>,
-        <derek.fang@realtek.com>, Jack Yu <jack.yu@realtek.com>
-Subject: [PATCH] ASoC: rt721-sdca: Fix issue of fail to detect OMTP jack type
-Date: Tue, 10 Feb 2026 15:43:35 +0800
-Message-ID: <20260210074335.2337830-1-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.52.0
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20230601 header.b=UkPmbr3d
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-7948e902fadso51460417b3.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 10 Feb 2026 07:52:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1770738769; x=1771343569;
+ darn=alsa-project.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PsdoeDEVnIgEyOgR/pPJak/Bop4P70sJ/00MCCs+jug=;
+        b=UkPmbr3ddKzAqCumoRcufTfl+3WEcibIoV1RNiCktHoU3xzPiwVHhF2o1fHChhn6PD
+         N9M2kfl3X9jok5tkmB28QVI8USaWDnYSDY4m/f/KnuaXz3RIG8PAMKDLB6aNW/G62DbP
+         hDj8uGh3DT5TY7DnTS1TTid8PCA0r7c2jMDLrwsPjwDJT/lN0dPxIwYvKtRxF9YQr55M
+         Bf0qbJY0gd7THhOkl0765JfiljsHSN7uLKomjUGMI1DdZnLSZx8OPmlM2AmhOnGp1CZE
+         3q80gILM4h+wimgMkXUQpH19u0ghmAt7CyySvogrAebG40wJtVyXqbFs78so98szLQn2
+         Yw0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770738769; x=1771343569;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PsdoeDEVnIgEyOgR/pPJak/Bop4P70sJ/00MCCs+jug=;
+        b=MC+pq5dv7DgAIq8w8V9OLA6ani5V2JbyAYvmVTO8Brr+iE786D9TZpS2GLj5z9D7rq
+         SIiyj7lBCL2WnH9QvEsyXhieYRprV+UYCNn2x3BKTeeOeuNlyc2byn+S0WaoEYEzSaPj
+         WeLzqbkR8idfcTfCgVVCTrWJ1NkAkW6B2YynuY2P0EnowrkcbJBdoNNWQc1W0pYXs2RW
+         QIXyHk5IrWEEB6pnDo002pJBCrSqthhb6rb8iLIKjKCy2yqhFTXsPBjq/9F2W8cQE9lq
+         5825ewsIBBknr2bHwHgGyevTKKbEujH2jv0fT2EZ+CyNuKXYyi20zA2rIe+5wZ8hGl8j
+         7YQw==
+X-Gm-Message-State: AOJu0YzpkeAYN/7eh0pe03GyrggwPDCFvci0fZKo05ed1zMWaD9eu5eP
+	zx1PC072HeC/NnEGbTSMtI6QDLsg5VWeeWsWIWla4qDLdaCgmz3zCqOu
+X-Gm-Gg: AZuq6aK5HPZ9MEao2YIqOl6mtnJOg/pZBz+0B/UAZ7t+VYDth3yF+uCc5G0gw7zg8XK
+	PG9QnwXnqrH0mKtp9xF7qHbdXa14yL6iYCcS2F0dTGJEyMQn92pqyBEUlgZaK+tDy03LrQKoXa1
+	POwuZleK3M86QCZHbv4gdb75JvwIcghI9mP6bpO4/WVsHeBnit7WgrUt/JaPHszu6Y5eo36Gp2X
+	c/8R4fcKjkg1CECgynCibaVNJDY8qtpLWON5/KyDM7S8wobuUA1kP6V3H+G1RYeV+YzarFBen4K
+	SW2uICNc/ZYAP2yU1naCMAXSAr4qyhSUJVKdDuzwF+0p5W9me7NBIDsDgWImF1aaVv393+qux6I
+	Y72duYoCNcoxFZPBhySKipWc0HWCfWwt9SiO5Is63QtcwW9vKeNlJHLnwmNp6TUgMIxY1dyjG7N
+	aRfeB43qTZ7pz9VvmeA5HRfYT7oowoDdjZgPQPKH500Ys83bu6MEQAW+L2
+X-Received: by 2002:a05:690c:60c1:b0:795:294c:fd2c with SMTP id
+ 00721157ae682-7952ab3faf5mr115261447b3.43.1770738769451;
+        Tue, 10 Feb 2026 07:52:49 -0800 (PST)
+Received: from fedora ([2802:8010:26eb:6900:67c8:420d:6b48:1a65])
+        by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-796506f1dddsm42994797b3.25.2026.02.10.07.52.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Feb 2026 07:52:48 -0800 (PST)
+From: Gustavo Salvini <guspatagonico@gmail.com>
+To: broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	mario.limonciello@amd.com,
+	Vijendar.Mukunda@amd.com,
+	tiwai@suse.com,
+	stable@vger.kernel.org,
+	Gustavo Salvini <guspatagonico@gmail.com>
+Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for ASUS Vivobook Pro 15X
+ M6501RR
+Date: Tue, 10 Feb 2026 12:51:56 -0300
+Message-ID: <20260210155156.29079-1-guspatagonico@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Message-ID-Hash: GBLTV63L63B2CCSMZIV2BGZH47CVI22E
-X-Message-ID-Hash: GBLTV63L63B2CCSMZIV2BGZH47CVI22E
-X-MailFrom: jack.yu@realtek.com
+X-MailFrom: guspatagonico@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.9
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: JPUU34YOTLBOCLHTEUQM4NSJVVTPQUDN
+X-Message-ID-Hash: JPUU34YOTLBOCLHTEUQM4NSJVVTPQUDN
+X-Mailman-Approved-At: Wed, 04 Mar 2026 16:24:48 +0000
+X-Mailman-Version: 3.3.10
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GBLTV63L63B2CCSMZIV2BGZH47CVI22E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JPUU34YOTLBOCLHTEUQM4NSJVVTPQUDN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,69 +133,77 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+X-Rspamd-Queue-Id: 5BC33204368
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.29 / 15.00];
+X-Spamd-Result: default: False [1.89 / 15.00];
+	DATE_IN_PAST(1.00)[528];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[realtek.com,none];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default,realtek.com:s=dkim];
-	R_SPF_ALLOW(-0.20)[+mx];
+	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default];
+	R_SPF_ALLOW(-0.20)[+mx:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), DKIM not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:lgirdwood@gmail.com,m:alsa-devel@alsa-project.org,m:lars@metafoo.de,m:flove@realtek.com,m:oder_chiou@realtek.com,m:shumingf@realtek.com,m:derek.fang@realtek.com,m:jack.yu@realtek.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com];
-	FORGED_SENDER(0.00)[jack.yu@realtek.com,alsa-devel-bounces@alsa-project.org];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[alsa-devel@alsa-project.org];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[alsa-project.org,vger.kernel.org,amd.com,suse.com,gmail.com];
+	FORGED_SENDER(0.00)[guspatagonico@gmail.com,alsa-devel-bounces@alsa-project.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:alsa-devel@alsa-project.org,m:linux-kernel@vger.kernel.org,m:mario.limonciello@amd.com,m:Vijendar.Mukunda@amd.com,m:tiwai@suse.com,m:stable@vger.kernel.org,m:guspatagonico@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa0.perex.cz:rdns,alsa0.perex.cz:helo,alsa-project.org:dkim];
 	PREVIOUSLY_DELIVERED(0.00)[alsa-devel@alsa-project.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa-project.org:dkim,realtek.com:mid,realtek.com:dkim,realtek.com:email,alsa0.perex.cz:helo,alsa0.perex.cz:rdns];
-	FROM_NEQ_ENVFROM(0.00)[jack.yu@realtek.com,alsa-devel-bounces@alsa-project.org];
-	DKIM_TRACE(0.00)[alsa-project.org:+,realtek.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[alsa-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FROM_NO_DN(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[guspatagonico@gmail.com,alsa-devel-bounces@alsa-project.org];
+	DKIM_TRACE(0.00)[alsa-project.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:16019, ipnet:77.48.128.0/17, country:CZ];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: D6D88118048
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[alsa-devel];
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Action: no action
 
-From: Jack Yu <jack.yu@realtek.com>
+The ASUS Vivobook Pro 15X (M6501RR) with AMD Ryzen 9 6900HX has an
+internal DMIC that is not detected without a DMI quirk entry, as the
+BIOS does not set the AcpDmicConnected ACPI _DSD property.
 
-Add related HP-JD settings to fix issue of fail to detect
-OMTP jack type.
+Adding the DMI entry enables the ACP6x DMIC machine driver to probe
+successfully.
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
+Cc: stable@vger.kernel.org
+
+Signed-off-by: Gustavo Salvini <guspatagonico@gmail.com>
 ---
- sound/soc/codecs/rt721-sdca.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/amd/yc/acp6x-mach.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt721-sdca.c b/sound/soc/codecs/rt721-sdca.c
-index 8233532a1752..35960c225224 100644
---- a/sound/soc/codecs/rt721-sdca.c
-+++ b/sound/soc/codecs/rt721-sdca.c
-@@ -245,12 +245,12 @@ static void rt721_sdca_jack_preset(struct rt721_sdca_priv *rt721)
- 	regmap_write(rt721->mbq_regmap, 0x5b10007, 0x2000);
- 	regmap_write(rt721->mbq_regmap, 0x5B10017, 0x1b0f);
- 	rt_sdca_index_write(rt721->mbq_regmap, RT721_CBJ_CTRL,
--		RT721_CBJ_A0_GAT_CTRL1, 0x2a02);
-+		RT721_CBJ_A0_GAT_CTRL1, 0x2205);
- 	rt_sdca_index_write(rt721->mbq_regmap, RT721_CAP_PORT_CTRL,
- 		RT721_HP_AMP_2CH_CAL4, 0xa105);
- 	rt_sdca_index_write(rt721->mbq_regmap, RT721_VENDOR_ANA_CTL,
- 		RT721_UAJ_TOP_TCON14, 0x3b33);
--	regmap_write(rt721->mbq_regmap, 0x310400, 0x3023);
-+	regmap_write(rt721->mbq_regmap, 0x310400, 0x3043);
- 	rt_sdca_index_write(rt721->mbq_regmap, RT721_VENDOR_ANA_CTL,
- 		RT721_UAJ_TOP_TCON14, 0x3f33);
- 	rt_sdca_index_write(rt721->mbq_regmap, RT721_VENDOR_ANA_CTL,
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 67f2fee19398..f1a63475100d 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -696,7 +696,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "XyloD5_RBU"),
+ 		}
+ 	},
+-
++	{
++			.driver_data = &acp6x_card,
++			.matches = {
++				DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
++				DMI_MATCH(DMI_PRODUCT_NAME, "Vivobook_ASUSLaptop M6501RR_M6501RR"),
++			}
++		},
+ 	{}
+ };
+ 
 -- 
-2.52.0
+2.53.0
 

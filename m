@@ -2,48 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eNeqLVtdqGmZtgAAu9opvQ
+	id WKoCFEtdqGmZtgAAu9opvQ
 	(envelope-from <alsa-devel-bounces@alsa-project.org>)
-	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:27:07 +0100
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:26:51 +0100
 X-Original-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9582043BA
-	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:27:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDE2D2043A4
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 17:26:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 623E5602E1;
-	Wed,  4 Mar 2026 17:26:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 623E5602E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 442D9602E1;
+	Wed,  4 Mar 2026 17:26:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 442D9602E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1772641626;
-	bh=ZEHT+2cIE5Cz7w2ObVMbl/v61jVXE0Z7AQ/8z+8BIaI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=q62D5hDEVI+VCaenvYiw3EKA7UQXpK09H26kzjTRp0GO0fsc27/NcRoiywBXTithj
-	 XRpnXtd2IH2G4WpWg7HHPWuzWAteYW0jDJ6odwmJgL3inPjVGArFXTxH0Q3WCLy5lo
-	 e0dFBO1t2/AQ5dr2cmF/ayM29Ci00P52d/huxR9E=
+	s=default; t=1772641610;
+	bh=a0m4d/7E0GIkRTEulw3VanhiSAJL6BZRU0LyoE8g72E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=eQqw2LGoLnvs5KgRPWn/2yvqvqz2fsT0sif0lccDuaJFQVASsqzMViulhS3j5DN20
+	 5b+rO6C1VvDjTN4bNpC5QssRtG97vOUbdmKiIC2ma1MEsgY7zi9Q8mfxDCuwcfHfng
+	 QRFSf2W6Men2gRsm4ZS8z5LxRPq6Gta9OHBDeJvg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B78F2F806C3; Wed,  4 Mar 2026 17:25:22 +0100 (CET)
+	id 9FA93F806B3; Wed,  4 Mar 2026 17:25:18 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27C86F805F0;
-	Wed,  4 Mar 2026 17:25:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9140F806AE;
+	Wed,  4 Mar 2026 17:25:17 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2A43F804F2; Sat, 14 Feb 2026 09:50:50 +0100 (CET)
+	id 44E07F80535; Sat, 14 Feb 2026 09:50:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,
-	RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_PASS shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_VALIDITY_SAFE_BLOCKED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from mail.unwrap.rs (mail.unwrap.rs [172.232.15.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA512)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F24CF8016D;
+	by alsa1.perex.cz (Postfix) with ESMTPS id B38F1F80495;
 	Sat, 14 Feb 2026 09:50:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F24CF8016D
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B38F1F80495
 From: Cole Leavitt <cole@unwrap.rs>
 To: perex@perex.cz
 Cc: tiwai@suse.de,
@@ -57,11 +59,13 @@ Cc: tiwai@suse.de,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	Cole Leavitt <cole@unwrap.rs>
-Subject: [PATCH 1/2] ASoC: SOF: Replace IPC TX busy deferral with bounded
- retry
-Date: Sat, 14 Feb 2026 01:48:49 -0700
-Message-ID: <20260214084850.7594-1-cole@unwrap.rs>
+Subject: [PATCH 2/2] ASoC: SOF: Add platform ops callback for DAI link
+ hardware readiness
+Date: Sat, 14 Feb 2026 01:48:50 -0700
+Message-ID: <20260214084850.7594-2-cole@unwrap.rs>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260214084850.7594-1-cole@unwrap.rs>
+References: <20260214084850.7594-1-cole@unwrap.rs>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-MailFrom: cole@unwrap.rs
@@ -70,15 +74,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: NNQ57CJWQNW3BTGGKAFTLXRSS4YUDBJO
-X-Message-ID-Hash: NNQ57CJWQNW3BTGGKAFTLXRSS4YUDBJO
+Message-ID-Hash: AH7LDO34PJUP6FTW23FVZGQ6YPC5DCK2
+X-Message-ID-Hash: AH7LDO34PJUP6FTW23FVZGQ6YPC5DCK2
 X-Mailman-Approved-At: Wed, 04 Mar 2026 16:24:48 +0000
 X-Mailman-Version: 3.3.10
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NNQ57CJWQNW3BTGGKAFTLXRSS4YUDBJO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AH7LDO34PJUP6FTW23FVZGQ6YPC5DCK2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,7 +90,7 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-X-Rspamd-Queue-Id: 5E9582043BA
+X-Rspamd-Queue-Id: EDE2D2043A4
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.79 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[unwrap.rs : SPF not aligned (strict), DKIM not aligned (strict),reject];
@@ -115,244 +119,165 @@ X-Spamd-Result: default: False [3.79 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa0.perex.cz:rdns,alsa0.perex.cz:helo,alsa-project.org:dkim,unwrap.rs:mid,unwrap.rs:email]
 X-Rspamd-Action: no action
 
-The SOF IPC4 platform send_msg functions (hda_dsp_ipc4_send_msg,
-mtl_ipc_send_msg, cnl_ipc4_send_msg) previously stored the message in
-delayed_ipc_tx_msg and returned 0 when the TX register was busy. The
-deferred message was supposed to be dispatched from the IRQ handler
-when the DSP acknowledged the previous message.
+After suspend/resume (D3->D0), the SOF firmware is reloaded fresh and
+pipelines are recreated lazily when userspace opens a PCM. However,
+SoundWire slave re-enumeration runs asynchronously via a 100ms delayed
+work item (SDW_INTEL_DELAYED_ENUMERATION_MS). If userspace attempts to
+play audio before SoundWire slaves finish re-enumerating, the firmware
+returns error 9 (resource not found) when creating ALH copier modules,
+leaving the DSP in an unrecoverable wedged state requiring reboot.
 
-This mechanism silently drops messages during D0i3 power transitions
-because the IRQ handler never fires while the DSP is in a low-power
-state. The caller then hangs in wait_event_timeout() for up to 500ms
-per IPC chunk, causing multi-second audio stalls under CPU load.
+Add a new optional dai_link_hw_ready callback to struct snd_sof_dsp_ops
+that allows platform-specific code to wait for DAI link hardware to
+become ready before pipeline setup. The generic ipc4-topology.c calls
+this callback (when set) in sof_ipc4_prepare_copier_module() before
+configuring DAI copiers, maintaining SOF's platform abstraction.
 
-Fix this by making the platform send_msg functions return -EBUSY
-immediately when the TX register is busy (safe since they execute
-under spin_lock_irq in sof_ipc_send_msg), and adding a bounded retry
-loop with usleep_range() in ipc4_tx_msg_unlocked() which only holds
-the tx_mutex (a sleepable context). The retry loop attempts up to 50
-iterations with 100-200us delays, bounding the maximum busy-wait to
-approximately 10ms instead of the previous 500ms timeout.
+The Intel HDA implementation (hda_sdw_dai_hw_ready) waits for all
+attached SoundWire slaves to complete initialization using
+wait_for_completion_interruptible_timeout() with a 2-second timeout.
+This is safe for multiple waiters since the SoundWire subsystem uses
+complete_all() for initialization_complete. Unattached slaves (declared
+in ACPI but not physically present) are skipped to avoid false timeouts.
 
-Also remove the now-dead delayed_ipc_tx_msg field from
-sof_intel_hda_dev, the dispatch code, and the ack_received tracking
-variable from all three IRQ thread handlers (hda_dsp_ipc4_irq_thread,
-mtl_ipc_irq_thread, cnl_ipc4_irq_thread).
+The function returns -ETIMEDOUT on timeout (instead of warn-and-continue)
+to prevent the DSP from entering a wedged state. On non-resume paths the
+completions are already done, so the wait returns immediately.
 
+Link: https://github.com/thesofproject/sof/issues/8662
+Link: https://github.com/thesofproject/sof/issues/9308
 Signed-off-by: Cole Leavitt <cole@unwrap.rs>
 ---
- sound/soc/sof/intel/cnl.c     | 17 ++---------------
- sound/soc/sof/intel/hda-ipc.c | 17 ++---------------
- sound/soc/sof/intel/hda.h     |  8 --------
- sound/soc/sof/intel/mtl.c     | 17 ++---------------
- sound/soc/sof/ipc4.c          | 17 +++++++++++++++--
- 5 files changed, 21 insertions(+), 55 deletions(-)
+ sound/soc/sof/intel/hda-common-ops.c |  1 +
+ sound/soc/sof/intel/hda.c            | 44 ++++++++++++++++++++++++++++
+ sound/soc/sof/intel/hda.h            |  6 ++++
+ sound/soc/sof/ipc4-topology.c        |  8 +++++
+ sound/soc/sof/sof-priv.h             |  3 ++
+ 5 files changed, 62 insertions(+)
 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 0cc5725515e7..a2c6c7894a0f 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -37,7 +37,6 @@ irqreturn_t cnl_ipc4_irq_thread(int irq, void *context)
- {
- 	struct sof_ipc4_msg notification_data = {{ 0 }};
- 	struct snd_sof_dev *sdev = context;
--	bool ack_received = false;
- 	bool ipc_irq = false;
- 	u32 hipcida, hipctdr;
+diff --git a/sound/soc/sof/intel/hda-common-ops.c b/sound/soc/sof/intel/hda-common-ops.c
+index 746b426b1329..315cb61426da 100644
+--- a/sound/soc/sof/intel/hda-common-ops.c
++++ b/sound/soc/sof/intel/hda-common-ops.c
+@@ -84,6 +84,7 @@ const struct snd_sof_dsp_ops sof_hda_common_ops = {
+ 	.unregister_ipc_clients = hda_unregister_clients,
  
-@@ -51,7 +50,6 @@ irqreturn_t cnl_ipc4_irq_thread(int irq, void *context)
- 		cnl_ipc_dsp_done(sdev);
- 
- 		ipc_irq = true;
--		ack_received = true;
- 	}
- 
- 	if (hipctdr & CNL_DSP_REG_HIPCTDR_BUSY) {
-@@ -101,13 +99,6 @@ irqreturn_t cnl_ipc4_irq_thread(int irq, void *context)
- 		/* This interrupt is not shared so no need to return IRQ_NONE. */
- 		dev_dbg_ratelimited(sdev->dev, "nothing to do in IPC IRQ thread\n");
- 
--	if (ack_received) {
--		struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
--
--		if (hdev->delayed_ipc_tx_msg)
--			cnl_ipc4_send_msg(sdev, hdev->delayed_ipc_tx_msg);
--	}
--
- 	return IRQ_HANDLED;
+ 	/* DAI drivers */
++	.dai_link_hw_ready = hda_sdw_dai_hw_ready,
+ 	.drv		= skl_dai,
+ 	.num_drv	= SOF_SKL_NUM_DAIS,
+ 	.is_chain_dma_supported	= hda_is_chain_dma_supported,
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 686ecc040867..956106dc0e02 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -378,6 +378,50 @@ static void hda_dsp_sdw_process_mic_privacy(struct snd_sof_dev *sdev)
+ 		chip->process_mic_privacy(sdev, true, AZX_REG_ML_LEPTR_ID_SDW);
  }
- EXPORT_SYMBOL_NS(cnl_ipc4_irq_thread, "SND_SOC_SOF_INTEL_CNL");
-@@ -266,12 +257,8 @@ int cnl_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- 	struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
- 	struct sof_ipc4_msg *msg_data = msg->msg_data;
  
--	if (hda_ipc4_tx_is_busy(sdev)) {
--		hdev->delayed_ipc_tx_msg = msg;
--		return 0;
--	}
--
--	hdev->delayed_ipc_tx_msg = NULL;
-+	if (hda_ipc4_tx_is_busy(sdev))
-+		return -EBUSY;
- 
- 	/* send the message via mailbox */
- 	if (msg_data->data_size)
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index 94425c510861..78449452041c 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -106,12 +106,8 @@ int hda_dsp_ipc4_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- 	struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
- 	struct sof_ipc4_msg *msg_data = msg->msg_data;
- 
--	if (hda_ipc4_tx_is_busy(sdev)) {
--		hdev->delayed_ipc_tx_msg = msg;
--		return 0;
--	}
--
--	hdev->delayed_ipc_tx_msg = NULL;
-+	if (hda_ipc4_tx_is_busy(sdev))
-+		return -EBUSY;
- 
- 	/* send the message via mailbox */
- 	if (msg_data->data_size)
-@@ -168,7 +164,6 @@ irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
++int hda_sdw_dai_hw_ready(struct snd_sof_dev *sdev, int dai_type)
++{
++	struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
++	struct sdw_peripherals *sdw_p;
++	long ret;
++	int idx;
++
++	if (dai_type != SOF_DAI_INTEL_ALH)
++		return 0;
++
++	if (!hdev || !hdev->sdw || !hdev->sdw->peripherals)
++		return 0;
++
++	sdw_p = hdev->sdw->peripherals;
++
++	for (idx = 0; idx < sdw_p->num_peripherals; idx++) {
++		struct sdw_slave *slave = sdw_p->array[idx];
++
++		if (!slave)
++			continue;
++
++		if (slave->status != SDW_SLAVE_ATTACHED)
++			continue;
++
++		ret = wait_for_completion_interruptible_timeout(
++				&slave->initialization_complete,
++				msecs_to_jiffies(2000));
++		if (ret == 0) {
++			dev_err(sdev->dev,
++				"timeout waiting for SoundWire slave %s initialization\n",
++				dev_name(&slave->dev));
++			return -ETIMEDOUT;
++		}
++		if (ret < 0) {
++			dev_dbg(sdev->dev,
++				"interrupted waiting for SoundWire slave %s initialization: %ld\n",
++				dev_name(&slave->dev), ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
+ #else /* IS_ENABLED(CONFIG_SND_SOC_SOF_INTEL_SOUNDWIRE) */
+ static inline int hda_sdw_acpi_scan(struct snd_sof_dev *sdev)
  {
- 	struct sof_ipc4_msg notification_data = {{ 0 }};
- 	struct snd_sof_dev *sdev = context;
--	bool ack_received = false;
- 	bool ipc_irq = false;
- 	u32 hipcie, hipct;
- 
-@@ -182,7 +177,6 @@ irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
- 		hda_dsp_ipc_dsp_done(sdev);
- 
- 		ipc_irq = true;
--		ack_received = true;
- 	}
- 
- 	if (hipct & HDA_DSP_REG_HIPCT_BUSY) {
-@@ -236,13 +230,6 @@ irqreturn_t hda_dsp_ipc4_irq_thread(int irq, void *context)
- 		/* This interrupt is not shared so no need to return IRQ_NONE. */
- 		dev_dbg_ratelimited(sdev->dev, "nothing to do in IPC IRQ thread\n");
- 
--	if (ack_received) {
--		struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
--
--		if (hdev->delayed_ipc_tx_msg)
--			hda_dsp_ipc4_send_msg(sdev, hdev->delayed_ipc_tx_msg);
--	}
--
- 	return IRQ_HANDLED;
- }
- EXPORT_SYMBOL_NS(hda_dsp_ipc4_irq_thread, "SND_SOC_SOF_INTEL_HDA_COMMON");
 diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 562fe8be79c1..ac9f76a5ef97 100644
+index ac9f76a5ef97..9bd8fe82ae9e 100644
 --- a/sound/soc/sof/intel/hda.h
 +++ b/sound/soc/sof/intel/hda.h
-@@ -549,14 +549,6 @@ struct sof_intel_hda_dev {
+@@ -830,6 +830,7 @@ bool hda_sdw_check_wakeen_irq_common(struct snd_sof_dev *sdev);
+ void hda_sdw_process_wakeen_common(struct snd_sof_dev *sdev);
+ void hda_sdw_process_wakeen(struct snd_sof_dev *sdev);
+ bool hda_common_check_sdw_irq(struct snd_sof_dev *sdev);
++int hda_sdw_dai_hw_ready(struct snd_sof_dev *sdev, int dai_type);
  
- 	/* work queue for mic privacy state change notification sending */
- 	struct sof_ace3_mic_privacy mic_privacy;
--
--	/*
--	 * Pointing to the IPC message if immediate sending was not possible
--	 * because the downlink communication channel was BUSY at the time.
--	 * The message will be re-tried when the channel becomes free (the ACK
--	 * is received from the DSP for the previous message)
--	 */
--	struct snd_sof_ipc_msg *delayed_ipc_tx_msg;
- };
+ #else
  
- static inline struct hdac_bus *sof_to_bus(struct snd_sof_dev *s)
-diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
-index 095dcf1a18e4..24dec128f589 100644
---- a/sound/soc/sof/intel/mtl.c
-+++ b/sound/soc/sof/intel/mtl.c
-@@ -101,12 +101,8 @@ static int mtl_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *ms
- 	struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
- 	struct sof_ipc4_msg *msg_data = msg->msg_data;
- 
--	if (hda_ipc4_tx_is_busy(sdev)) {
--		hdev->delayed_ipc_tx_msg = msg;
--		return 0;
--	}
--
--	hdev->delayed_ipc_tx_msg = NULL;
-+	if (hda_ipc4_tx_is_busy(sdev))
-+		return -EBUSY;
- 
- 	/* send the message via mailbox */
- 	if (msg_data->data_size)
-@@ -559,7 +555,6 @@ static irqreturn_t mtl_ipc_irq_thread(int irq, void *context)
- {
- 	struct sof_ipc4_msg notification_data = {{ 0 }};
- 	struct snd_sof_dev *sdev = context;
--	bool ack_received = false;
- 	bool ipc_irq = false;
- 	u32 hipcida;
- 	u32 hipctdr;
-@@ -576,7 +571,6 @@ static irqreturn_t mtl_ipc_irq_thread(int irq, void *context)
- 		mtl_ipc_dsp_done(sdev);
- 
- 		ipc_irq = true;
--		ack_received = true;
- 	}
- 
- 	if (hipctdr & MTL_DSP_REG_HFIPCXTDR_BUSY) {
-@@ -628,13 +622,6 @@ static irqreturn_t mtl_ipc_irq_thread(int irq, void *context)
- 		dev_dbg_ratelimited(sdev->dev, "nothing to do in IPC IRQ thread\n");
- 	}
- 
--	if (ack_received) {
--		struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
--
--		if (hdev->delayed_ipc_tx_msg)
--			mtl_ipc_send_msg(sdev, hdev->delayed_ipc_tx_msg);
--	}
--
- 	return IRQ_HANDLED;
+@@ -879,6 +880,11 @@ static inline bool hda_common_check_sdw_irq(struct snd_sof_dev *sdev)
+ 	return false;
  }
  
-diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
-index a4a090e6724a..2e24308ef9cc 100644
---- a/sound/soc/sof/ipc4.c
-+++ b/sound/soc/sof/ipc4.c
-@@ -365,20 +365,33 @@ static int ipc4_wait_tx_done(struct snd_sof_ipc *ipc, void *reply_data)
- 	return ret;
- }
- 
-+#define SOF_IPC4_TX_BUSY_RETRIES	50
-+#define SOF_IPC4_TX_BUSY_DELAY_US	100
-+#define SOF_IPC4_TX_BUSY_DELAY_MAX_US	200
++static inline int hda_sdw_dai_hw_ready(struct snd_sof_dev *sdev, int dai_type)
++{
++	return 0;
++}
 +
- static int ipc4_tx_msg_unlocked(struct snd_sof_ipc *ipc,
- 				void *msg_data, size_t msg_bytes,
- 				void *reply_data, size_t reply_bytes)
- {
- 	struct sof_ipc4_msg *ipc4_msg = msg_data;
- 	struct snd_sof_dev *sdev = ipc->sdev;
--	int ret;
-+	int ret, i;
+ #endif
  
- 	if (msg_bytes > ipc->max_payload_size || reply_bytes > ipc->max_payload_size)
- 		return -EINVAL;
+ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index d621e7914a73..a8b107d7e786 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -2256,6 +2256,14 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ 	case snd_soc_dapm_dai_in:
+ 	case snd_soc_dapm_dai_out:
+ 	{
++		/* Wait for DAI link hardware (e.g. SoundWire slaves) to be ready */
++		if (sdev->pdata->desc->ops->dai_link_hw_ready) {
++			ret = sdev->pdata->desc->ops->dai_link_hw_ready(
++					sdev, ipc4_copier->dai_type);
++			if (ret)
++				return ret;
++		}
++
+ 		/*
+ 		 * Only SOF_DAI_INTEL_ALH needs copier_data to set blob.
+ 		 * That's why only ALH dai's blob is set after sof_ipc4_init_input_audio_fmt
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 0f624d8cde20..346b5c34c6c8 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -346,6 +346,9 @@ struct snd_sof_dsp_ops {
+ 	int (*register_ipc_clients)(struct snd_sof_dev *sdev); /* optional */
+ 	void (*unregister_ipc_clients)(struct snd_sof_dev *sdev); /* optional */
  
- 	sof_ipc4_log_header(sdev->dev, "ipc tx      ", msg_data, true);
- 
--	ret = sof_ipc_send_msg(sdev, msg_data, msg_bytes, reply_bytes);
-+	for (i = 0; i < SOF_IPC4_TX_BUSY_RETRIES; i++) {
-+		ret = sof_ipc_send_msg(sdev, msg_data, msg_bytes, reply_bytes);
-+		if (ret != -EBUSY)
-+			break;
-+		usleep_range(SOF_IPC4_TX_BUSY_DELAY_US,
-+			     SOF_IPC4_TX_BUSY_DELAY_MAX_US);
-+	}
-+	if (i == SOF_IPC4_TX_BUSY_RETRIES)
-+		dev_dbg(sdev->dev, "%s: TX still busy after %d retries\n",
-+			__func__, i);
- 	if (ret) {
- 		dev_err_ratelimited(sdev->dev,
- 				    "%s: ipc message send for %#x|%#x failed: %d\n",
++	/* optional: wait for DAI link hardware readiness (e.g. SoundWire slave init) */
++	int (*dai_link_hw_ready)(struct snd_sof_dev *sdev, int dai_type); /* optional */
++
+ 	/* DAI ops */
+ 	struct snd_soc_dai_driver *drv;
+ 	int num_drv;
 -- 
 2.52.0

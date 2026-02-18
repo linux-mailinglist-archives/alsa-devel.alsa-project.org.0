@@ -2,185 +2,182 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4MkWOlualWmsSgIAu9opvQ
+	id 2IsZMgVNqGnUswAAu9opvQ
 	(envelope-from <alsa-devel-bounces@alsa-project.org>)
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Feb 2026 11:54:19 +0100
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 16:17:25 +0100
 X-Original-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73313155AEF
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Feb 2026 11:54:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D022026D5
+	for <lists+alsa-devel@lfdr.de>; Wed, 04 Mar 2026 16:17:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CE6E6020F;
-	Wed, 18 Feb 2026 11:54:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CE6E6020F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 675B960237;
+	Wed,  4 Mar 2026 16:17:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 675B960237
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1771412059;
-	bh=VQWOAL43YSMZDqgAlgM1dX3aI2WsfgkbhEgMuyxcFGQ=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=huDyV0nU3X0Hs9BLGcCsKUPahnniWkrB3Dr1jHqD3570uY3q0TNGAqSouda3hn1Q2
-	 gPkrD2modwUQ5j42WQmxUE0B6SCCD7bHdARoW3RlJrvT9ScQVugrRZmblAvg2mUqkk
-	 epNxZmR23e2hIasfT+YoQQV0xivj0+lX/qC80pTQ=
+	s=default; t=1772637441;
+	bh=FYj0SBxfGZZNTnkf//ZxlPebRrGKmz05DbhdKpQauMY=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JNsXAy1IPA4Yc3zcUFBT1wgV520QClGtTuSO3QD7uImTSVUUdUJJKRltSWHWrHmop
+	 LPuofNei0KS3T2bwTDn8ZFA4xBPpixF01WURVVMznAYS38KWwHbqFzS9OfSXzaJh+Q
+	 yJfap0KiitcplTVIMAfhs7txITE5oMuHNwp2tCjY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B008BF805EA; Wed, 18 Feb 2026 11:53:37 +0100 (CET)
+	id 2A16FF80630; Wed,  4 Mar 2026 16:16:26 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA6CEF805E1;
-	Wed, 18 Feb 2026 11:53:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75D56F8061A;
+	Wed,  4 Mar 2026 16:16:26 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F0E4F804F2; Wed, 18 Feb 2026 11:48:07 +0100 (CET)
+	id C8E75F804F2; Wed, 18 Feb 2026 14:59:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,KHOP_HELO_FCRDNS,RCVD_IN_VALIDITY_SAFE_BLOCKED,
-	SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010042.outbound.protection.outlook.com [52.101.56.42])
+X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS,URI_HEX shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazolkn19011037.outbound.protection.outlook.com
+ [52.103.33.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E256EF8045D
-	for <alsa-devel@alsa-project.org>; Wed, 18 Feb 2026 11:48:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E256EF8045D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3727DF80153
+	for <alsa-devel@alsa-project.org>; Wed, 18 Feb 2026 14:59:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3727DF80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=OqlByvJ+
+	dkim=pass (2048-bit key,
+ unprotected) header.d=LIVE.DK header.i=@LIVE.DK header.a=rsa-sha256
+ header.s=selector1 header.b=jKPQzDb8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UmfaIu79X8gJReZVtrly5CNUxK7B0vU14Y2GMS0UIj1AzZnX64KaCFo/ySYKzD9lpE3P0gvq7ZTF9BDuUOARbAFavgFzcmU1rg0kZ7amMvvsfTdtZQG4DhTPiKMIpK1Ns2EJd1CD8fArjt/N86X+Ttu2HkBy/WaNpdI/9OJKZ+gGRvyRQAVlfRI6OUUx8NL+oyhjS4sTp1pvlKWvbTzikeYM6rQz9wazeQ//TS5SxOY/34NdEInoVkc6g9yS4AYiecis44yVEqsoT6yChEQqn093S3ODA4QXz0nerOLYYWHJygrRpF4R2mNV1iAOxoNkfBZQpaGXt2Pm3tFzx3YZAQ==
+ b=diYk/Sq1o+rlxcTXND4mn2qWYOFvbt1oSYohvn0Ei5/W/27JNJJt5Lus926dHGaiEBx0tHvdIYLBqx51+vDD4Vr3tfpJDbao+f03mqz8pi/6BmHJIm1d1LJeFImb7AT0VUd/jd+XxGjCpeaVbCKcvV+E5rPAn3oi3YONI7GHcdDFCgHvr2E0pl0fY0TPkFjhDCYlsDDGcEHyirLlX6Qair6D67vvtsX4NXs/nOPUo0wlUTkYHAAS4BPUhcrLvlh4rwG2S12MUziiiLxRF8qXOInAaesNQSO2Bc5yWQTEtG7LCJyT2w9EcxXooAa4FQnxEx4/a1fVpuMy5Pcy6ngrKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i0ZynwaqAWncdC0CEYknTB/cxtDdVDBqyLVHzbbmCSY=;
- b=xcbkytL8e4nJA1d/mvLdspBm9KHj+q9Dnevtzd66QV1sYJetE3vPigJztluLJjw3Fgjh7IRrwy1WxZYo8BZ+MFhPKAeB/at92UYq3HjdCras/Uv7NbpBAfXzGM9xwyTiQqXWLPqkihejJ+VmU5XxWJjLkMYjXJKhat2pLsLgQsLpvDyHpeUgTkuf+nVvjNrZSbB23uf7JYqo00pNwvG1qQeALZrFwQwTZDyJ5mWTY+PmoX+u6Tumo15sUE2gbBF4Bd7UgMjCw2ZNFMMB4crG6fxs0mEowEPI+k4EOPNPFg+XW5bTVyVqIkUEtUuFNhy7FZQc8u9BfeOLYhvydNTT9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=CEfvIo0oCnxcp6pC3U+geMuHyHs6vHENH28X14N4FNU=;
+ b=TaubRG2qxZbSNs3smerOAhcjNGX+RkI1lsfhmNINROXyy1IMGOuOEBqwZvBmSg6/5lXM7Az43LxTYyh/7pJuVbrWkfHHR2rDRqf8iNrL+b7h5onlJ/OXZvv+QOqa/57t4hrM33Gswkfz3hCZ51hITG3y4eJ9U5PpcHojncebL6ESWSDZweb8k72Mm68KqEMzhDKxnzlsQ9yw7swAcYYq5dYyU6KeNgrD0NrsIv8Z4swStOvZlaV8vZATU6JDKef69A51eQGocNPOWdjYww0VueoFE8c/Gs4R8RpW4QEwwb4zvgJbBlxYIFmbrAccEefkShg2GHjimZXCpueNIRFvXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=LIVE.DK; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i0ZynwaqAWncdC0CEYknTB/cxtDdVDBqyLVHzbbmCSY=;
- b=OqlByvJ+w0jJG6Mk03szoyIt7jookalW3k8Q/wfVzLoEifzV7s9v0dVTkt7hiLT0+zqeEW1PAs7iLVnGSeovYx+ihQ0XFRkJBBB18zMl8qUyNnxBl+JNTvmEwuOQMdazDv4rwc2mFWrtHe11SR6InSVrJx37YpqdEmYVtnLSAL4=
-Received: from BN0PR04CA0157.namprd04.prod.outlook.com (2603:10b6:408:eb::12)
- by SN7PR12MB8169.namprd12.prod.outlook.com (2603:10b6:806:32f::6) with
+ bh=CEfvIo0oCnxcp6pC3U+geMuHyHs6vHENH28X14N4FNU=;
+ b=jKPQzDb8DfDnTRpDr0DPAHfeoD8yYCxOPYVLsA3A83svGOfHPPczudgO8Ewz0WtiAVNgqg8fzF4pFo6BmeUQrMTKqvnRNgBYd9UFqbRhC+nGB1JMftZNXd6VS+kSoe00Wkx8WWW6HHDVVyMqPE377QHKp2DY4frbfH+mvd4E0rL/FdvmYFiHXPIhCzJsoCNPhNQJE3RiZdiEfrwgdLmr+BeojacO9qxEFvqg+3jukKojtU6vPC/E2L+XpxZhS4cYaE4pd2ds6IpaP4TJNjF3suXJTLnfaaN5oKXOezDZgbJsLXGdjV+HJaWjx84mZ+14QVxCgqlf+ZkONrFHBteqsg==
+Received: from AMBP191MB2905.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:6a8::18)
+ by PR3P191MB1406.EURP191.PROD.OUTLOOK.COM (2603:10a6:102:97::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.13; Wed, 18 Feb
- 2026 10:47:58 +0000
-Received: from BN2PEPF000044A1.namprd02.prod.outlook.com
- (2603:10b6:408:eb:cafe::ae) by BN0PR04CA0157.outlook.office365.com
- (2603:10b6:408:eb::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.14 via Frontend Transport; Wed,
- 18 Feb 2026 10:47:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A1.mail.protection.outlook.com (10.167.243.152) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Wed, 18 Feb 2026 10:47:57 +0000
-Received: from vijendar-linux.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Feb
- 2026 04:47:54 -0600
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <lgirdwood@gmail.com>, <perex@perex.cz>,
-	<tiwai@suse.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <mario.limonciello@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH 2/2] ASoC: amd: amd_sdw: add machine driver quirk for Lenovo
- models
-Date: Wed, 18 Feb 2026 16:15:34 +0530
-Message-ID: <20260218104734.3641481-3-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260218104734.3641481-1-Vijendar.Mukunda@amd.com>
-References: <20260218104734.3641481-1-Vijendar.Mukunda@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.14; Wed, 18 Feb
+ 2026 13:59:36 +0000
+Received: from AMBP191MB2905.EURP191.PROD.OUTLOOK.COM
+ ([fe80::9c32:9afb:a3a4:fb5e]) by AMBP191MB2905.EURP191.PROD.OUTLOOK.COM
+ ([fe80::9c32:9afb:a3a4:fb5e%6]) with mapi id 15.20.9632.010; Wed, 18 Feb 2026
+ 13:59:36 +0000
+From: Philip Jensen <philip.jensen@live.dk>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: [BUG] ALC298 (144d:c1ac) Samsung 950QED requires vendor COEF init for
+ speakers
+Thread-Topic: [BUG] ALC298 (144d:c1ac) Samsung 950QED requires vendor COEF
+ init for speakers
+Thread-Index: AQHcoN57bRlM/nDLXEmKcseLItINXw==
+Date: Wed, 18 Feb 2026 13:59:36 +0000
+Message-ID: 
+ <AMBP191MB2905B9332B9229500B2D122DFE6AA@AMBP191MB2905.EURP191.PROD.OUTLOOK.COM>
+Accept-Language: en-US, da-DK
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AMBP191MB2905:EE_|PR3P191MB1406:EE_
+x-ms-office365-filtering-correlation-id: 7295e260-990d-48d2-73d7-08de6ef5f377
+x-ms-exchange-slblob-mailprops: 
+ laRBL560oLS7IWERjHonlu/qsKr3Bu1Z2IrXLB4zFmeKaVSwbeMpQ+nB44GizvCVW206a6WDEFGeC7Ff+r6m0Y+YSLlyT18e0RBA/8JAXeES8MPgL/cSMpxsXxObcrVBhEB0Yp0NX5NFjBVQzda9fLFS1K6VIKAZ6INJVHOQxdZ/4bCBBzUyLpEfxukZFx5a13FrD7ZozlKdmd14h9WeAwaEz15IKDKg50jFxlB4aVN7VBleG+Zj2f3y2tW3tDcxMFj0HAN5oYk/QTbwkkzrLOZmXtkOiuniUjfbqWGzo4viXTjK5kWJ+9YnlG/4+EKX8nH1UZW7Dab4nG/0DZPaiTgkQnvpd41Jy/FjkrXtwCCyvQ56DrMsqfXpPUFUvIf/yVpL7ZNdDs2N5QUK58qmRgyGh0eEqwm7G27oW25/qB9uF+9oc7JPpBvbJnouVuT2rpeHSXi6xOOscbPh1v+pRpyfGKg2lkT6Wyu0CXq2r//iTBpOEw4m4+cgLkXE+YS6hGF5OnxdqvTBV3nTJe+2W1361j77Cz57om0Oz9p3kId2z79R1Ryjkzl2kgy6g8wWUlXwSevklw6EaZVw+d1KvloxZrvLButLR8i0L6HS0jsiM8a6geCr6zs6A2GAGac4in5pvAwy3tZmI5GKMGcARcOAtP+IXJLdXS3LD8EpceLryID6b+3no6sfVXuHDgvi+sL+Syru3EbO+ustWbWCQYsloZxC2aLQlP8St6VyUrHLojyWKOGtmUAE1TbwMSWFg41b/BMWHSPfgdSjTqH6XA4ck62l3DpC
+x-microsoft-antispam: 
+ BCL:0;ARA:14566002|8062599012|15030799006|8060799015|15080799012|19110799012|461199028|31061999003|39105399006|3412199025|440099028|102099032|40105399003;
+x-microsoft-antispam-message-info: 
+ =?iso-8859-1?Q?p+7LUxlSCeTTVBKled1NOAF/QDUsW9SaBA3J8GUsdaGVPtG85oYQZOklkA?=
+ =?iso-8859-1?Q?4xEV+9f5Wt6NRSY9xz93zqe9hbLKaNFInZlmhmaw5iD/vnSuKe5S+DFnU0?=
+ =?iso-8859-1?Q?vr2o9m8KFmxc4pIhq5zIYxNrgDJUDRccZ0ExKTRfdXZdIKyZCuxBViW0E+?=
+ =?iso-8859-1?Q?LbCXHNI4J04dHuoT5D1J3sPf9nMyJDr2Tag3RxaREpG1zXD/0HNX5VQCY3?=
+ =?iso-8859-1?Q?o9X4SPoivZE//N5pTuFxSU5/Rzendr8fFVuJQX6tHZiwYcTixjobwKtcvj?=
+ =?iso-8859-1?Q?YcsrleMwbjG1ZZJtJMa/H70K17W/+imJrT91097PUZBwmI9ZnAKEbE29Ip?=
+ =?iso-8859-1?Q?SmDDg8aQhBb4MNyCmatWGWKKldJALCnWVmEMVFpNL3owgv6uHP9WySV6WC?=
+ =?iso-8859-1?Q?Za5RjN3f32Is21tq/5uwzsRqgSwORlBVxzbV4e2zyzMQgsfbQ8P+UrqZTe?=
+ =?iso-8859-1?Q?LHlGCmxjgUaZ/XeamJ8fvb6BhsDOITSV3IGGu9xZRhRhbLLd1NwIJSxHVs?=
+ =?iso-8859-1?Q?e/W+iRdz5MM5AzM8ROtu3awxwI/iLimYwxkojXaPLrVCK2dIsimjDPEvgK?=
+ =?iso-8859-1?Q?5Ns1hI6Mds8rhlYrUHMMzXbmP5Y1VlX4rC9VpSALdiRKCRapLWgj79nJvN?=
+ =?iso-8859-1?Q?zRAUeZ10b4M1xYJPpwJLtc0S2Yc/f9wpoRKW0c7dD0Llq+CEAvdL1MBkQA?=
+ =?iso-8859-1?Q?GgLyIDRprIO3MboldNm6gJQG0+dgBXgcx3MoWTV93ynY4KRWsI/Dcn9IST?=
+ =?iso-8859-1?Q?hRpfUPt28m2ke0moEzfxpO86rdvseNFqxjUSVlZAzfUvy3q5tlJnx+M9uC?=
+ =?iso-8859-1?Q?q8epJyL56yYGAqodj0w4tj88b7ojQFSOmRB0EByy0DUev28Q12t7lI/bjg?=
+ =?iso-8859-1?Q?8ij6+EhUqKz3Ft4wsd2qYQG5a59aUZ8Mmovv1EgUnbtkpHYhhlLr4MtUVc?=
+ =?iso-8859-1?Q?tQrX/sGHDTKMGwkVBrExEjLSF4urt8hdVvfOCQm9c6OrMRuvU4++2TgHXk?=
+ =?iso-8859-1?Q?8MN8zdU/VmkcY6VDpXTtSPP+pZT0OxpAX0wHvF/UFVawLH2wPUuUBGY142?=
+ =?iso-8859-1?Q?dhN4WmwYsqJhA4rCGNgbBK5ErJxjykfLZTPuGZPTpls2c+RBP1nEV1iz9g?=
+ =?iso-8859-1?Q?bW3516qwAN6jagUyLxSnnxCunJHvM6mrvT04sfs2gB6K/UToEi4DyRKcKH?=
+ =?iso-8859-1?Q?hiSPRalTWUPaV86Dx+JKDm5vDRBmaaimVbPTYbfsflVrgFiW+3LfNAPfsD?=
+ =?iso-8859-1?Q?bydpJjAe1rcbBcJTgo8Q=3D=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?czEWIQCQWAWVBgYz/yxyRlai+N4LbvvlC6V9voqqeo8Cz72UbV97s51UNA?=
+ =?iso-8859-1?Q?rkx5bzuG3tf2ohgz2/gTLPqCXGyfTcqUL/Gp72movT7sPsHw9wLO3cT6VQ?=
+ =?iso-8859-1?Q?GFTf1ZE/U8hhlDbnOdSVUrMnukENvLJVVsbDcBuX8kSgPZCVWiad4NZHuM?=
+ =?iso-8859-1?Q?QTJf68ZCKCeWaiusA0y1G1+gk67XLYrkRlj/ULLHotmqOlAaVTqyMAXXs2?=
+ =?iso-8859-1?Q?7E5DgFl9mHzeDMfTlvS6fDyIYS1YnWZkti6cbMkAgX0qF6pfBNWkosZq7+?=
+ =?iso-8859-1?Q?VPvtKi7nHUEyeIfm1LUDeen+3DXNFwYDyxE7FaQqfh7hm7tbI8no6Y9IOP?=
+ =?iso-8859-1?Q?YDvI6MKx8i7h+4Qhcc+EmzEWWN1pzUuhuXaDBdBZ52afIpLUa9mWkcD9ab?=
+ =?iso-8859-1?Q?wlNz0umbpRfcLvySMOnUPLLPg2M2PFs8RFj9XBmuVjs2ITdYS23iK/xpYy?=
+ =?iso-8859-1?Q?WYT8KwB34lMC+gqKwjzdlHI3Z4jds/rFsuObC6rtUC69zaFFIIK9O2gILn?=
+ =?iso-8859-1?Q?VZMhvM5uou12FMz2rf+9FBsEIlzHx8Zv9ho/Lht0kmClQUoXjBjzziUcyo?=
+ =?iso-8859-1?Q?m3PF0rh7TdjE3Ax/cvr2Iyyo85GdMYw1+8AYnVjyWANWjcIPLv/uSznFI4?=
+ =?iso-8859-1?Q?7qmSYa2xklbr80fb/o2PENF1KgDbfyjnmPjrP+WASZTWR/ixuB9PFn/IAF?=
+ =?iso-8859-1?Q?Qc5GTPIkZIzf2hNwL2hbF1ILN1pJVkU03L7BRPkkAZz6b6UXbO0ilrQDvn?=
+ =?iso-8859-1?Q?F2oCUwQkqBah0copo2wHiLYo5m+NeK1+/gIExbsSNQbk8A6+2osYQLJ+RA?=
+ =?iso-8859-1?Q?P12bXtkko+8MZ9Jzje0EY2k/l7CRoxuu6ohDE6M0lNScAAYgDAgRTjbrMW?=
+ =?iso-8859-1?Q?3v/MMYeOWXHS6qZUBssYKuEuZwSgWfSLivI9axBNV0EoTUQn0b7K7WVdR4?=
+ =?iso-8859-1?Q?7KOWrvkXyczXGtL0GfVi4NcZeYSv1HZUmAORgM7t6oyG/womz0ezWjA3LS?=
+ =?iso-8859-1?Q?bTi+Cywusz+RZ/5cUFvY+CMOLkNkWAj42ruft96CJEbTCNwBVcHBHnLLlO?=
+ =?iso-8859-1?Q?pJ6Oq3MrV9/XxTn7OlNQUtLaZiAn+xgq6qsGuS4QPaOok/bOwHlSfkwueI?=
+ =?iso-8859-1?Q?W8xlNKcevHu5qneQwkxy+eqHiWnE/bKdG4cJq8VqvN2CqGRnBXhnzrqJKo?=
+ =?iso-8859-1?Q?hBnipY0RxO71Omf7Wc2dtzeVyA/14JSmi3VWTfL+GY5hSsC7vGeRCHZaar?=
+ =?iso-8859-1?Q?R44feC949M5A0JVVBarPCRAfkhKuOz7mJ6syn13T7qN5Tppe/g9Td8wsBj?=
+ =?iso-8859-1?Q?6eKTCJ1eBavw5FX3a83M5CjsrbP/rdUA21NJcdu6bZalSd/qaVmj7+U9Ai?=
+ =?iso-8859-1?Q?D3mJfrNP0wVBAVrIC2rN/Qp7j4De8j/oJHmJwQqjgkasiK6gVlJGI=3D?=
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A1:EE_|SN7PR12MB8169:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3004646d-d1b6-4e56-aef4-08de6edb2d94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: 
-	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info: 
-	=?us-ascii?Q?0iLMl7b5cZS9DPOigJR8HUEkdllajCpUvMS92JaxOHqz0+jQNfRneExfO18q?=
- =?us-ascii?Q?1JhdMEFmd5kG+OtNEKBNlbd7uslTcCdCnmCOJBiTY/lDJGdVL4gp8UWhe7fH?=
- =?us-ascii?Q?nfdP4ywfVcQr9tBKr9y0pYsBo3FBFEinGVyOqsaMOFSHyLTGrtU5q/W6Zkkf?=
- =?us-ascii?Q?buaDT3oTHMa7nfyEwqAKojHa8/6LBRvKE07IdAN+Oy+BovpVRjHdOU0K0eG8?=
- =?us-ascii?Q?azzrT9URGhtfPLs97m2TreBDtRNdth6oZC7Y3q6OapgldhARkpUrUahKqQMM?=
- =?us-ascii?Q?jArGaW4kNP2NKbv+jef7W/fuw/8O3spP3QdJ6tJgnNF4dHxxzq8JelX8+W4a?=
- =?us-ascii?Q?e69Bms4DG/hxYuqkI6uYotKEEodIsmYV5wCOAD5mLWx6Zawcf3YitKGKhYHm?=
- =?us-ascii?Q?f3Ss6tLhGyHMuYr51SDTOGu6/m/lROn2f91xaqzpnhMl336y8skDUkpP2t1S?=
- =?us-ascii?Q?3KqF+gJVg0ELKXCIzbVr/TvJM6S0x1Vwv5bfsyZVKB4vkcByzG4q5EO8GE7z?=
- =?us-ascii?Q?vvO+s+VRSlg4oqnvvpx6ca8YtUkC8AJR6n4M8Vm6ti89KsxDWjbBqoUs6F6K?=
- =?us-ascii?Q?jg0s+DaL8CuL8X/Xp9raIluGaa/vfxa/x0OsErJtWRnoTwM31/9SvDG7OfjW?=
- =?us-ascii?Q?s+Xtq0sWMgE/eh2CTeCD0dZf3rsjmhGJsR2YnRjtUAqns2CX9FXzpRfZ0ULL?=
- =?us-ascii?Q?H+B0zBVpF6WvWhmYuuDg3gldDX2koHXl1OJdNDDRQ+0kH8Wdic8k9AuIMnMC?=
- =?us-ascii?Q?mLfNWmU4KiRobKeNPNpkiqtdeYnX/TwbHwbyFCk5Cqgt1hhJs6uJXKCxmc9H?=
- =?us-ascii?Q?BGyjLJuY1//wfwsoK/Ku5BveHrQVsL1v1/5Dm4gdXqiu7rIQnofeilN2/nNv?=
- =?us-ascii?Q?2KIWtRZfVXt82fLJPu76ChuBmIsVn+RtsYeqN4y3cYbeST8U7T/19nPrbtMy?=
- =?us-ascii?Q?RaYhL55RxjNjj3LlhaLvQyFJFyMHAd+aCWvjDmCaHiUt1V6aPhznf75p1Yjo?=
- =?us-ascii?Q?1RLLaft2EGCARYYSrpNEkg3wx/BAhlPmLHJ6CjOiPIA3gx6SVzONbHpXUxHG?=
- =?us-ascii?Q?jHvwdJrhBCi0mjLWJL//KtmygQS3TB2NVtSuQDIpHeXvL0hFFDYf54CuCr0m?=
- =?us-ascii?Q?QwIHBKk5SIkRJ+EYaJHbGayBJ23WsTVrbkbTmJ06SnM6PpWtb7rCev7fkTqG?=
- =?us-ascii?Q?l380KS3DYV2DQ1OH66dHz2HnKgOofS33JtB5eZmiUkWSS8y/dsdC28Po4HIz?=
- =?us-ascii?Q?QWaLZWX2JX4aMKnjuMOjq6pMLdTksN+4qbH8wODCRObH7+GgFauU3C6GHmq5?=
- =?us-ascii?Q?kFPzaoYIS+CbkjZbveoAVhn2MiwCTeOeyskFJkyzS902W9IP0uuAQln8q7/F?=
- =?us-ascii?Q?Mq4JkOZwcERZ/+PQHcq7k4EwEqaclYg3WTKduNzL2vSKp+2NC6R2b6V39zi2?=
- =?us-ascii?Q?PIGGd5wRCGNpKsfLJ9jOkeNTbfl1Dv0j/094f61ozFzp6YxzRGlXrei3qGFH?=
- =?us-ascii?Q?yXGJCTOAjhyU83jTIMARklJg4Utnev/NHsWwsuQxlz4jhCDL05790GrL2zYv?=
- =?us-ascii?Q?327TZMEw49Q5+868PMjHK/qWi9s48BrocZsVl3DL65D/Z0kJELb2JibAnEHY?=
- =?us-ascii?Q?dveFIXpoMPotAUukN+Bh9jWxiXMLUcjh6IaqHNn8RGbRvggfGUg9nA8ottuK?=
- =?us-ascii?Q?3f8zRQ=3D=3D?=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	AI+j9qHAlkjm0fCAFJy37f1+6sz6zWzvRSlMyjamYAtYj32dr+RqgvoQdJnJag7RDuXZ8QB9+qWYhs0i1LvGAaT9Jf56rItUkNJXJTERH/l60Lcm45n0Nq70X3jrQ3ZW+aY8Q70//b7EncKNMBVQQfcSjAcHrh9DdzVQuzYvQUYiIjvHNelO1WuX2whAogubrayJ+PBP0KhLmBu5td0aFaXpYbfWN0FmJvoDLX3ynNoPJlNemcdPNvyGi7nvm9HZ009Pk8cZDVbLGcdo0eEwOjvmMZHWJwSxBEvjy8bu7oBpuHiOikfY0LdFbqCxSzeU6bl0sT9Ljd1Uj0BTWsJLOzRcUhievrW1NVrVPF6iyqKNLKydngNsjEUXgdt8lwIE03Pnp2Zhz/xObwpgKXAk7IA92IodVRZcB221EClBWKzv9wEBlvnDgt42J1eE1nMO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 10:47:57.4362
- (UTC)
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-71052.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AMBP191MB2905.EURP191.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 
+ 00000000-0000-0000-0000-000000000000
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 3004646d-d1b6-4e56-aef4-08de6edb2d94
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	BN2PEPF000044A1.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8169
-Message-ID-Hash: OSCG7BFBYDVZOQUWTUL6AALWTHB3U7I5
-X-Message-ID-Hash: OSCG7BFBYDVZOQUWTUL6AALWTHB3U7I5
-X-MailFrom: Vijendar.Mukunda@amd.com
+ 7295e260-990d-48d2-73d7-08de6ef5f377
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2026 13:59:36.3402
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 
+ 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3P191MB1406
+X-MailFrom: philip.jensen@live.dk
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.9
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: LELYZDOOPTLAQLE24PVZJSG465W2HR25
+X-Message-ID-Hash: LELYZDOOPTLAQLE24PVZJSG465W2HR25
+X-Mailman-Approved-At: Wed, 04 Mar 2026 15:16:06 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.10
+X-Mailman-Version: 3.3.10
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OSCG7BFBYDVZOQUWTUL6AALWTHB3U7I5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FW3R2J3U6K5YGRPWBDIKWKFZA7J34C25/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -188,80 +185,106 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+X-Rspamd-Queue-Id: 71D022026D5
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.71 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default,amd.com:s=selector1];
+X-Spamd-Result: default: False [1.39 / 15.00];
+	DATE_IN_PAST(1.00)[337];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+mx:c];
+	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default];
+	DMARC_POLICY_SOFTFAIL(0.10)[live.dk : SPF not aligned (relaxed), DKIM not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORWARDED(0.00)[alsa-devel@alsa-project.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[alsa-project.org,gmail.com,perex.cz,suse.com,amd.com,vger.kernel.org];
+	TO_DN_EQ_ADDR_ALL(0.00)[];
+	R_DKIM_REJECT(0.00)[LIVE.DK:s=selector1];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:alsa-devel@alsa-project.org,m:lgirdwood@gmail.com,m:perex@perex.cz,m:tiwai@suse.com,m:Sunil-kumar.Dommati@amd.com,m:venkataprasad.potturu@amd.com,m:mario.limonciello@amd.com,m:linux-sound@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:Vijendar.Mukunda@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[Vijendar.Mukunda@amd.com,alsa-devel-bounces@alsa-project.org];
-	DKIM_TRACE(0.00)[alsa-project.org:+,amd.com:+];
-	ASN(0.00)[asn:16019, ipnet:77.48.128.0/17, country:CZ];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,amd.com:email,alsa-project.org:dkim];
-	FROM_NEQ_ENVFROM(0.00)[Vijendar.Mukunda@amd.com,alsa-devel-bounces@alsa-project.org];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa-project.org:dkim,alsa0.perex.cz:rdns,alsa0.perex.cz:helo];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_ONE(0.00)[1];
+	FREEMAIL_FROM(0.00)[live.dk];
+	DKIM_MIXED(0.00)[];
+	DKIM_TRACE(0.00)[alsa-project.org:+,LIVE.DK:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[alsa-devel@alsa-project.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	HAS_XOIP(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[philip.jensen@live.dk,alsa-devel-bounces@alsa-project.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.947];
+	ASN(0.00)[asn:16019, ipnet:77.48.128.0/17, country:CZ];
 	TAGGED_RCPT(0.00)[alsa-devel];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 73313155AEF
+	MISSING_XM_UA(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Action: no action
 
-This patch adds a quirk to include the codec amplifier function for Lenovo
-models listed in the quirk table.
+ALC298 (144d:c1ac) on Samsung Galaxy Book 3 Pro (950QED) requires vendor CO=
+EF init for internal speakers
+________________________________
+Hardware
 
-Note: In these models, the RT722 codec amplifier is excluded, and an
-external amplifier is used instead.
+  *
+Model: Samsung Galaxy Book 3 Pro (950QED / NP950QED-KH1SE)
+  *
+BIOS: P11AKK.750.240404.SH
+  *
+CPU: Intel Alder Lake
+  *
+Codec: Realtek ALC298
+  *
+Vendor ID: 0x10ec0298
+  *
+Subsystem ID: 0x144dc1ac
+  *
+Kernel: 6.17.0-14-generic
+  *
+Distro: Ubuntu 24.04 LTS
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/acp/acp-sdw-legacy-mach.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+________________________________
+Problem
+Internal speakers produce no sound under Linux using the legacy HDA driver.
+Headphones and HDMI audio function correctly.
+speaker-test runs without error but no sound is emitted from internal speak=
+ers.
+ALSA reports:
 
-diff --git a/sound/soc/amd/acp/acp-sdw-legacy-mach.c b/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-index 9cb55d592c3c..c93fc0920a3e 100644
---- a/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-+++ b/sound/soc/amd/acp/acp-sdw-legacy-mach.c
-@@ -95,6 +95,22 @@ static const struct dmi_system_id soc_sdw_quirk_table[] = {
- 		},
- 		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
- 	},
-+	{
-+		.callback = soc_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "21YW"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
-+	{
-+		.callback = soc_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "21YX"),
-+		},
-+		.driver_data = (void *)(ASOC_SDW_CODEC_SPKR),
-+	},
- 	{}
- };
- 
--- 
-2.45.2
+autoconfig for ALC298: line_outs=3D1 (0x17) type:speaker
+speaker_outs=3D0
+hp_outs=3D1 (0x21)
+
+
+No Samsung-specific fixup is applied automatically.
+________________________________
+Root Cause
+The internal speakers are behind an external amplifier requiring a vendor-s=
+pecific Realtek COEF initialization sequence.
+Linux does not apply this sequence for SSID 144d:c1ac.
+As a result, the amplifier remains powered down.
+________________________________
+Working Fix (Userspace)
+The following hda-verb sequence restores speaker functionality:
+
+hda-verb /dev/snd/hwC1D0 0x17 SET_PIN_WIDGET_CONTROL 0x40
+hda-verb /dev/snd/hwC1D0 0x17 SET_EAPD_BTLENABLE 0x02
+
+hda-verb /dev/snd/hwC1D0 0x20 SET_COEF_INDEX 0x07
+hda-verb /dev/snd/hwC1D0 0x20 SET_PROC_COEF 0x3050
+
+hda-verb /dev/snd/hwC1D0 0x20 SET_COEF_INDEX 0x06
+hda-verb /dev/snd/hwC1D0 0x20 SET_PROC_COEF 0x0001
+
+hda-verb /dev/snd/hwC1D0 0x20 SET_COEF_INDEX 0x0a
+hda-verb /dev/snd/hwC1D0 0x20 SET_PROC_COEF 0x0002
+
+
+After applying this, internal speakers function normally.
+________________________________
+Expected Fix
+SSID 144d:c1ac should be added to the existing Samsung ALC298 amp fixup tab=
+le (similar to other Galaxy Book entries) so the vendor COEF initialization=
+ runs automatically during codec init.
+This would eliminate the need for userspace scripts.
+Best
+
+Philip Jensen
+
 

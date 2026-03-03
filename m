@@ -2,59 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sD1xKBP4pmmgawAAu9opvQ
+	id kObaISH4pmmgawAAu9opvQ
 	(envelope-from <alsa-devel-bounces@alsa-project.org>)
-	for <lists+alsa-devel@lfdr.de>; Tue, 03 Mar 2026 16:02:43 +0100
+	for <lists+alsa-devel@lfdr.de>; Tue, 03 Mar 2026 16:02:57 +0100
 X-Original-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB1961F1F63
-	for <lists+alsa-devel@lfdr.de>; Tue, 03 Mar 2026 16:02:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FA001F1F71
+	for <lists+alsa-devel@lfdr.de>; Tue, 03 Mar 2026 16:02:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5493260241;
-	Tue,  3 Mar 2026 16:02:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5493260241
+	by alsa0.perex.cz (Postfix) with ESMTPS id B75466021E;
+	Tue,  3 Mar 2026 16:02:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B75466021E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1772550162;
-	bh=2P2uwG2grQvHPX/IGAFkagB8LV1VkAQrIzhDaLaKvMw=;
+	s=default; t=1772550176;
+	bh=umAuS0IQRUiPKKAWwZnnaRyiZwHkeKVko8aBQRK9ulA=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=pG2oUquaCvnssBBPysc3n8FMLaKELtAfE/e7WgUm8Wlx/CMsjUXu82YXF7HVglPJb
-	 jaikB3cg2pt52E0PlJqZ1UxFKwoCyBiggykZmVQmwuKk+SFLg2BWLrwt7eeikupPK4
-	 ZwBE79GYel472hmDcAzme0AxTzX9OQ3nMs3d+zXk=
+	b=i221BHvX7raiVJ7X5vB0eHZImAbcmkQGOYs+apvaRQcGUx0P1shtlGH4HCbOIWUYK
+	 pN0U8iPoXcNUZUG86T80gu9JDIQjnAjs7ZNphepDxOZdDhSABWymSMX36tcgU/1P+w
+	 cr6cBG8FMFw79bWL9ptkPrrsflcp+oN/+wh/uN7o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5A574F80633; Tue,  3 Mar 2026 16:01:40 +0100 (CET)
+	id 721E6F8065D; Tue,  3 Mar 2026 16:01:48 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C4ABF80636;
-	Tue,  3 Mar 2026 16:01:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3F3DF80636;
+	Tue,  3 Mar 2026 16:01:48 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56468F804B4; Tue,  3 Mar 2026 16:01:26 +0100 (CET)
+	id 9F60FF804B4; Tue,  3 Mar 2026 16:01:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=BAYES_00,MISSING_DATE,
-	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,SPF_FAIL,
-	SPF_HELO_NONE shortcircuit=no autolearn=no autolearn_force=no
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=BAYES_00,MISSING_DATE,
+	RCVD_IN_DNSWL_BLOCKED,RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,
+	RCVD_IN_VALIDITY_RPBL_BLOCKED,RCVD_IN_ZEN_BLOCKED_OPENDNS,
+	SPF_HELO_NONE,SPF_NONE shortcircuit=no autolearn=no autolearn_force=no
 	version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi2259423.contaboserver.net
  [45.14.194.44])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0031F8015B
-	for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2026 16:01:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0031F8015B
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CE31F80635
+	for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2026 16:01:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CE31F80635
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-Message-Id: <18995ce80c622200-webhooks-bot@alsa-project.org>
+Message-Id: <18995cec8adecb00-webhooks-bot@alsa-project.org>
 In-Reply-To: <alsa-project/alsa-lib/pr/494@alsa-project.org>
 References: <alsa-project/alsa-lib/pr/494@alsa-project.org>
 Subject: control: ucm: add ioctl to retrieve full card components
-Date: Tue,  3 Mar 2026 16:01:26 +0100 (CET)
-Message-ID-Hash: ND3X5TZUJXWAZXXIWZMRK75SEEJQMMJ5
-X-Message-ID-Hash: ND3X5TZUJXWAZXXIWZMRK75SEEJQMMJ5
+Date: Tue,  3 Mar 2026 16:01:41 +0100 (CET)
+Message-ID-Hash: 47WSHPLQELBMN7WXEIMEVZ7I6D26QHT7
+X-Message-ID-Hash: 47WSHPLQELBMN7WXEIMEVZ7I6D26QHT7
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -73,7 +74,7 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-X-Rspamd-Queue-Id: BB1961F1F63
+X-Rspamd-Queue-Id: 4FA001F1F71
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.21 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[alsa-project.org,none];
@@ -107,7 +108,7 @@ alsa-project/alsa-lib pull request #494 was edited from mstrozek:
 
 The fixed-size components field in SNDRV_CTL_IOCTL_CARD_INFO can be too small on systems with many audio devices. The kernel [1] will provide a new ioctl to read the full string while truncating the original in card_info if it grows too big. Make sure alsa-lib can read the full string if the original is truncated.
 
-[1] [link to v3](https://lore.kernel.org/all/20260303145815.9930-1-mstrozek@opensource.cirrus.com/)
+[1] https://lore.kernel.org/all/20260303145815.9930-1-mstrozek@opensource.cirrus.com/
 
 Request URL   : https://github.com/alsa-project/alsa-lib/pull/494
 Patch URL     : https://github.com/alsa-project/alsa-lib/pull/494.patch

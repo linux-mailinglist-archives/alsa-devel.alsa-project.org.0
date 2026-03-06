@@ -2,94 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KH7bFL2TrmmmGQIAu9opvQ
+	id eGz6NMmTrmmmGQIAu9opvQ
 	(envelope-from <alsa-devel-bounces@alsa-project.org>)
-	for <lists+alsa-devel@lfdr.de>; Mon, 09 Mar 2026 10:32:45 +0100
+	for <lists+alsa-devel@lfdr.de>; Mon, 09 Mar 2026 10:32:57 +0100
 X-Original-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3B5223632E
-	for <lists+alsa-devel@lfdr.de>; Mon, 09 Mar 2026 10:32:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A5CC236335
+	for <lists+alsa-devel@lfdr.de>; Mon, 09 Mar 2026 10:32:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [45.14.194.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F4676023A;
-	Mon,  9 Mar 2026 10:32:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F4676023A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C783F60275;
+	Mon,  9 Mar 2026 10:32:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C783F60275
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1773048764;
-	bh=50mokf7M7OQ37h42yMlhqgJsnruggM2qbUNm7Fe8epo=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=oND1qo6ZRWZPJHp/XHXe/AGk4P7plN1FBiGDD61e/k0x5w48REgXnd3qvmhyVnnQz
-	 dtRp3mK1IIS7d3M/f4qlpeCZsdF3VVajdzYopxu9tv5txOK1TZ9GXCYgsqJ8bqoV6f
-	 vjC5fDOWJJeL+hFp+YSFD+QNbLUa1/vj779XGXbY=
+	s=default; t=1773048776;
+	bh=eumhNnPR0xbyDE8wWUUWhRrq3MHXMvD1JtClswDuoYA=;
+	h=Date:To:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Yu1xI3otw/86aKrFEvbQ3rUzJEeeoyFD5ehj5/MF1wVjeto8Xn9IgmPkGIOwq6KZj
+	 YIEsRsTKMhStCKHW0APxGf5KL/3wvJ9SjIJtUoR60aIUXoOQy+3CIPJPTITh6nQYEO
+	 keOfPzWGdVDKl1+5k8XNcdx76huHRnelxqnhqz/4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98B6DF805F1; Mon,  9 Mar 2026 10:32:11 +0100 (CET)
+	id 40D3DF80611; Mon,  9 Mar 2026 10:32:18 +0100 (CET)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50941F805F0;
-	Mon,  9 Mar 2026 10:32:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21F0EF8060D;
+	Mon,  9 Mar 2026 10:32:18 +0100 (CET)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A486F80495; Fri,  6 Mar 2026 18:34:18 +0100 (CET)
+	id F067CF80535; Sat,  7 Mar 2026 00:00:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,RCVD_IN_VALIDITY_SAFE_BLOCKED,SPF_HELO_NONE,SPF_NONE,
-	URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS shortcircuit=no autolearn=no
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_PASS,
+	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail.ptr1337.dev (mail.ptr1337.dev [202.61.224.105])
+Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch
+ [185.70.43.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3A85DF8016D
-	for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2026 18:34:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A85DF8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 430BCF800E4
+	for <alsa-devel@alsa-project.org>; Sat,  7 Mar 2026 00:00:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 430BCF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cachyos.org header.i=@cachyos.org header.a=rsa-sha256
- header.s=dkim header.b=ao8NQFvJ
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 16A56285EA3;
-	Fri,  6 Mar 2026 18:34:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cachyos.org; s=dkim;
-	t=1772818455; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HmN52a4KUOVNr09zTLR+fHOloq/lKWdy/8yAr/dvGWI=;
-	b=ao8NQFvJc6RODFu0MG2/Spz7ZyMT37U1z4uJFOgBtthG7AOJj5o6YxPHIqcZnZ4OdBzPdW
-	6/kzsTrJw1SkUpHGOmYMqzOyUWYFasVW+xE6YgWkBtfJ7zgWcrYWtP4bXS9eyLJ2uEAEPt
-	l+6a0HTuBXGTuZOj7R+xdLq4UzBsjSohuRUgkLcMC6/nn9LFy5pSyD/p96n3qFAbjQrHrk
-	aVoReUPhvTBHzUJc9ajUjjsKKxmJJgbpstixu5ZMOafs0hWrCVDmudr/+GVtstbhGdlO6g
-	gqPoBbO80ATHqtImJEU3LfO/zV1XKECzEYr+2mA5v5qI5WwBGIO39EhZ99tn7g==
-Message-ID: <fb2632ab-6afd-43c2-9c2e-6a160400fee0@cachyos.org>
-Date: Fri, 6 Mar 2026 17:34:00 +0000
+ unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256
+ header.s=gph22657pre47fvdlee7a2uqty.protonmail header.b=UMw9bAqk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=gph22657pre47fvdlee7a2uqty.protonmail; t=1772838005; x=1773097205;
+	bh=qeVRFwvHVASnI7yv0H560MlIEagn5b5Ng8QKq4P5XX4=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=UMw9bAqk/ETeHI0FUHwDIidti9HzBOOTKqvq+9+6zrmi4SRIvVhfY5qgKySq7U1wV
+	 5fhWEsjEcT+XxGoIZ8RBRBZjeXmvZB3A54/uIq0tx31qLxolHM0NCVUuznYS5wZbn+
+	 CAX2H4apSOz8CENFngzw8rN8SSSAdtfCkNeOgWUk/2Qd5BO7LobKidEXnwz4YL2sXs
+	 ucrSIC1umo7jOBNxNKOpPfOi0qRJvYgXU4+s/B8nGFcGsSTUWHgKSFpzerPNw6Gtjo
+	 iA/xHvXpv6+PHLPgey9PbyPP6LCZwttnY/Q8GuGqGUEv0dxqlWgJW5uIpZ8/VKzUkQ
+	 iSvEt37s5Pm9g==
+Date: Fri, 06 Mar 2026 23:00:01 +0000
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+From: REBEL 7 <7rebel@proton.me>
+Subject: ALC287: Missing fixup for Lenovo IdeaPad Pro 5 14AKP10
+Message-ID: 
+ <iNz58hBUk_ylwF-ticHYkyf7kAJfMTCMfpVqMiUc68pNui5aimbjslfTB2N37Z1Edn7BfVhFBCwIgzk_Xm0b0bNmbnJ6bGJWuR2etf6ER6Q=@proton.me>
+Feedback-ID: 184360822:user:proton
+X-Pm-Message-ID: 94c82ff1b6adcbae58a1d549d13354993d6dfc1e
 MIME-Version: 1.0
-Subject: Re: ALSA Bug Report: TAS2781 speaker amps not working on ASUS ROG
- Strix SCAR 16 G635LX (2025)
-To: Andrzej Hankus <andrzejh07@gmail.com>, alsa-devel@alsa-project.org
-References: 
- <CACB9z7kjs8rhLstEc8fV29BCTb5dd881JwGozoKdO5cwCb=YwQ@mail.gmail.com>
-From: Eric Naim <dnaim@cachyos.org>
-In-Reply-To: 
- <CACB9z7kjs8rhLstEc8fV29BCTb5dd881JwGozoKdO5cwCb=YwQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
-X-MailFrom: dnaim@cachyos.org
+Content-Type: multipart/mixed;
+ boundary="b1=_6FArjhaALp6E9se1jxXSSxQ74RpiJg8GpwFJI7635S8"
+X-MailFrom: 7rebel@proton.me
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; loop;
  banned-address; header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; emergency; member-moderation
-Message-ID-Hash: 6YBUL4ZAKSEHIJYKIRYYUSHTYEUR7O46
-X-Message-ID-Hash: 6YBUL4ZAKSEHIJYKIRYYUSHTYEUR7O46
-X-Mailman-Approved-At: Mon, 09 Mar 2026 09:32:04 +0000
+Message-ID-Hash: CTM5UQEMJD53ABASKQKRWAUKD77I6NZ3
+X-Message-ID-Hash: CTM5UQEMJD53ABASKQKRWAUKD77I6NZ3
+X-Mailman-Approved-At: Mon, 09 Mar 2026 09:32:09 +0000
+X-Content-Filtered-By: Mailman/MimeDel 3.3.10
 X-Mailman-Version: 3.3.10
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6YBUL4ZAKSEHIJYKIRYYUSHTYEUR7O46/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CTM5UQEMJD53ABASKQKRWAUKD77I6NZ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,213 +94,248 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-X-Rspamd-Queue-Id: E3B5223632E
+X-Rspamd-Queue-Id: 7A5CC236335
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.21 / 15.00];
-	DATE_IN_PAST(1.00)[63];
-	DMARC_POLICY_ALLOW(-0.50)[cachyos.org,quarantine];
+X-Spamd-Result: default: False [2.89 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[proton.me : SPF not aligned (strict), DKIM not aligned (strict),quarantine];
+	DATE_IN_PAST(1.00)[58];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	R_SPF_ALLOW(-0.20)[+mx:c];
+	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default];
 	MAILLIST(-0.20)[mailman];
-	R_DKIM_ALLOW(-0.20)[alsa-project.org:s=default,cachyos.org:s=dkim];
-	R_SPF_ALLOW(-0.20)[+mx];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrzejh07@gmail.com,m:alsa-devel@alsa-project.org,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_ALL(0.00)[];
+	R_DKIM_REJECT(0.00)[proton.me:s=gph22657pre47fvdlee7a2uqty.protonmail];
+	DKIM_MIXED(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	FORGED_SENDER(0.00)[dnaim@cachyos.org,alsa-devel-bounces@alsa-project.org];
+	RCPT_COUNT_ONE(0.00)[1];
+	HAS_ATTACHMENT(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+];
+	DKIM_TRACE(0.00)[alsa-project.org:+,proton.me:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,alsa-project.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[alsa-devel@alsa-project.org];
+	RCVD_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[alsa-devel@alsa-project.org];
+	FROM_NEQ_ENVFROM(0.00)[7rebel@proton.me,alsa-devel-bounces@alsa-project.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[alsa-devel@alsa-project.org];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[dnaim@cachyos.org,alsa-devel-bounces@alsa-project.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DKIM_TRACE(0.00)[alsa-project.org:+,cachyos.org:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[alsa-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16019, ipnet:77.48.128.0/17, country:CZ];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa0.perex.cz:rdns,alsa0.perex.cz:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa0.perex.cz:rdns,alsa0.perex.cz:helo,proton.me:mid]
 X-Rspamd-Action: no action
 
-Hi Andrzej,
+--b1=_6FArjhaALp6E9se1jxXSSxQ74RpiJg8GpwFJI7635S8
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-On 3/1/26 5:43 PM, Andrzej Hankus wrote:
-> IHello,
-> I would like to report the following bug.
-> 
-> ## Summary
-> 
-> Internal speakers produce only thin, high-pitched audio (tweeters only) on
-> the ASUS ROG Strix SCAR 16 G635LX (2025 model). The TAS2781 woofer
-> amplifiers are never initialized because the HDA component binding between
-> the ALC285 codec fixup and the TAS2781 I2C side-codec driver fails silently.
-> 
-> ## Hardware
-> 
-> - **Laptop:** ASUS ROG Strix SCAR 16 G635LX (2025)
-> - **Platform:** Intel Meteor Lake (800 Series ACE)
-> - **Audio Codec:** Realtek ALC285
-> - **PCI SSID:** `1043:3ef0`
-> - **Amplifiers:** Texas Instruments TAS2781 × 3 (ACPI device `TXNW2781:00`)
-> - **Speaker layout:** 2 tweeters (ALC285 direct) + 2 woofers (TAS2781 smart
-> amps)
-> 
-> ## Software
-> 
-> - **Distro:** CachyOS
-> - **Kernel:** 6.19.5-3-cachyos
-> - **Audio server:** PipeWire
-> 
-> ## Problem Description
-> 
-> The kernel applies fixup `0x119` for PCI SSID `1043:3ef0`, which maps to
-> `ALC287_FIXUP_TAS2781_I2C`. The `serial-multi-instantiate` driver
-> successfully creates 3 I2C sub-devices for `TXNW2781:00`. However, the
-> TAS2781 HDA I2C side-codec driver (`snd_hda_scodec_tas2781_i2c`) never
-> binds to any of the 3 I2C devices. The component matching between the HDA
-> codec and the side-codec appears to fail.
-> 
-> ### Suspected Root Cause
-> 
-> The fixup `ALC287_FIXUP_TAS2781_I2C` chains to `tas2781_fixup_tias_i2c`,
-> which sets up HDA component matching for ACPI ID `TIAS2781`. However, this
-> laptop uses the official ACPI ID `TXNW2781`. The fixup should instead use
-> `tas2781_fixup_txnw_i2c` to match the correct ACPI ID.
-> 
-> ### Proposed Fix
-> 
-> The quirk entry for SSID `1043:3ef0` should point to a fixup that calls
-> `tas2781_fixup_txnw_i2c` instead of `tas2781_fixup_tias_i2c`, or
-> alternatively a new `ALC285_FIXUP_ASUS_TAS2781_TXNW_I2C` fixup should be
-> created.
-> 
-> Other nearby ASUS SSID entries that use `TXNW2781` devices (e.g.,
-> `1043:3ee0`, `1043:3f00`, `1043:3f10`, `1043:3f20`, `1043:3f30`) may have
-> the same issue.
-> 
-> ## Diagnostic Evidence
-> 
-> ### dmesg (relevant lines)
-> 
-> ```
-> [   13.209667] Serial bus multi instantiate pseudo device driver
-> TXNW2781:00: error -ENXIO: IRQ index 0 not found
-> [   13.209759] Serial bus multi instantiate pseudo device driver
-> TXNW2781:00: error -ENXIO: IRQ index 0 not found
-> [   13.209810] Serial bus multi instantiate pseudo device driver
-> TXNW2781:00: error -ENXIO: IRQ index 0 not found
-> [   13.209827] Serial bus multi instantiate pseudo device driver
-> TXNW2781:00: Instantiated 3 I2C devices.
-> [   13.673467] snd_hda_codec_alc269 hdaudioC1D0: ALC285: picked fixup  for
-> PCI SSID 1043:3ef0
-> [   13.673974] snd_hda_codec_alc269 hdaudioC1D0: autoconfig for ALC285:
-> line_outs=2 (0x14/0x17/0x0/0x0/0x0) type:speaker
-> [ 3599.385547] tas2781-hda i2c-TXNW2781:00-tas2781-hda.0:
-> tasdevice_prmg_load: Firmware is NULL
-> ```
-> 
-> Note: The fixup name after "picked fixup" is blank, but fixup ID `0x119` IS
-> applied (confirmed via hexdump of the compiled quirk table in the kernel
-> module).
-> 
-> ### I2C devices present but unbound
-> 
-> ```
-> $ ls /sys/bus/i2c/devices/ | grep TXNW
-> i2c-TXNW2781:00-tas2781-hda.0
-> i2c-TXNW2781:00-tas2781-hda.1
-> i2c-TXNW2781:00-tas2781-hda.2
-> 
-> $ ls /sys/bus/i2c/devices/i2c-TXNW2781:00-tas2781-hda.0/driver
-> ls: cannot access: No such file or directory
-> (no driver bound to any of the 3 devices)
-> ```
-> 
-> ### Firmware files exist
-> 
-> ```
-> $ ls /usr/lib/firmware/TAS2XXX3EF0*
-> /usr/lib/firmware/TAS2XXX3EF00.bin.zst ->
-> ti/audio/tas2781/TAS2XXX3EF00.bin.zst
-> /usr/lib/firmware/TAS2XXX3EF01.bin.zst ->
-> ti/audio/tas2781/TAS2XXX3EF01.bin.zst
-> ```
-> 
-> ### TAS2781 I2C driver supports TXNW2781
-> 
-> ```
-> $ strings snd-hda-scodec-tas2781-i2c.ko | grep TXNW
-> TXNW2781
-> alias=acpi*:TXNW2781:*
-> ```
-> 
-> ### Codec info
-> 
-> ```
-> $ cat /proc/asound/card1/codec#0 | head -6
-> Codec: Realtek ALC285
-> Address: 0
-> AFG Function Id: 0x1 (unsol 1)
-> Vendor Id: 0x10ec0285
-> Subsystem Id: 0x10433ef0
-> Revision Id: 0x100002
-> ```
-> 
-> ### Relevant loaded modules
-> 
-> ```
-> snd_hda_codec_alc269
-> snd_hda_scodec_tas2781_i2c
-> snd_hda_scodec_tas2781_spi
-> snd_hda_scodec_tas2781
-> snd_hda_scodec_component
-> snd_soc_tas2781_i2c
-> snd_soc_tas2781_fmwlib
-> snd_soc_tas2781_comlib_i2c
-> snd_soc_tas2781_comlib
-> ```
-> 
-> ## What has been ruled out
-> 
-> - PipeWire is working correctly
-> - All ALSA mixer channels are unmuted and at full volume
-> - Bass Speaker switch is on
-> - TAS2781 driver modules are loaded
-> - Firmware files for this SSID exist in linux-firmware
-> - This is not a userspace configuration issue
-> 
-> ## Steps to Reproduce
-> 
-> 1. Install any Linux distribution on ASUS ROG Strix SCAR 16 G635LX (2025)
-> 2. Boot with kernel 6.19.x
-> 3. Observe only tweeter output, no bass/woofer audio
-> 4. Check dmesg for blank fixup name and "Firmware is NULL"
-> 5. Verify no driver is bound to the TAS2781 I2C devices
-> 
-> ## Additional Notes
-> 
-> The `-ENXIO: IRQ index 0 not found` errors during TXNW2781 initialization
-> (3 occurrences for 3 devices) may be a separate ACPI table issue but do not
-> prevent device instantiation.
-> 
-> The "Firmware is NULL" message at timestamp 3599s (60 minutes after boot)
-> indicates a late playback attempt reached the TAS2781 code path despite the
-> driver never having properly probed.
+SGV5IHRoZXJlLAoKSSdkIGxpa2UgdG8gcmVwb3J0IGEgbWlzc2luZyBmaXh1cCBmb3IgdGhlIFJl
+YWx0ZWsgQUxDMjg3IGNvZGVjIG9uIGEgTGVub3ZvIElkZWFQYWQgUHJvIDUgMTRBS1AxMCAobW9k
+ZWwgODNKTCkuCgpTeXN0ZW0gaW5mb3JtYXRpb246Ci0gTGFwdG9wOiBMZW5vdm8gSWRlYVBhZCBQ
+cm8gNSAxNEFLUDEwICg4M0pMKQotIEtlcm5lbDogNi4xOC43LTIwMC5mYzQzLng4Nl82NCAoRmVk
+b3JhIDQzIEtERSkKLSBDb2RlYzogUmVhbHRlayBBTEMyODcKLSBWZW5kb3IgSUQ6IDB4MTBlYzAy
+ODcKLSBTdWJzeXN0ZW0gSUQ6IDB4MTdhYTM5MTIKClRoZSBpc3N1ZSBpcyB0aGF0IHRoZSBrZXJu
+ZWwgcmVhZHMgdGhlIEhEQSBJbnRlbCBzdWJzeXN0ZW0gSUQgYXMgMTdhYTowMDAwIGluc3RlYWQg
+b2YgdGhlIGNvcnJlY3QgMTdhYTozOTEyLCByZXN1bHRpbmcgaW4gbm8gbW9kZWwtc3BlY2lmaWMg
+Zml4dXAgYmVpbmcgYXBwbGllZC4gVGhlIGNvZGVjIGl0c2VsZiBjb3JyZWN0bHkgcmVwb3J0cyB0
+aGUgc3Vic3lzdGVtIElEIGFzIDB4MTdhYTM5MTIgaW4gL3Byb2MvYXNvdW5kL2NhcmQxL2NvZGVj
+IzAuCgpkbWVzZyBzaG93czoKc25kX2hkYV9jb2RlY19hbGMyNjkgaGRhdWRpb0MxRDA6IEFMQzI4
+NzogcGlja2VkIGZpeHVwIGZvciBQQ0kgU1NJRCAxN2FhOjAwMDAKClN5bXB0b21zIGluY2x1ZGUg
+YSBjb25zdGFudCBidXp6IGZyb20gdGhlIGxlZnQgc3BlYWtlciAoaXQncyBhIGJyYW5kIG5ldyBs
+YXB0b3Agc28gaXQgbWlnaHQganVzdCBhbHNvIGJlIGEgZGVmZWN0IHNwZWFrZXIpCgpJIGhhdmUg
+YXR0YWNoZWQgYSBmdWxsIGNvZGVjIGR1bXAgZm9yIHJlZmVyZW5jZS4gUGxlYXNlIGxldCBtZSBr
+bm93IGlmIGFueSBhZGRpdGlvbmFsIGluZm9ybWF0aW9uIG9yIHRlc3Rpbmcgd291bGQgYmUgaGVs
+cGZ1bC4KUmVnYXJkcywKClJFQkVM
 
-I noticed the ALC287_FIXUP_TXNW2781_I2C quirk exists and built a kernel with the modifications. Can you please try it?
+--b1=_6FArjhaALp6E9se1jxXSSxQ74RpiJg8GpwFJI7635S8
+Content-Type: text/plain; name=alc287_codec_dump.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=alc287_codec_dump.txt
 
-Link: https://share.cachyos.org/x86_64_v3/asus/
+Q29kZWM6IFJlYWx0ZWsgQUxDMjg3CkFkZHJlc3M6IDAKQUZHIEZ1bmN0aW9uIElkOiAweDEgKHVu
+c29sIDEpClZlbmRvciBJZDogMHgxMGVjMDI4NwpTdWJzeXN0ZW0gSWQ6IDB4MTdhYTM5MTIKUmV2
+aXNpb24gSWQ6IDB4MTAwMDAyCk5vIE1vZGVtIEZ1bmN0aW9uIEdyb3VwIGZvdW5kCkRlZmF1bHQg
+UENNOgogICAgcmF0ZXMgWzB4NTYwXTogNDQxMDAgNDgwMDAgOTYwMDAgMTkyMDAwCiAgICBiaXRz
+IFsweGVdOiAxNiAyMCAyNAogICAgZm9ybWF0cyBbMHgxXTogUENNCkRlZmF1bHQgQW1wLUluIGNh
+cHM6IE4vQQpEZWZhdWx0IEFtcC1PdXQgY2FwczogTi9BClN0YXRlIG9mIEFGRyBub2RlIDB4MDE6
+CiAgUG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIgRDMgRDNjb2xkIENMS1NUT1AgRVBTUwogIFBvd2Vy
+OiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAKR1BJTzogaW89NSwgbz0wLCBpPTAsIHVuc29saWNpdGVk
+PTEsIHdha2U9MAogIElPWzBdOiBlbmFibGU9MCwgZGlyPTAsIHdha2U9MCwgc3RpY2t5PTAsIGRh
+dGE9MCwgdW5zb2w9MAogIElPWzFdOiBlbmFibGU9MCwgZGlyPTAsIHdha2U9MCwgc3RpY2t5PTAs
+IGRhdGE9MCwgdW5zb2w9MAogIElPWzJdOiBlbmFibGU9MCwgZGlyPTAsIHdha2U9MCwgc3RpY2t5
+PTAsIGRhdGE9MCwgdW5zb2w9MAogIElPWzNdOiBlbmFibGU9MCwgZGlyPTAsIHdha2U9MCwgc3Rp
+Y2t5PTAsIGRhdGE9MCwgdW5zb2w9MAogIElPWzRdOiBlbmFibGU9MCwgZGlyPTAsIHdha2U9MCwg
+c3RpY2t5PTAsIGRhdGE9MCwgdW5zb2w9MApOb2RlIDB4MDIgW0F1ZGlvIE91dHB1dF0gd2NhcHMg
+MHg0MWQ6IFN0ZXJlbyBBbXAtT3V0CiAgQ29udHJvbDogbmFtZT0iU3BlYWtlciBQbGF5YmFjayBW
+b2x1bWUiLCBpbmRleD0wLCBkZXZpY2U9MAogICAgQ29udHJvbEFtcDogY2hzPTMsIGRpcj1PdXQs
+IGlkeD0wLCBvZnM9MAogIEFtcC1PdXQgY2Fwczogb2ZzPTB4NTcsIG5zdGVwcz0weDU3LCBzdGVw
+c2l6ZT0weDAyLCBtdXRlPTAKICBBbXAtT3V0IHZhbHM6ICBbMHgyMCAweDIwXQogIENvbnZlcnRl
+cjogc3RyZWFtPTAsIGNoYW5uZWw9MAogIFBDTToKICAgIHJhdGVzIFsweDQwXTogNDgwMDAKICAg
+IGJpdHMgWzB4ZV06IDE2IDIwIDI0CiAgICBmb3JtYXRzIFsweDFdOiBQQ00KICBQb3dlciBzdGF0
+ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1EMApOb2Rl
+IDB4MDMgW0F1ZGlvIE91dHB1dF0gd2NhcHMgMHg0MWQ6IFN0ZXJlbyBBbXAtT3V0CiAgQ29udHJv
+bDogbmFtZT0iSGVhZHBob25lIFBsYXliYWNrIFZvbHVtZSIsIGluZGV4PTAsIGRldmljZT0wCiAg
+ICBDb250cm9sQW1wOiBjaHM9MywgZGlyPU91dCwgaWR4PTAsIG9mcz0wCiAgRGV2aWNlOiBuYW1l
+PSJBTEMyODcgQW5hbG9nIiwgdHlwZT0iQXVkaW8iLCBkZXZpY2U9MAogIEFtcC1PdXQgY2Fwczog
+b2ZzPTB4NTcsIG5zdGVwcz0weDU3LCBzdGVwc2l6ZT0weDAyLCBtdXRlPTAKICBBbXAtT3V0IHZh
+bHM6ICBbMHgzNCAweDM0XQogIENvbnZlcnRlcjogc3RyZWFtPTAsIGNoYW5uZWw9MAogIFBDTToK
+ICAgIHJhdGVzIFsweDQwXTogNDgwMDAKICAgIGJpdHMgWzB4ZV06IDE2IDIwIDI0CiAgICBmb3Jt
+YXRzIFsweDFdOiBQQ00KICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6
+IHNldHRpbmc9RDAsIGFjdHVhbD1EMApOb2RlIDB4MDQgW1ZlbmRvciBEZWZpbmVkIFdpZGdldF0g
+d2NhcHMgMHhmMDAwMDA6IE1vbm8KTm9kZSAweDA1IFtWZW5kb3IgRGVmaW5lZCBXaWRnZXRdIHdj
+YXBzIDB4ZjAwMDAwOiBNb25vCk5vZGUgMHgwNiBbQXVkaW8gT3V0cHV0XSB3Y2FwcyAweDQxMTog
+U3RlcmVvCiAgQ29udmVydGVyOiBzdHJlYW09MCwgY2hhbm5lbD0wCiAgUENNOgogICAgcmF0ZXMg
+WzB4NDBdOiA0ODAwMAogICAgYml0cyBbMHhlXTogMTYgMjAgMjQKICAgIGZvcm1hdHMgWzB4MV06
+IFBDTQogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1E
+MCwgYWN0dWFsPUQwCk5vZGUgMHgwNyBbQXVkaW8gSW5wdXRdIHdjYXBzIDB4MTAwNTFiOiBTdGVy
+ZW8gQW1wLUluCiAgQW1wLUluIGNhcHM6IG9mcz0weDE3LCBuc3RlcHM9MHgzZiwgc3RlcHNpemU9
+MHgwMiwgbXV0ZT0xCiAgQW1wLUluIHZhbHM6ICBbMHg5NyAweDk3XQogIENvbnZlcnRlcjogc3Ry
+ZWFtPTAsIGNoYW5uZWw9MAogIFNESS1TZWxlY3Q6IDAKICBQQ006CiAgICByYXRlcyBbMHg0MF06
+IDQ4MDAwCiAgICBiaXRzIFsweGVdOiAxNiAyMCAyNAogICAgZm9ybWF0cyBbMHgxXTogUENNCiAg
+UG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1
+YWw9RDAKICBDb25uZWN0aW9uOiAxCiAgICAgMHgyNApOb2RlIDB4MDggW0F1ZGlvIElucHV0XSB3
+Y2FwcyAweDEwMDUxYjogU3RlcmVvIEFtcC1JbgogIENvbnRyb2w6IG5hbWU9IkNhcHR1cmUgVm9s
+dW1lIiwgaW5kZXg9MCwgZGV2aWNlPTAKICAgIENvbnRyb2xBbXA6IGNocz0zLCBkaXI9SW4sIGlk
+eD0wLCBvZnM9MAogIENvbnRyb2w6IG5hbWU9IkNhcHR1cmUgU3dpdGNoIiwgaW5kZXg9MCwgZGV2
+aWNlPTAKICAgIENvbnRyb2xBbXA6IGNocz0zLCBkaXI9SW4sIGlkeD0wLCBvZnM9MAogIERldmlj
+ZTogbmFtZT0iQUxDMjg3IEFuYWxvZyIsIHR5cGU9IkF1ZGlvIiwgZGV2aWNlPTAKICBBbXAtSW4g
+Y2Fwczogb2ZzPTB4MTcsIG5zdGVwcz0weDNmLCBzdGVwc2l6ZT0weDAyLCBtdXRlPTEKICBBbXAt
+SW4gdmFsczogIFsweDI2IDB4MjZdCiAgQ29udmVydGVyOiBzdHJlYW09MCwgY2hhbm5lbD0wCiAg
+U0RJLVNlbGVjdDogMAogIFBDTToKICAgIHJhdGVzIFsweDU2MF06IDQ0MTAwIDQ4MDAwIDk2MDAw
+IDE5MjAwMAogICAgYml0cyBbMHhlXTogMTYgMjAgMjQKICAgIGZvcm1hdHMgWzB4MV06IFBDTQog
+IFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0
+dWFsPUQwCiAgQ29ubmVjdGlvbjogMQogICAgIDB4MjMKTm9kZSAweDA5IFtBdWRpbyBJbnB1dF0g
+d2NhcHMgMHgxMDA1MWI6IFN0ZXJlbyBBbXAtSW4KICBBbXAtSW4gY2Fwczogb2ZzPTB4MTcsIG5z
+dGVwcz0weDNmLCBzdGVwc2l6ZT0weDAyLCBtdXRlPTEKICBBbXAtSW4gdmFsczogIFsweDk3IDB4
+OTddCiAgQ29udmVydGVyOiBzdHJlYW09MCwgY2hhbm5lbD0wCiAgU0RJLVNlbGVjdDogMAogIFBD
+TToKICAgIHJhdGVzIFsweDU2MF06IDQ0MTAwIDQ4MDAwIDk2MDAwIDE5MjAwMAogICAgYml0cyBb
+MHhlXTogMTYgMjAgMjQKICAgIGZvcm1hdHMgWzB4MV06IFBDTQogIFBvd2VyIHN0YXRlczogIEQw
+IEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCiAgQ29ubmVjdGlv
+bjogMQogICAgIDB4MjIKTm9kZSAweDBhIFtBdWRpbyBJbnB1dF0gd2NhcHMgMHgxMDA1MWI6IFN0
+ZXJlbyBBbXAtSW4KICBBbXAtSW4gY2Fwczogb2ZzPTB4MTcsIG5zdGVwcz0weDNmLCBzdGVwc2l6
+ZT0weDAyLCBtdXRlPTEKICBBbXAtSW4gdmFsczogIFsweDk3IDB4OTddCiAgQ29udmVydGVyOiBz
+dHJlYW09MCwgY2hhbm5lbD0wCiAgU0RJLVNlbGVjdDogMAogIFBDTToKICAgIHJhdGVzIFsweDQw
+XTogNDgwMDAKICAgIGJpdHMgWzB4ZV06IDE2IDIwIDI0CiAgICBmb3JtYXRzIFsweDFdOiBQQ00K
+ICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFj
+dHVhbD1EMAogIENvbm5lY3Rpb246IDEKICAgICAweDI1Ck5vZGUgMHgwYiBbVmVuZG9yIERlZmlu
+ZWQgV2lkZ2V0XSB3Y2FwcyAweGYwMDAwMDogTW9ubwpOb2RlIDB4MGMgW1ZlbmRvciBEZWZpbmVk
+IFdpZGdldF0gd2NhcHMgMHhmMDAwMDA6IE1vbm8KTm9kZSAweDBkIFtWZW5kb3IgRGVmaW5lZCBX
+aWRnZXRdIHdjYXBzIDB4ZjAwMDAwOiBNb25vCk5vZGUgMHgwZSBbVmVuZG9yIERlZmluZWQgV2lk
+Z2V0XSB3Y2FwcyAweGYwMDAwMDogTW9ubwpOb2RlIDB4MGYgW1ZlbmRvciBEZWZpbmVkIFdpZGdl
+dF0gd2NhcHMgMHhmMDAwMDA6IE1vbm8KTm9kZSAweDEwIFtWZW5kb3IgRGVmaW5lZCBXaWRnZXRd
+IHdjYXBzIDB4ZjAwMDAwOiBNb25vCk5vZGUgMHgxMSBbVmVuZG9yIERlZmluZWQgV2lkZ2V0XSB3
+Y2FwcyAweGYwMDAwMDogTW9ubwpOb2RlIDB4MTIgW1BpbiBDb21wbGV4XSB3Y2FwcyAweDQwMDQw
+YjogU3RlcmVvIEFtcC1JbgogIEFtcC1JbiBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBzPTB4MDMsIHN0
+ZXBzaXplPTB4MjcsIG11dGU9MAogIEFtcC1JbiB2YWxzOiAgWzB4MDAgMHgwMF0KICBQaW5jYXAg
+MHgwMDAwMDAyMDogSU4KICBQaW4gRGVmYXVsdCAweDQxMTExMWYwOiBbTi9BXSBTcGVha2VyIGF0
+IEV4dCBSZWFyCiAgICBDb25uID0gMS84LCBDb2xvciA9IEJsYWNrCiAgICBEZWZBc3NvY2lhdGlv
+biA9IDB4ZiwgU2VxdWVuY2UgPSAweDAKICAgIE1pc2MgPSBOT19QUkVTRU5DRQogIFBpbi1jdGxz
+OiAweDAwOgogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGlu
+Zz1EMCwgYWN0dWFsPUQwCk5vZGUgMHgxMyBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNDBiOiBT
+dGVyZW8gQW1wLUluCiAgQW1wLUluIGNhcHM6IG9mcz0weDAwLCBuc3RlcHM9MHgwMywgc3RlcHNp
+emU9MHgyNywgbXV0ZT0wCiAgQW1wLUluIHZhbHM6ICBbMHgwMCAweDAwXQogIFBpbmNhcCAweDAw
+MDAwMDIwOiBJTgogIFBpbiBEZWZhdWx0IDB4NDAwMDAwMDA6IFtOL0FdIExpbmUgT3V0IGF0IEV4
+dCBOL0EKICAgIENvbm4gPSBVbmtub3duLCBDb2xvciA9IFVua25vd24KICAgIERlZkFzc29jaWF0
+aW9uID0gMHgwLCBTZXF1ZW5jZSA9IDB4MAogIFBpbi1jdGxzOiAweDAwOgogIFBvd2VyIHN0YXRl
+czogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCk5vZGUg
+MHgxNCBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNThkOiBTdGVyZW8gQW1wLU91dAogIENvbnRy
+b2w6IG5hbWU9IlNwZWFrZXIgUGxheWJhY2sgU3dpdGNoIiwgaW5kZXg9MCwgZGV2aWNlPTAKICAg
+IENvbnRyb2xBbXA6IGNocz0zLCBkaXI9T3V0LCBpZHg9MCwgb2ZzPTAKICBBbXAtT3V0IGNhcHM6
+IG9mcz0weDAwLCBuc3RlcHM9MHgwMCwgc3RlcHNpemU9MHgwMCwgbXV0ZT0xCiAgQW1wLU91dCB2
+YWxzOiAgWzB4MDAgMHgwMF0KICBQaW5jYXAgMHgwMDAxMDAxNDogT1VUIEVBUEQgRGV0ZWN0CiAg
+RUFQRCAweDI6IEVBUEQKICBQaW4gRGVmYXVsdCAweDkwMTcwMTEwOiBbRml4ZWRdIFNwZWFrZXIg
+YXQgSW50IE4vQQogICAgQ29ubiA9IEFuYWxvZywgQ29sb3IgPSBVbmtub3duCiAgICBEZWZBc3Nv
+Y2lhdGlvbiA9IDB4MSwgU2VxdWVuY2UgPSAweDAKICAgIE1pc2MgPSBOT19QUkVTRU5DRQogIFBp
+bi1jdGxzOiAweDQwOiBPVVQKICBVbnNvbGljaXRlZDogdGFnPTAwLCBlbmFibGVkPTAKICBQb3dl
+ciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1E
+MAogIENvbm5lY3Rpb246IDEKICAgICAweDAyCk5vZGUgMHgxNSBbVmVuZG9yIERlZmluZWQgV2lk
+Z2V0XSB3Y2FwcyAweGYwMDAwMDogTW9ubwpOb2RlIDB4MTYgW1ZlbmRvciBEZWZpbmVkIFdpZGdl
+dF0gd2NhcHMgMHhmMDAwMDA6IE1vbm8KTm9kZSAweDE3IFtQaW4gQ29tcGxleF0gd2NhcHMgMHg0
+MDA1OGQ6IFN0ZXJlbyBBbXAtT3V0CiAgQW1wLU91dCBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBzPTB4
+MDAsIHN0ZXBzaXplPTB4MDAsIG11dGU9MQogIEFtcC1PdXQgdmFsczogIFsweDgwIDB4ODBdCiAg
+UGluY2FwIDB4MDAwMDAwMWM6IE9VVCBIUCBEZXRlY3QKICBQaW4gRGVmYXVsdCAweDQxMTExMWYw
+OiBbTi9BXSBTcGVha2VyIGF0IEV4dCBSZWFyCiAgICBDb25uID0gMS84LCBDb2xvciA9IEJsYWNr
+CiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4ZiwgU2VxdWVuY2UgPSAweDAKICAgIE1pc2MgPSBOT19Q
+UkVTRU5DRQogIFBpbi1jdGxzOiAweDAwOgogIFVuc29saWNpdGVkOiB0YWc9MDAsIGVuYWJsZWQ9
+MAogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwg
+YWN0dWFsPUQwCiAgQ29ubmVjdGlvbjogNAogICAgIDB4MDIqIDB4MDMgMHgwNiAweDA4Ck5vZGUg
+MHgxOCBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNDhiOiBTdGVyZW8gQW1wLUluCiAgQW1wLUlu
+IGNhcHM6IG9mcz0weDAwLCBuc3RlcHM9MHgwMywgc3RlcHNpemU9MHgyNywgbXV0ZT0wCiAgQW1w
+LUluIHZhbHM6ICBbMHgwMCAweDAwXQogIFBpbmNhcCAweDAwMDAwMDI0OiBJTiBEZXRlY3QKICBQ
+aW4gRGVmYXVsdCAweDQxMTExMWYwOiBbTi9BXSBTcGVha2VyIGF0IEV4dCBSZWFyCiAgICBDb25u
+ID0gMS84LCBDb2xvciA9IEJsYWNrCiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4ZiwgU2VxdWVuY2Ug
+PSAweDAKICAgIE1pc2MgPSBOT19QUkVTRU5DRQogIFBpbi1jdGxzOiAweDAwOgogIFVuc29saWNp
+dGVkOiB0YWc9MDAsIGVuYWJsZWQ9MAogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MK
+ICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCk5vZGUgMHgxOSBbUGluIENvbXBsZXhdIHdj
+YXBzIDB4NDAwNDhiOiBTdGVyZW8gQW1wLUluCiAgQ29udHJvbDogbmFtZT0iTWljIEJvb3N0IFZv
+bHVtZSIsIGluZGV4PTAsIGRldmljZT0wCiAgICBDb250cm9sQW1wOiBjaHM9MywgZGlyPUluLCBp
+ZHg9MCwgb2ZzPTAKICBBbXAtSW4gY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAzLCBzdGVwc2l6
+ZT0weDI3LCBtdXRlPTAKICBBbXAtSW4gdmFsczogIFsweDAwIDB4MDBdCiAgUGluY2FwIDB4MDAw
+MDM3MjQ6IElOIERldGVjdAogICAgVnJlZiBjYXBzOiBISVogNTAgR1JEIDgwIDEwMAogIFBpbiBE
+ZWZhdWx0IDB4MDRhMTEwNDA6IFtKYWNrXSBNaWMgYXQgRXh0IFJpZ2h0CiAgICBDb25uID0gMS84
+LCBDb2xvciA9IEJsYWNrCiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4NCwgU2VxdWVuY2UgPSAweDAK
+ICBQaW4tY3RsczogMHgyNDogSU4gVlJFRl84MAogIFVuc29saWNpdGVkOiB0YWc9MDIsIGVuYWJs
+ZWQ9MQogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1E
+MCwgYWN0dWFsPUQwCk5vZGUgMHgxYSBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNDhiOiBTdGVy
+ZW8gQW1wLUluCiAgQW1wLUluIGNhcHM6IG9mcz0weDAwLCBuc3RlcHM9MHgwMywgc3RlcHNpemU9
+MHgyNywgbXV0ZT0wCiAgQW1wLUluIHZhbHM6ICBbMHgwMCAweDAwXQogIFBpbmNhcCAweDAwMDAz
+NzI0OiBJTiBEZXRlY3QKICAgIFZyZWYgY2FwczogSElaIDUwIEdSRCA4MCAxMDAKICBQaW4gRGVm
+YXVsdCAweDQxMTExMWYwOiBbTi9BXSBTcGVha2VyIGF0IEV4dCBSZWFyCiAgICBDb25uID0gMS84
+LCBDb2xvciA9IEJsYWNrCiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4ZiwgU2VxdWVuY2UgPSAweDAK
+ICAgIE1pc2MgPSBOT19QUkVTRU5DRQogIFBpbi1jdGxzOiAweDAwOiBWUkVGX0hJWgogIFVuc29s
+aWNpdGVkOiB0YWc9MDAsIGVuYWJsZWQ9MAogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQ
+U1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCk5vZGUgMHgxYiBbUGluIENvbXBsZXhd
+IHdjYXBzIDB4NDAwNThmOiBTdGVyZW8gQW1wLUluIEFtcC1PdXQKICBBbXAtSW4gY2Fwczogb2Zz
+PTB4MDAsIG5zdGVwcz0weDAzLCBzdGVwc2l6ZT0weDI3LCBtdXRlPTAKICBBbXAtSW4gdmFsczog
+IFsweDAwIDB4MDBdCiAgQW1wLU91dCBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBzPTB4MDAsIHN0ZXBz
+aXplPTB4MDAsIG11dGU9MQogIEFtcC1PdXQgdmFsczogIFsweDgwIDB4ODBdCiAgUGluY2FwIDB4
+MDAwMTM3MzQ6IElOIE9VVCBFQVBEIERldGVjdAogICAgVnJlZiBjYXBzOiBISVogNTAgR1JEIDgw
+IDEwMAogIEVBUEQgMHgyOiBFQVBECiAgUGluIERlZmF1bHQgMHg0MTExMTFmMDogW04vQV0gU3Bl
+YWtlciBhdCBFeHQgUmVhcgogICAgQ29ubiA9IDEvOCwgQ29sb3IgPSBCbGFjawogICAgRGVmQXNz
+b2NpYXRpb24gPSAweGYsIFNlcXVlbmNlID0gMHgwCiAgICBNaXNjID0gTk9fUFJFU0VOQ0UKICBQ
+aW4tY3RsczogMHgwMDogVlJFRl9ISVoKICBVbnNvbGljaXRlZDogdGFnPTAwLCBlbmFibGVkPTAK
+ICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFj
+dHVhbD1EMAogIENvbm5lY3Rpb246IDIKICAgICAweDAyKiAweDAzCk5vZGUgMHgxYyBbVmVuZG9y
+IERlZmluZWQgV2lkZ2V0XSB3Y2FwcyAweGYwMDAwMDogTW9ubwpOb2RlIDB4MWQgW1BpbiBDb21w
+bGV4XSB3Y2FwcyAweDQwMDQwMDogTW9ubwogIFBpbmNhcCAweDAwMDAwMDIwOiBJTgogIFBpbiBE
+ZWZhdWx0IDB4NDA2MDAwMDE6IFtOL0FdIE1vZGVtIExpbmUgYXQgRXh0IE4vQQogICAgQ29ubiA9
+IFVua25vd24sIENvbG9yID0gVW5rbm93bgogICAgRGVmQXNzb2NpYXRpb24gPSAweDAsIFNlcXVl
+bmNlID0gMHgxCiAgUGluLWN0bHM6IDB4MjA6IElOCiAgUG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIg
+RDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAKTm9kZSAweDFlIFtQaW4gQ29t
+cGxleF0gd2NhcHMgMHg0MDA1MDE6IFN0ZXJlbwogIFBpbmNhcCAweDAwMDAwMDEwOiBPVVQKICBQ
+aW4gRGVmYXVsdCAweDQxMTExMWYwOiBbTi9BXSBTcGVha2VyIGF0IEV4dCBSZWFyCiAgICBDb25u
+ID0gMS84LCBDb2xvciA9IEJsYWNrCiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4ZiwgU2VxdWVuY2Ug
+PSAweDAKICAgIE1pc2MgPSBOT19QUkVTRU5DRQogIFBpbi1jdGxzOiAweDQwOiBPVVQKICBQb3dl
+ciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1E
+MAogIENvbm5lY3Rpb246IDEKICAgICAweDA2Ck5vZGUgMHgxZiBbVmVuZG9yIERlZmluZWQgV2lk
+Z2V0XSB3Y2FwcyAweGYwMDAwMDogTW9ubwpOb2RlIDB4MjAgW1ZlbmRvciBEZWZpbmVkIFdpZGdl
+dF0gd2NhcHMgMHhmMDAwNDA6IE1vbm8KICBQcm9jZXNzaW5nIGNhcHM6IGJlbmlnbj0wLCBuY29l
+ZmY9MTQyCk5vZGUgMHgyMSBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNThkOiBTdGVyZW8gQW1w
+LU91dAogIENvbnRyb2w6IG5hbWU9IkhlYWRwaG9uZSBQbGF5YmFjayBTd2l0Y2giLCBpbmRleD0w
+LCBkZXZpY2U9MAogICAgQ29udHJvbEFtcDogY2hzPTMsIGRpcj1PdXQsIGlkeD0wLCBvZnM9MAog
+IEFtcC1PdXQgY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAwLCBzdGVwc2l6ZT0weDAwLCBtdXRl
+PTEKICBBbXAtT3V0IHZhbHM6ICBbMHg4MCAweDgwXQogIFBpbmNhcCAweDAwMDEwMDFjOiBPVVQg
+SFAgRUFQRCBEZXRlY3QKICBFQVBEIDB4MjogRUFQRAogIFBpbiBEZWZhdWx0IDB4MDQyMTEwMjA6
+IFtKYWNrXSBIUCBPdXQgYXQgRXh0IFJpZ2h0CiAgICBDb25uID0gMS84LCBDb2xvciA9IEJsYWNr
+CiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4MiwgU2VxdWVuY2UgPSAweDAKICBQaW4tY3RsczogMHhj
+MDogT1VUIEhQCiAgVW5zb2xpY2l0ZWQ6IHRhZz0wMSwgZW5hYmxlZD0xCiAgUG93ZXIgc3RhdGVz
+OiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAKICBDb25u
+ZWN0aW9uOiAyCiAgICAgMHgwMiAweDAzKgpOb2RlIDB4MjIgW0F1ZGlvIE1peGVyXSB3Y2FwcyAw
+eDIwMDEwYjogU3RlcmVvIEFtcC1JbgogIEFtcC1JbiBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBzPTB4
+MDAsIHN0ZXBzaXplPTB4MDAsIG11dGU9MQogIEFtcC1JbiB2YWxzOiAgWzB4ODAgMHg4MF0gWzB4
+ODAgMHg4MF0gWzB4ODAgMHg4MF0gWzB4ODAgMHg4MF0gWzB4ODAgMHg4MF0KICBDb25uZWN0aW9u
+OiA1CiAgICAgMHgxOSAweDFhIDB4MWIgMHgxZCAweDEzCk5vZGUgMHgyMyBbQXVkaW8gTWl4ZXJd
+IHdjYXBzIDB4MjAwMTBiOiBTdGVyZW8gQW1wLUluCiAgQW1wLUluIGNhcHM6IG9mcz0weDAwLCBu
+c3RlcHM9MHgwMCwgc3RlcHNpemU9MHgwMCwgbXV0ZT0xCiAgQW1wLUluIHZhbHM6ICBbMHgwMCAw
+eDAwXSBbMHg4MCAweDgwXSBbMHg4MCAweDgwXSBbMHg4MCAweDgwXSBbMHg4MCAweDgwXQogIENv
+bm5lY3Rpb246IDUKICAgICAweDE5IDB4MWEgMHgxYiAweDFkIDB4MTIKTm9kZSAweDI0IFtBdWRp
+byBTZWxlY3Rvcl0gd2NhcHMgMHgzMDAxMDE6IFN0ZXJlbwogIENvbm5lY3Rpb246IDMKICAgICAw
+eDEyKiAweDEzIDB4MTgKTm9kZSAweDI1IFtBdWRpbyBTZWxlY3Rvcl0gd2NhcHMgMHgzMDAxMDE6
+IFN0ZXJlbwogIENvbm5lY3Rpb246IDIKICAgICAweDEyKiAweDEzCg==
 
--- 
-Regards,
-  Eric
+--b1=_6FArjhaALp6E9se1jxXSSxQ74RpiJg8GpwFJI7635S8--
+
